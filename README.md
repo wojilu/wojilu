@@ -1,3 +1,6 @@
+Git使用教程图解(中文): <http://www.wojilu.com/Forum1/Topic/2261>  
+Github使用教程(中文): <http://www.wojilu.com/Forum1/Topic/2266>
+
 #“我记录”开发框架(wojilu framework)
 
 “我记录”开发框架(wojilu framework) 是 .net 平台下的综合开发框架，主要用于 web 方面的快速开发。
@@ -17,8 +20,6 @@
 * 一个轻量级 json 解析器
 * 一个简易的前端 ajax 库(依赖于jquery)
 * 一个富文本编辑器 wojilu editor
-
-
 
 
 #我记录网站综合系统 1.8
