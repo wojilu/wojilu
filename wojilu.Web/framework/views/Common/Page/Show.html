@@ -1,0 +1,68 @@
+﻿<style type="text/css">
+
+#postContainer {}
+
+#postSidebar{	float:left; width:230px; background:#eee; }
+	#postSidebar h4 {margin:20px;}
+	#postSidebar div {margin:5px 20px;}
+
+#postMain{ float:left; width:700px; margin:0px; padding:10px 10px 30px 10px; background:#fff;}
+#postMain {}
+	#postMain h4.postTitle{	font-size:18px; font-family:微软雅黑, Calibri; margin:5px; text-align:center}
+	#postMain .postInfo {	margin:5px 5px 10px 5px;font-size:12px;color:#666;  text-align:center}
+	#postMain .postContent {	margin:5px 5px 5px 5px;}
+
+
+</style>
+
+<div style="clear:both"></div>
+<table>
+    <tr>
+        <td style="background:#eee;width:230px; vertical-align:top;">
+	<!-- BEGIN sidebar -->
+	<div id="postSidebar">
+		<h4>#{category.Name}</h4>
+		<div>#{addCmd}</div>
+		#{tree}
+		<div class="clear"></div>
+	</div>
+	<!-- END sidebar -->
+        
+        </td>
+        
+        <td style="vertical-align:top;">
+
+	<div id="postMain">
+		<h4 class="postTitle">#{post.Title}</h4>	
+		<div class="postInfo">#{post.Created} _{view}:#{post.Hits}　_{comment}:#{post.Replies} <a href="#comments">_{viewByHit}</a></div>
+		<div class="clear"></div>
+		<div class="postContent" style="float2:left;">
+		    <!-- BEGIN stats -->
+		    <div style="float:right; margin:0px 0px 10px 10px; background:#f2f2f2; padding:10px;">
+		        <div style="font-weight:bold; margin-bottom:5px; font-size:14px;">词条统计</div>
+		        <div>#{editCmd}</div>
+		        <div>浏览次数：#{post.Hits} 次</div>
+		        <div>编辑次数：#{post.EditCount}次 <a href="#{versionLink}">历史版本</a></div>
+		        <div>最近更新：#{postUpdated}</div>
+		        <div>创建者：<a href="#{creatorLink}" target="_blank">#{post.Creator.Name}</a></div>
+		    </div><!-- END stats -->
+		    <div>#{post.Content}</div>
+
+		</div>
+		<div class="clear"></div>
+		<div>
+		<a name="comments"></a>
+		#{commentSection}</div>
+	</div>
+
+        </td>
+    </tr>
+</table>
+
+<script type="text/javascript">
+<!--
+$(document).ready( function() {
+	wojilu.ui.tree();
+});
+//-->
+</script>

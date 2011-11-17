@@ -1,0 +1,13 @@
+﻿<div class="h4title">#{section.Name}</div>
+
+<ul class="ulposts">
+<!-- BEGIN list -->
+<li><a href="#{post.Url}" style="#{post.TitleCss}">#{post.Title}</a> <span class="note">(#{post.Created} _{view}:#{post.Hits})</span></li>
+<!-- END list -->
+</ul>
+
+<div>#{page}</div>
+
+<style>
+.ulposts li {padding-left:5px; margin-bottom:2px;background:url( "~img/tree/node.gif" ) no-repeat 5px center; padding-left:20px;}
+</style>

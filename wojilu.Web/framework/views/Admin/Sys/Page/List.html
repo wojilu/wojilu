@@ -1,0 +1,44 @@
+﻿
+	<div class="adminMainPanel">
+	    <div class="hide">_{pageAdmin}(_{pageTopic}:#{category.Name})</div>
+		<table id="dataAdminList" data-sortAction="#{sortAction}" border="0" cellpadding="2" cellspacing="0" style="width: 100%;">
+			<tr class="adminBar">
+				<td colspan="9"><span><a href="#{addLink}"><img src="~img/add.gif" /> _{addPage}</a></span> </td>
+			</tr>
+			<tr class="tableHeader">
+				<td style="width:10%">_{orderId}</td>
+				<td style="width:13%">_{subPage}</td>
+				<td >_{title}</td>
+				<td style="width:15%">_{created}</td>
+				<td style="width:5%">_{view}</td>
+				<td style="width:5%">_{comment}</td>
+				<td style="width:10%;">_{allowComment}</td>
+				<td style="width:15%">_{admin}</td>
+			</tr>
+			<!-- BEGIN list -->
+			<tr class="tableItems">
+		         <td class="sort">
+			        <img src="~img/up.gif" class="cmdUp right10" data-id="#{data.Id}"/>
+			        <img src="~img/dn.gif" class="cmdDown" data-id="#{data.Id}"/>
+		        </td>
+				<td><a href="#{data.AddSubLink}"><img src="~img/add.gif" /> _{addSubPage}</a></td>
+				<td style="#{data.Indent}"><a href="#{data.LinkShow}" target="_blank"><strong>#{data.Title}</strong></a>
+				<a class="frmBox" href="#{data.ViewUrl}" title="_{viewUrl}" style="font-weight:normal;color:blue;margin-left:5px;">&rsaquo;&rsaquo; _{viewUrl}</span>
+				</td>
+				<td>#{data.Created}</td>
+				<td>#{data.Hits}</td>
+				<td>#{data.ReplyCount}</td>
+				<td>#{data.IsAllowReplyStr}</td>
+				<td>
+					<a href="#{data.LinkEdit}"><img src="~img/edit.gif" /> _{edit}</a>
+					<span href="#{data.LinkDelete}" class="deleteCmd left10"><img src="~img/delete.gif" /> _{delete}</span>
+				</td>
+			</tr>
+			<!-- END list -->
+
+		</table>
+	</div>
+
+
+
+

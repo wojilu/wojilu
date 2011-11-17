@@ -1,0 +1,128 @@
+﻿/*body {background:#C3D5ED url(../img/admin/app-back.gif) repeat-x scroll left top; }*/
+body {background:#d8e8ff }
+.mainBody {background:#d8e8ff }
+body,table { line-height:150%;}
+a:hover {text-decoration:none;}
+
+span.adminCmd {background:#efefef; border:1px #aaa solid; padding:3px 8px;cursor:pointer;}
+.deleteCmd {cursor:pointer;}
+
+.inputText { height:16px; padding:3px 3px 1px 3px; border:1px #b5b8c8 solid; background:url(../img/input-bg.gif);}
+
+/* 鼠标经过行的效果*/
+.over:hover {background:#dfedff;}
+.rollover:hover {background:#dfedff;}
+
+#adminMain { background:#d8e8ff; padding:10px; }
+
+
+td.adminSidebar {background:#ecf4ff;vertical-align: top; width: 150px; padding:0px;padding-bottom:30px;}
+td.adminSidebar ul {margin:0px; margin-top:15px; padding:0px;list-style:none;}
+td.adminSidebar li {margin:3px 10px;padding:2px 10px 0px 5px;height:25px;font-size:12px; }
+td.adminSidebar li a{height:18px;padding:1px 8px 1px 6px;display:inline-block;  color:#000;border:1px solid #ecf4ff; }
+
+td.adminSidebar li a:hover {background:url(../img/admin/toolbar-hover.gif);border:1px #aaa solid;}
+td.adminSidebar li a.currentNav {background:url(../img/admin/toolbar-hover.gif);border:1px #aaa solid;}
+td.adminSidebar li a.otherNav{background:#ecf4ff;border:1px solid #ecf4ff;}
+td.adminSidebar li a.otherNav:hover{background:url(../img/admin/toolbar-hover.gif);border:1px #aaa solid;}
+
+/*.adminSidebar li a, .adminSidebar li div, .adminSidebar li span { padding:2px 10px 0px 5px}*/
+.adminSidebar .stop {color:#aaa; font-weight:bold;}
+
+
+    div.adminSidebarTitle, div.adminMainTitle{ background-color:#D9E8FB; background:url(../img/admin/sidebar-title.gif); height:26px; margin:0px;  font-weight:bold; line-height:18px;}
+    div.adminSidebarTitleInternal {padding:3px 5px 0px 10px;}
+
+td.adminMain {vertical-align:top;}
+    
+    div.adminMainPanel {margin:5px;}
+
+div.formPanel {background:#eaf3ff; border:1px #898c95 solid; padding:6px 10px 15px 5px; margin-bottom:10px; line-height:150%}
+.formPanel table {border:0px; font-size:12px; text-align:left;}
+
+.divHeader {padding:0px 0px 0px 15px; border-bottom:1px #6699cc solid; background:url(../img/admin/gridtoolbar-back.gif);  height:26px;}
+
+
+/* 数据表格 */
+#dataAdminList, .dataAdminList {width:90%;margin-top:0px;font-size:12px;  border-collapse:collapse;border:1px #99bbe8 solid; border-top:0px #ccc solid;}
+
+
+.adminBar td{padding:0px 0px 0px 5px; border-bottom:1px #6699cc solid; background:url(../img/admin/gridtoolbar-back.gif);  height:26px; }
+.cmd,.ajaxCmd,.btnCmd {color:#15428b;cursor:pointer;text-decoration:; margin-right:5px; font-size:12px;}
+tr.tableHeader { background: #f0f0f0 url(../img/admin/grid-hrow.gif); color:#000;}								
+.tableHeader td{border-bottom:0px #999999 solid;padding:0px 0px 0px 10px; height:26px;}
+tr.tableItems { background-color: #fff; }	
+.tableItems td a{color:#000;}
+.tableItems table td {border-bottom:0px;}
+.tableItems td {border-bottom:1px #ededed solid; padding:5px 0px 3px 10px; font-family:arial;}
+
+td.adminPage {background:#efefef;}
+
+/*tab*/
+table.tabHeader {margin-top:10px; margin-left:10px; }
+table.tabHeader td{padding:4px 10px; text-align:center; }
+	td.currentTab {background:#fff;border-left:1px #6699cc solid;border-top:1px #6699cc solid;border-right:1px #6699cc solid;border-bottom:0px; font-weight:bold;}
+	td.otherTab {border-bottom:1px #6699cc solid;background:url(../img/tabbg.gif); }
+
+div.tabMain {background:#fff; border:1px #6699cc solid; border-top:0px;margin-left:10px; margin-bottom:20px;}
+
+div.tabMain {border-left:0px #cdcdcd solid;border-right:0px #cdcdcd solid;border-bottom:0px #cdcdcd solid;}
+
+td.otherTab {border-bottom:1px #cdcdcd solid;}
+td.currentTab {border-left:1px #cdcdcd solid;border-right:1px #cdcdcd solid;border-top:1px #cdcdcd solid;}
+
+
+/* data source */
+select.IntDroplist {}
+select.StringDroplist {}
+input.StringCheckbox {}
+input.StringRadio {}
+input.IntTextbox {width:35px;}
+input.StringTextbox {width:420px;}
+textarea.LongTextbox {width:420px;height:80px;}
+
+span.paramLabel {max-width2:150px;display:inline-block;}
+span.paramControl {}
+
+/* pageAdmin */
+
+#adminHeaderWrap {margin:0px;padding:0px;  height:85px; clear:both; }
+
+    #adminHeader {height:58px;background-image:url('../img/admin/header-bg.gif');background-repeat:repeat-x; clear:both; }
+        #adminLogo {height:58px;background-image:url('../img/admin/logo-bg.jpg');background-repeat:no-repeat; padding:0px;font-weight:bold;width:735px; }
+        #loginUser {text-align:right;padding-right:20px; color:#fff;font-size:12px;}
+        #loginUser a{color:#fff}
+
+    /* 后台导航菜单：纯文字效果
+    #adminMenuWrap {height:27px;background-image:url('../img/admin/menu-bg.gif');color:#000;font-size:9pt; line-height:20px;  }
+        #adminMenu {padding:3px 30px;color:#15428b }
+        #adminMenu a { padding:0px 5px 1px 5px; color:#15428b; display:inline-block;}
+        #adminMenu a:hover {background:url(../img/admin/toolbar-hover.gif) repeat-x;}
+    */
+
+    /* 后台导航菜单：大图标效果 */
+    #adminHeaderWrap {height:73px; color:#3764a0;}
+    #adminHeaderWrap a {color:#3764a0;}
+    #adminMenuWrap {height:73px;font-size:9pt; background-image:url('../img/admin/menu-bg-big2.gif'); border-top:1px #cfe1f8 solid;}
+    #adminMenu {padding:3px 15px;}
+
+    #adminMenuList {margin:0px; padding:0px;}
+    #adminMenuList li { cursor:pointer; float:left; margin:2px 4px; padding:3px 5px 3px 5px; text-align:center; font-size:12px; }
+    #adminMenuList li:hover {background:#7e96bf;color:#fff;}
+    #adminMenuList li:hover  a {color:#fff;}
+    #adminMenuList li{border-radius: 5px 5px 5px 5px;-moz-border-radius: 5px 5px 5px 5px;-webkit-border-radius: 5px 5px 5px 5px;}
+    
+
+/* 翻页 */
+.turnpage a{border:1px #aaa solid;}
+.tableItems:hover {background:#dfedff;}
+
+table.adminContainer {border-collapse:collapse;border:1px #99bbe8 solid; margin:0px; width:100%;  }
+div.adminSidebarTitle, div.adminMainTitle, .divHeader, .adminBar td, #adminLogo a {color:#3764A0;}
+div.adminMainTitle {border-bottom:1px #99bbe8 solid;}
+
+
+#adminHeader {height:58px;}
+#adminLogo a {font-size:16px;color:#3764A0;color:#fff;}
+
+

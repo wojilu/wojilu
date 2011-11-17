@@ -1,0 +1,41 @@
+﻿	
+<div>
+
+	<form id="uploadPhotoForm" method="post" action="#{ActionLink}">
+	<table cellSpacing="1" cellPadding="4" >
+		<tr>
+			<td colspan="2"><strong>:{selectAlbum}</strong></td>
+		</tr>
+		<tr>
+			<td>:{myalbum}</td>
+			<td>#{PhotoAlbumId} <a href="#{PhotoAlbumAddUrl}" class="cmd" style="margin-left:10px;">+:{addAlbum}</a></td>
+		</tr>
+		<tr><td>:{sysCategory}</td><td>
+		#{SystemCategoryId}
+		</td></tr>
+		<tr>
+			<td colSpan="2" style="padding:15px;">
+				<input name="Submit1" type="submit" value=":{nextStep}" class="btn">
+				<a href="#{batchUploadLink}" class="left20 strong"><img src="~img/s/upload.png" />批量上传</a>
+			</td>
+		</tr>
+	</table>
+	
+	
+	</form>
+</div>
+
+
+<script type="text/javascript">
+<!--
+$(document).ready( function() {
+	$('#uploadPhotoForm').submit( function() {
+		var catid = $('#SystemCategoryId').val();
+		if( catid<=0 ) {
+			alert( ':{exSysCategoryRequire}' );
+			return false;
+		}
+	});
+});
+//-->
+</script>

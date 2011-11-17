@@ -1,0 +1,20 @@
+﻿<div class="h4title">#{section.Name}</div>
+
+<ul class="ulposts">
+<!-- BEGIN list -->
+<li>
+<div class="articleItemTitle"><a href="#{post.Url}" style="#{post.TitleCss}">#{post.Title}</a> </div>
+<div class="articleItemSummary">#{post.Summary}</div>
+<div class="articleItemTime">发表于 <span class="note">#{post.Created} _{view}:#{post.Hits}</span></div>
+</li>
+<!-- END list -->
+</ul>
+
+<div>#{page}</div>
+
+<style>
+ul.ulposts li { font-size:12px;margin-bottom:15px; padding-bottom:8px; border-bottom:1px #aaa dotted;}
+.articleItemTitle { font-size:14px; background:url( "~img/point.gif" ) no-repeat 0px center; padding-left:17px;}
+.articleItemSummary {margin-left:5px; color:#333; }
+.articleItemTime { padding-left:6px; color:#555;}
+</style>

@@ -1,0 +1,16 @@
+﻿<div class="sectionPanel">
+<div class="sectionTitle utitle">_{onlineUsers} <span class="note font12">(总共在线 #{totalCount} 人</a>，其中注册用户 #{userCount} 人，游客 #{guestCount} 人。)</span> <a href="#{allOnlinLink}" style="color:blue;" class="note font12 left10">&rsaquo;&rsaquo; 查看全部</a></div>
+<table style="width: 100%">
+	<tr>
+		<td>
+		<!-- BEGIN onlines -->
+		<div class="uItem">
+			<a href="#{u.Link}"><img src="#{u.Face}"/><br/>
+			#{u.Name}</a>
+		</div>
+		<!-- END onlines -->		
+		</td>
+	</tr>
+	<tr><td>#{page}</td></tr>
+</table>
+</div>

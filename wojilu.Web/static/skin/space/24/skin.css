@@ -1,0 +1,79 @@
+﻿#topNavWrap {background:url("../../site/topNavBg.png");}
+
+#spacePageWrap { width:100%; background1:url('1header.jpg') repeat-x; padding-top:38px;}
+
+#spacePage{margin:auto; width:960px; box-shadow:0px 6px 18px #333; margin-bottom:30px; border-radius:8px;}
+
+#spaceHeaderWrap,#spaceNavWrap,#spaceMainWrap, #spaceFooterWrap {margin:auto;}
+
+/*头部*/
+#spaceHeaderWrap { border-radius:8px 8px 0px 0px;background:rgb(245,215,215);background:url('header.jpg') repeat-x; }
+    #spaceHeader {border-radius:8px 8px 0px 0px;height:150px;padding:38px 50px 20px 50px; }
+        #spaceName a {color:#14275f;font-size:18px;font-weight:bold;margin:0px 0px 0px 0px;font-family:arial black;}
+        #spaceUrl a{color:#14275f; font-style:italic;}
+
+/*导航*/
+#spaceNavWrap { height:35px;margin-bottom:-1px; 
+
+    background: #ffffff; /* Old browsers */
+    background: -moz-linear-gradient(top, #ffffff 0%, #f6f6f6 47%, #ededed 100%); /* FF3.6+ */
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#ffffff), color-stop(47%,#f6f6f6), color-stop(100%,#ededed)); /* Chrome,Safari4+ */
+    background: -webkit-linear-gradient(top, #ffffff 0%,#f6f6f6 47%,#ededed 100%); /* Chrome10+,Safari5.1+ */
+    background: -o-linear-gradient(top, #ffffff 0%,#f6f6f6 47%,#ededed 100%); /* Opera11.10+ */
+    background: -ms-linear-gradient(top, #ffffff 0%,#f6f6f6 47%,#ededed 100%); /* IE10+ */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#ededed',GradientType=0 ); /* IE6-9 */
+    background: linear-gradient(top, #ffffff 0%,#f6f6f6 47%,#ededed 100%); /* W3C */
+
+}
+    #spaceNavWrap ul.spaceNavUL {width:95%;margin:auto; }
+    #spaceNavWrap ul.spaceNavUL li.rootLi {float:left;display:block; vertical-align:middle;padding:0px;margin:0px;padding:7px 8px 4px 3px; font-size:14px; }
+    #spaceNavWrap a{ color:#000;font-size:14px;}
+
+#spaceNav {}
+/* 给下拉菜单添加箭头指示*/
+#spaceNav .menuMore { background:url('../../../img/down.gif') no-repeat right center; padding-right:15px;}
+
+/*主体*/
+#spaceMainWrap {margin:0px;padding:0px; border-top:1px solid #fff;}
+#spaceMain {padding:0px;margin:0px;}
+#spaceMain h4{font-size:18px; font-weight:bold; margin:15px 10px 10px 0px;}
+
+    /*侧边栏*/
+    div.sideBar {float:left; width:25%; margin:0px;padding:0px;}
+    div.sideBarContainer { margin:10px 10px 30px 10px;}
+    
+        div.userFace {text-align:center; margin:20px 0px 5px 0px;}
+        table.sideBar_UserTool {95%; text-align:center;}
+        div.sideBarPanel {padding-bottom:10px;}
+            div.sideBarTitle {margin:10px 10px 5px 10px; font-size:14px; font-weight:bold; text-align:center;}
+            ul.sideBarList { list-style:none;margin:0px;padding:0px;}
+            ul.sideBarList li {margin:5px 3px 5px 10px;}
+            #spaceMain .sideBarList a {color:#333;}
+            li.sideBarMore {text-align:right; }
+            
+        div.sideBarRss {text-align:center;margin-top:10px;}
+
+    /*主要内容区*/
+    div.appMain { float:left; width:74%; margin:0px;padding:0px; }
+    div.appMainContainer {margin:10px 10px 30px 0px;background:#fff; }
+    
+        div.blogItem {margin: 10px;padding: 5px; }
+            table.blogItemTitle {width:100%;margin-bottom:3px;}
+                td.blogItemTime {text-align:right; color:#aaa; font-weight:normal; font-size:12px; }
+                .blogItemTitle a {font-size:14px;font-weight:bold; }
+            div.blogItemBody {color:#333; line-height:150%; margin-left:5px}
+            div.blogItemMore {text-align:right; margin:0px 10px 5px 5px;}
+            div.blogItemInfo {text-align: right; color:#aaa;margin: 2px 10px;}             
+            #spaceMain .blogItemInfo a{color:#666;}
+            
+            .blogTitle {font-size:18px; font-weight:bold; margin:15px 10px 10px 0px;}
+            .blogBody {padding:10px 10px 10px 0px; font-size:14px;}
+            .blogBody img {max-width:580px;}
+            .blogInfo {color:#aaa;}
+
+
+/*页脚*/
+#spaceFooterWrap { text-align:center;background:#f2f2f2;border-radius:0px 0px 8px 8px; }
+#spaceFooter {margin: auto; height:70px; padding-top:20px ;border-radius:0px 0px 8px 8px;}
+
+

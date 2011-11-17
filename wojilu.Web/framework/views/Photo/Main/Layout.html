@@ -1,0 +1,78 @@
+﻿<style>
+
+#cpContainer { padding:20px 0px 20px 0px;}
+
+#cpSidebar {width:250px; float:left; color:#000; margin-left:15px;display:inline; }
+#cpSidebar ul {padding:5px 5px 10px 5px}
+#cpUsers li {height:80px;}
+
+#cpMain { float:left; width:690px; background:#fff; display:inline; }
+
+.cpPostTitle {font-size:14px;}
+
+
+#cpContainer  .photolist li{width:105px;min-height: 120px;_height:120px;
+float:left;display:inline; background2:#eee;text-align:center;padding:0px; margin:10px; line-height:150%; vertical-align:top;
+
+}
+
+table.imgItem { border:0px #ddd solid; width:105px; height:120px;}
+.imgItem td {padding:2px; vertical-align:middle; text-align:center;}
+.imgItem img { padding:3px; border:1px #ccc solid;}
+
+#cpContainer .photolist li div
+{
+	width:100px;
+     white-space:nowrap;
+     text-overflow:clip;
+     -moz-text-overflow:clip;
+     overflow: hidden;
+     text-align:center;
+}
+
+
+
+.userrank li{float:left; margin:5px 5px;padding:3px; width:60px;height:60px; line-height:130%; }
+
+* html .max90100 {width:expression(this.scrollHeight>90?"90px":"auto");height:expression(this.scrollHeight>100?"100px":"auto");}
+.max90100 {max-width:90px; max-height:100px;}
+
+</style>
+
+
+<div id="cpContainer">
+	<div id="cpMain">	
+		#{layout_content}	
+	</div>
+
+	<div id="cpSidebar">	
+	
+		<div class="sectionPanel cpPanel userrank">
+	
+			<div class="sectionTitle">:{photoCountRank}</div>
+			<ul id="cpUsers">
+			<!-- BEGIN users -->
+			<li><a href="#{user.Link}"><img src="#{user.Face}"/></a><br/><a href="#{user.Link}">#{user.Name}</a></li>
+			<!-- END users -->
+			</ul>
+			<div class="clear"></div>
+		</div>
+		
+		
+	
+		<div class="sectionPanel cpPanel userrank">
+			<div class="sectionTitle">:{userVisitRank}</div>
+			<ul>
+			<!-- BEGIN hits -->
+			<li><a href="#{p.LinkShow}"><img src="#{p.ImgThumbUrl}" style="width:48px;height:48px;" /></a></li><!-- END hits -->
+			</ul>
+			<div class="clear"></div>
+		</div>
+		
+	</div>
+	
+	<div class="clear"></div>
+
+	
+</div>
+

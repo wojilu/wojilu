@@ -1,0 +1,33 @@
+﻿<div>
+    <div class="adminMainTitle"><div class="adminSidebarTitleInternal">文件上传</div></div>
+
+    <div class="adminMainPanel">
+    
+<table style="background:#;margin:10px;">
+<tr>
+    <td style="width:400px;">
+        <form action="#{fileSaveLink}" enctype="multipart/form-data" method="post">
+            <input name="myfile" type="file" /> <input type="submit" value="上传文件" />
+        </form>
+    </td>
+    <td style="width:400px;">
+        <form action="#{picSaveLink}" enctype="multipart/form-data" method="post">
+            <input name="mypic" type="file" /> <input type="submit" value="上传图片" />
+        </form>
+    </td>
+</tr>
+</table>
+
+<table cellspacing="1" cellpadding="3" style="width: 100%;" id="dataAdminList">
+<tr class="tableHeader"><td>文件名称</td><td>path</td><td>文件</td><td>上传时间</td><td>管理</td></tr>
+
+<!-- BEGIN list -->
+<tr class="tableItems"><td>#{f.Name}</td><td>#{f.Path}</td><td>#{f.Info}</td><td>#{f.Created}</td>
+<td><a href="#{f.DeleteLink}" class="deleteCmd">删除</a></td></tr>
+<!-- END list -->
+
+</table>
+<div>#{page}</div>
+
+    </div>
+</div>

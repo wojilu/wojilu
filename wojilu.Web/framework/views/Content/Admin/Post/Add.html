@@ -1,0 +1,331 @@
+﻿<div style="width:780px; height:600px;">
+
+
+<style>
+#titleTd {width:480px;}
+#title {width: 460px}
+#tagList {width:200px}
+#srcLink {width:250px;}
+
+.tabItem { cursor:pointer;}
+.tabMain {padding:10px 0px;}
+
+td.pubLeft { text-align:right; width:80px; background:#eceff5; font-weight:bold; vertical-align:top;}
+
+.postSection label {margin-right:10px;}
+label.clickLabel { background:#ffe45c; }
+
+.tabList {border-bottom: 1px solid #B8D5FF;}
+</style>
+
+
+<link href="~js/uploadify/uploadify.css" type="text/css" rel="stylesheet" />
+<script type="text/javascript" src="~js/uploadify/swfobject.js"></script>
+<script type="text/javascript" src="~js/uploadify/jquery.uploadify.v2.1.4.min.js"></script>
+
+<script type="text/javascript">
+<!--
+$(document).ready( function() {
+
+    $('.tabList li a').click( function() {
+	    var tabId = wojilu.str.trimStart( $(this).parent().attr( 'id' ), 'tab' );	    
+	    $('.tabMain').hide();
+	    $('#content'+tabId).show();	
+    });
+	
+	$('.postSection label input').click( function() {
+	    $(this).parent().toggleClass( 'clickLabel' );
+	});
+	
+    //---------------------------------------------------------------------
+	
+	var sectionId = #{sectionId};
+	if( sectionId<=0 ) {
+	    $('#sectionPanel').show();
+	}
+	else {
+	    $('input[value='+sectionId+']').click();
+	    $('#uploadImgPanel').attr( 'rowspan', 4 );
+	}
+
+	
+	//-----------------------------------------------------------------------
+
+    function getRemovedIds( txtValue, deleteId ) {
+        var ids = txtValue.split( ',' );
+        var result = '';
+        for( var i=0;i<ids.length;i++ ) {
+            if( ids[i] == deleteId ) continue;
+            result += ids[i];
+            if( i<ids.length-1 ) result += ',';
+        }
+        return result;
+    }
+
+    function removeId( eleId, deleteId ) {
+        var newIds = getRemovedIds( $('#'+eleId).val(), deleteId );
+        $('#'+eleId).val( newIds );
+    }
+
+    function addId( eleId, objId ) {
+        var ele = $('#'+eleId);
+        var txtValue = ele.val();
+        if( txtValue=='' ) {
+            ele.val( objId );
+        }
+        else {
+            ele.val( txtValue + ','+objId );
+        }
+    }
+    
+    // 附件上传
+    $('.delAttachment').live( 'click', function() {
+
+        var deleteLink = $(this).attr( 'deleteLink' );
+        var deleteId = $(this).attr( 'deleteId' );
+        var ele = $(this).parent();
+
+        $.post( $(this).attr( 'deleteLink' ), function(data) {
+            if( 'ok'!=data ) alert( data );
+            ele.remove();
+
+            removeId( 'attachmentIds', deleteId );
+
+        });
+
+    });
+    
+    // 图片上传
+    $('.delPic').live( 'click', function() {
+    
+        var deleteLink = $(this).attr( 'deleteLink' );
+        var ele = $(this).parent();
+        
+        $.post( $(this).attr( 'deleteLink' ), function(data) {
+            if( 'ok'!=data ) {
+                alert( data );
+                return;
+            }
+            
+            ele.remove();
+            $('#ImgLink').val('');
+        });
+    
+    });
+    
+
+	//-----------------------------------------------------------------------
+   
+    var cookieValue = #{authJson};
+    
+    // 附件上传
+    $("#file_upload").uploadify({
+    
+        "uploader" : "/static/js/uploadify/uploadify.swf",
+        "cancelImg" : "/static/js/uploadify/cancel.png",
+        "buttonImg" : "/static/js/uploadify/browser.gif",
+        "width":90,
+        "height":24,
+        "auto" : true, // 是否选定之后立刻开始上传
+        "multi": true, // 是否允许多选
+        "script" : "#{uploadLink}".toAjax(), // 接受上传的网址
+        "fileExt" : "*.zip;*.rar;*.7z;", // 允许上传的文件类型
+        "fileDesc" : "All Files (.zip, .rar, .7z)", // 选择框中罗列的类型
+        "removeCompleted": true, // 上传完毕是否清除上传进度条
+        "queueID" : "myqueue", // 显示进度条的容器
+        "displayData" : "speed",
+        "queueSizeLimit":1, // 最大数量
+        "scriptData":cookieValue,
+
+        "onComplete" : function(event, ID, fileObj, response, data) {
+            
+	        var obj = eval( '('+response+')' );
+	        if( obj.FileName=='' ) {
+	            alert( obj.Msg );
+	            return;
+	        }
+	        
+	        // 生成附件一行
+	        $('#attachmentList').append( '<div style="background:#f2f2f2;padding:0px 5px;margin:2px 0px;"><img src="~img/arrowRight.gif"/> '+obj.FileName+' <span class="link left5 delAttachment" style="text-decoration:underline;" deleteLink="'+obj.DeleteLink+'" deleteId="'+obj.Id+'">删除</span></div>' );
+	        
+	        // 将附件在服务器上的url加入文本字段
+	        addId( 'attachmentIds', obj.Id );
+        }, 
+
+        "onAllComplete" : function(event,data) {
+            $("#status").text(data.filesUploaded + " 个文件上传成功, " + data.errors + " 个错误.");
+        }
+    });
+    
+    
+    // 图片上传
+    $("#imgUpload").uploadify({
+    
+        "uploader" : "/static/js/uploadify/uploadify.swf",
+        "cancelImg" : "/static/js/uploadify/cancel.png",
+        "buttonImg" : "/static/js/uploadify/browser_s.gif",
+        "width":30,
+        "height":16,
+        "auto" : true, // 是否选定之后立刻开始上传
+        "multi": true, // 是否允许多选
+        "script" : "#{imgUploadLink}".toAjax(), // 接受上传的网址
+        "fileExt" : "*.jpg;*.gif;*.png;", // 允许上传的文件类型
+        "fileDesc" : "Image Files (.JPG, .GIF, .PNG)", // 选择框中罗列的类型
+        "removeCompleted": true, // 上传完毕是否清除上传进度条
+        "queueID" : "imgUploadQueue", // 显示进度条的容器
+        "displayData" : "speed",
+        "queueSizeLimit":1, // 最大数量
+        "scriptData":cookieValue,
+
+        "onComplete" : function(event, ID, fileObj, response, data) {
+            
+	        var obj = eval( '('+response+')' );
+	        if( obj.PicUrl=='' ) {
+	            alert( obj.Msg );
+	            return;
+	        }
+	        
+	        // 生成附件一行
+	        $('#uploadImgPanel').html( '<div><div><img src="'+obj.PicThumbUrl+'" style="width:120px;height:120px;"/></div><div class="link delPic" style="text-decoration:underline;padding-left:50px;" deleteLink="'+obj.DeleteLink+'">删除</div></div>' ).show();
+	        
+	        // 将附件在服务器上的url加入文本字段
+	        $('#ImgLink').val( obj.PicUrl );
+        }, 
+
+        "onAllComplete" : function(event,data) {
+            $("#imgUploadStatus").text(data.filesUploaded + " 个文件上传成功, " + data.errors + " 个错误.");
+        }
+    });   
+    
+
+});
+//-->
+</script>
+
+	
+<form method="post" action="#{ActionLink}" style="padding:10px;">
+
+	<ul class="tabList clearfix">
+	<li id="tab1" class="firstTab currentTab" style="margin-left:30px; width:130px;"><a href="javascript:void(0);">:{general}</a><span></span></li>
+	<li id="tab2" style="width:130px;"><a href="javascript:void(0);">:{advanced}</a><span></span></li>
+	</ul>
+	
+	
+	<div id="content1" class="tabMain" style="width:98%;">
+	<table style="width: 99%;margin:auto;" border="0">
+		<tr>
+			<td class="pubLeft">_{title}</td>
+			<td id="titleTd"><input name="Title" id="title" type="text" class="tipInput" tip="_{exTitle}" style="height:20px;"><span class="valid" mode="border"></span></td>
+			<td rowspan="5" style=" border-left:1px #e2e6f3  solid;" id="uploadImgPanel"></td>
+		</tr>
+		<tr id="sectionPanel" style="display:none;">
+		    <td style="vertical-align:top;" class="pubLeft">所属区块</td>
+		    <td class="postSection">#{postSection}</td>
+		</tr>
+
+		<tr>
+			<td class="pubLeft">_{author}</td>
+			<td style="vertical-align:top;"><input name="Author" type="text">
+			<span class="left15">:{srcUrl}</span> <input name="SourceLink" id="srcLink" type="text" size="20">
+			</td>
+		</tr>
+		
+		<tr>
+		    <td class="pubLeft">图片</td>
+		    <td>
+		        <div style="position:relative;">
+		            <div>
+		                <input id="ImgLink" name="ImgLink" type="text" style="width:360px;" /><span class="note">或上传</span>
+		                <input id="imgUpload" name="imgUpload" type="file" />
+		            </div>
+		            <div><span id="imgUploadStatus" style="color:Blue;"></span></div>
+		            <div id="imgUploadQueue" style="position:absolute; top:0px; left:0px;"></div>		  
+                </div>
+		    </td>
+		</tr>
+
+
+		<tr>
+		    <td class="pubLeft">时间</td>
+		    <td>
+		        <input name="Created" type="text" class="right20" value="#{created}" />
+		        查看<input name="Hits" type="text" style="width:30px" value="0" />
+		        <span class="left20 note">文章属性</span>
+		        #{PickStatus}
+		    </td>
+		</tr>
+		
+		<tr>
+			<td class="pubLeft">_{content}<br /><span to="Content" class="valid" mode="border"></span></td>
+			<td colspan="2">#{Editor}</td>
+		</tr>
+		<tr>
+			<td>&nbsp;</td>
+			<td colspan="2">
+		        <input name="Submit1" type="submit" value=":{submitData}" class="btn"> 
+		        <input type="button" value="_{cancel}" class="btnCancel" />
+		        <label class="left10">
+                    <input name="isDowloadPic" type="checkbox" />抓取内容中的图片
+		        </label>
+		    </td>
+		</tr>
+	</table>
+	</div>
+	
+	<div id="content2" class="tabMain" style="display:none;width:98%;">
+	<table style="margin:auto;" class="pubTable">
+		<tr>
+		    <td class="pubLeft">跳转网址</td>
+		    <td><input name="RedirectUrl" type="text" style="width:600px;" /></td>
+		</tr>
+		<tr>
+		    <td class="pubLeft">图片大小</td>
+		    <td>:{width}<input id="width" name="Width" type="text" value="#{width}" style="width:40px;" />px 
+            <span class="left20">:{height}</span><input id="height" name="Height" type="text" value="#{height}" style="width:40px;" />px</td>
+		</tr>
+	    <tr>
+	        <td class="pubLeft">_{tag}</td>
+	        <td><input name="TagList" id="tagList" type="text" style="width:600px;"><span class="note" title="">_{tagTip}</span></td>
+	    </tr>
+
+		<tr >
+			<td class="pubLeft">_{summary}</td>
+			<td>
+			<textarea name="Summary" style="width: 600px; height: 90px"></textarea></td>
+		</tr>
+	    <tr>
+	        <td class="pubLeft">SEO<br />keywords</td>
+	        <td><input name="MetaKeywords" type="text" style="width:600px;"><br />
+	        <span class="note">如果不填写，则使用tag</span>
+	        </td>
+	    </tr>
+
+		<tr >
+			<td class="pubLeft">SEO<br />description</td>
+			<td>
+			<textarea name="MetaDescription" style="width: 600px; height: 90px"></textarea><br />
+			<span class="note">如果不填写，则使用摘要</span>
+			</td>
+		</tr>
+
+		<tr>
+		    <td class="pubLeft">附件</td>
+		    <td>
+		        <div><input id="file_upload" name="file_upload" type="file" /><span id="status"></span></div>
+                <div id="myqueue"></div>
+                <div id="attachmentList" style="padding-left:5px;margin-bottom:5px;"></div>
+                <input id="attachmentIds" name="attachmentIds" type="hidden" />
+		    </td>
+		</tr>
+
+		
+	</table>
+	</div>
+	
+
+
+</form>
+
+
+</div>
+

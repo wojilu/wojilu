@@ -1,0 +1,42 @@
+﻿<div>
+	
+	<div class="sectionPanel giPanel gnewposts">
+		<div class="sectionTitle">_{hotTopic}</div>
+		<ul>
+			<!-- BEGIN list -->
+			<li><a href="#{post.Link}">#{post.Title}</a>
+			<span class="note">(_{group}:<a href="#{post.OwnerLink}">#{post.OwnerName}</a>, _{reply}:#{post.Replies})</span>
+			</li><!-- END list -->		
+		</ul>
+	</div>	
+	<div class="clear"></div>
+	
+	
+	<div class="sectionPanel giPanel grouplist">
+		<div class="sectionTitle">_{hotGroup}</div>
+		
+		<ul>
+			<!-- BEGIN hots -->
+			<li>
+			<div class="groupLogo"><a href="#{g.Link}" ><img src="#{g.Logo}" /></a></div>
+			<div><span><a href="#{g.Link}" class="font12">#{g.Name}</a><span class="note">(#{g.MemberCount})</span></span></div>
+			<div><span class="note" style="font-size:11px">#{g.Created}</span></div>
+			</li><!-- END hots -->
+		</ul>
+		<div class="clear"></div>
+	</div>
+	
+	<div class="sectionPanel giPanel grouplist">
+		<div class="sectionTitle">_{newGroup} <span class="left20"><a href="#{allGroupLink}" style="font-weight:normal;font-size:12px">&rsaquo;&rsaquo; _{more}</a></span></div>
+		<ul>	
+			<!-- BEGIN recent -->
+			<li>
+			<div class="groupLogo"><a href="#{g.Link}" ><img src="#{g.Logo}"  /></a></div>
+			<div><span><a href="#{g.Link}" class="font12">#{g.Name}</a><span class="note">(#{g.MemberCount})</span></span></div>
+			<div><span class="note" style="font-size:11px">#{g.Created}</span></div>
+			</li><!-- END recent -->
+		</ul>
+		<div class="clear"></div>
+	</div>
+
+</div>

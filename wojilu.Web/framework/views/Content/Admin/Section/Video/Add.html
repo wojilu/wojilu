@@ -1,0 +1,91 @@
+﻿<style>
+.tdL { text-align:right; color:#666; padding-right:8px;}
+</style>
+
+<div style="margin:15px;height:250px;">
+<form method="post" action="#{ActionLink}" id="vform">
+    <table style="width: 98%;" border="0" cellpadding="0">
+
+	    <tr class="videoPlay">
+	        <td style="vertical-align:top;"><strong>快速获取：</strong></td>
+	        <td style="vertical-align:top; padding-bottom:15px;">
+	            <div class="note">请填写视频<span style="color:Red; font-weight:bold;">播放页网址</span>(支持优酷、土豆、56、酷六、新浪播客、凤凰视频)</div>	        
+	            <div><input name="vPlayUrl" id="vPlayUrl" type="text" style="width:350px;" />
+	            <input id="btnGet" type="button" value="自动获取视频信息" class="btn btns" /><span id="loadingInfo"></span></div>
+	        </td>
+	    </tr>
+	    <tr><td><strong>或 直接填写：</strong></td><td></td></tr>
+	    <tr class="videoDetail">
+		    <td class="tdL">_{title}</td>
+		    <td><input name="Title" id="vTitle" type="text" style="width: 350px" class="tipInput" tip="_{exTitle}"><span class="valid" mode="border"></span></td>
+	    </tr>
+	    <tr class="videoDetail">
+		    <td class="tdL">flash的网址</td>
+		    <td><input name="SourceLink" id="vSourceLink" type="text" style="width: 550px" class="tipInput" tip=":{addVideoUrlValid}"><span class="valid" mode="border"></span></td>
+	    </tr>
+	    <tr class="videoDetail">
+		    <td class="tdL">:{picUrl}</td>
+		    <td><input name="ImgLink" id="vImgLink" type="text" size="20" style="width: 550px" class="tipInput" tip=":{addVideoPicValid}"><span class="valid" mode="border"></span></td>
+	    </tr>
+	    <tr>
+		    <td>&nbsp;<input type="hidden" name="ModuleId" value="#{module.Id}" /></td>
+		    <td>
+		        <input name="Submit1" type="submit" value=":{addVideo}" class="btn">
+		        <input type="button" value="_{cancel}" class="btnCancel" />
+		        
+		        <span style="display:none;">
+	            <input name="Checkbox1" type="checkbox" id="chkMore" class="left10" /><label id="Label1" for="chkMore"> _{more}...</label></span>
+		    </td>
+	    </tr>
+    </table>
+
+    <table class="morePanel" id="morePanel" style="width:98%; display:none;">
+	    <tr>
+		    <td style="width:80px">_{orderId}</td>
+		    <td><input name="OrderId" type="text" size="20" style="width: 30px" value="0">&nbsp;
+		    </td>
+	    </tr>
+	    <tr>
+		    <td>:{titleStyle}</td>
+		    <td><textarea name="Style" style="width: 550px; height: 50px"></textarea><br />
+		    <span class="note">(:{cssRequired})</span>
+		    </td>
+	    </tr>			
+    </table>
+
+</form>
+</div>
+
+<script type="text/javascript">
+<!--
+
+
+
+$(document).ready( function() {
+
+	
+	$('#btnGet').click( function() {
+	
+	    var playUrl = $('#vPlayUrl').val();
+	    if( playUrl == '' ) {
+	        alert( '请填写播放页的网址(不是flash自身的网址)' );
+	        $('#vPlayUrl').focus();
+	        return;
+	    }
+	
+        $('#loadingInfo').html( '<img src="~img/ajax/loading.gif"/>' );
+        $.post( ('#{videoServiceUrl}?playUrl='+playUrl).toAjax(), function(data) {        
+            
+            if( data.Title ) $('#vTitle').val( data.Title ).click();
+            if( data.FlashUrl ) $('#vSourceLink').val( data.FlashUrl ).click();
+            if( data.PicUrl ) $('#vImgLink').val( data.PicUrl ).click();            
+            
+            $('#loadingInfo').html( '' );            
+        });
+
+	});
+
+	
+});
+//-->
+</script>

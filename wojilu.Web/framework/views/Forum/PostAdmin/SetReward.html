@@ -1,0 +1,38 @@
+﻿
+#{location}
+
+<form action="#{ActionLink}" method="post">
+<table border="1" class="forumRewardList" style="width:100%;">
+	<tr><td colspan="4" style="padding:0px;">
+	
+		<table style="width: 100%;margin:0px;" cellpadding="0" cellspacing="0">
+			<tr>
+				<td>#{page}</td>
+				<td style="padding-right:10px; text-align:right; font-weight:bold;">
+				:{rewardTotal}#{currency.Name}:#{post.Reward} #{rewardInfo}
+				</td>
+			</tr>
+		</table>
+	
+	 </td></tr>
+	<tr class="tableHeader">
+		<td>_{author}</td>
+		<td>:{pubTime}</td>
+		<td>_{content}</td>
+		<td>:{postCredit}</td>
+	</tr>
+
+	<!-- BEGIN list -->	
+	<tr>
+		<td>#{p.User}</td>
+		<td>#{p.Created}</td>
+		<td>#{p.Content}</td>
+		<td>#{p.Reward}</td>
+	</tr>
+	<!-- END list -->
+	
+	<tr><td colspan="4">#{page}</td></tr>
+	
+</table>
+</form>
+

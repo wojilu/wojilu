@@ -1,0 +1,670 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <ProjectType>local</ProjectType>
+    <ProjectVersion>7.10.3077</ProjectVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{A4E94F40-1DD2-4869-8D2E-3E3AE67B0CBB}</ProjectGuid>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <AssemblyName>wojilu.Web.Controller</AssemblyName>
+    <DefaultClientScript>JScript</DefaultClientScript>
+    <DefaultHTMLPageLayout>Grid</DefaultHTMLPageLayout>
+    <DefaultTargetSchema>IE50</DefaultTargetSchema>
+    <DelaySign>false</DelaySign>
+    <OutputType>Library</OutputType>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <OldToolsVersion>3.5</OldToolsVersion>
+    <UpgradeBackupLocation>
+    </UpgradeBackupLocation>
+    <IsWebBootstrapper>true</IsWebBootstrapper>
+    <RootNamespace>wojilu.Web.Controller</RootNamespace>
+    <TargetFrameworkVersion>v2.0</TargetFrameworkVersion>
+    <PublishUrl>http://localhost/bbsVista.Controller/</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Web</InstallFrom>
+    <UpdateEnabled>true</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <OutputPath>bin\Debug\</OutputPath>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugSymbols>true</DebugSymbols>
+    <NoStdLib>false</NoStdLib>
+    <Optimize>false</Optimize>
+    <WarningLevel>4</WarningLevel>
+    <DebugType>full</DebugType>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <OutputPath>bin\Release\</OutputPath>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <DefineConstants>TRACE</DefineConstants>
+    <DebugSymbols>false</DebugSymbols>
+    <NoStdLib>false</NoStdLib>
+    <Optimize>true</Optimize>
+    <WarningLevel>4</WarningLevel>
+    <DebugType>none</DebugType>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System">
+      <Name>System</Name>
+    </Reference>
+    <Reference Include="System.Data" />
+    <Reference Include="System.Web">
+      <Name>System.Web</Name>
+    </Reference>
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Admin\AdController.cs" />
+    <Compile Include="Admin\AppController.cs" />
+    <Compile Include="Admin\Apps\Blog\CommentController.cs" />
+    <Compile Include="Admin\Apps\Blog\MainController.cs" />
+    <Compile Include="Admin\Apps\Content\CommentController.cs" />
+    <Compile Include="Admin\Apps\Content\LayoutController.cs" />
+    <Compile Include="Admin\Apps\Content\MainController.cs" />
+    <Compile Include="Admin\Apps\Poll\MainController.cs" />
+    <Compile Include="Admin\Apps\Reader\LayoutController.cs" />
+    <Compile Include="Admin\Apps\Reader\MainController.cs" />
+    <Compile Include="Admin\Apps\Reader\SysCategoryController.cs" />
+    <Compile Include="Admin\CacheController.cs" />
+    <Compile Include="Admin\JobController.cs" />
+    <Compile Include="Admin\Members\EmailConfirmController.cs" />
+    <Compile Include="Admin\MicroblogController.cs" />
+    <Compile Include="Admin\Members\SiteMsgController.cs" />
+    <Compile Include="Admin\MenuController.cs" />
+    <Compile Include="Admin\Apps\Photo\CommentController.cs" />
+    <Compile Include="Admin\Apps\Photo\partial\MainController.cs" />
+    <Compile Include="Admin\Credits\LayoutController.cs" />
+    <Compile Include="Admin\Credits\partial\CreditController.cs" />
+    <Compile Include="Admin\Credits\partial\CurrencyController.cs" />
+    <Compile Include="Admin\Groups\CategoryController.cs" />
+    <Compile Include="Admin\Groups\GroupController.cs" />
+    <Compile Include="Admin\Groups\LayoutController.cs" />
+    <Compile Include="Admin\Groups\partial\GroupController.cs" />
+    <Compile Include="Admin\Members\partial\UserController.cs" />
+    <Compile Include="Admin\SecurityController.cs" />
+    <Compile Include="Admin\MainController.cs" />
+    <Compile Include="Admin\Security\partial\PermissionBackController.cs" />
+    <Compile Include="Admin\Security\partial\PermissionFrontController.cs" />
+    <Compile Include="Admin\Security\partial\SecurityController.cs" />
+    <Compile Include="Admin\Security\PermissionBackController.cs" />
+    <Compile Include="Admin\SiteConfigController.cs" />
+    <Compile Include="Admin\SiteSkinController.cs" />
+    <Compile Include="Admin\Sys\DashboardController.cs" />
+    <Compile Include="Admin\Sys\FooterMenuController.cs" />
+    <Compile Include="Admin\Sys\partial\DashboardController.cs" />
+    <Compile Include="Admin\Sys\partial\PageController.cs" />
+    <Compile Include="Admin\Sys\SiteController.cs" />
+    <Compile Include="Admin\Security\PermissionFrontController.cs" />
+    <Compile Include="Admin\Credits\CreditController.cs" />
+    <Compile Include="Admin\Members\LayoutController.cs" />
+    <Compile Include="Admin\Security\LayoutController.cs" />
+    <Compile Include="Admin\Sys\ViewsFileController.cs" />
+    <Compile Include="Admin\TagAdminController.cs" />
+    <Compile Include="Admin\Utils\AdminSecurityUtils.cs" />
+    <Compile Include="Blog\Admin\BlogController.cs" />
+    <Compile Include="Blog\Admin\DraftController.cs" />
+    <Compile Include="Blog\Admin\MyListController.cs" />
+    <Compile Include="Blog\Admin\SettingController.cs" />
+    <Compile Include="Blog\Admin\TrashController.cs" />
+    <Compile Include="Blog\Caching\Actions\BlogIndexCache.cs" />
+    <Compile Include="Blog\Caching\Actions\BlogLayoutCache.cs" />
+    <Compile Include="Blog\Caching\Actions\BlogMainCache.cs" />
+    <Compile Include="Blog\Caching\Actions\BlogMainLayoutCache.cs" />
+    <Compile Include="Blog\Caching\BlogMainPageCache.cs" />
+    <Compile Include="Common\ActivationController.cs" />
+    <Compile Include="Common\AdLoaderController.cs" />
+    <Compile Include="Common\Service\VideoController.cs" />
+    <Compile Include="Content\Admin\RowSettingController.cs" />
+    <Compile Include="Content\Binder\FocusBinderController.cs" />
+    <Compile Include="Content\Caching\Actions\HtmlCacheAction.cs" />
+    <Compile Include="Content\Caching\ContentIndexPageCache.cs" />
+    <Compile Include="Forum\AttachmentController.cs" />
+    <Compile Include="Forum\Caching\Pages\ForumIndexPageCache.cs" />
+    <Compile Include="Forum\Edits\PostController.cs" />
+    <Compile Include="Forum\Edits\SecurityController.cs" />
+    <Compile Include="Forum\Edits\TopicController.cs" />
+    <Compile Include="Forum\Moderators\TopicController.cs" />
+    <Compile Include="Forum\Moderators\TopicSaveController.cs" />
+    <Compile Include="Forum\Moderators\PostController.cs" />
+    <Compile Include="Forum\Moderators\SecurityController.cs" />
+    <Compile Include="Forum\Users\PostController.cs" />
+    <Compile Include="Forum\Users\SecurityController.cs" />
+    <Compile Include="Forum\Users\TopicController.cs" />
+    <Compile Include="Forum\Security\SecurityAction.cs" />
+    <Compile Include="Forum\Security\SecurityActionHelper.cs" />
+    <Compile Include="Groups\Admin\InviteController.cs" />
+    <Compile Include="Groups\Caching\Actions\GroupMainActionCache.cs" />
+    <Compile Include="Groups\Caching\Actions\GroupMainLayoutCache.cs" />
+    <Compile Include="Groups\Caching\GroupMainPageCache.cs" />
+    <Compile Include="Groups\JoinController.cs" />
+    <Compile Include="Groups\SecurityController.cs" />
+    <Compile Include="Microblogs\MicroblogSaveController.cs" />
+    <Compile Include="Microblogs\SecurityController.cs" />
+    <Compile Include="Security\SiteAdminService.cs" />
+    <Compile Include="ShareController.cs" />
+    <Compile Include="Photo\Admin\PhotoController.cs" />
+    <Compile Include="Photo\Caching\Actions\PhotoMainActionCache.cs" />
+    <Compile Include="Photo\Caching\Actions\PhotoMainLayoutCache.cs" />
+    <Compile Include="Photo\Caching\PhotoMainPageCache.cs" />
+    <Compile Include="Photo\PhotoHelper.cs" />
+    <Compile Include="Users\Admin\Friends\SecurityController.cs" />
+    <Compile Include="Users\Admin\partial\MsgController.cs" />
+    <Compile Include="Users\Admin\Spiders\SecurityController.cs" />
+    <Compile Include="Users\Caching\Actions\UserMainIndexCache.cs" />
+    <Compile Include="Users\Caching\Actions\UserMainLayoutCache.cs" />
+    <Compile Include="Users\Caching\UserMainPageCache.cs" />
+    <Compile Include="Content\Caching\Actions\ContentIndexCache.cs" />
+    <Compile Include="Content\Caching\Actions\ContentLayoutCache.cs" />
+    <Compile Include="Forum\Caching\Actions\ForumBoardCache.cs" />
+    <Compile Include="Forum\Caching\Actions\ForumIndexCache.cs" />
+    <Compile Include="Common\Caching\SiteLayoutCache.cs" />
+    <Compile Include="Common\Caching\Interceptor\CacheInterceptor.cs" />
+    <Compile Include="Common\Caching\Interceptor\EntityInterceptorDB.cs" />
+    <Compile Include="Common\Caching\Interceptor\IEntityInterceptor.cs" />
+    <Compile Include="Common\Caching\Remove\BlogCache.cs" />
+    <Compile Include="Blog\BlogCommentController.cs" />
+    <Compile Include="Blog\partial\BlogController.cs" />
+    <Compile Include="Blog\partial\CategoryController.cs" />
+    <Compile Include="Blog\partial\LayoutController.cs" />
+    <Compile Include="Blog\partial\MainController.cs" />
+    <Compile Include="Blog\partial\PostController.cs" />
+    <Compile Include="Common\Admin\partial\AppBaseController.cs" />
+    <Compile Include="Common\Admin\partial\MenuBaseController.cs" />
+    <Compile Include="Common\Admin\MenuBaseController.cs" />
+    <Compile Include="Common\Caching\ExpirationChecker\ExpirationChecker.cs" />
+    <Compile Include="Common\Caching\Remove\CacheRemoveBase.cs" />
+    <Compile Include="Common\Caching\CacheImpl\CacheHelper.cs" />
+    <Compile Include="Common\Caching\ExpirationChecker\ContentExpirationChecker.cs" />
+    <Compile Include="Common\Caching\CacheImpl\DiskCache.cs" />
+    <Compile Include="Common\Caching\ExpirationChecker\ForumExpirationChecker.cs" />
+    <Compile Include="Common\Caching\CacheImpl\ICacheHelper.cs" />
+    <Compile Include="Common\Caching\CacheImpl\InMemoryCache.cs" />
+    <Compile Include="Common\Caching\CacheImpl\MemcachedCache.cs" />
+    <Compile Include="Common\Caching\MyCacher.cs" />
+    <Compile Include="Common\ConfirmEmail.cs" />
+    <Compile Include="Common\Feeds\BodyMerger.cs" />
+    <Compile Include="Common\Feeds\CommentMerger.cs" />
+    <Compile Include="Common\Feeds\CreatorMerger.cs" />
+    <Compile Include="Common\Feeds\FeedView.cs" />
+    <Compile Include="Common\Feeds\Merger.cs" />
+    <Compile Include="Common\Feeds\NoMerger.cs" />
+    <Compile Include="Common\Feeds\TitleMerger.cs" />
+    <Compile Include="Common\Feeds\FeedUtils.cs" />
+    <Compile Include="Common\FormController.cs" />
+    <Compile Include="Common\Installers\CmsInstallerBase.cs" />
+    <Compile Include="Common\Installers\NewsInstaller.cs" />
+    <Compile Include="Common\Installers\PortalInstaller.cs" />
+    <Compile Include="Common\Installers\UserHomeInstaller.cs" />
+    <Compile Include="Common\CommentAdminController.cs" />
+    <Compile Include="Common\CategoryBaseController.cs" />
+    <Compile Include="Common\CommentController.cs" />
+    <Compile Include="Common\Jobs\StatsJob.cs" />
+    <Compile Include="Common\ObjectBaseController.cs" />
+    <Compile Include="Common\PageCommentController.cs" />
+    <Compile Include="Common\Jobs\InviteFriendsJob.cs" />
+    <Compile Include="Content\Admin\AttachmentController.cs" />
+    <Compile Include="Content\Admin\CommentController.cs" />
+    <Compile Include="Content\Admin\Section\PostImgController.cs" />
+    <Compile Include="Content\Admin\SubmitSettingController.cs" />
+    <Compile Include="Content\Admin\TemplateCustomController.cs" />
+    <Compile Include="Content\Admin\partial\ContentController.cs" />
+    <Compile Include="Content\Admin\partial\ContentSectionController.cs" />
+    <Compile Include="Content\Admin\PostController.cs" />
+    <Compile Include="Content\Admin\SectionSettingController.cs" />
+    <Compile Include="Content\Admin\Section\LayoutController.cs" />
+    <Compile Include="Content\Admin\Section\NormalController.cs" />
+    <Compile Include="Content\Admin\Section\partial\ImgController.cs" />
+    <Compile Include="Content\Admin\Section\partial\ListController.cs" />
+    <Compile Include="Content\Admin\Section\partial\ListImgController.cs" />
+    <Compile Include="Content\Admin\Section\partial\ListTwoController.cs" />
+    <Compile Include="Content\Admin\Section\partial\NormalController.cs" />
+    <Compile Include="Content\Admin\Section\partial\PollController.cs" />
+    <Compile Include="Content\Admin\Section\partial\SlideController.cs" />
+    <Compile Include="Content\Admin\Section\partial\TalkController.cs" />
+    <Compile Include="Content\Admin\Section\partial\TextController.cs" />
+    <Compile Include="Content\Admin\Section\partial\ThumbSlideController.cs" />
+    <Compile Include="Content\Admin\Section\partial\VideoController.cs" />
+    <Compile Include="Content\Admin\Section\partial\VideoShowController.cs" />
+    <Compile Include="Content\Admin\Section\PollController.cs" />
+    <Compile Include="Content\Admin\Section\SlideController.cs" />
+    <Compile Include="Content\Admin\Section\ThumbSlideController.cs" />
+    <Compile Include="Content\Admin\Section\VideoShowController.cs" />
+    <Compile Include="Content\Admin\SettingController.cs" />
+    <Compile Include="Content\Admin\SkinController.cs" />
+    <Compile Include="Content\Admin\TemplateController.cs" />
+    <Compile Include="Content\Binder\LoginBinderController.cs" />
+    <Compile Include="Content\Binder\MyBlogBinderController.cs" />
+    <Compile Include="Content\Binder\MyFeedbackBinderController.cs" />
+    <Compile Include="Content\Binder\MyMicroblogBinderController.cs" />
+    <Compile Include="Content\Binder\MyFaceBinderController.cs" />
+    <Compile Include="Content\Binder\MyFeedBinderController.cs" />
+    <Compile Include="Content\Binder\MyShareBinderController.cs" />
+    <Compile Include="Content\Binder\RankBinderController.cs" />
+    <Compile Include="Content\Binder\UserFacesBinderController.cs" />
+    <Compile Include="Content\Binder\MyInfoBinderController.cs" />
+    <Compile Include="Content\Binder\ListTimeBinderController.cs" />
+    <Compile Include="Content\ContentAttachmentController.cs" />
+    <Compile Include="Common\Caching\Remove\ContentCacheRemove.cs" />
+    <Compile Include="Content\ContentCommentController.cs" />
+    <Compile Include="Content\SectionDataController.cs" />
+    <Compile Include="Content\Section\PostImgController.cs" />
+    <Compile Include="Content\Submit\LayoutController.cs" />
+    <Compile Include="Content\Submit\MyListController.cs" />
+    <Compile Include="Content\SectionController.cs" />
+    <Compile Include="Content\partial\ContentController.cs" />
+    <Compile Include="Content\PostController.cs" />
+    <Compile Include="Content\Section\NormalController.cs" />
+    <Compile Include="Content\Section\partial\ImgController.cs" />
+    <Compile Include="Content\Section\partial\LayoutController.cs" />
+    <Compile Include="Content\Section\partial\ListController.cs" />
+    <Compile Include="Content\Section\partial\ListImgController.cs" />
+    <Compile Include="Content\Section\partial\ListTwoController.cs" />
+    <Compile Include="Content\Section\partial\NormalController.cs" />
+    <Compile Include="Content\Section\partial\PollController.cs" />
+    <Compile Include="Content\Section\partial\SlideController.cs" />
+    <Compile Include="Content\Section\partial\TalkController.cs" />
+    <Compile Include="Content\Section\partial\ThumbSlideController.cs" />
+    <Compile Include="Content\Section\partial\VideoController.cs" />
+    <Compile Include="Content\Section\partial\VideoShowController.cs" />
+    <Compile Include="Content\Section\PollController.cs" />
+    <Compile Include="Content\Section\SlideController.cs" />
+    <Compile Include="Content\Section\ThumbSlideController.cs" />
+    <Compile Include="Blog\MainController.cs" />
+    <Compile Include="Admin\Apps\Blog\LayoutController.cs" />
+    <Compile Include="Admin\Apps\Blog\partial\MainController.cs" />
+    <Compile Include="Common\VisitorController.cs" />
+    <Compile Include="Common\WebUtils.cs" />
+    <Compile Include="Admin\Apps\Forum\LayoutController.cs" />
+    <Compile Include="Admin\Apps\Forum\PostController.cs" />
+    <Compile Include="Content\Section\VideoShowController.cs" />
+    <Compile Include="Content\Submit\SecurityController.cs" />
+    <Compile Include="Content\Submit\PostController.cs" />
+    <Compile Include="Content\Submit\AdminController.cs" />
+    <Compile Include="Content\Utils\TemplateUtil.cs" />
+    <Compile Include="Content\Views\ContentPollExtViewService.cs" />
+    <Compile Include="Forum\Admin\partial\BoardController.cs" />
+    <Compile Include="Forum\Admin\PickedImgController.cs" />
+    <Compile Include="Forum\Admin\SettingController.cs" />
+    <Compile Include="Forum\Caching\Actions\ForumRecentCache.cs" />
+    <Compile Include="Forum\partial\BoardController.cs" />
+    <Compile Include="Forum\partial\ForumController.cs" />
+    <Compile Include="Forum\partial\TopicListController.cs" />
+    <Compile Include="Forum\SearchController.cs" />
+    <Compile Include="Forum\Edits\TagController.cs" />
+    <Compile Include="Forum\TopController.cs" />
+    <Compile Include="Forum\Users\UploaderController.cs" />
+    <Compile Include="Common\Caching\Remove\ForumCacheRemove.cs" />
+    <Compile Include="Forum\Utils\LinkUtil.cs" />
+    <Compile Include="Layouts\MenuHelper.cs" />
+    <Compile Include="LinkController.cs" />
+    <Compile Include="Microblogs\MainController.cs" />
+    <Compile Include="Microblogs\FriendController.cs" />
+    <Compile Include="Microblogs\LayoutController.cs" />
+    <Compile Include="Microblogs\MicroblogCommentsController.cs" />
+    <Compile Include="Microblogs\MicroblogController.cs" />
+    <Compile Include="Microblogs\My\SecurityController.cs" />
+    <Compile Include="Microblogs\partial\MicroblogController.cs" />
+    <Compile Include="Photo\Admin\PostController.cs" />
+    <Compile Include="Photo\PhotoCommentController.cs" />
+    <Compile Include="Poll\Admin\partial\PollController.cs" />
+    <Compile Include="Poll\PollCommentController.cs" />
+    <Compile Include="Poll\Admin\PollController.cs" />
+    <Compile Include="Poll\PollController.cs" />
+    <Compile Include="Poll\Utils\PollValidator.cs" />
+    <Compile Include="Poll\Views\OptionResult.cs" />
+    <Compile Include="Poll\Views\PollUtil.cs" />
+    <Compile Include="Poll\Views\PollView.cs" />
+    <Compile Include="Poll\Views\PollViewFactory.cs" />
+    <Compile Include="Poll\Views\PollViewItem.cs" />
+    <Compile Include="Reader\Admin\CategoryController.cs" />
+    <Compile Include="Reader\Admin\FeedCategoryController.cs" />
+    <Compile Include="Reader\Admin\LayoutController.cs" />
+    <Compile Include="Reader\Admin\ReaderController.cs" />
+    <Compile Include="Reader\Admin\SubscriptionController.cs" />
+    <Compile Include="Reader\CategoryController.cs" />
+    <Compile Include="Reader\EntryController.cs" />
+    <Compile Include="Reader\ReaderController.cs" />
+    <Compile Include="Reader\Admin\EntryController.cs" />
+    <Compile Include="Reader\LayoutController.cs" />
+    <Compile Include="Reader\partial\ReaderController.cs" />
+    <Compile Include="Forum\Edits\AttachmentController.cs" />
+    <Compile Include="Forum\LayoutController.cs" />
+    <Compile Include="Forum\RecentController.cs" />
+    <Compile Include="Forum\TopicListController.cs" />
+    <Compile Include="Groups\Admin\AppController.cs" />
+    <Compile Include="Groups\Admin\GLinkController.cs" />
+    <Compile Include="Groups\Admin\MenuController.cs" />
+    <Compile Include="Groups\Admin\partial\MainController.cs" />
+    <Compile Include="Groups\Admin\SecurityController.cs" />
+    <Compile Include="Groups\ForbiddenController.cs" />
+    <Compile Include="Groups\FriendController.cs" />
+    <Compile Include="Groups\MemberController.cs" />
+    <Compile Include="LangController.cs" />
+    <Compile Include="Layouts\GroupLayoutController.cs" />
+    <Compile Include="Groups\Admin\FriendController.cs" />
+    <Compile Include="Groups\Admin\MainController.cs" />
+    <Compile Include="Groups\Admin\SkinController.cs" />
+    <Compile Include="Groups\MainController.cs" />
+    <Compile Include="Groups\Utils\GroupUtil.cs" />
+    <Compile Include="Groups\LayoutController.cs" />
+    <Compile Include="Common\Jobs\ConfirmEmailJob.cs" />
+    <Compile Include="Common\ResetPwdController.cs" />
+    <Compile Include="Layouts\partial\GroupLayoutController.cs" />
+    <Compile Include="Layouts\partial\SiteLayoutController.cs" />
+    <Compile Include="Layouts\partial\SpaceLayoutController.cs" />
+    <Compile Include="Layouts\partial\TopNavController.cs" />
+    <Compile Include="Reader\SubscriptionController.cs" />
+    <Compile Include="RegisterController.cs" />
+    <Compile Include="Common\RenderHelper.cs" />
+    <Compile Include="Security\SiteDataAdminMenu.cs" />
+    <Compile Include="Security\SiteLogString.cs" />
+    <Compile Include="Forum\Views\ForumPollExtViewService.cs" />
+    <Compile Include="TagController.cs" />
+    <Compile Include="Users\Admin\AppController.cs" />
+    <Compile Include="Users\Admin\Friends\BlacklistController.cs" />
+    <Compile Include="Users\Admin\Friends\FriendCategoryController.cs" />
+    <Compile Include="Users\Admin\Friends\LayoutController.cs" />
+    <Compile Include="Users\Admin\InviteController.cs" />
+    <Compile Include="Users\Admin\MenuController.cs" />
+    <Compile Include="Users\Admin\ShareCommentsController.cs" />
+    <Compile Include="Users\Admin\partial\FeedController.cs" />
+    <Compile Include="Users\Admin\partial\UserProfileController.cs" />
+    <Compile Include="Users\Admin\SecurityController.cs" />
+    <Compile Include="Photo\Vo\Post.cs" />
+    <Compile Include="Photo\Vo\PostVo.cs" />
+    <Compile Include="Security\AppRole.cs" />
+    <Compile Include="Layouts\SiteLayoutController.cs" />
+    <Compile Include="Layouts\SpaceLayoutController.cs" />
+    <Compile Include="Users\Admin\LayoutController.cs" />
+    <Compile Include="Users\Admin\ShareController.cs" />
+    <Compile Include="Users\Admin\Spiders\ImportController.cs" />
+    <Compile Include="Users\Admin\Spiders\ArticleController.cs" />
+    <Compile Include="Users\Admin\Spiders\ImportJson.cs" />
+    <Compile Include="Users\Admin\Spiders\Utils\ImportJob.cs" />
+    <Compile Include="Users\Admin\Spiders\Utils\ImportUtil.cs" />
+    <Compile Include="Users\Admin\Spiders\Utils\ImportState.cs" />
+    <Compile Include="Users\Admin\Spiders\LayoutController.cs" />
+    <Compile Include="Users\Admin\Spiders\Utils\LogCacher.cs" />
+    <Compile Include="Users\Admin\Spiders\LogController.cs" />
+    <Compile Include="Users\Admin\Spiders\TemplateController.cs" />
+    <Compile Include="Users\UserUploadController.cs" />
+    <Compile Include="Users\Admin\Utils\FeedType.cs" />
+    <Compile Include="Microblogs\My\MbSaveController.cs" />
+    <Compile Include="Users\Admin\SiteNfController.cs" />
+    <Compile Include="Users\FeedbackController.cs" />
+    <Compile Include="Users\ForbiddenController.cs" />
+    <Compile Include="Users\ForumController.cs" />
+    <Compile Include="Users\FriendController.cs" />
+    <Compile Include="Microblogs\My\MicroblogController.cs" />
+    <Compile Include="Users\Admin\FeedController.cs" />
+    <Compile Include="Users\Admin\NotificationController.cs" />
+    <Compile Include="Common\ShareController.cs" />
+    <Compile Include="SiteInitController.cs" />
+    <Compile Include="Common\SkinBaseController.cs" />
+    <Compile Include="Users\Admin\MyLinkController.cs" />
+    <Compile Include="Microblogs\My\MicroblogFavoriteController.cs" />
+    <Compile Include="Microblogs\My\partial\MicroblogController.cs" />
+    <Compile Include="Users\ShareController.cs" />
+    <Compile Include="Users\VisitorController.cs" />
+    <Compile Include="Users\Vo\UserVo.cs" />
+    <Compile Include="Photo\MainController.cs" />
+    <Compile Include="Admin\Apps\Photo\LayoutController.cs" />
+    <Compile Include="Admin\Apps\Photo\MainController.cs" />
+    <Compile Include="Admin\Apps\Photo\SysCategoryController.cs" />
+    <Compile Include="SecurityController.cs" />
+    <Compile Include="Security\AppAdminRole.cs" />
+    <Compile Include="Security\SecurityUtils.cs" />
+    <Compile Include="Security\SiteAdminMenu.cs" />
+    <Compile Include="Security\SiteAdminOperation.cs" />
+    <Compile Include="Security\OperationDB.cs" />
+    <Compile Include="Security\SiteAdminOperationConfig.cs" />
+    <Compile Include="Content\Admin\LayoutController.cs" />
+    <Compile Include="Content\Admin\Section\ImgController.cs" />
+    <Compile Include="Content\Admin\Section\ListTwoController.cs" />
+    <Compile Include="Content\Admin\Section\ListImgController.cs" />
+    <Compile Include="Content\Admin\Section\ListController.cs" />
+    <Compile Include="Content\Admin\Section\TalkController.cs" />
+    <Compile Include="Content\Admin\Section\TextController.cs" />
+    <Compile Include="Content\Admin\Section\VideoController.cs" />
+    <Compile Include="Content\Utils\BinderUtils.cs" />
+    <Compile Include="Content\Binder\ExcerptBinderController.cs" />
+    <Compile Include="Content\Binder\ImgBinderController.cs" />
+    <Compile Include="Content\LayoutController.cs" />
+    <Compile Include="Content\Section\LayoutController.cs" />
+    <Compile Include="Blog\Admin\BlogrollController.cs" />
+    <Compile Include="Forum\Admin\LayoutController.cs" />
+    <Compile Include="Forum\SecurityController.cs" />
+    <Compile Include="Forum\PostBlockController.cs" />
+    <Compile Include="Forum\Security\SecurityHelper.cs" />
+    <Compile Include="Admin\Sys\PageCategoryController.cs" />
+    <Compile Include="Admin\Sys\PageController.cs" />
+    <Compile Include="Users\Admin\CreditController.cs" />
+    <Compile Include="LayoutController.cs" />
+    <Compile Include="Users\Admin\SkinController.cs" />
+    <Compile Include="Users\MainController.cs" />
+    <Compile Include="Security\UserDataRole.cs" />
+    <Compile Include="Layouts\TopNavController.cs" />
+    <Compile Include="Blog\Admin\CategoryController.cs" />
+    <Compile Include="Blog\Admin\LayoutController.cs" />
+    <Compile Include="Blog\Admin\PostController.cs" />
+    <Compile Include="Blog\LayoutController.cs" />
+    <Compile Include="Photo\Admin\LayoutController.cs" />
+    <Compile Include="Photo\Admin\AlbumController.cs" />
+    <Compile Include="Photo\Admin\MyController.cs" />
+    <Compile Include="Photo\LayoutController.cs" />
+    <Compile Include="Common\Admin\AppBaseController.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Content\Admin\ContentController.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Content\ContentController.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Content\Admin\ContentSectionController.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Content\Utils\ContentValidator.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="AssemblyInfo.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Blog\CategoryController.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Blog\BlogController.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Blog\PostController.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Blog\Validator\BlogValidator.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Admin\Credits\CurrencyController.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Forum\Admin\BoardController.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Forum\BoardController.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Forum\Admin\CategoryController.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Forum\ForumController.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Forum\Admin\ForumLinkController.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Forum\Utils\ForumLocationUtil.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Forum\Admin\ModeratorController.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Forum\Moderators\PostSaveController.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Forum\PostController.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Forum\Admin\SecurityController.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Forum\TopicController.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Forum\Utils\ForumValidator.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Users\Admin\Friends\FriendController.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Content\Section\ImgController.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Content\Binder\List2BinderController.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Content\Section\ListTwoController.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Content\Binder\ListBinderController.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Content\Section\ListImgController.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Content\Section\ListController.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Users\ProfileController.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Users\Admin\MsgController.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Users\Admin\MyGroupController.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Photo\PhotoController.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Photo\PostController.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Forum\Users\PollController.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Admin\Sys\SearchController.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Admin\Security\SecurityController.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="MainController.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Admin\Sys\SystemEnvController.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Admin\Sys\SystemFileController.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Admin\Sys\SiteLogController.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Content\Section\TalkController.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Content\Section\TextController.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Admin\Members\UserController.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Forum\Utils\UserIncomeUtil.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Users\Admin\UserProfileController.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Content\Section\VideoController.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Common\PageController.cs" />
+    <Compile Include="Microblogs\My\MicroblogCommentsController.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1 Client Profile</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.2.0">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 2.0 %28x86%29</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.0">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.0 %28x86%29</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\wojilu.Apps\wojilu.Apps.csproj">
+      <Project>{2C3A61B8-3AFD-45D2-B81E-FBC652D0ADC2}</Project>
+      <Name>wojilu.Apps</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\wojilu.Core\wojilu.Core.csproj">
+      <Project>{5D4E912F-B5A1-4E58-BFE1-62FCD30CC9E6}</Project>
+      <Name>wojilu.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\wojilu\wojilu.csproj">
+      <Project>{5912B6E1-6099-4392-9A67-AFD3A8AA4343}</Project>
+      <Name>wojilu</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Common\Push\" />
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PreBuildEvent>
+    </PreBuildEvent>
+    <PostBuildEvent>
+    </PostBuildEvent>
+  </PropertyGroup>
+</Project>

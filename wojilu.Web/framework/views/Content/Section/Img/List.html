@@ -1,0 +1,31 @@
+﻿<div class="h4title">#{section.Name}</div>
+
+<ul class="ulimgMiddle">
+
+	<!-- BEGIN list -->
+	<li style="width:135px; height:150px; border-radius:3px; box-shadow:3px 3px 10px #aaa;">
+		<a href="#{img.Url}"><img src="#{img.Thumb}" class="thumbItem"  style="max-width:120px; max-height:120px;" /></a>
+		<div class="img_title">#{img.Title}</div>	
+	</li>
+	<!-- END list -->
+</ul>
+
+<div class="clear"></div>
+
+<div>#{page}</div>
+
+    <script>
+    $(document).ready( function() {
+    
+        var twidth = 120;
+        var theight = 120;
+        
+        $('.thumbItem').each( function() {
+            if( $(this).width()>twidth ) $(this).width( twidth );
+            if( $(this).height()>theight ) $(this).height( theight );
+        });
+    
+
+    });
+    </script>
+

@@ -1,0 +1,58 @@
+﻿
+<div style="margin:0px;" id="poll#{section.Id}_#{poll.Id}">
+
+    <div class="strong" style="margin:5px 0px 5px 0px;color:red;">#{poll.Title}</div>
+    <div style="margin:5px;font-size:12px;color:#666;">#{poll.Question}</div>
+
+    <div style="margin:0px;font-size:12px;">
+        <div id="pollContainer">
+            <table class="pollOptions" cellpadding="0" cellspacing="0" style="width:95%;margin-left:5px;">
+            <!-- BEGIN options -->
+            <tr>
+                <td class="optionItemString">#{op.SelectControl} #{op.Text}</td>
+            </tr><!-- END options -->
+            </table>
+
+            <div class="note">:{voterCount}: #{poll.Voters}。#{poll.ExpiryInfo}</div>
+
+            <!-- BEGIN cmdVote -->
+            <div class="pollSubmit">                
+                <input id="btnPoll#{poll.Id}" class="btn" type="button" value="_{pollVote}" cid="#{section.Id}_#{poll.Id}" />
+                <span id="lnkVote" class="frmBox" title=":{poll}" href="#"></span>
+<script>
+
+$(document).ready( function() {
+
+    $('#btnPoll#{poll.Id}').click( function() {
+        var ctx = $( '#poll' + $(this).attr('cid') );
+        
+        var selectedControl = $( 'input[name=pollOption][@checked]', ctx );
+        var pValue = selectedControl.serialize();
+        if( wojilu.str.hasText( pValue )==false ) {
+            alert( '_{pollSelectRequire}' );
+            return false;
+        }
+        
+        $(this).attr( 'disabled', 'disabled' );
+        $(this).val( '_{pollVoted}' );
+        var voteLink = '#{poll.VoteLink}';
+        var url = voteLink+'&'+pValue;
+        
+        $('#lnkVote').attr( 'href', url ).click();
+    });
+
+});
+
+</script>
+            </div><!-- END cmdVote -->
+            
+            <!-- BEGIN plsVote --><div style="margin:0px 0px 10px 0px; color:#666;">_{pollLoginRequire}</div><!-- END plsVote -->
+            
+        </div>
+    </div>
+</div>
+
+
+
+
+

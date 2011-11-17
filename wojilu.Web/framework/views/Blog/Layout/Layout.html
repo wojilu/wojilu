@@ -1,0 +1,86 @@
+﻿<div style="padding-top:1px;">
+    <div id="adminTool" class="appAdminTool" style="padding:0px; font-weight:bold; display:none;">
+        <div style="padding:8px 25px 0px 0px; float:right;">
+        <a href="#{adminUrl}" class="frmLink btnBig" loadTo="blogMainContainer" nolayout=1><img src="~img/s/star.png" /> 管理当前程序</a>
+        </div>
+        <div class="clear"></div>
+    </div>
+
+</div>
+
+
+
+<div class="sideBar">
+	<div class="sideBarContainer">
+	
+		#{blog.UserMenu}	
+		
+		<div class="sideBarPanel">
+			<div class="sideBarTitle">:{blogCategory}</div>
+			<ul class="sideBarList">
+				<!-- BEGIN category --><li><a href="#{category.Url}" style="font-size:14px;">#{category.Title}</a></li><!-- END category -->
+			</ul>
+		</div>
+
+		<div class="sideBarPanel">
+			<div class="sideBarTitle">:{newblogArticle}</div>
+			<ul class="sideBarList">
+				<!-- BEGIN newpost --><li><a href="#{post.Url}">#{post.Title}</a></li><!-- END newpost -->
+			</ul>
+		</div>
+
+		<div class="sideBarPanel">
+			<div class="sideBarTitle">_{newComment}</div>
+			<ul class="sideBarList">
+				<!-- BEGIN comment --><li><a href="#{comment.Url}">#{comment.Title}</a></li><!-- END comment -->
+				<li class="sideBarMore">#{commentMoreLink}</li>
+			</ul>			
+		</div>		
+		
+		<div class="sideBarPanel">
+			<div class="sideBarTitle">:{blogroll}</div>
+			<ul class="sideBarList">
+				<!-- BEGIN myBlogroll --><li><a href="#{roll.Link}" target="_blank">#{roll.Name}</a></li><!-- END myBlogroll -->
+			</ul>
+		</div>
+		
+		<div class="sideBarPanel">
+			<div class="sideBarTitle">_{stats}</div>
+			<ul class="sideBarList">
+				<li>:{blogAllCount}: #{blog.Count}</li>
+				<li>_{visits}: #{blog.Hits}</li>
+				<li>_{comments}：#{blog.CommentCount}</li>
+			</ul>
+		</div>	
+
+		<div class="sideBarRss">
+			<a href="#{blog.RssUrl}"><img src="~img/rss.gif" /></a>
+		</div>
+		
+	</div>
+</div>
+
+<div class="appMain">
+	<div class="appMainContainer" id="blogMainContainer">
+		#{layout_content}
+	</div>
+</div>
+<div class="clear"></div>
+
+
+
+<script>
+$(document).ready( function() {
+    
+    var showAdminTool = function() {
+        if( typeof(ctx) == 'undefined' ) return;
+        if( ctx.viewer.IsLogin && ctx.viewerOwnerSame ) {
+            $('#adminTool').show();
+        }
+    };
+    
+    wojilu.site.load( showAdminTool );
+
+    wojilu.ui.frmLink();
+});
+</script>

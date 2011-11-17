@@ -1,0 +1,103 @@
+﻿
+#topNavWrap {height:35px;}
+#topNavWrap #topNav { height:35px;}
+#topNavWrap #topNav {color:#2b2b2b;}
+#topNavWrap #topNav a{color:#005eac;}
+
+#pageWrap {background:url(headerBg.jpg); background-repeat:repeat-x;}
+#pageWrap {background:#fff;}
+
+#pageWrapInner,#topNav  {width:960px;margin:auto;}
+
+#topNav, #headerWrap, #navWrap, #pageMainWrap, #pageFooterWrap {margin: auto; }
+
+#headerWrap, #navWrap,#navBottomAdWrap, #pageMainWrap, #pageFooterWrap {margin: auto; border-left:0px #ddeaf4 solid;border-right:0px #ddeaf4 solid;  }
+
+#topNavMenu { font-size:14px; }
+
+
+#msgLink {text-decoration:none;}
+#newMsgCount {padding-left:20px;background:url('../../../img/mail/mail.gif') 3px center no-repeat;font-size:12px;}
+
+#topNav .NewNotificationCount { background:#0071b5; background:#fdffea; padding:5px;padding-left:10px;}
+#topNav .NewNotificationCount a{ color:#333 ;font-size:12px; background:url('../../../img/sound.gif') 3px center no-repeat; padding:0px 0px 0px 20px; margin:0px 5px 0px 0px;font-family:tahoma;}
+#siteNotification {margin-left:5px;}
+.closeNt {cursor:pointer;}
+
+#myUploadDlg, #confirmEmailPanel,.NewNotificationCount {width:160px;}
+#myUploadDlg, #confirmEmailPanel { border-bottom:1px #aaa solid; background:#FDFFEA; padding:5px 5px 5px 10px; margin:0px 0px 0px 0px;}
+
+.quickCmd {margin:0px 10px 0px 10px;}
+
+* html #topNavMenu {padding-top:0px;}
+* html #topNavMenu .NewNotificationCount a{padding:1px 5px 1px 20px; }
+
+#userAccountTable {float:right; border-collapse:collapse;color:#005eac; margin-right:5px;} 
+#userAccountTable td {padding:0px;}
+#userAvatar {border:2px #fff solid; padding:0px; height:23px;
+    border-radius: 3px;
+    -moz-border-radius: 3px;
+    -webkit-border-radius: 3px;
+}
+.userAccount { }
+.userAccount li { float:left;}
+
+
+/*****************************************************/
+
+#topSiteName {padding-left:32px;background:url('../../../img/home.gif') 10px center no-repeat;}
+#topSiteName a{font-size:16px;font-weight:bold;}
+
+#header {margin:auto; height:80px; }
+	#header table {height:80px;}
+	#slogo {vertical-align:middle;font-size:40px;font-weight:bold; }    
+    table#calendar {float:right;margin:10px; height:40px;}
+    #calendar {color:#666;}
+    #calendarDay {text-shadow: -1px 1px 1px #ffb69a;width:39px;vertical-align:middle;font-size:22px; text-align:center; font-weight:bold; color:orange; background:url('calendar-bg.png') }
+    #calendarYear {height:20px;margin-left:5px;}
+    #calendarWeek {height:20px;margin-left:5px;}
+
+#nav { margin:auto; height:36px; }
+    #nav ul {line-height:26px; margin-left:10px }
+
+    #nav ul li {float:left;display:block;padding:5px 15px 3px 15px; background2:url('navSeparator.gif') no-repeat center right; }
+    #nav a{ color:#fff;font-size:14px; font-weight:bold; height:30px; }
+    #nav ul li#menuItemLast {background:url();}
+    
+    #nav div#langMenu {float:right; color:#fff; width:82px;display:block; margin:10px 10px 2px 10px;}
+    
+    img.noCurrentLang {width:1px;height:0px;margin-right:12px;}
+    
+/* 给下拉菜单添加箭头指示
+#nav .menuMore { background:url('../../../img/downWhite.gif') no-repeat right center; padding-right:15px;}
+*/
+
+    
+
+#headerWrap {background:;}
+#header {background:} /*头部背景*/
+    #slogo a {color:#005db3} /*logo的文字颜色*/
+    
+#header { }
+
+/*导航菜单*/    
+#nav {background:url(navbg.gif);}
+#nav a{ color:#fff;} /*导航菜单的文字颜色*/
+#nav {
+    border-radius: 3px; -moz-border-radius: 3px; -webkit-border-radius: 3px; -khtml-border-radius: 3px;
+    box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.3); -moz-box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.3); -webkit-box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.3);
+}
+
+#subMenusWrap {background:url(subMenuBg.gif) no-repeat 0 bottom;}
+#subMenusPanel {padding:8px 23px; font-size:14px;}
+
+#header {background-repeat:repeat-x; background-position:-200px -20px;}
+
+
+.sectionTitleCurrentTab {border-top:1px #e2e6f3 solid;border-left:1px #e2e6f3 solid;border-right:1px #e2e6f3 solid;}
+
+#pageFooterWrap {clear:both;}
+    #pageFooter {text-align:center;  line-height:200%;padding-top:10px;padding-bottom:10px;margin:0px;}
+    #footerSeperator {height:1px; margin-bottom:0px; border-top:0px #ddd solid;}
+    #pageFooter a {margin:3px 5px;}
+

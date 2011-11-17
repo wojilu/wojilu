@@ -1,0 +1,734 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <ProjectType>local</ProjectType>
+    <ProjectVersion>7.10.3077</ProjectVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{5912B6E1-6099-4392-9A67-AFD3A8AA4343}</ProjectGuid>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <AssemblyName>wojilu</AssemblyName>
+    <DefaultClientScript>JScript</DefaultClientScript>
+    <DefaultHTMLPageLayout>Grid</DefaultHTMLPageLayout>
+    <DefaultTargetSchema>IE50</DefaultTargetSchema>
+    <DelaySign>false</DelaySign>
+    <OutputType>Library</OutputType>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <OldToolsVersion>3.5</OldToolsVersion>
+    <UpgradeBackupLocation>
+    </UpgradeBackupLocation>
+    <RootNamespace>wojilu</RootNamespace>
+    <IsWebBootstrapper>true</IsWebBootstrapper>
+    <TargetFrameworkVersion>v2.0</TargetFrameworkVersion>
+    <PublishUrl>http://localhost/bbsVista/</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Web</InstallFrom>
+    <UpdateEnabled>true</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <OutputPath>bin\Debug\</OutputPath>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugSymbols>true</DebugSymbols>
+    <NoStdLib>false</NoStdLib>
+    <Optimize>false</Optimize>
+    <WarningLevel>4</WarningLevel>
+    <DebugType>full</DebugType>
+    <ErrorReport>prompt</ErrorReport>
+    <DocumentationFile>
+    </DocumentationFile>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <OutputPath>bin\Release\</OutputPath>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <DefineConstants>TRACE</DefineConstants>
+    <DebugSymbols>false</DebugSymbols>
+    <NoStdLib>false</NoStdLib>
+    <Optimize>true</Optimize>
+    <WarningLevel>4</WarningLevel>
+    <DebugType>none</DebugType>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System">
+      <Name>System</Name>
+    </Reference>
+    <Reference Include="System.configuration" />
+    <Reference Include="System.Data">
+      <Name>System.Data</Name>
+    </Reference>
+    <Reference Include="System.Data.OracleClient">
+      <Name>System.Data.OracleClient</Name>
+    </Reference>
+    <Reference Include="System.Design">
+      <Name>System.Design</Name>
+    </Reference>
+    <Reference Include="System.Drawing">
+      <Name>System.Drawing</Name>
+    </Reference>
+    <Reference Include="System.Web">
+      <Name>System.Web</Name>
+    </Reference>
+    <Reference Include="System.Xml">
+      <Name>System.Xml</Name>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AssemblyInfo.cs" />
+    <Compile Include="Common\IBinderValue.cs" />
+    <Compile Include="Common\ItemValue.cs" />
+    <Compile Include="Common\Onlines\OnlineService.cs" />
+    <Compile Include="Common\Onlines\OnlineStats.cs" />
+    <Compile Include="Common\Onlines\OnlineManager.cs" />
+    <Compile Include="Net\Video\IFengSpider.cs" />
+    <Compile Include="Net\Video\SinaVideo.cs" />
+    <Compile Include="Net\Video\VideoHelper.cs" />
+    <Compile Include="Web\Mvc\CacheInfo.cs" />
+    <Compile Include="Web\Mvc\IActionCache.cs" />
+    <Compile Include="Web\Mvc\IPageCache.cs" />
+    <Compile Include="Web\Mvc\Attr\CacheActionAttribute.cs" />
+    <Compile Include="Web\Mvc\Attr\CachePageAttribute.cs" />
+    <Compile Include="Web\Mvc\ControllerAction.cs" />
+    <Compile Include="Web\Mvc\ControllerFactoryCompiler.cs" />
+    <Compile Include="Members\MemberHelper.cs" />
+    <Compile Include="Net\IpUtil.cs" />
+    <Compile Include="Net\Video\IVideoSpider.cs" />
+    <Compile Include="Net\Video\Ku6Spider.cs" />
+    <Compile Include="Net\Video\NullSpider.cs" />
+    <Compile Include="Net\Video\TudouSpider.cs" />
+    <Compile Include="Net\Video\VideoInfo.cs" />
+    <Compile Include="Net\Video\WojiluVideoSpider.cs" />
+    <Compile Include="Net\Video\WuliuSpider.cs" />
+    <Compile Include="Net\Video\YoukuSpider.cs" />
+    <Compile Include="ORM\Attribute\DecimalAttribute.cs" />
+    <Compile Include="Web\Mvc\ControllerMeta.cs" />
+    <Compile Include="Web\Mvc\IControllerFactory.cs" />
+    <Compile Include="Web\Mvc\Utils\ControllerRunner.cs" />
+    <Compile Include="Web\Utils\Emotions.cs" />
+    <Compile Include="Web\Utils\WebHelpers.cs" />
+    <Compile Include="_wojilu\IDto.cs" />
+    <Compile Include="_wojilu\sys.cs" />
+    <Compile Include="Data\TableBuilder\AccessTableBuilder.cs" />
+    <Compile Include="Data\DbConfig.cs" />
+    <Compile Include="Data\TableBuilder\MySqlTableBuilder.cs" />
+    <Compile Include="Data\TableBuilder\SqlServerTableBuilder.cs" />
+    <Compile Include="Data\TableBuilder\TableBuilderBase.cs" />
+    <Compile Include="IO\LinuxPath.cs" />
+    <Compile Include="IO\PathTool.cs" />
+    <Compile Include="IO\WindownsPath.cs" />
+    <Compile Include="Log\LogConfig.cs" />
+    <Compile Include="Members\Interface\IUser.cs" />
+    <Compile Include="Members\Interface\IUserFactory.cs" />
+    <Compile Include="ORM\Attribute\DatabaseAttribute.cs" />
+    <Compile Include="ORM\Attribute\Validation\ValidationAttribute.cs" />
+    <Compile Include="ORM\Attribute\HtmlTextAttribute.cs" />
+    <Compile Include="ORM\Attribute\MoneyAttribute.cs" />
+    <Compile Include="Caching\CacheManager.cs" />
+    <Compile Include="ORM\Caching\ApplicationPool.cs" />
+    <Compile Include="ORM\Caching\CacheKey.cs" />
+    <Compile Include="ORM\Caching\CacheTime.cs" />
+    <Compile Include="ORM\Caching\ContextPool.cs" />
+    <Compile Include="Caching\IApplicationCache.cs" />
+    <Compile Include="ORM\Caching\IObjectPool.cs" />
+    <Compile Include="ORM\Caching\TimestampKey.cs" />
+    <Compile Include="_wojilu\Entity.cs" />
+    <Compile Include="ORM\MappingInfo.cs" />
+    <Compile Include="ORM\Utils\ValueSetter.cs" />
+    <Compile Include="ORM\Utils\SqlUtil.cs" />
+    <Compile Include="Serialization\SimpleJsonString.cs" />
+    <Compile Include="Serialization\JsonString.cs" />
+    <Compile Include="Web\Context\IMvcContext.cs" />
+    <Compile Include="Web\Context\MvcContextUtils.cs" />
+    <Compile Include="Web\CurrentRequest.cs" />
+    <Compile Include="Web\HttpFile.cs" />
+    <Compile Include="Web\IWebContext.cs" />
+    <Compile Include="Web\Mock\MvcCookies.cs" />
+    <Compile Include="Web\Mock\MvcHttpContext.cs" />
+    <Compile Include="Web\Mock\MvcRequest.cs" />
+    <Compile Include="Web\Mock\MvcResponse.cs" />
+    <Compile Include="Web\Mock\MvcSession.cs" />
+    <Compile Include="Web\Mvc\Captcha.cs" />
+    <Compile Include="Web\Mvc\ControllerCore.cs" />
+    <Compile Include="Web\SystemInfo.cs" />
+    <Compile Include="Web\UI\CssFormUtil.cs" />
+    <Compile Include="Web\UI\CssStyle.cs" />
+    <Compile Include="Web\UI\CssControl.cs" />
+    <Compile Include="Web\UI\CssInfo.cs" />
+    <Compile Include="Web\UI\Css.cs" />
+    <Compile Include="Web\GlobalApp\AppGlobalHelper.cs" />
+    <Compile Include="Web\GlobalApp\AppGlobalLogger.cs" />
+    <Compile Include="Web\GlobalApp\AppGlobalNull.cs" />
+    <Compile Include="Web\Handler\PageNotFoundHandler.cs" />
+    <Compile Include="Web\Handler\ValidationType.cs" />
+    <Compile Include="Web\HttpStatus.cs" />
+    <Compile Include="Web\IBlock.cs" />
+    <Compile Include="Web\Mvc\Filter\MvcEventPublisher.cs" />
+    <Compile Include="Web\Mvc\Interface\IMvcFilter.cs" />
+    <Compile Include="Web\Mvc\Filter\MvcEventArgs.cs" />
+    <Compile Include="Web\Mvc\MvcException.cs" />
+    <Compile Include="Web\Mvc\Filter\MvcFilterLoader.cs" />
+    <Compile Include="Web\Mvc\Processors\InitContextProcessor.cs" />
+    <Compile Include="Web\Mvc\Processors\RenderProcessor.cs" />
+    <Compile Include="Web\Mvc\Processors\RouteProcessor.cs" />
+    <Compile Include="Web\Mvc\StaticPath.cs" />
+    <Compile Include="Web\Templates\Parser\VarBlockParser.cs" />
+    <Compile Include="Web\Templates\Tokens\VarToken.cs" />
+    <Compile Include="Web\Templates\Utils\TemplateUtil.cs" />
+    <Compile Include="Web\Templates\Utils\VarLabelValue.cs" />
+    <Compile Include="Web\Utils\Tags\TagFilter.cs" />
+    <Compile Include="Web\Utils\Tags\ErrorTagValid.cs" />
+    <Compile Include="Web\Utils\Tags\TagAttrState.cs" />
+    <Compile Include="Web\Utils\Tags\TagHelper.cs" />
+    <Compile Include="Web\Utils\Tags\TagValid.cs" />
+    <Compile Include="Web\Utils\Tags\TagWhitelist.cs" />
+    <Compile Include="Web\WebContext.cs" />
+    <Compile Include="Web\Mock\MockWebContext.cs" />
+    <Compile Include="_wojilu\aAction.cs" />
+    <Compile Include="_wojilu\cdb.cs" />
+    <Compile Include="_wojilu\cfgHelper.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Data\DbConst.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="_wojilu\cvt.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Caching\SysCache.cs" />
+    <Compile Include="Data\DbChecker\AccessDatabaseChecker.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Data\Factory\DataFactory.cs" />
+    <Compile Include="Data\Dialect\AccessDialect.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Data\Cache\CacheObject.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Data\Enum\ConnectionItemType.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Data\DatabaseBuilder.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Data\Enum\DatabaseType.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Data\DbContext.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Data\EasyDB.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Data\DbChecker\IDatabaseChecker.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Data\Dialect\IDatabaseDialect.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Data\Cache\MemoryDB.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Data\DbChecker\MysqlDatabaseChecker.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Data\Dialect\MysqlDialect.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Data\Enum\ParameterType.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Data\Factory\DbFactoryBase.cs" />
+    <Compile Include="Data\Factory\DbTypeChecker.cs" />
+    <Compile Include="Data\Factory\MsSqlDbFactory.cs" />
+    <Compile Include="Data\Factory\MysqlFactory.cs" />
+    <Compile Include="Data\Factory\OleDbFactory.cs" />
+    <Compile Include="Data\Factory\OracleFactory.cs" />
+    <Compile Include="Data\DbChecker\SQLServerDatabaseChecker.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Data\Dialect\SQLServerDialect.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="_wojilu\HashTool.cs" />
+    <Compile Include="_wojilu\IHashTool.cs" />
+    <Compile Include="_wojilu\ndb.cs" />
+    <Compile Include="_wojilu\ObjectBase.cs" />
+    <Compile Include="_wojilu\db.cs" />
+    <Compile Include="_wojilu\Dictionary.cs" />
+    <Compile Include="Drawing\Img.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Drawing\Enum\SaveThumbnailMode.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Drawing\Enum\ThumbnailType.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Drawing\ThumbSize.cs" />
+    <Compile Include="Drawing\ValidationCode.cs" />
+    <Compile Include="Drawing\Watermark.cs" />
+    <Compile Include="Drawing\FontAndSize.cs" />
+    <Compile Include="Drawing\Enum\WatermarkPosition.cs" />
+    <Compile Include="_wojilu\Editor.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="DI\MapItem.cs" />
+    <Compile Include="DI\ObjectContext.cs" />
+    <Compile Include="IO\filesys.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Lang\alang.cs" />
+    <Compile Include="Lang\Lang.cs" />
+    <Compile Include="Lang\LanguageSetting.cs" />
+    <Compile Include="Log\ILog.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="_wojilu\IEntity.cs" />
+    <Compile Include="IO\File.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="_wojilu\IPageList.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Common\LoginTime.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Log\LogManager.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Log\FileLogger.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Log\ILogMsg.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Log\LoggerForDB.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Log\LoggerUtil.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Log\LogLevel.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Log\LogMessage.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Log\LogMsg.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Log\NullLogger.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Net\MailService.cs" />
+    <Compile Include="Net\PageLoader.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="ORM\Attribute\Validation\EmailAttribute.cs" />
+    <Compile Include="ORM\Attribute\NotSerializeAttribute.cs" />
+    <Compile Include="Caching\ApplicationCache.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="ORM\Attribute\CacheCountAttribute.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="ORM\Operation\ConditionInfo.cs" />
+    <Compile Include="ORM\Operation\FinderBase.cs" />
+    <Compile Include="ORM\MetaList.cs" />
+    <Compile Include="ORM\NoCacheDbFinder.cs" />
+    <Compile Include="_wojilu\DataPage.cs" />
+    <Compile Include="ORM\Utils\CacheUtil.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="ORM\Caching\ContextCache.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="ORM\Attribute\DefaultAttribute.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="ORM\Operation\DeleteOperation.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="ORM\EntityInfo.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="ORM\EntityPropertyInfo.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="ORM\Utils\EntityPropertyUtil.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="ORM\Utils\FillUtil.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="ORM\Operation\FindAllOperation.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="ORM\Operation\FindByIdOperation.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="ORM\Operation\FindByOperation.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="ORM\Operation\CountOperation.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="ORM\Operation\FindPageOperation.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="ORM\Operation\FindRelationOperation.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="ORM\Attribute\ICacheAttribute.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="ORM\IInterceptor.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="ORM\Includer.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="ORM\Operation\InsertOperation.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="ORM\Attribute\LabelAttribute.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="ORM\Attribute\LongTextAttribute.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="ORM\MappingClass.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="ORM\Attribute\Validation\NotNullAttribute.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="ORM\Attribute\NotSaveAttribute.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="ORM\ObjectDB.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="ORM\ObjectInfo.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="ORM\Page\ObjectPage.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="ORM\Caching\ObjectPool.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="ORM\Utils\OrmUtil.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="ORM\Query.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="ORM\Attribute\Validation\PatternAttribute.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="ORM\Attribute\ColumnAttribute.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="ORM\SqlBuilder.cs" />
+    <Compile Include="ORM\Attribute\TableAttribute.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="ORM\Attribute\TinyIntAttribute.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="ORM\Attribute\Validation\UniqueAttribute.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="ORM\Operation\PageCondition.cs" />
+    <Compile Include="ORM\Operation\UpdateOperation.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="ORM\Validator.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="ORM\xQuery.cs" />
+    <Compile Include="_wojilu\PageList.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="_wojilu\PathHelper.cs" />
+    <Compile Include="Reflection\AccessorUtil.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Reflection\CodeDomPropertyAccessor.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Reflection\CodeRunner.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Reflection\IAccessorUtil.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Reflection\IConcreteFactory.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Reflection\ILPropertyAccessor.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Reflection\IPropertyAccessor.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Reflection\OptimizeMode.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Reflection\ReflectionUtil.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="_wojilu\RegPattern.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="_wojilu\Result.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Reflection\rft.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Serialization\JsonParser\JsonParserException.cs" />
+    <Compile Include="Serialization\JsonParser\ArrayJsonParser.cs" />
+    <Compile Include="Serialization\JsonParser\CharSource.cs" />
+    <Compile Include="Serialization\JsonParser\InitJsonParser.cs" />
+    <Compile Include="Serialization\JSON.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Serialization\JsonParser.cs" />
+    <Compile Include="Serialization\JsonParser\JsonParserBase.cs" />
+    <Compile Include="Serialization\JsonParser\ObjectJsonParser.cs" />
+    <Compile Include="Serialization\JsonParser\StringJsonParser.cs" />
+    <Compile Include="Serialization\JsonParser\ValueJsonParser.cs" />
+    <Compile Include="SOA\Controls\IListControl.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="SOA\Controls\IntDroplist.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="SOA\Controls\IntTextbox.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="SOA\Controls\LongTextbox.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="SOA\Controls\ParamControl.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="SOA\Controls\StringCheckbox.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="SOA\Controls\StringDroplist.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="SOA\Controls\StringRadio.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="SOA\Controls\StringTextbox.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="SOA\Service.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="SOA\ServiceContext.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="_wojilu\Stopwatch.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="_wojilu\strUtil.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="_wojilu\time.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="_wojilu\Tree.cs" />
+    <Compile Include="_wojilu\UrlInfo.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Web\Caching\_old\CacheMode.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Web\Caching\_old\CachePage.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Web\Caching\_old\FilePageCacher.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Web\bindFunction.cs" />
+    <Compile Include="Web\ITemplate.cs" />
+    <Compile Include="Web\Caching\_old\MemoryPageCacher.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Web\Caching\_old\PageCacher.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Web\PlatformTemplate.cs" />
+    <Compile Include="Web\Rss\RssChannel.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Web\Rss\RssImage.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Web\Rss\RssItem.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Web\Rss\RssItemList.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Web\Templates\BlockData.cs" />
+    <Compile Include="Web\Templates\Parser\BlockParser.cs" />
+    <Compile Include="Web\Templates\Parser\StringBlockParser.cs" />
+    <Compile Include="Web\Templates\Parser\TemplateParser.cs" />
+    <Compile Include="Web\Templates\CharSource.cs" />
+    <Compile Include="Web\Templates\Utils\VarLabel.cs" />
+    <Compile Include="Web\Templates\Tokens\BlockToken.cs" />
+    <Compile Include="Web\Templates\Tokens\StringToken.cs" />
+    <Compile Include="Web\Templates\Tokens\Token.cs" />
+    <Compile Include="Web\Templates\ContentBlock.cs" />
+    <Compile Include="Web\Templates\Template.cs" />
+    <Compile Include="Web\WebStopwatch.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="_wojilu\SysPath.cs" />
+    <Compile Include="Common\AppBase\Enum\AccessStatus.cs" />
+    <Compile Include="Common\AppBase\Enum\CommentCondition.cs" />
+    <Compile Include="Common\AppBase\Enum\MemberStatus.cs" />
+    <Compile Include="Common\AppBase\Enum\SaveStatus.cs" />
+    <Compile Include="Common\AppBase\Enum\SystemPickStatus.cs" />
+    <Compile Include="Common\AppBase\IAccessStatus.cs" />
+    <Compile Include="Common\AppBase\IPageSection.cs" />
+    <Compile Include="Common\AppBase\IPageSettingLink.cs" />
+    <Compile Include="Common\AppBase\ISort.cs" />
+    <Compile Include="Common\Onlines\OnlineUser.cs" />
+    <Compile Include="Common\Resource\AppResource.cs" />
+    <Compile Include="Common\Resource\PropertyCollection.cs" />
+    <Compile Include="Common\Resource\PropertyItem.cs" />
+    <Compile Include="Common\Security\Domain\RoleProxy.cs" />
+    <Compile Include="Common\Security\Enum\RoleGroup.cs" />
+    <Compile Include="Common\Security\Interface\IAction.cs" />
+    <Compile Include="Common\Security\Interface\IRole.cs" />
+    <Compile Include="Common\Security\Interface\ISecurity.cs" />
+    <Compile Include="Common\Security\Interface\ISecurityAction.cs" />
+    <Compile Include="Common\Security\Utils\RoleMerger.cs" />
+    <Compile Include="Common\Security\Utils\SecurityString.cs" />
+    <Compile Include="Config\config.cs" />
+    <Compile Include="Config\GroupSetting.cs" />
+    <Compile Include="Config\Setting\ISetting.cs" />
+    <Compile Include="Config\Setting\ISettingValue.cs" />
+    <Compile Include="Config\Setting\SettingFormTool.cs" />
+    <Compile Include="Config\Setting\SettingType.cs" />
+    <Compile Include="Config\SiteSetting.cs" />
+    <Compile Include="Common\ConstString.cs" />
+    <Compile Include="Common\IHits.cs" />
+    <Compile Include="Common\IShareData.cs" />
+    <Compile Include="Common\IShareInfo.cs" />
+    <Compile Include="Members\Interface\IMember.cs" />
+    <Compile Include="Web\Context\ContextInitBase.cs" />
+    <Compile Include="Web\Context\ContextInitDefault.cs" />
+    <Compile Include="Web\Context\Interface\IAppContext.cs" />
+    <Compile Include="Web\Context\Interface\IOwnerContext.cs" />
+    <Compile Include="Web\Context\Interface\IViewerContext.cs" />
+    <Compile Include="Web\Context\MvcContext.cs" />
+    <Compile Include="Web\Jobs\IWebJobItem.cs" />
+    <Compile Include="Web\Jobs\WebJob.cs" />
+    <Compile Include="Web\Jobs\WebJobStarter.cs" />
+    <Compile Include="Web\Mvc\Attr\AppAttribute.cs" />
+    <Compile Include="Web\Mvc\Attr\CacheUrlAttribute.cs" />
+    <Compile Include="Web\Mvc\Attr\DbTransactionAttribute.cs" />
+    <Compile Include="Web\Mvc\Attr\HttpMethodAttribute.cs" />
+    <Compile Include="Web\Mvc\Attr\LoginAttribute.cs" />
+    <Compile Include="Web\Mvc\Attr\NonVisitAttribute.cs" />
+    <Compile Include="Web\Mvc\Attr\NoRefreshAttribute.cs" />
+    <Compile Include="Web\Mvc\CacheUrl.cs" />
+    <Compile Include="Web\Mvc\ControllerBase.cs" />
+    <Compile Include="Web\Mvc\ControllerFactory.cs" />
+    <Compile Include="Web\Mvc\CoreHandler.cs" />
+    <Compile Include="Web\Mvc\Html.cs" />
+    <Compile Include="Web\Mvc\Interface\IActionFilter.cs" />
+    <Compile Include="Web\Mvc\Link.cs" />
+    <Compile Include="Web\Mvc\MemberPath.cs" />
+    <Compile Include="Web\Mvc\MvcConfig.cs" />
+    <Compile Include="Web\Mvc\OwnerInfo.cs" />
+    <Compile Include="Web\Mvc\PageMeta.cs" />
+    <Compile Include="Web\Mvc\ProcessContext.cs" />
+    <Compile Include="Web\Mvc\Processors\ActionMethodChecker.cs" />
+    <Compile Include="Web\Mvc\Processors\ActionProcessor.cs" />
+    <Compile Include="Web\Mvc\Processors\ForbiddenActionChecker.cs" />
+    <Compile Include="Web\Mvc\Processors\HttpMethodChecker.cs" />
+    <Compile Include="Web\Mvc\Processors\LayoutProcessor.cs" />
+    <Compile Include="Web\Mvc\Processors\LoginChecker.cs" />
+    <Compile Include="Web\Mvc\Processors\NsLayoutProcessor.cs" />
+    <Compile Include="Web\Mvc\Processors\PermissionChecker.cs" />
+    <Compile Include="Web\Mvc\Processors\ProcessorBase.cs" />
+    <Compile Include="Web\Mvc\ReturnMsg.cs" />
+    <Compile Include="Web\Mvc\Routes\DefaultRouteValue.cs" />
+    <Compile Include="Web\Mvc\Routes\PathItem.cs" />
+    <Compile Include="Web\Mvc\Routes\Requirements.cs" />
+    <Compile Include="Web\Mvc\Routes\Route.cs" />
+    <Compile Include="Web\Mvc\Routes\RouteConfig.cs" />
+    <Compile Include="Web\Mvc\Routes\RouteOtherInfo.cs" />
+    <Compile Include="Web\Mvc\Routes\RouteParseInfo.cs" />
+    <Compile Include="Web\Mvc\Routes\RouteParser.cs" />
+    <Compile Include="Web\Mvc\Routes\RouteSetting.cs" />
+    <Compile Include="Web\Mvc\Routes\RouteTable.cs" />
+    <Compile Include="Web\Mvc\Routes\RouteTool.cs" />
+    <Compile Include="Web\Mvc\Utils\ActionRunner.cs" />
+    <Compile Include="Web\Mvc\Utils\HtmlCombiner.cs" />
+    <Compile Include="Web\Mvc\Utils\MvcUtil.cs" />
+    <Compile Include="Web\Mvc\Utils\PostValueProcessor.cs" />
+    <Compile Include="Web\Handler\CaptchaImageHandler.cs" />
+    <Compile Include="Web\Utils\AvatarUploader.cs" />
+    <Compile Include="Web\Utils\HtmlFilter.cs" />
+    <Compile Include="Web\Utils\MailUtil.cs" />
+    <Compile Include="Web\Utils\Uploader.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1 Client Profile</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.2.0">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 2.0 %28x86%29</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.0">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.0 %28x86%29</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PreBuildEvent>
+    </PreBuildEvent>
+    <PostBuildEvent>
+    </PostBuildEvent>
+  </PropertyGroup>
+</Project>

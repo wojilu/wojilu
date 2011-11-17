@@ -1,0 +1,45 @@
+﻿#{location}
+
+<script type="text/javascript">
+<!--
+$(document).ready( function(){
+    wojilu.ui.valid();
+    wojilu.ui.ajaxPostForm();
+});
+//-->
+</script>
+
+<div class="forumForm">
+	<div class="forumFormTitle">:{editTopic}</div>
+	
+	<form method="post" action="#{ActionLink}" class="ajaxPostForm">	
+
+		<table class="forumFormMainTable">
+			<tr class="forumFormRowTitle">
+				<td class="tdL">_{title}</td>
+				<td>#{post.Category}
+					<input name="Title" type="text" value="#{post.Title}" style="width:320px" />
+					 <span class="left10">_{tag}</span> <input name="TagList" style="width:120px"  type="text" value="#{post.TagList}"><span class="note">(_{tagTip})</span> 
+				</td>
+			</tr>
+			<tr>
+				<td class="tdL">_{content}</td>
+				<td>#{Editor}</td>
+			</tr>
+			<tr><td></td><td><label><input name="saveContentPic" type="checkbox" />保存远程图片</label></td></tr>
+
+			<tr>
+				<td>&nbsp;</td>				
+				<td>
+				    <input type="submit" value=":{editTopic}" name="btnSubmit" class="btn" />
+				    <span class="left20"><img src="~img/s/upload.png" /> <a href="#{attachmentLink}">:{attachmentAdmin}</a></span>
+				</td>
+			</tr>
+		</table>
+
+	</form>
+
+</div>
+
+
+

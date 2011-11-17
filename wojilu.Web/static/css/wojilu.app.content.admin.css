@@ -1,0 +1,38 @@
+﻿
+/*综合模块*/
+
+
+#adminPortalContainer {}
+        
+    table.adminRow {width:100%; border-collapse:collapse;border:2px #6699cc solid; margin:0px 0px 10px 0px; background:#fff; }
+    td.adminRowTitle {background:#cbe2fc;border-bottom:1px #6699cc dashed;}
+
+    #adminPortalContainer td.adminColumn {vertical-align:top; padding:5px;}
+    .columnTitle {background:#cbe2fc;height:20px; padding:1px 0px 0px 3px;border:1px #6699cc dashed;margin-bottom:5px;}
+    
+    table.adminSection {border-collapse:collapse;margin:0px 0px 10px 0px; border:1px #bed6ea solid; width:100%;table-layout: fixed;}
+        td.adminSectionTitle {border:1px #bed6ea solid; border-bottom:0px #ccc solid;padding:0px;height:26px; vertical-align:top; background:url(../img/admin/content/section-title-bg.gif);}
+            table.adminSectionTitleInternal {width:100%;margin:0px;}
+            
+                .sectionTitleText { }
+                .sectionDragger {cursor: move;}
+
+                .sectionTitleText div {float:left; margin-left:6px; margin-top:0px; padding:3px 5px;cursor:default;width:90px;}
+                .sectionTitleCurrentTab { background:#fff; border-top:1px #aaa solid;border-left:1px #aaa solid;border-right:1px #aaa solid;}
+                .sectionTitleTab { text-overflow:ellipsis; }
+
+        
+        td.sectionContent {padding:0px;vertical-align:top;}
+        div.sectionContentText {margin:0px;padding:0px;min-height:30px;}
+        
+            table.sectionToolbar {margin:0px; width:100%;}
+            .sectionToolbar {border-bottom:0px #e8e2ee solid;margin:0px;background:url(../img/admin/content/cmdbar-bg.gif);padding:1px 3px;}
+                .cmdAdmin {padding-left:5px;}
+                .cmdAdmin a {color:red;}
+                .sectionToolbar a{color:red;}
+                
+            td.adminListOne {vertical-align:top;}
+            td.adminListTwo {vertical-align:top; }
+            td.adminListOne div{width:100%;white-space:nowrap;text-overflow:ellipsis; -o-text-overflow:ellipsis; -moz-text-overflow:ellipsis; overflow: hidden; }
+            td.adminListTwo div{width:45%;white-space:nowrap;text-overflow:ellipsis; -o-text-overflow:ellipsis; -moz-text-overflow:ellipsis; overflow: hidden; }
+            

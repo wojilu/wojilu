@@ -1,0 +1,38 @@
+﻿#{location}
+
+<script type="text/javascript">
+<!--
+$(document).ready( function(){
+    wojilu.ui.valid();
+    wojilu.ui.ajaxPostForm();
+});
+//-->
+</script>
+
+<div class="forumForm">
+	<div class="forumFormTitle">:{quoteReply}</div>
+
+
+	<form method="post" action="#{post.ReplyActionUrl}" class="ajaxPostForm">
+		<table class="forumFormMainTable">
+			<tr class="forumFormRowTitle">
+				<td class="tdL">_{title}</td>
+				<td><input name="Title" type="text" value="#{post.ReplyTitle}" style="width: 455px"><span class="valid" mode="border"></span> </td>
+			</tr>
+			<tr>
+				<td class="tdL">_{content}</td>
+				<td>#{Editor}</td>
+			</tr>
+			<tr>
+				<td><span class="valid" to="Content" mode="border"></span></td>
+				<td><input type="submit" value="_{reply}" name="btnSubmit" class="btn">
+				<input type="hidden" name="forumId" value="#{post.ForumBoardId}" />
+				<input type="hidden" name="topicId" value="#{post.TopicId}" />
+				<input type="hidden" name="parentId" value="#{post.ParentId}" />
+				</td>
+			</tr>			
+		</table>
+	</form>
+
+
+</div>

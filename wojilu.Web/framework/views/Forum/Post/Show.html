@@ -1,0 +1,22 @@
+﻿<script type="text/javascript" src="~js/syntaxhighlighter/scripts/shCore.js"></script>
+<script type="text/javascript" src="~js/syntaxhighlighter/scripts/shBrushCommon.js"></script>
+<link type="text/css" rel="stylesheet" href="~js/syntaxhighlighter/styles/shCore.css"/>
+<link type="text/css" rel="stylesheet" href="~js/syntaxhighlighter/styles/shThemeDefault.css"/>
+
+<script type="text/javascript">
+	SyntaxHighlighter.config.clipboardSwf = "~js/syntaxhighlighter/scripts/clipboard.swf";
+	SyntaxHighlighter.all();
+</script>
+
+#{location}
+
+#{currentPost}
+
+<div class="forumPanel" style="margin-top:10px;">
+	<div class="forumPanelTitle"><a href="#{topic.Url}">&rsaquo;&rsaquo;:{expandTopic}</a></div>
+	<ul class="replyPostList">	
+	<!-- BEGIN replypost --><li><a href="#{p.MemberUrl}">#{p.MemberName}</a>: <a href="#{p.Url}" class="#{p.Class}">#{p.Title}</a> <span class="note font12 left10"> #{p.CreateTime} (:{wordLength}:#{p.Length})  _{hits}:#{p.Hits} </span></li>
+	<!-- END replypost -->
+	</ul>
+	<div>#{replyPage}</div>
+</div>

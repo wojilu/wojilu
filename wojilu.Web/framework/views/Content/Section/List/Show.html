@@ -1,0 +1,33 @@
+﻿
+<h1 class="h1title">#{post.Title}</h1>	
+
+<div class="postInfo">
+	<span>#{post.Created}</span>
+	<span class="left10">_{view}:#{post.Hits}</span> 
+	<span class="left10">#{post.Author}</span>
+	<span class="left10">#{post.Replies}</span>
+	<span class="left10 fontBig" fontTarget="postContent">_{fontBig}</span>
+	<span class="fontSmall" fontTarget="postContent">_{fontSmall}</span>
+	<span class="left5 print" onclick="window.print();">_{print}</span>
+</div>
+
+<!-- BEGIN summary -->
+<div class="postSummary">_{summary}: #{post.Summary}</div>
+<!-- END summary -->
+
+<div class="postContent" id="postContent">
+<div style="float:left; padding:0px 10px 10px 0px;">#{post.AdBody}</div>
+#{post.Content}
+</div>
+<div class="postSource">#{post.Tag}<br />#{post.Source}</div>
+<div style="margin-left:10px;">投递人：#{post.Submitter}</div>
+
+<style>
+    .turnpage { text-align:center;margin:10px 10px 20px 10px;}
+</style>
+
+<script>
+$(document).ready( function() {
+    wojilu.ui.editFontSize();
+});
+</script>

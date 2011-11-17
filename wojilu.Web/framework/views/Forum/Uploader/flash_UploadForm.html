@@ -1,0 +1,29 @@
+﻿<div style="margin:20px;">
+
+<script type="text/javascript">
+
+    wojilu.flashUpload.initJs();
+
+    $(document).ready( function() {        
+
+        var params = {#{authCookieName}:'#{authCookieValue}'}; // 参数
+        var url = '#{uploadLink}'.toAjax(); // 接收上传的网址
+        
+        // 配置
+        var setting = {};
+        setting.maxSize = '200 MB';
+        setting.fileType = '*.jpg;*.gif;*.png;*.jpeg;*.bmp;*.zip;*.rar;*.7z;';
+        setting.fileDesc = '图片';
+        setting.maxQueue = 10; // 可以上传几个？
+        
+        wojilu.flashUpload.make( 'uploader', url, setting, params );
+
+    });
+</script>
+
+
+<div><div id="uploader"></div>	</div>
+
+<div><ul class="note">:{uploadNote}</ul></div>
+
+</div>

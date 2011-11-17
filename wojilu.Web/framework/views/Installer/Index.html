@@ -1,0 +1,373 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" >
+<head>
+    <title>欢迎安装“我记录网站综合系统”</title>
+<script src="~js/jquery.js?v=#{jsVersion}" type="text/javascript"></script>
+<script src="~js/jquery.easing.1.3.js" type="text/javascript"></script>
+<script src="~js/wojilu.common.js" type="text/javascript"></script>
+
+<link href="~css/wojilu.common.css?v=#{cssVersion}" rel="stylesheet" type="text/css" />
+<style>
+
+body { font-size:14px; background:#fff;}
+
+td{font-size:14px;}
+
+.stepTitleItem { float:left; margin:1px; padding-top:5px; padding-bottom:5px; width:198px; text-align:center; color:#fff;
+background: rgb(122,188,255); /* Old browsers */
+background: -moz-linear-gradient(top, rgba(122,188,255,1) 0%, rgba(96,171,248,1) 44%, rgba(64,150,238,1) 100%); /* FF3.6+ */
+background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(122,188,255,1)), color-stop(44%,rgba(96,171,248,1)), color-stop(100%,rgba(64,150,238,1))); /* Chrome,Safari4+ */
+background: -webkit-linear-gradient(top, rgba(122,188,255,1) 0%,rgba(96,171,248,1) 44%,rgba(64,150,238,1) 100%); /* Chrome10+,Safari5.1+ */
+background: -o-linear-gradient(top, rgba(122,188,255,1) 0%,rgba(96,171,248,1) 44%,rgba(64,150,238,1) 100%); /* Opera11.10+ */
+background: -ms-linear-gradient(top, rgba(122,188,255,1) 0%,rgba(96,171,248,1) 44%,rgba(64,150,238,1) 100%); /* IE10+ */
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#7abcff', endColorstr='#4096ee',GradientType=0 ); /* IE6-9 */
+background: linear-gradient(top, rgba(122,188,255,1) 0%,rgba(96,171,248,1) 44%,rgba(64,150,238,1) 100%); /* W3C */
+}
+.stepTitleItemCurrent { color:#333;
+background: #eab92d; /* Old browsers */
+background: -moz-linear-gradient(top, #eab92d 0%, #c79810 100%); /* FF3.6+ */
+background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#eab92d), color-stop(100%,#c79810)); /* Chrome,Safari4+ */
+background: -webkit-linear-gradient(top, #eab92d 0%,#c79810 100%); /* Chrome10+,Safari5.1+ */
+background: -o-linear-gradient(top, #eab92d 0%,#c79810 100%); /* Opera11.10+ */
+background: -ms-linear-gradient(top, #eab92d 0%,#c79810 100%); /* IE10+ */
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#eab92d', endColorstr='#c79810',GradientType=0 ); /* IE6-9 */
+background: linear-gradient(top, #eab92d 0%,#c79810 100%); /* W3C */
+
+}
+
+.titleNo { font-size:28px; font-weight:bold; font-style:italic; margin-right:10px;}
+
+.accessInfo, .sqlserverInfo, .mysqlInfo { display:none;}
+
+
+
+#xSlidePanel { position:relative; overflow:hidden;height:330px;}
+
+    .step { position:absolute;width:800px; background:#fff;}
+        .stepPanel {height:210px; padding:10px; }
+        .btnStepPanel {height:120px;}
+        .btnStepPanel .btnPrev { margin-right:15px;}
+        .btnBig {height:35px; line-height:35px; width:100px; font-weight:bold;}
+        
+    #step1 { top:0;left:0;}
+    #step2 { top:0px;left:800px; }
+    #step3 { top:0px;left:1600px;}
+
+.tdL { text-align:right; padding-right:10px; font-weight:bold; font-size:12px; color:Blue;}
+
+.radioList div {margin:5px 0px 5px 0px; }
+
+.skinItem {width:150px; height:160px; float:left; border:1px #fff solid; border-radius:5px; text-align:center; margin:15px 15px 10px 25px;}
+.skinItem img {margin-top:5px; border-radius1:5px; }
+.skinTitle {margin-top:5px; font-size:12px;}
+
+lable {right:5px;}
+
+</style>
+</head>
+<body>
+
+<h1 style="text-align:center;font-size:20px; font-weight:bold; font-family:微软雅黑; margin:30px;">欢迎安装“我记录网站综合系统”</h1>
+
+<div style="width:180px;margin:auto;margin-bottom:20px; ">#{writeFileMsg}</div>
+
+
+<div style="border:1px #aaa solid; border-radius:5px; width:802px; margin:auto; box-shadow:0px 10px 80px #bbb;">
+<div style="width:800px; margin:auto; background:#f2f2f2;">
+        <div class="stepTitle">
+            <div id="stepTitle1" class="stepTitleItem stepTitleItemCurrent"><span class="titleNo">1</span>设置数据库</div>
+            <div id="stepTitle2" class="stepTitleItem"><span class="titleNo">2</span>选择网站内容类型</div>
+            <div id="stepTitle3" class="stepTitleItem"><span class="titleNo">3</span>选择界面风格</div>
+            <div id="stepTitle4" class="stepTitleItem"><span class="titleNo">4</span>安装成功</div>
+            <div style="clear:both;"></div>
+        </div>
+</div>
+
+<div style="width:800px; margin:auto; margin-bottom:20px;" id="xSlidePanel">
+
+
+    
+    <div id="step1" class="step">
+    
+        <div class="stepPanel">
+        
+        <table style="width:100%;"><tr><td style="vertical-align:middle; height:210px;">
+
+        <table style="width:100%;" cellpadding="5" cellspacing="0">
+            <tr class=""><td class="tdL" style="width:200px;">            
+                <div style=" font-size:14px; color:#222;">请选择数据库类型</div>
+                <div class="note font12" style="font-weight:normal;">(本系统共支持3种4类数据库)</div> 
+                        
+            </td><td>
+                <ul style="list-style:none;margin:0px;padding:0px;">
+                
+                    <li>                    
+                        <div><label><input id="rdoAccess" name="dbType" type="radio" value="access" />access <span class="note font12 left5">(这是默认值，如果您不了解数据库，请选择此项)</span></label></div>
+                        <div class="accessInfo" style="background:#fff; margin:5px 30px 5px 15px; padding:10px; box-shadow:2px 2px 10px #aaa;">
+                            <div style="color:Blue;font-size:12px;">请填写access数据库名称</div>
+                            <div><input name="accessName" type="text" value="#{accessDbName}.mdb" style="width:380px;" /><br /><span class="note font12">(不用预先创建access，系统会自动生成数据库)</span></div>
+                        </div>                    
+                    </li>
+                    
+                    <li>
+                        <div>
+                            <label><input id="rdoSqlServer" name="dbType" type="radio" value="sqlserver" />sqlserver2005 或更高版本 <span></span></label>
+                        </div>
+                        <div id="sqlserverInfo" class="sqlserverInfo" style="background:#fff; margin:5px 30px 5px 15px; padding:10px; box-shadow:2px 2px 10px #aaa;">
+                        <table style="width:100%;" border=0>
+                            <tr>
+                                <td class="tdL" style="width:80px;">数据库地址</td><td><input name="sqlserverDbAddress" type="text" value="localhost" style="width:200px;" /></td>
+                            </tr>
+                            <tr>
+                                <td class="tdL">数据库名称</td><td><input name="sqlserverDbName" type="text" value="" style="width:200px;" /></td>
+                            </tr>
+                            <tr>
+                                <td class="tdL">数据库用户名</td><td><input name="sqlserverDbUserName" type="text" value="sa" style="width:200px;" /></td>
+                            </tr>
+                            <tr>
+                                <td class="tdL">数据库密码</td><td><input name="sqlserverDbPwd" type="password" style="width:200px;" /></td>
+                            </tr>                        
+                        </table>
+                        </div>
+                    </li>
+                    
+                    <li>
+                    <div>                    
+                    <label><input id="rdoSqlServer2000" name="dbType" type="radio" value="sqlserver2000" />sqlserver2000 <span></span></label>
+                    </div>                    
+                    </li>
+                    
+                    <li>                    
+                        <div>
+                            <label><input id="rdoMysql" name="dbType" type="radio" value="mysql" />mysql <span></span></label>
+                        </div>
+                        <div class="mysqlInfo" style="background:#fff; margin:5px 30px 5px 15px; padding:10px; box-shadow:2px 2px 10px #aaa;">
+                        <table style="width:100%;" border=0>
+                            <tr>
+                                <td class="tdL" style="width:120px;">mysql 数据库地址</td><td><input name="mysqlDbAddress" type="text" value="localhost" style="width:200px;" /></td>
+                            </tr>
+                            <tr>
+                                <td class="tdL">mysql 数据库名称</td><td><input name="mysqlDbName" type="text" value="" style="width:200px;" /></td>
+                            </tr>
+                            <tr>
+                                <td class="tdL">mysql 数据库用户名</td><td><input name="mysqlDbUserName" type="text" value="root" style="width:200px;" /></td>
+                            </tr>
+                            <tr>
+                                <td class="tdL">mysql 数据库密码</td><td><input name="mysqlDbPwd" type="password" style="width:200px;" /></td>
+                            </tr>                        
+                        </table>                        
+                        </div>
+
+                    </li>
+                    
+                </ul>            
+            </td></tr>
+            <tr><td colspan="2"></td></tr>
+            
+            
+
+            
+        </table>
+        </td></tr></table>
+        </div>
+        
+        
+
+        <div id="Div1" class="btnStepPanel" style="text-align:center; padding:5px;">
+            <div style="width:120px; margin:auto;"><input id="btnStep1" type="button" value="下一步" class="btnBig btnNext" data-tab="stepTitle2" />
+            </div>
+            <div style="font-size:14px;margin-top:8px;margin:10px auto;width:250px;" class="warning">我不了解数据库，<a href="#" id="lnkNext" style="color:Red; font-weight:bold;">直接进入下一步</a></div>
+        </div>
+        
+        
+    </div>
+    
+    <div id="step2" style="" class="step">
+
+        <div class="stepPanel">
+        
+            <table style="width:100%;">
+                <tr>
+                    <td class="tdL" style="font-size:14px; width:190px; vertical-align:top; padding-top:60px; padding-right:15px;">请选择网站类型
+                    <div style="margin-top:5px; margin-left:5px; font-weight:normal;" class="note font12">提示：安装之后，在后台，所有功能可以重新调整、安装或禁用</div>
+                    </td>
+                    <td style="font-size:12px;" class="radioList">
+                        <div><label><input id="Radio1" name="siteType" type="radio" checked="checked" /> <span class="strong">全功能型</span>，完整安装(sns+cms门户+论坛+微博+博客+相册+群组等)，包括演示数据</label><a href="">预览</a></div>
+                        
+                        
+                    </td>
+                </tr>
+            </table>
+        
+        </div>
+        <div id="Div2" class="btnStepPanel" style="text-align:center; padding:5px;" class="">
+            <div style="width:230px; margin:auto;">
+            <input id="Button2" type="button" value="上一步" style=" float:left; " class="btnBig btnGreen btnPrev" data-tab="stepTitle1" />
+            <input id="btnStep2" type="button" value="下一步" style="float:left;" class="btnBig btnNext" data-tab="stepTitle3" />
+            </div>
+        </div>
+    </div>
+    
+    <div id="step3" class="step">
+
+        <div class="stepPanel">
+        
+            <div style="margin:10px 0px 0px 38px;">请选择网站风格 <span class="note font12 left10">安装之后，您还可以在线自定义风格、修改模板等</span></div>
+            <div class="clear"></div>
+        
+            <div class="skinItem"><label><div><img src="~static/skin/site/1/skinThumb.jpg" /></div><div class="skinTitle">
+                <input id="Radio7" name="siteSkin" type="radio" checked="checked" /> 蓝色经典</div></label></div>
+        
+        </div>
+        <div id="Div3" class="btnStepPanel" style="text-align:center; padding:5px;" class="">
+            <div style="width:230px; margin:auto;">
+            <input id="Button4" type="button" value="上一步" style="float:left; " class="btnBig btnGreen btnPrev" data-tab="stepTitle2" />
+            <input id="btnDone" type="button" value="完成注册" style="float:left; " class="btnBig" />
+            </div>
+        </div>
+    </div>
+    
+
+</div>
+
+</div>
+
+<script>
+$(document).ready( function() {
+
+    $('#btnDone').click( function() {
+        $.post( '#{doneLink}'.toAjax(), function(data){
+            if( 'ok'==data ) {
+                window.location.href= '/';
+            }
+            else {
+                alert( '发生错误='+data );
+            }
+        });
+    });
+
+    var slidePage = function(_this) {
+        $(".step").each( function() {
+            var nleft = $(this).position().left-800;
+            $(this).animate({ left: nleft }, 750, 'easeInOutExpo' );
+        });
+        $('.stepTitleItem').removeClass( 'stepTitleItemCurrent' );
+        $('#'+$(_this).attr( 'data-tab' )).addClass( 'stepTitleItemCurrent' );
+    };
+    
+    var slidePagePrev = function() {
+        $(".step").each( function() {
+            var nleft = $(this).position().left+800;
+            $(this).animate({ left: nleft }, 750, 'easeInOutExpo' );
+        });
+        $('.stepTitleItem').removeClass( 'stepTitleItemCurrent' );
+        $('#'+$(this).attr( 'data-tab' )).addClass( 'stepTitleItemCurrent' );
+    };
+    
+    //-----------------------------------------------------------------------------------------------------
+    
+
+
+    $('#btnStep1').click( function() {    
+    
+        var dbType = $( 'input[name=dbType]:checked').val();
+        var dbAddress, dbName, user, pwd;
+        
+        if( dbType == 'access' ) {
+            dbName = $( 'input[name=accessName]').val();
+            if( !dbName ) {
+                alert( '请填写数据库名称' );$( 'input[name=accessName]').focus();return;
+            }
+        }
+        else if( dbType == 'sqlserver' || dbType == 'sqlserver2000' ) {
+            dbAddress = $( 'input[name=sqlserverDbAddress]').val();
+            dbName = $( 'input[name=sqlserverDbName]').val();
+            user = $( 'input[name=sqlserverDbUserName]').val();
+            pwd = $( 'input[name=sqlserverDbPwd]').val();
+            if( !dbName || !dbAddress || !user ) {
+                alert( '请完整填写数据库信息' );return;
+            }
+        }
+        else if( dbType=='mysql' ) {
+            dbAddress = $( 'input[name=mysqlDbAddress]').val();
+            dbName = $( 'input[name=mysqlDbName]').val();
+            user = $( 'input[name=mysqlDbUserName]').val();
+            pwd = $( 'input[name=mysqlDbPwd]').val();
+            if( !dbName || !dbAddress || !user ) {
+                alert( '请完整填写数据库信息' );return;
+            }
+        }
+        else {
+            alert( '请选择数据库类型 或 点击"直接进入下一步"' );return;
+        }
+        
+        var postData = {
+            dbType : dbType,
+            dbAddress : dbAddress,
+            dbName : dbName,
+            user : user,
+            pwd : pwd
+        };
+        
+        var _this = this;
+        $.post( '#{setConfigLink}'.toAjax(), postData, function(data) {
+            if( 'ok' == data ) {
+                slidePage(_this);
+            }
+            else {
+                alert( data );
+            }            
+        }); 
+
+        
+    
+    });
+    
+    $('#btnStep2').click( function() {
+        slidePage(this);
+    });
+    
+    $('#lnkNext').click( function() {
+        $( '#rdoAccess').click();
+        $('#btnStep1').click();
+        return false;
+    });
+
+    
+    //$('.btnNext').click( slidePage );
+    $('.btnPrev').click( slidePagePrev );
+    
+    //--------------------------数据库类型-----------------------------------------
+    $('#rdoAccess').click( function() {
+        $('.accessInfo').slideDown();
+        $('.sqlserverInfo').slideUp();
+        $('.mysqlInfo').slideUp();
+    });
+    
+    $('#rdoSqlServer').click( function() {
+        $('.accessInfo').slideUp();
+        $('.sqlserverInfo').slideUp();
+        $(this).parent().parent().after( $('#sqlserverInfo') );
+        $('.sqlserverInfo').slideDown();
+        $('.mysqlInfo').slideUp();
+    });
+    
+    $('#rdoSqlServer2000').click( function() {
+        $('.accessInfo').slideUp();
+        $('.sqlserverInfo').slideUp();
+        $(this).parent().parent().after( $('#sqlserverInfo') );
+        $('.sqlserverInfo').slideDown();
+        $('.mysqlInfo').slideUp();
+    });
+    
+    $('#rdoMysql').click( function() {
+        $('.accessInfo').slideUp();
+        $('.sqlserverInfo').slideUp();
+        $('.mysqlInfo').slideDown();
+    });
+
+});
+</script>
+
+</body>
+</html>

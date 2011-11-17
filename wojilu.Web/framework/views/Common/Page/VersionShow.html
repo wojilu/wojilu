@@ -1,0 +1,51 @@
+﻿<style type="text/css">
+
+#postContainer {background:#eee;}
+
+#postSidebar{	float:left; width:230px;  }
+	#postSidebar h4 {margin:20px;}
+	#postSidebar div {margin:5px 20px;}
+
+#postMain{margin:0px; padding:10px 10px 30px 10px; background:#fff;}
+
+	#postMain h4.postTitle{	font-size:18px; font-family:微软雅黑, Calibri; margin:5px; text-align:center}
+	#postMain .postInfo {	margin:5px 5px 10px 5px;font-size:12px;color:#666;  text-align:center}
+	#postMain .postContent {	margin:5px 5px 5px 5px;}
+
+</style>
+
+<div style="clear:both"></div>
+<div id="postContainer">
+
+	<!-- BEGIN sidebar -->
+	<div id="postSidebar">
+		<h4>#{category.Name}</h4>
+		<div>#{addCmd}</div>
+		#{tree}
+				
+	</div>
+	<style>#postMain {margin-left:230px; padding-bottom:60px;}</style>
+	<!-- END sidebar -->
+
+	<div id="postMain">
+		<h4 class="postTitle">#{postTitle}</h4>	
+		<div class="warning" style="width:95%; color:#666;">
+		这是本词条的历史版本，由 <a href="#{editorUrl}" target="_blank">#{post.EditUser.Name}</a> 于 #{post.Updated} 贡献，原因：#{post.EditReason}。<a href="#{pageLink}" style="margin-left:5px;">查看最新版本</a>
+		</div>
+		<div class="postContent">
+		    <div>#{post.Content}</div>		    
+		</div>
+
+	</div>
+	
+	<div style="clear:both"></div>
+</div>
+<div style="clear:both"></div>
+
+<script type="text/javascript">
+<!--
+$(document).ready( function() {
+	wojilu.ui.tree();
+});
+//-->
+</script>

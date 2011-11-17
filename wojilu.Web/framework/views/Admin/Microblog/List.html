@@ -1,0 +1,32 @@
+﻿<div style="width:98%;">
+
+		<table cellspacing="0" cellpadding="4" border="0" style="width: 100%;" id="dataAdminList" data-action="#{OperationUrl}">
+			<tr class="adminBar"><td colspan="4" style="padding-left:10px;">
+			<span class="btnCmd" cmd="delete"><img src="~img/delete.gif" /> _{delete}</span>
+			</td>		
+			</tr>
+			<tr class="tableHeader">
+		        <td align="center"><input id="selectAll" class="selectAll" type="checkbox" title="_{checkAll}" /></td>
+			    <td style="width:10%;">_{author}</td>
+				<td>_{content}</td>
+				<td style="width:14%;">_{created}</td>
+			</tr>
+			<!-- BEGIN list -->
+			<tr class="tableItems" id="mblog#{data.Id}">
+		        <td align="center">
+			        <input name="selectThis" id="checkbox#{data.Id}" type="checkbox" class="selectSingle">
+		        </td>
+
+				<td><a href="#{data.CreatorLink}" target="_blank">#{data.Creator}</a></td>
+				<td>#{data.Content}</td>
+				<td>#{data.Created}</td>
+			</tr>
+			<!-- END list -->
+			<tr>
+				<td colspan="4" class="adminPage">#{page}</td>
+			</tr>
+		</table>
+
+
+</div>
+

@@ -1,0 +1,455 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>9.0.21022</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{89187D8A-429C-4A28-8695-4EE2CA3352D5}</ProjectGuid>
+    <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>wojilu.cms.web</RootNamespace>
+    <AssemblyName>wojilu.cms.web</AssemblyName>
+    <TargetFrameworkVersion>v2.0</TargetFrameworkVersion>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <OldToolsVersion>3.5</OldToolsVersion>
+    <UpgradeBackupLocation />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Web" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="framework\config\log.config" />
+    <Content Include="framework\config\mvc.config" />
+    <Content Include="framework\config\orm.config" />
+    <Content Include="framework\config\route.config" />
+    <Content Include="framework\config\site.config" />
+    <Content Include="framework\lang\zh-cn\core.config" />
+    <Content Include="Web.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="default.aspx" />
+    <Content Include="framework\views\Admin\Article\Add.html" />
+    <Content Include="framework\views\Admin\Article\Edit.html" />
+    <Content Include="framework\views\Admin\Article\Index.html" />
+    <Content Include="framework\views\Admin\Article\List.html" />
+    <Content Include="framework\views\Admin\Article\LoopList.html" />
+    <Content Include="framework\views\Admin\Category\Add.html" />
+    <Content Include="framework\views\Admin\Category\Edit.html" />
+    <Content Include="framework\views\Admin\Category\Index.html" />
+    <Content Include="framework\views\Admin\Layout\Layout.html" />
+    <Content Include="framework\views\Admin\Login\Login.html" />
+    <Content Include="framework\views\Admin\User\Add.html" />
+    <Content Include="framework\views\Admin\User\Edit.html" />
+    <Content Include="framework\views\Admin\User\Index.html" />
+    <Content Include="framework\views\forward.html" />
+    <Content Include="framework\views\msg.html" />
+    <Content Include="framework\views\msgbox.html" />
+    <Content Include="Global.asax" />
+    <Content Include="static\css\wojilu.common.admin.css" />
+    <Content Include="static\css\wojilu.common.css" />
+    <Content Include="static\flash\mp3player.swf" />
+    <Content Include="static\flash\mp3player2.swf" />
+    <Content Include="static\flash\swfupload\default.css" />
+    <Content Include="static\flash\swfupload\fileprogress.js" />
+    <Content Include="static\flash\swfupload\handlers.js" />
+    <Content Include="static\flash\swfupload\images\btnSelect160-24.png" />
+    <Content Include="static\flash\swfupload\images\cancelbutton.gif" />
+    <Content Include="static\flash\swfupload\images\error.gif" />
+    <Content Include="static\flash\swfupload\images\header-bg.jpg" />
+    <Content Include="static\flash\swfupload\images\logo.gif" />
+    <Content Include="static\flash\swfupload\images\page_white_add.png" />
+    <Content Include="static\flash\swfupload\images\toobig.gif" />
+    <Content Include="static\flash\swfupload\images\uploadlimit.gif" />
+    <Content Include="static\flash\swfupload\images\XPButtonNoText_160x22.png" />
+    <Content Include="static\flash\swfupload\images\zerobyte.gif" />
+    <Content Include="static\flash\swfupload\plugins\SWFObject License.txt" />
+    <Content Include="static\flash\swfupload\plugins\swfupload.cookies.js" />
+    <Content Include="static\flash\swfupload\plugins\swfupload.queue.js" />
+    <Content Include="static\flash\swfupload\plugins\swfupload.speed.js" />
+    <Content Include="static\flash\swfupload\plugins\swfupload.swfobject.js" />
+    <Content Include="static\flash\swfupload\swfupload license.txt" />
+    <Content Include="static\flash\swfupload\swfupload.js" />
+    <Content Include="static\flash\swfupload\swfupload.swf" />
+    <Content Include="static\flash\swfupload\swfuploadbutton.swf" />
+    <Content Include="static\img\add.gif" />
+    <Content Include="static\img\addcategory.gif" />
+    <Content Include="static\img\adddoc1.gif" />
+    <Content Include="static\img\address.gif" />
+    <Content Include="static\img\addUser.gif" />
+    <Content Include="static\img\admin\app_back.gif" />
+    <Content Include="static\img\admin\grid-hrow-over.gif" />
+    <Content Include="static\img\admin\grid-hrow.gif" />
+    <Content Include="static\img\admin\gridtoolbar_back.gif" />
+    <Content Include="static\img\admin\headerbg.gif" />
+    <Content Include="static\img\admin\logoBg.gif" />
+    <Content Include="static\img\admin\menubg.gif" />
+    <Content Include="static\img\admin\sidebar_title.gif" />
+    <Content Include="static\img\admin\toolbar-hover.gif" />
+    <Content Include="static\img\admin\toolbar-hover2.gif" />
+    <Content Include="static\img\admin\windows\app_admin_link.gif" />
+    <Content Include="static\img\admin\windows\app_back.gif" />
+    <Content Include="static\img\admin\windows\form_back.gif" />
+    <Content Include="static\img\admin\windows\gridtoolbar_back.gif" />
+    <Content Include="static\img\admin\windows\headerbg.gif" />
+    <Content Include="static\img\admin\windows\logoBg.gif" />
+    <Content Include="static\img\admin\windows\menubg.gif" />
+    <Content Include="static\img\admin\windows\sidebar_title.gif" />
+    <Content Include="static\img\admin\windows\toolbar_hover.gif" />
+    <Content Include="static\img\ajax\big.gif" />
+    <Content Include="static\img\ajax\error.gif" />
+    <Content Include="static\img\ajax\error2.gif" />
+    <Content Include="static\img\ajax\handle.gif" />
+    <Content Include="static\img\ajax\loading.gif" />
+    <Content Include="static\img\ajax\ok.gif" />
+    <Content Include="static\img\arrowRight.gif" />
+    <Content Include="static\img\attachment.gif" />
+    <Content Include="static\img\back.gif" />
+    <Content Include="static\img\bg.gif" />
+    <Content Include="static\img\big\help.png" />
+    <Content Include="static\img\big\lock.gif" />
+    <Content Include="static\img\category.gif" />
+    <Content Include="static\img\close.gif" />
+    <Content Include="static\img\cmd.gif" />
+    <Content Include="static\img\cmdHover.gif" />
+    <Content Include="static\img\combine.gif" />
+    <Content Include="static\img\control.gif" />
+    <Content Include="static\img\delete.gif" />
+    <Content Include="static\img\delete.png" />
+    <Content Include="static\img\deleteUser.gif" />
+    <Content Include="static\img\dn.gif" />
+    <Content Include="static\img\doc.gif" />
+    <Content Include="static\img\doc2.gif" />
+    <Content Include="static\img\down.gif" />
+    <Content Include="static\img\download.gif" />
+    <Content Include="static\img\downWhite.gif" />
+    <Content Include="static\img\draft.gif" />
+    <Content Include="static\img\edit.gif" />
+    <Content Include="static\img\favcenter.png" />
+    <Content Include="static\img\feedback.gif" />
+    <Content Include="static\img\female.gif" />
+    <Content Include="static\img\folder.gif" />
+    <Content Include="static\img\foot.gif" />
+    <Content Include="static\img\friend.gif" />
+    <Content Include="static\img\help.gif" />
+    <Content Include="static\img\home.gif" />
+    <Content Include="static\img\image.gif" />
+    <Content Include="static\img\img.gif" />
+    <Content Include="static\img\info.gif" />
+    <Content Include="static\img\key.gif" />
+    <Content Include="static\img\key1.gif" />
+    <Content Include="static\img\left.gif" />
+    <Content Include="static\img\lightbox\close.gif" />
+    <Content Include="static\img\lightbox\title-bg.gif" />
+    <Content Include="static\img\link.gif" />
+    <Content Include="static\img\list.gif" />
+    <Content Include="static\img\mail\draft.gif" />
+    <Content Include="static\img\mail\inbox.gif" />
+    <Content Include="static\img\mail\mail.gif" />
+    <Content Include="static\img\mail\new.gif" />
+    <Content Include="static\img\mail\sent.gif" />
+    <Content Include="static\img\mail\trash.gif" />
+    <Content Include="static\img\mail\unread.gif" />
+    <Content Include="static\img\male.gif" />
+    <Content Include="static\img\msg.gif" />
+    <Content Include="static\img\new.gif" />
+    <Content Include="static\img\next.gif" />
+    <Content Include="static\img\ok.gif" />
+    <Content Include="static\img\oks.gif" />
+    <Content Include="static\img\online.gif" />
+    <Content Include="static\img\pick.gif" />
+    <Content Include="static\img\plus.gif" />
+    <Content Include="static\img\point.gif" />
+    <Content Include="static\img\profile.gif" />
+    <Content Include="static\img\publish.gif" />
+    <Content Include="static\img\quoteBegin.gif" />
+    <Content Include="static\img\quoteEnd.gif" />
+    <Content Include="static\img\refresh.gif" />
+    <Content Include="static\img\reply.gif" />
+    <Content Include="static\img\right.gif" />
+    <Content Include="static\img\rss.gif" />
+    <Content Include="static\img\search.gif" />
+    <Content Include="static\img\sectionTitleBg.gif" />
+    <Content Include="static\img\security.gif" />
+    <Content Include="static\img\share.gif" />
+    <Content Include="static\img\share2.gif" />
+    <Content Include="static\img\star\rank1.gif" />
+    <Content Include="static\img\star\rank2.gif" />
+    <Content Include="static\img\star\st05.gif" />
+    <Content Include="static\img\star\st12.gif" />
+    <Content Include="static\img\stats.gif" />
+    <Content Include="static\img\sticky.gif" />
+    <Content Include="static\img\SubRss.gif" />
+    <Content Include="static\img\tabbg.gif" />
+    <Content Include="static\img\talk.gif" />
+    <Content Include="static\img\tools.gif" />
+    <Content Include="static\img\trash.gif" />
+    <Content Include="static\img\tree\collapse.gif" />
+    <Content Include="static\img\tree\expand.gif" />
+    <Content Include="static\img\tree\node.gif" />
+    <Content Include="static\img\tree\style0\collapse.gif" />
+    <Content Include="static\img\tree\style0\expand.gif" />
+    <Content Include="static\img\tree\style0\node.gif" />
+    <Content Include="static\img\tree\style1\collapse.gif" />
+    <Content Include="static\img\tree\style1\expand.gif" />
+    <Content Include="static\img\tree\style1\node.gif" />
+    <Content Include="static\img\tree\style2\collapse.gif" />
+    <Content Include="static\img\tree\style2\expand.gif" />
+    <Content Include="static\img\tree\style2\node.gif" />
+    <Content Include="static\img\up.gif" />
+    <Content Include="static\img\upload.gif" />
+    <Content Include="static\img\user.gif" />
+    <Content Include="static\img\users.gif" />
+    <Content Include="static\img\write.gif" />
+    <Content Include="static\img\xml.gif" />
+    <Content Include="static\img\XmlRss2.gif" />
+    <Content Include="static\js\editor\editor.js" />
+    <Content Include="static\js\editor\skin\em\001.gif" />
+    <Content Include="static\js\editor\skin\em\002.gif" />
+    <Content Include="static\js\editor\skin\em\003.gif" />
+    <Content Include="static\js\editor\skin\em\004.gif" />
+    <Content Include="static\js\editor\skin\em\005.gif" />
+    <Content Include="static\js\editor\skin\em\006.gif" />
+    <Content Include="static\js\editor\skin\em\007.gif" />
+    <Content Include="static\js\editor\skin\em\008.gif" />
+    <Content Include="static\js\editor\skin\em\009.gif" />
+    <Content Include="static\js\editor\skin\em\010.gif" />
+    <Content Include="static\js\editor\skin\em\011.gif" />
+    <Content Include="static\js\editor\skin\em\012.gif" />
+    <Content Include="static\js\editor\skin\em\013.gif" />
+    <Content Include="static\js\editor\skin\em\014.gif" />
+    <Content Include="static\js\editor\skin\em\015.gif" />
+    <Content Include="static\js\editor\skin\em\016.gif" />
+    <Content Include="static\js\editor\skin\em\017.gif" />
+    <Content Include="static\js\editor\skin\em\018.gif" />
+    <Content Include="static\js\editor\skin\em\019.gif" />
+    <Content Include="static\js\editor\skin\em\020.gif" />
+    <Content Include="static\js\editor\skin\em\021.gif" />
+    <Content Include="static\js\editor\skin\em\0211.gif" />
+    <Content Include="static\js\editor\skin\em\022.gif" />
+    <Content Include="static\js\editor\skin\em\023.gif" />
+    <Content Include="static\js\editor\skin\em\024.gif" />
+    <Content Include="static\js\editor\skin\em\025.gif" />
+    <Content Include="static\js\editor\skin\em\026.gif" />
+    <Content Include="static\js\editor\skin\em\027.gif" />
+    <Content Include="static\js\editor\skin\em\028.gif" />
+    <Content Include="static\js\editor\skin\em\029.gif" />
+    <Content Include="static\js\editor\skin\em\030.gif" />
+    <Content Include="static\js\editor\skin\em\031.gif" />
+    <Content Include="static\js\editor\skin\em\032.gif" />
+    <Content Include="static\js\editor\skin\em\033.gif" />
+    <Content Include="static\js\editor\skin\em\034.gif" />
+    <Content Include="static\js\editor\skin\em\035.gif" />
+    <Content Include="static\js\editor\skin\em\036.gif" />
+    <Content Include="static\js\editor\skin\em\037.gif" />
+    <Content Include="static\js\editor\skin\em\038.gif" />
+    <Content Include="static\js\editor\skin\em\039.gif" />
+    <Content Include="static\js\editor\skin\em\040.gif" />
+    <Content Include="static\js\editor\skin\em\041.gif" />
+    <Content Include="static\js\editor\skin\em\042.gif" />
+    <Content Include="static\js\editor\skin\em\043.gif" />
+    <Content Include="static\js\editor\skin\em\044.gif" />
+    <Content Include="static\js\editor\skin\em\045.gif" />
+    <Content Include="static\js\editor\skin\em\046.gif" />
+    <Content Include="static\js\editor\skin\em\047.gif" />
+    <Content Include="static\js\editor\skin\em\048.gif" />
+    <Content Include="static\js\editor\skin\em\049.gif" />
+    <Content Include="static\js\editor\skin\em\050.gif" />
+    <Content Include="static\js\editor\skin\em\051.gif" />
+    <Content Include="static\js\editor\skin\em\052.gif" />
+    <Content Include="static\js\editor\skin\em\053.gif" />
+    <Content Include="static\js\editor\skin\em\054.gif" />
+    <Content Include="static\js\editor\skin\em\055.gif" />
+    <Content Include="static\js\editor\skin\em\056.gif" />
+    <Content Include="static\js\editor\skin\em\057.gif" />
+    <Content Include="static\js\editor\skin\em\058.gif" />
+    <Content Include="static\js\editor\skin\em\059.gif" />
+    <Content Include="static\js\editor\skin\em\060.gif" />
+    <Content Include="static\js\editor\skin\em\061.gif" />
+    <Content Include="static\js\editor\skin\em\062.gif" />
+    <Content Include="static\js\editor\skin\em\063.gif" />
+    <Content Include="static\js\editor\skin\em\064.gif" />
+    <Content Include="static\js\editor\skin\em\065.gif" />
+    <Content Include="static\js\editor\skin\em\066.gif" />
+    <Content Include="static\js\editor\skin\em\067.gif" />
+    <Content Include="static\js\editor\skin\em\068.gif" />
+    <Content Include="static\js\editor\skin\em\069.gif" />
+    <Content Include="static\js\editor\skin\em\1120.gif" />
+    <Content Include="static\js\editor\skin\em\117.gif" />
+    <Content Include="static\js\editor\skin\em\261.gif" />
+    <Content Include="static\js\editor\skin\em\close.gif" />
+    <Content Include="static\js\editor\skin\em\shocked.gif" />
+    <Content Include="static\js\editor\skin\em\smile.gif" />
+    <Content Include="static\js\editor\skin\em\tongue.gif" />
+    <Content Include="static\js\editor\skin\em\z035.gif" />
+    <Content Include="static\js\editor\skin\style.css" />
+    <Content Include="static\js\editor\skin\toolbar\about.gif" />
+    <Content Include="static\js\editor\skin\toolbar\align.gif" />
+    <Content Include="static\js\editor\skin\toolbar\align1.gif" />
+    <Content Include="static\js\editor\skin\toolbar\backcolor.gif" />
+    <Content Include="static\js\editor\skin\toolbar\bg.gif" />
+    <Content Include="static\js\editor\skin\toolbar\bold.gif" />
+    <Content Include="static\js\editor\skin\toolbar\copy.gif" />
+    <Content Include="static\js\editor\skin\toolbar\createlink.gif" />
+    <Content Include="static\js\editor\skin\toolbar\cut.gif" />
+    <Content Include="static\js\editor\skin\toolbar\date.gif" />
+    <Content Include="static\js\editor\skin\toolbar\delete.gif" />
+    <Content Include="static\js\editor\skin\toolbar\dent.gif" />
+    <Content Include="static\js\editor\skin\toolbar\down.gif" />
+    <Content Include="static\js\editor\skin\toolbar\em.gif" />
+    <Content Include="static\js\editor\skin\toolbar\emotion.gif" />
+    <Content Include="static\js\editor\skin\toolbar\flash.gif" />
+    <Content Include="static\js\editor\skin\toolbar\fontFamily.gif" />
+    <Content Include="static\js\editor\skin\toolbar\fontsize.gif" />
+    <Content Include="static\js\editor\skin\toolbar\forecolor.gif" />
+    <Content Include="static\js\editor\skin\toolbar\help.gif" />
+    <Content Include="static\js\editor\skin\toolbar\hr.gif" />
+    <Content Include="static\js\editor\skin\toolbar\indent.gif" />
+    <Content Include="static\js\editor\skin\toolbar\inserthorizontalrule.gif" />
+    <Content Include="static\js\editor\skin\toolbar\insertorderedlist.gif" />
+    <Content Include="static\js\editor\skin\toolbar\insertunorderedlist.gif" />
+    <Content Include="static\js\editor\skin\toolbar\italic.gif" />
+    <Content Include="static\js\editor\skin\toolbar\justifycenter.gif" />
+    <Content Include="static\js\editor\skin\toolbar\justifyfull.gif" />
+    <Content Include="static\js\editor\skin\toolbar\justifyleft.gif" />
+    <Content Include="static\js\editor\skin\toolbar\justifyright.gif" />
+    <Content Include="static\js\editor\skin\toolbar\layer.gif" />
+    <Content Include="static\js\editor\skin\toolbar\link.gif" />
+    <Content Include="static\js\editor\skin\toolbar\list.gif" />
+    <Content Include="static\js\editor\skin\toolbar\media.gif" />
+    <Content Include="static\js\editor\skin\toolbar\numberedlist.gif" />
+    <Content Include="static\js\editor\skin\toolbar\outdent.gif" />
+    <Content Include="static\js\editor\skin\toolbar\paste.gif" />
+    <Content Include="static\js\editor\skin\toolbar\pic.gif" />
+    <Content Include="static\js\editor\skin\toolbar\preview.gif" />
+    <Content Include="static\js\editor\skin\toolbar\print.gif" />
+    <Content Include="static\js\editor\skin\toolbar\real.gif" />
+    <Content Include="static\js\editor\skin\toolbar\redo.gif" />
+    <Content Include="static\js\editor\skin\toolbar\removeformat.gif" />
+    <Content Include="static\js\editor\skin\toolbar\replace.gif" />
+    <Content Include="static\js\editor\skin\toolbar\right.gif" />
+    <Content Include="static\js\editor\skin\toolbar\right2.gif" />
+    <Content Include="static\js\editor\skin\toolbar\selectall.gif" />
+    <Content Include="static\js\editor\skin\toolbar\separator.gif" />
+    <Content Include="static\js\editor\skin\toolbar\source.gif" />
+    <Content Include="static\js\editor\skin\toolbar\strikethrough.gif" />
+    <Content Include="static\js\editor\skin\toolbar\subscript.gif" />
+    <Content Include="static\js\editor\skin\toolbar\superscript.gif" />
+    <Content Include="static\js\editor\skin\toolbar\symbol.gif" />
+    <Content Include="static\js\editor\skin\toolbar\table.gif" />
+    <Content Include="static\js\editor\skin\toolbar\time.gif" />
+    <Content Include="static\js\editor\skin\toolbar\title.gif" />
+    <Content Include="static\js\editor\skin\toolbar\toolbar.start.gif" />
+    <Content Include="static\js\editor\skin\toolbar\underline.gif" />
+    <Content Include="static\js\editor\skin\toolbar\undo.gif" />
+    <Content Include="static\js\editor\skin\toolbar\unlink.gif" />
+    <Content Include="static\js\editor\skin\toolbar\unorderedlist.gif" />
+    <Content Include="static\js\jquery.cookie.pack.js" />
+    <Content Include="static\js\jquery.drag.js" />
+    <Content Include="static\js\jquery.js" />
+    <Content Include="static\js\lang.zh-cn.js" />
+    <Content Include="static\js\lang.zh-tw.js" />
+    <Content Include="static\js\wojilu.common.admin.js" />
+    <Content Include="static\js\wojilu.common.js" />
+    <Content Include="static\js\wojilu.frame.js" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="framework\config\SystemConfig.config" />
+    <Content Include="framework\views\Admin\Config\Index.html" />
+    <Content Include="framework\views\Admin\File\Index.html" />
+    <Content Include="framework\views\Admin\Footer\Add.html" />
+    <Content Include="framework\views\Admin\Footer\Edit.html" />
+    <Content Include="framework\views\Admin\Footer\Index.html" />
+    <Content Include="framework\views\Article\Layout.html" />
+    <Content Include="framework\views\Article\Show.html" />
+    <Content Include="framework\views\Category\Show.html" />
+    <Content Include="framework\views\Category\List.html" />
+    <Content Include="framework\views\Category\ListContent.html" />
+    <Content Include="framework\views\Footer\Show.html" />
+    <Content Include="framework\views\Layout\Layout.html" />
+    <Content Include="framework\views\Main\Index.html" />
+    <Content Include="framework\views\Post\Index.html" />
+    <Content Include="static\css\wojilu.cms.css" />
+    <Content Include="static\img\site\arrow.gif" />
+    <Content Include="static\img\site\bg.jpg" />
+    <Content Include="static\img\site\big_icon.png" />
+    <Content Include="static\img\site\bt_a.jpg" />
+    <Content Include="static\img\site\clear.gif" />
+    <Content Include="static\img\site\csstemplatesmarket.gif" />
+    <Content Include="static\img\site\header_bg.jpg" />
+    <Content Include="static\img\site\html_bg.jpg" />
+    <Content Include="static\img\site\icon1.png" />
+    <Content Include="static\img\site\icon2.png" />
+    <Content Include="static\img\site\icon3.png" />
+    <Content Include="static\img\site\logo.gif" />
+    <Content Include="static\img\site\menu_bg.jpg" />
+    <Content Include="static\img\site\phone_icon.gif" />
+    <Content Include="static\img\site\quotes_left.gif" />
+    <Content Include="static\img\site\quotes_right.gif" />
+    <Content Include="static\img\site\tab_bg.gif" />
+    <Content Include="static\img\site\tab_bg.jpg" />
+    <Content Include="static\img\site\tab_bg.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\wojilu.cms\wojilu.cms.csproj">
+      <Project>{09C82AE7-8C74-4B5B-AD20-040357E4BA04}</Project>
+      <Name>wojilu.cms</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="framework\data\" />
+    <Folder Include="framework\log\" />
+    <Folder Include="Properties\" />
+    <Folder Include="static\upload\image\" />
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>False</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>2575</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>
+          </IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+</Project>

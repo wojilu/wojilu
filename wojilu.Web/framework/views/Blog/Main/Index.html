@@ -1,0 +1,38 @@
+﻿	<div class="sectionPanel cpPanel">
+		<div class="sectionTitle">:{blogUserRank}</div>
+		<ul id="userRank">
+			<!-- BEGIN users -->
+			<li class="userItem"><a href="#{user.Link}"><img src="#{user.Face}"/></a><div><a href="#{user.Link}">#{user.Name}</a></div></li><!-- END users -->
+		</ul>
+		<div class="clear"></div>
+	</div>
+		
+		
+	<div id="blogSearchPanel" class="sectionPanel ">
+	<form method="get" action="#{recentLink}">
+	:{blogSearch}: <input name="qword" type="text" /> #{droplist} <input name="Submit1" type="submit" value=":{quickSearch}" />
+	<a href="#{recentLink}" style="margin-left:10px;font-size:12px;">_{all}...</a>
+	</form>
+	</div>	
+
+	<div class="cpPanel">
+		<div class="sectionTitle">
+		    <div style="float:left;">:{newBlog}</div>
+		    <div style="float:right"><a href="#{recentLink2}">_{more}...</a></div>
+		    <div class="clear"></div>
+		</div>
+		
+		<!-- BEGIN list -->	
+		<table class="blogIndexItem">
+			<tr>
+				<td style="width:15%;padding:10px 5px 5px 5px;vertical-align:top">#{post.Face}</td>
+				<td style="width:85%">
+				<div class="cpPostTitle"><a href="#{post.LinkShow}">#{post.Title}</a></div>				
+				<div class="bmContent">#{post.Abstract}</div>
+				<div class="bmTime">#{post.Created}</div>
+				</td>
+			</tr>
+		</table>	
+		<!-- END list -->
+		<div style="text-align:right"><a href="#{recentLink2}">_{more}...</a></div>
+	</div>

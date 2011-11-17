@@ -1,0 +1,33 @@
+﻿<style>
+.max100 {max-width:100px; max-height:100px;width:expression(width>100?"100px":width+"px");height:expression(height>100?"100px":height+"px");}
+</style>
+
+<table cellspacing="0" cellpadding="2" border="0" style="width: 100%;margin-top:10px;" id="dataAdminList" data-action="#{ActionLink}">
+<tr class="adminBar"><td><input id="selectAll" class="selectAll" type="checkbox" title="_{checkAll}" /> _{checkAll}
+    <span style="margin:0px 5px 0px 10px;">#{adminDropCategoryList}</span>
+</td>
+<td style="text-align:right;"><span id="btnDeleteTrue" class="btnCmd" cmd="deletetrue"><img src="~img/delete.gif" /> _{deleteTrue}</span></td>
+</tr>
+
+<tr><td colspan="2">	
+
+	    <!-- BEGIN list -->
+		<div style=" float:left;display:inline;width:125px;height:140px;margin:7px; padding:5px; text-align:center;color:#666; background:#f2f2f2; border:0px #ccc solid;">
+		    <div>
+			<input name="selectThis" id="checkbox#{data.Id}" type="checkbox">
+			<label for="checkbox#{data.Id}">#{data.Title}</label>
+			
+			<br/>
+			<a href="#{data.Url}" target="_blank"><img src="#{data.ImgThumbUrl}" class="photoThumb max100"  /></a><br />
+			<a href="#{data.EditUrl}" class="font10 frmBox" title="_{edit}">_{edit}</a>
+			</div>		
+		</div>
+	    <!-- END list -->
+	    <div class="clear"></div>
+</td></tr>
+
+<tr><td class="adminPage" colspan="2">#{page}</td></tr>
+
+</table>
+
+

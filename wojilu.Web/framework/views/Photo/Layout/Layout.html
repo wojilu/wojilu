@@ -1,0 +1,53 @@
+﻿<div style="padding-top:1px;">
+    <div id="adminTool" class="appAdminTool" style="padding:0px;display:none;">
+        <div style="padding:8px 25px 0px 0px; float:right;">
+        <a href="#{adminUrl}" class="frmLink btnBig" loadTo="appMainContainer" nolayout=1><img src="~img/s/star.png" /> 管理当前程序</a>
+        </div><div class="clear"></div>        
+    </div>
+
+</div>
+
+<div class="sideBar" id="photoSidebar" style="">
+	<div class="sideBarContainer" style="margin:0px;border:0px red solid; padding:10px 10px 10px 0px;">
+	
+		<div class="sideBarPanel">
+			<div class="sideBarTitle" style=" margin-bottom:15px; font-size:20px; background1:#f2f2f2;">_{album}</div>
+			<ul class="sideBarList" style="margin-right:20px;">
+				<!-- BEGIN list --><li style="text-align:center;margin-bottom:10px;"><a href="#{category.Url}" style="color:#666;"><img src="#{category.Cover}" style="width:40px;" /><br />#{category.Title}</a></li><!-- END list -->
+			</ul>
+		</div>
+		
+		<div class="sideBarPanel">
+			<div class="sideBarTitle" style=" background1:#f2f2f2;">_{newComment}</div>
+			<ul class="sideBarList">
+				<!-- BEGIN comment --><li><a href="#{comment.Url}">#{comment.Title}</a></li><!-- END comment -->
+				<li class="sideBarMore">#{commentMoreLink}</li>
+			</ul>			
+		</div>	
+	
+	</div>
+</div>
+	
+<div class="appMain">
+	<div class="appMainContainer" id="appMainContainer">
+		#{layout_content}
+	</div>
+</div>
+<div class="clear"></div>
+
+
+<script>
+$(document).ready( function() {
+    
+    var showAdminTool = function() {
+        if( typeof(ctx) == 'undefined' ) return;
+        if( ctx.viewer.IsLogin && ctx.viewerOwnerSame  ) {
+            $('#adminTool').show();
+        }
+    };
+    
+    wojilu.site.load( showAdminTool );
+
+    wojilu.ui.frmLink();
+});
+</script>

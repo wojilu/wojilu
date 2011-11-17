@@ -1,0 +1,63 @@
+﻿
+<script type="text/javascript">
+<!--
+$(document).ready( function() {
+    
+	$('#chkMore').click( function() {
+	    $('#morePanel').toggle();
+	});
+});
+//-->
+</script>
+<div style="margin:15px;height:300px;">
+
+
+	<form method="post" action="#{ActionLink}">
+	<table style="width: 98%">
+		<tr>
+			<td style="width:60px">:{itsSection}</td>
+			<td><strong>#{module.Name}</strong></td>
+		</tr>
+		<tr>
+			<td style="vertical-align:top">:{talkContent}</td>
+			<td><textarea name="Content" style="width: 550px; height: 88px" class="tipInput" tip=":{talkContentTip}">#{post.Content}</textarea><span class="valid" mode="border"></span></td>
+		</tr>
+		<tr>
+			<td>:{talker}</td>
+			<td><input name="Title" type="text" style="width: 450px" value="#{post.Title}" class="tipInput" tip=":{talkTip}"><span class="valid" mode="border"></span></td>
+		</tr>
+		<tr>
+			<td>:{srcUrl}</td>
+			<td><input name="SourceLink" type="text" size="20" style="width: 550px" value="#{post.SourceLink}" class="tipInput" tip=":{talkSrcTip}"><span class="valid" mode="border"></span></td>
+		</tr>
+		
+		<tr>
+			<td>&nbsp;<input type="hidden" name="ModuleId" value="#{module.Id}" /></td>
+			<td>
+			    <input name="Submit1" type="submit" value=":{editData}" class="btn">
+			    <input type="button" value="_{cancel}" class="btnCancel" />
+		        <input name="Checkbox1" type="checkbox" id="chkMore" class="left10" /><label id="Label1" for="chkMore"> _{more}...</label>
+		
+			</td>
+		</tr>
+	</table>
+	
+	<table class="morePanel" id="morePanel" style="width:98%;display:none;">
+		<tr>
+			<td style="width:60px">_{orderId}</td>
+			<td><input name="OrderId" type="text" size="20" style="width: 30px" value="0" value="#{post.OrderId}">&nbsp;
+			</td>
+		</tr>
+		<tr>
+			<td>:{titleStyle}</td>
+			<td><textarea name="Style" style="width: 550px; height: 50px">#{post.Style}</textarea><br />
+			<span class="note">(:{cssRequired})</span>
+			</td>
+		</tr>			
+	</table>
+
+	
+	</form>
+
+
+</div>

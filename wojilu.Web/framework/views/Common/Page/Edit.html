@@ -1,0 +1,64 @@
+﻿<style type="text/css">
+
+#postContainer {background:#eee;}
+
+
+</style>
+
+<div style="clear:both"></div>
+<div id="postContainer">
+
+    <div style="padding:30px;">
+
+			<form action="#{ActionLink}" method="post" class="ajaxPostForm">
+				<table style="width: 100%">
+					<tr>
+						<td style="width:80px;">_{pageTitle}</td>
+						<td>
+						<input name="Title" style="width: 500px;" type="text" value="#{title}" /><span class="valid"></span></td>
+					</tr>
+					<tr>
+						<td>_{content}</td>
+						<td>#{Editor}</td>
+					</tr>
+					<tr>
+					    <td>编辑原因</td>
+					    <td>
+                            <input name="editReason" type="text" style="width:500px;" class="tipInput" tip="请输入编辑原因" /><span class="valid"></span></td>
+					</tr>
+					<tr>
+						<td></td>
+						<td><input type="submit" value="_{editPage}" class="btn" />
+						<span id="btnCancel" class="link left20">放弃返回</span>
+						</td>
+					</tr>
+				</table>
+			</form>
+			
+		</div>
+</div>
+
+<script>
+$(document).ready( function() {
+    wojilu.ui.pageReturn();
+    wojilu.ui.tip();
+    wojilu.ui.valid();
+    wojilu.ui.ajaxPostForm();
+    
+    var pingServer = function() {
+	    $.post( '#{pingUrl}'.toAjax(), function(data) {
+	    });
+	};
+	
+	pingServer();
+    
+	setInterval( pingServer, 1000*30 ); // 每隔30秒刷新一下服务器
+	
+	$('#btnCancel').click( function() {
+	    $.post( '#{cancelUrl}'.toAjax(), function(data) {
+	        wojilu.tool.forward( '#{showUrl}', 0 );
+	    });
+	});
+
+});
+</script>

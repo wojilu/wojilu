@@ -1,0 +1,27 @@
+﻿
+<div style="padding:10px 5px 10px 10px;">
+
+    <style>
+    .pollOptions td {padding:2px 10px; }
+    </style>
+
+	<table style="margin:0px;width:100%;" class="tabHeader" cellpadding="0" cellspacing="0">
+		<tr>
+			<td id="tabFriends" class="otherTab"><a href="#{friendsPollLink}" class="frmLink" loadTo="pollMain" nolayout=4><img src="~img/list.gif" /> _{friendPoll}</a></td>
+			<td id="tabMy" class="otherTab"><a href="#{myPollLink}" class="frmLink" loadTo="pollMain" nolayout=4><img src="~img/list.gif" /> _{myPoll}</a></td>
+			<td id="tabAdd" class="otherTab"><a href="#{addPollLink}" class="frmLink" loadTo="pollMain" nolayout=4><img src="~img/add.gif" /> _{addPoll}</a></td>
+			<td class="otherTab" style="width:50%;">&nbsp;</td>
+		</tr>
+	</table>
+	<div style="width:100%;padding:0px;margin:0px; background:#fff;" class="tabMain">
+		
+		<table style="width: 100%">
+			<tr>
+				<td style="padding:10px;" id="pollMain">#{layout_content}</td>
+			</tr>
+		</table>
+		
+		
+	</div>
+
+</div>

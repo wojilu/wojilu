@@ -1,0 +1,117 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+<title>#{pageTitle}</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="Pragma" content="no-cache" />
+<meta http-equiv="Expires" content="-1">
+<link href="~css/wojilu.common.css?v=#{cssVersion}" rel="stylesheet" type="text/css" />
+<link href="~css/wojilu.common.admin.css?v=#{cssVersion}" rel="stylesheet" type="text/css" />
+<link href="~css/jquery/ui-lightness/jquery-ui.custom.css?v=#{cssVersion}" rel="stylesheet" type="text/css" />
+<script src="~js/jquery.js?v=#{jsVersion}" type="text/javascript"></script>
+<script src="~js/jquery-ui.custom.js?v=#{jsVersion}" type="text/javascript"></script>
+<script src="~js/lang.#{langStr}.js?v=#{jsVersion}" type="text/javascript"></script>
+<script src="~js/wojilu.common.js?v=#{jsVersion}" type="text/javascript"></script>
+<script src="~js/wojilu.common.admin.js?v=#{jsVersion}" type="text/javascript"></script>
+<script src="~js/wojilu.site.js?v=#{jsVersion}" type="text/javascript"></script>
+
+<script type="text/javascript">
+<!--
+    $(document).ready( function() {
+        $('.adminContainer').height( $(window).height()-$('#headerWrap').height() -2  );
+	    setInterval( function() { $.post( '#{lostPage}', function() {});}, 1000*60*10 );	
+	    
+	    $('#appAdminItem').click( function() {
+	        $('#appAdmin').mouseover();
+	    });
+	    
+	    $('#userDataAdminItem').click( function() {
+	        $('#userDataAdmin').mouseover();
+	    });
+	    
+    });
+//-->
+</script>
+
+<style>
+
+#sidebarApps li {margin:0px 0px 0px 0px; padding-left:20px; height:38px;}
+#sidebarApps li a { border:0px;}
+#sidebarApps li a:hover { background:#fff; }
+#sidebarApps li:hover { background:#fff; }
+
+* html #sidebarApps {margin-left:20px;}
+* html #sidebarApps li {padding-left:0px;}
+
+#adminMenuList .menuItems { background:#fff;}
+#adminMenuList .menuItems li a{ color:#005eac;}
+#adminMenuList .menuItems li { float:none; text-align:left; padding-left:20px; font-size:14px; font-weight:bold; margin:5px 0px 5px 0px;}
+
+</style>
+
+</head>
+
+<body>
+
+<!--logo-->
+<table style='width:100%; height:38px; background:url("~img/admin/menu-bg-big.gif"); '>
+    <tr>
+       <td style="padding-left:20px;"><img src="~img/admin/logo.jpg" /></td>
+    </tr>
+</table>
+
+<!--navMenu-->
+<div id="adminHeaderWrap">
+
+    <div id="adminMenuWrap">
+
+	    <div id="adminMenu">
+	    
+	        <!--menus-->
+		    <div style="float:left">
+		    <ul id="adminMenuList">#{menus}</ul>			
+		    </div>
+		    
+		    <!--login/logout-->
+		    <div style="float:right; padding-top:12px;text-align:center;">
+		        <div style="margin-bottom:3px;">_{hello}, #{viewer.Name}</div>
+		        <div>
+		            <a href="~/" class="right10"><img src="~img/home.gif" />_{siteHome}</a>
+		            <a href="#{site.LogoutLink}"><img src="~img/s/logout.png" />_{logoutAdmin}</a>
+		        </div>		
+		    </div>
+		    <div class="clear"></div>
+	    </div>
+
+    </div>
+</div>
+
+<div id="adminMain" style="margin:0px;padding:0px;">
+
+<table border="1" cellpadding="0" cellspacing="0" class="adminContainer">
+	<tr>
+		<td class="adminSidebar">
+			<div class="adminSidebarTitle"><div class="adminSidebarTitleInternal">_{adminApp}</div></div>
+			
+			<ul id="sidebarApps"><!-- BEGIN apps --><li>#{app.NameAndUrl}</li><!-- END apps -->
+			</ul>
+			
+			<div style="border-bottom:1px #aaa dotted; margin:10px 0px 5px 0px;"></div>
+
+			<ul>
+			    <!-- BEGIN siteDataAdmin -->
+			    <li><a href="#{m.Link}" class="frmLink" loadto="adminMainBody" nolayout=1><img src="~img/s/#{m.Logo}.png"/> #{m.Name}</a></li><!-- END siteDataAdmin -->
+
+			</ul>
+		</td>
+		<td class="adminMain" id="adminMainBody">#{layout_content}</td>
+	</tr>
+</table>
+
+
+
+</div>
+
+</body>
+</html>

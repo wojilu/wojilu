@@ -1,0 +1,54 @@
+﻿<table id="uaContainer" cellpadding="0" cellspacing="0" border="0" >
+	<tr>
+		<td id="sidebar">
+		
+		    <table style="width:116px; margin:20px auto; margin-bottom:15px;" border="0" cellpadding="0" cellspacing="0">
+		        <tr><td style="width:53px;padding-right:5px;">
+		            <a href="#{owner.EditPic}" title="_{uploadFace}" class="frmLink" loadTo="uaMain" nolayout=1><img src="#{owner.Pic}" style="border:1px #ccc solid; padding:3px; border-radius:3px;" /></a>
+		        </td>
+		        <td style="vertical-align:top;">
+		            <div><a href="#{owner.EditProfile}" title="_{profile}" style="font-weight:bold;" class="frmLink" loadTo="uaMain" nolayout=1>#{owner.Name}</a></div>
+		            <div><a href="#{owner.EditProfile}" title="_{profile}" style="color:#666;" class="frmLink" loadTo="uaMain" nolayout=1>编辑资料</a></div>
+		        </td></tr>
+		        <tr><td colspan="2" style="text-align:center; padding-top:5px;" class="userToolbar">		        
+		            <a href="#{owner.EditProfile}" title="_{profile}" class="frmLink" loadTo="uaMain" nolayout=1><img src="~img/s/base.png"/></a>
+		            <a href="#{owner.EditContact}" title="_{contact}" class="frmLink" loadTo="uaMain" nolayout=1><img src="~img/s/address.png"/></a>
+		            <a href="#{owner.EditInterest}" title="_{interest}" class="frmLink" loadTo="uaMain" nolayout=1><img src="~img/s/interest.png"/></a>
+		            <a href="#{owner.EditPwd}" title="_{changePwd}" class="frmLink" loadTo="uaMain" nolayout=1><img src="~img/s/pwd.png"/></a>
+		        </td></tr>
+		    </table>
+		    <div style="border-top: 1px solid white;border-bottom: 1px solid #EBF1FA;"></div>
+		    
+			<ul style="margin-top:0px;">			
+			    <!-- BEGIN apps --><li style="border-top: 1px solid white;border-bottom: 1px solid #EBF1FA;">#{app.NameAndUrl}</li><!-- END apps -->    			
+			    <li style="#{groupLinkStyle}"><a href="#{groupLink}" class="frmLink" loadTo="uaMain" nolayout=3><img src="~img/app/m/group.png"/> _{group}</a></li>
+			</ul>
+		
+			<ul id="appSetting" style="margin-left:2px;">
+
+			<li style="#{appAdminStyle}"><a href="#{appAdminUrl}" class="frmLink" loadTo="uaMain" nolayout=3><img src="~img/app/s/settings.png"/> _{appAdmin}</a></li>
+			<li style="#{menuAdminStyle}"><a href="#{menuAdminUrl}" class="frmLink" loadTo="uaMain" nolayout=3><img src="~img/app/s/menus.png"/> _{menuAdmin}</a></li>
+			<li style="#{myUrlStyle}"><a href="#{myUrlList}" class="frmLink" loadTo="uaMain" nolayout=3><img src="~img/app/s/links.png"/> _{adminSiteUrl}</a></li>
+				
+			</ul>
+		
+		</td>
+		<td id="uaMain">#{layout_content}</td>
+	</tr>
+</table>
+
+<style>
+.currentNav { background:#fff;}
+</style>
+
+
+<script type="text/javascript">
+<!--
+$(document).ready( function() {
+    $('#sidebar a').click( function() {
+        $('#sidebar li').removeClass( 'currentNav' );
+        $(this).parent().addClass( 'currentNav' );
+    });
+});
+//-->
+</script>

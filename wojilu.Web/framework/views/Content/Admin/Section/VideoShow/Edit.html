@@ -1,0 +1,67 @@
+﻿<script type="text/javascript">
+$(document).ready( function() {
+    
+	$('#chkMore').click( function() {
+	    $('#morePanel').toggle();
+	});
+});
+</script>
+
+
+<div style="margin:15px;height:250px;">
+<form method="post" action="#{ActionLink}">
+<table style="width: 98%">
+	<tr>
+		<td style="width:80px">:{itsSection}</td>
+		<td><strong>#{module.Name}</strong></td>
+	</tr>
+	<tr>
+		<td>_{title}</td>
+		<td><input name="Title" type="text" style="width: 350px" value="#{post.Title}" class="tipInput" tip="_{exTitle}"><span class="valid" mode="border"></span></td>
+	</tr>
+			    <tr>
+				    <td>_{titleHome}</td>
+				    <td><input name="TitleHome" style="width: 350px" type="text" value="#{post.TitleHome}" ></td>
+			    </tr>
+	<tr>
+		<td>:{videoLink}</td>
+		<td>
+		<input name="SourceLink" type="text" style="width: 550px" value="#{post.SourceLink}" class="tipInput" tip=":{addVideoUrlValid}"><span class="valid" mode="border"></span></td>
+	</tr>
+	    <tr>
+		    <td>大小</td>
+		    <td>
+                <input name="Width" type="text" value="#{post.Width}" style="width:30px" />px(:{width})&nbsp;&nbsp;&nbsp;&nbsp;
+                <input name="Height" type="text" value="#{post.Height}" style="width:30px" />px(:{height})</td>
+	    </tr>
+	<tr>
+		<td>:{picUrl}</td>
+		<td>
+		<input name="ImgLink" type="text" size="20" style="width: 550px" value="#{post.ImgLink}" class="tipInput" tip=":{addVideoPicValid}"><span class="valid" mode="border"></span></td>
+	</tr>
+	<tr>
+		<td>&nbsp;<input type="hidden" name="ModuleId" value="#{module.Id}" /></td>
+		<td>
+		    <input name="Submit1" type="submit" value=":{editVideo}" class="btn">
+		    <input type="button" value="_{cancel}" class="btnCancel" />
+		    <input name="Checkbox1" type="checkbox" id="chkMore" class="left10" /><label id="Label1" for="chkMore"> _{more}...</label>	
+		</td>
+	</tr>
+</table>
+
+<table class="morePanel" id="morePanel" style="width:98%;display:none;">
+	<tr>
+		<td style="width:80px">_{orderId}</td>
+		<td><input name="OrderId" type="text" size="20" style="width: 30px" value="0" value="#{post.OrderId}">&nbsp;
+		</td>
+	</tr>
+	<tr>
+		<td>:{titleStyle}</td>
+		<td><textarea name="Style" style="width: 550px; height: 50px">#{post.Style}</textarea>
+		<span class="note">(:{cssRequired})</span>
+		</td>
+	</tr>			
+</table>
+
+</form>
+</div>

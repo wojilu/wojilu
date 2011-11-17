@@ -1,0 +1,35 @@
+﻿<table style="height :180px;width:100%;" cellpadding="0" cellspacing="0">
+	<tr>
+		<td style="width:70%; border-right:1px #ccc dotted;" valign="top">
+            <table style="height :180px;width:100%;" cellpadding="0" cellspacing="0">
+                <tr><td style="height:80px;vertical-align:top;">
+                    <div style="margin:5px;"><!-- BEGIN img -->
+                        <a href="#{ipost.Url}"><img src="#{ipost.ImgUrl}" style="float:left;margin-right:5px;width:#{ipost.Width}px;height:#{ipost.Height}px;" /></a>
+                        <div class="strong"><a href="#{ipost.Url}" style="font-size:14px;">#{ipost.Title}</a></div>
+                        <div class="note">#{ipost.Content}</div>
+                        <!-- END img -->
+                        <div class="clear"></div>
+                    </div>    
+                </td></tr>
+                <tr><td style="height:100px; vertical-align:top;">
+                    <table style=" width:100%;">
+                
+			            <!-- BEGIN list -->
+                        <tr><td style="font-size:14px;"><a href="#{post.Url}" title="#{post.TitleFull}" style="#{post.TitleCss}">#{post.Title}</a></td><td style="text-align:right;font-size:12px;" class="note">#{post.Author}</td></tr>
+			            <!-- END list -->
+                
+                    </table>
+
+
+                </td></tr>
+            </table>		
+		</td>
+		<td style="padding:0px; vertical-align:top;">		
+		<!-- BEGIN imgs -->
+		<div style="text-align:center; float:left; margin:10px;">
+		    <a href="#{img.Url}"><img src="#{img.Thumb}" style="width:#{img.Width}px;width:#{img.Height}px;" /></a><br/>
+		    <a href="#{img.Url}" title="#{img.TitleFull}" style="#{img.TitleCss}">#{img.Title}</a>
+		</div><!-- END imgs -->		
+		</td>
+	</tr>
+</table>

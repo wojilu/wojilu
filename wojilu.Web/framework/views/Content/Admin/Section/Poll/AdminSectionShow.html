@@ -1,0 +1,34 @@
+﻿<script>
+
+var opimgResize = 0.7;
+
+var resizePoll = function() {
+    var ctx = $('#poll#{section.Id}');
+    $('.onePollResult img', ctx).each( function() {
+        var width = $(this).width();
+        $(this).width( width*opimgResize );
+    });
+    $('.pollOptions', ctx).width( '99%' ).css( 'margin-left', '0px' );
+};
+
+$(document).ready( function() {
+    resizePoll();
+});
+
+</script>
+
+<table  class="sectionToolbar">
+    <tr><td class="cmdAdmin">
+        <a href="#{addLink}"  class="frmBox" xwidth="600" title=":{addPoll}">+:{addPoll}</a> 
+        <a href="#{listLink}" class="frmBox" xwidth="800">_{all}</a>
+    </td></tr>
+</table>
+
+<div style="margin:5px;" id="poll#{section.Id}">
+
+    <div class="strong">#{poll.Title}</div>
+    <div>#{poll.Question}</div>
+    <div>#{poll.Html}</div>
+
+</div>
+

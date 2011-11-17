@@ -1,0 +1,160 @@
+﻿<style>
+
+.postAdmin {display:none;}
+.cmdTag {display:none;}
+.editCmd { display:none;}
+.tagBar {margin-top:5px;}
+
+</style>
+<!-- BEGIN posts -->
+<table class="postOne" border="0">
+	<tr>
+		<td class="poMemberName"><a href="#{post.MemberUrl}">#{post.MemberName}</a></td>
+		<td class="poTitle">
+			<div class="poTitleL">
+			    <div style="float:left;"><img src="~img/doc.gif"/> <a href="#{post.PostUrl}" style="#{post.TitleStyle}" #{nofollow}>#{post.Title}</a></div>
+			    <div style="float:left; ">#{post.Admin}</div>			    
+			</div>
+			<div class="poTitleR">				
+				<span class="note" style="margin-right:10px;">:{postedAt}: #{post.CreateTime}</span> 
+				<a href="#{post.ReplyQuoteUrl}" rel="nofollow">_{quote}</a> 
+				<a href="#{post.ReplyUrl}" rel="nofollow">_{reply}</a> 
+				<a href="#{post.OnlyOneMember}" rel="nofollow">:{onlyThisUser}</a> 
+				<span class="note ">#{post.FloorNo}#</span><a name="post#{post.Id}"></a>
+				<a href="javascript:;" onclick="scrollTo(0,0);">TOP</a>
+			</div>
+		</td>
+	</tr>
+	<tr>
+		<td class="poMember" rowspan="2">			
+		
+			<div class="poFace"><a href="#{post.MemberUrl}">#{post.MemberFace}</a></div>			
+			<div class="poMemberInfo">
+				<div><strong>#{post.MemberRank}</strong> #{post.StarList}</div>
+				#{post.MemberTitle}
+				<div>_{gender}: #{post.MemberGender}</div>
+				#{post.IncomeList}
+				<div>:{postCount}: #{post.MemberPostCount}</div>
+				<div>:{userCreated}: #{post.MemberCreateTime}</div>
+				<div>:{lastLogin}: #{post.UserLastLogin}</div>
+			</div>
+			
+		</td>
+		<td class="poBody">
+			<div class="poBodyContainer">
+			    <div style="float:right; padding:10px;">#{post.AdBody}</div>
+				#{post.Body}
+			</div>
+		</td>
+	</tr>
+	<tr>
+	    <td style=" vertical-align:bottom;" class="poSignature">
+	    <table class="poSignatureTable">
+	        <tr>
+	            <td class="posL">#{post.UserSignature}</td>
+	            <td class="posR"><div class="shareCmd" data-title="#{post.TitleText}" data-url="#{post.PostFullUrl}"></div></td>
+	        </tr>
+	    </table>
+	    </td>
+	</tr>
+</table>
+<div class="forumPostAdWrap">#{adForumPosts}</div>
+<!-- END posts -->
+
+
+
+<style>
+    #tagBox div { margin:5px 0px;}
+    .poTitle .menuItems {width:100px;}
+</style>
+
+<div id="tagBox" class="ebox" style="width:280px; padding:10px; ">
+    <div>请输入tag(多个tag之间用逗号分隔)</div>
+    <div><input id="tagValue" type="text" style="width:250px;" /></div>
+    <div><input id="btnSaveTag" type="button" value="_{submit}" class="btn" />
+        <input id="tagCancel" type="button" value="_{cancel}" class="btnCancel" />
+        <input id="tagId" type="hidden" />
+    </div>
+</div>
+
+<script>
+    $(document).ready( function() {
+    
+        wojilu.tool.share(); // 启用分享功能
+    
+        var moderators = #{moderatorJson};
+        var creatorId = #{creatorId};
+        
+        var isModerator = function(name) {
+            for( var i=0;i<moderators.length;i++ ) {
+                if( moderators[i] == name ) return true;
+            }
+            return false;
+        };
+        
+        var showMTool = function() {
+
+            if( ctx.viewer.IsAdministrator || isModerator(ctx.viewer.obj.Name) ) {
+                $('.postAdmin').show();
+                $('.cmdTag').show();
+                
+                $('.postAdmin a').each( function() {
+                    $(this).attr( 'href', $(this).parent().attr( 'cmdurl' ) );
+                });
+            }
+            else{
+            
+                if( ctx.viewer.Id == creatorId ) {                
+                    $('.cmdTag').show();
+                }
+                
+                $('.editCmd').each( function() {
+                
+                    var thisCreatorId = parseInt( $(this).attr( 'data-creatorId' ) );
+                    if( thisCreatorId == ctx.viewer.Id ) $(this).show();
+                    
+                });
+                
+                
+           }
+           
+           
+           
+        };
+        
+        wojilu.site.load( showMTool );
+
+
+
+        $("#tagBox").draggable();
+        $('.cmdTag').click( function() {
+            var ps = $(this).position(); // 获取当前被点击的元素的位置
+            $('#tagBox').css( 'top', ps.top+20 ).css( 'left', ps.left ).toggle('fast'); // 通过绝对定位来显示图层
+            var tagValue = $(this).prev().text();
+            $('#tagValue').val( tagValue );
+            $('#tagId').val( $(this).prev().attr( 'id' ) );
+        });
+        
+        $('#tagCancel').click( function() {
+            $("#tagBox").toggle('fast');
+        });
+        
+        $('#btnSaveTag').click( function() {
+            var btn = $(this);
+            btn.attr( 'disabled', 'disabled' );
+            var tagValue = $('#tagValue').val();
+            var tagSpan = $( '#'+$('#tagId').val() );
+            var postId = tagSpan.attr( 'postId' );
+            $.post( '#{tagAction}'.toAjax(), {'postId':postId ,'tagValue':tagValue}, function(data) {
+                btn.attr( 'disabled', '' );
+                if( 'ok'==data ) {
+                    tagSpan.text( tagValue );
+                    $("#tagBox").toggle('fast');
+                }
+                else
+                    alert( data );
+            });
+        });
+
+    });
+</script>

@@ -1,0 +1,44 @@
+﻿
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" >
+<head>
+    <title>用户登录</title>
+    <link href="~css/wojilu.common.css?v=#{cssVersion}" rel="stylesheet" type="text/css" />
+    <link href="~css/wojilu.common.admin.css?v=#{cssVersion}" rel="stylesheet" type="text/css" />
+    <script src="~js/jquery.js?v=#{jsVersion}" type="text/javascript"></script>
+    <script src="~js/lang.#{langStr}.js?v=#{jsVersion}" type="text/javascript"></script>
+    <script src="~js/wojilu.common.js?v=#{jsVersion}" type="text/javascript"></script>
+    <script src="~js/wojilu.common.admin.js?v=#{jsVersion}" type="text/javascript"></script>    
+<style>
+    
+#title, form, #login, #submit {width:550px;margin:auto; }
+#title {margin-top:50px; margin-bottom:30px; text-align:center; font-size:32px; font-weight:bold; font-family:微软雅黑; }
+
+#login { border-collapse:collapse;}
+#login td { font-size:22px; padding:5px; line-height:150%;  border:1px #aaa solid;}
+#login input { height:25px; font-size:20px;}
+
+#submit {text-align:center; margin-top:10px;}
+#submit input { height:32px;font-size:20px; width:150px; margin-right:10px}
+
+#userpwd { text-align:center; margin-bottom:10px;}
+#userpwd span{color:Red; font-weight:bold; }
+
+</style>    
+</head>
+<body>
+    <div id="title">用户登录</div>
+    <form method="post" action="#{ActionLink}">
+        <div id="userpwd">用户名:<span>张三</span> 密码:<span>1234</span></div>
+        <table id="login">
+            <tr><td align="right">用户名</td><td><input name="name" type="text" /></td></tr>
+            <tr><td align="right">密 码</td><td><input name="pwd" type="password" /></td></tr>
+            <tr><td>验证码</td><td>#{vcode}</td></tr>
+        </table>
+        <div id="submit"><input type="submit" value="登录系统" class="btn" /> <a href="~/">首页</a></div>
+        <div><input type="hidden" name="returnUrl" value="#{returnUrl}" /></div>
+    </form>
+</body>
+</html>
+
+

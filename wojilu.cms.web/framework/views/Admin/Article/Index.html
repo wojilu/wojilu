@@ -1,0 +1,55 @@
+﻿<div>
+    <div class="adminMainTitle"><div class="adminSidebarTitleInternal">文章列表</div></div>
+
+    <div class="adminMainPanel">
+
+<script>
+
+$(document).ready( function() {
+    $('#mysubmit').click( function() { $('#myform').submit(); } );    
+});
+
+</script>
+
+        <table cellspacing="1" cellpadding="3" style="width: 100%;" id="dataAdminList" data-action="#{operationUrl}">
+            <tr class="adminBar">
+                <td colspan="3">
+                    <span class="right20">转移到分类：#{adminDropCategoryList}</span>
+                    <span class="btnCmd" cmd="delete"><img src="~img/delete.gif" /> 删除</span>
+                </td>
+                <td colspan="2" style="text-align:right; padding-right:10px;">
+                    <form id="myform" method="get" action="#{searchAction}">
+                        <input name="key" type="text" style="margin-left:50px" value="#{key}" /> 
+                        <select name="qtype"><option value="1">标题</option></select> 
+                        <input type="button" id="mysubmit" class="btn btns" value="搜索" />
+                    </form>
+                </td>
+            </tr>
+	        <tr class="tableHeader">
+
+                <td align="center" style="width:50px;"><input id="selectAll" type="checkbox" /></td>
+                
+                <td style="width:50px;">编号</td>
+                <td>分类</td>
+                <td>标题</td><td style="width:20%;">管理</td></tr>
+            
+            <!-- BEGIN list -->
+            <tr class="tableItems">
+            	        <td align="center">
+        	            <input name="selectThis" id="checkbox#{article.Id}" type="checkbox">
+        	        </td>
+                <td>#{article.Id}</td>
+                <td>#{article.Category.Name}</td>
+                <td>#{article.Title}</td>
+                <td>
+                    <a href="#{article.EditLink}" class="edit right10">修改</a> 
+                    <a href="#{article.DeleteLink}" class="delete deleteCmd">删除</a>
+                </td>
+            </tr>
+            <!-- END list -->
+        </table>
+        <div>#{page}</div>
+        
+    </div>
+</div>
+

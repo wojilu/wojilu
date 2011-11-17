@@ -1,0 +1,82 @@
+﻿<style>
+#tagMain {width:600px; float:left; display:inline;}
+
+#tagResultsPanel { padding:10px 10px 15px 15px; margin:10px 10px 10px 0px; background:#f2f2f2; border:1px #aaa solid;}
+#tagResultsTitle { font-size:14px; font-weight:bold; margin:10px 0px 10px 5px;}
+#tagDataList {margin:15px;}
+#tagDataList li { list-style: disc; margin:5px 5px 5px 15px; font-size:14px;}
+
+#tagList { float:left; display:inline; width:300px; background2:#eee; }
+.tagListTitle {height:28px;margin:0px 0px 10px 0px; background:#f2f2f2; padding:3px 10px;}
+
+.tagListTitle div { float:left; font-size:14px; font-weight:bold; margin-top:5px;}
+.tagListTitle div.tagMore { float:right; font-size:12px; font-weight:normal;}
+
+.tagListMain { padding:0px 10px 10px 10px;}
+#tagList span{  margin:5px 10px 5px 0px; height:25px; vertical-align:middle}
+
+</style>
+
+<div>
+<div style="padding:15px 10px 10px 20px;">
+    <div id="tagMain">
+    
+    <div id="tagResultsPanel">
+        <div style="padding:20px 10px; margin:10px 0px; background:#f2f2f2;">
+        <form id="tagForm">
+            <strong>Tag 搜索</strong> <input id="txtTag" type="text" value="#{tagName}" /> 
+        <input id="btnTagSearch" class="btn btns" type="submit" value="_{search}" /></form>
+        </div>
+    
+        <ul id="tagDataList">
+            <!-- BEGIN list -->
+            <li><div><a href="#{data.Link}">#{data.TypeName} #{data.Title}</a></div>
+            <div class="note">#{data.Summary}</div>
+            </li>
+            <!-- END list -->
+
+        </ul>
+
+        <div style="margin:5px 10px;">#{page}</div>
+    </div>
+        
+    </div>
+    
+    <div id="tagList" maxCount="#{maxCount}">
+        <div style="padding:0px 10px 10px 10px;">
+        <div class="tagListTitle">
+            <div>常用 tag</div>
+            <div class="tagMore"><a href="#{allLink}">_{more}...</a></div>
+            <div class="clear"></div>
+        </div>
+        <div class="tagListMain">
+            <div style="line-height:250%;">
+                <!-- BEGIN maxTag -->
+                <span dataCount="#{tag.DataCount}"><a href="#{tag.Link}" style="font-size:#{tag.FontSize}em;">#{tag.Name}</a></span><!-- END maxTag -->
+            </div>
+            <div class="clear"></div>
+        </div>
+
+        <div class="tagListTitle" style="margin-top:15px;">
+            <div>最新 tag</div>
+            <div class="tagMore"><a href="#{allLink}">_{more}...</a></div>
+            <div class="clear"></div>
+        </div>
+        <div class="tagListMain">
+            <div style="line-height:250%;">
+                <!-- BEGIN recentTag -->
+                <span dataCount="#{tag.DataCount}"><a href="#{tag.Link}" style="font-size:#{tag.FontSize}em;">#{tag.Name}</a></span><!-- END recentTag -->
+            </div>
+            <div class="clear"></div>
+        </div>        
+        
+        </div>
+    </div>
+    
+
+</div>
+</div>
+
+
+
+

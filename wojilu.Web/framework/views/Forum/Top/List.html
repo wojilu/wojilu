@@ -1,0 +1,34 @@
+﻿<table id="topPosts" style="width:100%;" border="1" cellpadding="0" cellspacing="0">
+<tr id="rankHeader">
+    <td style="width:27%;"><a href="#{recentPickedImgLink}">:{pickedImg}</a></td>
+    <td style="width:25%;"><a href="#{recentTopicLink}">:{newTopic}</a></td>
+    <td style="width:24%;"><a href="#{recentPostLink}">:{newPosts}</a></td>
+    <td style="width:24%;"><a href="#{recentHotLink}">:{hotTopic}</a></td>
+</tr>
+
+<tr id="rankList">
+    <td style="padding:5px;">  
+        <script src="~js/wojilu.ui.slider.js?v=#{jsVersion}" type="text/javascript"></script>
+        <div class="slideWrap" style="margin:3px;width: 248px;height:210px;"> 
+            <!-- BEGIN pickedImg --><a href="#{f.Url}"><img alt="#{f.Title}" src="#{f.ImgUrl}" /></a><!-- END pickedImg -->
+        </div>    
+    </td>
+    <td>
+        <ul>
+        <!-- BEGIN topic --><li><div><span class="postIndex#{topic.Index}">#{topic.Index}</span><a href="#{topic.Link}">#{topic.Title}</a></div></li><!-- END topic -->
+        </ul>    
+    </td>
+    <td>
+        <ul>
+        <!-- BEGIN post --><li><div><span class="postIndex#{post.Index}">#{post.Index}</span><a href="#{post.Link}">#{post.Title}</a></div></li><!-- END post -->
+        </ul>
+    </td>
+    <td>
+        <ul>
+        <!-- BEGIN hot --><li><div><span class="postIndex#{topic.Index}">#{topic.Index}</span><a href="#{topic.Link}">#{topic.Title}</a></div></li><!-- END hot -->
+        </ul>    
+  
+    </td>
+</tr>
+
+</table>

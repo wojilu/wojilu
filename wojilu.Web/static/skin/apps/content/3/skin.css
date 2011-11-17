@@ -1,0 +1,112 @@
+.sectionPanel {} /*页面区块*/
+.sectionTitle {} /*区块标题的背景色 和上面的边线*/ 
+.sectionTitle,  .sectionTitle a {} /*区块标题颜色*/
+
+/*************************************************************************************/
+
+#portalContainer { margin: 0 auto; padding-top:15px; background:#; }
+.rowContainer {margin: 0px 0px 5px 0px;text-align: left;color: #2b2b2b; }
+
+    .columnContainer {float: left;overflow:hidden;display:inline;}
+    
+        .sectionPanel {margin-bottom:10px; clear:both;  border:1px solid #e1dfb2;}
+
+            .sectionTitle { padding:0px 5px; font-size:14px;font-weight:bold; background:url(sectionTitleBg.jpg);}
+            .sectionMore {float:right;padding:6px 3px 0px 0px;font-weight:normal;}
+            .sectionMore a {font-size:12px;color:#555;font-weight:normal;}
+            .sectionContent {line-height:150%; font-size:14px;}
+            
+                .sectionTitleText {float:left; }
+                .sectionTitleText div {float:left; margin-right:8px; margin-top:0px; padding:2px 8px;cursor:default;  border-bottom:0px;}
+                .sectionTitleCurrentTab { background:#fff; }
+                .sectionTitleTab { }
+                
+                .ul1 {margin:5px;}
+                .ul1 li {width:100%;white-space:nowrap;text-overflow:ellipsis; -o-text-overflow:ellipsis; -moz-text-overflow:ellipsis; overflow: hidden; }
+                .ul2 li {width:45%;white-space:nowrap;text-overflow:ellipsis; -o-text-overflow:ellipsis; -moz-text-overflow:ellipsis; overflow: hidden; float:left; margin-right:5px;  }
+                .ulimg {margin:0px;}
+                .ulimg li {float:left;}
+                .ulimg img {width:60px;height:60px;margin:5px}
+                
+                .ulRank {margin:5px;}
+                .ulRank li {font-size:12px;width:100%;margin-bottom:2px;white-space:nowrap;text-overflow:ellipsis; -o-text-overflow:ellipsis; -moz-text-overflow:ellipsis; overflow: hidden; }                
+                .ulRank li span {padding:0px 3px;margin-right:5px; text-align:center; background-color:#eee;display:inline-block;  font-size:9px;}
+                .ulRank li.rankItem1 span{background-color:orange; color:#fff; font-weight:bold;}
+                .ulRank li.rankItem2 span{background-color:orange; color:#fff;font-weight:bold;}}
+                .ulRank li.rankItem3 span{background-color:orange; color:#fff;font-weight:bold;}}
+                .ulRank li span {color:#555;}               
+
+                .sectionVideos li{float:left;margin:10px 10px 0px 0px; width:150px; height:120px; font-size:12px; text-align:center; padding:5px 3px;}
+                
+                .excerpt li {margin-bottom:10px; display:block; clear:both; background:#fff; padding:5px 10px 10px 5px;}
+                .epFace {float:left; width:60px; text-align:center; font-size:12px;}
+                .epTitle, .epContent {margin-left:80px;}
+                .epTitle a {font-weight:bold;}
+                .epContent {font-size:12px;}
+                
+                .ulL {float:left;}
+                .ulR {float:right; text-align:center; font-size:12px;}
+                
+div.articleLocation {margin:0px 10px 10px 5px; color:#666;}
+      
+/************** detail ***************/
+
+#postContainer {width:100%;position:relative;}
+
+
+    #postMain {float:left;  padding:10px 10px 10px 0px; margin:10px 10px 10px 0px }
+    #postMain h4{font-size:18px; margin:5px;}
+        #postMainContainer {padding:15px; background:#ebf4ff;border:1px #92b0dd solid; width:620px;}
+        
+        .ulimgMiddle li {float:left;width:115px;height:125px;margin:10px; padding-top:10px; background:#fff;text-align:center}
+        .ulimgMiddle li div {margin:5px; }
+    
+        .h1title {font-size:26px;font-weight:bold; color:#004499; margin:25px 0px 5px 0px; text-align:center; border-bottom:1px #aaa solid; padding-bottom:5px;}
+        .h4title {font-size:16px; font-weight:bold; margin:20px 0px 0px 5px;}
+        .ulposts {font-size:14px; line-height:150%; padding:15px 10px 10px 5px;}
+        .ulposts .note {font-size:12px;}
+        
+        .postInfo {color:#333;text-align:center;margin:5px 5px 10px 5px; }
+        .postInfo a{color:#cc0000;}
+        .postSource {text-align:; color:#666; padding:0px 0px 10px 10px;}
+        #postContent {margin:5px 5px 5px 5px; font-size:14px; line-height:150%}   
+        #postContent img {max-width:560px;}
+        
+        .postSummary {margin:10px 0px;padding:10px;border:1px #ccc solid; background:#fff; line-height:150%;}
+        
+    #postSidebar { width:283px; float:left; padding:10px 0px 0px 0px; }
+    #postSidebarContainer {padding:10px 0px 0px 0px; }
+        .postPanel {margin:0px 0px 10px 0px; border:1px #aaccee solid; line-height:150%; font-size:14px; display:block;}
+        .postPanelTitle {padding:3px 0px 1px 10px; border-bottom:1px #aaccee solid; background:#e2eaf8; color:#004499; font-weight:bold; font-size:14px; line-height:25px;}
+        .postPanel a {color:#004499}
+        .postPanel ul {list-style:none; margin:10px; padding:0px;}
+.postPanel ul.textList li {width:100%;white-space:nowrap;text-overflow:ellipsis; -o-text-overflow:ellipsis; -moz-text-overflow:ellipsis; overflow: hidden;}
+
+#postComment {}
+.postCommentOne {margin:0px 0px 10px 0px; }
+#postCommentForm {}
+.postCommentTime {color:#aaa}
+
+table.commentPublishTable {color:#004499; border:0px #aaa solid; margin-left:15px;}
+.commentPublishTable input {border:1px #aaa solid;}
+.commentPublishTable textarea {border:1px #aaa solid;}
+
+    /*附件*/
+    
+    .downloadWarning {margin-top:15px;border:1px #fed22f solid;background:#ffe45c;width:80%;}
+    .downloadWarning div {background:url('../../../../img/lock.gif') no-repeat 10px center;padding:5px 5px 5px 25px;font-size:12px;}
+
+    #attachmentPanel {  margin-top:10px; padding:0px;}
+        .attachmentTitleWrap {background:#fffbe2;margin-bottom:0px;}
+        .attachmentTitle {background:url("../../../../img/attachment.gif") no-repeat 5px 7px; padding:5px 0px 5px 20px; margin:0px 0px 0px 0px;}
+        .attachmentTitle .note{margin-left:5px;}
+        .attachmentList {background:#fff;padding-top:10px;}
+        .attachmentList li {margin-bottom:20px;margin-left:10px;}
+        .attachmentList li div {font-size:12px; font-weight:bold; color:#666;margin:0px 0px 2px 0px;}
+        .attachmentList .note {margin-left:5px; font-size:10px; font-weight:normal;}
+        
+    .attachmentForbidden { margin:10px; padding:5px;padding-left:15px;width:350px; font-size:12px;}
+        .attachmentForbidden span.afText {background:url("../../../../img/ajax/error.gif") no-repeat left center; padding-left:18px; font-size:12px;}
+        .attachmentForbidden span.afInfo {background:url("../../../../img/attachment.gif") no-repeat; padding-left:15px}
+
+

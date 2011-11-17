@@ -1,0 +1,28 @@
+﻿
+
+<div style=" margin:20px;">
+	<form method="post" action="#{ActionLink}" class="ajaxPostForm">
+
+		<table style="width: 600px;">
+			<tr>
+				<td>_{menuName}</td>
+				<td><input name="Name" type="text" style="width: 260px" value="#{name}"><span class="red">*</span> </td>
+			</tr>
+			<tr>
+				<td>_{menuUrl}</td>
+				<td><input name="RawUrl" type="text" style="width:400px" value="#{url}"><span class="red">*</span> </td>
+			</tr>
+			<tr>
+				<td>_{friendlyUrl}</td>
+				<td><input name="Url" type="text" value="#{furl}">&nbsp;<span class="note">_{menuFriendUrlNote}</span></td>
+			</tr>
+			<tr><td></td>
+				<td>
+				<div style="margin: 20px 0px;">
+					<input name="Submit1" type="submit" value="_{addMenu}" class="btn" />
+					<input type="button" value="_{return}" class="btnReturn" /></div>					
+				</td>
+			</tr>
+		</table>
+	</form>
+</div>

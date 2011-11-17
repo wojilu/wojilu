@@ -1,0 +1,133 @@
+﻿<div style="">
+
+    <div style="border-bottom:1px #ccc solid; padding:5px ;">投递新闻到：<strong>#{section.Name}</strong>
+            <img src="~img/s/back.png" class="left20" /><a href="javascript:history.back();">_{return}</a>
+
+    </div>
+
+    <div style="margin:20px 5px;">
+    
+    
+    
+<script src="~js/wojilu.app.content.upload.js?v=#{jsVersion}" type="text/javascript"></script>
+<script type="text/javascript">
+<!--
+$(document).ready( function() {    
+
+	$('.tabItem').click( function() {
+	
+	    $('.tabItem').removeClass( 'currentTab' ).removeClass( 'otherTab' ).addClass( 'otherTab' );	    
+	    $(this).removeClass( 'otherTab' ).addClass( 'currentTab' );
+	    
+	    var tabId = wojilu.str.trimStart( $(this).attr( 'id' ), 'tab' );
+	    
+	    $('.tabMain').hide();
+	    $('#content'+tabId).show();	
+	});
+
+});
+//-->
+</script>
+
+<style>
+#title {width: 600px}
+#tagList {width:200px}
+#srcLink {width:350px;}
+
+.tabItem { cursor:pointer;}
+.tabMain {padding:10px 0px;}
+</style>
+
+	
+<form method="post" action="#{ActionLink}" style="margin-bottom:30px;" class="ajaxPostForm">
+
+	<table style="width:95%;background:#eee;" class="tabHeader" cellpadding="0" cellspacing="0">
+		<tr>
+			<td id="tab1" class="tabItem currentTab" style="width:20%;">:{general}</td>
+			<td id="tab2" class="tabItem otherTab" style="width:20%;">:{advanced}</td>
+			<td id="tab3" class="tabItem otherTab" style="width:20%;">&nbsp;</td>
+			<td class="otherTab" style="width:40%;">&nbsp;</td>
+		</tr>
+	</table>
+	
+	<div id="content1" class="tabMain" style="width:95%;">
+	<table style="width: 95%;margin:auto;">
+		<tr class="hide">
+			<td style="width: 80px;">:{itsSection}</td>
+			<td style="width: 670px;"><strong>#{section.Title}</strong></td>
+		</tr>
+		<tr>
+			<td>_{title}</td>
+			<td><input name="Title" id="title" type="text" class="tipInput" tip="_{exTitle}"><span class="valid" mode="border"></span></td>
+		</tr>
+		<tr>
+			<td>_{author}</td>
+			<td><input name="Author" type="text">
+			<span class="left15">:{srcUrl}</span> <input name="SourceLink" id="srcLink" type="text" size="20">
+
+			</td>
+		</tr>	
+		<tr>
+			<td>_{content}<span to="Content" class="valid" mode="border"></span></td>
+			<td>#{Editor}</td>
+		</tr>	
+		<tr>
+			<td>&nbsp;<input type="hidden" name="ModuleId" value="#{module.Id}" /></td>
+			<td>
+			    <input name="Submit1" type="submit" value=":{submitData}" class="btn"> 
+			    <input type="button" value="_{return}" class="btnReturn" />
+			</td>
+		</tr>		
+		
+	</table>
+	</div>
+	
+	<div id="content2" class="tabMain" style="display:none;width:95%;">
+	<table style="width: 95%;margin:auto;">
+	    <tr>
+	        <td>_{tag}</td>
+	        <td><input name="TagList" id="tagList" type="text"><span class="note" title="">_{tagTip}</span></td>
+	    </tr>
+
+		<tr >
+			<td style="vertical-align:top">_{summary}</td>
+			<td>
+			<textarea name="Summary" style="width: 600px; height: 90px"></textarea></td>
+		</tr>
+		<tr>
+			<td style="width: 80px;vertical-align:top">:{picUrl}</td>
+			<td>
+			<input name="ImgLink" id="imgLink" type="text" style="width: 500px">
+			<span class="note">:{picUrlTip}</span></td>
+		</tr>
+	</table>
+	</div>
+	
+
+
+</form>
+
+		
+
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    </div>
+
+</div>
+

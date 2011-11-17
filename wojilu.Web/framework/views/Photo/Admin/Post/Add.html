@@ -1,0 +1,98 @@
+﻿<link href="~js/uploadify/uploadify.css" type="text/css" rel="stylesheet" />
+<script type="text/javascript" src="#{jsPath}uploadify/swfobject.js"></script>
+<script type="text/javascript" src="#{jsPath}uploadify/jquery.uploadify.v2.1.4.min.js"></script>
+
+<div>
+
+	<form id="uploadPhotoForm" method="post" action="#{ActionLink}">
+	<table cellSpacing="1" cellPadding="4" >
+		<tr>
+			<td colspan="2"><strong>:{selectAlbum}</strong></td>
+		</tr>
+		<tr>
+			<td>:{myalbum}</td>
+			<td>#{PhotoAlbumId} <a href="#{PhotoAlbumAddUrl}" class="cmd" style="margin-left:10px;">+:{addAlbum}</a></td>
+		</tr>
+		<tr><td>:{sysCategory}</td><td>
+		#{SystemCategoryId}
+		</td></tr>
+		<tr>
+			<td colSpan="2" style="padding:15px;">
+				<input name="Submit1" type="submit" value=":{nextStep}" class="btn">
+				<span id="btnStartUpload" class="left20 strong link">或者 <img src="~img/s/upload.png" />批量上传</span>
+			</td>
+		</tr>
+	</table>
+	<div id="uploadPanel" style="display:none;">
+	    <div style="margin:0px 0px 0px 20px;"><input id="file_upload" name="file_upload" type="file" /><span id="status" class="left10">一次最多选择10张图片</span></div>
+	    <div id="uploader"></div>	
+	</div>
+	
+	</form>
+</div>
+
+
+<script type="text/javascript">
+<!--
+$(document).ready( function() {
+	$('#uploadPhotoForm').submit( function() {
+		var catid = $('#SystemCategoryId').val();
+		if( catid<=0 ) {
+			alert( ':{exSysCategoryRequire}' );
+			return false;
+		}
+	});
+	
+    
+    $('#btnStartUpload').click( function() {
+	    var catid = $('#SystemCategoryId').val();
+	    if( catid<=0 ) {
+		    alert( ':{exSysCategoryRequire}' );
+		    return false;
+	    }
+		
+        $(this).hide().prev().hide();
+        $('#uploadPanel').show();
+        
+        var albumId = $('#PhotoAlbumId').val();
+        var params = #{authJson};
+        params[ 'SystemCategoryId' ] = catid;
+        params[ 'PhotoAlbumId' ] = albumId;
+        
+        
+        $('#file_upload').uploadify({
+            'uploader' : "#{jsPath}uploadify/uploadify.swf",
+            'script' : '#{uploadLink}'.toAjax(),
+            'cancelImg' : "#{jsPath}uploadify/cancel.png",
+            'buttonImg' : "#{jsPath}uploadify/browser.gif",
+            'auto' : true,
+            'multi': true,
+            'fileExt' : '*.jpg;*.gif;*.png;*.jpeg;*.bmp;',
+            'fileDesc'  : 'Image Files (.JPG, .GIF, .PNG, .jpeg, .bmp)',
+            'removeCompleted': true,
+            'queueID' : 'uploader',
+            'displayData' : 'speed',
+            'queueSizeLimit':10,
+            'scriptData':params,
+            
+            'onSelectOnce'   : function(event,data) {
+                $('#status').text(data.filesSelected + ' 个文件等待上传');
+            },
+            
+            'onAllComplete'  : function(event,data) {
+                $('#status').text(data.filesUploaded + ' 个文件上传成功, ' + data.errors + ' 个错误.');
+            },
+            
+            'onError' : function (event,ID,fileObj,errorObj) {
+                //alert(errorObj.type + ', Error: ' + errorObj.info + ', fileObj=' + fileObj);
+            },
+            
+            'onComplete'  : function(event, ID, fileObj, response, data) {
+                //$('#mypic').html( '<img src="'+ response +'" />' );
+            }
+        });
+        
+    });
+});
+//-->
+</script>

@@ -1,0 +1,39 @@
+﻿
+<div style="padding:20px; " >
+
+<form action="#{ActionLink}" method="post">
+	<table style="width:500px;">
+		<tr>
+			<td style="width:100px;">_{appName} </td>
+			<td>
+			<div class="moduleEdit_typeName highlight">
+				#{app.Name}</div>
+			</td>
+		</tr>
+		<tr>
+			<td>_{description}</td>
+			<td>
+			<div class="moduleEdit_description font10 note">
+				#{app.Description}</div>
+			</td>
+		</tr>
+		<tr>
+			<td>&nbsp;</td>
+			<td>&nbsp;</td>
+		</tr>
+		<tr>
+			<td>_{appFriendlyName}</td>
+			<td><input name="Name" type="text" value="#{app.Name}"></td>
+		</tr>
+
+		<tr>
+			<td></td>
+			<td style="padding-top:20px;">
+			<input name="appInfoId" type="hidden" value="#{app.Id}" />
+			<input name="Submit1" type="submit" value="_{installApp}" class="btn">
+			<input type="button" value="_{cancel}" class="btnCancel"> </td>
+		</tr>
+	</table>
+</form>
+
+</div>

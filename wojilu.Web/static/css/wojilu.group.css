@@ -1,0 +1,30 @@
+﻿
+#groupPage {width:960px; margin:auto; background:;}
+
+    #groupHeaderWarp { background:; }
+    
+        #groupHeader {padding:0px;margin:0px; height2:150px;}
+            #groupName {padding:10px 0px 0px 20px;}
+                #groupNameText {font-size:26px; font-weight:bold;}
+            #groupLink {margin:5px 10px 5px 20px;}
+            #groupDescription { margin:5px 10px 20px 20px;}
+
+        #groupNavWrap {background:#ddd; border-bottom:1px #aaa solid;border-top:1px #aaa solid; }
+        #groupNav { height:35px;  padding-left:20px;}
+            #groupNav ul {list-style:none;margin:0px;padding:0px;width:100%;}
+            #groupNav ul li {float:left;display:inline; padding:0px 15px 6px 4px; margin-top:13px; height:14px;}
+            #groupNav a{ color:#000;font-size:14px;}
+
+
+    #groupMainWrap {background:#fff;margin-top:10px; width:950px;padding-left:5px;padding-right:5px;}
+            
+        #groupMainBody{vertical-align:top;float:left; display:inline; width:740px; }
+        
+        #groupSidebar {width:180px; float:left;}
+            #groupLogo {width:120px;margin:auto;margin-top:10px;}
+            .groupTitle {border-bottom:1px #ccc dotted; margin-top:10px; padding:3px 3px 3px 10px; font-weight:bold;}
+            .groupPanel {margin-bottom:20px;}
+
+     /*页脚*/
+    #groupFooterWrap {margin: auto; }
+    #groupFooter { text-align:center;padding:20px ; }

@@ -1,0 +1,189 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+<title>#{pageTitle}</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=EmulateIE7" /> 
+
+<meta name="Keywords" content="#{pageKeywords}" />
+<meta name="Description" content="#{pageDescription}" />
+
+<link href="~css/wojilu.common.css?v=#{cssVersion}" rel="stylesheet" type="text/css" />
+<link href="~css/jquery/ui-lightness/jquery-ui.custom.css?v=#{cssVersion}" rel="stylesheet" type="text/css" />
+#{siteSkinContent}
+<link href="~css/wojilu.group.css?v=#{cssVersion}" rel="stylesheet" type="text/css" />
+#{skinContent}
+<style>
+#topNavWrap {background:url("~skin/site/topNavBg.png");}
+</style>
+<script src="~js/jquery.js?v=#{jsVersion}" type="text/javascript"></script>
+<script src="~js/jquery.tmpl.min.js?v=#{jsVersion}" type="text/javascript"></script>
+<script src="~js/jquery-ui.custom.js?v=#{jsVersion}" type="text/javascript"></script>
+<script src="~js/lang.#{langStr}.js?v=#{jsVersion}" type="text/javascript"></script>
+<script src="~js/wojilu.common.js?v=#{jsVersion}" type="text/javascript"></script>
+<script src="~js/wojilu.site.js?v=#{jsVersion}" type="text/javascript"></script>
+#{pageRssLink}
+</head>
+
+<body>
+
+#{topNav}
+<div id="groupPageWrap2">
+
+<style>
+td.psTitle div{max-width:550px; width:350px; }
+</style>
+
+<div id="groupPageWrap">
+<div id="groupPage">
+
+    <div id="groupHeaderWarp">
+        <div id="groupHeader">
+	        <div id="groupName">
+	            <a href="#{groupLink}" id="groupNameText">#{groupName}</a>
+	             <span class="note left10">#{group.AccessStatusStr}</span>
+	            <span class="left10">#{g.JoinTool}</span>
+	        </div>
+	        <div id="groupLink"><a href="#{groupLink}">#{groupLink}</a></div>
+	        <div id="groupDescription">#{g.Description}</div>
+    		
+	        <div class="clear"></div>
+        </div>
+    </div>
+    
+    <div id="groupNavWrap">
+        <div id="groupNav">
+	        <ul>
+	        <!-- BEGIN gnavLink -->
+		    <li>
+		        <!-- BEGIN rootNav --><a href="#{menu.Link}" style="#{menu.Style}" #{menu.LinkTarget}>#{menu.Name}</a><!-- END rootNav -->
+    		    
+		        <!-- BEGIN subNav -->
+		            <a href="#{menu.Link}" style="#{menu.Style}" class="menuMore" list="subMenus#{menu.Id}" #{menu.LinkTarget}>#{menu.Name}</a>
+		            <ul id="subMenus#{menu.Id}" class="menuItems">
+		            <!-- BEGIN subMenu -->
+		                <li><a href="#{menu.Link}" style="#{menu.Style}" #{menu.LinkTarget}>#{menu.Name}</a></li>
+		            <!-- END subMenu -->
+		            </ul>
+		        <!-- END subNav -->			    
+		    </li>
+	        <!-- END gnavLink -->
+	        <li><a href="#{g.MemberList}">小组成员</a></li>
+	        <li><a href="#{g.FriendGroupLink}">友情小组</a></li>
+	        <li><a href="#{g.IndexLink}">所有群组</a></li>
+	        </ul>
+	        <div class="clear"></div>
+        </div>
+    </div>
+    
+    <div id="groupMainWrap">        	
+        <div id="groupMain">
+        
+            <div id="groupMainBody">
+                #{layout_content}
+            </div>
+            <style>
+            #forumPostListWrap {border:0px;}
+            #forumLocationContainer{border-top:0px; display:none;}
+            .forumSimpleForm {width:96%;margin:10px auto;}
+            </style>
+
+            <div id="groupSidebar">
+
+	            <div class="groupPanel">
+	            
+	                <div>
+		                <div id="groupLogo"><a href="#{groupLink}"><img src="#{group.Logo}"/></a></div>		                
+	                </div>
+	                <div class="clear"></div>
+
+		            <div class="groupTitle">
+			            <div>_{groupAdminMenu}</div>
+		            </div>        		
+            		
+		            <table style="width: 90%; margin:10px; border-collapse:collapse" border="0" cellpadding="0" cellspacing="0">
+			            <tr><td colspan="2">#{adminHomeLink}</td></tr>
+			            <tr><td style="width:50px;">_{administrator}: </td><td>#{g.OfficerList}</td></tr>
+			            <tr><td>_{groupMemberCount}:</td><td>#{g.MemberCount}</td></tr>
+			            <tr><td>_{view}:</td><td>#{g.VisitCount}</td></tr>
+			            <tr><td>_{created}:</td><td>#{g.Created}</td></tr>
+		            </table>        		
+	            </div>
+
+	            <div class="groupPanel">
+		            <div class="groupTitle">
+			            <div>_{recentJoin}</div>
+		            </div>
+
+		            <div class="group_list">
+            		
+			            <div style="margin:5px 0px 5px 5px;">
+			                <ul class="userAvatar">
+					            <!-- BEGIN newMember -->
+					            <li>
+					                <div><a href="#{m.Url}"><img src="#{m.Face}" /></a></div>
+					                <div><a href="#{m.Url}">#{m.Name}</a></div>
+					            </li>
+					            <!-- END newMember -->
+					        </ul>
+    				        <div class="clear"></div>
+				        </div>
+            		
+		            </div>
+		            <div style="text-align:right"><a href="#{g.MemberList}">?? _{viewAllMember}(#{g.MemberCount})</a></div>
+	            </div>
+
+	            <div class="groupPanel">
+            	
+		            <div class="groupTitle">
+			            <div>_{friendGroup}</div>
+		            </div>
+            	
+		            <div>    		
+			            <ul class="userAvatar">
+				            <!-- BEGIN friendGroupList -->
+				            <li>
+				                <div><a href="#{g.Url}"><img src="#{g.Logo}" /></a></div>
+				                <div><a href="#{g.Url}">#{g.Name}</a></div>
+				            </li>
+				            <!-- END friendGroupList -->
+			            </ul>
+    		            <div class="clear"></div>
+		            </div>
+	            </div>		
+            		
+            </div>
+        <div class="clear"></div>
+        </div>   
+    
+    </div>
+
+    
+
+    <div id="groupFooterWrap">
+    <div id="groupFooter">	
+	    <div>copyright ? <a href="#{groupLink}">#{groupName}</a> 2010-2011</div>
+        <div>Powered by <a href="http://www.wojilu.com" target="_blank">我记录1.7.5</a></div>
+        <div>Processed in <span id="elapseTime">0</span> seconds, <span id="sqlQueries">0</span> queries<div>
+    </div>
+    </div>
+	<div><a href="#{customSkinLink}" id="customSkin" class="frmBox" title="_{customUserSkin}"></a></div>
+
+</div>
+
+</div>
+</div>
+
+<script>
+$(document).ready( function() {
+    var q = wojilu.tool.getQuery( 'skin' );
+    if( q== 'custom' ) {
+        $('#customSkin').click();
+        wojilu.ui.box.hideBg();
+    }
+});
+</script>
+#{statsJs}
+</body>
+</html>

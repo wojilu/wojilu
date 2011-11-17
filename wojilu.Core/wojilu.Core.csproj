@@ -1,0 +1,522 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <ProjectType>local</ProjectType>
+    <ProjectVersion>7.10.3077</ProjectVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{5D4E912F-B5A1-4E58-BFE1-62FCD30CC9E6}</ProjectGuid>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <AssemblyName>wojilu.Core</AssemblyName>
+    <DefaultClientScript>JScript</DefaultClientScript>
+    <DefaultHTMLPageLayout>Grid</DefaultHTMLPageLayout>
+    <DefaultTargetSchema>IE50</DefaultTargetSchema>
+    <DelaySign>false</DelaySign>
+    <OutputType>Library</OutputType>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <OldToolsVersion>3.5</OldToolsVersion>
+    <UpgradeBackupLocation>
+    </UpgradeBackupLocation>
+    <IsWebBootstrapper>true</IsWebBootstrapper>
+    <RootNamespace>wojilu</RootNamespace>
+    <TargetFrameworkVersion>v2.0</TargetFrameworkVersion>
+    <PublishUrl>http://localhost/bbsVista.Core/</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Web</InstallFrom>
+    <UpdateEnabled>true</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <OutputPath>bin\Debug\</OutputPath>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugSymbols>true</DebugSymbols>
+    <NoStdLib>false</NoStdLib>
+    <Optimize>false</Optimize>
+    <WarningLevel>4</WarningLevel>
+    <DebugType>full</DebugType>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <OutputPath>bin\Release\</OutputPath>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <DefineConstants>TRACE</DefineConstants>
+    <DebugSymbols>false</DebugSymbols>
+    <NoStdLib>false</NoStdLib>
+    <Optimize>true</Optimize>
+    <WarningLevel>4</WarningLevel>
+    <DebugType>none</DebugType>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System">
+      <Name>System</Name>
+    </Reference>
+    <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Web">
+      <Name>System.Web</Name>
+    </Reference>
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Common\AD.cs" />
+    <Compile Include="Common\AppBase\ExtData.cs" />
+    <Compile Include="Common\AppBase\Interface\IApp.cs" />
+    <Compile Include="Common\AppBase\Interface\IAppData.cs" />
+    <Compile Include="Common\AppBase\Interface\IAppInstaller.cs" />
+    <Compile Include="Common\AppBase\Interface\IAppStats.cs" />
+    <Compile Include="Common\AppBase\Interface\IExtViewService.cs" />
+    <Compile Include="Common\AppInstall\Domain\AppCloseMode.cs" />
+    <Compile Include="Common\AppInstall\Domain\AppInstaller.cs" />
+    <Compile Include="Common\AppInstall\Domain\AppInstallerStatus.cs" />
+    <Compile Include="Common\AppInstall\Domain\AppMemberShip.cs" />
+    <Compile Include="Common\AppInstall\Interface\IAppInstallerService.cs" />
+    <Compile Include="Common\Comments\CommentService.cs" />
+    <Compile Include="Common\Comments\ICommentService.cs" />
+    <Compile Include="Common\Comments\IFeedComment.cs" />
+    <Compile Include="Common\Component\Component.cs" />
+    <Compile Include="Common\Component\ComponentStatus.cs" />
+    <Compile Include="Common\Feeds\Domain\FeedApp.cs" />
+    <Compile Include="Common\Feeds\Domain\ShareComment.cs" />
+    <Compile Include="Common\Feeds\Interface\IFeedService.cs" />
+    <Compile Include="Common\Feeds\Interface\IShareService.cs" />
+    <Compile Include="Common\Upload\TempUploadFileService.cs" />
+    <Compile Include="Common\Upload\TempUploadFile.cs" />
+    <Compile Include="Members\Users\Domain\Invites\UserInviteApp.cs" />
+    <Compile Include="Common\Jobs\HitsItem.cs" />
+    <Compile Include="Common\Jobs\HitsJob.cs" />
+    <Compile Include="Common\Jobs\HitsJobItem.cs" />
+    <Compile Include="Common\Jobs\RefreshServerJob.cs" />
+    <Compile Include="Common\Menus\Interface\IMenu.cs" />
+    <Compile Include="Common\Menus\Interface\IMenuService.cs" />
+    <Compile Include="Common\Microblogs\Domain\MicroblogApp.cs" />
+    <Compile Include="Common\Microblogs\Domain\MicroblogAt.cs" />
+    <Compile Include="Common\Microblogs\Domain\MicroblogFavorite.cs" />
+    <Compile Include="Common\Microblogs\Domain\MicroblogVideoTemp.cs" />
+    <Compile Include="Common\Microblogs\Domain\MicroblogVo.cs" />
+    <Compile Include="Common\Microblogs\Interface\IMicroblogService.cs" />
+    <Compile Include="Common\Microblogs\Parser\IMicroblogBinder.cs" />
+    <Compile Include="Common\Microblogs\Parser\MicroblogBinder.cs" />
+    <Compile Include="Common\Microblogs\Service\MicroblogAtService.cs" />
+    <Compile Include="Common\Microblogs\Service\MicroblogCommentService.cs" />
+    <Compile Include="Common\Microblogs\Service\MicroblogFavoriteService.cs" />
+    <Compile Include="Common\Microblogs\Parser\MicroblogParser.cs" />
+    <Compile Include="Common\Microblogs\Service\SysMicroblogService.cs" />
+    <Compile Include="Common\Money\Interface\ICurrencyService.cs" />
+    <Compile Include="Common\Money\Interface\IUserIncomeService.cs" />
+    <Compile Include="Common\Msg\Domain\MessageApp.cs" />
+    <Compile Include="Common\Msg\Domain\MessageAttachment.cs" />
+    <Compile Include="Common\Msg\Domain\SiteMessage.cs" />
+    <Compile Include="Common\Msg\Interface\IMessageAttachmentService.cs" />
+    <Compile Include="Common\Msg\Interface\INotificationService.cs" />
+    <Compile Include="Common\Msg\Interface\IFeedbackService.cs" />
+    <Compile Include="Common\Msg\Interface\ISiteMessageService.cs" />
+    <Compile Include="Common\Msg\Service\MessageAttachmentService.cs" />
+    <Compile Include="Common\Msg\Service\MessageEncoder.cs" />
+    <Compile Include="Common\Msg\Service\SiteMessageService.cs" />
+    <Compile Include="Common\OnlineJob.cs" />
+    <Compile Include="Common\Pages\Domain\PageFeed.cs" />
+    <Compile Include="Common\Pages\Domain\PageHistory.cs" />
+    <Compile Include="Common\Pages\Interface\IPageService.cs" />
+    <Compile Include="Common\Polls\Domain\PollBase.cs" />
+    <Compile Include="Common\Polls\Service\PollBaseService.cs" />
+    <Compile Include="Common\Polls\Domain\PollResultBase.cs" />
+    <Compile Include="Common\ServiceMap.cs" />
+    <Compile Include="Common\Skins\Resource.cs" />
+    <Compile Include="Common\Spider\Domain\DetailLink.cs" />
+    <Compile Include="Common\Spider\Domain\SpiderImport.cs" />
+    <Compile Include="Common\Spider\Domain\SpiderArticle.cs" />
+    <Compile Include="Common\Spider\Domain\SpiderConfig.cs" />
+    <Compile Include="Common\Spider\Domain\SpiderLog.cs" />
+    <Compile Include="Common\Spider\Domain\SpiderTemplate.cs" />
+    <Compile Include="Common\Spider\Interface\ISpiderTool.cs" />
+    <Compile Include="Common\Spider\Service\DetailSpider.cs" />
+    <Compile Include="Common\Spider\Interface\ISpiderTemplateService.cs" />
+    <Compile Include="Common\Spider\Interface\ISportImportService.cs" />
+    <Compile Include="Common\Spider\Service\PagedDetailSpider.cs" />
+    <Compile Include="Common\Spider\Service\SpiderJob.cs" />
+    <Compile Include="Common\Spider\Service\SpiderTool.cs" />
+    <Compile Include="Common\Spider\Service\SpiderTemplateService.cs" />
+    <Compile Include="Common\Spider\Service\SportImportService.cs" />
+    <Compile Include="Common\Tag\IAppTag.cs" />
+    <Compile Include="Common\MemberApp\Interface\IMemberApp.cs" />
+    <Compile Include="Common\MemberApp\Interface\IMemberAppService.cs" />
+    <Compile Include="Members\Groups\Domain\GroupInvite.cs" />
+    <Compile Include="Members\Groups\Domain\GroupLog.cs" />
+    <Compile Include="Members\Groups\GroupInitHelper.cs" />
+    <Compile Include="Members\Groups\Interface\IGroupFriendService.cs" />
+    <Compile Include="Members\Groups\Interface\IMemberGroupService.cs" />
+    <Compile Include="Members\Groups\Interface\IGroupService.cs" />
+    <Compile Include="Members\Groups\Service\GroupLogService.cs" />
+    <Compile Include="Members\Groups\Interface\IInviteService.cs" />
+    <Compile Include="Members\Groups\Service\InviteService.cs" />
+    <Compile Include="Members\Interface\IAdminLog.cs" />
+    <Compile Include="Members\Common\Service\AdminLogService.cs" />
+    <Compile Include="Members\Interface\IAdminLogService.cs" />
+    <Compile Include="Members\Sites\Domain\SiteLog.cs" />
+    <Compile Include="Members\Sites\Domain\SiteLogCategory.cs" />
+    <Compile Include="Members\Sites\Domain\SiteSkin.cs" />
+    <Compile Include="Members\Sites\Interface\ISiteSkinService.cs" />
+    <Compile Include="Members\Sites\SecurityTool.cs" />
+    <Compile Include="Members\Sites\Interface\ISiteRoleService.cs" />
+    <Compile Include="Members\Sites\Service\SiteLogService.cs" />
+    <Compile Include="Members\Sites\Service\SiteSkinService.cs" />
+    <Compile Include="Members\Sites\SiteInitHelper.cs" />
+    <Compile Include="Members\Users\Domain\Friends\Blacklist.cs" />
+    <Compile Include="Members\Users\Domain\Friends\FriendApp.cs" />
+    <Compile Include="Members\Users\Domain\Friends\FriendCategory.cs" />
+    <Compile Include="Members\Users\Domain\Security\UserPermission.cs" />
+    <Compile Include="Members\Users\Domain\Security\UserPrivacy.cs" />
+    <Compile Include="Members\Users\Domain\Skin\SkinApp.cs" />
+    <Compile Include="Members\Users\Domain\UserHome.cs" />
+    <Compile Include="Members\Users\Domain\UserLinks.cs" />
+    <Compile Include="Members\Users\Interface\IUserTagService.cs" />
+    <Compile Include="Members\Users\Domain\UserFactory.cs" />
+    <Compile Include="Members\Users\Domain\Invites\UserInvite.cs" />
+    <Compile Include="Members\Users\Domain\Invites\UserInviteCode.cs" />
+    <Compile Include="Members\Users\Domain\UserTag.cs" />
+    <Compile Include="Members\Users\Enum\UserInviteEmailStatus.cs" />
+    <Compile Include="Members\Users\Domain\UserLog.cs" />
+    <Compile Include="Members\Users\Domain\Security\UserSecurity.cs" />
+    <Compile Include="Members\Users\Enum\EmailConfirm.cs" />
+    <Compile Include="Members\Users\Interface\IFollowerService.cs" />
+    <Compile Include="Members\Users\Interface\IFriendService.cs" />
+    <Compile Include="Members\Users\Interface\ILoginService.cs" />
+    <Compile Include="Members\Users\Interface\IUserService.cs" />
+    <Compile Include="Members\Users\Interface\IUserConfirmService.cs" />
+    <Compile Include="Members\Users\Interface\IUserResetPwdSerevice.cs" />
+    <Compile Include="Members\Users\Interface\IVisitorService.cs" />
+    <Compile Include="Members\Users\Interface\IInviteService.cs" />
+    <Compile Include="Members\Users\Service\BlacklistService.cs" />
+    <Compile Include="Members\Users\Interface\IBlacklistService.cs" />
+    <Compile Include="Members\Users\Service\InviteService.cs" />
+    <Compile Include="Members\Users\Service\Jobs\SpaceVisitJob.cs" />
+    <Compile Include="Members\Users\Service\Jobs\SpaceVisitJobItem.cs" />
+    <Compile Include="Members\Users\Service\Jobs\VisitItem.cs" />
+    <Compile Include="Common\AppBase\AccessStatusUtil.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Common\Menus\FooterMenu.cs" />
+    <Compile Include="Members\Groups\Domain\GroupMenu.cs" />
+    <Compile Include="Common\Menus\MenuServiceBase.cs" />
+    <Compile Include="Members\Sites\Service\SiteMenuService.cs" />
+    <Compile Include="Members\Users\Service\SysUserService.cs" />
+    <Compile Include="Members\Users\Service\UserLogService.cs" />
+    <Compile Include="Members\Users\Service\UserMenuService.cs" />
+    <Compile Include="Members\Groups\Service\GroupMenuService.cs" />
+    <Compile Include="Members\Groups\Domain\GroupApp.cs" />
+    <Compile Include="Members\Groups\Service\GroupAppService.cs" />
+    <Compile Include="Members\Sites\Service\SiteAppService.cs" />
+    <Compile Include="Members\Users\Service\UserAppService.cs" />
+    <Compile Include="Common\Comments\CommentAdminService.cs" />
+    <Compile Include="Common\Visitor\IDataVisitor.cs" />
+    <Compile Include="Common\Visitor\VisitorService.cs" />
+    <Compile Include="Members\Groups\Domain\GroupSkin.cs" />
+    <Compile Include="Members\Groups\Enum\GroupAccessStatus.cs" />
+    <Compile Include="Members\Groups\Service\GroupFriendService.cs" />
+    <Compile Include="Members\Groups\Service\MemberGroupService.cs" />
+    <Compile Include="Members\Users\Domain\UserConfirm.cs" />
+    <Compile Include="Members\Users\Domain\Friends\Followers.cs" />
+    <Compile Include="Members\Users\Domain\MemberFeed.cs" />
+    <Compile Include="Members\Users\Domain\SpaceVisitor.cs" />
+    <Compile Include="Members\Users\Domain\UserResetPwd.cs" />
+    <Compile Include="Members\Users\Enum\FriendStatus.cs" />
+    <Compile Include="Members\Users\Service\UserConfirmService.cs" />
+    <Compile Include="Members\Users\Service\FollowerService.cs" />
+    <Compile Include="Members\Users\Service\FriendService.cs" />
+    <Compile Include="Members\Users\Service\UserResetPwdSerevice.cs" />
+    <Compile Include="Members\Users\Service\UserTagService.cs" />
+    <Compile Include="Members\Users\Service\VisitorService.cs" />
+    <Compile Include="Common\Microblogs\Domain\Microblog.cs" />
+    <Compile Include="Common\Feeds\Domain\Feed.cs" />
+    <Compile Include="Common\Feeds\Domain\FeedInfo.cs" />
+    <Compile Include="Common\Microblogs\Domain\MicroblogComment.cs" />
+    <Compile Include="Common\Msg\Domain\Notification.cs" />
+    <Compile Include="Common\Feeds\Domain\Share.cs" />
+    <Compile Include="Common\Feeds\Domain\TemplateBundle.cs" />
+    <Compile Include="Common\Msg\Enum\NotificationType.cs" />
+    <Compile Include="Common\Feeds\Interface\IFeed.cs" />
+    <Compile Include="Common\Msg\Service\FeedbackService.cs" />
+    <Compile Include="Common\Microblogs\Service\MicroblogService.cs" />
+    <Compile Include="Common\Feeds\Service\FeedService.cs" />
+    <Compile Include="Common\Msg\Service\NotificationService.cs" />
+    <Compile Include="Common\Feeds\Service\ShareService.cs" />
+    <Compile Include="Common\Skins\ISkin.cs" />
+    <Compile Include="Common\Pages\Domain\PageComment.cs" />
+    <Compile Include="Members\Users\Service\LoginService.cs" />
+    <Compile Include="Members\Users\UserInitHelper.cs" />
+    <Compile Include="Members\Users\Utils\LoginUtil.cs" />
+    <Compile Include="Common\AppInstall\Domain\AppCategory.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Common\AppInstall\Service\AppInstallerService.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Common\Tag\AppTagService.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Common\AppBase\AppFactory.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Common\Categories\CategoryBase.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Common\Tag\DataTagShip.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Common\Tag\MemberTagShip.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Members\Sites\Domain\SiteApp.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Members\Sites\Domain\SiteMenu.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Common\Tag\Tag.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Common\Tag\TagService.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Members\Users\Domain\UserApp.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Common\MemberApp\MemberAppServiceBase.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Members\Users\Domain\UserMenu.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Common\Msg\Domain\Feedback.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Members\Groups\Domain\GroupCategory.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Members\Groups\Domain\GroupIndex.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Common\Comments\IComment.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Common\AppBase\PageSettingLink.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Members\Users\Domain\Skin\SpaceSkin.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Members\Users\Domain\Skin\SkinCategory.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Common\Skins\SkinService.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Common\Skins\SkinStatus.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="AssemblyInfo.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Members\Sites\Domain\SiteActionConfig.cs" />
+    <Compile Include="Members\Sites\Domain\SiteRank.cs" />
+    <Compile Include="Members\Sites\Domain\Setting\SettingCategory.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Members\Sites\Domain\Setting\SettingList.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Web\Context\ContextInit.cs" />
+    <Compile Include="Web\Context\Helper\IInitHelper.cs" />
+    <Compile Include="Web\Context\Helper\InitHelperFactory.cs" />
+    <Compile Include="Web\Context\Initor\ControllerInit.cs" />
+    <Compile Include="Web\Context\Initor\IContextInit.cs" />
+    <Compile Include="Web\Context\Initor\InitFactory.cs" />
+    <Compile Include="Web\Context\Initor\OnlineUserInit.cs" />
+    <Compile Include="Web\Context\Initor\OwnerInit.cs" />
+    <Compile Include="Web\Context\Initor\ViewerInit.cs" />
+    <Compile Include="Web\GlobalApp\AppErrorItem.cs" />
+    <Compile Include="Web\GlobalApp\AppErrorJob.cs" />
+    <Compile Include="Web\GlobalApp\AppErrorJobItem.cs" />
+    <Compile Include="Web\GlobalApp\ApplicationGlobalHelper.cs" />
+    <Compile Include="Web\Handler\RefreshServerHandler.cs" />
+    <Compile Include="Web\Mvc\alink.cs" />
+    <Compile Include="Web\Context\AppContext.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Web\Context\Initor\AppInit.cs" />
+    <Compile Include="Web\Context\OwnerContext.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Web\Mvc\DomainMap.cs" />
+    <Compile Include="Web\Mvc\DomainWildcardMap.cs" />
+    <Compile Include="Web\Mvc\LinkConverter.cs" />
+    <Compile Include="Web\Mvc\MockContext.cs" />
+    <Compile Include="Web\Mvc\PageCache.cs" />
+    <Compile Include="Web\Url\UrlConverter.cs" />
+    <Compile Include="Members\Users\Domain\User.cs" />
+    <Compile Include="Web\Context\ViewerContext.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Common\Money\Service\UserIncomeService.cs" />
+    <Compile Include="Common\Pages\Domain\Page.cs" />
+    <Compile Include="Common\Pages\Domain\PageCategory.cs" />
+    <Compile Include="Common\Pages\Service\PageService.cs" />
+    <Compile Include="Members\Users\Enum\MemberType.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Common\Money\Domain\Currency.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Common\Money\Interface\ICurrency.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Common\Money\Domain\IncomeRule.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Common\Money\Domain\KeyCurrency.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Common\Money\Domain\KeyIncomeRule.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Common\Money\Domain\UserAction.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Common\Money\Domain\UserIncome.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Common\Money\Domain\UserIncomeLog.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Common\Money\Service\CurrencyService.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Members\Sites\Domain\SiteRankOther.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Members\Sites\Domain\SiteAction.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Members\Sites\Domain\SiteRole.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Members\Users\Domain\Friends\FriendShip.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Members\Groups\Domain\Group.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Members\Groups\Service\GroupService.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Members\Groups\Domain\GroupFriends.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Members\Groups\Domain\GroupRole.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Common\Msg\Interface\IMessageService.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Members\Groups\Domain\GroupUser.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Members\Users\Domain\MemberProfile.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Common\Msg\Domain\Message.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Common\Msg\Domain\MessageData.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Common\Msg\Domain\MessageDraft.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Common\Msg\Service\MessageService.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Common\Msg\Domain\MessageStats.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Members\Users\Domain\ProfileItem.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Members\Users\Domain\ProfileValue.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Members\Sites\Service\SiteRoleService.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Members\Users\Service\UserService.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Members\Sites\Domain\Site.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Members\Sites\Domain\Setting\Setting.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Common\Tag\TagTool.cs">
+      <SubType>Code</SubType>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1 Client Profile</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.2.0">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 2.0 %28x86%29</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.0">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.0 %28x86%29</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\wojilu\wojilu.csproj">
+      <Project>{5912B6E1-6099-4392-9A67-AFD3A8AA4343}</Project>
+      <Name>wojilu</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Members\Sites\Security\" />
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PreBuildEvent>
+    </PreBuildEvent>
+    <PostBuildEvent>
+    </PostBuildEvent>
+  </PropertyGroup>
+</Project>

@@ -1,0 +1,49 @@
+﻿<div style="">
+	<form action="#{ActionLink}" method="post" class="">
+	
+        <style>
+        .tabList li{ width:130px;}
+        </style>	
+            
+	    <ul class="tabList clearfix" style="margin:5px 10px 5px 20px;">
+	    <li class="currentTab firstTab">:{picDescription}<span></span></li>
+	    <li><a href="#{post.ImgListUrl}">:{uploadPics}</a><span></span></li>
+	    </ul>
+
+	    <div class="tabMain" style="width:95%; " >
+	    <div style="padding:10px">
+		    <table style="width: 630px"  cellpadding="3" cellspacing="0">
+			    <tr>
+				    <td>_{title}</td>
+				    <td><input name="Title" style="width: 350px" type="text" value="#{post.Title}" class="tipInput" tip="_{exTitle}"><span class="valid" mode="border"></span></td>
+			    </tr>
+			    <tr>
+				    <td>_{titleHome}</td>
+				    <td><input name="TitleHome" style="width: 350px" type="text" value="#{post.TitleHome}" ></td>
+			    </tr>
+			    <tr>
+				    <td style="vertical-align:top">_{description}</td>
+				    <td>#{Editor}</td>
+			    </tr>
+			    <tr class="hide">
+				    <td>_{orderId}</td>
+				    <td>
+				    <input name="OrderId" size="20" style="width: 30px" type="text" value="#{post.OrderId}"></td>
+			    </tr>
+	            <tr><td>_{closeComment}</td><td>#{post.IsCloseComment}</td></tr>
+
+
+			    <tr>
+				    <td>&nbsp;</td>
+				    <td>
+				        <input name="Submit1" type="submit" value=":{editPicsInfo}" class="btn">
+				        <input type="button" value="_{cancel}" class="btnCancel" />
+				    </td>
+			    </tr>
+		    </table>
+	    </div>
+	    </div>
+    </form>
+
+
+</div>

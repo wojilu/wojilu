@@ -1,0 +1,408 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <ProjectType>local</ProjectType>
+    <ProjectVersion>7.10.3077</ProjectVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{2C3A61B8-3AFD-45D2-B81E-FBC652D0ADC2}</ProjectGuid>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <AssemblyName>wojilu.Apps</AssemblyName>
+    <DefaultClientScript>JScript</DefaultClientScript>
+    <DefaultHTMLPageLayout>Grid</DefaultHTMLPageLayout>
+    <DefaultTargetSchema>IE50</DefaultTargetSchema>
+    <DelaySign>false</DelaySign>
+    <OutputType>Library</OutputType>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <OldToolsVersion>3.5</OldToolsVersion>
+    <UpgradeBackupLocation>
+    </UpgradeBackupLocation>
+    <RootNamespace>wojilu.Apps</RootNamespace>
+    <IsWebBootstrapper>true</IsWebBootstrapper>
+    <TargetFrameworkVersion>v2.0</TargetFrameworkVersion>
+    <PublishUrl>http://localhost/bbsVista.Apps/</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Web</InstallFrom>
+    <UpdateEnabled>true</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <OutputPath>bin\Debug\</OutputPath>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugSymbols>true</DebugSymbols>
+    <NoStdLib>false</NoStdLib>
+    <Optimize>false</Optimize>
+    <WarningLevel>4</WarningLevel>
+    <DebugType>full</DebugType>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <OutputPath>bin\Release\</OutputPath>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <DefineConstants>TRACE</DefineConstants>
+    <DebugSymbols>false</DebugSymbols>
+    <NoStdLib>false</NoStdLib>
+    <Optimize>true</Optimize>
+    <WarningLevel>4</WarningLevel>
+    <DebugType>none</DebugType>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Data">
+      <Name>System.Data</Name>
+    </Reference>
+    <Reference Include="System.Web" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Blog\Domain\BlogSetting.cs" />
+    <Compile Include="Blog\Service\BlogCommentService.cs" />
+    <Compile Include="Blog\Interface\IBlogCommentService.cs" />
+    <Compile Include="Blog\Interface\IBlogPostService.cs" />
+    <Compile Include="Blog\Interface\IBlogService.cs" />
+    <Compile Include="Blog\Interface\IPickedService.cs" />
+    <Compile Include="Blog\Interface\ISysBlogService.cs" />
+    <Compile Include="Content\Domain\ContentDigg.cs" />
+    <Compile Include="Content\Domain\ContentPostSection.cs" />
+    <Compile Include="Content\Domain\ContentTempPost.cs" />
+    <Compile Include="Content\Domain\ContentAttachment.cs" />
+    <Compile Include="Content\Domain\ContentAttachmentTemp.cs" />
+    <Compile Include="Content\Domain\ContentApp.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Content\Domain\ContentCustomTemplate.cs" />
+    <Compile Include="Content\Domain\ContentPoll.cs" />
+    <Compile Include="Content\Domain\ContentPollResult.cs" />
+    <Compile Include="Content\Domain\ContentPostComment.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Content\Domain\ContentImg.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Content\Domain\ContentPost.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Content\Domain\ContentSection.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Content\Domain\ContentSectionStyle.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Content\Domain\ContentSectionTemplate.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Content\Domain\ContentSectionType.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Content\Domain\ContentSetting.cs" />
+    <Compile Include="Content\Domain\ContentShare.cs" />
+    <Compile Include="Content\Domain\ContentSkin.cs" />
+    <Compile Include="Content\Domain\ContentSubmitter.cs" />
+    <Compile Include="Content\Domain\ContentVideo.cs" />
+    <Compile Include="Content\Enum\PickStatus.cs" />
+    <Compile Include="Content\Enum\PostCategory.cs" />
+    <Compile Include="Content\Enum\PostSubmitStatus.cs" />
+    <Compile Include="Content\Interface\IAttachmentService.cs" />
+    <Compile Include="Content\Interface\IContentCustomTemplateService.cs" />
+    <Compile Include="Content\Interface\IContentImgService.cs" />
+    <Compile Include="Content\Interface\IContentPostService.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Content\Interface\IContentSectionService.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Content\Interface\IContentSectionTemplateService.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Content\Interface\IContentSectionTypeService.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Content\Interface\ISectionBinder.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Content\Service\AttachmentService.cs" />
+    <Compile Include="Content\Service\ContentCustomTemplateService.cs" />
+    <Compile Include="Content\Service\ContentImgService.cs" />
+    <Compile Include="Content\Service\ContentPollService.cs" />
+    <Compile Include="Content\Service\ContentPostHomeService.cs" />
+    <Compile Include="Content\Service\ContentPostService.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Content\Service\ContentSectionService.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Content\Service\ContentSectionTemplateService.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Content\Service\ContentSectionTypeService.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="AssemblyInfo.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Blog\Domain\BlogApp.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Blog\Domain\BlogCategory.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Blog\Domain\BlogColumn.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Blog\Domain\BlogPostComment.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Blog\Domain\BlogPost.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Blog\Domain\BlogPostFeed.cs" />
+    <Compile Include="Blog\Domain\Blogroll.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Blog\Domain\BlogPostPicked.cs" />
+    <Compile Include="Blog\Domain\BlogPostVisitor.cs" />
+    <Compile Include="Blog\Interface\IBlogCategoryService.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Blog\Interface\IBlogrollService.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Blog\Service\BlogCategoryService.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Blog\Service\BlogPostService.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Blog\Service\BlogrollService.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Blog\Service\BlogService.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Blog\Service\PickedService.cs" />
+    <Compile Include="Blog\Service\SysBlogService.cs" />
+    <Compile Include="Content\Interface\ISysPostService.cs" />
+    <Compile Include="Content\Service\ContentTempPostService.cs" />
+    <Compile Include="Content\Service\RowService.cs" />
+    <Compile Include="Content\Service\SysPostService.cs" />
+    <Compile Include="Forum\Domain\AttachmentTemp.cs" />
+    <Compile Include="Forum\Domain\ForumPickedImg.cs" />
+    <Compile Include="Forum\Domain\ForumPoll.cs" />
+    <Compile Include="Forum\Domain\ForumPollResult.cs" />
+    <Compile Include="Forum\Domain\ForumSetting.cs" />
+    <Compile Include="Forum\Domain\LastUpdateInfo.cs" />
+    <Compile Include="Forum\Service\ForumPollService.cs" />
+    <Compile Include="Forum\Service\SysForumTopicService.cs" />
+    <Compile Include="Photo\Interface\IPhotoService.cs" />
+    <Compile Include="Photo\Service\PhotoService.cs" />
+    <Compile Include="Poll\Domain\PollApp.cs" />
+    <Compile Include="Poll\Domain\PollComment.cs" />
+    <Compile Include="Poll\Domain\PollData.cs" />
+    <Compile Include="Poll\Domain\PollDataResult.cs" />
+    <Compile Include="Poll\Service\PollDataService.cs" />
+    <Compile Include="Reader\Domain\FeedShare.cs" />
+    <Compile Include="Reader\Domain\FeedSource.cs" />
+    <Compile Include="Reader\Domain\FeedCategory.cs" />
+    <Compile Include="Reader\Domain\FeedEntry.cs" />
+    <Compile Include="Reader\Domain\ReaderApp.cs" />
+    <Compile Include="Reader\Domain\ReaderJob.cs" />
+    <Compile Include="Reader\Domain\Subscription.cs" />
+    <Compile Include="Reader\Domain\FeedSysCategory.cs" />
+    <Compile Include="Reader\Interface\IFeedSysCategoryService.cs" />
+    <Compile Include="Reader\Service\FeedCategoryService.cs" />
+    <Compile Include="Reader\Service\FeedEntryService.cs" />
+    <Compile Include="Reader\Service\FeedSourceService.cs" />
+    <Compile Include="Reader\Interface\IFeedCategoryService.cs" />
+    <Compile Include="Reader\Interface\IFeedEntryService.cs" />
+    <Compile Include="Reader\Interface\IFeedSourceService.cs" />
+    <Compile Include="Reader\Interface\ISubscriptionService.cs" />
+    <Compile Include="Reader\Service\SubscriptionService.cs" />
+    <Compile Include="Forum\Domain\Attachment.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Forum\Common\BoardViewStatus.cs" />
+    <Compile Include="Forum\Domain\ForumApp.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Forum\Common\ForumPostFeed.cs" />
+    <Compile Include="Forum\Common\ForumTopicFeed.cs" />
+    <Compile Include="Forum\Common\PostTypeString.cs" />
+    <Compile Include="Forum\Domain\ForumBoard.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Forum\Domain\ForumCategory.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Forum\Common\ForumConfig.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Forum\Domain\ForumLink.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Forum\Domain\ForumStickyTopic.cs" />
+    <Compile Include="Forum\Domain\Log\ForumLog.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Forum\Common\ForumLogAction.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Forum\Domain\ForumPost.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Forum\Domain\Security\ForumPermission.cs" />
+    <Compile Include="Forum\Domain\Security\ForumRole.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Forum\Domain\ForumTag.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Forum\Domain\ForumTopic.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Forum\Common\TopicStatus.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Forum\Interface\IPost.cs" />
+    <Compile Include="Forum\Service\AttachmentService.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Forum\Service\ForumBoardService.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Forum\Service\ForumBuyLogService.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Forum\Service\ForumCategoryService.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Forum\Service\ForumLinkService.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Forum\Service\ForumLogService.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Forum\Service\ForumPostService.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Forum\Service\ForumRateService.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Forum\Service\ForumService.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Forum\Service\ForumTopicService.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Forum\Service\GroupPostService.cs" />
+    <Compile Include="Forum\Interface\IAttachmentService.cs" />
+    <Compile Include="Forum\Interface\IForumBoardService.cs" />
+    <Compile Include="Forum\Interface\IForumBuyLogService.cs" />
+    <Compile Include="Forum\Interface\IForumCategoryService.cs" />
+    <Compile Include="Forum\Interface\IForumLinkService.cs" />
+    <Compile Include="Forum\Interface\IForumLogService.cs" />
+    <Compile Include="Forum\Interface\IForumPostService.cs" />
+    <Compile Include="Forum\Interface\IForumRateService.cs" />
+    <Compile Include="Forum\Interface\IForumService.cs" />
+    <Compile Include="Forum\Interface\IForumTopicService.cs" />
+    <Compile Include="Forum\Interface\IGroupPostService.cs" />
+    <Compile Include="Forum\Interface\IModeratorService.cs" />
+    <Compile Include="Forum\Service\ModeratorService.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Photo\Domain\PhotoPostFeed.cs" />
+    <Compile Include="Photo\Domain\PhotoPostPicked.cs" />
+    <Compile Include="Photo\Domain\PhotoApp.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Photo\Domain\PhotoAlbum.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Photo\Domain\PhotoPostComment.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Photo\Domain\PhotoPost.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Photo\Domain\PhotoPostVisitor.cs" />
+    <Compile Include="Photo\Domain\PhotoSysCategory.cs" />
+    <Compile Include="Photo\Domain\PhotoTop.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Photo\Domain\TopAlbum.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Photo\Interface\IPhotoAlbumService.cs" />
+    <Compile Include="Photo\Interface\IPhotoPostService.cs" />
+    <Compile Include="Photo\Interface\IPickedService.cs" />
+    <Compile Include="Photo\Interface\IPhotoSysCategoryService.cs" />
+    <Compile Include="Photo\Interface\ISysPhotoService.cs" />
+    <Compile Include="Photo\Interface\IPhotoRankService.cs" />
+    <Compile Include="Photo\Service\PhotoAlbumService.cs" />
+    <Compile Include="Photo\Service\PhotoPostService.cs" />
+    <Compile Include="Photo\Service\PhotoRankService.cs" />
+    <Compile Include="Photo\Service\SysPhotoService.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Photo\Service\PhotoSysCategoryService.cs" />
+    <Compile Include="Photo\Service\PickedService.cs" />
+    <Compile Include="Reader\Service\FeedSysCategoryService.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1 Client Profile</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.2.0">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 2.0 %28x86%29</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.0">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.0 %28x86%29</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\wojilu.Core\wojilu.Core.csproj">
+      <Project>{5D4E912F-B5A1-4E58-BFE1-62FCD30CC9E6}</Project>
+      <Name>wojilu.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\wojilu\wojilu.csproj">
+      <Project>{5912B6E1-6099-4392-9A67-AFD3A8AA4343}</Project>
+      <Name>wojilu</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PreBuildEvent>
+    </PreBuildEvent>
+    <PostBuildEvent>
+    </PostBuildEvent>
+  </PropertyGroup>
+</Project>

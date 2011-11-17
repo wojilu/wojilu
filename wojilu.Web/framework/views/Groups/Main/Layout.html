@@ -1,0 +1,53 @@
+﻿<style>
+
+#giContainer {padding:20px 0px 20px 0px}
+#giMain {width:690px; float:left;}
+#giSidebar {width:250px;float:left; margin-left:15px}
+
+.giPanel {padding-bottom:20px}
+.giPanel ul {padding-left:10px; padding-top:10px}
+
+.groupLogo {margin-bottom:5px}
+
+.gnewposts li {margin:3px; font-size:14px;}
+.gnewposts li .note {font-size:12px;}
+
+.grouplist li {float:left;margin:5px 5px 15px 5px;text-align:center; width:90px;height:100px; line-height:130%; background:#; padding-top:3px}
+.grouplist img {width:60px;}
+</style>
+
+<div id="giContainer">
+
+	<div id="giMain">#{layout_content}</div>
+	
+	<div id="giSidebar">
+		
+		<div class="sectionPanel giPanel">
+			<div class="sectionTitle">_{groupSearch}</div>
+			<form id="myform" action="#{SearchAction}" method="get" style="padding:10px 10px 0px 10px"><input name="name" id="name" type="text" value="#{s.Name}" style="width:80px;" />
+				<select name="queryType">
+					<option value="name">_{name}</option>
+					<option value="creator">_{creator}</option>
+				</select>&nbsp;<input type="submit" value="_{search}">	
+			</form>
+			<div style="padding:10px 20px 0px 20px;"><a href="#{allGroupLink}">&rsaquo;&rsaquo; _{allGroup}</a></div>	
+		</div>
+		
+		<div class="sectionPanel giPanel">
+			<div class="sectionTitle">_{viewByCategory}</div>
+			<ul>
+			<li><a href="#{allGroupLink}">_{all}</a></li>
+			<!-- BEGIN categories -->
+			<li><a href="#{c.Link}">#{c.Name}</a></li><!-- END categories -->			
+			</ul>
+		</div>
+		
+	
+	</div>
+	
+	<div class="clear"></div>
+	
+
+</div>
+
+

@@ -1,0 +1,26 @@
+﻿<div>
+    <div class="adminMainTitle"><div class="adminSidebarTitleInternal">分类列表</div></div>
+
+    <div class="adminMainPanel">
+
+
+        <table cellspacing="1" cellpadding="3" style="width: 100%;" id="dataAdminList">
+	        <tr class="tableHeader">
+	        
+                <td>编号</td><td>名称</td><td>管理</td></tr>
+            
+            <!-- BEGIN list -->
+            <tr class="tableItems">
+                <td>#{c.Id}</td>
+                <td>#{c.Name}</td>
+                <td>
+                    <a href="#{c.EditLink}" class="edit">修改</a> 
+                    <a href="#{c.DeleteLink}" class="delete">删除</a>
+                </td>
+            </tr>
+            <!-- END list -->
+        </table>
+
+    </div>
+</div>
+

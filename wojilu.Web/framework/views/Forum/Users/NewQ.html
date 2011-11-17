@@ -1,0 +1,69 @@
+﻿
+#{location}
+
+<script type="text/javascript">
+<!--
+$(document).ready( function(){
+    wojilu.ui.valid();
+    wojilu.ui.ajaxPostForm();
+});
+//-->
+</script>
+
+<div class="forumForm">
+	<div class="forumFormTitle">:{addTopic}</div>
+
+	<form action="#{ActionLink}" method="post" class="ajaxPostForm">
+		<table class="forumFormMainTable">
+			<tr>
+				<td class="tdL">:{rewardValue}</td>
+				<td><select name="Reward">
+				<option value="5">5</option>
+				<option value="10">10</option>
+				<option selected="selected" value="20">20</option>
+				<option value="50">50</option>
+				<option value="80">80</option>
+				<option value="100">100</option>
+				<option value="200">200</option>
+				</select> <span class="note">:{rewardTip}</span>
+				</td>
+			</tr>
+
+			<tr class="forumFormRowTitle">
+				<td class="tdL">_{title}</td>
+				<td>#{Category}
+				<input name="Title" style="width: 320px" type="text" value="#{Title}"><span class="valid" mode="border"></span> 
+				<span class="left10">_{tag}</span> 
+				<input name="TagList" style="width: 120px;" type="text" value="#{TagList}">
+				<span class="note">(_{tagTip})</span> </td>
+			</tr>
+			<tr>
+				<td class="tdL">:{qNote}</td>
+				<td>#{Editor} </td>
+			</tr>
+
+			<tr>
+				<td><span class="valid" to="Content" mode="border"></span></td>
+				<td>
+				
+				<table style="width:100%;">
+				<tr>
+				    <td style="width:100px;"><input type="submit" value=":{submitPost}" name="btnSubmit" class="btn"></td>
+				    <td style="width:50px;"><img src="~img/upload.gif" class="left20" /> <input id="uploadFileIds" name="uploadFileIds" type="hidden" /></td>
+				    <td style="width:150px;"><a href="#{uploadLink}" class="frmBox" xwidth="500" xheight="200" title=":{uploadAttachment}" style="font-size:22px; font-weight:bold;">:{uploadAttachment}</a></td>
+				    <td style="text-align:right;"></td>
+				</tr>
+				</table>
+				
+				</td>
+			</tr>
+			<tr>
+				<td class="tdL"></td><td id="uploadFiles"></td>
+			</tr>
+
+		</table>
+	</form>
+	
+
+
+</div>

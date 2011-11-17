@@ -1,0 +1,16 @@
+﻿    授权协议
+-------------------------------------------------------------------
+
+我记录网站综合系统 (c) 2010 www.wojilu.com all rights reserved.
+
+1) 个人使用和非商业性使用完全免费，其他商业组织（包括学校和政府机构）需要购买授权。
+2) 可以对“我记录网站综合系统”以及源码进行二次分发，但必须保持项目和源码的完整，不得有任何修改。
+3) 禁止未经同意对“我记录网站综合系统”进行销售，或以赢利为目的的任何行为。
+4) 在博客上撰文评价“我记录网站综合系统”的，请到 www.wojilu.com 索取免费的商业授权。
+5) 请保留页脚 Powered by“我记录”网站综合系统 信息和 www.wojilu.com 链接。
+6) 更多未定事项，请联系 www.wojilu.com 确认。
+
+This copy of wojilu is licensed for non-commercial use only. Individuals, families, non-profit and charitable organizations may use wojilu without charge, but commercial organizations ( including academic institutions and government bodies ) must purchase a license. 
+
+
+本协议解释权归 www.wojilu.com 所有。

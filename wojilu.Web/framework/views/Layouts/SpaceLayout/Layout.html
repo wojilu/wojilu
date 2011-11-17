@@ -1,0 +1,63 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html dir="ltr" xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+<title>#{pageTitle}</title>
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+<meta http-equiv="X-UA-Compatible" content="IE=EmulateIE7" /> 
+
+<meta content="#{pageKeywords}" name="Keywords" />
+<meta content="#{pageDescription}" name="Description" />
+
+<link href="~css/wojilu.common.css?v=#{cssVersion}" rel="stylesheet" type="text/css" />
+<link href="~css/jquery/ui-lightness/jquery-ui.custom.css?v=#{cssVersion}" rel="stylesheet" type="text/css" />
+#{siteSkinContent}<link href="~css/wojilu.space.css?v=#{cssVersion}" rel="stylesheet" type="text/css" />
+#{skinContent}
+<script src="~js/jquery.js?v=#{jsVersion}" type="text/javascript"></script>
+<script src="~js/jquery-ui.custom.js?v=#{jsVersion}" type="text/javascript"></script>
+<script src="~js/lang.#{langStr}.js?v=#{jsVersion}" type="text/javascript"></script>
+<script src="~js/wojilu.common.js?v=#{jsVersion}" type="text/javascript"></script>
+<script src="~js/wojilu.site.js?v=#{jsVersion}" type="text/javascript"></script>
+<script src="~js/wojilu.space.js?v=#{jsVersion}" type="text/javascript"></script>
+#{pageRssLink}
+</head>
+
+<body>
+#{topNav}
+<div id="spacePageWrap">
+<div id="spacePage">
+	
+    #{header}
+
+	<div id="spaceMainWrap">
+		<div id="spaceMain">
+		#{layout_content}		
+		</div>
+		<div class="clear"></div>
+	</div>
+
+	<div id="spaceFooterWrap">
+		<div id="spaceFooter">		
+			<div>copyright &copy <a href="#{spaceUrl}">#{spaceName}</a> 2010-2011</div>
+	        <div>Powered by <a href="http://www.wojilu.com" target="_blank">我记录1.8</a></div>
+	        <div>Processed in <span id="elapseTime">0</span> seconds, <span id="sqlQueries">0</span> queries<div>
+		</div>
+	</div>
+	<div><a href="#{customSkinLink}" id="customSkin" class="frmBox" title="_{customUserSkin}"></a></div>
+	
+</div>
+</div>
+
+
+<script>
+$(document).ready( function() {
+    var q = wojilu.tool.getQuery( 'skin' );
+    if( q== 'custom' ) {
+        $('#customSkin').click();
+        wojilu.ui.box.hideBg();
+    }
+});
+</script>
+#{statsJs}
+</body>
+</html>

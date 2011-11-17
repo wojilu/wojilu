@@ -1,0 +1,24 @@
+﻿		
+<div id="blogSearchPanel" class="sectionPanel">
+	<form method="get" action="#{recentLink}">
+	:{blogSearch}: <input name="qword" type="text" value="#{qword}" /> #{droplist} <input name="Submit1" type="submit" value=":{quickSearch}" />
+	</form>
+</div>	
+	
+<div class="sectionTitle">:{allBlogPost}</div>
+
+<div style="margin-top:20px">#{page}</div>
+<!-- BEGIN list -->	
+<table class="blogIndexItem">
+	<tr>
+		<td style="width:18%;padding:10px 5px 5px 5px;vertical-align:top">#{post.Face}</td>
+		<td style="width:82%">
+		<div class="cpPostTitle"><a href="#{post.LinkShow}">#{post.Title}</a></div>
+		<div class="bmTime">#{post.Created}</div>
+		<div class="bmContent">#{post.Abstract}</div>
+		</td>
+	</tr>
+</table>	
+<!-- END list -->
+
+<div>#{page}</div>

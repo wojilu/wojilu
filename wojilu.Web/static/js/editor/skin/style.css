@@ -1,0 +1,101 @@
+﻿.wojiluEditor {font-family:verdana; font-size:14px; line-height:100%;margin-right:0px; border:1px #999 solid;}
+.wojiluEditor img {border:0px;margin:0px;}
+
+.wojiluEditorFrame {cursor:text;}
+
+/*工具栏*/
+div.editorToolBar { width:100%; background:#efefef url(toolbar/bg.gif);  border-bottom:1px #999 solid; }
+div.editorToolBar table td {font-size:12px !important; line-height:135% !important;vertical-align:middle;padding:1px 2px 1px 2px !important;}
+
+.ebarInner td {border:1px #d3e1f1 solid;}
+.ebarInner td:hover {border:1px solid #3169c6;cursor:pointer;background:#c6d3ef;}
+
+td.wojilu_tool_more {padding:2px 5px;}
+td.wojilu_tool_source {border:0px;}
+td.wojilu_tool_source:hover {border:0px;background:#efefef;}
+
+div.viewSource {width:60px;font-size:12px;}
+
+td.editorSeparator {border:0px #000 solid;padding-left:3px;padding-right:3px;}
+td.editorSeparator:hover {border:0px;cursor:default;background:#efefef;}
+
+/*颜色(color)*/
+div.colorBox {background:#ffffff; border:1px solid #aaa; padding:0px;width:172px;}
+div.colorBox table {font-size:9pt;}
+table.tblColorSelector {margin:5px;}
+table.tblColorSelector td {}
+td.colorNormal {border:1px solid #fff; }
+td.colorNormal:hover {border:1px solid #330066;background:#c4cdd6;}
+table.colorInner {width:12px;height:12px;margin:0px;padding:0px;border:1px solid #808080;}
+
+table.emSelector td {padding:2px;}
+td.emotionItem {cursor:pointer;border:1px #fff solid;}
+td.emotionItem:hover {border:1px solid #330066;background:#c4cdd6;}
+
+/*字体(font-size)*/
+.fontFamilyItem {padding:2px 5px;cursor:pointer;font-size:14px;}
+.fontSizeItem {line-height:135%;cursor:pointer;}
+.fontFamilyItem:hover {background:#eee;}
+.fontSizeItem:hover {background:#eee;}
+
+/*table*/
+#tableBox {width:160px; margin:0px;padding:5px;background:#ffffff;border:1px solid #aaa;}
+#lblTableInfo {margin-bottom:5px;font-size:12px;font-weight:bold;}
+.drawTable {margin: 0px 10px 10px 10px; border-collapse:collapse;border:1px #ccc solid;}
+.drawTable td {border:1px solid #ccc; width:15px;height:15px; }
+
+
+/*flash*/
+div#flashBox {border:0px;background:#eee; padding:10px;border:1px #aaa solid; }
+div#flashBox table {font-size:12px;border-collapse:collapse;background:#fff; border:0px; }
+div#flashBox td{padding:3px 5px 1px 5px; border:0px solid #ccc;}
+td.flashBoxLeft {text-align:right;width:3px 10px 3px 10px; width:40px;}
+input.flashBoxUrl {width:350px;}
+
+/*link*/
+div#linkBox {width:550px;}
+div#linkBox div{background:#fff;padding:10px;}
+input.editorLinkUrl {width:350px;}
+
+td.imgUploadTitle {font-size:14px;font-weight:bold;border:0px;}
+
+table.insertItem {width:100%;height:35px;background:#dedede;border-collpase:collapse;border:0px solid #aaa;}
+.insertItem img {cursor:pointer;border:2px solid outset;}
+
+div#uploadBox {margin:0px;padding:0px;}
+
+.note {font-size:12px;color:#666;}
+
+/*引用*/
+.quote {font-size:12px;  margin:15px 0px; color:#333; padding-left:20px; padding-top:0px; background:url('../../../img/quoteBegin.gif') no-repeat top left; border:1px #ccc dotted; }
+.quote .qSpan {background:url('../../../img/quoteEnd.gif') no-repeat bottom right; padding-right:18px;}
+    div.quoteAuthor {color:#1e50a2; text-align:right; margin-right:10px;}
+.quote div { font-size:12px; }
+
+/*通用*/
+div.editorBox {display:none;background:#eee;padding:10px;font-size:12px;border:1px #aaa solid;}
+.editorBox div {background:#fff; padding:10px;}
+table.editorBoxTitle {width:100%;border:0px; background:#efefef;}
+table.editorBoxTitle td{border:0px;}
+td.editorBoxTitleString {padding-left:10px;font-weight:bold;}
+
+.editorCmdBox {
+    box-shadow: 0px 3px 9px rgba(0, 0, 0, 0.3); -moz-box-shadow: 0px 3px 9px rgba(0, 0, 0, 0.3); -webkit-box-shadow: 0px 3px 9px rgba(0, 0, 0, 0.3);
+}
+
+/*图片插入*/
+div.getImgBox {width: 580px;background:#ddd; border:1px #aaa solid;}
+.getImgBox  table.insertTable {width:560px; margin:10px; border-collapse:collapse; border:1px;}
+.getImgBox  td { padding:5px 5px 2px 5px; font-size:12px;}
+.getImgBox  td.tabItem {width:100px; text-align:center; cursor:pointer;}
+.getImgBox  td.currentTab {background:#fff;}
+
+.getImgBox  td.closeTab { text-align:right;}
+span.closeSpan {cursor:pointer;}
+.getImgBox  td.actionPanel {padding:10px 10px 10px 10px; background:#fff; }
+.getImgBox  div.insertPannel {height:50px; line-height:150%;margin:10px;}
+.getImgBox  input.editorImgUrl {width:380px;}
+
+
+#aboutBox {line-height:150%;}
+#aboutBox input {margin:5px 2px 0px 2px; width:80px;}

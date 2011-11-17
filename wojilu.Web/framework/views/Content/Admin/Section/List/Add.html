@@ -1,0 +1,122 @@
+﻿<div style="height:480px;">
+<script src="~js/wojilu.app.content.upload.js?v=#{jsVersion}" type="text/javascript"></script>
+<script type="text/javascript">
+<!--
+$(document).ready( function() {    
+
+	$('.tabItem').click( function() {
+	
+	    $('.tabItem').removeClass( 'currentTab' ).removeClass( 'otherTab' ).addClass( 'otherTab' );	    
+	    $(this).removeClass( 'otherTab' ).addClass( 'currentTab' );
+	    
+	    var tabId = wojilu.str.trimStart( $(this).attr( 'id' ), 'tab' );
+	    
+	    $('.tabMain').hide();
+	    $('#content'+tabId).show();	
+	});
+
+});
+//-->
+</script>
+
+<style>
+#title {width: 600px}
+#tagList {width:200px}
+#srcLink {width:350px;}
+
+.tabItem { cursor:pointer;}
+.tabMain {padding:10px 0px;}
+</style>
+	
+<form method="post" action="#{ActionLink}" style="margin-bottom:30px;">
+
+	<table style="width:780px" class="tabHeader" cellpadding="0" cellspacing="0">
+		<tr>
+			<td id="tab1" class="tabItem currentTab" style="width:20%;">:{general}</td>
+			<td id="tab2" class="tabItem otherTab" style="width:20%;">:{advanced}</td>
+			<td id="tab3" class="tabItem otherTab" style="width:20%; display:none;">:{attachment}</td>
+			<td class="otherTab" style="width:40%;">&nbsp;</td>
+		</tr>
+	</table>
+	
+	<div id="content1" class="tabMain" style="width:780px;">
+	<table style="width: 95%;margin:auto;">
+		<tr class="hide">
+			<td style="width: 80px;">:{itsSection}</td>
+			<td style="width: 670px;"><strong>#{section.Title}</strong></td>
+		</tr>
+		<tr>
+			<td>_{title}</td>
+			<td><input name="Title" id="title" type="text" class="tipInput" tip="_{exTitle}"><span class="valid" mode="border"></span></td>
+		</tr>
+		<tr>
+			<td>_{author}</td>
+			<td><input name="Author" type="text">
+			<span class="left15">:{srcUrl}</span> <input name="SourceLink" id="srcLink" type="text" size="20">
+
+			</td>
+		</tr>	
+		<tr>
+			<td>_{content}<span to="Content" class="valid" mode="border"></span></td>
+			<td>#{Editor}</td>
+		</tr>	
+		<tr>
+			<td>&nbsp;<input type="hidden" name="ModuleId" value="#{module.Id}" /></td>
+			<td>
+			    <input name="Submit1" type="submit" value=":{submitData}" class="btn"> 
+			    <input type="button" value="_{cancel}" class="btnCancel" />
+			</td>
+		</tr>		
+		
+	</table>
+	</div>
+	
+	<div id="content2" class="tabMain" style="display:none;width:780px;">
+	<table style="width: 95%;margin:auto;">
+	    <tr>
+	        <td>_{closeComment}</td>
+	        <td><input name="IsCloseComment" value="1" type="checkbox"></td>
+	    </tr>
+	    <tr>
+	        <td>_{tag}</td>
+	        <td><input name="TagList" id="tagList" type="text"><span class="help" title="_{tagTip}">?</span></td>
+	    </tr>
+
+		<tr >
+			<td style="vertical-align:top">_{summary}</td>
+			<td>
+			<textarea name="Summary" style="width: 500px; height: 90px"></textarea></td>
+		</tr>
+		<tr>
+			<td style="width: 80px;vertical-align:top">:{picUrl}</td>
+			<td>
+			<input name="ImgLink" id="imgLink" type="text" style="width: 500px">
+			<span class="note">:{picUrlTip}</span></td>
+		</tr>
+		<tr>
+			<td style="vertical-align:top">:{titleStyle}</td>
+			<td><textarea name="Style" style="width: 500px; height: 50px"></textarea>
+			<span class="note">(:{cssRequired})</span>
+			</td>
+		</tr>
+		<tr >
+			<td style="width:80px">_{orderId}</td>
+			<td>
+			    <input name="OrderId" type="text" size="20" style="width: 30px" value="0">			    
+			</td>
+		</tr>
+	</table>
+	</div>
+	
+	<div id="content3" class="tabMain" style="display:none;width:780px;">
+	    <div style="display:none;">
+	    <div style="margin:10px 0px 10px 15px; font-size:16px; font-weight:bold;">
+	    <img src="~img/s/upload.png" style="vertical-align:middle;" /><a href="#{uploadLink}" class="frmBox" style="vertical-align:middle;">上传附件</a>
+	    </div>
+	    <input id="uploadFileIds" name="uploadFileIds" type="hidden" />
+	    <div id="uploadFiles"></div>
+	    <div class="clear"></div></div>
+	</div>
+
+</form>
+</div>

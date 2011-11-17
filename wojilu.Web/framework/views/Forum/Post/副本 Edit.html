@@ -1,0 +1,35 @@
+﻿#{location}
+
+<script type="text/javascript">
+<!--
+$(document).ready( function(){
+    wojilu.ui.valid();
+    wojilu.ui.ajaxPostForm();
+});
+//-->
+</script>
+
+<div class="forumForm">
+	<div class="forumFormTitle">:{editPost}</div>
+
+	<form method="post" action="#{ActionLink}" class="ajaxPostForm">
+		<table class="forumFormMainTable">
+			<tr class="forumFormRowTitle">
+				<td class="tdL">_{title}</td>
+				<td><input name="Title" style="width: 350px" type="text" value="#{post.Title}"></td>
+			</tr>
+			<tr>
+				<td class="tdL">_{content}</td>
+				<td>#{Editor} </td>
+			</tr>
+			<tr>
+				<td>&nbsp;</td>
+				<td>
+				<input name="btnSubmit" type="submit" value=":{editPost}" class="btn">
+				<input name="forumId" type="hidden" value="#{forumId}" />
+				</td>
+			</tr>
+		</table>
+	</form>
+
+</div>

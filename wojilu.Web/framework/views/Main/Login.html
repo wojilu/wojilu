@@ -1,0 +1,59 @@
+﻿
+<div style="padding:10px 0px 30px 30px;width:420px;">
+
+<style>
+div.lgReginfo {padding:10px 0px 10px 80px; background:#f2f2f2; width:400px; margin-top:10px;}
+.lgTitle{padding:15px 10px 10px 90px; font-size:28px;font-weight:bold;}
+
+#loginTable { border:0px #ccc solid; border-collapse:collapse;  width:400px}
+#loginTable td{font-size:14px; padding:3px}
+#loginTable .right {width:80px; padding-right:3px}
+#loginTable .lgsubmit {padding:15px 10px 10px 0px}
+#loginTable .lgInput, #validationRow input {width:180px;height:20px;font-size:16px; padding:3px}
+#validationRow input {width:120px;}
+#loginTable .valid {font-size:12px}
+</style>
+
+<div class="lgReginfo">#{lblUnRegisterTip}</div>
+<div class="lgTitle">_{userLogin}</div>
+<form method="post" action="#{ActionLink}" class="ajaxPostForm">
+<table id="loginTable">
+	<tr>
+		<td class="right">_{userName}</td>
+		<td><input name="txtUid" type="text" id="txtUid" class="lgInput"  /> <span class="valid" msg="_{exPlsFill}"></span></td>
+	</tr>
+	<tr>
+		<td class="right">_{pwd}</td>
+		<td><input name="txtPwd" type="password" id="txtPwd" class="lgInput" /> <span class="valid" msg="_{exPwd}"></span>     </td>
+	</tr>
+	<!-- BEGIN Captcha -->
+	<tr id="validationRow">
+	    <td class="right">_{validationCode}</td><td>#{ValidationCode}</td>
+	</tr><!-- END Captcha -->	
+	<tr>
+		<td class="right">&nbsp;</td>
+		<td><label><input name="RememberMe" type="checkbox" id="chkRemember" checked="checked" />_{rememberMe}</label></td>
+	</tr>
+	<tr>
+		<td></td><td class="lgsubmit">
+		<input type="submit" name="btnSubmit" class="btn" value="_{login}" id="btnSubmit"  />
+		<span id="lblInfo" style="color: Red;"></span>
+		<input type="hidden" name="returnUrl" value="#{returnUrl}" />
+		<a href="#{resetPwdLink}" class="left10">_{forgetPwd}</a>
+		
+		</td>
+	</tr>
+</table>
+</form>
+
+<script type="text/javascript">
+
+$(document).ready( function() { 
+	wojilu.ui.valid();
+	wojilu.ui.ajaxPostForm();
+
+});
+
+</script>
+
+</div>

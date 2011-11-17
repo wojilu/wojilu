@@ -1,0 +1,26 @@
+﻿<div>
+    <div class="adminMainTitle"><div class="adminSidebarTitleInternal">添加文章</div></div>
+
+    <div class="adminMainPanel">
+    
+    <div class="formPanel">
+        <form method="post" action="#{ActionLink}">
+        <table>
+            <tr><td>标题：</td><td>
+            <input name="article.Title" type="text" class="tipInput" tip="请填写标题，5-15个字符" style="width:450px;" />
+            <span class="valid" msg="请填写标题" rule="^.{5,15}$" mode="border"></span>
+            </td></tr>
+            <tr><td>所属分类：</td><td>#{categoryId}</td></tr>
+            <tr><td>内容：</td><td>#{Editor}<span class="valid" to="article.Content" msg="请填写内容" mode="border"></span>
+            </td></tr>
+            <tr><td></td><td><input type="submit" value="添加文章" class="btn" /></td></tr>
+        </table>
+        
+
+        </form>
+</div>
+
+</div>
+</div>
+
+

@@ -1,0 +1,16 @@
+﻿
+<h1 class="h1title">#{post.Title}</h1>	
+<div class="postInfo">#{post.CreateTime}　<span class="left10">_{view}:#{post.Hits}</span> <span class="left10">_{comment}:#{post.ReplyCount} <a href="#comments">_{viewByHit}</a></span></div>
+<div class="postContent">
+
+	<div>#{post.Content}</div>
+	
+	<!-- BEGIN list -->
+	<div style="margin:0px 0px 10px 0px; text-align:center;"><img src="#{img.Url}" class="imgItem" style="max-width:580px;"  /><br/>#{img.Description}</div>
+	<!-- END list -->	
+	<div style="text-align:center;">#{page}</div>
+</div>
+
+<div class="postSource">_{src}:#{post.Source}</div>
+<div style="margin-left:10px;">投递人：#{post.Submitter}</div>
+

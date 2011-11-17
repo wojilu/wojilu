@@ -1,0 +1,64 @@
+﻿<style>
+
+#cpContainer { padding:18px;}
+
+#cpMain { float:left;width:650px; background:#fff; padding-right:20px; }
+
+#cpSidebar {width:250px; float:left; color:#000;}
+#cpSidebar ul {padding:5px 5px 10px 5px}
+#cpSidebar ul li {margin:5px 0px 5px 5px;}
+
+
+	.cpPostTitle {font-size:14px; padding:3px 0px;}
+	.bmTime {color:#666;font-size:12px; margin:3px 0px;}
+	.bmContent {font-size:12px; padding:3px 0px; line-height:150%; color:#666;}
+
+#userRank {width:640px;}
+#userRank li{ float:left; padding:12px; width:60px; height:80px;vertical-align:top; overflow: hidden; text-align:center;}
+#userRank li div {width:100%;margin-top:5px;text-overflow: clip; white-space: nowrap; overflow: hidden; -moz-text-overflow: clip; }
+
+
+#blogSearchPanel {margin:0px 0px 10px 0px;background:#f2f2f2; padding:10px 10px;height:25px;}
+.blogIndexItem {width: 100%;margin:10px 0px; border-top:1px #eee solid}
+
+</style>
+
+<div id="cpContainer">
+
+	<div id="cpMain">	
+		#{layout_content}	
+	</div>
+
+	<div id="cpSidebar">	
+
+		<div class="sectionPanel cpPanel">
+			<div class="sectionTitle">:{pickedBlogger}</div>
+			<ul>
+				<!-- BEGIN tops -->
+				<li>#{post.Number} <a href="#{post.LinkShow}">#{post.Title}</a></li><!-- END tops -->			
+			</ul>
+		</div>
+		
+		<div class="sectionPanel cpPanel">
+			<div class="sectionTitle">:{rankByView}</div>
+			<ul>
+				<!-- BEGIN hits -->
+				<li>#{post.Number} <a href="#{post.LinkShow}">#{post.Title}</a></li><!-- END hits -->			
+			</ul>
+		</div>
+		
+		<div class="sectionPanel cpPanel">
+			<div class="sectionTitle">:{rankByComment}</div>
+			<ul>
+				<!-- BEGIN replies -->
+				<li>#{post.Number} <a href="#{post.LinkShow}">#{post.Title}</a></li><!-- END replies -->			
+			</ul>
+		</div>	
+		
+	</div>
+
+	
+	<div class="clear"></div>
+
+</div>
+

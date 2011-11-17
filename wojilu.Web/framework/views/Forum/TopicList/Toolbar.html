@@ -1,0 +1,45 @@
+﻿<table class="fbToolContainer" cellpadding="0" cellspacing="0">
+	<tr>
+		<td>		
+		<table id="cmdPubTool" cellpadding="0" cellspacing="0">
+		    <tr>
+		        <td id="cmdPubTopic">
+		        <a href="#{newPostUrl}" class=""><span>:{addTopic}</span></a>		
+		        </td>
+		        <td id="cmdPubMore" class="clickMenu" list="pubTopic">
+		            <img src="~img/down.gif"/>
+			        <ul class="menuItems" id="pubTopic">
+				        <li><a href="#{newPollUrl}"><img src="~skin/apps/forum/addPoll.gif"/> :{addPoll}</a></li>
+				        <li><a href="#{newQUrl}"><img src="~skin/apps/forum/addQuestion.gif"/> :{addQuestion}</a></li>
+			        </ul>		        
+		        </td>
+		        <td><a href="#{forumBoard.PollUrl}" class="left20 right20">:{poll}</a></td>
+		        <td><a href="#{forumBoard.PickedUrl}" class="right20">:{picked}</a></td>
+		        <td><span class="link clickMenu right10" list="sortCmds">:{sort}<img src="~img/down.gif" /></span>
+			        <ul class="menuItems" id="sortCmds">
+				        <li><a href="#{slinkReplied}">:{sortReplied}</a></li>
+				        <li><a href="#{slinkCreated}">:{sortCreated}</a></li>
+				        <li><a href="#{slinkReplies}">:{sortReplies}</a></li>
+				        <li><a href="#{slinkViews}">:{sortViews}</a></li>
+			        </ul>
+		        </td>
+		        <td><span class="link clickMenu" list="timeFilter">:{timeFilter}<img src="~img/down.gif" /></span>
+			        <ul class="menuItems" id="timeFilter">
+				        <li><a href="#{slinkAll}">:{tAll}</a></li>
+				        <li><a href="#{slinkDay}">:{tDay}</a></li>
+				        <li><a href="#{slinkDayTwo}">:{tDay2}</a></li>
+				        <li><a href="#{slinkWeek}">:{tWeek}</a></li>
+				        <li><a href="#{slinkMonth}">:{tMonth}</a></li>
+				        <li><a href="#{slinkMonthThree}">:{tMonth3}</a></li>
+				        <li><a href="#{slinkMonthSix}">:{tMonth6}</a></li>
+			        </ul>		        
+		        </td>
+		    </tr>		
+		</table>
+		 </td>
+		<td class="fbPage">#{page}</td>
+	</tr>
+</table>
+
+
+

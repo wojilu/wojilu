@@ -1,0 +1,38 @@
+﻿
+<style>
+.uploadTable { margin:10px 0px 5px 0px;width:600px; text-align:right; border-collapse:collapse; background:#fff;}
+td.uploadDescription {	width:500px; text-align:left;}
+.uploadInput {	text-align:left;}
+.uploadInput input {width:400px;}
+.uploadDescription input{width:400px;}
+</style>
+
+
+		<div class="formPanel">
+
+
+			<h4>:{uploadAlbum}:<span class="red">《#{photoAlbum}》</span></h4>
+			
+			<form action="#{ActionLink}" method="post" enctype="multipart/form-data">
+			<input type="hidden" name="PhotoAlbumId" value="#{PhotoAlbumId}" />
+			<input name="SystemCategoryId" type="hidden" value="#{SystemCategoryId}" />
+			
+			<!-- BEGIN list -->
+			<table class="uploadTable">
+				<tr>
+					<td>_{photo}</td>
+					<td class="uploadInput"><input name="File#{photoIndex}" type="file"></td>
+				</tr>
+				<tr>
+					<td>_{note}</td>
+					<td class="uploadDescription"><input name="Text#{photoIndex}" type="text" size="20"></td>
+				</tr>
+			</table>
+			<!-- END list -->
+			
+			
+			<div style="margin:20px 10px 10px 100px;"><input name="Submit1" type="submit" value=":{uploadPhoto}" class="btn" /></div>
+			
+			</form>
+
+	</div>

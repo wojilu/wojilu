@@ -1,0 +1,81 @@
+﻿<div class="articleLocation">_{location}: #{location}</div>
+<table style="width:100%"><tr><td>#{detailContent}</td></tr></table>
+<style>
+
+.diggUp {background: url("~img/big/diggBg.png") left top no-repeat;}
+.diggDown {background: url("~img/big/diggBg.png") right top no-repeat;}
+
+.btnDigg {width: 195px;height: 51px;float: left;margin-right: 8px;overflow: hidden;cursor: pointer;}
+.btnDigg .diggText {font-size: 14px;float: left;line-height: 31px;text-indent: 32px;height: 29px;overflow: hidden;font-weight: bold;}
+.btnDigg .diggNum {float: left;line-height: 29px;text-indent: 5px;}
+.btnDigg .diggPer {width: 180px;clear: both;padding-left: 10px;overflow: hidden;}
+.btnDigg .diggPer .diggPerBar {width: 100px;height: 7px;background: #E8E8E8;border-right: 1px solid #CCC;float: left;overflow: hidden;margin-top: 3px;}
+.btnDigg .diggPer .diggPerBar span {display: block;height: 5px;overflow: hidden;background: black;}
+.btnDigg .diggPer .diggPerNum {font-size: 10px;float: left;padding-left: 10px;}
+
+.diggUp .diggText {color: #C30;}
+.diggUp .diggNum {color: #C63;}
+.diggUp .diggPer .diggPerBar span {border: 1px solid #E37F24;background: #FFC535;}
+
+.diggDown .diggText {color: #36C;}
+.diggDown .diggNum {color: #39C;}
+.diggDown .diggPer .diggPerBar span {border: 1px solid #689ACC;background: #94C0E4;}
+
+</style>
+
+<div class="diggPanel" id="diggPanel" style="width:410px; margin:20px auto; "><a name="digg"></a>
+
+    <div id="btnDiggUp" class="btnDigg diggUp" onmousemove="this.style.backgroundPosition='left bottom';" onmouseout="this.style.backgroundPosition='left top';" style="background-position: 0% 100%; ">
+		<div class="diggText">顶一下</div>
+		<div class="diggNum">(#{post.DiggUp})</div>
+		<div class="diggPer">
+			<div class="diggPerBar"><span style="width:#{post.DiggUpPercent}%"></span></div>
+			<div class="diggPerNum">#{post.DiggUpPercent}%</div>
+		</div>
+	</div>
+	
+	<div id="btnDiggDown" class="btnDigg diggDown" onmousemove="this.style.backgroundPosition='right bottom';" onmouseout="this.style.backgroundPosition='right top';" style="background-position: 100% 0%; ">
+		<div class="diggText">踩一下</div>
+		<div class="diggNum">(#{post.DiggDown})</div>
+		<div class="diggPer">
+			<div class="diggPerBar"><span style="width:#{post.DiggDownPercent}%"></span></div>
+			<div class="diggPerNum">#{post.DiggDownPercent}%</div>
+		</div>
+	</div>
+	
+	<div class="clear"></div>	
+</div>
+<script src="~js/wojilu.digg.js?v=#{jsVersion}" type="text/javascript"></script>
+<script>
+$( document).ready( function() {    
+    digg( 'btnDiggUp', '#{lnkDiggUp}' );
+    digg( 'btnDiggDown', '#{lnkDiggDown}' );
+});
+</script>
+
+<div class="shareCmd" style="border:1px #ccc solid; background:#fff; padding:5px 10px;"></div>
+
+<div style="margin-top:10px;">
+    <div style="margin:5px;">上一篇：#{prevPost}</div>
+    <div style="margin:5px;">下一篇：#{nextPost}</div>
+</div>
+
+
+
+<div>
+    <div style="margin:10px 5px 10px 5px; font-weight:bold;font-size:14px;">相关阅读: <span style="margin-left:5px; font-weight:normal;">#{post.Tag}</span></div>
+    
+    <ul style="margin:5px 5px 20px 30px;">
+        <!-- BEGIN related -->
+        <li style=" list-style-type:disc;"><a href="#{p.Link}">#{p.Title}</a><span class="note left5">(#{p.Created})</span></li><!-- END related -->    
+    </ul>
+
+</div>
+
+<div>#{commentSection}</div>
+
+<script>
+$( document).ready( function() {
+    wojilu.tool.shareFull();
+});
+</script>

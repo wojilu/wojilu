@@ -1,0 +1,30 @@
+﻿<table border="1" cellpadding="0" cellspacing="0" class="adminContainer">
+	<tr>
+		<td class="adminSidebar">
+			<div class="adminSidebarTitle"><div class="adminSidebarTitleInternal">_{adminApp}</div></div>
+			
+			<ul id="sidebarApps"><!-- BEGIN apps --><li>#{app.NameAndUrl}</li><!-- END apps -->
+			</ul>
+			
+			<div style="border-bottom:1px #aaa dotted; margin:10px 0px 5px 0px;"></div>
+
+			<ul>
+			    <!-- BEGIN siteDataAdmin -->
+			    <li><a href="#{m.Link}" class="frmLink" loadto="adminMainBody" nolayout=1><img src="~img/s/#{m.Logo}.png"/> #{m.Name}</a></li><!-- END siteDataAdmin -->
+			</ul>
+		</td>
+		<td class="adminMain" id="adminMainBody">#{layout_content}</td>
+	</tr>
+</table>
+
+<style>
+
+#sidebarApps li {margin:0px 0px 0px 0px; padding-left:20px; height:38px;}
+#sidebarApps li a { border:0px;}
+#sidebarApps li a:hover { background:#fff; }
+#sidebarApps li:hover { background:#fff; }
+
+* html #sidebarApps {margin-left:20px;}
+* html #sidebarApps li {padding-left:0px;}
+
+</style>

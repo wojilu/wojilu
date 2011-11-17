@@ -1,0 +1,78 @@
+﻿<style>
+
+.downloadSidebar { background:#e1f0fa;width:200px; float:left;}
+.downloadSidebarMain {border:1px #97b5d2 solid;}
+
+.downloadMain {width:700px; float:left;  margin:5px 0px 0px 15px; }
+.downloadLocation {width:100%; margin-bottom:10px;margin-left:5px;}
+.downloadCategoryLocation {margin:10px 15px 10px 0px; background:#ecf6fc; padding:5px; line-height:150%;}
+.downloadCategoryLocation a {margin-right:5px;}
+
+
+.fdTitle { font-size:18px; font-weight:bold; background:#e1f0fa; padding:5px; margin-bottom:10px;}
+.fdLine {font-size:16px; font-weight:bold; background:#e1f0fa;padding:5px 5px 3px 5px;}
+
+#postComment h4 {font-size:16px; font-weight:bold; background:#e1f0fa;padding:5px 5px 3px 5px;}
+
+.fileTitle { font-size:14px; font-weight:bold;}
+.fileInfo { color:#333;}
+.fileRank {}
+.fileSummary { color:#666; line-height:135%; }
+
+.fileDownload { vertical-align:top; padding-top:1px;}
+.fileDownload .note { text-align:center; margin-top:3px;}
+
+
+.sidebarTitle {background:#c6d9ec; color:#657788; font-size:14px; font-weight:bold; text-align:center; padding:5px;}
+.sidebarPanel {margin:10px 5px 15px 5px;}
+
+.dowloadLeftLabel {background:#f2f2f2;width:75px; text-align:center;}
+
+
+</style>
+
+<div style="padding:10px 0px 10px 0px;">
+    <div id="adminTool" class="appAdminTool" style="padding:0px; display:none;">
+        <div style="padding:8px 25px 0px 0px; float:right; margin-bottom:5px;">
+        <a href="#{adminUrl}" class="frmLink btnBig" loadTo="downloadPage" nolayout=1><img src="~img/s/star.png" /> 管理当前程序</a>
+        </div>
+        <div class="clear"></div>
+    </div>
+
+    <div id="downloadPage">#{layout_content}
+    <div class="clear"></div>
+    
+    </div>    
+</div>
+
+<script>
+$(document).ready( function() {
+
+    var showAdminTool = function() {
+        if( typeof(ctx) == 'undefined' ) return;
+        if( ctx.viewer.IsLogin==false  ) return;
+        
+        if( ctx.owner.IsSite) {
+            
+            if( ctx.viewer.IsAdministrator ) {
+                $('#adminTool').show();
+            }
+            else if( ctx.viewer.IsInAdminGroup )  {
+                $.post( '#{adminCheckUrl}'.toAjax(), function(data) {
+                    if( 'ok'==data ) $('#adminTool').show();
+                });
+            }
+            
+            
+        }
+        else if( ctx.viewerOwnerSame ) {
+            $('#adminTool').show();
+        }
+
+    };
+    
+    wojilu.site.load( showAdminTool );
+
+    wojilu.ui.frmLink();
+});
+</script>

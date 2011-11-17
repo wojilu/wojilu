@@ -1,0 +1,46 @@
+﻿
+
+
+		<div class="formPanel">
+		
+		<div class="hide">_{editPage}(_{pageTopic}: #{category})</div>
+		
+			<form action="#{ActionLink}" method="post" class="ajaxPostForm">
+				<table style="width: 100%">
+					<tr>
+						<td>_{pageTitle}</td>
+						<td>
+						<input name="Title" style="width: 454px;" type="text" value="#{p.Title}" /></td>
+					</tr>
+					<tr>
+						<td>_{pageTopic}</td>
+						<td>#{dropParent} <span style="margin-left: 30px;">
+						</span>_{pageLogo} <input name="Logo" style="width: 150px;" type="text" value="#{p.Logo}" /></td>
+					</tr>
+					<tr>
+						<td>_{content}</td>
+						<td>#{Editor}</td>
+					</tr>
+					<tr>
+						<td>_{orderId}</td>
+						<td>
+						<input name="OrderId" style="width: 30px;" type="text" value="0" value="#{p.OrderId}" /> 
+						<span class="note">_{pageOrderIdTip}</span></td>
+					</tr>
+					<tr>
+					    <td>编辑原因</td>
+					    <td>
+                            <input name="editReason" type="text" style="width:500px;"  /><span class="valid"></span></td>
+					</tr>
+
+					<tr>
+						<td></td>
+						<td><input type="submit" value="_{editPage}" class="btn" />
+						<input class="btnReturn" type="button" value="_{return}" />
+						<span class="left20"><input id="IsAllowReply" name="IsAllowReply" type="checkbox" #{IsAllowReply} /><label for="IsAllowReply">_{allowComment}</label></span>
+						</td>
+					</tr>
+				</table>
+			</form>
+		</div>
+

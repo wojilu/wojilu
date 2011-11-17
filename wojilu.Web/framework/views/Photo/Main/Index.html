@@ -1,0 +1,58 @@
+﻿<style>
+td#firstPhoto img {width:520px;height:380px;}
+.pickedImg {cursor:pointer;}
+.hightlightImg {border:5px red solid;}
+
+span.imgNote {color:#666;}
+
+</style>
+
+<script type="text/javascript">
+<!--
+$(document).ready( function() {	
+
+	$('.pickedImg').click( function() {
+	
+		$('.pickedImg').removeClass( 'hightlightImg' );
+		$(this).addClass( 'hightlightImg' );
+	
+		var imgLink = $(this).attr( 'linkShow' );
+		var imgUrl = $(this).attr( 'imgUrl' );
+		
+		var imgHtml = '<a href="'+imgLink +'"><img src="'+ imgUrl +'" /></a>';
+		$('#firstPhoto').html( imgHtml );
+	});
+	
+	$( $('.pickedImg')[0] ).click();
+
+});
+//-->
+</script>
+
+<table style="width:90%;margin:0px 0px 20px 0px;">
+	<tr>
+		<td id="firstPhoto"></td>
+		<td style="width:100px;height:300px;background:#efefef;text-align:center">
+		<!-- BEGIN picked -->
+		<img src="#{p.ImgThumbUrl}" class="pickedImg" style="width:80px;height:80px;margin:5px;" linkShow="#{p.LinkShow}" imgUrl="#{p.ImgUrl}" /><br/>
+		<!-- END picked -->
+		</td>
+	</tr>
+</table>
+
+
+<!-- BEGIN categories -->
+<div class="sectionPanel cpPanel photolist">
+	<div class="sectionTitle"><a href="#{category.LinkShow}">#{category.Name}</a></div>
+	<ul>
+	<!-- BEGIN photos -->
+	<li>
+		<table class="imgItem"><tr><td><a href="#{p.LinkShow}"><img src="#{p.ImgThumbUrl}" class="max90100" /></a></td></tr></table>
+		<div><span class="imgNote">_{from}:<a href="#{p.CreatorLink}">#{p.CreatorName}</a></span></div>
+	</li>
+	<!-- END photos -->
+	</ul>
+	<div class="clear"></div>
+</div>
+<!-- END categories -->
+

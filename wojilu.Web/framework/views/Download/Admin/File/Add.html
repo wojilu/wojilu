@@ -1,0 +1,187 @@
+﻿<div>
+	<div class="adminMainTitle">
+		<div class="adminSidebarTitleInternal">添加文件</div>
+	</div>
+	<div class="adminMainPanel">
+		<div class="formPanel">
+
+<link href="~js/uploadify/uploadify.css" type="text/css" rel="stylesheet" />
+<script type="text/javascript" src="~js/uploadify/swfobject.js"></script>
+<script type="text/javascript" src="~js/uploadify/jquery.uploadify.v2.1.4.min.js"></script>
+
+
+<script>
+$(document).ready( function() {
+
+    var subcats = #{subCategoriesJson}; // 子类的数据(json格式)
+    
+    var fillSubCats = function( selectedVal ) {
+        
+        var dropsub = $('#dropSubCategories').empty(); // 子类的下拉框
+        
+        for( var i=0;i< subcats.length;i++ ) {
+            var s = subcats[i];
+            if( s.ParentId == selectedVal ) {
+                dropsub[0].options.add( new Option(s.Name, s.Id) );
+            }
+        }
+    };
+    
+    $("#categoryId").change( function() {
+        fillSubCats($(this).val());
+    });
+    
+});
+</script>
+
+
+
+<script type="text/javascript">
+$(document).ready(function() {
+   
+    $('#file_upload').uploadify({
+        'uploader' : "#{jsPath}uploadify/uploadify.swf",
+        'cancelImg' : "~js/uploadify/cancel.png",
+        'buttonImg' : "~js/uploadify/browser.gif",
+        'width':90,
+        'height':24,
+        'removeCompleted': true,
+        'displayData' : 'speed',
+	    'queueSizeLimit':1,
+        'auto' : true,
+        
+        'script' : '#{uploadLink}'.toAjax(),
+        'scriptData':#{authInfo},
+        'queueID' : 'myqueue',
+        'fileExt' : '*.jpg;*.gif;*.png;*.zip;*.7z;*.rar;',
+        'fileDesc'  : 'Files (.JPG, .GIF, .PNG, .zip, .7z, .rar)',
+        'multi': true, // 是否允许多选
+        
+        'onComplete'  : function(event, ID, fileObj, response, data) {
+            $('#fileUrl1').val( response );
+        },
+        
+        'onAllComplete'  : function(event,data) {
+            //$('#status').text(data.filesUploaded + ' 个文件上传成功, ' + data.errors + ' 个错误.');
+        }
+    });
+});
+</script>
+
+		
+<form method="post" action="#{ActionLink}" class="ajaxPostForm">
+
+    <table style="width:100%;">
+        <tr>
+            <td style="width:100px;">
+                软件名称</td>
+            <td>
+                <input name="fileItem.Title" type="text" style="width:500px;" /><span class="valid" mode="border"></span></td>
+        </tr>
+        <tr>
+            <td>
+                软件分类</td>
+            <td>
+                #{categoryId} <select id="dropSubCategories" name="fileItem.CategoryId"></select><span class="valid" mode="border"></span> 
+                <span class="left10">软件版权</span>#{fileItem.LicenseTypeId}
+                <span class="left10">语言</span>#{fileItem.Lang}
+                </td>
+        </tr>
+        <tr>
+            <td style="vertical-align:top;">
+                软件平台</td>
+            <td><div>#{fileItem.PlatformIds}</div><span class="valid" mode="border" to="fileItem.PlatformIds"></span>
+                </td>
+        </tr>
+
+        <tr>
+            <td>
+                版本</td>
+            <td>
+
+            
+                <input name="fileItem.Version" type="text" style="width:80px" /><span class="valid" mode="border"></span>&nbsp; 
+                大小 <input name="fileItem.SizeMB" type="text" class="tipInput" tip="请填写整数或小数" style="width:100px;" /><span class="valid" mode="border"></span>MB&nbsp;&nbsp;&nbsp;
+                评分<input name="fileItem.Rank" type="text" style="width:50px;" /><span class="note">整数类型</span></td>
+        </tr>
+        <tr>
+            <td>
+                软件商名称</td>
+            <td>
+                <input name="fileItem.Provider" type="text" style="width:300px;" /><span class="valid" mode="border"></span></td>
+        </tr>
+        <tr>
+            <td>
+                软件商网址</td>
+            <td>
+                <input name="fileItem.ProviderUrl" type="text" style="width:200px;" />&nbsp;&nbsp; 
+                email
+                <input name="fileItem.Email" type="text" /></td>
+        </tr>
+        <tr>
+            <td>
+                &nbsp;</td>
+            <td>
+                &nbsp;</td>
+        </tr>
+        
+        <tr>
+            <td>演示(demo)网址</td>
+            <td>
+                <input name="fileItem.DemoUrl" type="text" style="width:500px;" /><span class="valid" mode="border"></span></td>
+        </tr>
+
+        <tr>
+            <td>
+                下载网址1</td>
+            <td style="vertical-align:top;">
+            
+                <table>
+                    <tr>
+                    <td><input id="fileUrl1" name="fileItem.Url" type="text" style="width:500px;" /><span class="valid" mode="border"></span></td>
+                    <td><input id="file_upload" name="file_upload" type="file" /></td>
+                    </tr>
+                </table>
+                <div id="myqueue"></div>
+                
+                </td>
+        </tr>
+        <tr>
+            <td>
+                下载网址2</td>
+            <td>
+                <input name="fileItem.Url2" type="text" style="width:500px;" /></td>
+        </tr>
+        <tr>
+            <td>
+                下载网址3</td>
+            <td>
+                <input name="fileItem.Url3" type="text" style="width:500px;" /></td>
+        </tr>
+        <tr>
+            <td>
+                简介</td>
+            <td><div>#{Editor}</div>
+                </td>
+        </tr>
+        <tr>
+            <td>
+                &nbsp;</td>
+            <td>
+                <input name="Submit1" type="submit" value="_{submit}" class="btn" /></td>
+        </tr>
+        <tr>
+            <td>
+                &nbsp;</td>
+            <td>
+                &nbsp;</td>
+        </tr>
+    </table>
+
+    
+
+</form>
+
+		</div>
+	</div>
+</div>

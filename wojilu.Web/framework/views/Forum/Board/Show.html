@@ -1,0 +1,5 @@
+﻿#{location}
+
+#{childrenBoards}
+
+#{topicList}

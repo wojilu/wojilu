@@ -1,0 +1,96 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" >
+<head>
+    <title>文章管理</title>
+    <link href="~css/wojilu.common.css?v=#{cssVersion}" rel="stylesheet" type="text/css" />
+    <link href="~css/wojilu.common.admin.css?v=#{cssVersion}" rel="stylesheet" type="text/css" />
+    <link href="~css/wojilu.site.admin.css?v=#{cssVersion}" rel="stylesheet" type="text/css" />
+    <script src="~js/jquery.js?v=#{jsVersion}" type="text/javascript"></script>
+    <script src="~js/jquery-ui.custom.js?v=#{jsVersion}" type="text/javascript"></script>
+    <script src="~js/lang.#{langStr}.js?v=#{jsVersion}" type="text/javascript"></script>
+    <script src="~js/wojilu.common.js?v=#{jsVersion}" type="text/javascript"></script>
+    <script src="~js/wojilu.common.admin.js?v=#{jsVersion}" type="text/javascript"></script>
+    
+<script  type="text/javascript">
+$(document).ready( function() {
+	var topNavHeight = $('#headerContainer').height();
+	$('.adminContainer').height( $(window).height()-topNavHeight -2  );
+});
+
+</script>
+
+<style>
+.edit { background:url("~img/edit.gif") no-repeat; padding-left:22px;}
+.delete { background:url("~img/delete.gif") no-repeat; padding-left:15px;}
+</style>
+    
+</head>
+<body>
+
+
+<div id="headerContainer">
+
+	<table style="width: 100%" id="header" cellpadding="0" cellspacing="0">
+		<tr>
+			<td id="logo"><a href="#{listLink}">wojilu cms 后台管理</a></td>
+			<td id="loginUser">欢迎您, #{user.Name} <a href="#{logoutLink}" class="left10">&rsaquo;&rsaquo; 注销</a></td>
+		</tr>
+	</table>
+
+	<div id="menuContainer">
+
+		<div id="menu">
+			<div style="float:left">
+			    <a href="~/" style="text-decoration:;"><img src="~img/home.gif" /> 首页</a>
+			    
+			    <span class="menuMore left10" list="cmdList" >文章管理 <img src="~img/down.gif" />			    
+                     <ul id="cmdList" class="menuItems" style="width:120px;">
+                        <li><a href="#{listLink}">文章列表</a></li>
+                        <li><a href="#{addLink}">添加文章</a></li>
+                    </ul>
+                </span>
+                
+                <span><a href="#{configLink}">配置管理</a></span>
+                <span><a href="#{footerLink}">页脚信息管理</a></span>
+                <span><a href="#{uploadLink}">文件上传</a></span>
+                             
+			</div>
+			<div style="float:right;">
+			
+			</div>
+		</div>
+
+	</div>
+</div>
+<table border="1" cellpadding="0" cellspacing="0" class="adminContainer">
+	<tr>
+		<td class="adminSidebar">
+			<div class="adminSidebarTitle"><div class="adminSidebarTitleInternal">文章管理</div></div>
+
+            <ul>
+                <li><a href="#{addLink}"><img src="~img/add.gif" /> 添加文章</a></li>
+                <li><a href="#{listLink}"><img src="~img/right.gif" /> 文章列表</a></li>
+                <li><a href="#{listShowLink}"><img src="~img/right.gif" /> 列表显示</a></li>
+                <li><a href="#{loopListLink}" class="linkUpdate" update="main"><img src="~img/right.gif" /> 循环列表</a></li>                
+            </ul> 
+            
+            <ul>
+                <li><a href="#{categoryList}" class="frmBox"><img src="~img/right.gif" /> 分类列表</a></li>
+                <li><a href="#{addCategory}" class="frmBox" xwidth="300" xheight="250" title="添加分类"><img src="~img/right.gif" /> 添加分类</a></li>
+            </ul>
+            
+            <ul>
+                <li><a href="#{userAdd}" class="frmBox" title="添加用户"><img src="~img/right.gif" /> 添加用户</a></li></li>
+                <li><a href="#{userList}" class="frmBox" title="用户列表"><img src="~img/right.gif" /> 用户列表</a></li></li>
+            </ul>
+            
+		</td>
+		<td class="adminMain" id="main">#{layout_content}</td>
+	</tr>
+</table>
+
+
+
+
+</body>
+</html>

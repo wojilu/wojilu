@@ -1,0 +1,19 @@
+﻿#{layout_content}
+<script>
+$(document).ready( function() {
+    $('#tagForm').submit( function() {
+    
+        var ext = wojilu.str.getExt( location.href );
+    
+        var txtTag = $('#txtTag').val();
+        if( !txtTag ) {
+            alert( '请输入tag' );
+            return false;
+        }
+        
+        window.location.href = '/tag/'+txtTag+ext;
+        
+        return false;    
+    });
+});
+</script>

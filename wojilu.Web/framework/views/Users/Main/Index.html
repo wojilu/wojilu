@@ -1,0 +1,66 @@
+﻿
+<div class="sectionPanel">
+<div class="sectionTitle utitle">_{whoIsOnline} <a href="#{lnkOnlineAll}" class="left20 note">_{all}...</a></div>
+<table style="width: 100%">
+	<tr>
+		<td id="onlinePanel"><div style="text-align:center; padding:20px;"><img src="~img/ajax/big.gif" /> loading...</div></td>
+	</tr>
+</table>
+</div>
+
+<script>
+$(document).ready( function() {
+
+    $.post( '#{onlineMemberLink}'.toAjax(), function(users) {    
+    
+        var html = '';
+        for( var i=0;i<users.length;i++ ) {
+            html += '<div class="uItem">';
+            html += '<a href="'+users[i].UserUrl+'"><img src="'+users[i].UserPicUrl+'"/><br/>'+users[i].UserName+'</a>';
+            html += '</div>';
+        }
+        
+        $('#onlinePanel').html( html );    
+    });
+
+});
+</script>
+
+
+<div class="sectionPanel">
+<div class="sectionTitle utitle">_{userCharts} <span class="note left20">
+	<a href="#{lnkRank}">_{all}...</a>
+	</span>
+</div>
+<table style="width: 100%" id="tblUsers">
+	<tr>
+		<td>
+		<!-- BEGIN ranks -->
+		<div class="uItem">
+			<a href="#{u.Link}"><img src="#{u.Face}"/><br/>
+			#{u.Name}</a>
+		</div>
+		<!-- END ranks -->		
+		</td>
+	</tr>
+</table>
+</div>
+
+
+<div class="sectionPanel">
+<div class="sectionTitle utitle">_{newRegUser} <a href="#{linkAll}" class="left20 note">_{all}...</a></div>
+<table style="width: 100%">
+	<tr>
+		<td>
+		<!-- BEGIN users -->
+		<div class="uItem">
+			<a href="#{u.Link}"><img src="#{u.Face}"/><br/>
+			#{u.Name}</a>
+		</div>
+		<!-- END users -->		
+		</td>
+	</tr>
+</table>
+</div>
+
+

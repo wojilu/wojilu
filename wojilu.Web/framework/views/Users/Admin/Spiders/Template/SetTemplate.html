@@ -1,0 +1,374 @@
+﻿
+<style>
+
+.siteUrl {width:98%;}
+.txtCode {width:230px; height:50px; }
+.formLeft {width:60px; vertical-align:top; text-align:right;}
+.formLeft3 {width:100px; vertical-align:top; text-align:right;}
+
+fieldset {border:0px #ccc solid;}
+
+</style>
+
+<div style="margin:10px;">
+
+
+
+
+<form method="get" id="myform">
+    <fieldset id="step1">
+    
+    <table class="tabHeader" style="width:100%; " cellpadding="0" cellspacing="0">
+        <td class="otherTab" style="width:6%"></td>
+        <td class="currentTab" style="width:28%">第一步：抓取链接列表</td>
+        <td class="otherTab" style="width:28%">第二步：抓取详细页</td>
+        <td class="otherTab" style="width:28%">第三步：保存模板</td>
+        <td class="otherTab" style="width:10%"></td>
+    </table>    
+    <div class="tabMain" style="width:100%">
+    
+    <table style="width:98%;margin:10px; " cellpadding="5" cellspacing="0">
+
+        <tr>
+            <td class="formLeft">
+                列表网址</td>
+            <td>
+                <input id="listUrl" name="spiderTemplate.ListUrl" type="text" class="siteUrl" style="width:500px;" />
+                </td>
+        </tr>
+        
+        <tr>
+            <td class="formLeft">页面编码</td>
+            <td>
+                 <select id="listEncoding" name="listEncoding">
+                    <option value="">默认</option>
+                    <option value="utf-8">utf-8</option>
+                    <option value="gb2312">gb2312</option>
+                    <option value="GBK">GBK</option>
+                    <option value="Big5">Big5</option>
+                </select>
+            
+            </td>
+        </tr>
+
+        <tr>
+            <td style="vertical-align:top; padding-top:22px;" class="formLeft">匹配规则</td>
+            <td>
+                <div class="red font12" id="lblBeginEnd1">任务说明：抓取开始代码和结束代码之间的所有链接(首尾请勿带多余空格)</div>
+                <div class="red font12 hide" id="lblCustomPattern1">直接填写正则表达式：</div>
+                <table id="startEndCode1" cellpadding="0" cellspacing="0" border="0" style="width:100%;" class="cbg">
+                    <tr>
+                       <td style="width:9%; vertical-align:top; padding:3px;">开始标志</td>
+                        <td style="width:41%; vertical-align:top;padding:3px 0px;"><textarea id="listBeginCode" class="txtCode" name="listBeginCode" style="margin-right:15px;"></textarea></td>
+                       <td style="width:9%; vertical-align:top; padding:3px;">结束标志</td>
+                       <td style="width:41%; vertical-align:top;padding:3px 0px;"><textarea id="listEndCode" class="txtCode" name="listEndCode"></textarea> </td>
+   
+                    </tr>
+                </table>
+                
+                <div id="bodyPatternWrap1" style="display:none;">
+                <div>列表区域<textarea id="ListBodyPattern" name="ListBodyPattern" style="width:98%; height:30px;"></textarea></div>
+                <div>获取列表中的链接(可留空)<textarea id="ListPattern" name="ListPattern" style="width:98%; height:30px;"></textarea></div>
+                </div>
+                <div>
+                <label class="" style="color:Blue;font-weight:bold;"><input id="chkCustom1" type="checkbox" /> 自定义规则(直接填写正则表达式)</label>
+                </div>
+                            
+                </td>
+        </tr>
+        <tr>
+            <td>
+                &nbsp;</td>
+            <td>
+                <input id="btnGetList" class="btn" type="button" value="抓取文章列表" />
+                <span id="loading"></span>
+                </td>
+        </tr>
+        </table>
+        </div>
+        </fieldset>
+        
+
+        <fieldset id="step2" style=" display:none;">
+        <table class="tabHeader" style="width:100%; " cellpadding="0" cellspacing="0">
+            <td class="otherTab" style="width:6%"></td>
+            <td class="otherTab" style="width:28%">第一步：抓取链接列表</td>
+            <td class="currentTab" style="width:28%">第二步：抓取详细页</td>
+            <td class="otherTab" style="width:28%">第三步：保存模板</td>
+            <td class="otherTab" style="width:10%"></td>
+        </table>    
+        <div class="tabMain" style="width:100%">
+        <table id="" style="width:100%;  margin:10px;">
+        <tr id="outputPanel" style="display:none"><td class="formLeft">抓取列表结果</td><td ><textarea id="txtOutput" style="width:98%; height:200px;"></textarea></td></tr>
+        
+        
+        <tr><td style="vertical-align:top;" class="formLeft">详细页网址</td>
+        <td><input id="detailUrl" name="detailUrl" type="text" class="siteUrl" style="width:500px;" />
+                详细页编码 <select id="detailEncoding" name="detailEncoding">
+                    <option value="">默认</option>
+                    <option value="utf-8">utf-8</option>
+                    <option value="gb2312">gb2312</option>
+                    <option value="GBK">GBK</option>
+                    <option value="Big5">Big5</option>
+                </select>
+        
+        <br />
+        <span class="" id="selectPanel"></span>
+
+        </td>
+        </tr>
+        <tr>
+            <td style="vertical-align:top; padding-top:22px;" class="formLeft">匹配规则</td>
+            <td>
+                <div class="red font12" id="lblBeginEnd2">任务说明：抓取开始代码和结束代码之间的内容(首尾请勿带多余空格)</div>
+                <div class="red font12 hide" id="lblCustomPattern2">直接填写正则表达式：</div>
+
+                <table id="startEndCode2" cellpadding="0" cellspacing="0" border="0" style="width:100%;" class="cbg">
+                    <tr>
+                       <td style="width:9%; vertical-align:top; padding:3px;">开始标志</td>
+                    <td style="width:41%; vertical-align:top;padding:3px 0px;"><textarea id="detailBeginCode"  class="txtCode" name="detailBeginCode" style="margin-right:15px;"></textarea></td>
+                    <td style="width:9%; vertical-align:top;padding:3px;">结束标志</td>
+                    <td style="width:41%; vertical-align:top;padding:3px 0px;"><textarea id="detailEndCode"  class="txtCode" name="detailEndCode"></textarea></td>
+                    </tr>
+                </table>
+                
+                <div id="bodyPatternWrap2" style="display:none;">
+                <div><textarea id="DetailPattern" name="DetailPattern" style="width:98%; height:50px;"></textarea></div>
+                </div>
+                <div>
+                <label class="" style="color:Blue;font-weight:bold;"><input id="chkCustom2" type="checkbox" /> 自定义规则(直接填写正则表达式)</label>
+                </div>
+
+             
+            </td>
+        </tr>
+        <tr><td>&nbsp;</td><td>
+            <input id="firstUrl" type="hidden" />
+            <input id="detailTitle" type="hidden" />
+            <input id="btnGetDetail" class="btn" type="button" value="抓取详细页内容" />
+            <span id="loadingDetail" class="left10"></span>
+            <input id="return1" class="btnOther" type="button" value="_{return}" />
+            
+            </td></tr>
+
+    </table>
+    </div>
+    </fieldset>
+    
+    
+    <fieldset id="step3" style="display:none;">
+        <table class="tabHeader" style="width:100%; " cellpadding="0" cellspacing="0">
+            <td class="otherTab" style="width:6%"></td>
+            <td class="otherTab" style="width:28%">第一步：抓取链接列表</td>
+            <td class="otherTab" style="width:28%">第二步：抓取详细页</td>
+            <td class="currentTab" style="width:28%">第三步：保存模板</td>
+            <td class="otherTab" style="width:10%"></td>
+        </table>    
+        <div class="tabMain" style="width:100%">
+        
+        <table id="Table1" style="width:100%;  margin:10px;">
+            <tr id="doutPanel" style="display:none"><td class="formLeft">抓取详细页结果</td><td ><textarea id="dout" style="width:98%; height:280px;"></textarea></td></tr>
+            <tr><td class="formLeft3">采集名称</td><td><input id="siteName" type="text" /></td></tr>
+            <tr><td class="formLeft3">图片选项</td><td>
+                <label><input id="checkPic" type="checkbox" checked="checked" /> 采集文章中图片</label></td></tr>
+            <tr><td></td><td><input id="btnSave" type="button" class="btn" value="保存采集模板" />            
+            <input id="return2" class="btnOther left15" type="button" value="_{return}" />
+            </td></tr>
+        
+        </table>
+        </div>
+        
+    </fieldset>
+</form>
+
+</div>
+
+
+
+<script language="javascript" type="text/javascript">
+// <!CDATA[
+
+
+$(document).ready( function() {
+
+    $('#chkCustom1').click( function() {
+        $('#startEndCode1').toggle();
+        $('#bodyPatternWrap1').toggle();
+        $('#lblBeginEnd1').toggle();
+        $('#lblCustomPattern1').toggle();
+    });
+    
+    $('#chkCustom2').click( function() {
+        $('#startEndCode2').toggle();
+        $('#bodyPatternWrap2').toggle();
+        $('#lblBeginEnd2').toggle();
+        $('#lblCustomPattern2').toggle();
+    });
+
+
+    var objT = #{objTemplate};
+    
+    if( objT.Id>0 ) {
+        $('#listUrl').val( objT.ListUrl );
+        $('#listEncoding').val( objT.ListEncoding );
+        $('#listBeginCode').val( objT.ListBodyBegin.replace(/&lt;/g,"<").replace(/&gt;/g,">") );
+        $('#listEndCode').val( objT.ListBodyEnd.replace(/&lt;/g,"<").replace(/&gt;/g,">") );
+    }
+
+
+    // 第一步：抓取列表
+    $('#btnGetList').click( function() {
+    
+        
+        if( $('#chkCustom1').attr( 'checked' ) != 'checked' ) {
+            var ListBodyPattern = $('#listBeginCode').val() + '.+?'+$('#listEndCode').val();
+            $('#ListBodyPattern').val( ListBodyPattern );
+        }        
+        var listPattern = $('#ListBodyPattern').val();
+
+    
+        var mybtn = $(this);
+        mybtn.attr( 'disabled', 'disabled' );
+
+        $('#loading').html( '<img src="~img/ajax/loading.gif" /> 正在抓取……请稍后' );
+
+        var vals = $('#myform').serializeArray();
+
+        $.post( '#{ActionLink}'.toAjax(), vals, function( data ) {
+        
+            $('#loading').html('');
+            mybtn.attr( 'disabled', false );
+            
+            $('#step1').hide();
+            $('#step2').show();
+            
+            if( $('#listEncoding').val() != '' ) $('#detailEncoding').val( $('#listEncoding').val() );
+            
+            if( data.IsValid==false ) {
+                $('#outputPanel').show();
+                $('#txtOutput').val( data.listUrl + '\npatternBody=' + data.patternBody+ '\npatternLinks=' + data.patternLinks );
+            }
+            else {
+                var strData = "";
+                var strDrop = '<select id="dropLink"><option value="">请选择获取的链接</option>';
+                var list = data.List;
+                if( list.length ==0 ) {                
+                    $('#outputPanel').show();
+                    $('#txtOutput').val( '没有结果\n'+vals );
+                    return;
+                }
+                
+                for( var i=0;i< list.length;i++ ) {
+                    strData += list[i].Title + '_' + list[i].Url + "\n";
+                    strDrop += '<option value="'+list[i].Url+'">'+list[i].Title+'</option>';
+                }
+                
+                strDrop += "</select>";
+            
+                $('#outputPanel').show();
+                $('#txtOutput').val( strData );
+                $('#step2').show();
+                $('#selectPanel').html( strDrop );
+                
+                $('#dropLink').change( function() {
+                    $('#detailUrl').val( $(this).val() );
+                });
+            }
+        });
+        
+        return false;
+    });
+    
+    $('#return1').click( function() {
+        $('#step1').show();        
+        $('#step2').hide();
+    });
+
+    // 第二步：抓取详细页
+    $('#btnGetDetail').click( function() {
+    
+        $('#loadingDetail').html( '<img src="~img/ajax/loading.gif" /> 正在抓取……请稍后' );
+
+        var mybtn = $(this);
+        mybtn.attr( 'disabled', 'disabled' );
+        
+        if( $('#chkCustom2').attr( 'checked' ) != 'checked' ) {
+            var cDetailPattern = $('#detailBeginCode').val() + '(.+?)'+$('#detailEndCode').val();
+            $('#DetailPattern').val( cDetailPattern );
+        }        
+        var DetailPattern = $('#DetailPattern').val();
+
+
+        $.post( '#{detailAction}'.toAjax(), 
+            {
+                'detailUrl': $('#detailUrl').val(), 
+                'detailTitle': $('#detailTitle').val(),
+
+                'DetailPattern':DetailPattern,
+                'detailEncoding':$('#detailEncoding').val()
+            }, 
+
+            function( data ) {
+            
+                mybtn.attr( 'disabled', false );
+                
+                $('#step2').hide();
+                $('#step3').show();
+
+
+                $('#loadingDetail').html('');
+
+                $('#doutPanel').show();
+                $('#dout').val( data );
+        });
+    });
+    
+    $('#return2').click( function() {
+        $('#step2').show();        
+        $('#step3').hide();
+    });
+    
+    // 第三步：保存模板
+    $('#btnSave').click( function() {
+        $('#loading').html( '<img src="~img/ajax/loading.gif" /> 保存……请稍后' );
+        var mybtn = $(this);
+        mybtn.attr( 'disabled', 'disabled' );
+
+        var listUrl = $('#listUrl').val();
+        var plist1 = $('#listBeginCode').val() 
+        var plist2 = $('#listEndCode').val();
+        var pdetail1 = $('#detailBeginCode').val() 
+        var pdetail2 = $('#detailEndCode').val();
+        var siteName = $('#siteName').val();
+        
+        $.post( '#{saveLink}'.toAjax(), {
+            'tid': objT.Id,
+            'siteName':siteName,
+            'listUrl':listUrl,
+            'listBeginCode':plist1,
+            'listEndCode':plist2,
+            'detailBeginCode':pdetail1,
+            'detailEndCode':pdetail2,
+            'listEncoding':$('#listEncoding').val(),
+            'detailEncoding':$('#detailEncoding').val(),
+            'checkPic':$('#checkPic').attr("checked")
+        }, function(data) {
+            mybtn.attr( 'disabled', false );
+            $('#loading').html('');
+            if( data=='ok') {
+                //alert( '保存成功' );
+                $('#loading').html( '<span style="color:red;font-weight:bold;">保存成功</span>' );
+                wojilu.tool.forward( '#{returnUrl}' );
+            }
+            else {
+                alert( data.Msg );
+            }
+        });
+        
+    });
+    
+    
+});
+
+// ]]>
+</script>

@@ -1,0 +1,34 @@
+﻿
+<style>
+.tabList li{ width:130px;}
+</style>
+
+<div>
+	
+    <div style="font-weight:bold; font-size:14px; margin:20px 10px 15px 20px;"><img src="~img/app/s/menus.png" /> _{menuAdmin}</div>        
+	
+    <div style="margin:20px 20px 0px 20px; width:95%;">    
+        <ul class="tabList">
+            <li class="firstTab">
+                <a href="#{listLink}" class="frmLink" loadTo="tabMain" nolayout=4>_{menuList}</a>
+                <span></span>
+            </li>
+
+            <li>
+                <a href="#{addLink}" class="frmLink" loadTo="tabMain" nolayout=4><img src="~img/addcategory.gif" /> _{addMenu}</a>
+                <span></span>
+            </li>            
+        </ul>
+    </div>
+	
+	<div class="tabMain" id="tabMain" style="width:96%">#{layout_content}</div>
+</div>
+
+<script>
+$(document).ready( function() {
+    wojilu.tool.makeTab( '.tabList', 'currentTab', '' );
+});
+</script>
+
+
+

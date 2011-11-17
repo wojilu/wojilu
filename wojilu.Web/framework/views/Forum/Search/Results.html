@@ -1,0 +1,48 @@
+﻿<style>
+
+.postList {margin:auto; margin-top:10px; width:95%; border-collapse:collapse; border:1px #ccc solid;}
+.dataRow td {padding-left:10px;}
+
+.lblSearch {margin:10px 0px 5px 20px; font-size:14px; }
+
+td.postTitle div {max-width:600px;_width:500px; text-overflow: ellipsis;white-space:nowrap;-o-text-overflow:ellipsis;-moz-text-overflow:ellipsis;overflow: hidden;}
+
+</style>
+
+<div class="lblSearch">
+<form method="get" action="#{searchAction}">
+论坛搜索
+<input type="text" name="q" style="width:150px;" value="#{searchKey}" />
+<input type="submit" class="searchs" value="" />
+<span class="left20">搜索结果：</span>
+</form>
+</div>
+<div class="clear"></div>
+
+<table border="1" class="postList" cellpadding="5">
+	
+	<tr class="psHeader">
+		<td style="width:15%" align="center">_{created}</td>
+		<td style="width:15%" >_{author}</td>
+		<td style="width:55%;">_{title}</td>
+		<td style="width:15%" class="center">_{reply}/_{view}</td>
+	</tr>
+	
+	<!-- BEGIN list -->
+	<tr class="dataRow">
+		<td>#{p.Created}</td>
+		<td>#{p.Author}</td>
+		<td style="" class="postTitle">
+		    <div>
+		    #{p.TypeImg} <a href="#{p.Url}" style="#{p.TitleStyle}">#{p.Titile}</a>
+		    <span style="vertical-align:middle">#{p.Attachments}</span>
+		    </div>
+		</td>
+		<td align="center"><span class="orange">#{p.ReplyCount}</span><span class="gray">/</span><span class="note">#{p.Hits}</span></td>
+	</tr>
+	<!-- END list -->	
+
+</table>
+
+<div style="margin:auto; margin-top:10px; margin-bottom:30px; width:95%;">#{page}</div>
+

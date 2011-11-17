@@ -1,0 +1,143 @@
+﻿#{forumPath}
+
+<style>.chkAdmin {display:none;}</style>
+
+<div id="forumPostListWrap">
+<div class="fbNotice">
+	<div>#{forumBoard.Notice}</div>
+	<div>#{forumBoard.Moderator}</div>
+ </div> 
+
+#{toolbar}
+<!-- BEGIN categoryPanel -->
+<div id="psCategories">
+<a href="#{boardLink}"><strong class="right10">_{all}</strong></a> <!-- BEGIN categories --><a href="#{c.LinkShow}" style="color:#{c.NameColor}" class="right10">#{c.Name}</a><!-- END categories -->
+</div>
+<!-- END categoryPanel -->
+
+
+<table border="0" id="forumPostList">
+
+	<tr class="psHeader">
+		<td style="width:5%">&nbsp;</td>
+		<td style="width:55%;">_{title}</td>
+		<td style="width:15%" class="center">_{author}</td>
+		<td style="width:10%" class="center">_{reply}/_{view}</td>
+		<td style="width:15%" class="center">:{lastPost}</td>
+	</tr>
+	
+	<!-- BEGIN stickyList -->
+	<tr class="psSticky">
+		<td class="psStatus"><img src="~skin/apps/forum/#{stickyIconName}.gif" /></td>
+		<td class="psTitle">
+		<div><span class="chkAdmin">#{p.CheckBox}</span>
+		<a href="#{p.Url}" style="#{p.TitleStyle}" target="_blank">#{p.Titile}</a> 
+		<span style="vertical-align:middle">#{p.Attachments}</span> #{p.Pages}</div>
+		</td>
+		<td class="psAuthor"><a href="#{p.MemberUrl}">#{p.MemberName}</a><br/><span class="gray">#{p.CreateTime}</span></td>
+		<td align="center"><span class="orange">#{p.ReplyCount}</span><span class="gray">/</span><span class="note">#{p.Hits}</span></td>
+		<td class="psAuthor"><a href="#{p.LastReplyUrl}">#{p.LastReplyName}</a><br/><span class="gray">#{p.LastUpdate}</span></td>
+	</tr>	
+	<!-- END stickyList -->
+	
+	<tr class="psTopicType"><td colspan="5"><div>#{topicTypeName}</div></td></tr>
+	
+	<!-- BEGIN postlist -->
+	<tr>
+		<td class="psStatus"><img src="#{postStatusImage}"></td>
+		<td class="psTitle">
+		    <div><span class="chkAdmin">#{p.CheckBox}</span>#{p.TypeImg}#{p.Category} <a href="#{p.Url}" style="#{p.TitleStyle}" target="_blank">#{p.Titile}</a>
+		    <span class="note">#{p.Reward}#{p.Price}#{p.ReadPermission}</span>
+		    <span style="vertical-align:middle">#{p.Attachments}</span> #{p.Pages} #{p.LabelNew}
+		    </div>
+		</td>
+		<td class="psAuthor"><a href="#{p.MemberUrl}">#{p.MemberName}</a><br/><span class="gray">#{p.CreateTime}</span></td>
+		<td align="center"><span class="orange">#{p.ReplyCount}</span><span class="gray">/</span><span class="note">#{p.Hits}</span></td>
+		<td class="psAuthor"><a href="#{p.LastReplyUrl}">#{p.LastReplyName}</a><br/><span class="gray">#{p.LastUpdate}</span></td>
+	</tr>
+	<!-- END postlist -->	
+</table>
+</div>
+
+#{toolbarBottom}
+
+<div id="adminToolbar" class="hide">#{adminToolbar}</div>
+
+<!-- BEGIN form -->
+<div class="forumSimpleForm">
+	<div class="forumFormTitle">:{addTopic}</div>
+	<form method="post" action="#{ActionLink}" class="ajaxPostForm" id="pubTopicForm">
+	<table class="forumFormTable">
+		<tr>
+			<td style="width:100px;vertical-align:top;" rowspan="3" id="pubUserPic"></td>
+			<td style="width:50px;text-align:right">_{title}</td>
+			<td>#{Category} <input name="Title" type="text" style="width: 455px"><span class="valid" msg="_{exTitle}" mode="border"></span></td>
+		</tr>
+		<tr>
+			<td style="vertical-align:top;text-align:right;">_{content}</td>
+			<td>#{Editor}</td>
+		</tr>
+		<tr>
+			<td><span class="valid" to="Content" mode="border"></span></td>				
+			<td><input type="submit" value=":{submitPost}" name="btnSubmit" class="btn"></td>
+		</tr>
+	</table>
+	</form>
+</div>
+<!-- END form -->
+
+<div class="forumIconList" style="display:none">
+<ul>
+	<li><img src="~skin/apps/forum/topic.gif" /> :{topic}</li>
+	<li><img src="~skin/apps/forum/sticky.gif" /> :{sticky}</li>
+	<li><img src="~skin/apps/forum/lock.gif" /> _{lock}</li>
+	<li><img src="~skin/apps/forum/pick.gif" /> :{picked}</li>
+</ul>
+</div>
+<script>
+$(document).ready( function() {
+    wojilu.ui.valid();
+    wojilu.ui.ajaxPostForm();
+    
+    var moderators = #{moderatorJson};
+    
+    var isModerator = function(name) {
+        for( var i=0;i<moderators.length;i++ ) {
+            if( moderators[i] == name ) return true;
+        }
+        return false;
+    };
+    
+    var showMTool = function() {
+
+        if( ctx.viewer.IsAdministrator || isModerator(ctx.viewer.obj.Name) ) {
+            $('#adminToolbar').show();
+            $('.chkAdmin').show();
+        }
+        
+        if( ctx.viewer.IsAdministrator ) {
+            $('#forumAdminGlobalSticky').show();
+            $('#forumAdminGlobalStickyUndo').show();
+            $('#forumAdminMove').show();
+        }
+        
+        if( ctx.viewer.IsLogin==false ) {
+            $('#pubUserPic').html( '<img src="~static/upload/face/guest_m.jpg" />' );
+        }
+        else {
+
+            if( ctx.viewer.HasPic ) {
+                $('#pubUserPic').html( '<div style="text-align:center;"><img src="'+ctx.viewer.obj.PicMedium+'" /></div>' );
+            }
+            else {
+                $('#pubUserPic').html( '<div style="text-align:center;font-size:20px;font-weight:bold;">'+ctx.viewer.obj.Name+'</div>'+
+                '<div style="text-align:center;"><img src="~static/upload/face/guest_m.jpg" /></div>' );
+            }
+        }
+        
+    };
+    
+    wojilu.site.load( showMTool );
+    
+});
+</script>

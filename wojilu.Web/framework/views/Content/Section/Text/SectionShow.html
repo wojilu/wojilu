@@ -1,0 +1,1 @@
+﻿<div>#{post.Content}</div>

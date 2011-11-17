@@ -1,0 +1,48 @@
+﻿
+<div style="padding:15px 10px 10px 20px;">
+    
+    <div id="tagList">
+    
+        <div style="padding:0px 10px 10px 10px;">
+        
+            <div class="tagListTitle">
+                <div class="tagTitleLable">tag一览</div>
+                <div class="tagSearchForm">
+                    <form id="tagForm">
+                    <strong>搜索</strong> <input id="txtTag" type="text" value="" /> 
+                    <input id="btnTagSearch" class="btn btns" type="submit" value="_{search}tag" /></form>
+                </div>
+                <div class="clear"></div>
+            </div>
+            
+            <div class="tagListMain">
+                <div style="line-height:250%;">
+                    <!-- BEGIN tags -->
+                    <span dataCount="#{tag.DataCount}"><a href="#{tag.Link}" style="font-size:#{tag.FontSize}em;">#{tag.Name}</a></span><!-- END tags -->
+                </div>
+                
+            </div>
+            
+            
+            
+        </div>    
+        
+        <div>#{page}</div>   
+        
+    </div>    
+
+</div>
+
+
+<style>
+
+#tagList {  }
+.tagListTitle { font-size:14px; font-weight:bold; margin:0px 0px 10px 0px; text-align:left;}
+.tagTitleLable {float:left;}
+.tagSearchForm { float:right; width:280px;}
+
+.tagListMain {}
+#tagList .tagListMain span { margin:5px 10px 5px 0px; height:25px; vertical-align:middle}
+
+</style>
+

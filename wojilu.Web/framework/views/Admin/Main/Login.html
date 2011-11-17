@@ -1,0 +1,69 @@
+﻿
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<script src="~js/jquery.js?v=#{jsVersion}" type="text/javascript"></script>
+<script src="~js/lang.#{langStr}.js?v=#{jsVersion}" type="text/javascript"></script>
+<script src="~js/wojilu.common.js?v=#{jsVersion}" type="text/javascript"></script>
+<script src="~js/wojilu.nolayout.js?v=#{jsVersion}" type="text/javascript"></script>
+<title>_{userLogin}</title>
+<style>
+body {background2:#a2c4e1; background2:url("~img/admin/login-bg.jpg"); margin:0px; padding:0px;}
+#divLogin {display:none2;width:660px;margin:0px auto; padding:0px; background:url("~img/admin/login-tbl-bg.jpg") no-repeat;height:370px;}
+#lgTable {width: 520px; margin:auto; margin-top:38px; font-size:25px; line-height:150%;  }
+
+
+input { border:1px #aaa inset;}
+.btn {padding:0px 10px;font-size: 14px; height: 24px; cursor:pointer; }
+.btn {color:#fff;border-top:1px #ccc solid;border-right:1px #183e5b solid;border-bottom:1px #183e5b solid;border-left:1px #ccc solid;background:#2880e9; }
+.btn {font-size:22px;height:35px;width:150px}
+
+#lnkHome {margin-left:20px;font-size:18px;text-decoration:none;color:#0066cc;}
+
+</style>
+</head>
+
+<body><div id="divLogin"><form action="#{ActionLink}" method="post">&nbsp;<table id="lgTable">
+			<tr>
+				<td rowspan="2" style="width:135px;text-align:right"><img src="~img/big/lock.gif" /></td>
+				<td style=" padding-left:55px">
+				<div style="font-size:30px;font-weight:bold;font-family:微软雅黑;margin:20px">_{userLogin}</div></td>
+			</tr>
+			<tr>
+				<td>
+				
+				<table style="width: 100%;margin-bottom:30px" border="0">
+					<tr>
+						<td style="width:80px; text-align:right">_{userName}</td>
+						<td><input name="Name" type="text" style="width:180px;height:22px;font-size:18px;" /></td>
+					</tr>
+					<tr>
+						<td style="width:80px; text-align:right">_{pwd}</td>
+						<td><input name="Password1" type="password" style="width:180px;height:22px;font-size:18px"  /></td>
+					</tr>
+					<tr>
+						<td colspan="2" style="padding-left:60px; padding-top:10px">
+						<input name="Submit1" type="submit" class="btn" value="_{userLogin}" /> 
+						<a href="~/" id="lnkHome" target="_blank"><img src="~img/home.gif" style="border:0px;"/>_{siteHome}</a>
+                            <input name="returnUrl" type="hidden" value="#{returnUrl}"/>
+						</td>
+					</tr>
+				</table>
+				
+				
+				
+				</td>
+			</tr>
+		</table>
+	
+	</form>
+</div>
+
+</body>
+
+</html>
+
+
+

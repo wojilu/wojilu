@@ -1,0 +1,184 @@
+﻿
+<div style="padding:10px;">
+
+<script type="text/javascript">
+<!--
+
+$(document).ready( function() {
+
+    $('.cmdSendEmail').click( function() {
+        if( confirm( '确实发送' ) ){
+            wojilu.ui.postBack(this, 'POST');
+        }
+        return false;
+    });
+
+
+	function initFilter() {
+		$('#selectFilter').val( wojilu.tool.getQuery( 'filter' ) );
+	}
+	
+	initFilter();
+
+	$('#selectFilter').change( function() {
+		var url = '#{userListLink}';
+		url = wojilu.tool.appendQuery( url, 'filter=' + $(this).val() );
+		window.location.href = url;
+	});
+	
+	$('#btnSubmit').click( function() {
+		$('#myform').submit();
+	});
+
+	$('.lnkMsg').click( function() {
+		var choiceList = getChoiceList();
+		if( choiceList.length == 0 ) {
+		    alert( "_{plsSelect}" );
+		    return false;
+		}
+		else {
+			var newUrl = wojilu.tool.appendQuery( $(this).attr( 'href' ), 'id=' + choiceList );
+			$(this).attr( 'href', newUrl );
+		}
+	});
+	
+
+});
+
+//-->
+</script>
+
+
+<form id="myform" action="#{SearchAction}" method="get">
+
+<table id="tblTools" border="0" cellpadding="4" cellspacing="1" style="width: 100%; font-size:12px;">
+	<tr>
+		<td>
+		
+		<span class="menuMore" list="roleList">_{roleFilter} <img src="~img/down.gif" />
+		<ul id="roleList" class="menuItems" style="width:120px;">
+		<!-- BEGIN roles --><li><a href="#{userListLink}?filter=role_#{role.Id}">#{role.Name}</a></li><!-- END roles -->
+		</ul>
+		</span>
+
+		<span class="menuMore" list="rankList">_{rankFilter} <img src="~img/down.gif" />
+		<ul id="rankList" class="menuItems" style="width:120px;">
+		<!-- BEGIN ranks --><li><a href="#{userListLink}?filter=rank_#{rank.Id}">#{rank.Name}</a></li><!-- END ranks -->
+		</ul>
+		</span>
+		
+		<span class="menuMore" list="baseList">_{baseFilter} <img src="~img/down.gif" />
+		<ul id="baseList" class="menuItems" style="width:120px;">
+		<li><a href="#{userListLink}?filter=picked">_{pickedUser}</a></li>
+		<li><a href="#{userListLink}?filter=deleted">_{trash}</a></li>
+		<li><a href="#{userListLink}?filter=male">_{male}</a></li>
+		<li><a href="#{userListLink}?filter=female">_{female}</a></li>
+		<li><a href="#{userListLink}?filter=UnConfirmed">_{UnConfirmed}</a></li>
+		<li><a href="#{userListLink}?filter=Confirmed">_{Confirmed}</a></li>
+		<li><a href="#{userListLink}?filter=EmailError">_{EmailError}</a></li>
+		<li><a href="#{userListLink}?filter=UnSendEmail">_{UnSendEmail}</a></li>		
+		</ul>
+		</span>
+		
+		<span class="menuMore" list="timeList">_{timeFilter} <img src="~img/down.gif" />
+		<ul id="timeList" class="menuItems" style="width:150px;">
+		<li><a href="#{userListLink}?filter=today">_{regToday}</a></li>
+		<li><a href="#{userListLink}?filter=week">_{regWeek}</a></li>
+		<li><a href="#{userListLink}?filter=month">_{regMonth}</a></li>
+		<li><a href="#{userListLink}?filter=month3">_{regMonth3}</a></li>
+		<li><a href="#{userListLink}?filter=todayl">_{loginToday}</a></li>
+		<li><a href="#{userListLink}?filter=weekl">_{loginWeek}</a></li>
+		<li><a href="#{userListLink}?filter=monthl">_{loginMonth}</a></li>
+		<li><a href="#{userListLink}?filter=month3l">_{loginMonth3}</a></li>		
+		</ul>
+		</span>
+		
+
+		
+		<strong style="margin-left: 20px;">_{userSearch}</strong>:
+		_{nickName} <input name="name" id="sname" type="text" value="#{s.Name}" style="width:100px;" />&nbsp; 
+		_{realName} <input name="rname" id="srname" type="text" value="#{s.RealName}" style="width:100px;" />
+		email <input name="email" id="semail" type="text" value="#{s.Email}" style="width:120px;" />
+		<input name="Button1" id="btnSubmit" class="btn btns" type="button" value="_{search}">
+		</td>
+	</tr>
+	<tr>
+		<td></td>
+	</tr>
+</table>
+</form>
+
+
+<table cellspacing="1" cellpadding="3" border="0" style="width: 100%;" id="dataAdminList" data-action="#{OperationUrl}">
+<tr class="adminBar">
+<td colspan="10">
+_{op}: 
+        <span class="btnCmd" cmd="approve">通过审核</span>
+		<span class="btnCmd" cmd="pick">_{recommend}</span>
+		<span class="btnCmd" cmd="unpick">_{cancelRecomment}</span>
+		| 
+		<span class="btnCmd" cmd="delete">_{toTrash}</span>
+		<span class="btnCmd" cmd="undelete">_{fromTrash}</span>
+		&nbsp;
+		<select id="adminDropCategoryList" name="categoryList" id="categoryList">
+		<option value="-1">_{setRole}...</option>
+			<!-- BEGIN roles2 --><option value="#{r.Id}">_{setAs}#{r.Name}</option><!-- END roles2 -->
+		</select>
+		
+		<span class="menuMore left10" list="msgMenu"><img src="~img/msg.gif" /> _{sendMsg}<img src="~img/down.gif" />
+		<ul class="menuItems" id="msgMenu" style="width:120px;">
+			<li><a href="#{sendMsgLink}" class="lnkMsg">_{sendSiteMsg}</a></li>
+			<li><a href="#{sendEmailLink}" class="lnkMsg">_{sendEmail}</a></li>
+			<li><a href="#{sendConfirmEmailLink}" class="lnkMsg">_{sendConfirmEmail}</a></li>
+		</ul></span>
+		
+		<a href="#{resetPwdLink}" id="lnkResetPwd" class="lnkMsg"><img src="~img/key.gif"/>_{resetPwd}</a>
+		
+</td>
+<td align="center" ><span class="btnCmd" cmd="deletetrue"><img src="~img/delete.gif" /> _{deleteTrue}</span></td>
+</tr>
+	<tr class="tableHeader">
+		<td align="center"><input id="selectAll" class="selectAll" type="checkbox" title="_{checkAll}" /></td>
+		<td align="center">_{id}</td>
+		<td align="center">_{status}</td>
+		<td>_{role}</td>
+		<td>_{nickName}</td>
+		<td>_{realName}</td>
+		<td></td>
+		<td>Email</td>
+		<td>_{regTime}</td>
+		<td>_{lastLoginTime}</td>
+		<td align="center">_{admin}</td>
+	</tr>
+	<!-- BEGIN list -->
+	<tr class="tableItems">
+		<td align="center">
+			<input name="selectThis" id="checkbox#{user.Id}" type="checkbox" class="selectSingle">
+		</td>
+		<td align="center">#{user.Id}</td>
+		<td align="center">#{statusIcon}</td>
+		<td>#{user.RoleName}</td>
+		<td><a href="#{user.Url}" target="_blank">#{user.Name}</a></td>
+		<td>#{user.RealName}</td>
+		<td style="width2:30px;">#{user.IsEmailConfirm}</td>
+		<td>#{user.Email}</td>
+		<td>#{user.CreateTime}</td>
+		<td>#{user.LastLoginTime}</td>
+		<td align="center"><a href="#{user.EditUrl}"><img src="~img/edit.gif"/> _{edit}</a> 
+		</td>
+	</tr>
+	<!-- END list -->
+	<tr><td colspan="11" class="adminPage">
+	
+		<table style="width: 100%">
+			<tr>
+				<td>#{page}</td>
+				<td align="right">_{note}: &quot;<img src="~img/trash.gif"/>&quot;_{referTrash}；&quot;★&quot;_{referPick}；&quot;--&quot;待审核</td>
+			</tr>
+		</table>
+	
+	</td></tr>
+</table>
+
+
+</div>

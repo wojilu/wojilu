@@ -1,0 +1,73 @@
+﻿
+
+
+	<!-- BEGIN list -->	
+	<div class="mblogOne" id="mblog#{blog.Id}">
+	<table style="width:100%;" cellpadding="0" cellspacing="0">
+	    <tr>
+	        <!-- BEGIN userFace -->
+	        <td style="width:60px; vertical-align:top;">
+	        <div style="padding-right:10px;"><a href="#{blog.UserLink}"><img src="#{blog.UserFace}" style="border:1px #ddd solid; padding:3px;" /></a></div>
+	        </td><!-- END userFace -->
+	        <td>
+		        <div style="font-size:14px; margin-bottom:10px; ">
+		        #{userNameInfo}
+		        #{blog.Content}
+		        </div>
+		        <div>#{blog.ForwardContent}</div>
+		        <!-- BEGIN pic -->
+		        <div style="position:relative">
+		            <img class="blogPic" src="#{blog.PicSmall}" pic="#{blog.PicMedium}" style="float:left;" />
+		        </div>
+		        <div class="hide mpicWrap">
+		            <div class="picTool">
+		                <span class="cmdZoomin"><a href="javascript:void(0);" class="cmdZoominLink">收起</a></span> 
+		                <span class="cmdViewOPic"><a href="#{blog.PicOriginal}" target="_blank">查看大图</a></span> 
+		                <span class="cmdTurnLeft"><a href="javascript:void(0);" class="cmdTurnLeftLink">向左转</a></span> 
+		                <span class="cmdTurnRight"><a href="javascript:void(0);" class="cmdTurnRightLink">向右转</a></span>
+		            </div>
+		            <div class="mpicPanel"></div>
+		        </div>
+		        <!-- END pic -->
+        		
+		        <!-- BEGIN video -->
+		        <div style="position:relative;">
+		        <img src="#{blog.FlashPic}" style="float:left;padding:3px; border:1px #ccc solid;" />
+		        <img class="blogVideo" src="~img/m/videoplay.png" style="position:relative;float:left; top:35px; left:-85px; cursor:pointer;" />
+		        <div class="hide flashHtml">#{blog.Flash}</div>
+		        </div>
+        		
+		        <div class="hide mpicWrap">
+		            <div class="picTool" style="">
+		                <span class="cmdZoomin"><a href="javascript:void(0);" class="cmdZoominLink">收起</a></span> 
+		                <span class="cmdViewOPic"><a href="#{blog.FlashPageUrl}" target="_blank">查看原视频</a></span> 
+		            </div>
+		            <div class="mvideoPanel"></div>
+		        </div>
+		        <!-- END video -->
+		        <div class="clear"></div>
+        		
+		        <div style="margin-bottom:10px">			
+		        <table style="width:100%;">
+		            <tr>
+		                <td style="width:220px; vertical-align:top;" class="note">
+		                    <a href="#{blog.ShowLink}" style="color:#666;">#{blog.Created}</a> 
+		                    <span class="left15">通过网页</span></td>
+		                <td style="text-align:right; " class="mbTool">
+		                    <a class="frmBox right10" href="#{blog.ForwardUrl}" title="转发到我的微博" xwidth="420">转发#{blog.Reposts}</a>|
+		                    <span class="favCmd">#{blog.FavoriteCmd}|</span>
+		                    <span class="left10 frmUpdate link" href="#{blog.CommentsLink}" loadTo="commentList#{blog.Id}" txtHidden="_{hideComment}">_{comment}#{blog.Replies}</span>
+		                    #{blog.DeleteCmd}	
+		                </td>
+		            </tr>
+		        </table>
+		        <div id="commentList#{blog.Id}" style="display:none;"></div>		        </div>
+		
+	        </td>
+	    </tr>
+	</table>
+	
+	</div>				
+	
+	<!-- END list -->
+

@@ -1,0 +1,13 @@
+﻿<div class="h4title">最新文章</div>
+
+<ul class="ulposts">
+<!-- BEGIN list -->
+<li><a href="#{post.SectionUrl}">[#{post.SectionName}]</a> <a href="#{post.Url}" style="#{post.TitleCss}">#{post.Title}</a> #{post.ImgIcon}#{post.AttachmentIcon} <span class="note">(#{post.Submitter} #{post.Created} _{view}:#{post.Hits})</span></li>
+<!-- END list -->
+</ul>
+
+<div>#{page}</div>
+
+<style>
+.ulposts li {padding-left:5px; margin-bottom:2px;background:url( "~img/tree/node.gif" ) no-repeat 5px center; padding-left:20px;}
+</style>

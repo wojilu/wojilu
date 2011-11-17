@@ -1,0 +1,82 @@
+﻿<script type="text/javascript" src="~js/syntaxhighlighter/scripts/shCore.js"></script>
+<script type="text/javascript" src="~js/syntaxhighlighter/scripts/shBrushCommon.js"></script>
+<link type="text/css" rel="stylesheet" href="~js/syntaxhighlighter/styles/shCore.css"/>
+<link type="text/css" rel="stylesheet" href="~js/syntaxhighlighter/styles/shThemeDefault.css"/>
+
+<script type="text/javascript">
+	SyntaxHighlighter.config.clipboardSwf = "~js/syntaxhighlighter/scripts/clipboard.swf";
+	SyntaxHighlighter.all();
+</script>
+
+#{location}
+
+<table class="fdPanel">
+	<tr>
+		<td class="fPrevNext">
+			<a href="?pre">&lsaquo;&lsaquo; :{prevTopic}</a> | <a href="?next">:{nextTopic} &rsaquo;&rsaquo;</a>
+		</td>
+		<td>#{page}</td>
+		<td class="fNewReplyCmd">
+			<a href="#{newReplyUrl}" class="btn" rel="nofollow">_{reply}</a> <a href="#{newTopicUrl}" class="btn" rel="nofollow">:{addTopic}</a>
+		</td>
+	</tr>
+</table>
+
+#{postBlock}
+
+<!-- copy from above -->
+<table class="fdPanel">
+	<tr>
+		<td class="fPrevNext">
+			<a href="?pre">&lsaquo;&lsaquo; :{prevTopic}</a> | <a href="?next">:{nextTopic} &rsaquo;&rsaquo;</a>
+		</td>
+		<td>#{page}</td>
+		<td class="fNewReplyCmd">
+			<a href="#{newReplyUrl}" class="btn" rel="nofollow">_{reply}</a> <a href="#{newTopicUrl}" class="btn" rel="nofollow">:{addTopic}</a>
+		</td>
+	</tr>
+</table>
+
+
+<!-- BEGIN form -->
+<div class="forumSimpleForm" id="topicForm">
+	<div class="forumFormTitle">:{replyTopic}</div>
+
+	<form method="post" action="#{post.ReplyActionUrl}" class="ajaxPostForm autoSubmitForm">
+	<table class="forumFormTable">
+		<tr>
+			<td style="width:100px;vertical-align:top;" rowspan="3" id="pubUserPic">#{currentUser}</td>
+			<td style="width:50px;text-align:right">_{title}</td>
+			<td><input name="Title" type="text" value="#{post.ReplyTitle}" style="width: 480px"><span class="valid" msg="_{exTitle}" mode="border"></span></td>
+		</tr>
+		<tr>
+			<td style="vertical-align:top;text-align:right;">_{content}</td>
+			<td>#{Editor}</td>
+		</tr>
+		<tr>
+			
+			<td><span class="valid" to="Content" mode="border"></span></td>
+			
+			<td><input type="submit" value=":{submitPost}" name="btnSubmit" class="btn">
+			<input type="hidden" name="forumId" value="#{forumBoard.Id}" />
+			<input type="hidden" name="topicId" value="#{post.TopicId}" />
+			<input type="hidden" name="parentId" value="#{post.ParentId}" />
+			</td>
+		</tr>
+	</table>
+	</form>
+</div>
+<!-- END form -->
+
+
+
+<script>
+$(document).ready( function() {
+    wojilu.ui.valid();
+    wojilu.ui.ajaxPostForm();
+    
+    var isTopicLocked = #{isTopicLocked};
+    if( isTopicLocked ) $('#topicForm').hide();
+});
+</script>
+

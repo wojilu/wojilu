@@ -1,0 +1,124 @@
+﻿<script src="~js/jquery-ui.custom.js?v=#{jsVersion}" type="text/javascript"></script>
+
+<div style="border:0px blue solid;">
+
+<table cellspacing="0" cellpadding="4" border="0" style="width:95%;margin:10px auto;" id="dataAdminList" data-action="#{OperationUrl}">
+
+    <tr class="adminBar">
+        <td colspan="5">
+        
+            <a href="#{addUrl}" class="frmBox"><img src="~img/add.gif" /> 添加文章</a>
+            
+            <span class="menuMore left20" list="batchAdmin">批量操作<img src="~img/downWhite.gif" />
+            <ul id="batchAdmin" class="menuItems" style="width:130px">
+                <li class="btnCmd" style="" cmd="status_pick"><img src="~img/star.gif" /> 设为要闻</li>
+                <li class="btnCmd" style="" cmd="status_normal"><img src="~img/doc.gif" /> 设为普通</li>
+                <li class="btnCmd" style="" cmd="status_focus"><img src="~img/sticky2.gif" /> 设为头条</li>
+                <li class="btnCmd" style="" cmd="deletetrue"><img src="~img/s/delete.png" /> 批量删除</li>
+            </ul></span>
+        
+        </td>
+        <td colspan="2" style="text-align:right; padding-right:10px;"><form method="get" action="#{ActionLink}">:{searchTitle}: <input name="q" type="text" value="#{searchKey}" /><input id="Submit1" type="submit" value="_{submit}" class="btn btns" /></form></td>
+    </tr>
+
+	<tr class="tableHeader">
+	    <td align="center" style="width:4%;"><input id="selectAll" class="selectAll" type="checkbox" title="_{checkAll}" /></td>
+		<td>投递人</td>
+		<td></td>
+		<td></td>
+		<td>_{title}</td>
+		<td>_{created}</td>
+		<td>_{admin}</td>
+	</tr>
+	<!-- BEGIN list -->
+	<tr class="tableItems">
+	    <td align="center"><input name="selectThis" id="checkbox#{post.Id}" type="checkbox" class="selectSingle"> </td>
+		<td>#{post.Submitter}</td>
+		<td>#{post.PickIcon}</td>
+		<td style="text-align:right">#{post.AttachmentIcon}#{post.ImgIcon}</td>
+		<td><a href="#{post.Link}" style="#{post.TitleCss}" target="_blank">#{post.Title}</a>
+		 <span id="tag#{post.Id}" postId="#{post.Id}" style="font-weight:bold;margin-left:10px; color:Blue">#{post.Tag.TextString}</span> <span class="cmdTag link"><img src="~img/s/tag_edit.png" /></span>
+		</td>
+		<td>#{post.PubDate}</td>
+		<td>
+		<a href="#{post.EditUrl}" class="frmBox"><img src="~img/edit.gif" /> _{edit}</a>
+		<span class="clickMenu left5" list="adminPostMenus#{post.Id}">更多<img src="~img/down.gif" /></span>
+		<ul class="menuItems" id="adminPostMenus#{post.Id}" style="width:120px;">
+		    <li></li>
+		    <li><a href="#{post.AttachmentLink}" class="frmBox link" title="[附件]_#{post.Title}" xwidth="750"><img src="~img/attachment.gif" /> 附件(<a href="#{post.Link}">#{post.Attachments})</a></a></li>
+		    <li><a href="#{post.DeleteUrl}" class="deleteCmd"><img src="~img/s/delete.png" /> _{delete}</a></li>
+		    <li><a href="#{post.EditTitleStyleUrl}" class="frmBox" xwidth="700" title="[标题样式]_#{post.Title}"><img src="~img/edit.gif" /> 标题样式</a></li>
+		    <li></li>
+		</ul>
+		
+		</td>
+	</tr>
+	<!-- END list -->
+	<tr>
+	    <td colspan="5">#{page}</td>
+	    <td colspan="2" style="text-align:right;padding-right:10px;">图例说明：	        
+	        <img src="~img/star.gif" class="left10" /> 要闻
+	        <img src="~img/sticky2.gif" class="left10" /> 头条
+	        <img src="~img/img.gif" class="left10" /> 图片
+	        <img src="~img/attachment.gif" class="left10" /> 附件
+	        <img src="~img/s/tag_edit.png" class="left10" /> 修改tag
+	    </td>
+	</tr>
+</table>
+
+<style>
+#tagBox div { margin:5px 0px;}
+</style>
+
+<div id="tagBox" class="ebox" style="width:280px; padding:10px; ">
+    <div>请输入tag(多个tag之间用逗号分隔)</div>
+    <div><input id="tagValue" type="text" style="width:250px;" /></div>
+    <div><input id="btnSaveTag" type="button" value="_{submit}" class="btn" />
+        <input id="tagCancel" type="button" value="_{cancel}" class="btnCancel" />
+        <input id="tagId" type="hidden" />
+    </div>
+</div>
+
+</div>
+
+
+
+<script>
+
+$(document).ready( function() {
+
+    $("#tagBox").draggable();
+    $('.cmdTag').click( function() {
+	    var ps = $(this).position(); // 获取当前被点击的元素的位置
+	    $('#tagBox').css( 'top', ps.top+20 ).css( 'left', ps.left ).toggle('fast'); // 通过绝对定位来显示图层
+	    var tagValue = $(this).prev().text();
+	    $('#tagValue').val( tagValue );
+	    $('#tagId').val( $(this).prev().attr( 'id' ) );
+    });
+    
+    $('#tagCancel').click( function() {
+        $("#tagBox").toggle('fast');
+    });
+    
+    $('#btnSaveTag').click( function() {
+        var tagValue = $('#tagValue').val();
+        var tagSpan = $( '#'+$('#tagId').val() );
+        var postId = tagSpan.attr( 'postId' );
+        $.post( '#{tagAction}', {'postId':postId ,'tagValue':tagValue}, function(data) {
+            if( 'ok'==data ) {
+                tagSpan.text( tagValue );
+                $("#tagBox").toggle('fast');
+            }
+            else
+                alert( data );
+        });
+    });
+    
+    //
+    $('.turnpage a').click( function() {
+        $(this).attr( 'href', $(this).attr('href')+'#');
+    });
+
+});
+
+</script>

@@ -1,0 +1,86 @@
+﻿<style>
+.utitle {}
+.utitle .note {font-weight:normal;text-decoration:underline}
+.uItem {float:left;margin:5px;width:80px;height:80px;background:#; text-align:center; font-size:12px;}
+.uItem img {
+    padding:2px; border:1px #eee solid;
+    border-radius: 3px; -moz-border-radius: 3px; -webkit-border-radius: 3px; -khtml-border-radius: 3px;
+    box-shadow:0px 5px 10px rgba(0, 0, 0, 0.1);-moz-box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.1);-webkit-box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.1);
+
+}
+.slbl {width:60px;background:#efefef;}
+</style>
+<br/>
+<div style=" clear:both"></div>
+
+<div style="width:95%;margin:auto;padding:0px 0px 30px 0px;background:#ffffff; font-size:14px; ">
+
+	<div class="sectionPanel">
+	
+		<div class="utitle sectionTitle">_{searchUser}：</div>
+	
+		<form action="#{ActionLink}" method="get">
+	
+		<table style="width: 90%;margin:10px;margin:auto;">
+			<tr>
+				<td class="slbl">_{userName}</td>
+				<td><input name="name" type="text" value="#{name}"></td>
+				<td class="slbl">_{gender}</td>
+				<td>#{g}</td>
+				<td class="slbl">_{relationship}</td>
+				<td>#{r}</td>
+			</tr>
+			<tr>
+				<td class="slbl">_{age}</td>
+				<td>#{a1}&nbsp;-&nbsp;#{a2}</td>
+				<td class="slbl">_{blood}</td>
+				<td>#{b}</td>
+				<td>&nbsp;</td>
+				<td>&nbsp;</td>
+			</tr>
+			<tr>
+				<td class="slbl">_{educationDegree}</td>
+				<td>#{d}</td>
+				<td class="slbl">_{zodiac}</td>
+				<td>#{z}</td>
+				<td>&nbsp;</td>
+				<td>&nbsp;</td>
+			</tr>
+			<tr>
+				<td class="slbl">_{hometown}</td>
+				<td>#{p1}&nbsp;<input name="city1" style="width: 60px" type="text" value="#{city1}"></td>
+				<td class="slbl">_{region}</td>
+				<td>#{p2}&nbsp;<input name="city2" style="width: 60px" type="text" value="#{city2}"></td>
+				<td>&nbsp;</td>
+				<td>&nbsp;</td>
+			</tr>
+			<tr>
+				<td colspan="6" style="text-align:center;padding:10px 0px 15px 0px">
+				<input type="submit" value="_{searchNow}" style="width:150px;" class="btn">
+				<a href="#{ActionLink}" class="left10">_{resetForm}</a></td>
+			</tr>
+		</table>
+		</form>
+	
+	</div>
+	
+	<div class="sectionPanel">
+	<div class="utitle sectionTitle">_{searchResult}:</div>
+	<table style="width: 90%;margin:auto;">
+		<tr>
+			<td>
+			<!-- BEGIN list -->
+			<div class="uItem">
+				<a href="#{u.Link}" target="_blank"><img src="#{u.Face}"/><br/>
+				#{u.Name}</a>
+			</div>
+			<!-- END list -->		
+			</td>
+		</tr>
+	</table>
+	</div>
+	<div style="width:90%;margin:auto;">#{page}</div>
+	
+	<div style="clear:both"></div>
+
+</div>

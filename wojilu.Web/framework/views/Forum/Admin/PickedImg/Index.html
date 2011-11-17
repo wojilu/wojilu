@@ -1,0 +1,28 @@
+﻿
+
+		<table cellspacing="0" cellpadding="2" border="0" style="width: 100%;" id="dataAdminList" data-action="#{ActionLink}">
+			<tr class="adminBar"><td colspan="4">
+				<a href="#{addUrl}" class="frmBox" title="推荐图片帖子" xwidth="580"><img src="~img/add.gif" /> _{add}</a>	
+			</td>		
+			</tr>
+
+            <tr class="tableHeader"><td>图片</td><td>帖子标题</td><td>创建时间</td><td>管理</td></tr>
+
+            <!-- BEGIN list -->
+            <tr class="tableItems"><td><a href="#{f.Url}" target="_blank"><img src="#{f.ImgUrl}" class="max150" /></a></td><td><a href="#{f.Url}" target="_blank">#{f.Title}</a></td><td>#{f.Created}</td>
+            <td>
+                <a href="#{f.EditLink}" class="frmBox" xwidth="580">_{edit}</a>
+                <a href="#{f.DeleteLink}" class="deleteCmd left10">_{delete}</a>
+            </td></tr>
+            <!-- END list -->
+			<tr>
+				<td colspan="4" class="adminPage">#{page}</td>
+			</tr>
+		</table>
+
+        </table>
+
+
+<style>
+.max150 { max-width:150px; max-height:150px;}
+</style>

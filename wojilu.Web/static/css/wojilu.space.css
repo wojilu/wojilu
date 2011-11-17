@@ -1,0 +1,28 @@
+﻿
+#spacePage {}
+
+#spaceMainWrap {background:#fff;}
+
+.friendCountTable {margin:auto;text-align:left; margin-top:10px;}
+.friendCountTable td {padding:2px 5px; color:green;}
+span.friendCount {font-size:18px;font-weight:bold; color:orange;}
+
+/*相册*/
+#photoSidebar  .sideBarContainer{ padding-top:10px;}
+#photoSidebar  .sideBarList {margin-left:10px;}
+
+/*专辑列表*/
+#photoAlbumList li {float:left; display:block; width:190px; height:240px;  margin:5px 20px 0px 5px; }
+#photoAlbumList li div {margin-bottom:6px;}
+#photoAlbumList li div a {font-size:14px;}
+    .photoAlbumItem { width:190px;height:180px; background:url('../img/m/albumbg.jpg') no-repeat left center;}
+    .photoAlbumItem img {width:170px;height:170px;margin:3px 0px 0px 3px;}
+
+/*图片列表*/
+.photoAlbumTitle { border-bottom:1px #ccc solid; padding:5px 0px 5px 0px; margin-bottom:10px;}
+.photoAlbumTitle .left10 {font-size:12px;font-weight:normal;}
+#photoThumbList li {float:left; display:block; width:180px; height:220px; background2:#eee;margin:5px 30px 10px 5px; }
+#photoThumbList li div {margin-bottom:6px;}
+#photoThumbList li div a {font-size:12px;}
+
+

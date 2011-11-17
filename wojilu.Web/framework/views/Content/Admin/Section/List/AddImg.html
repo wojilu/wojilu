@@ -1,0 +1,166 @@
+﻿<!-- copy from add.html, and set picurl textbox to current tab -->
+
+<script type="text/javascript">
+<!--
+
+var setUploadImg = function( imgUrl, width, height ) {
+
+    $('#width').val( width );
+    $('#height').val( height );
+
+    $('#imgLink').val( imgUrl ).hide();
+    var imgHtml ='<img src="'+imgUrl+'" style="height:80px;" /> '+
+        '<img id="cmdDeleteUpload" src="~img/delete.gif" style="cursor:pointer" />';
+    $('#uploadImgShow').html( imgHtml ).show();
+    
+    var p = wojilu.tool.getBoxParent();
+    p.wojilu.tool.addBoxHeight( 30 );
+    $('#cmdDeleteUpload').click( function() {
+        $('#imgLink').show().val('');
+        $('#uploadImgShow').hide();
+        $.post( '#{deleteUploadLink}', {'imgUrl':imgUrl}, function(data) {
+            if( 'ok' != data ) alert( data );
+        });
+    });
+}
+
+$(document).ready( function() {
+    
+	var tabFunc = function() {
+	    $('#content1').toggle();
+	    $('#content2').toggle();
+	    if( $('#content1').css( 'display' )=='none' ) {
+	        $('#tab1').removeClass( 'currentTab' ).addClass( 'otherTab' );
+	        $('#tab2').removeClass( 'otherTab' ).addClass( 'currentTab' );
+	    }
+	    else {
+	        $('#tab1').removeClass( 'otherTab' ).addClass( 'currentTab' );
+	        $('#tab2').removeClass( 'currentTab' ).addClass( 'otherTab' );
+	    }
+	};
+	
+	$('#tab1').click( tabFunc );
+	$('#tab2').click( tabFunc );
+
+});
+
+
+//-->
+</script>
+
+<style>
+#title {width: 600px}
+#tagList {width:200px}
+#srcLink {width:350px;}
+#tab1,#tab2 { cursor:pointer;}
+</style>
+	
+<form method="post" action="#{ActionLink}" id="myform" style="height:560px;">
+
+	<table style="width:780px" class="tabHeader" cellpadding="0" cellspacing="0">
+		<tr>
+			<td id="tab1" class="currentTab" style="width:25%;">:{general}</td>
+			<td id="tab2" class="otherTab" style="width:25%;">:{advanced}</td>
+			<td class="otherTab" style="width:25%;">&nbsp;</td>
+			<td class="otherTab" style="width:25%;">&nbsp;</td>
+		</tr>
+	</table>
+	
+	<div id="content1" class="tabMain" style="width:780px;">
+	<div style="padding:10px;">
+	<table style="width: 95%;margin:auto;">
+		<tr class="hide">
+			<td style="width: 80px;">:{itsSection}</td>
+			<td style="width: 670px;"><strong>#{section.Title}</strong></td>
+		</tr>
+		<tr>
+			<td>_{title}</td>
+			<td><input name="Title" id="title" type="text" class="tipInput" tip="_{exTitle}"><span class="valid" mode="border"></span></td>
+		</tr>
+		<tr>
+			<td style="width: 80px;vertical-align:top">:{picUrl}<span class="valid" mode="border" to="ImgLink"></span></td>
+			<td>
+			
+			    <table cellpadding="0" cellspacing="0">
+			        <tr>
+			            <td>
+			                <div><input name="ImgLink" id="imgLink" type="text" style="width: 500px" class="tipInput" tip=":{exImgUrl}"></div>
+			                <div id="uploadImgShow"></div>       
+			            </td>
+			            <td style="vertical-align:top;padding-left:10px"><span class="cmd frmBox" id="cmdUpload" href="#{uploadLink}?width=#{width}&height=#{height}" title=":{uploadPic}">:{uploadPic}</span></td>
+			        </tr>
+			    </table>
+			    
+	            
+			</td>
+		</tr>
+
+		<tr>
+		    <td>:{size}</td>
+		    <td>:{width}<input id="width" name="Width" type="text" value="#{width}" style="width:40px;" />px 
+            <span class="left20">:{height}</span><input id="height" name="Height" type="text" value="#{height}" style="width:40px;" />px</td>
+		</tr>
+
+		<tr>
+			<td>_{author}</td>
+			<td><input name="Author" type="text">
+			<span class="left15">:{srcUrl}</span> <input name="SourceLink" id="srcLink" type="text" size="20">
+
+			</td>
+		</tr>	
+		<tr>
+			<td>_{content}<span to="Content" class="valid" mode="border"></span></td>
+			<td>#{Editor}</td>
+		</tr>	
+		<tr>
+			<td>&nbsp;<input type="hidden" name="ModuleId" value="#{module.Id}" /></td>
+			<td>
+			    <input name="Submit1" type="submit" value=":{submitData}" class="btn">
+			    <input type="button" value="_{cancel}" class="btnCancel" />
+			</td>
+		</tr>		
+		
+	</table>
+	</div>
+	</div>
+	
+	<div id="content2" class="tabMain" style="display:none;width:780px;">
+	<div style="padding:10px;">
+	<table style="width: 95%;margin:auto;">
+	    <tr>
+	        <td>_{closeComment}</td>
+	        <td><input name="IsCloseComment" value="1" type="checkbox"></td>
+	    </tr>
+	    <tr>
+	        <td>_{tag}</td>
+	        <td><input name="TagList" id="tagList" type="text"><span class="help" title="_{tagTip}">?</span></td>
+	    </tr>
+
+		<tr >
+			<td style="vertical-align:top">_{summary}</td>
+			<td>
+			<textarea name="Summary" style="width: 500px; height: 90px"></textarea></td>
+		</tr>
+
+		<tr>
+			<td style="vertical-align:top">:{titleStyle}</td>
+			<td><textarea name="Style" style="width: 500px; height: 50px"></textarea>
+			<span class="note">(:{cssRequired})</span>
+			</td>
+		</tr>
+		<tr >
+			<td style="width:80px">_{orderId}</td>
+			<td>
+			<input name="OrderId" type="text" size="20" style="width: 30px" value="0">
+			</td>
+		</tr>
+	</table>
+	</div>
+	</div>
+	
+</form>
+
+		
+
+
+

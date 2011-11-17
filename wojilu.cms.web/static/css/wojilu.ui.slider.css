@@ -1,0 +1,28 @@
+﻿.main_view {float: left; position: relative;}
+.window {overflow: hidden; position: relative;}
+.image_reel {position: absolute; top: 0; left: 0;}
+.image_reel img {float: left;}
+ 
+/*--Paging Styles--*/
+.paging {
+	position: absolute;
+	bottom: 0px; right: 0px;
+	z-index: 100;	
+	display: none;
+    filter:alpha(opacity=90); opacity:0.9;
+}
+
+.paging a {
+	padding: 3px 5px;
+	text-decoration: none;
+	color: #fff;
+}
+.paging a.active {
+	font-weight: bold; 
+	background: #920000; 
+	border: 1px solid #610000;
+	-moz-border-radius: 3px;
+	-khtml-border-radius: 3px;
+	-webkit-border-radius: 3px;
+}
+.paging a:hover {font-weight: bold;}

@@ -1,0 +1,141 @@
+﻿<script type="text/javascript">
+<!--
+$(document).ready( function() {
+
+    var btnSaveBlog;    
+    
+    var callback = function(data) {
+        var result = data;
+        if( !result.IsValid ) {
+            $( '#saveInfo' ).html( '<span>:{exSave}:'+result.Msg+'</span>' );
+        }
+        else {			
+            var resultId = parseInt( result.Msg );				
+            $( "#draftId" ).val( resultId );
+            $( '#saveInfo' ).html( ':{saveDraftOk}:' + wojilu.tool.getTime() );
+        }
+        btnSaveBlog.disabled=false;
+        $( btnSaveBlog ).val( ':{saveDraft}' );
+    };
+    
+    var autoSave = function() {
+    
+    
+        var draftId = $( "#draftId" ).val();
+        var postData = {
+            "Title":$("input[name=Title]").val(), 
+            "Content":$("input[name=Content]").val(), 
+            "TagList":$("input[name=TagList]").val(), 
+            "CategoryId":$("select[name=CategoryId] option:selected").val(),
+			"AccessStatus":$("input[name=AccessStatus]:checked").val(), 
+            "IsCloseComment":$("input[name=IsCloseComment]:checked").val(), 
+            "draftId":draftId
+        };
+        
+ 		if( !postData.IsCloseComment ) postData.IsCloseComment=0;
+		if( wojilu.str.isNull( postData.Content ) ) return;
+        
+ 		btnSaveBlog = this;
+		btnSaveBlog.disabled=true;
+		$( btnSaveBlog ).val( ':{saving}' );
+        
+        var draftActionUrl = $("#draftActionUrl").val().toAjax();
+        $.post( draftActionUrl, postData, callback );
+      
+    };    
+
+	setInterval( autoSave, 1000*60*3 );
+    
+    $("#btnSaveDraftBlog").click( autoSave );
+    
+ 
+    
+});
+//-->
+</script>
+
+<form method="post" action="#{ActionLink}" class="ajaxPostForm">
+
+	<table cellspacing="1" cellpadding="4" width="95%" >
+		<tr>
+			<td><strong>_{title}</strong> </td>
+			<td>
+			<input name="Title" type="text" style="width: 500px"> <img src="~img/help.gif" title=":{emptyTitleTip}"/></td>
+		</tr>
+		<tr>
+			<td><strong>_{category}</strong></td>
+			<td>&nbsp;<span id="categoryList">#{CategoryId}</span><a id="categoryBox" href="#{categoryAddUrl}" class="frmBox link" xwidth="500" title=":{addCategory}"><img src="~img/add.gif"/> _{add}</a>
+			<strong class="left10">_{tag}</strong> 
+			<input name="TagList" id="tagList" type="text" style="width: 221px"> <img src="~img/help.gif" title=":{tagTip}"/></td>
+		</tr>
+		<tr>
+			<td style="vertical-align:top;"><strong>_{content}</strong>
+			<span to="Content" class="valid" mode="border"></span>
+			</td>
+			<td>#{Editor}</td>
+		</tr>
+		<tr><td></td><td><label><input name="saveContentPic" type="checkbox" />保存远程图片</label></td></tr>
+
+		<tr style="display:none;">
+			<td>			
+			<strong>_{privacy}</strong></td>
+			<td><table style="width: 100%">
+				<tr>
+					<td>
+					<input name="AccessStatus" type="radio" value="0" checked>_{statusPublic} 
+					<input name="AccessStatus" type="radio" value="1">_{statusFriend} 
+					<input name="AccessStatus" type="radio" value="2">_{statusPrivate}&nbsp;&nbsp;&nbsp; 
+					<input name="IsCloseComment" value="1" type="checkbox">_{closeComment}</td>
+					<td class="style3"><input id="optionMore" type="checkbox">_{moreOption}</td>
+				</tr>
+			</table></td>
+		</tr>
+		<tr id="abstractRow" style="display:none">
+			<td></td>
+			<td>
+			
+<table style="width: 100%">
+				<tr>
+					<td>_{summary}</td>
+					<td> 
+			<textarea name="Abstract" style="width: 498px; height: 95px" rows="1"></textarea></td>
+				</tr>
+				<tr>
+					<td>:{trackbackUrl}<br/>
+					<span class="note">Trackback</span></td>
+					<td>
+					<textarea name="Trackback" style="width: 498px; height: 50px"></textarea>
+					<br/><span class="note">:{trackbackTip}</span>
+					</td>
+				</tr>
+			</table></td>
+		</tr>
+		<tr>
+			<td align="left">
+			</td>
+			<td align="left">
+			<input name="Submit1" type="submit" value=":{publog}" id="btnPubBlog" class="btn">&nbsp;&nbsp;&nbsp;&nbsp;
+			<input name="Submit2" type="button" value=":{saveDraft}" id="btnSaveDraftBlog" style="width:120px;margin-left:10px;" class="btnCancel">
+			 <span id="saveInfo" class="left10 note">:{autoSaveTip}</span>
+			<input type="hidden" id="draftActionUrl" value="#{DraftActionUrl}"/>
+			<input type="hidden" id="draftId" value="" /></td>
+		</tr>
+	</table>
+</form>
+
+<style>
+#btnSaveDraftBlog { background:url("~img/s/save.png") no-repeat 10px 3px;}
+</style>
+
+<script>
+function refreshCategories( chtml, categoryId ) {
+    $('#categoryList').html( chtml );
+    $('#CategoryId').val( categoryId );
+}
+
+$(document).ready( function() {
+    if( #{showCategoryBox} ) $('#categoryBox').click();
+});
+
+
+</script>

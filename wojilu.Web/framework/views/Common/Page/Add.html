@@ -1,0 +1,46 @@
+﻿<style type="text/css">
+#postContainer {background:#eee;}
+</style>
+
+<div style="clear:both"></div>
+<div id="postContainer">
+
+    <div style="padding:30px;">
+
+			<form action="#{ActionLink}" method="post" class="ajaxPostForm">
+				<table style="width: 100%">
+					<tr>
+						<td style="width:80px;">_{pageTitle}</td>
+						<td>
+						<input name="Title" style="width: 500px;" type="text" value="" /><span class="valid"></span></td>
+					</tr>
+					<tr>
+						<td>_{content}</td>
+						<td>#{Editor}</td>
+					</tr>
+					<tr>
+					    <td>编辑原因</td>
+					    <td>
+                            <input name="editReason" type="text" style="width:500px;" value="创建页面" /><span class="valid"></span></td>
+					</tr>
+					<tr>
+						<td></td>
+						<td><input type="submit" value="_{editPage}" class="btn" />
+						<input class="btnReturn" type="button" value="_{return}" />
+						</td>
+					</tr>
+				</table>
+			</form>
+			
+		</div>
+</div>
+
+<script>
+$(document).ready( function() {
+    wojilu.ui.pageReturn();
+    wojilu.ui.tip();
+    wojilu.ui.valid();
+    wojilu.ui.ajaxPostForm();
+
+});
+</script>

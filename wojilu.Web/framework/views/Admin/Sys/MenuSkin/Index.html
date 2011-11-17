@@ -1,0 +1,352 @@
+﻿<style type="text/css">
+    .menuPanel{width: 130px; }
+    .menuPanel td{color: #aaa; font-size:12px; border:0px #eee solid; cursor:pointer;}
+    .menuPanel td:hover {background:#eee;}
+    .menuPanel table{ border-right:1px #ccc solid;}
+    
+    .otherTab{cursor: pointer;}
+    
+    .menuTable {width: 960px; border: 1px #000 solid;margin: auto;}
+    
+    #closeMenuForm { cursor:pointer;}
+    .menuFormPanel {margin-top:20px;}
+    #menuForm .menuFormPanel div {margin:5px 0px 5px 15px;}
+    
+    .menuItemStrong { font-weight:bold;}
+    .menuFilled {color:#000;}
+    
+    .demoImg { color:#666; font-size:18px; font-weight:bold; background:#ccc; padding-top:1px; padding-bottom:20px;margin-top:20px; margin-bottom:20px;}
+    
+</style>
+<script src="~js/jquery.drag.js?v=#{jsVersion}" type="text/javascript"></script>
+
+<script>
+$('.menuCmd').click( function() {
+    $('.menuUI').hide();
+    $( '#'+$(this).attr( 'target' ) ).show();
+    $('.currentTab').removeClass( 'currentTab' ).addClass( 'otherTab' );
+    $(this).removeClass( 'otherTab' ).addClass( 'currentTab' );
+    
+
+});
+
+$(document).ready( function() {
+
+    $("#menuForm").draggable();
+    
+    $('.menuPanel td').click( function() {
+        var thisMenu = $(this);
+        var ps = thisMenu.position();
+        $('#menuForm').css( 'top', ps.top+20 ).css( 'left', ps.left ).slideDown('fast');
+        
+        var menuVal = thisMenu.text().trim();
+        if( '+菜单' == menuVal ) menuVal = '';
+        $('#menuName').val( menuVal );
+        
+        var menuUrlVal = thisMenu.attr( 'href' );
+        $('#menUrl').val( menuUrlVal );
+
+        $('#btnSetMenu').unbind('click').click( function() {
+        
+            var menuName = $('#menuName').val();
+            var menUrl = $('#menUrl').val();
+            
+            if( !menuName || !menUrl ) {
+                alert( '全部请填写' );
+                return;
+            }
+        
+            thisMenu.text( menuName );
+            thisMenu.attr( 'href', menUrl );
+            thisMenu.css( 'color', 'blue' );
+            
+            $(this).parent().parent().parent().slideUp('fast');
+        });
+    
+    });
+    
+    $('#closeMenuForm').click( function() {
+        $(this).parent().parent().slideUp('fast');
+        $('#menuName').val( '' );
+        $('#menUrl').val( '' );
+    });
+
+
+});
+</script>
+
+
+<div class="contextMenu" id="myMenu1">
+    <ul>
+        <li id="setBgColor"></li>
+        <li id="setBgImg"></li>
+        <li id="setHeight"></li>
+    </ul>
+</div>
+
+<div id="menuForm" menuto="" style="display:none;width:450px; height:140px; position:absolute; background:#eee; padding:0px; border:1px #666 solid;">
+    <div id="menuFormTitle" style="background:#666; color:#fff; padding:3px 5px;">
+        <div style="float:left;">请填写菜单</div>
+        <div id="closeMenuForm" style="float:right;"><img src="~img/delete.gif" />关闭</div>
+        <div class="clear"></div>
+    </div>
+    <div class="menuFormPanel">
+    <div>
+        名称 <input name="name" id="menuName" />
+        <span class="left20">粗体</span> <input name="isBold" type="checkbox" />
+        <span class="left20">颜色</span> <input name="color" id="Text1" />
+    </div>
+    <div>网址 <input name="url" id="menUrl" style="width:380px;" /></div>
+    <div style="text-align:center;"><input id="btnSetMenu" type="button" class="btn btns" value="设置菜单" /></div>
+    </div>
+</div>
+
+<div style="margin: auto; width: 1000px; font-size: 28px; font-weight: bold; padding-top: 30px;
+    padding-bottom: 20px;">
+    菜单设计</div>
+<table class="tabHeader" style="width: 1000px; margin: auto;" cellpadding="0" cellspacing="0">
+    <tr>
+        <td class="menuCmd currentTab" style="width: 20%" target="menuCommon">
+            <div>简易型(单行菜单)</div>
+        </td>
+        <td class="menuCmd otherTab" style="width: 20%" target="portalMenu">
+            <div>门户型(复杂菜单)</div>
+        </td>
+        <td class="menuCmd otherTab" style="width: 20%" target="govMenu">
+            <div>通用性(双行菜单)</div>
+        </td>
+        <td class="menuCmd otherTab" style="width: 20%" target="customMenu">
+            <div>自定义</div>
+        </td>
+        <td class="otherTab" style="width: 20%">
+            &nbsp;
+        </td>
+    </tr>
+</table>
+<div class="tabMain" style="width: 1000px; margin: auto;">
+    <div style="padding: 10px;">
+    
+        <div id="menuCommon" class="menuUI">
+        
+            <div class="demoImg">
+                <div style="margin:10px; ">示意图：</div>
+                <div class="menuTable" style="margin-top:10px; border:0px;">
+                        <div><img src="~img/big/commonMenu.png" /></div>            
+                </div>
+            </div>
+
+        </div>
+        <div id="portalMenu" class="hide menuUI">
+
+            <div class="" style="margin:5px 0px 10px 10px;">
+                请点击下面的文字设置菜单名称和链接，另外你可以：      
+                <img src="~img/bgcolor.gif" /> 设置背景颜色
+                <img src="~img/image.gif" /> 设置背景图片
+            </div>
+
+            <table class="menuTable" style="" cellpadding="0" cellspacing="0">
+                <tr>
+                    <td style="width: 180px;">
+                    </td>
+                    <td class="menuPanel">
+                        <table class="style1">
+                            <tr>
+                                <td class="menuItemStrong">+菜单</td>
+                                <td>
+                                    +菜单
+                                </td>
+                                <td>
+                                    +菜单
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="menuItemStrong">+菜单
+                                </td>
+                                <td>
+                                    +菜单
+                                </td>
+                                <td>
+                                    +菜单
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="menuItemStrong">+菜单
+                                </td>
+                                <td>
+                                    +菜单
+                                </td>
+                                <td>
+                                    +菜单
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                    <td class="menuPanel">
+                        <table class="style1">
+                            <tr>
+                                <td class="menuItemStrong">+菜单
+                                </td>
+                                <td>
+                                    +菜单
+                                </td>
+                                <td>
+                                    +菜单
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="menuItemStrong">+菜单
+                                </td>
+                                <td>
+                                    +菜单
+                                </td>
+                                <td>
+                                    +菜单
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="menuItemStrong">+菜单
+                                </td>
+                                <td>
+                                    +菜单
+                                </td>
+                                <td>
+                                    +菜单
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                    <td class="menuPanel">
+                        <table class="style1">
+                            <tr>
+                                <td class="menuItemStrong">+菜单
+                                </td>
+                                <td>
+                                    +菜单
+                                </td>
+                                <td>
+                                    +菜单
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="menuItemStrong">+菜单
+                                </td>
+                                <td>
+                                    +菜单
+                                </td>
+                                <td>
+                                    +菜单
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="menuItemStrong">+菜单
+                                </td>
+                                <td>
+                                    +菜单
+                                </td>
+                                <td>
+                                    +菜单
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                    <td class="menuPanel">
+                        <table class="style1">
+                            <tr>
+                                <td class="menuItemStrong">+菜单
+                                </td>
+                                <td>
+                                    +菜单
+                                </td>
+                                <td>
+                                    +菜单
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="menuItemStrong">+菜单
+                                </td>
+                                <td>
+                                    +菜单
+                                </td>
+                                <td>
+                                    +菜单
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="menuItemStrong">+菜单
+                                </td>
+                                <td>
+                                    +菜单
+                                </td>
+                                <td>
+                                    +菜单
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                    <td class="menuPanel">
+                        <table class="style1">
+                            <tr>
+                                <td class="menuItemStrong">+菜单
+                                </td>
+                                <td>
+                                    +菜单
+                                </td>
+                                <td>
+                                    +菜单
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="menuItemStrong">+菜单
+                                </td>
+                                <td>
+                                    +菜单
+                                </td>
+                                <td>
+                                    +菜单
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="menuItemStrong">+菜单
+                                </td>
+                                <td>
+                                    +菜单
+                                </td>
+                                <td>
+                                    +菜单
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+            </table>
+        
+            <div class="demoImg">
+                <div style="margin:10px; ">示意图：</div>
+                <div class="menuTable" style="margin-top:10px; border:0px;">
+                        <div><img src="~img/big/portalMenu.png" /></div>            
+                </div>
+            </div>
+        
+        </div>
+        
+        <div id="companyMenu" class="hide menuUI">
+            企业型菜单</div>
+        <div id="govMenu" class="hide menuUI">
+            <div class="demoImg">
+                <div style="margin:10px; ">示意图：</div>
+                <div class="menuTable" style="margin-top:10px; border:0px;">
+                        <div><img src="~img/big/govMenu.png" /></div>            
+                </div>
+            </div>
+        </div>
+        <div id="customMenu" class="hide menuUI">
+            自定义菜单</div>
+    </div>
+    
+    <div style="margin:20px;">
+    难点1：只要5列，我不要6列，该如何办？<br />
+    难点2：只要两行，不要3行，该怎么办？
+    </div>
+</div>
+<div style="height: 50px;">
+    &nbsp;</div>

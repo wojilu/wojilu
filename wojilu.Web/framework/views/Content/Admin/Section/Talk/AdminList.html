@@ -1,0 +1,24 @@
+﻿
+<div style="margin:15px;">
+	<table cellspacing="1" cellpadding="4" border="0" style="width: 100%;margin:auto;" id="dataAdminList">
+		<tr class="tableHeader">
+			<td style="width:8%">_{orderId}</td>
+			<td style="width:15%">:{talker}</td>
+			<td>:{talkContent}</td>
+			<td style="width:15%" align="center">_{created}</td>
+			<td style="width:8%" align="center">_{admin}</td>
+		</tr>
+		<!-- BEGIN list -->
+		<tr class="tableItems">
+			<td>#{post.OrderId}</td>
+			<td>#{post.Title}</td>
+			<td><a href="#{post.EditUrl}">#{post.Description}</a></td>
+			<td align="center">#{post.PubDate}</td>
+			<td align="center"><a href="#{post.DeleteUrl}" class="deleteCmd">_{delete}</a></td>
+		</tr>
+		<!-- END list -->
+	</table>
+	<div>#{page}</div>
+
+</div>
+

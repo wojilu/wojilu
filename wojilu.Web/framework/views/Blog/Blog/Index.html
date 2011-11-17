@@ -1,0 +1,38 @@
+﻿
+	<div class="blogTop">
+
+	<!-- BEGIN topblog -->
+	<div style="padding:5px;border-radius:5px;margin:10px 0px 15px 0px;" class="cbg">
+		<table class="blogItemTitle">
+			<tr>
+				<td><img src="~img/sticky.gif"/> _{sticky}  <a href="#{blogpost.Url}" class="left10">#{blogpost.Title}</a></td>
+				<td class="blogItemTime">#{blogpost.CreateDate}</td>
+			</tr>
+		</table>
+		<div class="blogItemBody" style="padding:5px 0px 10px 15px">#{blogpost.Body}</div>
+		<div class="blogItemMore hide"><a href="#{blogpost.Url}">_{more}...</a></div>
+		<div class="blogItemInfo hide"> posted by <a href="#{authroUrl}">#{author}</a> at #{blogpost.CreateTime} 
+		_{view}(#{blogpost.Hits}) _{comment}(#{blogpost.ReplyCount})</div>
+
+	</div>
+	<!-- END topblog -->
+	</div>
+	
+	<!-- BEGIN bloglist -->
+	<div class="blogItem">
+	
+		<table class="blogItemTitle">
+			<tr>
+				<td>#{blogpost.Status}<a href="#{blogpost.Url}">#{blogpost.Title}</a></td>
+				<td class="blogItemTime">#{blogpost.CreateDate}</td>
+			</tr>
+		</table>
+		<div class="blogItemBody">#{blogpost.Body}</div>
+		<div class="blogItemMore"><a href="#{blogpost.Url}">_{more}...</a></div>
+		<div class="blogItemInfo"> posted by <a href="#{authroUrl}">#{author}</a> at #{blogpost.CreateTime} 
+		_{view}(#{blogpost.Hits}) _{comment}(<span class="blogItemReviews">#{blogpost.ReplyCount}</span>)</div>
+		
+	</div>
+	<!-- END bloglist -->
+	
+	<div>#{pager}</div>

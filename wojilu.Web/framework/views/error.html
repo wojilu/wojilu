@@ -1,0 +1,35 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>#{exMsg}_#{pageTitle}</title>
+<script src="~js/jquery.js?v=#{jsVersion}" type="text/javascript"></script>
+<script src="~js/lang.#{langStr}.js?v=#{jsVersion}" type="text/javascript"></script>
+<script src="~js/wojilu.common.js?v=#{jsVersion}" type="text/javascript"></script>
+<script>
+$(document).ready( function() {
+
+    var parentIframeId = wojilu.tool.getCurrentFrmId();
+    
+    var hideLoading = function() {
+        if( parentIframeId==null ) return;
+        $('#'+parentIframeId + 'Loading', window.parent.document ).hide();
+        $('#'+parentIframeId, window.parent.document ).show();
+    };
+    
+    hideLoading();
+});
+</script>
+
+<style>
+body {font-size:14px;line-height:150%;font-family:verdana; }
+</style>
+</head>
+
+<body>
+    <h2>#{exTitle}</h2>
+    <div>#{navLink}</div>
+    <div style="width:95%;border:1px #ccc solid;padding:15px;font-size:12px;color:#333;background:#f2f2f2;">#{exDetail}</div>
+</body>
+
+</html>

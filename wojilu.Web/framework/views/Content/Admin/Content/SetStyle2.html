@@ -1,0 +1,146 @@
+﻿
+<head>
+    <style type="text/css">
+        .style1
+        {
+            color: #FF3300;
+            font-weight: bold;
+        }
+        #Text10
+        {
+            width: 61px;
+        }
+        #Text11
+        {
+            width: 60px;
+        }
+        #Text1
+        {
+            width: 75px;
+        }
+        .style2
+        {
+            color: #CC6600;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<div style="margin:10px 10px 10px 10px;">			
+	<form method="post" action="#{ActionLink}">			
+        <h2>行样式</h2>
+	    <table style="width:99%">
+            <tr>
+                <td style="width:120px;">背景色</td>
+                <td><input name="Background" type="text" value="#{c.Background}" /></td>
+            </tr>
+            <tr>
+                <td>背景图</td>
+                <td><input name="Background0" type="text" value="#{c.BackgroundImage}" /> (背景图会覆盖背景色)</td>
+            </tr>
+            <tr>
+                <td>边框粗细</td>
+                <td><input id="Text7" type="text" style="width:30px;" />px
+                </td>
+            </tr>
+            <tr>
+                <td>边框颜色</td>
+                <td><input id="Text8" type="text" style="width:30px;" /></td>
+            </tr>
+            <tr>
+                <td>边框效果</td>
+                <td><input id="Text9" type="text" style="width:30px;" /></td>
+            </tr>
+            </table>
+        
+        <h2>栏样式</h2>
+	    <table style="width:99%">
+            <tr>
+                <td style="width:120px;">宽度</td>
+                <td><input name="Width" type="text" value="#{c.Width}" />%</td>
+            </tr>
+            <tr>
+                <td>背景色</td>
+                <td><input name="Background" type="text" value="#{c.Background}" /></td>
+            </tr>
+            <tr>
+                <td>背景图</td>
+                <td><input name="Background1" type="text" value="#{c.BackgroundImage}" /> (背景图会覆盖背景色)</td>
+            </tr>
+            <tr>
+                <td>左边距</td>
+                <td><input name="PaddingLeft" type="text" value="#{c.PaddingLeft}" />px</td>
+            </tr>
+            <tr>
+                <td>右边距</td>
+                <td><input name="PaddingRight" type="text" value="#{c.PaddingRight}" />px</td>
+            </tr>
+        </table>
+
+        <h2>区块样式</h2>
+	    <table style="width:99%;">
+            <tr>
+                <td style="width:120px;">背景色</td>
+                <td><input name="Width" type="text" value="#{c.Background}" /></td>
+            </tr>
+            <tr>
+                <td>背景图</td>
+                <td><input name="Background" type="text" value="#{c.BackgroundImage}" /> (背景图会覆盖背景色)</td>
+            </tr>
+            <tr>
+                <td>边框粗细</td>
+                <td><input id="Text4" type="text" style="width:30px;" />px
+                </td>
+            </tr>
+            <tr>
+                <td>边框颜色</td>
+                <td><input id="Text5" type="text" style="width:30px;" /></td>
+            </tr>
+            <tr>
+                <td>边框效果</td>
+                <td><input id="Text6" type="text" style="width:30px;" /></td>
+            </tr>
+            <tr>
+                <td>标题背景色</td>
+                <td><input name="PaddingLeft" type="text" value="#{c.TitleBg}" /></td>
+            </tr>
+            <tr>
+                <td>标题背景图</td>
+                <td><input name="PaddingRight" type="text" value="#{c.TitleBgImage}" /></td>
+            </tr>
+        </table>
+        
+        <div>
+            <br />
+            各栏的样式：<br />
+            <br />
+            <span class="style2">在“第一行”右侧放下拉箭头：</span><br />
+&nbsp;&nbsp;&nbsp; 背景色：<br />
+&nbsp;&nbsp;&nbsp; 背景图：<br />
+&nbsp;&nbsp;&nbsp; 边框：<br />
+            <br />
+            <span class="style1">在“第一栏”右侧放下拉箭头：</span><br />
+&nbsp;&nbsp;&nbsp; 宽度 32%&nbsp;
+            <input id="Button1" type="button" value="↑增加" />&nbsp;
+            <input id="Button2" type="button" value="↓减少" /><br />
+&nbsp;&nbsp;&nbsp; 左边距 5px
+            <input id="Button3" type="button" value="↑增加" />
+            <input id="Button4" type="button" value="↓减少" /><br />
+&nbsp;&nbsp;&nbsp; 右边距 8px
+            <input id="Button5" type="button" value="↑增加" />
+            <input id="Button6" type="button" value="↓减少" /><br />
+            <br />
+&nbsp;&nbsp;&nbsp; 程序根据 rowId和colId 得到名称 #row1_column2，然后得到CssContent<br />
+            <br />
+            <span class="style1">在“第一栏_第二列”区块配置菜单中：</span><br />
+&nbsp;&nbsp;&nbsp; 上面的区块样式编辑器——section16 {}<br />
+            <br />
+        </div>
+		
+	
+		<div style="margin-top:10px; ">
+		    <input name="Submit1" type="submit" value=":{applyStyle}" class="btn" />
+		    <input type="button" value="_{cancel}" class="btnCancel" />
+		</div>
+	</form>
+
+</div>		

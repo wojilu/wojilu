@@ -1,0 +1,45 @@
+﻿<link href="#{skinPath}?v=#{cssVersion}" rel="stylesheet" type="text/css" />
+<script src="~js/wojilu.ui.slider.js?v=#{jsVersion}" type="text/javascript"></script>
+
+<div style="padding-top:1px;">
+    <div id="adminTool" class="appAdminTool" style="padding:0px; display:none;">
+        <div style="padding:8px 25px 0px 0px; float:right; margin-bottom:5px;">
+        <a href="#{adminUrl}" class="frmLink btnBig" loadTo="contentPage" nolayout=1><img src="~img/s/star.png" /> 管理当前程序</a>
+        </div>
+        <div class="clear"></div>
+    </div>
+    <div id="contentPage">#{layout_content}</div>    
+</div>
+
+<script>
+$(document).ready( function() {
+    
+    var showAdminTool = function() {
+        if( typeof(ctx) == 'undefined' ) return;
+        if( ctx.viewer.IsLogin==false  ) return;
+        
+        if( ctx.owner.IsSite) {
+            
+            if( ctx.viewer.IsAdministrator ) {
+                $('#adminTool').show();
+            }
+            else if( ctx.viewer.IsInAdminGroup ) {
+                $.post( '#{adminCheckUrl}'.toAjax(), function(data) {
+                    if( 'ok'==data ) $('#adminTool').show();
+                });
+            }
+            
+            
+        }
+        else if( ctx.viewerOwnerSame ) {
+            $('#adminTool').show();
+        }
+    
+        
+    };
+    
+    wojilu.site.load( showAdminTool );
+
+    wojilu.ui.frmLink();
+});
+</script>

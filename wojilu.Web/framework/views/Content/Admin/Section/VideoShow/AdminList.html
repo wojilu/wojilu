@@ -1,0 +1,21 @@
+﻿
+<style type="text/css">
+.imgPanel {float:left; margin:10px; background:#efefef;}
+.imgCell {width:80px; height:80px; text-align:center; vertical-align:middle;}
+</style>
+
+<div class="adminMainPanel">
+
+	<div style="clear:both;">
+	<!-- BEGIN list -->
+	<table class="imgPanel">
+		<tr><td style="text-align:center"><span href="#{post.DeleteLink}" class="deleteCmd"><img src="~img/delete.gif"/></span></td></tr>
+		<tr><td class="imgCell"><a href="#{post.EditLink}"><img src="#{post.PicUrl}" /></a></td></tr>		
+		<tr><td align="center"><a href="#{post.EditLink}">#{post.Title}</a></td></tr>		
+	</table>		
+	<!-- END list -->
+	<div class="clear"></div>
+	</div>
+	
+	<div style="clear:both;">#{page}</div>
+</div>

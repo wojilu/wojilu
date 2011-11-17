@@ -1,0 +1,24 @@
+﻿
+<table  class="sectionToolbar">
+    <tr><td class="cmdAdmin">
+        <a href="#{addUrl}"  class="frmBox" xwidth="750" xheight="400">+:{addPic}</a> 
+        <a href="#{listUrl}" class="frmBox" xwidth="800">_{all}</a>
+    </td></tr>
+</table>
+
+<table style="height:120px;">
+    <tr><td>
+
+        <ul>
+        <!-- BEGIN list -->
+        <li style="float:left;margin:10px; width:65px;height:65px; background:#efefef;text-align:center">
+        <a href="#{post.EditUrl}" class="frmBox" xwidth="750"><img src="#{post.PicUrl}" alt="#{post.Title}" class="max60" /></a></li>
+        <!-- END list -->
+        </ul>
+
+    </td></tr>
+</table>
+
+<style>
+.max60 {max-width:60px; max-height:60px;width:expression(width>60?"60px":width+"px");height:expression(height>60?"60px":height+"px");}
+</style>

@@ -1,0 +1,81 @@
+﻿<link href="~css/wojilu.app.content.admin.css?v=#{jsVersion}" rel="stylesheet" type="text/css" />
+
+<script src="~js/wojilu.app.content.admin.js?v=#{jsVersion}" type="text/javascript"></script>
+<script src="~js/wojilu.drag.js?v=#{jsVersion}" type="text/javascript"></script>
+
+<style>
+#sidebar { display:none;}
+
+#portalAdminNav {width:100%;font-weight:normal; margin:auto; }
+#portalAdminNav td { padding:5px 5px;}
+#portalAdminNav .otherTab,#portalAdminNavWrap {background:#eee;}
+.dragged {	border:1px red dashed;}
+.menuItems{ background:#fffbe2; }
+
+#{app.Style}
+#{app.SkinStyle}
+#{portalWrapCss}
+</style>
+
+<script>
+$(document).ready( function() {
+    
+	var adminSidebar = $('#sidebar');
+	
+	$('#toggleSidebar').click( function() {
+	
+		adminSidebar.toggle();		
+		
+		var isHide = (adminSidebar.css( 'display' )=='none');
+		
+		if( isHide ) {
+			$(this).html( '<img src="~img/left.gif"/> :{showSidebar}' );
+		}
+		else {
+			$(this).html( '<img src="~img/close.gif"/> :{closeSidebar}' );
+		}
+		
+	});
+
+	
+
+    $('.include').each( function() {
+        var tid = $(this).attr( 'target' );
+        $(this).append( $('#'+tid) );
+    });
+});
+</script>
+
+<div>
+
+    <div id="portalAdminNavWrap" style="padding-top:5px;margin:auto; ">
+    
+	<table id="portalAdminNav" class="tabHeader" cellpadding="0" cellspacing="0">
+		<tr>
+			<td class="otherTab" style="width:10%">
+		        <span id="toggleSidebar" style="cursor:pointer;margin-right:px"><img src="~img/left.gif"/>:{showSidebar}</span>
+		        		
+			</td>
+			<td class="otherTab" style="width:13%"><a href="#{defaultLink}"><img src="~img/home.gif" /> 可视化界面</a></td>
+			<td class="otherTab" style="width:17%">
+			    <a href="#{allPostsLink}"><img src="~img/doc.gif" /> :{allPublishedPosts}</a>
+			</td>
+			
+			    #{submitterLink}
+			
+			<td class="otherTab" style="width:13%"><a href="#{commentLink}">评论管理</a></td>
+			<td class="otherTab" style="width:11%">
+			    <a href="#{trashPostsLink}"><img src="~img/trash.gif" /> _{trash}</a>
+			</td>
+			<td class="otherTab" style="width:11%">
+			    <a href="#{settingLink}"><img src="~img/setting.gif" /> _{setting}</a>
+			</td>
+			<td class="otherTab" style="width:15%">&nbsp;</td>
+		</tr>
+	</table>
+    </div>	
+
+
+
+
+

@@ -1,0 +1,68 @@
+﻿<div style="padding:20px; background:#fff;">
+
+<style>
+.formPanel {margin:10px; padding:10px; background2:#eee; line-height:200%;}
+.formTitle {font-weight:bold; padding-left:80px;}
+.tdLeft { vertical-align:top;width:80px;}
+</style>
+
+
+    <div></div>
+
+    <div class="formPanel">
+        <div style="font-size:14px; font-weight:bold; margin:0px 0px 10px 0px;">简易tab</div>
+        <ul class="tabList">
+            <li class="firstTab"><a href="/Demo/Valid/Tab.aspx">选项卡1</a><span></span></li>
+            <li><a href="/Demo/Valid/2/Tab.aspx">选项卡2</a><span></span></li>
+            <li><a href="/Demo/Valid/3/Tab.aspx">选项卡3</a><span></span></li>
+            <li><a href="/Demo/Valid/4/Tab.aspx">选项卡4</a><span></span></li>
+            <li><a href="/Demo/Valid/5/Tab.aspx">选项卡5</a><span></span></li>
+        </ul>
+        <div style="padding:20px; background:#fff;">选项卡内容选项卡内容选项卡内容选项卡内容选项卡内容选项卡内容选项卡内容选项卡内容选项卡内容选项卡内容选项卡内容选项卡内容选项卡内容选项卡内容选项卡内容选项卡内容选项卡内容选项卡内容选项卡内容选项卡内容选项卡内容选项卡内容选项卡内容选项卡内容选项卡内容选项卡内容选项卡内容选项卡内容选项卡内容选项卡内容选项卡内容选项卡内容选项卡内容选项卡内容选项卡内容选项卡内容选项卡内容选项卡内容选项卡内容选项卡内容选项卡内容选项卡内容选项卡内容选项卡内容内容选项卡内容选项卡内容选项卡内容选项卡内容选项卡内容选项卡内容选项卡内容选项卡内容选项卡内容</div>
+    </div>
+
+<script>
+$(document).ready( function() {
+    wojilu.tool.makeTab('.tabList', 'currentTab', '');
+});
+</script>
+    
+    <div style="border-bottom:1px #ccc solid;margin:0px 0px 20px 0px;">&nbsp;</div>
+        
+    <div>
+    <div class="strong">视图代码</div>
+    <div style="color:Red;margin-left:10px;">注意1：每个 li 中的 <span style="color:Blue; font-weight:bold;">&lt;span&gt;&lt;/span&gt;</span> 是必须的</div>
+    <div style="color:Red;margin-left:10px;">注意2：tabList这个class后面必须加上 <span style="color:Blue; font-weight:bold;">clearfix</span>【1.7.5将会把clearfix合并到tabList中，此clearfix将不再需要】</div>
+    <pre class="brush: html;">
+    
+        &lt;ul class="tabList clearfix"&gt;
+            &lt;li class="firstTab"&gt;&lt;a href="/Demo/Valid/Tab.aspx"&gt;选项卡1&lt;/a&gt;&lt;span&gt;&lt;/span&gt;&lt;/li&gt;
+            &lt;li&gt;&lt;a href="/Demo/Valid/2/Tab.aspx"&gt;选项卡2&lt;/a&gt;&lt;span&gt;&lt;/span&gt;&lt;/li&gt;
+            &lt;li&gt;&lt;a href="/Demo/Valid/3/Tab.aspx"&gt;选项卡3&lt;/a&gt;&lt;span&gt;&lt;/span&gt;&lt;/li&gt;
+            &lt;li&gt;&lt;a href="/Demo/Valid/4/Tab.aspx"&gt;选项卡4&lt;/a&gt;&lt;span&gt;&lt;/span&gt;&lt;/li&gt;
+            &lt;li&gt;&lt;a href="/Demo/Valid/5/Tab.aspx"&gt;选项卡5&lt;/a&gt;&lt;span&gt;&lt;/span&gt;&lt;/li&gt;
+        &lt;/ul&gt;    
+    </pre>
+
+    
+    <div class="strong" style="margin-top:40px;">设置当前tab</div>
+    <div style="color:Red;margin-left:10px;">给当前tab加上名为 currentTab 的 class。</div>
+    <pre class="brush: html;">
+    
+            &lt;li class="currentTab"&gt;&lt;a href="/Demo/Valid/Tab.aspx"&gt;选项卡1&lt;/a&gt;&lt;span&gt;&lt;/span&gt;&lt;/li&gt;
+    </pre>
+    
+
+    <div class="strong" style="margin-top:40px;">自动设置当前tab(js代码)</div>
+    <div style="color:Red;margin-left:10px;">如下js代码不是必须的。它只是帮你自动设置当前tab，你完全可以通过上面的 currentTab 手动设置</div>
+    <pre class="brush: html;">
+&lt;script&gt;
+$(document).ready( function() {
+    wojilu.tool.makeTab('.tabList', 'currentTab', '');
+});
+&lt;/script&gt;
+    </pre>    
+    </div>
+
+</div>
+

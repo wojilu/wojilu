@@ -1,0 +1,23 @@
+﻿<div>
+    <div class="adminMainTitle"><div class="adminSidebarTitleInternal">修改文章</div></div>
+
+    <div class="adminMainPanel">
+    
+    <div class="formPanel">
+    <form method="post" action="#{ActionLink}">
+
+            <table>
+                <tr><td>标题：</td><td><input name="article.Title" type="text" style="width:450px;" value="#{article.Title}" /></td></tr>
+                <tr><td>所属分类：</td><td>#{categoryId}</td></tr>
+                <tr><td>内容：</td><td>#{Editor}</td></tr>
+                <tr><td></td><td><input type="submit" value="修改文章" class="btn" /></td></tr>
+            </table>
+
+    </form>
+    </div>
+
+</div>
+</div>
+
+
+

@@ -1,0 +1,60 @@
+﻿<script type="text/javascript">
+
+    wojilu.flashUpload.initJs();
+
+
+    $(document).ready( function() {         
+        
+        $('#btnStartUpload').click( function() {
+		    var catid = $('#SystemCategoryId').val();
+		    if( catid<=0 ) {
+			    alert( ':{exSysCategoryRequire}' );
+			    return false;
+		    }
+    		
+            $(this).hide();
+            $('#uploadPanel').show();
+            
+            var albumId = $('#PhotoAlbumId').val();
+            var params = {PhotoAlbumId:albumId, SystemCategoryId:catid, #{authCookieName}:'#{authCookieValue}'};
+            
+            var url = '#{uploadLink}'.toAjax();
+            
+            var setting = {};
+            setting.maxSize = '800 MB';
+            setting.fileType = '*.jpg;*.gif;*.png;*.jpeg;*.bmp';
+            setting.fileDesc = '文件';
+            setting.maxQueue = 20; // 可以上传几个？
+            
+            wojilu.flashUpload.make( 'uploader', url, setting, params );
+        });
+
+
+    });
+</script>
+
+<div style="background:#f2f2f2; padding:15px;margin:0px; border:1px #ccc solid;">
+    
+	<table cellSpacing="1" cellPadding="4" >
+		<tr>
+			<td colspan="2"><strong>:{selectAlbum}</strong></td>
+		</tr>
+		<tr>
+			<td>:{myalbum}</td>
+			<td>#{PhotoAlbumId} <a href="#{PhotoAlbumAddUrl}" class="cmd" style="margin-left:10px;">+:{addAlbum}</a></td>
+		</tr>
+		<tr><td>:{sysCategory}</td><td>
+		#{SystemCategoryId}
+		</td></tr>
+	</table>
+	
+	<div><input id="btnStartUpload" type="button" value="开始批量上传" class="btn" /></div>
+	
+	<div id="uploadPanel" style="display:none;">
+	    <div id="uploader"></div>	
+	</div>
+
+	
+
+    
+</div>

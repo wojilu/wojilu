@@ -1,0 +1,106 @@
+﻿#{location}
+<div class="forumForm">
+	<div class="forumFormTitle">:{addTopic}</div>
+
+	<form action="#{ActionLink}" method="post" class="ajaxPostForm">
+		<table class="forumFormMainTable">
+			<tr class="forumFormRowTitle">
+				<td class="tdL">_{title}</td>
+				<td>#{Category}
+				<input name="Title" style="width: 320px" type="text" value="#{Title}"><span class="valid" mode="border"></span> 
+				
+				 </td>
+			</tr>
+			<tr>
+			    <td class="tdL">tag</td>
+			    <td><input name="TagList" style="width: 120px;" type="text" value="#{TagList}"><span class="note">(_{tagTip})</span></td>
+			</tr>
+			<tr>
+				<td class="tdL">_{content}</td>
+				<td>#{Editor} </td>
+			</tr>
+			<tr><td></td><td><label><input name="saveContentPic" type="checkbox" />保存远程图片</label></td></tr>
+			<tr>
+				<td><span class="valid" to="Content" mode="border"></span></td>
+				<td>
+				
+				<table style="width:100%;" border="0">
+				<tr>
+				    <td style="width:200px;">
+				    <span class=""><input type="submit" value=":{submitPost}" class="btn" name="btnSubmit"></span>
+				    
+				    </td>
+				    <td style="width:80px; text-align:right;"><img src="~img/s/upload.png" class="" /> 上传附件  <input id="uploadFileIds" name="uploadFileIds" type="hidden" /></td>
+				    <td style="width:100px;"><input id="file_upload" name="file_upload" type="file" /></td>
+				    <td style="width2:350px;">				    
+				        <a href="#{uploadLink}" class="frmBox" xwidth="700" xheight="380" title=":{uploadAttachment}" style="font-size:12px; font-weight2:bold;">传统上传</a>
+				        <input id="chkNeedLogin" name="IsAttachmentLogin" class="left10" type="checkbox" /> <label for="chkNeedLogin">:{downloadCondition}</label>
+				    </td>
+				    <td style="text-align:right;">
+				        :{readPermission}
+				        <input name="ReadPermission" size="20" type="text" style="width: 32px"> :{price}
+				        <input name="Price" size="20" type="text" style="width: 28px"> 
+				    
+				    </td>
+				</tr>
+				</table>
+				
+				</td>
+			</tr>
+			<tr>
+				<td class="tdL"></td><td id="uploader"></td>
+			</tr>
+			<tr>
+				<td class="tdL"></td><td id="uploadFiles"></td>
+			</tr>
+
+		</table>
+	</form>
+</div>
+
+<link href="~js/uploadify/uploadify.css" type="text/css" rel="stylesheet" />
+<script type="text/javascript" src="#{jsPath}uploadify/swfobject.js"></script>
+<script type="text/javascript" src="#{jsPath}uploadify/jquery.uploadify.v2.1.4.min.js"></script>
+<script type="text/javascript">
+<!--
+$(document).ready( function(){
+    wojilu.ui.valid();
+    wojilu.ui.ajaxPostForm();
+    
+    var params = #{authJson};
+    
+    var uploadLink = '#{batchUploadLink}';
+
+    $('#file_upload').uploadify({
+        'uploader' : "#{jsPath}uploadify/uploadify.swf",
+        'script' : uploadLink,
+        'cancelImg' : "#{jsPath}uploadify/cancel.png",
+        'buttonImg' : "#{jsPath}uploadify/browser.gif",
+        'width':90,
+        'height':24,
+        'auto' : true,
+        'multi': true,
+        'fileExt' : '*.jpg;*.gif;*.png;*.jpeg;*.bmp;*.zip;*.7z;*.rar;',
+        'fileDesc'  : 'Image Files (.JPG, .GIF, .PNG, .jpeg, .bmp, .zip, .7z, .rar)',
+        'removeCompleted': true,
+        'queueID' : 'uploader',
+        'displayData' : 'speed',
+        'queueSizeLimit':10,
+        'scriptData':params,
+        
+        'onSelectOnce'   : function(event,data) {
+            $('#status').text(data.filesSelected + ' 个文件等待上传');
+        },
+        
+        'onAllComplete'  : function(event,data) {
+            $('#status').text(data.filesUploaded + ' 个文件上传成功, ' + data.errors + ' 个错误.');
+        },
+        
+        'onComplete'  : function(event, ID, fileObj, response, data) {
+            var obj = eval( '(' + response + ')' );
+            addFile( obj.photo, obj.deleteLink );
+        }
+    });
+});
+//-->
+</script>

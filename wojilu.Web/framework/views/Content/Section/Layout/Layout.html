@@ -1,0 +1,57 @@
+﻿<div id="postContainer">
+
+	<div id="postMain">
+		<div id="postMainContainer">			
+			#{layout_content}
+		</div>
+	</div>
+
+	
+	<div id="postSidebar">
+		<div id="postSidebarContainer">
+		
+		    <div id="sidebarTopAdWrap">#{adSidebarTop}</div>
+		    
+			<!-- BEGIN listPanel -->
+			<div class="postPanel">
+				<div class="postPanelTitle">:{postRank}</div>
+				<ul class="textList">
+					<!-- BEGIN list -->
+					<li><a href="#{post.Link}" title="#{post.TitleFull}">#{post.TitleFull}</a></li><!-- END list -->
+				</ul>
+			</div><!-- END listPanel -->
+			
+			<!-- BEGIN imgPanel -->
+			<div class="postPanel clearfix">
+				<div class="postPanelTitle">:{picRank}</div>				
+				<ul class="ulimg">
+				<!-- BEGIN img -->
+				<li>
+				    <div><a href="#{post.Link}"><img src="#{post.Img}" /></a></div>
+				    <div class="postTitle"><a href="#{post.Link}" title="#{post.TitleFull}">#{post.TitleFull}</a></div>
+				</li><!-- END img -->
+				</ul>
+				<div class="clear"></div>
+			</div><!-- END imgPanel -->
+
+			<!-- BEGIN videoPanel -->
+			<div class="postPanel">
+				<div class="postPanelTitle">:{videoRank}</div>				
+				<ul class="ulimg">
+				<!-- BEGIN video -->
+				<li>
+				    <div><a href="#{post.Link}"><img src="#{post.Img}" style="width:105px;height:80px;" /></a></div>
+				    <div class="postTitle"><a href="#{post.Link}" title="#{post.TitleFull}">#{post.TitleFull}</a></div>
+				</li><!-- END video -->		
+				</ul>
+				<div class="clear"></div>			
+			</div><!-- END videoPanel -->
+			
+			<div id="sidebarBottomAdWrap">#{adSidebarBottom}</div>
+			
+			
+		</div>			
+		
+	</div>	
+	<div style="clear:both"></div>
+</div>
