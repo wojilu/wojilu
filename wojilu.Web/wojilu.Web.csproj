@@ -417,6 +417,9 @@
     <Content Include="framework\views\Users\Admin\UserProfile\Privacy.html" />
     <Content Include="framework\views\Users\Admin\UserProfile\Profile.html" />
     <Content Include="framework\views\Users\Admin\UserProfile\Pwd.html" />
+    <Content Include="framework\views\Users\Admin\UserTopicTag\Add.html" />
+    <Content Include="framework\views\Users\Admin\UserTopicTag\Edit.html" />
+    <Content Include="framework\views\Users\Admin\UserTopicTag\Index.html" />
     <Content Include="framework\views\Users\Feedback\AdminList.html" />
     <Content Include="framework\views\Users\Feedback\bindList.html" />
     <Content Include="framework\views\Users\Feedback\Layout.html" />

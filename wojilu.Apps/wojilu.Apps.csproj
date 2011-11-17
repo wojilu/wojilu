@@ -205,8 +205,11 @@
     <Compile Include="Forum\Domain\ForumPollResult.cs" />
     <Compile Include="Forum\Domain\ForumSetting.cs" />
     <Compile Include="Forum\Domain\LastUpdateInfo.cs" />
+    <Compile Include="Forum\Domain\TopicTagShip.cs" />
+    <Compile Include="Forum\Domain\UserTopicTag.cs" />
     <Compile Include="Forum\Service\ForumPollService.cs" />
     <Compile Include="Forum\Service\SysForumTopicService.cs" />
+    <Compile Include="Forum\Service\TopicTagService.cs" />
     <Compile Include="Photo\Interface\IPhotoService.cs" />
     <Compile Include="Photo\Service\PhotoService.cs" />
     <Compile Include="Poll\Domain\PollApp.cs" />

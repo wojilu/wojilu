@@ -28,6 +28,11 @@ namespace wojilu.Web.Controller.Users {
         public override void Layout() {
         }
 
+        public void Index() {
+
+
+        }
+
 
         public void Topic() {
 
