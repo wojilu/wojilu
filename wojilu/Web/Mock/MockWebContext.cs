@@ -29,7 +29,7 @@ namespace wojilu.Web {
     /// <summary>
     /// web 原始数据和方法的模拟，可用于桌面环境
     /// </summary>
-    public class MockWebContext : IWebContext {
+    public class MockWebContext : IWebContext, IMockContext {
 
         private MvcHttpContext _httpctx;
 

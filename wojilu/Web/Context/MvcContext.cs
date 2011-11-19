@@ -26,6 +26,7 @@ using wojilu.ORM;
 using wojilu.Web.Mvc;
 using wojilu.Web.Mvc.Routes;
 using wojilu.Web.Utils;
+using wojilu.Web.Mock;
 
 namespace wojilu.Web.Context {
 
@@ -36,10 +37,13 @@ namespace wojilu.Web.Context {
 
         private IWebContext _context;
         private MvcContextUtils _thisUtils;
+        private Boolean _isMock = false;
 
         public MvcContext( IWebContext context ) {
             _context = context;
             _thisUtils = new MvcContextUtils( this );
+
+            if (context is IMockContext) _isMock = true;
         }
 
         /// <summary>
@@ -51,6 +55,10 @@ namespace wojilu.Web.Context {
                 _thisUtils = new MvcContextUtils( this );
                 return _thisUtils;
             }
+        }
+
+        public Boolean IsMock {
+            get { return _isMock; }
         }
 
         /// <summary>

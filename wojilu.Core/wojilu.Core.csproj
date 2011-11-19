@@ -364,6 +364,7 @@
     </Compile>
     <Compile Include="Web\Mvc\DomainMap.cs" />
     <Compile Include="Web\Mvc\DomainWildcardMap.cs" />
+    <Compile Include="Web\Mvc\HtmlLink.cs" />
     <Compile Include="Web\Mvc\LinkConverter.cs" />
     <Compile Include="Web\Mvc\MockContext.cs" />
     <Compile Include="Web\Mvc\PageCache.cs" />

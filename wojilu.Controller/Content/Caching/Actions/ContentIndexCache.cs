@@ -10,6 +10,7 @@ using wojilu.Web.Mvc.Utils;
 using wojilu.Web.Mvc;
 using wojilu.Common.AppBase.Interface;
 using wojilu.Members.Sites.Domain;
+using System.IO;
 
 namespace wojilu.Web.Controller.Content.Caching {
 
@@ -138,6 +139,9 @@ namespace wojilu.Web.Controller.Content.Caching {
             }
             else {
                 CacheManager.GetApplicationCache().Remove( getCacheKey( owner, ctx.app.Id ) );
+
+                makeHtml( ctx );
+
             }
 
             //int appId = ctx.app.Id;
@@ -151,6 +155,33 @@ namespace wojilu.Web.Controller.Content.Caching {
         //    String content = ControllerRunner.Run( ctx, new wojilu.Web.Controller.Content.ContentController().Index );
         //    return content;
         //}
+
+        // 生成静态 html 页面
+        private static void makeHtml( wojilu.Web.Context.MvcContext ctx ) {
+
+            String addr = strUtil.Join( ctx.url.SiteAndAppPath, alink.ToApp( (IApp)ctx.app.obj, ctx ) );
+            String html = makeHtml( addr );
+
+            checkDir();
+
+            file.Write( PathHelper.Map( "/html/site_content_" + ctx.app.Id + ".html" ), html );
+        }
+
+        private static void checkDir() {
+            String dir = PathHelper.Map( "/html/" );
+            if (Directory.Exists( dir )) return;
+            Directory.CreateDirectory( dir );
+        }
+
+        private static String makeHtml( String addr ) {
+            StringWriter sw = new StringWriter();
+            IWebContext webContext = MockWebContext.New( addr, sw );
+            MvcContext ctx = new MvcContext( webContext );
+            ctx.SetItem( "_makeHtml", true );
+
+            new CoreHandler().ProcessRequest( ctx );
+            return sw.ToString();
+        }
 
     }
 
