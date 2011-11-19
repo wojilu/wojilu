@@ -13,6 +13,7 @@ using wojilu.Apps.Content.Interface;
 using wojilu.Apps.Content.Service;
 using wojilu.Common.AppBase.Interface;
 using wojilu.Common.AppBase;
+using wojilu.Web.Controller.Content.Caching;
 
 namespace wojilu.Web.Controller.Content.Admin.Section {
 
@@ -82,6 +83,7 @@ namespace wojilu.Web.Controller.Content.Admin.Section {
                 postService.Insert( post, null );
                 
                 echoToParentPart( lang( "opok" ) );
+                HtmlHelper.SetCurrentPost( ctx, post );
 
             }
         }
@@ -114,6 +116,7 @@ namespace wojilu.Web.Controller.Content.Admin.Section {
                 postService.Update( post, null );
 
                 echoToParentPart( lang( "opok" ) );
+                HtmlHelper.SetCurrentPost( ctx, post );
             }
         }
 
@@ -126,9 +129,8 @@ namespace wojilu.Web.Controller.Content.Admin.Section {
             }
 
             postService.Delete( post );
-
             echoRedirect( lang( "opok" ) );
-
+            HtmlHelper.SetCurrentPost( ctx, post );
         }
 
     }

@@ -19,6 +19,7 @@ using wojilu.Drawing;
 using wojilu.Common.Upload;
 using wojilu.Common.AppBase;
 using wojilu.Web.Controller.Admin;
+using wojilu.Web.Controller.Content.Caching;
 
 namespace wojilu.Web.Controller.Content.Admin {
 
@@ -149,7 +150,7 @@ namespace wojilu.Web.Controller.Content.Admin {
                 echoToParentPart( lang( "opok" ) );
             }
 
-
+            HtmlHelper.SetCurrentPost( ctx, post );
         }
 
         //--------------------------------------------------------------------------------------------------------
@@ -270,6 +271,7 @@ namespace wojilu.Web.Controller.Content.Admin {
                 postService.Update( post, sectionIds, ctx.Post( "TagList" ) );
 
                 echoToParentPart( lang( "opok" ) );
+                HtmlHelper.SetCurrentPost( ctx, post );
             }
         }
 
@@ -355,6 +357,7 @@ namespace wojilu.Web.Controller.Content.Admin {
             if (post == null) { echo( lang( "exDataNotFound" ) ); return; }
             postService.UpdateTitleStyle( post, titleStyle );
             echoToParentPart( lang( "opok" ) );
+            HtmlHelper.SetCurrentPost( ctx, post );
         }
 
         public void Trash() {
@@ -422,6 +425,7 @@ namespace wojilu.Web.Controller.Content.Admin {
             }
 
             echoAjaxOk();
+
         }
 
 
@@ -494,7 +498,6 @@ namespace wojilu.Web.Controller.Content.Admin {
         }
 
 
-
         [HttpDelete, DbTransaction]
         public void Delete( int postId ) {
             ContentPost post = postService.GetById( postId, ctx.owner.Id );
@@ -506,6 +509,7 @@ namespace wojilu.Web.Controller.Content.Admin {
             postService.Delete( post );
 
             echoRedirectPart( lang( "opok" ) );
+            HtmlHelper.SetCurrentPost( ctx, post );
         }
 
         [HttpPut, DbTransaction]
@@ -515,6 +519,7 @@ namespace wojilu.Web.Controller.Content.Admin {
             ContentPost post = postService.GetById( id, ctx.owner.Id );
 
             echoRedirectPart( lang( "opok" ) );
+            HtmlHelper.SetCurrentPost( ctx, post );
         }
 
         [HttpDelete, DbTransaction]

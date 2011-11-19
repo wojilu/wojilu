@@ -15,6 +15,7 @@ using wojilu.Apps.Content.Service;
 using wojilu.Apps.Content.Enum;
 using wojilu.Common.AppBase.Interface;
 using wojilu.Common.AppBase;
+using wojilu.Web.Controller.Content.Caching;
 
 namespace wojilu.Web.Controller.Content.Admin.Section {
 
@@ -104,6 +105,7 @@ namespace wojilu.Web.Controller.Content.Admin.Section {
                 postService.Insert( post, null );
 
                 redirect( AddImgList, post.Id );
+                HtmlHelper.SetCurrentPost( ctx, post );
             }
         }
 
@@ -149,6 +151,7 @@ namespace wojilu.Web.Controller.Content.Admin.Section {
             }
             else {
                 redirect( AddImgList, postId );
+                HtmlHelper.SetCurrentPost( ctx, post );
             }
         }
 
@@ -167,6 +170,7 @@ namespace wojilu.Web.Controller.Content.Admin.Section {
             imgService.UpdateImgLogo( post );
 
             echoRedirect( lang( "opok" ) );
+            HtmlHelper.SetCurrentPost( ctx, post );
         }
 
         //--------------------------------------------------------------------------------------------------------------------------
@@ -209,6 +213,7 @@ namespace wojilu.Web.Controller.Content.Admin.Section {
                 postService.Update( post, null );
 
                 echoRedirect( lang( "opok" ), to( EditListInfo, post.Id ) );
+                HtmlHelper.SetCurrentPost( ctx, post );
             }
         }
 
@@ -229,6 +234,7 @@ namespace wojilu.Web.Controller.Content.Admin.Section {
             }
             imgService.DeleteImg( post );
             echoRedirect( lang( "opok" ) );
+            HtmlHelper.SetCurrentPost( ctx, post );
         }
 
         [HttpDelete, DbTransaction]
@@ -242,6 +248,7 @@ namespace wojilu.Web.Controller.Content.Admin.Section {
             imgService.DeleteImgOne( img );
             
             echoRedirect( lang( "opok" ) );
+            HtmlHelper.SetCurrentPost( ctx, img.Post );
 
         }
 
