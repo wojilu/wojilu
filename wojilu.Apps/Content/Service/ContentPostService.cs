@@ -286,6 +286,10 @@ namespace wojilu.Apps.Content.Service {
             return db.findPage<ContentPost>( "PageSection.Id=" + sectionId + " and SaveStatus=" + SaveStatus.Normal, pageSize );
         }
 
+        public virtual DataPage<ContentPost> GetPageBySectionArchive( int sectionId, int pageSize ) {
+            return db.findPageArchive<ContentPost>( "PageSection.Id=" + sectionId + " and SaveStatus=" + SaveStatus.Normal, pageSize );
+        }
+
         public virtual DataPage<ContentPost> GetPageBySectionAndCategory( int sectionId, int categoryId ) {
             return db.findPage<ContentPost>( "PageSection.Id=" + sectionId + " and CategoryId=" + categoryId + " and SaveStatus=" + SaveStatus.Normal );
         }

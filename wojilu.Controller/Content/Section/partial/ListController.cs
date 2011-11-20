@@ -52,7 +52,6 @@ namespace wojilu.Web.Controller.Content.Section {
 
                 block.Next();
             }
-            set( "page", posts.PageBar );
         }
 
 

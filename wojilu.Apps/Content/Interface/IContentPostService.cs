@@ -72,6 +72,8 @@ namespace wojilu.Apps.Content.Interface {
         void SetStatus_Normal( string ids );
         void SetStatus_Focus( string ids );
 
+
+        DataPage<ContentPost> GetPageBySectionArchive( int sectionId, int pageSize );
     }
 }
 

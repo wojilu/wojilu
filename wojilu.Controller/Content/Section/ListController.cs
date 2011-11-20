@@ -20,6 +20,7 @@ using wojilu.Common.AppBase;
 using wojilu.Common.AppBase.Interface;
 using wojilu.Web.Controller.Content.Utils;
 using wojilu.Common;
+using wojilu.Web.Controller.Content.Caching;
 
 namespace wojilu.Web.Controller.Content.Section {
 
@@ -59,9 +60,13 @@ namespace wojilu.Web.Controller.Content.Section {
 
             if (s.ArticleListMode == ArticleListMode.Summary) view( "ListSummary" );
 
-            DataPage<ContentPost> posts = postService.GetBySectionAndCategory( section.Id, ctx.GetInt( "categoryId" ), s.ListPostPerPage );
+            //DataPage<ContentPost> posts = postService.GetBySectionAndCategory( section.Id, ctx.GetInt( "categoryId" ), s.ListPostPerPage );
+            DataPage<ContentPost> posts = postService.GetPageBySectionArchive( section.Id, s.ListPostPerPage );
 
             bindPostList( section, posts, s );
+
+            //set( "page", posts.PageBar );
+            set( "page", posts.GetArchivePage( HtmlHelper.GetListLink( sectionId ), HtmlHelper.GetListLink( sectionId ), 5 ) );
         }
 
         public void SectionShow( int sectionId ) {

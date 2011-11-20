@@ -13,9 +13,9 @@ namespace wojilu.Web.Controller.Content.Caching {
             ctx.SetItem( "_currentContentPost", post );
         }
 
-        public static String CheckDir( ContentPost data ) {
+        public static String CheckPostDir( ContentPost data ) {
 
-            String dir = GetDir( data );
+            String dir = GetPostDir( data );
 
             if (Directory.Exists( dir )) return dir;
             Directory.CreateDirectory( dir );
@@ -23,14 +23,39 @@ namespace wojilu.Web.Controller.Content.Caching {
             return dir;
         }
 
-        public static String GetDir( ContentPost data ) {
+        public static String GetPostDir( ContentPost data ) {
             DateTime n = data.Created;
             return PathHelper.Map( string.Format( "/html/{0}/{1}/{2}/", n.Year, n.Month, n.Day ) );
         }
 
-        public static String GetPath( ContentPost post ) {
-            return Path.Combine( GetDir( post ), post.Id + ".html" );
+        public static String GetPostPath( ContentPost post ) {
+            return Path.Combine( GetPostDir( post ), post.Id + ".html" );
         }
+
+        //----------------------------------------------------------------------------
+
+        public static String CheckListDir( ContentPost data ) {
+
+            String dir = GetListDir( data );
+
+            if (Directory.Exists( dir )) return dir;
+            Directory.CreateDirectory( dir );
+
+            return dir;
+        }
+
+        public static String GetListDir( ContentPost data ) {
+            return PathHelper.Map( "/html/list/" );
+        }
+
+        public static String GetListPath( ContentPost post ) {
+            return Path.Combine( GetListDir( post ), post.PageSection.Id + ".html" );
+        }
+
+        public static String GetListLink( int sectionId ) {
+            return string.Format( "/html/list/{0}.html", sectionId );
+        }
+
 
     }
 

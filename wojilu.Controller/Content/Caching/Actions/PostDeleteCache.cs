@@ -56,7 +56,7 @@ namespace wojilu.Web.Controller.Content.Caching.Actions {
             ContentPost post = ctx.GetItem( "_currentContentPost" ) as ContentPost;
             if (post == null) return;
 
-            String filePath = HtmlHelper.GetPath( post );
+            String filePath = HtmlHelper.GetPostPath( post );
             if (file.Exists( filePath )) {
                 file.Delete( filePath );
             }

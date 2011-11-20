@@ -52,20 +52,35 @@ namespace wojilu.Web.Controller.Content.Caching.Actions {
 
         public override void UpdateCache( Context.MvcContext ctx ) {
 
-            makeHtml( ctx );
+            makeDetailHtml( ctx );
+            makeListHtml( ctx );
         }
 
-        // 生成静态 html 页面
-        private static void makeHtml( wojilu.Web.Context.MvcContext ctx ) {
+        private void makeListHtml( MvcContext ctx ) {
 
             ContentPost post = ctx.GetItem( "_currentContentPost" ) as ContentPost;
             if (post == null) return;
 
-            HtmlHelper.CheckDir( post );
+            HtmlHelper.CheckListDir( post );
+
+            Link lnk = new Link( ctx );
+            String addr = strUtil.Join( ctx.url.SiteAndAppPath, lnk.To( new SectionController().Show, post.PageSection.Id ) );
+
+            String html = makeHtml( addr );
+            file.Write( HtmlHelper.GetListPath( post ), html );
+        }
+
+        // 生成静态 html 页面
+        private static void makeDetailHtml( wojilu.Web.Context.MvcContext ctx ) {
+
+            ContentPost post = ctx.GetItem( "_currentContentPost" ) as ContentPost;
+            if (post == null) return;
+
+            HtmlHelper.CheckPostDir( post );
 
             String addr = strUtil.Join( ctx.url.SiteAndAppPath, alink.ToAppData( post ) );
             String html = makeHtml( addr );
-            file.Write( HtmlHelper.GetPath( post ), html );
+            file.Write( HtmlHelper.GetPostPath( post ), html );
         }
 
 
