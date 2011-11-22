@@ -223,6 +223,7 @@ namespace wojilu.Apps.Content.Service {
 
         private ContentPost GetById( int postId ) {
             ContentPost post = db.findById<ContentPost>( postId );
+            if (post == null) return null;
             if (post.SaveStatus != SaveStatus.Normal) return null;
             return post;
         }
