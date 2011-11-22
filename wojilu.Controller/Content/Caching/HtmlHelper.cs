@@ -60,6 +60,15 @@ namespace wojilu.Web.Controller.Content.Caching {
 
         }
 
+        public static void DeleteDetailHtml( MvcContext ctx ) {
+
+            ContentPost post = ctx.GetItem( "_currentContentPost" ) as ContentPost;
+            if (post == null) return;
+
+            String filePath = HtmlHelper.GetPostPath( post );
+            if (file.Exists( filePath )) file.Delete( filePath );
+        }
+
 
         private static String makeHtml( String addr ) {
             StringWriter sw = new StringWriter();

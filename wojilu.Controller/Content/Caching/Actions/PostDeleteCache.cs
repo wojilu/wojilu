@@ -47,20 +47,10 @@ namespace wojilu.Web.Controller.Content.Caching.Actions {
 
         public override void UpdateCache( Context.MvcContext ctx ) {
 
-            deleteHtml( ctx );
+            HtmlHelper.DeleteDetailHtml( ctx );
+            HtmlHelper.MakeListHtml( ctx );
         }
 
-        // 删除静态 html 页面
-        private static void deleteHtml( wojilu.Web.Context.MvcContext ctx ) {
-
-            ContentPost post = ctx.GetItem( "_currentContentPost" ) as ContentPost;
-            if (post == null) return;
-
-            String filePath = HtmlHelper.GetPostPath( post );
-            if (file.Exists( filePath )) {
-                file.Delete( filePath );
-            }
-        }
 
 
 
