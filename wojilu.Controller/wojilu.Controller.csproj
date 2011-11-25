@@ -157,6 +157,7 @@
     <Compile Include="Groups\SecurityController.cs" />
     <Compile Include="Microblogs\MicroblogSaveController.cs" />
     <Compile Include="Microblogs\SecurityController.cs" />
+    <Compile Include="SearchController.cs" />
     <Compile Include="Security\SiteAdminService.cs" />
     <Compile Include="ShareController.cs" />
     <Compile Include="Photo\Admin\PhotoController.cs" />

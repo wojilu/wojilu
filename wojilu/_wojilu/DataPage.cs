@@ -121,7 +121,7 @@ namespace wojilu {
 
 
         System.Collections.IList IPageList.Results {
-            get { return new System.Collections.ArrayList(); }
+            get { return this.Results; }
             set {
             }
         }

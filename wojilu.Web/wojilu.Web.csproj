@@ -379,6 +379,7 @@
     <Content Include="framework\views\Reader\Reader\Index.html" />
     <Content Include="framework\views\Reader\Reader\Users.html" />
     <Content Include="framework\views\Reader\Subscription\Show.html" />
+    <Content Include="framework\views\Search\Index.html" />
     <Content Include="framework\views\SiteInit\view1InitData.html" />
     <Content Include="framework\views\SiteInit\view2Register.html" />
     <Content Include="framework\views\SiteInit\view3Initok.html" />

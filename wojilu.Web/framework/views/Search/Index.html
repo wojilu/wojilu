@@ -1,0 +1,52 @@
+﻿<div style="width:880px; margin:20px auto; border:0px #aaa solid; background:url(/static/img/m/search_128.png) no-repeat;">
+
+    <div style="border:0px red solid;padding:20px 0px 20px 50px;">
+        <form method="get" action="">
+        <table>
+        <tr>    
+            <td style="width:80px; text-align:right; font-size:16px; padding-right:10px;"></td>
+            <td><input name="q" type="text" style="width:280px; padding:3px;" value="#{key}" /></td>
+            <td style="padding-left:10px"><input id="Submit1" type="submit" class="btn" value="搜索" /></td>
+        </tr>
+        <tr><td>&nbsp;</td>
+            <td colspan="2" class="ctypeWrap">
+                <label><input name="ctype" type="radio" value="blog" />博客</label>
+                <label><input name="ctype" type="radio" value="forum" />论坛</label>
+                <label><input name="ctype" type="radio" value="article" />新闻</label>
+                <label><input name="ctype" type="radio" value="photo" />图片</label>
+                <label><input name="ctype" type="radio" value="microblog" />微博</label>
+                <label class="hide"><input name="ctype" type="radio" value="share" />分享</label>
+                <label><input name="ctype" type="radio" value="user" />用户</label>
+                <label><input name="ctype" type="radio" value="group" />群组</label>
+        
+            </td>
+        </tr>
+        </table>
+        </form>
+
+        <div style="padding:20px;padding-left:90px;">
+
+            <div style="padding:0px 0px 10px 0px; border-bottom:1px #ccc solid;">共找到约 <span style="font-size:18px;font-weight:bold;color:Red;margin:0px 3px 0px 1px">#{resultCount}</span>  条结果</div>
+
+
+            <!-- BEGIN searchList -->
+            <div style="margin:20px 0px 20px 0px;">
+                <div><a href="#{s.Link}" style="color:Blue; font-size:16px; text-decoration:underline;">#{s.Title}</a></div>
+                <div style="#{s.LinkStyle}"><a href="#{s.Link}" style="color:Green;font-size:12px;">#{s.Link}</a> <a href="#{s.Link}" style="margin-left:15px;">访问本结果</a></div>
+                <div style="color:#666;">#{s.Summary}</div>
+            </div><!-- END searchList -->
+
+            <div>#{page}</div>
+
+        </div>
+
+    </div>
+
+
+</div>
+
+<script>
+    $(document).ready(function () {
+        $('input[value=#{ctype}]', '.ctypeWrap').click();
+    });
+</script>
