@@ -77,10 +77,11 @@ namespace wojilu.Web.Controller.Photo.Admin {
         }
 
         private int getDataCount( PhotoAlbum album ) {
-            if (album.DataCount > 0) return album.DataCount;
             int count = PhotoPost.find( "AppId=" + ctx.app.Id + " and PhotoAlbum.Id=" + album.Id ).count();
             album.DataCount = count;
-            album.update( "DataCount" );
+            if (album.DataCount != count) {
+                album.update( "DataCount" );
+            }
             return count;
         }
 
