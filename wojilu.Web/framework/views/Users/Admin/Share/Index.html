@@ -6,18 +6,26 @@
 .userHomeSidebar h4 {font-weight:bold; color:#666;}
 </style>
 
-		
+<div style="font-weight:bold; font-size:14px; margin:20px 10px 15px 25px;"><img src="~img/app/m/share.png" /> _{share}</div>     
 
-<table style="width: 100%">
+<div style="margin:5px 15px;">
+<table style="width: 100%;">
 	<tr>
 		<td style="width:70%;vertical-align:top;padding-right:20px;">
 		
 		
-<table class="tabHeader" style="width:100%;" cellpadding="0" cellspacing="0">
-<td class="otherTab"><a href="#{shareLink}" >好友的分享</a></td>
-<td class="otherTab"><a href="#{myShareLink}">我的分享</a></td>
-<td class="otherTab" style="width:50%">&nbsp;</td>
-</table>
+<script>
+    $(document).ready(function () {
+        wojilu.tool.makeTab('.tabList', 'currentTab', '');
+    });
+</script>
+    
+
+<ul class="tabList">
+    <li class="firstTab" style="width:120px;"><a href="#{shareLink}" >好友的分享</a><span></span></li>
+    <li style="width:120px;"><a href="#{myShareLink}">我的分享</a><span></span></li>
+
+</ul>
 
 <div class="tabMain" style="width:100%">					
 
@@ -27,6 +35,7 @@
 					<td rowspan="2" style="width:60px;vertical-align:top;padding-top:5px;"><a href="#{share.UserLink}"><img src="#{share.UserFace}" /></a></td>
 					<td style="height:30px;vertical-align:top"><img src="~img/app/s/#{share.DataType}.gif"/> #{share.Title} <span class="note left10">#{share.Created}</span> 
 					<span class="commentCmd link" parentId="0" rootId="#{share.Id}">_{reply}</span>
+                    <span class="deleteCmd" href="#{share.DeleteLink}">_{delete}</span>
 					</td>
 				</tr>
 				<tr>
@@ -79,3 +88,5 @@
 		</td>
 	</tr>
 </table>
+
+</div>

@@ -41,6 +41,34 @@ namespace wojilu.Common.Feeds.Service {
             return share;
         }
 
+        public virtual Result Delete( int id ) {
+            Share share = GetById( id );
+            Result result = new Result();
+            if (share == null) {
+                result.Add( lang.get( "exDataNotFound" ) );
+                return result;
+            }
+            else {
+                share.delete();
+                deleteFeedByShare( id );
+                return result;
+            }
+        }
+
+        private void deleteFeedByShare( int id ) {
+
+            Feed feed = Feed.find( "DataType=:type and DataId=:id" )
+                .set( "type", typeof( Share ).FullName )
+                .set( "id", id )
+                .first();
+
+            if (feed != null) feed.delete();
+        }
+
+        public virtual DataPage<Share> GetPageAll() {
+            return Share.findPage( "" );
+        }
+
         public virtual ShareComment GetCommentById( int id ) {
             return ShareComment.findById( id );
         }

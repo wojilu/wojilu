@@ -104,6 +104,7 @@
     <Compile Include="Admin\Security\partial\PermissionFrontController.cs" />
     <Compile Include="Admin\Security\partial\SecurityController.cs" />
     <Compile Include="Admin\Security\PermissionBackController.cs" />
+    <Compile Include="Admin\ShareController.cs" />
     <Compile Include="Admin\SiteConfigController.cs" />
     <Compile Include="Admin\SiteSkinController.cs" />
     <Compile Include="Admin\Sys\DashboardController.cs" />

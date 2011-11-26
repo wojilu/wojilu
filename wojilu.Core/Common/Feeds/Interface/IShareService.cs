@@ -19,6 +19,7 @@ namespace wojilu.Common.Feeds.Interface {
 
         DataPage<Share> GetPageByUser( int userId, int pageSize );
         DataPage<Share> GetFriendsPage( int userId, int pageSize );
+        DataPage<Share> GetPageAll();
 
         Result Create( Share share );
         Result CreateUrl( User creator, String shareLink, String shareDescription );
@@ -27,6 +28,8 @@ namespace wojilu.Common.Feeds.Interface {
 
         void InsertComment( ShareComment c, String shareLink, String parentShareLink );
 
+
+        Result Delete( int id );
     }
 
 }

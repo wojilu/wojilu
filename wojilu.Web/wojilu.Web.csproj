@@ -115,6 +115,8 @@
     <Content Include="framework\views\Admin\Security\Security\RenameRank.html" />
     <Content Include="framework\views\Admin\Security\Security\ResetRank.html" />
     <Content Include="framework\views\Admin\Security\Security\SetRankStar.html" />
+    <Content Include="framework\views\Admin\Share\Index.html" />
+    <Content Include="framework\views\Admin\Share\Layout.html" />
     <Content Include="framework\views\Admin\SiteConfig\Base.html" />
     <Content Include="framework\views\Admin\SiteConfig\Email.html" />
     <Content Include="framework\views\Admin\SiteConfig\Filter.html" />

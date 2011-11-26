@@ -101,6 +101,7 @@ namespace wojilu.Web.Controller.Users.Admin {
             block.Set( "share.BodyGeneral", getComment( share.BodyGeneral ) );
 
             block.Set( "share.Created", share.Created );
+            block.Set( "share.DeleteLink", to( Delete, share.Id ) );
         }
 
         private String getComment( String comment ) {
@@ -165,6 +166,19 @@ namespace wojilu.Web.Controller.Users.Admin {
 
                 String url = to( Index, ctx.viewer.Id );
                 echoRedirect( lang( "opok" ), url );
+            }
+
+        }
+
+        [HttpDelete]
+        public void Delete( int id ) {
+
+            Result result = shareService.Delete( id );
+            if (result.IsValid) {
+                echoRedirect( lang( "opok" ) );
+            }
+            else {
+                echoError( result );
             }
 
         }
