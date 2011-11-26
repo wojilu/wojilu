@@ -1,5 +1,8 @@
 ﻿
-<div style="width:500px; height:460px;">
+<style>
+#PhotoAlbumId {width:150px;}
+</style>
+<div style="width:500px; height:400px;">
 
 	<form method="post" action="#{ActionLink}" class="ajaxPostForm2" style="margin:10px 10px 30px 20px;">
 		<table style="width: 98%;">
@@ -31,7 +34,9 @@
 				<td>&nbsp;</td>
 				<td>
 				<input type="hidden" name="returnUrl" value="#{returnUrl}" />
-				<input name="btnUpdatePhoto" type="submit" value=":{editPhoto}" class="btn" /></td>
+				<input name="btnUpdatePhoto" type="submit" value=":{editPhoto}" class="btn" />
+                <input type="button" value="_{cancel}" class="btnCancel" />
+                </td>
 			</tr>
 		</table>
 	</form>

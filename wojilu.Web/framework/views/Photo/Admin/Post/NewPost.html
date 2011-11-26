@@ -1,6 +1,8 @@
 ﻿
 <style>
-.uploadTable { margin:10px 0px 5px 0px;width:600px; text-align:right; border-collapse:collapse; background:#fff;}
+.uploadTable { margin:10px 0px 15px 0px;width:600px; text-align:right; border-collapse:collapse; background:#eee;}
+.uploadTable td {padding:3px 5px;}
+
 td.uploadDescription {	width:500px; text-align:left;}
 .uploadInput {	text-align:left;}
 .uploadInput input {width:400px;}
@@ -8,10 +10,10 @@ td.uploadDescription {	width:500px; text-align:left;}
 </style>
 
 
-		<div class="formPanel">
+		<div class="" style="margin:10px 20px;">
 
 
-			<h4>:{uploadAlbum}:<span class="red">《#{photoAlbum}》</span></h4>
+			<h4 style="margin:5px 5px 5px 5px;">:{uploadAlbum}:<span class="red font16 strong">《#{photoAlbum}》</span></h4>
 			
 			<form action="#{ActionLink}" method="post" enctype="multipart/form-data">
 			<input type="hidden" name="PhotoAlbumId" value="#{PhotoAlbumId}" />
