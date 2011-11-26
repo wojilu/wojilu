@@ -133,7 +133,7 @@ namespace wojilu.Web.Controller.Photo.Admin {
             Result result = Uploader.SaveImg( file );
             if (result.HasErrors) {
                 errors.Join( result );
-                echoError();
+                echoText( result.ErrorsText );
             }
             else {
                 PhotoPost post = newPost( Path.GetFileNameWithoutExtension( file.FileName ), result.Info.ToString(), albumId, systemCategoryId );
@@ -182,8 +182,11 @@ namespace wojilu.Web.Controller.Photo.Admin {
                 HttpFile file = ctx.GetFiles()[i];
 
                 Result result = Uploader.SaveImg( file );
-                if (result.HasErrors)
+                if (result.HasErrors) {
                     errors.Join( result );
+                    run( NewPost, albumId );
+                    return;
+                }
                 else {
 
                     PhotoPost post = newPost( ctx.Post( "Text" + (i + 1) ), result.Info.ToString(), albumId, systemCategoryId );

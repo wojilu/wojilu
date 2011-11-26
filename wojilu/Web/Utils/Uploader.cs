@@ -276,7 +276,7 @@ namespace wojilu.Web.Utils {
 
             int uploadMax = 1024 * 1024 * config.Instance.Site.UploadFileMaxMB;
             if (postedFile.ContentLength > uploadMax) {
-                errors.Add( "文件不能超过" + uploadMax );
+                errors.Add( lang.get( "exUploadMax" ) + " " + config.Instance.Site.UploadFileMaxMB + " MB" );
                 return;
             }
 
@@ -307,7 +307,7 @@ namespace wojilu.Web.Utils {
 
             int uploadMax = 1024 * 1024 * config.Instance.Site.UploadPicMaxMB;
             if (postedFile.ContentLength > uploadMax) {
-                errors.Add( lang.get( "exUploadMax" ) + " " + uploadMax );
+                errors.Add( lang.get( "exUploadMax" ) + " " + config.Instance.Site.UploadPicMaxMB + " MB" );
                 return;
             }
 

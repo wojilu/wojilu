@@ -59,7 +59,7 @@ $(document).ready( function() {
         params[ 'SystemCategoryId' ] = catid;
         params[ 'PhotoAlbumId' ] = albumId;
         
-        
+        var uploadErrors = 0;
         $('#file_upload').uploadify({
             'uploader' : "#{jsPath}uploadify/uploadify.swf",
             'script' : '#{uploadLink}'.toAjax(),
@@ -80,6 +80,7 @@ $(document).ready( function() {
             },
             
             'onAllComplete'  : function(event,data) {
+                if( uploadErrors>0 ) return;
                 $('#status').text(data.filesUploaded + ' 个文件上传成功, ' + data.errors + ' 个错误.');
             },
             
@@ -89,6 +90,13 @@ $(document).ready( function() {
             
             'onComplete'  : function(event, ID, fileObj, response, data) {
                 //$('#mypic').html( '<img src="'+ response +'" />' );
+                if( 'ok' == response ) {
+                   uploadErrors = 0;
+                   return;
+               }
+               $('#status').text('上传失败：'+ response);
+               alert( '上传失败：'+ response );
+               uploadErrors = 1;
             }
         });
         
