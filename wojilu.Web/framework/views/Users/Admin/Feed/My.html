@@ -12,7 +12,7 @@
 <div class="formPanel" style="background:#fff; border:0px;padding:0px;">
 	<div style="clear:both"></div>			
 
-	<table style="width: 100%" cellpadding="0" cellspacing="0" border="0">
+	<table id="feedWrap" style="width: 100%" cellpadding="0" cellspacing="0" border="0">
 		<tr>
 			<td style="width:75%;vertical-align:top;padding-right:10px;">
 			    
@@ -118,3 +118,12 @@
 
 
 </div>
+
+<script>
+    $(document).ready(function () {
+        $('#feedWrap a').click(function () {
+            $(this).attr('href', wojilu.str.trimEnd($(this).attr('href'), '?nolayout=1'));
+            $(this).attr('target', '_blank');
+        });
+    });
+</script>

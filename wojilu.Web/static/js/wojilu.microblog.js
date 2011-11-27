@@ -218,7 +218,7 @@ function bindMbEvent(getVideoUrl, total, pubUrl ) {
                     }, 2000 );
                 }
                 else {
-                    wojilu.tool.forward( msg.ForwardUrl,0);
+                    wojilu.tool.getRootParent().wojilu.tool.forward( msg.ForwardUrl,0);
                 }
             }
             else {
