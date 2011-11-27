@@ -97,15 +97,20 @@ namespace wojilu.Apps.Content.Service {
                 if (i < ids.Count - 1) strIds += ",";
             }
 
-            List<ContentPost> posts = ContentPost.find( "Id in (" + strIds + ") and SaveStatus=" + SaveStatus.Normal ).list();
-
-            return posts;
+            return GetByIds( strIds );
         }
 
         private void getPostIds( List<int> ids, List<DataTagShip> list, ContentPost post ) {
             foreach (DataTagShip dt in list) {
                 if (ids.Contains( dt.DataId ) == false && dt.DataId != post.Id) ids.Add( dt.DataId );
             }
+        }
+
+        public virtual List<ContentPost> GetByIds( string ids ) {
+            if (strUtil.IsNullOrEmpty( ids )) return new List<ContentPost>();
+            List<ContentPost> posts = ContentPost.find( "Id in (" + ids + ") and SaveStatus=" + SaveStatus.Normal ).list();
+
+            return posts;
         }
 
         public virtual DataPage<ContentPost> GetByCreator( int creatorId, IMember owner, int appId ) {

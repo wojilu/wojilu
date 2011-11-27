@@ -32,6 +32,7 @@ namespace wojilu.Apps.Content.Interface {
         DataPage<ContentPost> GetPageBySectionAndCategory( int sectionId, int categoryId );
 
         List<ContentPost> GetTopBySectionAndCategory( int sectionId, int categoryId, int appId );
+        List<ContentPost> GetByIds( string ids );
 
         DataPage<ContentPost> GetByApp( int appId, int pageSize );
         DataPage<ContentPost> GetBySearch( int appId, string key, int pageSize );
@@ -74,6 +75,7 @@ namespace wojilu.Apps.Content.Interface {
 
 
         DataPage<ContentPost> GetPageBySectionArchive( int sectionId, int pageSize );
+
     }
 }
 

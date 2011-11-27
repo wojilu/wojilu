@@ -49,6 +49,8 @@ namespace wojilu.Web.Controller.Content.Caching.Actions {
 
             HtmlHelper.DeleteDetailHtml( ctx );
             HtmlHelper.MakeListHtml( ctx );
+            // 频道首页生成在 ContentIndexCache 中监控
+
         }
 
 

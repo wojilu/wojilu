@@ -16,7 +16,6 @@ namespace wojilu.Web.Controller.Content.Caching {
             ctx.SetItem( "_currentContentPost", post );
         }
 
-
         // 生成静态 html 页面
         public static void MakeDetailHtml( wojilu.Web.Context.MvcContext ctx ) {
 

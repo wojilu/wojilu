@@ -406,12 +406,12 @@ namespace wojilu.Web.Controller.Content.Admin {
 
             String cmd = ctx.Post( "action" );
 
-
             if ("category" == cmd) {
                 int sectionId = ctx.PostInt( "categoryId" );
                 postService.UpdateSection( ids, sectionId );
             }
             else if ("deletetrue" == cmd) {
+                makeHtml( ids );
                 postService.DeleteBatch( ids );
             }
             else if ("status_pick" == cmd) {
@@ -425,18 +425,25 @@ namespace wojilu.Web.Controller.Content.Admin {
             }
 
             echoAjaxOk();
-
         }
 
+        private void makeHtml( String ids ) {
 
+            List<ContentPost> posts = postService.GetByIds( ids );
+            foreach (ContentPost post in posts) {
+
+                HtmlHelper.SetCurrentPost( ctx, post );
+
+                HtmlHelper.DeleteDetailHtml( ctx );
+                HtmlHelper.MakeListHtml( ctx );
+            }
+        }
 
         private void bindAdminList( DataPage<ContentPost> posts, bool isTrash ) {
 
             IBlock block = getBlock( "list" );
 
-
             foreach (ContentPost post in posts.Results) {
-
 
                 String typeIcon = BinderUtils.getTypeIcon( post );
                 String pickIcon = BinderUtils.getPickedIcon( post );
@@ -464,8 +471,6 @@ namespace wojilu.Web.Controller.Content.Admin {
                     block.Set( "post.Submitter", "无" );
                 }
 
-
-
                 block.Bind( "post", post );
 
                 String lnkEdit = "";
@@ -490,7 +495,6 @@ namespace wojilu.Web.Controller.Content.Admin {
                 block.Set( "post.EditTitleStyleUrl", to( EditTitleStyle, post.Id ) );
 
                 block.Set( "post.AttachmentLink", to( new AttachmentController().AdminList, post.Id ) );
-
 
                 block.Next();
             }
