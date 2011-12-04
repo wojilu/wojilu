@@ -5,8 +5,8 @@
 /*各区块*/
 .forumPanel {background:#fafafa;margin:10px 0px 10px 0px;border:1px #ddd solid;}
     
-    .forumPanelTitle { font-weight:bold; padding:0px 0px 8px 15px;background:url('../skin/apps/forum/forumBoardHeader.jpg'); border-top:0px; line-height:30px;}
-    .forumPanelContent {margin:6px;}
+    .forumPanelTitle { font-weight:bold; padding:0px 1px 0px 15px;background:url('../skin/apps/forum/forumPanelTitle.jpg'); border-top:0px; line-height:30px;}
+    .forumPanelContent {padding:12px;}
     .forumPanelContent table {width:100%}
     
     .forumPanelInfo {margin:10px 10px 5px 10px;}
@@ -17,11 +17,11 @@
     .fStatsIcon {float:left;width:25px; height:38px; background:url('../skin/apps/forum/stats.gif') no-repeat center; }
     .fStatsList { margin:10px 10px 10px 30px; background:url('../skin/apps/forum/useronline.gif') no-repeat left center; padding-left:30px; border-top:0px #ccc solid;  }
 
-.forumPanelSimple { border-bottom:1px #f2f2f2 solid; background1:#fafafa;margin:10px 0px 10px 0px;border:1px #ddd solid;}
+.forumPanelSimple { border-bottom:1px #dae8f6 solid; background1:#fafafa;margin:10px 0px 10px 0px;border:1px #dae8f6 solid;}
 
 #forumNotice {padding:6px 10px 6px 10px;}
 #forumNotice,.forumPanelSimple {
-    background:url('../img/panelBg.png');
+    background:url('../img/panelBg.jpg');
     border-radius: 3px; -moz-border-radius: 3px; -webkit-border-radius: 3px; -khtml-border-radius: 3px;
     box-shadow: 0px 1px 5px rgba(0, 0, 0, 0.1); -moz-box-shadow: 0px 1px 5px rgba(0, 0, 0, 0.1); -webkit-box-shadow: 0px 1px 5px rgba(0, 0, 0, 0.1);
 }
@@ -36,7 +36,7 @@
 }
 
 #topPosts td { border:1px #fff solid;}
-#rankHeader { text-align:center; font-size:14px; font-weight:bold; background:url('../img/sectionTitleBg.gif'); background:url('../img/titleBg.png');}
+#rankHeader { text-align:center; font-size:14px; font-weight:bold; background:url('../img/titleBg1.png');}
 #rankHeader td {padding:5px; }
 #rankList td { vertical-align:top; padding:10px; background1:#fafafa;}
 #rankList ul li {margin:2px 0px 2px 0px; }
@@ -59,13 +59,13 @@
 #rankList .postIndex10{ padding:0px 6px 0px 0px;}
 
 /*版块列表*/
-.forumList { width:100%; border-collapse:collapse;margin-bottom:10px; border:1px #BFCBD1 solid; line-height:150%}
-.forumList td {padding:3px 5px 2px 5px;border:1px #BFCBD1 solid;}
+.forumList { width:100%; border-collapse:collapse;margin-bottom:10px; border:1px #dae8f6 solid; line-height:150%}
+.forumList td {padding:3px 5px 2px 5px;border:0px; border-bottom:1px #dae8f6 solid;}
 
-    tr.fbHeader td{background:url('../skin/apps/forum/forumBoardHeader.jpg'); height:24px; border-bottom:0px;color:#333;}
+    tr.fbHeader td{background:url('../skin/apps/forum/forumBoardHeader.png');height:33px; height:24px\9; border-bottom:1px;color:#333;}
 
-    	table.forumList td.fbCategory {width:50%; border-right:0px;padding-left:15px; border-bottom:0px; }
-        .fbCategoryPointer { float:left; width:12px;height:13px; margin-top:2px; background:url('../skin/apps/forum/fbPointer.gif') no-repeat;}
+    	table.forumList td.fbCategory {width:50%; border-right:0px;padding-left:15px; border-bottom:1px; }
+        .fbCategoryPointer { float:left; width:16px;height:16px; margin-top:2px; background:url('../skin/apps/forum/fbPointer.png') no-repeat;}
         .fbcategoryName {float:left; margin-left:5px;font-size:14px; font-weight:bold; }
         .fbcategoryName a {margin-left:3px; color:#000;}
     	td.fbtopics {width:12%; text-align:center; border-bottom:0px;}
@@ -76,7 +76,7 @@
         .todayPosts {color:red; font-weight:bold;}
         
     .forumBoard td {border-top:0px; padding:8px}
-    .forumBoard:hover {background:#fafafa;}
+    .forumBoard:hover {background:#f5f8fd;}
 
         td.fbIcon { width:6%; text-align:center; border-right:0px;}
         td.fbInfo {width:44%; border-left:0px; color:#666}
@@ -98,12 +98,12 @@
 
 
 /*当前路径*/
-#forumLocationContainer { margin-bottom:10px;background:#f6f6f6;border-top:1px #dedede solid; }
+#forumLocationContainer { margin-bottom:10px;background:#f5fcf9;border-top:1px #ebf4fc solid;	filter: alpha(opacity=90);	-moz-opacity:9;	opacity: 9; }
     #forumLocation {padding:5px;}
     #forumLocation a {display:inline-block;max-width:600px; text-overflow: ellipsis;white-space:nowrap;-o-text-overflow:ellipsis;-moz-text-overflow:ellipsis;overflow: hidden;
     _white-space:nowrap2;
     }
-    #locationHome {padding-left:18px;background:url('../skin/apps/forum/home.gif')  no-repeat left center;}
+    #locationHome {padding-left:20px;background:url('../skin/apps/forum/home.png')  no-repeat left top;}
     
     #locationBoards {width:380px; padding:15px;background:#eaf3ff; border:1px #898c95 solid; }
     #locationBoards a {margin-right:10px;}
@@ -115,11 +115,11 @@
 .fbNotice {margin:0px 0px 5px 5px;}
 .fbNotice div {margin-bottom:5px;}
 
-.fbToolContainer {height:35px; width:100%; background:#f6f6f6;} /*发布主题按钮*/
+.fbToolContainer {height:35px; width:100%; background:#fafafa;} /*发布主题按钮*/
 .fbToolContainer td {padding:0px;}
     #cmdPubTool {height:30px;}
     table#cmdPubTool a{text-decoration:none;}
-        #cmdPubTopic {width:110px;background:url('../img/pubTopic.gif');padding-top2:4px;vertical-align2:top;}
+        #cmdPubTopic {width:110px;background:url('../skin/apps/forum/newpost.png');text-indent:6px;padding-bottom:2px;;}
         #cmdPubTopic a{margin-left:30px; color:#fff; font-size:14px; font-weight:bold;  }
         
         td#cmdPubMore { padding-left:5px;font-size:1px;}
@@ -146,7 +146,7 @@
     td.psAuthor { text-align:center; line-height:130%;  font-size:12px; font-family:arial; }
     .psAuthor a{color:#333;}
 
-.moderatorAdminbar { margin-top:15px; margin-bottom:15px; width:100%; line-height:25px;background:#efefef; border:1px #aaa solid;color:#222;}
+.moderatorAdminbar { margin-top:15px; margin-bottom:15px; width:100%; line-height:25px;background:#f0f0f0; border:1px #ccc solid;color:#222;}
 .moderatorAdminbar td {padding:3px 0px 3px 0px;}
 
 .ajaxCmd,.ajaxForumPost {cursor:pointer; border:1px #ccc solid; background:#eee; background:url('../img/cmd.gif'); }
@@ -168,8 +168,8 @@
 #pubUserPic img {border-radius:4px;}
 
 .forumSimpleForm {margin-top:5px;}
-.forumSimpleForm, .forumForm {border:1px #ccc solid; background:#f2f2f2;}
-    .forumFormTitle {padding:5px; background:url('../skin/apps/forum/forumBoardHeader.jpg');font-size:14px; font-weight:bold; color:#666;}
+.forumSimpleForm, .forumForm {border:1px #dae8f6 solid; background:#fcfcfc; text-indent:5px;}
+    .forumFormTitle {padding:5px; background:url('../skin/apps/forum/forumBoardHeader.png');font-size:14px; font-weight:bold; color:#666;}
     .forumFormTable {width:95%; margin:10px 0px 10px 10px;}
 
 .forumIconList ul {width:310px;margin:10px auto; background:#f2f2f2;padding:10px 0px 10px 40px; height:30px}
@@ -177,11 +177,14 @@
 
 /*主题和回帖*/
     
-.fdPanel {width:100%; border-collapse:collapse; margin:auto; margin-bottom:8px; padding:5px; background:#f2f2f2;}
+.fdPanel {width:100%; border-collapse:collapse; margin:auto; margin-bottom:8px; padding:5px; }
 	td.fPrevNext {width:180px;border:0px;font-size:9pt; padding-left:5px;}
-    .fNewReplyCmd {text-align:right; padding:8px; }
-    .fNewReplyCmd a { font-size:12px; height:22px; padding:3px 10px; }
+    .fNewReplyCmd {text-align:right; padding-right:8px; }
+    .fNewReplyCmd a { font-size:12px; height:24px; margin:0px 10px;  }
     .fNewReplyCmd a:hover {color:#fff;}
+    .cmdreply {background:url('../skin/apps/forum/reply.png') no-repeat top center; width:45px;height:24px;color:#fff; display:inline-block; text-align: center; padding-top:2px; margin-bottom:-2px; }
+    .cmdnew{background:url('../skin/apps/forum/new.png') no-repeat top center;width:70px;height:24px;color:#fff; display:inline-block; text-align: center; padding-top:2px; margin-bottom:-2px;}
+    .btn {background-image:url('../skin/apps/forum/quicknew.png');width:92px;height:24px;color:#fff; border-style:none; border-width:0px; background-color:#fff;  }
     
 
     
