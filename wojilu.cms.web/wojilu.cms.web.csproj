@@ -16,6 +16,7 @@
     </FileUpgradeFlags>
     <OldToolsVersion>3.5</OldToolsVersion>
     <UpgradeBackupLocation />
+    <UseIISExpress>false</UseIISExpress>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -416,6 +417,10 @@
     <ProjectReference Include="..\wojilu.cms\wojilu.cms.csproj">
       <Project>{09C82AE7-8C74-4B5B-AD20-040357E4BA04}</Project>
       <Name>wojilu.cms</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\wojilu.Core\wojilu.Core.csproj">
+      <Project>{5D4E912F-B5A1-4E58-BFE1-62FCD30CC9E6}</Project>
+      <Name>wojilu.Core</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
