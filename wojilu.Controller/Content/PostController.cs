@@ -62,7 +62,7 @@ namespace wojilu.Web.Controller.Content {
             }
             set( "page", posts.PageBar );
         }
-        
+
 
         public void Show( int id ) {
 
@@ -98,7 +98,8 @@ namespace wojilu.Web.Controller.Content {
             set( "detailContent", loadHtml( post.PageSection.SectionType, "Show", post.Id ) );
 
             // 3) comment
-            loadComment( post );
+            //loadComment( post );
+            set( "thisUrl", t2( new wojilu.Web.Controller.Open.CommentController().List ) + "?url=" + alink.ToAppData( post ) );
 
             // 4) related posts
             loadRelatedPosts( post );

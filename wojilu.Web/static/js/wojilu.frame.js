@@ -1,6 +1,8 @@
 ﻿
 $(document).ready( function() {
 
+    scrollTo(0,0);
+
     var isRootWin = (window.parent == window);
     if( isRootWin )  return;
 

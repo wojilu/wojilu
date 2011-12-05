@@ -1,7 +1,7 @@
 ﻿
-    
 $(document).ready( function() {
 
+    
     //----------------------加载完毕，隐藏loading-----------------------------------
 
     var parentIframeId = wojilu.tool.getCurrentFrmId();
@@ -11,6 +11,11 @@ $(document).ready( function() {
     var hideParentLoading = function() {
         $('#'+parentIframeId + 'Loading', window.parent.document ).hide();
         $('#'+parentIframeId, window.parent.document ).show();
+    }
+
+    var pifrmPosition = $('#'+parentIframeId, window.parent.document ).position();
+    if( pifrmPosition !=null ) {
+        wojilu.tool.getRootParent().scrollTo(0,pifrmPosition.top);
     }
     
     hideParentLoading(); 
