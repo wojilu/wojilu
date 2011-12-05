@@ -10,32 +10,36 @@
     <script src="~js/wojilu.common.js?v=#{jsVersion}" type="text/javascript"></script>
     <script src="~js/wojilu.common.admin.js?v=#{jsVersion}" type="text/javascript"></script>    
 <style>
-    
-#title, form, #login, #submit {width:550px;margin:auto; }
-#title {margin-top:50px; margin-bottom:30px; text-align:center; font-size:32px; font-weight:bold; font-family:微软雅黑; }
+body { background:url("~img/admin/logincmsbk.jpg")}    
+form { background:url("~img/admin/logincms.jpg"); height:271px; position:relative;} 
+#title, form, #login {width:414px;margin:auto; }
+#title {margin-top:124px; margin-bottom:30px; text-align:center; font-size:32px; font-weight:bold; font-family:微软雅黑; height:100px; line-height:100px; }
 
-#login { border-collapse:collapse;}
-#login td { font-size:22px; padding:5px; line-height:150%;  border:1px #aaa solid;}
-#login input { height:25px; font-size:20px;}
+#login { position:absolute; top:55px;}
+#login input {  font-size:14px;}
 
-#submit {text-align:center; margin-top:10px;}
-#submit input { height:32px;font-size:20px; width:150px; margin-right:10px}
+#submit {text-align:center; position:absolute; top:5px; left:189px;}
+#submit input { font-size:14px;  width:59px; height:50px; margin-right:10px;filter: alpha(opacity=0);-moz-opacity:0;	opacity: 0;cursor:hand;}
 
 #userpwd { text-align:center; margin-bottom:10px;}
 #userpwd span{color:Red; font-weight:bold; }
-
+input { width:168px; height:20px; margin-left:90px; margin-top:5px; overflow:hidden; line-height:20px; }
+ul.wojiluValidationResultList { position:absolute;top:200px;}
+#home{text-align:right; margin-top:5px;  margin-right:10px;color:#ffffff;}
+#userpwd span{color:#d8fc5d; }
 </style>    
 </head>
 <body>
-    <div id="title">用户登录</div>
+    <div id="home"><a href="~/">返回首页</a></div>
+    <div id="title">我记录CMS文章管理系统</div>
+        <div id="userpwd">用户名: <span>张三</span> 密码: <span>1234</span></div>
     <form method="post" action="#{ActionLink}">
-        <div id="userpwd">用户名:<span>张三</span> 密码:<span>1234</span></div>
-        <table id="login">
-            <tr><td align="right">用户名</td><td><input name="name" type="text" /></td></tr>
-            <tr><td align="right">密 码</td><td><input name="pwd" type="password" /></td></tr>
-            <tr><td>验证码</td><td>#{vcode}</td></tr>
-        </table>
-        <div id="submit"><input type="submit" value="登录系统" class="btn" /> <a href="~/">首页</a></div>
+        <div id="login">
+            <input name="name" type="text" />
+            <input name="pwd" type="password" />
+            <div>#{vcode}</div>
+        <div id="submit"><input type="submit" value="" /> </div>
+        </div>
         <div><input type="hidden" name="returnUrl" value="#{returnUrl}" /></div>
     </form>
 </body>
