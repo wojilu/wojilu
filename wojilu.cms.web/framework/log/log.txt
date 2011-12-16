@@ -1,0 +1,9 @@
+﻿2011/12/5 11:36:26 error wojilu.Web.GlobalApp.AppGlobalLogger - url=http://localhost:2575/static/css/wojilu.site.css?v=0001
+ex.Message=文件不存在
+ex.Source=System.Web
+ex.StackTrace=   在 System.Web.StaticFileHandler.GetFileInfo(String virtualPathWithPathInfo, String physicalPath, HttpResponse response)
+   在 System.Web.StaticFileHandler.ProcessRequestInternal(HttpContext context)
+   在 System.Web.DefaultHttpHandler.BeginProcessRequest(HttpContext context, AsyncCallback callback, Object state)
+   在 System.Web.HttpApplication.CallHandlerExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   在 System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)
+ 

@@ -1,0 +1,18 @@
+﻿<div class="h4title">#{section.Name}</div>
+
+<ul class="ulskus">
+<!-- BEGIN list -->
+<li>
+    <div class="pic"><a href="#{sku.Url}" title="#{sku.TitleFull}" style="#{sku.TitleCss}"><img src="#{sku.ImgSrc}" border="0"></a></div>
+    <div class="sku"><a href="#{sku.Url}" title="#{sku.TitleFull}" style="#{sku.TitleCss}">#{sku.Title}(#{sku.ItemSKU})</a></div>
+    <div class="price">#{sku.SalePrice}</div>
+    <div class="skutoolbar"><a href="#{addcarturl}">加入购物车</a> <a href="#{addfavurl}">加入收藏夹</a></div>
+</li>
+<!-- END list -->
+</ul>
+
+<div>#{page}</div>
+
+<style>
+.ulposts li {padding-left:5px; margin-bottom:2px;background:url( "~img/tree/node.gif" ) no-repeat 5px center; padding-left:20px;}
+</style>

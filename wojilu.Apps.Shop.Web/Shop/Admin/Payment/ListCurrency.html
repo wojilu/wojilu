@@ -1,0 +1,41 @@
+﻿
+<div>
+	<div class="adminMainTitle">
+		<div class="adminSidebarTitleInternal">货币与汇率</div>
+	</div>
+	<div class="adminMainPanel">
+		<table id="dataAdminList" data-sortAction="#{sortAction}" border="0" cellpadding="2" cellspacing="0" style="width: 100%;">
+			<tr class="adminBar">
+				<td colspan="8"><span><a href="#{addLink}"><img src="~img/add.gif" /> 添加币种</a></span> </td>
+			</tr>
+			<tr class="tableHeader">
+				<td style="width:18%">_{id}</td>
+				<td>名称</td>
+				<td>代码</td>
+				<td>附号</td>
+				<td>汇率</td>
+				<td>启用</td>
+				<td>默认</td>
+				<td>_{admin}</td>
+			</tr>
+			<!-- BEGIN list -->
+			<tr class="tableItems">
+		         <td class="sort">
+			        <img src="~img/up.gif" class="cmdUp right10" data-id="#{data.Id}"/>
+			        <img src="~img/dn.gif" class="cmdDown" data-id="#{data.Id}"/>
+		        </td>
+				<td>#{data.Name}</td>
+				<td>#{data.Code}</td>
+				<td>#{data.Symbol}</td>
+				<td>#{data.Exchange}</td>
+				<td>#{data.Enabled}</td>
+				<td>#{data.IsDefault}</td>
+				<td>
+					<a href="#{data.LinkEdit}"><img src="~img/edit.gif" /> _{edit}</a>
+					<span href="#{data.LinkDelete}" class="deleteCmd left10"><img src="~img/delete.gif" /> _{delete}</span>
+				</td>
+			</tr>
+			<!-- END list -->
+		</table>
+	</div>
+</div>

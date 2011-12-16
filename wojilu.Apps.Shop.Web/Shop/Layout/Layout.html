@@ -1,0 +1,38 @@
+﻿
+<link href="#{skinPath}?v=#{cssVersion}" rel="stylesheet" type="text/css" />
+<link href="~css/wojilu.app.shopflow.css?v=#{cssVersion}" rel="stylesheet" type="text/css" />
+
+<div style="padding-top:1px;">
+    <div id="adminTool" class="appAdminTool" style="padding:0px; font-weight:bold; display:none;">
+        <div style="padding:8px 5px 0px 0px; text-align:right;">
+        <a href="#{adminUrl}" class="frmLink cmd" loadTo="contentPage" nolayout=1><img src="~img/setting.gif" /> 管理当前app</a>
+        </div>
+    </div>
+    <div id="contentPage">#{layout_content}</div>    
+</div>
+<script>
+$(document).ready( function() {
+    
+    var showAdminTool = function() {
+        if( typeof(ctx) == 'undefined' ) return;
+        if( ctx.viewer.IsLogin  ) {
+        
+            if( ctx.owner.IsSite) {
+                if( ctx.viewer.IsAdministrator ) {
+                    $('#adminTool').show();
+                }
+                else {
+                }
+            }
+            else if( ctx.viewerOwnerSame ) {
+                $('#adminTool').show();
+            }
+        }
+        
+    };
+    
+    wojilu.site.load( showAdminTool );
+
+    wojilu.ui.frmLink();
+});
+</script>

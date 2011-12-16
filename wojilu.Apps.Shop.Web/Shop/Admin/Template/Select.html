@@ -1,0 +1,35 @@
+﻿<div style="width:800px;">
+
+	<table style="width:780px" class="tabHeader" cellpadding="0" cellspacing="0">
+		<tr>
+			<td id="tab1" class="otherTab" style="width:20%;"><a href="#{customLink}">自定义模板</a></td>
+			<td id="tab3" class="tabItem currentTab" style="width:20%;">选择已有模板</td>
+			<td class="otherTab" style="width:60%;">&nbsp;</td>
+		</tr>
+	</table>
+	
+	<div id="content1" class="tabMain" style="width:780px;">
+
+        <div style="padding:20px;">
+            <form method="post" action="#{ActionLink}">
+            	
+            <table class="">
+	            <tr>
+		            <td>:{templateType}</td>
+		            <td>#{templateType}</td>
+	            </tr>
+
+	            <tr>
+		            <td>&nbsp;</td>
+		            <td>
+		                <input name="Submit1" type="submit" value=":{editSection}" class="btn">
+		                <input type="button" value="_{cancel}" class="btnCancel" />
+		            </td>
+	            </tr>
+            </table>
+
+            </form>
+        </div>
+    </div>
+
+</div>

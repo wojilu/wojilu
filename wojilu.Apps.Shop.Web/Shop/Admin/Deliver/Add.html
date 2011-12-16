@@ -1,0 +1,30 @@
+﻿<div>
+	<div class="adminMainTitle">
+		<div class="adminSidebarTitleInternal">_{addPage}</div>
+	</div>
+	<div class="adminMainPanel">
+		<div class="formPanel">
+		
+		
+<form method="post" action="#{ActionLink}" class="ajaxPostForm">
+<div>名称：<input name="shopDeliver.Title" type="text" /><br/> 
+    快递公司：#{shopProvider}<br/> 
+    首重：<input name="shopDeliver.Weight" type="text" /><br/> 
+    首价：<input name="shopDeliver.Price" type="text" /><br/> 
+    续重：<input name="shopDeliver.AddWeight" type="text" /><br/> 
+    续价：<input name="shopDeliver.AddPrice" type="text" /><br/> 
+    付款方式：
+			<!-- BEGIN list -->
+			    <label><input name="shopDeliver.SupportedPayment" type="checkbox" value="#{payment.Id}" /></label>#{payment.Title}
+			<!-- END list --><br/> 
+    配送范围：
+    备注：#{Editor}<br/> 
+    <input id="Submit1" type="submit" value="_{submit}"  class="btn" /></div>
+
+    
+
+</form>
+
+		</div>
+	</div>
+</div>

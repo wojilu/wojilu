@@ -1,0 +1,19 @@
+﻿<div class="h4title">我的购物车</div>
+
+<ul class="ulskus">
+    <!-- BEGIN list -->
+    <li>
+        <div class="pic"><a href="#{cart.Url}" title="#{cart.Title}"><img src="#{cart.ImgSrc}" border="0"></a></div>
+        <div class="sku"><a href="#{cart.Url}" title="#{cart.Title}">#{cart.Title}(#{cart.ItemSKU})</a></div>
+        <div class="qty">#{cart.Qty}</div>
+        <div class="price">#{cart.Price}</div>
+        <div class="subtotal">#{cart.TotalSaleAmount}</div>
+    </li>
+    <!-- END list -->
+    <li><div class="skusfull">#{cart.TotalAmount}</div></li>
+    <li><div class="skusfull"><a href="#{cart.PrvtBtn}">继续购物</a> <a href="#{cart.NextBtn}">去结算</a></div></li>
+</ul>
+
+<style>
+.ulskus li {padding-left:5px; margin-bottom:2px;background:url( "~img/tree/node.gif" ) no-repeat 5px center; padding-left:20px;}
+</style>

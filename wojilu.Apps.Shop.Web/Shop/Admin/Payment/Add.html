@@ -1,0 +1,31 @@
+﻿<div>
+	<div class="adminMainTitle">
+		<div class="adminSidebarTitleInternal">_{addPage}</div>
+	</div>
+	<div class="adminMainPanel">
+		<div class="formPanel">
+		
+		
+<form method="post" action="#{ActionLink}" class="ajaxPostForm">
+<div>名称：<input name="shopPayment.Title" type="text" /><br/> 
+    网关：#{shopPayGatewayId}<br/>
+    帐号：<input name="shopPayment.PaymentAccount" type="text" /><br/> 
+    合作者身份号：<input name="shopPayment.MerchantCode" type="text" /><br/> 
+    密钥1：<input name="shopPayment.SecretKey" type="text" /><br/> 
+    密钥2：<input name="shopPayment.SecondKey" type="text" /><br/> 
+    密码：<input name="shopPayment.PayPassword" type="text" /><br/> 
+    支付手续费：<input name="shopPayment.PaymentCharge" type="text" /><br/> 
+    支持币种：
+			<!-- BEGIN list -->
+			    <label><input name="shopPayment.SupportedCurrency" type="checkbox" value="#{data.Id}" /></label>#{data.Name}(#{data.Code})
+			<!-- END list --><br/>
+    描述：#{Editor}<br/>
+    <input id="Submit1" type="submit" value="_{submit}"  class="btn" /></div>
+
+    
+
+</form>
+
+		</div>
+	</div>
+</div>

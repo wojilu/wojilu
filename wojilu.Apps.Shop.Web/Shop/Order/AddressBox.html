@@ -1,0 +1,87 @@
+﻿<dl class="cinfo_box">  <dt><b>收货人信息</b><a class="blue" id="addr_modify">[修改]</a><input type="hidden" id="seladdrid" value="0" /></dt>  <dd class="cinfo_off" id="addr_list">    <div class="addr_list">
+        <h1 class="cinfo_subt">常用地址</h1>
+        <ul id="old_addr_selec">
+            <!-- BEGIN contactlist -->
+            <li class="addr_off">
+                <p><input type="radio" name="addr" id="addr#{contact.Id}" value="#{contact.Id}" checked=checked clicked=clicked /><label for="addr#{contact.Id}">#{contact.Title}</label>
+                <span>#{contact.Contact}</span>
+                <span>#{contact.Address},#{contact.PostCode}</span>
+                <span>#{contact.Telphone}(M.T.:#{contact.Mobilephone})</span></p>
+            </li>
+            <!-- END contactlist -->
+            <li class="addr_on"><p><input type="radio" name="addr" id="addr_new" /><span>使用新地址</span></p></li>
+        </ul>
+     </div>
+  </dd>  <dd class="cinfo_off" id="addr_okbox">
+    <table width="100%" border="0" cellpadding="0" cellspacing="0" class="cinfo_tab">
+        <tr>
+            <td width="10%" align="right" valign="middle"><span>收货人姓名：</span></td>
+            <td width="88%" align="left" valign="middle"><p id="vwContact">#{contactDef.Contact}</p></td>
+        </tr>
+        <tr>
+            <td align="right" valign="middle"><span>所在城市：</span></td>
+            <td align="left" valign="middle"><p id="vwAddressState">#{contactDef.AddressState}</p></td>
+        </tr>
+        <tr>
+            <td align="right" valign="middle"><span>详细地址：</span></td>
+            <td align="left" valign="middle"><p id="vwAddress">#{contactDef.Address}</p></td>
+        </tr>
+        <tr id="addr_mobile">
+            <td align="right" valign="middle"><span>手机号码：</span></td>
+            <td align="left" valign="middle"><p id="vwMobile">#{contactDef.Mobile}</p></td>
+        </tr>
+        <tr id="addr_tel">
+            <td align="right" valign="middle"><span>固定电话：</span></td>
+            <td align="left" valign="middle"><p id="vwTel">#{contactDef.TelPhone}</p></td>
+        </tr>
+    </table>
+</dd>  <dd class="cinfo_on" id="addr_editbox" style="display:none">      <div id="addr_edit_table">
+         <form method="post" id="formAddr">
+         <div class="addr_div">
+             <ul>
+                 <li class="addr_tdiv">收货人姓名：</li>
+                 <li><input name="consignee" type="text" class="info_input" id="consignee" size="20" maxlength="30" value="" /></li>
+                 <li><font>*</font></li>
+                 <li></li>
+             </ul>
+             <div class="clear"></div>
+             <ul>
+                 <li class="addr_tdiv">所在城市：</li>
+                 <li><select name="province" id="s1Province" class="fl" onchange="chgprovince(this.value);"><option value="0">请选择省</option></select></li>
+                 <li><select name="city" id="s2City" class="fl" onchange="chgcity(this.value);"><option value="0">请选择城市</option></select></li>
+                 <li><select name="district" class="fl" id="s3Area"><option value="0">请选区</option></select></li>
+                 <li><input type="hidden" id="idCProvince" value=""><input type="hidden"
+                     id="idCCity" value=""><input type="hidden" id="idCArea" value=""></li>
+             </ul>
+             <div class="clear"></div>
+             <ul>
+                 <li class="addr_tdiv">详细地址：</li>
+                 <li><input name="address" type="text" class="info_input" id="address" size="78" maxlength="100" value="" /></li>
+                 <li><font>*</font></li>
+                 <li></li>
+             </ul>
+             <div class="clear"></div>
+             <ul>
+                 <li class="addr_tdiv">手机号码：</li>
+                 <li><input name="mobile" type="text" class="info_input" id="mobile" size="20" maxlength="11" value="" /></li>
+                 <li><span style="line-height: 27px;">固定电话：</span> </li>
+                 <li><input name="tel" type="text" class="info_input" id="tel" size="20" maxlength="20" value="" /></li>
+                 <li><font>*</font></li>
+                 <li><span style="color: #999; padding-right: 5px; line-height: 27px;">(手机和固定电话请至少填写一项)</span></li>
+                 <li></li>
+             </ul>
+             <div class="clear">
+             </div>
+             <ul id="addr_btnul">
+                 <li class="addr_tdiv">&nbsp;</li>
+                 <li><a class="cbtn addr_btn" id="addr_btn">确认收货人信息</a></li>
+                 <li><a class="cbtn addr_cbtn" id="addr_cbtn">取消</a></li>
+                 <li style="padding-top: 2px;"></li>
+             </ul>
+             <div class="clear"></div>
+         </div>
+         <input type="hidden" name="action" id="action" value="save_consignee" />
+         <input name="address_id" id="address_id" type="hidden" value="" /></form>
+     </div>
+  </dd>
+</dl> 

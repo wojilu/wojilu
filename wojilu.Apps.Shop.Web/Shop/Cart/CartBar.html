@@ -1,0 +1,31 @@
+﻿    <div id="cartBar" class="menuMore left5" list="cartItems"><a href="#{cartlistaction}">我的购物车<font id="wcartinfo">#{cartcount}</font>件商品</a><img src="~img/down.gif"/>
+        <div id="cartItems" class="menuItems">
+            <ul style="width:120px;">
+                <li>暂无商品</li>
+            </ul>
+        </div>
+    </div>
+    <script type="text/javascript" src="~js/wojilu.site.shopcart.js?v=#{jsVersion}"></script>
+    <script>
+    $( document).ready( function() {
+        $.post( '#{jsoncartcount}'.toAjax(), function(data) {    
+            $('#wcartinfo').html( data );    
+        });
+        $.post( '#{jsoncartlist}'.toAjax(), function(carts) {    
+            var html = '';
+            html += '<ul style="width:120px;">';
+            for( var i=0;i<carts.length;i++ ) {
+                html += '<li>';
+                html += '<div class="ucItem">';
+                html += '   <a href="'+carts[i].Item.Url+'">'+carts[i].Title+'</a>';
+                html += '</div>';
+                html += '<div class="ucQty">'+carts[i].BuyQty+'</div>';
+                html += '<div class="ucPrice">'+carts[i].SalePrice+'</div>';
+                html += '</li>';
+            }
+            html += '</ul>';
+            
+            $('#cartItems').html( html );    
+        });
+    });
+    </script>

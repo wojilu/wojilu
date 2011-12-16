@@ -1,0 +1,35 @@
+﻿
+
+<div style="margin:20px; padding:10px;">
+
+<form action="#{ActionLink}" method="post" enctype="multipart/form-data">
+
+   
+    
+    
+
+    <table>
+        <tr>
+            <td>
+                <input name="File1" type="file"> 
+            </td>
+            <td rowspan="2">
+        <input id="Submit1" type="submit" value="上传" class="btn" />
+        <input id="Button1" type="button" value="_{cancel}" class="btnCancel" />
+            </td>
+        </tr>
+        <tr>
+            <td>:{width}<input name="width" type="text" style="width:40px;" value="#{width}" />px 
+            <span class="left20">:{height}</span><input name="height" type="text"  style="width:40px;" value="#{height}" />px<br />
+            <span class="note">:{uploadPicNote}</span>
+            
+            </td>
+        </tr>
+    </table>
+    
+    
+    
+
+</form>
+
+</div>

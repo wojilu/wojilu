@@ -1,0 +1,147 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{3FA030B3-2B9A-4183-A6AB-B892CE1300EF}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>wojilu.Apps.Shop.Controller</RootNamespace>
+    <AssemblyName>wojilu.Apps.Shop.Controller</AssemblyName>
+    <TargetFrameworkVersion>v2.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Admin\AttachmentController.cs" />
+    <Compile Include="Admin\BrandController.cs" />
+    <Compile Include="Admin\CategoryController.cs" />
+    <Compile Include="Admin\CommentController.cs" />
+    <Compile Include="Admin\DeliverController.cs" />
+    <Compile Include="Admin\ItemController.cs" />
+    <Compile Include="Admin\LayoutController.cs" />
+    <Compile Include="Admin\OrderController.cs" />
+    <Compile Include="Admin\partial\ShopController.cs" />
+    <Compile Include="Admin\partial\ShopSectionController.cs" />
+    <Compile Include="Admin\PaymentController.cs" />
+    <Compile Include="Admin\SectionSettingController.cs" />
+    <Compile Include="Admin\Section\BigAdItemController.cs" />
+    <Compile Include="Admin\Section\BigItemController.cs" />
+    <Compile Include="Admin\Section\LayoutController.cs" />
+    <Compile Include="Admin\Section\ListAdItemController.cs" />
+    <Compile Include="Admin\Section\ListController.cs" />
+    <Compile Include="Admin\Section\partial\ListController.cs" />
+    <Compile Include="Admin\Section\SmallItemController.cs" />
+    <Compile Include="Admin\Section\TextItemController.cs" />
+    <Compile Include="Admin\SettingController.cs" />
+    <Compile Include="Admin\ShopController.cs" />
+    <Compile Include="Admin\ShopSectionController.cs" />
+    <Compile Include="Admin\SkinController.cs" />
+    <Compile Include="Admin\SubCategoryController.cs" />
+    <Compile Include="Admin\SupplierController.cs" />
+    <Compile Include="Admin\TemplateController.cs" />
+    <Compile Include="Admin\TemplateCustomController.cs" />
+    <Compile Include="Binder\ExcerptBinderController.cs" />
+    <Compile Include="Binder\FocusBinderController.cs" />
+    <Compile Include="Binder\ImgBinderController.cs" />
+    <Compile Include="Binder\List2BinderController.cs" />
+    <Compile Include="Binder\ListBinderController.cs" />
+    <Compile Include="Binder\ListTimeBinderController.cs" />
+    <Compile Include="Binder\LoginBinderController.cs" />
+    <Compile Include="Binder\MyBlogBinderController.cs" />
+    <Compile Include="Binder\MyFaceBinderController.cs" />
+    <Compile Include="Binder\MyFeedbackBinderController.cs" />
+    <Compile Include="Binder\MyFeedBinderController.cs" />
+    <Compile Include="Binder\MyInfoBinderController.cs" />
+    <Compile Include="Binder\MyMicroblogBinderController.cs" />
+    <Compile Include="Binder\MyShareBinderController.cs" />
+    <Compile Include="Binder\RankBinderController.cs" />
+    <Compile Include="Binder\ShopBinder\FocusItemBinderController.cs" />
+    <Compile Include="Binder\ShopBinder\ImgItemBinderController.cs" />
+    <Compile Include="Binder\ShopBinder\ItemImgBinderController.cs" />
+    <Compile Include="Binder\ShopBinder\ItemsTextBinderController.cs" />
+    <Compile Include="Binder\UserFacesBinderController.cs" />
+    <Compile Include="BrandController.cs" />
+    <Compile Include="Caching\ShopIndexCache.cs" />
+    <Compile Include="Caching\ShopLayoutCache.cs" />
+    <Compile Include="CartController.cs" />
+    <Compile Include="CategoryController.cs" />
+    <Compile Include="ItemController.cs" />
+    <Compile Include="LayoutController.cs" />
+    <Compile Include="OrderController.cs" />
+    <Compile Include="partial\ShopController.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SectionController.cs" />
+    <Compile Include="SectionDataController.cs" />
+    <Compile Include="Section\BigAdItemController.cs" />
+    <Compile Include="Section\BigItemController.cs" />
+    <Compile Include="Section\LayoutController.cs" />
+    <Compile Include="Section\ListAdItemController.cs" />
+    <Compile Include="Section\ListController.cs" />
+    <Compile Include="Section\partial\ListController.cs" />
+    <Compile Include="Section\SmallItemController.cs" />
+    <Compile Include="Section\TextItemController.cs" />
+    <Compile Include="ShopAttachmentController.cs" />
+    <Compile Include="ShopCommentController.cs" />
+    <Compile Include="ShopController.cs" />
+    <Compile Include="Utils\BinderUtils.cs" />
+    <Compile Include="Utils\Location.cs" />
+    <Compile Include="Utils\ShopCartCookie.cs" />
+    <Compile Include="Utils\ShopValidator.cs" />
+    <Compile Include="Utils\TemplateUtil.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\wojilu.Apps.Shop\wojilu.Apps.Shop.csproj">
+      <Project>{D04E34B3-B161-4F6F-983B-AD7F68DF682E}</Project>
+      <Name>wojilu.Apps.Shop</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\wojilu.Apps\wojilu.Apps.csproj">
+      <Project>{2C3A61B8-3AFD-45D2-B81E-FBC652D0ADC2}</Project>
+      <Name>wojilu.Apps</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\wojilu.Controller\wojilu.Controller.csproj">
+      <Project>{A4E94F40-1DD2-4869-8D2E-3E3AE67B0CBB}</Project>
+      <Name>wojilu.Controller</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\wojilu.Core\wojilu.Core.csproj">
+      <Project>{5D4E912F-B5A1-4E58-BFE1-62FCD30CC9E6}</Project>
+      <Name>wojilu.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\wojilu\wojilu.csproj">
+      <Project>{5912B6E1-6099-4392-9A67-AFD3A8AA4343}</Project>
+      <Name>wojilu</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

@@ -1,0 +1,65 @@
+﻿<link href="#{skinPath}?v=#{cssVersion}" rel="stylesheet" type="text/css" />
+<link href="~css/wojilu.app.content.admin.css?v=#{jsVersion}" rel="stylesheet" type="text/css" />
+
+<style>
+.dragged {	border:1px red dashed;}
+#shopnavList li.separator {margin-top:10px; margin-bottom:-15px;padding:0px;}
+.separator div{border-top:1px #ccc solid; border-bottom:1px #fff solid;}
+
+#{app.Style}
+#{app.SkinStyle}
+#{portalWrapCss}
+
+
+</style>
+<div>
+<div class="adminMainTitle"><div class="adminSidebarTitleInternal">商城管理</div></div>
+
+<div class="adminMainPanel">
+	<div class="formPanel2" style="background:#fff;">
+	<table style="width:100%;">
+	<tr>
+	<td style="width:150px; vertical-align:top;" class="adminSidebar">
+			<ul id="shopnavList">
+		    <span id="toggleSidebar" style="cursor:pointer;margin-right:px; display:none;"><img src="~img/left.gif"/>:{showSidebar}</span>
+			    <li><a href="#{defaultLink}" class="frmLink" loadTo="tabMain" nolayout=4><img src="~img/home.gif" /> 可视化界面</a></li>
+			    <li><a href="#{allgoodLink}" class="frmLink" loadTo="tabMain" nolayout=4><img src="~img/doc.gif" /> 所有商品列表</a></li>
+			    <li><a href="#{viewByCategoryLink}" class="frmLink" loadTo="tabMain" nolayout=4><img src="~img/list.gif" /> 分类浏览</a></li>
+			    <li><a href="#{categoryLink}" class="frmLink" loadTo="tabMain" nolayout=4><img src="~img/category.gif" /> 分类管理</a></li>
+			    <li><a href="#{subCategoryLink}" class="frmLink" loadTo="tabMain" nolayout=4><img src="~img/category.gif" /> 子分类管理</a></li>
+			    <li><a href="#{brandLink}" class="frmLink" loadTo="tabMain" nolayout=4><img src="~img/link.gif" /> 品牌管理</a></li>
+			    <li><a href="#{stockLink}" class="frmLink" loadTo="tabMain" nolayout=4><img src="~img/link.gif" /> 库存管理</a></li>
+				<li class="separator"><div></div></li>
+			    <li><a href="#{allorderLink}?Filter=0" class="frmLink" loadTo="tabMain" nolayout=4><img src="~img/doc2.gif" /> 所有订单</a></li>
+			    <li><a href="#{allorderLink}?Filter=1" class="frmLink" loadTo="tabMain" nolayout=4><img src="~img/doc2.gif" /> 未付款订单</a></li>
+			    <li><a href="#{allorderLink}?Filter=2" class="frmLink" loadTo="tabMain" nolayout=4><img src="~img/doc2.gif" /> 已付款订单</a></li>
+			    <li><a href="#{allorderLink}?Filter=3" class="frmLink" loadTo="tabMain" nolayout=4><img src="~img/doc2.gif" /> 未发货订单</a></li>
+			    <li><a href="#{allorderLink}?Filter=4" class="frmLink" loadTo="tabMain" nolayout=4><img src="~img/doc2.gif" /> 已发货订单</a></li>
+			    <li><a href="#{allorderLink}?Filter=5" class="frmLink" loadTo="tabMain" nolayout=4><img src="~img/doc2.gif" /> 未完成订单</a></li>
+			    <li><a href="#{allorderLink}?Filter=6" class="frmLink" loadTo="tabMain" nolayout=4><img src="~img/doc2.gif" /> 已完成订单</a></li>
+				<li class="separator"><div></div></li>
+			    <li><a href="#{supplierLink}" class="frmLink" loadTo="tabMain" nolayout=4><img src="~img/v.gif" /> 供应商列表</a></li>
+			    <li><a href="#{commentLink}" class="frmLink" loadTo="tabMain" nolayout=4><img src="~img/talk.gif" /> 评论管理</a></li>
+				<li class="separator"><div></div></li>
+			    <li><a href="#{paymenttypeLink}" class="frmLink" loadTo="tabMain" nolayout=4><img src="~img/doc.gif" /> 付款方式</a></li>
+			    <li><a href="#{paygatewayLink}" class="frmLink" loadTo="tabMain" nolayout=4><img src="~img/doc.gif" /> 支付接口</a></li>
+			    <li><a href="#{paycurrenctyLink}" class="frmLink" loadTo="tabMain" nolayout=4><img src="~img/doc.gif" /> 货币与汇率</a></li>
+			    <li><a href="#{delivertypeLink}" class="frmLink" loadTo="tabMain" nolayout=4><img src="~img/doc.gif" /> 货运方式</a></li>
+			    <li><a href="#{deliverContactLink}" class="frmLink" loadTo="tabMain" nolayout=4><img src="~img/doc.gif" /> 发货人信息</a></li>
+			    <li><a href="#{delivercompanyLink}" class="frmLink" loadTo="tabMain" nolayout=4><img src="~img/users.gif" /> 货运公司列表</a></li>
+				<li class="separator"><div></div></li>
+			    <li><a href="#{trashgoodLink}" class="frmLink" loadTo="tabMain" nolayout=4><img src="~img/trash.gif" /> _{trash}</a></li>
+			    <li><a href="#{settingLink}" class="frmLink" loadTo="tabMain" nolayout=4><img src="~img/setting.gif" /> _{setting}</a></li>
+			</ul>	
+	
+	
+	</td>
+	<td style="padding:0px; vertical-align:top;" id="tabMain">#{layout_content}</td>
+	</tr>
+	
+	</table>
+	
+	</div>
+	
+</div>
+</div>

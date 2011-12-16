@@ -1,0 +1,45 @@
+﻿<div class="step_box" id="step_3"></div>
+<dl class="fover_box">
+    <dt style="margin-left: 273px;"><span class="fl cbtn fover_t1">订单提交成功，还有最后一步哦</span>
+        <div class="clear"></div>
+    </dt>
+    <dd>
+        <table width="100%" border="0" cellpadding="0" cellspacing="0">
+            <tbody>
+                <tr>
+                    <th style="border-left: 1px solid rgb(244, 244, 244);" valign="middle" width="25%" align="center">订单号</th>
+                    <th valign="middle" width="25%" align="center">支付金额</th>
+                    <th valign="middle" width="25%" align="center">支付方式</th>
+                    <th valign="middle" width="25%" align="center">配送方式</th>
+                </tr>
+                <tr>
+                    <td style="border-left: 1px solid rgb(255, 255, 255);" valign="middle" width="25%" align="center">
+                        <a href="#{order.Url}" class="blue">#{order.OrderNumb}</a>
+                    </td>
+                    <td valign="middle" width="25%" align="center"><strong>#{order.TotalAmount}</strong></td>
+                    <td valign="middle" width="25%" align="center">#{order.Payment.Title}</td>
+                    <td valign="middle" width="25%" align="center">#{order.Deliver.Title}</td>
+                </tr>
+            </tbody>
+        </table>
+        <ul>
+            <li>提示：</li>
+            <li>1.付款完成之后，我们将立即处理您的订单，未付款的订单将被保留12小时，请在12小时之内完成支付。</li>
+            <li>2.每天16:00以前的订单将在当天发货，16:00-0:00的订单将在第二天发货。</li>
+            <li>3.趣玩支持”开箱验货“和”30天退换货保障“，收货后请及时验货，如果发现商品损毁或不符，请及时拨打客服400-696-8686。<a href="article-136.html"
+                class="blue">退换货政策&gt;&gt;</a></li>
+        </ul>
+    </dd>
+</dl>
+<table width="100%" border="0" cellpadding="0" cellspacing="0">
+    <tbody>
+        <tr>
+            <td style="padding-top: 34px; padding-left: 415px; padding-bottom: 40px;" width="100%" align="center">
+                <div style="text-align: center">
+                    <a href="#" class="cbtn nowpay_btn"></a>
+                </div>
+                <br>
+            </td>
+        </tr>
+    </tbody>
+</table>

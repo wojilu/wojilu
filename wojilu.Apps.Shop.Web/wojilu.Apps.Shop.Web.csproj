@@ -1,0 +1,196 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{E3872B77-2DFC-4E58-B59D-291FD72F34E1}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>wojilu.Apps.Shop.Web</RootNamespace>
+    <AssemblyName>wojilu.Apps.Shop.Web</AssemblyName>
+    <TargetFrameworkVersion>v2.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Layouts\SiteLayout\AdminLayout.html" />
+    <Content Include="Layouts\SiteLayout\Layout.html" />
+    <Content Include="Layouts\TopNav\Header.html" />
+    <Content Include="Layouts\TopNav\Index.html" />
+    <Content Include="Layouts\TopNav\副本 Index.html" />
+    <Content Include="Shop\Admin\Attachment\Add.html" />
+    <Content Include="Shop\Admin\Attachment\AdminList.html" />
+    <Content Include="Shop\Admin\Attachment\Rename.html" />
+    <Content Include="Shop\Admin\Attachment\SetPermission.html" />
+    <Content Include="Shop\Admin\Attachment\Upload.html" />
+    <Content Include="Shop\Admin\Brand\Add.html" />
+    <Content Include="Shop\Admin\Brand\Edit.html" />
+    <Content Include="Shop\Admin\Brand\List.html" />
+    <Content Include="Shop\Admin\Category\Add.html" />
+    <Content Include="Shop\Admin\Category\Edit.html" />
+    <Content Include="Shop\Admin\Category\List.html" />
+    <Content Include="Shop\Admin\Deliver\Add.html" />
+    <Content Include="Shop\Admin\Deliver\AddContact.html" />
+    <Content Include="Shop\Admin\Deliver\AddProvider.html" />
+    <Content Include="Shop\Admin\Deliver\Edit.html" />
+    <Content Include="Shop\Admin\Deliver\EditContact.html" />
+    <Content Include="Shop\Admin\Deliver\EditProvider.html" />
+    <Content Include="Shop\Admin\Deliver\List.html" />
+    <Content Include="Shop\Admin\Deliver\ListContact.html" />
+    <Content Include="Shop\Admin\Deliver\ListProvider.html" />
+    <Content Include="Shop\Admin\Item\Add.html" />
+    <Content Include="Shop\Admin\Item\Edit.html" />
+    <Content Include="Shop\Admin\Item\EditSection.html" />
+    <Content Include="Shop\Admin\Item\EditTitleStyle.html" />
+    <Content Include="Shop\Admin\Item\List.html" />
+    <Content Include="Shop\Admin\Item\Trash.html" />
+    <Content Include="Shop\Admin\Layout\Layout.html" />
+    <Content Include="Shop\Admin\Order\Add.html" />
+    <Content Include="Shop\Admin\Order\Edit.html" />
+    <Content Include="Shop\Admin\Order\List.html" />
+    <Content Include="Shop\Admin\Order\Process.html" />
+    <Content Include="Shop\Admin\Order\Show.html" />
+    <Content Include="Shop\Admin\Order\Trash.html" />
+    <Content Include="Shop\Admin\Payment\Add.html" />
+    <Content Include="Shop\Admin\Payment\AddCurrency.html" />
+    <Content Include="Shop\Admin\Payment\AddGateway.html" />
+    <Content Include="Shop\Admin\Payment\Edit.html" />
+    <Content Include="Shop\Admin\Payment\EditCurrency.html" />
+    <Content Include="Shop\Admin\Payment\EditGateway.html" />
+    <Content Include="Shop\Admin\Payment\List.html" />
+    <Content Include="Shop\Admin\Payment\ListCurrency.html" />
+    <Content Include="Shop\Admin\Payment\ListGateway.html" />
+    <Content Include="Shop\Admin\SectionSetting\Edit.html" />
+    <Content Include="Shop\Admin\SectionSetting\EditBinder.html" />
+    <Content Include="Shop\Admin\SectionSetting\EditCount.html" />
+    <Content Include="Shop\Admin\SectionSetting\副本 Edit.html" />
+    <Content Include="Shop\Admin\Section\BigAdItem\AdminSectionShow.html" />
+    <Content Include="Shop\Admin\Section\BigItem\AdminSectionShow.html" />
+    <Content Include="Shop\Admin\Section\Layout\Layout.html" />
+    <Content Include="Shop\Admin\Section\ListAdItem\AdminSectionShow.html" />
+    <Content Include="Shop\Admin\Section\List\AdminList.html" />
+    <Content Include="Shop\Admin\Section\List\AdminSectionShow.html" />
+    <Content Include="Shop\Admin\Section\List\SaveUpload.html" />
+    <Content Include="Shop\Admin\Section\List\Upload.html" />
+    <Content Include="Shop\Admin\Section\SmallItem\AdminSectionShow.html" />
+    <Content Include="Shop\Admin\Section\TextItem\AdminSectionShow.html" />
+    <Content Include="Shop\Admin\Setting\Index.html" />
+    <Content Include="Shop\Admin\ShopSection\Add.html" />
+    <Content Include="Shop\Admin\ShopSection\AddAuto.html" />
+    <Content Include="Shop\Admin\ShopSection\AddAutoThree.html" />
+    <Content Include="Shop\Admin\ShopSection\AddAutoTwo.html" />
+    <Content Include="Shop\Admin\ShopSection\AddFeed.html" />
+    <Content Include="Shop\Admin\ShopSection\Combine.html" />
+    <Content Include="Shop\Admin\ShopSection\CssForm.html" />
+    <Content Include="Shop\Admin\ShopSection\EditEffect.html" />
+    <Content Include="Shop\Admin\ShopSection\EditRowUI.html" />
+    <Content Include="Shop\Admin\ShopSection\EditSectionShopUI.html" />
+    <Content Include="Shop\Admin\ShopSection\EditSectionTitleUI.html" />
+    <Content Include="Shop\Admin\ShopSection\EditSectionUI.html" />
+    <Content Include="Shop\Admin\ShopSection\EditUI.html" />
+    <Content Include="Shop\Admin\ShopSection\_Edit.html" />
+    <Content Include="Shop\Admin\ShopSection\_SettingEdit.html" />
+    <Content Include="Shop\Admin\Shop\ConfirmAddRow.html" />
+    <Content Include="Shop\Admin\Shop\Home.html" />
+    <Content Include="Shop\Admin\Shop\Index.html" />
+    <Content Include="Shop\Admin\Shop\Menu.html" />
+    <Content Include="Shop\Admin\Shop\SetStyle.html" />
+    <Content Include="Shop\Admin\Shop\SetStyle2.html" />
+    <Content Include="Shop\Admin\Skin\Index.html" />
+    <Content Include="Shop\Admin\SubCategory\Add.html" />
+    <Content Include="Shop\Admin\SubCategory\Edit.html" />
+    <Content Include="Shop\Admin\SubCategory\Items.html" />
+    <Content Include="Shop\Admin\SubCategory\List.html" />
+    <Content Include="Shop\Admin\SubCategory\ListSub.html" />
+    <Content Include="Shop\Admin\Supplier\Add.html" />
+    <Content Include="Shop\Admin\Supplier\Edit.html" />
+    <Content Include="Shop\Admin\Supplier\List.html" />
+    <Content Include="Shop\Admin\TemplateCustom\Edit.html" />
+    <Content Include="Shop\Admin\TemplateCustom\EditBinder.html" />
+    <Content Include="Shop\Admin\Template\List.html" />
+    <Content Include="Shop\Admin\Template\Select.html" />
+    <Content Include="Shop\Admin\Uploader\SaveUpload.html" />
+    <Content Include="Shop\Admin\Uploader\UploadForm.html" />
+    <Content Include="Shop\Binder\Excerpt.html" />
+    <Content Include="Shop\Binder\Focus.html" />
+    <Content Include="Shop\Binder\Img.html" />
+    <Content Include="Shop\Binder\List.html" />
+    <Content Include="Shop\Binder\List2.html" />
+    <Content Include="Shop\Binder\ListImg.html" />
+    <Content Include="Shop\Binder\ListTime.html" />
+    <Content Include="Shop\Binder\Login.html" />
+    <Content Include="Shop\Binder\MyBlog.html" />
+    <Content Include="Shop\Binder\MyFace.html" />
+    <Content Include="Shop\Binder\MyFeed.html" />
+    <Content Include="Shop\Binder\MyFeedback.html" />
+    <Content Include="Shop\Binder\MyInfo.html" />
+    <Content Include="Shop\Binder\MyMicroblog.html" />
+    <Content Include="Shop\Binder\MyShare.html" />
+    <Content Include="Shop\Binder\Rank.html" />
+    <Content Include="Shop\Binder\Talk.html" />
+    <Content Include="Shop\Binder\Text.html" />
+    <Content Include="Shop\Binder\UserFaces.html" />
+    <Content Include="Shop\Binder\Video.html" />
+    <Content Include="Shop\Cart\CartBar.html" />
+    <Content Include="Shop\Cart\List.html" />
+    <Content Include="Shop\Category\List.html" />
+    <Content Include="Shop\Category\Show.html" />
+    <Content Include="Shop\Category\ThumbList.html" />
+    <Content Include="Shop\Item\Recent.html" />
+    <Content Include="Shop\Item\Show.html" />
+    <Content Include="Shop\Layout\Layout.html" />
+    <Content Include="Shop\Order\AddressBox.html" />
+    <Content Include="Shop\Order\Finished.html" />
+    <Content Include="Shop\Order\List.html" />
+    <Content Include="Shop\Order\ShippingBox.html" />
+    <Content Include="Shop\Order\Show.html" />
+    <Content Include="Shop\Order\Step.html" />
+    <Content Include="Shop\Section\BigAdItem\SectionShow.html" />
+    <Content Include="Shop\Section\BigItem\SectionShow.html" />
+    <Content Include="Shop\Section\Layout\Layout.html" />
+    <Content Include="Shop\Section\ListAdItem\SectionShow.html" />
+    <Content Include="Shop\Section\List\List.html" />
+    <Content Include="Shop\Section\List\ListSummary.html" />
+    <Content Include="Shop\Section\List\SectionShow.html" />
+    <Content Include="Shop\Section\List\Show.html" />
+    <Content Include="Shop\Section\Show.html" />
+    <Content Include="Shop\Section\SmallItem\SectionShow.html" />
+    <Content Include="Shop\Section\TextItem\SectionShow.html" />
+    <Content Include="Shop\Shop\IndexPage.html" />
+    <Content Include="Shop\Shop\sidebar.html" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

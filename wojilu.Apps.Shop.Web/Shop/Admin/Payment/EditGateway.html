@@ -1,0 +1,33 @@
+﻿<div>
+	<div class="adminMainTitle">
+		<div class="adminSidebarTitleInternal">_{edit}</div>
+	</div>
+	<div class="adminMainPanel">
+		<div class="formPanel">
+		
+		
+<form method="post" action="#{ActionLink}" class="ajaxPostForm">
+<div>网关名称：<input name="shopPaymentGateway.Name" type="text" style="width: 250px" value="#{shopPaymentGateway.Name}" /><br/>
+    显示名称：<input name="shopPaymentGateway.DisplayName" type="text" style="width: 250px" value="#{shopPaymentGateway.DisplayName}" /><br/>
+    网关网址：<input name="shopPaymentGateway.Url" type="text" style="width: 400px" value="#{shopPaymentGateway.Url}" /><br/>
+    网关LOGO：<input name="shopPaymentGateway.Logo" type="text" style="width: 400px" value="#{shopPaymentGateway.Logo}" /><br/>
+    是否需要商户邮箱：<label><input name="shopPaymentGateway.EmailAddress" type="checkbox" #{shopPaymentGateway.EmailAddress} /></label><br/>
+    是否需要商户号：<label><input name="shopPaymentGateway.SellerAccount" type="checkbox" #{shopPaymentGateway.SellerAccount} /></label><br/>
+    是否需要第一密钥：<label><input name="shopPaymentGateway.PrimaryKey" type="checkbox" #{shopPaymentGateway.PrimaryKey} /></label><br/>
+    是否需要第二密钥：<label><input name="shopPaymentGateway.SecondKey" type="checkbox" #{shopPaymentGateway.SecondKey} /></label><br/>
+    是否需要密码：<label><input name="shopPaymentGateway.Password" type="checkbox" #{shopPaymentGateway.Password} /></label><br/>
+    是否需要合作伙伴号：<label><input name="shopPaymentGateway.Partner" type="checkbox" #{shopPaymentGateway.Partner} /></label><br/>
+    付款请求：<input name="shopPaymentGateway.RequestType" type="text" style="width: 400px" value="#{shopPaymentGateway.RequestType}" /><br/>
+    网关通知请求：<input name="shopPaymentGateway.NotifyType" type="text" style="width: 400px" value="#{shopPaymentGateway.NotifyType}" /><br/>
+    货币类型：<input name="shopPaymentGateway.SupportedCurrency" type="text" style="width: 300px" value="#{shopPaymentGateway.SupportedCurrency}" /><br/>
+    是否启用：<label><input name="shopPaymentGateway.Enabled" type="checkbox" #{shopPaymentGateway.Enabled} /></label><br />
+    描述：#{Editor}<br/>
+    <input id="Submit1" type="submit" value="_{submit}" class="btn" /></div>
+
+    
+
+</form>
+
+		</div>
+	</div>
+</div>

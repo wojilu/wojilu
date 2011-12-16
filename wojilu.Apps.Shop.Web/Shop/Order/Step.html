@@ -1,0 +1,46 @@
+﻿<script src="~js/wojilu.citylibs.js" language="javascript"></script>
+<script src="~js/wojilu.mallflow.js" language="javascript"></script>
+<div class="step_box" id="step_2"></div>
+#{addressbox}
+#{shippingbox}
+<dl class="cinfo_box">
+    <dt><b>商品清单</b><a class="blue" id="cartLink" href="#{cartLink}">&lt;&lt;返回购物车修改</a></dt>
+    <dd class="cinfo_off" style="border-bottom: 1px solid #eaeaea;">
+        <dl class="cart_box" style="border: 1px solid #eaeaea;">
+            <div style="padding-left: 14px; color: #999; border-bottom: 1px solid #eaeaea; text-align: center;
+                height: 31px; line-height: 31px;">
+                <span class="fl cb_r1 cb_r7" style="text-align: left;">商品</span>
+                <span class="fl cb_r2 cb_r8">单价</span>
+                <span class="fl cb_r3 cb_r9">花费积分</span>
+                <span class="fl cb_r4">数量</span>
+                <span class="fl cb_r5 cb_r10">小计</span>
+                <div class="clear"></div>
+            </div>
+            <dd style="padding-top: 0;">
+                <!-- BEGIN list -->
+                <table width="100%" border="0" cellpadding="0" cellspacing="0" id="goods_#{cart.SKUId}_0_0_0">
+                    <tr>
+                        <td class="cb_r11 zp_td"><a href="#{cart.Url}" target="_blank"><img src="#{cart.ImgSrc}" alt="#{cart.Title}" width="55" height="55" /></a></td>
+                        <td class="cb_r12 zp_td"><a href="#{cart.Url}" target="_blank">#{cart.Title}(#{cart.ItemSKU})</a></td>
+                        <td align="center" class="cb_r13 zp_td"></td>
+                        <td align="center" class="cb_r2 zp_td">#{cart.Price}</td>
+                        <td align="center" class="cb_r3 zp_td">0</td>
+                        <td align="center" class="cb_r4 zp_td">#{cart.Qty}</td>
+                        <td align="center" class="cb_r5 zp_td"><span><b id="subtotal_#{cart.SKUId}_0_0_0">#{cart.TotalSaleAmount}</b></span></td>
+                    </tr>
+                </table>
+                <!-- END list -->
+            </dd>
+        </dl>
+        <ul class="fr cart_sum" style="padding-right: 0;">
+            <li>商品金额：<b id="vwSkuAmount" fee="#{cart.TotalAmount}">¥#{cart.TotalAmount}</b></li>
+            <li>运费：<b id="vwDeliverAmount">¥#{cart.FreightAmount}</b></li>
+            <li><font class="sum_num" id="vwTotalAmount">¥#{cart.TotalAmount}</font></li>
+        </ul>
+        <div class="clear"></div>
+    </dd>
+</dl>
+<dl class="cart_btn">
+    <dt><a class="fr cbtn porder_btn" id="porder_btn">提交订单</a></dt>
+    <dd></dd>
+</dl>

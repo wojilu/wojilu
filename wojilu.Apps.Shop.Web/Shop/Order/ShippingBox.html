@@ -1,0 +1,79 @@
+﻿<dl class="cinfo_box" id="shippaymentbox">
+    <dt><b>配送与付款方式</b><a class="blue" id="ship_modify">[修改]</a><input type="hidden" id="selshipid" value="0" /><input type="hidden" id="selpayid" value="0" /></dt>
+    <dd class="cinfo_off" id="selway_okbox">
+        <table width="100%" border="0" cellpadding="0" cellspacing="0" class="cinfo_tab">
+            <tr>
+                <td width="10%" align="right" valign="middle">
+                    <span>配送方式：</span>
+                </td>
+                <td width="88%" align="left" valign="middle">
+                    <p id="vwshipping"></p>
+                </td>
+            </tr>
+            <tr>
+                <td align="right" valign="middle">
+                    <span>付款方式：</span>
+                </td>
+                <td align="left" valign="middle">
+                    <p id="vwpayment"></p>
+                </td>
+            </tr>
+        </table>
+    </dd>
+    <dd class="cinfo_on" id="selway_editbox">
+        <h1 class="cinfo_subt">
+            配送方式</h1>
+        <table class="cinfo_tab" id="selway_box" width="100%" border="0" cellpadding="0"
+            cellspacing="0">
+            <tbody>
+                <!-- BEGIN devliverlist -->
+                <tr>
+                    <td valign="middle" width="13%" align="left">
+                        <input name="nshippingid" id="shipckt#{devliver.Id}" way="#{devliver.Title}" value="#{devliver.Id}"
+                            fee="#{devliver.Price}" type="radio" />
+                        <label for="shipckt#{devliver.Id}">
+                            #{devliver.Title}</label>
+                    </td>
+                    <td valign="middle" width="46%" align="left">
+                        <span>#{devliver.Description}</span>
+                    </td>
+                    <td valign="middle" width="41%" align="left">
+                        费用：<font>#{devliver.Price}(续：#{devliver.AddPrice})</font>
+                    </td>
+                </tr>
+                <!-- END devliverlist -->
+            </tbody>
+        </table>
+        <h1 class="cinfo_subt">
+            支付方式</h1>
+        <div id="bank_box">
+            <div class="bank_box">
+                <!-- BEGIN paylist -->
+                <div>
+                    <input name="npayid" id="paymntckt#{pay.Id}" way="#{pay.Title}" value="#{pay.Id}"
+                        type="radio">
+                    <label onclick="$(this).prev().click();" for="paymntckt#{pay.Id}">
+                        <img src="#{pay.Logo}" height="39" width="133" title="#{pay.Description}"></label>
+                </div>
+                <!-- END paylist -->
+            </div>
+        </div>
+        <div class="clear">
+        </div>
+        <table width="100%" border="0" cellpadding="0" cellspacing="0" style="margin-top: 20px;">
+            <tr>
+                <td width="20%">
+                    <a class="cbtn addrpay_sbtn" id="payway_sbtn">确认配送与付款方式</a><input type="hidden" name="active_click"
+                        id="active_click" value="0" />
+                </td>
+                <td width="8%">
+                    <a class="cbtn addr_cbtn" id="payway_cbtn">取消</a>
+                </td>
+                <td width="70%" id="pay_btnul">
+                </td>
+            </tr>
+        </table>
+        <div class="clear">
+        </div>
+    </dd>
+</dl>

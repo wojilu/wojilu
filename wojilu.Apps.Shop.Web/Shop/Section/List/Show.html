@@ -1,0 +1,52 @@
+﻿    <div class="skuphoto">
+        <div id="skuphoto"><img src="#{sku.ImgSrc}" border="0" /></div>
+        <div id="zoombar">
+            <ul>
+                <li><img src="#{sku.ThumImg}" title="#{sku.Title}" sourceimg="#{sku.OrgImg}" border="0"></li>
+                <!-- BEGIN albumlist --><li><img src="#{album.ThumImg}" title="#{album.Description}" sourceimg="#{album.ImgSrc}" border="0"></li><!-- END albumlist -->
+            </ul>
+        </div>
+    </div>
+    <div class="skutext">
+        <h1 class="h1title">#{sku.Title}</h1>
+        <span>价格：</span><span class="skuprice">#{sku.SalePrice} #{sku.UnitString}</span><br />
+        <span>克重：</span><span class="">#{sku.Weight}</span><br />
+        <span>_{view}：</span><span class="">#{sku.Hits}</span><br />
+        <span>#{sku.Replies}</span><br />
+        <span>价格：</span><span class="">#{sku.SalePrice} #{sku.UnitString}</span><br />
+        <!-- BEGIN summary -->
+        <div class="skuSummary">_{summary}: #{sku.Summary}</div>
+        <!-- END summary -->
+        <div class="skuSource">#{sku.Tag}</div>
+
+        <div class="skutoolbar">
+        <form action="#{addcartaction}" class="ajaxPostForm autoSubmitForm" method="post">
+            购买数量：<input name="buyQty" type="text" value="#{sku.buyQty}" /><br />
+            商品属性：<input name="buyAttr" type="text" value="#{sku.buyAttr}" /><br />
+            <input name="buySKU" type="hidden" value="#{sku.buySKU}" />
+            <input name="buyId" type="hidden" value="#{sku.buyId}" />
+            <input type="submit" class="btn btnSubmit" value="加入购物车" /><div id="cartResult"></div>
+        </form>
+        <a href="#{addfavurl}">加入收藏夹</a>
+        </div>
+
+    </div>
+    <div class="skuContent" id="skuContent">
+        <div class="skuInfo">
+	        <span>#{sku.Created}</span>
+	        <span class="left10">#{sku.Author}<br />#{sku.Source}</span>
+	        <span class="left10 fontBig" fontTarget="skuContent">_{fontBig}</span>
+	        <span class="fontSmall" fontTarget="skuContent">_{fontSmall}</span>
+	        <span class="left5 print" onclick="window.print();">_{print}</span>
+        </div>
+        #{sku.Content}
+    </div>
+<style>
+    .turnpage { text-align:center;margin:10px 10px 20px 10px;}
+</style>
+
+<script>
+$(document).ready( function() {
+    wojilu.ui.editFontSize();
+});
+</script>

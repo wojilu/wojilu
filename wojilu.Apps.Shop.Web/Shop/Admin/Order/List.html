@@ -1,0 +1,59 @@
+﻿
+<div style="border:0px blue solid;">
+		<table id="dataAdminList" data-action="#{OperationUrl}" border="0" cellpadding="2" cellspacing="0" style="width: 100%;">
+            <tr class="adminBar">
+                <td colspan="6">
+                    <b>订单列表</b>
+                    <span class="menuMore left20" list="batchAdmin">批量操作<img src="~img/downWhite.gif" />
+                    <ul id="batchAdmin" class="menuItems" style="width:130px">
+                        <li class="btnCmd" cmd="delivertrue"><img src="~img/doc.gif" /> 批量发货</li>
+                        <li class="btnCmd" cmd="deletetrue"><img src="~img/s/delete.png" /> 批量删除</li>
+                    </ul></span>
+                
+                </td>
+                <td colspan="6" style="text-align:right; padding-right:10px;"><form method="get" action="#{ActionLink}">:{searchTitle}: <input name="q" type="text" value="#{searchKey}" /><input id="Submit1" type="submit" value="_{submit}" class="btn btns" /></form></td>
+            </tr>
+			<tr class="tableHeader">
+	            <td align="center" style="width:40px"><input id="selectAll" class="selectAll" type="checkbox" title="_{checkAll}" /></td>
+				<td style="width:120px">_{id}</td>
+				<td>商品</td>
+				<td>总金额</td>
+				<td>总成本</td>
+				<td>收货人</td>
+				<td>收货省、市</td>
+				<td>积分</td>
+				<td>用户</td>
+				<td>日期</td>
+				<td>状态</td>
+				<td>_{admin}</td>
+			</tr>
+			<!-- BEGIN list -->
+			<tr class="tableItems">
+	            <td align="center"><input name="selectThis" id="checkbox#{order.Id}" type="checkbox" class="selectSingle"> </td>
+		        <td>#{order.OrderNum}</td>
+				<td>
+				    <ul>
+			        <!-- BEGIN itemlist -->
+				        <li style="border-bottom:#DDDDDD 1px solid;padding:5px;"><a href="#{item.Url}">#{item.Title}(#{item.ItemSKU})</a>[Buy Qty:#{item.BuyQty}]</li>
+			        <!-- END itemlist -->
+				    </ul>
+				</td>
+				<td>#{order.TotalSaleAmount}</td>
+				<td>#{order.TotalCostAmount}</td>
+				<td>#{order.ShipTo}</td>
+				<td>#{order.ShipArea}</td>
+				<td>#{order.TotalPoint}</td>
+				<td>#{order.Buyer}</td>
+				<td>#{order.Created}</td>
+				<td>#{order.OrderProcess}</td>
+				<td>
+					<a href="#{order.EditUrl}"><img src="~img/edit.gif" /> _{edit}</a>
+					<span href="#{order.DeleteUrl}" class="deleteCmd left10"><img src="~img/delete.gif" /> _{delete}</span>
+				</td>
+			</tr>
+			<!-- END list -->
+	        <tr>
+	            <td colspan="12">#{page}</td>
+	        </tr>
+		</table>
+</div>

@@ -1,0 +1,117 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{D04E34B3-B161-4F6F-983B-AD7F68DF682E}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>wojilu.Apps.Shop</RootNamespace>
+    <AssemblyName>wojilu.Apps.Shop</AssemblyName>
+    <TargetFrameworkVersion>v2.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Domain\ShopApp.cs" />
+    <Compile Include="Domain\ShopBrand.cs" />
+    <Compile Include="Domain\ShopCategory.cs" />
+    <Compile Include="Domain\ShopCustomTemplate.cs" />
+    <Compile Include="Domain\ShopDeliver.cs" />
+    <Compile Include="Domain\ShopDigg.cs" />
+    <Compile Include="Domain\ShopItem.cs" />
+    <Compile Include="Domain\ShopItemAttachment.cs" />
+    <Compile Include="Domain\ShopItemAttachmentTemp.cs" />
+    <Compile Include="Domain\ShopItemComment.cs" />
+    <Compile Include="Domain\ShopItemImg.cs" />
+    <Compile Include="Domain\ShopItemSection.cs" />
+    <Compile Include="Domain\ShopOrder.cs" />
+    <Compile Include="Domain\ShopPayment.cs" />
+    <Compile Include="Domain\ShoppingCart.cs" />
+    <Compile Include="Domain\ShopSection.cs" />
+    <Compile Include="Domain\ShopSectionStyle.cs" />
+    <Compile Include="Domain\ShopSectionTemplate.cs" />
+    <Compile Include="Domain\ShopSectionType.cs" />
+    <Compile Include="Domain\ShopSetting.cs" />
+    <Compile Include="Domain\ShopShare.cs" />
+    <Compile Include="Domain\ShopSkin.cs" />
+    <Compile Include="Domain\ShopSupplier.cs" />
+    <Compile Include="Enum\ItemMethod.cs" />
+    <Compile Include="Enum\OrderStatus.cs" />
+    <Compile Include="Enum\PickStatus.cs" />
+    <Compile Include="Interface\IAttachmentService.cs" />
+    <Compile Include="Interface\ISectionBinder.cs" />
+    <Compile Include="Interface\IShopBrandService.cs" />
+    <Compile Include="Interface\IShopCartService.cs" />
+    <Compile Include="Interface\IShopCategoryService.cs" />
+    <Compile Include="Interface\IShopCustomTemplateService.cs" />
+    <Compile Include="Interface\IShopDeliverService.cs" />
+    <Compile Include="Interface\IShopItemImgService.cs" />
+    <Compile Include="Interface\IShopItemService.cs" />
+    <Compile Include="Interface\IShopOrderService.cs" />
+    <Compile Include="Interface\IShopPaymentService.cs" />
+    <Compile Include="Interface\IShopSectionService.cs" />
+    <Compile Include="Interface\IShopSectionTemplateService.cs" />
+    <Compile Include="Interface\IShopSectionTypeService.cs" />
+    <Compile Include="Interface\IShopSupplierService.cs" />
+    <Compile Include="Interface\ISysItemService.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Service\AttachmentService.cs" />
+    <Compile Include="Service\ShopBrandService.cs" />
+    <Compile Include="Service\ShopCartService.cs" />
+    <Compile Include="Service\ShopCategoryService.cs" />
+    <Compile Include="Service\ShopCustomTemplateService.cs" />
+    <Compile Include="Service\ShopDeliverService.cs" />
+    <Compile Include="Service\ShopItemHomeService.cs" />
+    <Compile Include="Service\ShopItemImgService.cs" />
+    <Compile Include="Service\ShopItemService.cs" />
+    <Compile Include="Service\ShopOrderService.cs" />
+    <Compile Include="Service\ShopPaymentService.cs" />
+    <Compile Include="Service\ShopSectionService.cs" />
+    <Compile Include="Service\ShopSectionTemplateService.cs" />
+    <Compile Include="Service\ShopSectionTypeService.cs" />
+    <Compile Include="Service\ShopSupplierService.cs" />
+    <Compile Include="Service\SysItemService.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\wojilu.Core\wojilu.Core.csproj">
+      <Project>{5D4E912F-B5A1-4E58-BFE1-62FCD30CC9E6}</Project>
+      <Name>wojilu.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\wojilu\wojilu.csproj">
+      <Project>{5912B6E1-6099-4392-9A67-AFD3A8AA4343}</Project>
+      <Name>wojilu</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
