@@ -24,6 +24,7 @@ using wojilu.Common.Menus.Interface;
 using wojilu.Common.MemberApp.Interface;
 using wojilu.Common.Money.Interface;
 using wojilu.Common.Money.Domain;
+using System.Web.Security;
 
 namespace wojilu.Members.Users.Service {
 
@@ -62,6 +63,10 @@ namespace wojilu.Members.Users.Service {
 
             User user = GetByName( name );
             if (user == null) return null;
+
+            //等待加设置，是否使用Membership验证用户
+            if (Membership.ValidateUser(name, pwd))
+                return user;
 
             String hashedPwd = HashPwd( pwd, user.PwdSalt );
             return user.Pwd == hashedPwd ? user : null;

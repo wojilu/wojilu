@@ -49,25 +49,23 @@ namespace wojilu.AuthenticationModule
                 if (openService.UserIsLogin(context) != true)
                 {
                     string username = context.User.Identity.Name;
-                    //        response.Write("username=" + username);
 
-                    if (openService.UserIsRegister(username, context))
-                    {
-                        openService.UserLogin(username, context);
-                        this.UpdateUserProfile(username);
-                    }
-                    else
+                    //           response.Write("username=" + username);
+
+                    if (!openService.UserIsRegister(username))
                     {
                         string userPwd = GetRandomNumberString(16);
                         string userEmail = string.Format("{0}@lcsyzx.cn", username);
                         openService.UserRegister(username, userPwd, userEmail, null, "home,blog,photo,microblog,friend,visitor,forumpost,about,feedback,share");
                     }
+                    openService.UserLogin(username, context);
+                    this.UpdateUserProfile(username);
                 }
             }
             else
             {
-                //       response.Write(" IsAuthenticated = false ");
-                openService.UserLogout(context);
+                //         response.Write(" IsAuthenticated = false ");
+                //        openService.UserLogout(context);
             }
         }
 
@@ -91,9 +89,10 @@ namespace wojilu.AuthenticationModule
         /// <param name="usr"></param>
         private void UpdateUserProfile(string username)
         {
+            OpenService openService = new OpenService();
             UserProfile userProfile = new UserProfile();//(UserProfile)ProfileBase.Create(usr.UserName, true);
             userProfile.Initialize(username, true);
-            wojilu.Members.Users.Domain.User usr = new OpenService().getUserByName(username);
+            wojilu.Members.Users.Domain.User usr = openService.getUserByName(username);
             //UserName  LoginUserName  FullName  UserGroup  CurJi  CurBh  CurBnbh
             if (userProfile.UserGroup == "学生")
                 usr.RealName = string.Format("{0}({1})班{2}", userProfile.CurJi, userProfile.CurBh, userProfile.FullName);
@@ -102,9 +101,13 @@ namespace wojilu.AuthenticationModule
             else
                 usr.RealName = string.Format("{0}{1}", userProfile.UserGroup, userProfile.FullName);
 
-            usr.Pwd = GetRandomNumberString(16);
-            if (usr.Name != "admin")
-                usr.update();
+
+            if (username == "admin")
+                openService.UserChangePwd("admin","admin");
+            else
+                usr.Pwd = GetRandomNumberString(6);
+
+            usr.update();
             //    db.update(usr, "RealName");
             //    db.update(usr, "Pwd");
         }

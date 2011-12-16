@@ -70,7 +70,7 @@ namespace wojilu.Open {
         /// <param name="userName">UserName</param>
         /// <param name="context">Current HttpContext </param>
         /// <returns></returns>
-        public Boolean UserIsRegister(String userName, HttpContext context)
+        public Boolean UserIsRegister(String userName)
         {
             return User.find("Name=:name").set("name", userName).count() > 0;
         }
