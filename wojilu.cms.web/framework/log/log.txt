@@ -1,0 +1,80 @@
+﻿2011/12/4 14:05:11 error wojilu.Web.GlobalApp.AppGlobalLogger - url=http://127.0.0.1/cms/Admin/Login/Login.aspx?returnUrl=/cms/Admin/Article/Index.aspx
+ex.Message=未能加载文件或程序集“wojilu.Core”或它的某一个依赖项。系统找不到指定的文件。
+ex.Source=mscorlib
+ex.StackTrace=   在 System.RuntimeTypeHandle._GetTypeByName(String name, Boolean throwOnError, Boolean ignoreCase, Boolean reflectionOnly, StackCrawlMark& stackMark, Boolean loadTypeFromPartialName)
+   在 System.RuntimeTypeHandle.GetTypeByName(String name, Boolean throwOnError, Boolean ignoreCase, Boolean reflectionOnly, StackCrawlMark& stackMark)
+   在 System.RuntimeType.PrivateGetType(String typeName, Boolean throwOnError, Boolean ignoreCase, Boolean reflectionOnly, StackCrawlMark& stackMark)
+   在 System.Type.GetType(String typeName, Boolean throwOnError, Boolean ignoreCase)
+   在 System.Web.Compilation.BuildManager.GetType(String typeName, Boolean throwOnError, Boolean ignoreCase)
+   在 System.Web.Configuration.ConfigUtil.GetType(String typeName, String propertyName, ConfigurationElement configElement, XmlNode node, Boolean checkAptcaBit, Boolean ignoreCase)
+ 
+2011/12/4 14:05:15 error wojilu.Web.GlobalApp.AppGlobalLogger - url=http://127.0.0.1/cms/Admin/Login/Login.aspx?returnUrl=/cms/Admin/Article/Index.aspx
+ex.Message=未能加载文件或程序集“wojilu.Core”或它的某一个依赖项。系统找不到指定的文件。
+ex.Source=mscorlib
+ex.StackTrace=   在 System.RuntimeTypeHandle._GetTypeByName(String name, Boolean throwOnError, Boolean ignoreCase, Boolean reflectionOnly, StackCrawlMark& stackMark, Boolean loadTypeFromPartialName)
+   在 System.RuntimeTypeHandle.GetTypeByName(String name, Boolean throwOnError, Boolean ignoreCase, Boolean reflectionOnly, StackCrawlMark& stackMark)
+   在 System.RuntimeType.PrivateGetType(String typeName, Boolean throwOnError, Boolean ignoreCase, Boolean reflectionOnly, StackCrawlMark& stackMark)
+   在 System.Type.GetType(String typeName, Boolean throwOnError, Boolean ignoreCase)
+   在 System.Web.Compilation.BuildManager.GetType(String typeName, Boolean throwOnError, Boolean ignoreCase)
+   在 System.Web.Configuration.ConfigUtil.GetType(String typeName, String propertyName, ConfigurationElement configElement, XmlNode node, Boolean checkAptcaBit, Boolean ignoreCase)
+ 
+2011/12/4 14:05:17 error wojilu.Web.GlobalApp.AppGlobalLogger - url=http://127.0.0.1/cms/Admin/Login/Login.aspx?returnUrl=/cms/Admin/Article/Index.aspx
+ex.Message=未能加载文件或程序集“wojilu.Core”或它的某一个依赖项。系统找不到指定的文件。
+ex.Source=mscorlib
+ex.StackTrace=   在 System.RuntimeTypeHandle._GetTypeByName(String name, Boolean throwOnError, Boolean ignoreCase, Boolean reflectionOnly, StackCrawlMark& stackMark, Boolean loadTypeFromPartialName)
+   在 System.RuntimeTypeHandle.GetTypeByName(String name, Boolean throwOnError, Boolean ignoreCase, Boolean reflectionOnly, StackCrawlMark& stackMark)
+   在 System.RuntimeType.PrivateGetType(String typeName, Boolean throwOnError, Boolean ignoreCase, Boolean reflectionOnly, StackCrawlMark& stackMark)
+   在 System.Type.GetType(String typeName, Boolean throwOnError, Boolean ignoreCase)
+   在 System.Web.Compilation.BuildManager.GetType(String typeName, Boolean throwOnError, Boolean ignoreCase)
+   在 System.Web.Configuration.ConfigUtil.GetType(String typeName, String propertyName, ConfigurationElement configElement, XmlNode node, Boolean checkAptcaBit, Boolean ignoreCase)
+ 
+2011/12/4 14:05:18 error wojilu.Web.GlobalApp.AppGlobalLogger - url=http://127.0.0.1/cms/Admin/Login/Login.aspx?returnUrl=/cms/Admin/Article/Index.aspx
+ex.Message=未能加载文件或程序集“wojilu.Core”或它的某一个依赖项。系统找不到指定的文件。
+ex.Source=mscorlib
+ex.StackTrace=   在 System.RuntimeTypeHandle._GetTypeByName(String name, Boolean throwOnError, Boolean ignoreCase, Boolean reflectionOnly, StackCrawlMark& stackMark, Boolean loadTypeFromPartialName)
+   在 System.RuntimeTypeHandle.GetTypeByName(String name, Boolean throwOnError, Boolean ignoreCase, Boolean reflectionOnly, StackCrawlMark& stackMark)
+   在 System.RuntimeType.PrivateGetType(String typeName, Boolean throwOnError, Boolean ignoreCase, Boolean reflectionOnly, StackCrawlMark& stackMark)
+   在 System.Type.GetType(String typeName, Boolean throwOnError, Boolean ignoreCase)
+   在 System.Web.Compilation.BuildManager.GetType(String typeName, Boolean throwOnError, Boolean ignoreCase)
+   在 System.Web.Configuration.ConfigUtil.GetType(String typeName, String propertyName, ConfigurationElement configElement, XmlNode node, Boolean checkAptcaBit, Boolean ignoreCase)
+ 
+2011/12/4 14:05:31 error wojilu.Web.GlobalApp.AppGlobalLogger - url=http://127.0.0.1/cms/Admin/Article/Index.aspx
+ex.Message=未能加载文件或程序集“wojilu.Core”或它的某一个依赖项。系统找不到指定的文件。
+ex.Source=mscorlib
+ex.StackTrace=   在 System.RuntimeTypeHandle._GetTypeByName(String name, Boolean throwOnError, Boolean ignoreCase, Boolean reflectionOnly, StackCrawlMark& stackMark, Boolean loadTypeFromPartialName)
+   在 System.RuntimeTypeHandle.GetTypeByName(String name, Boolean throwOnError, Boolean ignoreCase, Boolean reflectionOnly, StackCrawlMark& stackMark)
+   在 System.RuntimeType.PrivateGetType(String typeName, Boolean throwOnError, Boolean ignoreCase, Boolean reflectionOnly, StackCrawlMark& stackMark)
+   在 System.Type.GetType(String typeName, Boolean throwOnError, Boolean ignoreCase)
+   在 System.Web.Compilation.BuildManager.GetType(String typeName, Boolean throwOnError, Boolean ignoreCase)
+   在 System.Web.Configuration.ConfigUtil.GetType(String typeName, String propertyName, ConfigurationElement configElement, XmlNode node, Boolean checkAptcaBit, Boolean ignoreCase)
+ 
+2011/12/4 14:06:06 error wojilu.Web.GlobalApp.AppGlobalLogger - url=http://127.0.0.1/cms/Admin/Login/Login.aspx
+ex.Message=未能加载文件或程序集“wojilu.Core”或它的某一个依赖项。系统找不到指定的文件。
+ex.Source=mscorlib
+ex.StackTrace=   在 System.RuntimeTypeHandle._GetTypeByName(String name, Boolean throwOnError, Boolean ignoreCase, Boolean reflectionOnly, StackCrawlMark& stackMark, Boolean loadTypeFromPartialName)
+   在 System.RuntimeTypeHandle.GetTypeByName(String name, Boolean throwOnError, Boolean ignoreCase, Boolean reflectionOnly, StackCrawlMark& stackMark)
+   在 System.RuntimeType.PrivateGetType(String typeName, Boolean throwOnError, Boolean ignoreCase, Boolean reflectionOnly, StackCrawlMark& stackMark)
+   在 System.Type.GetType(String typeName, Boolean throwOnError, Boolean ignoreCase)
+   在 System.Web.Compilation.BuildManager.GetType(String typeName, Boolean throwOnError, Boolean ignoreCase)
+   在 System.Web.Configuration.ConfigUtil.GetType(String typeName, String propertyName, ConfigurationElement configElement, XmlNode node, Boolean checkAptcaBit, Boolean ignoreCase)
+ 
+2011/12/4 14:06:44 error wojilu.Web.GlobalApp.AppGlobalLogger - url=http://127.0.0.1/cms/Admin/Login/Login.aspx
+ex.Message=未能加载文件或程序集“wojilu.Core”或它的某一个依赖项。系统找不到指定的文件。
+ex.Source=mscorlib
+ex.StackTrace=   在 System.RuntimeTypeHandle._GetTypeByName(String name, Boolean throwOnError, Boolean ignoreCase, Boolean reflectionOnly, StackCrawlMark& stackMark, Boolean loadTypeFromPartialName)
+   在 System.RuntimeTypeHandle.GetTypeByName(String name, Boolean throwOnError, Boolean ignoreCase, Boolean reflectionOnly, StackCrawlMark& stackMark)
+   在 System.RuntimeType.PrivateGetType(String typeName, Boolean throwOnError, Boolean ignoreCase, Boolean reflectionOnly, StackCrawlMark& stackMark)
+   在 System.Type.GetType(String typeName, Boolean throwOnError, Boolean ignoreCase)
+   在 System.Web.Compilation.BuildManager.GetType(String typeName, Boolean throwOnError, Boolean ignoreCase)
+   在 System.Web.Configuration.ConfigUtil.GetType(String typeName, String propertyName, ConfigurationElement configElement, XmlNode node, Boolean checkAptcaBit, Boolean ignoreCase)
+ 
+2011/12/4 14:06:49 error wojilu.Web.GlobalApp.AppGlobalLogger - url=http://127.0.0.1/cms/Admin/Login/Login.aspx
+ex.Message=未能加载文件或程序集“wojilu.Core”或它的某一个依赖项。系统找不到指定的文件。
+ex.Source=mscorlib
+ex.StackTrace=   在 System.RuntimeTypeHandle._GetTypeByName(String name, Boolean throwOnError, Boolean ignoreCase, Boolean reflectionOnly, StackCrawlMark& stackMark, Boolean loadTypeFromPartialName)
+   在 System.RuntimeTypeHandle.GetTypeByName(String name, Boolean throwOnError, Boolean ignoreCase, Boolean reflectionOnly, StackCrawlMark& stackMark)
+   在 System.RuntimeType.PrivateGetType(String typeName, Boolean throwOnError, Boolean ignoreCase, Boolean reflectionOnly, StackCrawlMark& stackMark)
+   在 System.Type.GetType(String typeName, Boolean throwOnError, Boolean ignoreCase)
+   在 System.Web.Compilation.BuildManager.GetType(String typeName, Boolean throwOnError, Boolean ignoreCase)
+   在 System.Web.Configuration.ConfigUtil.GetType(String typeName, String propertyName, ConfigurationElement configElement, XmlNode node, Boolean checkAptcaBit, Boolean ignoreCase)
+ 

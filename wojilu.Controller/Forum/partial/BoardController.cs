@@ -10,6 +10,9 @@ using wojilu.Web.Mvc;
 using wojilu.Web.Mvc.Attr;
 using wojilu.Apps.Forum.Domain;
 
+using wojilu.Config;
+using wojilu.Members.Sites.Domain;
+
 namespace wojilu.Web.Controller.Forum {
 
     public partial class BoardController : ControllerBase {
@@ -71,10 +74,12 @@ namespace wojilu.Web.Controller.Forum {
 
         private String getStatusImg( ForumBoard board ) {
 
+            SiteSkin skin = cdb.findById<SiteSkin>(config.Instance.Site.SkinId);
+            string[] s = skin.StylePath.Split('/');
             if (strUtil.HasText( board.Logo )) return sys.Path.GetPhotoOriginal( board.Logo );
 
-            if (board.TodayPosts > 0) return strUtil.Join( sys.Path.Skin, "apps/forum/normalNew.gif" );
-            return strUtil.Join( sys.Path.Skin, "apps/forum/normal.gif" );
+            if (board.TodayPosts > 0) return strUtil.Join(strUtil.Join(sys.Path.SiteSkin,s[0]), "/normalNew.gif");
+            return strUtil.Join(strUtil.Join(sys.Path.SiteSkin, s[0]), "/normal.gif");
         }
 
         private String getDescription( ForumBoard board ) {
