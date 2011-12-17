@@ -16,27 +16,30 @@ using wojilu.Common.Resource;
 using wojilu.Common.Security;
 using wojilu.Web;
 
-namespace wojilu.Members.Users.Domain {
+namespace wojilu.Members.Users.Domain
+{
 
     [Table("Users")]
     [Serializable]
-    public class User : ObjectBase<User>, IUser, IShareData, IHits {
+    public class User : ObjectBase<User>, IUser, IShareData, IHits
+    {
 
-        public String GetUrl() {
+        public String GetUrl()
+        {
             return "space";
         }
 
         public User() { }
-        public User( int id ) { Id = id; }
+        public User(int id) { Id = id; }
 
-        [Column( Length = 20 )]
+        [Column(Length = 20)]
         public String Name { get; set; }
-        [Column( Length = 100 )]
+        [Column(Length = 100)]
         public String Pwd { get; set; }
         public String PwdSalt { get; set; }
-        [Column( Length = 20 )]
+        [Column(Length = 20)]
         public String RealName { get; set; }
-        [Column( Length = 20 )]
+        [Column(Length = 20)]
         public String Title { get; set; }
         public String Url { get; set; }
 
@@ -53,9 +56,9 @@ namespace wojilu.Members.Users.Domain {
 
         public int ProvinceId1 { get; set; }
         public int ProvinceId2 { get; set; }
-        [Column( Length = 10 )]
+        [Column(Length = 10)]
         public String City1 { get; set; }
-        [Column( Length = 10 )]
+        [Column(Length = 10)]
         public String City2 { get; set; }
 
         public int Gender { get; set; }
@@ -68,7 +71,8 @@ namespace wojilu.Members.Users.Domain {
         public int BirthMonth { get; set; }
         public int BirthDay { get; set; }
 
-        public int getAge () {
+        public int getAge()
+        {
             return DateTime.Now.Year - BirthYear;
         }
 
@@ -93,7 +97,7 @@ namespace wojilu.Members.Users.Domain {
 
         public int Hits { get; set; }
 
-        [Column( Length = 30 )]
+        [Column(Length = 30)]
         public String LastLoginIp { get; set; }
         public DateTime LastLoginTime { get; set; }
         public DateTime LastUpdateTime { get; set; }
@@ -111,18 +115,23 @@ namespace wojilu.Members.Users.Domain {
         private int _roleId;
         private String _pic;
 
-        [Column( Length = 150 )]
-        public String Pic {
-            get {
-                if (strUtil.IsNullOrEmpty( _pic )) return UserFactory.Guest.Pic;
+        [Column(Length = 150)]
+        public String Pic
+        {
+            get
+            {
+                if (strUtil.IsNullOrEmpty(_pic)) return UserFactory.Guest.Pic;
                 return _pic;
             }
             set { _pic = value; }
         }
 
-        public int RoleId {
-            get {
-                if (this.Id > 0 && _roleId == 0) {
+        public int RoleId
+        {
+            get
+            {
+                if (this.Id > 0 && _roleId == 0)
+                {
                     _roleId = SiteRole.NormalMember.Id;
                 }
                 return _roleId;
@@ -133,35 +142,60 @@ namespace wojilu.Members.Users.Domain {
         //----------------------------------------------------------------
 
         [NotSave]
-        public Boolean IsRegisterUser {
+        public Boolean IsRegisterUser
+        {
             get { return this.Id > 0; }
+        }
+
+        /// <summary>
+        /// 显示的名称：UserName用户名，TrueName真实姓名
+        /// </summary>
+        [NotSave]
+        public string DisplayName
+        {
+            get
+            {
+                if (config.Instance.Site.UserDisplayName == Config.UserDisplayNameType.RealName && String.IsNullOrEmpty(this.RealName) != true )
+                    return this.RealName;
+                else if (config.Instance.Site.UserDisplayName == Config.UserDisplayNameType.Name)
+                    return this.Name;
+                else if (String.IsNullOrEmpty(this.RealName) != true)
+                    return this.RealName;
+                else
+                    return this.Name;
+            }
         }
 
         //----------------------------------------------------------------
 
 
         [NotSave]
-        public String PicMedium {
-            get { return sys.Path.GetAvatarThumb( this.Pic, ThumbnailType.Medium ); }
+        public String PicMedium
+        {
+            get { return sys.Path.GetAvatarThumb(this.Pic, ThumbnailType.Medium); }
         }
 
         [NotSave]
-        public String PicBig {
-            get { return sys.Path.GetAvatarThumb( this.Pic, ThumbnailType.Big ); }
+        public String PicBig
+        {
+            get { return sys.Path.GetAvatarThumb(this.Pic, ThumbnailType.Big); }
         }
 
         [NotSave]
-        public String PicOriginal {
-            get { return sys.Path.GetAvatarOriginal( this.Pic ); }
+        public String PicOriginal
+        {
+            get { return sys.Path.GetAvatarOriginal(this.Pic); }
         }
 
         [NotSave]
-        public String PicSmall {
-            get { return sys.Path.GetAvatarThumb( this.Pic ); }
+        public String PicSmall
+        {
+            get { return sys.Path.GetAvatarThumb(this.Pic); }
         }
 
-        public Boolean HasUploadPic() {
-            if (strUtil.IsNullOrEmpty( this.Pic )) return false;
+        public Boolean HasUploadPic()
+        {
+            if (strUtil.IsNullOrEmpty(this.Pic)) return false;
             if (this.Pic == UserFactory.Guest.Pic) return false;
             return true;
         }
@@ -169,8 +203,9 @@ namespace wojilu.Members.Users.Domain {
         //----------------------------------------------------------------
 
         [NotSave]
-        public String GenderString {
-            get { return AppResource.Gender.GetName( this.Gender ); }
+        public String GenderString
+        {
+            get { return AppResource.Gender.GetName(this.Gender); }
         }
 
         [NotSave]
@@ -178,10 +213,13 @@ namespace wojilu.Members.Users.Domain {
 
         private MemberProfile _profile;
         [NotSave]
-        public MemberProfile Profile {
-            get {
-                if (_profile == null) {
-                    _profile = MemberProfile.findById( ProfileId );
+        public MemberProfile Profile
+        {
+            get
+            {
+                if (_profile == null)
+                {
+                    _profile = MemberProfile.findById(ProfileId);
                 }
                 return _profile;
             }
@@ -190,10 +228,13 @@ namespace wojilu.Members.Users.Domain {
         private SiteRole _role;
 
         [NotSave]
-        public SiteRole Role {
-            get {
-                if (_role == null) {
-                    _role = SiteRole.GetById( this.Id, RoleId );
+        public SiteRole Role
+        {
+            get
+            {
+                if (_role == null)
+                {
+                    _role = SiteRole.GetById(this.Id, RoleId);
                 }
                 return _role;
             }
@@ -202,38 +243,47 @@ namespace wojilu.Members.Users.Domain {
         private SiteRank _siteRank;
 
         [NotSave]
-        public SiteRank Rank {
-            get {
-                if (_siteRank == null) {
-                    _siteRank = SiteRank.GetById( this.RankId );
+        public SiteRank Rank
+        {
+            get
+            {
+                if (_siteRank == null)
+                {
+                    _siteRank = SiteRank.GetById(this.RankId);
                 }
                 return _siteRank;
             }
         }
 
-        public IShareInfo GetShareInfo() {
-            return new MemberFeed( this );
+        public IShareInfo GetShareInfo()
+        {
+            return new MemberFeed(this);
             //return null;
         }
 
         // TODO 个人空间所具有的角色
-        public IList GetRoles() {
+        public IList GetRoles()
+        {
             return new ArrayList();
         }
 
-        public IRole GetUserRole( IMember user ) {
+        public IRole GetUserRole(IMember user)
+        {
             return null;
         }
 
-        public IRole GetAdminRole() {
+        public IRole GetAdminRole()
+        {
             return null;
         }
 
         // 在 null object 模式下保存真实的ID
         private int _realId;
         [NotSave]
-        public int RealId {
-            get {
+        public int RealId
+        {
+            get
+            {
                 if (_realId <= 0) return this.Id;
                 return _realId;
             }

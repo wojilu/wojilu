@@ -10,7 +10,7 @@
                         <td style="width:120px;vertical-align:top; padding:5px 20px 0px 5px;"><img src="#{user.Pic}" style="border:1px #efefef solid;" /></td>
                         <td style="vertical-align:top;">
                             <div>
-                                <div style=" float:left; font-size:22px; font-weight:bold; margin:0px 0px 10px 0px;">#{user.Name}</div>
+                                <div style=" float:left; font-size:22px; font-weight:bold; margin:0px 0px 10px 0px;">#{user.DisplayName}</div>
                                 <div style="float:right; margin:10px 10px 0px 0px;">#{adminBlogCmd}</div>
                                 <div class="clear"></div>
                             </div>
@@ -79,12 +79,12 @@
 		        		
 		    <div>
     			
-                <div style="margin:30px 10px 5px 10px; font-weight:bold; border-bottom:1px #ccc solid; padding:5px 10px;">#{user.Name} 的粉丝</div>
+                <div style="margin:30px 10px 5px 10px; font-weight:bold; border-bottom:1px #ccc solid; padding:5px 10px;">#{user.DisplayName} 的粉丝</div>
              
 			    <ul class="userAvatar" style="width:230px; margin-left:10px">
 				    <!-- BEGIN users --><li style="margin-right:5px;">
 				    <a href="#{user.Link}"><img src="#{user.Face}"/></a>
-				    <div><a href="#{user.Link}">#{user.Name}</a></div></li>
+				    <div><a href="#{user.Link}">#{user.DisplayName}</a></div></li>
 				    <!-- END users -->		
 			    </ul>
 			    <div class="clear"></div>
@@ -96,7 +96,7 @@
 			    <ul class="userAvatar" style="width:220px; margin-left:10px">
 				    <!-- BEGIN visitor --><li style="margin-right:5px;">
 				    <a href="#{user.Link}"><img src="#{user.Face}"/></a>
-				    <div><a href="#{user.Link}">#{user.Name}</a></div></li>
+				    <div><a href="#{user.Link}">#{user.DisplayName}</a></div></li>
 				    <!-- END visitor -->		
 			    </ul>
 			    <div class="clear"></div>

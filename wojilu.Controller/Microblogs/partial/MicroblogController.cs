@@ -35,6 +35,7 @@ namespace wojilu.Web.Controller.Microblogs {
 
             set( "myCommentLink", to( new My.MicroblogCommentsController().My ) );
 
+            set("user.DisplayName", user.DisplayName);
             set( "user.Name", user.Name );
             set( "user.Pic", user.PicMedium );
             set( "user.PicSmall", user.PicSmall );
@@ -206,14 +207,14 @@ namespace wojilu.Web.Controller.Microblogs {
         private static void bindUserInfo( IBlock block, Microblog blog, Boolean showUserFace ) {
             IBlock ufBlock = block.GetBlock( "userFace" );
             if (showUserFace) {
-
+                ufBlock.Set("blog.DisplayName", blog.User.DisplayName);
                 ufBlock.Set( "blog.UserName", blog.User.Name );
                 ufBlock.Set( "blog.UserFace", blog.User.PicSmall );
                 ufBlock.Set( "blog.UserLink", alink.ToUserMicroblog( blog.User ) );
 
                 ufBlock.Next();
 
-                block.Set( "userNameInfo", string.Format( "<a href=\"{0}\">{1}</a>: ", alink.ToUserMicroblog( blog.User ), blog.User.Name ) );
+                block.Set( "userNameInfo", string.Format( "<a href=\"{0}\">{1}</a>: ", alink.ToUserMicroblog( blog.User ), blog.User.DisplayName ) );
             }
             else {
                 block.Set( "userNameInfo", "" );
@@ -292,6 +293,7 @@ namespace wojilu.Web.Controller.Microblogs {
 
             IBlock block = getBlock( blockName );
             foreach (User user in users) {
+                block.Set("user.DisplayName", user.DisplayName);
                 block.Set( "user.Name", user.Name );
                 block.Set( "user.Face", user.PicSmall );
                 block.Set( "user.Link", alink.ToUserMicroblog( user ) );

@@ -28,6 +28,7 @@ namespace AuthenticationModuleTestWebsite.Controllers
         {
             if (ModelState.IsValid)
             {
+                //Membership.ValidateUser
                 if (Membership.ValidateUser(model.UserName, model.Password))
                 {
                     FormsAuthentication.SetAuthCookie(model.UserName, model.RememberMe);

@@ -23,7 +23,7 @@
 	            <table style="margin:20px;">
                     <tr>
                         <td rowspan="2"><a href="#{user.MLink}"><img src="#{user.PicSmall}" /></a></td>
-                        <td><a href="#{user.MLink}" style="font-size:14px; margin-left:5px;">#{user.Name}</a></td>
+                        <td><a href="#{user.MLink}" style="font-size:14px; margin-left:5px;">#{user.DisplayName}</a></td>
                     </tr>
                     <tr><td>&nbsp;</td></tr>
                 </table>
@@ -54,12 +54,12 @@
     		
 		    <div>
     			
-                <div style="margin:50px 10px 5px 10px; font-weight:bold; border-bottom:1px #ccc solid; padding:5px 10px;">#{user.Name} 的粉丝</div>
+                <div style="margin:50px 10px 5px 10px; font-weight:bold; border-bottom:1px #ccc solid; padding:5px 10px;">#{user.DisplayName} 的粉丝</div>
              
 			    <ul class="userAvatar" style="width:230px; margin-left:10px">
 				    <!-- BEGIN users --><li style="margin-right:5px;">
 				    <a href="#{user.Link}"><img src="#{user.Face}"/></a>
-				    <div><a href="#{user.Link}">#{user.Name}</a></div></li>
+				    <div><a href="#{user.Link}">#{user.DisplayName}</a></div></li>
 				    <!-- END users -->		
 			    </ul>
 			    <div class="clear"></div>
@@ -71,7 +71,7 @@
 			    <ul class="userAvatar" style="width:220px; margin-left:10px">
 				    <!-- BEGIN visitor --><li style="margin-right:5px;">
 				    <a href="#{user.Link}"><img src="#{user.Face}"/></a>
-				    <div><a href="#{user.Link}">#{user.Name}</a></div></li>
+				    <div><a href="#{user.Link}">#{user.DisplayName}</a></div></li>
 				    <!-- END visitor -->		
 			    </ul>
 			    <div class="clear"></div>
