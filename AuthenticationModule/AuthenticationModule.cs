@@ -80,7 +80,8 @@ namespace wojilu.AuthenticationModule
             //HttpContext context = application.Context;
             //HttpResponse response = context.Response;
 
-            //    response.Write("这是来自自定义HttpModule中有EndRequest");
+            ////    response.Write("这是来自自定义HttpModule中有EndRequest");
+            //response.Write(config.Instance.Site.ValidateUserByMembership.ToString() );
         }
 
         /// <summary>
@@ -95,16 +96,17 @@ namespace wojilu.AuthenticationModule
             wojilu.Members.Users.Domain.User usr = openService.getUserByName(username);
             //UserName  LoginUserName  FullName  UserGroup  CurJi  CurBh  CurBnbh
             if (userProfile.UserGroup == "学生")
-                usr.RealName = string.Format("{0}({1})班{2}", userProfile.CurJi, userProfile.CurBh, userProfile.FullName);
+                usr.Title = string.Format("{0}({1})班{2}", userProfile.CurJi, userProfile.CurBh, userProfile.FullName);
             else if (userProfile.UserGroup == "教师")
-                usr.RealName = userProfile.FullName;
+                usr.Title = userProfile.FullName;
             else
-                usr.RealName = string.Format("{0}{1}", userProfile.UserGroup, userProfile.FullName);
+                usr.Title = string.Format("{0}{1}", userProfile.UserGroup, userProfile.FullName);
 
+            usr.RealName = userProfile.FullName;
 
-            if (username == "admin")
-                openService.UserChangePwd("admin","admin");
-            else
+            //if (username == "admin")
+            //    openService.UserChangePwd("admin", "admin");
+            //else
                 usr.Pwd = GetRandomNumberString(6);
 
             usr.update();

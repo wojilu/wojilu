@@ -155,9 +155,9 @@ namespace wojilu.Members.Users.Domain
         {
             get
             {
-                if (config.Instance.Site.UserDisplayName == Config.UserDisplayNameType.RealName && String.IsNullOrEmpty(this.RealName) != true )
+                if (config.Instance.Site.UserDisplayName == Config.UserDisplayName.RealName && String.IsNullOrEmpty(this.RealName) != true )
                     return this.RealName;
-                else if (config.Instance.Site.UserDisplayName == Config.UserDisplayNameType.Name)
+                else if (config.Instance.Site.UserDisplayName == Config.UserDisplayName.Name)
                     return this.Name;
                 else if (String.IsNullOrEmpty(this.RealName) != true)
                     return this.RealName;

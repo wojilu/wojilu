@@ -84,10 +84,10 @@ namespace wojilu.Config {
     /// <summary>
     /// 显示名称：Name 用户名，RealName 真实姓名，默认为RealName
     /// </summary>
-    public enum UserDisplayNameType
+    public class UserDisplayName
     {
-        Name = 1,
-        RealName
+        public static readonly int Name = 1;
+        public static readonly int RealName = 2;
     }
 
     /// <summary>
@@ -409,7 +409,17 @@ namespace wojilu.Config {
         /// <summary>
         /// 显示名称：Name 用户名，RealName 真实姓名，默认为RealName
         /// </summary>
-        public UserDisplayNameType UserDisplayName { get; set; }
+        public int UserDisplayName { get; set; }
+
+        /// <summary>
+        /// 是否禁止修改真实性名与空间名称，默认不禁止
+        /// </summary>
+        public Boolean DenyEditUserRealName { get; set; }
+
+        /// <summary>
+        /// 是否禁止修改空间名称，默认不禁止
+        /// </summary>
+        public Boolean DenyEditUserTitle { get; set; }
 
         //------------------------------filter----------------------------------
 

@@ -71,8 +71,10 @@ namespace wojilu.Members.Users.Service
             if (user == null) return null;
 
             //是否使用Membership验证用户
-            if (config.Instance.Site.ValidateUserByMembership == true && Membership.ValidateUser(name, pwd))
-                return user;
+            if (config.Instance.Site.ValidateUserByMembership )
+                return Membership.ValidateUser(name, pwd) ? user : null;
+            //if (Membership.ValidateUser(user.Name, pwd))
+            //    return user;
 
             String hashedPwd = HashPwd(pwd, user.PwdSalt);
             return user.Pwd == hashedPwd ? user : null;
@@ -91,9 +93,12 @@ namespace wojilu.Members.Users.Service
                 user = GetByName(nameOrEmail);
             if (user == null) return null;
 
-            //等待加设置，是否使用Membership验证用户
-            if (Membership.ValidateUser(user.Name, pwd))
-                return user;
+            //是否使用Membership验证用户
+            if (config.Instance.Site.ValidateUserByMembership)
+                return Membership.ValidateUser(user.Name, pwd) ? user : null;
+            
+            //if ( Membership.ValidateUser(user.Name, pwd))
+            //    return user;
 
             String hashedPwd = HashPwd(pwd, user.PwdSalt);
             return user.Pwd == hashedPwd ? user : null;
