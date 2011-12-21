@@ -28,9 +28,13 @@ namespace wojilu.Common.Comments {
         public static readonly int subCacheSize = 8;
 
         public String TargetUrl { get; set; }
+        public String TargetDataType { get; set; }
+        public int TargetDataId { get; set; }
+        public String TargetTitle { get; set; }
+        public int TargetUserId { get; set; }
 
         public int ParentId { get; set; }
-        public int AtId { get; set; }
+        public int AtId { get; set; } // 被at的评论，不是被at的作者
 
         public User Member { get; set; }
 

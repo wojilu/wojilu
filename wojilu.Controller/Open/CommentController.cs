@@ -7,6 +7,7 @@ using wojilu.Common;
 using wojilu.Web.Mvc.Attr;
 using wojilu.Common.Comments;
 using wojilu.Serialization;
+using wojilu.ORM;
 
 namespace wojilu.Web.Controller.Open {
 
@@ -25,19 +26,28 @@ namespace wojilu.Web.Controller.Open {
 
             String url = ctx.Get( "url" );
             set( "thisUrl", url );
+            set( "thisDataType", ctx.Get( "dataType" ) );
+            set( "thisDataId", ctx.GetInt( "dataId" ) );
+            set( "thisDataTitle", ctx.Get( "dataTitle" ) );
+            set( "thisDataUserId", ctx.GetInt( "dataUserId" ) );
 
             DataPage<OpenComment> datas = commentService.GetByUrlDesc( url );
+            int replies = commentService.GetReplies( url );
 
             List<OpenComment> lists = datas.Results;
 
-            set( "cmCount", lists.Count );
+            set( "cmCount", replies );
             set( "moreLink", to( MoreReply ) );
             set( "subCacheSize", OpenComment.subCacheSize );
 
             bindComments( lists );
             bindForm();
 
-            set( "page", datas.PageBar );
+            String pageBar = "";
+            if (datas.PageCount > 1) {
+                pageBar = new ObjectPage( datas.RecordCount, datas.Size, datas.Current ).GetSimplePageBar();
+            }
+            set( "page", pageBar );
         }
 
         [HttpPost]
@@ -224,6 +234,11 @@ namespace wojilu.Web.Controller.Open {
             OpenComment c = new OpenComment();
             c.Content = content;
             c.TargetUrl = ctx.Post( "url" );
+            c.TargetDataType = ctx.Post( "dataType" );
+            c.TargetDataId = ctx.PostInt( "dataId" );
+            c.TargetTitle = ctx.Post( "dataTitle" );
+            c.TargetUserId = ctx.PostInt( "dataUserId" );
+
             c.Ip = ctx.Ip;
             c.Author = userName;
             c.AuthorEmail = ctx.Post( "UserEmail" );

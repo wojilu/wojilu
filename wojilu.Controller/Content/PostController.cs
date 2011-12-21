@@ -99,7 +99,14 @@ namespace wojilu.Web.Controller.Content {
 
             // 3) comment
             //loadComment( post );
-            set( "thisUrl", t2( new wojilu.Web.Controller.Open.CommentController().List ) + "?url=" + alink.ToAppData( post ) );
+            String commentUrl = t2( new wojilu.Web.Controller.Open.CommentController().List )
+                + "?url=" + alink.ToAppData( post )
+                + "&dataType=" + typeof( ContentPost ).FullName
+                + "&dataTitle=" + post.Title
+                + "&dataUserId=" + post.Creator.Id
+                + "&dataId=" + post.Id;
+
+            set( "thisUrl", commentUrl );
 
             // 4) related posts
             loadRelatedPosts( post );

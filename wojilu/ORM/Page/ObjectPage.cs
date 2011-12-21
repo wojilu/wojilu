@@ -148,7 +148,7 @@ namespace wojilu.ORM {
             }
             if (getCurrent() < PageCount) {
                 sb.Append( "<a href=\"" );
-                appendLink( sb, this.getCurrent() - 1 );
+                appendLink( sb, this.getCurrent() + 1 );
                 sb.Append( "\" class=\"pageNext\">" + lang.get( "nextPage" ) + "&raquo;</a>&nbsp;" );
             }
             sb.Append( "</div>" );

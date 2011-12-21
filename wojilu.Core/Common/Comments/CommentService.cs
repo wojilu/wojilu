@@ -21,7 +21,7 @@ namespace wojilu.Common.Comments {
 
     public class CommentService<T> : ICommentService<T> where T : ObjectBase<T>, IComment {
 
-        private INotificationService nfService { get; set; }
+        public INotificationService nfService { get; set; }
 
         public CommentService() {
             nfService = new NotificationService();

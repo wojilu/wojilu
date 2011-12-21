@@ -12,7 +12,7 @@
 </style>
 
 
-    <div style="margin:15px;"><span style="font-size:16px;font-weight:bold;">评论列表</span> (共 #{cmCount} 条)</div>
+    <div style="margin:15px;"><span style="font-size:16px;font-weight:bold;">评论列表</span> (共 <span id="replies"></span> 条)</div>
     <div id="commentFormWrap">
         <div class="commentFormInner">
         <!-- BEGIN loginForm -->
@@ -340,7 +340,11 @@
             ValidationText: vCode,
             ParentId: parentId,
             AtId: atId,
-            url: '#{thisUrl}'
+            url: '#{thisUrl}',
+            dataTitle: '#{thisDataTitle}',
+            dataType:'#{thisDataType}',
+            dataUserId:#{thisDataUserId},
+            dataId:#{thisDataId}
         };
 
         loadBegin(ctxForm);
@@ -377,6 +381,10 @@
 
         bindSubmit();
         setReplyCount();
+
+        var replies = #{cmCount};
+        $('#replies').text( replies );
+        $('#contentReplies', window.parent.document ).text( replies );
 
     });
 </script>
