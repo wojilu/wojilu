@@ -77,6 +77,22 @@ namespace wojilu.ORM {
             return this.PageCount;
         }
 
+        public static int GetPageByUrl( String url ) {
+            if (strUtil.IsNullOrEmpty( url )) return 1;
+
+            String[] arr = url.Split( '/' );
+
+            String[] arrItem = arr[arr.Length - 1].Split( '.' );
+
+            String strPage = arrItem[0];
+
+            if (strPage.StartsWith( "p" ) == false) return 1;
+            String strNo = strPage.TrimStart( 'p' );
+            if (cvt.IsInt( strNo ) == false) return 1;
+
+            return cvt.ToInt( strNo );
+        }
+
         public static int GetPageCount( int recordCount, int pageSize ) {
             int pcount = recordCount / pageSize;
             int imod = recordCount % pageSize;

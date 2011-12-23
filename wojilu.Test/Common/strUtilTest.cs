@@ -7,6 +7,7 @@ using wojilu.Web.Mvc;
 using wojilu.Common.Tags;
 using NUnit.Framework;
 using NUnit.Framework.SyntaxHelpers;
+using wojilu.ORM;
 
 namespace wojilu.Test.Common {
 
@@ -22,8 +23,8 @@ namespace wojilu.Test.Common {
         static int i = 0;
         private static void ploop() {
             i++;
-            Console.WriteLine( "i="+i );
-            if (i<3) {
+            Console.WriteLine( "i=" + i );
+            if (i < 3) {
                 ploop();
             }
         }
@@ -35,7 +36,7 @@ namespace wojilu.Test.Common {
 
         private String getHostNoSubdomain( String Host ) {
             int firstDotIndex = Host.IndexOf( '.' );
-            return Host.Substring( firstDotIndex+1, Host.Length - firstDotIndex-1 );
+            return Host.Substring( firstDotIndex + 1, Host.Length - firstDotIndex - 1 );
         }
 
 
@@ -151,10 +152,10 @@ namespace wojilu.Test.Common {
             Encoding e = Encoding.GetEncoding( "UTF-8" );
             Console.WriteLine( e );
             Console.WriteLine( Encoding.GetEncoding( "gb2312" ) );
-            Console.WriteLine(  Encoding.GetEncoding( "utf-8" ));
-            Console.WriteLine(  Encoding.GetEncoding( "Unicode" ));
-            Console.WriteLine(  Encoding.GetEncoding( "gbk" ));
-            Console.WriteLine(  Encoding.GetEncoding( "Big5" ));
+            Console.WriteLine( Encoding.GetEncoding( "utf-8" ) );
+            Console.WriteLine( Encoding.GetEncoding( "Unicode" ) );
+            Console.WriteLine( Encoding.GetEncoding( "gbk" ) );
+            Console.WriteLine( Encoding.GetEncoding( "Big5" ) );
             Console.WriteLine( Encoding.GetEncoding( "GBK" ) );
 
         }
@@ -261,7 +262,7 @@ namespace wojilu.Test.Common {
             Console.WriteLine( str );
 
             String expected = "这是双&quot;引号的&quot;内容";
-            Assert.AreEqual( expected, str);
+            Assert.AreEqual( expected, str );
         }
 
 
@@ -328,6 +329,41 @@ namespace wojilu.Test.Common {
             String flash = "<object data=\"http://player.youku.com/player.php/sid/XMTg0MTI0NjU2/v.swf\" type=\"application/x-shockwave-flash\" width=\"300\" height=\"255\"><param name=\"movie\" value =\"http://player.youku.com/player.php/sid/XMTg0MTI0NjU2/v.swf\" /></object>";
             str = strUtil.TrimHtml( flash );
             Assert.AreEqual( flash, str );
+
+
+        }
+
+        private static int getPage( string url ) {
+            return ObjectPage.GetPageByUrl( url );
+        }
+
+        [Test]
+        public void testGetPage() {
+
+            Assert.AreEqual( 1, getPage( null ) );
+            Assert.AreEqual( 1, getPage( "" ) );
+            Assert.AreEqual( 1, getPage( "   " ) );
+
+            Assert.AreEqual( 1, getPage( "/Admin/Apps/Photo/Main/Index.aspx" ) );
+            Assert.AreEqual( 1, getPage( "/Admin/Apps/Photo/Main/Index" ) );
+
+            Assert.AreEqual( 1, getPage( "Index.aspx" ) );
+            Assert.AreEqual( 1, getPage( "Index" ) );
+
+            Assert.AreEqual( 1, getPage( "/Admin/Apps/Photo/Main/Index2.aspx" ) );
+            Assert.AreEqual( 1, getPage( "/Admin/Apps/Photo/Main/Index2" ) );
+
+            Assert.AreEqual( 2, getPage( "/Admin/Apps/Photo/Main/Index/p2.aspx" ) );
+            Assert.AreEqual( 2, getPage( "/Admin/Apps/Photo/Main/Index/p2" ) );
+
+            Assert.AreEqual( 2, getPage( "Index/p2.aspx" ) );
+            Assert.AreEqual( 2, getPage( "Index/p2" ) );
+
+            Assert.AreEqual( 2, getPage( "/Admin/Apps/Photo/Main/Index3/p2.aspx" ) );
+            Assert.AreEqual( 2, getPage( "/Admin/Apps/Photo/Main/Index3/p2" ) );
+
+            Assert.AreEqual( 59377329, getPage( "/Admin/Apps/Photo/Main/Index/p59377329.aspx" ) );
+            Assert.AreEqual( 59377329, getPage( "/Admin/Apps/Photo/Main/Index/p59377329" ) );
 
 
         }
@@ -486,7 +522,7 @@ namespace wojilu.Test.Common {
         public void testGetType() {
 
             // System.Collections.Generic.List`1[System.String]
-            Type t = typeof( List<String>);
+            Type t = typeof( List<String> );
             Console.WriteLine( t.ToString() );
 
             String tFullName = strUtil.GetTypeFullName( t );
