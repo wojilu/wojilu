@@ -187,14 +187,6 @@ namespace wojilu {
                 sb.AppendFormat( "<a href=\"{0}\">{1}&gt;</a>&nbsp;", Link.AppendPage( recentLink, this.Current + 1 ), lang.get( "nextPage" ) );
             }
 
-            // last
-            //if (this.Current >= this.PageCount) {
-            //}
-            //else if (recentPageCount > this.PageCount) {
-            //}
-            //else {
-            //    sb.AppendFormat( "<a href=\"{0}\">{1}&raquo;</a>&nbsp;", Link.AppendPage( archiveLink, 1 ), lang.get( "lastPage" ) );
-            //}
             sb.AppendFormat( "<span class=\"pageCount\">" + lang.get( "pageCount" ) + "</span>", this.PageCount );
 
             sb.Append( "</div>" );
@@ -245,7 +237,6 @@ namespace wojilu {
 
             return sb.ToString();
         }
-
 
 
         public static DataPage<T> GetPage( List<T> list, int pageSize ) {

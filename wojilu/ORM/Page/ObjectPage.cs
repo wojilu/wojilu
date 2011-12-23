@@ -73,11 +73,14 @@ namespace wojilu.ORM {
         public void setSize( int size ) { _pagesize = size; }
 
         public int computePageCount() {
-            int pcount = this.RecordCount / this.getSize();
-            int imod = this.RecordCount % this.getSize();
-            if (imod > 0) pcount = pcount + 1;
+            this.PageCount = GetPageCount( this.RecordCount, this.getSize() );
+            return this.PageCount;
+        }
 
-            this.PageCount = pcount;
+        public static int GetPageCount( int recordCount, int pageSize ) {
+            int pcount = recordCount / pageSize;
+            int imod = recordCount % pageSize;
+            if (imod > 0) pcount = pcount + 1;
 
             return pcount;
         }
@@ -315,6 +318,75 @@ namespace wojilu.ORM {
 
             return sb.ToString();
         }
+
+
+        /// <summary>
+        /// 获取所有分页的链接，包括 "缓存页 + 存档页"
+        /// </summary>
+        /// <param name="recentLink">缓存页链接</param>
+        /// <param name="archiveLink">存档页链接</param>
+        /// <param name="recordCount">记录总数</param>
+        /// <param name="recentPageCount">每页数量</param>
+        /// <returns></returns>
+        public static List<String> GetPageLinks( String recentLink, String archiveLink, int recordCount, int pageWidth, int pageSize ) {
+
+            List<String> list = new List<String>();
+
+            List<String> recentLinks = GetPageRecentLinks( recentLink, recordCount, pageWidth, pageSize );
+            List<String> archiveLinks = GetPageArchiveLinks( archiveLink, recordCount, pageWidth, pageSize );
+
+            list.AddRange( recentLinks );
+            list.AddRange( archiveLinks );
+
+            return list;
+        }
+
+        /// <summary>
+        /// 获取所有缓存页的分页链接
+        /// </summary>
+        /// <param name="recentLink">缓存页的链接</param>
+        /// <param name="recordCount">记录总数</param>
+        /// <param name="pageWidth">缓存页数</param>
+        /// <param name="pageSize">每页数量</param>
+        /// <returns></returns>
+        public static List<String> GetPageRecentLinks( String recentLink, int recordCount, int pageWidth, int pageSize ) {
+
+            List<String> list = new List<String>();
+
+            int totalPages = ObjectPage.GetPageCount( recordCount, pageSize );
+            if (pageWidth > totalPages) pageWidth = totalPages;
+            for (int i = 1; i < pageWidth + 1; i++) {
+                String url = Link.AppendPage( recentLink, i );
+                list.Add( url );
+            }
+
+            return list;
+        }
+
+        /// <summary>
+        /// 获取所有存档页的分页链接
+        /// </summary>
+        /// <param name="archiveLink">存档页的链接</param>
+        /// <param name="recordCount">记录总数</param>
+        /// <param name="pageWidth">缓存页数</param>
+        /// <param name="pageSize">每页数量</param>
+        /// <returns></returns>
+        public static List<String> GetPageArchiveLinks( String archiveLink, int recordCount, int pageWidth, int pageSize ) {
+
+            List<String> list = new List<String>();
+
+            int totalPages = ObjectPage.GetPageCount( recordCount, pageSize );
+            int loopPages = totalPages - pageWidth;
+
+            if (loopPages > totalPages) loopPages = totalPages;
+            for (int i = 1; i < loopPages + 1; i++) {
+                String url = Link.AppendPage( archiveLink, i );
+                list.Add( url );
+            }
+
+            return list;
+        }
+
 
 
     }
