@@ -419,6 +419,32 @@ namespace wojilu.Test.Common {
         }
 
         [Test]
+        public void testAppendHtmlPage() {
+
+            String url = null;
+            Assert.AreEqual( null, Link.AppendHtmlPage( url, 2 ) );
+
+            url = "";
+            Assert.AreEqual( "", Link.AppendHtmlPage( url, 2 ) );
+
+            url = "/html/2010/11/22/195.html";
+            Assert.AreEqual( "/html/2010/11/22/195_2.html", Link.AppendHtmlPage( url, 2 ) );
+
+            url = "/html/2010/11/22/195.html";
+            Assert.AreEqual( "/html/2010/11/22/195.html", Link.AppendHtmlPage( url, 1 ) );
+
+            url = "/html/2010/11/22/195.html";
+            Assert.AreEqual( "/html/2010/11/22/195_4383843.html", Link.AppendHtmlPage( url, 4383843 ) );
+
+            url = "/html/2010/11/22/195.html";
+            Assert.AreEqual( "/html/2010/11/22/195.html", Link.AppendHtmlPage( url, 0 ) );
+
+            url = "/html/2010/11/22/195.html";
+            Assert.AreEqual( "/html/2010/11/22/195.html", Link.AppendHtmlPage( url, -2334 ) );
+
+        }
+
+        [Test]
         public void testIsNullOrEmpty() {
             Assert.IsTrue( strUtil.IsNullOrEmpty( "" ) );
             Assert.IsTrue( strUtil.IsNullOrEmpty( " " ) );
