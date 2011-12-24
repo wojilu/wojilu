@@ -123,59 +123,93 @@ namespace wojilu.ORM {
             set { _bar = value; }
         }
 
+        public String GetSimplePageBar() {
+            return GetSimplePageBar( this.getPath(), this.getCurrent(), this.PageCount );
+        }
+
+        /// <summary>
+        /// 获取简易形式的分页栏
+        /// </summary>
+        /// <param name="url"></param>
+        /// <param name="currentPage"></param>
+        /// <param name="pageCount"></param>
+        /// <returns></returns>
+        public static String GetSimplePageBar( String url, int currentPage, int pageCount ) {
+            return GetSimplePageBar( url, currentPage, pageCount, false );
+        }
+
         /// <summary>
         /// 获取简易形式的分页栏
         /// </summary>
         /// <returns></returns>
-        public String GetSimplePageBar() {
+        public static String GetSimplePageBar( String url, int currentPage, int pageCount, Boolean isHtml ) {
             StringBuilder sb = new StringBuilder();
             sb.Append( "<div class=\"turnpage\" style='text-align:center'>" );
 
-            if (getCurrent() > 1) {
+            if (currentPage > 1) {
                 sb.Append( "<a href=\"" );
-                appendLink( sb, this.getCurrent() - 1 );
+                appendLinkPrivate( url, sb, currentPage - 1, isHtml );
                 sb.Append( "\" class=\"pagePrev\">&laquo;" + lang.get( "prevPage" ) + "</a>&nbsp;" );
             }
-            if (getCurrent() <= 8) {
-                loopPage( sb, 1, getCurrent() );
+            if (currentPage <= 8) {
+                loopPrivate( url, sb, 1, currentPage, isHtml );
             }
             else {
-                loopPage( sb, 1, 3 );
+                loopPrivate( url, sb, 1, 3, isHtml );
                 sb.Append( "...&nbsp;" );
-                if ((PageCount - getCurrent()) < 3) {
-                    loopPage( sb, PageCount - 6, getCurrent() );
+                if ((pageCount - currentPage) < 3) {
+                    loopPrivate( url, sb, pageCount - 6, currentPage, isHtml );
                 }
                 else {
-                    loopPage( sb, getCurrent() - 3, getCurrent() );
+                    loopPrivate( url, sb, currentPage - 3, currentPage, isHtml );
                 }
             }
             sb.Append( "<span class=\"currentPageNo\">" );
-            sb.Append( getCurrent() );
+            sb.Append( currentPage );
             sb.Append( "</span>&nbsp;" );
-            if ((PageCount - getCurrent()) <= 7) {
-                loopPage( sb, getCurrent() + 1, PageCount + 1 );
+            if ((pageCount - currentPage) <= 7) {
+                loopPrivate( url, sb, currentPage + 1, pageCount + 1, isHtml );
             }
             else {
-                if ((getCurrent() + 3) < 7) {
-                    loopPage( sb, getCurrent() + 1, 8 );
+                if ((currentPage + 3) < 7) {
+                    loopPrivate( url, sb, currentPage + 1, 8, isHtml );
                 }
                 else {
-                    loopPage( sb, getCurrent() + 1, getCurrent() + 4 );
+                    loopPrivate( url, sb, currentPage + 1, currentPage + 4, isHtml );
                 }
                 sb.Append( "...&nbsp;" );
-                loopPage( sb, PageCount - 1, PageCount + 1 );
+                loopPrivate( url, sb, pageCount - 1, pageCount + 1, isHtml );
             }
-            if (getCurrent() < PageCount) {
+            if (currentPage < pageCount) {
                 sb.Append( "<a href=\"" );
-                appendLink( sb, this.getCurrent() + 1 );
+                appendLinkPrivate( url, sb, currentPage + 1, isHtml );
                 sb.Append( "\" class=\"pageNext\">" + lang.get( "nextPage" ) + "&raquo;</a>&nbsp;" );
             }
             sb.Append( "</div>" );
             return sb.ToString();
         }
 
+        private static void appendLinkPrivate( String url, StringBuilder sb, int currentPage, Boolean isHtml ) {
+            if (isHtml) {
+                appendHtmlLink( url, sb, currentPage );
+            }
+            else {
+                appendLink( url, sb, currentPage );
+            }
+        }
+
+        private static void loopPrivate( String url, StringBuilder sb, int startNo, int endNo, Boolean isHtml ) {
+            if (isHtml) {
+                loopHtmlPage( url, sb, startNo, endNo );
+            }
+            else {
+                loopPage( url, sb, startNo, endNo );
+            }
+        }
 
         private void setPagerBar() {
+
+            String url = this.getPath();
 
             StringBuilder sb = new StringBuilder();
 
@@ -186,63 +220,75 @@ namespace wojilu.ORM {
             sb.Append( "&nbsp;" );
             if (this.getCurrent() > 1) {
                 sb.Append( "<a href=\"" );
-                appendLink( sb, this.getCurrent() - 1 );
+                appendLink( url, sb, this.getCurrent() - 1 );
                 sb.Append( "\" class=\"pagePrev\">&laquo;" + lang.get( "prevPage" ) + "</a>&nbsp;" );
             }
             if (this.getCurrent() <= 8) {
-                loopPage( sb, 1, this.getCurrent() );
+                loopPage( url, sb, 1, this.getCurrent() );
             }
             else {
-                loopPage( sb, 1, 3 );
+                loopPage( url, sb, 1, 3 );
                 sb.Append( "...&nbsp;" );
                 if ((PageCount - this.getCurrent()) < 3) {
-                    loopPage( sb, PageCount - 6, this.getCurrent() );
+                    loopPage( url, sb, PageCount - 6, this.getCurrent() );
                 }
                 else {
-                    loopPage( sb, this.getCurrent() - 3, this.getCurrent() );
+                    loopPage( url, sb, this.getCurrent() - 3, this.getCurrent() );
                 }
             }
             sb.Append( "<span class=\"currentPageNo\">" );
             sb.Append( this.getCurrent() );
             sb.Append( "</span>&nbsp;" );
             if ((PageCount - this.getCurrent()) <= 7) {
-                loopPage( sb, this.getCurrent() + 1, PageCount + 1 );
+                loopPage( url, sb, this.getCurrent() + 1, PageCount + 1 );
             }
             else {
                 if ((this.getCurrent() + 3) < 7) {
-                    loopPage( sb, this.getCurrent() + 1, 8 );
+                    loopPage( url, sb, this.getCurrent() + 1, 8 );
                 }
                 else {
-                    loopPage( sb, this.getCurrent() + 1, this.getCurrent() + 4 );
+                    loopPage( url, sb, this.getCurrent() + 1, this.getCurrent() + 4 );
                 }
                 sb.Append( "...&nbsp;" );
-                loopPage( sb, PageCount - 1, PageCount + 1 );
+                loopPage( url, sb, PageCount - 1, PageCount + 1 );
             }
             if (this.getCurrent() < PageCount) {
                 sb.Append( "<a href=\"" );
-                appendLink( sb, this.getCurrent() + 1 );
+                appendLink( url, sb, this.getCurrent() + 1 );
                 sb.Append( "\" class=\"pageNext\">" + lang.get( "nextPage" ) + "&raquo;</a>&nbsp;" );
             }
             sb.Append( "</div>" );
             PageBar = sb.ToString();
         }
-     
 
         //----------------------------------------------------------
 
-        private void loopPage( StringBuilder sb, int startNo, int endNo ) {
+        private static void loopPage( String url, StringBuilder sb, int startNo, int endNo ) {
             for (int i = startNo; i < endNo; i++) {
                 sb.Append( "<a href=\"" );
-                appendLink( sb, i );
+                appendLink( url, sb, i );
                 sb.Append( "\" class=\"pageNo\">" );
                 sb.Append( i );
                 sb.Append( "</a>&nbsp;" );
             }
         }
 
-        private void appendLink( StringBuilder sb, int pageNo ) {
-            String path = this.getPath();
-            sb.Append( Link.AppendPage( path, pageNo ) );
+        private static void loopHtmlPage( String url, StringBuilder sb, int startNo, int endNo ) {
+            for (int i = startNo; i < endNo; i++) {
+                sb.Append( "<a href=\"" );
+                appendHtmlLink( url, sb, i );
+                sb.Append( "\" class=\"pageNo\">" );
+                sb.Append( i );
+                sb.Append( "</a>&nbsp;" );
+            }
+        }
+
+        private static void appendLink( String url, StringBuilder sb, int pageNo ) {
+            sb.Append( Link.AppendPage( url, pageNo ) );
+        }
+
+        private static void appendHtmlLink( String url, StringBuilder sb, int pageNo ) {
+            sb.Append( Link.AppendHtmlPage( url, pageNo ) );
         }
 
         //----------------------------------------------------------
@@ -314,7 +360,6 @@ namespace wojilu.ORM {
                     sb.Append( "</a> " );
 
                 }
-
             }
 
             if (currentPage < pageCount) {
