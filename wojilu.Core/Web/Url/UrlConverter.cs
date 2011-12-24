@@ -73,7 +73,7 @@ namespace wojilu.Web.Url {
         private static String getFullUrl( String url, String ownerPathAndUrl, MvcContext ctx ) {
 
             // 包括http是完整的url
-            Boolean isFullUrl = url.ToLower().StartsWith( "http:" ); // PathHelper.IsFullUrl( url );
+            Boolean isFullUrl = url.ToLower().StartsWith( "http:" ) || url.ToLower().StartsWith( "https:" );
             if (isFullUrl) return url;
 
             // 包括完整的ownerPath
@@ -106,10 +106,15 @@ namespace wojilu.Web.Url {
                 result = strUtil.Join( ownerPathAndUrl, result );
             }
 
-            if (PathHelper.UrlHasExt( result ))
+            if (PathHelper.UrlHasExt( result )) {
                 return result;
-            else
+            }
+            else if (result.EndsWith( "/" )) {
+                return result;
+            }
+            else {
                 return result + MvcConfig.Instance.UrlExt;
+            }
         }
 
 
