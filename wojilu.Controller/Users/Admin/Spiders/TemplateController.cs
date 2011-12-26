@@ -258,9 +258,12 @@ namespace wojilu.Web.Controller.Users.Admin.Spiders {
 
             String beginCode = ctx.PostHtmlAll( "listBeginCode" );
             String endCode = ctx.PostHtmlAll( "listEndCode" );
+            String listBodyPattern = ctx.PostHtmlAll("ListBodyPattern");
+            String ListPattern = ctx.PostHtmlAll("ListPattern");
 
             String detailBeginCode = ctx.PostHtmlAll( "detailBeginCode" );
             String detailEndCode = ctx.PostHtmlAll( "detailEndCode" );
+            String DetailPattern = ctx.PostHtmlAll("DetailPattern");
 
             if (strUtil.IsNullOrEmpty( listUrl )) errors.Add( "请填写列表页的网址" );
             //if (strUtil.IsNullOrEmpty( beginCode )) errors.Add( "请填写列表页开始代码" );
@@ -284,11 +287,12 @@ namespace wojilu.Web.Controller.Users.Admin.Spiders {
             s.ListBodyBegin = beginCode;
             s.ListBodyEnd = endCode;
 
-            s.ListPattern = SpiderConfig.ListLinkPattern;
+            s.ListPattern = ListPattern;
+            s.ListBodyPattern = listBodyPattern;
 
             s.DetailBegin = detailBeginCode;
             s.DetailEnd = detailEndCode;
-
+            s.DetailPattern = DetailPattern;
             s.SiteName = ctx.Post( "siteName" );
 
             s.ListEncoding = ctx.Post( "listEncoding" );

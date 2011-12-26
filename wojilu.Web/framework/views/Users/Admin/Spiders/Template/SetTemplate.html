@@ -213,6 +213,11 @@ $(document).ready( function() {
         $('#listEncoding').val( objT.ListEncoding );
         $('#listBeginCode').val( objT.ListBodyBegin.replace(/&lt;/g,"<").replace(/&gt;/g,">") );
         $('#listEndCode').val( objT.ListBodyEnd.replace(/&lt;/g,"<").replace(/&gt;/g,">") );
+        
+        $('#ListBodyPattern').val( objT.ListBodyPattern.replace(/&lt;/g,"<").replace(/&gt;/g,">") );
+        $('#ListPattern').val( objT.ListPattern );
+        
+        $('#DetailPattern').val( objT.DetailPattern );
     }
 
 
@@ -341,6 +346,9 @@ $(document).ready( function() {
         var pdetail2 = $('#detailEndCode').val();
         var siteName = $('#siteName').val();
         
+        var listBodyPattern = $('#ListBodyPattern').val();
+        var listPattern = $('#ListPattern').val();
+        var DetailPattern = $('#DetailPattern').val();
         $.post( '#{saveLink}'.toAjax(), {
             'tid': objT.Id,
             'siteName':siteName,
@@ -349,6 +357,9 @@ $(document).ready( function() {
             'listEndCode':plist2,
             'detailBeginCode':pdetail1,
             'detailEndCode':pdetail2,
+            'ListBodyPattern':listBodyPattern,
+            'ListPattern':listPattern,
+            'DetailPattern':DetailPattern,
             'listEncoding':$('#listEncoding').val(),
             'detailEncoding':$('#detailEncoding').val(),
             'checkPic':$('#checkPic').attr("checked")
