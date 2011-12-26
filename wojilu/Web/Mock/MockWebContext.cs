@@ -45,8 +45,7 @@ namespace wojilu.Web {
 
 
             // 构造request/response/httpContext
-            MvcRequest req = new MvcRequest();
-            req.Url = new Uri( url );
+            MvcRequest req = new MvcRequest( url );
             req.HttpMethod = strUtil.IsNullOrEmpty( httpMethod ) ? "GET" : httpMethod;
 
             MvcResponse res = new MvcResponse();
