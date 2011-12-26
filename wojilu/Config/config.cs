@@ -197,6 +197,11 @@ namespace wojilu {
 
             _siteSetting.CloseComment = cvt.ToBool( getVal( dic, "CloseComment" ) );
 
+            _siteSetting.UserDisplayName = cvt.ToInt(getVal(dic, "UserDisplayName"));
+            _siteSetting.ValidateUserByMembership = cvt.ToBool(getVal(dic, "ValidateUserByMembership"));
+            _siteSetting.DenyEditUserRealName = cvt.ToBool(getVal(dic, "DenyEditUserRealName"));
+            _siteSetting.DenyEditUserTitle = cvt.ToBool(getVal(dic, "DenyEditUserTitle"));
+
             _siteSetting.setValueAll( dic );
         }
 

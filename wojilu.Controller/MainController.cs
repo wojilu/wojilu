@@ -93,7 +93,10 @@ namespace wojilu.Web.Controller {
             if (strUtil.IsNullOrEmpty( pwd )) errors.Add( lang( "exPwd" ) );
             if (errors.HasErrors) { run( Login ); return; }
 
-            User member = userService.IsNameEmailPwdCorrect( user, pwd );
+
+           // User member = userService.IsNameEmailPwdCorrect( user, pwd );
+            User member = userService.IsNamePwdCorrect(user, pwd);  //如果用Email登录，不如让Email当用户名,
+
             if (member == null) {
                 errors.Add( lang( "exUserNamePwdError" ) );
                 run( Login );

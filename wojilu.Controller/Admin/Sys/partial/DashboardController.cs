@@ -122,6 +122,7 @@ namespace wojilu.Web.Controller.Admin.Sys {
 
             IBlock block = getBlock( blockName );
             foreach (User user in users) {
+                block.Set("user.DisplayName", user.DisplayName);
                 block.Set( "user.Name", user.Name );
                 block.Set( "user.Face", user.PicSmall );
                 block.Set( "user.Created", cvt.ToTimeString( user.Created ) );

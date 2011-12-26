@@ -24,6 +24,7 @@ namespace wojilu.Web.Controller.Admin.Members {
         private void bindUserList( DataPage<User> list ) {
             IBlock block = getBlock( "list" );
             foreach (User m in list.Results) {
+                block.Set("user.DisplayName", m.DisplayName);
                 block.Set( "user.Name", m.Name );
                 block.Set( "user.RoleName", m.Role.Name );
                 block.Set( "user.RealName", strUtil.SubString( m.RealName, 8 ) );

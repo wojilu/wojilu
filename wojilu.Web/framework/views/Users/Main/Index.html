@@ -16,7 +16,7 @@ $(document).ready( function() {
         var html = '';
         for( var i=0;i<users.length;i++ ) {
             html += '<div class="uItem">';
-            html += '<a href="'+users[i].UserUrl+'"><img src="'+users[i].UserPicUrl+'"/><br/>'+users[i].UserName+'</a>';
+            html += '<a href="' + users[i].UserUrl + '"><img src="' + users[i].UserPicUrl + '"/><br/>' + users[i].DisplayName + '</a>';
             html += '</div>';
         }
         
@@ -38,7 +38,7 @@ $(document).ready( function() {
 		<!-- BEGIN ranks -->
 		<div class="uItem">
 			<a href="#{u.Link}"><img src="#{u.Face}"/><br/>
-			#{u.Name}</a>
+			#{u.DisplayName}</a>
 		</div>
 		<!-- END ranks -->		
 		</td>
@@ -55,7 +55,7 @@ $(document).ready( function() {
 		<!-- BEGIN users -->
 		<div class="uItem">
 			<a href="#{u.Link}"><img src="#{u.Face}"/><br/>
-			#{u.Name}</a>
+			#{u.DisplayName}</a>
 		</div>
 		<!-- END users -->		
 		</td>

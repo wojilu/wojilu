@@ -13,8 +13,8 @@
 				</tr>
 				<tr>
 					<td class="tdLeft">_{realName}</td>
-					<td><input name="Name" type="text" value="#{m.Name}"> 
-					    <span class="left10">空间名称 <input name="Title" type="text" value="#{m.Title}"> <span class="note">(最长20个字)</span> </span>
+					<td><input name="Name" type="text" value="#{m.Name}" readonly="#{m.DenyEditUserRealName}"> 
+					    <span class="left10">空间名称 <input name="Title" type="text" value="#{m.Title}" readonly="#{m.DenyEditUserTitle}"> <span class="note">(最长20个字)</span> </span>
 					</td>
 				</tr>
 				

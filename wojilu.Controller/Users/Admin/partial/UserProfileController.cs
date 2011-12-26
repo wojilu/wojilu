@@ -47,6 +47,9 @@ namespace wojilu.Web.Controller.Users.Admin {
             set( "m.NickName", m.Name );
             set( "m.Title", m.Title );
 
+            set("m.DenyEditUserRealName", config.Instance.Site.DenyEditUserRealName ? "readonly" : string.Empty);
+            set("m.DenyEditUserTitle", config.Instance.Site.DenyEditUserTitle ? "readonly" : string.Empty);
+
             String kv = "Name=Value";
             dropList( "Year", AppResource.GetInts( 1910, 2009 ), kv, m.BirthYear );
             dropList( "Month", AppResource.GetInts( 1, 12 ), kv, m.BirthMonth );

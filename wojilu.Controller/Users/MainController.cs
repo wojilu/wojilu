@@ -316,6 +316,7 @@ namespace wojilu.Web.Controller.Users {
             int i = 1;
             foreach (User member in users) {
                 block.Set( "u.Index", i );
+                block.Set("user.DisplayName", member.DisplayName);
                 block.Set( "u.Name", member.Name );
                 block.Set( "u.Face", member.PicSmall );
                 block.Set( "u.Link", Link.ToMember( member ) );

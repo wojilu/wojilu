@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Data;
 using System.Configuration;
 using System.Web;
@@ -63,6 +63,18 @@ namespace wojilu.Open {
             return result;
 
         }
+
+        /// <summary>
+        /// check if User have been Register 
+        /// </summary>
+        /// <param name="userName">UserName</param>
+        /// <param name="context">Current HttpContext </param>
+        /// <returns></returns>
+        public Boolean UserIsRegister(String userName)
+        {
+            return User.find("Name=:name").set("name", userName).count() > 0;
+        }
+
 
         private ISiteConfig getSiteConfig( Boolean isEnableUserSpace ) {
 
@@ -185,7 +197,12 @@ namespace wojilu.Open {
             us.UpdatePwd( user, newPwd );
         }
 
-        private User getUserByName( String name ) {
+        /// <summary>
+        /// 根据用户名取得 用户对象 // 很重要的方法，还是公开吧
+        /// </summary>
+        /// <param name="name"></param>
+        /// <returns></returns>
+        public User getUserByName( String name ) {
             if (strUtil.IsNullOrEmpty( name )) return null;
             return User.find( "Name=:name" ).set( "name", name ).first();
         }
