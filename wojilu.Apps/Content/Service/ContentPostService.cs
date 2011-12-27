@@ -241,12 +241,20 @@ namespace wojilu.Apps.Content.Service {
             return post;
         }
 
+        public virtual int GetCountBySection( int sectionId ) {
+            return db.count<ContentPost>( "PageSection.Id=" + sectionId + " and SaveStatus=" + SaveStatus.Normal );
+        }
+
         public virtual List<ContentPost> GetBySection( int sectionId ) {
             return db.find<ContentPost>( "PageSection.Id=" + sectionId + " and SaveStatus=" + SaveStatus.Normal + " order by Id desc" ).list();
         }
 
         public virtual DataPage<ContentPost> GetByApp( int appId, int pageSize ) {
             return ContentPost.findPage( "AppId=" + appId + " and SaveStatus=" + SaveStatus.Normal + " order by Id desc", pageSize );
+        }
+
+        public virtual List<ContentPost> GetByApp( int appId ) {
+            return ContentPost.find( "AppId=" + appId + " and SaveStatus=" + SaveStatus.Normal + " order by Id desc" ).list();
         }
 
 

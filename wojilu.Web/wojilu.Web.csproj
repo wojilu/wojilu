@@ -205,6 +205,8 @@
     <Content Include="framework\views\Content\Admin\ContentSection\AddAutoTwo.html" />
     <Content Include="framework\views\Content\Admin\ContentSection\AddFeed.html" />
     <Content Include="framework\views\Content\Admin\ContentSection\_Edit.html" />
+    <Content Include="framework\views\Content\Admin\Html\Index.html" />
+    <Content Include="framework\views\Content\Admin\Html\MakeDone.html" />
     <Content Include="framework\views\Content\Admin\SectionSetting\EditBinder.html" />
     <Content Include="framework\views\Content\Admin\ContentSection\_SettingEdit.html" />
     <Content Include="framework\views\Content\Admin\Row\ConfirmAddRow.html" />
@@ -269,6 +271,7 @@
     <Content Include="framework\views\Content\Section\Video\List.html" />
     <Content Include="framework\views\Content\Section\Video\SectionShow.html" />
     <Content Include="framework\views\Content\Section\Video\Show.html" />
+    <Content Include="framework\views\Content\Sidebar\Index.html" />
     <Content Include="framework\views\Forum\Admin\Forum\AddBoard.html" />
     <Content Include="framework\views\Forum\Admin\Forum\AddCategory.html" />
     <Content Include="framework\views\Forum\Admin\Forum\DataCombine.html" />

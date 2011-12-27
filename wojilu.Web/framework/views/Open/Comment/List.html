@@ -93,30 +93,6 @@
 </div>
 <script>
 
-
-
-    // TODO 给被评论者(包括@情况下发两个通知)发通知
-    // TODO 管理功能：删除；批量删除等等
-    // TODO 如何将评论数与target同步？target的评论数实时递增
-    // TODO 论坛可转发到微博
-
-    // TODO 可排序
-    // TODO 防止恶意连续灌水    
-    // TODO 增加属性 IsHtml，即开启高级模式，则按照html解析
-
-    // 游客表单和验证码=>默认tip被当做内容
-    // 可以回复，在回复之后，局部内容不再插入页头
-    // 子列表：冗余数据：冗余最早的10篇回复
-    // 在子评论中回复某人：1)@xxx人  2)增加atId 
-    // 只有 "@kkk:" 的时候，提醒填写内容
-    // 超过10条回复，提醒：查看更多回复(还有5条)
-    // startId; item 属性使用DTO
-    // 避免重复点击moreLink; 计算后续数据
-    // more中回复可以点击
-
-    // 最后解决：界面问题，比如内容过多，如何显示
-    //---------------------------------------------------------------------------------------------
-
     var subReplyCount = #{subCacheSize}; // 子回复最多呈现的数量
     var loadingInfo = ' <span class="loadingInfo"><img src="' + wojilu.path.img + '/ajax/loading.gif"/> loading...</span>';
 

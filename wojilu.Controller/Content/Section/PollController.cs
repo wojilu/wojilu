@@ -79,7 +79,7 @@ namespace wojilu.Web.Controller.Content.Section {
             pr.Ip = ctx.Ip;
 
             //String lnkPoll = to( Show, poll.TopicId );
-            String lnkPoll = alink.ToAppData( post );
+            String lnkPoll = alink.ToAppData( post, ctx );
 
             pollService.CreateResult( pr, lnkPoll );
 

@@ -48,6 +48,15 @@ namespace wojilu.Web.Controller.Content.Section {
         }
 
         public void List( int sectionId ) {
+            bindPostsInfo( sectionId, false );
+        }
+
+        public void Archive( int sectionId ) {
+            view( "List" );
+            bindPostsInfo( sectionId, true );
+        }
+
+        private void bindPostsInfo( int sectionId, Boolean isArchive ) {
             ContentSection section = sectionService.GetById( sectionId, ctx.app.Id );
             if (section == null) {
                 echoRedirect( lang( "exDataNotFound" ) );
@@ -60,13 +69,21 @@ namespace wojilu.Web.Controller.Content.Section {
 
             if (s.ArticleListMode == ArticleListMode.Summary) view( "ListSummary" );
 
-            //DataPage<ContentPost> posts = postService.GetBySectionAndCategory( section.Id, ctx.GetInt( "categoryId" ), s.ListPostPerPage );
-            DataPage<ContentPost> posts = postService.GetPageBySectionArchive( section.Id, s.ListPostPerPage );
+            String cpLink = clink.toSection( sectionId, ctx );
+            String apLink = clink.toArchive( sectionId, ctx );
+
+            Boolean isMakeHtml = HtmlHelper.IsMakeHtml( ctx );
+            DataPage<ContentPost> posts;
+            if (isArchive) {
+                posts = postService.GetPageBySectionArchive( section.Id, s.ListPostPerPage );
+                set( "page", posts.GetArchivePage( cpLink, apLink, 3, isMakeHtml ) );
+            }
+            else {
+                posts = postService.GetPageBySection( sectionId, s.ListPostPerPage );
+                set( "page", posts.GetRecentPage( cpLink, apLink, 3, isMakeHtml ) );
+            }
 
             bindPostList( section, posts, s );
-
-            //set( "page", posts.PageBar );
-            set( "page", posts.GetArchivePage( HtmlHelper.GetListLink( sectionId ), HtmlHelper.GetListLink( sectionId ), 5 ) );
         }
 
         public void SectionShow( int sectionId ) {
@@ -91,7 +108,7 @@ namespace wojilu.Web.Controller.Content.Section {
             }
 
             postService.AddHits( post );
-            
+
             ctx.SetItem( "ContentPost", post );
 
             bindDetail( id, post );

@@ -1,0 +1,82 @@
+﻿<link href="~css/wojilu.common.css?v=#{cssVersion}" rel="stylesheet" type="text/css" />
+<script src="~js/jquery.js?v=#{jsVersion}" type="text/javascript"></script>
+<script src="~js/lang.#{langStr}.js?v=#{jsVersion}" type="text/javascript"></script>
+<script src="~js/wojilu.common.js?v=#{jsVersion}" type="text/javascript"></script>
+
+<style>
+
+    #postSidebar { width:283px; float:left; padding:10px 0px 0px 0px; }
+    #postSidebarContainer {padding:10px 0px 0px 0px; }
+        .postPanel {margin:0px 0px 10px 0px;padding-bottom:10px; border:1px #aaccee solid; line-height:150%; font-size:14px; display:block;}
+        .postPanelTitle {padding:3px 0px 1px 10px; border-bottom:1px #aaccee solid; background:#e2eaf8; color:#004499; font-weight:bold; font-size:14px; line-height:25px;}
+        .postPanel a {color:#004499}
+        .postPanel ul {list-style:none; margin:10px; padding:0px;}
+        
+        #postSidebarContainer li.textListTitle {width:220px;white-space:nowrap;text-overflow:clip; -o-text-overflow:clip; -moz-text-overflow:clip; overflow: hidden;}
+        
+    #postSidebarContainer .postPanel .ulimg li{ float:left;margin:5px 0px 5px 10px;width:100px;}
+    #postSidebarContainer .postPanel .ulimg img {width:90px;height:80px;text-align:center;} 
+    #postSidebarContainer .postPanel .postTitle {width:100px;text-align:center;font-size:12px;white-space:nowrap;text-overflow:clip; -o-text-overflow:clip; -moz-text-overflow:clip; overflow: hidden;} 
+
+</style>
+<div id="postSidebarContainer">
+		
+	<div id="sidebarTopAdWrap">#{adSidebarTop}</div>
+		    
+	<!-- BEGIN listPanel -->
+	<div class="postPanel">
+		<div class="postPanelTitle">:{postRank}</div>
+		<ul class="textList">
+			<!-- BEGIN list -->
+			<li class="textListTitle"><a href="#{post.Link}" title="#{post.TitleFull}" target="_blank">#{post.TitleFull}</a></li><!-- END list -->
+		</ul>
+	</div><!-- END listPanel -->
+			
+	<!-- BEGIN imgPanel -->
+	<div class="postPanel clearfix">
+		<div class="postPanelTitle">:{picRank}</div>				
+		<ul class="ulimg">
+		<!-- BEGIN img -->
+		<li>
+			<div><a href="#{post.Link}" target="_blank"><img src="#{post.Img}" /></a></div>
+			<div class="postTitle"><a href="#{post.Link}" title="#{post.TitleFull}" target="_blank">#{post.TitleFull}</a></div>
+		</li><!-- END img -->
+		</ul>
+		<div class="clear"></div>
+	</div><!-- END imgPanel -->
+
+	<!-- BEGIN videoPanel -->
+	<div class="postPanel">
+		<div class="postPanelTitle">:{videoRank}</div>				
+		<ul class="ulimg">
+		<!-- BEGIN video -->
+		<li>
+			<div><a href="#{post.Link}" target="_blank"><img src="#{post.Img}"  /></a></div>
+			<div class="postTitle"><a href="#{post.Link}" title="#{post.TitleFull}" target="_blank">#{post.TitleFull}</a></div>
+		</li><!-- END video -->		
+		</ul>
+		<div class="clear"></div>			
+	</div><!-- END videoPanel -->
+			
+	<div id="sidebarBottomAdWrap">#{adSidebarBottom}</div>
+			
+			
+</div>			
+		
+<script>
+
+    var cmdResize = setInterval(resizeParent, 50);
+
+    var iResize = 1;
+
+    function resizeParent() {
+        var width = $(document).width();
+        var height = parseInt($(document).height());
+        iResize = iResize + 1;
+        if (iResize > 2) clearInterval(cmdResize);
+
+        window.parent.wojilu.tool.resizeFrame('contentSidebar', height);
+    };
+
+
+</script>

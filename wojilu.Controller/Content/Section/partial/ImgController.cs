@@ -13,6 +13,7 @@ using wojilu.Common.AppBase.Interface;
 using wojilu.Web.Controller.Content.Utils;
 using wojilu.Common.AppBase;
 using wojilu.ORM;
+using wojilu.Web.Controller.Content.Caching;
 
 namespace wojilu.Web.Controller.Content.Section {
 
@@ -32,7 +33,7 @@ namespace wojilu.Web.Controller.Content.Section {
                 else
                     block.Set( "post.Title", post.Title );
 
-                block.Set( "post.Url", alink.ToAppData( post ) );
+                block.Set( "post.Url", alink.ToAppData( post, ctx ) );
 
                 block.Set( "post.PicUrl", post.GetImgThumb() );
 
@@ -66,8 +67,9 @@ namespace wojilu.Web.Controller.Content.Section {
                 block.Next();
             }
 
-            String postLink = alink.ToAppData( post );
-            String pageBar = ObjectPage.GetPageBarByLink( postLink, imgPage.PageCount, imgPage.Current );
+            Boolean isMakeHtml = HtmlHelper.IsMakeHtml( ctx );
+            String postLink = alink.ToAppData( post, ctx );
+            String pageBar = ObjectPage.GetSimplePageBar( postLink, imgPage.Current, imgPage.PageCount, isMakeHtml );
 
             set( "page", pageBar );
 
@@ -78,14 +80,13 @@ namespace wojilu.Web.Controller.Content.Section {
             ctx.SetItem( "PageTitle", Page.Title );
             IBlock block = getBlock( "list" );
             foreach (ContentPost post in posts.Results) {
-                block.Set( "img.Url", alink.ToAppData( post ) );
+                block.Set( "img.Url", alink.ToAppData( post, ctx ) );
 
                 block.Set( "img.Thumb", post.GetImgThumb() );
                 block.Set( "img.Title", post.Title );
                 block.Set( "img.Description", strUtil.CutString( post.Content, 8 ) );
                 block.Next();
             }
-            set( "page", posts.PageBar );
         }
 
 

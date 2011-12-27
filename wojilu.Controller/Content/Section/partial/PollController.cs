@@ -157,7 +157,7 @@ namespace wojilu.Web.Controller.Content.Section {
 
                 block.Set( "post.Html", html );
                 //block.Set( "post.ShowLink", to( Show, post.Id ) );
-                block.Set( "post.ShowLink", alink.ToAppData( post ) );
+                block.Set( "post.ShowLink", alink.ToAppData( post, ctx ) );
 
 
                 String replies = post.Replies > 0 ? lang("comment") + " :" + post.Replies : "";

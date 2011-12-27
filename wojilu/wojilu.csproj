@@ -427,7 +427,7 @@
     <Compile Include="ORM\ObjectInfo.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="ORM\Page\ObjectPage.cs">
+    <Compile Include="ORM\ObjectPage.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="ORM\Caching\ObjectPool.cs">
@@ -724,6 +724,9 @@
       <ProductName>.NET Framework 3.5 SP1</ProductName>
       <Install>false</Install>
     </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="ORM\Page\" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

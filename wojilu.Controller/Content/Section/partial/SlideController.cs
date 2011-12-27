@@ -38,7 +38,7 @@ namespace wojilu.Web.Controller.Content.Section {
 
 
                 block.Set( "photo.ImgUrl", photo.GetImgMedium() );
-                block.Set( "photo.Link", alink.ToAppData( photo ) );
+                block.Set( "photo.Link", alink.ToAppData( photo, ctx ) );
 
                 block.Bind( "photo", photo );
 

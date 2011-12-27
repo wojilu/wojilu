@@ -24,7 +24,7 @@ namespace wojilu.Web.Controller.Content.Section {
                 block.Set( "photo.Number", i );
                 block.Set( "photo.ImgUrl", photo.GetImgUrl() );
                 block.Set( "photo.ThumbUrl", photo.GetImgThumb() );
-                block.Set( "photo.Link", alink.ToAppData( photo ) );
+                block.Set( "photo.Link", alink.ToAppData( photo, ctx ) );
 
                 if (strUtil.HasText( photo.TitleHome ))
                     block.Set( "photo.Title", photo.TitleHome );
@@ -47,7 +47,7 @@ namespace wojilu.Web.Controller.Content.Section {
 
 
                 fblock.Set( "first.ImgUrl", first.GetImgUrl() );
-                fblock.Set( "first.Link", alink.ToAppData( first ) );
+                fblock.Set( "first.Link", alink.ToAppData( first, ctx ) );
 
 
                 fblock.Set( "first.Width", first.Width );

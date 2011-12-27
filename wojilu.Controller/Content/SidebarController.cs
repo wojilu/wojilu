@@ -1,18 +1,44 @@
-/*
- * Copyright (c) 2010, www.wojilu.com. All rights reserved.
- */
-
-using System;
+﻿using System;
 using System.Collections.Generic;
+using System.Text;
 
+using wojilu.Common;
 using wojilu.Web.Mvc;
+using wojilu.Web.Mvc.Attr;
 using wojilu.Apps.Content.Domain;
-using wojilu.Web.Context;
-using wojilu.Common.AppBase;
+using wojilu.Apps.Content.Interface;
+using wojilu.Apps.Content.Service;
+using wojilu.Apps.Content.Enum;
 
-namespace wojilu.Web.Controller.Content.Section {
+namespace wojilu.Web.Controller.Content {
 
-    public partial class LayoutController : ControllerBase {
+    [App( typeof( ContentApp ) )]
+    public class SidebarController : ControllerBase {
+
+        public IContentPostService postService { get; set; }
+
+        public SidebarController() {
+            postService = new ContentPostService();
+        }
+
+        public void Index() {
+
+            ContentApp app = ctx.app.obj as ContentApp;
+            ContentSetting s = app.GetSettingsObj();
+
+            List<ContentPost> posts = postService.GetRankPost( ctx.app.Id, s.RankPosts, PostCategory.Post );
+            bindPosts( posts, "list" );
+
+            List<ContentPost> imgs = postService.GetRankPost( ctx.app.Id, s.RankPics, PostCategory.Img );
+            bindImgs( imgs, "img" );
+
+            List<ContentPost> videos = postService.GetRankPost( ctx.app.Id, s.RankVideos, PostCategory.Video );
+            bindVideos( videos, "video" );
+
+            set( "adSidebarTop", AdItem.GetAdById( AdCategory.ArticleSidebarTop ) );
+            set( "adSidebarBottom", AdItem.GetAdById( AdCategory.ArticleSidebarBottom ) );
+        }
+
 
         private void bindPosts( List<ContentPost> posts, String blockName ) {
             IBlock panel = getBlock( blockName + "Panel" );
