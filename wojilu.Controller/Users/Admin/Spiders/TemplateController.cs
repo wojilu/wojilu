@@ -263,10 +263,10 @@ namespace wojilu.Web.Controller.Users.Admin.Spiders {
             String detailEndCode = ctx.PostHtmlAll( "detailEndCode" );
 
             if (strUtil.IsNullOrEmpty( listUrl )) errors.Add( "请填写列表页的网址" );
-            //if (strUtil.IsNullOrEmpty( beginCode )) errors.Add( "请填写列表页开始代码" );
-            //if (strUtil.IsNullOrEmpty( endCode )) errors.Add( "请填写列表页结束代码" );
-            //if (strUtil.IsNullOrEmpty( detailBeginCode )) errors.Add( "请填写详细页开始代码" );
-            //if (strUtil.IsNullOrEmpty( detailEndCode )) errors.Add( "请填写详细页结束代码" );
+            if (strUtil.IsNullOrEmpty( beginCode )) errors.Add( "请填写列表页开始代码" );
+            if (strUtil.IsNullOrEmpty( endCode )) errors.Add( "请填写列表页结束代码" );
+            if (strUtil.IsNullOrEmpty( detailBeginCode )) errors.Add( "请填写详细页开始代码" );
+            if (strUtil.IsNullOrEmpty( detailEndCode )) errors.Add( "请填写详细页结束代码" );
 
             if (ctx.HasErrors) {
                 echoError();
