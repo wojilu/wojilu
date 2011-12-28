@@ -256,13 +256,13 @@ namespace wojilu.Web.Controller.Users.Admin.Spiders {
 
             String listUrl = ctx.Post( "listUrl" );
 
-            String beginCode = ctx.PostHtmlAll( "listBeginCode" );
-            String endCode = ctx.PostHtmlAll( "listEndCode" );
+            //String beginCode = ctx.PostHtmlAll( "listBeginCode" );
+            //String endCode = ctx.PostHtmlAll( "listEndCode" );
             String listBodyPattern = ctx.PostHtmlAll("ListBodyPattern");
             String ListPattern = ctx.PostHtmlAll("ListPattern");
 
-            String detailBeginCode = ctx.PostHtmlAll( "detailBeginCode" );
-            String detailEndCode = ctx.PostHtmlAll( "detailEndCode" );
+            //String detailBeginCode = ctx.PostHtmlAll( "detailBeginCode" );
+            //String detailEndCode = ctx.PostHtmlAll( "detailEndCode" );
             String DetailPattern = ctx.PostHtmlAll("DetailPattern");
 
             if (strUtil.IsNullOrEmpty( listUrl )) errors.Add( "请填写列表页的网址" );
@@ -284,14 +284,14 @@ namespace wojilu.Web.Controller.Users.Admin.Spiders {
             }
 
             s.ListUrl = listUrl;
-            s.ListBodyBegin = beginCode;
-            s.ListBodyEnd = endCode;
+            //s.ListBodyBegin = beginCode;
+            //s.ListBodyEnd = endCode;
 
             s.ListPattern = ListPattern;
             s.ListBodyPattern = listBodyPattern;
 
-            s.DetailBegin = detailBeginCode;
-            s.DetailEnd = detailEndCode;
+            //s.DetailBegin = detailBeginCode;
+            //s.DetailEnd = detailEndCode;
             s.DetailPattern = DetailPattern;
             s.SiteName = ctx.Post( "siteName" );
 
