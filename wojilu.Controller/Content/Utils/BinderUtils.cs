@@ -66,7 +66,7 @@ namespace wojilu.Web.Controller.Content.Utils {
             block.Set( "post.Url", alink.ToAppData( post ) );
 
             if (post.Creator != null) {
-                block.Set( "post.Submitter", string.Format( "<a href=\"{0}\" target=\"_blank\">{1}</a>", Link.ToMember( post.Creator ), post.Creator.Name ) );
+                block.Set( "post.Submitter", string.Format( "<a href=\"{0}\" target=\"_blank\">{1}</a>", Link.ToMember( post.Creator ), post.Creator.DisplayName ) );
             }
             else {
                 block.Set( "post.Submitter", "" );
@@ -148,7 +148,7 @@ namespace wojilu.Web.Controller.Content.Utils {
             block.Set( "post.CreatedDay", post.Created.ToShortDateString() );
             block.Set( "post.CreatedTime", post.Created.ToShortTimeString() );
 
-            block.Set( "post.CreatorName", post.Creator == null ? "" : post.Creator.Name );
+            block.Set( "post.CreatorName", post.Creator == null ? "" : post.Creator.DisplayName );
             block.Set( "post.CreatorLink", Link.ToMember( post.Creator ) );
 
             block.Bind( "post", post );

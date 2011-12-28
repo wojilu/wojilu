@@ -91,7 +91,7 @@ namespace wojilu.Web.Controller.Microblogs {
 
             IBlock block = getBlock( "list" );
             foreach (Microblog m in list) {
-
+                block.Set("m.DisplayName", m.User.DisplayName);
                 block.Set( "m.UserName", m.User.Name );
                 block.Set( "m.UserFace", m.User.PicSmall );
                 block.Set( "m.UserLink", alink.ToUserMicroblog( m.User ) );
@@ -116,7 +116,7 @@ namespace wojilu.Web.Controller.Microblogs {
         private void bindFollowers( List<User> follows, String blockName ) {
             IBlock block = getBlock( blockName );
             foreach (User u in follows) {
-
+                block.Set("user.DisplayName", u.DisplayName);
                 block.Set( "user.Name", u.Name );
                 block.Set( "user.Face", u.PicSmall );
                 block.Set( "user.Link", alink.ToUserMicroblog( u ) );

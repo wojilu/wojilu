@@ -27,6 +27,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "wojilu.Demo", "wojilu.Demo\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "wojilu.Test", "wojilu.Test\wojilu.Test.csproj", "{458C03F6-60CF-4935-B40F-18CC9D091AC5}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AuthenticationModule", "AuthenticationModule\AuthenticationModule.csproj", "{B45771A3-9495-42A2-92ED-92F6D52C372F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AuthenticationModuleTestWebsite", "AuthenticationModuleTestWebsite\AuthenticationModuleTestWebsite.csproj", "{2B146E97-5484-4486-8974-FE3103069A48}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|.NET = Debug|.NET
@@ -165,6 +169,26 @@ Global
 		{458C03F6-60CF-4935-B40F-18CC9D091AC5}.Release|Any CPU.Build.0 = Release|Any CPU
 		{458C03F6-60CF-4935-B40F-18CC9D091AC5}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{458C03F6-60CF-4935-B40F-18CC9D091AC5}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{B45771A3-9495-42A2-92ED-92F6D52C372F}.Debug|.NET.ActiveCfg = Debug|Any CPU
+		{B45771A3-9495-42A2-92ED-92F6D52C372F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B45771A3-9495-42A2-92ED-92F6D52C372F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B45771A3-9495-42A2-92ED-92F6D52C372F}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{B45771A3-9495-42A2-92ED-92F6D52C372F}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{B45771A3-9495-42A2-92ED-92F6D52C372F}.Release|.NET.ActiveCfg = Release|Any CPU
+		{B45771A3-9495-42A2-92ED-92F6D52C372F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B45771A3-9495-42A2-92ED-92F6D52C372F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B45771A3-9495-42A2-92ED-92F6D52C372F}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{B45771A3-9495-42A2-92ED-92F6D52C372F}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{2B146E97-5484-4486-8974-FE3103069A48}.Debug|.NET.ActiveCfg = Debug|Any CPU
+		{2B146E97-5484-4486-8974-FE3103069A48}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2B146E97-5484-4486-8974-FE3103069A48}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2B146E97-5484-4486-8974-FE3103069A48}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{2B146E97-5484-4486-8974-FE3103069A48}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{2B146E97-5484-4486-8974-FE3103069A48}.Release|.NET.ActiveCfg = Release|Any CPU
+		{2B146E97-5484-4486-8974-FE3103069A48}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2B146E97-5484-4486-8974-FE3103069A48}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2B146E97-5484-4486-8974-FE3103069A48}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{2B146E97-5484-4486-8974-FE3103069A48}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

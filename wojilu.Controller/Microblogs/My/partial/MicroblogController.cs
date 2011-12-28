@@ -22,7 +22,8 @@ namespace wojilu.Web.Controller.Microblogs.My {
             set( "favoriteLink", to( new MicroblogFavoriteController().List ) );
             set( "atmeLink", to( Atme ) );
             set( "myCommentLink", to( new MicroblogCommentsController().My ) );
-
+ 
+            set("user.DisplayName", user.DisplayName);
             set( "user.Name", user.Name );
             set( "user.Pic", user.PicMedium );
             set( "user.PicSmall", user.PicSmall );
@@ -73,6 +74,7 @@ namespace wojilu.Web.Controller.Microblogs.My {
 
             IBlock block = getBlock( blockName );
             foreach (User user in users) {
+                block.Set("user.DisplayName", user.DisplayName);
                 block.Set( "user.Name", user.Name );
                 block.Set( "user.Face", user.PicSmall );
                 block.Set( "user.Link", alink.ToUserMicroblog( user ) );

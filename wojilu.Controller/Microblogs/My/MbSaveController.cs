@@ -44,6 +44,7 @@ namespace wojilu.Web.Controller.Microblogs.My {
 
             User user = ctx.owner.obj as User;
 
+            set("my.DisplayName", user.DisplayName);
             set( "my.Name", user.Name );
             set( "my.Face", user.PicSmall );
             set( "my.Link", to( new UserProfileController().Face ) );

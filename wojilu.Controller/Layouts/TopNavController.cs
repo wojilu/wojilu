@@ -122,6 +122,7 @@ namespace wojilu.Web.Controller.Layouts {
             Dictionary<String, object> objViewer = new Dictionary<string, object>();
             objViewer.Add( "Id", user.Id );
             objViewer.Add( "Name", user.Name );
+            objViewer.Add("DisplayName", user.DisplayName);
             objViewer.Add( "FriendlyUrl", user.Url );
             objViewer.Add( "Url", Link.ToMember( user ) );
             objViewer.Add( "PicMedium", user.PicMedium );
@@ -152,7 +153,8 @@ namespace wojilu.Web.Controller.Layouts {
 
             User user = (User)ctx.viewer.obj;
 
-            dic.Add( "viewerName", user.Name );
+          //  dic.Add( "viewerName", user.Name );
+            dic.Add("viewerName", user.DisplayName);
             dic.Add( "viewerPicSmall", user.PicSmall );
             dic.Add( "viewerFeeds", Link.T2( user, new FeedController().My, -1 ) );
 

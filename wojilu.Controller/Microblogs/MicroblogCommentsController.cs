@@ -98,7 +98,7 @@ namespace wojilu.Web.Controller.Microblogs {
                 cblock.Set( "user.Face", c.User.PicSmall );
                 cblock.Set( "user.Link", Link.ToMember( c.User ) );
                 cblock.Set( "user.Name", c.User.Name );
-
+                cblock.Set("user.DisplayName", c.User.DisplayName);
 
                 cblock.Set( "comment.Id", c.Id );
                 cblock.Set( "comment.RootId", c.Root.Id );

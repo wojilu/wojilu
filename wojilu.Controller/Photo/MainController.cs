@@ -48,6 +48,7 @@ namespace wojilu.Web.Controller.Photo {
         private void bindUsers( List<User> userRanks ) {
             IBlock block = getBlock( "users" );
             foreach (User user in userRanks) {
+                block.Set("user.DisplayName", user.DisplayName);
                 block.Set( "user.Name", user.Name );
                 block.Set( "user.Face", user.PicSmall );
                 block.Set( "user.Link", Link.ToMember( user ) );

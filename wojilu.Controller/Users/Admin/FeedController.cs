@@ -49,6 +49,8 @@ namespace wojilu.Web.Controller.Users.Admin {
             feedService.ClearFeeds();
 
             User user = ctx.owner.obj as User;
+
+            set("user.DisplayName", user.DisplayName);
             set( "user.PicSmall", user.PicSmall );
             set( "user.Link", to( new UserProfileController().Face ) );
 

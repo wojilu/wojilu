@@ -21,6 +21,7 @@ namespace wojilu.Web.Controller.Blog {
             IBlock block = getBlock( "users" );
             foreach (User user in userRanks) {
                 block.Set( "user.Name", user.Name );
+                block.Set("user.DisplayName", user.DisplayName);
                 block.Set( "user.Face", user.PicSmall );
                 block.Set( "user.Link", Link.ToMember( user ) );
                 block.Next();
@@ -51,7 +52,7 @@ namespace wojilu.Web.Controller.Blog {
             if (strUtil.HasText( post.Creator.Pic )) {
                 userFace = string.Format( "<a href='{0}'><img src='{1}'/></a><br/>", userLink, post.Creator.PicSmall );
             }
-            userFace += string.Format( "<a href='{0}'>{1}</a>", userLink, post.Creator.Name );
+            userFace += string.Format( "<a href='{0}'>{1}</a>", userLink, post.Creator.DisplayName );
 
             String abs = strUtil.HasText( post.Abstract ) ? post.Abstract : strUtil.ParseHtml( post.Content, 200 );
             tpl.Set( "post.Face", userFace );

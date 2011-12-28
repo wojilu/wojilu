@@ -129,6 +129,16 @@ namespace wojilu.Web {
             }
         }
 
+        /// <summary>
+        /// Add UserName()  for Get UserName by cookie      
+        /// Add by  shiningrise 2011-15-15
+        /// </summary>
+        /// <returns></returns>
+        public string UserName()
+        {
+            return this._httpctx.User.Identity.Name;
+        }
+
         public int UserId() {
             return UserId( FormsAuthentication.FormsCookieName );
         }
