@@ -7,7 +7,10 @@ using wojilu.Data;
 using wojilu.Net;
 using System.Threading;
 using wojilu.Common.Spider.Interface;
-
+using HtmlAgilityPack;
+using Fizzler;
+using Fizzler.Systems.HtmlAgilityPack;
+using System.Linq;
 namespace wojilu.Common.Spider.Service {
 
     public class SpiderTool : ISpiderTool {
@@ -186,6 +189,28 @@ namespace wojilu.Common.Spider.Service {
                 return target;
             }
 
+            if (!strUtil.IsNullOrEmpty(s.GetListBodyPattern()))
+            {
+                HtmlDocument htmlDoc = new HtmlDocument
+                {
+                    OptionAddDebuggingAttributes = false,
+                    OptionAutoCloseOnEnd = true,
+                    OptionFixNestedTags = true,
+                    OptionReadEncoding = true
+                };
+                htmlDoc.LoadHtml(target);
+                IEnumerable<HtmlNode> Nodes = htmlDoc.DocumentNode.QuerySelectorAll(s.GetListBodyPattern());
+                if (Nodes.Count() > 0)
+                {
+                    target = Nodes.ToArray()[0].OuterHtml;
+                    return target.Trim();
+                }
+                else
+                {
+                    logInfo("error=没有匹配的页面内容:" + s.ListUrl, s, sb);
+                    return null;
+                }
+            }
             //这里未来也可以改成css选择器的方式，来细化目标url集合的范围
             //Match match = Regex.Match(target, s.GetListBodyPattern(), RegexOptions.Singleline);
             //if (match.Success)
