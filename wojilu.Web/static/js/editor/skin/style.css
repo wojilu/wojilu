@@ -3,6 +3,9 @@
 
 .wojiluEditorFrame {cursor:text;}
 
+
+pre { font-family:verdana; background:#f8f8f8; border:1px #ddd solid;border-left:5px #6ce26c solid;font-size:9pt; word-wrap:break-word; padding:3px 5px;}
+
 /*工具栏*/
 div.editorToolBar { width:100%; background:#efefef url(toolbar/bg.gif);  border-bottom:1px #999 solid; }
 div.editorToolBar table td {font-size:12px !important; line-height:135% !important;vertical-align:middle;padding:1px 2px 1px 2px !important;}
