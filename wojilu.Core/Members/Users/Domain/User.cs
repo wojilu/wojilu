@@ -240,7 +240,24 @@ namespace wojilu.Members.Users.Domain {
             set { _realId = value; }
         }
 
-
+        /// <summary>
+        /// 显示的名称：UserName用户名，RealName真实姓名
+        /// </summary>
+        [NotSave]
+        public string DisplayName
+        {
+            get
+            {
+                if (config.Instance.Site.UserDisplayName == Config.UserDisplayNameType.RealName && String.IsNullOrEmpty(this.RealName) != true)
+                    return this.RealName;
+                else if (config.Instance.Site.UserDisplayName == Config.UserDisplayNameType.Name)
+                    return this.Name;
+                else if (String.IsNullOrEmpty(this.RealName) != true)
+                    return this.RealName;
+                else
+                    return this.Name;
+            }
+        }
     }
 }
 
