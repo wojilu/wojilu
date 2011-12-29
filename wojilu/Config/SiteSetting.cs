@@ -82,6 +82,15 @@ namespace wojilu.Config {
     }
 
     /// <summary>
+    /// 显示名称：Name 用户名，RealName 真实姓名，默认为RealName
+    /// </summary>
+    public class UserDisplayNameType
+    {
+        public static readonly int RealName = 1;
+        public static readonly int Name = 2;
+    }
+
+    /// <summary>
     /// 网站配置
     /// </summary>
     public class SiteSetting {
@@ -391,6 +400,26 @@ namespace wojilu.Config {
 
             return false;
         }
+
+        /// <summary>
+        /// 使用MS的Membership数据库验证登录，需要配合AuthenticationModule的自动注册功能一起使用,默认为否
+        /// </summary>
+        public Boolean ValidateUserByMembership { get; set; }
+
+        /// <summary>
+        /// 显示名称：Name 用户名，RealName 真实姓名，默认为RealName
+        /// </summary>
+        public int UserDisplayName { get; set; }
+
+        /// <summary>
+        /// 是否禁止修改真实性名与空间名称，默认不禁止
+        /// </summary>
+        public Boolean DenyEditUserRealName { get; set; }
+
+        /// <summary>
+        /// 是否禁止修改空间名称，默认不禁止
+        /// </summary>
+        public Boolean DenyEditUserTitle { get; set; }
 
         //------------------------------filter----------------------------------
 
