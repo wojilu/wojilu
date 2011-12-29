@@ -107,7 +107,24 @@ wojilu.editor = function( param ) {
     this.toolBar2Prefix;
     this.toolBar2Suffix;    
     
-    this.selection = { range : null, type : null };
+    this.selection = { range : null, type : null, text:null };
+    
+    this.getHiddenEle = function( name, frmId, height, content ) {
+        //var result = '<input type="hidden" id="'+name+'" name="'+name+'" value=\''+content+'\' />';
+        //var result = '<textarea id="'+name+'" name="'+name+'" style="width:80%;" />'+content+'</textarea>';
+        var result = '';
+        result += '<div style="padding:0px;border:0px red solid;"><iframe class="wojiluEditorFrame" id="'+frmId+'" name="'+frmId+'" width="100%" height="'+height+'" frameborder="0" scrolling="auto" style="margin:0px;width:100%;border:0px #000 solid;"></iframe></div>';
+        return result;
+    };
+
+    this.getEditorId = function() {        
+        if( !wojilu.ctx.editorList ) {
+            wojilu.ctx.editorList = new Array();
+        };
+        var result = 'wojiluEditor' + (wojilu.ctx.editorList.length+1);
+        wojilu.ctx.editorList.push( result );
+        return result;
+    };
     
     // 初始化    
     this.initEditor = function(param) {    
@@ -126,29 +143,18 @@ wojilu.editor = function( param ) {
         this.imgPath = this.skinPath + 'toolbar/';
         this.emPath = this.skinPath + 'em/';
         
-        if( !this.config.content ) { this.html=''; } else {this.html=this.config.content;};
+        //if( !this.config.content ) { this.html=''; } else {this.html=this.config.content;};
+        this.html = $('#'+this.name).val();
+        if( !this.html ) this.html = '';
                 
         this.hiddenEle = this.getHiddenEle( this.name, this.frmId, this.config.height, this.html );
+
+
     	this.toolBar1Prefix = '<div class="editorToolBar" style="position:relative;" id="'+this.id+'Toolbar"><table class="editorToolBar1 ebarInner"><tr>';
     	this.toolBar1Suffix = '<td class="wojilu_tool_more"><img src="'+this.imgPath+'down.gif"/></td></tr></table>';
     	this.toolBar2Prefix = '<table class="editorToolBar2 ebarInner" style="position:relative;display:none;"><tr>';
         this.checkSourceCode = '<td class="wojilu_tool_source"><div class="viewSource"><input id="chksrc'+this.id+'" type="checkbox"/><label for="chksrc'+this.id+'">'+this.lang.sourceCode+'</label></div></td>';
     	this.toolBar2Suffix = '</tr></table></div>';
-    };
-    
-     this.getEditorId = function() {        
-        if( !wojilu.ctx.editorList ) {
-            wojilu.ctx.editorList = new Array();
-        };
-        var result = 'wojiluEditor' + (wojilu.ctx.editorList.length+1);
-        wojilu.ctx.editorList.push( result );
-        return result;
-    };
-    
-    this.getHiddenEle = function( name, frmId, height, content ) {
-        var result = '<input type="hidden" id="'+name+'" name="'+name+'" value=\''+content+'\' />';
-        result += '<div style="padding:0px;border:0px red solid;"><iframe class="wojiluEditorFrame" id="'+frmId+'" name="'+frmId+'" width="100%" height="'+height+'" frameborder="0" scrolling="auto" style="margin:0px;width:100%;border:0px #000 solid;"></iframe></div>';
-        return result;
     };
     
     this.initEditor(param);
@@ -173,15 +179,15 @@ wojilu.editor.prototype = {
     },
 
     insertHTML : function (html) {
-	this.editor.focus();
-	if (document.all) { this.addHtml( html ); } else { this.doc.execCommand( 'insertHTML', false, html ); };
+        this.editor.focus();
+        if (document.all) { this.addHtml( html ); } else { this.doc.execCommand( 'insertHTML', false, html ); };
     }, 
 
     addHtml : function ( html ) {
-	var selectRange = this.selection.range;
-	selectRange.pasteHTML( html  );
-	selectRange.collapse( false );
-	selectRange.select();
+        var selectRange = this.selection.range;
+        selectRange.pasteHTML( html  );
+        selectRange.collapse( false );
+        selectRange.select();
     },
 
     formatHandler : function (cmd) {
@@ -197,17 +203,17 @@ wojilu.editor.prototype = {
     },
 
     getBasicBar : function () {		
-	var strBasicBar = '';
-	for( i=0;i<this.basicToolbar.length;i++ ){ strBasicBar += this.td(this.basicToolbar[i]); };
-	return this.toolBar1Prefix + strBasicBar + this.toolBar2Suffix;
+        var strBasicBar = '';
+        for( i=0;i<this.basicToolbar.length;i++ ){ strBasicBar += this.td(this.basicToolbar[i]); };
+        return this.toolBar1Prefix + strBasicBar + this.toolBar2Suffix;
     },
 
     getFullBar : function () {
-	var fullToolbar1 = '';
-	for( i=0;i<this.arrToolbar1.length;i++ ){ if(!document.all && (this.arrToolbar1[i]=='copy' || this.arrToolbar1[i]=='cut' || this.arrToolbar1[i]=='paste')){continue;} fullToolbar1 += this.td( this.arrToolbar1[i] ); };
-	var fullToolbar2 = '';
-	for( i=0;i<this.arrToolbar2.length;i++ ){ if(!document.all && (this.arrToolbar2[i]=='copy' || this.arrToolbar2[i]=='cut' || this.arrToolbar2[i]=='paste')){continue;} fullToolbar2 += this.td( this.arrToolbar2[i] ); };
-	return this.toolBar1Prefix + fullToolbar1 + this.toolBar1Suffix + this.toolBar2Prefix + fullToolbar2 + this.checkSourceCode + this.toolBar2Suffix;
+        var fullToolbar1 = '';
+        for( i=0;i<this.arrToolbar1.length;i++ ){ if(!document.all && (this.arrToolbar1[i]=='copy' || this.arrToolbar1[i]=='cut' || this.arrToolbar1[i]=='paste')){continue;} fullToolbar1 += this.td( this.arrToolbar1[i] ); };
+        var fullToolbar2 = '';
+        for( i=0;i<this.arrToolbar2.length;i++ ){ if(!document.all && (this.arrToolbar2[i]=='copy' || this.arrToolbar2[i]=='cut' || this.arrToolbar2[i]=='paste')){continue;} fullToolbar2 += this.td( this.arrToolbar2[i] ); };
+        return this.toolBar1Prefix + fullToolbar1 + this.toolBar1Suffix + this.toolBar2Prefix + fullToolbar2 + this.checkSourceCode + this.toolBar2Suffix;
     },
     
     getBar : function() {
@@ -223,14 +229,14 @@ wojilu.editor.prototype = {
     },
     
     addImgs : function () {
-	for( i=0;i<this.arrToolbar1.length;i++ ){
+        for( i=0;i<this.arrToolbar1.length;i++ ){
             var cmd = this.arrToolbar1[i];
             if( cmd=='separator' ) {
                 this.cmdCell(cmd).addClass( 'editorSeparator' );
             };
             this.addimg( cmd );
         };
-	for( i=0;i<this.arrToolbar2.length;i++ ){
+        for( i=0;i<this.arrToolbar2.length;i++ ){
             var cmd = this.arrToolbar2[i];
             if( cmd=='separator' ) {
                 this.cmdCell(cmd).addClass( 'editorSeparator' );
@@ -240,9 +246,9 @@ wojilu.editor.prototype = {
     },
    
     writeContentToEditor : function ( htmlContent ) {        
-	this.doc.open();
-	this.doc.write( htmlContent );
-	this.doc.close();
+        this.doc.open();
+        this.doc.write( htmlContent );
+        this.doc.close();
     },
     
     isHtmlChecked : function() {
@@ -257,8 +263,8 @@ wojilu.editor.prototype = {
         }
         var frameHtml = '<html><link rel="stylesheet" type="text/css" href="'+this.skinPath+ 'style.css'+'" /><body style="background:#fff;border:0px #aaa solid;margin:5px;padding:0px;font-family:verdana;font-size:12px;line-height:150%;">\n' + htmlContent + '\n</body></html>';
 
-	if( document.all ) { this.editor = frames[ this.frmId ]; } else { this.editor = this.$id( this.frmId ).contentWindow; };
-	this.doc = this.editor.document;
+        if( document.all ) { this.editor = frames[ this.frmId ]; } else { this.editor = this.$id( this.frmId ).contentWindow; };
+        this.doc = this.editor.document;
 
         var that = this;
         if (document.all) {
@@ -267,10 +273,11 @@ wojilu.editor.prototype = {
             
             this.editor.attachEvent('onblur', function() {
                 if( that.isHtmlChecked() ) {
-                    val( that.name, that.doc.body.innerText );
+                    //val( that.name, $('#'+this.name).val());
+                    //val( that.name, that.doc.body.innerText );
                 }
                 else {
-                    val( that.name, that.doc.body.innerHTML);
+                    val( that.name, checkXhtml( that.doc.body.innerHTML ));
                 };
             });
         }
@@ -279,12 +286,13 @@ wojilu.editor.prototype = {
             this.writeContentToEditor(frameHtml);
             this.editor.addEventListener('blur', function() {
                 if( that.isHtmlChecked() ) {
-    				var html =that.doc.createRange();
-    				html.selectNodeContents(that.doc.body);
-                    val( that.name, html );
+    				//var html =that.doc.createRange();
+    				//html.selectNodeContents(that.doc.body);
+                    //var html = $('#'+this.name).val();
+                    //val( that.name, html );
                 }
                 else {
-                    val( that.name, that.doc.body.innerHTML );
+                    val( that.name, checkXhtml(that.doc.body.innerHTML) );
                 };
             
             }, false );
@@ -341,10 +349,22 @@ wojilu.editor.prototype.dlgHandler = function (cmd) {
 };
 
 wojilu.editor.prototype.cacheSelection = function () {
-    if( !document.all ) {return;};
-    this.editor.focus();
-    this.selection.range = this.doc.selection.createRange();
-    this.selection.type = this.doc.selection.type;
+    if( document.all ) {
+        this.editor.focus();
+        this.selection.range = this.doc.selection.createRange();
+        this.selection.type = this.doc.selection.type;
+        this.selection.text = this.selection.range.htmlText;
+    }
+    else {
+        this.selection.range = this.doc.getSelection().getRangeAt(0);
+        this.selection.text = this.selection.range.toString();
+    }
+};
+
+wojilu.editor.prototype.restoreSelection = function () {
+    if( document.all && this.selection.range && this.selection.type!='Control') {
+        this.selection.range.select();
+    };
 };
     
 wojilu.editor.prototype.dialog = function (cmd, target) {
@@ -369,12 +389,6 @@ wojilu.editor.prototype.dialog = function (cmd, target) {
             
         eval( 'this.'+cmd+'Handler();' );
     }
-};
-
-wojilu.editor.prototype.restoreSelection = function () {
-    if( document.all && this.selection.range && this.selection.type!='Control') {
-        this.selection.range.select();
-    };
 };
     
 wojilu.editor.prototype.ebarMoreHandler = function () {
@@ -422,7 +436,6 @@ wojilu.editor.prototype.addCodeHandler= function () {
             return;
         }
         code = code.replace( /</g, '&lt;' ).replace( />/g, '&gt;' );
-        that.cacheSelection(); // 针对IE
         if( codeType=='text' ) {
             that.insertHTML( code.replace(/\n/g,"<br/>") );
         }
@@ -786,7 +799,7 @@ wojilu.editor.prototype.getFlashHtml = function (srcUrl,width,height) {
     
 wojilu.editor.prototype.linkDialog = function () {
     var linkBoxId = 'linkBox';
-    var result ='<div id="'+linkBoxId+'" class="editorBox" unselectable="on"><div><table><tr><td>'+this.lang.url+': <input class="editorLinkUrl" type="text" value="http://" />&nbsp;<input class="btnCreateLink btn btns" type="button" value="'+this.lang.addLink+'" unselectable="on" style="margin-right:10px;"/></td><td>'+this.closecmd(linkBoxId)+'</td></tr></table></div></div>';
+    var result ='<div id="'+linkBoxId+'" class="editorBox" unselectable="on"><div><table><tr><td>'+this.lang.url+'</td><td><input class="editorLinkUrl" type="text" value="http://" />&nbsp;</td><td>'+this.closecmd(linkBoxId)+'</td></tr><tr><td>打开方式</td><td colspan=2><select class="editorLinkTarget"><option value="">本页打开</option><option value="_blank">新窗口打开</option></select></td></tr><tr><td></td><td colspan=2><input class="btnCreateLink btn btns" type="button" value="'+this.lang.addLink+'" unselectable="on" style="margin-right:10px;"/></td></tr></table></div></div>';
     return result;
 };
 
@@ -799,14 +812,15 @@ wojilu.editor.prototype.linkHandler = function () {
         var linkUrl = lnkText.val();
         
         if( linkUrl=='' || linkUrl=='http://' ) { alert( that.lang.urlError ); lnkText.focus(); return false; }
-        that.createLink( linkUrl );
+        that.createLink( linkUrl, $('.editorLinkTarget', linkBox ).val() );
         linkBox.hide();
     });
 };
 
-wojilu.editor.prototype.createLink = function ( url ) {
-    this.editor.focus();
-    if (document.all) { this.addHtml( '<a href="'+url+'">' + this.selection.range.htmlText + '</a>' ); } else { this.doc.execCommand( 'createlink', false, url ); }       
+wojilu.editor.prototype.createLink = function ( url, lnkTarget ) {
+    var strTarget='';
+    if( lnkTarget == '_blank' ) { strTarget = ' target="_blank"'; };
+    this.insertHTML( '<a href="'+url+'"'+strTarget +'>' + this.selection.text + '</a>' );
 };
 
 //----------------------------------------------------------------
@@ -824,19 +838,22 @@ wojilu.editor.prototype.aboutHandler = function () {
 
 //----------------------------------------------------------------
 
-function setNewLine( html ) {    
-    var nh = html;        
-    nh = nh.replace( /<br>/gi , '<br>\n' ); 
-    nh = nh.replace( /<li/gi , '\n<li' ); 
-    nh = nh.replace( /<\/li>/gi , '<\/li>\n' );         
-    nh = nh.replace( /<ul/gi , '\n<ul' ); 
-    nh = nh.replace( /<\/ul>/gi , '<\/ul>\n' );         
-    nh = nh.replace( /<div/gi , '\n<div' ); 
-    nh = nh.replace( /<\/div>/gi , '<\/div>' );         
-    nh = nh.replace( /<p/gi , '\n<p' ); 
-    nh = nh.replace( /<\/p>/gi , '<\/p>' );    
-    return nh;
+function checkXhtml( html ) {    
+    return convertXhtml( html );
 }
+
+function convertXhtml(str) {
+	str = str.replace(/<br.*?>/gi, "<br />");
+	str = str.replace(/<b([^\/]*?>)/gi, "<strong$1");
+	str = str.replace(/<\/b>/gi, "</strong>");
+	str = str.replace(/(<hr[^>]*[^\/])(>)/gi, "$1 />");
+	str = str.replace(/(<img[^>]*[^\/])(>)/gi, "$1 />");
+    str = str.replace(/(<\w+)(.*?>)/gi, function (all, tag, attr) { return tag.toLowerCase() + attr.toLowerCase(); });
+    str = str.replace(/(<\/\w+>)/gi, function (all, tag) { return tag.toLowerCase(); });
+	return str;
+}
+
+//----------------------------------------------------------------
 
 wojilu.editor.prototype.sourceHandler = function () {
     var that = this;
@@ -847,38 +864,26 @@ wojilu.editor.prototype.sourceHandler = function () {
     
         if( this.checked ) {                
             
+            $('#'+that.frmId).hide();
+            $('#'+that.name).val(checkXhtml(that.doc.body.innerHTML)).show();
+
             var sp = wojilu.position.getTarget(viewSource[0]);
             viewSource.appendTo($('body'));
             viewSource.css( 'position', 'absolute' ).css( 'zIndex', 99 ).css( 'left', sp.x ).css( 'top', sp.y );
             
             var toolbar = $('.editorToolBar', that.editorPanel );
             that.showTempDiv( toolbar[0] );
-
-            if( document.all || $.browser.safari  ) {
-                var htmlSrc = setNewLine( that.doc.body.innerHTML );
-                that.doc.body.innerText = htmlSrc;
-            }
-            else {
-
-                var htmlSrc = setNewLine( that.doc.body.innerHTML );
-                var html = document.createTextNode(htmlSrc);
-                that.doc.body.innerHTML = "";
-                that.doc.body.appendChild(html);      
-            };            
         }
         else {
+
+            $('#'+that.frmId).show();
+            $('#'+that.name).hide();
+
             $('#tempDiv').hide();
             var td = $('.wojilu_tool_source', that.editorPanel );
             viewSource.appendTo(td).css( 'position', 'static' );
             
-            if( document.all ) {
-                that.doc.body.innerHTML = that.doc.body.innerText;
-            }
-            else {
-                var html = that.doc.createRange();
-                html.selectNodeContents(that.doc.body);
-                that.doc.body.innerHTML = html.toString();
-            };
+            that.doc.body.innerHTML = $('#'+that.name).val();
         };
     });
 };
@@ -905,7 +910,6 @@ wojilu.editor.prototype.showPosition = function(target, offset) {
 //----------------------------------------------------------------
 
 wojilu.editor.prototype.render = function() {
-
     
     wojilu.tool.loadCss( this.skinPath + 'style.css' );    
     var toolBar = this.getBar();    
@@ -921,7 +925,10 @@ wojilu.editor.prototype.render = function() {
     this.makeWritable();    
     this.addCallback();
     
+    $('#'+this.frmId).before( $('#'+this.name) );
     var frmrId = this.frmId;
+
+    this.editor.focus();
 
     var isPart = function() {
         if( wojilu.tool.getQuery( 'frm' ) == 'true') return true;
