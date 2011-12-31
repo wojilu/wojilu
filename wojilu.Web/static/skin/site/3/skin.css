@@ -114,3 +114,11 @@ tr.fbHeader td{background:url('forumBoardHeader.png');height:33px; height:24px\9
 .forumList td {padding:3px 5px 2px 5px;border:0px; border-bottom:1px #f9ffbb solid;}
 .forumBoard:hover {background:#fcfdf3;}
 .fbCategoryPointer { float:left; width:16px;height:16px; margin-top:2px; background:url('fbPointer.png') no-repeat;}
+.ajaxCmd,.ajaxForumPost { width:60px;text-align:center;}
+#forumLocationContainer { height:30px; padding-top:5px; margin-bottom:10px;background:#ffffea; border:1px #fcfccc solid;	filter: alpha(opacity=90);	-moz-opacity:9;	opacity: 9; }
+.fbToolContainer { background:#fbffce;} /*发布主题按钮*/
+#forumPostListWrap {border:1px #fff9d7 solid;}
+#forumPostList tr:hover {background:#fcfdf3;}
+#forumPostList td {border-top:1px #fff9d7 solid;}
+table.postOne {border:1px #fdefa2;}
+.poTitle {border-bottom:1px dashed #fdefa2;}

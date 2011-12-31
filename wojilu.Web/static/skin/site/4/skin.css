@@ -108,4 +108,4 @@
 }
 .forumPanelSimple { border-bottom:1px #edfddc solid; background1:#fafafa;margin:10px 0px 10px 0px;border:1px #edfddc solid;}
 #wojilu_banner{ width:100%;height:106px; background-image:url("LOGO.jpg");}
-
+.ajaxCmd,.ajaxForumPost { width:60px;text-align:center;}
