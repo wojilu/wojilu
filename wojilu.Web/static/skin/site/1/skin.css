@@ -99,4 +99,10 @@
     #pageFooter {text-align:center;  line-height:200%;padding-top:10px;padding-bottom:10px;margin:0px;}
     #footerSeperator {height:1px; margin-bottom:0px; border-top:0px #ddd solid;}
     #pageFooter a {margin:3px 5px;}
+.forumPanelSimple { border-bottom:1px #eef5fb solid; background1:#fafafa;margin:10px 0px 10px 0px;border:1px #eef5fb solid;}
+#wojilu_banner{ width:100%;height:106px; background-image:url("middle_banner.jpg");}
+.ajaxCmd,.ajaxForumPost {cursor:pointer; border:0px #ccc solid; width:60px; text-align:center; background:#eee; background:url('cmd.gif'); }
+.ajaxCmd:hover {background:url('cmdover.gif');}
+.ajaxForumPost:hover {background:url('cmdover.gif');}
+#forumNotice,.forumPanelSimple {background:url('../../../img/panelBg5.jpg');}
 

@@ -6,7 +6,7 @@
 .forumPanel {background:#fafafa;margin:10px 0px 10px 0px;border:1px #ddd solid;}
     
     .forumPanelTitle { font-weight:bold; padding:0px 1px 0px 15px;background:url('../skin/apps/forum/forumPanelTitle.jpg'); border-top:0px; line-height:30px;}
-    .forumPanelContent {padding:12px;}
+    .forumPanelContent {padding:13px;}
     .forumPanelContent table {width:100%}
     
     .forumPanelInfo {margin:10px 10px 5px 10px;}
@@ -61,26 +61,27 @@
 /*版块列表*/
 .forumList { width:100%; border-collapse:collapse;margin-bottom:10px; border:1px #dae8f6 solid; line-height:150%}
 .forumList td {padding:3px 5px 2px 5px;border:0px; border-bottom:1px #dae8f6 solid;}
+    .forumBoard td {border-top:0px; padding:8px}
+    .forumBoard:hover {background:#f5f8fd;}
 
     tr.fbHeader td{background:url('../skin/apps/forum/forumBoardHeader.png');height:33px; height:24px\9; border-bottom:1px;color:#333;}
 
     	table.forumList td.fbCategory {width:50%; border-right:0px;padding-left:15px; border-bottom:1px; }
         .fbCategoryPointer { float:left; width:16px;height:16px; margin-top:2px; background:url('../skin/apps/forum/fbPointer.png') no-repeat;}
-        .fbcategoryName {float:left; margin-left:5px;font-size:14px; font-weight:bold; }
-        .fbcategoryName a {margin-left:3px; color:#000;}
-    	td.fbtopics {width:12%; text-align:center; border-bottom:0px;}
-    	td.fbposts {width:12%; text-align:center; border-bottom:0px;}
-    	td.fblastupdate {width:26%; text-align:center; border-bottom:0px;}
+        .fbcategoryName {float:left; margin-left:5px;font-size:12px; font-weight:bold; }
+        .fbcategoryName a {margin-left:3px;}
+    	td.fbtopics {width:12%; text-align:center;}
+    	td.fbposts {width:12%; text-align:center;}
+    	td.fblastupdate {width:26%; text-align:center;}
+    	td.fbsubCategory{ padding-left:15px;}
         
         .todayInfo {color:#666;}
-        .todayPosts {color:red; font-weight:bold;}
+        .todayPosts {color:#f17f00; font-weight:bold;}
         
-    .forumBoard td {border-top:0px; padding:8px}
-    .forumBoard:hover {background:#f5f8fd;}
 
         td.fbIcon { width:6%; text-align:center; border-right:0px;}
         td.fbInfo {width:44%; border-left:0px; color:#666}
-            .fbTitle a{ font-size:14px; font-weight:bold; color:#000;}
+            .fbTitle a{ font-size:12px; font-weight:bold; color:#000;}
             .fbModerator {font-size:12px;font-family:; }
             
         td.fbTopics {width:12%; text-align:center; }
@@ -98,7 +99,7 @@
 
 
 /*当前路径*/
-#forumLocationContainer { margin-bottom:10px;background:#f5fcf9;border-top:1px #ebf4fc solid;	filter: alpha(opacity=90);	-moz-opacity:9;	opacity: 9; }
+#forumLocationContainer { height:30px; padding-top:5px; margin-bottom:10px;background:#f5fcf9; border:1px #dae8f6 solid;	filter: alpha(opacity=90);	-moz-opacity:9;	opacity: 9; }
     #forumLocation {padding:5px;}
     #forumLocation a {display:inline-block;max-width:600px; text-overflow: ellipsis;white-space:nowrap;-o-text-overflow:ellipsis;-moz-text-overflow:ellipsis;overflow: hidden;
     _white-space:nowrap2;
@@ -115,7 +116,7 @@
 .fbNotice {margin:0px 0px 5px 5px;}
 .fbNotice div {margin-bottom:5px;}
 
-.fbToolContainer {height:35px; width:100%; background:#fafafa;} /*发布主题按钮*/
+.fbToolContainer {height:35px; width:100%; background:#f5fcf9;} /*发布主题按钮*/
 .fbToolContainer td {padding:0px;}
     #cmdPubTool {height:30px;}
     table#cmdPubTool a{text-decoration:none;}
@@ -129,12 +130,12 @@
 
 #psCategories {padding:5px 10px; font-size:14px; font-weight:bold;}
 
-#forumPostListWrap {border:1px #a7c7d9 solid; padding:10px 10px 0px 10px;}
+#forumPostListWrap {border:1px #dae8f6 solid; padding:10px 10px 0px 10px;}
 #forumPostList { width:100%; margin:auto;  border-collapse:collapse; background:#ffffff;}
-#forumPostList tr:hover {background:#fafafa;}
-#forumPostList td {border-top:1px #a7c7d9 solid; padding:5px 3px 5px 3px;}
+#forumPostList tr:hover {background:#f5f8fd;}
+#forumPostList td {border-top:1px #dae8f6 solid; padding:5px 3px 5px 3px;}
     
-    tr.psHeader td{font-size:14px;padding:5px;}    
+    #psHeader td{font-size:12px;padding:5px; height:26px; border-top-style:none;}    
     /*tr.psSticky {background:#f6f6f6;}*/
     
     tr.psTopicType td{height:25px;}

@@ -2,13 +2,14 @@
 
 <style>.chkAdmin {display:none;}</style>
 
-<div id="forumPostListWrap">
+
 <div class="fbNotice">
 	<div>#{forumBoard.Notice}</div>
 	<div>#{forumBoard.Moderator}</div>
  </div> 
 
 #{toolbar}
+<div id="forumPostListWrap">
 <!-- BEGIN categoryPanel -->
 <div id="psCategories">
 <a href="#{boardLink}"><strong class="right10">_{all}</strong></a> <!-- BEGIN categories --><a href="#{c.LinkShow}" style="color:#{c.NameColor}" class="right10">#{c.Name}</a><!-- END categories -->
@@ -18,7 +19,7 @@
 
 <table border="0" id="forumPostList">
 
-	<tr class="psHeader">
+	<tr id="psHeader">
 		<td style="width:5%">&nbsp;</td>
 		<td style="width:55%;">_{title}</td>
 		<td style="width:15%" class="center">_{author}</td>
