@@ -27,7 +27,8 @@ namespace wojilu.Common.Spider.Service {
         {
             // 1) 抓取网页内容
             HtmlDocument htmlDoc = getDetailPageBodyHtmlDocument(this._url, this._template, this._log);
-
+            if (htmlDoc == null)
+                return null;
             // 2) 获取匹配的部分
             string matchedPage = getMatchedBody(htmlDoc, this._template, this._log);
             if (string.IsNullOrEmpty(matchedPage)) return null;
