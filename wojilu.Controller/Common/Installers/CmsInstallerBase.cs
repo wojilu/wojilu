@@ -51,6 +51,44 @@ namespace wojilu.Web.Controller.Common.Installers {
             tplService = new ContentCustomTemplateService();
         }
 
+        /// <summary>
+        /// 带时间的简单列表
+        /// </summary>
+        /// <returns></returns>
+        protected String getListViewWithTime() {
+            return @"<ul class=""ul1"" style=""font-size:12px;"">
+<!-- BEGIN list -->
+<li>
+<div style=""float:left;width:250px;overflow:hidden;white-space:nowrap;text-overflow:clip;""><a href=""#{post.Url}"" style=""#{post.TitleCss}"" title=""#{post.TitleFull}"" style=""#{post.TitleCss}"">#{post.Title}</a></div>
+<div style=""float:right"" class=""note"">#{post.CreatedDay}</div>
+</li>
+<!-- END list -->
+</ul>";
+        }
+
+        /// <summary>
+        /// 带时间的普通列表
+        /// </summary>
+        /// <returns></returns>
+        protected String getNormalViewWithTime() {
+            return @"<div class="""">
+<div><!-- BEGIN img -->
+    <div class=""strong""><a href=""#{ipost.Url}"" title=""#{ipost.TitleFull}"" style=""#{ipost.TitleCss}"">#{ipost.Title}</a></div>
+    <div class=""clear""></div>
+    <a href=""#{ipost.Url}""><img src=""#{ipost.ImgUrl}"" style=""float:left;margin:5px 8px 8px 0px;width:#{ipost.Width}px;height:#{ipost.Height}px;"" /></a>
+    <div class=""font12"">#{ipost.Content} <a href=""#{ipost.Url}"" class=""left10"">[_{detail}]</a></div>
+    <!-- END img -->
+    <div class=""clear""></div>
+</div>   
+
+<ul class=""ul1"" style=""margin:10px 0px 10px 0px;font-size:12px;"">
+<!-- BEGIN list -->
+<div style=""float:left;width:250px;overflow:hidden;white-space:nowrap;text-overflow:clip;""><a href=""#{post.Url}"" style=""#{post.TitleCss}"" title=""#{post.TitleFull}"" style=""#{post.TitleCss}"">#{post.Title}</a></div>
+<div style=""float:right"" class=""note"">#{post.CreatedDay}</div><!-- END list -->
+</ul>
+</div>";
+        }
+
         public IMemberApp Install( MvcContext ctx, IMember owner, String appName, AccessStatus accessStatus ) {
 
 
@@ -279,11 +317,24 @@ namespace wojilu.Web.Controller.Common.Installers {
         /// <summary>
         /// 创建手动添加区块
         /// </summary>
-        /// <param name="name"></param>
-        /// <param name="sectionType"></param>
-        /// <param name="layoutStr"></param>
+        /// <param name="name">区块的名称</param>
+        /// <param name="sectionType">区块的类型</param>
+        /// <param name="layoutStr">所属行和所属列</param>
         /// <returns></returns>
         protected ContentSection createSection( String name, Type sectionType, String layoutStr ) {
+
+            return createSection( name, sectionType, layoutStr, null );
+        }
+
+        /// <summary>
+        /// 创建手动添加区块
+        /// </summary>
+        /// <param name="name">区块的名称</param>
+        /// <param name="sectionType">区块的类型</param>
+        /// <param name="layoutStr">所属行和所属列</param>
+        /// <param name="ct">自定义模板</param>
+        /// <returns></returns>
+        protected ContentSection createSection( String name, Type sectionType, String layoutStr, ContentCustomTemplate ct ) {
 
             ContentSection section = new ContentSection();
 
@@ -295,6 +346,8 @@ namespace wojilu.Web.Controller.Common.Installers {
             section.ColumnId = columnId;
             section.SectionType = sectionType.FullName;
             section.Title = name;
+
+            if (ct != null) section.CustomTemplateId = ct.Id;
 
             sectionService.Insert( section );
 

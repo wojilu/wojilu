@@ -33,18 +33,6 @@ namespace wojilu.Web.Controller.Content.Section {
 
         }
 
-        public void SectionDetail( int sectionId ) {
-
-            ContentPoll c = pollService.GetRecentPoll( ctx.app.Id, sectionId );
-            if (c == null) {
-                actionContent( "" );
-                return;
-            }
-
-            bindPollDetail( sectionId, c );
-
-
-        }
 
         private void sectionPoll() {
 

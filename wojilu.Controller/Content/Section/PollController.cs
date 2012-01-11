@@ -50,6 +50,20 @@ namespace wojilu.Web.Controller.Content.Section {
             //bindPollDetail( sectionId, c );
         }
 
+
+        public void SectionDetail( int sectionId ) {
+
+            ContentPoll c = pollService.GetRecentPoll( ctx.app.Id, sectionId );
+            if (c == null) {
+                actionContent( "" );
+                return;
+            }
+
+            bindPollDetail( sectionId, c );
+
+
+        }
+
         public void Vote( int pollId ) {
 
             int sectionId = ctx.GetInt( "sectionId" );

@@ -130,6 +130,7 @@
     <Compile Include="Blog\Caching\BlogMainPageCache.cs" />
     <Compile Include="Common\ActivationController.cs" />
     <Compile Include="Common\AdLoaderController.cs" />
+    <Compile Include="Common\Installers\SimpleInstaller.cs" />
     <Compile Include="Common\Service\VideoController.cs" />
     <Compile Include="Content\Admin\HtmlController.cs" />
     <Compile Include="Content\Admin\RowSettingController.cs" />
