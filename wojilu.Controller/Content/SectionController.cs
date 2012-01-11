@@ -55,7 +55,7 @@ namespace wojilu.Web.Controller.Content {
             //1)location
             String location = string.Format( "<a href='{0}'>{1}</a> &gt; {2}",
                 Link.To( new ContentController().Index ),
-                ((AppContext)ctx.app).Menu.Name,
+                ctx.app.Name, 
                 "分类查看"
             );
 

@@ -90,7 +90,7 @@ namespace wojilu.Web.Controller.Content {
 
             // 1) location
             String location = string.Format( "<a href='{0}'>{1}</a>", Link.To( new ContentController().Index ),
-    ((AppContext)ctx.app).Menu.Name );
+    ctx.app.Name );
             location = location + string.Format( " &gt; <a href='{0}'>{1}</a> &gt; {2}", clink.toSection( post.PageSection.Id, ctx ), post.PageSection.Title, alang( "postDetail" ) );
             set( "location", location );
 
