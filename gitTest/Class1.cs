@@ -7,5 +7,6 @@ namespace gitTest
 {
     public class TestClass1
     {
+        public int ID { get; set; }
     }
 }
