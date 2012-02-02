@@ -5,7 +5,7 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>8.0.30703</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>d5490e76-72ea-406a-96d9-4a11f14877b4</ProjectGuid>
+    <ProjectGuid>{51D666E0-33D7-4957-8E07-5C9CC8D8E00A}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>gitTest</RootNamespace>
