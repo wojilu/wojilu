@@ -5,6 +5,9 @@ using System.Text;
 
 namespace gitTest
 {
+    /// <summary>
+    /// 
+    /// </summary>
     public class TestClass1
     {
         public int ID { get; set; }
