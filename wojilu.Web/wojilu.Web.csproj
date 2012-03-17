@@ -444,7 +444,9 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="default.aspx" />
-    <Content Include="framework\lang\zh-cn\core.config" />
+    <Content Include="framework\lang\zh-cn\core.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="framework\lang\zh-cn\wojilu.Apps.Blog.Domain.BlogApp.config" />
     <Content Include="framework\lang\zh-cn\wojilu.Apps.Content.Domain.ContentApp.config" />
     <Content Include="framework\lang\zh-cn\wojilu.Apps.Forum.Domain.ForumApp.config" />

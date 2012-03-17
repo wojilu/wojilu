@@ -55,14 +55,14 @@ namespace wojilu.Web.Controller.Security {
             // 第二个参数是图片，第三个参数是名称
             results.Add( new SiteAdminMenu( 1, "home", lang.get( "adminHome" ), new DashboardController().Index, rootNamespace ) );
             //results.Add( new SiteAdminMenu( 2, "apps", lang.get( "adminApp" ), "", SiteAdminMenu.AppTag ) );
-            results.Add( new SiteAdminMenu( 3, "userdata", lang.get( "adminUserData" ), "", SiteAdminMenu.UserDataAdminTag ) );
             results.Add( new SiteAdminMenu( 4, "users", lang.get( "userAdmin" ), new UserController().Index, rootNamespace ) );
             results.Add( new SiteAdminMenu( 7, "talk", lang.get( "adminGroup" ), new GroupController().Index, rootNamespace ) );
             results.Add( new SiteAdminMenu( 5, "security", lang.get( "adminSecurity" ), new Admin.Security.SecurityController().Index, rootNamespace ) );
             results.Add( new SiteAdminMenu( 6, "stats", lang.get( "adminCurrencyCredit" ), new CurrencyController().Index, rootNamespace ) );
-            results.Add( new SiteAdminMenu( 8, "setting", lang.get( "adminSiteSettings" ), new SiteConfigController().Base, rootNamespace ) );
-            results.Add( new SiteAdminMenu( 9, "skin", lang.get( "adminSiteSkin" ), new Admin.SiteSkinController().List, rootNamespace ) );
+            results.Add(new SiteAdminMenu(9, "skin", lang.get("adminSiteSkin"), new Admin.SiteSkinController().List, rootNamespace));
             results.Add( new SiteAdminMenu( 10, "calendar", lang.get( "adminSiteLog" ), new Admin.Sys.SiteLogController().Index, rootNamespace ) );
+            results.Add(new SiteAdminMenu(8, "setting", lang.get("adminSiteSettings"), new SiteConfigController().Base, rootNamespace));
+            results.Add(new SiteAdminMenu(12, "userdata", lang.get("adminUserData"), "", SiteAdminMenu.UserDataAdminTag));
 
             this.SiteAdminMenus = results;
         }
@@ -73,13 +73,13 @@ namespace wojilu.Web.Controller.Security {
             // 第二个参数是图片，第三个参数是名称
             results.Add( new SiteDataAdminMenu( 1, "settings", lang.get( "adminSiteApp" ), new AppController().Index, rootNamespace ) );
             results.Add( new SiteDataAdminMenu( 2, "menus", lang.get( "menuAdmin" ), new MenuController().Index, rootNamespace ) );
-            results.Add( new SiteDataAdminMenu( 3, "link", lang.get( "pageFooterLink" ), new FooterMenuController().List, rootNamespace ) );
-            results.Add( new SiteDataAdminMenu( 4, "url", lang.get( "adminSiteUrl" ), new DashboardController().Links, rootNamespace ) );
-            results.Add( new SiteDataAdminMenu( 5, "doc", lang.get( "commonPage" ), new PageCategoryController().List, rootNamespace ) );
-            results.Add( new SiteDataAdminMenu( 6, "microblog", "微博管理", new MicroblogController().List, rootNamespace ) );
-            results.Add( new SiteDataAdminMenu( 7, "tag", "tag 管理", new TagAdminController().Index, rootNamespace ) );
-            results.Add( new SiteDataAdminMenu( 8, "cache", "缓存管理", new CacheController().Index, rootNamespace ) );
-            results.Add( new SiteDataAdminMenu( 9, "cache", "广告设置", new AdController().Index, rootNamespace ) );
+            results.Add(new SiteDataAdminMenu(3, "microblog", "微博管理", new MicroblogController().List, rootNamespace));
+            results.Add(new SiteDataAdminMenu(4, "cache", "缓存管理", new CacheController().Index, rootNamespace));
+            results.Add(new SiteDataAdminMenu(5, "link", lang.get("pageFooterLink"), new FooterMenuController().List, rootNamespace));
+            results.Add( new SiteDataAdminMenu( 6, "url", lang.get( "adminSiteUrl" ), new DashboardController().Links, rootNamespace ) );
+            results.Add( new SiteDataAdminMenu( 7, "doc", lang.get( "commonPage" ), new PageCategoryController().List, rootNamespace ) );
+            results.Add( new SiteDataAdminMenu( 8, "tag", "tag 管理", new TagAdminController().Index, rootNamespace ) );
+            results.Add(new SiteDataAdminMenu(9, "color", "广告设置", new AdController().Index, rootNamespace));
 
             this.SiteDataAdminMenus = results;
         }

@@ -258,7 +258,10 @@ td.onePollResult {padding-left:2px;}
 .onePollResultNotShow {display:none;}
 .pollOptionVotes {font-size:11px; margin-left:5px; margin-right:10px}    
 .pollSubmit {margin:10px 10px 10px 15px;} 
+#topNavWrap {background:url("~skin/site/topNavBg.png");height:30px;background-color:#ffffff; z-index:10; opacity:0.9 ; filter:alpha(Opacity=90);;}
 #topNavMenu a { font-size:12px;}
+#topNav .ValidationText {width:80px;border:1px #ccc inset;}
+#topNav {clear:both;}
 #wojilu_banner{ width:100%;height:106px; background-image:url("../img/middle_banner.jpg");}
 textarea { border:1px solid #EEEEEE;}
 #bottom-copyright{ display:inline;background-image:url("/static/img/copyright.gif");}

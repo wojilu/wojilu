@@ -37,7 +37,7 @@ td.adminMain {vertical-align:top;}
     
     div.adminMainPanel {margin:5px;}
 
-div.formPanel {background:#eaf3ff; border:1px #898c95 solid; padding:6px 10px 15px 5px; margin-bottom:10px; line-height:150%}
+div.formPanel {background:#eaf3ff; border:1px #b3bedf solid; padding:6px 10px 15px 5px; margin-bottom:10px; line-height:150%}
 .formPanel table {border:0px; font-size:12px; text-align:left;}
 
 .divHeader {padding:0px 0px 0px 15px; border-bottom:1px #6699cc solid; background:url(../img/admin/gridtoolbar-back.gif);  height:26px;}
