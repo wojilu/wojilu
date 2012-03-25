@@ -1521,6 +1521,7 @@ $(document).ready( function() {
     wojilu.ui.frmLoader();
     wojilu.ui.ajaxLoader();
     wojilu.ui.autoSubmitForm();
+    wojilu.ui.slideToggleForm();
 });
 
 

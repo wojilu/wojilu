@@ -96,7 +96,7 @@
 .sectionTitleCurrentTab {border-top:1px #e2e6f3 solid;border-left:1px #e2e6f3 solid;border-right:1px #e2e6f3 solid;}
 
 #pageFooterWrap {clear:both;}
-    #pageFooter {text-align:center;  line-height:200%;padding-top:10px;padding-bottom:10px;margin:0px;}
+    #pageFooter {text-align:center;  line-height:200%;padding-top:10px;padding-bottom:10px;margin:0px; background-image:url(bottom_bg.jpg); background-position:center top; background-repeat:no-repeat;}
     #footerSeperator {height:1px; margin-bottom:0px; border-top:0px #ddd solid;}
     #pageFooter a {margin:3px 5px;}
 .forumPanelSimple { border-bottom:1px #eef5fb solid; background1:#fafafa;margin:10px 0px 10px 0px;border:1px #eef5fb solid;}

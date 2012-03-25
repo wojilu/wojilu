@@ -67,7 +67,7 @@
     tr.fbHeader td{background:url('../skin/apps/forum/forumBoardHeader.png');height:33px; height:24px\9; border-bottom:1px;color:#333;}
 
     	table.forumList td.fbCategory {width:50%; border-right:0px;padding-left:15px; border-bottom:1px; }
-        .fbCategoryPointer { float:left; width:16px;height:16px; margin-top:2px; background:url('../skin/apps/forum/fbPointer.png') no-repeat;}
+        .fbCategoryPointer { float:left; width:16px;height:16px; margin-top:2px; background:url('../skin/apps/forum/fbPointer.png') no-repeat; cursor:pointer;}
         .fbcategoryName {float:left; margin-left:5px;font-size:12px; font-weight:bold; }
         .fbcategoryName a {margin-left:3px;}
     	td.fbtopics {width:12%; text-align:center;}
