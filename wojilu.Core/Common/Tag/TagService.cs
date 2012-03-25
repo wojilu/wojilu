@@ -18,8 +18,6 @@ namespace wojilu.Common.Tags {
 
     public class TagService {
 
-        private static readonly char[] separator = new char[] { ',', '，', '、', '/', '|' };
-
         public static IList FindByTags( String tagList, Type dataType, int count ) {
             List<Tag> tags = getTagListByStr( tagList );
             if (tags.Count == 0) return new ArrayList();
@@ -102,7 +100,7 @@ namespace wojilu.Common.Tags {
         /// <returns></returns>
         public static String ResetRawTagString( String rawTagStr ) {
 
-            String[] arrTag = getTags( rawTagStr );
+            String[] arrTag = GetTags( rawTagStr );
             String str = "";
             for (int i = 0; i < arrTag.Length; i++) {
                 str += arrTag[i];
@@ -111,15 +109,86 @@ namespace wojilu.Common.Tags {
             return str;
         }
 
-        public static string[] getTags( String tagString ) {
-            return tagString.Trim().Split( separator );
+        /// <summary>
+        /// tag原始字符分割成若干个tag，tag之间用空格或逗号分开。如果tag中要使用空格，请用逗号分隔；或者使用引号括起来，比如 "win 7"
+        /// </summary>
+        /// <param name="tagString"></param>
+        /// <returns></returns>
+        public static String[] GetTags( String tagString ) {
+            try {
+                return splitTags( tagString );
+            }
+            catch {
+                return new String[] { };
+            }
+        }
+
+        private static String[] splitTags( String tagString ) {
+
+            if (strUtil.IsNullOrEmpty( tagString )) return new String[] { };
+
+            int current = 0;
+            List<String> list = new List<String>();
+            String word = "";
+            char separator = getSeparator( tagString );
+
+            char charQuote1 = '"';
+            char charQuote2 = '\'';
+            Boolean quoteBegin = false;
+
+            while (current < tagString.Length) {
+
+                if (tagString[current] == charQuote1 || tagString[current] == charQuote2) {
+                    if (quoteBegin) {
+                        word = addWord( list, word );
+                        quoteBegin = false;
+                    }
+                    else {
+                        quoteBegin = true;
+                    }
+                }
+                else if (quoteBegin) {
+                    word += tagString[current];
+                }
+                else if (current == tagString.Length - 1) {
+                    word += tagString[current];
+                    word = addWord( list, word );
+                }
+                else if (tagString[current] == separator) {
+                    word = addWord( list, word );
+                }
+                else {
+                    word += tagString[current];
+                }
+
+                current = current + 1;
+            }
+
+            return list.ToArray();
+        }
+
+        private static char getSeparator( String tagString ) {
+            if (tagString.IndexOf( ',' ) >= 0) return ',';
+            if (tagString.IndexOf( '，' ) >= 0) return '，';
+            if (tagString.IndexOf( '/' ) >= 0) return '/';
+            if (tagString.IndexOf( '|' ) >= 0) return '|';
+            if (tagString.IndexOf( '、' ) >= 0) return '、';
+            return ' ';
+        }
+
+        private static String addWord( List<String> list, String word ) {
+            if (word.Trim().Length > 0) {
+                list.Add( word.Trim() );
+                word = "";
+            }
+            return word;
         }
 
         public static List<Tag> getTagListByStr( String tagListStr ) {
             List<Tag> tags = new List<Tag>();
             if (strUtil.IsNullOrEmpty( tagListStr )) return tags;
 
-            string[] strArray = getTags( tagListStr );
+            string[] strArray = GetTags( tagListStr );
             foreach (String str in strArray) {
 
                 String allowedTag = strUtil.SubString( str, config.Instance.Site.TagLength );
@@ -174,7 +243,7 @@ namespace wojilu.Common.Tags {
                 return false;
             }
             clearDataTags( data );
-            string[] strArray = getTags( tagString );
+            string[] strArray = GetTags( tagString );
             List<Tag> tags = new List<Tag>();
             foreach (String str in strArray) {
 
@@ -298,7 +367,7 @@ namespace wojilu.Common.Tags {
 
         private static List<String> addList( string tagStr ) {
 
-            String[] arrTag = getTags( tagStr );
+            String[] arrTag = GetTags( tagStr );
 
             List<String> listTag = new List<String>();
             foreach (String tag in arrTag) {

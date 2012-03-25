@@ -50,11 +50,15 @@ namespace wojilu.Web.GlobalApp {
             ex = app.Server.GetLastError().GetBaseException();
             ex = wrapStaticFileException( ex );
 
-            if (app.Request == null) throw ex;
-
+            String rurl = null;
+            try {
+                rurl = app.Request.Url.ToString();
+            }
+            catch {
+                throw ex;
+            }
 
             StringBuilder sb = new StringBuilder();
-            String rurl = app.Request.Url.ToString();
             sb.AppendLine( "url=" + rurl );
             sb.AppendLine( "ex.Message=" + ex.Message );
             appendPostValues( "ex.PostedValue=", app.Request.Form, sb );

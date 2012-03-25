@@ -291,6 +291,7 @@ namespace wojilu.Data {
         private static Object objIndexLockDelete = new object();
 
         private static void makeIndexByInsert( CacheObject cacheObject, String propertyName, Object pValue ) {
+            if (cacheObject == null || pValue == null) return;
             Type t = cacheObject.GetType();
             String propertyKey = getPropertyKey( t.FullName, propertyName );
             lock (objIndexLock) {
@@ -301,6 +302,7 @@ namespace wojilu.Data {
         }
 
         private static void makeIndexByInsert( CacheObject cacheObject ) {
+            if (cacheObject == null) return;
             Type t = cacheObject.GetType();
             PropertyInfo[] properties = getProperties( t );
             foreach (PropertyInfo p in properties) {
@@ -314,6 +316,7 @@ namespace wojilu.Data {
         }
 
         private static void makeIndexByUpdate( CacheObject cacheObject ) {
+            if (cacheObject == null) return;
             Type t = cacheObject.GetType();
             PropertyInfo[] properties = getProperties( t );
             foreach (PropertyInfo p in properties) {
@@ -330,6 +333,7 @@ namespace wojilu.Data {
         }
 
         private static void makeIndexByUpdate( CacheObject cacheObject, String propertyName, Object pValue ) {
+            if (cacheObject == null || pValue == null) return;
             Type t = cacheObject.GetType();
 
             String propertyKey = getPropertyKey( t.FullName, propertyName );
@@ -342,11 +346,10 @@ namespace wojilu.Data {
                 indexList[propertyKey] = valueCollection;
 
             }
-
-
         }
 
         private static void makeIndexByDelete( CacheObject cacheObject ) {
+            if (cacheObject == null) return;
             Type t = cacheObject.GetType();
             PropertyInfo[] properties = getProperties( t );
             foreach (PropertyInfo p in properties) {

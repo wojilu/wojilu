@@ -30,7 +30,7 @@ namespace wojilu.Common.Tags {
             if (strUtil.IsNullOrEmpty( tagString )) {
                 return false;
             }
-            string[] arrTag = TagService.getTags( tagString );
+            string[] arrTag = TagService.GetTags( tagString );
             foreach (String tag in arrTag) {
                 join_Tag_App( getTag( tag, userId ), app );
             }
