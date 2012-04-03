@@ -1,0 +1,63 @@
+﻿<div>
+<div style="padding:10px 20px 20px 20px;" id="makeHtmlPanel">
+
+<style>
+#makeHtmlPanel a { text-decoration2:underline;}
+#makeHtmlSections .btnBig {height:26px;font-size:12px;}
+</style>
+
+    <div style="margin:10px 10px 20px 10px;font-size:20px; font-weight:bold; padding:7px 2px; ">
+    <img src="~img/m/brush.png" />
+    生成 html</div>
+
+
+    <div style="margin:0px 0px 30px 20px;">
+        当前html文件所在目录：<span style="color:#666;">#{host}<span style="color:blue;font-weight:bold;font-size:22px;">#{htmlDir}</span>/</span>
+        <a href="#{editHtmlDirLink}" style="margin-left:10px;" class="frmBox"><img src="~img/edit.gif" /> 修改</a>
+    </div>
+
+    <table style="margin:10px 0px 0px 20px;">
+    <tr>
+        <td style=" vertical-align:top;"><div style="margin-top:0px;">
+        <a href="#{lnkMakeHome}" class="postCmd btnBig" style="font-size:14px; font-weight:bold;">生成首页</a>        
+        </div></td>
+        <td style=" vertical-align:top;"><div style="margin:0px 10px 10px 20px;">
+        <div>
+        <a href="#{lnkMakeSectionAll}" class="postCmd btnBig btnGreen" style="font-size:14px; font-weight:bold;">生成所有列表页</a>        
+        </div>
+        <div style="margin-top:15px;">
+        <a href="#{lnkMakeDetailAll}" class="postCmd btnBig btnGreen" style="font-size:14px; font-weight:bold;">生成所有详细页</a>        
+        </div>        <div style="margin-top:15px;">
+        <a href="#{lnkMakeSidebar}" class="postCmd btnBig btnGreen" style="font-size:14px; font-weight:bold;">生成侧栏页</a>        
+        </div></td>
+        <td style=" vertical-align:top;"> <div style="margin:0px 20px;">
+        <a href="#{lnkMakeAll}" class="postCmd btnBig" style="font-size:14px; font-weight:bold;">生成所有页面</a>
+        </div>
+        </td>
+    
+    
+    </tr>    
+    </table>
+
+
+        <div style="margin:20px;">
+        <div style="font-size:12px; font-weight:bold; color:#666;">根据区块生成本区块下页面</div>
+
+        <div style="margin:10px;">
+
+            <table border="1" cellpadding="3" id="makeHtmlSections">
+                <!-- BEGIN sections -->
+                <tr><td style="font-weight:bold;">#{section.Name} </td>
+                <td style="width:150px; text-align:center;"><a href="#{lnkMakeSection}" class="postCmd btnBig">生成列表页</a></td>
+                <td style="width:150px; text-align:center;"><a href="#{lnkMakeDetail}" class="postCmd btnBig btnGreen">生成详细页</a></td></tr>
+                <!-- END sections -->
+            </table>
+    
+        
+        </div>
+        </div>
+
+    </div>
+
+</div>
+</div>

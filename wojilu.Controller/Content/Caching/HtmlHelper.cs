@@ -6,6 +6,7 @@ using System.IO;
 using wojilu.Web.Context;
 using wojilu.Web.Mvc;
 using wojilu.ORM;
+using wojilu.Members.Sites.Domain;
 
 namespace wojilu.Web.Controller.Content.Caching {
 
@@ -245,7 +246,7 @@ namespace wojilu.Web.Controller.Content.Caching {
 
         public static String CheckAppDir( int appId ) {
 
-            String dir = GetAppDir( appId );
+            String dir = GetAppDirAbsolute( appId );
 
             if (dir == null) return null;
 
@@ -255,7 +256,14 @@ namespace wojilu.Web.Controller.Content.Caching {
             return dir;
         }
 
-        private static string GetAppDir( int appId ) {
+        private static string GetAppDirAbsolute( int appId ) {
+
+            String staticDir = GetlAppStaticDir( appId );
+
+            return PathHelper.Map( "/" + staticDir + "/" );
+        }
+
+        public static String GetlAppStaticDir( int appId ) {
 
             ContentApp app = ContentApp.findById( appId );
             if (app == null) throw new Exception( "app not found: Content.AppId=" + appId );
@@ -267,14 +275,61 @@ namespace wojilu.Web.Controller.Content.Caching {
 
                 staticDir = "cms" + app.Id;
             }
-
-            return PathHelper.Map( "/" + staticDir + "/" );
+            return staticDir;
         }
 
         public static string GetAppPath( int appId ) {
 
-            return Path.Combine( GetAppDir( appId ), "default.html" );
+            return Path.Combine( GetAppDirAbsolute( appId ), "default.html" );
 
+        }
+
+        //----------------------------------------------------------------------------
+
+        public static bool IsHtmlDirError( String htmlDir, Result errors ) {
+
+            if (strUtil.HasText( htmlDir )) {
+
+
+                if (htmlDir.Length > 50) {
+                    errors.Add( "目录名称不能超过50个字符" );
+                    return true;
+                }
+
+                if (isReservedKeyContains( htmlDir )) {
+                    errors.Add( "目录名称是保留词，请换一个" );
+                    return true;
+                }
+
+                if (isHtmlDirUsed( htmlDir )) {
+                    errors.Add( "目录名称已被使用，请换一个" );
+                    return true;
+                }
+
+            }
+
+            return false;
+        }
+
+        private static bool isHtmlDirUsed( string dirName ) {
+
+            List<ContentApp> appList = ContentApp.find( "OwnerType=:otype" )
+                .set( "otype", typeof( Site ).FullName )
+                .list();
+
+            foreach (ContentApp app in appList) {
+
+                if (dirName.Equals( app.GetSettingsObj().StaticDir )) return true;
+            }
+
+            return false;
+        }
+
+        private static bool isReservedKeyContains( string dirName ) {
+
+            String[] arrKeys = new String[] { "framework", "bin", "html", "static" };
+
+            return new List<String>( arrKeys ).Contains( dirName );
         }
 
         //----------------------------------------------------------------------------

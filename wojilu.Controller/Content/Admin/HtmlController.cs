@@ -7,6 +7,7 @@ using wojilu.Apps.Content.Domain;
 using wojilu.Apps.Content.Interface;
 using wojilu.Apps.Content.Service;
 using wojilu.Web.Controller.Content.Caching;
+using wojilu.Serialization;
 
 namespace wojilu.Web.Controller.Content.Admin {
 
@@ -25,6 +26,8 @@ namespace wojilu.Web.Controller.Content.Admin {
 
         public void Index() {
 
+            bindHtmlDir();
+
             set( "lnkMakeAll", to( MakeAll ) );
             set( "lnkMakeDetailAll", to( MakeDetailAll ) );
             set( "lnkMakeSectionAll", to( MakeSectionAll ) );
@@ -39,6 +42,55 @@ namespace wojilu.Web.Controller.Content.Admin {
                 sectionBlock.Set( "lnkMakeDetail", to( MakeDetailBySection, section.Id ) );
                 sectionBlock.Next();
             }
+
+        }
+
+        private void bindHtmlDir() {
+            ContentApp app = ctx.app.obj as ContentApp;
+            ContentSetting s = app.GetSettingsObj();
+
+            String htmlDir = HtmlHelper.GetlAppStaticDir( app.Id );
+            htmlDir = htmlDir.TrimStart( '/' ).TrimEnd( '/' );
+
+            set( "htmlDir", htmlDir );
+
+            set( "host", ctx.url.SiteAndAppPath );
+            set( "editHtmlDirLink", to( EditHtmlDir ) );
+
+        }
+
+        public void EditHtmlDir() {
+
+            target( SaveHtmlDir );
+
+            ContentApp app = ctx.app.obj as ContentApp;
+            ContentSetting s = app.GetSettingsObj();
+
+            String htmlDir = HtmlHelper.GetlAppStaticDir( app.Id );
+            htmlDir = htmlDir.TrimStart( '/' ).TrimEnd( '/' );
+
+            set( "htmlDir", htmlDir );
+
+            set( "host", ctx.url.SiteAndAppPath );
+
+        }
+
+        public void SaveHtmlDir() {
+
+            String htmlDir = strUtil.SubString( ctx.Post( "htmlDir" ), 30 );
+            if (HtmlHelper.IsHtmlDirError( htmlDir, ctx.errors )) {
+                echoError();
+                return;
+            }
+
+            ContentApp app = ctx.app.obj as ContentApp;
+            ContentSetting s = app.GetSettingsObj();
+            s.StaticDir = htmlDir;
+
+            app.Settings = JsonString.ConvertObject( s );
+            app.update();
+
+            echoToParentPart( lang( "opok" ) );
 
         }
 
