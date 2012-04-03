@@ -33,7 +33,7 @@ _ReSharper*/
 *.ldb
 
 #static html files
-html/
+wojilu.Web/html/
 #wojilu temp files
 _wtemp/
 
