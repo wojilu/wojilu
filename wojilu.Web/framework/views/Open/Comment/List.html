@@ -54,7 +54,7 @@
 
     <div id="commentListWrap">
         <!-- BEGIN list -->
-        <table class="commentItem"><tr>
+        <table class="commentItem" id="commentItem#{c.Id}"><tr>
             <td class="cmUserFace">#{c.UserFace}</td>
             <td class="cmItemMain">
                 <div><span class="strong">#{c.UserName}</span></div>
@@ -62,7 +62,9 @@
                 <div style="color:#666;margin-top:2px;">
                     (#{c.Created})  <span class="hide link left5">支持</span>
                     <span class="hide link left5">收藏</span>
-                    <span class="link lnkReply left5" data-ParentId="#{c.Id}">回复</span><span class="replyCount left5" data-ReplyCount="#{c.Replies}" data-MoreId="replyListMore#{c.Id}" data-ParentId="#{c.Id}" data-StartId="#{c.StartId}"></span>
+                    <span class="link lnkReply left5" data-ParentId="#{c.Id}">回复</span>
+                    <a href="#{c.DeleteLink}" class="ajaxDeleteCmd #{hideClass}" removeId="commentItem#{c.Id}">删除</a>
+                    <span class="replyCount left5" data-ReplyCount="#{c.Replies}" data-MoreId="replyListMore#{c.Id}" data-ParentId="#{c.Id}" data-StartId="#{c.StartId}"></span>
                 </div>
                 <div class="replyFormWrap"></div>
                 <div class="replySubList" id="replyListLine#{c.Id}" style="width:95%;">
