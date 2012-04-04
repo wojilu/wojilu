@@ -17,6 +17,16 @@ namespace wojilu.Common.Comments {
             nfService = new NotificationService();
         }
 
+        public OpenComment GetById( int id ) {
+            return db.findById<OpenComment>( id );
+        }
+
+
+        public void Delete( OpenComment c ) {
+            if (c == null) return;                 
+            db.delete( c );
+        }
+
         public DataPage<OpenComment> GetByUrlDesc( String url ) {
 
             DataPage<OpenComment> datas = OpenComment.findPage( "TargetUrl='" + strUtil.SqlClean( url, 50 ) + "' and ParentId=0" );
@@ -220,6 +230,8 @@ namespace wojilu.Common.Comments {
 
             objCount.insert();
         }
+
+
 
 
 

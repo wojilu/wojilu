@@ -68,7 +68,7 @@
                 <div class="replySubList" id="replyListLine#{c.Id}" style="width:95%;">
 
                     <!-- BEGIN replyList -->
-                    <table class="commentItem"><tr>
+                    <table class="commentItem" id="commentItem#{c.Id}"><tr>
                         <td class="cmUserFace">#{c.UserFace}</td>
                         <td class="cmItemMain">
                             <div><span class="strong">#{c.UserName}</span></div>
@@ -76,6 +76,7 @@
                             <div style="color:#666;margin-top:2px;">(#{c.Created})  <span class="hide link left5">支持</span>
                             <span class="hide link left5">收藏</span>
                             <span class="link lnkSubReply left5" data-ParentId="#{c.ParentId}" data-AtId="#{c.Id}" data-Author="#{c.AuthorText}">回复</span>
+                            <a href="#{c.DeleteLink}" class="ajaxDeleteCmd #{hideClass}" removeId="commentItem#{c.Id}">删除</a>
                             </div>
                         </td></tr>
                     </table>

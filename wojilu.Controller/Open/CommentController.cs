@@ -8,6 +8,7 @@ using wojilu.Web.Mvc.Attr;
 using wojilu.Common.Comments;
 using wojilu.Serialization;
 using wojilu.ORM;
+using wojilu.Members.Interface;
 
 namespace wojilu.Web.Controller.Open {
 
@@ -25,6 +26,8 @@ namespace wojilu.Web.Controller.Open {
         public void List() {
 
             String url = ctx.Get( "url" );
+            url = strUtil.SqlClean( url, 50 );
+
             set( "thisUrl", url );
             set( "thisDataType", ctx.Get( "dataType" ) );
             set( "thisDataId", ctx.GetInt( "dataId" ) );
@@ -40,7 +43,9 @@ namespace wojilu.Web.Controller.Open {
             set( "moreLink", to( MoreReply ) );
             set( "subCacheSize", OpenComment.subCacheSize );
 
-            bindComments( lists );
+            Boolean canAdmin = checkAdminPermission( ctx.Get( "dataType" ), ctx.GetInt( "dataId" ) );
+
+            bindComments( lists, canAdmin );
             bindForm();
 
             String pageBar = "";
@@ -49,6 +54,7 @@ namespace wojilu.Web.Controller.Open {
             }
             set( "page", pageBar );
         }
+
 
         [HttpPost]
         public void MoreReply() {
@@ -112,9 +118,7 @@ namespace wojilu.Web.Controller.Open {
             return dic;
         }
 
-        private void bindComments( List<OpenComment> lists ) {
-
-            Boolean canAdmin = false;
+        private void bindComments( List<OpenComment> lists, Boolean canAdmin ) {
 
             IBlock block = getBlock( "list" );
             foreach (OpenComment c in lists) {
@@ -124,7 +128,7 @@ namespace wojilu.Web.Controller.Open {
                 block.Set( "c.StartId", getStartId( subLists ) );
 
                 IBlock subBlock = block.GetBlock( "replyList" );
-                bindSubList( subBlock, c, subLists );
+                bindSubList( subBlock, c, subLists, canAdmin );
 
                 block.Next();
 
@@ -136,9 +140,7 @@ namespace wojilu.Web.Controller.Open {
             return lists[lists.Count - 1].Id;
         }
 
-        private void bindSubList( IBlock block, OpenComment comment, List<OpenComment> lists ) {
-
-            Boolean canAdmin = false;
+        private void bindSubList( IBlock block, OpenComment comment, List<OpenComment> lists, Boolean canAdmin ) {
 
             foreach (OpenComment c in lists) {
 
@@ -163,10 +165,12 @@ namespace wojilu.Web.Controller.Open {
             block.Set( "c.Replies", c.Replies );
 
             if (canAdmin) {
-                IBlock adminBlock = block.GetBlock( "admin" );
                 String deleteLink = to( Delete, c.Id );
-                adminBlock.Set( "c.DeleteLink", deleteLink );
-                adminBlock.Next();
+                block.Set( "c.DeleteLink", deleteLink );
+                block.Set( "hideClass", "" );
+            }
+            else {
+                block.Set( "hideClass", "hide" );
             }
         }
 
@@ -260,6 +264,46 @@ namespace wojilu.Web.Controller.Open {
         }
 
         public void Delete( int id ) {
+
+            OpenComment c = commentService.GetById( id );
+            if (c == null) {
+                echoText( "数据不存在" );
+                return;
+            }
+
+            if (checkAdminPermission( c.TargetDataType, c.TargetDataId ) == false) {
+                echoText( "没有权限" );
+                return;
+            }
+
+            commentService.Delete( c );
+            echoAjaxOk();
+        }
+
+
+        private Boolean checkAdminPermission( string dataType, int dataId ) {
+
+            // check administrator
+            if (ctx.viewer.IsAdministrator()) return true;
+
+            // check owner administrator
+            if (dataId <= 0 || strUtil.IsNullOrEmpty( dataType )) return false;
+
+            IEntity obj = ndb.findById( Entity.GetType( dataType ), dataId );
+            if (obj == null) return false;
+
+            EntityInfo ei = Entity.GetInfo( obj );
+            if (ei.GetProperty( "OwnerId" ) == null || ei.GetProperty( "OwnerType" ) == null) return false;
+
+            int ownerId = (int)obj.get( "OwnerId" );
+            String ownerType = obj.get( "OwnerType" ) as String;
+            if (ownerId <= 0) return false;
+
+            IEntity owner = ndb.findById( Entity.GetType( ownerType ), ownerId );
+
+            if (owner == null) return false;
+
+            return ctx.viewer.IsOwnerAdministrator( owner as IMember );
         }
 
     }

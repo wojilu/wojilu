@@ -78,6 +78,11 @@ namespace wojilu.Web.Controller.Content.Admin {
         public void SaveHtmlDir() {
 
             String htmlDir = strUtil.SubString( ctx.Post( "htmlDir" ), 30 );
+            if (strUtil.IsNullOrEmpty( htmlDir )) {
+                echoError( "请填写内容" );
+                return;
+            }
+
             if (HtmlHelper.IsHtmlDirError( htmlDir, ctx.errors )) {
                 echoError();
                 return;
