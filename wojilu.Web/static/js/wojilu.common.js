@@ -24,6 +24,7 @@ wojilu.ctx = {
     	pages : [],
     	isBack : false
     },
+    // 地址栏url是否在点击之后更新
     isUrlUpdate : true
 };
 

@@ -23,8 +23,26 @@ namespace wojilu.Common.Comments {
 
 
         public void Delete( OpenComment c ) {
-            if (c == null) return;                 
+            if (c == null) return;
             db.delete( c );
+        }
+
+        public DataPage<OpenComment> GetByDataDesc( String dataType, int dataId ) {
+
+            DataPage<OpenComment> datas = OpenComment.findPage( "TargetDataType='" + strUtil.SqlClean( dataType, 50 ) + "' and TargetDataId=" + dataId + " and ParentId=0" );
+
+            datas.Results = addSubList( datas.Results, true );
+
+            return datas;
+        }
+
+        public DataPage<OpenComment> GetByDataAsc( String dataType, int dataId ) {
+
+            DataPage<OpenComment> datas = OpenComment.findPage( "TargetDataType='" + strUtil.SqlClean( dataType, 50 ) + "' and TargetDataId=" + dataId + " and ParentId=0 order by Id asc" );
+
+            datas.Results = addSubList( datas.Results, false );
+
+            return datas;
         }
 
         public DataPage<OpenComment> GetByUrlDesc( String url ) {
@@ -143,7 +161,7 @@ namespace wojilu.Common.Comments {
 
             if (c.Member != null && c.Member.Id == receiverId) return 0; // 不用给自己发通知
 
-            String msg = c.Author + " 回复了你在 <a href=\"" + comment.TargetUrl + "\">" + comment.TargetTitle + "</a> 的评论";
+            String msg = c.Author + " 回复了你在 <a href=\"" + c.TargetUrl + "\">" + comment.TargetTitle + "</a> 的评论";
             nfService.send( receiverId, typeof( User ).FullName, msg, NotificationType.Comment );
             return receiverId;
         }

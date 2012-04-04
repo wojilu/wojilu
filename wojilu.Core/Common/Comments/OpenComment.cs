@@ -27,9 +27,12 @@ namespace wojilu.Common.Comments {
         /// </summary>
         public static readonly int subCacheSize = 8;
 
-        public String TargetUrl { get; set; }
+        public String TargetUrl { get; set; }// 通知中的原始 url，供用户点击
+
+        // 筛选加载的过滤标准
         public String TargetDataType { get; set; }
         public int TargetDataId { get; set; }
+
         public String TargetTitle { get; set; }
         public int TargetUserId { get; set; }
 

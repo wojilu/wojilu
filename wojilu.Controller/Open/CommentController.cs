@@ -28,13 +28,16 @@ namespace wojilu.Web.Controller.Open {
             String url = ctx.Get( "url" );
             url = strUtil.SqlClean( url, 50 );
 
+            int dataId = ctx.GetInt( "dataId" );
+            String dataType = ctx.Get( "dataType" );
+
             set( "thisUrl", url );
-            set( "thisDataType", ctx.Get( "dataType" ) );
-            set( "thisDataId", ctx.GetInt( "dataId" ) );
+            set( "thisDataType", dataType );
+            set( "thisDataId", dataId );
             set( "thisDataTitle", ctx.Get( "dataTitle" ) );
             set( "thisDataUserId", ctx.GetInt( "dataUserId" ) );
 
-            DataPage<OpenComment> datas = commentService.GetByUrlDesc( url );
+            DataPage<OpenComment> datas = commentService.GetByDataDesc( dataType, dataId );
             int replies = commentService.GetReplies( url );
 
             List<OpenComment> lists = datas.Results;
@@ -43,7 +46,7 @@ namespace wojilu.Web.Controller.Open {
             set( "moreLink", to( MoreReply ) );
             set( "subCacheSize", OpenComment.subCacheSize );
 
-            Boolean canAdmin = checkAdminPermission( ctx.Get( "dataType" ), ctx.GetInt( "dataId" ) );
+            Boolean canAdmin = checkAdminPermission( dataType, dataId );
 
             bindComments( lists, canAdmin );
             bindForm();

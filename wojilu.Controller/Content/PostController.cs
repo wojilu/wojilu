@@ -100,7 +100,7 @@ namespace wojilu.Web.Controller.Content {
             // 3) comment
             //loadComment( post );
             String commentUrl = t2( new wojilu.Web.Controller.Open.CommentController().List )
-                + "?url=" + getCommentTarget( post )
+                + "?url=" +clink.toPost( post, ctx )
                 + "&dataType=" + typeof( ContentPost ).FullName
                 + "&dataTitle=" + post.Title
                 + "&dataUserId=" + post.Creator.Id
@@ -129,9 +129,9 @@ namespace wojilu.Web.Controller.Content {
 
         }
 
-        private String getCommentTarget( ContentPost post ) {
-            return typeof( ContentPost ).FullName + "_" + post.Id;
-        }
+        //private String getCommentTarget( ContentPost post ) {
+        //    return typeof( ContentPost ).FullName + "_" + post.Id;
+        //}
 
         private String getFullUrl( String url ) {
             if (url == null) return "";

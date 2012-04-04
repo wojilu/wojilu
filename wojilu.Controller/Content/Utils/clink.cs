@@ -9,6 +9,9 @@ using wojilu.Common.AppBase.Interface;
 
 namespace wojilu.Web.Controller.Content.Utils {
 
+    /// <summary>
+    /// 为 ContentPost 专门定制的 html 结果页面的链接
+    /// </summary>
     public class clink {
 
         public static String toSection( int sectionId, MvcContext ctx ) {
