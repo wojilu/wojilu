@@ -99,14 +99,18 @@ namespace wojilu.Web.Controller.Content {
 
             // 3) comment
             //loadComment( post );
-            String commentUrl = t2( new wojilu.Web.Controller.Open.CommentController().List )
-                + "?url=" +clink.toPost( post, ctx )
-                + "&dataType=" + typeof( ContentPost ).FullName
-                + "&dataTitle=" + post.Title
-                + "&dataUserId=" + post.Creator.Id
-                + "&dataId=" + post.Id;
-
-            set( "thisUrl", commentUrl );
+            if (post.CommentCondition == wojilu.Common.AppBase.CommentCondition.Close) {
+                set( "thisUrl", "#" );
+            }
+            else {
+                String commentUrl = t2( new wojilu.Web.Controller.Open.CommentController().List )
+                    + "?url=" + clink.toPost( post, ctx )
+                    + "&dataType=" + typeof( ContentPost ).FullName
+                    + "&dataTitle=" + post.Title
+                    + "&dataUserId=" + post.Creator.Id
+                    + "&dataId=" + post.Id;
+                set( "thisUrl", commentUrl );
+            }
 
             // 4) related posts
             loadRelatedPosts( post );
