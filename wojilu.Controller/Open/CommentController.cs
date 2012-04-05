@@ -312,6 +312,8 @@ namespace wojilu.Web.Controller.Open {
 
         private Boolean checkAdminPermission( string dataType, int dataId ) {
 
+            if (ctx.viewer.IsLogin == false) return false;
+
             // check administrator
             if (ctx.viewer.IsAdministrator()) return true;
 

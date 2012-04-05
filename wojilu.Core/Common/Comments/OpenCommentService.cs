@@ -25,6 +25,7 @@ namespace wojilu.Common.Comments {
         public void Delete( OpenComment c ) {
             if (c == null) return;
             db.delete( c );
+            updateRootTargetReplies( c );
         }
 
         public void DeleteAll( string url, int dataId, string dataType ) {
@@ -35,15 +36,16 @@ namespace wojilu.Common.Comments {
             else {
                 deleteAllByUrl( url );
             }
-
         }
 
         private void deleteAllByData( int dataId, string dataType ) {
             db.deleteBatch<OpenComment>( "TargetDataType='" + strUtil.SqlClean( dataType, 50 ) + "' and TargetDataId=" + dataId );
+            clearRootTargetRepliesByData( dataId, dataType );
         }
 
         private void deleteAllByUrl( string url ) {
             db.deleteBatch<OpenComment>( "TargetUrl='" + strUtil.SqlClean( url, 50 ) + "'" );
+            clearRootTargetRepliesByUrl( url );
         }
 
         public DataPage<OpenComment> GetByDataDesc( String dataType, int dataId ) {
@@ -268,10 +270,29 @@ namespace wojilu.Common.Comments {
             objCount.insert();
         }
 
+        private static void clearRootTargetRepliesByData( int dataId, string dataType ) {
 
+            OpenCommentCount objCount = OpenCommentCount.find( "DataType=:dtype and DataId=" + dataId )
+                .set( "dtype", dataType )
+                .first();
 
+            if (objCount == null) return;
 
+            objCount.Replies = 0;
+            objCount.update();
+        }
 
+        private static void clearRootTargetRepliesByUrl( String url ) {
+
+            OpenCommentCount objCount = OpenCommentCount.find( "TargetUrl=:url" )
+                .set( "url", url )
+                .first();
+
+            if (objCount == null) return;
+
+            objCount.Replies = 0;
+            objCount.update();
+        }
 
     }
 }
