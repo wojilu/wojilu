@@ -12,7 +12,10 @@
 </style>
 
 
-    <div style="margin:15px;"><span style="font-size:16px;font-weight:bold;">评论列表</span> (共 <span id="replies"></span> 条)</div>
+    <div style="margin:15px;">
+        <span style="font-size:16px;font-weight:bold;">评论列表</span> (共 <span id="replies"></span> 条)
+        <a href="#{deleteAllLink}" class="left10 ajaxDeleteCmd #{deleteAllHideClass}" removeId="commentListWrapInner"><img src="~img/delete.gif" /> 删除所有评论</a>    
+    </div>
     <div id="commentFormWrap">
         <div class="commentFormInner">
         <!-- BEGIN loginForm -->
@@ -53,6 +56,7 @@
     </div>
 
     <div id="commentListWrap">
+    <div id="commentListWrapInner">
         <!-- BEGIN list -->
         <table class="commentItem" id="commentItem#{c.Id}"><tr>
             <td class="cmUserFace">#{c.UserFace}</td>
@@ -91,6 +95,7 @@
             </td></tr>
         </table>
         <!-- END list -->
+        </div>
     </div>
     <div>#{page}</div>
 </div>

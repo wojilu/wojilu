@@ -27,6 +27,25 @@ namespace wojilu.Common.Comments {
             db.delete( c );
         }
 
+        public void DeleteAll( string url, int dataId, string dataType ) {
+
+            if (dataId > 0 && strUtil.HasText( dataType )) {
+                deleteAllByData( dataId, dataType );
+            }
+            else {
+                deleteAllByUrl( url );
+            }
+
+        }
+
+        private void deleteAllByData( int dataId, string dataType ) {
+            db.deleteBatch<OpenComment>( "TargetDataType='" + strUtil.SqlClean( dataType, 50 ) + "' and TargetDataId=" + dataId );
+        }
+
+        private void deleteAllByUrl( string url ) {
+            db.deleteBatch<OpenComment>( "TargetUrl='" + strUtil.SqlClean( url, 50 ) + "'" );
+        }
+
         public DataPage<OpenComment> GetByDataDesc( String dataType, int dataId ) {
 
             DataPage<OpenComment> datas = OpenComment.findPage( "TargetDataType='" + strUtil.SqlClean( dataType, 50 ) + "' and TargetDataId=" + dataId + " and ParentId=0" );
@@ -248,6 +267,7 @@ namespace wojilu.Common.Comments {
 
             objCount.insert();
         }
+
 
 
 

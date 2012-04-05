@@ -48,6 +48,15 @@ namespace wojilu.Web.Controller.Open {
 
             Boolean canAdmin = checkAdminPermission( dataType, dataId );
 
+            if (canAdmin) {
+                set( "deleteAllHideClass", "" );
+            }
+            else {
+                set( "deleteAllHideClass", "hide" );
+            }
+
+            set( "deleteAllLink", to( DeleteAll ) + "?dataId=" + dataId + "&dataType=" + dataType + "&url=" + url );
+
             bindComments( lists, canAdmin );
             bindForm();
 
@@ -57,6 +66,7 @@ namespace wojilu.Web.Controller.Open {
             }
             set( "page", pageBar );
         }
+
 
 
         [HttpPost]
@@ -266,6 +276,7 @@ namespace wojilu.Web.Controller.Open {
             }
         }
 
+        [HttpDelete]
         public void Delete( int id ) {
 
             OpenComment c = commentService.GetById( id );
@@ -283,6 +294,21 @@ namespace wojilu.Web.Controller.Open {
             echoAjaxOk();
         }
 
+        [HttpDelete]
+        public void DeleteAll() {
+            String url = ctx.Get( "url" );
+            url = strUtil.SqlClean( url, 50 );
+            int dataId = ctx.GetInt( "dataId" );
+            String dataType = ctx.Get( "dataType" );
+
+            if (checkAdminPermission( dataType, dataId ) == false) {
+                echoText( "没有权限" );
+                return;
+            }
+
+            commentService.DeleteAll( url, dataId, dataType );
+            echoAjaxOk();
+        }
 
         private Boolean checkAdminPermission( string dataType, int dataId ) {
 
