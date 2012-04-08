@@ -152,45 +152,48 @@ namespace wojilu.Common.Comments {
 
         private void sendNotifications( OpenComment c ) {
 
-            int parentReceiverId = 0;
+            List<int> sentIds = new List<int>();
+
             if (c.ParentId > 0) {
                 OpenComment p = OpenComment.findById( c.ParentId );
                 if (p != null && p.Member != null) {
-                    parentReceiverId = sendNotificationsTo( p, c );
+                    sendNotificationsTo( sentIds, p, c );
                 }
             }
 
-            int atUserId = 0;
             if (c.AtId > 0) {
                 OpenComment at = OpenComment.findById( c.AtId );
                 if (at != null && at.Member != null) {
-                    atUserId = sendNotificationsTo( at, c );
+                    sendNotificationsTo( sentIds, at, c );
                 }
             }
 
             if (c.TargetUserId > 0) {
-                sendNotificationToRoot( c, parentReceiverId, atUserId );
+                sendNotificationToRoot( sentIds, c );
             }
         }
 
-        private void sendNotificationToRoot( OpenComment c, int parentReceiverId, int atUserId ) {
+        private void sendNotificationToRoot( List<int> sentIds, OpenComment c ) {
 
             if (c.Member != null && c.Member.Id == c.TargetUserId) return; // 不用给自己发通知
-            if (c.TargetUserId == parentReceiverId || c.TargetUserId == atUserId) return; // 已经发过，不用重发
+            int receiverId = c.TargetUserId;
+            if (sentIds.Contains( receiverId )) return; // 已经发过，不用重发
 
             String msg = c.Author + " 回复了你的 <a href=\"" + c.TargetUrl + "\">" + c.TargetTitle + "</a> ";
-            nfService.send( c.TargetUserId, typeof( User ).FullName, msg, NotificationType.Comment );
+            
+            nfService.send( receiverId, typeof( User ).FullName, msg, NotificationType.Comment );
+            sentIds.Add( receiverId );
         }
 
-        private int sendNotificationsTo( OpenComment comment, OpenComment c ) {
+        private void sendNotificationsTo( List<int> sentIds, OpenComment comment, OpenComment c ) {
 
             int receiverId = comment.Member.Id;
-
-            if (c.Member != null && c.Member.Id == receiverId) return 0; // 不用给自己发通知
+            if (c.Member != null && c.Member.Id == receiverId) return; // 不用给自己发通知
+            if (sentIds.Contains( receiverId )) return; // 已经发过，不用重发
 
             String msg = c.Author + " 回复了你在 <a href=\"" + c.TargetUrl + "\">" + comment.TargetTitle + "</a> 的评论";
             nfService.send( receiverId, typeof( User ).FullName, msg, NotificationType.Comment );
-            return receiverId;
+            sentIds.Add( receiverId );
         }
 
         private static void updateParentReplies( OpenComment c ) {
