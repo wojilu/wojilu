@@ -25,7 +25,13 @@ namespace wojilu.Common.Comments {
         public void Delete( OpenComment c ) {
             if (c == null) return;
             db.delete( c );
+            deleteSubComments( c );
             updateRootTargetReplies( c );
+        }
+
+        private void deleteSubComments( OpenComment c ) {
+            if (c.Replies == 0) return;
+            db.deleteBatch<OpenComment>( "ParentId=" + c.Id );
         }
 
         public void DeleteAll( string url, int dataId, string dataType ) {
