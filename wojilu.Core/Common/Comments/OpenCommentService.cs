@@ -180,7 +180,7 @@ namespace wojilu.Common.Comments {
             if (sentIds.Contains( receiverId )) return; // 已经发过，不用重发
 
             String msg = c.Author + " 回复了你的 <a href=\"" + c.TargetUrl + "\">" + c.TargetTitle + "</a> ";
-            
+
             nfService.send( receiverId, typeof( User ).FullName, msg, NotificationType.Comment );
             sentIds.Add( receiverId );
         }
@@ -238,45 +238,87 @@ namespace wojilu.Common.Comments {
 
         //------------------------------------------------------------------------------------------------------------
 
+        public int GetReplies( int dataId, String dataType, String url ) {
 
-        public int GetReplies( String url ) {
+            if (dataId > 0 && strUtil.HasText( dataType )) {
+                return GetRepliesByData( dataId, dataType );
+            }
+            else {
+                return GetRepliesByUrl( url );
+            }
+        }
+
+        public int GetRepliesByUrl( String url ) {
             OpenCommentCount objCount = OpenCommentCount.find( "TargetUrl=:url" )
                 .set( "url", url )
                 .first();
             return objCount == null ? 0 : objCount.Replies;
         }
 
-
-        private void updateRootTargetReplies( OpenComment c ) {
-            int count = OpenComment.find( "TargetUrl=:url" )
-                .set( "url", c.TargetUrl )
-                .count();
-
-            OpenCommentCount objCount = OpenCommentCount.find( "TargetUrl=:url" )
-                .set( "url", c.TargetUrl )
+        public int GetRepliesByData( int dataId, String dataType ) {
+            OpenCommentCount objCount = OpenCommentCount.find( "DataType=:dtype and DataId=" + dataId )
+                .set( "dtype", dataType )
                 .first();
-
-            if (objCount == null) {
-                insertCommentCount( c, count );
-            }
-            else {
-                updateCommentCount( objCount, count );
-            }
+            return objCount == null ? 0 : objCount.Replies;
         }
 
-        private static void updateCommentCount( OpenCommentCount objCount, int count ) {
-            objCount.Replies = count;
+
+        private void updateRootTargetReplies( OpenComment c ) {
+
+            int replies;
+            OpenCommentCount objCount;
+
+            if (c.TargetDataId > 0 && strUtil.HasText( c.TargetDataType )) {
+                replies = OpenComment.find( "TargetDataType=:dtype and TargetDataId=" + c.TargetDataId )
+                    .set( "dtype", c.TargetDataType )
+                    .count();
+
+                objCount = OpenCommentCount.find( "DataType=:dtype and DataId=" + c.TargetDataId )
+                    .set( "dtype", c.TargetDataType )
+                    .first();
+            }
+            else {
+                replies = OpenComment.find( "TargetUrl=:url" )
+                    .set( "url", c.TargetUrl )
+                    .count();
+
+                objCount = OpenCommentCount.find( "TargetUrl=:url" )
+                    .set( "url", c.TargetUrl )
+                    .first();
+            }
+
+
+            if (objCount == null) {
+                insertCommentCount( c, replies );
+            }
+            else {
+                updateCommentCount( objCount, replies );
+            }
+
+            updateTargetReplies( c, replies );
+        }
+
+        private static void updateCommentCount( OpenCommentCount objCount, int replies ) {
+            objCount.Replies = replies;
             objCount.update();
         }
 
-        private static void insertCommentCount( OpenComment c, int count ) {
+        private static void insertCommentCount( OpenComment c, int replies ) {
             OpenCommentCount objCount = new OpenCommentCount();
             objCount.TargetUrl = c.TargetUrl;
             objCount.DataType = c.TargetDataType;
             objCount.DataId = c.TargetDataId;
-            objCount.Replies = count;
+            objCount.Replies = replies;
 
             objCount.insert();
+        }
+
+        private static void updateTargetReplies( OpenComment c, int replies ) {
+            Type targetType = Entity.GetType( c.TargetDataType );
+            ICommentTarget target = ndb.findById( targetType, c.TargetDataId ) as ICommentTarget;
+            if (target == null) return;
+            target.Replies = replies;
+            db.update( target );
         }
 
         private static void clearRootTargetRepliesByData( int dataId, string dataType ) {

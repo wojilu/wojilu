@@ -87,6 +87,7 @@
     <Compile Include="Common\AppInstall\Interface\IAppInstallerService.cs" />
     <Compile Include="Common\Comments\CommentService.cs" />
     <Compile Include="Common\Comments\ICommentService.cs" />
+    <Compile Include="Common\Comments\ICommentTarget.cs" />
     <Compile Include="Common\Comments\IFeedComment.cs" />
     <Compile Include="Common\Comments\OpenCommentCount.cs" />
     <Compile Include="Common\Comments\OpenCommentService.cs" />

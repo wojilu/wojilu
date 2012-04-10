@@ -38,7 +38,7 @@ namespace wojilu.Web.Controller.Open {
             set( "thisDataUserId", ctx.GetInt( "dataUserId" ) );
 
             DataPage<OpenComment> datas = commentService.GetByDataDesc( dataType, dataId );
-            int replies = commentService.GetReplies( url );
+            int replies = commentService.GetReplies( dataId, dataType, url );
 
             List<OpenComment> lists = datas.Results;
 

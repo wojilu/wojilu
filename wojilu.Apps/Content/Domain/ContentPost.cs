@@ -12,11 +12,12 @@ using wojilu.Common.Jobs;
 using wojilu.Common.AppBase.Interface;
 using wojilu.Common.Feeds.Interface;
 using wojilu.Common;
+using wojilu.Common.Comments;
 
 namespace wojilu.Apps.Content.Domain {
 
     [Serializable]
-    public class ContentPost : ObjectBase<ContentPost>, IAppData, IHits, IComparable, IShareData {
+    public class ContentPost : ObjectBase<ContentPost>, IAppData, IHits, IComparable, IShareData, ICommentTarget {
 
         public User Creator { get; set; }
         [Column( Length = 20 )]
