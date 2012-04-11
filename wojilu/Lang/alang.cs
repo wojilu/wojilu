@@ -38,6 +38,7 @@ namespace wojilu {
             LanguageSetting ls = lang.getByApp( t );
             return ls == null ? null : ls.get( key );
             //中文ff 再一次测试。
+
         }
 
     }
