@@ -37,6 +37,7 @@ namespace wojilu {
         public static String get( Type t, String key ) {
             LanguageSetting ls = lang.getByApp( t );
             return ls == null ? null : ls.get( key );
+            //
         }
 
     }
