@@ -1007,6 +1007,7 @@
     <Folder Include="framework\views\Microblogs\My\Layout\" />
     <Folder Include="framework\views\Poll\Admin\Layout\" />
     <Folder Include="framework\views\Users\Admin\Microblogs\" />
+    <Folder Include="framework\views\weibo\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="framework\config\log.config" />

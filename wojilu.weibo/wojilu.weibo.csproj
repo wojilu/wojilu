@@ -1,0 +1,139 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{270FA694-21D9-4CF1-979F-2220ED563836}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>wojilu.weibo</RootNamespace>
+    <AssemblyName>wojilu.weibo</AssemblyName>
+    <TargetFrameworkVersion>v2.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>libs\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Common\SinaWeiboException.cs" />
+    <Compile Include="Common\SinaAPIUri.cs" />
+    <Compile Include="Common\AsyncCallback.cs" />
+    <Compile Include="Common\AsyncCallResult.cs" />
+    <Compile Include="Common\SinaConstants.cs" />
+    <Compile Include="Common\HttpMethod.cs" />
+    <Compile Include="Common\IResponseErrorHandler.cs" />
+    <Compile Include="Common\JsonSerializationHelper.cs" />
+    <Compile Include="Common\LocalErrorCode.cs" />
+    <Compile Include="Common\OAuthHelper.cs" />
+    <Compile Include="Common\SinaOAuthTokens.cs" />
+    <Compile Include="Common\ParamCollection.cs" />
+    <Compile Include="Common\ParamPair.cs" />
+    <Compile Include="Common\ResponseErrorData.cs" />
+    <Compile Include="Common\ResponseErrorEventArgs.cs" />
+    <Compile Include="Common\RFC3986Encoder.cs" />
+    <Compile Include="Common\XmlSerializationHelper.cs" />
+    <Compile Include="Core\IHttpRequest.cs" />
+    <Compile Include="Core\MultiPartField.cs" />
+    <Compile Include="Core\Sina\SinaHttpRequest.cs" />
+    <Compile Include="Core\Sina\SinaHttpGet.cs" />
+    <Compile Include="Core\Sina\HttpPost.cs" />
+    <Compile Include="Core\MultiPartHttpPost.cs" />
+    <Compile Include="Core\Sina\OAuthHttpDelete.cs" />
+    <Compile Include="Core\Sina\OAuthHttpGet.cs" />
+    <Compile Include="Core\Sina\OAuthHttpPost.cs" />
+    <Compile Include="Core\Sina\OAuthMultiPartHttpPost.cs" />
+    <Compile Include="Core\Sina\ObtainTokenPost.cs" />
+    <Compile Include="Data\Sina\Account\PrivacyInfo.cs" />
+    <Compile Include="Data\Sina\Account\RateLimitStatus.cs" />
+    <Compile Include="Data\Sina\Account\UpdateProfileInfo.cs" />
+    <Compile Include="Data\Sina\SinaWeibo.cs" />
+    <Compile Include="Data\Sina\Comment\CommentInfo.cs" />
+    <Compile Include="Data\Sina\Comment\Comments.cs" />
+    <Compile Include="Data\Sina\Common\BooleanResultInfo.cs" />
+    <Compile Include="Data\Sina\Common\Geo.cs" />
+    <Compile Include="Data\Sina\Common\GeoPoint.cs" />
+    <Compile Include="Data\Sina\Common\HpyerLink.cs" />
+    <Compile Include="Data\Sina\Common\Source.cs" />
+    <Compile Include="Data\Sina\Common\UnreadInfo.cs" />
+    <Compile Include="Data\Sina\Counter\CounterInfo.cs" />
+    <Compile Include="Data\Sina\Counter\Counters.cs" />
+    <Compile Include="Data\Sina\Counter\CounterType.cs" />
+    <Compile Include="Data\Sina\DirectMessage\DirectMessageInfo.cs" />
+    <Compile Include="Data\Sina\DirectMessage\DirectMessages.cs" />
+    <Compile Include="Data\Sina\Emotion\EmotionInfo.cs" />
+    <Compile Include="Data\Sina\Emotion\Emotions.cs" />
+    <Compile Include="Data\Sina\Emotion\EmotionType.cs" />
+    <Compile Include="Data\ErrorResponse.cs" />
+    <Compile Include="Data\Sina\Relationship\RelationshipInfo.cs" />
+    <Compile Include="Data\Sina\Relationship\RelationshipPart.cs" />
+    <Compile Include="Data\Sina\Status\Statuses.cs" />
+    <Compile Include="Data\Sina\Status\StatusInfo.cs" />
+    <Compile Include="Data\Sina\Status\StatusType.cs" />
+    <Compile Include="Data\Sina\Status\UpdateStatusInfo.cs" />
+    <Compile Include="Data\Sina\Status\UpdateStatusWithPicInfo.cs" />
+    <Compile Include="Data\Sina\Tag\TagID.cs" />
+    <Compile Include="Data\Sina\Tag\TagInfo.cs" />
+    <Compile Include="Data\Sina\Trend\PeriodTrends.cs" />
+    <Compile Include="Data\Sina\Trend\TrendInfo.cs" />
+    <Compile Include="Data\Sina\Trend\Trends.cs" />
+    <Compile Include="Data\Sina\Url\UrlInfo.cs" />
+    <Compile Include="Data\Sina\User\UserIDs.cs" />
+    <Compile Include="Data\Sina\User\UserInfo.cs" />
+    <Compile Include="Data\Sina\User\Users.cs" />
+    <Compile Include="Data\Sina\User\UserSuggestionInfo.cs" />
+    <Compile Include="Domain\WeiboApp.cs" />
+    <Compile Include="Domain\WeiboSetting.cs" />
+    <Compile Include="Domain\WeiboUserToken.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Controller\" />
+    <Folder Include="Views\weibo\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\wojilu.Core\wojilu.Core.csproj">
+      <Project>{5D4E912F-B5A1-4E58-BFE1-62FCD30CC9E6}</Project>
+      <Name>wojilu.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\wojilu\wojilu.csproj">
+      <Project>{5912B6E1-6099-4392-9A67-AFD3A8AA4343}</Project>
+      <Name>wojilu</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PostBuildEvent>xcopy /s /y "$(ProjectDir)views\weibo" "$(SolutionDir)wojilu.Web\framework\views\weibo"</PostBuildEvent>
+  </PropertyGroup>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
