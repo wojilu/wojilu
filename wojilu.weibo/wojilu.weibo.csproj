@@ -106,10 +106,12 @@
     <Compile Include="Data\Sina\User\UserInfo.cs" />
     <Compile Include="Data\Sina\User\Users.cs" />
     <Compile Include="Data\Sina\User\UserSuggestionInfo.cs" />
+    <Compile Include="Domain\WeiboType.cs" />
     <Compile Include="Domain\WeiboApp.cs" />
-    <Compile Include="Domain\WeiboSetting.cs" />
-    <Compile Include="Domain\WeiboUserToken.cs" />
+    <Compile Include="Domain\UserWeiboSetting.cs" />
+    <Compile Include="Interface\IUserWeiboSettingService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Service\UserWeiboSettingService.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Controller\" />

@@ -1,6 +1,7 @@
 ﻿using System;
 using wojilu.Common.AppBase.Interface;
 using wojilu.Serialization;
+using wojilu.Web.Mvc.Attr;
 
 namespace wojilu.weibo.Domain
 {
@@ -8,7 +9,7 @@ namespace wojilu.weibo.Domain
     {
         public DateTime Created { get; set; }
 
-        public string Settings { get; set; }
+        public bool Enable { get; set; }
 
         #region IApp Members
 
@@ -20,11 +21,5 @@ namespace wojilu.weibo.Domain
 
         #endregion
 
-        public WeiboSetting GetSettingsObj()
-        {
-            if (strUtil.IsNullOrEmpty(Settings)) return new WeiboSetting();
-            var s = JSON.ToObject<WeiboSetting>(Settings);
-            return s;
-        }
     }
 }
