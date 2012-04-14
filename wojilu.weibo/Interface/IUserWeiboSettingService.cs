@@ -20,5 +20,11 @@ namespace wojilu.weibo.Interface
         bool ExistBy(int userId, int weiboTypeId);
 
         IList<UserWeiboSetting> FindByUserId(int userId);
+
+        UserWeiboSetting Find(int userId, int weiboType);
+
+        int Count();
+
+        DataPage<UserWeiboSetting> FindByPage(string condition, int current, int pageSize);
     }
 }

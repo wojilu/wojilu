@@ -1,0 +1,28 @@
+﻿<ul>
+     <!-- BEGIN list -->
+      <li id="service_msn" class="" data-service="msn">
+        <a class="sync_title" href="javascript:;">
+          <strong class="text">同步到</strong>
+          <img width="116" height="35" src="#{w.Logo}" alt="#{w.Name}" title="#{w.Name}">
+        </a>
+        <div class="sync_bind">
+          <img width="16" height="16" src="/res/img/default/ok.gif" alt="绑定成功">
+          <b>已绑定MSN</b>
+          <img width="16" height="16" src="http://www.xiami.com/favicon.ico" alt="虾米网" title="虾米网">
+          <em></em>
+          <img width="16" height="16" src="/res/img/common/msn_icon.gif" alt="#{w.Name}" title="#{w.Logo}">
+        </div>
+        <div class="sync_detail">
+			<p class="sync_unbind_acts">
+				<a href="javascript:;" class="unbind" title="解除绑定">解除绑定</a>
+				<label><input class="checkbind" type="checkbox"> 同步分享</label>
+			</p>
+			<p class="sync_bind_acts">
+				<em></em> <a href="#{w.ConnectUrl}">点击绑定#{w.Name}帐号</a>
+			</p>
+        </div>
+        <input id="callback_#{w.Id}" type=hidden value="#{w.CallbackUrl}" />
+        <i></i>
+      </li>
+     <!-- END list -->
+ </ul>

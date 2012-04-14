@@ -43,5 +43,22 @@ namespace wojilu.weibo.Service
         {
             return db.find<UserWeiboSetting>("UserId=:id").set("id", userId).list();
         }
+
+
+        public int Count()
+        {
+            return db.count<UserWeiboSetting>();
+        }
+
+        public DataPage<UserWeiboSetting> FindByPage(string condition,int current,int pageSize)
+        {
+            return db.findPage<UserWeiboSetting>(condition, current, pageSize);
+        }
+
+
+        public UserWeiboSetting Find(int userId, int weiboType)
+        {
+            return db.find<UserWeiboSetting>("UserId =:id and WeiboType=:type").set("id", userId).set("type", weiboType).first();
+        }
     }
 }

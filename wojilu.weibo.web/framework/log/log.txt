@@ -1,0 +1,192 @@
+﻿2012/4/13 14:23:25 info wojilu.Data.DbConfig - checkConnectionString... 
+2012/4/13 14:23:25 info wojilu.Data.DbConfig - connectionString:Provider=Microsoft.Jet.OLEDB.4.0;Data Source=wojilu_weibo.mdb 
+2012/4/13 14:23:25 info wojilu.Data.DbConfig - database path original:wojilu_weibo.mdb 
+2012/4/13 14:23:25 info wojilu.Data.DbConfig - database path now:D:\C#\开源修改项目\SNS\wojilu\wojilu.weibo.web\wojilu_weibo.mdb 
+2012/4/13 14:23:25 info wojilu.DI.ObjectContext - resolve item begin... 
+2012/4/13 14:23:25 info wojilu.DI.ObjectContext - inject Object begin... 
+2012/4/13 14:23:25 info wojilu.DI.ObjectContext - inject:newCategoryService 
+2012/4/13 14:23:25 info wojilu.DI.ObjectContext - inject:categoryController 
+2012/4/13 14:23:25 info wojilu.DI.ObjectContext - ------inject key:categoryService 
+2012/4/13 14:23:25 info wojilu.Web.Context.MvcContext - ------------------- output end(/default.aspx) --------------------- 
+2012/4/13 14:23:57 info wojilu.Data.DbConfig - checkConnectionString... 
+2012/4/13 14:23:57 info wojilu.Data.DbConfig - connectionString:Provider=Microsoft.Jet.OLEDB.4.0;Data Source=wojilu_weibo.mdb 
+2012/4/13 14:23:57 info wojilu.Data.DbConfig - database path original:wojilu_weibo.mdb 
+2012/4/13 14:23:57 info wojilu.Data.DbConfig - database path now:D:\C#\开源修改项目\SNS\wojilu\wojilu.weibo.web\wojilu_weibo.mdb 
+2012/4/13 14:23:57 info wojilu.DI.ObjectContext - resolve item begin... 
+2012/4/13 14:23:57 info wojilu.DI.ObjectContext - inject Object begin... 
+2012/4/13 14:23:57 info wojilu.DI.ObjectContext - inject:newCategoryService 
+2012/4/13 14:23:57 info wojilu.DI.ObjectContext - inject:categoryController 
+2012/4/13 14:23:57 info wojilu.DI.ObjectContext - ------inject key:categoryService 
+2012/4/13 14:23:57 info wojilu.Web.Context.MvcContext - ------------------- output end(/default.aspx) --------------------- 
+2012/4/13 14:25:22 info wojilu.Data.DbConfig - checkConnectionString... 
+2012/4/13 14:25:22 info wojilu.Data.DbConfig - connectionString:Provider=Microsoft.Jet.OLEDB.4.0;Data Source=wojilu_weibo.mdb 
+2012/4/13 14:25:22 info wojilu.Data.DbConfig - database path original:wojilu_weibo.mdb 
+2012/4/13 14:25:22 info wojilu.Data.DbConfig - database path now:D:\C#\开源修改项目\SNS\wojilu\wojilu.weibo.web\wojilu_weibo.mdb 
+2012/4/13 14:25:22 info wojilu.DI.ObjectContext - resolve item begin... 
+2012/4/13 14:25:22 info wojilu.DI.ObjectContext - inject Object begin... 
+2012/4/13 14:25:22 info wojilu.DI.ObjectContext - inject:newCategoryService 
+2012/4/13 14:25:22 info wojilu.DI.ObjectContext - inject:categoryController 
+2012/4/13 14:25:22 info wojilu.DI.ObjectContext - ------inject key:categoryService 
+2012/4/13 14:25:22 info wojilu.Web.Context.MvcContext - ------------------- output end(/UserWeiboSetting/Index.aspx) --------------------- 
+2012/4/13 15:10:55 info wojilu.Data.DbConfig - checkConnectionString... 
+2012/4/13 15:10:55 info wojilu.Data.DbConfig - connectionString:Provider=Microsoft.Jet.OLEDB.4.0;Data Source=wojilu_weibo.mdb 
+2012/4/13 15:10:55 info wojilu.Data.DbConfig - database path original:wojilu_weibo.mdb 
+2012/4/13 15:10:55 info wojilu.Data.DbConfig - database path now:D:\C#\开源修改项目\SNS\wojilu\wojilu.weibo.web\wojilu_weibo.mdb 
+2012/4/13 15:10:55 info wojilu.DI.ObjectContext - resolve item begin... 
+2012/4/13 15:10:55 info wojilu.DI.ObjectContext - inject Object begin... 
+2012/4/13 15:10:55 info wojilu.DI.ObjectContext - inject:newCategoryService 
+2012/4/13 15:10:55 info wojilu.DI.ObjectContext - inject:categoryController 
+2012/4/13 15:10:55 info wojilu.DI.ObjectContext - ------inject key:categoryService 
+2012/4/13 15:10:55 info wojilu.Web.Context.MvcContext - ------------------- output end(/default.aspx) --------------------- 
+2012/4/13 15:10:55 info wojilu.Web.Context.MvcContext - ------------------- output end(/UserWeiboSetting/Index.aspx) --------------------- 
+2012/4/13 15:28:14 info wojilu.Data.DbConfig - checkConnectionString... 
+2012/4/13 15:28:14 info wojilu.Data.DbConfig - connectionString:Provider=Microsoft.Jet.OLEDB.4.0;Data Source=wojilu_weibo.mdb 
+2012/4/13 15:28:14 info wojilu.Data.DbConfig - database path original:wojilu_weibo.mdb 
+2012/4/13 15:28:14 info wojilu.Data.DbConfig - database path now:D:\C#\开源修改项目\SNS\wojilu\wojilu.weibo.web\wojilu_weibo.mdb 
+2012/4/13 15:28:14 info wojilu.DI.ObjectContext - resolve item begin... 
+2012/4/13 15:28:14 info wojilu.DI.ObjectContext - inject Object begin... 
+2012/4/13 15:28:14 info wojilu.DI.ObjectContext - inject:newCategoryService 
+2012/4/13 15:28:14 info wojilu.DI.ObjectContext - inject:categoryController 
+2012/4/13 15:28:14 info wojilu.DI.ObjectContext - ------inject key:categoryService 
+2012/4/13 15:28:14 info wojilu.Web.Context.MvcContext - ------------------- output end(/default.aspx) --------------------- 
+2012/4/13 15:28:14 info wojilu.Web.Context.MvcContext - ------------------- output end(/UserWeiboSetting/Index.aspx) --------------------- 
+2012/4/13 15:28:37 info wojilu.Web.Context.MvcContext - ------------------- output end(/Admin/WeiboType/List.aspx) --------------------- 
+2012/4/13 15:28:41 info wojilu.Web.Context.MvcContext - ------------------- output end(/Admin) --------------------- 
+2012/4/13 15:28:51 info wojilu.Web.Context.MvcContext - ------------------- output end(/Admin/WeiboType/List.aspx) --------------------- 
+2012/4/13 15:28:53 info wojilu.Web.Context.MvcContext - ------------------- output end(/Admin/WeiboType/List.aspx) --------------------- 
+2012/4/13 15:29:03 info wojilu.ORM.MappingClass - begin MappingClass ... 
+2012/4/13 15:29:03 info wojilu.ORM.MappingClass - loadByReflection 
+2012/4/13 15:29:03 info wojilu.ORM.MappingClass - Loading Type : wojilu.weibo.Data.Sina.Status.UpdateStatusWithPicInfo 
+2012/4/13 15:29:03 info wojilu.ORM.MappingClass - Loading Type : wojilu.weibo.Data.Sina.Status.StatusType 
+2012/4/13 15:29:03 info wojilu.ORM.MappingClass - Loading Type : wojilu.weibo.Data.Sina.Status.StatusInfo 
+2012/4/13 15:29:03 info wojilu.ORM.MappingClass - Loading Type : wojilu.weibo.Data.Sina.Common.UnreadInfo 
+2012/4/13 15:29:03 info wojilu.ORM.MappingClass - Loading Type : wojilu.weibo.Data.Comment.Comments 
+2012/4/13 15:29:03 info wojilu.ORM.MappingClass - Loading Type : wojilu.weibo.Core.IHttpRequest 
+2012/4/13 15:29:03 info wojilu.ORM.MappingClass - Loading Type : wojilu.weibo.Core.Sina.SinaHttpRequest 
+2012/4/13 15:29:03 info wojilu.ORM.MappingClass - Loading Type : wojilu.weibo.Core.Sina.HttpPost 
+2012/4/13 15:29:03 info wojilu.ORM.MappingClass - Loading Type : wojilu.weibo.Core.Sina.OAuthHttpPost 
+2012/4/13 15:29:03 info wojilu.ORM.MappingClass - Loading Type : wojilu.weibo.Controller.UserWeiboSettingController 
+2012/4/13 15:29:03 info wojilu.ORM.MappingClass - Loading Type : wojilu.weibo.Common.ParamCollection 
+2012/4/13 15:29:03 info wojilu.ORM.MappingClass - Loading Type : wojilu.weibo.common.IResponseErrorHandler 
+2012/4/13 15:29:03 info wojilu.ORM.MappingClass - Loading Type : wojilu.weibo.Data.Sina.Trend.PeriodTrends 
+2012/4/13 15:29:03 info wojilu.ORM.MappingClass - Loading Type : wojilu.weibo.Data.Sina.Trend.PeriodTrendsItems 
+2012/4/13 15:29:03 info wojilu.ORM.MappingClass - Loading Type : wojilu.weibo.Data.Sina.Status.UpdateStatusInfo 
+2012/4/13 15:29:03 info wojilu.ORM.MappingClass - Loading Type : wojilu.weibo.common.XmlSerializationHelper 
+2012/4/13 15:29:03 info wojilu.ORM.MappingClass - Loading Type : wojilu.weibo.Common.SinaOAuthAccessToken 
+2012/4/13 15:29:03 info wojilu.ORM.MappingClass - Loading Type : wojilu.weibo.Data.Sina.Relationship.RelationshipInfo 
+2012/4/13 15:29:03 info wojilu.ORM.MappingClass - Loading Type : wojilu.weibo.Data.Sina.Common.Hyperlink 
+2012/4/13 15:29:03 info wojilu.ORM.MappingClass - Loading Type : wojilu.weibo.Core.MultiPartHttpPost 
+2012/4/13 15:29:03 info wojilu.ORM.MappingClass - Loading Type : wojilu.weibo.Core.Sina.OAuthMultiPartHttpPost 
+2012/4/13 15:29:03 info wojilu.ORM.MappingClass - Loading Type : wojilu.weibo.Common.HttpMethod 
+2012/4/13 15:29:03 info wojilu.ORM.MappingClass - Loading Type : wojilu.weibo.Data.Sina.User.UserInfo 
+2012/4/13 15:29:03 info wojilu.ORM.MappingClass - Loading Type : wojilu.weibo.Data.Sina.Emotion.Emotions 
+2012/4/13 15:29:03 info wojilu.ORM.MappingClass - Loading Type : wojilu.weibo.Data.Sina.Counter.CounterType 
+2012/4/13 15:29:03 info wojilu.ORM.MappingClass - Loading Type : wojilu.weibo.Data.Sina.Counter.CounterInfo 
+2012/4/13 15:29:03 info wojilu.ORM.MappingClass - Loading Type : wojilu.weibo.Controller.Admin.WeiboTypeController 
+2012/4/13 15:29:03 info wojilu.ORM.MappingClass - Loading Type : wojilu.weibo.Common.ParamPair 
+2012/4/13 15:29:03 info wojilu.ORM.MappingClass - Loading Type : wojilu.weibo.Data.Sina.Url.UrlInfo 
+2012/4/13 15:29:03 info wojilu.ORM.MappingClass - Loading Type : wojilu.weibo.Data.Sina.Common.BooleanResultInfo 
+2012/4/13 15:29:03 info wojilu.ORM.MappingClass - Loading Type : wojilu.weibo.Data.Sina.Common.ExistsFriendshipResultInfo 
+2012/4/13 15:29:03 info wojilu.ORM.MappingClass - Loading Type : wojilu.weibo.Common.SinaAPIUri 
+2012/4/13 15:29:03 info wojilu.ORM.MappingClass - Loading Type : wojilu.weibo.Interface.IUserWeiboSettingService 
+2012/4/13 15:29:03 info wojilu.ORM.MappingClass - Loading Type : wojilu.weibo.Data.Sina.Comment.CommentInfo 
+2012/4/13 15:29:03 info wojilu.ORM.MappingClass - Loading Type : wojilu.weibo.Controller.Admin.UserWeiboSettingController 
+2012/4/13 15:29:03 info wojilu.ORM.MappingClass - Loading Type : wojilu.weibo.Data.Sina.Trend.TrendInfo 
+2012/4/13 15:29:03 info wojilu.ORM.MappingClass - Loading Type : wojilu.weibo.Data.Sina.Trend.PeriodTrendInfo 
+2012/4/13 15:29:03 info wojilu.ORM.MappingClass - Loading Type : wojilu.weibo.Data.Sina.Tag.TagID 
+2012/4/13 15:29:03 info wojilu.ORM.MappingClass - Loading Type : wojilu.weibo.Data.Sina.Common.Source 
+2012/4/13 15:29:03 info wojilu.ORM.MappingClass - Loading Type : wojilu.weibo.Controller.Admin.WeiboController 
+2012/4/13 15:29:03 info wojilu.ORM.MappingClass - Loading Type : wojilu.weibo.Common.LocalErrorCode 
+2012/4/13 15:29:03 info wojilu.ORM.MappingClass - Loading Type : wojilu.weibo.Core.Sina.ObtainTokenPost 
+2012/4/13 15:29:03 info wojilu.ORM.MappingClass - Loading Type : wojilu.weibo.Controller.Admin.LayoutController 
+2012/4/13 15:29:03 info wojilu.ORM.MappingClass - Loading Type : wojilu.weibo.Common.RFC3986Encoder 
+2012/4/13 15:29:03 info wojilu.ORM.MappingClass - Loading Type : wojilu.weibo.Common.SinaConstants 
+2012/4/13 15:29:03 info wojilu.ORM.MappingClass - Loading Type : wojilu.weibo.Domain.WeiboApp 
+2012/4/13 15:29:03 info wojilu.ORM.MappingClass - Loading Type : wojilu.weibo.Data.Sina.User.UserIDs 
+2012/4/13 15:29:03 info wojilu.ORM.MappingClass - Loading Type : wojilu.weibo.Data.Sina.Trend.Trends 
+2012/4/13 15:29:03 info wojilu.ORM.MappingClass - Loading Type : wojilu.weibo.Data.Sina.Tag.TagInfo 
+2012/4/13 15:29:03 info wojilu.ORM.MappingClass - Loading Type : wojilu.weibo.Core.Sina.SinaHttpGet 
+2012/4/13 15:29:03 info wojilu.ORM.MappingClass - Loading Type : wojilu.weibo.Core.Sina.OAuthHttpGet 
+2012/4/13 15:29:03 info wojilu.ORM.MappingClass - Loading Type : wojilu.weibo.Core.Sina.OAuthHttpDelete 
+2012/4/13 15:29:03 info wojilu.ORM.MappingClass - Loading Type : wojilu.weibo.Common.OAuthHelper 
+2012/4/13 15:29:03 info wojilu.ORM.MappingClass - Loading Type : wojilu.weibo.Data.Sina.User.UserSuggestionInfo 
+2012/4/13 15:29:03 info wojilu.ORM.MappingClass - Loading Type : wojilu.weibo.Data.Sina.DirectMessage.DirectMessageInfo 
+2012/4/13 15:29:03 info wojilu.ORM.MappingClass - Loading Type : wojilu.weibo.Core.MultiPartField 
+2012/4/13 15:29:03 info wojilu.ORM.MappingClass - Loading Type : wojilu.weibo.Common.ResponseErrorEventArgs 
+2012/4/13 15:29:03 info wojilu.ORM.MappingClass - Loading Type : wojilu.weibo.Common.SinaWeiboException 
+2012/4/13 15:29:03 info wojilu.ORM.MappingClass - Loading Type : wojilu.weibo.Domain.UserWeiboSetting 
+2012/4/13 15:29:03 info wojilu.ORM.MappingClass - Loading Type : wojilu.weibo.Data.Sina.Status.Statuses 
+2012/4/13 15:29:03 info wojilu.ORM.MappingClass - Loading Type : wojilu.weibo.Data.Sina.Relationship.RelationshipPart 
+2012/4/13 15:29:03 info wojilu.ORM.MappingClass - Loading Type : wojilu.weibo.Data.Sina.Emotion.EmotionType 
+2012/4/13 15:29:03 info wojilu.ORM.MappingClass - Loading Type : wojilu.weibo.Data.Sina.DirectMessage.DirectMessages 
+2012/4/13 15:29:03 info wojilu.ORM.MappingClass - Loading Type : wojilu.weibo.Data.Sina.SinaWeibo 
+2012/4/13 15:29:03 info wojilu.ORM.MappingClass - Loading Type : wojilu.weibo.Data.Sina.SinaWeibo+Func`2 
+2012/4/13 15:29:03 info wojilu.ORM.MappingClass - Loading Type : wojilu.weibo.Data.Sina.Emotion.EmotionInfo 
+2012/4/13 15:29:03 info wojilu.ORM.MappingClass - Loading Type : wojilu.weibo.Data.Sina.Common.Geo 
+2012/4/13 15:29:03 info wojilu.ORM.MappingClass - Loading Type : wojilu.weibo.Controller.WeiboController 
+2012/4/13 15:29:03 info wojilu.ORM.MappingClass - Loading Type : wojilu.weibo.Common.SinaResponseErrorData 
+2012/4/13 15:29:03 info wojilu.ORM.MappingClass - Loading Type : wojilu.weibo.Data.Sina.Counter.Counters 
+2012/4/13 15:29:03 info wojilu.ORM.MappingClass - Loading Type : wojilu.weibo.Data.Sina.Account.PrivacyInfo 
+2012/4/13 15:29:03 info wojilu.ORM.MappingClass - Loading Type : wojilu.weibo.Controller.MainController 
+2012/4/13 15:29:03 info wojilu.ORM.MappingClass - Loading Type : wojilu.weibo.Data.ErrorResponse 
+2012/4/13 15:29:03 info wojilu.ORM.MappingClass - Loading Type : wojilu.weibo.Data.Sina.Common.GeoPoint 
+2012/4/13 15:29:03 info wojilu.ORM.MappingClass - Loading Type : wojilu.weibo.Data.Sina.Account.RateLimitStatus 
+2012/4/13 15:29:03 info wojilu.ORM.MappingClass - Loading Type : wojilu.weibo.Data.Sina.Account.APIRateLimit 
+2012/4/13 15:29:03 info wojilu.ORM.MappingClass - Loading Type : wojilu.weibo.Common.AsyncCallResult 
+2012/4/13 15:29:03 info wojilu.ORM.MappingClass - Loading Type : wojilu.weibo.Common.AsyncCallResult`1 
+2012/4/13 15:29:03 info wojilu.ORM.MappingClass - Loading Type : wojilu.weibo.Service.UserWeiboSettingService 
+2012/4/13 15:29:03 info wojilu.ORM.MappingClass - Loading Type : wojilu.weibo.Data.Sina.User.Users 
+2012/4/13 15:29:03 info wojilu.ORM.MappingClass - Loading Type : wojilu.weibo.Data.Sina.Account.UpdateProfileInfo 
+2012/4/13 15:29:03 info wojilu.ORM.MappingClass - Loading Type : wojilu.weibo.Domain.WeiboType 
+2012/4/13 15:29:03 info wojilu.ORM.MappingClass - Loading Type : wojilu.weibo.Common.JsonSerializationHelper 
+2012/4/13 15:29:03 info wojilu.ORM.MappingClass - Loading Type : wojilu.weibo.Common.AsyncCallback`1 
+2012/4/13 15:29:03 info wojilu.ORM.MappingClass - Loading Type : wojilu.weibo.Common.VoidAsyncCallback 
+2012/4/13 15:29:03 info wojilu.ORM.MappingClass - Loading Type : wojilu.weibo.Controller.UserWeiboSettingController+<>c__DisplayClass2 
+2012/4/13 15:29:03 info wojilu.ORM.MappingClass - loaded assembly: wojilu.weibo, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null 
+2012/4/13 15:29:03 info wojilu.ORM.MappingClass - FinishPropertyInfo 
+2012/4/13 15:29:03 info wojilu.ORM.MappingClass - cacheInterceptor 
+2012/4/13 15:29:03 info wojilu.ORM.MappingClass - AccessorUtil.Init 
+2012/4/13 15:29:03 info wojilu.Reflection.AccessorUtil - cacheFactory... 
+2012/4/13 15:29:03 info wojilu.Reflection.CodeDomPropertyAccessor - wojilu, Version=1.8.4486.26699, Culture=neutral, PublicKeyToken=null__C:\Users\Administrator\AppData\Local\Temp\Temporary ASP.NET Files\root\5f1dd8f2\16401888\assembly\dl3\04f6f609\216274a4_4119cd01\wojilu.DLL 
+2012/4/13 15:29:03 info wojilu.Reflection.CodeDomPropertyAccessor - mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089__C:\Windows\Microsoft.NET\Framework\v2.0.50727\mscorlib.dll 
+2012/4/13 15:29:03 info wojilu.Reflection.CodeDomPropertyAccessor - System.Web, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a__C:\Windows\assembly\GAC_32\System.Web\2.0.0.0__b03f5f7f11d50a3a\System.Web.dll 
+2012/4/13 15:29:03 info wojilu.Reflection.CodeDomPropertyAccessor - System.Data, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089__C:\Windows\assembly\GAC_32\System.Data\2.0.0.0__b77a5c561934e089\System.Data.dll 
+2012/4/13 15:29:03 info wojilu.Reflection.CodeDomPropertyAccessor - System, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089__C:\Windows\assembly\GAC_MSIL\System\2.0.0.0__b77a5c561934e089\System.dll 
+2012/4/13 15:29:03 info wojilu.Reflection.CodeDomPropertyAccessor - System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a__C:\Windows\assembly\GAC_MSIL\System.Drawing\2.0.0.0__b03f5f7f11d50a3a\System.Drawing.dll 
+2012/4/13 15:29:03 info wojilu.Reflection.CodeDomPropertyAccessor - System.Xml, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089__C:\Windows\assembly\GAC_MSIL\System.Xml\2.0.0.0__b77a5c561934e089\System.Xml.dll 
+2012/4/13 15:29:03 info wojilu.Reflection.CodeDomPropertyAccessor - System.Data.OracleClient, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089__C:\Windows\assembly\GAC_32\System.Data.OracleClient\2.0.0.0__b77a5c561934e089\System.Data.OracleClient.dll 
+2012/4/13 15:29:03 info wojilu.Reflection.CodeDomPropertyAccessor - System.Configuration, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a__C:\Windows\assembly\GAC_MSIL\System.Configuration\2.0.0.0__b03f5f7f11d50a3a\System.Configuration.dll 
+2012/4/13 15:29:03 info wojilu.Reflection.CodeDomPropertyAccessor - wojilu.weibo, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null__C:\Users\Administrator\AppData\Local\Temp\Temporary ASP.NET Files\root\5f1dd8f2\16401888\assembly\dl3\9564e5f9\0a62b92e_4519cd01\wojilu.weibo.DLL 
+2012/4/13 15:29:03 info wojilu.Reflection.CodeDomPropertyAccessor - wojilu.Core, Version=1.8.4486.26699, Culture=neutral, PublicKeyToken=null__C:\Users\Administrator\AppData\Local\Temp\Temporary ASP.NET Files\root\5f1dd8f2\16401888\assembly\dl3\251d116f\4143cea4_4119cd01\wojilu.Core.DLL 
+2012/4/13 15:29:03 info wojilu.Reflection.CodeDomPropertyAccessor - Newtonsoft.Json, Version=4.5.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed__C:\Users\Administrator\AppData\Local\Temp\Temporary ASP.NET Files\root\5f1dd8f2\16401888\assembly\dl3\d74cab34\00b7aa14_ee17cd01\Newtonsoft.Json.DLL 
+2012/4/13 15:29:04 info wojilu.Reflection.AccessorUtil - cacheAccessor... 
+2012/4/13 15:29:04 info wojilu.ORM.MappingClass - begin check database... 
+2012/4/13 15:29:04 info wojilu.ORM.MappingClass - CheckDatabase 
+2012/4/13 15:29:04 info wojilu.Data.AccessDatabaseChecker - begin check database 
+2012/4/13 15:29:04 info wojilu.ORM.MappingClass - CheckTable 
+2012/4/13 15:29:04 info wojilu.Data.AccessDatabaseChecker - [access] begin check table 
+2012/4/13 15:29:04 info wojilu.Data.AccessDatabaseChecker - table found：UsersWeiboSettings 
+2012/4/13 15:29:04 info wojilu.Data.AccessDatabaseChecker - table found：WeiboApp 
+2012/4/13 15:29:04 info wojilu.Data.TableBuilderBase - table map : wojilu.weibo.Domain.UserWeiboSetting => UsersWeiboSettings 
+2012/4/13 15:29:04 info wojilu.Data.TableBuilderBase - table map : wojilu.weibo.Domain.WeiboApp => WeiboApp 
+2012/4/13 15:29:04 info wojilu.ORM.MappingClass - GetTables 
+2012/4/13 15:29:04 info wojilu.ORM.MappingClass - end check database... 
+2012/4/13 15:29:04 info wojilu.ORM.MappingClass - end MappingClass ... 
+2012/4/13 15:29:04 info wojilu.ORM.Operation.PageCondition - [Page Record Count] select count(*) from UsersWeiboSettings 
+2012/4/13 15:29:04 info wojilu.ORM.SqlBuilder - [Page Sql] select top 20 * from usersweibosettings order by id desc 
+2012/4/13 15:29:04 info wojilu.Web.Context.MvcContext - ------------------- output end(/Admin/UserWeiboSetting/Index.aspx) --------------------- 
+2012/4/13 15:29:09 info wojilu.Web.Context.MvcContext - ------------------- output end(/Admin/WeiboType/1/Edit.aspx) --------------------- 
+2012/4/13 15:29:13 info wojilu.Web.Context.MvcContext - ------------------- output end(/Admin/WeiboType/1/Update.aspx) --------------------- 
+2012/4/13 15:29:15 info wojilu.Web.Context.MvcContext - ------------------- output end(/Admin/WeiboType/List.aspx) --------------------- 
+2012/4/13 15:29:23 info wojilu.Web.Context.MvcContext - ------------------- output end(/Admin/WeiboType/2/Delete.aspx) --------------------- 
+2012/4/13 15:29:24 info wojilu.Web.Context.MvcContext - ------------------- output end(/Admin/WeiboType/List.aspx) --------------------- 
+2012/4/13 15:35:12 info wojilu.Data.DbConfig - checkConnectionString... 
+2012/4/13 15:35:12 info wojilu.Data.DbConfig - connectionString:Provider=Microsoft.Jet.OLEDB.4.0;Data Source=wojilu_weibo.mdb 
+2012/4/13 15:35:12 info wojilu.Data.DbConfig - database path original:wojilu_weibo.mdb 
+2012/4/13 15:35:12 info wojilu.Data.DbConfig - database path now:D:\C#\开源修改项目\SNS\wojilu\wojilu.weibo.web\wojilu_weibo.mdb 
+2012/4/13 15:35:12 info wojilu.DI.ObjectContext - resolve item begin... 
+2012/4/13 15:35:12 info wojilu.DI.ObjectContext - inject Object begin... 
+2012/4/13 15:35:12 info wojilu.DI.ObjectContext - inject:newCategoryService 
+2012/4/13 15:35:12 info wojilu.DI.ObjectContext - inject:categoryController 
+2012/4/13 15:35:12 info wojilu.DI.ObjectContext - ------inject key:categoryService 
+2012/4/13 15:35:12 info wojilu.Web.Context.MvcContext - ------------------- output end(/Admin/WeiboType/List.aspx) --------------------- 

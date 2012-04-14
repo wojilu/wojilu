@@ -1,0 +1,23 @@
+﻿<div>
+ <table cellspacing="1" cellpadding="3" style="width: 100%;" id="dataAdminList">
+	        <tr class="tableHeader">
+                <td ></td><td>编号</td><td>名称</td><td>启用</td><td>AppKey</td><td>AppSecret</td><td>CallbackUrl</td><td></td></tr>
+            <!-- BEGIN list -->
+            <tr class="tableItems">
+                <td style="width:10%"><img src="#{w.Logo}" /></td>
+                <td>#{w.Id}</td>
+                <td>#{w.Name}</td>
+                <td>#{w.Enable}</td>
+                <td>#{w.AppKey}</td>
+                <td>#{w.AppSecret}</td>
+                <td>#{w.CallbackUrl}</td>
+                <td>
+                    <a href="#{w.EditLink}" class="frmBox edit">修改</a> 
+                    <a href="#{w.AddLink}" class="frmBox add">添加</a>
+                    <a href="#{w.DeleteLink}" class="delete deleteCmd">删除</a>
+                </td>
+            </tr>
+            <!-- END list -->
+        </table>
+        <a href="#{addLink}" class="frmBox add">增加</a>
+</div>

@@ -30,8 +30,9 @@ namespace wojilu.weibo.Common
 
             foreach (ParamPair item in parameters)
             {
-                string name = RFC3986Encoder.Encode(item.Name);
-                string val = RFC3986Encoder.Encode(item.Value);
+               
+                string name =RFC3986Encoder.Encode( item.Name);
+                string val =  RFC3986Encoder.Encode(item.Value);
                 queryStringBuilder.Append(string.Format("{0}={1}&", name, val));
             }
 
@@ -76,9 +77,10 @@ namespace wojilu.weibo.Common
         {
             var bodyBuilder = new StringBuilder();
             foreach (ParamPair item in parameters)
-            {
-                string name = RFC3986Encoder.Encode(item.Name);
-                string val = RFC3986Encoder.Encode(item.Value);
+            { //oauth 2.0不需要encode
+                //string name = RFC3986Encoder.Encode(item.Name);
+                string name =item.Name;
+                string val = item.Value;
                 bodyBuilder.Append(string.Format("{0}={1}&", name, val));
             }
 

@@ -380,7 +380,8 @@ namespace wojilu.weibo.Data.Sina
             ValidateArgument(updateStatusInfo.Status, "updateStatusInfo.Status");
 
             Collection<ParamPair> customParams = new Collection<ParamPair>();
-            customParams.Add(new ParamPair("status", RFC3986Encoder.UrlEncode(updateStatusInfo.Status)));
+            //修复原本发微博乱码问题 新浪1，2代api有差别
+             customParams.Add(new ParamPair("status", RFC3986Encoder.SinaUrlEncode(updateStatusInfo.Status)));
 
             if (updateStatusInfo.ReplyTo.HasValue)
             {
@@ -430,7 +431,7 @@ namespace wojilu.weibo.Data.Sina
             var uri = SinaAPIUri.UpdateStatusWithPic;
             var requester = new OAuthMultiPartHttpPost(uri,token);
 
-            requester.PartFields.Add(new MultiPartField() { Name = "status", Value = RFC3986Encoder.UrlEncode(updateStatusWithPicInfo.Status) });
+            requester.PartFields.Add(new MultiPartField() { Name = "status", Value = RFC3986Encoder.SinaUrlEncode(updateStatusWithPicInfo.Status) });
             requester.PartFields.Add(new MultiPartField() { Name = "pic", FilePath = updateStatusWithPicInfo.Pic });
             if (updateStatusWithPicInfo.Latitude.HasValue && updateStatusWithPicInfo.Longitude.HasValue)
             {

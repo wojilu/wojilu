@@ -1,0 +1,23 @@
+﻿<div>
+    <div class="adminMainTitle"><div class="adminSidebarTitleInternal">添加页脚</div></div>
+
+    <div class="adminMainPanel">
+    
+    <div class="formPanel">
+        <form method="post" action="#{ActionLink}" class="ajaxPostForm">
+            <div>标题：<input name="footer.Name" type="text" class="tipInput" tip="请填写标题，2-15个字符"  style="width:450px;" /> 
+            <span class="valid" msg="请填写标题" rule="^.{2,15}$" mode="border"></span>
+            </div>
+            <div>内容：</div>
+            <div>#{Editor}<span class="valid" to="footer.Content" msg="请填写内容" mode="border" rule=".{5,15}"></span></div>
+            <div><input type="submit" value="添加页脚" class="btn" /></div>
+        </form>
+    </div>
+
+    </div>
+
+</div>
+
+
+
+

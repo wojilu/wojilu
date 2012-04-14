@@ -91,7 +91,10 @@
     <Compile Include="Common\Component\Component.cs" />
     <Compile Include="Common\Component\ComponentStatus.cs" />
     <Compile Include="Common\Feeds\Domain\FeedApp.cs" />
+    <Compile Include="Common\Feeds\Domain\MicroblogSyncConfig.cs" />
     <Compile Include="Common\Feeds\Domain\ShareComment.cs" />
+    <Compile Include="Common\Feeds\MicroblogSyncManager.cs" />
+    <Compile Include="Common\Feeds\Interface\IMicroblogSync.cs" />
     <Compile Include="Common\Feeds\Interface\IFeedService.cs" />
     <Compile Include="Common\Feeds\Interface\IShareService.cs" />
     <Compile Include="Common\Upload\TempUploadFileService.cs" />

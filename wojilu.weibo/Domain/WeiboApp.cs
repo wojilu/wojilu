@@ -7,10 +7,6 @@ namespace wojilu.weibo.Domain
 {
     public class WeiboApp : ObjectBase<WeiboApp>, IApp
     {
-        public DateTime Created { get; set; }
-
-        public bool Enable { get; set; }
-
         #region IApp Members
 
         public int OwnerId { get; set; }

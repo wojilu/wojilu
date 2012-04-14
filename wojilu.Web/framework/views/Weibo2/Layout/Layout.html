@@ -1,0 +1,40 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" >
+<head>
+<title>wojilu cms : 文章管理系统</title>
+<link href="~css/wojilu.common.css?v=#{cssVersion}" rel="stylesheet" type="text/css" />
+<link href="~css/wojilu.cms.css?v=#{cssVersion}" rel="stylesheet" type="text/css" />
+<script src="~js/jquery.js?v=#{jsVersion}" type="text/javascript"></script>
+<script src="~js/wojilu.common.js?v=#{jsVersion}" type="text/javascript"></script>
+</head>
+
+<body>
+
+<div id="bodyWrap">
+	<div id="header">
+    	<div id="logo"><a href="~/"><img src="~img/site/logo.gif" alt="" title="" border="0" /></a></div>
+    	<div id="banner"></div>
+    	<div id="userLogin"><a href="#{adminLink}">后台管理</a> <br /><a href="#{loginLink}">用户登录</a></div>
+    </div>
+    
+    <div id="menu">
+        <ul>
+        <li #{homeSelected}><a href="~/">首页</a></li>
+        <!-- BEGIN categories --><li #{c.Selected}><a href="#{c.ShowLink}">#{c.Name}</a></li><!-- END categories -->            
+        </ul>
+    </div>
+        
+    #{layout_content}
+    
+     <div id="footer">
+    	<div class="footerNav">
+    	    <div><!-- BEGIN footers --><a href="#{f.ShowLink}">#{f.Name}</a><!-- END footers --></div>
+            <div style="margin-top:5px;color:#aaa;">页面运行时间：#{pageElapsedMilliseconds}</div> 
+        </div>
+        
+     	<div class="copyright"><a href="http://www.wojilu.com"><img src="~img/site/wojilu.jpg" /></a></div>    
+    </div> 
+
+</div>
+</body>
+</html>

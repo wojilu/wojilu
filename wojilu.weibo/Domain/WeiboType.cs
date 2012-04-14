@@ -23,8 +23,11 @@ namespace wojilu.weibo.Domain
        [Column(Length=50)]
        public string AppSecret { get; set; }
 
+       /// <summary>
+       /// Logo图片地址
+       /// </summary>
        [Column(Length=100)]
-       public string LogoUrl { get; set; }
+       public string Logo { get; set; }
 
        [NotNull] 
        public string CallbackUrl { get; set; }
@@ -48,9 +51,26 @@ namespace wojilu.weibo.Domain
            return cdb.findById<WeiboType>(id);
        }
 
+       public static WeiboType GetByName(string name)
+       {
+           List<WeiboType> types =  cdb.findByName<WeiboType>(name);
+           if (types!=null && types.Count==1)
+           {
+               return types[0];
+           }
+           return null;
+       }
+
        public static List<WeiboType> GetAll()
        {
            return cdb.findAll<WeiboType>();
+       }
+
+       public static void Delete(int id)
+       {
+           WeiboType w = GetById(id);
+           if (w != null)
+               cdb.delete(w);
        }
     }
 }

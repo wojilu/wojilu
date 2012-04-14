@@ -1,0 +1,110 @@
+﻿body {background:#C3D5ED url(../img/site/admin/app_back.gif) repeat-x scroll left top !important; }
+body,table { line-height:150%;}
+a:hover {text-decoration:none;}
+
+span.adminCmd {background:#efefef; border:1px #aaa solid; padding:3px 8px;cursor:pointer;}
+.deleteCmd {cursor:pointer;}
+
+.inputText { height:16px; padding:3px 3px 1px 3px; border:1px #b5b8c8 solid; background:url(../img/input-bg.gif);}
+
+/* 鼠标经过行的效果*/
+.over:hover {background:#dfedff;}
+.rollover:hover {background:#dfedff;}
+
+#adminMain { background:#d8e8ff; padding:10px; }
+
+
+td.adminSidebar {background:#ecf4ff;vertical-align: top; width: 150px; padding:0px;padding-bottom:30px;}
+td.adminSidebar ul {margin:0px; margin-top:15px; padding:0px;list-style:none;}
+td.adminSidebar li {margin:3px 10px;padding:2px 10px 0px 5px;height:25px;font-size:12px; }
+td.adminSidebar li a{height:18px;padding:1px 8px 1px 6px;display:inline-block;  color:#000;border:1px solid #ecf4ff; }
+/*.adminSidebar li a, .adminSidebar li div, .adminSidebar li span { padding:2px 10px 0px 5px}*/
+.adminSidebar .stop {color:#aaa; font-weight:bold;}
+
+
+    div.adminSidebarTitle, div.adminMainTitle{ background-color:#D9E8FB; background:url(../img/site/admin/sidebar_title.gif); height:26px; margin:0px;  font-weight:bold; line-height:18px;}
+    div.adminSidebarTitleInternal {padding:3px 5px 0px 10px;}
+
+td.adminMain {vertical-align:top;}
+    
+    div.adminMainPanel {margin:5px;}
+
+div.formPanel {background:#eaf3ff; border:1px #898c95 solid; padding:6px 10px 15px 5px; margin-bottom:10px; line-height:150%}
+.formPanel table {border:0px; font-size:12px; text-align:left;}
+.formPanel textarea {border:1px #6699cc solid;}
+
+.divHeader {padding:0px 0px 0px 15px; border-bottom:1px #6699cc solid; background:url(../img/site/admin/gridtoolbar_back.gif);  height:26px;}
+
+
+/* 数据表格 */
+#dataAdminList {width:90%;margin-top:0px;font-size:12px;  border-collapse:collapse;}
+
+
+.adminBar td{padding:0px 0px 0px 5px; border-bottom:1px #6699cc solid; background:url(../img/site/admin/gridtoolbar_back.gif);  height:26px; }
+.gridSpace {background:url(../img/site/admin/mnu_hspacergrid.gif) no-repeat;margin:0 5px;}
+
+.cmd,.ajaxCmd,.btnCmd {color:#15428b;cursor:pointer;text-decoration:; margin-right:5px; font-size:12px;}
+
+tr.tableHeader { background: #f0f0f0 url(../img/site/admin/grid-hrow.gif); color:#000;}								
+.tableHeader td{border-bottom:0px #999999 solid;padding:1px 0px 3px 10px; height:24px;}
+
+tr.tableItems { background-color: #fff; }	
+
+
+
+.tableItems td a{color:#000;}
+.tableItems table td {border-bottom:0px;}
+
+td.adminPage {background:#efefef;}
+
+/*tab*/
+table.tabHeader {margin-top:10px; margin-left:10px; }
+table.tabHeader td{padding:5px 10px; text-align:center; }
+	td.currentTab {background:#fff;border-left:1px #6699cc solid;border-top:1px #6699cc solid;border-right:1px #6699cc solid;border-bottom:0px; font-weight:bold;}
+	td.otherTab {border-bottom:1px #6699cc solid;background:url(../img/tabbg.gif); }
+
+div.tabMain {background:#fff; border:1px #6699cc solid; border-top:0px;margin-left:10px; margin-bottom:20px;}
+
+/* data source */
+select.IntDroplist {}
+select.StringDroplist {}
+input.StringCheckbox {}
+input.StringRadio {}
+input.IntTextbox {width:35px;}
+input.StringTextbox {width:420px;}
+textarea.LongTextbox {width:420px;height:80px;}
+
+span.paramLabel {width:60px;display:inline-block;}
+span.paramControl {}
+
+/* pageAdmin */
+
+
+#headerContainer {margin:0px;padding:0px;  clear:both; }
+
+    #header {background-image:url('../img/site/admin/headerbg.gif');background-repeat:repeat-x; clear:both; }
+        #logo {background-image:url('../img/site/admin/logo-bg.jpg');background-repeat:no-repeat; padding-left:20px;font-weight:bold;width:735px; }
+        #loginUser {text-align:right;padding-right:20px; color:#fff;font-size:12px;}
+        #loginUser a{color:#fff}
+
+    #menuContainer {height:27px;background-image:url('../img/site/admin/menubg.gif');color:#000;font-size:9pt; line-height:20px;  }
+        #menu {padding:3px 30px;color:#15428b }
+        #menu a { padding:0px 5px 1px 5px; color:#15428b; display:inline-block;}
+        #menu a:hover {background:url(../img/site/toolbar_hover.gif) repeat-x;}
+        
+/* 翻页 */
+.turnpage a{border:1px #aaa solid;}
+
+.tableItems:hover {background:#dfedff;}
+
+table.adminContainer {border-collapse:collapse;border:1px #99bbe8 solid; margin:0px; width:100%;  }
+div.adminSidebarTitle, div.adminMainTitle, .divHeader, .adminBar td, #logo a {color:#3764A0;}
+div.adminMainTitle {border-bottom:1px #99bbe8 solid;}
+td.adminSidebar li a:hover {background:url(../img/site/admin/toolbar-hover.gif); border:1px #aaa solid;}
+#dataAdminList {border:1px #99bbe8 solid; border-top:0px #ccc solid;}
+tr.tableHeader:hover { background: url(../img/site/admin/grid-hrow-over.gif); }	
+.tableItems td {border-bottom:1px #ededed solid; padding:5px 0px 3px 10px; font-family:arial;}
+
+#header {height:58px;}
+#logo a {font-size:16px;color:#3764A0;color:#fff;}
+

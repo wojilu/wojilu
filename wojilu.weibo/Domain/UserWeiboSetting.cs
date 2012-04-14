@@ -1,19 +1,39 @@
 ﻿using wojilu.Members.Users.Domain;
+using wojilu.ORM;
+using System;
 
 namespace wojilu.weibo.Domain
 {
+    [Table("UsersWeiboSettings")]
     public class UserWeiboSetting : ObjectBase<UserWeiboSetting>
     {
         public int AppId { get; set; }
 
-        public User User { get; set; }
+        private User _user;
+
+        [NotSave]
+        public User User
+        {
+            get
+            {
+                if (_user==null)
+                {
+                    _user = User.findById(UserId);
+                }
+                return _user;
+            }
+            set
+            {
+                _user = value;
+            }
+        }
 
         public int UserId { get; set; }
 
         /// <summary>
         /// 用户微博id
         /// </summary>
-        public long WeiboUid { get; set; }
+        public string WeiboUid { get; set; }
 
         public string WeiboName { get; set; }
 
@@ -32,13 +52,26 @@ namespace wojilu.weibo.Domain
         public int WeiboType { get; set; }
 
         /// <summary>
-        /// 是否绑定
-        /// </summary>
-        public bool IsBind { get; set; }
-
-        /// <summary>
         /// 是否同步
         /// </summary>
-        public bool IsSync { get; set; }
+        public int IsSync { get; set; }
+
+        /// <summary>
+        /// 绑定时间
+        /// </summary>
+        public DateTime BindTime { get; set; }
+
+
+        /// <summary>
+        /// 是否token过期,采用oauth 2.0认证方式需判断此参数，过期需要refresh token
+        /// </summary>
+        [NotSave]
+        public bool IsExpire
+        {
+            get
+            {
+              return  (DateTime.Now - BindTime).TotalSeconds > ExpireIn;
+            }
+        }
     }
 }

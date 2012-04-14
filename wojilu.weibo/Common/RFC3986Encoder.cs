@@ -60,6 +60,11 @@ namespace wojilu.weibo.Common
             return newBytes.ToString();
         }
 
+        public static string SinaUrlEncode(string input)
+        {
+            return Uri.EscapeDataString(input);
+        }
+
         private static bool IsReverseChar(char c)
         {
             return !((c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z') || (c >= '0' && c <= '9')
