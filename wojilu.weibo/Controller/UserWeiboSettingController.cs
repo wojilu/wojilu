@@ -9,6 +9,7 @@ using wojilu.weibo.Domain;
 using wojilu.weibo.Data.Sina;
 using wojilu.Members.Interface;
 using wojilu.Web.Mvc.Attr;
+using wojilu.weibo.Core.QQWeibo;
 
 namespace wojilu.weibo.Controller.Weibo
 {
@@ -57,14 +58,114 @@ namespace wojilu.weibo.Controller.Weibo
             {
                 case "sina":
                      SinaWeibo w = new SinaWeibo(type.AppKey, type.AppSecret);
-                     redirectUrl(w.GetAuthorizationUri(type.CallbackUrl));
+                     redirectUrl(w.GetAuthorizationUri(ctx.url.SiteUrl.TrimEnd('/') + to(SinaWeiboCallback)));
                     break;
-                case "qqweibo":break;
+                case "qqweibo":
+                    processQQWeibo(type);
+                    break;
+                    
                 case "qqspace":break;
                 case "163weibo":break;
                  
                 default:
                     break;
+            }
+        }
+
+        private void processQQWeibo(WeiboType type)
+        {
+            if(!ctx.web.UserIsLogin){
+                redirectLogin();
+                return;
+            }
+            OauthKey key = new OauthKey(type.AppKey,type.AppSecret);
+            bool success= false;
+            try{
+                string callback = ctx.url.SiteUrl.TrimEnd('/') + to(QQWeiboCallback);
+             success =  key.GetRequestToken(callback);
+            }
+            catch(Exception ex){
+                log.Error(ex.Message);
+            }
+            if (success) {
+                ctx.web.SessionSet("qqweibo",key);
+                redirectUrl(key.GetOAuthUrl());
+            }
+            else{
+                echoRedirect("绑定失败，请重试");
+            }
+        }
+
+        public void QQWeiboCallback()
+        {
+            OauthKey key = ctx.web.SessionGet("qqweibo") as OauthKey;
+            if (key==null) {
+               echoError("请不要直接访问此页面");
+            }
+            WeiboType type = WeiboType.GetByName("qqweibo");
+            if (type==null)
+            {
+                log.Error("找不到 qq 的 WeiboType,请添加");
+                return;
+            }
+            string verifier = ctx.Get("oauth_verifier");
+            if (string.IsNullOrEmpty(verifier))
+            {
+                echoError("请不要直接访问此页面");
+                return;
+            }
+            bool success = false;
+            try
+            {
+                success =  key.GetAccessToken( verifier);
+            }
+            catch (Exception ex)
+            {
+                log.Error(ex.Message);
+            }
+            if (key==null)
+            {
+                echoRedirect("绑定失败，请重试",to(Index));
+                return;
+            }
+            UserWeiboSetting setting = _weiboService.Find(ctx.viewer.Id, type.Id);
+            Result result;
+            if (setting == null)
+            {
+                result = _weiboService.Bind(new UserWeiboSetting
+                {
+                     AccessToken = key.tokenKey,
+                     AccessSecrct = key.tokenSecret,
+                     IsSync = 1,
+                     UserId = ctx.viewer.Id,
+                     WeiboType = type.Id,
+                     AppId = ctx.owner.Id,
+                     BindTime = DateTime.Now,
+                     WeiboName = type.Name,
+                     WeiboUid = key.WeiboName
+                });
+            }
+            else
+            {
+                setting.WeiboUid = key.WeiboName;
+                setting.WeiboName = type.Name;
+                setting.IsSync = 1;
+                setting.AccessToken = key.tokenKey;
+                setting.AccessSecrct = key.tokenSecret;
+                setting.BindTime = DateTime.Now;
+                result = _weiboService.Update(setting);
+            }
+            if (result.HasErrors)
+            {
+                errors.Errors.AddRange(result.Errors);
+                string error = string.Empty;
+                result.Errors.ForEach(c => error = error + c + System.Environment.NewLine);
+                log.Error(error);
+                echoRedirect("很抱歉，绑定失败，请重试", to(Index));
+            }
+            else
+            {
+                echoRedirect("绑定成功",to(Index));
             }
         }
 

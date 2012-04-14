@@ -12,13 +12,15 @@ using wojilu.Common.Feeds.Service;
 using wojilu.Members.Users.Domain;
 using wojilu.Web.Mvc;
 using System.Web;
+using wojilu.Common.Interface;
+using wojilu.Members.Interface;
 
 namespace wojilu.weibo.Core
 {
     public class SinaWeiboSync : IMicroblogSync
     {
         ILog log = LogManager.GetLogger(typeof(SinaWeiboSync));
-        public void Sync(User user, string text, string picUrl)
+        public void Sync(IUser user, string text, string picUrl)
         {
             if (user == null) return;
             if (string.IsNullOrEmpty(text)||text.Length>140) return;

@@ -1058,7 +1058,7 @@
     <Content Include="framework\data\wojilu.Web.Mvc.CacheUrl.config" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="framework\data\wojilu.Common.Feeds.Domain.FeedInterceptorConfig.config" />
+    <Content Include="framework\data\wojilu.Common.Domain.MicroblogSyncConfig.config" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" />
@@ -1068,7 +1068,7 @@
         <WebProjectProperties>
           <UseIIS>False</UseIIS>
           <AutoAssignPort>False</AutoAssignPort>
-          <DevelopmentServerPort>55947</DevelopmentServerPort>
+          <DevelopmentServerPort>80</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
           <IISUrl>http://zhangsan.mytest.com</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>

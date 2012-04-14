@@ -8,11 +8,12 @@ using wojilu.DI;
 using wojilu.Members.Users.Domain;
 using wojilu.Members.Interface;
 using wojilu.Common.Interface;
+using wojilu.Common.Domain;
 
 namespace wojilu.Common
 {
     /// <summary>
-    /// 微博同步管理器,该类管理所有注册到系统中的微博同步类
+    /// 微博同步管理器,该类管理所有注册到系统中的微博同步类,并通过Sync方法同步到新浪微博，QQ微博等各大微博
     /// </summary>
     public class MicroblogSyncManager
     {
@@ -57,6 +58,7 @@ namespace wojilu.Common
             }
         }
 
+        //todo 这里应该使用异步，加快处理速度 .net2.0的硬伤呀，.net4.0完美支持
         /// <summary>
         /// 向已注册到系统中的微博同步类同步微博并且上传一张图片
         /// </summary>

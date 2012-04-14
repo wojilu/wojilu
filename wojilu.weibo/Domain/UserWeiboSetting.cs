@@ -39,6 +39,11 @@ namespace wojilu.weibo.Domain
 
         public string AccessToken { get; set; }
 
+        /// <summary>
+        /// 适用于oauth 1.0
+        /// </summary>
+        public string AccessSecrct { get; set; }
+
         public string RefreshToken { get; set; }
 
         /// <summary>
