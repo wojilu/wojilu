@@ -5,7 +5,7 @@ using wojilu.Common.Feeds.Domain;
 using wojilu.Members.Users.Domain;
 using wojilu.Members.Interface;
 
-namespace wojilu.Common.Feeds.Interface
+namespace wojilu.Common.Interface
 {
     /// <summary>
     /// 定义微博同步发送接口

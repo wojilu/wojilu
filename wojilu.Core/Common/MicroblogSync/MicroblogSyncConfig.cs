@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using wojilu.Data;
 
-namespace wojilu.Common.Feeds.Domain
+namespace wojilu.Common.Domain
 {
     public class MicroblogSyncConfig : CacheObject
     {

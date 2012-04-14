@@ -7,8 +7,9 @@ using System.Collections;
 using wojilu.DI;
 using wojilu.Members.Users.Domain;
 using wojilu.Members.Interface;
+using wojilu.Common.Interface;
 
-namespace wojilu.Common.Feeds
+namespace wojilu.Common
 {
     /// <summary>
     /// 微博同步管理器,该类管理所有注册到系统中的微博同步类
