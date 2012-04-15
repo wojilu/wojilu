@@ -21,17 +21,17 @@ namespace wojilu.weibo.Service
 
         public int Unbind(int userId, int weiboTypeId)
         {
-           return db.deleteBatch<UserWeiboSetting>(string.Format("userId={0} and weiboTypeId={1}",userId,weiboTypeId));
+           return db.deleteBatch<UserWeiboSetting>(string.Format("userId={0} and weiboType={1}",userId,weiboTypeId));
         }
 
         public void Sync(int userId, int weiboTypeId)
         {
-             db.updateBatch<UserWeiboSetting>("set IsSync=true", string.Format("userId={0} and weiboTypeId={1}", userId, weiboTypeId));
+             db.updateBatch<UserWeiboSetting>("set IsSync=1", string.Format("userId={0} and weiboType={1}", userId, weiboTypeId));
         }
 
         public void UnSync(int userId, int weiboTypeId)
         {
-            db.updateBatch<UserWeiboSetting>("set IsSync=true", string.Format("userId={0} and weiboTypeId={1}", userId, weiboTypeId));
+            db.updateBatch<UserWeiboSetting>("set IsSync=0", string.Format("userId={0} and weiboType={1}", userId, weiboTypeId));
         }
 
         public bool ExistBy(int userId, int weiboTypeId)
@@ -59,6 +59,17 @@ namespace wojilu.weibo.Service
         public UserWeiboSetting Find(int userId, int weiboType)
         {
             return db.find<UserWeiboSetting>("UserId =:id and WeiboType=:type").set("id", userId).set("type", weiboType).first();
+        }
+
+
+        public UserWeiboSetting Find(int weiboTypeId, string tokenKey, string tokenSecret)
+        {
+            if (tokenSecret == null)
+                tokenSecret = string.Empty;
+            return db.find<UserWeiboSetting>("WeiboType=:id and AccessToken=:token and AccessSecret=:secret")
+                     .set("id", weiboTypeId)
+                     .set("token", tokenKey)
+                     .set("secret", tokenSecret).first();
         }
     }
 }

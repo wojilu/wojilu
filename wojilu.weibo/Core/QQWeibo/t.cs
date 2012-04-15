@@ -8,15 +8,15 @@ namespace wojilu.weibo.Core.QQWeibo
     /// 
     /// </summary>
     /// <remarks></remarks>
-    public  class t : QWeiboApiBase
+    public  class T : QWeiboApiBase
     {
         /// <summary>构造函数
-        ///  <see cref="t"/> class.
+        ///  <see cref="T"/> class.
         /// </summary>
         /// <param name="okey">The okey.</param>
         /// <param name="format">The format.</param>
         /// <remarks></remarks>
-        public t(OauthKey okey, string format) : base(okey, format) { }
+        public T(OauthKey okey, string format) : base(okey, format) { }
 
 
    

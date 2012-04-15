@@ -27,7 +27,7 @@ namespace wojilu.weibo.Core
             IUserWeiboSettingService userWeiboSettingService = new UserWeiboSettingService();
             WeiboType type = WeiboType.GetByName("sina");
             SinaWeibo weibo = new SinaWeibo(type.AppKey, type.AppSecret);
-            if (type == null) return;
+            if (type == null || type.Enable!=1 ) return;
             UserWeiboSetting setting = userWeiboSettingService.Find(user.Id, type.Id);
             //用户未绑定微博或用户暂时选择同步
             if (setting == null || setting.IsSync==0) return;

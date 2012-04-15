@@ -19,17 +19,17 @@ namespace wojilu.weibo.Core
             if (string.IsNullOrEmpty(text) || text.Length > 140) return;
             IUserWeiboSettingService userWeiboSettingService = new UserWeiboSettingService();
             WeiboType type = WeiboType.GetByName("qqweibo");
-            if (type == null) return;
+            if (type == null || type.Enable!=1 ) return;
            
             UserWeiboSetting setting = userWeiboSettingService.Find(user.Id, type.Id);
             //用户未绑定微博或用户暂时选择同步
             if (setting == null || setting.IsSync == 0) return;
 
-            if (string.IsNullOrEmpty(setting.AccessToken) || string.IsNullOrEmpty(setting.AccessSecrct))
+            if (string.IsNullOrEmpty(setting.AccessToken) || string.IsNullOrEmpty(setting.AccessSecret))
                 return;
-             QQWeibo.OauthKey oauthKey = new QQWeibo.OauthKey(type.AppKey,type.AppSecret,setting.AccessToken,setting.AccessSecrct);
+             QQWeibo.OauthKey oauthKey = new QQWeibo.OauthKey(type.AppKey,type.AppSecret,setting.AccessToken,setting.AccessSecret);
 
-             t twit = new t(oauthKey, "json");
+             T twit = new T(oauthKey, "json");
             //暂时用127.0.0.1处理，因为这里得没办法得到ip值
              string ip = "127.0.0.1";
              string result;

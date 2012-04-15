@@ -19,6 +19,8 @@ namespace wojilu.weibo.Interface
 
         bool ExistBy(int userId, int weiboTypeId);
 
+        UserWeiboSetting Find(int weiboTypeId, string tokenKey, string tokenSecret);
+
         IList<UserWeiboSetting> FindByUserId(int userId);
 
         UserWeiboSetting Find(int userId, int weiboType);

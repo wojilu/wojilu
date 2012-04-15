@@ -42,7 +42,7 @@ namespace wojilu.weibo.Domain
         /// <summary>
         /// 适用于oauth 1.0
         /// </summary>
-        public string AccessSecrct { get; set; }
+        public string AccessSecret { get; set; }
 
         public string RefreshToken { get; set; }
 
@@ -65,8 +65,6 @@ namespace wojilu.weibo.Domain
         /// 绑定时间
         /// </summary>
         public DateTime BindTime { get; set; }
-
-
         /// <summary>
         /// 是否token过期,采用oauth 2.0认证方式需判断此参数，过期需要refresh token
         /// </summary>

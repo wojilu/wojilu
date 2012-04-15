@@ -2,10 +2,19 @@
  <h1>添加绑定微博</h1>
  <form  method=post target=_self action="#{ActionLink}">
     ID:<input type=text name="weiboType.Id" /><br />
-    Name:<input type=text name="weiboType.Name" /><br/>
-    Enable:<input type=checkbox name="weiboType.Enable" /><br />
+    Name:#{weiboType.Name}<br/>
+    友好名:<input type=text name="weiboType.FriendName" /><br />
+    Enable:<input type=checkbox name="weiboType.Enable" value="0" /><br />
     AppKey:<input type=text name="weiboType.AppKey" /> <br />
     AppSecret:<input type=text name="weiboType.AppSecret" /><br />
     <input type=submit name="提交" />
+     <script>
+         $(function () {
+             $("input[type='checkbox']").click(function () {
+                 var val = $(this).attr("checked") == "checked" ? 1 : 0;
+                 $(this).attr("value", val);
+             });
+         })
+    </script>
  </form>
 </div>

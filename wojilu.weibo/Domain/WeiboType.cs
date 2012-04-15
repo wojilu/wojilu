@@ -13,7 +13,14 @@ namespace wojilu.weibo.Domain
        [Column(Length=25)]
        public string Name { get; set; }
 
-       public bool Enable { get; set; }
+       /// <summary>
+       /// 友好名称
+       /// </summary>
+       [NotNull]
+       [Column(Length=20)]
+       public string FriendName { get; set; }
+
+       public int Enable { get; set; }
 
        [NotNull]
        [Column(Length=50)]
@@ -31,9 +38,6 @@ namespace wojilu.weibo.Domain
 
        [NotNull] 
        public string CallbackUrl { get; set; }
-
-       [NotNull]
-       public string AuthUrl { get; set; }
 
        public int OrderId
        {

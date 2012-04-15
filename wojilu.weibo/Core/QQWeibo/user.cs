@@ -1,7 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 namespace wojilu.weibo.Core.QQWeibo
 {
      /// <summary>用户相关
@@ -18,18 +19,18 @@ namespace wojilu.weibo.Core.QQWeibo
         /// <remarks></remarks>
         public user(OauthKey okey, string format) : base(okey, format) { }
 
-        /// <summary>获取自己的详细资料
-        /// 
+        /// <summary>
+        /// 获取自己的详细资料
         /// </summary>
         /// <returns></returns>
         /// <remarks></remarks>
-        public string info()
+        public JToken info()
         {
             List<Parameter> paras = new List<Parameter>();
 
             paras.Add(new Parameter("format",format));
             
-            return base.SyncRequest(TypeOption.TXWB_USER_INFO,paras,null);
+            return JToken.Parse(base.SyncRequest(TypeOption.TXWB_USER_INFO,paras,null));
         }
 
 
