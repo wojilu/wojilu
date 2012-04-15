@@ -27,7 +27,19 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "wojilu.Demo", "wojilu.Demo\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "wojilu.Test", "wojilu.Test\wojilu.Test.csproj", "{458C03F6-60CF-4935-B40F-18CC9D091AC5}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "wojilu.weibo", "wojilu.weibo\wojilu.weibo.csproj", "{270FA694-21D9-4CF1-979F-2220ED563836}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{417451B3-00F4-4B0C-A7E4-C1E805698F0B}"
+	ProjectSection(SolutionItems) = preProject
+		Local.testsettings = Local.testsettings
+		TraceAndTestImpact.testsettings = TraceAndTestImpact.testsettings
+		wojilu.vsmdi = wojilu.vsmdi
+	EndProjectSection
+EndProject
 Global
+	GlobalSection(TestCaseManagementSettings) = postSolution
+		CategoryFile = wojilu.vsmdi
+	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|.NET = Debug|.NET
 		Debug|Any CPU = Debug|Any CPU
@@ -165,6 +177,16 @@ Global
 		{458C03F6-60CF-4935-B40F-18CC9D091AC5}.Release|Any CPU.Build.0 = Release|Any CPU
 		{458C03F6-60CF-4935-B40F-18CC9D091AC5}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{458C03F6-60CF-4935-B40F-18CC9D091AC5}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{270FA694-21D9-4CF1-979F-2220ED563836}.Debug|.NET.ActiveCfg = Debug|Any CPU
+		{270FA694-21D9-4CF1-979F-2220ED563836}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{270FA694-21D9-4CF1-979F-2220ED563836}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{270FA694-21D9-4CF1-979F-2220ED563836}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{270FA694-21D9-4CF1-979F-2220ED563836}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{270FA694-21D9-4CF1-979F-2220ED563836}.Release|.NET.ActiveCfg = Release|Any CPU
+		{270FA694-21D9-4CF1-979F-2220ED563836}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{270FA694-21D9-4CF1-979F-2220ED563836}.Release|Any CPU.Build.0 = Release|Any CPU
+		{270FA694-21D9-4CF1-979F-2220ED563836}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{270FA694-21D9-4CF1-979F-2220ED563836}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

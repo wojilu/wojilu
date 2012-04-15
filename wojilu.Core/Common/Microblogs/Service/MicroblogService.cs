@@ -159,6 +159,9 @@ namespace wojilu.Common.Microblogs.Service {
 
             MicroblogBinder smbinder = new MicroblogBinder();
 
+            //先保存原始的content，同步微博需要
+            string statusText = blog.Content;
+
             MicroblogParser mp = new MicroblogParser( blog.Content, smbinder );
             mp.Process();
 
@@ -186,7 +189,18 @@ namespace wojilu.Common.Microblogs.Service {
                 }
             }
 
-            if (result.IsValid) addFeedInfo( blog );
+            if (result.IsValid) { 
+                addFeedInfo(blog);
+                //如果不是转发的微博那就同步
+                if (blog.ParentId == 0)
+                {
+                    string picUrl = string.IsNullOrEmpty(blog.PicOriginal) ? null : PathHelper.Map(blog.PicOriginal);
+                    if (string.IsNullOrEmpty(picUrl))
+                        MicroblogSyncManager.Instance.Sync(blog.User, statusText);
+                    else
+                        MicroblogSyncManager.Instance.SyncWithPic(blog.User, statusText, picUrl);
+                }
+            }
 
         }
 

@@ -78,7 +78,7 @@ namespace wojilu.Common.Feeds.Service {
             feed.DataId = data.DataId; 
 
             populateData( data, feed );
-            db.insert( feed );
+            db.insert(data);
         }
 
         public virtual void publishUserAction( IFeed data ) {
@@ -88,7 +88,7 @@ namespace wojilu.Common.Feeds.Service {
             feed.DataId = data.Id; 
 
             populateData( data, feed );
-            db.insert( feed );
+            db.insert(data);
         }
 
         private static void populateData( IFeed data, Feed feed ) {
@@ -142,7 +142,7 @@ namespace wojilu.Common.Feeds.Service {
             else
                 throw new NotImplementedException( "TemplateBundle(id:" + templateBundleId + ")" + lang.get( "exTemplateNotFound" ) );
 
-            db.insert( feed );
+            db.insert(feed);
 
 
         }

@@ -1,4 +1,4 @@
-/*
+ï»¿/*
  * Copyright 2010 www.wojilu.com
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -24,15 +24,15 @@ using System.Web;
 namespace wojilu {
 
     /// <summary>
-    /// »ñÈ¡Ä³¸ö app µÄÓïÑÔ°ü
+    /// è·å–æŸä¸ª app çš„è¯­è¨€åŒ…
     /// </summary>
     public class alang {
 
         /// <summary>
-        /// ¸ù¾İ app µÄÀàĞÍ t »ñÈ¡Ä³ key µÄÓïÑÔÖµ
+        /// æ ¹æ® app çš„ç±»å‹ t è·å–æŸ key çš„è¯­è¨€å€¼
         /// </summary>
-        /// <param name="t">app µÄÀàĞÍ</param>
-        /// <param name="key">ÓïÑÔ key</param>
+        /// <param name="t">app çš„ç±»å‹</param>
+        /// <param name="key">è¯­è¨€ key</param>
         /// <returns></returns>
         public static String get( Type t, String key ) {
             LanguageSetting ls = lang.getByApp( t );
