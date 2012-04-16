@@ -15,8 +15,9 @@ namespace wojilu.weibo.Core
                     return new SinaOAuthRequestStrategy();
                 case SupportWeiboType.QQWeibo:
                     return new QQOAuthRequestStagtegy();
-                case "qqspace":
-                case "163":
+                case SupportWeiboType.WangYi163:
+                case SupportWeiboType.Douban:
+                case SupportWeiboType.Renren:
                 default:
                     return null;
             }

@@ -5,11 +5,11 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 namespace wojilu.weibo.Core.QQWeibo
 {
-     /// <summary>用户相关
-     /// 
-     /// </summary>
-     /// <remarks></remarks>
-     public class user : QWeiboApiBase 
+    /// <summary>用户相关
+    /// 
+    /// </summary>
+    /// <remarks></remarks>
+    public class user : QWeiboApiBase
     {
         /// <summary>
         /// 构造函数 <see cref="user"/> class.
@@ -28,9 +28,9 @@ namespace wojilu.weibo.Core.QQWeibo
         {
             List<Parameter> paras = new List<Parameter>();
 
-            paras.Add(new Parameter("format",format));
-            
-            return JToken.Parse(base.SyncRequest(TypeOption.TXWB_USER_INFO,paras,null));
+            paras.Add(new Parameter("format", format));
+
+            return JToken.Parse(base.SyncRequest(TypeOption.TXWB_USER_INFO, paras, null));
         }
 
 
@@ -54,17 +54,27 @@ namespace wojilu.weibo.Core.QQWeibo
         {
             List<Parameter> paras = new List<Parameter>();
 
-            paras.Add(new Parameter("format",format));
-            paras.Add(new Parameter("nick",nick));
-            paras.Add(new Parameter("sex",sex.ToString()));
-            paras.Add(new Parameter("year",year.ToString()));
-            paras.Add(new Parameter("month",month.ToString()));
-            paras.Add(new Parameter("countrycode",countrycode.ToString()));
-            paras.Add(new Parameter("provincecode",provincecode.ToString()));
-            paras.Add(new Parameter("citycode",citycode.ToString()));
-            paras.Add(new Parameter("introduction",introduction));
+            paras.Add(new Parameter("format", format));
+            if (!string.IsNullOrEmpty(nick))
+                paras.Add(new Parameter("nick", nick));
+            if (sex > 0)
+                paras.Add(new Parameter("sex", sex.ToString()));
+            if (year > 0)
+                paras.Add(new Parameter("year", year.ToString()));
+            if (month > 0)
+                paras.Add(new Parameter("month", month.ToString()));
+            if (day > 0)
+                paras.Add(new Parameter("day", day.ToString()));
+            if (countrycode > 0)
+                paras.Add(new Parameter("countrycode", countrycode.ToString()));
+            if (provincecode > 0)
+                paras.Add(new Parameter("provincecode", provincecode.ToString()));
+            if (citycode > 0)
+                paras.Add(new Parameter("citycode", citycode.ToString()));
+            if (!string.IsNullOrEmpty(introduction))
+                paras.Add(new Parameter("introduction", introduction));
 
-            return base.SyncRequest(TypeOption.TXWB_USER_UPDATE,paras,null);
+            return base.SyncRequest(TypeOption.TXWB_USER_UPDATE, paras, null);
         }
 
         /// <summary>更新用户头像信息
@@ -78,10 +88,10 @@ namespace wojilu.weibo.Core.QQWeibo
             List<Parameter> paras = new List<Parameter>();
             List<Parameter> files = new List<Parameter>();
 
-            paras.Add(new Parameter("format",format));
-            files.Add(new Parameter("pic",pic));
-            
-            return base.SyncRequest(TypeOption.TXWB_USER_UPDATE_HEAD,paras,files);
+            paras.Add(new Parameter("format", format));
+            files.Add(new Parameter("pic", pic));
+
+            return base.SyncRequest(TypeOption.TXWB_USER_UPDATE_HEAD, paras, files);
         }
 
         /// <summary>更新用户教育信息
@@ -99,30 +109,30 @@ namespace wojilu.weibo.Core.QQWeibo
         {
             List<Parameter> paras = new List<Parameter>();
 
-            paras.Add(new Parameter("format",format));
-            paras.Add(new Parameter("feildid",feildid.ToString()));
-            paras.Add(new Parameter("year",year.ToString()));
-            paras.Add(new Parameter("schoolid",schoolid.ToString()));
-            paras.Add(new Parameter("departmentid",departmentid.ToString()));
-            paras.Add(new Parameter("level",level));
+            paras.Add(new Parameter("format", format));
+            paras.Add(new Parameter("feildid", feildid.ToString()));
+            paras.Add(new Parameter("year", year.ToString()));
+            paras.Add(new Parameter("schoolid", schoolid.ToString()));
+            paras.Add(new Parameter("departmentid", departmentid.ToString()));
+            paras.Add(new Parameter("level", level));
 
-            return base.SyncRequest(TypeOption.TXWB_USER_UPDATE_EDU,paras,null);
+            return base.SyncRequest(TypeOption.TXWB_USER_UPDATE_EDU, paras, null);
         }
 
-         /// <summary>获取其他人资料
-         /// 
-         /// </summary>
-         /// <param name="name">The name.</param>
-         /// <returns></returns>
-         /// <remarks></remarks>
-         public string other_info(string name)
+        /// <summary>获取其他人资料
+        /// 
+        /// </summary>
+        /// <param name="name">The name.</param>
+        /// <returns></returns>
+        /// <remarks></remarks>
+        public string other_info(string name)
         {
             List<Parameter> paras = new List<Parameter>();
 
-            paras.Add(new Parameter("format",format));
-            paras.Add(new Parameter("name",name));
-            
-            return base.SyncRequest(TypeOption.TXWB_USER_OTHER_INFO,paras,null);
+            paras.Add(new Parameter("format", format));
+            paras.Add(new Parameter("name", name));
+
+            return base.SyncRequest(TypeOption.TXWB_USER_OTHER_INFO, paras, null);
         }
 
         /// <summary>获取一批人的简单资料
@@ -135,10 +145,10 @@ namespace wojilu.weibo.Core.QQWeibo
         {
             List<Parameter> paras = new List<Parameter>();
 
-            paras.Add(new Parameter("format",format));
-            paras.Add(new Parameter("names",names));
-            
-            return base.SyncRequest(TypeOption.TXWB_USER_INFOS,paras,null);
+            paras.Add(new Parameter("format", format));
+            paras.Add(new Parameter("names", names));
+
+            return base.SyncRequest(TypeOption.TXWB_USER_INFOS, paras, null);
         }
     }
 }

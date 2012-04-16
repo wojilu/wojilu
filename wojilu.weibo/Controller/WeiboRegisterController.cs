@@ -59,7 +59,7 @@ namespace wojilu.weibo.Controller.Weibo
                 echoRedirect("你已经有帐号并且已经登陆了","/");
                 return;
             }
-            if (string.IsNullOrEmpty(type) == null)
+            if (string.IsNullOrEmpty(type))
             {
                 echoRedirect("请不要直接进入此页面");
                 return;
