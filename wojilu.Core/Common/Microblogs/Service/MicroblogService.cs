@@ -1,4 +1,4 @@
-/*
+ï»¿/*
  * Copyright (c) 2010, www.wojilu.com. All rights reserved.
  */
 
@@ -170,14 +170,14 @@ namespace wojilu.Common.Microblogs.Service {
             
             if( i==0 ) {
 
-                // ±£´ætag
+                // ä¿å­˜tag
                 TagService.SaveDataTag( blog, mp.GetTagList() );
 
-                // ·¢Í¨Öª
+                // å‘é€šçŸ¥
                 addNotification( smbinder.GetValidUsers(), blog );
             }
 
-            // ×ª·¢ĞèÒªË¢ĞÂÔ­ÌûµÄ×ª·¢Á¿
+            // è½¬å‘éœ€è¦åˆ·æ–°åŸå¸–çš„è½¬å‘é‡
             if (blog.ParentId > 0) {
                 Microblog parent = GetById( blog.ParentId );
                 if (parent != null) {
@@ -186,7 +186,19 @@ namespace wojilu.Common.Microblogs.Service {
                 }
             }
 
-            if (result.IsValid) addFeedInfo( blog );
+            if (result.IsValid)
+            {
+                addFeedInfo(blog);
+                //å¦‚æœä¸æ˜¯è½¬å‘çš„å¾®åšé‚£å°±åŒæ­¥
+                if (blog.ParentId == 0)
+                {
+                    string picUrl = string.IsNullOrEmpty(blog.PicOriginal) ? null : PathHelper.Map(blog.PicOriginal);
+                    if (string.IsNullOrEmpty(picUrl))
+                        MicroblogSyncManager.Instance.Sync(blog.User, rcontent);
+                    else
+                        MicroblogSyncManager.Instance.SyncWithPic(blog.User, rcontent, picUrl);
+                }
+            }
 
         }
 
@@ -200,10 +212,10 @@ namespace wojilu.Common.Microblogs.Service {
 
         private void addNotification( List<User> users, Microblog blog ) {
 
-            // ¸ø@ÓÃ»§·¢Í¨Öª
+            // ç»™@ç”¨æˆ·å‘é€šçŸ¥
             foreach (User u in users) {
 
-                //String msg = string.Format( "ÓĞÎ¢²©Ìáµ½ÁËÄú:<a href=\"{0}\">{1}</a>", lnk, strUtil.ParseHtml( blog.Content, 30 ) );
+                //String msg = string.Format( "æœ‰å¾®åšæåˆ°äº†æ‚¨:<a href=\"{0}\">{1}</a>", lnk, strUtil.ParseHtml( blog.Content, 30 ) );
                 //nfService.send( u.Id, msg );
 
                 MicroblogAt mat = new MicroblogAt();
@@ -226,15 +238,15 @@ namespace wojilu.Common.Microblogs.Service {
             feed.DataType = typeof( Microblog ).FullName;
             feed.DataId = log.Id;
 
-            // ×ª·¢Î¢²©ĞÅÏ¢
+            // è½¬å‘å¾®åšä¿¡æ¯
             String pbody = "";
             if (log.ParentId > 0) {
                 Microblog parent = GetById( log.ParentId );
                 if (parent == null) {
-                    pbody = " [±»×ªÎ¢²©ÒÑ±»Ô­×÷ÕßÉ¾³ı]";
+                    pbody = " [è¢«è½¬å¾®åšå·²è¢«åŸä½œè€…åˆ é™¤]";
                 }
                 else {
-                    pbody = ": [×ª]" + parent.Content;
+                    pbody = ": [è½¬]" + parent.Content;
                 }
             }
 

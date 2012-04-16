@@ -58,6 +58,10 @@
       <Project>{24541506-9672-4B44-8718-2C6B5B5C34EF}</Project>
       <Name>wojilu.Installer</Name>
     </ProjectReference>
+    <ProjectReference Include="..\wojilu.weibo\wojilu.weibo.csproj">
+      <Project>{270FA694-21D9-4CF1-979F-2220ED563836}</Project>
+      <Name>wojilu.weibo</Name>
+    </ProjectReference>
     <ProjectReference Include="..\wojilu\wojilu.csproj">
       <Project>{5912B6E1-6099-4392-9A67-AFD3A8AA4343}</Project>
       <Name>wojilu</Name>
@@ -1056,8 +1060,8 @@
       <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
         <WebProjectProperties>
           <UseIIS>False</UseIIS>
-          <AutoAssignPort>True</AutoAssignPort>
-          <DevelopmentServerPort>5111</DevelopmentServerPort>
+          <AutoAssignPort>False</AutoAssignPort>
+          <DevelopmentServerPort>80</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
           <IISUrl>http://zhangsan.mytest.com</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
