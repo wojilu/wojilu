@@ -5,6 +5,7 @@ using wojilu.Web.Mvc;
 using wojilu.weibo.Domain;
 using wojilu.Web;
 using wojilu.Web.Mvc.Attr;
+using wojilu.weibo.Core;
 
 namespace wojilu.weibo.Controller.Weibo.Admin
 {
@@ -53,7 +54,7 @@ namespace wojilu.weibo.Controller.Weibo.Admin
        public void Add()
        {
            target(Create);
-           dropList("weiboType.Name", new string[] { "sina", "qqweibo", "163" }, "请选择");
+           dropList("weiboType.Name",SupportWeiboType.GetSupports().ToArray(), "请选择");
        }
 
        public void Create()
@@ -70,7 +71,7 @@ namespace wojilu.weibo.Controller.Weibo.Admin
            WeiboType a = WeiboType.GetById(id);
            bind(a);
            set("weiboType.EnableCheckbox",Html.CheckBox("weiboType.Enable","",a.Enable.ToString(),a.Enable==1));
-           dropList("weiboTypeName", new string[] { "sina", "qqweibo", "163" }, a.Name);
+           dropList("weiboTypeName", SupportWeiboType.GetSupports().ToArray(), a.Name);
        }
        public void Update(int id)
        {

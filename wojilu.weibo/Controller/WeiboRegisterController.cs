@@ -59,63 +59,18 @@ namespace wojilu.weibo.Controller.Weibo
                 echoRedirect("你已经有帐号并且已经登陆了","/");
                 return;
             }
-            switch (type.ToLower())
+            if (string.IsNullOrEmpty(type) == null)
             {
-                case "sina":
-                    processSina();
-                    break;
-                case "qqweibo":
-                    processQQWeibo();
-                    break;
-                case "163":
-                    process163();
-                    break;
-                default:
-                    echoRedirect("请不要直接进入此页面", "/");
-                    break;
+                echoRedirect("请不要直接进入此页面");
+                return;
+            }
+            IOAuthRequestStrategy strategy = OAuthRequestFactory.GetStrategy(type);
+            if (strategy != null)
+            {
+                strategy.RedirectToAuthorizationUri(this);
             }
         }
 
-        private void process163()
-        {
-
-        }
-
-        private void processQQWeibo()
-        {
-            WeiboType type = WeiboType.GetByName("qqweibo");
-            if (type == null) return;
-
-            OauthKey key = new OauthKey(type.AppKey, type.AppSecret);
-            bool success = false;
-            try
-            {
-                string callback = ctx.url.SiteUrl.TrimEnd('/') + to(new UserWeiboSettingController().QQWeiboCallback);
-                success = key.GetRequestToken(callback);
-            }
-            catch (Exception ex)
-            {
-                logger.Error(ex.Message);
-            }
-            if (success)
-            {
-                ctx.web.SessionSet("qqweibo", key);
-                redirectUrl(key.GetOAuthUrl());
-            }
-            else
-            {
-                echoRedirect("操作失败，请重试");
-            }
-        }
-
-        private void processSina()
-        {
-            WeiboType type = WeiboType.GetByName("sina");
-            if (type == null) return;
-            SinaWeibo w = new SinaWeibo(type.AppKey, type.AppSecret);
-            //这里 因为oauth2.0验证 必须而且只能填写一个callback地址，所以这里直接转SinaWeiboCallback处理，处理后再返回来
-            redirectUrl(w.GetAuthorizationUri(ctx.url.SiteUrl.TrimEnd('/') + to(new UserWeiboSettingController().SinaWeiboCallback)));
-        }
         /// <summary>
         /// 用其它微博账号进行注册
         /// </summary>
