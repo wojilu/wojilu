@@ -93,7 +93,9 @@ namespace wojilu.ORM.Operation {
             String vStr = ") values(";
             for (int i = 0; i < entityInfo.SavedPropertyList.Count; i++) {
                 EntityPropertyInfo info = entityInfo.SavedPropertyList[i];
-                if (((!(info.Name.ToLower() == "id") || (entityInfo.Parent != null)) && info.SaveToDB) && (!info.IsList && !info.IsList)) {
+                //if (((!(info.Name.ToLower() == "id") || (entityInfo.Parent != null)) && info.SaveToDB) && (!info.IsList && !info.IsList)) {
+                if (((!(info.Name.ToLower() == "id") || (entityInfo.Parent != null)) && info.SaveToDB) && (!info.IsList && !info.IsList))
+                {
                     String col = info.ColumnName ?? "";
                     fStr = fStr + col + ", ";
                     vStr = vStr + entityInfo.Dialect.GetParameter( info.ColumnName ) + ", ";

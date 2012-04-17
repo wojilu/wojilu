@@ -91,7 +91,9 @@
     <Compile Include="Helper\SecurityHelper.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="framework\config\log.config" />
+    <Content Include="framework\config\log.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="framework\config\orm.config" />
     <Content Include="Global.asax" />
     <Content Include="Header.ascx" />
