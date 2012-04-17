@@ -8,7 +8,7 @@ namespace gitTest
     /// <summary>
     /// 
     /// </summary>
-    public class TestClass1
+    public class Test_Class1
     {
         public int ID { get; set; }
     }
