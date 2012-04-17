@@ -5,11 +5,7 @@ using System.Text;
 
 namespace gitTest
 {
-    /// <summary>
-    /// 
-    /// </summary>
-    public class Test_Class1
+    class test2
     {
-        public int ID { get; set; }
     }
 }
