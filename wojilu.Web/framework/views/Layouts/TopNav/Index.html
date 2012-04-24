@@ -1,13 +1,13 @@
-﻿<div id="topNavWrap" style="">
+﻿<div id="topNavWrap">
 
 <table id="topNav" cellpadding="0" cellspacing="0" >
 	<tr>
 		<td id="topSiteName"><a href="#{site.Url}">#{site.Name}</a></td>
-		<td id="topNavMenu" style="display:none; padding-left:10px;">
-			<span id="topUserHome" class="menuMore" list="topAppList"><a href="#" class="viewerFeeds frmLink" loadTo="uaMain" nolayout=1>_{userStart}</a><img src="~img/down.gif"/>
+		<td id="topNavMenu">
+			<span id="topUserHome" class="menuMore" list="topAppList"><a href="#" class="viewerFeeds frmLink" loadTo="uaMain" nolayout=1>_{userStart}</a> <img src="~img/down.gif"/>
             <ul id="topAppList" class="menuItems" style="width:120px; font-size:12px;">
                 <li id="feedItem" style="padding-top:5px;"><a class="viewerFeeds" href="#"><img src="~img/app/s/feeds.png"/> 好友消息</a></li>
-			    <li style="border-bottom:1px #ccc dotted;"><a href="#" id="myGroupsLink"><img src="~img/app/s/group.png"/> _{group}</a></li>
+			    <li style="border-bottom:1px #ccc dotted;"><a href="#" id="myGroupsLink"><img src="~img/app/s/groups.png"/> _{group}</a></li>
 
 			    <li><a href="#" id="appAdminUrl"><img src="~img/app/s/settings.png"/> _{appAdmin}</a></li>
 			    <li><a href="#" id="menuAdminUrl"><img src="~img/app/s/menus.png"/> _{menuAdmin}</a></li>
@@ -32,7 +32,8 @@
             <input id="Submit1" type="submit" value="_{login}" class="btn btns" /><span class="loadingInfo"></span>
 		    <a href="#{RegLink}" class="left5 right5 strong">_{register}</a>
 		    <a href="#{resetPwdLink}">_{forgetPwd}</a>
-		    <input type="hidden" name="returnUrl" id="topNavReturnUrl" value="" />
+		    <input type="hidden" name="returnUrl" id="topNavReturnUrl" value="" />
+
 			</form>
 			
 			<div id="loginValidBox" class="ebox" style="width:380px;padding:10px 5px; ">_{validationCode} #{ValidationCode}</div>

@@ -51,9 +51,9 @@ a:hover { color:#5195ce} /*鼠标悬停链接颜色*/
 .quote { margin:5px; color:#333; padding-left:20px; padding-top:0px; background:url('../img/quoteBegin.gif') no-repeat top left;  }
 .quote .qSpan {background:url('../img/quoteEnd.gif') no-repeat bottom right; padding-right:18px; }
 
-.btn, .btnReturn, .btnReset, .btnCancel, .btnOther {padding:0px 10px;font-size: 14px; height: 24px; cursor:pointer; }
+.btn, .btnReturn, .btnReset, .btnCancel, .btnOther {padding:0px 10px;font-size: 9pt; height: 24px; cursor:pointer;padding-bottom:2px; }
 
-.btn {color:#fff;border-top:1px #ccc solid;border-right:1px #183e5b solid;border-bottom:1px #183e5b solid;border-left:1px #ccc solid;background:#2880e9; }
+.btn {BACKGROUND: #f18103; border:3 solid #fdf5c9; COLOR: #ffffff; FONT-SIZE: 9pt; FONT-STYLE: normal; FONT-VARIANT: normal; FONT-WEIGHT: normal; HEIGHT: 24px; LINE-HEIGHT: normal; }
 .btns {font-size:12px; height:20px}
 .btnReturn, .btnReset, .btnCancel, .btnOther {width:70px;margin-left:10px;color:#333;border-top:1px #ccc solid;border-right:1px #183e5b solid;	border-bottom:1px #183e5b solid;border-left:1px #ccc solid;background:#eee; }
 a.btn:hover {text-decoration: none;}
@@ -105,8 +105,8 @@ ul.wojiluValidationResultList {font-size:16px; font-family:微软雅黑, Calibri
 .turnpage {margin:5px;font-family:arial; color:#000;}
 .turnpage a{color:#666;padding:2px 4px 2px 4px;border:1px #eee solid;background:#f2f2f2; font-family:verdana;}
 .turnpage a:hover {text-decoration:none;background-color:#296bbc;color:#ffffff;}
-.currentPageNo {color:#fff;background-color:#296bbc;padding:2px 4px 2px 4px; border:1px #666 solid;}
-a.currentPageNo {color:#fff;background-color:#296bbc;padding:2px 4px 2px 4px; border:1px #666 solid;}
+.currentPageNo {color:#fff;background-color:#296bbc;padding:2px 2px 2px 2px; border:1px #666 solid;}
+a.currentPageNo {color:#fff;background-color:#296bbc;padding:2px 2px 2px 2px; border:1px #666 solid;}
 
 .wTree {margin:5px 30px 20px 20px;}
 .wTree ul {padding:0px;padding-left:10px; margin-bottom:10px}

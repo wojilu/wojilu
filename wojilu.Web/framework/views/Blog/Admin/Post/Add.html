@@ -60,13 +60,13 @@ $(document).ready( function() {
 		<tr>
 			<td><strong>_{title}</strong> </td>
 			<td>
-			<input name="Title" type="text" style="width: 500px"> <img src="~img/help.gif" title=":{emptyTitleTip}"/></td>
+			<input name="Title" type="text" style="width: 500px;height:20px;"> <img src="~img/help.gif" title=":{emptyTitleTip}"/></td>
 		</tr>
 		<tr>
 			<td><strong>_{category}</strong></td>
-			<td>&nbsp;<span id="categoryList">#{CategoryId}</span><a id="categoryBox" href="#{categoryAddUrl}" class="frmBox link" xwidth="500" title=":{addCategory}"><img src="~img/add.gif"/> _{add}</a>
+			<td>&nbsp;<span id="categoryList">#{CategoryId}</span> <a id="categoryBox" href="#{categoryAddUrl}" class="frmBox link" xwidth="500" title=":{addCategory}"><img src="~img/add.png"/> _{add}</a>
 			<strong class="left10">_{tag}</strong> 
-			<input name="TagList" id="tagList" type="text" style="width: 221px"> <img src="~img/help.gif" title=":{tagTip}"/></td>
+			<input name="TagList" id="tagList" type="text" style="width: 221px;height:20px;"> <img src="~img/help.gif" title=":{tagTip}"/></td>
 		</tr>
 		<tr>
 			<td style="vertical-align:top;"><strong>_{content}</strong>
@@ -74,7 +74,7 @@ $(document).ready( function() {
 			</td>
 			<td>#{Editor}</td>
 		</tr>
-		<tr><td></td><td><label><input name="saveContentPic" type="checkbox" />保存远程图片</label></td></tr>
+		<tr><td></td><td><label><input name="saveContentPic" type="checkbox" style="vertical-align:bottom; margin-right:5px;" />保存远程图片</label></td></tr>
 
 		<tr style="display:none;">
 			<td>			
@@ -115,17 +115,13 @@ $(document).ready( function() {
 			</td>
 			<td align="left">
 			<input name="Submit1" type="submit" value=":{publog}" id="btnPubBlog" class="btn">&nbsp;&nbsp;&nbsp;&nbsp;
-			<input name="Submit2" type="button" value=":{saveDraft}" id="btnSaveDraftBlog" style="width:120px;margin-left:10px;" class="btnCancel">
-			 <span id="saveInfo" class="left10 note">:{autoSaveTip}</span>
+			<input name="Submit2" type="button" value=":{saveDraft}" id="btnSaveDraftBlog" class="btnCancel">
+			 <span id="saveInfo" class="left10 note"><img src="~img/s/autosave.png" width="16" height="16" />  :{autoSaveTip}</span>
 			<input type="hidden" id="draftActionUrl" value="#{DraftActionUrl}"/>
 			<input type="hidden" id="draftId" value="" /></td>
 		</tr>
 	</table>
 </form>
-
-<style>
-#btnSaveDraftBlog { background:url("~img/s/save.png") no-repeat 10px 3px;}
-</style>
 
 <script>
 function refreshCategories( chtml, categoryId ) {

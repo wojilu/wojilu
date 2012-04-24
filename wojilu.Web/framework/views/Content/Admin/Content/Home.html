@@ -15,14 +15,14 @@
 .menuItems{ background:#fffbe2; }
 
 .adminSection { box-shadow:1px 2px 10px #ddd; }
-
+.height24{ display:inline-block;height:24px; width:102px; height:23px\9;}
 #{app.Style}
 #{app.SkinStyle}
 
 </style>
 
 <style>
-.frmUpdate { padding:5px 30px 5px 30px;}
+.frmUpdate { padding:2px 30px 8px 30px; vertical-align:middle; vertical-align:text-top\9;}
 </style>
 
 
@@ -34,12 +34,12 @@
     <table style="width:100%; margin-bottom:10px;">
         <tr>
             <td >
-            <a href="#{setStyleUrl}" class="cmd frmBox" xwidth="800" title=":{setPageStyle}"><img src="~img/arrowRight.gif"/>:{setPageStyle}</a>
+            <span><a href="#{setStyleUrl}" class="cmd frmBox height24" xwidth="800" title=":{setPageStyle}"><img src="~img/arrowRight.gif"/>:{setPageStyle}</a></span>
             <span class="frmUpdate cmd left10" href="#{skinLink}" loadTo="skinWrap">选择皮肤</span>
             </td>
 
             <td style="text-align:right; width:130px;">
-                <span class="menuMore cmd" style="padding-left:8px;" id="addLayout" list="addLayoutMenu">:{moreRowOp} <img src="~img/down.gif"/>
+                <span class="menuMore cmd height24" style="padding-left:8px;" id="addLayout" list="addLayoutMenu">:{moreRowOp} <img src="~img/down.gif"/>
 	            <ul class="menuItems" id="addLayoutMenu">
 		            <li><a href="#{addRow2Url}" class="frmBox" title=":{addRow2}"><img src="~img/add.gif"/> :{addRow2}</a> </li>
 		            <li><a href="#{addRow1Url}" class="frmBox" title=":{addRow1}"><img src="~img/add.gif"/> :{addRow1}</a> </li>
