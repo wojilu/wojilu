@@ -1,4 +1,4 @@
-﻿body {font:12px/1.5 tahoma, arial, sans-serif;  }
+﻿body {font:12px/1.5 tahoma, arial, sans-serif; background: #ffffff;}
 body, div, dl, dt, dd, ul, ol, li, h1, h2, h3, h4, h5, h6, pre, form, fieldset, input, textarea, blockquote {padding: 0;margin: 0;word-break:break-all;word-wrap:break-word;}
 table, td, tr, th, input, textarea {font-size: 12px;}
 small { font-size: 12px; } 
@@ -14,7 +14,7 @@ a { text-decoration: none;}
 a:hover { text-decoration: underline;}
 .link {cursor:pointer;}
 
-body {background-image : url(../img/bg2.jpg); background-repeat:repeat-x; background-position :center 35px;} /*整个网页的背景*/
+body {} /*整个网页的背景*/
 a, .link { color: #005eac; } /*链接的颜色*/
 textarea {padding:2px;}
 
@@ -59,9 +59,9 @@ a:hover { color:#5195ce} /*鼠标悬停链接颜色*/
 a.btn:hover {text-decoration: none;}
 
 
-.btnBig,.btnBig input {width: 128px; border:0px;height: 30px; text-indent:18px; line-height: 30px; font-size: 14px; background-image: url('../img/m/btnBig1.png'); background-position: 0px 0px;color:#fff;cursor:pointer;}
-.btnBig{ color: white;border-style:none; text-align: center; display: block; position1: relative; outline2: 0;cursor:pointer; border-radius: 3px; box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.3); }
-.btnBig:hover,.btnBig input:hover{ background-position: 0px 0px;text-decoration:none;color:#fff;	filter: alpha(opacity=90);	-moz-opacity:9;	opacity: 9; } 
+.btnBig,.btnBig input {width: 128px; border:0px;height: 30px; line-height: 30px; font-size: 14px; background-image: url('../img/m/btnBig.png'); background-position: 0px -1px;color:#fff;cursor:pointer;}
+.btnBig{ color: white;border: solid 1px #185CA8;background-color:#2288c9; text-align: center; display: block; position1: relative; outline2: 0;cursor:pointer; border-radius: 3px; box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.3); }
+.btnBig:hover,.btnBig input:hover{ background-position: 0px -49px;text-decoration:none;color:#fff; } 
 
 .btnGreen { background-position: 0px -99px;  border: solid 1px #649f5b; color: white;}
 .btnGreen:hover{ background-position: 0px -153px; }
@@ -257,6 +257,3 @@ td.onePollResult {padding-left:2px;}
 .onePollResultNotShow {display:none;}
 .pollOptionVotes {font-size:11px; margin-left:5px; margin-right:10px}    
 .pollSubmit {margin:10px 10px 10px 15px;} 
-#topNavMenu a { font-size:12px;}
-#wojilu_banner{ width:100%;height:106px; background-image:url("../img/middle_banner.jpg");}
-textarea { border:1px solid #EEEEEE;}

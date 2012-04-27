@@ -4,8 +4,9 @@
 #topNavWrap #topNav {color:#2b2b2b;}
 #topNavWrap #topNav a{color:#005eac;}
 
-#pageWrap {/*background:url(headerBg.jpg); background-repeat:repeat-x;*/background-image : url(../../../img/bg.jpg); background-repeat :no-repeat; background-position :center top;}
-#pageWrap {}
+#pageWrap {background:url(headerBg.jpg); background-repeat:repeat-x;}
+#pageWrap {background:#fff;}
+
 #pageWrapInner,#topNav  {width:960px;margin:auto;}
 
 #topNav, #headerWrap, #navWrap, #pageMainWrap, #pageFooterWrap {margin: auto; }
@@ -44,7 +45,7 @@
 
 /*****************************************************/
 
-#topSiteName {padding-left:32px;background:url('../../../img/home.png') 10px center no-repeat;}
+#topSiteName {padding-left:32px;background:url('../../../img/home.gif') 10px center no-repeat;}
 #topSiteName a{font-size:16px;font-weight:bold;}
 
 #header {margin:auto; height:80px; }
