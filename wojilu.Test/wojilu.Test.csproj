@@ -45,6 +45,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="main.cs" />
+    <Compile Include="Platform\MailTest.cs" />
     <Compile Include="Platform\MoveRowTest.cs" />
     <Compile Include="Common\cvtTest.cs" />
     <Compile Include="Common\ImgPathTest.cs" />

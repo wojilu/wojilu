@@ -107,8 +107,6 @@ namespace wojilu.Web.Controller {
 
         public void Register() {
 
-
-
             if (config.Instance.Site.RegisterType == RegisterType.CloseUnlessInvite) {
                 echo( "对不起，您必须接受邀请才能注册" );
                 return;
@@ -154,7 +152,7 @@ namespace wojilu.Web.Controller {
             if (Component.IsEnableUserSpace()) {
 
                 if (MvcConfig.Instance.CheckDomainMap()) {
-                    subdomainBlock.Set( "userUrlPrefix", SystemInfo.HostNoSubdomain);
+                    subdomainBlock.Set( "userUrlPrefix", SystemInfo.HostNoSubdomain );
                     subdomainBlock.Set( "isUrlValidLink", to( CheckUrlExist ) );
                     subdomainBlock.Next();
                 }
@@ -170,7 +168,6 @@ namespace wojilu.Web.Controller {
             // validation
             set( "isEmailValidLink", to( CheckEmailExist ) );
             set( "isNameValidLink", to( CheckUserExist ) );
-            //set( "isUrlValidLink", to( CheckUrlExist ) );
 
             IBlock confirmEmailBlock = getBlock( "sendConfirmEmail" );
             if (config.Instance.Site.EnableEmail) {
@@ -221,22 +218,18 @@ namespace wojilu.Web.Controller {
 
             String url = ctx.Post( "FriendUrl" );
             if (userService.IsUrlReservedOrExist( url )) {
-                //echoError( lang( "exUrlFound" ) );
-                //return;
                 echoJsonMsg( lang( "exUrlFound" ), false, "" );
             }
             else {
-
                 echoJsonMsg( "ok", true, "" );
-
             }
 
-            //echoRedirect( "ok" );
         }
 
         public void Done() {
 
             set( "email", ctx.Get( "email" ) );
+            set( "domainName", config.Instance.Site.GetSmtpUserDomain() );
 
             String goUrl = WebUtils.getMailLink( ctx.Get( "email" ) );
             IBlock mblock = getBlock( "mailLink" );
