@@ -94,7 +94,7 @@ namespace wojilu.Web.Controller.Common {
         }
 
         private void showError() {
-            actionContent( errors.ErrorsJson );
+            echoJson( errors.ErrorsJson );
         }
 
         private void showJson( String msg ) {
@@ -104,7 +104,7 @@ namespace wojilu.Web.Controller.Common {
             builder.Append( msg );
             builder.Append( "\"}" );
 
-            actionContent( builder.ToString() );
+            echoJson( builder.ToString() );
         }
 
         [NonVisit]
