@@ -645,10 +645,11 @@ wojilu.ui.menu = function(eleId) {
             var mLeft = 0;
             if( menuX+ mWidth > document.body.clientWidth ) mLeft = $(this).width()-mWidth;
 
-            $(this).css( 'position', 'relative' );
-            item.css( 'position', 'absolute' ).css( 'top', ($(this).height())+'px' ).css( 'left', mLeft ).slideDown('fast');
+            $(this).css( 'position', 'relative' ).css("zIndex",1002); // fixed by robin(http://www.wojilu.com/robin_qu)
+            item.css( 'position', 'absolute' ).css("zIndex",1003).css( 'top', ($(this).height())+'px' ).css( 'left', mLeft ).slideDown('fast');
         },
         function() {
+            $(this).css("zIndex",1);
             $( '#'+ $(this).attr( 'list' ) ).hide();
         }    
     );
