@@ -848,7 +848,14 @@ function convertXhtml(str) {
 	str = str.replace(/<\/b>/gi, "</strong>");
 	str = str.replace(/(<hr[^>]*[^\/])(>)/gi, "$1 />");
 	str = str.replace(/(<img[^>]*[^\/])(>)/gi, "$1 />");
-    str = str.replace(/(<\w+)(.*?>)/gi, function (all, tag, attr) { return tag.toLowerCase() + attr.toLowerCase(); });
+    str = str.replace(/(<\w+)(.*?>)/gi, function (all, tag, attr) { 
+        if( attr.toLowerCase().indexOf( 'href' )>0 ) {
+            return tag.toLowerCase() + attr;
+        }
+        else {
+            return tag.toLowerCase() + attr.toLowerCase();
+        }
+    });
     str = str.replace(/(<\/\w+>)/gi, function (all, tag) { return tag.toLowerCase(); });
 	return str;
 }
