@@ -1,4 +1,4 @@
-/*
+ï»¿/*
  * Copyright (c) 2010, www.wojilu.com. All rights reserved.
  */
 
@@ -24,17 +24,17 @@ namespace wojilu.Common.AppInstall {
         }
 
         /// <summary>
-        /// ËùÊô·ÖÀà
+        /// æ‰€å±åˆ†ç±»
         /// </summary>
         public int CatId { get; set; }
 
         /// <summary>
-        /// appµÄ×÷Õß»ò´´½¨¹«Ë¾
+        /// appçš„ä½œè€…æˆ–åˆ›å»ºå…¬å¸
         /// </summary>
         public String Creator { get; set; }
 
         /// <summary>
-        /// ¼ò½é
+        /// ç®€ä»‹
         /// </summary>
         public String Description { get; set; }
 
@@ -44,38 +44,38 @@ namespace wojilu.Common.AppInstall {
         public String Logo { get; set; }
 
         /// <summary>
-        /// ¶ÔÓ¦appµÄÍêÕûµÄtypeÃû³Æ
+        /// å¯¹åº”appçš„å®Œæ•´çš„typeåç§°
         /// </summary>
         public String TypeFullName { get; set; }
 
         /// <summary>
-        /// app×´Ì¬£¬Ä¬ÈÏ0±íÊ¾ÆôÓÃ£»1±íÊ¾½ûÓÃ¡£
+        /// appçŠ¶æ€(AppInstallerStatus)ï¼Œé»˜è®¤0è¡¨ç¤ºå¯ç”¨ï¼›1è¡¨ç¤ºç¦ç”¨ï¼›2è¡¨ç¤ºè‡ªå®šä¹‰ã€‚
         /// </summary>
         public int Status { get; set; }
 
         /// <summary>
-        /// ²¿ÊğÊ±¼ä
+        /// éƒ¨ç½²æ—¶é—´
         /// </summary>
         public DateTime Created { get; set; }
 
         /// <summary>
-        /// ÊÇ·ñÓÉÓÃ»§Éú³ÉÄÚÈİ(UGC)¡£Èç¹ûÓĞ£¬Ó¦¸ÃÌá¹©¶ÔÓÃ»§Éú³ÉÄÚÈİµÄºóÌ¨¹ÜÀí½çÃæ¡£
+        /// æ˜¯å¦ç”±ç”¨æˆ·ç”Ÿæˆå†…å®¹(UGC)ã€‚å¦‚æœæœ‰ï¼Œåº”è¯¥æä¾›å¯¹ç”¨æˆ·ç”Ÿæˆå†…å®¹çš„åå°ç®¡ç†ç•Œé¢ã€‚
         /// </summary>
         public Boolean HasUserData { get; set; }
 
         /// <summary>
-        /// ÊÇ·ñµ¥Àı(°²×°µÄÊ±ºòÊÇ·ñÖ»ÄÜ°²×°Ò»¸öÔËĞĞ£¬»¹ÊÇ¿ÉÒÔ°²×°¶à¸öÔËĞĞ)
+        /// æ˜¯å¦å•ä¾‹(å®‰è£…çš„æ—¶å€™æ˜¯å¦åªèƒ½å®‰è£…ä¸€ä¸ªè¿è¡Œï¼Œè¿˜æ˜¯å¯ä»¥å®‰è£…å¤šä¸ªè¿è¡Œ)
         /// </summary>
         public Boolean Singleton { get; set; }
 
         /// <summary>
-        /// ¸¸³ÌĞòµÄID(Ä³Ğ©³ÌĞòÄÚºËÏàÍ¬£¬µ«½çÃæºÍ³õÊ¼»¯Êı¾İ²»Ò»Ñù£¬Í¨¹ıÖÆ¶¨¸¸³ÌĞòID£¬¿ÉÒÔ¹éÀàµ½Í¬Ò»×é)
+        /// çˆ¶ç¨‹åºçš„ID(æŸäº›ç¨‹åºå†…æ ¸ç›¸åŒï¼Œä½†ç•Œé¢å’Œåˆå§‹åŒ–æ•°æ®ä¸ä¸€æ ·ï¼Œé€šè¿‡åˆ¶å®šçˆ¶ç¨‹åºIDï¼Œå¯ä»¥å½’ç±»åˆ°åŒä¸€ç»„)
         /// </summary>
         public int ParentId { get; set; }
 
 
         /// <summary>
-        /// ¹Ø±Õ·½Ê½¡£Ä¬ÈÏ0±íÊ¾½ûÖ¹ÓÃ»§°²×°£¬µ«Èç¹ûÒÑ°²×°ÁË£¬Ôò¿ÉÒÔÔËĞĞ£»1±íÊ¾²»µ«½ûÖ¹°²×°£¬ÒÑ¾­°²×°µÄÒ²½ûÖ¹ÔËĞĞ¡£
+        /// å…³é—­æ–¹å¼ã€‚é»˜è®¤0è¡¨ç¤ºç¦æ­¢ç”¨æˆ·å®‰è£…ï¼Œä½†å¦‚æœå·²å®‰è£…äº†ï¼Œåˆ™å¯ä»¥è¿è¡Œï¼›1è¡¨ç¤ºä¸ä½†ç¦æ­¢å®‰è£…ï¼Œå·²ç»å®‰è£…çš„ä¹Ÿç¦æ­¢è¿è¡Œã€‚
         /// </summary>
         public int CloseMode { get; set; }
 
@@ -154,7 +154,7 @@ namespace wojilu.Common.AppInstall {
 
         public Boolean IsInstanceClose( Type ownerType ) {
 
-            if (this.CloseMode == AppCloseMode.CloseInstall.Id) return false; // ½ö½ö½ûÖ¹°²×°£¬Ôò¶ÔappÊµÀı²»Æğ×÷ÓÃ
+            if (this.CloseMode == AppCloseMode.CloseInstall.Id) return false; // ä»…ä»…ç¦æ­¢å®‰è£…ï¼Œåˆ™å¯¹appå®ä¾‹ä¸èµ·ä½œç”¨
 
             return this.IsClose( ownerType );
         }
@@ -164,11 +164,11 @@ namespace wojilu.Common.AppInstall {
 
             if (this.Status == AppInstallerStatus.Stop.Id) return true;
 
-            if (this.Status == AppInstallerStatus.Run.Id) { // Ä¬ÈÏ×´Ì¬
+            if (this.Status == AppInstallerStatus.Run.Id) { // é»˜è®¤çŠ¶æ€
                 return !(this.CatId == AppCategory.General || AppCategory.GetByCatId( this.CatId ).TypeFullName.Equals( ownerType.FullName ));
             }
 
-            // ×Ô¶¨Òå
+            // è‡ªå®šä¹‰
             return AppMemberShip.IsAppStop( this.Id, ownerType );
         }
 
