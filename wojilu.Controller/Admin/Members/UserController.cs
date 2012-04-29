@@ -29,7 +29,7 @@ using wojilu.Common.Resource;
 
 namespace wojilu.Web.Controller.Admin.Members {
 
-    public class SampleUser {
+    internal class UserVo {
 
         public String Name { get; set; }
         public String Pwd { get; set; }
@@ -88,8 +88,7 @@ namespace wojilu.Web.Controller.Admin.Members {
         [HttpPost, DbTransaction]
         public void CreateUser() {
 
-
-            List<SampleUser> users = getUserInfoList();
+            List<UserVo> users = getUserInfoList();
             if (users.Count == 0) {
                 echoError( "请填写用户信息" );
                 return;
@@ -98,13 +97,26 @@ namespace wojilu.Web.Controller.Admin.Members {
             logger.Info( "user count=" + users.Count );
 
             try {
-                foreach (SampleUser u in users) {
-                    registerUser( u ); // 逐个导入用户(导入的过程就是注册的过程)
-                    logger.Info( "register user=" + u.Name );
+                int okCount = 0;
+                foreach (UserVo u in users) {
+                    Result result = registerUser( u ); // 逐个导入用户(导入的过程就是注册的过程)
+                    if (result.IsValid) {
+                        logger.Info( "register user=" + u.Name );
+                        okCount += 1;
+                    }
+                    else {
+                        logger.Error( "register user error=" + result.ErrorsText );
+                        errors.Join( result );
+                    }
                 }
-                logger.Info( "register done" );
 
-                echoToParentPart( "注册成功" );
+                if (okCount > 0) {
+                    logger.Info( "register done" );
+                    echoToParentPart( "注册成功" );
+                }
+                else {
+                    echoError();
+                }
             }
             catch (Exception ex) {
                 logger.Info( "" + ex.Message );
@@ -114,19 +126,19 @@ namespace wojilu.Web.Controller.Admin.Members {
             }
         }
 
-        private void registerUser( SampleUser user ) {
+        private Result registerUser( UserVo user ) {
             // 调用 OpenService 进行 wojilu 注册
-            new wojilu.Open.OpenService().UserRegister( user.Name, user.Pwd, user.Email );
+            return new wojilu.Open.OpenService().UserRegister( user.Name, user.Pwd, user.Email );
         }
 
 
-        private List<SampleUser> getUserInfoList() {
+        private List<UserVo> getUserInfoList() {
 
             String txtUsers = ctx.Post( "txtUsers" );
 
-            if (strUtil.IsNullOrEmpty( txtUsers )) return new List<SampleUser>();
+            if (strUtil.IsNullOrEmpty( txtUsers )) return new List<UserVo>();
 
-            List<SampleUser> users = new List<SampleUser>();
+            List<UserVo> users = new List<UserVo>();
 
             String[] arrLines = txtUsers.Trim().Split( new char[] { '\n', '\r' } );
 
@@ -137,7 +149,7 @@ namespace wojilu.Web.Controller.Admin.Members {
                 String[] arrItems = line.Split( '/' );
                 if (arrItems.Length != 3) continue;
 
-                SampleUser user = new SampleUser();
+                UserVo user = new UserVo();
                 user.Name = arrItems[0];
                 user.Pwd = arrItems[1];
                 user.Email = arrItems[2];
@@ -150,7 +162,7 @@ namespace wojilu.Web.Controller.Admin.Members {
             return users;
         }
 
-        private bool hasError( SampleUser user ) {
+        private bool hasError( UserVo user ) {
             return string.IsNullOrEmpty( user.Name ) ||
                 string.IsNullOrEmpty( user.Pwd ) ||
                 string.IsNullOrEmpty( user.Email );
@@ -207,7 +219,7 @@ namespace wojilu.Web.Controller.Admin.Members {
 
         }
 
-        public void UpdateProfile( int id  ) {
+        public void UpdateProfile( int id ) {
             User m = User.findById( id );
             UserProfileController.SaveProfile( m, ctx );
             db.update( m );
