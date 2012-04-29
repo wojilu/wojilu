@@ -32,12 +32,8 @@ namespace wojilu.Web.Mvc.Routes {
         internal static readonly char[] Separator = new char[] { '/' };
 
         public static Route Recognize( MvcContext context ) {
-
             String url = context.url.ToString();
-
-            Route r = RecognizePath( processCleanUrl( url, context.web.PathApplication ) );
-
-            return r;
+            return RecognizePath( processCleanUrl( url, context.web.PathApplication ) );
         }
 
         public static Route Recognize( String fullUrlPath, String applicationPath ) {
@@ -76,9 +72,8 @@ namespace wojilu.Web.Mvc.Routes {
                 return result;
             }
 
-            throw new MvcException( HttpStatus.NotFound_404, "can't find matching route : Url=" + cleanUrl );
+            return null;
         }
-
 
         private static Boolean isMatched( RouteSetting setting, String[] arrPath ) {
 

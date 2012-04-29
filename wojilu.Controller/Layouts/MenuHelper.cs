@@ -115,6 +115,7 @@ namespace wojilu.Web.Controller.Layouts {
             // 如果是app，则还要比较appId
             if (ctx.app.Id > 0) {
                 Route menuRoute = RouteTool.RecognizePath( menu.RawUrl );
+                if (menuRoute == null) return null;
                 if (ctx.app.Id != menuRoute.appId) return null;
             }
 
@@ -139,6 +140,8 @@ namespace wojilu.Web.Controller.Layouts {
                 if (m.RawUrl.StartsWith( "http:" )) continue;
 
                 Route rt = RouteTool.RecognizePath( m.RawUrl );
+                if (rt == null) return null;
+
                 if (!ctx.route.ns.StartsWith( rt.ns )) continue;
 
                 if (ctx.app.Id <= 0 || ctx.app.Id == rt.appId) return m;
