@@ -1020,9 +1020,6 @@ wojilu.ui.valid = function() {
     
     function checkAjaxResult(target, inputValue, validSpan, ajaxAction) {
         var cname = target.attr( 'name' );
-        var isChecked = target.attr( 'isChecked' );
-        if( 'true'==isChecked ) return;
-
         wojilu.ctx.isValid = false;
         var pdata = new Object();
         pdata[ cname ] = inputValue;
@@ -1031,9 +1028,6 @@ wojilu.ui.valid = function() {
             var aResult  =data;
             var aMsg = aResult.Msg;
             result = aResult.IsValid?1:-1;
-            if( result==1 ) {
-                target.attr( 'isChecked', 'true' );
-            }
             setMsg( result, validSpan, aMsg );
         });
     };
