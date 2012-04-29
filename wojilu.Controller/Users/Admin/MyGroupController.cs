@@ -48,7 +48,7 @@ namespace wojilu.Web.Controller.Users.Admin {
 
         public override void CheckPermission() {
 
-            if (Component.IsEnableGroup()==false) {
+            if (Component.IsEnableGroup() == false) {
                 echo( "对不起，本功能已经停用" );
             }
         }
@@ -63,7 +63,12 @@ namespace wojilu.Web.Controller.Users.Admin {
             set( "lnkMyPost", to( MyPost ) );
 
             set( "lnkFriendGroup", to( GroupFriend ) );
-            set( "addGroupUrl", to( New ) );
+
+            IBlock block = getBlock( "addGroup" );
+            if (isEnableUserCreateGroup()) {
+                block.Set( "addGroupUrl", to( New ) );
+                block.Next();
+            }
 
         }
 
@@ -154,9 +159,14 @@ namespace wojilu.Web.Controller.Users.Admin {
         }
 
         //---------------------------------------------------------------------
-        
+
 
         public void New() {
+
+            if (isEnableUserCreateGroup() == false) {
+                echoError( "禁止创建群组" );
+                return;
+            }
 
             target( StepTwo );
 
@@ -202,6 +212,11 @@ namespace wojilu.Web.Controller.Users.Admin {
         [HttpPost, DbTransaction]
         public void StepTwo() {
 
+            if (isEnableUserCreateGroup() == false) {
+                echoError( "禁止创建群组" );
+                return;
+            }
+
             String name = ctx.Post( "Name" );
             int categoryId = ctx.PostInt( "Category" );
             int accessStats = ctx.PostInt( "AccessStatus" );
@@ -233,12 +248,23 @@ namespace wojilu.Web.Controller.Users.Admin {
 
         [NonVisit]
         public void showStepTwo( int id ) {
+
+            if (isEnableUserCreateGroup() == false) {
+                echoError( "禁止创建群组" );
+                return;
+            }
+
             target( StepThree );
             set( "newGroupId", id );
         }
 
         [HttpPost, DbTransaction]
         public void StepThree() {
+
+            if (isEnableUserCreateGroup() == false) {
+                echoError( "禁止创建群组" );
+                return;
+            }
 
             int newGroupId = ctx.PostInt( "newGroupId" );
             if (newGroupId <= 0) { errors.Add( lang( "exGroupNull" ) ); run( New ); return; }
@@ -303,6 +329,11 @@ namespace wojilu.Web.Controller.Users.Admin {
                 block.Set( "g.OtherUrl", builder.ToString() );
                 block.Next();
             }
+        }
+
+        private Boolean isEnableUserCreateGroup() {
+            if (ctx.viewer.IsAdministrator()) return true;
+            return Component.IsEnableUserCreateGroup();
         }
 
     }

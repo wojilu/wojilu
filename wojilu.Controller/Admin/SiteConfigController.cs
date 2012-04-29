@@ -216,7 +216,7 @@ namespace wojilu.Web.Controller.Admin {
             target( SaveComponent, id );
             Component c = cdb.findById<Component>( id );
             set( "c.Name", c.Name );
-            radioList( "status", ComponentStatus.GetAllStatus(), "Name=Id", c.Status );
+            radioList( "status", ComponentStatus.GetStatusList( c.TypeFullName ), "Name=Id", c.Status );
         }
 
         public void SaveComponent( int id ) {
