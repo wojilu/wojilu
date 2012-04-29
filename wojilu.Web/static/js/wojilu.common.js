@@ -804,9 +804,15 @@ wojilu.ui.valid = function() {
         $( '.valid' ).each( addValid );
         var form = $( '.valid' ).parents( 'form' );
         form.submit( function() {
-            wojilu.ctx.isValid = true;
             $( '.valid', $(this) ).each( validOne );
-            return wojilu.ctx.isValid;
+            var errors = 0;
+            $( '.valid', $(this) ).each( function() {
+                var validResult = $(this).attr( 'result' );
+                if( validResult != 'ok' ) {
+                    errors +=1;
+                }
+            });
+            return errors==0;
         });
     };
 
@@ -880,16 +886,25 @@ wojilu.ui.valid = function() {
         };
     };
 
+    function setValidOk( validSpan ) {
+        validSpan.attr( 'result', 'ok' );
+    }
+
+    function setValidError( validSpan ) {
+        validSpan.attr( 'result', 'error' );
+    }
+
     function setErrorMsg( validSpan, msg ) {
         if( !msg ) msg = lang.exFill;
         validSpan.html( '<span class="validError">'+msg+'</span>' );
         validSpan.css( 'border', '1px #fed22f solid' );
         validSpan.css( 'background', '#ffe45c' );
         validSpan.css( 'color', '#666' );
-        wojilu.ctx.isValid = false;
+        setValidError( validSpan );
     };
 	
     function setErrorMsgSimple( validSpan, msg ){
+        if( !msg ) msg = lang.exFill;
         var target = getTarget(validSpan);
         if( target.attr( 'type' )=='hidden' ) {
             //editor
@@ -904,13 +919,14 @@ wojilu.ui.valid = function() {
         else {
             target.addClass( 'inputWarning' );
         };
-        wojilu.ctx.isValid = false;
+        setValidError( validSpan );
     };
 
     function setOkMsg( validSpan ) {
         validSpan.html( '<span class="validOk">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>' );
         validSpan.css( 'border', '0px #ffd324 dotted' );
         validSpan.css( 'background', '#fff' );
+        setValidOk( validSpan );
     };
     
     function setOkMsgSimple(validSpan) {
@@ -927,6 +943,7 @@ wojilu.ui.valid = function() {
         else {
             target.removeClass( 'inputWarning' );
         };
+        setValidOk( validSpan );
     };
 
     function isValNull( target ) {
@@ -1020,11 +1037,9 @@ wojilu.ui.valid = function() {
     
     function checkAjaxResult(target, inputValue, validSpan, ajaxAction) {
         var cname = target.attr( 'name' );
-        wojilu.ctx.isValid = false;
         var pdata = new Object();
         pdata[ cname ] = inputValue;
         $.post( ajaxAction.toAjax(), pdata, function(data) {
-
             var aResult  =data;
             var aMsg = aResult.Msg;
             result = aResult.IsValid?1:-1;
