@@ -10,7 +10,16 @@
 	</tr>
 	<tr><td><div style="border-bottom:1px #aaa dotted"></div></td></tr>
 	<tr>
-		<td style="padding:10px 10px 30px 10px;font-size:14px;" valign="top">
+		<td id="msgBody" style="padding:10px 10px 30px 10px;font-size:14px;" valign="top">
 		#{m.Content}</td>
 	</tr>
 </table>
+
+<script>
+
+    $(document).ready(function () {
+        $('#msgBody a').unbind('click').click(function () {
+            $(this).attr('target', '_blank');
+        });
+    });
+</script>
