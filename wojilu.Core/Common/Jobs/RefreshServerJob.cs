@@ -13,14 +13,12 @@ using wojilu.Web.Jobs;
 
 namespace wojilu.Common.Jobs {
 
-
-
     public class RefreshServerJob : IWebJobItem {
 
         private static readonly ILog logger = LogManager.GetLogger( typeof( RefreshServerJob ) );
 
         public void Execute() {
-            String url = "http://" + SystemInfo.Host;
+            String url = "http://" + SystemInfo.Authority;
             url = strUtil.Join( url, "refresh.aspx" );
             try {
                 HttpWebRequest request = (HttpWebRequest)WebRequest.Create( url );
