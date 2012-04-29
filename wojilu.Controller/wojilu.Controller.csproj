@@ -653,6 +653,10 @@
       <Project>{5D4E912F-B5A1-4E58-BFE1-62FCD30CC9E6}</Project>
       <Name>wojilu.Core</Name>
     </ProjectReference>
+    <ProjectReference Include="..\wojilu.Open\wojilu.Open.csproj">
+      <Project>{CDA34090-1370-4F29-9112-A27D030519F1}</Project>
+      <Name>wojilu.Open</Name>
+    </ProjectReference>
     <ProjectReference Include="..\wojilu\wojilu.csproj">
       <Project>{5912B6E1-6099-4392-9A67-AFD3A8AA4343}</Project>
       <Name>wojilu</Name>

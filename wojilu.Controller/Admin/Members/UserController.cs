@@ -29,8 +29,16 @@ using wojilu.Common.Resource;
 
 namespace wojilu.Web.Controller.Admin.Members {
 
+    public class SampleUser {
+
+        public String Name { get; set; }
+        public String Pwd { get; set; }
+        public String Email { get; set; }
+    }
+
     public partial class UserController : ControllerBase {
 
+        private static readonly ILog logger = LogManager.GetLogger( typeof( UserController ) );
 
         public IUserService userService { get; set; }
         public ISiteRoleService roleService { get; set; }
@@ -49,6 +57,7 @@ namespace wojilu.Web.Controller.Admin.Members {
         public void Index() {
 
             set( "userListLink", to( Index ) );
+            set( "addUserLink", to( AddUser ) );
 
             set( "SearchAction", to( Index ) );
             set( "OperationUrl", to( Operation ) );
@@ -71,6 +80,82 @@ namespace wojilu.Web.Controller.Admin.Members {
 
             bindUserList( list );
         }
+
+        public void AddUser() {
+            target( CreateUser );
+        }
+
+        [HttpPost, DbTransaction]
+        public void CreateUser() {
+
+
+            List<SampleUser> users = getUserInfoList();
+            if (users.Count == 0) {
+                echoError( "请填写用户信息" );
+                return;
+            }
+
+            logger.Info( "user count=" + users.Count );
+
+            try {
+                foreach (SampleUser u in users) {
+                    registerUser( u ); // 逐个导入用户(导入的过程就是注册的过程)
+                    logger.Info( "register user=" + u.Name );
+                }
+                logger.Info( "register done" );
+
+                echoToParentPart( "注册成功" );
+            }
+            catch (Exception ex) {
+                logger.Info( "" + ex.Message );
+                logger.Info( "" + ex.StackTrace );
+
+                echoError( "对不起，注册出错，请查看日志" );
+            }
+        }
+
+        private void registerUser( SampleUser user ) {
+            // 调用 OpenService 进行 wojilu 注册
+            new wojilu.Open.OpenService().UserRegister( user.Name, user.Pwd, user.Email );
+        }
+
+
+        private List<SampleUser> getUserInfoList() {
+
+            String txtUsers = ctx.Post( "txtUsers" );
+
+            if (strUtil.IsNullOrEmpty( txtUsers )) return new List<SampleUser>();
+
+            List<SampleUser> users = new List<SampleUser>();
+
+            String[] arrLines = txtUsers.Trim().Split( new char[] { '\n', '\r' } );
+
+            foreach (String line in arrLines) {
+
+                if (strUtil.IsNullOrEmpty( line )) continue;
+
+                String[] arrItems = line.Split( '/' );
+                if (arrItems.Length != 3) continue;
+
+                SampleUser user = new SampleUser();
+                user.Name = arrItems[0];
+                user.Pwd = arrItems[1];
+                user.Email = arrItems[2];
+
+                if (hasError( user )) continue;
+
+                users.Add( user );
+            }
+
+            return users;
+        }
+
+        private bool hasError( SampleUser user ) {
+            return string.IsNullOrEmpty( user.Name ) ||
+                string.IsNullOrEmpty( user.Pwd ) ||
+                string.IsNullOrEmpty( user.Email );
+        }
+
 
 
         [HttpPost, DbTransaction]
