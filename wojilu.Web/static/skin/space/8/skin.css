@@ -10,6 +10,8 @@ body, #spacePage {background-color:#c0c0c0; }
 #topNavWrap a{color:#fff !important;}
 #topNavWrap .menuItems a{color:#005eac !important;}
 #topNavWrap td a{color:#fff !important;}
+#topNavWrap #viewerNewNotificationCount #newNotificationText{color:#005EAC !important;}
+#topNavWrap #viewerNewNotificationCount a{color:#005EAC !important;}
 #topNavWrap span{color:#fff !important;}
 #topNavWrap form{color:#fff !important;}
 
