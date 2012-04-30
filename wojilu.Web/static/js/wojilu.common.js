@@ -13,17 +13,7 @@ wojilu.path.flash = wojilu.path.st + '/flash';'';
 wojilu.ctx = {
     isSubmit : true,
     isValid : true,
-
-    box : {
-    	sizeCache : null,
-    	//isShowing : false,
-        isShowing : {},
-    	param : null,
-    	//title : '对话窗口',
-        title : {},
-    	pages : [],
-    	isBack : false
-    }
+    changeUrl:true
 };
 
 var logger = {
@@ -1260,7 +1250,6 @@ wojilu.ui.box = {
         if( !(top===self) ) { window.parent.wojilu.ui.box.hideBox();return;}
         if( !bid ) bid = wojilu.ui.box.id;
         $('#boxWrap'+bid).remove(); $('#overlay'+bid).remove();
-		wojilu.ctx.box.isShowing = false; wojilu.ctx.box.param = null;    
         wojilu.ui.box.id--; return false;
 	}
 }
@@ -1337,7 +1326,7 @@ wojilu.ui.frmLink = function() {
         var nolayout=$(this).attr('nolayout');
         if( !nolayout ) alert( '请设置nolayout' );
         var frmUrl = wojilu.tool.appendQuery( rUrl, 'nolayout='+nolayout );
-        var loadTo = $(this).attr( 'loadTo' );var scrolling = $(this).attr( 'scrolling' ); scrolling = scrolling? scrolling:'no'; var divLoad = $( '#' + loadTo ); if(divLoad.length==0){return;};divLoad.empty();var win=window; while( !(win === win.parent) ) {win = win.parent;};if(win.history.pushState){win.history.pushState('', '', rUrl)}; var frmId = 'frmLinkPage'+cno; var loadingId = frmId+'Loading'; var frmLinkLoading = '<div id="'+loadingId+'" style="padding:30px 50px;display2:none;"><img src="'+wojilu.path.img+'/ajax/big.gif"/></div>'; divLoad.append( frmLinkLoading ); 
+        var loadTo = $(this).attr( 'loadTo' );var scrolling = $(this).attr( 'scrolling' ); scrolling = scrolling? scrolling:'no'; var divLoad = $( '#' + loadTo ); if(divLoad.length==0){return;};divLoad.empty();var win=window; while( !(win === win.parent) ) {win = win.parent;};if(win.history.pushState&&wojilu.ctx.changeUrl){win.history.pushState('', '', rUrl)}; var frmId = 'frmLinkPage'+cno; var loadingId = frmId+'Loading'; var frmLinkLoading = '<div id="'+loadingId+'" style="padding:30px 50px;display2:none;"><img src="'+wojilu.path.img+'/ajax/big.gif"/></div>'; divLoad.append( frmLinkLoading ); 
         var frmHtml = '<iframe id="'+frmId+'" class="frmLinkPage" frmPath="'+frmPath+'" nolayout='+nolayout+' src="'+frmUrl+'" frameborder="0" width="100%" scrolling="'+scrolling+'" style="display:none;padding:0px;margin:0px;border:0px red solid;height:300px;"></iframe>'; divLoad.append( frmHtml ); return false;    
     });
 };
