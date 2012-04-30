@@ -66,6 +66,18 @@ namespace wojilu {
         }
 
         /// <summary>
+        /// 根据 id 获取对象的名称
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public static String findNameById<T>( int id ) where T : CacheObject {
+            T obj = cdb.findById<T>( id );
+            if (obj == null) return "";
+            return obj.Name;
+        }
+
+        /// <summary>
         /// 根据属性查询数据。框架已经给对象的所有属性做了索引。
         /// </summary>
         /// <typeparam name="T"></typeparam>
