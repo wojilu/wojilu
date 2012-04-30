@@ -53,6 +53,10 @@
       <Project>{5D4E912F-B5A1-4E58-BFE1-62FCD30CC9E6}</Project>
       <Name>wojilu.Core</Name>
     </ProjectReference>
+    <ProjectReference Include="..\wojilu.Demo\wojilu.Demo.csproj">
+      <Project>{6FFA2E65-6C26-4D8B-AD3F-8A29CBBF57AA}</Project>
+      <Name>wojilu.Demo</Name>
+    </ProjectReference>
     <ProjectReference Include="..\wojilu.Installer\wojilu.Installer.csproj">
       <Project>{24541506-9672-4B44-8718-2C6B5B5C34EF}</Project>
       <Name>wojilu.Installer</Name>
@@ -272,6 +276,7 @@
     <Content Include="framework\views\Content\Section\Video\List.html" />
     <Content Include="framework\views\Content\Section\Video\SectionShow.html" />
     <Content Include="framework\views\Content\Section\Video\Show.html" />
+    <Content Include="framework\views\Demo\Upload\FrameUpload.html" />
     <Content Include="framework\views\Forum\Admin\Forum\AddBoard.html" />
     <Content Include="framework\views\Forum\Admin\Forum\AddCategory.html" />
     <Content Include="framework\views\Forum\Admin\Forum\DataCombine.html" />
