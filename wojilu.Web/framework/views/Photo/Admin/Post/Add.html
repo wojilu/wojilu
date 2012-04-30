@@ -1,8 +1,4 @@
-﻿<link href="~js/uploadify/uploadify.css" type="text/css" rel="stylesheet" />
-<script type="text/javascript" src="#{jsPath}uploadify/swfobject.js"></script>
-<script type="text/javascript" src="#{jsPath}uploadify/jquery.uploadify.v2.1.4.min.js"></script>
-
-<div>
+﻿<div>
 
 	<form id="uploadPhotoForm" method="post" action="#{ActionLink}">
 	<table cellSpacing="1" cellPadding="4" >
@@ -23,9 +19,10 @@
 			</td>
 		</tr>
 	</table>
-	<div id="uploadPanel" style="display:none;">
-	    <div style="margin:0px 0px 0px 20px;"><input id="file_upload" name="file_upload" type="file" /><span id="status" class="left10">一次最多选择10张图片</span></div>
-	    <div id="uploader"></div>	
+	<div id="uploadPanel" style="display:none;margin-top:-20px;">
+	    <div style="margin:0px 0px 0px 20px;"><input id="myFile" name="myFile" type="file" /></div>
+        <div id="uploadResult" style="margin-left:22px;">一次最多选择10张图片</div>
+	    <div id="uploadProgressBar"></div>	
 	</div>
 	
 	</form>
@@ -58,47 +55,22 @@ $(document).ready( function() {
         var params = #{authJson};
         params[ 'SystemCategoryId' ] = catid;
         params[ 'PhotoAlbumId' ] = albumId;
-        
-        var uploadErrors = 0;
-        $('#file_upload').uploadify({
-            'uploader' : "#{jsPath}uploadify/uploadify.swf",
-            'script' : '#{uploadLink}'.toAjax(),
-            'cancelImg' : "#{jsPath}uploadify/cancel.png",
-            'buttonImg' : "#{jsPath}uploadify/browser.gif",
-            'auto' : true,
-            'multi': true,
-            'fileExt' : '*.jpg;*.gif;*.png;*.jpeg;*.bmp;',
-            'fileDesc'  : 'Image Files (.JPG, .GIF, .PNG, .jpeg, .bmp)',
-            'removeCompleted': true,
-            'queueID' : 'uploader',
-            'displayData' : 'speed',
-            'queueSizeLimit':10,
-            'scriptData':params,
-            
-            'onSelectOnce'   : function(event,data) {
-                $('#status').text(data.filesSelected + ' 个文件等待上传');
-            },
-            
-            'onAllComplete'  : function(event,data) {
-                if( uploadErrors>0 ) return;
-                $('#status').text(data.filesUploaded + ' 个文件上传成功, ' + data.errors + ' 个错误.');
-            },
-            
-            'onError' : function (event,ID,fileObj,errorObj) {
-                //alert(errorObj.type + ', Error: ' + errorObj.info + ', fileObj=' + fileObj);
-            },
-            
-            'onComplete'  : function(event, ID, fileObj, response, data) {
-                //$('#mypic').html( '<img src="'+ response +'" />' );
-                if( 'ok' == response ) {
-                   uploadErrors = 0;
-                   return;
-               }
-               $('#status').text('上传失败：'+ response);
-               alert( '上传失败：'+ response );
-               uploadErrors = 1;
-            }
-        });
+
+        var cfg = wojilu.upload.getSettings();
+
+        cfg.uploader = '#{uploadLink}'.toAjax(); // 接受上传的网址
+        cfg.postData = params; // 客户端验证信息(cookie等)
+        cfg.fileTypeExts = '*.jpg;*.gif;*.png;*.jpeg;*.bmp;'; // 允许上传的文件类型
+        cfg.fileTypeDesc = 'Image Files'; // 选择框中罗列的类型
+        cfg.queueID = 'uploadProgressBar'; // 显示进度条的容器
+
+        cfg.onQueueComplete = function (data) {
+            var msg = data.successful_uploads + ' 个文件上传成功. ';
+            if( data.upload_errors>0 ) msg += data.upload_errors + ' 个错误.';
+            $('#uploadResult').text( msg );
+        };
+
+        wojilu.upload.initFlash( '#myFile', cfg );        
         
     });
 });

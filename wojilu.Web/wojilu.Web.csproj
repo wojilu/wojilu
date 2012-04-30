@@ -230,7 +230,6 @@
     <Content Include="framework\views\Content\Admin\Section\List\AddImg.html" />
     <Content Include="framework\views\Content\Admin\Section\List\AdminList.html" />
     <Content Include="framework\views\Content\Admin\Section\List\AdminSectionShow.html" />
-    <Content Include="framework\views\Content\Admin\Section\List\Edit.html" />
     <Content Include="framework\views\Content\Admin\Section\List\EditImg.html" />
     <Content Include="framework\views\Content\Admin\Section\Talk\Add.html" />
     <Content Include="framework\views\Content\Admin\Section\Talk\AdminList.html" />
@@ -367,7 +366,6 @@
     <Content Include="framework\views\Photo\Admin\My\Index2.html" />
     <Content Include="framework\views\Photo\Admin\My\My.html" />
     <Content Include="framework\views\Photo\Admin\Post\Add.html" />
-    <Content Include="framework\views\Photo\Admin\Post\BatchAdd.html" />
     <Content Include="framework\views\Photo\Admin\Post\Edit.html" />
     <Content Include="framework\views\Photo\Admin\Post\NewPost.html" />
     <Content Include="framework\views\Photo\Layout\Layout.html" />
@@ -898,8 +896,6 @@
     <Content Include="framework\views\Microblogs\Main\副本 Index.html" />
     <Content Include="framework\views\Microblogs\My\Microblog\Publisher.html" />
     <Content Include="framework\views\Photo\Admin\My\Layout.html" />
-    <Content Include="framework\views\Photo\Admin\Post\副本 Add.html" />
-    <Content Include="framework\views\Photo\Admin\Post\副本 BatchAdd.html" />
     <Content Include="framework\views\Microblogs\My\Microblog\Atme.html" />
     <Content Include="framework\views\Microblogs\My\Microblog\Home.html" />
     <Content Include="framework\views\Microblogs\My\Microblog\Layout.html" />
@@ -955,7 +951,6 @@
     <Content Include="framework\views\Admin\SiteConfig\EditComponent.html" />
     <Content Include="framework\views\Content\Admin\Row\DeleteRow.html" />
     <Content Include="framework\views\Content\Admin\Post\Edit.html" />
-    <Content Include="framework\views\Content\Admin\Section\List\副本 EditImg.html" />
     <Content Include="framework\views\Content\Section\Poll\SectionShow.html" />
     <Content Include="framework\views\Demo\Box\BoxD.html" />
     <Content Include="framework\views\Demo\FrmLink\Base.html" />
