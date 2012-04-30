@@ -1,4 +1,4 @@
-/*
+ï»¿/*
  * Copyright 2010 www.wojilu.com
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -19,7 +19,7 @@ using System;
 namespace wojilu.Common {
 
     /// <summary>
-    /// ĞèÒª±»·ÖÏíµÄÊı¾İ½Ó¿Ú
+    /// éœ€è¦è¢«åˆ†äº«çš„æ•°æ®æ¥å£
     /// </summary>
     public interface IShareData {
 
