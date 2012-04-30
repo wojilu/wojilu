@@ -8,6 +8,7 @@ using wojilu.Apps.Content.Interface;
 using wojilu.Apps.Content.Service;
 using wojilu.Web.Controller.Content.Caching;
 using wojilu.Serialization;
+using wojilu.Members.Sites.Domain;
 
 namespace wojilu.Web.Controller.Content.Admin {
 
@@ -22,6 +23,12 @@ namespace wojilu.Web.Controller.Content.Admin {
         public HtmlController() {
             postService = new ContentPostService();
             sectionService = new ContentSectionService();
+        }
+
+        public override void CheckPermission() {
+            if (ctx.owner.obj is Site == false) {
+                echoError( "没有权限，目前只支持网站生成html页面" );
+            }                
         }
 
         public void Index() {

@@ -22,7 +22,11 @@ namespace wojilu.Web.Controller.Content.Admin {
             set( "defaultLink", to( new ContentController().Home ) );
             set( "commentLink", to( new CommentController().AdminList ) );
 
-            set( "staticLink", to( new HtmlController().Index ) );
+            IBlock htmlBlock = getBlock( "html" );
+            if (ctx.owner.obj is Site) {
+                htmlBlock.Set( "staticLink", to( new HtmlController().Index ) );
+                htmlBlock.Next();
+            }
 
             if (app.GetSettingsObj().EnableSubmit == 1) {
                 String slnk = string.Format( "<li style=\"width:100px;\"><a href=\"{0}\" class=\"frmLink\" loadTo=\"adminPortalContainer\" nolayout=3>{1}</a><span></span></li>",
