@@ -44,6 +44,7 @@ namespace wojilu.Common.Resource {
         public String GetName( int val ) {
             PropertyItem item = FindByValue( val );
             if (item == null) return "";
+            if (AppResource.IsSelectTip( item.Name )) return "";
             return item.Name;
         }
 

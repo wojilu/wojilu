@@ -177,6 +177,15 @@ namespace wojilu.Common.Resource {
             }
             return propertys;
         }
+        /// <summary>
+        /// 是否是“请选择”这个值
+        /// </summary>
+        /// <param name="name"></param>
+        /// <returns></returns>
+        public static Boolean IsSelectTip( String name ) {
+            if (name == null) return false;
+            return name.Equals( lang.get( "plsSelect" ) );
+        }
 
         private static String[] getOneDayTime() {
 
