@@ -9,6 +9,23 @@ wojilu.path.js = wojilu.path.st + '/js';
 wojilu.path.img = wojilu.path.st + '/img';
 wojilu.path.siteAndApp = 'http://' + window.location.host + wojilu.path.app;
 wojilu.path.flash = wojilu.path.st + '/flash';'';
+wojilu.path.uploadify = wojilu.path.js + '/uploadify';
+
+wojilu.upload = {};
+wojilu.upload.getSettings = function(){
+    return {
+        progressData : 'speed',
+        swf : wojilu.path.uploadify + '/uploadify.swf',
+        cancelImage : wojilu.path.uploadify + '/cancel.png',
+        buttonImage : wojilu.path.uploadify + '/btn.gif',
+        width : 90,
+        height : 24,
+        checkExisting :false,
+        auto : true,
+        multi : true,
+        queueSizeLimit : 10
+    };
+};
 
 wojilu.ctx = {
     isSubmit : true,
@@ -278,7 +295,6 @@ wojilu.tool = {
     loadJsFull : function( filePath ) {
         var script = document.createElement('script');
         script.src = filePath;
-        script.type = 'text/javascript';
         wojilu.tool.getPageHead().appendChild(script);
     },
     
@@ -286,7 +302,6 @@ wojilu.tool = {
         var style = document.createElement('link');
         style.href = filePath;
         style.rel = 'stylesheet';
-        style.type = 'text/css';
         wojilu.tool.getPageHead().appendChild(style);
     },
     
@@ -525,6 +540,36 @@ wojilu.tool = {
         wojilu.tool.share( ['sina','tencent','renren','qzone','baidu','douban'] );
     }
 };
+
+wojilu.upload.initFlash = function( selector, settings ) {
+
+    var uploadifyJs = wojilu.path.uploadify + '/jquery.uploadify.min.js';
+    var uploadifyCss = wojilu.path.uploadify + '/uploadify.css';
+
+    var findJs = function( myjs ) {
+        var scripts = $('script');
+        for( var i=0;i<scripts.length;i++ ) {
+            if( $(scripts[i]).attr( 'src')==myjs) return true;
+        }
+        return false;
+    }
+    var findCss = function( mycss ) {
+        var cssList = $('link');
+        for( var i=0;i<cssList.length;i++ ) {
+            if( $(cssList[i]).attr( 'href')==mycss) return true;
+        }
+        return false;
+    }
+    if( !findCss(uploadifyCss) ) wojilu.tool.loadCss( uploadifyCss );
+    if( !findJs(uploadifyJs) ) wojilu.tool.loadJsFull( uploadifyJs );
+
+    var loadup = setInterval( function() {
+        if($(selector).uploadify) {
+            $(selector).uploadify( settings );
+            clearInterval( loadup );
+        }
+    }, 5 );
+}
 
 String.prototype.trimStart = function(str) { return wojilu.str.trimStart(this,str);};
 String.prototype.trimEnd = function(str) { return wojilu.str.trimEnd(this,str);};

@@ -277,6 +277,7 @@
     <Content Include="framework\views\Content\Section\Video\SectionShow.html" />
     <Content Include="framework\views\Content\Section\Video\Show.html" />
     <Content Include="framework\views\Demo\Upload\FrameUpload.html" />
+    <Content Include="framework\views\Demo\Upload\FlashUpload.html" />
     <Content Include="framework\views\Forum\Admin\Forum\AddBoard.html" />
     <Content Include="framework\views\Forum\Admin\Forum\AddCategory.html" />
     <Content Include="framework\views\Forum\Admin\Forum\DataCombine.html" />

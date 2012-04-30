@@ -42,7 +42,19 @@ namespace wojilu.Web.Controller.Demo {
 
         //----------------------------------------------------------------------------------
 
+        public void FlashUpload() {
+            set( "uploadLink", to( FlashSave ) ); // 接受上传的网址
+            set( "authJson", ctx.web.GetAuthJson() );
+        }
 
+        public void FlashSave() {
+
+            Result result = Uploader.SaveImg( ctx.GetFileSingle() );
+            String picName = result.Info.ToString(); // 获取图片名称
+            String picUrl = strUtil.Join( sys.Path.Photo, picName ); // 获取图片完整路径
+            picUrl = Img.GetThumbPath( picUrl, ThumbnailType.Medium );// 获取中等缩略图
+            echoText( picUrl ); // 将图片网址返回给客户端
+        }
 
     }
 
