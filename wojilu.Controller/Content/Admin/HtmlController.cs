@@ -101,7 +101,6 @@ namespace wojilu.Web.Controller.Content.Admin {
 
         private int htmlCount = 0;
 
-        [HttpPost]
         public void MakeAll() {
             view( "MakeDone" );
 
@@ -110,24 +109,22 @@ namespace wojilu.Web.Controller.Content.Admin {
             MakeHomePage();
             MakeSidebar();
 
-            set( "htmlCount", htmlCount );
+            echo( "生成所有静态页面成功，共 " + htmlCount + " 篇" );
         }
 
         public void MakeSidebar() {
             view( "MakeDone" );
             HtmlHelper.MakeSidebarHtml( ctx );
-            set( "htmlCount", 1 );
+            echo( "生成侧栏页成功" );
+
             htmlCount += 1;
         }
 
         public void MakeHomePage() {
-            view( "MakeDone" );
             HtmlHelper.MakeAppHtml( ctx );
-            set( "htmlCount", 1 );
-            htmlCount += 1;
+            echo( "生成首页成功" );
         }
 
-        [HttpPost]
         public void MakeSectionAll() {
 
             view( "MakeDone" );
@@ -145,10 +142,9 @@ namespace wojilu.Web.Controller.Content.Admin {
             }
 
             htmlCount += count;
-            set( "htmlCount", htmlCount );
+            echo( "生成所有列表页成功，共 " + htmlCount + " 篇" );
         }
 
-        [HttpPost]
         public void MakeDetailAll() {
 
             view( "MakeDone" );
@@ -161,7 +157,6 @@ namespace wojilu.Web.Controller.Content.Admin {
         }
 
 
-        [HttpPost]
         public void MakeSection( int sectionId ) {
 
             view( "MakeDone" );
@@ -170,16 +165,16 @@ namespace wojilu.Web.Controller.Content.Admin {
             int recordCount = postService.GetCountBySection( sectionId );
 
             int listCount = HtmlHelper.MakeListHtml( ctx, app, sectionId, recordCount );
-            set( "htmlCount", listCount );
+            echo( "生成列表页成功，共 " + listCount + " 篇" );
+
         }
 
-        [HttpPost]
         public void MakeDetailBySection( int sectionId ) {
 
             view( "MakeDone" );
 
             List<ContentPost> list = postService.GetBySection( sectionId );
-            makeDetail( list );
+            echo( "生成详细页成功，共 " + list.Count + " 篇" );
         }
 
 
@@ -192,7 +187,8 @@ namespace wojilu.Web.Controller.Content.Admin {
                 logger.Info( "make detail html, postId=" + post.Id );
             }
 
-            set( "htmlCount", list.Count );
+            echo( "生成所有详细页成功，共 " + list.Count + " 篇" );
+
         }
 
 
