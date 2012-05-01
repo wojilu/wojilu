@@ -131,11 +131,17 @@
     <Compile Include="Blog\Caching\BlogMainPageCache.cs" />
     <Compile Include="Common\ActivationController.cs" />
     <Compile Include="Common\AdLoaderController.cs" />
+    <Compile Include="Common\Installers\SimpleInstaller.cs" />
     <Compile Include="Common\Service\VideoController.cs" />
+    <Compile Include="Content\Admin\HtmlController.cs" />
     <Compile Include="Content\Admin\RowSettingController.cs" />
     <Compile Include="Content\Binder\FocusBinderController.cs" />
-    <Compile Include="Content\Caching\Actions\HtmlCacheAction.cs" />
+    <Compile Include="Content\Caching\Actions\PostAddCache.cs" />
+    <Compile Include="Content\Caching\Actions\PostDeleteCache.cs" />
     <Compile Include="Content\Caching\ContentIndexPageCache.cs" />
+    <Compile Include="Content\Caching\HtmlHelper.cs" />
+    <Compile Include="Content\SidebarController.cs" />
+    <Compile Include="Content\Utils\clink.cs" />
     <Compile Include="Forum\AttachmentController.cs" />
     <Compile Include="Forum\Caching\Pages\ForumIndexPageCache.cs" />
     <Compile Include="Forum\Edits\PostController.cs" />
@@ -158,6 +164,7 @@
     <Compile Include="Groups\SecurityController.cs" />
     <Compile Include="Microblogs\MicroblogSaveController.cs" />
     <Compile Include="Microblogs\SecurityController.cs" />
+    <Compile Include="Open\CommentController.cs" />
     <Compile Include="Security\SiteAdminService.cs" />
     <Compile Include="ShareController.cs" />
     <Compile Include="Photo\Admin\PhotoController.cs" />

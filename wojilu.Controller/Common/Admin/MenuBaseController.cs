@@ -221,6 +221,7 @@ namespace wojilu.Web.Controller.Common.Admin {
 
             log( SiteLogString.UpdateMenu(), menu );
 
+            ctx.SetItem( "currentMenu", menu );
 
             echoToParentPart( lang( "opok" ) );
         }

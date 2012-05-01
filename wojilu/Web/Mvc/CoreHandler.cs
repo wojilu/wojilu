@@ -53,6 +53,10 @@ namespace wojilu.Web.Mvc {
             ProcessContext.Begin( new MvcContext( context ) );
         }
 
+        public virtual void ProcessRequest( MvcContext context ) {
+            ProcessContext.Begin( context );
+        }
+
         public Boolean IsReusable {
             get { return true; }
         }

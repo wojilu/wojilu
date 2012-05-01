@@ -37,23 +37,31 @@ namespace wojilu.Web.Controller.Content {
         }
 
         public void Show( int sectionId ) {
+            ContentSection section = showInfo( sectionId );
+            set( "listContent", loadHtml( section.SectionType, "List", sectionId ) );
+        }
 
+
+        public void Archive( int sectionId ) {
+            view( "Show" );
+            ContentSection section = showInfo( sectionId );
+            set( "listContent", loadHtml( section.SectionType, "Archive", sectionId ) );
+        }
+
+        private ContentSection showInfo( int sectionId ) {
             ContentSection section = sectionService.GetById( sectionId, ctx.app.Id );
             WebUtils.pageTitle( this, section.Title, ctx.app.Name );
 
             //1)location
-            String location = string.Format( "<a href='{0}'>{1}</a> &gt; {2}", 
+            String location = string.Format( "<a href='{0}'>{1}</a> &gt; {2}",
                 Link.To( new ContentController().Index ),
-                ((AppContext)ctx.app).Menu.Name, 
+                ctx.app.Name, 
                 "分类查看"
             );
 
             set( "location", location );
 
-
-            set( "listContent", loadHtml( section.SectionType, "List", sectionId ) );
-
-
+            return section;
         }
 
 

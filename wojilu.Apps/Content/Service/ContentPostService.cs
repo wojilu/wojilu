@@ -97,15 +97,20 @@ namespace wojilu.Apps.Content.Service {
                 if (i < ids.Count - 1) strIds += ",";
             }
 
-            List<ContentPost> posts = ContentPost.find( "Id in (" + strIds + ") and SaveStatus=" + SaveStatus.Normal ).list();
-
-            return posts;
+            return GetByIds( strIds );
         }
 
         private void getPostIds( List<int> ids, List<DataTagShip> list, ContentPost post ) {
             foreach (DataTagShip dt in list) {
                 if (ids.Contains( dt.DataId ) == false && dt.DataId != post.Id) ids.Add( dt.DataId );
             }
+        }
+
+        public virtual List<ContentPost> GetByIds( string ids ) {
+            if (strUtil.IsNullOrEmpty( ids )) return new List<ContentPost>();
+            List<ContentPost> posts = ContentPost.find( "Id in (" + ids + ") and SaveStatus=" + SaveStatus.Normal ).list();
+
+            return posts;
         }
 
         public virtual DataPage<ContentPost> GetByCreator( int creatorId, IMember owner, int appId ) {
@@ -223,6 +228,7 @@ namespace wojilu.Apps.Content.Service {
 
         private ContentPost GetById( int postId ) {
             ContentPost post = db.findById<ContentPost>( postId );
+            if (post == null) return null;
             if (post.SaveStatus != SaveStatus.Normal) return null;
             return post;
         }
@@ -235,12 +241,20 @@ namespace wojilu.Apps.Content.Service {
             return post;
         }
 
+        public virtual int GetCountBySection( int sectionId ) {
+            return db.count<ContentPost>( "PageSection.Id=" + sectionId + " and SaveStatus=" + SaveStatus.Normal );
+        }
+
         public virtual List<ContentPost> GetBySection( int sectionId ) {
             return db.find<ContentPost>( "PageSection.Id=" + sectionId + " and SaveStatus=" + SaveStatus.Normal + " order by Id desc" ).list();
         }
 
         public virtual DataPage<ContentPost> GetByApp( int appId, int pageSize ) {
             return ContentPost.findPage( "AppId=" + appId + " and SaveStatus=" + SaveStatus.Normal + " order by Id desc", pageSize );
+        }
+
+        public virtual List<ContentPost> GetByApp( int appId ) {
+            return ContentPost.find( "AppId=" + appId + " and SaveStatus=" + SaveStatus.Normal + " order by Id desc" ).list();
         }
 
 
@@ -284,6 +298,10 @@ namespace wojilu.Apps.Content.Service {
 
         public virtual DataPage<ContentPost> GetPageBySection( int sectionId, int pageSize ) {
             return db.findPage<ContentPost>( "PageSection.Id=" + sectionId + " and SaveStatus=" + SaveStatus.Normal, pageSize );
+        }
+
+        public virtual DataPage<ContentPost> GetPageBySectionArchive( int sectionId, int pageSize ) {
+            return db.findPageArchive<ContentPost>( "PageSection.Id=" + sectionId + " and SaveStatus=" + SaveStatus.Normal, pageSize );
         }
 
         public virtual DataPage<ContentPost> GetPageBySectionAndCategory( int sectionId, int categoryId ) {

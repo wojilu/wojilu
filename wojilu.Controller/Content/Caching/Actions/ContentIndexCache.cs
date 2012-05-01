@@ -10,6 +10,7 @@ using wojilu.Web.Mvc.Utils;
 using wojilu.Web.Mvc;
 using wojilu.Common.AppBase.Interface;
 using wojilu.Members.Sites.Domain;
+using System.IO;
 
 namespace wojilu.Web.Controller.Content.Caching {
 
@@ -138,6 +139,9 @@ namespace wojilu.Web.Controller.Content.Caching {
             }
             else {
                 CacheManager.GetApplicationCache().Remove( getCacheKey( owner, ctx.app.Id ) );
+
+                HtmlHelper.MakeAppHtml( ctx );
+
             }
 
             //int appId = ctx.app.Id;

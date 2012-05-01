@@ -25,6 +25,12 @@ namespace wojilu.Web.Mvc {
         }
 
         public static String ToAppData( IAppData data ) {
+            return ToAppData( data, null );
+        }
+
+        public static String ToAppData( IAppData data, MvcContext ctx ) {
+
+            if (ctx != null && ctx.IsMock && ctx.GetItem( "_makeHtml" ) != null) return HtmlLink.ToAppData( data );
 
             String controllerPath = getAppDataController( data.GetType().FullName, data.AppId );
 
@@ -69,6 +75,8 @@ namespace wojilu.Web.Mvc {
         /// <param name="ctx"></param>
         /// <returns></returns>
         public static String ToApp( IApp app, MvcContext ctx ) {
+
+            if (ctx.IsMock && ctx.GetItem( "_makeHtml" ) != null) return HtmlLink.ToApp( app );
 
             String appName = strUtil.TrimEnd( app.GetType().Name, "App" );
             return getAppLink( app.OwnerType, app.OwnerUrl, appName, app.Id );

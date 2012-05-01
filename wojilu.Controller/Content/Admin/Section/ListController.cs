@@ -17,6 +17,7 @@ using wojilu.Apps.Content.Service;
 
 using wojilu.Common.AppBase.Interface;
 using wojilu.Common.AppBase;
+using wojilu.Web.Controller.Content.Caching;
 
 namespace wojilu.Web.Controller.Content.Admin.Section {
 
@@ -77,6 +78,7 @@ namespace wojilu.Web.Controller.Content.Admin.Section {
 
             postService.Delete( post );
             echoRedirectPart( lang( "opok" ) );
+            HtmlHelper.SetCurrentPost( ctx, post );
 
         }
 

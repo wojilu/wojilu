@@ -359,12 +359,34 @@ namespace wojilu.Web.Mvc {
         }
 
         /// <summary>
+        /// "/html/2010/11/22/195.html" => "/html/2010/11/22/195_2.html"
+        /// </summary>
+        /// <param name="srcUrl"></param>
+        /// <param name="pageNumber"></param>
+        /// <returns></returns>
+        public static String AppendHtmlPage( String srcUrl, int pageNumber ) {
+
+            if (strUtil.IsNullOrEmpty( srcUrl )) return srcUrl;
+            if (pageNumber <= 1) return srcUrl;
+
+            int lastDot = srcUrl.LastIndexOf( '.' );
+            if (lastDot <= 0 || lastDot >= srcUrl.Length - 1) return srcUrl;
+
+            String path = srcUrl.Substring( 0, lastDot );
+            String ext = srcUrl.Substring( lastDot + 1, srcUrl.Length - lastDot - 1 );
+
+            return path + "_" + pageNumber + "." + ext;
+        }
+
+        /// <summary>
         /// 在已有网址url后加上页码 Post/List.aspx=>Post/List/p6.aspx
         /// </summary>
         /// <param name="srcUrl">原始网址</param>
         /// <param name="pageNumber">页码</param>
         /// <returns></returns>
         public static String AppendPage( String srcUrl, int pageNumber ) {
+
+            if (strUtil.IsNullOrEmpty( srcUrl )) return srcUrl;
 
             String url = srcUrl;
 

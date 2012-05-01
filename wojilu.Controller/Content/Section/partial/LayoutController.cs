@@ -25,7 +25,7 @@ namespace wojilu.Web.Controller.Content.Section {
                 block.Set( "post.TitleFull", post.Title );
                 block.Set( "post.Title", strUtil.SubString( post.Title, 18 ) );
 
-                block.Set( "post.Link", alink.ToAppData( post ) );
+                block.Set( "post.Link", alink.ToAppData( post, ctx ) );
                 block.Next();
             }
             panel.Next();
@@ -40,7 +40,7 @@ namespace wojilu.Web.Controller.Content.Section {
                 if (post.PageSection == null) continue;
 
                 block.Set( "post.Img", post.GetImgThumb() );
-                String lnk = alink.ToAppData( post );
+                String lnk = alink.ToAppData( post, ctx );
 
                 block.Set( "post.TitleFull", post.Title );
                 block.Set( "post.Title", strUtil.SubString( post.Title, 18 ) );
@@ -65,7 +65,7 @@ namespace wojilu.Web.Controller.Content.Section {
 
                 block.Set( "post.Img", post.GetImgThumb() );
 
-                block.Set( "post.Link", alink.ToAppData( post ) );
+                block.Set( "post.Link", alink.ToAppData( post, ctx ) );
                 block.Next();
             }
             panel.Next();

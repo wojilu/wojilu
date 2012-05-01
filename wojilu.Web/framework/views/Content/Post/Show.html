@@ -72,10 +72,18 @@ $( document).ready( function() {
 
 </div>
 
-<div>#{commentSection}</div>
+<div>
+    <div><a href="#{thisUrl}" id="comentLink" class="frmLink" loadTo="commentMain" nolayout=999></a></div>
+    <div id="commentMain"></div>
+</div>
 
 <script>
-$( document).ready( function() {
-    wojilu.tool.shareFull();
-});
+    $(document).ready(function () {
+        wojilu.tool.shareFull();
+
+        wojilu.ctx.isUrlUpdate = false;
+        wojilu.ui.frmLink();
+
+        $('#comentLink').click();
+    });
 </script>

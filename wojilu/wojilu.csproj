@@ -97,6 +97,7 @@
     <Compile Include="Net\Video\IFengSpider.cs" />
     <Compile Include="Net\Video\SinaVideo.cs" />
     <Compile Include="Net\Video\VideoHelper.cs" />
+    <Compile Include="Web\Mock\IMockContext.cs" />
     <Compile Include="Web\Mvc\CacheInfo.cs" />
     <Compile Include="Web\Mvc\IActionCache.cs" />
     <Compile Include="Web\Mvc\IPageCache.cs" />
@@ -427,7 +428,7 @@
     <Compile Include="ORM\ObjectInfo.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="ORM\Page\ObjectPage.cs">
+    <Compile Include="ORM\ObjectPage.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="ORM\Caching\ObjectPool.cs">
@@ -724,6 +725,9 @@
       <ProductName>.NET Framework 3.5 SP1</ProductName>
       <Install>false</Install>
     </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="ORM\Page\" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

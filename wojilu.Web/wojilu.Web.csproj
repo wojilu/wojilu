@@ -212,6 +212,9 @@
     <Content Include="framework\views\Content\Admin\ContentSection\AddAutoTwo.html" />
     <Content Include="framework\views\Content\Admin\ContentSection\AddFeed.html" />
     <Content Include="framework\views\Content\Admin\ContentSection\_Edit.html" />
+    <Content Include="framework\views\Content\Admin\Html\EditHtmlDir.html" />
+    <Content Include="framework\views\Content\Admin\Html\Index.html" />
+    <Content Include="framework\views\Content\Admin\Html\MakeDone.html" />
     <Content Include="framework\views\Content\Admin\SectionSetting\EditBinder.html" />
     <Content Include="framework\views\Content\Admin\ContentSection\_SettingEdit.html" />
     <Content Include="framework\views\Content\Admin\Row\ConfirmAddRow.html" />
@@ -275,6 +278,7 @@
     <Content Include="framework\views\Content\Section\Video\List.html" />
     <Content Include="framework\views\Content\Section\Video\SectionShow.html" />
     <Content Include="framework\views\Content\Section\Video\Show.html" />
+    <Content Include="framework\views\Content\Sidebar\Index.html" />
     <Content Include="framework\views\Demo\Upload\FrameUpload.html" />
     <Content Include="framework\views\Demo\Upload\FlashUpload.html" />
     <Content Include="framework\views\Forum\Admin\Forum\AddBoard.html" />
@@ -355,6 +359,7 @@
     <Content Include="framework\views\Layouts\SpaceLayout\Layout.html" />
     <Content Include="framework\views\Layouts\SpaceLayout\SiteNav.html" />
     <Content Include="framework\views\Main\Login.html" />
+    <Content Include="framework\views\Open\Comment\List.html" />
     <Content Include="framework\views\Register\Register.html" />
     <Content Include="framework\views\msg.html" />
     <Content Include="framework\views\msgbox.html" />
@@ -1056,15 +1061,16 @@
     <VisualStudio>
       <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
         <WebProjectProperties>
-          <UseIIS>False</UseIIS>
+          <UseIIS>false</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>5111</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://zhangsan.mytest.com</IISUrl>
+          <IISUrl>http://localhost:5111/</IISUrl>
+          <OverrideIISAppRootUrl>True</OverrideIISAppRootUrl>
+          <IISAppRootUrl>http://localhost:5111/</IISAppRootUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
-          <CustomServerUrl>
-          </CustomServerUrl>
+          <CustomServerUrl>http://localhost:5111/</CustomServerUrl>
           <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
         </WebProjectProperties>
       </FlavorProperties>

@@ -28,10 +28,42 @@ namespace wojilu.Web.Mock {
     public class MvcRequest {
 
         public MvcRequest() {
+            this.QueryString = new NameValueCollection();
+            init();
+        }
+
+        public MvcRequest( String url ) {
+            this.Url = new Uri( url );
+            this.QueryString = getQueryString( this.Url );
+            init();
+        }
+
+        private static NameValueCollection getQueryString( Uri url ) {
+
+            NameValueCollection nv = new NameValueCollection();
+
+            if( url == null ) return nv;
+            String query = url.Query;
+            if (strUtil.IsNullOrEmpty( query )) return nv;
+
+            String[] arr = query.TrimStart( '?' ).Split( '&' );
+            foreach (String item in arr) {
+
+                if (strUtil.IsNullOrEmpty( item )) continue;
+
+                String[] pair = item.Split( '=' );
+                if (pair.Length != 2) continue;
+
+                nv.Add( pair[0].Trim(), pair[1].Trim() );
+            }
+
+            return nv;
+        }
+
+        private void init() {
             this.HttpMethod = "GET";
             this.UserLanguages = new String[] { };
             this.Form = new NameValueCollection();
-            this.QueryString = new NameValueCollection();
             this.Params = merge( this.Form, this.QueryString );
             this.ServerVariables = new NameValueCollection();
             this.Cookies = new MvcCookies();
@@ -39,6 +71,7 @@ namespace wojilu.Web.Mock {
             this.UserHostAddress = "0.0.0.0";
             this.UserAgent = "mock wojilu agent";
         }
+
 
         private NameValueCollection merge( NameValueCollection postList, NameValueCollection getList ) {
             NameValueCollection list = new NameValueCollection();

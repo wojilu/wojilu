@@ -15,6 +15,8 @@ namespace wojilu.Apps.Content.Service {
 
     public class ContentImgService : IContentImgService {
 
+        private static readonly int detailPageSize = 10;
+
         public virtual List<ContentPost> GetByCategory( int sectionId, int categoryId, int appId ) {
             return GetByCategory( sectionId, categoryId, appId, 2 );
         }
@@ -42,11 +44,11 @@ namespace wojilu.Apps.Content.Service {
         }
 
         public virtual DataPage<ContentImg> GetImgPage( int postId ) {
-            return db.findPage<ContentImg>( "Post.Id=" + postId + " order by Id", 10 );
+            return db.findPage<ContentImg>( "Post.Id=" + postId + " order by Id", detailPageSize );
         }
 
         public virtual DataPage<ContentImg> GetImgPage( int postId, int currentPage ) {
-            return db.findPage<ContentImg>( "Post.Id=" + postId + " order by Id", currentPage, 10 );
+            return db.findPage<ContentImg>( "Post.Id=" + postId + " order by Id", currentPage, detailPageSize );
         }
 
         private void setNextImgLogo( ContentImg articleImg ) {

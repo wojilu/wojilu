@@ -33,7 +33,7 @@ _ReSharper*/
 *.ldb
 
 #static html files
-html/
+wojilu.Web/html/
 #wojilu temp files
 _wtemp/
 
@@ -46,6 +46,13 @@ wojilu.Web/static/upload/image/
 wojilu.Web/static/upload/wimg/
 wojilu.Web/static/upload/chm/
 
+#config
+wojilu.Web/framework/log/
+wojilu.Web/framework/cache/
+wojilu.Web/framework/index/
+wojilu.Web/framework/config/
+wojilu.Web/framework/data/
+
 !wojilu.Web/static/upload/face/guest.jpg
 !wojilu.Web/static/upload/face/guest_m.jpg
 !wojilu.Web/static/upload/face/guest_b.jpg
@@ -53,10 +60,5 @@ wojilu.Web/static/upload/chm/
 !wojilu.Web/static/upload/grouplogo/group.jpg
 !wojilu.Web/static/upload/grouplogo/group_s.jpg
 
-#config
-wojilu.Web/framework/log/
-wojilu.Web/framework/cache/
-wojilu.Web/framework/index/
-wojilu.Web/framework/config/
-wojilu.Web/framework/data/
+
 

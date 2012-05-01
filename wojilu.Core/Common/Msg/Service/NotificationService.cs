@@ -16,6 +16,8 @@ namespace wojilu.Common.Msg.Service {
 
     public class NotificationService : INotificationService {
 
+        private static readonly ILog logger = LogManager.GetLogger( typeof( NotificationService ) );
+
         public virtual void sendFriendRequest( int senderId, int receiverId, String msg ) {
             send( senderId, receiverId, typeof( User ).FullName, msg, NotificationType.Friend );
         }
@@ -59,10 +61,17 @@ namespace wojilu.Common.Msg.Service {
 
         private void send( int senderId, int receiverId, String receiverType, String msg, int type ) {
 
+            User receiver = null;
+            if (receiverType == typeof( User ).FullName) {
+                receiver = User.findById( receiverId );
+                if (receiver == null) {
+                    logger.Error( "receiver not found: receiverId=" + receiverId );
+                    return;
+                }
+            }
 
             Notification nf = new Notification();
             nf.Creator = new User( senderId );
-            //nf.Receiver = receiver;
             nf.ReceiverId = receiverId;
             nf.ReceiverType = receiverType;
 
@@ -72,17 +81,14 @@ namespace wojilu.Common.Msg.Service {
 
             Result result = db.insert( nf );
             if (result.IsValid) {
-                addNotificationCount( receiverId, receiverType );
+                addNotificationCount( receiver );
             }
         }
 
         // User 的最新通知数是缓存的
-        private void addNotificationCount( int receiverId, String receiverType ) {
+        private void addNotificationCount( User receiver ) {
 
-            if (receiverType != typeof( User ).FullName) return;
-
-            User receiver = User.findById( receiverId );
-            if (receiver == null) throw new Exception( lang.get( "exReceiverNotFound" ) );
+            if (receiver == null) return;
 
             receiver.NewNotificationCount++;
             receiver.update( "NewNotificationCount" );

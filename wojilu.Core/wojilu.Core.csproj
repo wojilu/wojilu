@@ -87,13 +87,17 @@
     <Compile Include="Common\AppInstall\Interface\IAppInstallerService.cs" />
     <Compile Include="Common\Comments\CommentService.cs" />
     <Compile Include="Common\Comments\ICommentService.cs" />
+    <Compile Include="Common\Comments\ICommentTarget.cs" />
     <Compile Include="Common\Comments\IFeedComment.cs" />
+    <Compile Include="Common\Comments\OpenCommentCount.cs" />
+    <Compile Include="Common\Comments\OpenCommentService.cs" />
     <Compile Include="Common\Component\Component.cs" />
     <Compile Include="Common\Component\ComponentStatus.cs" />
     <Compile Include="Common\Feeds\Domain\FeedApp.cs" />
     <Compile Include="Common\Feeds\Domain\ShareComment.cs" />
     <Compile Include="Common\Feeds\Interface\IFeedService.cs" />
     <Compile Include="Common\Feeds\Interface\IShareService.cs" />
+    <Compile Include="Common\Comments\OpenComment.cs" />
     <Compile Include="Common\Upload\TempUploadFileService.cs" />
     <Compile Include="Common\Upload\TempUploadFile.cs" />
     <Compile Include="Members\Users\Domain\Invites\UserInviteApp.cs" />
@@ -364,6 +368,7 @@
     </Compile>
     <Compile Include="Web\Mvc\DomainMap.cs" />
     <Compile Include="Web\Mvc\DomainWildcardMap.cs" />
+    <Compile Include="Web\Mvc\HtmlLink.cs" />
     <Compile Include="Web\Mvc\LinkConverter.cs" />
     <Compile Include="Web\Mvc\MockContext.cs" />
     <Compile Include="Web\Mvc\PageCache.cs" />

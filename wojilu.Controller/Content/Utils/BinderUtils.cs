@@ -63,7 +63,7 @@ namespace wojilu.Web.Controller.Content.Utils {
             block.Set( "post.Title", strUtil.SubString( post.GetTitle(), 50 ) );
             block.Set( "post.Created", post.Created );
             block.Set( "post.Hits", post.Hits );
-            block.Set( "post.Url", alink.ToAppData( post ) );
+            block.Set( "post.Url", alink.ToAppData( post, ctx ) );
 
             if (post.Creator != null) {
                 block.Set( "post.Submitter", string.Format( "<a href=\"{0}\" target=\"_blank\">{1}</a>", Link.ToMember( post.Creator ), post.Creator.Name ) );
@@ -130,7 +130,7 @@ namespace wojilu.Web.Controller.Content.Utils {
             return strUtil.Join( sys.Path.Img, "app/content/section/" );
         }
 
-        public static void bindPostSingle( IBlock block, ContentPost post ) {
+        public static void bindPostSingle( IBlock block, ContentPost post, MvcContext ctx ) {
 
             block.Set( "post.TitleCss", post.Style );
             block.Set( "post.TitleFull", post.Title );
@@ -140,7 +140,7 @@ namespace wojilu.Web.Controller.Content.Utils {
             else
                 block.Set( "post.Title", post.Title );
 
-            block.Set( "post.Url", alink.ToAppData( post ) );
+            block.Set( "post.Url", alink.ToAppData( post, ctx ) );
 
             block.Set( "post.Description", post.Content );
 
