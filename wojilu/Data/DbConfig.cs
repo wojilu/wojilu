@@ -48,7 +48,7 @@ namespace wojilu.Data {
             this.ConnectionStringTable = new Dictionary<String, object>();
             this.AssemblyList = new List<object>();
             this.DbType = new Dictionary<String, object>();
-            this.IdType = "Auto";
+            this.IdType = wojilu.Data.IdType.Auto;
             this.Interceptor = new List<object>();
             this.IsCheckDatabase = true;
             this.ContextCache = true;
@@ -98,7 +98,7 @@ namespace wojilu.Data {
         /// 自动键值
         /// </summary>
         [NotSerialize]
-        public bool AutoId
+        public bool IsAutoId
         {
             get { return IdType.Equals(wojilu.Data.IdType.Auto, StringComparison.OrdinalIgnoreCase); }
         }

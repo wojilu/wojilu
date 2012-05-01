@@ -68,7 +68,7 @@ namespace wojilu.ORM {
                 if (action.Equals( "update" )) return true;
 
                 // 增加实体键类型识别
-                if (/**/DbConfig.Instance.AutoId && action.Equals("insert") 
+                if (/**/DbConfig.Instance.IsAutoId && action.Equals("insert") 
                     && entityInfo.Parent == null
                     ) 
                     return true;

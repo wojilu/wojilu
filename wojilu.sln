@@ -27,8 +27,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "wojilu.Demo", "wojilu.Demo\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "wojilu.Test", "wojilu.Test\wojilu.Test.csproj", "{458C03F6-60CF-4935-B40F-18CC9D091AC5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "gitTest", "gitTest\gitTest.csproj", "{51D666E0-33D7-4957-8E07-5C9CC8D8E00A}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|.NET = Debug|.NET
@@ -167,16 +165,6 @@ Global
 		{458C03F6-60CF-4935-B40F-18CC9D091AC5}.Release|Any CPU.Build.0 = Release|Any CPU
 		{458C03F6-60CF-4935-B40F-18CC9D091AC5}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{458C03F6-60CF-4935-B40F-18CC9D091AC5}.Release|Mixed Platforms.Build.0 = Release|Any CPU
-		{51D666E0-33D7-4957-8E07-5C9CC8D8E00A}.Debug|.NET.ActiveCfg = Debug|Any CPU
-		{51D666E0-33D7-4957-8E07-5C9CC8D8E00A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{51D666E0-33D7-4957-8E07-5C9CC8D8E00A}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{51D666E0-33D7-4957-8E07-5C9CC8D8E00A}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
-		{51D666E0-33D7-4957-8E07-5C9CC8D8E00A}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
-		{51D666E0-33D7-4957-8E07-5C9CC8D8E00A}.Release|.NET.ActiveCfg = Release|Any CPU
-		{51D666E0-33D7-4957-8E07-5C9CC8D8E00A}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{51D666E0-33D7-4957-8E07-5C9CC8D8E00A}.Release|Any CPU.Build.0 = Release|Any CPU
-		{51D666E0-33D7-4957-8E07-5C9CC8D8E00A}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
-		{51D666E0-33D7-4957-8E07-5C9CC8D8E00A}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -107,7 +107,7 @@ namespace wojilu.Data {
 
         protected virtual void addColumn_PrimaryKey( EntityInfo entity, StringBuilder sb, IDictionary clsList ) {
             // 不是自动编号
-            if (!DbConfig.Instance.AutoId || isAddIdentityKey( entity.Type ) == false) {
+            if (!DbConfig.Instance.IsAutoId || isAddIdentityKey( entity.Type ) == false) {
                 sb.Append( " Id int primary key default 0, " );
             }
             else {

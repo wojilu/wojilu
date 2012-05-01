@@ -78,7 +78,7 @@ namespace wojilu.ORM.Operation {
             int retval = cmd.ExecuteNonQuery();
 
             // 是否采用自增编号
-            if (DbConfig.Instance.AutoId)
+            if (DbConfig.Instance.IsAutoId)
             {
                 String sqlId = String.Format("select id from {0} order by id desc", entityInfo.TableName);
                 sqlId = entityInfo.Dialect.GetLimit(sqlId, 1);
@@ -105,7 +105,7 @@ namespace wojilu.ORM.Operation {
                 EntityPropertyInfo info = entityInfo.SavedPropertyList[i];
                 
                 if ((
-                    ( /**/!DbConfig.Instance.AutoId || !(info.Name.ToLower() == "id") || (entityInfo.Parent != null))                     
+                    ( /**/!DbConfig.Instance.IsAutoId || !(info.Name.ToLower() == "id") || (entityInfo.Parent != null))                     
                     && info.SaveToDB)                     
                     && (!info.IsList && !info.IsList)
                     )
