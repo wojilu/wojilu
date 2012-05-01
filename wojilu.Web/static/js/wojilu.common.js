@@ -31,8 +31,6 @@ wojilu.ctx = {
     isSubmit : true,
     isValid : true,
     changeUrl:true
-    // 地址栏url是否在点击之后更新
-    isUrlUpdate : true
 };
 
 var logger = {
