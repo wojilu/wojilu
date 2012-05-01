@@ -1,0 +1,145 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{458C03F6-60CF-4935-B40F-18CC9D091AC5}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>wojilu.Test</RootNamespace>
+    <AssemblyName>wojilu.Test</AssemblyName>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="mysql.data">
+      <HintPath>..\Lib\mysql.data.dll</HintPath>
+    </Reference>
+    <Reference Include="nunit.framework">
+      <HintPath>..\Lib\nunit.framework.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="main.cs" />
+    <Compile Include="Platform\MailTest.cs" />
+    <Compile Include="Orm\CRUD.IdTest.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Platform\MoveRowTest.cs" />
+    <Compile Include="Common\cvtTest.cs" />
+    <Compile Include="Common\ImgPathTest.cs" />
+    <Compile Include="Common\Jsons\Entities.cs" />
+    <Compile Include="Common\Jsons\JsonTest.cs" />
+    <Compile Include="Common\Jsons\ObjectToJsonString.cs" />
+    <Compile Include="Common\PageTest.cs" />
+    <Compile Include="Common\PathUtilTest.cs" />
+    <Compile Include="Platform\TagTest.cs" />
+    <Compile Include="Web\Utils\PlatformTemplateTest.cs" />
+    <Compile Include="Platform\RankTest.cs" />
+    <Compile Include="Common\HashTest.cs" />
+    <Compile Include="Web\Utils\HtmlFilterTest.cs" />
+    <Compile Include="Common\CloseHtml.cs" />
+    <Compile Include="Platform\MicroblogTest.cs" />
+    <Compile Include="Common\RegTest.cs" />
+    <Compile Include="Common\strUtilTest.cs" />
+    <Compile Include="Common\TreeTest.cs" />
+    <Compile Include="Common\UrlInfoTest.cs" />
+    <Compile Include="Net\IpBanTest.cs" />
+    <Compile Include="Net\PageLoaderTest.cs" />
+    <Compile Include="Net\VideoSpiderTest.cs" />
+    <Compile Include="Orm\Entities\Attr\TAttNoSaveAll.cs" />
+    <Compile Include="Orm\Entities\DefaultValueData.cs" />
+    <Compile Include="Orm\Entities\Polymorphism\TAbCategory.cs" />
+    <Compile Include="Orm\Entities\Polymorphism\TCategory.cs" />
+    <Compile Include="Orm\Entities\TArticle.cs" />
+    <Compile Include="Orm\Entities\TCat.cs" />
+    <Compile Include="Orm\Entities\TNews.cs" />
+    <Compile Include="Orm\Entities\TOtherDB.cs" />
+    <Compile Include="Orm\Entities\TValidateData.cs" />
+    <Compile Include="Orm\Utils\wojiluOrmTestInit.cs" />
+    <Compile Include="Orm\Utils\TestUtil.cs" />
+    <Compile Include="Orm\AttributeTest.cs" />
+    <Compile Include="Orm\ConnectionString.cs" />
+    <Compile Include="Orm\ClassCountTest.cs" />
+    <Compile Include="Orm\CRUD.Base.cs" />
+    <Compile Include="Orm\CRUD.Generic.cs" />
+    <Compile Include="Orm\Interceptor.cs" />
+    <Compile Include="Orm\TestPolymorphism.cs" />
+    <Compile Include="Orm\ValidationTest.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Utils\SpeedUtil.cs" />
+    <Compile Include="Web\Utils\CssStyleTest.cs" />
+    <Compile Include="Web\Mvc\aActionTest.cs" />
+    <Compile Include="Web\Mvc\FrameworkMainTest.cs" />
+    <Compile Include="Web\Mvc\HandlerEventTest.cs" />
+    <Compile Include="Web\Mvc\HtmlControlTest.cs" />
+    <Compile Include="Web\Mvc\RouteTest.cs" />
+    <Compile Include="Web\Templates\TemplateTest1.cs" />
+    <Compile Include="Web\Templates\TemplateTest2.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\wojilu.Apps\wojilu.Apps.csproj">
+      <Project>{2C3A61B8-3AFD-45D2-B81E-FBC652D0ADC2}</Project>
+      <Name>wojilu.Apps</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\wojilu.Controller\wojilu.Controller.csproj">
+      <Project>{A4E94F40-1DD2-4869-8D2E-3E3AE67B0CBB}</Project>
+      <Name>wojilu.Controller</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\wojilu.Core\wojilu.Core.csproj">
+      <Project>{5D4E912F-B5A1-4E58-BFE1-62FCD30CC9E6}</Project>
+      <Name>wojilu.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\wojilu\wojilu.csproj">
+      <Project>{5912B6E1-6099-4392-9A67-AFD3A8AA4343}</Project>
+      <Name>wojilu</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <None Include="App.config" />
+    <None Include="framework\config\log.config">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="framework\config\orm.config">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="framework\lang\zh-cn\core.config">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
