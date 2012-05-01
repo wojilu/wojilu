@@ -300,30 +300,35 @@ namespace wojilu.Common.Feeds.Service {
         // 每日清除过期feed
         public virtual void ClearFeeds() {
 
-            DateTime lastClearTime = config.Instance.Site.LastFeedClearTime;
-            if (cvt.IsDayEqual( lastClearTime, DateTime.Now )) return;
+            Boolean isClearFeeds = config.Instance.Site.FeedKeepDay > 0;
 
-            Feed feed = new Feed();
-            EntityInfo ei = Entity.GetInfo( feed );
-            String table = ei.TableName;
+            if (isClearFeeds) {
 
-            // TODO 支持其他数据库类型，
-            // 清除所有30天前的feed
-            int dayCount = config.Instance.Site.FeedKeepDay;
-            String sql = "";
-            DatabaseType dbtype = ei.DbType;
-            if (dbtype == DatabaseType.SqlServer)
-                sql = "delete from " + table + " where datediff(day, created, getdate())>" + dayCount;
-            else if (dbtype == DatabaseType.Access)
-                sql = "delete from " + table + " where datediff('d', created, now())>" + dayCount;
-            else if( dbtype == DatabaseType.MySql)
-                sql = "delete from " + table + " where datediff(created, now())>" + dayCount;
-            else
-                throw new NotImplementedException( "not implemented database function : datediff" );
+                DateTime lastClearTime = config.Instance.Site.LastFeedClearTime;
+                if (cvt.IsDayEqual( lastClearTime, DateTime.Now )) return;
 
-            db.RunSql<Feed>( sql );
+                Feed feed = new Feed();
+                EntityInfo ei = Entity.GetInfo( feed );
+                String table = ei.TableName;
 
-            config.Instance.Site.Update( "LastFeedClearTime", DateTime.Now );
+                // TODO 支持其他数据库类型，
+                int dayCount = config.Instance.Site.FeedKeepDay;
+                String sql = "";
+                DatabaseType dbtype = ei.DbType;
+                if (dbtype == DatabaseType.SqlServer)
+                    sql = "delete from " + table + " where datediff(day, created, getdate())>" + dayCount;
+                else if (dbtype == DatabaseType.Access)
+                    sql = "delete from " + table + " where datediff('d', created, now())>" + dayCount;
+                else if (dbtype == DatabaseType.MySql)
+                    sql = "delete from " + table + " where datediff(created, now())>" + dayCount;
+                else
+                    throw new NotImplementedException( "not implemented database function : datediff" );
+
+                db.RunSql<Feed>( sql );
+
+                config.Instance.Site.Update( "LastFeedClearTime", DateTime.Now );
+
+            }
         }
 
 
