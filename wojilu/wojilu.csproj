@@ -93,6 +93,7 @@
     <Compile Include="Common\Onlines\OnlineService.cs" />
     <Compile Include="Common\Onlines\OnlineStats.cs" />
     <Compile Include="Common\Onlines\OnlineManager.cs" />
+    <Compile Include="Data\Enum\IdType.cs" />
     <Compile Include="Net\Video\IFengSpider.cs" />
     <Compile Include="Net\Video\SinaVideo.cs" />
     <Compile Include="Net\Video\VideoHelper.cs" />

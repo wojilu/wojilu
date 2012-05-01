@@ -57,7 +57,9 @@ namespace wojilu.ORM.Operation {
 
             IDbCommand cmd = DataFactory.GetCommand( getInsertSql( entityInfo ), DbContext.getConnection( entityInfo ) );
             OrmHelper.SetParameters( cmd, "insert", obj, entityInfo );
-            obj.Id = executeCmd( cmd, entityInfo );// CommandUtil.ExecuteCmd( cmd, entityInfo );
+
+            //obj.Id = executeCmd( cmd, entityInfo );// CommandUtil.ExecuteCmd( cmd, entityInfo );
+            int retval = executeCmd(cmd, entityInfo, ref obj);
 
             for (int i = 0; i < ilist.Count; i++) {
                 ilist[i].AfterInsert( obj );
@@ -70,17 +72,25 @@ namespace wojilu.ORM.Operation {
             return result;
         }
 
-        private static int executeCmd( IDbCommand cmd, EntityInfo entityInfo ) {
+        private static int executeCmd( IDbCommand cmd, EntityInfo entityInfo, ref IEntity obj ) {
 
-            cmd.ExecuteNonQuery();
+            // 读取操作结果
+            int retval = cmd.ExecuteNonQuery();
 
-            String sqlId = String.Format( "select id from {0} order by id desc", entityInfo.TableName );
-            sqlId = entityInfo.Dialect.GetLimit( sqlId, 1 );
-            //logger.Info( "get id sql:" + sqlId );
+            // 是否采用自增编号
+            if (DbConfig.Instance.IsAutoId)
+            {
+                String sqlId = String.Format("select id from {0} order by id desc", entityInfo.TableName);
+                sqlId = entityInfo.Dialect.GetLimit(sqlId, 1);
+                //logger.Info( "get id sql:" + sqlId );
 
-            cmd.CommandText = sqlId;
+                cmd.CommandText = sqlId;
 
-            return cvt.ToInt( cmd.ExecuteScalar() );
+                //return cvt.ToInt(cmd.ExecuteScalar());
+                obj.Id = cvt.ToInt(cmd.ExecuteScalar());
+            }
+
+            return retval;
         }
 
         public static Result InsertSelf( IEntity obj ) {
@@ -93,7 +103,13 @@ namespace wojilu.ORM.Operation {
             String vStr = ") values(";
             for (int i = 0; i < entityInfo.SavedPropertyList.Count; i++) {
                 EntityPropertyInfo info = entityInfo.SavedPropertyList[i];
-                if (((!(info.Name.ToLower() == "id") || (entityInfo.Parent != null)) && info.SaveToDB) && (!info.IsList && !info.IsList)) {
+                
+                if ((
+                    ( /**/!DbConfig.Instance.IsAutoId || !(info.Name.ToLower() == "id") || (entityInfo.Parent != null))                     
+                    && info.SaveToDB)                     
+                    && (!info.IsList && !info.IsList)
+                    )
+                {
                     String col = info.ColumnName ?? "";
                     fStr = fStr + col + ", ";
                     vStr = vStr + entityInfo.Dialect.GetParameter( info.ColumnName ) + ", ";
