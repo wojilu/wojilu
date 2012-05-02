@@ -7,7 +7,6 @@ using wojilu.weibo.Domain;
 
 namespace wojilu.weibo.Controller.Weibo.Admin
 {
-    [App(typeof(WeiboApp))]
     public class WeiboController : ControllerBase
     {
         public void Index()

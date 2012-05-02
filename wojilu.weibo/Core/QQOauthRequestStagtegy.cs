@@ -17,7 +17,7 @@ namespace wojilu.weibo.Core
 {
     public class QQOAuthRequestStagtegy : IOAuthRequestStrategy
     {
-          private static ILog log = LogManager.GetLogger(typeof(SinaOAuthRequestStrategy));
+        private static ILog log = LogManager.GetLogger( typeof( QQOAuthRequestStagtegy ) );
 
         IUserWeiboSettingService _weiboService;
 

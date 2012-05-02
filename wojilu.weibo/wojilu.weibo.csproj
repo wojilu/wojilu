@@ -145,7 +145,6 @@
     <Compile Include="Data\Sina\User\Users.cs" />
     <Compile Include="Data\Sina\User\UserSuggestionInfo.cs" />
     <Compile Include="Domain\WeiboType.cs" />
-    <Compile Include="Domain\WeiboApp.cs" />
     <Compile Include="Domain\UserWeiboSetting.cs" />
     <Compile Include="Interface\IUserWeiboSettingService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

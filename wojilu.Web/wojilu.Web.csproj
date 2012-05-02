@@ -417,6 +417,8 @@
     <Content Include="framework\views\Users\Admin\MyLink\Index.html" />
     <Content Include="framework\views\Users\Admin\Notification\List.html" />
     <Content Include="framework\views\Users\Admin\Notification\NewList.html" />
+    <Content Include="framework\views\Users\Admin\UserProfile\AccountBind.html" />
+    <Content Include="framework\views\Users\Admin\UserProfile\AccountBindInfo.html" />
     <Content Include="framework\views\Users\Admin\UserProfile\Contact.html" />
     <Content Include="framework\views\Users\Admin\UserProfile\Face.html" />
     <Content Include="framework\views\Users\Admin\UserProfile\Interest.html" />
@@ -1064,7 +1066,7 @@
         <WebProjectProperties>
           <UseIIS>False</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
-          <DevelopmentServerPort>3111</DevelopmentServerPort>
+          <DevelopmentServerPort>5111</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
           <IISUrl>http://zhangsan.mytest.com</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>

@@ -56,7 +56,7 @@ namespace wojilu.weibo.Controller.Weibo
             string type = ctx.Get("type");
             if (ctx.viewer.IsLogin)
             {
-                echoRedirect("你已经有帐号并且已经登陆了","/");
+                echoRedirect("你已经有帐号并且已经登录了");
                 return;
             }
             if (string.IsNullOrEmpty(type))
