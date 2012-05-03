@@ -8,7 +8,10 @@ using wojilu.Drawing;
 using wojilu.Net;
 using wojilu.Web.Utils;
 using wojilu.Common.Spider.Domain;
-
+using HtmlAgilityPack;
+using Fizzler;
+using Fizzler.Systems.HtmlAgilityPack;
+using System.Linq;
 namespace wojilu.Common.Spider.Service {
 
     // 其抓取内容，不负责分页部分
@@ -72,7 +75,52 @@ namespace wojilu.Common.Spider.Service {
             }
         }
 
+        //css选择器方式提取详细页内容
+        protected string getMatchedBody(HtmlDocument htmlDoc, SpiderTemplate s, StringBuilder sb)
+        {
+            IEnumerable<HtmlNode> Nodes = htmlDoc.DocumentNode.QuerySelectorAll(s.GetDetailPattern());
+            if (Nodes.Count() > 0)
+            {
+                String fpage = Nodes.ToArray()[0].OuterHtml;
+                return fpage;
+            }
+            else
+            {
+                logInfo("error=没有匹配的页面内容:" + _url, this._url, s, sb);
+                return null;
+            }
+        }
+        //利用HtmlAgilityPack生成HtmlDocument
+        protected HtmlDocument getDetailPageBodyHtmlDocument(string detailUrl, SpiderTemplate template, StringBuilder sb)
+        {
+            try
+            {
+                sb.AppendLine("抓取详细页..." + detailUrl);
+                HtmlDocument htmlDoc = new HtmlDocument
+                {
+                    OptionAddDebuggingAttributes = false,
+                    OptionAutoCloseOnEnd = true,
+                    OptionFixNestedTags = true,
+                    OptionReadEncoding = true
+                };
 
+                String page;
+                if (strUtil.HasText(template.DetailEncoding))
+                    page = PageLoader.Download(detailUrl, SpiderConfig.UserAgent, template.DetailEncoding);
+                else
+                    page = PageLoader.Download(detailUrl, SpiderConfig.UserAgent, "");
+
+                htmlDoc.LoadHtml(page);
+
+                return htmlDoc;
+
+            }
+            catch (Exception ex)
+            {
+                logInfo("error=抓取" + detailUrl + "发生错误：" + ex.Message, detailUrl, template, sb);
+                return null;
+            }
+        }
 
         protected string getMatchedBody( string page, SpiderTemplate s, StringBuilder sb ) {
             Match match = Regex.Match( page, s.GetDetailPattern(), RegexOptions.Singleline );
