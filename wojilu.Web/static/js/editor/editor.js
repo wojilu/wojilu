@@ -1,9 +1,9 @@
 ﻿wojilu.editorConfig = {
     
-    arrToolbar1 : [ 'bold', 'italic', 'underline', 'separator', 'fontFamily', 'fontSize', 'separator', 'forecolor', 'backcolor', 'emotion', 'pic', 'flash', 'separator', 'link', 'unlink', 'table', 'inserthorizontalrule', 'separator', 'about' ],
+    arrToolbar1 : [ 'bold', 'italic', 'underline', 'separator', 'fontFamily', 'fontSize', 'clearFormat', 'separator', 'forecolor', 'backcolor', 'emotion', 'pic', 'flash', 'separator', 'link', 'unlink', 'table', 'inserthorizontalrule', 'separator','clear', 'about' ],
     arrToolbar2 : [ 'justifyleft', 'justifycenter', 'justifyright', 'separator', 'indent', 'outdent', 'undo', 'redo', 'separator', 'insertunorderedlist', 'insertorderedlist', 'superscript', 'subscript', 'strikethrough', 'removeFormat', 'separator', 'copy', 'cut', 'delete', 'paste','addCode' ],
     
-    basicToolbar : [ 'bold', 'forecolor', 'fontFamily', 'fontSize', 'underline', 'strikethrough', 'separator', 'link', 'emotion', 'pic', 'flash', 'inserthorizontalrule','addCode' ],
+    basicToolbar : [ 'bold', 'forecolor', 'fontFamily', 'fontSize', 'underline', 'strikethrough', 'clearFormat', 'separator', 'link', 'emotion', 'pic', 'flash', 'inserthorizontalrule','addCode', 'clear' ],
     
     fontNames : [
         ['宋体', '宋体'],
@@ -205,7 +205,7 @@ wojilu.editor.prototype = {
     getBasicBar : function () {		
         var strBasicBar = '';
         for( i=0;i<this.basicToolbar.length;i++ ){ strBasicBar += this.td(this.basicToolbar[i]); };
-        return this.toolBar1Prefix + strBasicBar + this.toolBar2Suffix;
+        return this.toolBar1Prefix + strBasicBar + this.checkSourceCode + this.toolBar2Suffix;
     },
 
     getFullBar : function () {
@@ -253,6 +253,13 @@ wojilu.editor.prototype = {
     
     isHtmlChecked : function() {
         return $('#chksrc'+this.id).attr( 'checked' );
+    },
+
+    clearFormat : function() {
+        this.doc.body.innerHTML = this.doc.body.innerHTML.replace( /<!--((.|\n|\r)*?)-->/g, '');
+        $('a, img, span,strong, b,i,em, body, div, p, dl, dt, dd, ul, ol, li, h1, h2, h3, h4, h5, h6, form, fieldset, input, textarea, blockquote ,table, td, tr, th,tbody, font, caption',this.doc.body).removeAttr( 'style').removeAttr('class').removeAttr( 'width').removeAttr('height').removeAttr( 'border').removeAttr('lang').removeAttr('size').removeAttr('face');
+        $(this.doc.body).remove('style').remove('xml');
+        $('pre',this.doc.body).removeAttr('style');
     },
     
     makeWritable : function () {
@@ -308,7 +315,7 @@ wojilu.editor.prototype = {
 wojilu.editor.prototype.addCallback = function () {
     
     // 浏览器内置的格式化命令，可以直接操作
-    var fcmds = ['bold', 'italic', 'underline', 'justifyleft', 'justifycenter', 'justifyright', 'indent', 'outdent', 'undo', 'redo',  'superscript', 'subscript', 'strikethrough', 'removeformat', 'unlink', 'insertunorderedlist', 'insertorderedlist', 'copy', 'cut', 'paste', 'delete']; 
+    var fcmds = ['bold', 'italic', 'underline', 'justifyleft', 'justifycenter', 'justifyright', 'indent', 'outdent', 'undo', 'redo',  'superscript', 'subscript', 'strikethrough', 'removeFormat', 'unlink', 'insertunorderedlist', 'insertorderedlist', 'copy', 'cut', 'paste', 'delete']; 
     for( var i=0;i<fcmds.length;i++ ) {
         this.formatHandler(fcmds[i]);
     };    
@@ -323,6 +330,18 @@ wojilu.editor.prototype.addCallback = function () {
     this.cmdCell( 'inserthorizontalrule' ).click( function() {
         that.cacheSelection(); // 针对IE
         that.insertHTML( '<hr>' );
+    });
+
+    this.cmdCell( 'clear' ).click( function() {
+        if( confirm( '确实删除所有内容？') ) {
+            that.writeContentToEditor( '' );
+        }
+    });
+    
+    this.cmdCell( 'clearFormat' ).click( function() {
+        if( confirm( '确实需要清除所有格式吗？') ) {
+            that.clearFormat();
+        }
     });
     
     var ocmds = ['source'];
@@ -440,7 +459,7 @@ wojilu.editor.prototype.addCodeHandler= function () {
             that.insertHTML( code.replace(/\n/g,"<br/>") );
         }
         else {
-            that.insertHTML( '<div class="hide">-----code-----</div><pre class="brush: '+codeType+';" >'+code+'</pre><div class="hide">-----code-----</div>' );
+            that.insertHTML( '<br/><br/><pre class="brush: '+codeType+';" >'+code+'</pre><br/></br/>' );
         }
         codeBox.hide();
     });
@@ -935,7 +954,7 @@ wojilu.editor.prototype.render = function() {
     $('#'+this.frmId).before( $('#'+this.name) );
     var frmrId = this.frmId;
 
-    this.editor.focus();
+    //this.editor.focus();
 
     var isPart = function() {
         if( wojilu.tool.getQuery( 'frm' ) == 'true') return true;
