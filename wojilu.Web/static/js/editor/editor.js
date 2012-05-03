@@ -144,7 +144,7 @@ wojilu.editor = function( param ) {
         this.emPath = this.skinPath + 'em/';
         
         //if( !this.config.content ) { this.html=''; } else {this.html=this.config.content;};
-        this.html = $('#'+this.name).val();
+        this.html = document.getElementById( this.name ).value;
         if( !this.html ) this.html = '';
                 
         this.hiddenEle = this.getHiddenEle( this.name, this.frmId, this.config.height, this.html );
@@ -257,8 +257,17 @@ wojilu.editor.prototype = {
 
     clearFormat : function() {
         this.doc.body.innerHTML = this.doc.body.innerHTML.replace( /<!--((.|\n|\r)*?)-->/g, '');
-        $('a, img, span,strong, b,i,em, body, div, p, dl, dt, dd, ul, ol, li, h1, h2, h3, h4, h5, h6, form, fieldset, input, textarea, blockquote ,table, td, tr, th,tbody, font, caption',this.doc.body).removeAttr( 'style').removeAttr('class').removeAttr( 'width').removeAttr('height').removeAttr( 'border').removeAttr('lang').removeAttr('size').removeAttr('face');
-        $(this.doc.body).remove('style').remove('xml');
+        if( document.all ) {
+            $('a, img, span,strong, b,i,em, body, div, p, dl, dt, dd, ul, ol, li, h1, h2, h3, h4, h5, h6, form, fieldset, input, textarea, blockquote ,table, td, tr, th,tbody, font, caption',this.doc.body).removeAttr( 'style').removeAttr('class').removeAttr( 'border').removeAttr('lang').removeAttr('size').removeAttr('face').removeAttr('color');
+        }
+        else{
+            $('a, img, span,strong, b,i,em, body, div, p, dl, dt, dd, ul, ol, li, h1, h2, h3, h4, h5, h6, form, fieldset, input, textarea, blockquote ,table, td, tr, th,tbody, font, caption',this.doc.body).removeAttr( 'style').removeAttr('class').removeAttr( 'width').removeAttr('height').removeAttr( 'border').removeAttr('lang').removeAttr('size').removeAttr('face').removeAttr('color');
+        }
+        $(this.doc.body).find('style').remove();
+        $(this.doc.body).find('script').remove();
+        $(this.doc.body).find('iframe').remove();
+        $(this.doc.body).find('frame').remove();
+        $(this.doc.body).find('xml').remove();
         $('pre',this.doc.body).removeAttr('style');
     },
     
@@ -868,7 +877,7 @@ function convertXhtml(str) {
 	str = str.replace(/(<hr[^>]*[^\/])(>)/gi, "$1 />");
 	str = str.replace(/(<img[^>]*[^\/])(>)/gi, "$1 />");
     str = str.replace(/(<\w+)(.*?>)/gi, function (all, tag, attr) { 
-        if( attr.toLowerCase().indexOf( 'href' )>0 ) {
+        if( attr.toLowerCase().indexOf( 'href' )>0 || attr.toLowerCase().indexOf( 'src' )>0) {
             return tag.toLowerCase() + attr;
         }
         else {
@@ -890,8 +899,11 @@ wojilu.editor.prototype.sourceHandler = function () {
     
         if( this.checked ) {                
             
-            $('#'+that.frmId).hide();
-            $('#'+that.name).val(checkXhtml(that.doc.body.innerHTML)).show();
+            //$('#'+that.frmId).hide();
+            //$('#'+that.name).val(checkXhtml(that.doc.body.innerHTML)).show();
+            //alert( that.frmId + '___' + that.name + '_____' + that.id );
+            $(document.getElementById(that.frmId)).hide();
+            $(document.getElementById(that.name)).val(checkXhtml(that.doc.body.innerHTML)).show();
 
             var sp = wojilu.position.getTarget(viewSource[0]);
             viewSource.appendTo($('body'));
@@ -901,15 +913,17 @@ wojilu.editor.prototype.sourceHandler = function () {
             that.showTempDiv( toolbar[0] );
         }
         else {
-
-            $('#'+that.frmId).show();
-            $('#'+that.name).hide();
+            //$('#'+that.frmId).show();
+            //$('#'+that.name).hide();
+            $(document.getElementById(that.frmId)).show();
+            $(document.getElementById(that.name)).hide();
 
             $('#tempDiv').hide();
             var td = $('.wojilu_tool_source', that.editorPanel );
             viewSource.appendTo(td).css( 'position', 'static' );
             
-            that.doc.body.innerHTML = $('#'+that.name).val();
+            //that.doc.body.innerHTML = $('#'+that.name).val();
+            that.doc.body.innerHTML = $(document.getElementById(that.name)).val();
         };
     });
 };
@@ -945,13 +959,15 @@ wojilu.editor.prototype.render = function() {
     html += '</div>';
     $( '#'+this.name.replace('.','_')+'Editor' ).append( html );
     
-    this.editorPanel = $('#'+this.id);
+    //this.editorPanel = $('#'+this.id);
+    this.editorPanel = $(document.getElementById(this.id));
     
     this.addImgs();    
     this.makeWritable();    
     this.addCallback();
     
-    $('#'+this.frmId).before( $('#'+this.name) );
+    //$('#'+this.frmId).before( $('#'+this.name) );
+    $(document.getElementById(this.frmId)).before( $(document.getElementById(this.name) ) );
     var frmrId = this.frmId;
 
     //this.editor.focus();
