@@ -426,8 +426,10 @@
   <ItemGroup>
     <Folder Include="framework\data\" />
     <Folder Include="framework\log\" />
-    <Folder Include="Properties\" />
     <Folder Include="static\upload\image\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" />
