@@ -119,6 +119,9 @@
     <Compile Include="Web\Mvc\ControllerMeta.cs" />
     <Compile Include="Web\Mvc\IControllerFactory.cs" />
     <Compile Include="Web\Mvc\Utils\ControllerRunner.cs" />
+    <Compile Include="Web\Utils\AvatarCopySaver.cs" />
+    <Compile Include="Web\Utils\AvatarSaver.cs" />
+    <Compile Include="Web\Utils\AvatarUploadSaver.cs" />
     <Compile Include="Web\Utils\Emotions.cs" />
     <Compile Include="Web\Utils\WebHelpers.cs" />
     <Compile Include="_wojilu\IDto.cs" />

@@ -40,6 +40,7 @@ namespace wojilu.Web.Utils {
             return upload_private( sys.Path.DiskAvatar, postedFile, userId );
         }
 
+
         public static void Delete( String picPath ) {
 
             String fullPath = strUtil.Join( "/static/upload/", picPath );
@@ -73,14 +74,26 @@ namespace wojilu.Web.Utils {
         }
 
 
-        private static Result upload_private( String uploadPath, HttpFile postedFile, int userId ) {
-
-            logger.Info( "uploadPath:" + uploadPath + ", userId:" + userId );
+        public static Result Save( String oPicAbsPath, int userId ) {
 
             Result result = new Result();
 
-            Uploader.checkUploadPic( postedFile, result );
-            if (result.HasErrors) return result;
+            if (file.Exists( oPicAbsPath ) == false) {
+                String msg = "图片不存在" + oPicAbsPath;
+                logger.Error( msg );
+                result.Add( msg );
+                return result;
+            }
+
+            String uploadPath = sys.Path.DiskAvatar;
+
+            AvatarSaver aSaver = AvatarSaver.New( oPicAbsPath );
+
+            return savePicCommon( aSaver, userId, result, uploadPath );
+
+        }
+
+        private static Result savePicCommon( AvatarSaver aSaver, int userId, Result result, String uploadPath ) {
 
             DateTime now = DateTime.Now;
             String strDir = getDirName( now );
@@ -93,11 +106,12 @@ namespace wojilu.Web.Utils {
             }
 
             String picName = string.Format( "{0}_{1}_{2}_{3}", userId, now.Hour, now.Minute, now.Second );
-            String picNameWithExt = picName + "." + Img.GetImageExt( postedFile.ContentType );
+            String picNameWithExt = strUtil.Join( picName, aSaver.GetExt(), "." );
 
             String picAbsPath = Path.Combine( absPath, picNameWithExt );
             try {
-                postedFile.SaveAs( picAbsPath );
+
+                aSaver.Save( picAbsPath );
                 saveAvatarThumb( picAbsPath );
             }
             catch (Exception exception) {
@@ -115,6 +129,55 @@ namespace wojilu.Web.Utils {
 
             result.Info = thumbPath;
             return result;
+        }
+
+        private static Result upload_private( String uploadPath, HttpFile postedFile, int userId ) {
+
+            logger.Info( "uploadPath:" + uploadPath + ", userId:" + userId );
+
+            Result result = new Result();
+
+            Uploader.checkUploadPic( postedFile, result );
+            if (result.HasErrors) return result;
+
+            AvatarSaver aSaver = AvatarSaver.New( postedFile );
+
+            return savePicCommon( aSaver, userId, result, uploadPath );
+
+
+            //DateTime now = DateTime.Now;
+            //String strDir = getDirName( now );
+            //String fullDir = strUtil.Join( uploadPath, strDir );
+
+            //String absPath = PathHelper.Map( fullDir );
+            //if (!Directory.Exists( absPath )) {
+            //    Directory.CreateDirectory( absPath );
+            //    logger.Info( "CreateDirectory:" + absPath );
+            //}
+
+            //String picName = string.Format( "{0}_{1}_{2}_{3}", userId, now.Hour, now.Minute, now.Second );
+            //String picNameWithExt = picName + "." + Img.GetImageExt( postedFile.ContentType );
+
+            //String picAbsPath = Path.Combine( absPath, picNameWithExt );
+            //try {
+            //    postedFile.SaveAs( picAbsPath );
+            //    saveAvatarThumb( picAbsPath );
+            //}
+            //catch (Exception exception) {
+            //    logger.Error( lang.get( "exPhotoUploadError" ) + ":" + exception.Message );
+            //    result.Add( lang.get( "exPhotoUploadErrorTip" ) );
+            //    return result;
+            //}
+
+            //// 返回的信息是缩略图
+            //String relPath = strUtil.Join( fullDir, picNameWithExt ).TrimStart( '/' );
+            //relPath = strUtil.TrimStart( relPath, "static/upload/" );
+            //String thumbPath = Img.GetThumbPath( relPath );
+
+            //logger.Info( "return thumbPath=" + thumbPath );
+
+            //result.Info = thumbPath;
+            //return result;
 
         }
 
