@@ -33,6 +33,7 @@ namespace wojilu.Open {
             UserService userService = new UserService();
             ISiteConfig sconfig = getSiteConfig( false );
             userService.Register( user, result, sconfig );
+            result.Info = user;
             return result;
         }
 
@@ -59,7 +60,7 @@ namespace wojilu.Open {
             userService.Register( user, result, sconfig );
 
             new AppService().InstallAppAndMenu( user, apps );
-
+            result.Info = user;
             return result;
 
         }
