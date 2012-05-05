@@ -52,7 +52,7 @@ namespace wojilu.Web.Controller.Admin {
 
         public static String GetAuthCookieJson( MvcContext ctx ) {
 
-            return "{ \"" + ctx.web.CookieAuthName() + "\":\"" + ctx.web.CookieAuthValue() + "\", \"ASPNET_SESSIONID\":\"" + ctx.web.SessionId + "\", \"" + adminCookieName + "\":\"" + ctx.web.CookieAuthValue( adminCookieName ) + "\" }";
+            return "{ \"" + ctx.web.CookieAuthName() + "\":\"" + ctx.web.CookieAuthValue() + "\", \"" + SystemInfo.clientSessionID + "\":\"" + ctx.web.SessionId + "\", \"" + adminCookieName + "\":\"" + ctx.web.CookieAuthValue( adminCookieName ) + "\" }";
 
         }
 

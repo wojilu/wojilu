@@ -378,7 +378,7 @@ namespace wojilu.Web {
         }
 
         public String GetAuthJson() {
-            return "{ \"" + this.CookieAuthName() + "\":\"" + this.CookieAuthValue() + "\", \"ASPNET_SESSIONID\":\"" + this.SessionId + "\" }";
+            return "{ \"" + this.CookieAuthName() + "\":\"" + this.CookieAuthValue() + "\", \"" + SystemInfo.clientSessionID + "\":\"" + this.SessionId + "\" }";
         }
 
 
