@@ -82,8 +82,11 @@ namespace wojilu.Web.Controller.Users.Admin {
 
             User user = ctx.owner.obj as User;
 
-            Result result = AvatarUploader.Save( ctx.GetFileSingle(), user.Url );
+            Result result = AvatarUploader.Save( ctx.GetFileSingle(), user.Id );
             if (result.IsValid) {
+
+                AvatarUploader.Delete( user.Pic ); 
+
                 userService.UpdateAvatar( user, result.Info.ToString() );
 
                 if (ctx.utils.isFrame())
