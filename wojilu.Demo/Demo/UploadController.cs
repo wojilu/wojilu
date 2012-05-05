@@ -26,6 +26,9 @@ namespace wojilu.Web.Controller.Demo {
             logger.Info( "iframe upload" );
 
             Result result = Uploader.SaveImg( ctx.GetFileSingle() );
+            if (result.HasErrors) {
+                return;
+            }
             String picName = result.Info.ToString(); // 获取图片名称
             String picUrl = strUtil.Join( sys.Path.Photo, picName ); // 获取图片完整路径
             picUrl = Img.GetThumbPath( picUrl, ThumbnailType.Medium );// 获取中等缩略图
@@ -50,6 +53,10 @@ namespace wojilu.Web.Controller.Demo {
         public void FlashSave() {
 
             Result result = Uploader.SaveImg( ctx.GetFileSingle() );
+            if (result.HasErrors) {
+                return;
+            }
+
             String picName = result.Info.ToString(); // 获取图片名称
             String picUrl = strUtil.Join( sys.Path.Photo, picName ); // 获取图片完整路径
             picUrl = Img.GetThumbPath( picUrl, ThumbnailType.Medium );// 获取中等缩略图

@@ -352,6 +352,7 @@
     <Content Include="framework\views\Groups\Main\List.html" />
     <Content Include="framework\views\Groups\Main\Search.html" />
     <Content Include="framework\views\Groups\Member\List.html" />
+    <Content Include="framework\views\Admin\Members\Import\Index.html" />
     <Content Include="framework\views\Layouts\GroupLayout\AdminLayout.html" />
     <Content Include="framework\views\Layouts\GroupLayout\Layout.html" />
     <Content Include="framework\views\Layouts\SiteLayout\AdminLayout.html" />
@@ -1064,7 +1065,7 @@
     <VisualStudio>
       <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
         <WebProjectProperties>
-          <UseIIS>false</UseIIS>
+          <UseIIS>False</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>5111</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>

@@ -162,6 +162,7 @@
     <Compile Include="Groups\Caching\GroupMainPageCache.cs" />
     <Compile Include="Groups\JoinController.cs" />
     <Compile Include="Groups\SecurityController.cs" />
+    <Compile Include="Admin\Members\ImportController.cs" />
     <Compile Include="Microblogs\MicroblogSaveController.cs" />
     <Compile Include="Microblogs\SecurityController.cs" />
     <Compile Include="Open\CommentController.cs" />
