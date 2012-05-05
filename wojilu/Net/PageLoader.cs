@@ -48,14 +48,15 @@ namespace wojilu.Net {
 
         private static readonly ILog logger = LogManager.GetLogger( typeof( PageLoader ) );
 
-        private static readonly String strAgentInfo = "Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1)";
+        public static readonly String AgentIE6 = "Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1)";
+        public static readonly String AgentIE8 = "Mozilla/4.0 (compatible; MSIE 8.0; Windows NT 6.1; Trident/4.0)";
 
         private String _url;
         private static Encoding _encoding = Encoding.Default;
         private String _pageEncoding = _encoding.BodyName;
         private Boolean _isSetEncoding = false;
 
-        private String _agentInfo = strAgentInfo;
+        private String _agentInfo = AgentIE6;
 
         /// <summary>
         /// 客户端信息，默认是Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1)
@@ -98,7 +99,7 @@ namespace wojilu.Net {
         /// <param name="url">网址</param>
         /// <returns>返回页面内容</returns>
         public static String Download( String url ) {
-            return Download( url, strAgentInfo );
+            return Download( url, AgentIE6 );
         }
 
         /// <summary>
@@ -248,7 +249,7 @@ namespace wojilu.Net {
 
             // 3、下载图片
             WebClient client = new WebClient();
-            client.Headers.Add( "user-agent", strAgentInfo );
+            client.Headers.Add( "user-agent", AgentIE6 );
             try {
                 String savePath = Path.Combine( absPathDisk, picName );
                 client.DownloadFile( picUrl, savePath );
