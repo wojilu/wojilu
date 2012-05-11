@@ -1,0 +1,18 @@
+﻿<div class="task_list">
+  
+  <table>
+   <tr>
+    <th>任务ID</th><th>任务类型名(如wojilu.web.controller.blgcontroller)</th><th>操作</th>
+   </tr>
+  <!-- BEGIN list -->
+    <tr>
+    <td>#{taskProcessConfig.TaskId}</td>
+     <td>#{taskProcessConfig.TypeName}</td>
+     <td><a href="#{editLink}" class="frmBox">编辑</a>&nbsp;&nbsp;<a href="#{deleteLink}" class="delete deleteCmd">删除</a></td>
+    </tr>
+  <!-- END list -->
+   </table>
+  <p>
+   <a href="#{addLink}" class="frmBox">添加任务</a>
+  </p>
+</div>

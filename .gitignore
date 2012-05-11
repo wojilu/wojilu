@@ -51,8 +51,8 @@ wojilu.Web/static/upload/chm/
 wojilu.Web/framework/log/
 wojilu.Web/framework/cache/
 wojilu.Web/framework/index/
-wojilu.Web/framework/config/
-wojilu.Web/framework/data/
+#wojilu.Web/framework/config/
+#wojilu.Web/framework/data/
 
 !wojilu.Web/static/upload/face/guest.jpg
 !wojilu.Web/static/upload/face/guest_m.jpg

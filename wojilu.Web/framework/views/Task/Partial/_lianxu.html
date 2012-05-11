@@ -1,0 +1,60 @@
+﻿<style>
+ .entry {
+  display: inline;
+  float: left;
+  margin-bottom: 10px;
+  margin-left: 10px;
+  padding: 10px;
+  position: relative;
+  width: 370px;
+}
+ .entry p {
+  padding: 5px 0 5px 100px;
+  margin:5px 0px 5px 0px;
+}
+ .entry img.p {
+  float: left;
+}
+
+img {
+  vertical-align: middle;
+}
+ .entry img.btn {
+  bottom: 10px;
+  position: absolute;
+  right: 10px;
+}
+ .entry span.complete {
+  bottom: 15px;
+  color: #999999;
+  position: absolute;
+  right: 90px;
+}
+ .entry h3 {
+  font-size: 14px;
+  margin-bottom: 5px;
+  padding-left: 100px;
+}
+</style>
+<script>
+    $(function () {
+        $(".btn").click(function () {
+            var p = wojilu.tool.getBoxParent();
+            p.window.location.href = '#{url}';
+        });
+    })
+</script>
+<div class="entry">
+    <img width="80" height="80" class="p" alt="#{name}" src="#{middleIcon}" />
+    <h3> #{name} </h3>
+    <p>
+        任务简介:#{shortDesc}</p>
+    <p>
+        任务目标：#{goal}</p>
+    <p>
+        任务奖励：#{reward}</p>
+    <p>#{tip}</p>
+</div>
+<div style="display:none;" class="showResult"> 
+  <h3>恭喜完成任务--#{name},您已获得 #{reward}</h3>
+</div>

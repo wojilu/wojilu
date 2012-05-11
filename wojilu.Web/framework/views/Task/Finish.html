@@ -1,0 +1,33 @@
+﻿<link href="~css/wojilu.task.css?v=#{cssVersion}" rel="stylesheet" type="text/css" />
+<style>
+ .entry p{ margin:15px 0px 15px 0px;}
+</style>
+<div class="fl-right-wrap">
+    <div class="sub-bar-rightside">
+        <h3>任务</h3>
+        <ul class="tab-list">
+            <li>
+                <div class="arrow"> 全部任务</div>
+                <a href="#{taskUrl}"><span>全部任务</span></a>
+             </li>
+            <li class="current">
+                <div class="arrow">已完成</div>
+                <a href="javascript:void(0);"><span>已完成</span></a>
+            </li>
+        </ul>
+        <span style="float: right;"><a href="/mission/awards.aspx">去徽章馆&gt;&gt;</a></span>
+    </div>
+    <div class="taskBody">
+        <div class="tasklist">
+             <!-- BEGIN tasks -->
+            <div class="entry ">
+              <img width="80" height="80" class="p" alt="#{taskInfo.Name}" src="#{taskInfo.MiddleIcon}" />
+                <h3>#{taskInfo.Name} </h3>
+                <p> 目标：#{taskInfo.Goal}</p>
+                <p> 奖励：#{taskInfo.reward}</p>
+            </div>
+            <!-- END tasks -->
+        </div>
+    </div>
+</div>
+<div class="clear"></div>

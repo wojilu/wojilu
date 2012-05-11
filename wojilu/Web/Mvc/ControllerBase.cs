@@ -490,7 +490,7 @@ namespace wojilu.Web.Mvc {
         /// 将json字符串直接输出到客户端(ContentType="application/json")，不再输出布局页面
         /// </summary>
         /// <param name="msg"></param>
-        protected void echoJson( String jsonString ) {
+        public void echoJson( String jsonString ) {
             setJsonContentType();
             echoText( jsonString );
         }
@@ -499,7 +499,7 @@ namespace wojilu.Web.Mvc {
         /// 将xml直接输出到客户端(ContentType="text/xml")
         /// </summary>
         /// <param name="xml"></param>
-        protected void echoXml( String xml ) {
+        public void echoXml(String xml) {
             ctx.web.ResponseContentType( "text/xml" );
             echoText( xml );
         }
@@ -507,14 +507,14 @@ namespace wojilu.Web.Mvc {
         /// <summary>
         /// 将字符串 ok 显示到客户端
         /// </summary>
-        protected void echoAjaxOk() {
+        public void echoAjaxOk() {
             echoText( "ok" );
         }
 
         /// <summary>
         /// 显示错误信息并跳转到默认页。如果是ajax，输出错误信息的json格式。
         /// </summary>
-        protected void echoError() {
+        public void echoError() {
             if (ctx.utils.isAjax) {
                 echoJson( errors.ErrorsJson );
             }
@@ -528,7 +528,7 @@ namespace wojilu.Web.Mvc {
         /// 显示错误信息。如果是ajax，输出错误信息的json格式。
         /// </summary>
         /// <param name="msg"></param>
-        protected void echoError( String msg ) {
+        public void echoError(String msg) {
             errors.Add( msg );
             echoError();
         }
@@ -537,7 +537,7 @@ namespace wojilu.Web.Mvc {
         /// 显示错误信息。如果是ajax，输出错误信息的json格式。
         /// </summary>
         /// <param name="result"></param>
-        protected void echoError( Result result ) {
+        public void echoError(Result result) {
             errors.Join( result );
             echoError();
         }
@@ -548,7 +548,7 @@ namespace wojilu.Web.Mvc {
         /// <param name="msg"></param>
         /// <param name="isValid"></param>
         /// <param name="otherInfo"></param>
-        protected void echoJsonMsg( String msg, Boolean isValid, String otherInfo ) {
+        public void echoJsonMsg(String msg, Boolean isValid, String otherInfo) {
             echoJson( MvcUtil.renderValidatorJson( msg, isValid, otherInfo ) );
         }
 

@@ -60,7 +60,7 @@ namespace wojilu.Web.Controller.Microblogs {
             setVideoInfo( blog );
 
             microblogService.Insert( blog );
-
+           
             String srcType = ctx.Post( "srcType" );
 
             if ("shareBox".Equals( srcType )) {

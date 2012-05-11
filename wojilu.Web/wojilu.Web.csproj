@@ -42,6 +42,10 @@
       <Project>{C326837A-E2AD-497C-98D8-22F30CB714CE}</Project>
       <Name>wojilu.Apps.Download</Name>
     </ProjectReference>
+    <ProjectReference Include="..\wojilu.Apps.Task\wojilu.Apps.Task.csproj">
+      <Project>{09D72C03-3302-4759-99B0-6422B2E41ADE}</Project>
+      <Name>wojilu.Apps.Task</Name>
+    </ProjectReference>
     <ProjectReference Include="..\wojilu.Apps\wojilu.Apps.csproj">
       <Project>{2C3A61B8-3AFD-45D2-B81E-FBC652D0ADC2}</Project>
       <Name>wojilu.Apps</Name>
@@ -396,6 +400,26 @@
     <Content Include="framework\views\SiteInit\view1InitData.html" />
     <Content Include="framework\views\SiteInit\view2Register.html" />
     <Content Include="framework\views\SiteInit\view3Initok.html" />
+    <Content Include="framework\views\Task\Admin\Catgory\add.html" />
+    <Content Include="framework\views\Task\Admin\Catgory\edit.html" />
+    <Content Include="framework\views\Task\Admin\Catgory\Index.html" />
+    <Content Include="framework\views\Task\Admin\TaskConfig\add.html" />
+    <Content Include="framework\views\Task\Admin\TaskConfig\edit.html" />
+    <Content Include="framework\views\Task\Admin\TaskConfig\Index.html" />
+    <Content Include="framework\views\Task\Admin\Task\add.html" />
+    <Content Include="framework\views\Task\Admin\Task\edit.html" />
+    <Content Include="framework\views\Task\Admin\Task\Index.html" />
+    <Content Include="framework\views\Task\Finish.html" />
+    <Content Include="framework\views\Task\Index.html" />
+    <Content Include="framework\views\Task\Partial\_complete.html" />
+    <Content Include="framework\views\Task\Partial\_default.html" />
+    <Content Include="framework\views\Task\Partial\_defaultWithInput.html" />
+    <Content Include="framework\views\Task\Partial\_lianxu.html" />
+    <Content Include="framework\views\Task\Partial\_reward.html" />
+    <Content Include="framework\views\Task\TaskLayout\AdminLayout.html" />
+    <Content Include="framework\views\Task\TaskLayout\AdminSidebar.html" />
+    <Content Include="framework\views\Task\TaskLayout\Header.html" />
+    <Content Include="framework\views\Task\TaskLayout\SiteNav.html" />
     <Content Include="framework\views\Users\Admin\Credit\IncomeRule.html" />
     <Content Include="framework\views\Users\Admin\Credit\Layout.html" />
     <Content Include="framework\views\Users\Admin\Credit\My.html" />
@@ -451,6 +475,19 @@
     <Content Include="framework\views\Users\Profile\Main.html" />
     <Content Include="framework\views\Users\Profile\UserMenu.html" />
     <Content Include="framework\views\Users\Visitor\Index.html" />
+    <Content Include="static\css\wojilu.task.css" />
+    <Content Include="static\img\Mission\l_1.png" />
+    <Content Include="static\img\Mission\m_1.gif" />
+    <Content Include="static\img\Mission\m_10.gif" />
+    <Content Include="static\img\Mission\m_2.gif" />
+    <Content Include="static\img\Mission\m_3.gif" />
+    <Content Include="static\img\Mission\m_4.gif" />
+    <Content Include="static\img\Mission\m_5.gif" />
+    <Content Include="static\img\Mission\m_6.gif" />
+    <Content Include="static\img\Mission\m_7.gif" />
+    <Content Include="static\img\Mission\m_8.gif" />
+    <Content Include="static\img\Mission\m_9.gif" />
+    <Content Include="static\img\Mission\s_1.png" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
@@ -1014,6 +1051,7 @@
     <Folder Include="framework\views\Forum\PostAdmin\" />
     <Folder Include="framework\views\Microblogs\My\Layout\" />
     <Folder Include="framework\views\Poll\Admin\Layout\" />
+    <Folder Include="framework\views\Task\Task\" />
     <Folder Include="framework\views\Users\Admin\Microblogs\" />
   </ItemGroup>
   <ItemGroup>
@@ -1058,6 +1096,10 @@
     <Content Include="framework\data\wojilu.Web.Controller.Security.UserDataRole.config" />
     <Content Include="framework\data\wojilu.Web.Jobs.WebJob.config" />
     <Content Include="framework\data\wojilu.Web.Mvc.CacheUrl.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="framework\data\wojilu.Apps.Task.Domain.TaskCatgory.config" />
+    <Content Include="framework\data\wojilu.Apps.Task.Domain.TaskInfo.config" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" />

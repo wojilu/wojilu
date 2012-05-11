@@ -1,0 +1,79 @@
+﻿<style>
+ .entry {
+  display: inline;
+  float: left;
+  margin-bottom: 10px;
+  margin-left: 10px;
+  padding: 10px;
+  position: relative;
+  width: 370px;
+}
+ .entry p {
+  padding: 5px 0 5px 100px;
+  margin:5px 0px 5px 0px;
+}
+ .entry img.p {
+  float: left;
+}
+
+img {
+  vertical-align: middle;
+}
+ .entry img.btn {
+  bottom: 10px;
+  position: absolute;
+  right: 10px;
+}
+ .entry span.complete {
+  bottom: 15px;
+  color: #999999;
+  position: absolute;
+  right: 90px;
+}
+ .entry h3 {
+  font-size: 14px;
+  margin-bottom: 5px;
+  padding-left: 100px;
+}
+</style>
+
+<div class="entry">
+    <img width="80" height="80" class="p" alt="#{name}" src="#{middleIcon}" />
+    <h3> #{name} </h3>
+    <p>
+        任务简介:#{shortDesc}</p>
+    <p>
+        任务目标：#{goal}</p>
+    <p>
+        任务奖励：#{reward}</p>
+    <p>
+          <input class="btn" type="button" value="领取奖励" />
+    </p>
+</div>
+<div style="display:none;" class="showResult"> 
+  <h3>恭喜完成任务--#{name},您已获得 #{reward}</h3>
+</div>
+<script>
+    $(function () {
+        var loading = false;
+        $(".btn").click(function () {
+            if (loading) {
+                return;
+            }
+            else {
+                $.post("#{rewardUrl}",
+                   { ajax: true },
+                   function (data, textStatus) {
+                       if (data.IsValid == false) {
+                           alert(data.Msg);
+                       }
+                       else {
+                           $(".entry").hide();
+                           $(".showResult").show();
+                       }
+                       loading = false;
+                   }, "json");
+            }
+        });
+    })
+</script>

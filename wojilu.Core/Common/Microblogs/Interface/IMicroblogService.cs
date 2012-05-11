@@ -33,6 +33,13 @@ namespace wojilu.Common.Microblogs.Interface {
 
         int CountByUser( int userId );
 
+        /// <summary>
+        /// 得到指定日期内用户发微博数
+        /// </summary>
+        /// <param name="userId">用户id</param>
+        /// <param name="filter">filter可选值 today,week,month,month3，注意大小写</param>
+        /// <returns></returns>
+        int CountByUserTime(int userId, string filter);
 
         DataPage<Microblog> GetFollowingPage( int ownerId, int pageSize );
 

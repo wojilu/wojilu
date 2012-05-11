@@ -21,6 +21,8 @@ using wojilu.Common.Tags;
 using wojilu.Members.Users.Interface;
 using wojilu.Members.Users.Service;
 using wojilu.Web.Utils;
+using wojilu.Data;
+using wojilu.ORM;
 
 namespace wojilu.Common.Microblogs.Service {
 
@@ -41,6 +43,24 @@ namespace wojilu.Common.Microblogs.Service {
 
         public virtual int CountByUser( int userId ) {
             return Microblog.count( "UserId=" + userId );
+        }
+
+       
+        public int CountByUserTime(int userId,string filter) {
+            EntityInfo ei = Entity.GetInfo(typeof(Microblog));
+            String t = ei.Dialect.GetTimeQuote();
+            String fs = " and Created between " + t + "{0}" + t + " and " + t + "{1}" + t + " ";
+            DateTime now = DateTime.Now;
+            string condition = string.Empty;
+            if(filter == "today")
+                condition += string.Format(fs, now.ToShortDateString(), now.AddDays(1).ToShortDateString());
+            else if(filter == "week")
+                condition += string.Format(fs, now.AddDays(-7).ToShortDateString(), now.AddDays(1).ToShortDateString());
+            else if(filter == "month")
+                condition += string.Format(fs, now.AddMonths(-1).ToShortDateString(), now.AddDays(1).ToShortDateString());
+            else if(filter == "month3")
+                condition += string.Format(fs, now.AddMonths(-3).ToShortDateString(), now.AddDays(1).ToShortDateString());
+            return Microblog.count("UserId=" + userId + condition);
         }
 
         public virtual List<Microblog> GetByUser( int count, int userId ) {
@@ -265,6 +285,9 @@ namespace wojilu.Common.Microblogs.Service {
             Microblog.deleteBatch( "id in (" + ids + ")" );
         }
 
+
+
+       
     }
 
 }

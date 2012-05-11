@@ -76,7 +76,6 @@
     <Compile Include="Blog\Interface\IBlogService.cs" />
     <Compile Include="Blog\Interface\IPickedService.cs" />
     <Compile Include="Blog\Interface\ISysBlogService.cs" />
-    <Compile Include="Blog\Service\BlogEventSubscribe.cs" />
     <Compile Include="Content\Domain\ContentDigg.cs" />
     <Compile Include="Content\Domain\ContentPostSection.cs" />
     <Compile Include="Content\Domain\ContentTempPost.cs" />

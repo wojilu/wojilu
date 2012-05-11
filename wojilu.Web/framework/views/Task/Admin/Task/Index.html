@@ -1,0 +1,27 @@
+﻿<link href="~css/wojilu.task.css?v=#{cssVersion}" rel="stylesheet" type="text/css" />
+
+<div class="fl-right-wrap">
+    <div class="taskBody">
+        <!-- BEGIN catgorys -->
+        <h5>#{taskCatgory.Name}</h5>
+        <div class="tasklist">
+             <!-- BEGIN tasks -->
+            <div class="entry ">
+              <img width="80" height="80" class="p" alt="#{taskInfo.Name}" src="#{taskInfo.MiddleIcon}" />
+                <h3>ID ：#{taskInfo.Id} #{taskInfo.Name} </h3>
+                <p> 目标：#{taskInfo.Goal}</p>
+                <p> 奖励：#{taskInfo.reward}</p>
+                <p> <a href="#{editLink}" class="frmBox">编辑</a> <a href="#{deleteLink}" class="delete deleteCmd">删除</a></p>
+            </div>
+            <!-- END tasks -->
+        </div>
+       <!-- END catgorys -->
+    </div>
+</div>
+<div class="clear"></div>
+<div>
+ <p>
+   <a href="#{addLink}" class="frmBox">添加任务</a>
+   <a href="#{catgoryLink}">查看任务分类</a>
+  </p>
+</div>

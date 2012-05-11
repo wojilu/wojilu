@@ -1,0 +1,62 @@
+﻿<style>
+ .wide{ width:250px;}
+</style>
+<form action="#{ActionLink}" method="post">
+<fieldset>
+    <legend>添加任务</legend>
+    <p><label>任务ID:</label><input name="taskInfo.Id" type="text" /></p>
+    <p>
+      <label>所属分类：</label>#{taskInfo.CatgoryId}
+    </p>
+    <p>
+        <label>
+            任务名:</label><input name="taskInfo.Name" type="text" />  <label>启用：</label><input type=checkbox class="cb" /><input type=hidden name="taskInfo.Enable" value="1" />
+    </p>
+    <p>
+        <label>
+            任务简介:</label><input name="taskInfo.ShortDesc" type="text" class="wide" />
+            <label>
+            任务周期:</label>#{taskInfo.Day}
+    </p>
+    <p>
+        <label>
+            任务目标:</label><input name="taskInfo.Goal" type="text" class="wide" />
+    </p>
+    <p>
+      <label>任务答案：</label><input type=text name="taskInfo.Answer" class="wide" />
+    </p>
+    <p>
+     <label>任务奖励1：(名称/分数)</label>#{taskInfo.CurrencyId1}<input type=text name="taskInfo.Reward1" />(填0不显示)
+    </p>
+    <p>
+     <label>任务奖励2：(名称/分类)</label>#{taskInfo.CurrencyId2}<input type=text name="taskInfo.Reward2" />(填0不显示)
+    </p>
+    <p>
+      <label> 任务转向地址： </label><input type="text" class="wide" name="taskInfo.Url" />
+    </p>
+    <p>
+      <label>任务处理类名：</label><input type="text"  class="wide" name="taskInfo.TypeName" />
+    </p>
+    <p>
+        <label>
+            排序:</label><input name="taskInfo.OrderId" type="text" />
+    </p>
+    <p><input type=submit value="保存" class="btn" /></p>
+</fieldset>
+</form>
+<script>
+    $(function () {
+        $(".cb").each(function () {
+            var value = $(this).next().val();
+            if (value == 0)
+                this.checked = false;
+            else
+                this.checked = true;
+        });
+        $(".cb").change(function () {
+            var value = this.checked == true ? 1 : 0;
+            $(this).next().val(value);
+        });
+    });
+    
+</script>

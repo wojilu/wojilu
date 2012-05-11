@@ -1,0 +1,18 @@
+﻿<div class="task_list">
+  
+  <table>
+   <tr>
+    <th>分类ID</th><th>分类名</th><th>操作</th>
+   </tr>
+  <!-- BEGIN list -->
+    <tr>
+    <td>#{taskCatgory.Id}</td>
+     <td>#{taskCatgory.Name}</td>
+     <td><a href="#{editLink}" class="frmBox">编辑</a>&nbsp;&nbsp;<a href="#{deleteLink}" class="delete deleteCmd">删除</a></td>
+    </tr>
+  <!-- END list -->
+   </table>
+  <p>
+   <a href="#{addLink}" class="frmBox add">添加任务分类</a>
+  </p>
+</div>

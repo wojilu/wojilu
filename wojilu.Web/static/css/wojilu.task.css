@@ -1,0 +1,137 @@
+﻿.column-wild-content .fl-right-wrap {
+  float: left;
+  padding: 10px;
+  width: 800px;
+}
+.sub-bar-rightside {
+  background: url("http://me.qidian.com/skins/basic/images/gray-dotd2.gif") repeat-x scroll 0 25px transparent;
+  height: 34px;
+  padding-top: 2px;
+}
+.taskBody {
+  padding-top: 10px;
+}
+.tasklist {
+  overflow: hidden;
+  width: 100%;
+}
+.tasklist .entry {
+  background: none repeat scroll 0 0 #FEFDE8;
+  border: 1px solid #EADDB8;
+  display: inline;
+  float: left;
+  height: 110px;
+  margin-bottom: 10px;
+  margin-left: 10px;
+  padding: 10px;
+  position: relative;
+  width: 355px;
+}
+.tasklist .entry p {
+  padding: 0px 0 0px 100px;
+}
+.sub-bar-rightside ul.tab-list {
+  float: left;
+  line-height: 23px;
+}
+.sub-bar-rightside ul.tab-list li {
+  float: left;
+  margin-right: 5px;
+  position: relative;
+}
+.sub-bar-rightside ul.tab-list li.current a span {
+  background-position: right -27px;
+  float: left;
+  height: 23px;
+  padding-bottom: 2px;
+  padding-top: 2px;
+}
+.sub-bar-rightside ul.tab-list li a span {
+  background: url("http://me.qidian.com/skins/basic/images/wb-new-tab-bg.gif") no-repeat scroll right 0 transparent;
+  display: block;
+  padding-right: 10px;
+}
+.sub-bar-rightside ul.tab-list li a {
+  background: url("http://me.qidian.com/skins/basic/images/wb-new-tab-bg.gif") no-repeat scroll 0 0 transparent;
+  display: block;
+  padding-left: 10px;
+}
+.sub-bar-rightside h3 {
+  float: left;
+  font-size: 12px;
+  padding: 3px 10px 0;
+}
+.sub-bar-rightside ul.tab-list li.current {
+  margin-top: -2px;
+}
+.sub-bar-rightside ul.tab-list li.current a {
+  background-position: 0 -27px;
+  color: #FFFFFF;
+  float: left;
+}
+.sub-bar-rightside ul.tab-list li a {
+  display: block;
+  padding-left: 10px;
+}
+.sub-bar-rightside ul.tab-list li {
+  float: left;
+  margin-right: 5px;
+  position: relative;
+}
+ul, ol, li {
+  list-style: none outside none;
+}
+.sub-bar-rightside ul.tab-list li.current .arrow {
+  background: url("http://me.qidian.com/skins/basic/images/wb-new-tab-arrow.gif") no-repeat scroll center 0 transparent;
+  clear: both;
+  display: block;
+}
+.sub-bar-rightside ul.tab-list li .arrow {
+  height: 7px;
+  left: 0;
+  line-height: 1000px;
+  overflow: hidden;
+  padding: 0 10px;
+  position: absolute;
+  top: 25px;
+  z-index: 1;
+}
+.tasklist .entry img.p {
+  float: left;
+}
+
+img {
+  vertical-align: middle;
+}
+.tasklist .entry img.btn {
+  bottom: 10px;
+  position: absolute;
+  right: 10px;
+}
+.tasklist .entry span.complete {
+  bottom: 15px;
+  color: #999999;
+  position: absolute;
+  right: 90px;
+}
+.tasklist .entry h3 {
+  font-size: 14px;
+  margin-bottom: 5px;
+  padding-left: 100px;
+}
+.taskBody h5 {
+  font-size: 12px;
+  line-height: 30px;
+  padding: 5px 10px;
+}
+.tasklist .entry .btn {
+  bottom: 10px;
+  position: absolute;
+  right: 10px;
+}
+a.todo,a.finish
+{
+  bottom: 10px;
+  position: absolute;
+  right: 10px;
+}
