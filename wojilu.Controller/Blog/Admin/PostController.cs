@@ -20,6 +20,8 @@ using wojilu.Common.Tags;
 using wojilu.Apps.Blog.Domain;
 using wojilu.Apps.Blog.Service;
 using wojilu.Apps.Blog.Interface;
+using wojilu.Event;
+using wojilu.DI;
 
 namespace wojilu.Web.Controller.Blog.Admin {
 
@@ -32,7 +34,6 @@ namespace wojilu.Web.Controller.Blog.Admin {
 
         public IFeedService feedService { get; set; }
         public IFriendService friendService { get; set; }
-
         public PostController() {
 
             blogService = new BlogService();
@@ -93,6 +94,7 @@ namespace wojilu.Web.Controller.Blog.Admin {
             Result result = postService.Insert( data );
             if (result.IsValid) {
 
+                 EventManager.Instance.GetEvent<BlogCreatedEvent>().Publish(data);
                 echoRedirectPart( lang( "opok" ), to( new MyListController().Index ), 1 );
             }
             else {

@@ -15,6 +15,8 @@ using wojilu.Members.Users.Service;
 using wojilu.Members.Users.Domain;
 using wojilu.Web.Controller.Common;
 using wojilu.Web.Controller.Users;
+using wojilu.Common.Microblogs.Event;
+using wojilu.Event;
 
 namespace wojilu.Web.Controller.Microblogs {
 
@@ -194,6 +196,9 @@ namespace wojilu.Web.Controller.Microblogs {
             if (isCommentParent == 1) {
                 saveCommentParent( tblog, content );
             }
+
+            //向系统发布 用户发微博成功事件
+            EventManager.Instance.GetEvent<MicroblogCreatedEvent>().Publish(blog);
 
             echoToParent( "转发成功" );
         }

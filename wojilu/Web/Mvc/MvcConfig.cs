@@ -28,6 +28,7 @@ namespace wojilu.Web.Mvc {
     public class MvcConfig {
 
         public static readonly MvcConfig Instance = new MvcConfig();
+       
 
         /// <summary>
         /// 路由文件的路径。默认是 /framework/config/route.config
@@ -78,6 +79,14 @@ namespace wojilu.Web.Mvc {
         /// 是否启用域名映射支持(比如二级域名映射)
         /// </summary>
         public Boolean IsDomainMap { get { return _isDomainMap; } }
+
+        /// <summary>
+        /// 事件注册的类型 类型实现 IEventSubscribe接口
+        /// </summary>
+        public List<string> EventSubscribes
+        {
+            get { return _eventSubscribes; }
+        }
 
         /// <summary>
         /// 是否启用域名映射支持(比如二级域名映射)，除了检查本配置文件，还要检查是否是ip/localhost等情况
@@ -187,6 +196,8 @@ namespace wojilu.Web.Mvc {
 
         private String _noLogError;
 
+        private List<string> _eventSubscribes;
+
         private MvcConfig() {
 
             Dictionary<String, String> dic = cfgHelper.Read( PathHelper.Map( strUtil.Join( cfgHelper.ConfigRoot, "mvc.config" ) ) );
@@ -206,6 +217,7 @@ namespace wojilu.Web.Mvc {
             _viewExt = getViewExt( dic );
             _viewDir = getViewDir( dic );
             _filterList = getFilterList( dic );
+            _eventSubscribes = getEventSubscribes(dic);
 
             dic.TryGetValue( "jsVersion", out _jsVersion );
             dic.TryGetValue( "cssVersion", out _cssVersion );
@@ -214,6 +226,24 @@ namespace wojilu.Web.Mvc {
 
             dic.TryGetValue( "subdomainWildcardType", out _subdomainWildcardType );
 
+        }
+
+        private List<string> getEventSubscribes(Dictionary<string, string> dic)
+        {
+            List<String> result = new List<String>();
+
+            String e;
+            dic.TryGetValue("events", out e);
+            if (strUtil.IsNullOrEmpty(e)) return result;
+
+            String[] arrF = e.Split(',');
+            foreach (String f in arrF)
+            {
+                if (strUtil.IsNullOrEmpty(f)) continue;
+                result.Add(f.Trim());
+            }
+
+            return result;
         }
 
 
