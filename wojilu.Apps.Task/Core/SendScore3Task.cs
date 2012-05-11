@@ -26,7 +26,7 @@ namespace wojilu.Apps.Task.Core
         public override Result CanReceiveReward(IUser user)
         {
             Result result = new Result();
-            UserTaskLog log = taskService.FindLog(user.Id, Task.Id);
+            UserTaskLog log = taskService.FindLogByTime(user.Id, Task.Id,Task.Day);
             if(log == null)
             {
                 User u = user as User;
