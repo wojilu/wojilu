@@ -110,6 +110,7 @@
     <Compile Include="Common\Feeds\Interface\IFeedService.cs" />
     <Compile Include="Common\Feeds\Interface\IShareService.cs" />
     <Compile Include="Common\Comments\OpenComment.cs" />
+    <Compile Include="Common\MicroblogSync\IMicroblogSync.cs" />
     <Compile Include="Common\MicroblogSync\MicroblogSyncConfig.cs" />
     <Compile Include="Common\MicroblogSync\MicroblogSyncManager.cs" />
     <Compile Include="Common\Upload\TempUploadFileService.cs" />
