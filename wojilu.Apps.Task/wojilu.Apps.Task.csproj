@@ -42,6 +42,7 @@
     <Compile Include="Controller\MainController.cs" />
     <Compile Include="Core\DefaultTaskProcessor.cs" />
     <Compile Include="Core\SendMircoblogTask.cs" />
+    <Compile Include="Core\TaskNameAttribute.cs" />
     <Compile Include="Core\TaskProcessFactory.cs" />
     <Compile Include="Core\AnswerTask.cs" />
     <Compile Include="Core\UploadFaceTask.cs" />

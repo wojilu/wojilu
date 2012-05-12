@@ -18,6 +18,7 @@ namespace wojilu.Apps.Task.Core
     /// <summary>
     /// 用户连续7天发微博任务
     /// </summary>
+    [TaskName("连续7天发微博任务")]
     public class SendMircoblogSevenDaysTask : DefaultTaskProcessor
     {
 

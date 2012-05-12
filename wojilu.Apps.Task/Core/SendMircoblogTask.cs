@@ -17,6 +17,7 @@ namespace wojilu.Apps.Task.Core
     /// <summary>
     /// 用户每日发微博任务
     /// </summary>
+    [TaskName("每日微博任务")]
     public class SendMircoblogTask : DefaultTaskProcessor
     {
         INotificationService notifyService;

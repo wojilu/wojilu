@@ -17,6 +17,7 @@ namespace wojilu.Apps.Task.Core
     /// <summary>
     /// 问答任务,同类型的任务都可以采用此类
     /// </summary>
+    [TaskName("问答任务")]
     public class AnswerTask : DefaultTaskProcessor
     {
         ILog logger = LogManager.GetLogger(typeof(AnswerTask));

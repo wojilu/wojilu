@@ -11,17 +11,27 @@ using wojilu.Common.Money.Interface;
 using wojilu.Common.Money.Service;
 using wojilu.Data;
 using wojilu.Web.Controller;
+using wojilu.Common.Msg.Interface;
+using wojilu.Common.Msg.Service;
 namespace wojilu.Apps.Task.Core
 {
     public abstract class DefaultTaskProcessor : ITaskProcessor
     {
 
         ILog logger = LogManager.GetLogger(typeof(DefaultTaskProcessor));
+        INotificationService notifyService;
+        IUserIncomeService incomeService ;
+        TaskService taskService ;
 
+        public DefaultTaskProcessor()
+        {
+            notifyService = new NotificationService();
+            incomeService = new UserIncomeService();
+            taskService = new TaskService();
+        }
         public virtual Result CanReceiveReward(IUser user)
         {
             Result result = new Result();
-            TaskService taskService = new TaskService();
             UserTaskLog log = taskService.FindLogByTime(user.Id, Task.Id,Task.Day);
             if(log != null)
             {
@@ -32,9 +42,7 @@ namespace wojilu.Apps.Task.Core
 
         public virtual void GetReward(ControllerBase c)
         {
-            IUserIncomeService incomeService = new UserIncomeService();
-            TaskService taskService = new TaskService();
-
+            
             UserTaskLog log = taskService.FindLogByTime(c.ctx.viewer.Id, Task.Id, Task.Day);
 
             if(log != null)
@@ -65,6 +73,7 @@ namespace wojilu.Apps.Task.Core
                     incomeService.AddIncome(c.ctx.viewer.obj as User, Task.CurrencyId1, Task.Reward1);
                 if(Task.CurrencyId2 > 0 && Task.Reward2 > 0)
                     incomeService.AddIncome(c.ctx.viewer.obj as User, Task.CurrencyId1, Task.Reward1);
+                notifyService.send(log.UserId, string.Format("恭喜您完成任务 <strong>{0}<strong> 并且与 {1} 获得{2}的奖励",Task.Name,log.Created.ToString("yyyy-MM-dd HH:mm"),Task.GetRewardHtml()));
                 DbContext.commitAll();
             }
             catch(Exception ex)
@@ -90,7 +99,6 @@ namespace wojilu.Apps.Task.Core
 
         public virtual string ShowTaskHtml(ControllerBase controller)
         {
-            TaskService taskService = new TaskService();
             UserTaskLog log = taskService.FindLogByTime(controller.ctx.viewer.Id, Task.Id,Task.Day);
             string fileName = templateFile;
             if(log != null)

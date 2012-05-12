@@ -13,6 +13,7 @@ namespace wojilu.Apps.Task.Core
     /// <summary>
     /// 用户填写标签任务
     /// </summary>
+    [TaskName("用户填写3个标签任务")]
     public class WriteUserTagTask :DefaultTaskProcessor
     {
         TaskService taskService;

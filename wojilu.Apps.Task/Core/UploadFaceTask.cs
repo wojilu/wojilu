@@ -13,6 +13,7 @@ namespace wojilu.Apps.Task.Core
     /// <summary>
     /// 用户上传头像任务
     /// </summary>
+    [TaskName("头像任务")]
     public class UploadFaceTask : DefaultTaskProcessor
     {
 
@@ -31,7 +32,7 @@ namespace wojilu.Apps.Task.Core
             UserTaskLog log = taskService.FindLog(user.Id, Task.Id);
             if(log == null)
             {
-                User u = userService.GetById(user.Id);
+                User u = user as User;
                 if(u.Pic == UserFactory.Guest.Pic)
                 {
                     result.Add("您目前还没有上传头像");

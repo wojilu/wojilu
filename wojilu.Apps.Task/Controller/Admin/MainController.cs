@@ -9,6 +9,7 @@ using wojilu.Common.Money.Interface;
 using wojilu.Common.Money.Service;
 using wojilu.Common.Money.Domain;
 using wojilu.Web.Controller.Task;
+using wojilu.Apps.Task.Core;
 
 namespace wojilu.Web.Controller.Task.Admin
 {
@@ -54,6 +55,7 @@ namespace wojilu.Web.Controller.Task.Admin
             dropList("taskInfo.CurrencyId1", currencys, "Name=Id","请选择");
             dropList("taskInfo.CurrencyId2", currencys, "Name=Id", "请选择");
             dropList("taskInfo.Day", TaskInfo.GetDayType(), "forever");
+            dropList("taskInfo.TypeName", TaskProcessFactory.Intance.GetProcessorsClassFullNameFromAssemby(), null);
         }
 
         [HttpPost]
@@ -75,6 +77,7 @@ namespace wojilu.Web.Controller.Task.Admin
             dropList("taskInfo.CurrencyId1", currencys, "Name=Id",task.CurrencyId1);
             dropList("taskInfo.CurrencyId2", currencys, "Name=Id",task.CurrencyId2);
             dropList("taskInfo.Day", TaskInfo.GetDayType(),task.Day);
+            dropList("taskInfo.TypeName", TaskProcessFactory.Intance.GetProcessorsClassFullNameFromAssemby(), task.TypeName);
             target(Update, id);
             bind(task);
         }

@@ -13,6 +13,7 @@ namespace wojilu.Apps.Task.Core
     /// <summary>
     /// 用户等级达到3级送积分
     /// </summary>
+    [TaskName("3级冲级大礼包")]
     public class SendScore3Task :DefaultTaskProcessor
     {
         TaskService taskService;
