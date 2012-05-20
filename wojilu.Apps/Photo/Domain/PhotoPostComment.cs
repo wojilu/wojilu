@@ -76,7 +76,7 @@ namespace wojilu.Apps.Photo.Domain {
 
         private String getTitleData( PhotoPost data ) {
 
-            String lnkUser = Link.ToMember( data.Creator );
+            String lnkUser = wojilu.Web.Mvc.Link.ToMember( data.Creator );
             String target = string.Format( "<a href=\"{0}\">{1}</a>", lnkUser, data.Creator.Name );
 
             Dictionary<string, object> dic = new Dictionary<string, object>();
