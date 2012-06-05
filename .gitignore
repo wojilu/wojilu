@@ -34,13 +34,15 @@ _ReSharper*/
 
 #static html files
 wojilu.Web/html/
+wojilu.Web/cms*/
 #wojilu temp files
 _wtemp/
 
 wojilu.OpenSample/framework/log/
+wojilu.cms.web/framework/log/
 
 #wojilu.Web/static/upload/
-wojilu.Web/static/upload/face/*.*
+wojilu.Web/static/upload/face/
 wojilu.Web/static/upload/grouplogo/*.*
 wojilu.Web/static/upload/image/
 wojilu.Web/static/upload/wimg/
