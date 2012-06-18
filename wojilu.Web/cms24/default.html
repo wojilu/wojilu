@@ -1,0 +1,1017 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+<title>门户型CMS_我记录</title>
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+<meta http-equiv="X-UA-Compatible" content="IE=EmulateIE7" /> 
+<meta content="" name="Keywords" />
+<meta content="" name="Description" />
+<link href="/static/css/wojilu.common.css?v=0068" rel="stylesheet" type="text/css" />
+<link href="/static/css/jquery/ui-lightness/jquery-ui.custom.css?v=0068" rel="stylesheet" type="text/css" />
+<link href="/static/skin/site/1/skin.css?v=0068" rel="stylesheet" type="text/css" />
+<script src="/static/js/jquery.js?v=0068" type="text/javascript"></script>
+<script src="/static/js/jquery.easing.1.3.js" type="text/javascript"></script>
+<script src="/static/js/jquery-ui.custom.js?v=0068" type="text/javascript"></script>
+<script src="/static/js/lang.zh-cn.js?v=0068" type="text/javascript"></script>
+<script src="/static/js/wojilu.common.js?v=0068" type="text/javascript"></script>
+<script src="/static/js/wojilu.site.js?v=0068" type="text/javascript"></script>
+<style>
+#topNavWrap {background:url("/static/skin/site/topNavBg.png");}
+</style>
+</head>
+
+<body>
+
+<div id="topNavWrap" style="">
+
+<style>#topNav .ValidationText {width:80px;border:1px #ccc inset;}</style>
+<table id="topNav" cellpadding="0" cellspacing="0" >
+	<tr>
+		<td id="topSiteName"><a href="/">我记录</a></td>
+		<td id="topNavMenu" style="display:none; padding-left:10px;">
+			<span id="topUserHome" class="menuMore" list="topAppList"><a href="#" class="viewerFeeds frmLink" loadTo="uaMain" nolayout=1>快速入口</a><img src="/static/img/down.gif"/>
+            <ul id="topAppList" class="menuItems" style="width:120px; font-size:12px;">
+                <li id="feedItem" style="padding-bottom:5px; margin-bottom:5px;"><a class="viewerFeeds" href="#"><img src="/static/img/app/s/feeds.png"/> 好友消息</a></li>
+			    <li style="border-bottom:1px #ccc dotted;"><a href="#" id="myGroupsLink"><img src="/static/img/app/s/group.png"/> 群组</a></li>
+
+			    <li><a href="#" id="appAdminUrl"><img src="/static/img/app/s/settings.png"/> 程序管理</a></li>
+			    <li><a href="#" id="menuAdminUrl"><img src="/static/img/app/s/menus.png"/> 菜单管理</a></li>
+			    <li><a href="#" id="myUrlList"><img src="/static/img/app/s/links.png"/> 常用网址</a></li>
+            </ul>
+            </span>
+
+			<span id="SpaceAdmin" class="left10"><a href="#" id="viewerSpace">我的空间</a></span>
+			<span class="left10"><a href="#" id="viewerMicroblogHome">微博</a></span>
+			<a href="#" id="viewerTemplateUrl" class="frmLink left10" loadTo="uaMain" nolayout=1>模板</a>			
+			<a href="#" id="viewerFriends" class="frmLink left10" loadTo="uaMain" nolayout=1>好友</a>			
+            
+            <span id="siteAdminCmd"></span>
+		</td>
+		
+		<td>		
+		    <form action="/Main/CheckLogin.aspx" method="post" id="loginForm" class="autoSubmitForm" style="float:right; border:0px #aaa solid; display:none;">		
+		        用户名 <input class="txtUid" name="txtUid" type="text" style="width:80px; border:1px #ccc inset;" />
+		        密码 <input name="txtPwd" type="password"  style="width:60px;  border:1px #ccc inset;" />
+		    
+			<label><input name="RememberMe" type="checkbox" id="chkRemember" checked="checked" />记住我</label>
+            <input id="Submit1" type="submit" value="登录" class="btn btns" /><span class="loadingInfo"></span>
+		    <a href="/Register/Register.aspx" class="left5 right5 strong">注册</a>
+		    <a href="/Common/ResetPwd/StepOne.aspx">忘记密码？</a>
+		    <input type="hidden" name="returnUrl" id="topNavReturnUrl" value="" />
+			</form>
+			
+			<div id="loginValidBox" class="ebox" style="width:380px;padding:10px 5px; ">验证码 <span id="captchaWrap2"><input name="ValidationText" class="ValidationText" type="text"> <span class="valid" msg="请填写" ajaxAction="/CaptchaImage.ashx?check=true"></span> <img class="validationImg" src="/CaptchaImage.ashx" style="cursor:pointer"/> <span class="refreshImg link">换一张</span><span><script type="text/javascript">$(document).ready( function() {$('#captchaWrap2 .validationImg').click( function() {wojilu.tool.refreshImg($(this));});$('#captchaWrap2 .refreshImg').click( function() {wojilu.tool.refreshImg($(this).prev());});});</script></div>
+			
+
+		<table id="userAccountTable" cellpadding="0" cellspacing="0" border="0" style="display:none;">
+		    <tr>
+		        <td style="width:130px; text-align:right;">
+		            <div>
+		            <span id="siteNotification"></span>
+			        <a href="#" class="frmLink left10" id="msgLink" loadTo="uaMain" nolayout=1>私信<span id="viewerNewMsgCount"></span></a>
+			        <span id="nfMsg">&nbsp;</span>
+			        </div>
+			        
+			        <div style="position:relative">
+                    <div id="ntBox" style="position:absolute; text-align:left; z-index:999;left:80px;top:10px;">                        
+                        <div id="myUploadDlg" class="hide">
+                            <img src="/static/img/s/upload.png" /> <a href="#" id="uploadAvatar" style="color:#e56f04;">上传头像</a> 可奖励20分
+                             <span class="closeNt">×</span>
+                        </div>
+                        <div id="confirmEmailPanel" class="hide">
+                            <img src="/static/img/mail/mail.gif" /> <a href="#" id="confirmEmailLink" style="color:#e56f04;">激活邮件</a> 可奖励20分 <span class="closeNt">×</span>
+                        </div>
+                        <div id="viewerNewNotificationCount"></div>
+                        <div id="viewerNewMicroblogAtCount"></div>
+                    </div>
+                    </div>
+		        </td>
+		        <td style="width:35px; text-align:right; padding-right:5px;">
+		            <a href="#" id="viewerInviteLink" style="display:inline-block; " class="frmLink" loadTo="uaMain" nolayout=1>邀请</a>		            
+		        </td>
+		        <td style="width:50px;">
+	                <a href="#" id="siteOnlineUrl">在线<span style="font-size:11px;">(<span id="siteOnlineCount"></span>)</span></a>
+                </td>
+		        <td style="width:30px;padding-right:6px; text-align:right;">
+		        <a href="#" class="viewerFaceUrl frmLink" title=" 上传头像" id="userTopNavPic" loadTo="uaMain" nolayout=1></a>		        
+		        </td>
+		        <td style="padding-right:5px; font-weight:bold;"><a href="#" id="viewerProfileName" title="个人资料" class="frmLink" loadTo="uaMain" nolayout=1></a></td>
+
+		        <td style="width:100px;">
+			            <span id="AccountAdmin" class="menuMore left5" list="accountItems">帐号<img src="/static/img/down.gif"/>
+			                <ul id="accountItems" class="menuItems" style="width:120px;">
+				                <li><a href="#" id="viewerProfileUrl" class="frmLink" loadTo="uaMain" nolayout=1><img src="/static/img/s/base.png"/> 个人资料</a></li>
+				                <li><a href="#" id="viewerContactLink" class="frmLink" loadTo="uaMain" nolayout=1><img src="/static/img/s/address.png"/> 联系方式</a></li>
+				                <li><a href="#" id="viewerInterestUrl" class="frmLink" loadTo="uaMain" nolayout=1><img src="/static/img/s/interest.png"/> 兴趣爱好</a></li>
+				                <li><a href="#" id="viewerTagUrl" class="frmLink" loadTo="uaMain" nolayout=1><img src="/static/img/s/tag.png"/> 标签tag</a></li>
+				                <li><a href="#" class="viewerFaceUrl frmLink" loadTo="uaMain" nolayout=1><img src="/static/img/s/avatar.png"/> 上传头像</a></li>
+				                <li><a href="#" id="viewerPwdUrl" class="frmLink" loadTo="uaMain" nolayout=1><img src="/static/img/s/pwd.png"/> 修改密码</a></li>
+               		            <li><a href="#" id="viewerSettings" class="frmLink" loadTo="uaMain" nolayout=1><img src="/static/img/s/privacy.png"/> 隐私设置</a></li>
+				                <li><a href="#" id="viewerCurrency" class="frmLink" loadTo="uaMain" nolayout=1><img src="/static/img/s/credit.png"/> 我的积分</a></li>
+			                </ul>
+			            </span>            			
+			            <span class="left10"><span href="#" id="logoutLink" class="postCmd link">注销</span>			            
+			            </span>
+		            </ul>		        
+		        </td>
+		    </tr>
+		</table>		
+
+		</td>		
+	</tr>
+</table>
+
+</div>
+<script type="text/javascript">var ctx = null;var navUrl = '/Layouts/TopNav/Nav.aspx';</script>
+<script type="text/javascript" src="/static/js/wojilu.site.topnav.js?v=0068"></script>
+<div id="pageWrap">
+<div id="pageWrapInner">
+
+        <div id="headerWrap">
+    <div id="header">
+        <table style="width: 100%;" cellpadding="0" cellspacing="0"><tr>
+        <td id="slogo"><a href="/"><div class="nologo">我记录</div></a></td>
+        <td style="vertical-align:top;" class="adItem" data-ad="Banner"></td>
+        <td id="">
+            <script>
+            var xd = new Date();
+            var weekDay = "星期" + "日一二三四五六".split("")[xd.getDay()];
+            </script>
+            <table id="calendar" border="0" cellpadding="0" cellspacing="0">
+                <tr><td id="calendarDay"><script> document.write(xd.getDate());</script></td><td><div id="calendarYear"><script> document.write(xd.getFullYear() + "年" + (xd.getMonth()+1) + "月");</script></div><div id="calendarWeek"><script> document.write(weekDay);</script></div></td></tr>
+            </table>
+        </td></tr></table>
+    </div>
+    </div>
+
+    <div id="navWrap">
+    <span class="navRight fr"></span>
+    <span class="navLeft fl"></span>
+
+    <div id="nav">	
+	    <ul>
+	        <li id="menuItem0" >
+	            <a href="/" style="" >论坛</a>
+			    
+            </li><li id="menuItem1" >
+	            
+			    
+			        <span class="menuMore" list="subMenus2"><a href="http://localhost:5111/Content22/Content/Index.aspx" style="" >CMS</a>
+			        <ul id="subMenus2" class="menuItems" style="width:110px;">
+			        <li><a href="http://localhost:5111/Content24/Content/Index.aspx" style="color:#005eac;" >事件部分涉案人员被刑拘</a></li><li><a href="http://localhost:5111/Content24/Post/1207.aspx" style="color:#005eac;" >巴西</a></li><li><a href="http://localhost:5111/Contekkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkknt24/Pokkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkst/1206.aspx" style="color:#005eac;" >xxx</a></li>
+			        </ul></span>
+			    
+            </li><li id="menuItem2" >
+	            <a href="http://localhost:5111/Content23/Content/Index.aspx" style="" >新闻型CMS</a>
+			    
+            </li><li id="menuItem3"  class="currentRootMenu" >
+	            <a href="http://localhost:5111/Content24/Content/Index.aspx" style="" >门户型CMS</a>
+			    
+            </li><li id="menuItem4" >
+	            <a href="/group.aspx" style="" >群组</a>
+			    
+            </li><li id="menuItem5" >
+	            <a href="/blogMain.aspx" style="" >博客</a>
+			    
+            </li><li id="menuItem6" >
+	            <a href="/Factory.aspx" style="" >知识仓库</a>
+			    
+            </li><li id="menuItem7" >
+	            <a href="http://127.0.0.1:5111/Photo/Main/Index.aspx" style="" >图片</a>
+			    
+            </li><li id="menuItem8" >
+	            <a href="http://localhost:5111/Content24/Pokkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkst/1206.aspx" style="" >kkkk</a>
+			    
+            </li><li id="menuItem9" >
+	            <a href="http://localhost:5111/static/upload/image/2011/11/16/192831333820781832_m.jpg" style="" >训练</a>
+			    
+            </li><li id="menuItemLast" >
+	            <a href="/topic.aspx" style="" >topic</a>
+			    
+            </li>
+	    </ul>
+	    
+        <div id="langMenu" class="menuMore" list="langList" style="display:none;">切换语言<img src="/static/img/downWhite.gif"/>
+            <ul id="langList" class="menuItems">
+	            
+	            <li class="putCmd" href="/Lang/Switch.aspx?lang=zh-cn"><img src="/static/img/oks.gif"  /> 中文(简体)</li>
+	            <li class="putCmd" href="/Lang/Switch.aspx?lang=zh-tw"><img src="/static/img/oks.gif" class="noCurrentLang" /> 正體中文(繁體)</li>
+            </ul>
+        </div>
+    </div>    
+    </div>
+    <div class="clear"></div>       
+     
+    
+    
+    <div class="clear"></div>
+    <div id="navBottomAdWrap" class="adItem" data-ad="NavBottom"></div>
+
+
+    <div id="pageMainWrap">
+    <div id="pageMain">
+        <link href="/static/skin/apps/content/1/skin.css?v=0068" rel="stylesheet" type="text/css" />
+<script src="/static/js/wojilu.ui.slider.js?v=0068" type="text/javascript"></script>
+
+<div style="padding-top:1px;">
+    <div id="adminTool" class="appAdminTool" style="padding:0px; display:none;">
+        <div style="padding:8px 25px 0px 0px; float:right; margin-bottom:5px;">
+        <a href="/Content24/Admin/Content/Index.aspx" class="frmLink btnBig" loadTo="contentPage" nolayout=1><img src="/static/img/s/star.png" /> 管理当前程序</a>
+        </div>
+        <div class="clear"></div>
+    </div>
+    <div id="contentPage"><style>
+#row1_column1 {width:29%;margin-right:8px;margin-left:0px; }
+#row1_column2 {width:43%; }
+#row1_column3 {width:25%;margin-left:8px;margin-right:0px; }
+
+#row2_column1 {width:100%; }
+#row3_column1 {width:72%;margin-right:8px;margin-left:0px; }
+#row3_column2 {width:25%; }
+
+#row4_column1 {width:100%; }
+#row5_column1 {width:72%;margin-right:8px;margin-left:0px; }
+#row5_column2 {width:25%;}
+
+#row6_column1 {width:100%; }
+#row7_column1 {width:72%;margin-right:8px;margin-left:0px; }
+#row7_column2 {width:25%; }
+#portalContainer  {color:#333333;}
+#portalContainer a {color:}
+#portalContainer .sectionPanel {border:1px #e6e6e6 solid;}
+.sectionTitle {background:url(/static/skin/apps/content/1/sectionTitleBg.jpg);}
+#portalContainer .sectionTitleText a {color:#839300;}
+#portalContainer .sectionMore a {color:#666;}
+#row1_column3 li{font-size:12px;}
+#row3_column2 li{font-size:12px;}
+#row5_column2 li{font-size:12px;}
+#row7_column2 li{font-size:12px;}
+#section306.sectionPanel {border:0px;}
+#sectionTitle306 {background:url(/static/img/big/rowBg1.jpg);}
+#sectionTitle306 .sectionTitleText a{color:#fff;}
+#section309.sectionPanel {border:0px;}
+#sectionTitle309 {background:url(/static/img/big/rowBg2.jpg);}
+#sectionTitle309 .sectionTitleText a{color:#fff;}
+#section312.sectionPanel {border:0px;}
+#sectionTitle312 {background:url(/static/img/big/rowBg3.jpg);}
+#sectionTitle312 .sectionTitleText a{color:#fff;}
+</style>
+
+<script src="/static/js/wojilu.app.content.js?v=0068" type="text/javascript"></script>
+<script>
+$(document).ready( function() {
+    mergeSection();
+});
+</script>
+<div id="portalContainer">
+		
+	<div class="rowContainer" id="row1">		
+		
+		<div id="row1_column1" class="columnContainer column1">	
+			
+			<div id="section298" combineIds="" class="sectionPanel clearfix">
+				<div class="sectionTitle" id="sectionTitle298">
+				    <div class="sectionTitleText" id="sectionTitleText298">
+				        <div class="sectionTitleTab" contentId="sectionContentText298"><a href="/html/list/298.html">焦点图片</a></div>				    
+				    </div>
+				    <div class="sectionMore"><a href="/html/list/298.html">更多</a></div>
+				    <div class="clear"></div>
+				</div>
+				<div class="sectionContent" id="sectionContent298">
+				    <div class="sectionContentText" id="sectionContentText298">
+				    <div class="slideWrap" style="margin:3px;width: 270px;height:210px;"> 
+    <a href="/html/2012/4/26/1187.html"><img alt="香港举行国庆烟花汇演" src="http://img1.cache.netease.com/cnews/2010/10/2/20101002081623541f8.jpg" /></a><a href="/html/2012/4/26/1186.html"><img alt="重庆特警开装甲车巡逻维稳" src="http://img2.cache.netease.com/cnews/2010/10/2/201010020837190e40a.jpg" /></a><a href="/html/2012/4/26/1185.html"><img alt="嫦娥二号整流罩坠落江西" src="http://img2.cache.netease.com/cnews/2010/10/2/201010021526102b7fa.jpg" /></a>
+</div> 
+
+				    </div>
+				</div>
+			</div>
+			
+			<div id="section299" combineIds="" class="sectionPanel clearfix">
+				<div class="sectionTitle" id="sectionTitle299">
+				    <div class="sectionTitleText" id="sectionTitleText299">
+				        <div class="sectionTitleTab" contentId="sectionContentText299"><a href="/html/list/299.html">娱乐专题</a></div>				    
+				    </div>
+				    <div class="sectionMore"><a href="/html/list/299.html">更多</a></div>
+				    <div class="clear"></div>
+				</div>
+				<div class="sectionContent" id="sectionContent299">
+				    <div class="sectionContentText" id="sectionContentText299">
+				    <div class="">
+<div>
+    <div class="strong"><a href="/html/2012/4/26/1188.html" title="敢死队致敬老派动作重现热血场面" style="">敢死队致敬老派动作重现热血场面</a></div>
+    <div class="clear"></div>
+    <a href="/html/2012/4/26/1188.html"><img src="http://img3.cache.netease.com/ent/2010/10/18/2010101809310948fd9.png" style="float:left;margin:5px 8px 8px 0px;width:120px;height:90px;" /></a>
+    <div class="font12">一代报业宗师张季鸾的墓地近年失修荒废，曾占地40亩的陵园仅剩一亩见方的土坡。如今在废旧的墓陵旁边还建... <a href="/html/2012/4/26/1188.html" class="left10">[详细]</a></div>
+    
+    <div class="clear"></div>
+</div>   
+
+<ul class="ul1" style="margin:10px 0px 10px 0px;">
+
+<li style="list-style:disc;"><a href="/html/2012/4/26/1194.html" title="浙版西游记白骨精成为爱自尽美女" style="">浙版西游记白骨精成为爱自尽美女</a></li>
+
+<li style="list-style:disc;"><a href="/html/2012/4/26/1193.html" title="陈冠希被曝在香港秘密录唱" style="">陈冠希被曝在香港秘密录唱</a></li>
+
+<li style="list-style:disc;"><a href="/html/2012/4/26/1192.html" title="钟楚红台湾出席剪彩活动" style="">钟楚红台湾出席剪彩活动</a></li>
+
+<li style="list-style:disc;"><a href="/html/2012/4/26/1191.html" title="金鹰节孙红雷摘三奖成最大赢家" style="">金鹰节孙红雷摘三奖成最大赢家</a></li>
+
+<li style="list-style:disc;"><a href="/html/2012/4/26/1190.html" title="张家辉:拍激情戏不用向太太报批" style="">张家辉:拍激情戏不用向太太报批</a></li>
+
+<li style="list-style:disc;"><a href="/html/2012/4/26/1189.html" title="张柏芝借博客与谢霆锋传情" style="">张柏芝借博客与谢霆锋传情</a></li>
+
+</ul>
+</div>
+				    </div>
+				</div>
+			</div>
+					
+		</div>
+		
+		<div id="row1_column2" class="columnContainer column2">	
+			
+			<div id="section300" combineIds="" class="sectionPanel clearfix">
+				<div class="sectionTitle" id="sectionTitle300">
+				    <div class="sectionTitleText" id="sectionTitleText300">
+				        <div class="sectionTitleTab" contentId="sectionContentText300"><a href="/html/list/300.html">新闻头条</a></div>				    
+				    </div>
+				    <div class="sectionMore"><a href="/html/list/300.html">更多</a></div>
+				    <div class="clear"></div>
+				</div>
+				<div class="sectionContent" id="sectionContent300">
+				    <div class="sectionContentText" id="sectionContentText300">
+				    <div><div style="font-size:12px;"><h2 style="font-size:18px;font-family: 黑体;"><a href="http://www.wojilu.com/space/author/Blog1/Post/22">门户+论坛+SNS整合系统源码</a></h2><div><a href="http://www.wojilu.com/Content396/Post/415">闪电击中自由女神像瞬间</a><span>&nbsp;</span>|<span>&nbsp;</span><a href="http://www.wojilu.com/Content396/Post/424">2010年胡润百富榜发布</a><span>&nbsp;</span><br></div><h3 style="margin-top:10px;font-size:18px;font-family: 黑体;"><a href="http://www.wojilu.com/Content396/Post/399">MIT技术评论：2010十大新兴技术</a></h3><div><a href="http://www.wojilu.com/Content396/Post/379">SNS的多栖“钱”景</a><span>&nbsp;</span>|<span>&nbsp;</span><a href="http://www.wojilu.com/Content396/Post/394">创业板估值体系面临考验</a><span>&nbsp;</span><br></div><h3 style="margin-top:10px;font-size:18px;font-family: 黑体;"><a href="http://www.wojilu.com/help">我记录网站综合系统使用指南</a></h3><div><a href="http://www.wojilu.com/Content396/Post/280">Google的十大核心技术</a><span>&nbsp;</span>|<span>&nbsp;</span><a href="http://www.wojilu.com/Content396/Post/273">最令人讨厌11种应用程序</a><span>&nbsp;</span></div></div></div>
+				    </div>
+				</div>
+			</div>
+			
+			<div id="section301" combineIds="" class="sectionPanel clearfix">
+				<div class="sectionTitle" id="sectionTitle301">
+				    <div class="sectionTitleText" id="sectionTitleText301">
+				        <div class="sectionTitleTab" contentId="sectionContentText301"><a href="/html/list/301.html">要闻列表</a></div>				    
+				    </div>
+				    <div class="sectionMore"><a href="/html/list/301.html">更多</a></div>
+				    <div class="clear"></div>
+				</div>
+				<div class="sectionContent" id="sectionContent301">
+				    <div class="sectionContentText" id="sectionContentText301">
+				    <table style="width:100%;table-layout: fixed;" cellspacing="0" cellpadding="0">
+
+<tr><td style="width:310px;"><div style="font-size:14px;text-overflow:ellipsis;overflow: hidden;white-space:nowrap;"><a href="/html/2012/4/26/1210.html" style="color:#f54100">[作者]</a>
+<a href="/html/2012/4/26/1210.html" style="" title="香港货轮与日本渔船昨日在日本海域发生碰撞" style="">香港货轮与日本渔船昨日在日本海域发生碰撞</a></div>
+</td><td style="text-align:right; color:#666;">2012/4/26</td></tr>
+
+<tr><td style="width:310px;"><div style="font-size:14px;text-overflow:ellipsis;overflow: hidden;white-space:nowrap;"><a href="/html/2012/4/26/1209.html" style="color:#f54100">[作者]</a>
+<a href="/html/2012/4/26/1209.html" style="" title="东京电影节公布竞赛片 秦海璐角逐金麒麟" style="">东京电影节公布竞赛片 秦海璐角逐金麒麟</a></div>
+</td><td style="text-align:right; color:#666;">2012/4/26</td></tr>
+
+<tr><td style="width:310px;"><div style="font-size:14px;text-overflow:ellipsis;overflow: hidden;white-space:nowrap;"><a href="/html/2012/4/26/1208.html" style="color:#f54100">[作者]</a>
+<a href="/html/2012/4/26/1208.html" style="" title="法国月内三度爆发反对退休改革全国性示威" style="">法国月内三度爆发反对退休改革全国性示威</a></div>
+</td><td style="text-align:right; color:#666;">2012/4/26</td></tr>
+
+<tr><td style="width:310px;"><div style="font-size:14px;text-overflow:ellipsis;overflow: hidden;white-space:nowrap;"><a href="/html/2012/4/26/1207.html" style="color:#f54100">[作者]</a>
+<a href="/html/2012/4/26/1207.html" style="" title="巴西今日大选有望产生首位女总统" style="">巴西今日大选有望产生首位女总统</a></div>
+</td><td style="text-align:right; color:#666;">2012/4/26</td></tr>
+
+<tr><td style="width:310px;"><div style="font-size:14px;text-overflow:ellipsis;overflow: hidden;white-space:nowrap;"><a href="/html/2012/4/26/1206.html" style="color:#f54100">[作者]</a>
+<a href="/html/2012/4/26/1206.html" style="" title="俄罗斯主张与北约签署军事限制协议" style="">俄罗斯主张与北约签署军事限制协议</a></div>
+</td><td style="text-align:right; color:#666;">2012/4/26</td></tr>
+
+<tr><td style="width:310px;"><div style="font-size:14px;text-overflow:ellipsis;overflow: hidden;white-space:nowrap;"><a href="/html/2012/4/26/1205.html" style="color:#f54100">[作者]</a>
+<a href="/html/2012/4/26/1205.html" style="" title="美性病实验曾致700危地马拉人染病 奥巴马道歉" style="">美性病实验曾致700危地马拉人染病 奥巴马道歉</a></div>
+</td><td style="text-align:right; color:#666;">2012/4/26</td></tr>
+
+<tr><td style="width:310px;"><div style="font-size:14px;text-overflow:ellipsis;overflow: hidden;white-space:nowrap;"><a href="/html/2012/4/26/1204.html" style="color:#f54100">[作者]</a>
+<a href="/html/2012/4/26/1204.html" style="" title="菲总统称下周在网上公开人质事件完整报告" style="">菲总统称下周在网上公开人质事件完整报告</a></div>
+</td><td style="text-align:right; color:#666;">2012/4/26</td></tr>
+
+<tr><td style="width:310px;"><div style="font-size:14px;text-overflow:ellipsis;overflow: hidden;white-space:nowrap;"><a href="/html/2012/4/26/1203.html" style="color:#f54100">[作者]</a>
+<a href="/html/2012/4/26/1203.html" style="" title="日本神户将就熊猫死亡赔偿中方50万美元" style="">日本神户将就熊猫死亡赔偿中方50万美元</a></div>
+</td><td style="text-align:right; color:#666;">2012/4/26</td></tr>
+
+<tr><td style="width:310px;"><div style="font-size:14px;text-overflow:ellipsis;overflow: hidden;white-space:nowrap;"><a href="/html/2012/4/26/1202.html" style="color:#f54100">[作者]</a>
+<a href="/html/2012/4/26/1202.html" style="" title="上海眼科假药事件部分涉案人员被刑拘" style="">上海眼科假药事件部分涉案人员被刑拘</a></div>
+</td><td style="text-align:right; color:#666;">2012/4/26</td></tr>
+
+<tr><td style="width:310px;"><div style="font-size:14px;text-overflow:ellipsis;overflow: hidden;white-space:nowrap;"><a href="/html/2012/4/26/1201.html" style="color:#f54100">[作者]</a>
+<a href="/html/2012/4/26/1201.html" style="" title="2010年诺贝尔奖公布日期全部确定" style="">2010年诺贝尔奖公布日期全部确定</a></div>
+</td><td style="text-align:right; color:#666;">2012/4/26</td></tr>
+
+<tr><td style="width:310px;"><div style="font-size:14px;text-overflow:ellipsis;overflow: hidden;white-space:nowrap;"><a href="/html/2012/4/26/1200.html" style="color:#f54100">[作者]</a>
+<a href="/html/2012/4/26/1200.html" style="" title="温家宝离京访问欧亚四国 中国掀秋季外交高潮" style="">温家宝离京访问欧亚四国 中国掀秋季外交高潮</a></div>
+</td><td style="text-align:right; color:#666;">2012/4/26</td></tr>
+
+<tr><td style="width:310px;"><div style="font-size:14px;text-overflow:ellipsis;overflow: hidden;white-space:nowrap;"><a href="/html/2012/4/26/1199.html" style="color:#f54100">[作者]</a>
+<a href="/html/2012/4/26/1199.html" style="" title="菅直人继续宣称钓鱼岛是日本领土 中方回应" style="">菅直人继续宣称钓鱼岛是日本领土 中方回应</a></div>
+</td><td style="text-align:right; color:#666;">2012/4/26</td></tr>
+
+<tr><td style="width:310px;"><div style="font-size:14px;text-overflow:ellipsis;overflow: hidden;white-space:nowrap;"><a href="/html/2012/4/26/1198.html" style="color:#f54100">[作者]</a>
+<a href="/html/2012/4/26/1198.html" style="" title="香港货轮与日本渔船昨日在日本海域发生碰撞" style="">香港货轮与日本渔船昨日在日本海域发生碰撞</a></div>
+</td><td style="text-align:right; color:#666;">2012/4/26</td></tr>
+
+<tr><td style="width:310px;"><div style="font-size:14px;text-overflow:ellipsis;overflow: hidden;white-space:nowrap;"><a href="/html/2012/4/26/1197.html" style="color:#f54100">[作者]</a>
+<a href="/html/2012/4/26/1197.html" style="" title="国税总局反驳中国税负痛苦指数世界第二传闻" style="">国税总局反驳中国税负痛苦指数世界第二传闻</a></div>
+</td><td style="text-align:right; color:#666;">2012/4/26</td></tr>
+
+<tr><td style="width:310px;"><div style="font-size:14px;text-overflow:ellipsis;overflow: hidden;white-space:nowrap;"><a href="/html/2012/4/26/1196.html" style="color:#f54100">[作者]</a>
+<a href="/html/2012/4/26/1196.html" style="" title="西安市一在建民房倒塌造成8人死亡" style="">西安市一在建民房倒塌造成8人死亡</a></div>
+</td><td style="text-align:right; color:#666;">2012/4/26</td></tr>
+
+</table>
+				    </div>
+				</div>
+			</div>
+					
+		</div>
+		
+		<div id="row1_column3" class="columnContainer column3">	
+			
+			<div id="section302" combineIds="" class="sectionPanel clearfix">
+				<div class="sectionTitle" id="sectionTitle302">
+				    <div class="sectionTitleText" id="sectionTitleText302">
+				        <div class="sectionTitleTab" contentId="sectionContentText302"><a href="/html/list/302.html">信息发布</a></div>				    
+				    </div>
+				    <div class="sectionMore"><a href="/html/list/302.html">更多</a></div>
+				    <div class="clear"></div>
+				</div>
+				<div class="sectionContent" id="sectionContent302">
+				    <div class="sectionContentText" id="sectionContentText302">
+				    <div><div><a href="" class="cmd1"><span>我要发布</span></a><a href="" class="cmd2"><span>新手起步</span></a><a href="" class="cmd3"><span>美食天地</span></a><a href="" class="cmd4"><span>谈天说地</span></a></div><div class="clear"></div></div>
+				    </div>
+				</div>
+			</div>
+			
+			<div id="section303" combineIds="" class="sectionPanel clearfix">
+				<div class="sectionTitle" id="sectionTitle303">
+				    <div class="sectionTitleText" id="sectionTitleText303">
+				        <div class="sectionTitleTab" contentId="sectionContentText303"><a href="/html/list/303.html">公告</a></div>				    
+				    </div>
+				    <div class="sectionMore"><a href="/html/list/303.html">更多</a></div>
+				    <div class="clear"></div>
+				</div>
+				<div class="sectionContent" id="sectionContent303">
+				    <div class="sectionContentText" id="sectionContentText303">
+				    <div><div style="font-size:12px;"><div><a href="http://www.wojilu.com">· 我记录网站综合系统1.5.5正式发布</a></div><div><a href="http://news.163.com/10/1018/15/6J9NSJI100014JB6.html">· 时速1600公里超音速汽车英国问世</a></div><div><a href="http://news.sina.com.cn/c/2010-10-18/205321300806.shtml">· 影著协回应网吧等放电影缴版权费质疑</a></div></div></div>
+				    </div>
+				</div>
+			</div>
+			
+			<div id="section304" combineIds="" class="sectionPanel clearfix">
+				<div class="sectionTitle" id="sectionTitle304">
+				    <div class="sectionTitleText" id="sectionTitleText304">
+				        <div class="sectionTitleTab" contentId="sectionContentText304"><a href="/html/list/304.html">▍财经专栏</a></div>				    
+				    </div>
+				    <div class="sectionMore"><a href="/html/list/304.html">更多</a></div>
+				    <div class="clear"></div>
+				</div>
+				<div class="sectionContent" id="sectionContent304">
+				    <div class="sectionContentText" id="sectionContentText304">
+				    <div class="">
+<div>
+    <div class="strong"><a href="/html/2012/4/26/1213.html" title="房产税成为开发商提价的借口" style="">房产税成为开发商提价的借口</a></div>
+    <div class="clear"></div>
+    <a href="/html/2012/4/26/1213.html"><img src="http://img1.cache.netease.com/cnews/2010/10/1/20101001074938966c6.jpg" style="float:left;margin:5px 8px 8px 0px;width:120px;height:90px;" /></a>
+    <div class="font12">浙江绍兴县家印染企业出资万余元，购买一条快艇送给镇政府监督辖区内企业的排污。这是为了动员全社会的力量... <a href="/html/2012/4/26/1213.html" class="left10">[详细]</a></div>
+    
+    <div class="clear"></div>
+</div>   
+
+<ul class="ul1" style="margin:10px 0px 10px 0px;">
+
+<li style="list-style:disc;"><a href="/html/2012/4/26/1218.html" title="姜昆:“海派清口”是好表演 但不适合上春晚" style="">姜昆:“海派清口”是好表演 但不适合上春晚</a></li>
+
+<li style="list-style:disc;"><a href="/html/2012/4/26/1217.html" title="巴黎看秀丢行李 林志玲买内衣应急(图)" style="">巴黎看秀丢行李 林志玲买内衣应急(图)</a></li>
+
+<li style="list-style:disc;"><a href="/html/2012/4/26/1216.html" title="利智被曝曾遭周润发羞辱 悄悄躲后台哭泣" style="">利智被曝曾遭周润发羞辱 悄悄躲后台哭泣</a></li>
+
+<li style="list-style:disc;"><a href="/html/2012/4/26/1215.html" title="商天娥办婚宴 刘嘉玲吴君如到贺(组图)" style="">商天娥办婚宴 刘嘉玲吴君如到贺(组图)</a></li>
+
+<li style="list-style:disc;"><a href="/html/2012/4/26/1214.html" title="高明骏回应涉毒事件 向家人及公众致歉" style="">高明骏回应涉毒事件 向家人及公众致歉</a></li>
+
+</ul>
+</div>
+				    </div>
+				</div>
+			</div>
+					
+		</div>
+				
+		<div class="clear"></div>	
+	</div>
+		
+	<div class="rowContainer" id="row2">		
+		
+		<div id="row2_column1" class="columnContainer column1">	
+			
+			<div id="section305" combineIds="" class="sectionPanel clearfix">
+				<div class="sectionTitle" id="sectionTitle305">
+				    <div class="sectionTitleText" id="sectionTitleText305">
+				        <div class="sectionTitleTab" contentId="sectionContentText305"><a href="/html/list/305.html">通栏广告</a></div>				    
+				    </div>
+				    <div class="sectionMore"><a href="/html/list/305.html">更多</a></div>
+				    <div class="clear"></div>
+				</div>
+				<div class="sectionContent" id="sectionContent305">
+				    <div class="sectionContentText" id="sectionContentText305">
+				    <div><img src="/static/img/big/ad1.gif"/></div>
+				    </div>
+				</div>
+			</div>
+					
+		</div>
+				
+		<div class="clear"></div>	
+	</div>
+		
+	<div class="rowContainer" id="row3">		
+		
+		<div id="row3_column1" class="columnContainer column1">	
+			
+			<div id="section306" combineIds="" class="sectionPanel clearfix">
+				<div class="sectionTitle" id="sectionTitle306">
+				    <div class="sectionTitleText" id="sectionTitleText306">
+				        <div class="sectionTitleTab" contentId="sectionContentText306"><a href="/html/list/306.html">综合图文</a></div>				    
+				    </div>
+				    <div class="sectionMore"><a href="/html/list/306.html">更多</a></div>
+				    <div class="clear"></div>
+				</div>
+				<div class="sectionContent" id="sectionContent306">
+				    <div class="sectionContentText" id="sectionContentText306">
+				    <table style="height :180px;width:100%;" cellpadding="0" cellspacing="0">
+	<tr>
+		<td style="width:70%; border-right:1px #ccc dotted;" valign="top">
+            <table style="height :180px;width:100%;" cellpadding="0" cellspacing="0">
+                <tr><td style="height:80px;vertical-align:top;">
+                    <div style="margin:5px;">
+                        <a href="/html/2012/4/26/1220.html"><img src="http://img1.cache.netease.com/cnews/2010/10/11/201010110432204a6d3.jpg" style="float:left;margin-right:5px;width:120px;height:90px;" /></a>
+                        <div class="strong"><a href="/html/2012/4/26/1220.html" style="font-size:14px;">丛林里的特雷莎修女</a></div>
+                        <div class="note">谢欣燕填写问卷时，发现不对，计算机屏幕居然出现她和男友庄胜杰出游以及“嫁给我吧”的画面，被蒙在鼓里的...</div>
+                        
+                        <div class="clear"></div>
+                    </div>    
+                </td></tr>
+                <tr><td style="height:100px; vertical-align:top;">
+                    <table style=" width:100%;">
+                
+			            
+                        <tr><td style="font-size:14px;"><a href="/html/2012/4/26/1226.html" title="印度首富入住27层新居 造价66.5亿创全球最贵" style="">[环球资讯] 印度首富入住27层新居 造价66.5亿创全球最贵</a></td><td style="text-align:right;font-size:12px;" class="note">作者</td></tr>
+			            
+                        <tr><td style="font-size:14px;"><a href="/html/2012/4/26/1225.html" title="河南教育厅发文组织数万学生到富士康实习" style="">[教育政策] 河南教育厅发文组织数万学生到富士康实习</a></td><td style="text-align:right;font-size:12px;" class="note">作者</td></tr>
+			            
+                        <tr><td style="font-size:14px;"><a href="/html/2012/4/26/1224.html" title="中国新车年销量将达1700万 逼近美国最高水平" style="">[汽车销售] 中国新车年销量将达1700万 逼近美国最高水平</a></td><td style="text-align:right;font-size:12px;" class="note">作者</td></tr>
+			            
+                        <tr><td style="font-size:14px;"><a href="/html/2012/4/26/1223.html" title="北京周边县市出台政策限制外地人购房" style="">[法律政策] 北京周边县市出台政策限制外地人购房</a></td><td style="text-align:right;font-size:12px;" class="note">作者</td></tr>
+			            
+                        <tr><td style="font-size:14px;"><a href="/html/2012/4/26/1222.html" title="美国汇率报告或推迟到11月G20峰会后发布" style="">[股市金融] 美国汇率报告或推迟到11月G20峰会后发布</a></td><td style="text-align:right;font-size:12px;" class="note">作者</td></tr>
+			            
+                        <tr><td style="font-size:14px;"><a href="/html/2012/4/26/1221.html" title="印度首富入住27层新居 造价66.5亿创全球最贵" style="">[环球资讯] 印度首富入住27层新居 造价66.5亿创全球最贵</a></td><td style="text-align:right;font-size:12px;" class="note">作者</td></tr>
+			            
+                
+                    </table>
+
+
+                </td></tr>
+            </table>		
+		</td>
+		<td style="padding:0px; vertical-align:top;">		
+		
+		<div style="text-align:center; float:left; margin:10px;">
+		    <a href="/html/2012/4/26/1230.html"><img src="http://img1.cache.netease.com/cnews/2010/10/3/20101003101238aa436.jpg" style="width:110px;width:80px;" /></a><br/>
+		    <a href="/html/2012/4/26/1230.html" title="恋人搭高铁约会3年花36万" style="">恋人搭高铁</a>
+		</div>
+		<div style="text-align:center; float:left; margin:10px;">
+		    <a href="/html/2012/4/26/1229.html"><img src="http://img1.cache.netease.com/cnews/2010/10/8/2010100812172846800.jpg" style="width:110px;width:80px;" /></a><br/>
+		    <a href="/html/2012/4/26/1229.html" title="陶寺遗址证 尧舜非传说" style="">陶寺遗址</a>
+		</div>
+		<div style="text-align:center; float:left; margin:10px;">
+		    <a href="/html/2012/4/26/1228.html"><img src="http://img3.cache.netease.com/club/2010/10/11/20101011083326c2df5.jpg" style="width:110px;width:80px;" /></a><br/>
+		    <a href="/html/2012/4/26/1228.html" title="明星与新欢旧爱间的情事纠葛" style="">明星与新欢</a>
+		</div>
+		<div style="text-align:center; float:left; margin:10px;">
+		    <a href="/html/2012/4/26/1227.html"><img src="http://img4.cache.netease.com/club/2010/10/11/20101011082942d4f3e.jpg" style="width:110px;width:80px;" /></a><br/>
+		    <a href="/html/2012/4/26/1227.html" title="湖南女特级教师驾车撞六学生" style="">女特级教师</a>
+		</div>		
+		</td>
+	</tr>
+</table>
+
+				    </div>
+				</div>
+			</div>
+					
+		</div>
+		
+		<div id="row3_column2" class="columnContainer column2">	
+			
+			<div id="section307" combineIds="" class="sectionPanel clearfix">
+				<div class="sectionTitle" id="sectionTitle307">
+				    <div class="sectionTitleText" id="sectionTitleText307">
+				        <div class="sectionTitleTab" contentId="sectionContentText307"><a href="/html/list/307.html">▍明星追踪</a></div>				    
+				    </div>
+				    <div class="sectionMore"><a href="/html/list/307.html">更多</a></div>
+				    <div class="clear"></div>
+				</div>
+				<div class="sectionContent" id="sectionContent307">
+				    <div class="sectionContentText" id="sectionContentText307">
+				    <div class="">
+<div>
+    <div class="strong"><a href="/html/2012/4/26/1231.html" title="高明骏吸毒被抓满文军告密" style="">高明骏吸毒被抓满文军告密</a></div>
+    <div class="clear"></div>
+    <a href="/html/2012/4/26/1231.html"><img src="http://img4.cache.netease.com/ent/2010/9/30/20100930191809ff7c0.png" style="float:left;margin:5px 8px 8px 0px;width:120px;height:90px;" /></a>
+    <div class="font12">该片讲述了三个女人之间的情感故事，叶璇片中饰演一位寂寞的妻子 <a href="/html/2012/4/26/1231.html" class="left10">[详细]</a></div>
+    
+    <div class="clear"></div>
+</div>   
+
+<ul class="ul1" style="margin:10px 0px 10px 0px;">
+
+<li style="list-style:disc;"><a href="/html/2012/4/26/1236.html" title="彭帅受困体能制约惨遭逆转无视" style="">彭帅受困体能制约惨遭逆转无视</a></li>
+
+<li style="list-style:disc;"><a href="/html/2012/4/26/1235.html" title="大义灭亲可减刑是在亵渎法律无视" style="">大义灭亲可减刑是在亵渎法律无视</a></li>
+
+<li style="list-style:disc;"><a href="/html/2012/4/26/1234.html" title="图说娱乐圈那些花瓶女星无视" style="">图说娱乐圈那些花瓶女星无视</a></li>
+
+<li style="list-style:disc;"><a href="/html/2012/4/26/1233.html" title="直击最疯狂的摩托车飙车秀无视" style="">直击最疯狂的摩托车飙车秀无视</a></li>
+
+<li style="list-style:disc;"><a href="/html/2012/4/26/1232.html" title="华航被曝无视油箱漏油冒险载客飞行" style="">华航被曝无视油箱漏油冒险载客飞行</a></li>
+
+</ul>
+</div>
+				    </div>
+				</div>
+			</div>
+					
+		</div>
+				
+		<div class="clear"></div>	
+	</div>
+		
+	<div class="rowContainer" id="row4">		
+		
+		<div id="row4_column1" class="columnContainer column1">	
+			
+			<div id="section308" combineIds="" class="sectionPanel clearfix">
+				<div class="sectionTitle" id="sectionTitle308">
+				    <div class="sectionTitleText" id="sectionTitleText308">
+				        <div class="sectionTitleTab" contentId="sectionContentText308"><a href="/html/list/308.html">通栏广告</a></div>				    
+				    </div>
+				    <div class="sectionMore"><a href="/html/list/308.html">更多</a></div>
+				    <div class="clear"></div>
+				</div>
+				<div class="sectionContent" id="sectionContent308">
+				    <div class="sectionContentText" id="sectionContentText308">
+				    <div><img src="/static/img/big/ad2.gif"/></div>
+				    </div>
+				</div>
+			</div>
+					
+		</div>
+				
+		<div class="clear"></div>	
+	</div>
+		
+	<div class="rowContainer" id="row5">		
+		
+		<div id="row5_column1" class="columnContainer column1">	
+			
+			<div id="section309" combineIds="" class="sectionPanel clearfix">
+				<div class="sectionTitle" id="sectionTitle309">
+				    <div class="sectionTitleText" id="sectionTitleText309">
+				        <div class="sectionTitleTab" contentId="sectionContentText309"><a href="/html/list/309.html">娱乐资讯</a></div>				    
+				    </div>
+				    <div class="sectionMore"><a href="/html/list/309.html">更多</a></div>
+				    <div class="clear"></div>
+				</div>
+				<div class="sectionContent" id="sectionContent309">
+				    <div class="sectionContentText" id="sectionContentText309">
+				    <table style="height :180px;width:100%;" cellpadding="0" cellspacing="0">
+	<tr>
+		<td style="width:70%; border-right:1px #ccc dotted;" valign="top">
+            <table style="height :180px;width:100%;" cellpadding="0" cellspacing="0">
+                <tr><td style="height:80px;vertical-align:top;">
+                    <div style="margin:5px;">
+                        <a href="/html/2012/4/26/1238.html"><img src="http://img4.cache.netease.com/ent/2010/10/15/20101015132315ec733.png" style="float:left;margin-right:5px;width:120px;height:90px;" /></a>
+                        <div class="strong"><a href="/html/2012/4/26/1238.html" style="font-size:14px;">林志颖生日曝儿子照片</a></div>
+                        <div class="note">今天是林志颖36岁的生日，身在珠海赛车场拍戏的他发布微博曝光了小小志的照片，称儿子是今生最美好的事，...</div>
+                        
+                        <div class="clear"></div>
+                    </div>    
+                </td></tr>
+                <tr><td style="height:100px; vertical-align:top;">
+                    <table style=" width:100%;">
+                
+			            
+                        <tr><td style="font-size:14px;"><a href="/html/2012/4/26/1244.html" title="法国支持建立欧洲反导系统并称将保持核威慑" style="">[环球军事] 法国支持建立欧洲反导系统并称将保持核威慑</a></td><td style="text-align:right;font-size:12px;" class="note">作者</td></tr>
+			            
+                        <tr><td style="font-size:14px;"><a href="/html/2012/4/26/1243.html" title="美国2010财年联邦财政赤字近１.3万亿美元" style="">[财政要闻] 美国2010财年联邦财政赤字近１.3万亿美元</a></td><td style="text-align:right;font-size:12px;" class="note">作者</td></tr>
+			            
+                        <tr><td style="font-size:14px;"><a href="/html/2012/4/26/1242.html" title="住建部:违反限购房规定买卖住房有重大风险" style="">[法律政策] 住建部:违反限购房规定买卖住房有重大风险</a></td><td style="text-align:right;font-size:12px;" class="note">作者</td></tr>
+			            
+                        <tr><td style="font-size:14px;"><a href="/html/2012/4/26/1241.html" title="国家公务员考试昨日开始报名 网络一度堵塞" style="">[天方夜谭] 国家公务员考试昨日开始报名 网络一度堵塞</a></td><td style="text-align:right;font-size:12px;" class="note">作者</td></tr>
+			            
+                        <tr><td style="font-size:14px;"><a href="/html/2012/4/26/1240.html" title="深圳野生动物园承认失误 按工伤赔被虎咬死者" style="">[社会新闻] 深圳野生动物园承认失误 按工伤赔被虎咬死者</a></td><td style="text-align:right;font-size:12px;" class="note">作者</td></tr>
+			            
+                        <tr><td style="font-size:14px;"><a href="/html/2012/4/26/1239.html" title="法国支持建立欧洲反导系统并称将保持核威慑" style="">[环球军事] 法国支持建立欧洲反导系统并称将保持核威慑</a></td><td style="text-align:right;font-size:12px;" class="note">作者</td></tr>
+			            
+                
+                    </table>
+
+
+                </td></tr>
+            </table>		
+		</td>
+		<td style="padding:0px; vertical-align:top;">		
+		
+		<div style="text-align:center; float:left; margin:10px;">
+		    <a href="/html/2012/4/26/1248.html"><img src="http://img4.cache.netease.com/ent/2010/10/11/201010111843492d214.jpg" style="width:110px;width:80px;" /></a><br/>
+		    <a href="/html/2012/4/26/1248.html" title="“东方风云榜”季选音乐营即将席卷热浪" style="">东方风云榜</a>
+		</div>
+		<div style="text-align:center; float:left; margin:10px;">
+		    <a href="/html/2012/4/26/1247.html"><img src="http://img4.cache.netease.com/ent/2010/10/11/201010111457590abb1.jpg" style="width:110px;width:80px;" /></a><br/>
+		    <a href="/html/2012/4/26/1247.html" title="第15届釜山电影节闭幕 中国两位新人导演获奖" style="">釜山电影节</a>
+		</div>
+		<div style="text-align:center; float:left; margin:10px;">
+		    <a href="/html/2012/4/26/1246.html"><img src="http://img3.cache.netease.com/ent/2010/9/13/201009131616576ab3c.jpg" style="width:110px;width:80px;" /></a><br/>
+		    <a href="/html/2012/4/26/1246.html" title="摩登天空音乐节 世界城市音乐节" style="">摩登天空</a>
+		</div>
+		<div style="text-align:center; float:left; margin:10px;">
+		    <a href="/html/2012/4/26/1245.html"><img src="http://img4.cache.netease.com/ent/2010/10/15/201010151038520fc9e.png?froment" style="width:110px;width:80px;" /></a><br/>
+		    <a href="/html/2012/4/26/1245.html" title="学历丢人成绩骄人的娱乐明星" style="">学历丢人明星</a>
+		</div>		
+		</td>
+	</tr>
+</table>
+
+				    </div>
+				</div>
+			</div>
+					
+		</div>
+		
+		<div id="row5_column2" class="columnContainer column2">	
+			
+			<div id="section310" combineIds="" class="sectionPanel clearfix">
+				<div class="sectionTitle" id="sectionTitle310">
+				    <div class="sectionTitleText" id="sectionTitleText310">
+				        <div class="sectionTitleTab" contentId="sectionContentText310"><a href="/html/list/310.html">▍上市公司</a></div>				    
+				    </div>
+				    <div class="sectionMore"><a href="/html/list/310.html">更多</a></div>
+				    <div class="clear"></div>
+				</div>
+				<div class="sectionContent" id="sectionContent310">
+				    <div class="sectionContentText" id="sectionContentText310">
+				    <div class="">
+<div>
+    <div class="strong"><a href="/html/2012/4/26/1249.html" title="《时代》眼中的伊战" style="">《时代》眼中的伊战</a></div>
+    <div class="clear"></div>
+    <a href="/html/2012/4/26/1249.html"><img src="http://img2.cache.netease.com/cnews/2010/9/3/2010090308452932084.jpg" style="float:left;margin:5px 8px 8px 0px;width:120px;height:90px;" /></a>
+    <div class="font12">该片讲述了三个女人之间的情感故事，叶璇片中饰演一位寂寞的妻子 <a href="/html/2012/4/26/1249.html" class="left10">[详细]</a></div>
+    
+    <div class="clear"></div>
+</div>   
+
+<ul class="ul1" style="margin:10px 0px 10px 0px;">
+
+<li style="list-style:disc;"><a href="/html/2012/4/26/1255.html" title="发改委官员称国家将坚决抑制汽车产能过剩" style="">发改委官员称国家将坚决抑制汽车产能过剩</a></li>
+
+<li style="list-style:disc;"><a href="/html/2012/4/26/1254.html" title="舟曲上报重建规划 防洪标准升至50年一遇" style="">舟曲上报重建规划 防洪标准升至50年一遇</a></li>
+
+<li style="list-style:disc;"><a href="/html/2012/4/26/1253.html" title="官员称供求关系变化系生姜价格上涨主因" style="">官员称供求关系变化系生姜价格上涨主因</a></li>
+
+<li style="list-style:disc;"><a href="/html/2012/4/26/1252.html" title="徐州多家医院药品采购二次议价 不按中标价买" style="">徐州多家医院药品采购二次议价 不按中标价买</a></li>
+
+<li style="list-style:disc;"><a href="/html/2012/4/26/1251.html" title="广东政协委员调研称全省225万户仍住茅草房" style="">广东政协委员调研称全省225万户仍住茅草房</a></li>
+
+<li style="list-style:disc;"><a href="/html/2012/4/26/1250.html" title="云南保山山体滑坡已致24人死亡24人失踪" style="">云南保山山体滑坡已致24人死亡24人失踪</a></li>
+
+</ul>
+</div>
+				    </div>
+				</div>
+			</div>
+					
+		</div>
+				
+		<div class="clear"></div>	
+	</div>
+		
+	<div class="rowContainer" id="row6">		
+		
+		<div id="row6_column1" class="columnContainer column1">	
+			
+			<div id="section311" combineIds="" class="sectionPanel clearfix">
+				<div class="sectionTitle" id="sectionTitle311">
+				    <div class="sectionTitleText" id="sectionTitleText311">
+				        <div class="sectionTitleTab" contentId="sectionContentText311"><a href="/html/list/311.html">通栏广告</a></div>				    
+				    </div>
+				    <div class="sectionMore"><a href="/html/list/311.html">更多</a></div>
+				    <div class="clear"></div>
+				</div>
+				<div class="sectionContent" id="sectionContent311">
+				    <div class="sectionContentText" id="sectionContentText311">
+				    <div><img src="/static/img/big/ad3.gif"/></div>
+				    </div>
+				</div>
+			</div>
+					
+		</div>
+				
+		<div class="clear"></div>	
+	</div>
+		
+	<div class="rowContainer" id="row7">		
+		
+		<div id="row7_column1" class="columnContainer column1">	
+			
+			<div id="section312" combineIds="" class="sectionPanel clearfix">
+				<div class="sectionTitle" id="sectionTitle312">
+				    <div class="sectionTitleText" id="sectionTitleText312">
+				        <div class="sectionTitleTab" contentId="sectionContentText312"><a href="/html/list/312.html">综合图文</a></div>				    
+				    </div>
+				    <div class="sectionMore"><a href="/html/list/312.html">更多</a></div>
+				    <div class="clear"></div>
+				</div>
+				<div class="sectionContent" id="sectionContent312">
+				    <div class="sectionContentText" id="sectionContentText312">
+				    <table style="height :180px;width:100%;" cellpadding="0" cellspacing="0">
+	<tr>
+		<td style="width:70%; border-right:1px #ccc dotted;" valign="top">
+            <table style="height :180px;width:100%;" cellpadding="0" cellspacing="0">
+                <tr><td style="height:80px;vertical-align:top;">
+                    <div style="margin:5px;">
+                        <a href="/html/2012/4/26/1257.html"><img src="http://img1.cache.netease.com/cnews/2010/10/11/201010110432204a6d3.jpg" style="float:left;margin-right:5px;width:120px;height:90px;" /></a>
+                        <div class="strong"><a href="/html/2012/4/26/1257.html" style="font-size:14px;">丛林里的特雷莎修女</a></div>
+                        <div class="note">谢欣燕填写问卷时，发现不对，计算机屏幕居然出现她和男友庄胜杰出游以及“嫁给我吧”的画面，被蒙在鼓里的...</div>
+                        
+                        <div class="clear"></div>
+                    </div>    
+                </td></tr>
+                <tr><td style="height:100px; vertical-align:top;">
+                    <table style=" width:100%;">
+                
+			            
+                        <tr><td style="font-size:14px;"><a href="/html/2012/4/26/1263.html" title="印度首富入住27层新居 造价66.5亿创全球最贵" style="">[环球资讯] 印度首富入住27层新居 造价66.5亿创全球最贵</a></td><td style="text-align:right;font-size:12px;" class="note">作者</td></tr>
+			            
+                        <tr><td style="font-size:14px;"><a href="/html/2012/4/26/1262.html" title="河南教育厅发文组织数万学生到富士康实习" style="">[教育政策] 河南教育厅发文组织数万学生到富士康实习</a></td><td style="text-align:right;font-size:12px;" class="note">作者</td></tr>
+			            
+                        <tr><td style="font-size:14px;"><a href="/html/2012/4/26/1261.html" title="中国新车年销量将达1700万 逼近美国最高水平" style="">[汽车销售] 中国新车年销量将达1700万 逼近美国最高水平</a></td><td style="text-align:right;font-size:12px;" class="note">作者</td></tr>
+			            
+                        <tr><td style="font-size:14px;"><a href="/html/2012/4/26/1260.html" title="北京周边县市出台政策限制外地人购房" style="">[法律政策] 北京周边县市出台政策限制外地人购房</a></td><td style="text-align:right;font-size:12px;" class="note">作者</td></tr>
+			            
+                        <tr><td style="font-size:14px;"><a href="/html/2012/4/26/1259.html" title="美国汇率报告或推迟到11月G20峰会后发布" style="">[股市金融] 美国汇率报告或推迟到11月G20峰会后发布</a></td><td style="text-align:right;font-size:12px;" class="note">作者</td></tr>
+			            
+                        <tr><td style="font-size:14px;"><a href="/html/2012/4/26/1258.html" title="印度首富入住27层新居 造价66.5亿创全球最贵" style="">[环球资讯] 印度首富入住27层新居 造价66.5亿创全球最贵</a></td><td style="text-align:right;font-size:12px;" class="note">作者</td></tr>
+			            
+                
+                    </table>
+
+
+                </td></tr>
+            </table>		
+		</td>
+		<td style="padding:0px; vertical-align:top;">		
+		
+		<div style="text-align:center; float:left; margin:10px;">
+		    <a href="/html/2012/4/26/1267.html"><img src="http://img1.cache.netease.com/cnews/2010/10/3/20101003101238aa436.jpg" style="width:110px;width:80px;" /></a><br/>
+		    <a href="/html/2012/4/26/1267.html" title="恋人搭高铁约会3年花36万" style="">恋人搭高铁</a>
+		</div>
+		<div style="text-align:center; float:left; margin:10px;">
+		    <a href="/html/2012/4/26/1266.html"><img src="http://img1.cache.netease.com/cnews/2010/10/8/2010100812172846800.jpg" style="width:110px;width:80px;" /></a><br/>
+		    <a href="/html/2012/4/26/1266.html" title="陶寺遗址证 尧舜非传说" style="">陶寺遗址</a>
+		</div>
+		<div style="text-align:center; float:left; margin:10px;">
+		    <a href="/html/2012/4/26/1265.html"><img src="http://img3.cache.netease.com/club/2010/10/11/20101011083326c2df5.jpg" style="width:110px;width:80px;" /></a><br/>
+		    <a href="/html/2012/4/26/1265.html" title="明星与新欢旧爱间的情事纠葛" style="">明星与新欢</a>
+		</div>
+		<div style="text-align:center; float:left; margin:10px;">
+		    <a href="/html/2012/4/26/1264.html"><img src="http://img4.cache.netease.com/club/2010/10/11/20101011082942d4f3e.jpg" style="width:110px;width:80px;" /></a><br/>
+		    <a href="/html/2012/4/26/1264.html" title="湖南女特级教师驾车撞六学生" style="">女特级教师</a>
+		</div>		
+		</td>
+	</tr>
+</table>
+
+				    </div>
+				</div>
+			</div>
+					
+		</div>
+		
+		<div id="row7_column2" class="columnContainer column2">	
+			
+			<div id="section313" combineIds="" class="sectionPanel clearfix">
+				<div class="sectionTitle" id="sectionTitle313">
+				    <div class="sectionTitleText" id="sectionTitleText313">
+				        <div class="sectionTitleTab" contentId="sectionContentText313"><a href="/html/list/313.html">▍明星追踪</a></div>				    
+				    </div>
+				    <div class="sectionMore"><a href="/html/list/313.html">更多</a></div>
+				    <div class="clear"></div>
+				</div>
+				<div class="sectionContent" id="sectionContent313">
+				    <div class="sectionContentText" id="sectionContentText313">
+				    <div class="">
+<div>
+    <div class="strong"><a href="/html/2012/4/26/1268.html" title="高明骏吸毒被抓满文军告密" style="">高明骏吸毒被抓满文军告密</a></div>
+    <div class="clear"></div>
+    <a href="/html/2012/4/26/1268.html"><img src="http://img4.cache.netease.com/ent/2010/9/30/20100930191809ff7c0.png" style="float:left;margin:5px 8px 8px 0px;width:120px;height:90px;" /></a>
+    <div class="font12">该片讲述了三个女人之间的情感故事，叶璇片中饰演一位寂寞的妻子 <a href="/html/2012/4/26/1268.html" class="left10">[详细]</a></div>
+    
+    <div class="clear"></div>
+</div>   
+
+<ul class="ul1" style="margin:10px 0px 10px 0px;">
+
+<li style="list-style:disc;"><a href="/html/2012/4/26/1273.html" title="彭帅受困体能制约惨遭逆转无视" style="">彭帅受困体能制约惨遭逆转无视</a></li>
+
+<li style="list-style:disc;"><a href="/html/2012/4/26/1272.html" title="大义灭亲可减刑是在亵渎法律无视" style="">大义灭亲可减刑是在亵渎法律无视</a></li>
+
+<li style="list-style:disc;"><a href="/html/2012/4/26/1271.html" title="图说娱乐圈那些花瓶女星无视" style="">图说娱乐圈那些花瓶女星无视</a></li>
+
+<li style="list-style:disc;"><a href="/html/2012/4/26/1270.html" title="直击最疯狂的摩托车飙车秀无视" style="">直击最疯狂的摩托车飙车秀无视</a></li>
+
+<li style="list-style:disc;"><a href="/html/2012/4/26/1269.html" title="华航被曝无视油箱漏油冒险载客飞行" style="">华航被曝无视油箱漏油冒险载客飞行</a></li>
+
+</ul>
+</div>
+				    </div>
+				</div>
+			</div>
+					
+		</div>
+				
+		<div class="clear"></div>	
+	</div>
+	
+</div></div>    
+</div>
+
+<script>
+$(document).ready( function() {
+    
+    var showAdminTool = function() {
+        if( typeof(ctx) == 'undefined' ) return;
+        if( ctx.viewer.IsLogin==false  ) return;
+        
+        if( ctx.owner.IsSite) {
+            
+            if( ctx.viewer.IsAdministrator ) {
+                $('#adminTool').show();
+            }
+            else if( ctx.viewer.IsInAdminGroup ) {
+                $.post( '/Security/24/CanAppAdmin.aspx?appType=wojilu.Apps.Content.Domain.ContentApp'.toAjax(), function(data) {
+                    if( 'ok'==data ) $('#adminTool').show();
+                });
+            }
+            
+            
+        }
+        else if( ctx.viewerOwnerSame ) {
+            $('#adminTool').show();
+        }
+    
+        
+    };
+    
+    wojilu.site.load( showAdminTool );
+
+    wojilu.ui.frmLink();
+});
+</script>
+        <div class="clear"></div>
+    </div>
+    </div>
+
+    <div id="footerTopAd" class="adItem" data-ad="Footer"></div>
+    
+    <div id="pageFooterWrap">
+        <div id="pageFooter">
+	        <div id="footerSeperator"></div>
+	        <div></div>
+	        <div>Powered by <a href="http://www.wojilu.com" target="_blank">我记录1.8</a></div>
+	        <div>Processed in <span id="elapseTime">0</span> seconds, <span id="sqlQueries">0</span> queries<div>
+	        <div><a href="/Admin24/SiteSkin/CustomBg.aspx" id="customSkin" class="frmBox" title="自定义模板"></a></div>
+        </div>
+    </div>
+    
+</div>
+</div>
+
+
+<script>
+$(document).ready( function() {
+    var q = wojilu.tool.getQuery( 'skin' );
+    if( q== 'custom' ) {
+        $('#customSkin').click();
+        wojilu.ui.box.hideBg();
+    }
+});
+
+
+
+</script>
+
+
+<script>var eleTime = document.getElementById('elapseTime');if( eleTime ) {eleTime.innerHTML='0.0410';};var eleSql = document.getElementById('sqlQueries');if( eleSql ) {eleSql.innerHTML='299';}</script></body>
+</html>

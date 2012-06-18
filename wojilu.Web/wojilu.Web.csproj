@@ -357,9 +357,12 @@
     <Content Include="framework\views\Layouts\GroupLayout\Layout.html" />
     <Content Include="framework\views\Layouts\SiteLayout\AdminLayout.html" />
     <Content Include="framework\views\Layouts\SiteLayout\Layout.html" />
+    <Content Include="framework\views\Layouts\SiteLayout\Layout2.html" />
     <Content Include="framework\views\Layouts\SpaceLayout\AdminLayout.html" />
     <Content Include="framework\views\Layouts\SpaceLayout\Layout.html" />
     <Content Include="framework\views\Layouts\SpaceLayout\SiteNav.html" />
+    <Content Include="framework\views\Layouts\TopNav\HeaderNew.html" />
+    <Content Include="framework\views\Layouts\TopNav\IndexNew.html" />
     <Content Include="framework\views\Main\Login.html" />
     <Content Include="framework\views\Open\Comment\List.html" />
     <Content Include="framework\views\Register\Register.html" />

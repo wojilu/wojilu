@@ -45,6 +45,9 @@ namespace wojilu.Web.Controller.Layouts {
             currencyService = new CurrencyService();
         }
 
+        public void IndexNew() {
+            Index();
+        }
 
         public void Index() {
 
@@ -278,6 +281,8 @@ namespace wojilu.Web.Controller.Layouts {
 
         public void Header() {
 
+            view( "HeaderNew" );
+
             set( "site.Name", Site.Instance.Name );
             set( "site.Logo", config.Instance.Site.GetLogoHtml() );
 
@@ -288,8 +293,8 @@ namespace wojilu.Web.Controller.Layouts {
             IMenu currentRootMenu = bindSubMenus( list );
             bindNavList( list, currentRootMenu );
 
-            List<Dictionary<string, string>> langs = wojilu.lang.GetSupportedLang();
-            bindList( "langs", "lang", langs, bindLang );
+            //List<Dictionary<string, string>> langs = wojilu.lang.GetSupportedLang();
+            //bindList( "langs", "lang", langs, bindLang );
         }
 
         private void bindLang( IBlock block, String lbl, object obj ) {
@@ -343,14 +348,14 @@ namespace wojilu.Web.Controller.Layouts {
             IMenu currentRootMenu = MenuHelper.getCurrentRootMenu( list, ctx );
             List<IMenu> subMenus = MenuHelper.getSubMenus( list, currentRootMenu );
 
-            IBlock subMenusPanel = getBlock( "subMenusPanel" );
+            //IBlock subMenusPanel = getBlock( "subMenusPanel" );
 
-            if (subMenus.Count > 0) {
-                IBlock block = subMenusPanel.GetBlock( "subMenus" );
-                MenuHelper.bindSubMenus( block, subMenus, ctx );
+            //if (subMenus.Count > 0) {
+            //    IBlock block = subMenusPanel.GetBlock( "subMenus" );
+            //    MenuHelper.bindSubMenus( block, subMenus, ctx );
 
-                subMenusPanel.Next();
-            }
+            //    subMenusPanel.Next();
+            //}
 
             return currentRootMenu;
         }

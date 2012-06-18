@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+    	<meta charset="utf-8">
+    	<title>Bootstrap, from Twitter</title>
+    	<meta name="description" content="">
+    	<meta name="author" content="">
+    	<!--[if lt IE 9]>
+    		<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    	<![endif]-->
+    	<link href="bootstrap.min.css" rel="stylesheet">
+   		<style>
+    		body{ padding-top: 60px; }
+		</style>
+    	<!--[if IE 6]>    
+    		<link href="ie6.min.css" rel="stylesheet">
+    	<![endif]-->
+    </head>
+    <body>
+    	<div class="navbar navbar-fixed-top">
+    		<div class="navbar-inner">
+    			<div class="container">
+    				<a class="brand" href="#">Project name</a>
+    				<div class="nav-collapse">
+    					<ul class="nav">
+                            <li class="active"><a href="#">Home</a></li>
+                            <li><a href="#">Link 1</a></li>
+                            <li><a href="#">Link 2</a></li>
+                            <li><a href="#">Link 3</a></li>
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Dropdown <b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                    <li><a href="#"><i class="icon-search"></i>Action</a></li>
+                                    <li><a href="#"><i class="icon-search"></i>Another action</a></li>
+                                    <li><a href="#"><i class="icon-search"></i>Something else here</a></li>
+                                    <li class="divider"></li>
+                                    <li><a href="#"><i class="icon-search"></i>Separated link</a></li>
+                                    <li><a href="#"><i class="icon-search"></i>One more separated link</a></li>
+                                </ul>
+                            </li>
+                        </ul>
+    				</div>
+    			</div>
+    		</div>
+    	</div>
+
+    	<div class="container">
+        
+			<section id="modals">
+                  <div class="page-header">
+                    <h1>Modals <small>bootstrap-modal.js</small></h1>
+                  </div>
+                  <div class="row">
+                    <div class="span3 columns">
+                      <h3>About modals</h3>
+                      <p>A streamlined, but flexible, take on the traditional javascript modal plugin with only the minimum required functionality and smart defaults.</p>
+                      <a class="btn" target="_blank" href="assets/js/bootstrap-modal.js">Download file</a>
+                    </div>
+                    <div class="span9 columns">
+            
+                      <h2>Live demo</h2>
+                      <p>Toggle a modal via javascript by clicking the button below. It will slide down and fade in from the top of the page.</p>
+                      <!-- sample modal content -->
+                      <div class="modal hide fade" id="myModal">
+                        <div class="modal-header">
+                          <a data-dismiss="modal" class="close">×</a>
+                          <h3>Modal Heading</h3>
+                        </div>
+                        <div class="modal-body">
+                          <h4>Text in a modal</h4>
+                          <p>Duis mollis, est non commodo luctus, nisi erat porttitor ligula, eget lacinia odio sem.</p>
+            
+                          <h4>Popover in a modal</h4>
+                          <p>This <a data-content="And here's some amazing content. It's very engaging. right?" class="btn popover-test" href="#" data-original-title="A Title" style="color: red;">button</a> should trigger a popover on hover.</p>
+            
+                          <h4>Tooltips in a modal</h4>
+                          <p><a class="tooltip-test" href="#" data-original-title="Tooltip">This link</a> and <a class="tooltip-test" href="#" data-original-title="Tooltip">that link</a> should have tooltips on hover.</p>
+                        </div>
+                        <div class="modal-footer">
+                          <a class="btn btn-primary" href="#">Save changes</a>
+                          <a data-dismiss="modal" class="btn" href="#">Close</a>
+                        </div>
+                      </div>
+                      <a class="btn btn-primary btn-large" href="#myModal" data-toggle="modal">Launch demo modal</a>
+                      <hr>
+                    </div>
+                  </div>
+                </section>
+		</div> <!-- /container -->
+
+		<script src="jquery-1.7.1.min.js"></script>
+        <script src="bootstrap.min.js"></script>
+        <script type="text/javascript">
+			$(function(){if($.browser.msie&&parseInt($.browser.version,10)===6){$('.row div[class^="span"]:last-child').addClass("last-child");$('[class*="span"]').addClass("margin-left-20");$(':button[class="btn"], :reset[class="btn"], :submit[class="btn"], input[type="button"]').addClass("button-reset");$(":checkbox").addClass("input-checkbox");$('[class^="icon-"], [class*=" icon-"]').addClass("icon-sprite");$(".pagination li:first-child a").addClass("pagination-first-child")}
+				
+				// tooltip demo
+				$('.tooltip-demo.well').tooltip({
+				  selector: "a[rel=tooltip]",
+				  placement: "top"
+				})
+			
+				$('.tooltip-test').tooltip()
+				$('.popover-test').popover()
+			
+				// popover demo
+				$("a[rel=popover]")
+				  .popover({
+					placement : "top"  
+				   })
+				  .click(function(e) {
+					e.preventDefault()
+				  })
+			});</script>
+	</body>
+</html>
