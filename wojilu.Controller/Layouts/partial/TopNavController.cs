@@ -26,7 +26,7 @@ namespace wojilu.Web.Controller.Layouts {
 
                 String lk = string.Format( "<img src=\"{0}lock.gif\"/> ", sys.Path.Img );
 
-                siteAdminCmd += string.Format( "<a href=\"{0}\" class=\"quickCmd\">采集</a> ", Link.T2( ctx.viewer.obj, new Users.Admin.Spiders.ArticleController().List, 0 ) );
+                //siteAdminCmd += string.Format( "<a href=\"{0}\" class=\"quickCmd\">采集</a> ", Link.T2( ctx.viewer.obj, new Users.Admin.Spiders.ArticleController().List, 0 ) );
 
                 if (AdminSecurityUtils.HasSession( ctx ))
                     siteAdminCmd += string.Format( "<a href='{0}'>{2}{1}</a>", Link.T2( Site.Instance, new Admin.MainController().Welcome ), lang( "siteAdmin" ), lk );
