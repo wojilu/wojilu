@@ -1,9 +1,9 @@
 ﻿<div style="margin:0px;margin-top: 5px;margin-left: 0px; margin-bottom:10px; width:80%;">
 
     <div style="margin:0px;font-size:12px; background: #f5f5f5; border-radius: 4px; box-shadow: 5px 5px 5px #ddd;">
-        <div style="padding: 10px 15px;">
+        <div style="padding: 10px 15px; padding-bottom:20px;">
             <!-- BEGIN options -->
-            <div style="margin-bottom: 3px;">
+            <div style="margin-bottom: 3px; margin-left:10px;">
                 <div>#{op.Text}</div>
                 <div>
                     <div style="background:#f2f2f2;border: 1px #aaa solid;width:200px; float: left;padding: 0px;">
@@ -14,10 +14,29 @@
                     <div style="clear: both;"></div>
                  </div>
             </div>
-            <!-- END options -->
+            <!-- END options -->            
 
-            <div class="note">
-                <a href="#{poll.ResultLink}" class="frmBox">投票人数: #{poll.Voters}</a> 。#{poll.ExpiryInfo}<span class="link cmdViewForm" topicId="#{topicId}">进入投票</span>
+            <div class="note" style="margin-left:-10px;">
+
+                <span class="note">#{poll.ExpiryInfo}</span>
+
+                <!-- BEGIN btnVote -->
+                <span class="cmdViewForm btn btn-primary btn-mini" topicId="#{topicId}">
+                    <i class="icon-hand-right icon-white"></i> 
+                    我要投票
+                </span>
+                <!-- END btnVote -->
+
+                <!-- BEGIN lblVoted -->
+                    <span class="left10 lable">(您已经投过票)</span>
+                <!-- END lblVoted -->
+
+                <!-- BEGIN lnkVoter -->
+                <a href="#{poll.ResultLink}" class="frmBox left10 right10" target="_blank">投票人数: #{poll.Voters}</a>
+                <!-- END lnkVoter -->
+
+
+                
             </div>
             
         </div>

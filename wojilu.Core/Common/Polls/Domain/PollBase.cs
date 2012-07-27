@@ -1,4 +1,4 @@
-/*
+﻿/*
  * Copyright (c) 2010, www.wojilu.com. All rights reserved.
  */
 
@@ -39,8 +39,8 @@ namespace wojilu.Common.Polls.Domain {
         public String Answer { get; set; }
 
         public int VoterRank { get; set; }
-        public int IsOpenVoter { get; set; }
-        public int IsVisible { get; set; }
+        public int IsOpenVoter { get; set; } // 1=投票人不公开，0=投票公开
+        public int IsVisible { get; set; } // 1=投票之后才能查看结果，0=不投票就可以查看
         public DateTime ExpiryDate { get; set; }
 
         public String AnonymousResult { get; set; }

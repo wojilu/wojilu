@@ -1,12 +1,8 @@
-﻿
-<style>
-    
+﻿<style>    
     .pollOptionWrap td { padding: 3px 3px 3px 8px;}
 </style>
 
 <div style="margin:0px;margin-top: 5px;margin-bottom:10px; width:80%;" id="poll_#{poll.Id}">
-
-
 
     <div style="margin:0px;font-size:12px;padding:10px 10px 5px 10px; background: #f5f5f5; border-radius: 4px; box-shadow: 5px 5px 5px #ddd;">
         <div class="">
@@ -17,14 +13,32 @@
             </tr><!-- END options -->
             </table>
 
-            <div class="note" style="width:95%;margin-left: 15px;">#{poll.ExpiryInfo}
-            
-            <span class="link cmdViewResult" topicId="#{topicId}">查看结果</span>
-            </div>
+            <div class="note" style="margin-left:15px;">#{poll.ExpiryInfo}</div>
 
-            <!-- BEGIN cmdVote -->
-            <div class="pollSubmit">                
-                <input id="btnPoll#{poll.Id}" class="btn btn-primary" type="button" value="_{pollVote}" cid="poll_#{poll.Id}" /> 
+            <div style="margin:10px 15px;">
+
+                <!-- BEGIN cmdVote -->             
+                <input id="btnPoll#{poll.Id}" class="btn btn-primary right10" type="button" value="_{pollVote}" cid="poll_#{poll.Id}" />
+                <!-- END cmdVote -->
+            
+                <!-- BEGIN plsVote -->
+                <span class="right10">_{pollLoginRequire}</span>
+                <!-- END plsVote -->
+
+                <!-- BEGIN lnkView -->
+                <span class="link cmdViewResult strong" topicId="#{topicId}">&raquo; 查看结果</span>
+                <!-- END lnkView -->
+
+                <!-- BEGIN lblView -->
+                <span class="alert alert-warning">投票之后才能查看结果</span>
+                <span class="hide cmdViewResult" topicId="#{topicId}"></span>
+                <!-- END lblView -->
+
+            </div>
+        </div>
+    </div>
+</div>
+
 
 <script>
 
@@ -61,7 +75,7 @@
             var voteLink = '#{poll.VoteLink}'.toAjax();
 
             $.post(voteLink, pValue, function (data) {
-                
+
                 if ('ok' == data) {
                     refreshResult();
                     $('.cmdViewResult').click();
@@ -75,15 +89,3 @@
     });
 
 </script>
-            </div><!-- END cmdVote -->
-            
-            <!-- BEGIN plsVote --><div style="margin:0px 0px 10px 0px; color:#666;">_{pollLoginRequire}</div><!-- END plsVote -->
-            
-        </div>
-    </div>
-</div>
-
-
-
-
-

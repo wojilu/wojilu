@@ -1,4 +1,4 @@
-/*
+﻿/*
  * Copyright (c) 2010, www.wojilu.com. All rights reserved.
  */
 
@@ -86,8 +86,8 @@ namespace wojilu.Web.Controller.Forum.Users {
                 opblock.Next();
             }
 
-            IBlock cmdBlock = getBlock( "cmdVote" );
-            IBlock tipBlock = getBlock( "plsVote" );
+            IBlock cmdBlock = getBlock( "cmdVote" ); // 投票命令
+            IBlock tipBlock = getBlock( "plsVote" ); // 请先登录
 
             if (p.IsClosed()) {
             }
@@ -98,7 +98,21 @@ namespace wojilu.Web.Controller.Forum.Users {
                 tipBlock.Next();
             }
 
+            bindViewLink( p );
+
             set( "poll.ExpiryInfo", p.GetRealExpiryDate() );
+        }
+
+        private void bindViewLink( ForumPoll p ) {
+            IBlock lnkView = getBlock( "lnkView" );
+            IBlock lblView = getBlock( "lblView" );
+            if (p.IsVisible == 0) {
+                lnkView.Set( "topicId", p.TopicId );
+                lnkView.Next();
+            }
+            else {
+                lblView.Next();
+            }
         }
 
         public void GetPollResultHtml( int pollId ) {
@@ -107,7 +121,6 @@ namespace wojilu.Web.Controller.Forum.Users {
 
             echo( loadHtml( pollResult ) );
         }
-
 
         public void pollResult() {
 
@@ -119,7 +132,13 @@ namespace wojilu.Web.Controller.Forum.Users {
             set( "poll.Title", p.Title );
             set( "poll.Question", p.Question );
             set( "poll.Voters", p.VoteCount );
-            set( "poll.ResultLink", to( Voter, p.Id ) + "?boardId=" + board.Id );
+
+            IBlock lnkVoter = getBlock( "lnkVoter" );
+            if (p.IsOpenVoter == 0) {
+                lnkVoter.Set( "poll.ResultLink", to( Voter, p.Id ) + "?boardId=" + board.Id );
+                lnkVoter.Set( "poll.Voters", p.VoteCount );
+                lnkVoter.Next();
+            }
 
             IBlock opblock = getBlock( "options" );
             for (int i = 0; i < p.OptionList.Length; i++) {
@@ -132,7 +151,17 @@ namespace wojilu.Web.Controller.Forum.Users {
                 opblock.Set( "op.Percent", or.VotesAndPercent );
                 opblock.Next();
             }
+
             set( "poll.ExpiryInfo", p.GetRealExpiryDate() );
+
+            IBlock btnVote = getBlock( "btnVote" );
+            IBlock lblVoted = getBlock( "lblVoted" );
+            if (p.CheckHasVote( ctx.viewer.Id )) {
+                lblVoted.Next();
+            }
+            else if( p.IsClosed()==false ) {
+                btnVote.Next();
+            }
         }
 
         private String getControl( ForumPoll poll, int optionIndex, String optionText ) {
