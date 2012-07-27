@@ -1,5 +1,5 @@
-﻿.link .hand{cursor:pointer;}
-
+﻿.link, .hand{cursor:pointer;}
+.link { color:#0088cc; } /*链接的颜色*/
 
 .hide {display:none;}
 .note {color:#666; }

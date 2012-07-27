@@ -9,6 +9,8 @@ using wojilu.ORM;
 using wojilu.Members.Users.Domain;
 using wojilu.Common.Tags;
 using wojilu.Common.AppBase.Interface;
+using System.Collections.Generic;
+using wojilu.Common.Polls.Service;
 
 namespace wojilu.Common.Polls.Domain {
 
@@ -24,6 +26,7 @@ namespace wojilu.Common.Polls.Domain {
         public User Creator { get; set; }
         public String CreatorUrl { get; set; }
 
+        // radio/checkbox
         public int Type { get; set; }
 
         [NotNull( Lang = "exTitle" )]
@@ -111,6 +114,32 @@ namespace wojilu.Common.Polls.Domain {
 
             return ndb.find( t, "MemberId>0 and MemberId=" + userId + " and PollId=" + this.Id ).first() != null;
         }
+
+        [NotSave]
+        public Boolean IsOptionRepeat {
+            get {
+
+                if (this.OptionList == null || this.OptionList.Length <= 1) return false;
+
+                List<String> list = new List<string>();
+                for (int i = 0; i < this.OptionList.Length; i++) {
+                    if (list.Contains( this.OptionList[i] )) return true;
+                    list.Add( this.OptionList[i] );
+                }
+
+                return false;
+            }
+        }
+
+
+        public Boolean IsClosed() {
+            return PollHelper.IsClosed( this );
+        }
+
+        public String GetRealExpiryDate() {
+            return PollHelper.GetRealExpiryDate( this );
+        }
+
 
 
     }

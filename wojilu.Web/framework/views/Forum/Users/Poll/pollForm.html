@@ -1,0 +1,89 @@
+﻿
+<style>
+    
+    .pollOptionWrap td { padding: 3px 3px 3px 8px;}
+</style>
+
+<div style="margin:0px;margin-top: 5px;margin-bottom:10px; width:80%;" id="poll_#{poll.Id}">
+
+
+
+    <div style="margin:0px;font-size:12px;padding:10px 10px 5px 10px; background: #f5f5f5; border-radius: 4px; box-shadow: 5px 5px 5px #ddd;">
+        <div class="">
+            <table class="pollOptionWrap" id="pollOption#{topicId}" style="width:95%;margin-left:5px;">
+            <!-- BEGIN options -->
+            <tr>
+                <td class="optionItemString">#{op.SelectControl}</td>
+            </tr><!-- END options -->
+            </table>
+
+            <div class="note" style="width:95%;margin-left: 15px;">#{poll.ExpiryInfo}
+            
+            <span class="link cmdViewResult" topicId="#{topicId}">查看结果</span>
+            </div>
+
+            <!-- BEGIN cmdVote -->
+            <div class="pollSubmit">                
+                <input id="btnPoll#{poll.Id}" class="btn btn-primary" type="button" value="_{pollVote}" cid="poll_#{poll.Id}" /> 
+
+<script>
+
+    $(document).ready(function () {
+
+        function bindViewForm() {
+            $('.cmdViewForm').click(function () {
+                var topicId = $(this).attr('topicId');
+                $('#pollFormWrap' + topicId).show();
+                $('#pollResultWrap' + topicId).hide();
+            });
+        }
+
+        function refreshResult() {
+            var getResultHtmlLink = '#{getResultHtmlLink}'.toAjax();
+            $.post(getResultHtmlLink, function (data) {
+                $('#pollResultWrap#{topicId}').html(data);
+                bindViewForm();
+            });
+        }
+
+        $('#btnPoll#{poll.Id}').click(function () {
+            var ctx = $('#pollOption#{topicId}');
+
+            var selectedControl = $('input[name=pollOption]:checked', ctx);
+            var pValue = selectedControl.serialize();
+            if (wojilu.str.hasText(pValue) == false) {
+                alert('_{pollSelectRequire}');
+                return false;
+            }
+
+            $(this).attr('disabled', 'disabled');
+            $(this).val('你已经投过票');
+            var voteLink = '#{poll.VoteLink}'.toAjax();
+
+            $.post(voteLink, pValue, function (data) {
+                
+                if ('ok' == data) {
+                    refreshResult();
+                    $('.cmdViewResult').click();
+                } else {
+                    //var msg = eval('(' + data + ')');
+                    alert(data.Msg);
+                }
+            });
+        });
+
+    });
+
+</script>
+            </div><!-- END cmdVote -->
+            
+            <!-- BEGIN plsVote --><div style="margin:0px 0px 10px 0px; color:#666;">_{pollLoginRequire}</div><!-- END plsVote -->
+            
+        </div>
+    </div>
+</div>
+
+
+
+
+

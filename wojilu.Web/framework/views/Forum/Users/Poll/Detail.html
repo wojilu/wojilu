@@ -1,0 +1,28 @@
+﻿<div class="pollWrap" id="pollWrap#{topicId}">
+
+    <div id="pollFormWrap#{topicId}" style="#{formStyle}">
+        #{pollForm}      
+    </div>
+
+    <div id="pollResultWrap#{topicId}" style="#{resultStype}">
+        #{pollResult}
+    </div>
+
+</div>
+
+<script>
+    // 投票结果切换
+    $('.cmdViewResult').click(function () {
+        var topicId = $(this).attr('topicId');
+        $('#pollFormWrap' + topicId).hide();
+        $('#pollResultWrap' + topicId).show();
+    });
+
+    $('.cmdViewForm').click(function () {
+        var topicId = $(this).attr('topicId');
+        $('#pollFormWrap' + topicId).show();
+        $('#pollResultWrap' + topicId).hide();
+    });
+
+
+</script>

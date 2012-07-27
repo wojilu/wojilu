@@ -18,6 +18,8 @@ using wojilu.Apps.Forum.Service;
 using wojilu.Web.Controller.Poll.Utils;
 using wojilu.Apps.Poll.Views;
 using wojilu.Web.Controller.Forum.Utils;
+using wojilu.Apps.Forum.Views;
+using wojilu.Common.Polls.Service;
 
 
 namespace wojilu.Web.Controller.Forum.Users {
@@ -34,6 +36,117 @@ namespace wojilu.Web.Controller.Forum.Users {
             boardService = new ForumBoardService();
             pollService = new ForumPollService();
         }
+
+        public void Detail() {
+
+            ForumPoll p = ctx.GetItem( "poll" ) as ForumPoll;
+
+            if (p == null) {
+                set( "pollForm", "" );
+                set( "pollResult", "" );
+                return;
+            }
+
+            set( "topicId", p.TopicId );
+
+            String displayCss = "display:none;";
+            if (p.CheckHasVote( ctx.viewer.Id )) {
+                set( "formStyle", displayCss );
+                set( "resultStype", "" );
+            }
+            else {
+                set( "formStyle", "" );
+                set( "resultStype", displayCss );
+            }
+
+            load( "pollForm", pollForm );
+            load( "pollResult", pollResult );
+        }
+
+        public void pollForm() {
+
+            ForumPoll p = ctx.GetItem( "poll" ) as ForumPoll;
+            ForumBoard board = setCurrentBoard( p );
+
+            set( "topicId", p.TopicId );
+
+            set( "getResultHtmlLink", to( GetPollResultHtml, p.Id ) + "?boardId=" + board.Id );
+
+            set( "poll.Id", p.Id );
+            set( "poll.Title", p.Title );
+            set( "poll.Question", p.Question );
+            set( "poll.Voters", p.VoteCount );
+            set( "poll.VoteLink", to( Vote, p.Id ) + "?boardId=" + board.Id );
+
+            IBlock opblock = getBlock( "options" );
+            for (int i = 0; i < p.OptionList.Length; i++) {
+
+                opblock.Set( "op.SelectControl", getControl( p, i, p.OptionList[i] ) );
+                opblock.Set( "op.Id", (i + 1) );
+                opblock.Next();
+            }
+
+            IBlock cmdBlock = getBlock( "cmdVote" );
+            IBlock tipBlock = getBlock( "plsVote" );
+
+            if (p.IsClosed()) {
+            }
+            else if (ctx.viewer.IsLogin) {
+                cmdBlock.Next();
+            }
+            else {
+                tipBlock.Next();
+            }
+
+            set( "poll.ExpiryInfo", p.GetRealExpiryDate() );
+        }
+
+        public void GetPollResultHtml( int pollId ) {
+            ForumPoll p = pollService.GetById( pollId );
+            ctx.SetItem( "poll", p );
+
+            echo( loadHtml( pollResult ) );
+        }
+
+
+        public void pollResult() {
+
+            ForumPoll p = ctx.GetItem( "poll" ) as ForumPoll;
+            ForumBoard board = setCurrentBoard( p );
+
+            set( "topicId", p.TopicId );
+
+            set( "poll.Title", p.Title );
+            set( "poll.Question", p.Question );
+            set( "poll.Voters", p.VoteCount );
+            set( "poll.ResultLink", to( Voter, p.Id ) + "?boardId=" + board.Id );
+
+            IBlock opblock = getBlock( "options" );
+            for (int i = 0; i < p.OptionList.Length; i++) {
+
+                PollHelper or = new PollHelper( p, p.OptionList.Length, i );
+
+                opblock.Set( "op.Text", p.OptionList[i] );
+                opblock.Set( "op.Id", (i + 1) );
+                opblock.Set( "op.ImgWidth", or.ImgWidth * 1 );
+                opblock.Set( "op.Percent", or.VotesAndPercent );
+                opblock.Next();
+            }
+            set( "poll.ExpiryInfo", p.GetRealExpiryDate() );
+        }
+
+        private String getControl( ForumPoll poll, int optionIndex, String optionText ) {
+            Html html = new Html();
+            if (poll.Type == 1) {
+                html.CheckBox( "pollOption", Convert.ToString( (optionIndex + 1) ), optionText );
+            }
+            else {
+                html.Radio( "pollOption", Convert.ToString( (optionIndex + 1) ), optionText );
+            }
+            return html.ToString();
+        }
+
+        //----------------------------------------------------------------------------
 
         public void Add() {
 
@@ -56,7 +169,7 @@ namespace wojilu.Web.Controller.Forum.Users {
             }
 
             pollService.CreatePoll( poll, id, ctx.owner.obj, (IApp)ctx.app.obj );
-            
+
             echoRedirect( lang( "opok" ), alink.ToAppData( board ) );
         }
 
@@ -65,16 +178,21 @@ namespace wojilu.Web.Controller.Forum.Users {
 
             ForumPoll poll = pollService.GetById( id );
             if (poll == null) {
-                echoText( alang( "exPollItemNotFound" ) );
+                echoError( alang( "exPollItemNotFound" ) );
                 return;
             }
 
             if (poll.CheckHasVote( ctx.viewer.Id )) {
-                echoText( alang( "exVoted" ) );
+                echoError( alang( "exVoted" ) );
                 return;
             }
 
-            String choice = ctx.Get( "pollOption" );
+            String choice = ctx.Post( "pollOption" );
+            if (strUtil.IsNullOrEmpty( choice )) {
+                echoError( lang( "pollSelectRequire" ) );
+                return;
+            }
+
             ForumPollResult pollResult = new ForumPollResult();
             pollResult.User = (User)ctx.viewer.obj;
             pollResult.PollId = poll.Id;
@@ -84,13 +202,7 @@ namespace wojilu.Web.Controller.Forum.Users {
             String lnkPost = to( new Forum.TopicController().Show, poll.TopicId );
             pollService.CreateResult( pollResult, lnkPost );
 
-            ForumBoard board = setCurrentBoard( poll );
-
-            String lnkVote = to( Vote, id ) + "?boardId=" + board.Id;
-            String lnkVoter = to( Voter, id ) + "?boardId=" + board.Id;
-
-            String json = new PollViewFactory( (User)ctx.viewer.obj, poll, lnkVote, lnkVoter ).GetJsonResult();
-            echoText( json );
+            echoAjaxOk();
         }
 
         public void Voter( int id ) {
@@ -129,7 +241,7 @@ namespace wojilu.Web.Controller.Forum.Users {
             set( "location", ForumLocationUtil.GetPollAdd( pathboards, ctx ) );
             set( "optionCount", 5 );
             set( "forumId", id );
-            editor( "Question", "", "180px" );
+            editor( "Question", "", "150px" );
 
             if ((ctx.Post( "PollType" ) == null) || (ctx.Post( "PollType" ) == "0")) {
                 set( "singleCheck", " checked=\"checked\"" );

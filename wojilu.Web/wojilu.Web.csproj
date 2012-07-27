@@ -309,6 +309,9 @@
     <Content Include="framework\views\Forum\Forum\Index.html" />
     <Content Include="framework\views\Forum\Layout\Layout.html" />
     <Content Include="framework\views\Forum\Users\Poll\Add.html" />
+    <Content Include="framework\views\Forum\Users\Poll\Detail.html" />
+    <Content Include="framework\views\Forum\Users\Poll\pollForm.html" />
+    <Content Include="framework\views\Forum\Users\Poll\pollResult.html" />
     <Content Include="framework\views\Forum\Users\Poll\Voter.html" />
     <Content Include="framework\views\Forum\Moderators\Post\AddCredit.html" />
     <Content Include="framework\views\Forum\Moderators\Post\AddReward.html" />

@@ -1,0 +1,25 @@
+﻿<div style="margin:0px;margin-top: 5px;margin-left: 0px; margin-bottom:10px; width:80%;">
+
+    <div style="margin:0px;font-size:12px; background: #f5f5f5; border-radius: 4px; box-shadow: 5px 5px 5px #ddd;">
+        <div style="padding: 10px 15px;">
+            <!-- BEGIN options -->
+            <div style="margin-bottom: 3px;">
+                <div>#{op.Text}</div>
+                <div>
+                    <div style="background:#f2f2f2;border: 1px #aaa solid;width:200px; float: left;padding: 0px;">
+                        <div style="background: #38699f;width:#{op.ImgWidth}px;height:8px;"></div>
+                        
+                    </div>
+                    <div style="width: 35%; float: left;margin-top: -5px;"><span class="pollOptionVotes">#{op.Percent}</span></div>
+                    <div style="clear: both;"></div>
+                 </div>
+            </div>
+            <!-- END options -->
+
+            <div class="note">
+                <a href="#{poll.ResultLink}" class="frmBox">投票人数: #{poll.Voters}</a> 。#{poll.ExpiryInfo}<span class="link cmdViewForm" topicId="#{topicId}">进入投票</span>
+            </div>
+            
+        </div>
+    </div>
+</div>

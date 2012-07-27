@@ -110,6 +110,7 @@
     <Compile Include="Common\Feeds\Interface\IFeedService.cs" />
     <Compile Include="Common\Feeds\Interface\IShareService.cs" />
     <Compile Include="Common\Comments\OpenComment.cs" />
+    <Compile Include="Common\Polls\Service\PollHelper.cs" />
     <Compile Include="Common\Upload\TempUploadFileService.cs" />
     <Compile Include="Common\Upload\TempUploadFile.cs" />
     <Compile Include="Members\Users\Domain\Invites\UserInviteApp.cs" />
