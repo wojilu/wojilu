@@ -8,23 +8,28 @@
     box-shadow:0px 5px 10px rgba(0, 0, 0, 0.1);-moz-box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.1);-webkit-box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.1);
 
 }
-.slbl {width:60px;background:#efefef;}
+.slbl {width:60px;font-weight:bold; text-align:right; padding-right:5px; font-size:14px;}
+
+#user-search .input-name {width:163px; height:16px;}
+#user-search select {width:80px; height:27px;}
+
+
 </style>
 <br/>
 <div style=" clear:both"></div>
 
-<div style="width:95%;margin:auto;padding:0px 0px 30px 0px;background:#ffffff; font-size:14px; ">
+<div style="width:95%;margin:auto;padding:0px 0px 30px 0px; ">
 
 	<div class="sectionPanel">
 	
-		<div class="utitle sectionTitle">_{searchUser}：</div>
+		<h3>_{searchUser}：</h3>
 	
-		<form action="#{ActionLink}" method="get">
+		<form action="#{ActionLink}" method="get" id="user-search">
 	
 		<table style="width: 90%;margin:10px;margin:auto;">
 			<tr>
 				<td class="slbl">_{userName}</td>
-				<td><input name="name" type="text" value="#{name}"></td>
+				<td><input class="input-name" name="name" type="text" value="#{name}"></td>
 				<td class="slbl">_{gender}</td>
 				<td>#{g}</td>
 				<td class="slbl">_{relationship}</td>
@@ -33,30 +38,22 @@
 			<tr>
 				<td class="slbl">_{age}</td>
 				<td>#{a1}&nbsp;-&nbsp;#{a2}</td>
-				<td class="slbl">_{blood}</td>
-				<td>#{b}</td>
-				<td>&nbsp;</td>
-				<td>&nbsp;</td>
-			</tr>
-			<tr>
 				<td class="slbl">_{educationDegree}</td>
 				<td>#{d}</td>
-				<td class="slbl">_{zodiac}</td>
-				<td>#{z}</td>
-				<td>&nbsp;</td>
-				<td>&nbsp;</td>
+				<td class="slbl">_{blood}</td>
+				<td>#{b}</td>
 			</tr>
 			<tr>
 				<td class="slbl">_{hometown}</td>
 				<td>#{p1}&nbsp;<input name="city1" style="width: 60px" type="text" value="#{city1}"></td>
 				<td class="slbl">_{region}</td>
 				<td>#{p2}&nbsp;<input name="city2" style="width: 60px" type="text" value="#{city2}"></td>
-				<td>&nbsp;</td>
-				<td>&nbsp;</td>
+				<td class="slbl">_{zodiac}</td>
+				<td>#{z}</td>
 			</tr>
 			<tr>
 				<td colspan="6" style="text-align:center;padding:10px 0px 15px 0px">
-				<input type="submit" value="_{searchNow}" style="width:150px;" class="btn">
+				<input type="submit" value="_{searchNow}" style="width:100px;" class="btn btn-primary">
 				<a href="#{ActionLink}" class="left10">_{resetForm}</a></td>
 			</tr>
 		</table>
@@ -65,19 +62,19 @@
 	</div>
 	
 	<div class="sectionPanel">
-	<div class="utitle sectionTitle">_{searchResult}:</div>
-	<table style="width: 90%;margin:auto;">
-		<tr>
-			<td>
-			<!-- BEGIN list -->
-			<div class="uItem">
-				<a href="#{u.Link}" target="_blank"><img src="#{u.Face}"/><br/>
-				#{u.Name}</a>
-			</div>
-			<!-- END list -->		
-			</td>
-		</tr>
-	</table>
+	    <h3>_{searchResult}:</h3>
+	    <table style="width: 90%;margin:auto;">
+		    <tr>
+			    <td>
+			    <!-- BEGIN list -->
+			    <div class="uItem">
+				    <a href="#{u.Link}" target="_blank"><img src="#{u.Face}"/><br/>
+				    #{u.Name}</a>
+			    </div>
+			    <!-- END list -->		
+			    </td>
+		    </tr>
+	    </table>
 	</div>
 	<div style="width:90%;margin:auto;">#{page}</div>
 	

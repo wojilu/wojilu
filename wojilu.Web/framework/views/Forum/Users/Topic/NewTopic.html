@@ -1,61 +1,97 @@
 ﻿#{location}
-<div class="forumForm">
-	<div class="forumFormTitle">:{addTopic}</div>
 
-	<form action="#{ActionLink}" method="post" class="ajaxPostForm">
-		<table class="forumFormMainTable">
-			<tr class="forumFormRowTitle">
-				<td class="tdL">_{title}</td>
-				<td>#{Category}
-				<input name="Title" style="width: 320px" type="text" value="#{Title}"><span class="valid" mode="border"></span> 
-				
-				 </td>
-			</tr>
-			<tr>
-			    <td class="tdL">tag</td>
-			    <td><input name="TagList" style="width: 120px;" type="text" value="#{TagList}"><span class="note">(_{tagTip})</span></td>
-			</tr>
-			<tr>
-				<td class="tdL">_{content}</td>
-				<td>#{Editor} </td>
-			</tr>
-			<tr><td></td><td><label><input name="saveContentPic" type="checkbox" />保存远程图片</label></td></tr>
-			<tr>
-				<td><span class="valid" to="Content" mode="border"></span></td>
-				<td>
-				
-				<table style="width:100%;" border="0">
-				<tr>
-				    <td style="width:200px;">
-				    <span class=""><input type="submit" value=":{submitPost}" class="btn" name="btnSubmit"></span>
-				    
-				    </td>
-				    <td style="width:80px; text-align:right;"><img src="~img/s/upload.png" class="" /> 上传附件  <input id="uploadFileIds" name="uploadFileIds" type="hidden" /></td>
-				    <td style="width:100px;"><input id="file_upload" name="file_upload" type="file" /></td>
-				    <td style="width2:350px;">				    
-				        <a href="#{uploadLink}" class="frmBox" xwidth="700" xheight="380" title=":{uploadAttachment}" style="font-size:12px; font-weight2:bold;">传统上传</a>
-				        <input id="chkNeedLogin" name="IsAttachmentLogin" class="left10" type="checkbox" /> <label for="chkNeedLogin">:{downloadCondition}</label>
-				    </td>
-				    <td style="text-align:right;">
-				        :{readPermission}
-				        <input name="ReadPermission" size="20" type="text" style="width: 32px"> :{price}
-				        <input name="Price" size="20" type="text" style="width: 28px"> 
-				    
-				    </td>
-				</tr>
-				</table>
-				
-				</td>
-			</tr>
-			<tr>
-				<td class="tdL"></td><td id="uploader"></td>
-			</tr>
-			<tr>
-				<td class="tdL"></td><td id="uploadFiles"></td>
-			</tr>
 
-		</table>
+
+<div class="row">
+<div class="span12">
+<div class="forum-form-container">
+
+
+    <div class="clearfix" style="margin-top:10px;">
+
+	<form action="#{ActionLink}" method="post" class="form-horizontal ajaxPostForm forum-form-normal">
+
+        <div class="control-group">
+            <label class="control-label" for="txtTitle">_{title}</label>
+            <div class="controls">
+                #{Category}
+				<input name="Title" id="txtTitle" class="span6" type="text" value="#{Title}" />
+            </div>
+            <div class="hide"><span class="valid" to="Title" mode="border"></span> </div>
+        </div>
+
+        <div class="control-group">
+            <label class="control-label" for="tagList">关键词</label>
+            <div class="controls">
+                <input name="TagList" id="tagList" type="text" value="#{TagList}" />
+                <span class="help-inline">_{tagTip}</span>
+            </div>
+        </div>
+
+        <div class="control-group">
+            <label class="control-label" for="tagList">_{content}</label>
+            <div class="controls">
+                <div style="width:90%;">#{Editor}</div>
+                <div class="row" style="margin-top:5px;">
+                    <div class="span4">                        
+                        <label class="checkbox pull-left"><input name="saveContentPic" type="checkbox" /> 保存远程图片</label>
+                        <label class="checkbox pull-left left20">
+                            <input id="chkNeedLogin" name="IsAttachmentLogin" class="left10" type="checkbox" />
+                            :{downloadCondition}
+                        </label>
+                    </div>
+                    <div class="span5" style=" text-align:right;">
+				            :{readPermission}
+				            <input name="ReadPermission" size="20" type="text" style="width: 32px; padding:2px;height:13px;" /> 
+                            :{price}
+				            <input name="Price" size="20" type="text" style="width: 32px; padding:2px; height:13px;" />
+                    </div>
+                </div>
+            </div>
+            <div class="hide"><span class="valid" to="Content" mode="border"></span></div>
+        </div>
+
+        <div class="control-group">
+            <label class="control-label">&nbsp;</label>
+            <div class="controls">
+                <div class="row">
+
+                    <div class="span2" style="margin-left:10px;">
+
+                        <button type="submit" class="btn btn-primary btn-large" name="btnSubmit" >
+                          <i class="icon-pencil icon-white"></i> :{submitPost}
+                        </button>
+
+                    </div>
+
+                    <div class="span5" style="margin-top:10px;">
+                        <div class="pull-left">
+                            <img src="~img/s/upload.png" class="" /> 上传附件 
+                            <input id="uploadFileIds" name="uploadFileIds" type="hidden" />
+                        </div>
+
+                        <div class="pull-left left5">
+                            <input id="file_upload" name="file_upload" type="file" />
+                        </div>
+                        
+                        <div class="pull-left left20">
+                            <a href="#{uploadLink}" class="frmBox" xwidth="700" xheight="380" title=":{uploadAttachment}">传统上传</a>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div id="uploader"></div>
+                <div id="uploadFiles"></div>
+
+            </div>
+        </div>
+
+
 	</form>
+</div>
+</div>
+</div>
 </div>
 
 

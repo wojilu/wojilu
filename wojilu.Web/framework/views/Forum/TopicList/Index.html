@@ -1,9 +1,6 @@
 ﻿#{forumPath}
 
-<style>.chkAdmin {display:none;}</style>
-
-<div id="forumPostListWrap">
-<div class="fbNotice">
+<div class="fbNotice" style="margin-top:10px;">
 	<div>#{forumBoard.Notice}</div>
 	<div>#{forumBoard.Moderator}</div>
  </div> 
@@ -15,16 +12,17 @@
 </div>
 <!-- END categoryPanel -->
 
+<div class="row">
+<div class="span12">
+<table id="forumPostList" class="table table-condensed forum-topic-list">
 
-<table border="0" id="forumPostList">
-
-	<tr class="psHeader">
-		<td style="width:5%">&nbsp;</td>
-		<td style="width:55%;">_{title}</td>
-		<td style="width:15%" class="center">_{author}</td>
-		<td style="width:10%" class="center">_{reply}/_{view}</td>
-		<td style="width:15%" class="center">:{lastPost}</td>
-	</tr>
+	<thead class="psHeader">
+		<th style="width:5%">&nbsp;</th>
+		<th style="width:55%;">_{title}</th>
+		<th style="width:15%" class="center">_{author}</th>
+		<th style="width:10%" class="center">_{reply}/_{view}</th>
+		<th style="width:15%" class="center">:{lastPost}</th>
+	</thead>
 	
 	<!-- BEGIN stickyList -->
 	<tr class="psSticky">
@@ -58,42 +56,68 @@
 	<!-- END postlist -->	
 </table>
 </div>
+</div>
 
 #{toolbarBottom}
 
 <div id="adminToolbar" class="hide">#{adminToolbar}</div>
 
 <!-- BEGIN form -->
-<div class="forumSimpleForm">
-	<div class="forumFormTitle">:{addTopic}</div>
-	<form method="post" action="#{ActionLink}" class="ajaxPostForm" id="pubTopicForm">
-	<table class="forumFormTable">
-		<tr>
-			<td style="width:100px;vertical-align:top;" rowspan="3" id="pubUserPic"></td>
-			<td style="width:50px;text-align:right">_{title}</td>
-			<td>#{Category} <input name="Title" type="text" style="width: 455px"><span class="valid" msg="_{exTitle}" mode="border"></span></td>
-		</tr>
-		<tr>
-			<td style="vertical-align:top;text-align:right;">_{content}</td>
-			<td>#{Editor}</td>
-		</tr>
-		<tr>
-			<td><span class="valid" to="Content" mode="border"></span></td>				
-			<td><input type="submit" value=":{submitPost}" name="btnSubmit" class="btn"></td>
-		</tr>
-	</table>
-	</form>
+<div class="row">
+<div class="span12">
+<div class="forum-form-container">
+
+    <div class="row">
+	    <div style="padding-left:40px;"><h3>:{addTopic}</h3></div>
+    </div>
+    <div class="clearfix" style="margin-top:10px;">
+
+	    <form method="post" action="#{ActionLink}" class="form-horizontal ajaxPostForm" id="pubTopicForm">
+
+        <div class="pull-left" id="pubUserPic" style=" text-align:right;width:124px;margin-left:20px;margin-top:10px;"></div>
+
+
+        <div class="pull-left forum-form-quick">
+
+            <div class="control-group">
+                  <label class="control-label" for="txtTitle">_{title}</label>
+                  <div class="controls">
+                    #{Category} <input id="txtTitle" name="Title" type="text" placeholder="请填写标题" style="width:600px;">
+                    
+                  </div>
+                  <div class="hide"><span class="valid" msg="_{exTitle}" to="Title" mode="border"></span></div>
+            </div>
+
+            <div class="control-group">
+                  <label class="control-label">_{content}</label>
+                  <div class="controls">
+                    #{Editor}
+                  </div>
+            </div>
+
+            <div class="control-group">    
+                <label class="control-label"></label>
+
+                <div class="controls">
+                    <button type="submit" class="btn btn-primary" name="btnSubmit" >
+                        <i class="icon-pencil icon-white"></i> :{submitPost}
+                    </button>
+                </div>
+            </div>
+
+        </div>
+
+
+	    </form>
+    </div>
+
+
+</div>
+</div>
 </div>
 <!-- END form -->
 
-<div class="forumIconList" style="display:none">
-<ul>
-	<li><img src="~skin/apps/forum/topic.gif" /> :{topic}</li>
-	<li><img src="~skin/apps/forum/sticky.gif" /> :{sticky}</li>
-	<li><img src="~skin/apps/forum/lock.gif" /> _{lock}</li>
-	<li><img src="~skin/apps/forum/pick.gif" /> :{picked}</li>
-</ul>
-</div>
+
 <script>
 $(document).ready( function() {
     wojilu.ui.valid();

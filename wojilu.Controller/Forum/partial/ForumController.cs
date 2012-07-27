@@ -19,7 +19,7 @@ namespace wojilu.Web.Controller.Forum {
 
             bindCategories( categories );
 
-            load( "forumNewPosts", new TopController().List );
+            load( "forumNewPosts", TopList );
 
             bindLink( linkList );
 
@@ -141,6 +141,42 @@ namespace wojilu.Web.Controller.Forum {
                     onlineBlock.Set( "onlineUser.Url", "javascript:void(0)" );
                 }
                 onlineBlock.Next();
+            }
+        }
+
+        //------------------------------------------------------------------------------------
+
+        private void bindImgs( List<ForumPickedImg> list ) {
+            IBlock block = getBlock( "pickedImg" );
+            foreach (ForumPickedImg f in list) {
+                block.Set( "f.Title", f.Title );
+                block.Set( "f.Url", f.Url );
+                block.Set( "f.ImgUrl", f.ImgUrl );
+                block.Next();
+            }
+        }
+
+        private void bindTopics( List<ForumTopic> newPosts, String blockName ) {
+            IBlock block = getBlock( blockName );
+            int i = 1;
+            foreach (ForumTopic t in newPosts) {
+                block.Set( "topic.Index", i );
+                block.Set( "topic.Title", t.Title );
+                block.Set( "topic.Link", to( new TopicController().Show, t.Id ) );
+                block.Next();
+                i++;
+            }
+        }
+
+        private void bindPosts( List<ForumPost> newPosts, String blockName ) {
+            IBlock block = getBlock( blockName );
+            int i = 1;
+            foreach (ForumPost t in newPosts) {
+                block.Set( "post.Index", i );
+                block.Set( "post.Title", t.Title );
+                block.Set( "post.Link", to( new PostController().Show, t.Id ) );
+                block.Next();
+                i++;
             }
         }
 

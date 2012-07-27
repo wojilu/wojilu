@@ -334,19 +334,19 @@ namespace wojilu.Web.Controller.Forum {
             set( "stickyOrderLink", urlto( t.SortSticky, id ) );
 
 
-            String cmdGsticky = string.Format( "<span class=\"cmdGsticky\"> {0}</span>", alang( "cmdGlobalSticky" ) );
-            String cmd = "<span class=\"ajaxCmd\" url=\"{0}\">{1}</span>";
+            String cmdGsticky = string.Format( "<i class=\"icon-circle-arrow-up\"></i> <span class=\"cmdGsticky\"> {0}</span>", alang( "cmdGlobalSticky" ) );
+            String cmd = "<span class=\"ajaxCmd btn\" url=\"{0}\">{1}</span>";
             String adminGlobalSticky = string.Format( cmd, urlto( t.GlobalSticky, id ), cmdGsticky );
 
             String gstickyOrderLink = urlto( t.GlobalSortSticky, id );
             adminGlobalSticky += " <a href=\"" + gstickyOrderLink + "\">&rsaquo;&rsaquo; " + alang( "pSortStickyTopic" ) + "</a>";
 
             String gstickyUndoLink = urlto( ts.GlobalStickyUndo, id );
-            String cmdPost = "<span class=\"ajaxForumPost\" url=\"{0}\">{1}</span>";
+            String cmdPost = "<span class=\"ajaxForumPost btn\" url=\"{0}\"><i class=\"icon-circle-arrow-down\"></i> {1}</span>";
             String adminGlobalStickyUndo = string.Format( cmdPost, gstickyUndoLink, alang( "cmdGlobalStickyUndo" ) );
 
             String moveLink = urlto( t.Move, id );
-            String adminMove = string.Format( cmd, moveLink, alang( "moveTopic" ) );
+            String adminMove = string.Format( cmd, moveLink, "<i class=\"icon-move\"></i> "+alang( "moveTopic" ) );
 
             set( "adminGsticky", adminGlobalSticky );
             set( "adminGstickyUndo", adminGlobalStickyUndo );

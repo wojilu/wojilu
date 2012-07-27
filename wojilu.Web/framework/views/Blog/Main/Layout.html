@@ -1,5 +1,5 @@
 ﻿<style>
-
+/*
 #cpContainer { padding:18px;}
 
 #cpMain { float:left;width:650px; background:#fff; padding-right:20px; }
@@ -21,44 +21,44 @@
 #blogSearchPanel {margin:0px 0px 10px 0px;background:#f2f2f2; padding:10px 10px;height:25px;}
 .blogIndexItem {width: 100%;margin:10px 0px; border-top:1px #eee solid}
 
+*/
+
 </style>
 
-<div id="cpContainer">
+<div class="row" style="padding-top:20px;">
 
-	<div id="cpMain">	
+	<div class="span8">	
 		#{layout_content}	
 	</div>
 
-	<div id="cpSidebar">	
+	<div class="span4">	
 
 		<div class="sectionPanel cpPanel">
-			<div class="sectionTitle">:{pickedBlogger}</div>
-			<ul>
+			<h3 class="sectionTitle">:{pickedBlogger}</h3>
+			<ol>
 				<!-- BEGIN tops -->
-				<li>#{post.Number} <a href="#{post.LinkShow}">#{post.Title}</a></li><!-- END tops -->			
-			</ul>
+				<li> <a href="#{post.LinkShow}">#{post.Title}</a></li><!-- END tops -->			
+			</ol>
 		</div>
 		
 		<div class="sectionPanel cpPanel">
-			<div class="sectionTitle">:{rankByView}</div>
-			<ul>
+			<h3 class="sectionTitle">:{rankByView}</h3>
+			<ol>
 				<!-- BEGIN hits -->
-				<li>#{post.Number} <a href="#{post.LinkShow}">#{post.Title}</a></li><!-- END hits -->			
-			</ul>
+				<li> <a href="#{post.LinkShow}">#{post.Title}</a></li><!-- END hits -->			
+			</ol>
 		</div>
 		
 		<div class="sectionPanel cpPanel">
-			<div class="sectionTitle">:{rankByComment}</div>
-			<ul>
+			<h3 class="sectionTitle">:{rankByComment}</h3>
+			<ol>
 				<!-- BEGIN replies -->
-				<li>#{post.Number} <a href="#{post.LinkShow}">#{post.Title}</a></li><!-- END replies -->			
-			</ul>
+				<li> <a href="#{post.LinkShow}">#{post.Title}</a></li><!-- END replies -->			
+			</ol>
 		</div>	
 		
 	</div>
 
-	
-	<div class="clear"></div>
 
 </div>
 

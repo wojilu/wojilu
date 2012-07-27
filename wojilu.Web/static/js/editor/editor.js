@@ -43,7 +43,7 @@
         addLink:'加入链接',        
         
         aboutUs : '<strong>『我记录』在线编辑器</strong><br/><a href="http://www.wojilu.com" target="_blank">www.wojilu.com</a> &copy; 1999-2011',
-        sourceCode : '源代码'        
+        sourceCode : 'html'        
     },
     
     colors : {
@@ -447,8 +447,8 @@ wojilu.editor.prototype.closeImg = function (boxId) {
 //----------------------------------------------------------------
 wojilu.editor.prototype.addCodeDialog= function () {
     var addCodeBoxId = 'addCodeBox';
-    return '<div id="'+addCodeBoxId+'" style="width:400px;height:240px;background:#f2f2f2;padding:10px 10px 10px 20px; border:1px #aaa solid;">'+
-        '<table style="width:390px"><tr><td>请选择代码类型：<select><option value="csharp">c#</option><option value="java">java</option><option value="c">c</option><option value="python">python</option><option value="ruby">ruby</option><option value="vb">vb</option><option value="php">php</option><option value="delphi">delphi</option><option value="js">js</option><option value="xml">xml</option><option value="sql">sql</option><option value="css">css</option><option value="text">纯文本</option></select></td><td style="text-align:right;">' + this.closeImg(addCodeBoxId) + '</td></tr></table><div><textarea style="width:380px;height:180px; border:1px solid #EEEEEE"></textarea></div><div><input type="submit" class="btn btns" value="插入代码" /></div><div style="clear:both;"></div></div>';
+    return '<div id="'+addCodeBoxId+'" style="width:400px;height:260px;background:#f2f2f2;padding:10px 10px 10px 20px; border:1px #aaa solid;">'+
+        '<table style="width:390px"><tr><td>请选择代码类型：<select style="width:100px;"><option value="csharp">c#</option><option value="java">java</option><option value="c">c</option><option value="python">python</option><option value="ruby">ruby</option><option value="vb">vb</option><option value="php">php</option><option value="delphi">delphi</option><option value="js">js</option><option value="xml">xml</option><option value="sql">sql</option><option value="css">css</option><option value="text">纯文本</option></select></td><td style="text-align:right;">' + this.closeImg(addCodeBoxId) + '</td></tr></table><div><textarea style="width:380px;height:180px; border:1px solid #EEEEEE"></textarea></div><div><input type="submit" class="btn btn-primary btns" value="插入代码" /></div><div style="clear:both;"></div></div>';
 }
 
 wojilu.editor.prototype.addCodeHandler= function () {
@@ -715,7 +715,7 @@ wojilu.editor.prototype.picDialog = function () {
     result += '	</tr>';
     result += '	<tr>';
     result += '		<td colspan="4" class="actionPanel">';
-    result += '		<div class="insertPannel">'+this.lang.url+':&nbsp;<input class="editorImgUrl" type="text" />&nbsp;<input class="btnInsertImg btn btns" type="button" value="'+this.lang.imgInsert+'" /></div>';
+    result += '		<div class="insertPannel">'+this.lang.url+':&nbsp;<input class="editorImgUrl" type="text" />&nbsp;<input class="btnInsertImg btn btn-primary btns" type="button" value="'+this.lang.imgInsert+'" /></div>';
     result += '		</td>';
     result += '	</tr>';
     result += '</table>';
@@ -800,7 +800,7 @@ wojilu.editor.prototype.flashDialog = function () {
     result += '	<tr><td class="flashBoxLeft">'+this.lang.url+'</td><td><input type="text" id="editorFlashUrl" class="flashBoxUrl"/></td></tr>';
     result += '	<tr><td class="flashBoxLeft">'+this.lang.width+'</td><td><input type="text" id="editorFlashWidth" value="480" style="width:50px;"/> px</td></tr>';
     result += '	<tr><td class="flashBoxLeft">'+this.lang.height+'</td><td><input type="text" id="editorFlashHeight" value="360" style="width:50px;" /> px</td></tr>';
-    result += '	<tr><td colspan="2" style="text-align:center;padding-bottom:20px;"><input class="btnInsertFlash btn btns" type="button" value="'+this.lang.flashInsert+'" /></td></tr>';
+    result += '	<tr><td colspan="2" style="text-align:center;padding-bottom:20px;"><input class="btnInsertFlash btn btn-primary btns" type="button" value="'+this.lang.flashInsert+'" /></td></tr>';
     result += '</table>';
     result += '</div>';
     return result;
@@ -827,7 +827,7 @@ wojilu.editor.prototype.getFlashHtml = function (srcUrl,width,height) {
     
 wojilu.editor.prototype.linkDialog = function () {
     var linkBoxId = 'linkBox';
-    var result ='<div id="'+linkBoxId+'" class="editorBox" unselectable="on"><div><table><tr><td>'+this.lang.url+'</td><td><input class="editorLinkUrl" type="text" value="http://" />&nbsp;</td><td>'+this.closecmd(linkBoxId)+'</td></tr><tr><td>打开方式</td><td colspan=2><select class="editorLinkTarget"><option value="">本页打开</option><option value="_blank">新窗口打开</option></select></td></tr><tr><td></td><td colspan=2><input class="btnCreateLink btn btns" type="button" value="'+this.lang.addLink+'" unselectable="on" style="margin-right:10px;"/></td></tr></table></div></div>';
+    var result ='<div id="'+linkBoxId+'" class="editorBox" unselectable="on"><div><table><tr><td>'+this.lang.url+'</td><td><input class="editorLinkUrl" type="text" value="http://" />&nbsp;</td><td>'+this.closecmd(linkBoxId)+'</td></tr><tr><td>打开方式</td><td colspan=2><select class="editorLinkTarget"><option value="">本页打开</option><option value="_blank">新窗口打开</option></select></td></tr><tr><td></td><td colspan=2><input class="btnCreateLink btn btn-primary btns" type="button" value="'+this.lang.addLink+'" unselectable="on" style="margin-right:10px;"/></td></tr></table></div></div>';
     return result;
 };
 

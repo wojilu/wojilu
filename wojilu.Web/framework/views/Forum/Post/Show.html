@@ -12,8 +12,8 @@
 
 #{currentPost}
 
-<div class="forumPanel" style="margin-top:10px;">
-	<div class="forumPanelTitle"><a href="#{topic.Url}">&rsaquo;&rsaquo;:{expandTopic}</a></div>
+<div style="margin-top:10px; margin-left:20px;">
+	<div><a href="#{topic.Url}">&rsaquo;&rsaquo; :{expandTopic}</a></div>
 	<ul class="replyPostList">	
 	<!-- BEGIN replypost --><li><a href="#{p.MemberUrl}">#{p.MemberName}</a>: <a href="#{p.Url}" class="#{p.Class}">#{p.Title}</a> <span class="note font12 left10"> #{p.CreateTime} (:{wordLength}:#{p.Length})  _{hits}:#{p.Hits} </span></li>
 	<!-- END replypost -->

@@ -513,7 +513,7 @@ wojilu.tool = {
             'kaixin':['http://www.kaixin001.com/repaste/share.php','开心网',8]
         };
         var str='<table style="width:100%;">';
-        str+='<tr><td style="width:50px; vertical-align:top;padding-top:4px;">分享到：</td><td style="line-height:200%;" class="snsShareCmds">';
+        str+='<tr><td style="width:52px; vertical-align:top;padding-top:4px;">分享到：</td><td style="line-height:200%;" class="snsShareCmds">';
         str+='<a class="frmBox shareSite" xwidth="480" href="'+shareLink+'?url='+encodeURIComponent(url)+'&title='+encodeURIComponent(title)+''+pic+'" title="分享">我的微博</a>';
         for( var i=0;i<items.length;i++ ) {
             str+='<a href="http://'+links[items[i]][0]+'?url='+encodeURIComponent(url)+'&title='+encodeURIComponent(title)+'" target="_blank" class="share'+links[items[i]][2]+'">'+links[items[i]][1]+'</a>';

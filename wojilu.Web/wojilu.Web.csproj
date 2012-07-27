@@ -305,7 +305,6 @@
     <Content Include="framework\views\Forum\Admin\Security\SettingSingle.html" />
     <Content Include="framework\views\Forum\Board\List.html" />
     <Content Include="framework\views\Forum\Board\List1.html" />
-    <Content Include="framework\views\Forum\Board\Move.html" />
     <Content Include="framework\views\Forum\Board\Show.html" />
     <Content Include="framework\views\Forum\Forum\Index.html" />
     <Content Include="framework\views\Forum\Layout\Layout.html" />
@@ -315,18 +314,12 @@
     <Content Include="framework\views\Forum\Moderators\Post\AddReward.html" />
     <Content Include="framework\views\Forum\Moderators\Post\RewardList.html" />
     <Content Include="framework\views\Forum\Moderators\Post\SetReward.html" />
-    <Content Include="framework\views\Forum\PostBlock\Show.html" />
+    <Content Include="framework\views\Forum\Topic\PostLoop.html" />
     <Content Include="framework\views\Forum\Edits\Post\Edit.html" />
     <Content Include="framework\views\Forum\Users\Post\Quote.html" />
     <Content Include="framework\views\Forum\Post\Show.html" />
     <Content Include="framework\views\Forum\Recent\Post.html" />
     <Content Include="framework\views\Forum\Recent\Topic.html" />
-    <Content Include="framework\views\Forum\TopicAdmin\AdminCategory.html" />
-    <Content Include="framework\views\Forum\TopicAdmin\AdminMove.html" />
-    <Content Include="framework\views\Forum\TopicAdmin\AdminPost.html" />
-    <Content Include="framework\views\Forum\TopicAdmin\GlobalSortSticky.html" />
-    <Content Include="framework\views\Forum\TopicAdmin\Highlight.html" />
-    <Content Include="framework\views\Forum\TopicAdmin\SortSticky.html" />
     <Content Include="framework\views\Forum\TopicList\AdminToolbar.html" />
     <Content Include="framework\views\Forum\TopicList\Index.html" />
     <Content Include="framework\views\Forum\TopicList\Toolbar.html" />
@@ -732,8 +725,7 @@
     <Content Include="framework\views\Forum\Recent\ImgTopic.html" />
     <Content Include="framework\views\Forum\Search\Results.html" />
     <Content Include="framework\views\Admin\Sys\MenuSkin\Index.html" />
-    <Content Include="framework\views\Forum\Top\List.html" />
-    <Content Include="framework\views\Forum\Top\SimpleList.html" />
+    <Content Include="framework\views\Forum\Forum\TopList.html" />
     <Content Include="framework\views\Forum\Users\Uploader\UploadForm.html" />
     <Content Include="framework\views\Groups\Admin\Skin\AddPicUrl.html" />
     <Content Include="framework\views\Groups\Admin\Skin\CustomBg.html" />
@@ -876,7 +868,6 @@
     <Content Include="framework\views\Forum\Moderators\Topic\GlobalSortSticky.html" />
     <Content Include="framework\views\Forum\Moderators\Topic\Highlight.html" />
     <Content Include="framework\views\Forum\Moderators\Topic\SortSticky.html" />
-    <Content Include="framework\views\Forum\Post\副本 Edit.html" />
     <Content Include="framework\views\Groups\Admin\Invite\Add.html" />
     <Content Include="framework\views\Groups\Admin\Invite\List.html" />
     <Content Include="framework\views\Groups\Admin\Invite\Layout.html" />
@@ -1014,7 +1005,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="framework\views\Admin\Members\EmailConfirm\" />
-    <Folder Include="framework\views\Forum\PostAdmin\" />
     <Folder Include="framework\views\Microblogs\My\Layout\" />
     <Folder Include="framework\views\Poll\Admin\Layout\" />
     <Folder Include="framework\views\Users\Admin\Microblogs\" />

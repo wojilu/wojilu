@@ -1,30 +1,36 @@
 ﻿<link href="~css/wojilu.site.header.css?v=#{cssVersion}" rel="stylesheet">
-        <div class="row" style="width:100%;margin-bottom:20px;"> 
-            <div class="span4" style=""><h1 id="slogo"><a href="~/">#{site.Logo}</a></h1></div>
-            <div class="span6 adItem" data-ad="Banner">#{adBanner}</div>
-        </div>    
-
-
-<header class="jumbotron subhead" id="overview" style="">
-    <div class="subnav">
-        <ul class="nav nav-pills">
-                
-            <!-- BEGIN navLink -->
-            <li id="#{menu.ItemId}" #{menu.CurrentClass}>
-                <!-- BEGIN rootNav -->
-                <a href="#{menu.Link}" style="#{menu.Style}" #{menu.LinkTarget}>#{menu.Name}</a><!-- END rootNav -->
-                
-                <!-- BEGIN subNav -->
-                <a href="#{menu.Link}" style="#{menu.Style}" #{menu.LinkTarget}>#{menu.Name}<span class="caret" style="border-top-color:#fff;"></span></a>
-                <ul class="dropdown-menu">
-                    <!-- BEGIN subMenu --><li><a href="#{menu.Link}" style="#{menu.Style}" #{menu.LinkTarget}>#{menu.Name}</a></li><!-- END subMenu -->
-                </ul><!-- END subNav -->
-
-                
-            </li><!-- END navLink -->
-
-        </ul>
+<div class="row site-header">
+    <div class="span12 site-header-inner">
+        <div class="span4">
+            <h1 id="slogo" style="margin:40px 0px 0px 30px;">
+                <a href="~/" style="color:#fff;">#{site.Logo}</a>
+            </h1>
+        </div>
+        <div class="span8 adItem" data-ad="Banner">#{adBanner}</div>
     </div>
+</div>
+
+<header class="site-menu-nav">
+
+    <ul class="nav nav-pills">
+                
+        <!-- BEGIN navLink -->
+        <li id="#{menu.ItemId}" #{menu.CurrentClass}>
+            <!-- BEGIN rootNav -->
+            <a href="#{menu.Link}" style="#{menu.Style}" #{menu.LinkTarget}>#{menu.Name}</a>
+            <!-- END rootNav -->
+                
+            <!-- BEGIN subNav -->
+            <a href="#{menu.Link}" style="#{menu.Style}" #{menu.LinkTarget}>#{menu.Name}<span class="caret" style="border-top-color:#fff;"></span></a>
+            <ul class="dropdown-menu">
+                <!-- BEGIN subMenu --><li><a href="#{menu.Link}" style="#{menu.Style}" #{menu.LinkTarget}>#{menu.Name}</a></li><!-- END subMenu -->
+            </ul><!-- END subNav -->
+
+                
+        </li><!-- END navLink -->
+
+    </ul>
+
 </header>
 
 <div class="row"><div id="navBottomAdWrap" class="adItem" data-ad="NavBottom">#{adNavBottom}</div></div>

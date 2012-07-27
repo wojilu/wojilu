@@ -1,4 +1,5 @@
 ﻿<style>
+/*
 .utitle {}
 .utitle .note {font-weight:normal; font-size:12px}
 .uItem {float:left;margin:5px;width:80px;height:80px;background:#; text-align:center; font-size:12px;}
@@ -12,64 +13,78 @@
 div.userPanel {margin:5px 0px 20px 0px;}
 div.userPanelTitle{font-weight:bold;background:#efefef;}
 div.userPanelMain {padding:10px}
+
+*/
+
+#user-search select {width:173px;}
+#user-search-age select {width:80px;}
+
+.user-list li {width:90px;}
+.user-list .thumbnail {border:0px;}
+.user-list li img {
+    padding:2px; border:1px #eee solid;
+    border-radius: 3px; -moz-border-radius: 3px; -webkit-border-radius: 3px; -khtml-border-radius: 3px;
+    box-shadow:0px 5px 10px rgba(0, 0, 0, 0.1);-moz-box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.1);-webkit-box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.1);
+}
+
+.thumbnails li div {
+    width:90px; 
+    overflow: hidden;     
+    white-space:nowrap;
+    text-overflow:clip; 
+}
+
+
 </style>
 
-<div style="width:100%;margin:0px;padding:0px;font-size:14px;">
 
-	<div style="float:left; padding:20px 5px 20px 0px; width:690px;">
-		#{layout_content}
-	</div>
+<div class="row" style="padding-top:20px;">
+    <div class="span8">
+	    #{layout_content}
+    </div>
 
 	
-	<div style="float:left;width:260px;">
-	<div style="padding:15px 0px 20px 10px; ">
-	
-		<div class="sectionPanel userPanel">
+    <div class="span4">	
+	    <div>
 		
-			<div class="sectionTitle utitle"><img src="~img/users.gif" /> _{searchUser}</div>
-			<div class="userPanelMain">
-				<form id="myform" action="#{SearchAction}" method="get">
+		    <h3 style="margin-bottom:10px;"><img src="~img/users.gif" /> _{searchUser}</h3>
+		    <div class="userPanelMain">
+			    <form action="#{SearchAction}" method="get" class="form-inline well" id="user-search">
 				
-					<table style="width: 100%">
-						<tr>
-							<td>_{gender}</td>
-							<td>#{g}</td>
-						</tr>
-						<tr>
-							<td>_{age}</td>
-							<td>#{a1}&nbsp;-&nbsp;#{a2}</td>
-						</tr>
-						<tr>
-							<td>_{userLocation}</td>
-							<td>#{p2}</td>
-						</tr>
-						<tr>
-							<td colspan="2" style="text-align:center"><input type="submit" value="_{searchUser}" class="btn btns">&nbsp;<a href="#{SearchAction}" style="text-decoration:underline;font-size:12px;margin:5px;">_{advancedUserSearch}</a></td>
-						</tr>
-					</table>		
+				    <table style="width: 100%">
+					    <tr>
+						    <td>_{gender}</td>
+						    <td><div id="user-search-gender">#{g}</div></td>
+					    </tr>
+					    <tr>
+						    <td>_{age}</td>
+						    <td><div id="user-search-age">#{a1}&nbsp;-&nbsp;#{a2}</div></td>
+					    </tr>
+					    <tr>
+						    <td>_{userLocation}</td>
+						    <td>#{p2}</td>
+					    </tr>
+					    <tr>
+						    <td colspan="2" style="text-align:center"><input type="submit" value="_{searchUser}" class="btn btn-primary">&nbsp;<a href="#{SearchAction}" style="margin:5px;">_{advancedUserSearch}</a></td>
+					    </tr>
+				    </table>		
 					
-				</form>
-			</div>
-		</div>
+			    </form>
+		    </div>
+	    </div>
 		
-		<div class="sectionPanel userPanel">
-			<div class="sectionTitle utitle"><img src="~img/users.gif" /> _{pickedUser}</div>
-			<div class="userPanelMain">				
-				<!-- BEGIN picked -->
-				<div class="uItem"><a href="#{u.Link}"><img src="#{u.Face}"/><br/>
-			#{u.Name}</a></div>
-				<!-- END picked -->
-				<div class="clear"></div>		
-			</div>
+	    <div>
+		    <h3><img src="~img/users.gif" /> _{pickedUser}</h3>
+		    <div class="userPanelMain">				
+			    <!-- BEGIN picked -->
+			    <div class="uItem"><a href="#{u.Link}"><img src="#{u.Face}"/><br/>
+		    #{u.Name}</a></div>
+			    <!-- END picked -->
+			    <div class="clear"></div>		
+		    </div>
 		
-		</div>
+	    </div>
 	
-	</div>
-	</div>
-	
-	
-	<div style="clear:both"></div>
+    </div>
 
 </div>
-
-

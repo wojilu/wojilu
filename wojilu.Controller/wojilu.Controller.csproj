@@ -151,6 +151,7 @@
     <Compile Include="Forum\Moderators\TopicSaveController.cs" />
     <Compile Include="Forum\Moderators\PostController.cs" />
     <Compile Include="Forum\Moderators\SecurityController.cs" />
+    <Compile Include="Forum\partial\TopicController.cs" />
     <Compile Include="Forum\Users\PostController.cs" />
     <Compile Include="Forum\Users\SecurityController.cs" />
     <Compile Include="Forum\Users\TopicController.cs" />
@@ -317,7 +318,6 @@
     <Compile Include="Forum\partial\TopicListController.cs" />
     <Compile Include="Forum\SearchController.cs" />
     <Compile Include="Forum\Edits\TagController.cs" />
-    <Compile Include="Forum\TopController.cs" />
     <Compile Include="Forum\Users\UploaderController.cs" />
     <Compile Include="Common\Caching\Remove\ForumCacheRemove.cs" />
     <Compile Include="Forum\Utils\LinkUtil.cs" />
@@ -460,7 +460,6 @@
     <Compile Include="Blog\Admin\BlogrollController.cs" />
     <Compile Include="Forum\Admin\LayoutController.cs" />
     <Compile Include="Forum\SecurityController.cs" />
-    <Compile Include="Forum\PostBlockController.cs" />
     <Compile Include="Forum\Security\SecurityHelper.cs" />
     <Compile Include="Admin\Sys\PageCategoryController.cs" />
     <Compile Include="Admin\Sys\PageController.cs" />

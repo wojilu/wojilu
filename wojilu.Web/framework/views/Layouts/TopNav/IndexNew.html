@@ -1,16 +1,24 @@
 ﻿<style>
     #userTopNavPic img { width: 20px;border-radius: 3px;}
-    
+    .nav-top { float:left; display:block; left:0px;margin-right:10px; position:relative; list-style:none outside one;}
+    .nav-top >li {display:block; float:left; line-height:18px; color:#999; margin:7px 6px 0px 6px;}
+    .nav-top >li a { color:#333;}
+    .nav-top .caret {    opacity: 1;
+  filter: alpha(opacity=100);
+
+}
 </style>
     <div class="navbar navbar-fixed-top">
-    <div class="navbar-inner">
-        <div class="container">
-            
-            <a href="#{site.Url}" class="brand">#{site.Name}</a>
-            <ul class="nav" id="topNavMenu" style="display: none;">
+    <div class="navbar-inner2" style="">
+        <div id="navbar-container" style="width:940px;margin:0px auto; ">
+            <div class="pull-left" style="margin-top:7px;margin-left:5px;">
+                <img src="~skin/site/new/home.png" style="margin-top:-8px;" />
+                <a href="#{site.Url}" style="color:#333; font-size:18px; font-weight:bold;">#{site.Name}</a>
+            </div>
+            <ul class="nav-top" id="topNavMenu" style="display: none;">
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle viewerFeeds frmLink" data-toggle="dropdown"   loadTo="uaMain" nolayout=1>_{userStart}<span class="caret" style="border-top-color:#fff;"></span></a>
-                    <ul class="dropdown-menu">
+                    <ul class="dropdown-menu" style="min-width:120px;">
                         <li id="feedItem"><a class="viewerFeeds" href="#"><img src="~img/app/s/feeds.png"/> 好友消息</a></li>
                         <li><a href="#" id="myGroupsLink"><img src="~img/app/s/group.png"/> _{group}</a></li>
                         <li class="divider"></li>
@@ -29,21 +37,21 @@
 
             </ul>
             
-
-            <div class="pull-right" >
+            
+            <div class="pull-right">
                 <!---------------login form---------------->
-                <form id="loginForm" class="navbar-form form-inline" action="#{LoginAction}" method="post" style="display:none;">
-                    <input type="text" name="txtUid" class="input-small" placeholder="用户名" style="height1:14px;">
-                    <input type="password" name="txtPwd" class="input-small" placeholder="密码" style="height1:14px;">
-                    <label style="color:#fff;width:60px;" class="checkbox"><input name="RememberMe" type="checkbox" id="chkRemember" checked="checked"> 记住我</label>
-                    <input type="submit" class="btn btn-mini btn-primary" value="登录">
+                <form id="loginForm" class="navbar-form form-inline" action="#{LoginAction}" method="post" style="display:none; padding-right:5px; padding-top:5px;">
+                    <input type="text" name="txtUid" class="input-small" placeholder="用户名" style="height:14px;margin:0px;">
+                    <input type="password" name="txtPwd" class="input-small" placeholder="密码" style="height:14px;margin:0px;">
+                    <label style="width:60px;margin:0px;" class="checkbox"><input name="RememberMe" type="checkbox" id="chkRemember" checked="checked" style="margin:0px;margin-top:2px;" > 记住我</label>
+                    <input type="submit" class="btn btn-primary btn-mini" value="登录" style="font-size:12px;line-height:14px;padding:1px 6px;margin:0px;">
                     <input type="hidden" name="returnUrl" id="Hidden1" value="" />
                     <div id="loginValidBox" class="ebox" style="width:380px;padding:10px 5px; ">_{validationCode} #{ValidationCode}</div>
                 </form>
                 
                 
                 <!---------------user account---------------->
-                <ul id="userAccountTable" class="nav" style="display: none;">
+                <ul id="userAccountTable" class="nav-top" style="display: none;">
                     <li id="siteNotification"></li>
                     <li><a href="" class="frmLink" id="msgLink" loadTo="uaMain" nolayout=1>_{msg}<span id="viewerNewMsgCount"></span></a></li>
                     <li style="position:relative"><a href="#" id="nfMsg"></a>
@@ -70,7 +78,7 @@
                     <!----------------account menu------------------>
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" id="AccountAdmin">_{account}<span class="caret" style="border-top-color:#fff;"></span></a>
-                    <ul class="dropdown-menu">
+                    <ul class="dropdown-menu" style="min-width:120px;">
                         <li><a href="#" id="viewerProfileUrl" class="frmLink" loadTo="uaMain" nolayout=1><img src="~img/s/base.png"/> _{profile}</a></li>
                         <li><a href="#" id="viewerContactLink" class="frmLink" loadTo="uaMain" nolayout=1><img src="~img/s/address.png"/> _{contact}</a></li>
                         <li><a href="#" id="viewerInterestUrl" class="frmLink" loadTo="uaMain" nolayout=1><img src="~img/s/interest.png"/> _{interest}</a></li>
@@ -79,7 +87,8 @@
                         <li><a href="#" id="viewerPwdUrl" class="frmLink" loadTo="uaMain" nolayout=1><img src="~img/s/pwd.png"/> _{changePwd}</a></li>
                         <li><a href="#" id="viewerSettings" class="frmLink" loadTo="uaMain" nolayout=1><img src="~img/s/privacy.png"/> _{privacySetting}</a></li>
                         <li><a href="#" id="viewerCurrency" class="frmLink" loadTo="uaMain" nolayout=1><img src="~img/s/credit.png"/> _{myIncome}</a></li>
-                        <li><a href="#" id="logoutLink" class="postCmd link">_{logout}</a></li>
+                        <li class="divider"></li>
+                        <li><a href="#" id="logoutLink" class="postCmd link"><img src="~img/s/logout.png" /> _{logout}</a></li>
                     </ul>
                     </li>
 

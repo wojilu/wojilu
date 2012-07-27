@@ -73,8 +73,12 @@ namespace wojilu.Web.Controller.Forum {
 
             if (strUtil.HasText( board.Logo )) return sys.Path.GetPhotoOriginal( board.Logo );
 
-            if (board.TodayPosts > 0) return strUtil.Join( sys.Path.Skin, "apps/forum/normalNew.gif" );
-            return strUtil.Join( sys.Path.Skin, "apps/forum/normal.gif" );
+            //if (board.TodayPosts > 0) return strUtil.Join( sys.Path.Skin, "apps/forum/normalNew.gif" );
+            //return strUtil.Join( sys.Path.Skin, "apps/forum/normal.gif" );
+
+            if (board.TodayPosts > 0) return strUtil.Join( sys.Path.Skin, "site/new/board-new.png" );
+            return strUtil.Join( sys.Path.Skin, "site/new/board.png" );
+
         }
 
         private String getDescription( ForumBoard board ) {

@@ -92,7 +92,7 @@ namespace wojilu.Web.Controller.Forum {
             ctx.SetItem( "posts", posts );
             ctx.SetItem( "attachs", attachments );
             ctx.SetItem( "pageSize", -1 );
-            load( "currentPost", new PostBlockController().Show );
+            load( "currentPost", new TopicController().PostLoop );
 
             set( "topic.Url", Link.To( new TopicController().Show, post.TopicId ) );
 

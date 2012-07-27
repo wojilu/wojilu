@@ -20,12 +20,15 @@ using wojilu.Common.Money.Interface;
 
 using wojilu.Web.Controller.Forum.Utils;
 using wojilu.Web.Controller.Common;
+using wojilu.Members.Users.Interface;
+using wojilu.Members.Users.Service;
+
 
 namespace wojilu.Web.Controller.Forum {
 
 
     [App( typeof( ForumApp ) )]
-    public class TopicController : ControllerBase {
+    public partial class TopicController : ControllerBase {
 
         public IForumBoardService boardService { get; set; }
         public IForumTopicService topicService { get; set; }
@@ -33,12 +36,24 @@ namespace wojilu.Web.Controller.Forum {
         public IUserIncomeService incomeService { get; set; }
         public IAttachmentService attachService { get; set; }
 
+        public IUserService userService { get; set; }
+        public IForumRateService rateService { get; set; }
+        public ICurrencyService currencyService { get; set; }
+        public IForumBuyLogService buylogService { get; set; }
+        public IModeratorService moderatorService { get; set; }
+
         public TopicController() {
             boardService = new ForumBoardService();
             topicService = new ForumTopicService();
             postService = new ForumPostService();
             incomeService = new UserIncomeService();
             attachService = new AttachmentService();
+
+            userService = new UserService();
+            rateService = new ForumRateService();
+            currencyService = new CurrencyService();
+            buylogService = new ForumBuyLogService();
+            moderatorService = new ModeratorService();
         }
 
         public override void CheckPermission() {
@@ -107,7 +122,7 @@ namespace wojilu.Web.Controller.Forum {
             ctx.SetItem( "attachs", attachments );
             ctx.SetItem( "pageSize", getPageSize( ctx.app.obj ) );
 
-            load( "postBlock", new PostBlockController().Show );
+            load( "postBlock", PostLoop );
 
             bindForm( topic, board, lastPost );
 

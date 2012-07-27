@@ -1,0 +1,44 @@
+﻿<div class="row forum-top-title">
+    <div class="span3"><div><a href="#{recentPickedImgLink}">:{pickedImg}</a></div></div>
+    <div class="span3"><div><a href="#{recentTopicLink}">:{newTopic}</a></div></div>
+    <div class="span3"><div><a href="#{recentPostLink}">:{newPosts}</a></div></div>
+    <div class="span3"><div><a href="#{recentHotLink}">:{hotTopic}</a></div></div>
+</div>
+
+<div class="row forum-top-list">
+
+    <div class="span3">
+        <div class="forum-top-section">
+        <script src="~js/wojilu.ui.slider.js?v=#{jsVersion}" type="text/javascript"></script>
+        <div class="slideWrap" style="margin:0px;width: 238px;"> 
+            <!-- BEGIN pickedImg --><a href="#{f.Url}"><img alt="#{f.Title}" src="#{f.ImgUrl}" /></a><!-- END pickedImg -->
+        </div>
+        <div>&nbsp;</div>
+        </div>
+    </div>
+
+    <div class="span3">
+        <div class="forum-top-section">
+        <ul class="unstyled">
+        <!-- BEGIN topic --><li><div><img src="~static/skin/site/new/doc-top.png" /> <span class="post-index postIndex#{topic.Index}">#{topic.Index}</span><a href="#{topic.Link}">#{topic.Title}</a></div></li><!-- END topic -->
+        </ul>
+        </div>  
+    </div>
+
+    <div class="span3">
+        <div class="forum-top-section">
+        <ul class="unstyled">
+        <!-- BEGIN post --><li><div><img src="~static/skin/site/new/doc-top.png" /> <span class="post-index postIndex#{post.Index}">#{post.Index}</span><a href="#{post.Link}">#{post.Title}</a></div></li><!-- END post -->
+        </ul>
+        </div>
+    </div>
+
+    <div class="span3">
+        <div class="forum-top-section">
+        <ul class="unstyled">
+        <!-- BEGIN hot --><li><div><img src="~static/skin/site/new/doc-top.png" /> <span class="post-index postIndex#{topic.Index}">#{topic.Index}</span><a href="#{topic.Link}">#{topic.Title}</a></div></li><!-- END hot -->
+        </ul>
+        </div>
+    </div>
+
+</div>

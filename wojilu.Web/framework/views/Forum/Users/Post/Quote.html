@@ -9,30 +9,44 @@ $(document).ready( function(){
 //-->
 </script>
 
-<div class="forumForm">
-	<div class="forumFormTitle">:{quoteReply}</div>
+<div class="row">
+<div class="span12">
+<div class="forum-form-container" style="padding-top:10px;">
 
+	<form method="post" action="#{post.ReplyActionUrl}" class="form-horizontal forum-form-normal ajaxPostForm">
 
-	<form method="post" action="#{post.ReplyActionUrl}" class="ajaxPostForm">
-		<table class="forumFormMainTable">
-			<tr class="forumFormRowTitle">
-				<td class="tdL">_{title}</td>
-				<td><input name="Title" type="text" value="#{post.ReplyTitle}" style="width: 455px"><span class="valid" mode="border"></span> </td>
-			</tr>
-			<tr>
-				<td class="tdL">_{content}</td>
-				<td>#{Editor}</td>
-			</tr>
-			<tr>
-				<td><span class="valid" to="Content" mode="border"></span></td>
-				<td><input type="submit" value="_{reply}" name="btnSubmit" class="btn">
+        <div class="control-group">
+            <label class="control-label" for="txtTitle">_{title}</label>
+            <div class="controls">
+                <input name="Title" id="txtTitle" type="text" value="#{post.ReplyTitle}" style="width: 455px">
+            </div>
+            <div class="hide"><span class="valid" mode="border" to="Title"></span></div>
+        </div>
+
+        <div class="control-group">
+            <label class="control-label">_{content}</label>
+            <div class="controls"><div  style="width:90%;">#{Editor}</div></div>
+            <div class="hide"><span class="valid" to="Content" mode="border"></span></div>
+        </div>
+
+        <div class="control-group">
+            <label class="control-label">&nbsp;</label>
+            <div class="controls">
+
+                <button type="submit" class="btn btn-primary" name="btnSubmit">
+                    <i class="icon-comment icon-white"></i>
+                    _{reply}
+                </button>
+
 				<input type="hidden" name="forumId" value="#{post.ForumBoardId}" />
 				<input type="hidden" name="topicId" value="#{post.TopicId}" />
 				<input type="hidden" name="parentId" value="#{post.ParentId}" />
-				</td>
-			</tr>			
-		</table>
+            </div>
+        </div>
+
+
 	</form>
 
-
+</div>
+</div>
 </div>

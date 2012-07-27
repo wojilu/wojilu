@@ -1,5 +1,5 @@
-﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
+﻿<!DOCTYPE html>
+<html>
 
 <head>
 <title>#{pageTitle}</title>
@@ -8,12 +8,24 @@
 <meta content="#{pageKeywords}" name="Keywords" />
 <meta content="#{pageDescription}" name="Description" />
 <link href="~css/bootstrap/css/bootstrap.css?v=#{cssVersion}" rel="stylesheet">
+<link href="~css/wojilu.core.css?v=#{cssVersion}" rel="stylesheet">
 
+<style>
+body { background:#cee0ee}
+.container { background:#fff;}
+.navbar{background:url(/static/skin/site/new/top-nav-bg.jpg); height:33px; }
+.site-header {}
+.site-header-inner {background:url(/static/skin/site/new/header-bg.jpg); height:125px;}
+.site-menu-nav {background:url(/static/skin/site/new/menu-nav-bg.jpg); height:40px;}
+.site-menu-nav .nav a { color:#fff; font-weight:bold; font-size:14px;}
+.site-menu-nav .nav {margin-left:20px; padding-top:3px;}
 
+.footer {background:url(/static/skin/site/new/footer-bg.jpg); text-align:center; height:78px;margin-top:20px;}
+</style>
 
-    <script src="~js/jquery.js?v=#{jsVersion}" type="text/javascript"></script>
+<script src="~js/jquery.js?v=#{jsVersion}" type="text/javascript"></script>
 <script src="~js/bootstrap-dropdown.js" type="text/javascript"></script>
-
+<script src="~js/jquery-ui.custom.js?v=0091" type="text/javascript"></script>
 <script src="~js/lang.#{langStr}.js?v=#{jsVersion}" type="text/javascript"></script>
 <script src="~js/wojilu.common.js?v=#{jsVersion}" type="text/javascript"></script>
 <script src="~js/wojilu.site.js?v=#{jsVersion}" type="text/javascript"></script>
@@ -27,7 +39,7 @@
 
     #{topNav}
 
-<div class="container">
+<div class="container" style="margin-top:-30px;">
 
 
     #{header}
@@ -37,21 +49,18 @@
 
     <div id="footerTopAd" class="adItem" data-ad="Footer">#{adFooter}</div>
 
-    <div class="row" style="margin-top:20px;">
-    
-        <div class="span2">&nbsp;</div>
-    
-        <div class="span8" style="text-align:center; ">
-        
-	            <div>#{footerMenus}</div>
-	            <div>Powered by <a href="http://www.wojilu.com" target="_blank">我记录1.8</a></div>
-	            <div>Processed in <span id="elapseTime">0</span> seconds, <span id="sqlQueries">0</span> queries<div>
+    <div class="row">       
+        <div class="span12 footer">        
+	            <div style="margin-top:10px;">#{footerMenus}</div>
+	            <div>Powered by <a href="http://www.wojilu.com" target="_blank">我记录1.9</a></div>
+	            <div>Processed in <span id="elapseTime">0</span> seconds, <span id="sqlQueries">0</span> queries</div>
 	            <div><a href="#{customSkinLink}" id="customSkin" class="frmBox" title="_{customSkin}"></a></div>
         </div>
-        <div class="span2">&nbsp;</div>
+
     </div>
     
 
+</div>
 
 
 <script>
@@ -62,9 +71,6 @@ $(document).ready( function() {
         wojilu.ui.box.hideBg();
     }
 });
-
-
-
 </script>
 
 <script type="text/javascript">    $(function () { if ($.browser.msie && parseInt($.browser.version, 10) === 6) { $('.row div[class^="span"]:last-child').addClass("last-child"); $('[class="span"]').addClass("margin-left-20"); $(':button[class="btn"], :reset[class="btn"], :submit[class="btn"], input[type="button"]').addClass("button-reset"); $(":checkbox").addClass("input-checkbox"); $('[class^="icon-"], [class=" icon-"]').addClass("icon-sprite"); $(".pagination li:first-child a").addClass("pagination-first-child") } }) </script>

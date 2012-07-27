@@ -27,6 +27,7 @@ namespace wojilu.Web.Controller.Forum {
         public IForumLinkService linkService { get; set; }
         public IForumTopicService topicService { get; set; }
         public IUserService userService { get; set; }
+        public IForumPostService postService { get; set; }
 
         public ForumController() {
             forumService = new ForumService();
@@ -34,6 +35,7 @@ namespace wojilu.Web.Controller.Forum {
             linkService = new ForumLinkService();
             topicService = new ForumTopicService();
             userService = new UserService();
+            postService = new ForumPostService();
         }
 
         [CachePage( typeof( ForumIndexPageCache ) )]
@@ -50,6 +52,33 @@ namespace wojilu.Web.Controller.Forum {
             set( "forumNotice", notice );
 
             bindAll( categories, linkList );
+        }
+
+
+        [NonVisit]
+        public void TopList() {
+
+            ForumApp app = ctx.app.obj as ForumApp;
+
+            set( "recentTopicLink", to( new RecentController().Topic ) );
+            set( "recentPostLink", to( new RecentController().Post ) );
+            set( "recentHotLink", to( new RecentController().Replies ) );
+            set( "recentPickedImgLink", to( new RecentController().ImgTopic ) );
+
+            ForumSetting s = app.GetSettingsObj();
+
+            List<ForumPickedImg> pickedImg = ForumPickedImg.find( "AppId=" + ctx.app.Id ).list( s.HomeImgCount );
+            bindImgs( pickedImg );
+
+            List<ForumTopic> newPosts = topicService.GetByApp( ctx.app.Id, s.HomeListCount );
+            bindTopics( newPosts, "topic" );
+
+            List<ForumTopic> hots = topicService.GetByAppAndReplies( ctx.app.Id, s.HomeListCount, s.HomeHotDays );
+            bindTopics( hots, "hot" );
+
+            List<ForumPost> posts = postService.GetRecentByApp( ctx.app.Id, s.HomeListCount );
+            bindPosts( posts, "post" );
+
         }
 
         private Tree<ForumBoard> _tree;

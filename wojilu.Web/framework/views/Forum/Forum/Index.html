@@ -1,60 +1,91 @@
-﻿	<div class="forumPanelSimple" style="#{forum.IsHideStats_Style}">	
-		<div class="forumPanelInfo forumPanelInfoStats">
-			<div>_{today}:#{forum.TodayPost}, :{topic}:#{forum.TodayTopic}, _{yesterday}:#{forum.YestodayPostCount}, :{maxDay}:#{forum.PeakPostCount}</div>
-			<div>:{topic}:#{forum.TopicCount}, :{post}:#{forum.PostCount},  _{member}:#{forum.MemberCount} :{welcomeNewMember} <a href="#{newUserLink}" target="_blank">#{newUserName}</a></div>			
-		</div>
-		
-		<div class="forumPanelInfo forumPanelInfoMy">
-		    <div>
+﻿<div class="row">
+    <div class="span12 forum-search-row">
+        <div class="span5">
+		    <form method="get" action="#{searchAction}" class="form-search form-inline" style="margin:10px 30px;">
+                <div class="input-append">
+                    <img src="~static/skin/site/new/search.png" />
+		            <input type="text" name="q" class="search-query input-small" style="width:200px;" /><input type="submit" class="btn btn-primary" value="搜" />
+                </div>
+		    </form>
+        </div>
+        <div class="span5 pull-right">
+            <div class="pull-right" style="margin:15px; font-weight:bold;">
 		        <a href="#{lnkPost}" target="_blank">:{newPosts}</a>
 		        <a href="#{lnkTopic}" target="_blank">:{newTopic}</a>
 		        <a href="#{lnkMyPost}" target="_blank">:{myPosts}</a>
 		        <a href="#{lnkMyTopic}" target="_blank">:{myTopics}</a>
-		    </div>
-		    <div>
-		        <form method="get" action="#{searchAction}">
-		        <a href="#{lnkPicked}" target="_blank">:{picked}</a>
+	            <a href="#{lnkPicked}" target="_blank">:{picked}</a>
 		        <a href="#{lnkViews}" target="_blank">:{rank}</a>
-		        <input type="text" name="q" style="width:110px; border:1px #ccc inset;" />
-		        <input type="submit" class="searchs" value="" />
-		        </form>
-		    </div>
-		</div>		
-		<div class="clear"></div>
-	</div>
+            </div>
+        </div>
+    </div>
+</div>
 	
-	#{forumNotice}
-	<div style="#{forum.IsHideTop_Style}">
-	#{forumNewPosts}
-	</div>
+#{forumNotice}
+<div class="forum-top-row" style="#{forum.IsHideTop_Style}">
+#{forumNewPosts}
+</div>
 
-	<!-- BEGIN forumCategory -->
-	<div class="fbCategoryWrap">#{childrenBoards}</div>
-	<div class="fbCategoryAdWrap">#{adForumBoards}</div>
-	<!-- END forumCategory -->
+<div class="row" style="#{forum.IsHideStats_Style}">	
+    <div class="span12 forum-stats-row">
 
-	<div class="forumPanel" style="#{forum.IsHideOnline_Style}">
-		<div class="forumPanelTitle">:{whoIsOnline}  <span style="font-weight:normal;">共 <span id="onlineCount">0</span> 人在线(<a href="#{onlineLink}">详情</a>)。其中会员 <span id="onlineMember">0</span> 人，游客 <span id="onlineGuest">0</span> 人。历史最高在线 <span id="onlineMax">0</span> 人，发生时间是：<span id="onlineMaxTime"></span></span></div>
-	</div>
-	<script>
-	$(document).ready( function() {	
-	    var bindOnlineInfo = function() {
-	        $('#onlineCount').text( ctx.online.count );
-	        $('#onlineMember').text( ctx.online.member );
-	        $('#onlineGuest').text( ctx.online.guest );
-	        $('#onlineMax').text( ctx.online.max );
-	        $('#onlineMaxTime').text( ctx.online.maxTime );
-	    };	    
-	    wojilu.site.load( bindOnlineInfo );
-	});
-	</script>
+        <div class="span4">
+            <div style="float:left; line-height:18px;margin-top:8px;font-size:18px; font-weight:bold; font-family:微软雅黑; color:#666;"><img src="~static/skin/site/new/home.png" /> 讨论区</div>
+            <div style="float:left;margin-left:10px;"><img src="~static/skin/site/new/forum-arrow.jpg" /></div>
+        </div>
 
-	<div class="forumPanel" style="#{forum.IsHideLink_Style}">
-		<div class="forumPanelTitle">:{forumLink}</div>
-		<div class="forumPanelContent">
-		<!-- BEGIN flinks -->
-		<a href="#{flink.Url}" title="#{flink.Name}" target="_blank"><img src="#{flink.Logo}" style="width:88px; height:31px;margin:3px 8px;" /></a>
-		<!-- END flinks -->
-		
-		</div>
-	</div>
+	    <div class="span7 pull-right">
+		    <div class="pull-right" style="margin:10px 20px 0px 0px;">
+                _{today}:<span class="forum-stats-num">#{forum.TodayPost}</span> 
+                :{topic}:<span class="forum-stats-num">#{forum.TodayTopic}</span>
+                _{yesterday}:<span class="forum-stats-num">#{forum.YestodayPostCount}</span>
+                :{maxDay}:<span class="forum-stats-num">#{forum.PeakPostCount}</span> 
+                :{topic}:<span class="forum-stats-num">#{forum.TopicCount}</span>
+                :{post}:<span class="forum-stats-num">#{forum.PostCount}</span>
+                _{member}:<span class="forum-stats-num">#{forum.MemberCount}</span>
+                <span class="left10">:{welcomeNewMember}</span> <a href="#{newUserLink}" target="_blank" style="color:#e85446; font-weight:bold;">#{newUserName}</a>
+            </div>			
+	    </div>
+
+    </div>
+</div>
+
+<!-- BEGIN forumCategory -->
+<div class="fbCategoryWrap">#{childrenBoards}</div>
+<div class="fbCategoryAdWrap">#{adForumBoards}</div>
+<!-- END forumCategory -->
+
+<div class="row top20" style="#{forum.IsHideOnline_Style}">
+    <div class="span12">
+        <div class="well">
+	    <div class="forumPanelTitle">:{whoIsOnline}  <span style="font-weight:normal;">共 <span id="onlineCount">0</span> 人在线(<a href="#{onlineLink}">详情</a>)。其中会员 <span id="onlineMember">0</span> 人，游客 <span id="onlineGuest">0</span> 人。历史最高在线 <span id="onlineMax">0</span> 人，发生时间是：<span id="onlineMaxTime"></span></span></div>
+        </div>
+    </div>
+</div>
+
+<div class="row" style="#{forum.IsHideLink_Style}">
+    <div class="span12">
+        <div class="well">
+	        <div class="forumPanelTitle">:{forumLink}</div>
+	        <div class="forumPanelContent">
+	            <!-- BEGIN flinks -->
+	            <a href="#{flink.Url}" title="#{flink.Name}" target="_blank"><img src="#{flink.Logo}" style="width:88px; height:31px;margin:3px 8px;" /></a>
+	            <!-- END flinks -->		
+	        </div>
+        </div>
+    </div>
+</div>
+
+
+<script>
+    $(document).ready(function () {
+        var bindOnlineInfo = function () {
+            $('#onlineCount').text(ctx.online.count);
+            $('#onlineMember').text(ctx.online.member);
+            $('#onlineGuest').text(ctx.online.guest);
+            $('#onlineMax').text(ctx.online.max);
+            $('#onlineMaxTime').text(ctx.online.maxTime);
+        };
+        wojilu.site.load(bindOnlineInfo);
+    });
+</script>

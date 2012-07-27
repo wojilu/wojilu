@@ -1,6 +1,7 @@
 ﻿
 <div class="sectionPanel">
-<div class="sectionTitle utitle">_{whoIsOnline} <a href="#{lnkOnlineAll}" class="left20 note">_{all}...</a></div>
+<div class="pull-right"><a href="#{lnkOnlineAll}" class="left20 note">_{all}...</a></div>
+<h3 style="margin-bottom:10px;">_{whoIsOnline} </h3>
 <table style="width: 100%">
 	<tr>
 		<td id="onlinePanel"><div style="text-align:center; padding:20px;"><img src="~img/ajax/big.gif" /> loading...</div></td>
@@ -27,40 +28,38 @@ $(document).ready( function() {
 </script>
 
 
-<div class="sectionPanel">
-<div class="sectionTitle utitle">_{userCharts} <span class="note left20">
-	<a href="#{lnkRank}">_{all}...</a>
-	</span>
-</div>
-<table style="width: 100%" id="tblUsers">
-	<tr>
-		<td>
+<div>
+
+    <div class="pull-right"><a href="#{lnkRank}">_{all}...</a></div>
+    <h3 style="margin-bottom:10px;">_{userCharts}</h3>
+    <ul class="thumbnails user-list">
 		<!-- BEGIN ranks -->
-		<div class="uItem">
-			<a href="#{u.Link}"><img src="#{u.Face}"/><br/>
-			#{u.Name}</a>
-		</div>
-		<!-- END ranks -->		
-		</td>
-	</tr>
-</table>
+		<li>
+            <div class="thumbnail" style=" text-align:center;">
+			    <a href="#{u.Link}"><img src="#{u.Face}"/></a>
+                <div style="margin-top:5px;"><a href="#{u.Link}">#{u.Name}</a></div>
+            </div>
+		</li>
+		<!-- END ranks -->    
+    </ul>
 </div>
 
 
-<div class="sectionPanel">
-<div class="sectionTitle utitle">_{newRegUser} <a href="#{linkAll}" class="left20 note">_{all}...</a></div>
-<table style="width: 100%">
-	<tr>
-		<td>
+<div>
+
+    <div class="pull-right"><a href="#{linkAll}" class="left20 note">_{all}...</a></div>
+    <h3 style="margin-bottom:10px;">_{newRegUser} </h3>
+    <ul class="thumbnails user-list">
 		<!-- BEGIN users -->
-		<div class="uItem">
-			<a href="#{u.Link}"><img src="#{u.Face}"/><br/>
-			#{u.Name}</a>
-		</div>
-		<!-- END users -->		
-		</td>
-	</tr>
-</table>
+		<li>
+            <div class="thumbnail" style=" text-align:center;">
+			    <a href="#{u.Link}"><img src="#{u.Face}"/></a>
+                <div style="margin-top:5px;"><a href="#{u.Link}">#{u.Name}</a></div>
+            </div>
+		</li>
+		<!-- END users -->    
+    </ul>
+
 </div>
 
 
