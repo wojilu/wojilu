@@ -25,7 +25,7 @@ namespace wojilu.Common.Polls.Service {
 
             int currentItemVotes = cvt.ToInt( arrGuestResults[optionIndex] ) + cvt.ToInt( arrMemberResults[optionIndex] );
 
-            double percent = poll.MemberVotes == 0 ? 0 : ((double)currentItemVotes) / ((double)poll.MemberVotes);
+            double percent = poll.GetMemberVotes() == 0 ? 0 : ((double)currentItemVotes) / ((double)poll.GetMemberVotes());
 
             percent = Math.Round( percent, 2 );
             imgWidth = (int)(imgWidth * percent);

@@ -55,7 +55,6 @@ namespace wojilu.Common.Polls.Domain {
 
         public DateTime Created { get; set; }
 
-
         [NotSave]
         public string[] OptionList {
             get {
@@ -64,55 +63,6 @@ namespace wojilu.Common.Polls.Domain {
                 }
                 return null;
             }
-        }
-
-        [NotSave]
-        public int TotalVotes {
-            get {
-                return (AnonymousVotes + MemberVotes);
-            }
-        }
-
-        private int _memberCount = -1;
-        [NotSave]
-        public int MemberVotes {
-            get {
-                if (_memberCount == -1) {
-                    _memberCount = getVoteCount( MemberResult );
-                }
-                return _memberCount;
-            }
-        }
-
-        private int _anonymousCount = -1;
-        [NotSave]
-        public int AnonymousVotes {
-            get {
-                if (_anonymousCount == -1) {
-                    _anonymousCount = getVoteCount( AnonymousResult );
-                }
-                return _anonymousCount;
-            }
-        }
-
-        private int getVoteCount( String target ) {
-            if (strUtil.IsNullOrEmpty( target )) {
-                return 0;
-            }
-            string[] strArray = target.Split( new char[] { '/' } );
-            int num = 0;
-            foreach (String str in strArray) {
-                num += cvt.ToInt( str );
-            }
-            return num;
-        }
-
-        public Boolean CheckHasVote( int userId ) {
-
-            String typeName = this.GetType().FullName + "Result";
-            Type t = ObjectContext.Instance.TypeList[typeName];
-
-            return ndb.find( t, "MemberId>0 and MemberId=" + userId + " and PollId=" + this.Id ).first() != null;
         }
 
         [NotSave]
@@ -131,6 +81,31 @@ namespace wojilu.Common.Polls.Domain {
             }
         }
 
+        //----------------------------------------------------------
+
+        public int GetTotalVotes() {
+            return (GetAnonymousVotes() + GetMemberVotes());
+        }
+
+        public int GetMemberVotes() {
+            return getVoteCount( MemberResult );
+        }
+
+        public int GetAnonymousVotes() {
+            return getVoteCount( AnonymousResult );
+        }
+
+        private int getVoteCount( String target ) {
+            if (strUtil.IsNullOrEmpty( target )) {
+                return 0;
+            }
+            string[] strArray = target.Split( new char[] { '/' } );
+            int num = 0;
+            foreach (String str in strArray) {
+                num += cvt.ToInt( str );
+            }
+            return num;
+        }
 
         public Boolean IsClosed() {
             return PollHelper.IsClosed( this );
@@ -140,6 +115,14 @@ namespace wojilu.Common.Polls.Domain {
             return PollHelper.GetRealExpiryDate( this );
         }
 
+
+        public Boolean CheckHasVote( int userId ) {
+
+            String typeName = this.GetType().FullName + "Result";
+            Type t = ObjectContext.Instance.TypeList[typeName];
+
+            return ndb.find( t, "MemberId>0 and MemberId=" + userId + " and PollId=" + this.Id ).first() != null;
+        }
 
 
     }

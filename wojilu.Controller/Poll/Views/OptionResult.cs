@@ -26,11 +26,11 @@ namespace wojilu.Apps.Poll.Views {
             string[] arrMemberResults = getResults( poll.MemberResult, optionCount );
 
             // 100%时候的宽度
-            int imgWidth = 200; 
+            int imgWidth = 200;
 
             int currentItemVotes = cvt.ToInt( arrGuestResults[optionIndex] ) + cvt.ToInt( arrMemberResults[optionIndex] );
 
-            double percent = ((double)currentItemVotes) / ((double)poll.TotalVotes);
+            double percent = ((double)currentItemVotes) / ((double)poll.GetTotalVotes());
 
             percent = Math.Round( percent, 2 );
             imgWidth = (int)(imgWidth * percent);
