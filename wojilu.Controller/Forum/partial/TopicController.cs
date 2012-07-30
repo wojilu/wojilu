@@ -396,11 +396,11 @@ namespace wojilu.Web.Controller.Forum {
 
         private String addQuestionInfo( String content, ForumTopic topic ) {
             StringBuilder builder = new StringBuilder();
-            builder.Append( "<div class=\"question\">" );
+            builder.Append( "<div class=\"alert\">" );
             if (topic.RewardAvailable == 0) {
                 builder.AppendFormat( "<img src=\"{0}{1}\"/>", sys.Path.Skin, "apps/forum/question_m.gif" );
                 builder.AppendFormat( " {2}<span class=\"font12 left10\">({3}{0} {1}", topic.Reward, KeyCurrency.Instance.Unit, alang( "qResolved" ), alang( "reward" ) );
-                builder.AppendFormat( " <a href=\"{0}\" class=\"frmBox\">{1}</a>)</span>", Link.To( new Moderators.PostController().RewardList, topic.Id ) + "?boardId=" + topic.ForumBoard.Id, alang( "viewReward" ) );
+                builder.AppendFormat( " <a href=\"{0}\" class=\"frmBox\">{1}</a>)</span>", Link.To( new Users.PostController().RewardList, topic.Id ) + "?boardId=" + topic.ForumBoard.Id, alang( "viewReward" ) );
             }
             else {
                 builder.AppendFormat( "<img src=\"{0}{1}\"/>", sys.Path.Skin, "apps/forum/question_m.gif" );
@@ -409,7 +409,7 @@ namespace wojilu.Web.Controller.Forum {
                     builder.AppendFormat( "，<span class=\"font12\">" + alang( "scoreStats" ) + "</span> ", topic.Reward - topic.RewardAvailable, topic.RewardAvailable );
                 }
                 if (topic.Creator.Id == ctx.viewer.Id) {
-                    builder.AppendFormat( "<a href=\"{0}\" class=\"left20\">+ {1}</a>", Link.To( new Moderators.PostController().SetReward, topic.Id ) + "?boardId=" + topic.ForumBoard.Id, alang( "cmdReward" ) );
+                    builder.AppendFormat( "<a href=\"{0}\" class=\"left20 btn\"><i class=\"icon-check\"></i> {1}</a>", Link.To( new Users.PostController().SetReward, topic.Id ) + "?boardId=" + topic.ForumBoard.Id, alang( "cmdReward" ) );
                 }
             }
             builder.Append( "</div>" );

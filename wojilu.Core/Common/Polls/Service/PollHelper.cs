@@ -17,7 +17,6 @@ namespace wojilu.Common.Polls.Service {
         public PollHelper( PollBase poll, int optionCount, int optionIndex ) {
 
             string[] arrGuestResults = getResults( poll.AnonymousResult, optionCount );
-            //string[] arrGuestResults = getResults( "", optionCount );
             string[] arrMemberResults = getResults( poll.MemberResult, optionCount );
 
             // 100%时候的宽度
@@ -35,7 +34,7 @@ namespace wojilu.Common.Polls.Service {
             this.ImgWidth = imgWidth;
             this.Votes = currentItemVotes;
             this.Percent = Convert.ToString( (double)(percent * 100.0) );
-            this.VotesAndPercent = Votes + "(" + Percent + "%)";
+            this.VotesAndPercent = Votes + "<span class=\"poll-option-percent\">(" + Percent + "%)</span>";
         }
 
 

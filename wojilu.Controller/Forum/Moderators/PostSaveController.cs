@@ -43,43 +43,6 @@ namespace wojilu.Web.Controller.Forum.Moderators {
             return true;
         }
 
-        [HttpPost, DbTransaction]
-        public void SaveReward( int id ) {
-
-            int rewardValue = ctx.PostInt( "PostReward" );
-            if (rewardValue <= 0) {
-                errors.Add( alang( "exRewardNotValid" ) );
-                echoError();
-                return;
-            }
-
-            ForumPost post = postService.GetById( id, ctx.owner.obj );
-            ForumTopic topic = topicService.GetById( post.TopicId, ctx.owner.obj );
-            int rewardAvailable = topic.RewardAvailable;
-
-            if (boardError( topic )) return;
-
-            if (!checkCreatorPermission( topic )) return;
-
-            if (rewardAvailable <= 0) {
-                errors.Add( alang( "exNoRewardAvailable" ) );
-                echoError();
-                return;
-            }
-
-            if (rewardValue > rewardAvailable) {
-                errors.Add( string.Format( alang( "exMaxReward" ), rewardAvailable ) );
-                echoError();
-                return;
-            }
-
-            postService.AddReward( post, rewardValue );
-            //userIncomeService.AddKeyIncome( post.Creator, rewardValue );
-            //topicService.SubstractTopicReward( topic, rewardValue );
-
-            echoToParent( lang( "opok" ) );
-        }
-
 
 
         //-----------------------------------------------------------------------------
@@ -100,9 +63,6 @@ namespace wojilu.Web.Controller.Forum.Moderators {
         }
 
         //------------------------------------ 版主管理：帖子评分 -----------------------------------------
-
-
-
 
         public void SaveCredit( int id ) {
 

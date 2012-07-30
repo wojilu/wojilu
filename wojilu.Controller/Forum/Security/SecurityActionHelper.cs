@@ -27,11 +27,12 @@ namespace wojilu.Web.Controller.Forum.Utils {
 
 
                 // (admin) post
-                p.SetReward, p.AddReward, p.AddCredit,
-                ps.SaveReward, ps.Buy, ps.SaveCredit, ps.Ban, ps.UnBan, ps.Lock, ps.UnLock, ps.DeletePost, ps.DeleteTopic,
+                p.AddCredit,
+                ps.Buy, ps.SaveCredit, ps.Ban, ps.UnBan, ps.Lock, ps.UnLock, ps.DeletePost, ps.DeleteTopic,
 
                 // (edit) topic/post
                 ut.Edit, ut.Update, up.Edit, up.Update,
+                //up.SetReward, up.AddReward, up.SaveReward, 
 
                 // (edit) attachment
                 ac.Admin, ac.SetPermission, ac.SavePermission, ac.SaveSort, ac.Add, ac.SaveAdd, ac.Rename, ac.SaveRename, ac.Upload, ac.SaveUpload, ac.Delete,
