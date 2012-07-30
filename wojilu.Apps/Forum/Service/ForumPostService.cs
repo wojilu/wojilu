@@ -127,7 +127,7 @@ namespace wojilu.Apps.Forum.Service {
         }
 
         public virtual DataPage<ForumPost> GetByUser( int userId, int pageSize ) {
-            if (userId <= 0 ) return DataPage<ForumPost>.GetEmpty();
+            if (userId <= 0) return DataPage<ForumPost>.GetEmpty();
             return ForumPost.findPage( "CreatorId=" + userId + " and OwnerType='" + typeof( Site ).FullName + "' and " + getNonDelCondition(), pageSize );
         }
 
@@ -379,7 +379,7 @@ namespace wojilu.Apps.Forum.Service {
 
         public virtual void AddReward( ForumPost post, int rewardValue ) {
 
-            ForumTopic topic = topicService.GetByPost( post.Id );            
+            ForumTopic topic = topicService.GetByPost( post.Id );
 
             post.Reward = rewardValue;
             db.update( post, "Reward" );
@@ -390,6 +390,10 @@ namespace wojilu.Apps.Forum.Service {
             //incomeService.AddKeyIncome( topic.Creator, -rewardValue );
 
             topicService.SubstractTopicReward( topic, rewardValue );
+
+            notificationService.send( post.Creator.Id,
+                string.Format( "因为您回复了 \"<a href=\"{0}\">{1}</a>\"，作者答谢您：{2}{3}", alink.ToAppData( topic ), topic.Title, rewardValue, KeyCurrency.Instance.Unit )
+                );
         }
 
         public virtual void SetPostCredit( ForumPost post, int currencyId, int currencyValue, String reason, User viewer ) {

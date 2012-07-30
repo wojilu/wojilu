@@ -224,8 +224,6 @@ namespace wojilu.Web.Controller.Forum.Users {
             }
 
             postService.AddReward( post, rewardValue );
-            //userIncomeService.AddKeyIncome( post.Creator, rewardValue );
-            //topicService.SubstractTopicReward( topic, rewardValue );
 
             echoToParent( lang( "opok" ) );
         }
@@ -281,13 +279,17 @@ namespace wojilu.Web.Controller.Forum.Users {
                 block.Set( "p.User", post.Creator.Name );
 
                 String content = strUtil.ParseHtml( post.Content, 70 );
-                if (content.EndsWith( "..." )) {
-                    String lnkDetail = string.Format( "<a href='{0}' class='frmBox left10'>" + lang( "more" ) + ForumLocationUtil.separator + "</a>", to( Detail, post.Id ) + "?boardId=" + post.ForumBoardId, sys.Path.Skin );
-                    block.Set( "p.Content", content + lnkDetail );
+
+                String lnk;
+                if (post.ParentId == 0) {
+                    ForumTopic topic = topicService.GetById( post.TopicId, ctx.owner.obj );
+                    lnk = alink.ToAppData( topic );
                 }
                 else {
-                    block.Set( "p.Content", content );
+                    lnk = alink.ToAppData( post );
                 }
+
+                block.Set( "p.Content", content + string.Format( " <a href=\"{0}\">{1}</a>", lnk, "原帖" ) );
 
                 block.Set( "p.Created", post.Created );
                 block.Next();
@@ -295,22 +297,7 @@ namespace wojilu.Web.Controller.Forum.Users {
 
             set( "page", list.PageBar );
         }
-
-        public void Detail( int id ) {
-
-            ForumPost post = postService.GetById( id, ctx.owner.obj );
-            if (boardError( post )) return;
-
-            String postContent = "<div style='width:600px;'><div>" +
-                lang( "author" ) + ": {0} " +
-                lang( "title" ) + ": {1} <span class='note'>({2})</span></div>" +
-                "<hr/><div>{3}</div></div>";
-
-            actionContent( string.Format( postContent,
-                post.Creator.Name, post.Title, post.Created, post.Content ) );
-        }
-
-
+        
         //---------------------------------------------------------------------------
 
 
