@@ -297,17 +297,29 @@ namespace wojilu.Web.Controller.Forum {
         private String getEditAction( ForumPost data ) {
             String strEdit = " <a href='{0}' class=\"editCmd {2}\" data-creatorId=\"{4}\" title=\"{3}\" xwidth=\"700\" xheight=\"430\"><img src=\"{1}edit.gif\"/> {3}</a>";
             if (data.ParentId == 0) {
-                return string.Format( strEdit, Link.To( new Edits.TopicController().Edit, data.TopicId ), sys.Path.Img, "", lang( "edit" ), data.Creator.Id );
+                if (data.Topic.Reward > 0) {
+                    return string.Format( strEdit, Link.To( new Edits.TopicController().EditQ, data.TopicId ), sys.Path.Img, "", lang( "edit" ), data.Creator.Id );
+                }
+                else {
+                    return string.Format( strEdit, Link.To( new Edits.TopicController().Edit, data.TopicId ), sys.Path.Img, "", lang( "edit" ), data.Creator.Id );
+                }
             }
             return string.Format( strEdit, Link.To( new Edits.PostController().Edit, data.Id ), sys.Path.Img, "frmBox", lang( "edit" ), data.Creator.Id );
         }
 
         private void setEditActionItem( ForumPost data, StringBuilder sb ) {
             String str = "<li cmdurl=\"{0}\"><a href='#' class=\"postAdminItem {1}\" title=\"{2}\" xwidth=\"700\" xheight=\"430\"><i class=\"icon-edit\"></i> {2}</a></li>";
-            if (data.ParentId == 0)
-                sb.AppendFormat( str, Link.To( new Edits.TopicController().Edit, data.TopicId ), "", alang( "cmdEdit" ) );
-            else
+            if (data.ParentId == 0) {
+                if (data.Topic.Reward > 0) {
+                    sb.AppendFormat( str, Link.To( new Edits.TopicController().EditQ, data.TopicId ), "", alang( "cmdEdit" ) );
+                }
+                else {
+                    sb.AppendFormat( str, Link.To( new Edits.TopicController().Edit, data.TopicId ), "", alang( "cmdEdit" ) );
+                }
+            }
+            else {
                 sb.AppendFormat( str, Link.To( new Edits.PostController().Edit, data.Id ), "frmBox", alang( "cmdEdit" ) );
+            }
         }
 
         private void setLockAction( ForumPost data, StringBuilder sb ) {

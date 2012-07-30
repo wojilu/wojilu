@@ -306,6 +306,7 @@
     <Content Include="framework\views\Forum\Board\List.html" />
     <Content Include="framework\views\Forum\Board\List1.html" />
     <Content Include="framework\views\Forum\Board\Show.html" />
+    <Content Include="framework\views\Forum\Edits\Topic\EditQ.html" />
     <Content Include="framework\views\Forum\Forum\Index.html" />
     <Content Include="framework\views\Forum\Layout\Layout.html" />
     <Content Include="framework\views\Forum\Users\Poll\Add.html" />
