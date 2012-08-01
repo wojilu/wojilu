@@ -222,7 +222,9 @@ namespace wojilu.Apps.Forum.Service {
             if (result.IsValid) {
 
                 updateCount( post, creator, owner, app );
-                incomeService.AddIncome( creator, UserAction.Forum_ReplyTopic.Id );
+
+                String msg = string.Format( "回复帖子 <a href=\"{0}\">{1}</a>，得到奖励", alink.ToAppData( post ), post.Title );
+                incomeService.AddIncome( creator, UserAction.Forum_ReplyTopic.Id, msg );
                 addFeedInfo( post );
                 addNotification( post );
 
@@ -362,7 +364,9 @@ namespace wojilu.Apps.Forum.Service {
             boardService.DeletePostCount( forumBoardId, owner );
             if (creatorId > 0) { //规避已注销用户
                 userService.DeletePostCount( creatorId );
-                incomeService.AddIncome( post.Creator, UserAction.Forum_PostDeleted.Id );
+
+                String msg = string.Format( "帖子被删除 <a href=\"{0}\">{1}</a>", alink.ToAppData( post ), post.Title );
+                incomeService.AddIncome( post.Creator, UserAction.Forum_PostDeleted.Id, msg );
             }
             forumLogService.AddPost( user, post.AppId, id, ForumLogAction.DeleteTrue, ip );
         }
@@ -384,16 +388,16 @@ namespace wojilu.Apps.Forum.Service {
             post.Reward = rewardValue;
             db.update( post, "Reward" );
 
-            incomeService.AddKeyIncome( post.Creator, rewardValue );
+            String msg = string.Format( "因为您回复了 \"<a href=\"{0}\">{1}</a>\"，作者答谢您：{2}{3}", alink.ToAppData( topic ), topic.Title, rewardValue, KeyCurrency.Instance.Unit );
+
+            incomeService.AddKeyIncome( post.Creator, rewardValue, msg );
 
             // 以下步骤不需要，因为发帖的时候已经被扣除了
             //incomeService.AddKeyIncome( topic.Creator, -rewardValue );
 
             topicService.SubstractTopicReward( topic, rewardValue );
 
-            notificationService.send( post.Creator.Id,
-                string.Format( "因为您回复了 \"<a href=\"{0}\">{1}</a>\"，作者答谢您：{2}{3}", alink.ToAppData( topic ), topic.Title, rewardValue, KeyCurrency.Instance.Unit )
-                );
+            notificationService.send( post.Creator.Id, msg );
         }
 
         public virtual void SetPostCredit( ForumPost post, int currencyId, int currencyValue, String reason, User viewer ) {
@@ -416,7 +420,8 @@ namespace wojilu.Apps.Forum.Service {
                 msgService.SendMsg( user, post.Creator.Name, msgTitle, msgBody );
             }
 
-            incomeService.AddIncome( post.Creator, UserAction.Forum_PostBanned.Id );
+            String msg = string.Format( "帖子被屏蔽 <a href=\"{0}\">{1}</a>", alink.ToAppData( post ), post.Title );
+            incomeService.AddIncome( post.Creator, UserAction.Forum_PostBanned.Id, msg );
 
             forumLogService.AddPost( user, appId, post.Id, ForumLogAction.Ban, ip );
         }
@@ -424,7 +429,9 @@ namespace wojilu.Apps.Forum.Service {
         public virtual void UnBanPost( ForumPost post, User user, int appId, String ip ) {
             post.Status = 0;
             db.update( post, "Status" );
-            incomeService.AddIncomeReverse( post.Creator, UserAction.Forum_PostBanned.Id );
+
+            String msg = string.Format( "帖子取消屏蔽 <a href=\"{0}\">{1}</a>", alink.ToAppData( post ), post.Title );
+            incomeService.AddIncomeReverse( post.Creator, UserAction.Forum_PostBanned.Id, msg );
             forumLogService.AddPost( user, appId, post.Id, ForumLogAction.UnBan, ip );
         }
 

@@ -396,6 +396,7 @@
     <Content Include="framework\views\SiteInit\view1InitData.html" />
     <Content Include="framework\views\SiteInit\view2Register.html" />
     <Content Include="framework\views\SiteInit\view3Initok.html" />
+    <Content Include="framework\views\Users\Admin\Credit\IncomeLog.html" />
     <Content Include="framework\views\Users\Admin\Credit\IncomeRule.html" />
     <Content Include="framework\views\Users\Admin\Credit\Layout.html" />
     <Content Include="framework\views\Users\Admin\Credit\My.html" />

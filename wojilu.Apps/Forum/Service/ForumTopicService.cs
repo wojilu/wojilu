@@ -389,9 +389,6 @@ namespace wojilu.Apps.Forum.Service {
 
         public virtual Result CreateTopic( ForumTopic topic, User user, IMember owner, IApp app ) {
 
-            if (topic.Reward > 0)
-                topic.TypeName = PostTypeString.Question;
-
             populateData( topic, user, owner, app.Id );
             return saveToDb( topic, user, app );
         }
@@ -442,6 +439,14 @@ namespace wojilu.Apps.Forum.Service {
 
         private Result saveToDb( ForumTopic topic, User user, IApp app ) {
 
+            if (topic.Reward > 0) {
+                topic.TypeName = PostTypeString.Question;
+            }
+
+            if (topic.Reward > 0 && topic.Reward > user.Credit) {
+                return new Result( string.Format( "对不起，您现有积分{0}，不够悬赏", user.Credit ) );
+            }
+
             Result result = db.insert( topic );
             if (result.HasErrors) throw new Exception( "insert forumtopic error" );
 
@@ -452,14 +457,15 @@ namespace wojilu.Apps.Forum.Service {
 
             // 发布悬赏问题，不会产生任何收益
             if (topic.Reward > 0) {
-                incomeService.AddIncome( user, KeyCurrency.Instance.Id, -topic.Reward );
+                String msg = string.Format( "发布悬赏帖子 <a href=\"{0}\">{1}</a>，扣除积分", alink.ToAppData( topic ), topic.Title );
+                incomeService.AddIncome( user, KeyCurrency.Instance.Id, -topic.Reward, msg );
             }
             else {
-                incomeService.AddIncome( user, UserAction.Forum_CreateTopic.Id );
+                String msg = string.Format( "发布主题 <a href=\"{0}\">{1}</a>，得到奖励", alink.ToAppData( topic ), topic.Title );
+                incomeService.AddIncome( user, UserAction.Forum_CreateTopic.Id, msg );
             }
 
             addFeedInfo( topic );
-
 
             return result;
         }
@@ -613,7 +619,8 @@ namespace wojilu.Apps.Forum.Service {
 
             // 更新作者的收入
             if (creatorId > 0) { // 规避已注销用户
-                incomeService.AddIncome( topic.Creator, UserAction.Forum_TopicDeleted.Id );
+                String msg = string.Format( "主题被删除<a href=\"{0}\">{1}</a>", alink.ToAppData( topic ), topic.Title );
+                incomeService.AddIncome( topic.Creator, UserAction.Forum_TopicDeleted.Id, msg );
             }
 
             logService.AddTopic( viewer, topic.AppId, topic.Id, ForumLogAction.DeleteTrue, ip );
@@ -702,7 +709,9 @@ namespace wojilu.Apps.Forum.Service {
         public virtual void Lock( ForumTopic topic, User user, String ip ) {
             topic.IsLocked = 1;
             db.update( topic, "IsLocked" );
-            incomeService.AddIncome( topic.Creator, UserAction.Forum_TopicLocked.Id );
+
+            String msg = string.Format( "帖子被锁定 <a href=\"{0}\">{1}</a>", alink.ToAppData( topic ), topic.Title );
+            incomeService.AddIncome( topic.Creator, UserAction.Forum_TopicLocked.Id, msg );
 
             logService.AddTopic( user, topic.AppId, topic.Id, ForumLogAction.Lock, ip );
         }
@@ -710,7 +719,9 @@ namespace wojilu.Apps.Forum.Service {
         public virtual void UnLock( ForumTopic topic, User user, String ip ) {
             topic.IsLocked = 0;
             db.update( topic, "IsLocked" );
-            incomeService.AddIncomeReverse( topic.Creator, UserAction.Forum_TopicLocked.Id );
+
+            String msg = string.Format( "帖子取消锁定 <a href=\"{0}\">{1}</a>", alink.ToAppData( topic ), topic.Title );
+            incomeService.AddIncomeReverse( topic.Creator, UserAction.Forum_TopicLocked.Id, msg );
             logService.AddTopic( user, topic.AppId, topic.Id, ForumLogAction.UnLock, ip );
         }
 
@@ -740,17 +751,18 @@ namespace wojilu.Apps.Forum.Service {
 
         //--------------------------------------- income -----------------------------------------
 
-        public virtual void AddAuthorIncome( String condition, int actionId ) {
+        public virtual void AddAuthorIncome( String condition, int actionId, String actionName ) {
             List<ForumTopic> topics = db.find<ForumTopic>( condition ).list();
             foreach (ForumTopic topic in topics) {
-                incomeService.AddIncome( topic.Creator, actionId );
+                String msg = string.Format( "帖子被{0} <a href=\"{1}\">{2}</a>", actionName, alink.ToAppData( topic ), topic.Title ); incomeService.AddIncome( topic.Creator, actionId, msg );
             }
         }
 
-        public virtual void SubstractAuthorIncome( String condition, int actionId ) {
+        public virtual void SubstractAuthorIncome( String condition, int actionId, String actionName ) {
             List<ForumTopic> topics = db.find<ForumTopic>( condition ).list();
             foreach (ForumTopic topic in topics) {
-                incomeService.AddIncomeReverse( topic.Creator, actionId );
+                String msg = string.Format( "帖子被{0} <a href=\"{1}\">{2}</a>", actionName, alink.ToAppData( topic ), topic.Title );
+                incomeService.AddIncomeReverse( topic.Creator, actionId, msg );
             }
         }
 

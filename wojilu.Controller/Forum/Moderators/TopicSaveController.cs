@@ -41,7 +41,7 @@ namespace wojilu.Web.Controller.Forum.Moderators {
         public void Sticky() {
             int id = ctx.GetInt( "boardId" );
             topicService.AdminUpdate( "set Status=" + TopicStatus.Sticky, condition );
-            topicService.AddAuthorIncome( condition, UserAction.Forum_TopicSticky.Id );
+            topicService.AddAuthorIncome( condition, UserAction.Forum_TopicSticky.Id, "置顶" );
             log( condition, ForumLogAction.Sticky );
             echoToParent( lang( "opok" ) );
         }
@@ -50,7 +50,7 @@ namespace wojilu.Web.Controller.Forum.Moderators {
         public void StickyUndo() {
             int id = ctx.GetInt( "boardId" );
             topicService.AdminUpdate( "set Status=" + TopicStatus.Normal, condition );
-            topicService.SubstractAuthorIncome( condition, UserAction.Forum_TopicSticky.Id );
+            topicService.SubstractAuthorIncome( condition, UserAction.Forum_TopicSticky.Id, "取消置顶" );
             log( condition, ForumLogAction.UnSticky );
             echoAjaxOk();
         }
@@ -75,7 +75,7 @@ namespace wojilu.Web.Controller.Forum.Moderators {
         public void Pick() {
             int id = ctx.GetInt( "boardId" );
             topicService.AdminUpdate( "set IsPicked=1", condition );
-            topicService.AddAuthorIncome( condition, UserAction.Forum_TopicPicked.Id );
+            topicService.AddAuthorIncome( condition, UserAction.Forum_TopicPicked.Id, "加为精华" );
             log( condition, ForumLogAction.Pick );
             echoToParent( lang( "opok" ) );
         }
@@ -84,7 +84,7 @@ namespace wojilu.Web.Controller.Forum.Moderators {
         public void PickedUndo() {
             int id = ctx.GetInt( "boardId" );
             topicService.AdminUpdate( "set IsPicked=0", condition );
-            topicService.SubstractAuthorIncome( condition, UserAction.Forum_TopicPicked.Id );
+            topicService.SubstractAuthorIncome( condition, UserAction.Forum_TopicPicked.Id, "取消精华" );
             log( condition, ForumLogAction.UnPick );
             echoAjaxOk();
         }
@@ -112,7 +112,7 @@ namespace wojilu.Web.Controller.Forum.Moderators {
         public void Lock() {
             int id = ctx.GetInt( "boardId" );
             topicService.AdminUpdate( "set IsLocked=1", condition );
-            topicService.SubstractAuthorIncome( condition, UserAction.Forum_TopicLocked.Id );
+            topicService.SubstractAuthorIncome( condition, UserAction.Forum_TopicLocked.Id, "锁定" );
             log( condition, ForumLogAction.Lock );
             echoToParent( lang( "opok" ) );
         }
@@ -121,7 +121,7 @@ namespace wojilu.Web.Controller.Forum.Moderators {
         public void LockUndo() {
             int id = ctx.GetInt( "boardId" );
             topicService.AdminUpdate( "set IsLocked=0", condition );
-            topicService.AddAuthorIncome( condition, UserAction.Forum_TopicLocked.Id );
+            topicService.AddAuthorIncome( condition, UserAction.Forum_TopicLocked.Id, "取消锁定" );
             log( condition, ForumLogAction.UnLock );
             echoAjaxOk();
         }
@@ -130,7 +130,7 @@ namespace wojilu.Web.Controller.Forum.Moderators {
         public void Delete() {
             int id = ctx.GetInt( "boardId" );
             topicService.DeleteListToTrash( idList );
-            topicService.SubstractAuthorIncome( condition, UserAction.Forum_TopicDeleted.Id );
+            topicService.SubstractAuthorIncome( condition, UserAction.Forum_TopicDeleted.Id, "删除" );
             log( idList, ForumLogAction.Delete );
             echoToParent( lang( "opok" ) );
         }

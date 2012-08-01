@@ -37,6 +37,7 @@ namespace wojilu.Common.Money.Domain {
         [NotSave]
         public String CurrencyName {
             get {
+                if (this.CurrencyId == 0) return KeyCurrency.Instance.Name;
                 Currency c = cdb.findById<Currency>( this.CurrencyId );
                 return c == null ? "" : c.Name;
             }

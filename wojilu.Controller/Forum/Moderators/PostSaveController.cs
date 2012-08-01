@@ -79,7 +79,8 @@ namespace wojilu.Web.Controller.Forum.Moderators {
             int currencyValue = ctx.PostInt( "CurrencyValue" );
             if (((currencyValue != 0) && (currencyValue >= -rateMaxValue)) && (currencyValue <= rateMaxValue)) {
                 postService.SetPostCredit( post, ctx.PostInt( "CurrencyId" ), currencyValue, ctx.Post( "Reason" ), (User)ctx.viewer.obj );
-                userIncomeService.AddIncome( post.Creator, ctx.PostInt( "CurrencyId" ), currencyValue );
+                String msg = string.Format( "帖子被评分 <a href=\"{0}\">{1}</a>", alink.ToAppData( post ), post.Title );
+                userIncomeService.AddIncome( post.Creator, ctx.PostInt( "CurrencyId" ), currencyValue, msg );
                 echoRedirect( lang( "opok" ) );
             }
             else {

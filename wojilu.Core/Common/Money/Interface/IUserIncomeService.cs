@@ -21,16 +21,16 @@ namespace wojilu.Common.Money.Interface {
 
         Boolean HasEnoughKeyIncome( int userId, int income );
 
-        void AddIncome( User user, int currencyId, int income );
-        void AddIncome( User user, int actionId );
-        void AddIncomeReverse( User user, int actionId );
-        void AddKeyIncome( User user, int income );
-        void AddKeyIncome( int userId, int income );
+        void AddIncome( User user, int currencyId, int income, String msg );
+        void AddIncome( User user, int actionId, String msg );
+        void AddIncomeReverse( User user, int actionId, String msg );
+        void AddKeyIncome( User user, int income, String msg );
+        void AddKeyIncome( int userId, int income, String msg );
 
         IList GetIncomeList( String userIds );
         UserIncome GetUserIncome( int userId, int currencyId );
         List<UserIncome> GetUserIncome( int userId );
-        DataPage<UserIncomeLog> GetUserIncomeLog( int userId );
+        DataPage<UserIncomeLog> GetUserIncomeLog( int userId, int currencyId );
 
         void InitUserIncome( User user );
         void InsertIncome( UserIncome income );

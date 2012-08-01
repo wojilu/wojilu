@@ -33,17 +33,15 @@ namespace wojilu.Web.Controller.Users.Admin {
 
         public override void Layout() {
             set( "keyIncomeLink", to( My ) );
-            set( "incomeLogLink", to( IncomeLogLink ) );
             set( "ruleLink", to( IncomeRule ) );
             set( "rankLink", to( Rank ) );
-            //set( "postLink", to( Posts ) );
+            set( "incomeLink", to( IncomeLog, 0 ) );
         }
 
         public void My() {
 
             User user = ctx.owner.obj as User;
 
-            set( "user.Credit", user.Credit );
             set( "user.Name", user.Name );
 
             set( "user.RoleName", user.Role.Name );
@@ -61,23 +59,30 @@ namespace wojilu.Web.Controller.Users.Admin {
             bindList( "list", "c", incomes );
         }
 
+        private static readonly int tempKeyCurrencyId = 99999999;
 
-
-        public void IncomeLogLink() {
+        public void IncomeLog( int currencyId ) {
 
             User user = ctx.owner.obj as User;
 
-            DataPage<UserIncomeLog> logs = incomeService.GetUserIncomeLog( user.Id );
-            bindList( "list", "c", logs.Results );
+            if (currencyId == 0) currencyId = -1;
+            if (currencyId == tempKeyCurrencyId) currencyId = 0;
+
+            DataPage<UserIncomeLog> logs = incomeService.GetUserIncomeLog( user.Id, currencyId );
+            bindList( "list", "x", logs.Results, bindCurrencyLink );
             set( "pager", logs.PageBar );
+        }
+
+        private void bindCurrencyLink( IBlock block, String lbl, Object data ) {
+            UserIncomeLog x = data as UserIncomeLog;
+            int currencyId = x.CurrencyId == 0 ? tempKeyCurrencyId : x.CurrencyId;
+            block.Set( "x.CurrencyLink", to( IncomeLog, currencyId ) );
         }
 
         public void IncomeRule() {
 
-
             IList currencyList = currencyService.GetCurrencyAll();
             IList actions = currencyService.GetUserActions();
-
 
             StringBuilder builder = new StringBuilder();
             builder.Append( "<table style='width:100%;' id='dataAdminList' cellspacing='0'>" );
@@ -141,28 +146,6 @@ namespace wojilu.Web.Controller.Users.Admin {
             }
         }
 
-        //public void Posts() {
-
-
-        //    User user = ctx.owner.obj as User;
-
-        //    ForumBoard b = new ForumBoard();
-
-        //    ForumPost p = new ForumPost();
-        //    IPageList posts = p.findPage( "Creator.Id=" + user.Id );
-        //    IBlock block = getBlock( "list" );
-        //    foreach (ForumPost post in posts.Results) {
-        //        block.Set( "post.Title", post.Title );
-        //        block.Set( "post.Created", post.Created );
-        //        block.Set( "post.LinkShow", alink.ToAppData( post ) );
-
-        //        ForumBoard board = b.findById( post.ForumBoardId ) as ForumBoard;
-        //        block.Set( "post.BoardName", board.Name );
-        //        block.Set( "post.BoardLink", alink.ToAppData( board ) );
-        //        block.Next();
-        //    }
-        //    set( "pager", posts.PageBar );
-        //}
 
     }
 

@@ -58,10 +58,11 @@ namespace wojilu.Apps.Forum.Interface {
         void SetGloablStickyUndo( int appId, String ids );
         void StickyMoveUp( int topicId );
         void StickyMoveDown( int topicId );
-        void SubstractAuthorIncome( String condition, int actionId );
+
+        void AddAuthorIncome( String condition, int actionId, String actionName );
+        void SubstractAuthorIncome( String condition, int actionId, String actionName );
         void SubstractTopicReward( ForumTopic topic, int postValue );
 
-        void AddAuthorIncome( String condition, int actionId );
         void AddHits( ForumTopic topic );
         void AdminUpdate( String action, String condition );
         int CountReply( int topicId );

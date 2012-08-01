@@ -12,6 +12,7 @@ using wojilu.Apps.Forum.Interface;
 using wojilu.Members.Users.Interface;
 using wojilu.Common.Money.Interface;
 using wojilu.Members.Users.Domain;
+using wojilu.Web.Mvc;
 
 namespace wojilu.Apps.Forum.Service {
 
@@ -53,8 +54,11 @@ namespace wojilu.Apps.Forum.Service {
             log2.ActionId = actionId;
             db.insert( log2 );
 
-            userIncomeService.AddKeyIncome( buyerId, -topic.Price );
-            userIncomeService.AddKeyIncome( creatorId, topic.Price );
+            String msg = string.Format( "购买有售价的帖子 <a href=\"{0}\">{1}</a>", alink.ToAppData( topic ), topic.Title );
+            userIncomeService.AddKeyIncome( buyerId, -topic.Price, msg );
+
+            String msg2 = string.Format( "销售帖子 <a href=\"{0}\">{1}</a>", alink.ToAppData( topic ), topic.Title );
+            userIncomeService.AddKeyIncome( creatorId, topic.Price, msg2 );
 
             return result;
         }
