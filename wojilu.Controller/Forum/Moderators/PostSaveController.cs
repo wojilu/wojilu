@@ -14,6 +14,7 @@ using wojilu.Common.Money.Service;
 using wojilu.Members.Users.Domain;
 using wojilu.Apps.Forum.Interface;
 using wojilu.Common.Money.Interface;
+using wojilu.Common.Money.Domain;
 
 namespace wojilu.Web.Controller.Forum.Moderators {
 
@@ -22,7 +23,6 @@ namespace wojilu.Web.Controller.Forum.Moderators {
 
 
         public IForumBoardService boardService { get; set; }
-        public IForumBuyLogService buyService { get; set; }
         public IForumPostService postService { get; set; }
         public IForumTopicService topicService { get; set; }
         public IUserIncomeService userIncomeService { get; set; }
@@ -31,7 +31,6 @@ namespace wojilu.Web.Controller.Forum.Moderators {
             topicService = new ForumTopicService();
             boardService = new ForumBoardService();
             postService = new ForumPostService();
-            buyService = new ForumBuyLogService();
             userIncomeService = new UserIncomeService();
         }
 
@@ -43,24 +42,6 @@ namespace wojilu.Web.Controller.Forum.Moderators {
             return true;
         }
 
-
-
-        //-----------------------------------------------------------------------------
-
-        public void Buy( int postId ) {
-
-            ForumPost post = postService.GetById( postId, ctx.owner.obj );
-            ForumTopic topic = topicService.GetById( post.TopicId, ctx.owner.obj );
-            if (boardError( topic )) return;
-
-            Result result = buyService.Buy( ctx.viewer.Id, post.Creator.Id, topic );
-            if (result.IsValid) {
-                set( "content", post.Content.Replace( "'", "&#39;" ) );
-            }
-            else {
-                echoError( result.ErrorsText );
-            }
-        }
 
         //------------------------------------ 版主管理：帖子评分 -----------------------------------------
 
@@ -76,16 +57,18 @@ namespace wojilu.Web.Controller.Forum.Moderators {
 
             int rateMaxValue = ((ForumApp)ctx.app.obj).MaxRateValue;
 
+            int currencyId = ctx.PostInt( "CurrencyId" );
             int currencyValue = ctx.PostInt( "CurrencyValue" );
-            if (((currencyValue != 0) && (currencyValue >= -rateMaxValue)) && (currencyValue <= rateMaxValue)) {
-                postService.SetPostCredit( post, ctx.PostInt( "CurrencyId" ), currencyValue, ctx.Post( "Reason" ), (User)ctx.viewer.obj );
-                String msg = string.Format( "帖子被评分 <a href=\"{0}\">{1}</a>", alink.ToAppData( post ), post.Title );
-                userIncomeService.AddIncome( post.Creator, ctx.PostInt( "CurrencyId" ), currencyValue, msg );
-                echoRedirect( lang( "opok" ) );
+            String reason = ctx.Post( "Reason" );
+            User user = (User)ctx.viewer.obj;
+
+            if (currencyValue != 0 && currencyValue >= -rateMaxValue && currencyValue <= rateMaxValue) {
+                postService.SetPostCredit( post, currencyId, currencyValue, reason, user );
+                echoToParent( lang( "opok" ) );
             }
             else {
                 errors.Add( alang( "exCreditNotValid" ) );
-                //run( AddCredit, id );
+                echoError();
             }
         }
 
@@ -161,6 +144,7 @@ namespace wojilu.Web.Controller.Forum.Moderators {
             if (boardError( post )) return;
 
             postService.DeleteToTrash( post, (User)ctx.viewer.obj, ctx.Ip );
+
             echoRedirect( lang( "opok" ) );
         }
 
@@ -174,10 +158,9 @@ namespace wojilu.Web.Controller.Forum.Moderators {
             if (boardError( topic )) return;
 
             topicService.DeleteToTrash( topic, (User)ctx.viewer.obj, ctx.Ip );
+
             echoRedirect( lang( "opok" ), alink.ToAppData( topic.ForumBoard ) );
         }
-
-
 
         private Tree<ForumBoard> _tree;
 

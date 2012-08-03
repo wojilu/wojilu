@@ -62,7 +62,7 @@ namespace wojilu.Web.Controller.Forum.Moderators {
 
             String msg = "<div style=\"font-size:22px;color:red;font-weight:bold;margin-top:30px; text-align:center;\">{0}</div>";
 
-            if (rateService.IsUserRate( (User)ctx.viewer.obj, id )) {
+            if (rateService.HasRate( ctx.viewer.Id, id )) {
                 actionContent( string.Format( msg, alang( "exRewarded" ) ) );
                 return;
             }

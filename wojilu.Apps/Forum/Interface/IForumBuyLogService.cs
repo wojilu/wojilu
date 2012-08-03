@@ -12,7 +12,7 @@ namespace wojilu.Apps.Forum.Interface {
 
     public interface IForumBuyLogService {
 
-        IUserIncomeService userIncomeService { get; set; }
+        IUserIncomeService incomeService { get; set; }
         IUserService userService { get; set; }
 
         Result Buy( int buyerId, int creatorId, ForumTopic topic );

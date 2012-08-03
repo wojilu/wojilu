@@ -7,8 +7,14 @@ using System.Collections.Generic;
 
 using wojilu.Web.Mvc;
 
+using wojilu.ORM;
+using wojilu.Serialization;
+
+using wojilu.Common;
 using wojilu.Common.Tags;
 using wojilu.Common.AppBase.Interface;
+using wojilu.Common.Jobs;
+using wojilu.Common.AppBase;
 
 using wojilu.Common.Money.Domain;
 using wojilu.Common.Money.Service;
@@ -25,12 +31,6 @@ using wojilu.Members.Groups.Domain;
 
 using wojilu.Apps.Forum.Domain;
 using wojilu.Apps.Forum.Interface;
-using wojilu.Common;
-using wojilu.Data;
-using wojilu.ORM;
-using wojilu.Serialization;
-using wojilu.Common.Jobs;
-using wojilu.Common.AppBase;
 
 namespace wojilu.Apps.Forum.Service {
 
@@ -362,23 +362,6 @@ namespace wojilu.Apps.Forum.Service {
 
         //--------------------------------------------------------------------------------
 
-        //public void AddRewardDefault( ForumTopic topic ) {
-        //    EntityInfo info = MappingClass.Instance.ClassList[typeof( ForumPost ).FullName] as EntityInfo;
-        //    String tableName = info.TableName;
-        //    String sql = "select distinct CreatorId,Id from tbl where topicId=? and parentId>0";
-        //    //int num = 0;
-        //    String ids = string.Empty;
-        //    IDataReader reader = EasyDB.ExecuteReader( sql, DbContext.Connection );
-        //    while (reader.Read()) {
-        //        ids = ids + cvt.ToInt( reader[0] ) + ",";
-        //        //num++;
-        //    }
-        //    reader.Close();
-        //    ids = ids.TrimEnd( new char[] { ',' } );
-        //    topic.RewardAvailable = 0;
-        //    topic.Update( "RewardAvailable" );
-        //}
-
         public virtual void AdminUpdate( String action, String condition ) {
             db.updateBatch<ForumTopic>( action, condition );
         }
@@ -585,8 +568,13 @@ namespace wojilu.Apps.Forum.Service {
                 db.update( p, "Status" );
             }
 
-            logService.AddTopic( creator, topic.AppId, topic.Id, ForumLogAction.Delete, ip );
+            // 更新作者的收入
+            if (topic.Creator != null && topic.Creator.Id > 0) { // 规避已注销用户
+                String msg = string.Format( "主题被删除<a href=\"{0}\">{1}</a>", alink.ToAppData( topic ), topic.Title );
+                incomeService.AddIncome( topic.Creator, UserAction.Forum_TopicDeleted.Id, msg );
+            }
 
+            logService.AddTopic( creator, topic.AppId, topic.Id, ForumLogAction.Delete, ip );
         }
 
         public virtual void DeleteTrue( ForumTopic topic, User viewer, String ip ) {
@@ -616,12 +604,6 @@ namespace wojilu.Apps.Forum.Service {
             //int replies = topic.Replies;
             //int forumBoardId = topic.ForumBoard.Id;
             //boardService.DeleteTopicCount( forumBoardId, replies, topic.OwnerId );
-
-            // 更新作者的收入
-            if (creatorId > 0) { // 规避已注销用户
-                String msg = string.Format( "主题被删除<a href=\"{0}\">{1}</a>", alink.ToAppData( topic ), topic.Title );
-                incomeService.AddIncome( topic.Creator, UserAction.Forum_TopicDeleted.Id, msg );
-            }
 
             logService.AddTopic( viewer, topic.AppId, topic.Id, ForumLogAction.DeleteTrue, ip );
         }
@@ -664,6 +646,9 @@ namespace wojilu.Apps.Forum.Service {
                     p.Status = TopicStatus.Normal;
                     db.update( p, "Status" );
                 }
+
+                String msg = string.Format( "撤销删除(主题): <a href=\"{0}\">{1}</a>", alink.ToAppData( topic ), topic.Title );
+                incomeService.AddIncomeReverse( topic.Creator, UserAction.Forum_TopicDeleted.Id, msg );
 
             }
         }

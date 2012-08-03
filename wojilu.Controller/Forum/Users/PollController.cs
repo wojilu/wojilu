@@ -21,15 +21,14 @@ using wojilu.Web.Controller.Forum.Utils;
 using wojilu.Apps.Forum.Views;
 using wojilu.Common.Polls.Service;
 
-
 namespace wojilu.Web.Controller.Forum.Users {
 
     [App( typeof( ForumApp ) )]
     public partial class PollController : ControllerBase {
 
-        public IForumBoardService boardService { get; set; }
-        public ForumPollService pollService { get; set; }
-        public IForumTopicService topicService { get; set; }
+        public virtual IForumBoardService boardService { get; set; }
+        public virtual ForumPollService pollService { get; set; }
+        public virtual IForumTopicService topicService { get; set; }
 
         public PollController() {
             topicService = new ForumTopicService();

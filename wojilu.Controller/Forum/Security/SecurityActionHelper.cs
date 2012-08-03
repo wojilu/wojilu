@@ -28,7 +28,7 @@ namespace wojilu.Web.Controller.Forum.Utils {
 
                 // (admin) post
                 p.AddCredit,
-                ps.Buy, ps.SaveCredit, ps.Ban, ps.UnBan, ps.Lock, ps.UnLock, ps.DeletePost, ps.DeleteTopic,
+                ps.SaveCredit, ps.Ban, ps.UnBan, ps.Lock, ps.UnLock, ps.DeletePost, ps.DeleteTopic,
 
                 // (edit) topic/post
                 ut.Edit, ut.Update, up.Edit, up.Update,

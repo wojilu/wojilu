@@ -15,6 +15,8 @@ using wojilu.Common.AppBase.Interface;
 using wojilu.Members.Users.Domain;
 using wojilu.Web.Controller.Common;
 using wojilu.Common.Money.Domain;
+using wojilu.Common.Money.Interface;
+using wojilu.Common.Money.Service;
 
 namespace wojilu.Web.Controller.Forum.Users {
 
@@ -26,7 +28,8 @@ namespace wojilu.Web.Controller.Forum.Users {
         public IForumPostService postService { get; set; }
         public IForumTopicService topicService { get; set; }
         public IModeratorService moderatorService { get; set; }
-
+        public IForumBuyLogService buyService { get; set; }
+        public IUserIncomeService incomeService { get; set; }
 
         public PostController() {
             boardService = new ForumBoardService();
@@ -34,6 +37,8 @@ namespace wojilu.Web.Controller.Forum.Users {
             postService = new ForumPostService();
             attachService = new AttachmentService();
             moderatorService = new ModeratorService();
+            buyService = new ForumBuyLogService();
+            incomeService = new UserIncomeService();
         }
 
         private Tree<ForumBoard> _tree;
@@ -108,7 +113,42 @@ namespace wojilu.Web.Controller.Forum.Users {
                 }
             }
         }
+        //-----------------------------------------------------------------------------
 
+        public void Buy( int postId ) {
+
+            ForumPost post = postService.GetById( postId, ctx.owner.obj );
+            ForumTopic topic = topicService.GetById( post.TopicId, ctx.owner.obj );
+            if (boardError( topic )) return;
+
+            if (topic.Price <= 0) {
+                echo( "topic.price <=0" );
+                return;
+            }
+
+            if (  incomeService.HasEnoughKeyIncome( ctx.viewer.Id, topic.Price ) == false) {
+                echo( String.Format( alang( "exIncome" ), KeyCurrency.Instance.Name ) );
+                return;
+            }
+
+            set( "ActionLink", to( SaveBuy, postId ) + "?boardId=" + ctx.GetInt( "boardId" ) );
+        }
+
+        [HttpPost]
+        public void SaveBuy( int postId ) {
+            ForumPost post = postService.GetById( postId, ctx.owner.obj );
+            ForumTopic topic = topicService.GetById( post.TopicId, ctx.owner.obj );
+            if (boardError( topic )) return;
+
+            Result result = buyService.Buy( ctx.viewer.Id, post.Creator.Id, topic );
+
+            if (result.IsValid) {
+                echoToParent( alang( "buyok" ) );
+            }
+            else {
+                echoError( result );
+            }
+        }
 
         //------------------------------------ 悬赏 -----------------------------------------
 
@@ -297,7 +337,7 @@ namespace wojilu.Web.Controller.Forum.Users {
 
             set( "page", list.PageBar );
         }
-        
+
         //---------------------------------------------------------------------------
 
 

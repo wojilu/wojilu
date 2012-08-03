@@ -510,7 +510,7 @@
     <Compile Include="Admin\Credits\CurrencyController.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Forum\Admin\BoardController.cs">
+    <Compile Include="Forum\Admin\ForumController.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Forum\BoardController.cs">

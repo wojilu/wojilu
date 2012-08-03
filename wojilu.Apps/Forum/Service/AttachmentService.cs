@@ -6,18 +6,29 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-using wojilu.IO;
-using wojilu.Apps.Forum.Domain;
-using wojilu.Members.Users.Domain;
-using wojilu.Members.Interface;
-using wojilu.Apps.Forum.Interface;
 using wojilu.Drawing;
-using wojilu.Web.Utils;
+using wojilu.Web.Mvc;
+
+using wojilu.Common.Money.Domain;
+using wojilu.Common.Money.Interface;
+using wojilu.Common.Money.Service;
+
+using wojilu.Members.Interface;
+using wojilu.Members.Users.Domain;
+
+using wojilu.Apps.Forum.Domain;
+using wojilu.Apps.Forum.Interface;
 
 namespace wojilu.Apps.Forum.Service {
 
 
     public class AttachmentService : IAttachmentService {
+
+        public virtual IUserIncomeService incomeService { get; set; }
+
+        public AttachmentService() {
+            incomeService = new UserIncomeService();
+        }
 
         public virtual List<Attachment> GetByPost( int postId ) {
             return Attachment.find( "PostId=" + postId + " order by OrderId desc, Id asc" ).list();
@@ -40,7 +51,7 @@ namespace wojilu.Apps.Forum.Service {
         }
 
         public virtual DataPage<AttachmentTemp> GetByUser( int userId, int pageSize ) {
-            return AttachmentTemp.findPage( "OwnerId="+userId, pageSize );
+            return AttachmentTemp.findPage( "OwnerId=" + userId, pageSize );
         }
 
         public virtual Attachment GetById( int id, String guid ) {
@@ -55,10 +66,46 @@ namespace wojilu.Apps.Forum.Service {
             return Attachment.findById( id );
         }
 
-        public virtual void AddHits( Attachment attachment ) {
+        public virtual void AddHits( Attachment attachment, User downloader ) {
             attachment.Downloads++;
             db.update( attachment, "Downloads" );
+            this.SubstractIncome( attachment.TopicId, downloader );
         }
+
+        public virtual void SubstractIncome( int topicId, User viewer ) {
+
+            if (viewer == null || viewer.Id <= 0) return; // 跳过游客
+
+            ForumTopic topic = ForumTopic.findById( topicId );
+            if (topic == null) return;
+
+            // 附件作者不用扣除积分
+            if (viewer.Id == topic.Creator.Id) return;
+
+            // 如果曾经下载过，不再扣除积分
+            if (!isFirstDownload( viewer, topicId )) return;
+
+            // 第一次下载:做记录
+            addFirstDownloadLog( viewer, topicId );
+
+            // 第一次下载:扣除积分
+            String msg = string.Format( "下载帖子 <a href=\"{0}\">{1}</a> 的附件", alink.ToAppData( topic ), topic.Title );
+            incomeService.AddIncome( viewer, UserAction.Forum_DownloadAttachment.Id, msg );
+        }
+
+        private Boolean isFirstDownload( User user, int topicId ) {
+            AttachmentDownload x = AttachmentDownload.find( "UserId=" + user.Id + " and TopicId=" + topicId ).first();
+            return x == null;
+        }
+
+        private void addFirstDownloadLog( User user, int topicId ) {
+            AttachmentDownload x = new AttachmentDownload();
+            x.UserId = user.Id;
+            x.TopicId = topicId;
+            x.insert();
+        }
+
+        //--------------------------------------------------------------------------------------------------------------
 
         public virtual void UpdateName( Attachment attachment, string name ) {
             attachment.Description = name;
@@ -69,11 +116,12 @@ namespace wojilu.Apps.Forum.Service {
 
             a.update();
 
-            if (a.IsImage)
+            if (a.IsImage) {
                 Img.DeleteImgAndThumb( oldFilePath );
-            else
+            }
+            else {
                 Img.DeleteFile( oldFilePath );
-
+            }
         }
 
         //--------------------------------------------------------------------------------------------------------------
@@ -123,25 +171,25 @@ namespace wojilu.Apps.Forum.Service {
             ForumTopicService topicService = new ForumTopicService();
 
             ForumPost post = topicService.GetPostByTopic( topic.Id );
-            
+
             int attachmentCount = 0;
             foreach (int id in arrIds) {
 
-                AttachmentTemp at = AttachmentTemp.findById( id );
-                if (at == null) continue;
+                AttachmentTemp _temp = AttachmentTemp.findById( id );
+                if (_temp == null) continue;
 
                 Attachment a = new Attachment();
 
-                a.AppId = at.AppId;
-                a.Guid = at.Guid;
+                a.AppId = _temp.AppId;
+                a.Guid = _temp.Guid;
 
-                a.FileSize = at.FileSize;
-                a.Type = at.Type;
-                a.Name = at.Name;
+                a.FileSize = _temp.FileSize;
+                a.Type = _temp.Type;
+                a.Name = _temp.Name;
 
-                a.Description = at.Description;
-                a.ReadPermission = at.ReadPermission;
-                a.Price = at.Price;
+                a.Description = _temp.Description;
+                a.ReadPermission = _temp.ReadPermission;
+                a.Price = _temp.Price;
 
 
                 a.TopicId = topic.Id;
@@ -155,10 +203,15 @@ namespace wojilu.Apps.Forum.Service {
 
                 a.insert();
 
-                at.delete();
+                _temp.delete();
 
                 attachmentCount++;
 
+            }
+
+            if (attachmentCount > 0) {
+                String msg = string.Format( "上传附件 <a href=\"{0}\">{1}</a>，获得奖励", alink.ToAppData( topic ), topic.Title );
+                incomeService.AddIncome( topic.Creator, UserAction.Forum_AddAttachment.Id, msg );
             }
 
             topicService.UpdateAttachments( topic, attachmentCount );

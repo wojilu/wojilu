@@ -4,75 +4,68 @@
 
 using System;
 
-using wojilu.Apps.Forum.Domain;
-using wojilu.Members.Users.Service;
-using wojilu.Common.Money.Service;
-using wojilu.Common.Money.Domain;
-using wojilu.Apps.Forum.Interface;
-using wojilu.Members.Users.Interface;
-using wojilu.Common.Money.Interface;
-using wojilu.Members.Users.Domain;
 using wojilu.Web.Mvc;
 
-namespace wojilu.Apps.Forum.Service {
+using wojilu.Common.Money.Domain;
+using wojilu.Common.Money.Interface;
+using wojilu.Common.Money.Service;
 
+using wojilu.Members.Users.Interface;
+using wojilu.Members.Users.Service;
+
+using wojilu.Apps.Forum.Domain;
+using wojilu.Apps.Forum.Interface;
+
+
+namespace wojilu.Apps.Forum.Service {
 
     public class ForumBuyLogService : IForumBuyLogService {
 
         public virtual IUserService userService { get; set; }
-        public virtual IUserIncomeService userIncomeService { get; set; }
-
+        public virtual IUserIncomeService incomeService { get; set; }
 
         public ForumBuyLogService() {
             userService = new UserService();
-            userIncomeService = new UserIncomeService();
+            incomeService = new UserIncomeService();
         }
 
         public virtual Result Buy( int buyerId, int creatorId, ForumTopic topic ) {
 
+            if (topic == null) throw new ArgumentNullException( "ForumBuyLogService.Buy" );
+
             Result result = new Result();
-            if (userIncomeService.HasEnoughKeyIncome( buyerId, topic.Price ) == false) {
+            if (topic.Price <= 0) {
+                result.Add( "topic.price <=0" );
+                return result;
+            }
+
+            if (incomeService.HasEnoughKeyIncome( buyerId, topic.Price ) == false) {
                 result.Add( String.Format( alang.get( typeof( ForumApp ), "exIncome" ), KeyCurrency.Instance.Name ) );
                 return result;
             }
-            
-            // 日志：买方减少收入
-            UserIncomeLog log = new UserIncomeLog();
+
+            // 购买日志
+            ForumBuyLog log = new ForumBuyLog();
             log.UserId = buyerId;
-            log.CurrencyId = KeyCurrency.Instance.Id;
-            log.Income = -topic.Price;
-            log.DataId = topic.Id;
-            log.ActionId = actionId;
-            db.insert( log );
+            log.TopicId = topic.Id;
+            log.insert();
 
-            // 日志：卖方增加收入
-            UserIncomeLog log2 = new UserIncomeLog();
-            log2.UserId = creatorId;
-            log2.CurrencyId = KeyCurrency.Instance.Id;
-            log2.Income = topic.Price;
-            log2.DataId = topic.Id;
-            log2.ActionId = actionId;
-            db.insert( log2 );
-
-            String msg = string.Format( "购买有售价的帖子 <a href=\"{0}\">{1}</a>", alink.ToAppData( topic ), topic.Title );
-            userIncomeService.AddKeyIncome( buyerId, -topic.Price, msg );
+            String msg = string.Format( "访问需要购买的帖子 <a href=\"{0}\">{1}</a>", alink.ToAppData( topic ), topic.Title );
+            incomeService.AddKeyIncome( buyerId, -topic.Price, msg );
 
             String msg2 = string.Format( "销售帖子 <a href=\"{0}\">{1}</a>", alink.ToAppData( topic ), topic.Title );
-            userIncomeService.AddKeyIncome( creatorId, topic.Price, msg2 );
+            incomeService.AddKeyIncome( creatorId, topic.Price, msg2 );
 
             return result;
         }
 
         public virtual int GetBuyerCount( int topicId ) {
-            return db.count<UserIncomeLog>( "DataId=" + topicId + " and ActionId=" + actionId );
+            return db.count<ForumBuyLog>( "TopicId=" + topicId );
         }
 
         public virtual Boolean HasBuyed( int buyerId, ForumTopic topic ) {
-            return ( db.count<UserIncomeLog>( "DataId=" + topic.Id + " and UserId=" + buyerId + " and ActionId=" + actionId ) > 0);
+            return (db.count<ForumBuyLog>( "TopicId=" + topic.Id + " and UserId=" + buyerId ) > 0);
         }
-
-        public static int actionId = 101; // 0x65
-
 
     }
 }

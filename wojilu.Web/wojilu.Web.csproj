@@ -316,6 +316,7 @@
     <Content Include="framework\views\Forum\Users\Poll\Voter.html" />
     <Content Include="framework\views\Forum\Moderators\Post\AddCredit.html" />
     <Content Include="framework\views\Forum\Users\Post\AddReward.html" />
+    <Content Include="framework\views\Forum\Users\Post\Buy.html" />
     <Content Include="framework\views\Forum\Users\Post\RewardList.html" />
     <Content Include="framework\views\Forum\Users\Post\SetReward.html" />
     <Content Include="framework\views\Forum\Topic\PostLoop.html" />
@@ -783,7 +784,6 @@
     <Content Include="framework\views\Forum\Edits\Attachment\SetPermission.html" />
     <Content Include="framework\views\Forum\Edits\Attachment\Upload.html" />
     <Content Include="framework\views\Forum\Edits\Attachment\Add.html" />
-    <Content Include="framework\views\Forum\Users\Post\Buy.html" />
     <Content Include="framework\views\Forum\Recent\Layout.html" />
     <Content Include="framework\views\Forum\Users\Uploader\SaveUpload.html" />
     <Content Include="framework\views\Main\LoginScript.html" />

@@ -42,8 +42,10 @@ namespace wojilu.Common.Polls.Service {
 
             Result result = db.insert( pr );
             if (result.IsValid) {
+
                 this.updatePollResult( pr );
-                String msg = string.Format( "发布投票 <a href=\"{0}\">{1}</a>", postLink, poll.Title );
+
+                String msg = string.Format( "参与投票 <a href=\"{0}\">{1}</a>, 获得奖励", postLink, poll.Title );
                 incomeService.AddIncome( pr.User, UserAction.Forum_Vote.Id, msg );
 
                 addFeedInfo( pr, postLink );

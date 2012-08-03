@@ -69,6 +69,23 @@ namespace wojilu.Apps.Forum.Service {
             feedService = new FeedService();
         }
 
+
+        //--------------------------------------- income -----------------------------------------
+
+        public virtual void AddAuthorIncome( ForumPost post, int actionId, String actionName ) {
+
+            String msg = string.Format( "帖子被{0} <a href=\"{1}\">{2}</a>", actionName, alink.ToAppData( post ), post.Title );
+            incomeService.AddIncome( post.Creator, actionId, msg );
+
+        }
+
+        public virtual void SubstractAuthorIncome( ForumPost post, int actionId, String actionName ) {
+
+            String msg = string.Format( "帖子被{0} <a href=\"{1}\">{2}</a>", actionName, alink.ToAppData( post ), post.Title );
+            incomeService.AddIncomeReverse( post.Creator, actionId, msg );
+
+        }
+
         public virtual ForumPost GetById_ForAdmin( int id ) {
             return db.findById<ForumPost>( id );
         }
@@ -348,6 +365,9 @@ namespace wojilu.Apps.Forum.Service {
             topic.Replies = topicService.CountReply( topic.Id );
             topic.update( "Replies" );
 
+            // 积分规则中本身定义的是负值，所以此处用AddIncome
+            AddAuthorIncome( post, UserAction.Forum_PostDeleted.Id, "删除" );
+
             forumLogService.AddPost( creator, post.AppId, post.Id, ForumLogAction.Delete, ip );
         }
 
@@ -388,7 +408,7 @@ namespace wojilu.Apps.Forum.Service {
             post.Reward = rewardValue;
             db.update( post, "Reward" );
 
-            String msg = string.Format( "因为您回复了 \"<a href=\"{0}\">{1}</a>\"，作者答谢您：{2}{3}", alink.ToAppData( topic ), topic.Title, rewardValue, KeyCurrency.Instance.Unit );
+            String msg = string.Format( "回复悬赏贴 \"<a href=\"{0}\">{1}</a>\"，作者答谢：{2}{3}", alink.ToAppData( topic ), topic.Title, rewardValue, KeyCurrency.Instance.Unit );
 
             incomeService.AddKeyIncome( post.Creator, rewardValue, msg );
 
@@ -400,16 +420,20 @@ namespace wojilu.Apps.Forum.Service {
             notificationService.send( post.Creator.Id, msg );
         }
 
-        public virtual void SetPostCredit( ForumPost post, int currencyId, int currencyValue, String reason, User viewer ) {
-            post.Rate += currencyValue;
+        public virtual void SetPostCredit( ForumPost post, int currencyId, int credit, String reason, User viewer ) {
+            post.Rate += credit;
             db.update( post, "Rate" );
 
+            rateService.Insert( post.Id, viewer, currencyId, credit, reason );
 
-            rateService.Insert( post.Id, post.Creator.Id, viewer.Id, viewer.Name, currencyId, currencyValue, reason );
+            String msg = string.Format( "帖子被评分 <a href=\"{0}\">{1}</a>", alink.ToAppData( post ), post.Title );
+
+            incomeService.AddIncome( post.Creator, currencyId, credit, msg );
+
+            notificationService.send( post.Creator.Id, msg );
         }
 
         public virtual void BanPost( ForumPost post, String reason, int isSendMsg, User user, int appId, String ip ) {
-
 
             post.Status = 1;
             db.update( post, "Status" );
@@ -460,6 +484,9 @@ namespace wojilu.Apps.Forum.Service {
                     topic.Status = TopicStatus.Normal;
                     db.update( topic, "Status" );
                 }
+
+                String msg = string.Format( "撤销删除(帖子): <a href=\"{0}\">{1}</a>", alink.ToAppData( post ), post.Title );
+                incomeService.AddIncomeReverse( post.Creator, UserAction.Forum_PostDeleted.Id, msg );
 
             }
         }

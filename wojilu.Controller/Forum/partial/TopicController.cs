@@ -101,10 +101,12 @@ namespace wojilu.Web.Controller.Forum {
 
         private static String getRankStr( ForumPost data ) {
 
-            if (data.Creator.RoleId != SiteRole.NormalMember.Id)
+            if (data.Creator.RoleId != SiteRole.NormalMember.Id) {
                 return data.Creator.Role.Name;
-            else
+            }
+            else {
                 return data.Creator.Rank.Name;
+            }
         }
 
         private void bindTopicOne( IBlock block, ForumPost data, ForumBoard board, List<Attachment> attachList ) {
@@ -161,18 +163,7 @@ namespace wojilu.Web.Controller.Forum {
 
         private String getAdminString( ForumPost post ) {
             return getAdminActions( post ) + " " + getEditAction( post );
-            //if (hasAdminPermission( post )) {
-            //    return getAdminActions( post );
-            //}
-            //if (post.Creator.Id == ctx.viewer.Id) {
-            //    return getEditAction( post );
-            //}
-            //return string.Empty;
         }
-
-        //private Boolean canAdminTag( ForumPost post ) {
-        //    return hasAdminPermission( post ) || post.Creator.Id == ctx.viewer.Id;
-        //}
 
         private Boolean hasAdminPermission( ForumPost post ) {
 
@@ -207,7 +198,7 @@ namespace wojilu.Web.Controller.Forum {
         }
 
         private int getFloorNumber( int pageSize, int i ) {
-            return ((((ctx.route.page - 1) * pageSize) + i) + 1);
+            return (ctx.route.page - 1) * pageSize + i + 1;
         }
 
         private String getTopicContent( ForumBoard board, ForumPost data, List<Attachment> attachList ) {
@@ -215,11 +206,22 @@ namespace wojilu.Web.Controller.Forum {
             if (data.Status == 1) return "<div class=\"banned\">" + alang( "postBanned" ) + "</div>";
 
             ForumTopic topic = getPostTopic( data );
-            if (((topic.Price > 0) && (topic.Creator.Id != ctx.viewer.Id)) && !buylogService.HasBuyed( ctx.viewer.Id, topic )) {
-                return getPricedContent( topic, data );
-            }
 
             String content = data.Content;
+
+            if (topic.Price > 0) {
+
+                if (ctx.viewer.IsAdministrator() || ctx.viewer.Id == topic.Creator.Id) {
+                    content = getPriceContentStats( topic, data ) + content;
+                }
+                else if (buylogService.HasBuyed( ctx.viewer.Id, topic )) {
+                    content = getBuyedContent( topic, data ) + content;
+                }
+                else {
+                    return getNonBuyedContent( topic, data );
+                }
+            }
+
             content = addOtherDataContent( addLockedInfo( data, content ), topic );
             if (data.EditTime.Subtract( data.Created ).TotalMinutes > ForumConfig.Instance.ShowEditInfoTime) {
                 content = addEditInfo( data, content );
@@ -254,21 +256,41 @@ namespace wojilu.Web.Controller.Forum {
             return topic;
         }
 
-        private String getPricedContent( ForumTopic topic, ForumPost post ) {
-            int buyerCount = buylogService.GetBuyerCount( topic.Id );
-            StringBuilder builder = new StringBuilder();
-            builder.Append( "<div id=\"forumPrice\"><div class=\"price\">" );
-            builder.AppendFormat( "<div>{0}</div>", alang( "exPlsBuy" ) );
-            builder.AppendFormat( "<div>{0}: {1}</div>", alang( "price" ), topic.Price );
-            builder.AppendFormat( "<div>{0}: {1}</div>", alang( "buyUsersCount" ), buyerCount );
-            builder.AppendFormat( "<div><a class=\"frmBox cmd\" href=\"{0}\">{1}</a></div>", Link.To( new Moderators.PostSaveController().Buy, post.Id ) + "?boardId=" + topic.ForumBoard.Id, alang( "buyTopic" ) );
+        private String getUserTitle( ForumPost data ) {
+            if (strUtil.IsNullOrEmpty( data.Creator.Title )) return "";
+            return string.Format( "<div>{0}: {1}</div>", alang( "userTitle" ), data.Creator.Title );
+        }
+
+        //----------------------------------------------------------------------------------------------------------------------------------
+
+        private String getNonBuyedContent( ForumTopic topic, ForumPost post ) {
+            StringBuilder builder = getPriceContentPrefix( topic );
+            builder.AppendFormat( "<div class=\"forum-price-cmd\" style=\"margin-top:10px;\"><a class=\"frmBox btn btn-primary\" href=\"{0}\"><i class=\"icon-hand-right icon-white\"></i> {1}</a></div>", Link.To( new Users.PostController().Buy, post.Id ) + "?boardId=" + topic.ForumBoard.Id, alang( "buyTopic" ) );
             builder.Append( "</div></div>" );
             return builder.ToString();
         }
 
-        private String getUserTitle( ForumPost data ) {
-            if (strUtil.IsNullOrEmpty( data.Creator.Title )) return "";
-            return string.Format( "<div>{0}: {1}</div>", alang( "userTitle" ), data.Creator.Title );
+        private String getBuyedContent( ForumTopic topic, ForumPost post ) {
+            StringBuilder builder = getPriceContentPrefix( topic );
+            builder.AppendFormat( "<div class=\"forum-price-cmd\" style=\"margin-top:10px;\"><span class=\"btn btn-primary\"><i class=\"icon-ok icon-white\"></i> 您已经购买</a></div>" );
+            builder.Append( "</div></div>" );
+            return builder.ToString();
+        }
+
+        private String getPriceContentStats( ForumTopic topic, ForumPost post ) {
+            StringBuilder builder = getPriceContentPrefix( topic );
+            builder.Append( "</div></div>" );
+            return builder.ToString();
+        }
+
+        private StringBuilder getPriceContentPrefix( ForumTopic topic ) {
+            int buyerCount = buylogService.GetBuyerCount( topic.Id );
+            StringBuilder builder = new StringBuilder();
+            builder.Append( "<div id=\"forumPrice\" class=\"alert alert-warning\"><div class=\"forum-price-inner\">" );
+            builder.AppendFormat( "<div class=\"forum-price-tip\">{0}</div>", string.Format( alang( "exPlsBuy" ), KeyCurrency.Instance.Name ) );
+            builder.AppendFormat( "<div class=\"forum-price-price\">{0}: {1} {2}</div>", alang( "price" ), topic.Price, KeyCurrency.Instance.Unit );
+            builder.AppendFormat( "<div class=\"forum-price-buyers\">{0}: {1}</div>", alang( "buyUsersCount" ), buyerCount );
+            return builder;
         }
 
         //----------------------------------------------------------------------------------------------------------------------------------
@@ -437,26 +459,26 @@ namespace wojilu.Web.Controller.Forum {
             if (data.Rate == 0) {
                 return content;
             }
-            List<UserIncomeLog> logs = rateService.GetByPost( data.Id );
-            StringBuilder builder = new StringBuilder();
-            builder.AppendFormat( "<fieldset class=\"forumRateLogs\"><legend>{0}</legend>", alang( "creditLog" ) );
-            foreach (UserIncomeLog log in logs) {
-                builder.AppendFormat( "<div><span>{0}</span><span>", log.OperatorName );
-                ICurrency currency = currencyService.GetICurrencyById( log.CurrencyId );
-                builder.Append( "</span><span>" );
-                builder.Append( currency.Name );
-                if (log.Income > 0) {
-                    builder.Append( "+" );
-                }
-                builder.Append( log.Income );
-                builder.Append( "</span><span>" );
-                builder.Append( log.Note );
-                builder.Append( "</span><span>" );
-                builder.Append( log.Created.ToString( "g" ) );
-                builder.Append( "</span></div>" );
+            List<ForumRateLog> logs = rateService.GetByPost( data.Id );
+            StringBuilder sb = new StringBuilder();
+            sb.AppendFormat( "<div class=\"forum-rate-list\"><div class=\"forum-rate-title\">{0}</div>", alang( "creditLog" ) );
+            sb.Append( "<table class=\"forum-rate-table table table-condensed\">" );
+            foreach (ForumRateLog x in logs) {
+
+                ICurrency currency = currencyService.GetICurrencyById( x.CurrencyId );
+
+                sb.Append( "<tr>" );
+                sb.AppendFormat( "<td class=\"forum-rate-user\"><a href=\"{0}\" target=\"_blank\">{1}</a></td>", Link.ToMember( x.User ), x.User.Name );
+                sb.AppendFormat( "<td class=\"forum-rate-name\">{0} <span class=\"forum-rate-value\">+{1}</span></td>", currency.Name, x.Income );
+
+                sb.AppendFormat( "<td class=\"forum-rate-note\">{0}</td>", x.Reason );
+                sb.AppendFormat( "<td class=\"forum-rate-time\">{0}</td>", x.Created.ToString( "g" ) );
+
+                sb.Append( "</tr>" );
+
             }
-            builder.Append( "</fieldset>" );
-            return (content + builder.ToString());
+            sb.Append( "</table></div>" );
+            return content + sb.ToString();
         }
 
         private String addRewardInfo( ForumPost data, String title ) {

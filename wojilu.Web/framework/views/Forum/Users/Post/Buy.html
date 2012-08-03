@@ -1,12 +1,15 @@
-﻿<div style="margin:20px;">
-    <div style="font-size:20px;font-weight:bold;font-family:微软雅黑;text-align:;color:red;padding-left:100px;">:{buyok}!</div>
-    <script>
-        setTimeout( function() {
-            var p = wojilu.tool.getBoxParent();
-            p.showContent( '#{content}' );
-            p.wojilu.ui.box.hideBox();    
-        }, 500 );
-    </script>
+﻿<div style=" text-align:center;">
+
+<form method="post" action="#{ActionLink}">
+    <div style=" margin:20px; font-size:18px; font-weight:bold;">确实购买？</div>
+    <div>
+    
+        <input type="submit" value="购买" class="btn" />
+    
+        <input type="button" value="取消" class="btn btnCancel" />
+    
+    </div>
+
+</form>
 
 </div>
-

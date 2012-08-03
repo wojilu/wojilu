@@ -199,12 +199,15 @@
     <Compile Include="Content\Service\ContentTempPostService.cs" />
     <Compile Include="Content\Service\RowService.cs" />
     <Compile Include="Content\Service\SysPostService.cs" />
+    <Compile Include="Forum\Domain\AttachmentDownload.cs" />
     <Compile Include="Forum\Domain\AttachmentTemp.cs" />
     <Compile Include="Forum\Domain\ForumPickedImg.cs" />
     <Compile Include="Forum\Domain\ForumPoll.cs" />
     <Compile Include="Forum\Domain\ForumPollResult.cs" />
     <Compile Include="Forum\Domain\ForumSetting.cs" />
     <Compile Include="Forum\Domain\LastUpdateInfo.cs" />
+    <Compile Include="Forum\Domain\ForumBuyLog.cs" />
+    <Compile Include="Forum\Domain\ForumRateLog.cs" />
     <Compile Include="Forum\Service\ForumPollService.cs" />
     <Compile Include="Forum\Service\SysForumTopicService.cs" />
     <Compile Include="Photo\Interface\IPhotoService.cs" />

@@ -6,17 +6,22 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 
-using wojilu.Web.Mvc;
 using wojilu.Web.Context;
-using wojilu.Common.AppBase;
-using wojilu.Members.Users.Service;
-using wojilu.Members.Users.Domain;
-using wojilu.Apps.Photo.Domain;
-using wojilu.Common.Jobs;
-using wojilu.Members.Users.Interface;
-using wojilu.Apps.Photo.Interface;
+using wojilu.Web.Mvc;
+
 using wojilu.Common;
-using wojilu.Drawing;
+using wojilu.Common.AppBase;
+using wojilu.Common.Jobs;
+using wojilu.Common.Money.Domain;
+using wojilu.Common.Money.Interface;
+using wojilu.Common.Money.Service;
+
+using wojilu.Members.Users.Domain;
+using wojilu.Members.Users.Interface;
+using wojilu.Members.Users.Service;
+
+using wojilu.Apps.Photo.Domain;
+using wojilu.Apps.Photo.Interface;
 
 namespace wojilu.Apps.Photo.Service {
 
@@ -24,10 +29,12 @@ namespace wojilu.Apps.Photo.Service {
 
         public virtual IFriendService friendService { get; set; }
         public virtual IPickedService pickedService { get; set; }
+        public virtual IUserIncomeService incomeService { get; set; }
 
         public PhotoPostService() {
             friendService = new FriendService();
             pickedService = new PickedService();
+            incomeService = new UserIncomeService();
         }
 
         public virtual DataPage<PhotoPost> GetPostPage( int ownerId, int appId, int pageSize ) {
@@ -176,9 +183,12 @@ namespace wojilu.Apps.Photo.Service {
             Result result = db.insert( post );
             if (result.IsValid) {
                 this.updatePostCount( app );
+
+                String msg = string.Format( "上传图片 <a href=\"{0}\">{1}</a>，得到奖励", alink.ToAppData( post ), post.Title );
+                incomeService.AddIncome( post.Creator, UserAction.Photo_CreatePost.Id, msg );
+
             }
             return result;
-
         }
 
         public virtual Result CreatePost( Result uploadResult, String photoName, int albumId, MvcContext ctx ) {
