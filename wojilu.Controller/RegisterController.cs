@@ -1,23 +1,25 @@
-﻿using System;
-using System.Collections.Generic;
+﻿/*
+ * Copyright (c) 2010, www.wojilu.com. All rights reserved.
+ */
 
-using wojilu.Web.Mvc;
-using wojilu.Web.Mvc.Attr;
+using System;
+
 using wojilu.Common;
+using wojilu.Common.AppBase;
+using wojilu.Common.MemberApp.Interface;
+using wojilu.Common.Menus.Interface;
 using wojilu.Common.Resource;
 
-using wojilu.Web.Controller.Common;
-using wojilu.Web.Controller.Common.Installers;
+using wojilu.Config;
+
 using wojilu.Members.Users.Domain;
 using wojilu.Members.Users.Interface;
 using wojilu.Members.Users.Service;
-using wojilu.Config;
-using wojilu.Common.MemberApp.Interface;
-using wojilu.Common.Menus.Interface;
-using wojilu.Web.Url;
-using wojilu.Common.Onlines;
-using System.Threading;
-using wojilu.Common.AppBase;
+
+using wojilu.Web.Controller.Common;
+using wojilu.Web.Controller.Utils;
+using wojilu.Web.Mvc;
+using wojilu.Web.Mvc.Attr;
 
 namespace wojilu.Web.Controller {
 
@@ -28,9 +30,8 @@ namespace wojilu.Web.Controller {
         public IUserService userService { get; set; }
         public IUserConfirmService confirmService { get; set; }
         public IConfirmEmail confirmEmail { get; set; }
-        public IInviteService inviteService { get; set; }
         public ILoginService loginService { get; set; }
-        public IFriendService friendService { get; set; }
+        public IInviteService inviteService { get; set; }
 
         public virtual IMemberAppService appService { get; set; }
         public virtual IMenuService menuService { get; set; }
@@ -40,13 +41,12 @@ namespace wojilu.Web.Controller {
             userService = new UserService();
             confirmService = new UserConfirmService();
             confirmEmail = new ConfirmEmail();
-            inviteService = new InviteService();
             loginService = new LoginService();
-            friendService = new FriendService();
 
             appService = new UserAppService();
             menuService = new UserMenuService();
 
+            inviteService = new InviteService();
 
             HidePermission( typeof( SecurityController ) );
 
@@ -197,7 +197,7 @@ namespace wojilu.Web.Controller {
                 return;
             }
 
-            echoRedirect( "ok" );
+            echoJsonOk();
         }
 
         [HttpPost, DbTransaction]
@@ -210,7 +210,7 @@ namespace wojilu.Web.Controller {
                 return;
             }
 
-            echoRedirect( "ok" );
+            echoJsonOk();
         }
 
         [HttpPost, DbTransaction]
@@ -221,10 +221,16 @@ namespace wojilu.Web.Controller {
                 echoJsonMsg( lang( "exUrlFound" ), false, "" );
             }
             else {
-                echoJsonMsg( "ok", true, "" );
+                echoJsonOk();
             }
 
         }
+
+        private void echoJsonOk() {
+            echoJsonMsg( "ok", true, "" );
+        }
+
+        //--------------------------------------------------------------------------------
 
         public void Done() {
 
@@ -258,40 +264,37 @@ namespace wojilu.Web.Controller {
                     echo( result.ErrorsHtml );
                     return;
                 }
-
             }
 
-
+            // 验证
             User user = validateUser();
             if (errors.HasErrors) {
                 run( Register );
                 return;
             }
 
+            // 用户注册
             user = userService.Register( user, ctx );
             if ((user == null) || errors.HasErrors) {
                 run( Register );
                 return;
             }
 
-            if (Component.IsEnableUserSpace()) {
+            // 是否开启空间
+            RegUtils.CheckUserSpace( user, ctx );
 
-                addUserAppAndMenus( user );
-            }
+            // 好友处理
+            RegUtils.ProcessFriend( user, ctx );
 
-            processFriend( user );
-
+            // 是否需要审核、激活
             if (config.Instance.Site.UserNeedApprove) {
 
                 user.Status = MemberStatus.Approving;
                 user.update( "Status" );
 
-
                 view( "needApproveMsg" );
                 set( "siteName", config.Instance.Site.SiteName );
-
             }
-
             else if (config.Instance.Site.EnableEmail) {
 
                 if (config.Instance.Site.LoginType == LoginType.Open) {
@@ -310,22 +313,6 @@ namespace wojilu.Web.Controller {
 
         public void needApproveMsg() {
             set( "siteName", config.Instance.Site.SiteName );
-        }
-
-
-
-        // 根据邀请码注册，需要加为好友
-        private void processFriend( User newRegUser ) {
-
-            int friendId = ctx.PostInt( "friendId" );
-            if (friendId <= 0) return;
-
-            String friendCode = ctx.Post( "friendCode" );
-
-            Result result = inviteService.Validate( friendId, friendCode );
-            if (result.HasErrors) return;
-
-            friendService.AddInviteFriend( newRegUser, friendId );
         }
 
         public void SendConfirmEmail( int userId ) {
@@ -408,88 +395,6 @@ namespace wojilu.Web.Controller {
             user.Gender = ctx.PostInt( "Gender" );
             return user;
         }
-
-        public void TestMenu() {
-
-            addUserAppAndMenus( User.findById( 2 ) );
-        }
-
-
-        private void addUserAppAndMenus( User user ) {
-
-            if (strUtil.IsNullOrEmpty( config.Instance.Site.UserInitApp )) return;
-
-            List<String> menus = new List<string>();
-
-            String[] arr = config.Instance.Site.UserInitApp.Split( ',' );
-            foreach (String app in arr) {
-                if (strUtil.IsNullOrEmpty( app )) continue;
-                menus.Add( app.Trim() );
-            }
-
-            if (menus.Contains( "home" )) {
-                new UserHomeInstaller().Install( ctx, user, lang( "homepage" ), wojilu.Common.AppBase.AccessStatus.Public );
-            }
-
-            if (menus.Contains( "blog" )) {
-                IMemberApp blogApp = appService.Add( user, "博客", 2 );
-                // 添加菜单：此处需要明确传入MemberType，否则将会使用ctx.Owner，也就是Site的值，导致bug
-                String blogUrl = UrlConverter.clearUrl( alink.ToUserAppFull( blogApp ), ctx, typeof( User ).FullName, user.Url );
-                menuService.AddMenuByApp( blogApp, blogApp.Name, "", blogUrl );
-            }
-
-            if (menus.Contains( "photo" )) {
-                IMemberApp photoApp = appService.Add( user, "相册", 3 );
-                String photoUrl = UrlConverter.clearUrl( alink.ToUserAppFull( photoApp ), ctx, typeof( User ).FullName, user.Url );
-                menuService.AddMenuByApp( photoApp, photoApp.Name, "", photoUrl );
-            }
-
-            if (menus.Contains( "microblog" )) {
-                IMenu menu = getMenu( user, "微博", alink.ToUserMicroblog( user ) );
-                menuService.Insert( menu, user, user );
-            }
-
-            if (menus.Contains( "share" )) {
-                IMenu menu = getMenu( user, "转帖", t2( new Users.ShareController().Index ) );
-                menuService.Insert( menu, user, user );
-            }
-
-            if (menus.Contains( "friend" )) {
-                IMenu menu = getMenu( user, "好友", t2( new Users.FriendController().FriendList ) );
-                menuService.Insert( menu, user, user );
-            }
-
-            if (menus.Contains( "visitor" )) {
-                IMenu menu = getMenu( user, "访客", t2( new Users.VisitorController().Index ) );
-                menuService.Insert( menu, user, user );
-            }
-
-            if (menus.Contains( "forumpost" )) {
-                IMenu menu = getMenu( user, "论坛帖子", t2( new Users.ForumController().Topic ) );
-                menuService.Insert( menu, user, user );
-            }
-
-            if (menus.Contains( "about" )) {
-                IMenu menu = getMenu( user, "关于我", t2( new Users.ProfileController().Main ) );
-                menuService.Insert( menu, user, user );
-            }
-
-            if (menus.Contains( "feedback" )) {
-                IMenu menu = getMenu( user, "留言", t2( new Users.FeedbackController().List ) );
-                menuService.Insert( menu, user, user );
-            }
-
-        }
-
-        private IMenu getMenu( User user, string name, string url ) {
-            IMenu menu = new UserMenu();
-            menu.Name = name;
-            menu.RawUrl = UrlConverter.clearUrl( url, ctx, typeof( User ).FullName, user.Url ).TrimStart( '/' );
-
-            return menu;
-        }
-
-
 
 
     }

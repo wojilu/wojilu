@@ -167,6 +167,14 @@ namespace wojilu.Common.Money.Service {
             income.CurrencyId = c.Id;
             income.Income = c.InitValue;
             InsertIncome( income );
+
+            // save log
+            UserIncomeLog incomeLog = new UserIncomeLog();
+            incomeLog.UserId = user.Id;
+            incomeLog.CurrencyId = c.Id;
+            incomeLog.Income = c.InitValue;
+            incomeLog.Note = "注册奖励";
+            incomeLog.insert();
         }
 
         //-------------------------------------- 头像下面显示部分 -----------------------------------------

@@ -182,6 +182,7 @@ namespace wojilu.Members.Users.Service {
                 db.update( user, "RoleId" );
             }
 
+
             return user;
         }
 

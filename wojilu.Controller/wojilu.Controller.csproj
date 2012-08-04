@@ -623,6 +623,7 @@
     </Compile>
     <Compile Include="Common\PageController.cs" />
     <Compile Include="Microblogs\My\MicroblogCommentsController.cs" />
+    <Compile Include="Utils\RegUtils.cs" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
