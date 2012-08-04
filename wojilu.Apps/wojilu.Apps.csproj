@@ -208,6 +208,7 @@
     <Compile Include="Forum\Domain\LastUpdateInfo.cs" />
     <Compile Include="Forum\Domain\ForumBuyLog.cs" />
     <Compile Include="Forum\Domain\ForumRateLog.cs" />
+    <Compile Include="Forum\Domain\Log\AdminValue.cs" />
     <Compile Include="Forum\Service\ForumPollService.cs" />
     <Compile Include="Forum\Service\SysForumTopicService.cs" />
     <Compile Include="Photo\Interface\IPhotoService.cs" />

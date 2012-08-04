@@ -384,9 +384,6 @@ namespace wojilu.Apps.Forum.Service {
             boardService.DeletePostCount( forumBoardId, owner );
             if (creatorId > 0) { //规避已注销用户
                 userService.DeletePostCount( creatorId );
-
-                String msg = string.Format( "帖子被删除 <a href=\"{0}\">{1}</a>", alink.ToAppData( post ), post.Title );
-                incomeService.AddIncome( post.Creator, UserAction.Forum_PostDeleted.Id, msg );
             }
             forumLogService.AddPost( user, post.AppId, id, ForumLogAction.DeleteTrue, ip );
         }

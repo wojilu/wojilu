@@ -31,9 +31,10 @@ using wojilu.Members.Groups.Domain;
 
 using wojilu.Apps.Forum.Domain;
 using wojilu.Apps.Forum.Interface;
+using wojilu.Common.Msg.Interface;
+using wojilu.Common.Msg.Service;
 
 namespace wojilu.Apps.Forum.Service {
-
 
     public class ForumTopicService : IForumTopicService {
 
@@ -44,6 +45,7 @@ namespace wojilu.Apps.Forum.Service {
         public virtual IForumLogService logService { get; set; }
         public virtual IUserService userService { get; set; }
         public virtual IUserIncomeService incomeService { get; set; }
+        public virtual IMessageService msgService { get; set; }
 
         public ForumTopicService() {
             forumService = new ForumService();
@@ -53,6 +55,7 @@ namespace wojilu.Apps.Forum.Service {
             AttachmentService = new AttachmentService();
             logService = new ForumLogService();
             incomeService = new UserIncomeService();
+            msgService = new MessageService();
         }
 
         public virtual ForumTopic GetById_ForAdmin( int id ) {
@@ -362,9 +365,6 @@ namespace wojilu.Apps.Forum.Service {
 
         //--------------------------------------------------------------------------------
 
-        public virtual void AdminUpdate( String action, String condition ) {
-            db.updateBatch<ForumTopic>( action, condition );
-        }
 
         public virtual int CountReply( int topicId ) {
             return ForumPost.find( "TopicId=" + topicId + " and Status<>" + TopicStatus.Delete ).count() - 1;
@@ -668,8 +668,6 @@ namespace wojilu.Apps.Forum.Service {
             db.update( topic );
         }
 
-        //--------------------------------------- admin -----------------------------------------
-
         public void AddHits( ForumTopic topic ) {
             //topic.Hits++;
             //db.update( topic, "Hits" );
@@ -681,15 +679,156 @@ namespace wojilu.Apps.Forum.Service {
             db.update( topic, "RewardAvailable" );
         }
 
-        public virtual void Move( int targetForumId, String idList ) {
+        //--------------------------------------- admin -----------------------------------------
+        
+        public virtual void AdminUpdate( String action, String condition ) {
+            db.updateBatch<ForumTopic>( action, condition );
+        }
 
-            String condition = "Id in (" + idList + ")";
-            String conditionPost = "TopicId in (" + idList + ")";
+        public virtual void MakeSticky( AdminValue av ) {
+            av.ActionId = ForumLogAction.Sticky;
+            AdminUpdate( "set Status=" + TopicStatus.Sticky, av.Condition );
+            AddAuthorIncome( av.Condition, UserAction.Forum_TopicSticky.Id, "置顶" );
+            makeLog( av );
+        }
+
+        public virtual void MakeStickyUndo( AdminValue av ) {
+            av.ActionId = ForumLogAction.UnSticky;
+            AdminUpdate( "set Status=" + TopicStatus.Normal, av.Condition );
+            //取消置顶不减少积分
+            makeLog( av );
+        }
+
+        public virtual void MakePick( AdminValue av ) {
+            av.ActionId = ForumLogAction.Pick;
+            AdminUpdate( "set IsPicked=1", av.Condition );
+            AddAuthorIncome( av.Condition, UserAction.Forum_TopicPicked.Id, "加为精华" );
+            makeLog( av );
+        }
+
+        public virtual void MakePickUndo( AdminValue av ) {
+            av.ActionId = ForumLogAction.UnPick;
+            AdminUpdate( "set IsPicked=0", av.Condition );
+            //取消精华不减少积分
+            makeLog( av );
+        }
+
+        public virtual void MakeHighlight( String style, AdminValue av ) {
+            av.ActionId = ForumLogAction.Highlight;
+            String action = string.Format( "set TitleStyle='{0}'", style );
+            ForumTopic.updateBatch( action, av.Condition );
+            makeLog( av );
+        }
+
+        public virtual void MakeHighlightUndo( AdminValue av ) {
+            av.ActionId = ForumLogAction.UnHighlight;
+            String action = "set TitleStyle=''";
+            ForumTopic.updateBatch( action, av.Condition );
+            makeLog( av );
+        }
+
+        public virtual void MakeLock( AdminValue av ) {
+            av.ActionId = ForumLogAction.Lock;
+            AdminUpdate( "set IsLocked=1", av.Condition );
+            // 积分规则中本身定义的是负值，所以此处用AddIncome
+            AddAuthorIncome( av.Condition, UserAction.Forum_TopicLocked.Id, "锁定" );
+            makeLog( av );
+        }
+
+        public virtual void MakeLockUndo( AdminValue av ) {
+            av.ActionId = ForumLogAction.UnLock;
+            AdminUpdate( "set IsLocked=0", av.Condition );
+            // 积分规则中本身定义的是负值，所以反操作用SubstractIncome
+            SubstractAuthorIncome( av.Condition, UserAction.Forum_TopicLocked.Id, "取消锁定" );
+            makeLog( av );
+        }
+
+        public virtual void DeleteList( AdminValue av ) {
+            av.ActionId = ForumLogAction.Delete;
+
+            DeleteListToTrash( av.Ids );
+            // 积分规则中本身定义的是负值，所以此处用AddIncome
+            AddAuthorIncome( av.Condition, UserAction.Forum_TopicDeleted.Id, "删除" );
+            makeLog( av );
+        }
+
+        public virtual void MakeCategory( int categoryId, AdminValue av ) {
+            av.ActionId = ForumLogAction.SetCategory;
+            String action = string.Format( "set CategoryId=" + categoryId );
+            ForumTopic.updateBatch( action, av.Condition );
+            makeLog( av );
+        }
+
+        public virtual void MakeMove( int targetForumId, AdminValue av) {
+
+            av.ActionId = ForumLogAction.MoveTopic;
+
+            String condition = "Id in (" + av.Ids + ")";
+            String conditionPost = "TopicId in (" + av.Ids + ")";
             String action = "set ForumBoardId=" + targetForumId;
 
             db.updateBatch<ForumTopic>( action, condition );
             db.updateBatch<ForumPost>( action, conditionPost );
+
+            makeLog( av );
         }
+
+        public virtual void MakeGlobalSticky( AdminValue av ) {
+
+            av.ActionId = ForumLogAction.GlobalSticky;
+
+            ForumApp app = db.findById<ForumApp>( av.AppId );
+            if (app == null) return;
+
+            List<ForumTopic> newStickTopics = db.find<ForumTopic>( av.Condition ).list();
+
+            app.StickyTopic = StickyTopic.MergeData( app.StickyTopic, newStickTopics );
+            db.update( app );
+
+            makeLog( av );
+        }
+
+        public virtual void MakeGloablStickyUndo( AdminValue av ) {
+
+            av.ActionId = ForumLogAction.GlobalUnSticky;
+
+            ForumApp app = db.findById<ForumApp>( av.AppId );
+            if (app == null) return;
+
+            List<ForumTopic> newStickTopics = db.find<ForumTopic>( av.Condition ).list();
+
+            app.StickyTopic = StickyTopic.SubtractData( app.StickyTopic, newStickTopics );
+            db.update( app );
+
+            makeLog( av );
+        }
+
+        private void makeLog( AdminValue av ) {
+
+            List<ForumTopic> topics = GetByIds( av.Ids );
+
+            foreach (ForumTopic topic in topics) {
+
+                logService.AddTopic( av.User, av.AppId, topic.Id, av.ActionId, av.Reason, av.Ip );
+
+                // 发送短信通知
+                if (!av.IsSendMsg) continue;
+
+                String msg = ForumLogAction.GetLable( av.ActionId );
+                String title = string.Format( alang.get( typeof( ForumApp ), "adminPostMsgTitle" ), topic.Title, msg );
+
+                String topicInfo = "<a href='" + alink.ToAppData( topic ) + "'>" + topic.Title + "</a>";
+                if (av.ActionId == ForumLogAction.Delete) topicInfo = topic.Title;
+
+                String body = string.Format( alang.get( typeof( ForumApp ), "adminPostMsgBody" ), topicInfo, msg, DateTime.Now, av.Reason );
+
+                msgService.SiteSend( title, body, topic.Creator );
+            }
+
+        }
+
+        //-----------------------------------------------------------------------------------------
+
 
         public virtual void Lock( ForumTopic topic, User user, String ip ) {
             topic.IsLocked = 1;
@@ -708,30 +847,6 @@ namespace wojilu.Apps.Forum.Service {
             String msg = string.Format( "帖子取消锁定 <a href=\"{0}\">{1}</a>", alink.ToAppData( topic ), topic.Title );
             incomeService.AddIncomeReverse( topic.Creator, UserAction.Forum_TopicLocked.Id, msg );
             logService.AddTopic( user, topic.AppId, topic.Id, ForumLogAction.UnLock, ip );
-        }
-
-        public virtual void SetGlobalSticky( int appId, String ids ) {
-
-            ForumApp app = db.findById<ForumApp>( appId );
-            if (app == null) return;
-
-            String condition = "Id in (" + ids + ")";
-            List<ForumTopic> newStickTopics = db.find<ForumTopic>( condition ).list();
-
-            app.StickyTopic = StickyTopic.MergeData( app.StickyTopic, newStickTopics );
-            db.update( app );
-        }
-
-        public virtual void SetGloablStickyUndo( int appId, String ids ) {
-
-            ForumApp app = db.findById<ForumApp>( appId );
-            if (app == null) return;
-
-            String condition = "Id in (" + ids + ")";
-            List<ForumTopic> newStickTopics = db.find<ForumTopic>( condition ).list();
-
-            app.StickyTopic = StickyTopic.SubtractData( app.StickyTopic, newStickTopics );
-            db.update( app );
         }
 
         //--------------------------------------- income -----------------------------------------

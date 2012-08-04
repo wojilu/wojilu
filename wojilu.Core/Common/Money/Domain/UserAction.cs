@@ -24,13 +24,16 @@ namespace wojilu.Common.Money.Domain {
 
         public static UserAction Forum_AddAttachment { get { return GetById( 10 ); } }
         public static UserAction Forum_DownloadAttachment { get { return GetById( 11 ); } }
-        public static UserAction Forum_Question { get { return GetById( 12 ); } }
+        public static UserAction Forum_Question { get { return GetById( 12 ); } } // TODO
 
         public static UserAction Blog_CreatePost { get { return GetById( 13 ); } }
-        public static UserAction Blog_ReplyPost { get { return GetById( 14 ); } }
+        public static UserAction Blog_ReplyPost { get { return GetById( 14 ); } } // TODO
 
         public static UserAction Photo_CreatePost { get { return GetById( 15 ); } }
-        public static UserAction Photo_ReplyPost { get { return GetById( 16 ); } }
+        public static UserAction Photo_ReplyPost { get { return GetById( 16 ); } } // TODO
+
+        public static UserAction User_UpdateAvatar { get { return GetById( 17 ); } }
+        public static UserAction User_ConfirmEmail { get { return GetById( 18 ); } }
 
         public static UserAction GetById( int id ) {
             return cdb.findById<UserAction>( id ) ;

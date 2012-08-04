@@ -3,18 +3,12 @@
  */
 
 using System;
-using System.Collections.Generic;
-using System.Text;
 
 using wojilu.Web.Mvc;
 using wojilu.Web.Mvc.Attr;
 using wojilu.Apps.Forum.Domain;
 using wojilu.Apps.Forum.Interface;
 using wojilu.Apps.Forum.Service;
-using wojilu.Common.Msg.Service;
-using wojilu.Common.Msg.Interface;
-using wojilu.Common.Money.Domain;
-using wojilu.Web.Controller.Forum.Utils;
 using wojilu.Web.Controller.Common;
 using wojilu.Members.Users.Domain;
 
@@ -22,6 +16,21 @@ namespace wojilu.Web.Controller.Forum.Moderators {
 
     [App( typeof( ForumApp ) )]
     public class TopicSaveController : ControllerBase {
+
+
+        public IForumTopicService topicService { get; set; }
+        public IForumBoardService boardService { get; set; }
+        public IForumCategoryService categoryService { get; set; }
+        public IForumLogService logService { get; set; }
+        public IForumService forumService { get; set; }
+
+        public TopicSaveController() {
+            boardService = new ForumBoardService();
+            topicService = new ForumTopicService();
+            categoryService = new ForumCategoryService();
+            logService = new ForumLogService();
+            forumService = new ForumService();
+        }
 
         private String idList;
         private String condition;
@@ -40,103 +49,77 @@ namespace wojilu.Web.Controller.Forum.Moderators {
         [HttpPost, DbTransaction]
         public void Sticky() {
             int id = ctx.GetInt( "boardId" );
-            topicService.AdminUpdate( "set Status=" + TopicStatus.Sticky, condition );
-            topicService.AddAuthorIncome( condition, UserAction.Forum_TopicSticky.Id, "置顶" );
-            log( condition, ForumLogAction.Sticky );
+            topicService.MakeSticky( av() );
             echoToParent( lang( "opok" ) );
         }
 
         [HttpPost, DbTransaction]
         public void StickyUndo() {
             int id = ctx.GetInt( "boardId" );
-            topicService.AdminUpdate( "set Status=" + TopicStatus.Normal, condition );
-            //取消置顶不减少积分
-            //topicService.SubstractAuthorIncome( condition, UserAction.Forum_TopicSticky.Id, "取消置顶" );
-            log( condition, ForumLogAction.UnSticky );
+            topicService.MakeStickyUndo( av() );
             echoAjaxOk();
         }
 
         [HttpPost, DbTransaction]
         public void GlobalSticky() {
             int id = ctx.GetInt( "boardId" );
-            topicService.SetGlobalSticky( ctx.app.Id, idList );
-            log( idList, ForumLogAction.GlobalSticky );
+            topicService.MakeGlobalSticky( av() );
             echoToParent( lang( "opok" ) );
         }
 
         [HttpPost, DbTransaction]
         public void GlobalStickyUndo() {
             int id = ctx.GetInt( "boardId" );
-            topicService.SetGloablStickyUndo( ctx.app.Id, idList );
-            log( idList, ForumLogAction.GlobalUnSticky );
+            topicService.MakeGloablStickyUndo( av() );
             echoAjaxOk();
         }
 
         [HttpPost, DbTransaction]
         public void Pick() {
             int id = ctx.GetInt( "boardId" );
-            topicService.AdminUpdate( "set IsPicked=1", condition );
-            topicService.AddAuthorIncome( condition, UserAction.Forum_TopicPicked.Id, "加为精华" );
-            log( condition, ForumLogAction.Pick );
+            topicService.MakePick( av() );
             echoToParent( lang( "opok" ) );
         }
 
         [HttpPost, DbTransaction]
         public void PickedUndo() {
             int id = ctx.GetInt( "boardId" );
-            topicService.AdminUpdate( "set IsPicked=0", condition );
-            //取消精华不减少积分
-            //topicService.SubstractAuthorIncome( condition, UserAction.Forum_TopicPicked.Id, "取消精华" );
-            log( condition, ForumLogAction.UnPick );
+            topicService.MakePickUndo( av() );
             echoAjaxOk();
         }
 
         [HttpPost, DbTransaction]
         public void Highlight() {
             int id = ctx.GetInt( "boardId" );
-            String action = string.Format( "set TitleStyle='{0}'", strUtil.SqlClean( FormController.GetTitleStyle( ctx ), 150 ) );
-            ForumTopic.updateBatch( action, "Id in (" + idList + ")" );
-            log( idList, ForumLogAction.Highlight );
+            topicService.MakeHighlight( strUtil.SqlClean( FormController.GetTitleStyle( ctx ), 150 ), av() );
             echoToParent( lang( "opok" ) );
         }
 
         [HttpPost, DbTransaction]
         public void HighlightUndo() {
             int id = ctx.GetInt( "boardId" );
-            String action = "set TitleStyle=''";
-            ForumTopic.updateBatch( action, "Id in (" + idList + ")" );
-            log( idList, ForumLogAction.UnHighlight );
+            topicService.MakeHighlightUndo( av() );
             echoAjaxOk();
         }
-
 
         [HttpPost, DbTransaction]
         public void Lock() {
             int id = ctx.GetInt( "boardId" );
-            topicService.AdminUpdate( "set IsLocked=1", condition );
-            // 积分规则中本身定义的是负值，所以此处用AddIncome
-            topicService.AddAuthorIncome( condition, UserAction.Forum_TopicLocked.Id, "锁定" );
-            log( condition, ForumLogAction.Lock );
+            topicService.MakeLock( av() );
             echoToParent( lang( "opok" ) );
         }
 
         [HttpPost, DbTransaction]
         public void LockUndo() {
             int id = ctx.GetInt( "boardId" );
-            topicService.AdminUpdate( "set IsLocked=0", condition );
-            // 积分规则中本身定义的是负值，所以反操作用SubstractIncome
-            topicService.SubstractAuthorIncome( condition, UserAction.Forum_TopicLocked.Id, "取消锁定" );
-            log( condition, ForumLogAction.UnLock );
+            topicService.MakeLockUndo( av() );
             echoAjaxOk();
         }
 
         [HttpPost, DbTransaction]
         public void Delete() {
             int id = ctx.GetInt( "boardId" );
-            topicService.DeleteListToTrash( idList );
-            // 积分规则中本身定义的是负值，所以此处用AddIncome
-            topicService.AddAuthorIncome( condition, UserAction.Forum_TopicDeleted.Id, "删除" );
-            log( idList, ForumLogAction.Delete );
+            topicService.DeleteList( av() );
             echoToParent( lang( "opok" ) );
         }
 
@@ -157,11 +140,9 @@ namespace wojilu.Web.Controller.Forum.Moderators {
                 return;
             }
 
-            topicService.Move( targetBoard.Id, idList );
-            log( idList, ForumLogAction.MoveTopic );
+            topicService.MakeMove( targetBoard.Id, av() );
             echoToParent( lang( "opok" ) );
         }
-
 
         [HttpPost, DbTransaction]
         public void SaveStickySort() {
@@ -220,61 +201,26 @@ namespace wojilu.Web.Controller.Forum.Moderators {
                 return;
             }
 
-            String action = string.Format( "set CategoryId=" + categoryId );
-            ForumTopic.updateBatch( action, "Id in (" + idList + ")" );
-            log( idList, ForumLogAction.SetCategory );
+            topicService.MakeCategory( categoryId, av() );
             echoToParent( lang( "opok" ) );
         }
 
-
-
         //-----------------------------------------------------------------------------------------------------
 
-        public IForumTopicService topicService { get; set; }
-        public IForumBoardService boardService { get; set; }
-        public IForumCategoryService categoryService { get; set; }
-        public IForumLogService logService { get; set; }
-        public IMessageService msgService { get; set; }
-        public IForumService forumService { get; set; }
+        private AdminValue av() {
 
-        public TopicSaveController() {
-            boardService = new ForumBoardService();
-            topicService = new ForumTopicService();
-            categoryService = new ForumCategoryService();
-            logService = new ForumLogService();
-            msgService = new MessageService();
-            forumService = new ForumService();
-        }
+            AdminValue v = new AdminValue();
 
-        private void log( String idList, int actionId ) {
+            v.Ids = idList;
+            v.AppId = ctx.app.Id;
 
-            String reason = getReason();
+            v.User = (User)ctx.viewer.obj;
+            v.Reason = ctx.PostIsCheck( "chkReason" ) == 1 ? ctx.Post( "reasonText" ) : ctx.Post( "reasonSelect" );
 
-            List<ForumTopic> topics = topicService.GetByIds( idList );
+            v.Ip = ctx.Ip;
+            v.IsSendMsg = ctx.PostIsCheck( "IsSendMsg" ) == 1;
 
-            foreach (ForumTopic topic in topics) {
-
-                logService.AddTopic( (User)ctx.viewer.obj, ctx.app.Id, topic.Id, actionId, reason, ctx.Ip );
-
-                // 发送短信通知
-                if (ctx.PostIsCheck( "IsSendMsg" ) != 1) continue;
-
-                String msg = ForumLogAction.GetLable( actionId );
-                String title = string.Format( alang( "adminPostMsgTitle" ), topic.Title, msg );
-
-                String topicInfo = "<a href='" + alink.ToAppData( topic ) + "'>" + topic.Title + "</a>";
-                if (actionId == ForumLogAction.Delete) topicInfo = topic.Title;
-
-                String body = string.Format( alang( "adminPostMsgBody" ), topicInfo, msg, DateTime.Now, reason );
-
-                msgService.SiteSend( title, body, topic.Creator );
-            }
-
-        }
-
-
-        private String getReason() {
-            return ctx.PostIsCheck( "chkReason" ) == 1 ? ctx.Post( "reasonText" ) : ctx.Post( "reasonSelect" );
+            return v;
         }
 
     }

@@ -5,9 +5,9 @@
 using System;
 
 using wojilu.ORM;
+using wojilu.Members.Users.Domain;
 
 namespace wojilu.Apps.Forum.Domain {
-
 
     [Serializable]
     public class ForumLog : ObjectBase<ForumLog> {

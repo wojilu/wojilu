@@ -353,7 +353,7 @@ namespace wojilu.Members.Users.Service {
 
         private void addIncomeAndSendMsg( User user ) {
 
-            int actionId = 17;
+            int actionId = UserAction.User_UpdateAvatar.Id;
             KeyIncomeRule rule = currencyService.GetKeyIncomeRulesByAction( actionId );
 
             int creditValue = rule.Income;

@@ -26,9 +26,6 @@ namespace wojilu.Members.Users.Service {
             msgService = new MessageService();
         }
 
-        //public virtual void AddConfirm( String code ) {
-        //}
-
         public virtual Result CanSend( User user ) {
 
             int maxMinutes = config.Instance.Site.UserSendConfirmEmailInterval;
@@ -82,15 +79,12 @@ namespace wojilu.Members.Users.Service {
 
             addIncomeAndMsg( user );
 
-
-
             return user;
-
         }
 
         private void addIncomeAndMsg( User user ) {
 
-            int actionId = 18;
+            int actionId = UserAction.User_ConfirmEmail.Id;
 
             String msgTitle = "感谢您邮件激活";
             userIncomeService.AddIncome( user, actionId, msgTitle ); // 给用户增加收入
