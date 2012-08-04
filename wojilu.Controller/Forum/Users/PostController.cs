@@ -126,7 +126,7 @@ namespace wojilu.Web.Controller.Forum.Users {
                 return;
             }
 
-            if (  incomeService.HasEnoughKeyIncome( ctx.viewer.Id, topic.Price ) == false) {
+            if (incomeService.HasEnoughKeyIncome( ctx.viewer.Id, topic.Price ) == false) {
                 echo( String.Format( alang( "exIncome" ), KeyCurrency.Instance.Name ) );
                 return;
             }
@@ -309,12 +309,15 @@ namespace wojilu.Web.Controller.Forum.Users {
             IBlock block = getBlock( "list" );
             foreach (ForumPost post in list.Results) {
 
-                if (post.ParentId == 0)
+                if (post.ParentId == 0) {
                     block.Set( "p.Reward", "--" );
-                else if (post.Reward > 0)
+                }
+                else if (post.Reward > 0) {
                     block.Set( "p.Reward", cvt.ToInt( post.Reward ) );
-                else
-                    block.Set( "p.Reward", string.Format( "<a href='{0}' class='frmBox'>+ " + alang( "setReward" ) + "</a>", to( AddReward, post.Id ) + "?boardId=" + post.ForumBoardId ) );
+                }
+                else {
+                    block.Set( "p.Reward", string.Format( "<a href='{0}' class='frmBox btn btn-mini'><i class=\"icon-plus-sign\"></i> " + alang( "setReward" ) + "</a>", to( AddReward, post.Id ) + "?boardId=" + post.ForumBoardId ) );
+                }
 
                 block.Set( "p.User", post.Creator.Name );
 
