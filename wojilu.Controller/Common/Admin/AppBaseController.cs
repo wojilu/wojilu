@@ -72,12 +72,12 @@ namespace wojilu.Web.Controller.Common.Admin {
             if (cmd == "up") {
 
                 new SortUtil<IMemberApp>( app, list ).MoveUp();
-                echoRedirect( "ok" );
+                echoJsonOk();
             }
             else if (cmd == "down") {
 
                 new SortUtil<IMemberApp>( app, list ).MoveDown();
-                echoRedirect( "ok" );
+                echoJsonOk();
             }
             else {
                 echoError( lang( "exUnknowCmd" ) );

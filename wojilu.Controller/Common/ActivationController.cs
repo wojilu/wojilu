@@ -152,7 +152,7 @@ namespace wojilu.Web.Controller.Common {
                 return;
             }
 
-            echoRedirect( "ok" );
+            echoJsonOk();
         }
 
 

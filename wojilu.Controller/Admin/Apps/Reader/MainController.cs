@@ -69,12 +69,12 @@ namespace wojilu.Web.Controller.Admin.Apps.Reader {
             if (cmd == "up") {
 
                 new SortUtil<FeedSource>( target, list ).MoveUp();
-                echoRedirect( "ok" );
+                echoJsonOk();
             }
             else if (cmd == "down") {
 
                 new SortUtil<FeedSource>( target, list ).MoveDown();
-                echoRedirect( "ok" );
+                echoJsonOk();
             }
             else {
                 echoError( lang( "exUnknowCmd" ) );

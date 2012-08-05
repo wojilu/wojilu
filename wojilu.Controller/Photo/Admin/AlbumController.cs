@@ -116,12 +116,12 @@ namespace wojilu.Web.Controller.Photo.Admin {
             if (cmd == "up") {
 
                 new SortUtil<PhotoAlbum>( acategory, list ).MoveUp();
-                echoRedirect( "ok" );
+                echoJsonOk();
             }
             else if (cmd == "down") {
 
                 new SortUtil<PhotoAlbum>( acategory, list ).MoveDown();
-                echoRedirect( "ok" );
+                echoJsonOk();
             }
             else {
                 echoError( lang( "exUnknowCmd" ) );

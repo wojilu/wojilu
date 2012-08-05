@@ -147,11 +147,11 @@ namespace wojilu.Web.Controller.Forum.Admin {
 
             if (cmd == "up") {
                 new SortUtil<ForumCategory>( category, list ).MoveUp();
-                echoRedirect( "ok" );
+                echoJsonOk();
             }
             else if (cmd == "down") {
                 new SortUtil<ForumCategory>( category, list ).MoveDown();
-                echoRedirect( "ok" );
+                echoJsonOk();
             }
             else {
                 echoError( lang( "exUnknowCmd" ) );

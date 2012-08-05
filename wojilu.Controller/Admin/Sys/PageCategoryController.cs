@@ -55,11 +55,11 @@ namespace wojilu.Web.Controller.Admin.Sys {
 
             if (cmd == "up") {
                 new SortUtil<PageCategory>( data, list ).MoveUp();
-                echoRedirect( "ok" );
+                echoJsonOk();
             }
             else if (cmd == "down") {
                 new SortUtil<PageCategory>( data, list ).MoveDown();
-                echoRedirect( "ok" );
+                echoJsonOk();
             }
             else {
                 echoError( lang( "exUnknowCmd" ) );

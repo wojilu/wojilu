@@ -100,12 +100,12 @@ namespace wojilu.Web.Controller.Forum.Admin {
             if (cmd == "up") {
 
                 new SortUtil<ForumBoard>( board, list ).MoveUp();
-                echoRedirect( "ok" );
+                echoJsonOk();
             }
             else if (cmd == "down") {
 
                 new SortUtil<ForumBoard>( board, list ).MoveDown();
-                echoRedirect( "ok" );
+                echoJsonOk();
             }
             else {
                 errors.Add( lang( "exUnknowCmd" ) );

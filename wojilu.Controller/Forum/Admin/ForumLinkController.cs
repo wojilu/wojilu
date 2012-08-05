@@ -139,11 +139,11 @@ namespace wojilu.Web.Controller.Forum.Admin {
 
             if (cmd == "up") {
                 new SortUtil<ForumLink>( link, list ).MoveUp();
-                echoRedirect( "ok" );
+                echoJsonOk();
             }
             else if (cmd == "down") {
                 new SortUtil<ForumLink>( link, list ).MoveDown();
-                echoRedirect( "ok" );
+                echoJsonOk();
             }
             else {
                 echoError( lang( "exUnknowCmd" ) );

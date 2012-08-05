@@ -543,7 +543,7 @@ namespace wojilu.Web.Mvc {
         }
 
         /// <summary>
-        /// 显示 json 信息给客户端，提示是否 valid ，返回 {IsValid:true, Msg:'', Info:''}
+        /// 显示 json 信息给客户端，提示是否 valid ，返回 {IsValid:true, Msg:"", Info:""}
         /// </summary>
         /// <param name="msg"></param>
         /// <param name="isValid"></param>
@@ -552,6 +552,12 @@ namespace wojilu.Web.Mvc {
             echoJson( MvcUtil.renderValidatorJson( msg, isValid, otherInfo ) );
         }
 
+        /// <summary>
+        /// 将 json 信息 {Msg:"ok", IsValid:true, Info:""} 显示给客户端
+        /// </summary>
+        protected void echoJsonOk() {
+            echoJsonMsg( "ok", true, "" );
+        }
 
         private void setJsonContentType() {
             ctx.web.ResponseContentType( "application/json" );

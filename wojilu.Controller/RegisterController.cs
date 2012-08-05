@@ -226,10 +226,6 @@ namespace wojilu.Web.Controller {
 
         }
 
-        private void echoJsonOk() {
-            echoJsonMsg( "ok", true, "" );
-        }
-
         //--------------------------------------------------------------------------------
 
         public void Done() {

@@ -70,12 +70,12 @@ namespace wojilu.Web.Controller.Users.Admin.Spiders {
             if (cmd == "up") {
 
                 new SortUtil<SpiderTemplate>( s, list ).MoveUp();
-                echoRedirect( "ok" );
+                echoJsonOk();
             }
             else if (cmd == "down") {
 
                 new SortUtil<SpiderTemplate>( s, list ).MoveDown();
-                echoRedirect( "ok" );
+                echoJsonOk();
             }
             else {
                 echoError( lang( "exUnknowCmd" ) );

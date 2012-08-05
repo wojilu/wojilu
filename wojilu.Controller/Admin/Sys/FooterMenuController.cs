@@ -57,12 +57,12 @@ namespace wojilu.Web.Controller.Admin.Sys {
             if (cmd == "up") {
 
                 new SortUtil<FooterMenu>( data, list ).MoveUp();
-                echoRedirect( "ok" );
+                echoJsonOk();
             }
             else if (cmd == "down") {
 
                 new SortUtil<FooterMenu>( data, list ).MoveDown();
-                echoRedirect( "ok" );
+                echoJsonOk();
             }
             else {
                 echoError( lang( "exUnknowCmd" ) );
