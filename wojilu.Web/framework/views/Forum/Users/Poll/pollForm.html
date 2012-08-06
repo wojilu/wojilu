@@ -18,7 +18,11 @@
             <div style="margin:10px 15px;">
 
                 <!-- BEGIN cmdVote -->             
-                <input id="btnPoll#{poll.Id}" class="btn btn-primary right10" type="button" value="_{pollVote}" cid="poll_#{poll.Id}" />
+
+                <button id="btnPoll#{poll.Id}" type="button" class="btn btn-primary right10" cid="poll_#{poll.Id}">
+                    <img src="~static/skin/apps/forum/wojilu.Apps.Forum.Domain.ForumPoll.gif" />
+                    _{pollVote}
+                </button>
                 <!-- END cmdVote -->
             
                 <!-- BEGIN plsVote -->

@@ -48,14 +48,14 @@ namespace wojilu.Web.Controller.Forum.Users {
 
             set( "topicId", p.TopicId );
 
-            String displayCss = "display:none;";
-            if (p.CheckHasVote( ctx.viewer.Id )) {
-                set( "formStyle", displayCss );
+            String hideCss = "display:none;";
+            if (p.CheckHasVote( ctx.viewer.Id ) || (p.IsClosed() && p.IsVisible == 0)) {
+                set( "formStyle", hideCss );
                 set( "resultStype", "" );
             }
             else {
                 set( "formStyle", "" );
-                set( "resultStype", displayCss );
+                set( "resultStype", hideCss );
             }
 
             load( "pollForm", pollForm );
@@ -132,12 +132,7 @@ namespace wojilu.Web.Controller.Forum.Users {
             set( "poll.Question", p.Question );
             set( "poll.Voters", p.VoteCount );
 
-            IBlock lnkVoter = getBlock( "lnkVoter" );
-            if (p.IsOpenVoter == 0) {
-                lnkVoter.Set( "poll.ResultLink", to( Voter, p.Id ) + "?boardId=" + board.Id );
-                lnkVoter.Set( "poll.Voters", p.VoteCount );
-                lnkVoter.Next();
-            }
+            set( "lnkVoter", getVoterLink( p, board ) );
 
             int colorCount = 6;
             int iColor = 1;
@@ -165,9 +160,19 @@ namespace wojilu.Web.Controller.Forum.Users {
             if (p.CheckHasVote( ctx.viewer.Id )) {
                 lblVoted.Next();
             }
-            else if( p.IsClosed()==false ) {
+            else if (p.IsClosed() == false) {
                 btnVote.Next();
             }
+        }
+
+        private String getVoterLink( ForumPoll p, ForumBoard board ) {
+
+            if (p.IsOpenVoter == 0) {
+                String url = to( Voter, p.Id ) + "?boardId=" + board.Id;
+                return string.Format( "<a href=\"{0}\" class=\"frmBox left10 right10\" target=\"_blank\">投票人数: {1}</a>", url, p.VoteCount );
+            }
+
+            return "<span class=\"poll-voter-count\">投票人数: " + p.VoteCount + "</span>";
         }
 
         private String getControl( ForumPoll poll, int optionIndex, String optionText ) {
