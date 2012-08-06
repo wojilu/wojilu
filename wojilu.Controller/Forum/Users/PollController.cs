@@ -139,6 +139,9 @@ namespace wojilu.Web.Controller.Forum.Users {
                 lnkVoter.Next();
             }
 
+            int colorCount = 6;
+            int iColor = 1;
+
             IBlock opblock = getBlock( "options" );
             for (int i = 0; i < p.OptionList.Length; i++) {
 
@@ -148,7 +151,11 @@ namespace wojilu.Web.Controller.Forum.Users {
                 opblock.Set( "op.Id", (i + 1) );
                 opblock.Set( "op.ImgWidth", or.ImgWidth * 1 );
                 opblock.Set( "op.Percent", or.VotesAndPercent );
+                opblock.Set( "op.ColorIndex", iColor );
                 opblock.Next();
+
+                iColor++;
+                if (iColor > 6) iColor = 1;
             }
 
             set( "poll.ExpiryInfo", p.GetRealExpiryDate() );

@@ -29,8 +29,6 @@ namespace wojilu.Common.Polls.Service {
             percent = Math.Round( percent, 2 );
             imgWidth = (int)(imgWidth * percent);
 
-            if (imgWidth == 0) imgWidth = 1;
-
             this.ImgWidth = imgWidth;
             this.Votes = currentItemVotes;
             this.Percent = Convert.ToString( (double)(percent * 100.0) );

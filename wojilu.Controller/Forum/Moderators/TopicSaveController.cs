@@ -175,7 +175,6 @@ namespace wojilu.Web.Controller.Forum.Moderators {
         [HttpPost, DbTransaction]
         public void Category() {
 
-            int id = ctx.GetInt( "boardId" );
             int categoryId = ctx.PostInt( "dropCategories" );
             ForumCategory category = categoryService.GetById( categoryId, ctx.owner.obj );
             if (category == null && categoryId > 0) {

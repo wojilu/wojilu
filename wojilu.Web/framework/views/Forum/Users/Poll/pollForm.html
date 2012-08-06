@@ -2,14 +2,14 @@
     .pollOptionWrap td { padding: 3px 3px 3px 8px;}
 </style>
 
-<div style="margin:0px;margin-top: 5px;margin-bottom:10px; width:80%;" id="poll_#{poll.Id}">
+<div class="poll-wrap">
 
-    <div style="margin:0px;font-size:12px;padding:10px 10px 5px 10px; background: #f5f5f5; border-radius: 4px; box-shadow: 5px 5px 5px #ddd;">
-        <div class="">
-            <table class="pollOptionWrap" id="pollOption#{topicId}" style="width:95%;margin-left:5px;">
+    <div class="poll-container">
+        <div class="poll-container-inner">
+            <table class="poll-v-table" id="pollOption#{topicId}">
             <!-- BEGIN options -->
             <tr>
-                <td class="optionItemString">#{op.SelectControl}</td>
+                <td class="poll-v-item">#{op.SelectControl}</td>
             </tr><!-- END options -->
             </table>
 
