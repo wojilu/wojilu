@@ -19,9 +19,9 @@ using wojilu.Members.Users.Domain;
 using wojilu.Apps.Forum.Interface;
 using wojilu.Common.AppBase;
 using wojilu.Common.Money.Domain;
+using wojilu.ORM;
 
 namespace wojilu.Web.Controller.Forum.Admin {
-
 
     [App( typeof( ForumApp ) )]
     public partial class ForumController : ControllerBase {
@@ -53,7 +53,6 @@ namespace wojilu.Web.Controller.Forum.Admin {
 
         public void Index() {
 
-
             view( "ListBoard" );
             set( "addCategoryUrl", to( AddCategory ) );
 
@@ -65,6 +64,9 @@ namespace wojilu.Web.Controller.Forum.Admin {
         }
 
         public void Notice() {
+
+            redirect( new ForumPickController().Index );
+
             target( SaveNotice );
 
             ForumApp forum = ctx.app.obj as ForumApp;
@@ -182,7 +184,7 @@ namespace wojilu.Web.Controller.Forum.Admin {
             }
 
             // 确保只是作为分类
-            fb.IsCategory = 1; 
+            fb.IsCategory = 1;
 
             Result result = boardService.Insert( fb );
             if (result.HasErrors) {
@@ -292,7 +294,7 @@ namespace wojilu.Web.Controller.Forum.Admin {
 
             board = ForumValidator.ValidateBoard( board, ctx );
             // 确保只是作为分类
-            board.IsCategory = 1; 
+            board.IsCategory = 1;
 
             if (errors.HasErrors) {
                 run( EditCategory, board.Id );
@@ -364,7 +366,7 @@ namespace wojilu.Web.Controller.Forum.Admin {
 
             bindTrashTopic( deletedPage );
         }
-        
+
         public void ViewDeletedTopic( int id ) {
             ForumTopic topic = topicService.GetById_ForAdmin( id );
             bind( "t", topic );

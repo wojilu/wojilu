@@ -142,6 +142,7 @@
     <Compile Include="Content\Caching\HtmlHelper.cs" />
     <Compile Include="Content\SidebarController.cs" />
     <Compile Include="Content\Utils\clink.cs" />
+    <Compile Include="Forum\Admin\ForumPickController.cs" />
     <Compile Include="Forum\AttachmentController.cs" />
     <Compile Include="Forum\Caching\Pages\ForumIndexPageCache.cs" />
     <Compile Include="Forum\Edits\PostController.cs" />
