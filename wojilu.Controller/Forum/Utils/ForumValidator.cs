@@ -102,10 +102,10 @@ namespace wojilu.Web.Controller.Forum.Utils {
             else if (!url.ToLower().StartsWith( "http://" ))
                 url = "http://" + url;
 
-            if (strUtil.IsNullOrEmpty( logo ))
-                ctx.errors.Add( alang( ctx, "exLogo" ) );
-            else if (!logo.ToLower().StartsWith( "http://" ))
-                logo = "http://" + logo;
+            //if (strUtil.IsNullOrEmpty( logo ))
+            //    ctx.errors.Add( alang( ctx, "exLogo" ) );
+            //else if (!logo.ToLower().StartsWith( "http://" ))
+            //    logo = "http://" + logo;
 
             link.Name = name;
             link.Description = description;

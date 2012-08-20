@@ -39,7 +39,10 @@ namespace wojilu.Web.Controller.Forum.Admin {
             foreach (ForumLink link in list) {
                 block.Set( "link.Id", link.Id );
                 block.Set( "link.Name", link.Name );
-                block.Set( "link.Logo", link.Logo );
+
+                String logo = strUtil.HasText( link.Logo ) ? string.Format( "<img src=\"{0}\"/>", link.Logo ) : "";
+
+                block.Set( "link.Logo", logo );
                 block.Set( "link.Url", link.Url );
                 block.Set( "link.Created", link.Created );
                 block.Set( "link.EditUrl", to( Edit, link.Id ) );

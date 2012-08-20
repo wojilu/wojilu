@@ -111,13 +111,36 @@ namespace wojilu.Web.Controller.Forum {
 
         private void bindLink( List<ForumLink> linkList ) {
 
-            IBlock linkBlock = getBlock( "flinks" );
-            foreach (ForumLink link in linkList) {
-                linkBlock.Set( "flink.Name", link.Name );
-                linkBlock.Set( "flink.Url", link.Url );
-                linkBlock.Set( "flink.Logo", link.Logo );
-                linkBlock.Next();
+            List<ForumLink> picLinks = getPicLink( linkList );
+            List<ForumLink> textLinks = getTextLink( linkList );
+
+            bindLinkPrivate( picLinks, getBlock( "picLinks" ) );
+            bindLinkPrivate( textLinks, getBlock( "textLinks" ) );
+        }
+
+        private static void bindLinkPrivate( List<ForumLink> linkList, IBlock block ) {
+            foreach (ForumLink x in linkList) {
+                block.Set( "x.Name", x.Name );
+                block.Set( "x.Url", x.Url );
+                block.Set( "x.Logo", x.Logo );
+                block.Next();
             }
+        }
+
+        private List<ForumLink> getPicLink( List<ForumLink> linkList ) {
+            List<ForumLink> list = new List<ForumLink>();
+            foreach (ForumLink x in linkList) {
+                if (strUtil.HasText( x.Logo )) list.Add( x );
+            }
+            return list;
+        }
+
+        private List<ForumLink> getTextLink( List<ForumLink> linkList ) {
+            List<ForumLink> list = new List<ForumLink>();
+            foreach (ForumLink x in linkList) {
+                if (strUtil.IsNullOrEmpty( x.Logo )) list.Add( x );
+            }
+            return list;
         }
 
         private void bindOnlineUsers( List<OnlineUser> onlineUsers ) {

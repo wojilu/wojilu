@@ -22,6 +22,20 @@
 #forum-pick-list li div.pick-list-title {width:230px;overflow: hidden;white-space:nowrap;text-overflow:clip; }
 #forum-pick-list li.pick-item {float:left;width:230px; margin-right:20px; padding:1px 0px 2px 0px; font-size:14px; list-style:none; }
 
+.forum-bottom-title {padding:6px 25px; font-size:14px; font-weight:bold; 
+background: #d2ebf9; /* Old browsers */
+background: -moz-linear-gradient(top,  #d2ebf9 0%, #feffff 100%); /* FF3.6+ */
+background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#d2ebf9), color-stop(100%,#feffff)); /* Chrome,Safari4+ */
+background: -webkit-linear-gradient(top,  #d2ebf9 0%,#feffff 100%); /* Chrome10+,Safari5.1+ */
+background: -o-linear-gradient(top,  #d2ebf9 0%,#feffff 100%); /* Opera 11.10+ */
+background: -ms-linear-gradient(top,  #d2ebf9 0%,#feffff 100%); /* IE10+ */
+background: linear-gradient(to bottom,  #d2ebf9 0%,#feffff 100%); /* W3C */
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#d2ebf9', endColorstr='#feffff',GradientType=0 ); /* IE6-9 */     
+}
+.forum-bottom-body {margin:10px 20px 20px 30px; }
+.forum-link-item {width:88px; height:31px;margin:3px 8px; float:left;}
+.forum-link-item img{width:88px;}
+
 .forum-stats-row {background:url(/static/skin/site/new/forum-stats-bg.jpg); height:41px; border-top:1px solid #d7e0e9; }
 .forum-stats-num { color:#3f8dcb; font-weight:bold; margin-right:3px;}
 
