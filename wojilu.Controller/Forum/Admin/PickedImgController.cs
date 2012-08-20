@@ -14,7 +14,11 @@ namespace wojilu.Web.Controller.Forum.Admin {
         public void Index() {
 
             set( "addUrl", to( Add ) );
-            DataPage<ForumPickedImg> list = ForumPickedImg.findPage( "AppId=" + ctx.app.Id );
+
+            ForumApp app = ctx.app.obj as ForumApp;
+            ForumSetting s = app.GetSettingsObj();
+
+            DataPage<ForumPickedImg> list = ForumPickedImg.findPage( "AppId=" + ctx.app.Id, s.HomeImgCount );
 
             IBlock block = getBlock( "list" );
             foreach (ForumPickedImg f in list.Results) {
@@ -92,8 +96,8 @@ namespace wojilu.Web.Controller.Forum.Admin {
 
             f.delete();
 
-            redirect( Index );
-        
+            echoRedirect( lang( "opok" ) );
+
         }
 
     }

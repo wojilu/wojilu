@@ -22,6 +22,9 @@ namespace wojilu.Web.Controller.Forum.Admin {
 
         public void Index() {
 
+            set( "lnkPicAdd", to( new PickedImgController().Add ) );
+            set( "lnkPicAdmin", to( new PickedImgController().Index ) );
+
             set( "lnkAddPin", to( PinAd ) );
             set( "lnkRestore", to( RestoreList ) );
 

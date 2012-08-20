@@ -20,7 +20,7 @@
 #forum-pick-list-wrap {margin:0px 10px 10px 0px;}
 #forum-pick-list {margin-left:3px;}
 #forum-pick-list li div.pick-list-title {width:230px;overflow: hidden;white-space:nowrap;text-overflow:clip; }
-#forum-pick-list li.pick-item {float:left;width:230px; margin-right:20px; padding:1px 0px 2px 0px; font-size:12px; list-style:none; }
+#forum-pick-list li.pick-item {float:left;width:230px; margin-right:20px; padding:1px 0px 2px 0px; font-size:14px; list-style:none; }
 
 .forum-stats-row {background:url(/static/skin/site/new/forum-stats-bg.jpg); height:41px; border-top:1px solid #d7e0e9; }
 .forum-stats-num { color:#3f8dcb; font-weight:bold; margin-right:3px;}
