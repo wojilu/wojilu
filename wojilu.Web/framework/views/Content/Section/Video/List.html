@@ -1,15 +1,28 @@
 ﻿<h4>#{section.Name}</h4>
 
-<ul class="sectionVideos">
+<ul class="sectionVideos unstyled">
 	<!-- BEGIN list -->
-	<li>
-		<a href="#{img.Url}"><img src="#{img.Thumb}" style="width:120px;" /></a><br />
-		<span class="img_title">#{img.Title}</span><br/>
-		<span class="img_description">#{img.Description}</span>
+	<li style="border-radius:3px; box-shadow:3px 3px 10px #aaa; margin:10px 10px 10px 10px; background:#fff; padding:10px;">
+		<div><a href="#{img.Url}"><img src="#{img.Thumb}"  class="thumbItem"  style="max-width:120px; max-height:120px;" /></a></div>
+		<div style="margin-top:5px;"><span class="img_title">#{img.Title}</span></div>
 	</li><!-- END list -->
 	
 </ul>
 
 <div class="clear"></div>
 
-<div>#{page}</div>
+<div style="margin-top:15px;">#{page}</div>
+<script>
+    $(document).ready(function () {
+
+        var twidth = 120;
+        var theight = 120;
+
+        $('.thumbItem').each(function () {
+            if ($(this).width() > twidth) $(this).width(twidth);
+            if ($(this).height() > theight) $(this).height(theight);
+        });
+
+
+    });
+</script>

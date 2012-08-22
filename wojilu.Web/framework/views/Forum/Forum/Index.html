@@ -8,14 +8,14 @@
                 </div>
 		    </form>
         </div>
-        <div class="span5 pull-right">
-            <div class="pull-right" style="margin:15px; font-weight:bold;">
-		        <a href="#{lnkPost}" target="_blank">:{newPosts}</a>
-		        <a href="#{lnkTopic}" target="_blank">:{newTopic}</a>
-		        <a href="#{lnkMyPost}" target="_blank">:{myPosts}</a>
-		        <a href="#{lnkMyTopic}" target="_blank">:{myTopics}</a>
-	            <a href="#{lnkPicked}" target="_blank">:{picked}</a>
-		        <a href="#{lnkViews}" target="_blank">:{rank}</a>
+        <div class="span6 pull-right">
+            <div class="pull-right" style="margin:15px 15px 15px 0px;">
+                <a href="#{lnkTopic}" target="_blank"><i class="icon-file"></i> :{newTopic}</a>
+		        <a href="#{lnkPost}" target="_blank"><i class="icon-play-circle"></i> :{newPosts}</a>		        
+		        <a href="#{lnkMyPost}" target="_blank"><i class="icon-edit"></i> :{myPosts}</a>
+		        <a href="#{lnkMyTopic}" target="_blank"><i class="icon-pencil"></i> :{myTopics}</a>
+	            <a href="#{lnkPicked}" target="_blank"><i class="icon-star"></i> :{picked}</a>
+		        <a href="#{lnkViews}" target="_blank"><i class="icon-list-alt"></i> :{rank}</a>
             </div>
         </div>
     </div>
@@ -36,6 +36,7 @@
 
 	    <div class="span7 pull-right">
 		    <div class="pull-right" style="margin:10px 20px 0px 0px;">
+                <i class="icon-signal"></i>
                 _{today}:<span class="forum-stats-num">#{forum.TodayPost}</span> 
                 :{topic}:<span class="forum-stats-num">#{forum.TodayTopic}</span>
                 _{yesterday}:<span class="forum-stats-num">#{forum.YestodayPostCount}</span>
@@ -43,7 +44,7 @@
                 :{topic}:<span class="forum-stats-num">#{forum.TopicCount}</span>
                 :{post}:<span class="forum-stats-num">#{forum.PostCount}</span>
                 _{member}:<span class="forum-stats-num">#{forum.MemberCount}</span>
-                <span class="left10">:{welcomeNewMember}</span> <a href="#{newUserLink}" target="_blank" style="color:#e85446; font-weight:bold;">#{newUserName}</a>
+                <span class="left10"><i class="icon-user"></i> :{welcomeNewMember}</span> <a href="#{newUserLink}" target="_blank" style="color:#e85446; font-weight:bold;">#{newUserName}</a>
             </div>			
 	    </div>
 
@@ -58,7 +59,7 @@
 <div class="row top20" style="#{forum.IsHideOnline_Style}">
     <div class="span12">
         <div>
-	        <div class="forum-bottom-title">:{whoIsOnline} </div>
+	        <div class="forum-bottom-title"><i class="icon-user"></i> :{whoIsOnline} </div>
             <div class="forum-bottom-body"> <span style="font-weight:normal;">共 <span id="onlineCount">0</span> 人在线(<a href="#{onlineLink}">详情</a>)。其中会员 <span id="onlineMember">0</span> 人，游客 <span id="onlineGuest">0</span> 人。历史最高在线 <span id="onlineMax">0</span> 人，发生时间是：<span id="onlineMaxTime"></span></span></div>
         </div>
     </div>
@@ -67,7 +68,7 @@
 <div class="row" style="#{forum.IsHideLink_Style}">
     <div class="span12">
         <div>
-	        <div class="forum-bottom-title">:{forumLink}</div>
+	        <div class="forum-bottom-title"><i class="icon-th-list"></i> :{forumLink}</div>
 	        <div class="forum-bottom-body">
                 <ul style="margin-top:10px;" class="unstyled">
 	            <!-- BEGIN picLinks -->
