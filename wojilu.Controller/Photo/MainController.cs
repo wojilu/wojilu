@@ -13,6 +13,7 @@ using wojilu.Apps.Photo.Service;
 using wojilu.Apps.Photo.Interface;
 using wojilu.Web.Controller.Common;
 using wojilu.Web.Controller.Photo.Caching;
+using wojilu.Common.AppBase.Interface;
 
 namespace wojilu.Web.Controller.Photo {
 
@@ -36,13 +37,6 @@ namespace wojilu.Web.Controller.Photo {
 
         [CacheAction( typeof( PhotoMainLayoutCache ) )]
         public override void Layout() {
-
-            List<User> userRanks = rankService.GetTop( 9 );
-            bindUsers( userRanks );
-
-            // 点击排行
-            List<PhotoPost> photos = photoService.GetSysHits( 18 );
-            bindPhotos( "hits", photos );
         }
 
         private void bindUsers( List<User> userRanks ) {
@@ -70,6 +64,23 @@ namespace wojilu.Web.Controller.Photo {
 
             WebUtils.pageTitle( this, lang( "photo" ) );
 
+            bindPicked();
+
+            List<User> userRanks = rankService.GetTop( 9 );
+            bindUsers( userRanks );
+
+            List<PhotoSysCategory> categories = categoryService.GetAll();
+            IBlock block = getBlock( "categories" );
+            foreach (PhotoSysCategory c in categories) {
+
+                List<PhotoPost> photos = photoService.GetSysTop( c.Id, 8 );
+                bindOneCategory( block, c, photos );
+                block.Next();
+
+            }
+        }
+
+        private void bindPicked() {
             List<PhotoPost> pickedlist = PickedService.GetTop( 4 );
             IBlock pickeBlock = getBlock( "picked" );
             foreach (PhotoPost p in pickedlist) {
@@ -77,16 +88,6 @@ namespace wojilu.Web.Controller.Photo {
                 pickeBlock.Set( "p.ImgThumbUrl", p.ImgThumbUrl );
                 pickeBlock.Set( "p.ImgUrl", p.ImgUrl );
                 pickeBlock.Next();
-            }
-
-            List<PhotoSysCategory> categories = categoryService.GetAll();
-            IBlock block = getBlock( "categories" );
-            foreach (PhotoSysCategory c in categories) {
-
-                List<PhotoPost> photos = photoService.GetSysTop( c.Id, 10 );
-                bindOneCategory( block, c, photos );
-                block.Next();
-
             }
         }
 
@@ -111,12 +112,14 @@ namespace wojilu.Web.Controller.Photo {
 
         public void List( int categoryId ) {
 
+            set( "appLink", to( Index ) );
+
             PhotoSysCategory category = categoryService.GetById( categoryId );
-            DataPage<PhotoPost> list = photoService.GetSysPostPage( categoryId, 35 );
+            WebUtils.pageTitle( this, category.Name, lang( "photo" ) );
+
+            DataPage<PhotoPost> list = photoService.GetSysPostPage( categoryId, 20 );
             bindOneCategory( this.utils.getCurrentView(), category, list.Results );
             set( "page", list.PageBar );
-
-            WebUtils.pageTitle( this, category.Name, lang( "photo" ) );
         }
 
         public void Recent() {

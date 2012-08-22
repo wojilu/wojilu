@@ -3,6 +3,7 @@
 
 .hide {display:none;}
 .note {color:#666; }
+.clear { clear:both;}
 
 .quote { margin:5px; color:#333; padding-left:20px; padding-top:0px; background:url('../img/quoteBegin.gif') no-repeat top left;  }
 .quote .qSpan {background:url('../img/quoteEnd.gif') no-repeat bottom right; padding-right:18px; }
@@ -182,6 +183,4 @@ input.searchs {background:url('../img/search2.gif') no-repeat;width:20px;height:
 
 #topNavMenu a { font-size:12px;}
 #wojilu_banner{ width:100%;height:106px; background-image:url("../img/middle_banner.jpg");}
-textarea { border:1px solid #EEEEEE;}
 
-h3.sectionTitle {margin-bottom:10px;}
