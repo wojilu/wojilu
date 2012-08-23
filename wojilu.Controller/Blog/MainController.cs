@@ -4,6 +4,7 @@
 
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using System.Text;
 
 using wojilu.ORM;
@@ -31,13 +32,14 @@ namespace wojilu.Web.Controller.Blog {
         public IUserService userService { get; set; }
         public IPickedService pickedService { get; set; }
         public ISysBlogService sysblogService { get; set; }
-
+        public IBlogSysCategoryService categoryService { get; set; }
 
         public MainController() {
             postService = new BlogPostService();
             userService = new UserService();
             pickedService = new PickedService();
             sysblogService = new SysBlogService();
+            categoryService = new BlogSysCategoryService();
 
             HideLayout( typeof( LayoutController ) );
         }
@@ -45,11 +47,18 @@ namespace wojilu.Web.Controller.Blog {
         [CacheAction( typeof( BlogMainLayoutCache ) )]
         public override void Layout() {
 
-            IList tops = pickedService.GetTop( 10 );
-            IList hits = sysblogService.GetSysHit( 20 );
-            IList replies = sysblogService.GetSysReply( 30 );
+            List<BlogPost> tops = pickedService.GetTop( 10 );
+            List<BlogPost> hits = sysblogService.GetSysHit( 20 );
+            List<BlogPost> replies = sysblogService.GetSysReply( 30 );
 
             bindSidebar( tops, hits, replies );
+
+            String qword = ctx.Get( "qword" );
+            int qtype = ctx.GetInt( "qtype" );
+            set( "qword", qword );
+            set( "qtype", qtype );
+
+            set( "recentLink", to( Recent ) );
         }
 
         [CachePage( typeof( BlogMainPageCache ) )]
@@ -59,15 +68,38 @@ namespace wojilu.Web.Controller.Blog {
             WebUtils.pageTitle( this, lang( "blog" ) );
 
             // TODO 博客排行
-            IList userRanks = User.find( "order by Hits desc, id desc" ).list( 21 );
+            List<User> userRanks = User.find( "order by Hits desc, id desc" ).list( 14 );
             bindUsers( userRanks );
-
-            IList blogs = sysblogService.GetSysNew( -1, 30 );
-            bindList( "list", "post", blogs, bindLink );
 
             set( "recentLink", to( Recent ) );
             set( "recentLink2", Link.AppendPage( to( Recent ), 2 ) );
-            set( "droplist", getDropList( 0 ) );
+
+            List<BlogSysCategory> categories = categoryService.GetAll();
+            IBlock block = getBlock( "categories" );
+            foreach (BlogSysCategory c in categories) {
+
+                List<BlogPost> list = sysblogService.GetByCategory( c.Id, 8 );
+                bindOneCategory( block, list );
+
+                block.Set( "c.Name", c.Name );
+                block.Set( "c.LinkShow", to( Recent ) + "?cid=" + c.Id );
+                block.Next();
+            }
+
+        }
+
+        private void bindOneCategory( IBlock cblock, List<BlogPost> list ) {
+
+            IBlock block = cblock.GetBlock( "list" );
+            foreach (BlogPost x in list) {
+                block.Set( "x.Id", x.Id );
+                block.Set( "x.Title", x.Title );
+                block.Set( "x.LinkShow", alink.ToAppData( x ) );
+                block.Set( "x.Created", x.Created );
+                block.Set( "x.CreatorName", x.Creator.Name );
+                block.Set( "x.CreatorLink", Link.ToMember( x.Creator ) );
+                block.Next();
+            }
         }
 
 
@@ -75,10 +107,13 @@ namespace wojilu.Web.Controller.Blog {
 
             WebUtils.pageTitle( this, alang( "allBlogPost" ) );
 
+            set( "blogLink", to( Index ) );
+
             DataPage<BlogPost> blogs = null;
 
             String qword = ctx.Get( "qword" );
             int qtype = ctx.GetInt( "qtype" );
+            int categoryId = ctx.GetInt( "cid" );
 
 
             if (strUtil.HasText( qword ) && qtype > 0) {
@@ -105,13 +140,25 @@ namespace wojilu.Web.Controller.Blog {
 
                 blogs = sysblogService.GetSysPageBySearch( condition );
 
+                set( "listName", "搜索结果" );
+
+            }
+            else if (categoryId > 0) {
+                blogs = sysblogService.GetSysPageByCategory( categoryId, 30 );
+
+                BlogSysCategory c = categoryService.GetById( categoryId );
+                if (c == null) {
+                    set( "listName", "分类不存在，没有结果" );
+                }
+                else {
+                    set( "listName", c.Name );
+                }
             }
             else {
                 blogs = sysblogService.GetSysPage( 30 );
+                set( "listName", alang( "allBlogPost" ) );
             }
 
-            set( "qword", qword );
-            set( "droplist", getDropList( qtype ) );
 
             bindList( "list", "post", blogs.Results, bindLink );
             set( "page", blogs.PageBar );

@@ -16,7 +16,7 @@ namespace wojilu.Web.Controller.Blog {
 
     public partial class MainController : ControllerBase {
 
-        private void bindUsers( IList userRanks ) {
+        private void bindUsers( List<User> userRanks ) {
 
             IBlock block = getBlock( "users" );
             foreach (User user in userRanks) {
@@ -30,7 +30,7 @@ namespace wojilu.Web.Controller.Blog {
 
         private int i = 1;
 
-        private void bindSidebar( IList tops, IList hits, IList replies ) {
+        private void bindSidebar( List<BlogPost> tops, List<BlogPost> hits, List<BlogPost> replies ) {
             i = 1;
 
             bindList( "tops", "post", tops, bindLink );

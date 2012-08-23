@@ -1,28 +1,12 @@
 ﻿<style>
-/*
-#cpContainer { padding:18px;}
 
-#cpMain { float:left;width:650px; background:#fff; padding-right:20px; }
-
-#cpSidebar {width:250px; float:left; color:#000;}
-#cpSidebar ul {padding:5px 5px 10px 5px}
-#cpSidebar ul li {margin:5px 0px 5px 5px;}
-
-
-	.cpPostTitle {font-size:14px; padding:3px 0px;}
-	.bmTime {color:#666;font-size:12px; margin:3px 0px;}
-	.bmContent {font-size:12px; padding:3px 0px; line-height:150%; color:#666;}
-
-#userRank {width:640px;}
-#userRank li{ float:left; padding:12px; width:60px; height:80px;vertical-align:top; overflow: hidden; text-align:center;}
-#userRank li div {width:100%;margin-top:5px;text-overflow: clip; white-space: nowrap; overflow: hidden; -moz-text-overflow: clip; }
-
-
-#blogSearchPanel {margin:0px 0px 10px 0px;background:#f2f2f2; padding:10px 10px;height:25px;}
-.blogIndexItem {width: 100%;margin:10px 0px; border-top:1px #eee solid}
-
-*/
-
+.user-rank {border:1px #d4c6dd solid; border-radius:5px; padding:5px 8px; margin-bottom:20px; }
+.user-rank-title {font-size:14px; font-weight:bold; color:#666; border-bottom:1px #eee solid; padding:5px; margin-right:10px;}
+.user-rank ul { padding:10px 5px 5px 0px;}
+.user-rank li{float:left; margin:5px 9px 5px 5px;padding:3px; width:60px;height:60px; text-align:center;}
+.user-rank li:hover { background:#f2f2f2;}
+.user-rank li img {width:48px; height:48px; border-radius:4px;}
+.user-rank li a {color:#aaa;}
 </style>
 
 <div class="row" style="padding-top:20px;">
@@ -32,6 +16,26 @@
 	</div>
 
 	<div class="span4">	
+
+        <h2 style="margin-top:10px;"><img src="~img/m/search.png" /> :{blogSearch}</h2>
+	    <div style="margin:10px 10px 10px 0px;">
+	        <form method="get" action="#{recentLink}" class="blog-search well">
+
+                <input name="qword" type="text" class="span2" placeholder="请输入关键词" />
+                <select name="qtype" class="span1" id="dropType">
+                    <option value="1">_{title}</option>
+                    <option value="2">_{author}</option>
+                </select>
+                <script>$(document).ready(function () { $('#dropType').val(#{qtype}); });</script>
+
+                <button class="btn btn-primary" type="submit">
+                    <i class="icon-search icon-white"></i>
+                    :{quickSearch}
+                </button>
+                <span class="help-inline"><a href="#{recentLink}" style="margin-left:10px;font-size:12px;">_{all}...</a></span>
+	        </form>
+	    </div>	
+
 
 		<div class="sectionPanel cpPanel">
 			<h3 class="sectionTitle">:{pickedBlogger}</h3>

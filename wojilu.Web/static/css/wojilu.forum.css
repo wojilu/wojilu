@@ -33,8 +33,9 @@ background: linear-gradient(to bottom,  #d2ebf9 0%,#feffff 100%); /* W3C */
 filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#d2ebf9', endColorstr='#feffff',GradientType=0 ); /* IE6-9 */     
 }
 .forum-bottom-body {margin:10px 20px 20px 30px; }
-.forum-link-item {width:88px; height:31px;margin:3px 8px; float:left;}
-.forum-link-item img{width:88px;}
+.forum-link-item {width:88px; margin:3px 8px 3px 0px; float:left;}
+.forum-link-item img{width:88px;height:31px;}
+.forum-link-item a{color:#222;}
 
 .forum-stats-row {background:url(/static/skin/site/new/forum-stats-bg.jpg); height:41px; border-top:1px solid #d7e0e9; }
 .forum-stats-num { color:#3f8dcb; font-weight:bold; margin-right:3px;}
