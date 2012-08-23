@@ -4,6 +4,7 @@
 
 using System;
 using System.Collections;
+using System.Collections.Generic;
 
 using wojilu.Web.Mvc;
 using wojilu.Web.Mvc.Attr;
@@ -26,22 +27,47 @@ namespace wojilu.Web.Controller.Admin.Apps.Blog {
         public IPickedService pickedService { get; set; }
         public ISysBlogService sysblogService { get; set; }
         public IAdminLogService<SiteLog> logService { get; set; }
+        public IBlogSysCategoryService categoryService { get; set; }
 
         public MainController() {
             postService = new BlogPostService();
             pickedService = new PickedService();
             sysblogService = new SysBlogService();
             logService = new SiteLogService();
+            categoryService = new BlogSysCategoryService();
         }
 
         // TODO 搜索功能：根据作者、根据时间(最近一个月)、根据阅读量、根据评论数、
-        public void Index() {
+        public void Index( int id ) {
 
             target( Admin );
 
-            DataPage<BlogPost> list = postService.GetPage();
+            DataPage<BlogPost> list = sysblogService.GetSysPageByCategory( id, 36 );
             bindPosts( list );
+
+            setCategoryDropList();
         }
+
+
+        private void setCategoryDropList() {
+            List<BlogSysCategory> categories = categoryService.GetAll();
+            List<BlogSysCategory> list = addSelectInfo( categories );
+            dropList( "adminDropCategoryList", list, "Name=Id", null );
+        }
+
+        private List<BlogSysCategory> addSelectInfo( List<BlogSysCategory> categories ) {
+            BlogSysCategory category = new BlogSysCategory();
+            category.Id = -1;
+            category.Name = lang( "setCategory" );
+
+            List<BlogSysCategory> list = new List<BlogSysCategory>();
+            list.Add( category );
+            foreach (BlogSysCategory cat in categories) {
+                list.Add( cat );
+            }
+            return list;
+        }
+
 
         public void Picked() {
             target( Admin );
@@ -61,6 +87,9 @@ namespace wojilu.Web.Controller.Admin.Apps.Blog {
 
             String ids = ctx.PostIdList( "choice" );
             String cmd = ctx.Post( "action" );
+            int categoryId = ctx.PostInt( "categoryId" );
+
+            String condition = string.Format( "Id in ({0}) ", ids );
 
             if (strUtil.IsNullOrEmpty( cmd ) ) {
                 echoText( lang( "exCmd" ) );
@@ -97,6 +126,16 @@ namespace wojilu.Web.Controller.Admin.Apps.Blog {
                 log( SiteLogString.DeleteBlogPostTrue(), ids );
                 echoAjaxOk();
             }
+            else if ("category".Equals( cmd )) {
+                if (categoryId <= 0) {
+                    actionContent( lang( "exCategoryNotFound" ) );
+                    return;
+                }
+                BlogPost.updateBatch( "set SysCategoryId=" + categoryId, condition );
+                log( SiteLogString.MoveBlogPost(), ids );
+
+                echoAjaxOk();
+            }
             else
                 echoText( lang( "exUnknowCmd" ) );
 
@@ -115,7 +154,7 @@ namespace wojilu.Web.Controller.Admin.Apps.Blog {
             sysblogService.SystemDelete( post );
             log( SiteLogString.SystemDeleteBlogPost(), post );
 
-            redirect( Index );
+            redirect( Index, 0 );
         }
 
         [HttpPut, DbTransaction]

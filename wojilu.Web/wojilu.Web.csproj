@@ -73,6 +73,9 @@
     <Content Include="framework\views\Admin\Apps\Blog\Main\Index.html" />
     <Content Include="framework\views\Admin\Apps\Blog\Main\Picked.html" />
     <Content Include="framework\views\Admin\Apps\Blog\Main\Trash.html" />
+    <Content Include="framework\views\Admin\Apps\Blog\SysCategory\Add.html" />
+    <Content Include="framework\views\Admin\Apps\Blog\SysCategory\Edit.html" />
+    <Content Include="framework\views\Admin\Apps\Blog\SysCategory\List.html" />
     <Content Include="framework\views\Admin\Apps\Photo\Layout\Layout.html" />
     <Content Include="framework\views\Admin\Apps\Photo\Main\Index.html" />
     <Content Include="framework\views\Admin\Apps\Photo\Main\Picked.html" />

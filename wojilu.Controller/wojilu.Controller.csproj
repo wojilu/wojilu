@@ -75,6 +75,7 @@
     <Compile Include="Admin\AppController.cs" />
     <Compile Include="Admin\Apps\Blog\CommentController.cs" />
     <Compile Include="Admin\Apps\Blog\MainController.cs" />
+    <Compile Include="Admin\Apps\Blog\SysCategoryController.cs" />
     <Compile Include="Admin\Apps\Content\CommentController.cs" />
     <Compile Include="Admin\Apps\Content\LayoutController.cs" />
     <Compile Include="Admin\Apps\Content\MainController.cs" />

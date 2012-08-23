@@ -89,13 +89,14 @@ namespace wojilu.Web.Controller.Security {
 
         public static String ApplySkin() { return "使用新皮肤"; }
 
-        public static String PickBlogPost() { return "推荐日志"; }
-        public static String UnPickBlogPost() { return "取消推荐日志"; }
-        public static String SystemDeleteBlogPost() { return "删除日志到系统回收站"; }
-        public static String SystemUnDeleteBlogPost() { return "从系统回收站还原日志"; }
+        public static String PickBlogPost() { return "推荐博客"; }
+        public static String UnPickBlogPost() { return "取消推荐博客"; }
+        public static String SystemDeleteBlogPost() { return "删除博客到系统回收站"; }
+        public static String SystemUnDeleteBlogPost() { return "从系统回收站还原博客"; }
         public static string DeleteBlogPost() { return "博客批量删入系统回收站"; }
         public static string DeleteBlogPostTrue() { return "批量彻底删除博客"; }
-        public static string UnDeleteBlogPost() { return "从回收站回复博客"; }
+        public static string UnDeleteBlogPost() { return "从回收站恢复博客"; }
+        public static string MoveBlogPost() { return "修改博客的系统分类"; }
 
         public static String SystemDeleteContentPost() { return "删除文章到系统回收站"; }
         public static String SystemUnDeleteContentPost() { return "从系统回收站还原文章"; }
@@ -104,7 +105,7 @@ namespace wojilu.Web.Controller.Security {
         public static String PickPhotoPost() { return "推荐图片"; }
         public static String UnPickPhotoPost() { return "取消推荐图片"; }
         public static String DeletePhotoPost() { return "删除图片"; }
-        public static String MovePhotoPost() { return "修改图片分类"; }
+        public static String MovePhotoPost() { return "修改图片的系统分类"; }
         public static String DeleteSysPhotoPost() { return "删除图片到系统回收站"; }
         public static String UnDeleteSysPhotoPost() { return "从系统回收站还原图片"; }
         public static String DeleteSysPhotoPostTrue() { return "删除图片到系统回收站"; }
@@ -113,6 +114,10 @@ namespace wojilu.Web.Controller.Security {
         public static String UpdatePhotoSysCategory() { return "修改图片系统分类"; }
         public static String DeletePhotoSysCategory() { return "删除图片系统分类"; }
 
+        public static string UpdateBlogSysCategory() { return "修改博客系统分类"; }
+        public static string InsertBlogSysCategory() { return "添加博客系统分类"; }
+        public static string DeleteBlogSysCategory() { return "删除博客系统分类"; }
+
         public static String AddMenu() { return "添加菜单"; }
         public static String UpdateMenu() { return "修改菜单"; }
         public static String DeleteMenu() { return "删除菜单"; }
@@ -120,7 +125,7 @@ namespace wojilu.Web.Controller.Security {
         public static String InsertApp() { return "添加应用程序"; }
         public static String StartApp() { return "启动应用程序"; }
         public static String StopApp() { return "暂停应用程序"; }
-        public static String UpdateApp() { return "修改应用程序"; }        
+        public static String UpdateApp() { return "修改应用程序"; }
         public static String DeleteApp() { return "删除应用程序"; }
 
         public static String UpdateGroupInfo() { return "修改群组资料"; }
@@ -131,6 +136,10 @@ namespace wojilu.Web.Controller.Security {
         public static String RemoveOfficer() { return "删除群组管理员"; }
         public static String AddFriendGroup() { return "添加友情群组"; }
         public static String DeleteFriendGroup() { return "删除友情群组"; }
+
+
+
+
 
 
 

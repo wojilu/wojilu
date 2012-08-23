@@ -22,10 +22,12 @@ namespace wojilu.Apps.Photo.Service {
         }
         public virtual DataPage<PhotoPost> GetSysPostPage( int categoryId, int pageSize ) {
 
-            if (categoryId <= 0)
+            if (categoryId <= 0) {
                 return db.findPage<PhotoPost>( "SaveStatus=" + SaveStatus.Normal, pageSize );
-            else
+            }
+            else {
                 return db.findPage<PhotoPost>( "SaveStatus=" + SaveStatus.Normal + " and SysCategoryId=" + categoryId, pageSize );
+            }
         }
 
         public virtual DataPage<PhotoPost> GetSysPostTrashPage( int pageSize ) {

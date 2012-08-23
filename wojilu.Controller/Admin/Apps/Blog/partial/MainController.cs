@@ -25,6 +25,9 @@ namespace wojilu.Web.Controller.Admin.Apps.Blog {
             IBlock block = getBlock( "list" );
             foreach (BlogPost post in posts) {
 
+                String sysCategoryName = getSysCategoryName( post );
+                block.Set( "post.SysCategoryName", sysCategoryName );
+
                 block.Set( "post.Id", post.Id );
                 block.Set( "post.Title", post.Title );
                 block.Set( "post.Url", alink.ToAppData( post ) );
@@ -46,6 +49,13 @@ namespace wojilu.Web.Controller.Admin.Apps.Blog {
 
                 block.Next();
             }
+        }
+
+        private string getSysCategoryName( BlogPost post ) {
+            if (post.SysCategoryId == 0) return "";
+            BlogSysCategory c = categoryService.GetById( post.SysCategoryId );
+            if (c == null) return "";
+            return c.Name;
         }
 
         private String getStatus( BlogPost post ) {
