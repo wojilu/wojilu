@@ -73,6 +73,9 @@
     <Content Include="framework\views\Admin\Apps\Blog\Main\Index.html" />
     <Content Include="framework\views\Admin\Apps\Blog\Main\Picked.html" />
     <Content Include="framework\views\Admin\Apps\Blog\Main\Trash.html" />
+    <Content Include="framework\views\Admin\Apps\Blog\PickedImg\Add.html" />
+    <Content Include="framework\views\Admin\Apps\Blog\PickedImg\Edit.html" />
+    <Content Include="framework\views\Admin\Apps\Blog\PickedImg\Index.html" />
     <Content Include="framework\views\Admin\Apps\Blog\SysCategory\Add.html" />
     <Content Include="framework\views\Admin\Apps\Blog\SysCategory\Edit.html" />
     <Content Include="framework\views\Admin\Apps\Blog\SysCategory\List.html" />
@@ -156,6 +159,14 @@
     <Content Include="framework\views\Admin\Sys\SiteLog\Index.html" />
     <Content Include="framework\views\Admin\Sys\SiteLog\Layout.html" />
     <Content Include="framework\views\Admin\Sys\Stats\Index.html" />
+    <Content Include="framework\views\Admin\Apps\Blog\BlogPick\DeletePinConfirm.html" />
+    <Content Include="framework\views\Admin\Apps\Blog\BlogPick\DeleteTopicConfirm.html" />
+    <Content Include="framework\views\Admin\Apps\Blog\BlogPick\EditPin.html" />
+    <Content Include="framework\views\Admin\Apps\Blog\BlogPick\EditTopic.html" />
+    <Content Include="framework\views\Admin\Apps\Blog\BlogPick\Index.html" />
+    <Content Include="framework\views\Admin\Apps\Blog\BlogPick\PinAd.html" />
+    <Content Include="framework\views\Admin\Apps\Blog\BlogPick\PinTopic.html" />
+    <Content Include="framework\views\Admin\Apps\Blog\BlogPick\RestoreList.html" />
     <Content Include="framework\views\Blog\Admin\Blogroll\Add.html" />
     <Content Include="framework\views\Blog\Admin\Blogroll\AdminList.html" />
     <Content Include="framework\views\Blog\Admin\Blogroll\Edit.html" />
@@ -175,6 +186,7 @@
     <Content Include="framework\views\Blog\Main\Index.html" />
     <Content Include="framework\views\Blog\Main\Layout.html" />
     <Content Include="framework\views\Blog\Main\Recent.html" />
+    <Content Include="framework\views\Blog\Main\TopList.html" />
     <Content Include="framework\views\Blog\Post\Show.html" />
     <Content Include="framework\views\Common\Admin\AppBase\Edit.html" />
     <Content Include="framework\views\Common\Admin\AppBase\Layout.html" />

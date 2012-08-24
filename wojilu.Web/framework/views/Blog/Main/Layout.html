@@ -1,12 +1,15 @@
 ﻿<style>
+.blog-search-wrap {height:230px; margin-bottom:20px; border-radius:5px; padding:20px 10px 10px 20px;background:url("~img/big/blog-search.gif");}
 
-.user-rank {border:1px #d4c6dd solid; border-radius:5px; padding:5px 8px; margin-bottom:20px; }
-.user-rank-title {font-size:14px; font-weight:bold; color:#666; border-bottom:1px #eee solid; padding:5px; margin-right:10px;}
-.user-rank ul { padding:10px 5px 5px 0px;}
-.user-rank li{float:left; margin:5px 9px 5px 5px;padding:3px; width:60px;height:60px; text-align:center;}
-.user-rank li:hover { background:#f2f2f2;}
-.user-rank li img {width:48px; height:48px; border-radius:4px;}
-.user-rank li a {color:#aaa;}
+.section-panel {border:1px #e2e6f3 solid; margin-bottom:15px; border-radius:4px;}
+.section-title {font-size:14px; padding:1px 10px; background:url("~img/sectionTitleBg.gif");}
+.section-panel ul { padding:10px 5px 0px 5px;}
+.section-panel li {margin:2px 0px 2px 0px;}
+.section-panel li div { width:250px;overflow:hidden;text-overflow:clip; white-space:nowrap; margin-left:5px;}
+.section-panel li i { display:inline-block; width:18px; font-size:11px; font-style:normal; color:#fff; text-align:center; margin-right:5px; background:url("~img/rank.gif") no-repeat 2px -22px;}
+.section-panel li i.idx1,
+.section-panel li i.idx2,
+.section-panel li i.idx3 {background:url("~img/rank.gif") no-repeat 2px 2px;}
 </style>
 
 <div class="row" style="padding-top:20px;">
@@ -17,48 +20,50 @@
 
 	<div class="span4">	
 
-        <h2 style="margin-top:10px;"><img src="~img/m/search.png" /> :{blogSearch}</h2>
-	    <div style="margin:10px 10px 10px 0px;">
-	        <form method="get" action="#{recentLink}" class="blog-search well">
+        <div class="blog-search-wrap">
+            <h2><img src="~img/m/search.png" /> :{blogSearch}</h2>
+	        <div style="margin:20px 0px 10px 0px;" class="well2">
+	            <form method="get" action="#{recentLink}" class="blog-search">
 
-                <input name="qword" type="text" class="span2" placeholder="请输入关键词" />
-                <select name="qtype" class="span1" id="dropType">
-                    <option value="1">_{title}</option>
-                    <option value="2">_{author}</option>
-                </select>
-                <script>$(document).ready(function () { $('#dropType').val(#{qtype}); });</script>
+                    <input name="qword" type="text" class="span2" placeholder="请输入关键词" />
+                    <select name="qtype" class="span1" id="dropType">
+                        <option value="1">_{title}</option>
+                        <option value="2">_{author}</option>
+                    </select>
+                    <script>$(document).ready(function () { $('#dropType').val(#{qtype}); });</script>
 
-                <button class="btn btn-primary" type="submit">
-                    <i class="icon-search icon-white"></i>
-                    :{quickSearch}
-                </button>
-                <span class="help-inline"><a href="#{recentLink}" style="margin-left:10px;font-size:12px;">_{all}...</a></span>
-	        </form>
-	    </div>	
+                    <button class="btn btn-primary" type="submit">
+                        <i class="icon-search icon-white"></i>
+                        :{quickSearch}
+                    </button>
+                    <span class="help-inline"><a href="#{recentLink}" style="margin-left:10px;font-size:12px;">_{all}...</a></span>
+	            </form>
+	        </div>
+        </div>
 
 
-		<div class="sectionPanel cpPanel">
-			<h3 class="sectionTitle">:{pickedBlogger}</h3>
+		<div class="section-panel hide">
+			<h3 class="section-title">:{pickedBlogger}</h3>
 			<ol>
 				<!-- BEGIN tops -->
 				<li> <a href="#{post.LinkShow}">#{post.Title}</a></li><!-- END tops -->			
 			</ol>
 		</div>
 		
-		<div class="sectionPanel cpPanel">
-			<h3 class="sectionTitle">:{rankByView}</h3>
-			<ol>
+		<div class="section-panel">
+			<h3 class="section-title"><i class="icon-signal"></i> :{rankByView}</h3>
+			<ul class="unstyled">
 				<!-- BEGIN hits -->
-				<li> <a href="#{post.LinkShow}">#{post.Title}</a></li><!-- END hits -->			
-			</ol>
+				<li><div><i class="idx#{post.Number}">#{post.Number}</i><a href="#{post.LinkShow}">#{post.Title}</a></div></li><!-- END hits -->
+			</ul>
 		</div>
 		
-		<div class="sectionPanel cpPanel">
-			<h3 class="sectionTitle">:{rankByComment}</h3>
-			<ol>
+		<div class="section-panel">
+			<h3 class="section-title"><i class="icon-comment"></i> :{rankByComment}</h3>
+			<ul class="unstyled">
 				<!-- BEGIN replies -->
-				<li> <a href="#{post.LinkShow}">#{post.Title}</a></li><!-- END replies -->			
-			</ol>
+				<li><div><i class="idx#{post.Number}">#{post.Number}</i> <a href="#{post.LinkShow}">#{post.Title}</a></div></li><!-- END replies -->
+			</ul>
 		</div>	
 		
 	</div>

@@ -30,7 +30,8 @@ namespace wojilu.Web.Controller.Admin.Apps.Blog {
 
         public override void Layout() {
             set( "listLink", to( new MainController().Index, 0 ) );
-            set( "pickedLink", to( new MainController().Picked ) );
+            //set( "pickedLink", to( new MainController().Picked ) );
+            set( "pickedLink", to( new BlogPickController().Index ) );
             set( "trashLink", to( new MainController().Trash ) );
             set( "commentLink", to( new CommentController().List )+"?type=" + typeof(BlogPostComment).FullName );
 

@@ -75,6 +75,7 @@
     <Compile Include="Admin\AppController.cs" />
     <Compile Include="Admin\Apps\Blog\CommentController.cs" />
     <Compile Include="Admin\Apps\Blog\MainController.cs" />
+    <Compile Include="Admin\Apps\Blog\PickedImgController.cs" />
     <Compile Include="Admin\Apps\Blog\SysCategoryController.cs" />
     <Compile Include="Admin\Apps\Content\CommentController.cs" />
     <Compile Include="Admin\Apps\Content\LayoutController.cs" />
@@ -122,6 +123,7 @@
     <Compile Include="Admin\Utils\AdminSecurityUtils.cs" />
     <Compile Include="Blog\Admin\BlogController.cs" />
     <Compile Include="Blog\Admin\DraftController.cs" />
+    <Compile Include="Admin\Apps\Blog\BlogPickController.cs" />
     <Compile Include="Blog\Admin\MyListController.cs" />
     <Compile Include="Blog\Admin\SettingController.cs" />
     <Compile Include="Blog\Admin\TrashController.cs" />

@@ -33,6 +33,7 @@ namespace wojilu.Web.Controller.Blog {
         public IPickedService pickedService { get; set; }
         public ISysBlogService sysblogService { get; set; }
         public IBlogSysCategoryService categoryService { get; set; }
+        public IBlogPickService pickService { get; set; }
 
         public MainController() {
             postService = new BlogPostService();
@@ -40,6 +41,7 @@ namespace wojilu.Web.Controller.Blog {
             pickedService = new PickedService();
             sysblogService = new SysBlogService();
             categoryService = new BlogSysCategoryService();
+            pickService = new BlogPickService();
 
             HideLayout( typeof( LayoutController ) );
         }
@@ -48,8 +50,8 @@ namespace wojilu.Web.Controller.Blog {
         public override void Layout() {
 
             List<BlogPost> tops = pickedService.GetTop( 10 );
-            List<BlogPost> hits = sysblogService.GetSysHit( 20 );
-            List<BlogPost> replies = sysblogService.GetSysReply( 30 );
+            List<BlogPost> hits = sysblogService.GetSysHit( 15 );
+            List<BlogPost> replies = sysblogService.GetSysReply( 15 );
 
             bindSidebar( tops, hits, replies );
 
@@ -73,6 +75,9 @@ namespace wojilu.Web.Controller.Blog {
 
             set( "recentLink", to( Recent ) );
             set( "recentLink2", Link.AppendPage( to( Recent ), 2 ) );
+
+            load( "blogPickedList", TopList );
+
 
             List<BlogSysCategory> categories = categoryService.GetAll();
             IBlock block = getBlock( "categories" );
@@ -102,6 +107,62 @@ namespace wojilu.Web.Controller.Blog {
             }
         }
 
+        //-------------------------------------------------------------------------------------------
+
+
+        [NonVisit]
+        public void TopList() {
+
+            int imgCount = 6;
+
+            List<BlogPickedImg> pickedImg = BlogPickedImg.find( "" ).list( imgCount );
+            bindImgs( pickedImg );
+
+            List<BlogPost> newPosts = sysblogService.GetSysNew( 0, 5 );
+            List<MergedPost> results = pickService.GetAll( newPosts );
+
+            bindCustomList( results );
+        }
+
+        private void bindImgs( List<BlogPickedImg> list ) {
+            IBlock block = getBlock( "pickedImg" );
+            foreach (BlogPickedImg f in list) {
+                block.Set( "f.Title", f.Title );
+                block.Set( "f.Url", f.Url );
+                block.Set( "f.ImgUrl", f.ImgUrl );
+                block.Next();
+            }
+        }
+
+        private void bindCustomList( List<MergedPost> list ) {
+
+            IBlock hBlock = getBlock( "hotPick" );
+            IBlock pBlock = getBlock( "pickList" );
+
+            // 绑定第一个
+            if (list.Count == 0) return;
+            bindPick( list[0], hBlock, 1 );
+
+            // 绑定列表
+            if (list.Count == 1) return;
+            for (int i = 1; i < list.Count; i++) {
+                bindPick( list[i], pBlock, i + 1 );
+            }
+        }
+
+        private void bindPick( MergedPost x, IBlock block, int index ) {
+
+            block.Set( "x.Title", x.Title );
+            block.Set( "x.Summary", x.Summary );
+
+            String lnk = x.Topic == null ? x.Link : alink.ToAppData( x.Topic );
+            block.Set( "x.LinkShow", lnk );
+
+            block.Next();
+        }
+
+
+        //--------------------------------------------------------------------------------------------
 
         public void Recent() {
 
