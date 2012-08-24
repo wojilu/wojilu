@@ -6,21 +6,24 @@
 	<div class="span4">
 
 		<div class="clearfix">
-			<h3 style=" margin-bottom:10px;">_{groupSearch}</h3>
+			<h3 style=" margin-bottom:10px; padding-left:5px;"><img src="~img/search2.gif" /> _{groupSearch}</h3>
 			<form class="form-inline well" action="#{SearchAction}" method="get">
                 <input name="name" type="text" value="#{s.Name}" class="input-small" placeholder="请输入关键词" />
 				<select name="queryType" style="width:70px;">
 					<option value="name">_{name}</option>
 					<option value="creator">_{creator}</option>
 				</select>
-                <input type="submit" value="_{search}" class="btn">	
+                <button type="submit" class="btn btn-primary">
+                    <i class="icon-search icon-white"></i>
+                    _{search}
+                </button>
 			</form>
 				
 		</div>
 
 		<div style="margin-top:10px;">
             <div class="pull-right" style="margin:5px 10px 0px 0px;"><a href="#{allGroupLink}">&rsaquo;&rsaquo; _{allGroup}</a></div>
-			<h3 style=" margin-bottom:10px;">_{viewByCategory}</h3>
+			<h3 style=" margin-bottom:10px; padding-left:5px;"><img src="~img/s/interest.png" /> _{viewByCategory}</h3>
             
 			<ul class="unstyled hero-unit" style="padding:20px;">
 			    <li><a href="#{allGroupLink}">_{all}</a></li>

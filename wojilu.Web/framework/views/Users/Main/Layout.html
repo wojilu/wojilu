@@ -1,38 +1,15 @@
 ﻿<style>
-/*
-.utitle {}
-.utitle .note {font-weight:normal; font-size:12px}
-.uItem {float:left;margin:5px;width:80px;height:80px;background:#; text-align:center; font-size:12px;}
-.uItem img {
-    padding:2px; border:1px #eee solid;
-    border-radius: 3px; -moz-border-radius: 3px; -webkit-border-radius: 3px; -khtml-border-radius: 3px;
-    box-shadow:0px 5px 10px rgba(0, 0, 0, 0.1);-moz-box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.1);-webkit-box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.1);
-
-}
-
-div.userPanel {margin:5px 0px 20px 0px;}
-div.userPanelTitle{font-weight:bold;background:#efefef;}
-div.userPanelMain {padding:10px}
-
-*/
+.section-panel { margin-bottom:20px;}
+.section-panel h3 { margin-bottom:10px; padding:5px 5px 5px 5px;}
 
 #user-search select {width:173px;}
 #user-search-age select {width:80px;}
 
-.user-list li {width:90px;}
-.user-list .thumbnail {border:0px;}
-.user-list li img {
-    padding:2px; border:1px #eee solid;
-    border-radius: 3px; -moz-border-radius: 3px; -webkit-border-radius: 3px; -khtml-border-radius: 3px;
-    box-shadow:0px 5px 10px rgba(0, 0, 0, 0.1);-moz-box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.1);-webkit-box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.1);
-}
-
-.thumbnails li div {
-    width:90px; 
-    overflow: hidden;     
-    white-space:nowrap;
-    text-overflow:clip; 
-}
+.user-list { border:1px #eee solid; border-radius:5px; margin:0px 5px; padding:10px 0px;}
+.user-list li {width:65px; height:70px; overflow:hidden;}
+.user-list .thumbnail {border:0px; text-align:center; box-shadow:0px 0px 0px #fff; }
+.user-list li img { border-radius: 3px; width:48px; height:48px;}
+.user-list .thumbnail div {margin-top:5px;width:55px; overflow: hidden; white-space:nowrap; text-overflow:clip; }
 
 
 </style>
@@ -47,7 +24,7 @@ div.userPanelMain {padding:10px}
     <div class="span4">	
 	    <div>
 		
-		    <h3 style="margin-bottom:10px;"><img src="~img/users.gif" /> _{searchUser}</h3>
+		    <h3 style="margin-bottom:10px;"><img src="~img/search2.gif" /> _{searchUser}</h3>
 		    <div class="userPanelMain">
 			    <form action="#{SearchAction}" method="get" class="form-inline well" id="user-search">
 				
@@ -65,7 +42,16 @@ div.userPanelMain {padding:10px}
 						    <td>#{p2}</td>
 					    </tr>
 					    <tr>
-						    <td colspan="2" style="text-align:center"><input type="submit" value="_{searchUser}" class="btn btn-primary">&nbsp;<a href="#{SearchAction}" style="margin:5px;">_{advancedUserSearch}</a></td>
+						    <td colspan="2" style="text-align:center; padding-top:10px;">
+                            
+                                <button type="submit" class="btn btn-primary">
+                                    <i class="icon-search icon-white"></i>
+                                    _{searchUser}
+                                </button>    
+                
+                                <span class="help-inline"><a href="#{SearchAction}" style="margin:5px;">_{advancedUserSearch}</a></span>        
+                            
+                            </td>
 					    </tr>
 				    </table>		
 					
@@ -74,7 +60,7 @@ div.userPanelMain {padding:10px}
 	    </div>
 		
 	    <div>
-		    <h3><img src="~img/users.gif" /> _{pickedUser}</h3>
+		    <h3><img src="~img/s/menus.png" /> _{pickedUser}</h3>
 		    <div class="userPanelMain">				
 			    <!-- BEGIN picked -->
 			    <div class="uItem"><a href="#{u.Link}"><img src="#{u.Face}"/><br/>

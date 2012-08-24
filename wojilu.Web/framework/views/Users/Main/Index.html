@@ -1,12 +1,13 @@
-﻿
-<div class="sectionPanel">
-<div class="pull-right"><a href="#{lnkOnlineAll}" class="left20 note">_{all}...</a></div>
-<h3 style="margin-bottom:10px;">_{whoIsOnline} </h3>
-<table style="width: 100%">
-	<tr>
-		<td id="onlinePanel"><div style="text-align:center; padding:20px;"><img src="~img/ajax/big.gif" /> loading...</div></td>
-	</tr>
-</table>
+﻿<div class="section-panel">
+    <div class="pull-right" style="padding-right:40px;padding-top:10px;"><a href="#{lnkOnlineAll}">&rsaquo;&rsaquo;_{all}</a></div>
+    <h3><img src="~img/s/online.png" /> _{whoIsOnline} </h3>
+    <div class="hero-unit" style="padding:20px; margin:0px 5px;">
+    <table style="width: 100%">
+	    <tr>
+		    <td id="onlinePanel" style="padding:0px 10px;"><div style="text-align:center;"><img src="~img/ajax/big.gif" /> loading...</div></td>
+	    </tr>
+    </table>
+    </div>
 </div>
 
 <script>
@@ -28,16 +29,16 @@ $(document).ready( function() {
 </script>
 
 
-<div>
+<div class="section-panel">
 
-    <div class="pull-right"><a href="#{lnkRank}">_{all}...</a></div>
-    <h3 style="margin-bottom:10px;">_{userCharts}</h3>
+    <div class="pull-right" style="padding-right:40px;padding-top:10px;"><a href="#{lnkRank}">&rsaquo;&rsaquo;_{all}</a></div>
+    <h3 style=" margin-bottom:5px;"><img src="~img/s/users24.png" /> _{userCharts}</h3>
     <ul class="thumbnails user-list">
 		<!-- BEGIN ranks -->
 		<li>
-            <div class="thumbnail" style=" text-align:center;">
+            <div class="thumbnail">
 			    <a href="#{u.Link}"><img src="#{u.Face}"/></a>
-                <div style="margin-top:5px;"><a href="#{u.Link}">#{u.Name}</a></div>
+                <div><a href="#{u.Link}">#{u.Name}</a></div>
             </div>
 		</li>
 		<!-- END ranks -->    
@@ -45,16 +46,16 @@ $(document).ready( function() {
 </div>
 
 
-<div>
+<div class="section-panel">
 
-    <div class="pull-right"><a href="#{linkAll}" class="left20 note">_{all}...</a></div>
-    <h3 style="margin-bottom:10px;">_{newRegUser} </h3>
+    <div class="pull-right" style="padding-right:40px;padding-top:10px;"><a href="#{linkAll}">&rsaquo;&rsaquo;_{all}</a></div>
+    <h3 style="  margin-bottom:5px;"><img src="~img/s/users242.png" /> _{newRegUser} </h3>
     <ul class="thumbnails user-list">
 		<!-- BEGIN users -->
 		<li>
-            <div class="thumbnail" style=" text-align:center;">
+            <div class="thumbnail">
 			    <a href="#{u.Link}"><img src="#{u.Face}"/></a>
-                <div style="margin-top:5px;"><a href="#{u.Link}">#{u.Name}</a></div>
+                <div><a href="#{u.Link}">#{u.Name}</a></div>
             </div>
 		</li>
 		<!-- END users -->    

@@ -56,8 +56,8 @@ namespace wojilu.Web.Controller.Users {
             //bindOnlineInfos( OnlineService.GetRecent( 20 ) );
             set( "onlineMemberLink", to( OnlineUserData ) );
 
-            List<User> ranks = userService.GetRanked( 20 );
-            List<User> newList = userService.GetNewListValid( 20 );
+            List<User> ranks = userService.GetRanked( 21 );
+            List<User> newList = userService.GetNewListValid( 21 );
             bindUsers( ranks, "ranks" );
             bindUsers( newList, "users" );
         }
@@ -166,7 +166,7 @@ namespace wojilu.Web.Controller.Users {
 
             WebUtils.pageTitle( this, lang( "allUser" ) );
 
-            DataPage<User> list = userService.GetAllValid( 50 );
+            DataPage<User> list = userService.GetAllValid( 56 );
             bindUsers( list.Results, "list" );
             set( "page", list.PageBar );
         }
@@ -219,6 +219,8 @@ namespace wojilu.Web.Controller.Users {
 
             HideLayout( typeof( MainController ) );
 
+            set( "userMainLink", to( Index ) );
+
             WebUtils.pageTitle( this, lang( "searchUser" ) );
 
             set( "ActionLink", ctx.url.Path );
@@ -233,7 +235,7 @@ namespace wojilu.Web.Controller.Users {
 
 
             String condition = getCondition();
-            DataPage<User> list = userService.SearchBy( condition, 36 );
+            DataPage<User> list = userService.SearchBy( condition, 40 );
 
             bindUsers( list.Results, "list" );
             set( "page", list.PageBar );
