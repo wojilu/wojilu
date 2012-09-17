@@ -161,7 +161,7 @@ namespace wojilu.Web.Controller.Forum.Utils {
 
                 String homePath = strUtil.Join( sys.Path.Skin, "site/new/home.png" );
                 sb.AppendFormat( "<div class=\"pull-left dropdown\"><img src=\"{0}\" /> ", homePath );
-                sb.AppendFormat( "<a class=\"dropdown-toggle\" data-toggle=\"dropdown\" href=\"{0}\">{1} <span class=\"caret\"></span>", ctx.GetLink().To( new ForumController().Index ), ((AppContext)ctx.app).UserApp.Name );
+                sb.AppendFormat( "<a class=\"dropdown-toggle\" data-toggle=\"dropdown\" href=\"{0}\">{1} <span class=\"caret\"></span></a>", ctx.GetLink().To( new ForumController().Index ), ((AppContext)ctx.app).UserApp.Name );
 
                 addLocationMenu( sb, ctx );
                 sb.Append( "</div>" );

@@ -277,7 +277,7 @@ wojilu.editor.prototype = {
         if( !document.all && wojilu.str.isNull( this.html ) ) {
             htmlContent = '<br/>'+this.html;
         }
-        var frameHtml = '<html><link rel="stylesheet" type="text/css" href="'+this.skinPath+ 'style.css'+'" /><body style="background:#fff;border:0px #aaa solid;margin:5px;padding:0px;font-family:verdana;font-size:12px;line-height:150%;">\n' + htmlContent + '\n</body></html>';
+        var frameHtml = '<html><link rel="stylesheet" type="text/css" href="'+this.skinPath+ 'style.css'+'" /><body style="background:#fff;border:0px #aaa solid;margin:5px;padding:0px;font-family:verdana;font-size:12px;line-height:150%;cursor:text;">\n' + htmlContent + '\n</body></html>';
 
         if( document.all ) { this.editor = frames[ this.frmId ]; } else { this.editor = this.$id( this.frmId ).contentWindow; };
         this.doc = this.editor.document;

@@ -20,12 +20,10 @@
                 <div class="pull-left forum-prenext-next"><a href="?next">:{nextTopic}</a></div>
                 <div class="pull-left forum-prenext-spr"></div>
             </div>
-            <div class="span6">#{page}</div>
-            <div class="span3 pull-right forum-prenext-cmd">
-                <a href="#{newReplyUrl}" class="cmdreply" rel="nofollow">
-                <img src="~skin/site/new/forum-btn-reply.png" /></a> 
-                <a href="#{newTopicUrl}" class="cmdnew" rel="nofollow">
-                <img src="~skin/site/new/forum-btn-topic.png" /></a>
+            <div class="span5">#{page}</div>
+            <div class="span4 pull-right forum-prenext-cmd">
+                <a href="#{newReplyUrl}" class="cmdreply" rel="nofollow"><img src="~skin/site/new/forum-btn-reply.png" /></a> 
+                <a href="#{newTopicUrl}" class="cmdnew" rel="nofollow"><img src="~skin/site/new/forum-btn-topic.png" /></a>
             </div>
         </div>
     </div>
@@ -78,7 +76,7 @@
                 <div class="control-group">
                       <label class="control-label" for="txtTitle">_{title}</label>
                       <div class="controls">
-                        <input id="txtTitle" name="Title" type="text" placeholder="请填写标题" class="span8" value="#{post.ReplyTitle}">
+                        <input id="txtTitle" name="Title" type="text" placeholder="请填写标题" value="#{post.ReplyTitle}" style="width:600px;">
                         
                       </div>
                       <div class="hide"><span class="valid" to="Title" msg="_{exTitle}" mode="border"></span></div>
@@ -86,7 +84,7 @@
 
                 <div class="control-group">
                       <label class="control-label">_{content}</label>
-                      <div class="controls">
+                      <div class="controls" style="width:610px;">
                         #{Editor}
                       </div>
                       <div class="hide"><span class="valid" to="Content" mode="border"></span></div>

@@ -38,7 +38,7 @@
 	</tr>	
 	<!-- END stickyList -->
 	
-	<tr class="psTopicType"><td colspan="5"><div>#{topicTypeName}</div></td></tr>
+	<tr class="psTopicType psTopicSep"><td colspan="5"><div>#{topicTypeName}</div></td></tr>
 	
 	<!-- BEGIN postlist -->
 	<tr>
@@ -70,27 +70,27 @@
     <div class="row">
 	    <div style="padding-left:40px;"><h3>:{addTopic}</h3></div>
     </div>
-    <div class="clearfix" style="margin-top:10px;">
+    <div class="row clearfix" style="margin-top:10px;">
 
 	    <form method="post" action="#{ActionLink}" class="form-horizontal ajaxPostForm" id="pubTopicForm">
 
-        <div class="pull-left" id="pubUserPic" style=" text-align:right;width:124px;margin-left:20px;margin-top:10px;"></div>
 
+        <div class="span2" id="pubUserPic" style=" text-align:left;margin-left:20px;padding-left:20px;margin-top:10px;width:110px;"></div>
 
-        <div class="pull-left forum-form-quick">
+        <div class="span9 pull-left1 forum-form-quick">
 
             <div class="control-group">
                   <label class="control-label" for="txtTitle">_{title}</label>
                   <div class="controls">
-                    #{Category} <input id="txtTitle" name="Title" type="text" placeholder="请填写标题" style="width:600px;">
-                    
+                    #{Category}<input id="txtTitle" name="Title" type="text" placeholder="请填写标题" style="width:600px;float:left;"> 
+                      <div style="clear:both;"></div>
                   </div>
                   <div class="hide"><span class="valid" msg="_{exTitle}" to="Title" mode="border"></span></div>
             </div>
 
             <div class="control-group">
                   <label class="control-label">_{content}</label>
-                  <div class="controls">
+                  <div class="controls" style="width:610px;">
                     #{Editor}
                   </div>
             </div>

@@ -1,4 +1,6 @@
 ﻿<style>
+#blog-main-row {padding-top:20px;}
+
 .blog-search-wrap {height:230px; margin-bottom:20px; border-radius:5px; padding:20px 10px 10px 20px;background:url("~img/big/blog-search.gif");}
 
 .section-panel {border:1px #e2e6f3 solid; margin-bottom:15px; border-radius:4px;}
@@ -12,7 +14,7 @@
 .section-panel li i.idx3 {background:url("~img/rank.gif") no-repeat 2px 2px;}
 </style>
 
-<div class="row" style="padding-top:20px;">
+<div id="blog-main-row" class="row">
 
 	<div class="span8">	
 		#{layout_content}	
@@ -25,18 +27,22 @@
 	        <div style="margin:20px 0px 10px 0px;" class="well2">
 	            <form method="get" action="#{recentLink}" class="blog-search">
 
+                    <div>
                     <input name="qword" type="text" class="span2" placeholder="请输入关键词" />
                     <select name="qtype" class="span1" id="dropType">
                         <option value="1">_{title}</option>
                         <option value="2">_{author}</option>
                     </select>
                     <script>$(document).ready(function () { $('#dropType').val(#{qtype}); });</script>
+                    </div>
 
+                    <div style="clear:both;">
                     <button class="btn btn-primary" type="submit">
                         <i class="icon-search icon-white"></i>
                         :{quickSearch}
                     </button>
                     <span class="help-inline"><a href="#{recentLink}" style="margin-left:10px;font-size:12px;">_{all}...</a></span>
+                    </div>
 	            </form>
 	        </div>
         </div>

@@ -46,7 +46,6 @@ namespace wojilu.Web.Controller {
             redirect( new SiteInitController().Index );
         }
 
-
         public void Login() {
 
 

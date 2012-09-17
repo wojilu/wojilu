@@ -8,7 +8,8 @@ pre { font-family:verdana; background:#f8f8f8; border:1px #ddd solid;border-left
 
 /*工具栏*/
 div.editorToolBar { width:100% !important; background:#efefef url(toolbar/editor-toolbar-bg.jpg) !important;  border-bottom:1px #999 solid !important; }
-div.editorToolBar table td {font-size:12px !important; line-height:135% !important;vertical-align:middle;padding:2px 4px 2px 4px !important;}
+div.editorToolBar table td {font-size:12px !important; line-height:135% !important;vertical-align:middle;padding:1px 2px 1px 2px !important;width:20px !important; text-align:center;}
+/*div.editorToolBar table td img {width:16px !important;height:16px !important;}*/
 
 .ebarInner td:hover {border1:1px solid #3169c6 !important;cursor:pointer;background:#c6d3ef !important;}
 
@@ -16,9 +17,9 @@ td.wojilu_tool_more {padding:2px 5px !important;}
 td.wojilu_tool_source {border:0px !important;}
 td.wojilu_tool_source:hover {border:0px !important;background:#efefef !important;}
 
-div.viewSource {width:60px !important;font-size:11px !important;padding-top:2px;}
-div.viewSource input {float:left;display:block;}
-div.viewSource label {display:block !important;float:left;}
+div.viewSource {width:60px !important;font-size:11px !important;padding-top:2px; }
+div.viewSource input {display:block !important;float:left; width:20px;}
+div.viewSource label {display:block !important;float:left; width:30px;}
 
 td.editorSeparator {border:0px #000 solid;padding-left:3px !important;padding-right:3px !important;}
 td.editorSeparator:hover {border:0px;cursor:default;background:#efefef;}

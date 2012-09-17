@@ -12,7 +12,8 @@
 					<tr>
 						<td style="width:80px;">_{pageTitle}</td>
 						<td>
-						<input name="Title" style="width: 500px;" type="text" value="" /><span class="valid"></span></td>
+						<input name="Title" style="width: 500px;" type="text" value="" placeholder="请填写标题" />
+                        <span class="valid"></span></td>
 					</tr>
 					<tr>
 						<td>_{content}</td>
@@ -21,12 +22,18 @@
 					<tr>
 					    <td>编辑原因</td>
 					    <td>
-                            <input name="editReason" type="text" style="width:500px;" value="创建页面" /><span class="valid"></span></td>
+                            <input name="editReason" type="text" style="width:500px;" value="创建页面" />
+                            <span class="valid"></span></td>
 					</tr>
 					<tr>
 						<td></td>
-						<td><input type="submit" value="_{editPage}" class="btn" />
-						<input class="btnReturn" type="button" value="_{return}" />
+						<td>
+                        <button class="btn btn-primary" type="submit">
+                            <i class="icon-pencil icon-white"></i>
+                            _{editPage}
+                        </button>
+
+						<input class="btnReturn btn" type="button" value="_{return}" />
 						</td>
 					</tr>
 				</table>

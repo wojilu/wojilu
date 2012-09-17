@@ -81,14 +81,17 @@ namespace wojilu.Web.Controller.Blog {
 
             List<BlogSysCategory> categories = categoryService.GetAll();
             IBlock block = getBlock( "categories" );
+            int i = 0;
             foreach (BlogSysCategory c in categories) {
 
                 List<BlogPost> list = sysblogService.GetByCategory( c.Id, 8 );
                 bindOneCategory( block, list );
 
+                block.Set( "c.Index", i % 2 );
                 block.Set( "c.Name", c.Name );
                 block.Set( "c.LinkShow", to( Recent ) + "?cid=" + c.Id );
                 block.Next();
+                i++;
             }
 
         }

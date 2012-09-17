@@ -1,4 +1,5 @@
-ï»¿#{layout_content}
+ï»¿<div style="">#{layout_content}</div>
+
 <script>
 $(document).ready( function() {
     $('#tagForm').submit( function() {
@@ -7,7 +8,7 @@ $(document).ready( function() {
     
         var txtTag = $('#txtTag').val();
         if( !txtTag ) {
-            alert( 'è¯·è¾“å…¥tag' );
+            alert( 'ÇëÊäÈëtag' );
             return false;
         }
         
@@ -15,5 +16,12 @@ $(document).ready( function() {
         
         return false;    
     });
+});
+</script>
+
+<div id="tempie6" ></div>
+<script>
+$(document).ready( function() {
+    $('#tempie6').html( '');    
 });
 </script>

@@ -1,11 +1,17 @@
 ﻿<style>
 body { background:#73cff1}
 
-#headerWrap,#navWrap,#subMenusWrap,#navBottomAdWrap { display:none;}
-#pageWrap { background:url("~img/big/mb/HeaderBg.jpg"); background-repeat:repeat-x; background-position:-550px 0px;}
+.site-header,.site-menu-nav,#subMenusWrap,#navBottomAdWrap { display:none;}
+
+#page-container { background:url("~img/big/mb/HeaderBg.jpg"); background-repeat:repeat-x; background-position:-550px 30px; width:100% !important;_background:#73cff1;}
+#mbPageWrap {margin-top:30px;_margin-top:10px;}
 
 #mbHeader {width:870px; margin:auto; height:90px;}
 #mbMainWrap {width:870px; margin:auto; background:#fff;}
+
+.mb-logo-text {margin:10px 0px 5px 0px;}
+.mb-logo-text a {color:#fff;font-size:25px; font-family:微软雅黑; font-weight:bold; }
+.mb-logo-url a {color:Lime;_color:#fff; font-weight:bold; font-family:Verdana;}
 
 td#mbAd { background:#71b31e;vertical-align:top; font-size:14px;}
 
@@ -32,23 +38,26 @@ a#regNow:active { background-position:0px -110px; }
 .marquee {float:left;width:480px;}
 .marquee a { color:#fff; margin-right:5px;}
 
+#footer-row {width:870px !important;background:#fff !important; margin:0px auto !important;}
+.footer {width:870px !important;margin:0px !important;}
+
 </style>
 
 
 <div id="mbPageWrap">
     <div id="mbHeader">
         <div style="padding:20px;">
-            <div style=""><a href="#{microblogHomeLink}" style="color:#fff;font-size:25px; font-family:微软雅黑; font-weight:bold; ">#{siteName}_{microblog}</a></div>
-            <div><a href="#{microblogHomeLink}" style="color:Lime; font-weight:bold; font-family:Verdana;">#{microblogHomeLink}</a></div>        
+            <div class="mb-logo-text"><a href="#{microblogHomeLink}">#{siteName}_{microblog}</a></div>
+            <div class="mb-logo-url"><a href="#{microblogHomeLink}">#{microblogHomeLink}</a></div>        
         </div>
     </div>
     
     <div id="mbMainWrap">
         <table style="width:100%;" cellpadding="0" cellspacing="0">
             <tr>
-                <td id="mbAd" style="width:600px; height:200px;">  
+                <td id="mbAd" style="width:600px; height:240px;">  
                     <script src="~js/wojilu.ui.slider.js?v=#{jsVersion}" type="text/javascript"></script>
-                    <div class="slideWrap" style="width: 600px;height:200px;"> 
+                    <div class="slideWrap" style="width: 600px;height:240px;"> 
                         <a href="javascript:void(0);"><img src="~img/big/mb/ad1.jpg" /></a>
                         <a href="javascript:void(0);"><img src="~img/big/mb/ad2.jpg" /></a>
                         <a href="javascript:void(0);"><img src="~img/big/mb/ad3.jpg" /></a>       
@@ -62,11 +71,11 @@ a#regNow:active { background-position:0px -110px; }
                     <table style="width:190px; margin:10px auto; font-size:14px;" border=0>
                         <tr>
                             <td>用户名</td>
-                            <td><input id="Text1" name="txtUid" type="text" /></td>
+                            <td><input id="Text1" name="txtUid" type="text" class="span2" /></td>
                         </tr>
                         <tr>
                             <td>密&nbsp;&nbsp;&nbsp;码</td>
-                            <td><input id="Password1" name="txtPwd" type="password" /></td>
+                            <td><input id="Password1" name="txtPwd" type="password" class="span2"  /></td>
                         </tr>
                         <tr>
                             <td>
@@ -112,6 +121,8 @@ a#regNow:active { background-position:0px -110px; }
     
     </div>
 </div>
+
+<div style="clear:both;"></div>
 
 
 <script type="text/javascript">

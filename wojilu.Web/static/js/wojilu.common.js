@@ -658,7 +658,7 @@ var shouldHide = function( e, menuList, menuMore, isMore ) {
 wojilu.ui.clickMenu = function(eleId) {
     var ele = eleId ? $( eleId + ' .clickMenu' ) : $( '.clickMenu' );
     ele.click( function() {
-	var tp = wojilu.position.getTarget(this);
+        var tp = wojilu.position.getTarget(this);
         var item = $( '#'+$(this).attr('list') ).appendTo( 'body' );
         item.css( 'position', 'absolute' ).css( 'zIndex', 999 ).css( 'left' , tp.x ).css( 'top', tp.y + this.offsetHeight );
         item.show().mouseout(function(){ $(this).hide(); }).mouseover( function() {$(this).show();});

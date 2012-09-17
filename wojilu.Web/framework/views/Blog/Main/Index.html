@@ -8,7 +8,8 @@
 .user-rank li a {color:#aaa;}
 
 .blog-category-wrap { margin-right:-20px;}
-.blog-category {margin-top:0px; margin-bottom:10px; width:300px; float:left; margin-right:20px; }
+.blog-category {margin-top:0px; margin-bottom:10px; width:300px; float:left;display:inline;}
+.blog-category-item0 { margin-right:20px;}
 .blog-category-inner {border1:1px #ccc solid; }
 
 .blog-category-name { height:30px; line-height:30px;border:1px ##08c solid; padding-left:10px; padding-right:10px;
@@ -49,7 +50,7 @@ border-bottom-right-radius: 4px;
 <div class="span8">
 <div class="blog-category-wrap">
 <!-- BEGIN categories -->
-<div class=" blog-category">
+<div class=" blog-category blog-category-item#{c.Index}">
     <div class="blog-category-inner">
     <div class="blog-category-name">    
         <div class="blog-category-text "><i class="icon-file icon-white"></i>#{c.Name}</div>

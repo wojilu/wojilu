@@ -1,10 +1,10 @@
 ﻿<div class="section-panel">
     <div class="pull-right" style="padding-right:40px;padding-top:10px;"><a href="#{lnkOnlineAll}">&rsaquo;&rsaquo;_{all}</a></div>
     <h3><img src="~img/s/online.png" /> _{whoIsOnline} </h3>
-    <div class="hero-unit" style="padding:20px; margin:0px 5px;">
+    <div class="hero-unit" style="padding:10px 10px 0px 0px; margin:0px 5px;">
     <table style="width: 100%">
 	    <tr>
-		    <td id="onlinePanel" style="padding:0px 10px;"><div style="text-align:center;"><img src="~img/ajax/big.gif" /> loading...</div></td>
+		    <td id="onlinePanel" style="padding:0px 10px 0px 0px;"><div style="text-align:center;"><img src="~img/ajax/big.gif" /> loading...</div></td>
 	    </tr>
     </table>
     </div>
@@ -15,12 +15,13 @@ $(document).ready( function() {
 
     $.post( '#{onlineMemberLink}'.toAjax(), function(users) {    
     
-        var html = '';
+        var html = '<ul class="thumbnails user-list" style="margin:0px;padding:0px;_margin-left:-20px;_margin-bottom:10px;">';
         for( var i=0;i<users.length;i++ ) {
-            html += '<div class="uItem">';
-            html += '<a href="'+users[i].UserUrl+'"><img src="'+users[i].UserPicUrl+'"/><br/>'+users[i].UserName+'</a>';
-            html += '</div>';
+            html += '<li><div class="thumbnail">';
+            html += '<a href="'+users[i].UserUrl+'"><img src="'+users[i].UserPicUrl+'"/></a><div><a href="">'+users[i].UserName+'</a></div>';
+            html += '</div></li>';
         }
+        html += '</ul>';
         
         $('#onlinePanel').html( html );    
     });

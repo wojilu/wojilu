@@ -9,9 +9,8 @@
 }
 </style>
     <div class="navbar navbar-fixed-top">
-    <div class="navbar-inner2" style="">
-        <div id="navbar-container" style="width:940px;margin:0px auto; ">
-            <div class="pull-left" style="margin-top:7px;margin-left:5px;">
+        <div id="navbar-inner">
+            <div id="top-nav-left">
                 <img src="~skin/site/new/home.png" style="margin-top:-8px;" />
                 <a href="#{site.Url}" style="color:#333; font-size:18px; font-weight:bold;">#{site.Name}</a>
             </div>
@@ -38,12 +37,12 @@
             </ul>
             
             
-            <div class="pull-right">
+            <div id="top-nav-right">
                 <!---------------login form---------------->
-                <form id="loginForm" class="navbar-form form-inline" action="#{LoginAction}" method="post" style="display:none; padding-right:5px; padding-top:5px;">
+                <form id="loginForm" class="navbar-form form-inline" action="#{LoginAction}" method="post" style="display:none; ">
                     <input type="text" name="txtUid" class="input-small" placeholder="用户名" style="height:14px;margin:0px;">
                     <input type="password" name="txtPwd" class="input-small" placeholder="密码" style="height:14px;margin:0px;">
-                    <label style="width:60px;margin:0px;" class="checkbox"><input name="RememberMe" type="checkbox" id="chkRemember" checked="checked" style="margin:0px;margin-top:2px;" > 记住我</label>
+                    <label id="top-nav-login-form-remember" class="checkbox"><input name="RememberMe" type="checkbox" id="chkRemember" checked="checked" style="margin:0px;margin-top:2px;" > 记住我</label>
                     <input type="submit" class="btn btn-primary btn-mini" value="登录" style="font-size:12px;line-height:14px;padding:1px 6px;margin:0px;">
                     <input type="hidden" name="returnUrl" id="Hidden1" value="" />
                     <div id="loginValidBox" class="ebox" style="width:380px;padding:10px 5px; ">_{validationCode} #{ValidationCode}</div>
@@ -98,7 +97,6 @@
 
       
         </div>
-    </div>
     </div>
 
 			
