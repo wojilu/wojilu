@@ -10,12 +10,7 @@
 <link href="~css/bootstrap/css/bootstrap.css?v=#{cssVersion}" rel="stylesheet">
 <link href="~css/wojilu.core.css?v=#{cssVersion}" rel="stylesheet">
 
-<script src="~js/jquery.js?v=#{jsVersion}" type="text/javascript"></script>
-<script src="~js/bootstrap-dropdown.js" type="text/javascript"></script>
-<script src="~js/jquery-ui.custom.js?v=0091" type="text/javascript"></script>
-<script src="~js/lang.#{langStr}.js?v=#{jsVersion}" type="text/javascript"></script>
-<script src="~js/wojilu.common.js?v=#{jsVersion}" type="text/javascript"></script>
-<script src="~js/wojilu.site.js?v=#{jsVersion}" type="text/javascript"></script>
+<script> var __funcList=[]; var _run=function(aFunc) { __funcList.push(aFunc);};</script>
 
 <!--[if IE 6]>
 <link href="~css/bootstrap/ie6.css?v=#{cssVersion}" rel="stylesheet">
@@ -55,14 +50,19 @@
 </div>
 
 <script>
-$(document).ready( function() {
-    var q = wojilu.tool.getQuery( 'skin' );
+
+_run( function() { 
+    var q = wojilu.tool.getQuery('skin');
     if( q== 'custom' ) {
         $('#customSkin').click();
         wojilu.ui.box.hideBg();
     }
 });
+
+
 </script>
+
+<script data-main="~js/main" src="~js/lib/require-jquery.js"></script>
 
 #{statsJs}
 </body>

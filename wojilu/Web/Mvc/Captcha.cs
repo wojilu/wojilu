@@ -70,7 +70,7 @@ namespace wojilu.Web.Mvc {
             sb.Append( lang.get( "refreshPic" ) );
             sb.Append( "</span><span>" );
 
-            sb.Append( "<script type=\"text/javascript\">$(document).ready( function() {" );
+            sb.Append( "<script type=\"text/javascript\">_run(function(){" );
             sb.Append( "$('#captchaWrap" );
             sb.Append( count );
             sb.Append( " .validationImg').click( function() {" );

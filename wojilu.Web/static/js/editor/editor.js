@@ -64,13 +64,26 @@
     	'$061':'狗狗','$062':'小猫','$063':'猪头','$064':'蜗牛','$065':'岛屿','$066':'足球','$067':'电话','$068':'灯泡','$069':'臭大粪、shit'
     },
    
-    tblSize : { X : 10, Y : 8 }
+    tblSize : { X : 10, Y : 8 },
+
+    isSupport : function() {
+        if( /Android|webOS|iPhone|iPad|iPod|BlackBerry/i.test(navigator.userAgent) ) return false;
+        return true;
+    }
 };
 
 function val( ele ) {return document.getElementById(ele).value;}
 function val( ele, val ) {document.getElementById(ele).value=val;}
 
 wojilu.editor = function( param ) {
+
+    if( wojilu.editorConfig.isSupport() ) {
+        $('#'+param.name).hide();
+    }
+    else {
+        return;
+    }
+
 
     // 配置
     this.editorPath;
@@ -950,6 +963,10 @@ wojilu.editor.prototype.showPosition = function(target, offset) {
 //----------------------------------------------------------------
 
 wojilu.editor.prototype.render = function() {
+
+    if( wojilu.editorConfig.isSupport() == false ) {
+        return;
+    }
     
     wojilu.tool.loadCss( this.skinPath + 'style.css' );    
     var toolBar = this.getBar();    

@@ -908,7 +908,6 @@
     <Content Include="framework\views\Demo\Box\BoxA.html" />
     <Content Include="framework\views\Demo\Box\BoxB.html" />
     <Content Include="framework\views\Demo\Box\BoxC.html" />
-    <Content Include="framework\views\Main\tp.html" />
     <Content Include="framework\views\Main\PostArchive.html" />
     <Content Include="framework\views\Main\valid.html" />
     <Content Include="framework\views\Main\PostRecent.html" />

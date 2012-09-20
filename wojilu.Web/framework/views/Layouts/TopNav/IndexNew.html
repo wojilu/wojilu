@@ -99,8 +99,10 @@
         </div>
     </div>
 
-			
-
-
-<script type="text/javascript">var ctx = null;var navUrl = '#{navUrl}';</script>
-<script type="text/javascript" src="~js/wojilu.site.topnav.js?v=#{jsVersion}"></script>
+<script>
+_run( function() {
+    require( ["wojilu.site.topnav"], function( topnav ) {
+        topnav.init( '#{navUrl}');
+    });
+});
+</script>

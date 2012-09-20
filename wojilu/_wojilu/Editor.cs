@@ -89,6 +89,10 @@ namespace wojilu {
             get { return _editorPath; }
         }
 
+        public String RelativePath {
+            get { return strUtil.TrimStart( this.EditorPath, sys.Path.Js ); }
+        }
+
         private String FrameId {
             get { return String.Format( "wojiluEditor_{0}_frame", ControlName ); }
         }
@@ -177,17 +181,20 @@ namespace wojilu {
 
         private String Render() {
             StringBuilder builder = new StringBuilder();
-            if (this.IsUnique) {
-                builder.AppendFormat( "<script src=\"{0}editor.js{1}\" type=\"text/javascript\"></script>", EditorPath, getJsVersionString() );
-            }
+
 
             builder.AppendFormat( "<div id=\"{0}\">", this.ControlName.Replace( ".", "_" ) + "Editor" );
 
-            //builder.Append( "<script type=\"text/javascript\">var " + EditVarName + "=new wojilu.editor( {editorPath:'" + this.EditorPath + "', height:'" + this.Height + "', name:'" + this.ControlName + "', content:'" + this.Content.Replace( "\\", "\\\\" ) + "', toolbarType:'" + this.Toolbar.ToString().ToLower() + "', uploadUrl:'" + this.UploadUrl + "', mypicsUrl:'" + this.MyPicsUrl + "' } );" + EditVarName + ".render();</script>" );
+            builder.AppendFormat( "<textarea id=\"{0}\" name=\"{0}\" style=\"width:99%;height:"+this.Height+";\">{1}</textarea>", this.ControlName, this.Content );
 
-            builder.AppendFormat( "<textarea id=\"{0}\" name=\"{0}\" style=\"display:none;width:99%;height:"+this.Height+";\">{1}</textarea>", this.ControlName, this.Content );
+            if (this.IsUnique) {
 
-            builder.Append( "<script type=\"text/javascript\">var " + EditVarName + "=new wojilu.editor( {editorPath:'" + this.EditorPath + "', height:'" + this.Height + "', name:'" + this.ControlName + "', content:'', toolbarType:'" + this.Toolbar.ToString().ToLower() + "', uploadUrl:'" + this.UploadUrl + "', mypicsUrl:'" + this.MyPicsUrl + "' } );" + EditVarName + ".render();</script>" );
+                builder.Append( "<script>_run(function(){require([\"" + RelativePath + "editor\"],function(){" );
+                builder.AppendLine();
+                builder.Append( "var " + EditVarName + "=new wojilu.editor( {editorPath:'" + this.EditorPath + "', height:'" + this.Height + "', name:'" + this.ControlName + "', content:'', toolbarType:'" + this.Toolbar.ToString().ToLower() + "', uploadUrl:'" + this.UploadUrl + "', mypicsUrl:'" + this.MyPicsUrl + "' } );" + EditVarName + ".render();" );
+                builder.AppendLine();
+                builder.Append( "})});</script>" );
+            }
 
             builder.Append( "</div>" );
 

@@ -89,14 +89,14 @@
 
 
 <script>
-    $(document).ready(function () {
-        var bindOnlineInfo = function () {
-            $('#onlineCount').text(ctx.online.count);
-            $('#onlineMember').text(ctx.online.member);
-            $('#onlineGuest').text(ctx.online.guest);
-            $('#onlineMax').text(ctx.online.max);
-            $('#onlineMaxTime').text(ctx.online.maxTime);
-        };
-        wojilu.site.load(bindOnlineInfo);
-    });
+_run( function() {
+    var bindOnlineInfo = function () {
+        $('#onlineCount').text(ctx.online.count);
+        $('#onlineMember').text(ctx.online.member);
+        $('#onlineGuest').text(ctx.online.guest);
+        $('#onlineMax').text(ctx.online.max);
+        $('#onlineMaxTime').text(ctx.online.maxTime);
+    };
+    wojilu.site.load(bindOnlineInfo);
+});
 </script>

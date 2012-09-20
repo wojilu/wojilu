@@ -1,6 +1,6 @@
 ﻿
 <link href="~css/wojilu.forum.css?v=#{cssVersion}" rel="stylesheet" />
-<script src="~js/wojilu.app.forum.js?v=#{jsVersion}" type="text/javascript"></script>
+<script>_run( function(){require(["wojilu.app.forum"]);} );</script>
 
 <div id="adminTool" class="row appAdminTool" style=" display:none;">
     <div class="span3 pull-right" style="text-align:right; padding:10px;">
@@ -15,7 +15,7 @@
 </div>
 
 <script>
-$(document).ready( function() {
+_run( function() {
     
     var showAdminTool = function() {
     

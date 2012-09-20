@@ -11,15 +11,16 @@
         <div style="margin:10px; padding:5px; font-weight:bold;"><img src="~img/talk.gif" /> 大家正在说</div>
         #{recentList}
         <script>
-        
-        setInterval( function() {
+        _run( function() { 
+            setInterval( function() {
 
-            var lastEle = $('#blogList .blogItem:last-child');
-            lastEle.hide();
-            $('#blogList').prepend( lastEle );
-            lastEle.slideDown('slow');
-        }, 3000);
-        
+                var lastEle = $('#blogList .blogItem:last-child');
+                lastEle.hide();
+                $('#blogList').prepend( lastEle );
+                lastEle.slideDown('slow');
+            }, 3000);
+
+        });
         </script>
     
     </div>   

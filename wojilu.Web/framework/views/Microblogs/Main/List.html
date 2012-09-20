@@ -44,42 +44,45 @@ div.picTool span a { background:#f2f2f2;}
         </div>
 
 
-<script src="~js/wojilu.rotate.js?v=#{jsVersion}" type="text/javascript"></script>
 <script>
-    
-$( document).ready( function() {
-    $('.blogPic').click( function() {
-        $(this).parent().hide();        
-        var panel = $(this).parent().next();
-        $( '.mpicPanel', panel ).html( '<img class="blogPicM" src="'+$(this).attr( 'pic' ) +'" />' );
-        panel.show();        
-    });
-    
-    $( '.mpicPanel' ).click( function() {
-        var sPanel = $(this).parent().prev();
-        $(this).parent().hide();
-        sPanel.show();
-    });
-    
-    $( '#cmdZoomin' ).click( function() {
-        var sPanel = $(this).parent().parent().parent().prev();
-        $(this).parent().parent().parent().hide();
-        sPanel.show();
-    });
-    
-    var rotate = function( ele, rotationVal ) {
-        rotationPic( $( 'img', $(ele).parent().parent().next() ), rotationVal );
-    };
-    
-    var tc = 0;
-    $( '#cmdTurnLeft' ).click( function() {
-        tc += 90;
-        rotate( this, -tc );
-    });
-    
-    $( '#cmdTurnRight' ).click( function() {
-        tc -= 90;
-        rotate( this, -tc );
+
+_run( function() {
+
+    require( ['wojilu.rotate'], function( x ) {
+        
+        $('.blogPic').click( function() {
+            $(this).parent().hide();        
+            var panel = $(this).parent().next();
+            $( '.mpicPanel', panel ).html( '<img class="blogPicM" src="'+$(this).attr( 'pic' ) +'" />' );
+            panel.show();        
+        });
+        
+        $( '.mpicPanel' ).click( function() {
+            var sPanel = $(this).parent().prev();
+            $(this).parent().hide();
+            sPanel.show();
+        });
+        
+        $( '#cmdZoomin' ).click( function() {
+            var sPanel = $(this).parent().parent().parent().prev();
+            $(this).parent().parent().parent().hide();
+            sPanel.show();
+        });
+        
+        var rotate = function( ele, rotationVal ) {
+            x.rotationPic( $( 'img', $(ele).parent().parent().next() ), rotationVal );
+        };
+        
+        var tc = 0;
+        $( '#cmdTurnLeft' ).click( function() {
+            tc += 90;
+            rotate( this, -tc );
+        });
+        
+        $( '#cmdTurnRight' ).click( function() {
+            tc -= 90;
+            rotate( this, -tc );
+        });
     });
 });
 </script>
