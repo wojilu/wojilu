@@ -23,7 +23,7 @@
 </style>
 
 <script>
-$(document).ready( function() {
+_run( function() {
     $('.skinItem a').click( function() {
         var url = $(this).attr( 'href' ).toAjax();
         $.post( url, {}, function(data) {

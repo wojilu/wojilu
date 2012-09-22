@@ -9,7 +9,7 @@
 </div>
 
 <script>
-$(document).ready( function() {
+_run( function() {
     $('.flink').click(function () {
         wojilu.tool.getRootParent().location.href= wojilu.str.trimEnd( $(this).attr( 'href' ), '&frm=true' );
         return false;

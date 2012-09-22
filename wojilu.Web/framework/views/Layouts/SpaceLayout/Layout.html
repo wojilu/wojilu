@@ -1,6 +1,5 @@
-﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html dir="ltr" xmlns="http://www.w3.org/1999/xhtml">
-
+﻿<!DOCTYPE html>
+<html lang="zh-CN">
 <head>
 <title>#{pageTitle}</title>
 <meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
@@ -13,13 +12,8 @@
 <link href="~css/jquery/ui-lightness/jquery-ui.custom.css?v=#{cssVersion}" rel="stylesheet" type="text/css" />
 #{siteSkinContent}<link href="~css/wojilu.space.css?v=#{cssVersion}" rel="stylesheet" type="text/css" />
 #{skinContent}
-<script src="~js/jquery.js?v=#{jsVersion}" type="text/javascript"></script>
-<script src="~js/jquery-ui.custom.js?v=#{jsVersion}" type="text/javascript"></script>
-<script src="~js/lang.#{langStr}.js?v=#{jsVersion}" type="text/javascript"></script>
-<script src="~js/wojilu.common.js?v=#{jsVersion}" type="text/javascript"></script>
-<script src="~js/wojilu.site.js?v=#{jsVersion}" type="text/javascript"></script>
-<script src="~js/wojilu.space.js?v=#{jsVersion}" type="text/javascript"></script>
 #{pageRssLink}
+<script>var __funcList = []; var _run = function (aFunc) { __funcList.push(aFunc); };</script>
 </head>
 
 <body>
@@ -50,7 +44,7 @@
 
 
 <script>
-$(document).ready( function() {
+_run( function() {
     var q = wojilu.tool.getQuery( 'skin' );
     if( q== 'custom' ) {
         $('#customSkin').click();
@@ -58,6 +52,7 @@ $(document).ready( function() {
     }
 });
 </script>
+<script data-main="~js/main" src="~js/lib/require-jquery.js"></script>
 #{statsJs}
 </body>
 </html>

@@ -185,7 +185,7 @@ namespace wojilu {
 
             builder.AppendFormat( "<div id=\"{0}\">", this.ControlName.Replace( ".", "_" ) + "Editor" );
 
-            builder.AppendFormat( "<textarea id=\"{0}\" name=\"{0}\" style=\"width:99%;height:"+this.Height+";\">{1}</textarea>", this.ControlName, this.Content );
+            builder.AppendFormat( "<textarea id=\"{0}\" name=\"{0}\" style=\"display:none;width:99%;height:"+this.Height+";\">{1}</textarea>", this.ControlName, this.Content );
 
             if (this.IsUnique) {
 

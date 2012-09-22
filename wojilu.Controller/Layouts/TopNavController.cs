@@ -45,9 +45,6 @@ namespace wojilu.Web.Controller.Layouts {
             currencyService = new CurrencyService();
         }
 
-        public void IndexNew() {
-            Index();
-        }
 
         public void Index() {
 
@@ -74,24 +71,17 @@ namespace wojilu.Web.Controller.Layouts {
             set( "emailCredit", emailCredit );
             set( "uploadCredit", uploadCredit );
 
-            //IBlock cblock = getBlock( "Captcha" );
-            //if (config.Instance.Site.LoginNeedImgValidation) {
-            //    cblock.Set( "ValidationCode", Html.Captcha );
-            //    cblock.Next();
-            //}
-
             set( "ValidationCode", Html.Captcha );
 
             //ajax
             //set( "navUrl", Link.T2( Site.Instance, Nav ) );
             set( "navUrl", t2( Nav ) );
-
         }
 
-
-
         private string getEmailConfirmCredit( int actionId ) {
-            KeyIncomeRule rule = currencyService.GetKeyIncomeRulesByAction( actionId ); // 获取当前操作action收入规则。这里获取的是中心货币，你也可以使用 GetRulesByAction(actionId) 获取其他所有货币的收入规则            
+            // 获取当前操作action收入规则。
+            // 这里获取的是中心货币，你也可以使用 GetRulesByAction(actionId) 获取其他所有货币的收入规则
+            KeyIncomeRule rule = currencyService.GetKeyIncomeRulesByAction( actionId );         
             return string.Format( "可奖励{0}{1}", rule.Income, rule.CurrencyUnit );
         }
 
@@ -280,8 +270,6 @@ namespace wojilu.Web.Controller.Layouts {
         //-------------------------------------------------------------------------------------------------------------
 
         public void Header() {
-
-            view( "HeaderNew" );
 
             set( "site.Name", Site.Instance.Name );
             set( "site.Logo", config.Instance.Site.GetLogoHtml() );

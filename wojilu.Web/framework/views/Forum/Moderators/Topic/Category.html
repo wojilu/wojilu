@@ -2,9 +2,8 @@
 
 <div style="width: 500px;margin:20px">
 
-<script type="text/javascript">
-<!--
-$(document).ready( function() {
+<script>
+_run(function () {
 
 	$('#chkReason').click( function() {
 		$('#reasonText').toggle();
@@ -40,7 +39,6 @@ $(document).ready( function() {
 	$('#myform').submit( isFormValid );
 	
 });
-//-->
 </script>
 
 	<form id="myform" method="post" action="#{ActionLink}">

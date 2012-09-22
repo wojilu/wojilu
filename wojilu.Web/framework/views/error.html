@@ -1,13 +1,11 @@
-﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
+﻿<!DOCTYPE html>
+<html lang="zh-CN">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>#{exMsg}_#{pageTitle}</title>
-<script src="~js/jquery.js?v=#{jsVersion}" type="text/javascript"></script>
-<script src="~js/lang.#{langStr}.js?v=#{jsVersion}" type="text/javascript"></script>
-<script src="~js/wojilu.common.js?v=#{jsVersion}" type="text/javascript"></script>
+<script> var __funcList=[]; var _run=function(aFunc) { __funcList.push(aFunc);};</script>
 <script>
-$(document).ready( function() {
+_run( function() { 
 
     var parentIframeId = wojilu.tool.getCurrentFrmId();
     
@@ -41,4 +39,5 @@ body {font-size:14px;line-height:150%;font-family:verdana; }
     </div>
 </body>
 
+<script data-main="~js/main" src="~js/lib/require-jquery.js"></script>
 </html>

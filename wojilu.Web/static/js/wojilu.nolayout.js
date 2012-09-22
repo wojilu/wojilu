@@ -1,5 +1,4 @@
-﻿
-$(document).ready( function() {
+﻿define([],function(){
 
     
     //----------------------加载完毕，隐藏loading-----------------------------------
@@ -74,7 +73,5 @@ $(document).ready( function() {
             $(this).append( '<input name="nolayout" type="hidden" value="'+nolayout+'" />' );
         });
     };
-
-
 
 });

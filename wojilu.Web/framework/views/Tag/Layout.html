@@ -1,14 +1,14 @@
 ï»¿<div style="">#{layout_content}</div>
 
 <script>
-$(document).ready( function() {
+_run( function() {
     $('#tagForm').submit( function() {
     
         var ext = wojilu.str.getExt( location.href );
     
         var txtTag = $('#txtTag').val();
         if( !txtTag ) {
-            alert( 'ÇëÊäÈëtag' );
+            alert( 'è¯·è¾“å…¥tag' );
             return false;
         }
         
@@ -21,7 +21,7 @@ $(document).ready( function() {
 
 <div id="tempie6" ></div>
 <script>
-$(document).ready( function() {
+_run( function() {
     $('#tempie6').html( '');    
 });
 </script>

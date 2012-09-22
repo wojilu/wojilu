@@ -83,7 +83,7 @@
 </div>
 
 <script>
-    $(document).ready( function() {
+    _run( function() {
     
         wojilu.tool.share(); // 启用分享功能
     
@@ -119,19 +119,12 @@
                     if( thisCreatorId == ctx.viewer.Id ) $(this).show();
                     
                 });
-                
-                
            }
-           
-           
            
         };
         
         wojilu.site.load( showMTool );
 
-
-
-        $("#tagBox").draggable();
         $('.cmdTag').click( function() {
             var ps = $(this).position(); // 获取当前被点击的元素的位置
             $('#tagBox').css( 'top', ps.top+20 ).css( 'left', ps.left ).toggle('fast'); // 通过绝对定位来显示图层

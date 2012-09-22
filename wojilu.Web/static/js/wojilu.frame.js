@@ -1,5 +1,4 @@
-﻿
-$(document).ready( function() {
+﻿define([],function(){
 
     scrollTo(0,0);
 

@@ -631,7 +631,7 @@ namespace wojilu.Web.Mvc {
             }
             else {
 
-                String str = "<script>$(document).ready( function() {wojilu.tool.forwardPart('" + url + "', " + partNumber + ");});</script><div class=\"forward\" id=\"forward\">" + msg + "</div>";
+                String str = "<script>_run( function() {wojilu.tool.forwardPart('" + url + "', " + partNumber + ");});</script><div class=\"forward\" id=\"forward\">" + msg + "</div>";
                 showEndByViewTemplate( str, MvcConfig.Instance.GetForwardTemplatePath() );
             }
 
@@ -732,12 +732,12 @@ namespace wojilu.Web.Mvc {
 
 
         private void forward( String msg, String url ) {
-            String str = "<script>$(document).ready( function() {wojilu.tool.forward('" + url + "');});</script><div class=\"forward\" id=\"forward\">" + msg + "</div>";
+            String str = "<script>_run( function() {wojilu.tool.forward('" + url + "');});</script><div class=\"forward\" id=\"forward\">" + msg + "</div>";
             showEndByViewTemplate( str, MvcConfig.Instance.GetForwardTemplatePath() );
         }
 
         private void forwardPage( String msg, String url ) {
-            String str = "<script>$(document).ready( function() {wojilu.tool.forwardPage('" + url + "');});</script><div class=\"forward\" id=\"forward\">" + msg + "</div>";
+            String str = "<script>_run( function() {wojilu.tool.forwardPage('" + url + "');});</script><div class=\"forward\" id=\"forward\">" + msg + "</div>";
             showEndByViewTemplate( str, MvcConfig.Instance.GetForwardTemplatePath() );
         }
 
@@ -904,8 +904,8 @@ namespace wojilu.Web.Mvc {
         private void echoMsgAndJs( String cmd, int msTime, String msg ) {
             String tcall = "setTimeout( function(){" + cmd + ";wojilu.tool.getBoxParent().wojilu.ui.box.hideBox();}, " + msTime + " );";
 
-            String content = "$(document).ready( function() { " + tcall + " });";
-            content = String.Format( "<script type=\"text/javascript\">{0}</script>", content ) + msg;
+            String content = "_run( function() { " + tcall + " });";
+            content = String.Format( "<script>{0}</script>", content ) + msg;
             showByMsgBoxTemplate( content );
         }
 

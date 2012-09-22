@@ -1,7 +1,4 @@
 ﻿<link href="~css/wojilu.common.css?v=#{cssVersion}" rel="stylesheet" type="text/css" />
-<script src="~js/jquery.js?v=#{jsVersion}" type="text/javascript"></script>
-<script src="~js/lang.#{langStr}.js?v=#{jsVersion}" type="text/javascript"></script>
-<script src="~js/wojilu.common.js?v=#{jsVersion}" type="text/javascript"></script>
 
 <style>
 
@@ -65,18 +62,21 @@
 		
 <script>
 
-    var cmdResize = setInterval(resizeParent, 50);
+    _run(function () {
 
-    var iResize = 1;
+        var cmdResize = setInterval(resizeParent, 50);
 
-    function resizeParent() {
-        var width = $(document).width();
-        var height = parseInt($(document).height());
-        iResize = iResize + 1;
-        if (iResize > 2) clearInterval(cmdResize);
+        var iResize = 1;
 
-        window.parent.wojilu.tool.resizeFrame('contentSidebar', height);
-    };
+        function resizeParent() {
+            var width = $(document).width();
+            var height = parseInt($(document).height());
+            iResize = iResize + 1;
+            if (iResize > 2) clearInterval(cmdResize);
 
+            window.parent.wojilu.tool.resizeFrame('contentSidebar', height);
+        };
 
+    });
 </script>
+<script data-main="~js/main" src="~js/lib/require-jquery.js"></script>

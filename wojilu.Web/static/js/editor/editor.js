@@ -77,10 +77,8 @@ function val( ele, val ) {document.getElementById(ele).value=val;}
 
 wojilu.editor = function( param ) {
 
-    if( wojilu.editorConfig.isSupport() ) {
-        $('#'+param.name).hide();
-    }
-    else {
+    if( wojilu.editorConfig.isSupport() ==false ) {
+        $('#'+param.name).show();
         return;
     }
 

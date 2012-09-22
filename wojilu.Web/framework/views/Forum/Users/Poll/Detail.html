@@ -11,18 +11,20 @@
 </div>
 
 <script>
-    // 投票结果切换
-    $('.cmdViewResult').click(function () {
-        var topicId = $(this).attr('topicId');
-        $('#pollFormWrap' + topicId).hide();
-        $('#pollResultWrap' + topicId).show();
+
+    _run(function () {
+        // 投票结果切换
+        $('.cmdViewResult').click(function () {
+            var topicId = $(this).attr('topicId');
+            $('#pollFormWrap' + topicId).hide();
+            $('#pollResultWrap' + topicId).show();
+        });
+
+        $('.cmdViewForm').click(function () {
+            var topicId = $(this).attr('topicId');
+            $('#pollFormWrap' + topicId).show();
+            $('#pollResultWrap' + topicId).hide();
+        });
+
     });
-
-    $('.cmdViewForm').click(function () {
-        var topicId = $(this).attr('topicId');
-        $('#pollFormWrap' + topicId).show();
-        $('#pollResultWrap' + topicId).hide();
-    });
-
-
 </script>

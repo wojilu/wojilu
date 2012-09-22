@@ -96,38 +96,40 @@
 </div>
 
 
-<script type="text/javascript">
-<!--
-$(document).ready( function(){
+<script>
+
+_run( function() {
 
     wojilu.ui.valid();
     wojilu.ui.ajaxPostForm();
 
-    var cfg = wojilu.upload.getSettings();
-    cfg.uploader = '#{batchUploadLink}'.toAjax(); // 接受上传的网址
-    cfg.postData = #{authJson}; // 客户端验证信息(cookie等)
-    cfg.fileTypeExts = '*.jpg;*.gif;*.png;*.jpeg;*.bmp;*.zip;*.7z;*.rar;'; // 允许上传的文件类型
-    cfg.fileTypeDesc = 'All Files'; // 选择框中罗列的类型
-    cfg.queueID = 'uploader'; // 显示进度条的容器
+    require( ['wojilu.forum.upload'], function( attach ) {
 
-    cfg.onUploadSuccess = function (file, data, response) {
-        var obj = eval( '(' + data + ')' );
-        if( obj.Msg ) {
-            alert( obj.Msg );
-        }
-        else {
-            addFile( obj.photo, obj.deleteLink );
-        }
-    };
+        var cfg = wojilu.upload.getSettings();
+        cfg.uploader = '#{batchUploadLink}'.toAjax(); // 接受上传的网址
+        cfg.postData = #{authJson}; // 客户端验证信息(cookie等)
+        cfg.fileTypeExts = '*.jpg;*.gif;*.png;*.jpeg;*.bmp;*.zip;*.7z;*.rar;'; // 允许上传的文件类型
+        cfg.fileTypeDesc = 'All Files'; // 选择框中罗列的类型
+        cfg.queueID = 'uploader'; // 显示进度条的容器
 
-    cfg.onQueueComplete = function (data) {
-        var msg = data.successful_uploads + ' 个文件上传成功. ';
-        if( data.upload_errors>0 ) msg += data.upload_errors + ' 个错误.';
-        $('#status').text( msg );
-    };
+        cfg.onUploadSuccess = function (file, data, response) {
+            var obj = eval( '(' + data + ')' );
+            if( obj.Msg ) {
+                alert( obj.Msg );
+            }
+            else {
+                attach.addFile( obj.photo, obj.deleteLink );
+            }
+        };
 
-    wojilu.upload.initFlash( '#file_upload', cfg );
+        cfg.onQueueComplete = function (data) {
+            var msg = data.successful_uploads + ' 个文件上传成功. ';
+            if( data.upload_errors>0 ) msg += data.upload_errors + ' 个错误.';
+            $('#status').text( msg );
+        };
+
+        wojilu.upload.initFlash( '#file_upload', cfg );
+    });
     
 });
-//-->
 </script>

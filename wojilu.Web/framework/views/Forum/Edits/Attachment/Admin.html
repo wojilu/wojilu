@@ -38,7 +38,7 @@
         
         <!-- BEGIN list -->
         <tr class="rowLine">
-	        <td class="sort">
+	        <td class="sort" style="text-align:center;">
 		        <img src="~img/up.gif" class="cmdUp right10" data-id="#{a.Id}"/>
 		        <img src="~img/dn.gif" class="cmdDown" data-id="#{a.Id}"/>
 	        </td>
@@ -63,12 +63,10 @@
     
 </div>
 
+<script>
+_run( function() {
 
-<script src="~js/wojilu.common.admin.js?v=#{jsVersion}" type="text/javascript"></script>
-
-<script type="text/javascript">
-<!--
-$(document).ready( function(){
+    require(['wojilu.common.admin']);
 
     var cfg = wojilu.upload.getSettings();
 
@@ -100,5 +98,4 @@ $(document).ready( function(){
     wojilu.upload.initFlash( '#file_upload', cfg );    
     
 });
-//-->
 </script>

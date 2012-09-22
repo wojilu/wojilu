@@ -1,6 +1,5 @@
-﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
-
+﻿<!DOCTYPE html>
+<html lang="zh-CN">
 <head>
 <title>#{pageTitle}</title>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
@@ -17,12 +16,8 @@
 <style>
 #topNavWrap {background:url("~skin/site/topNavBg.png");}
 </style>
-<script src="~js/jquery.js?v=#{jsVersion}" type="text/javascript"></script>
-<script src="~js/jquery-ui.custom.js?v=#{jsVersion}" type="text/javascript"></script>
-<script src="~js/lang.#{langStr}.js?v=#{jsVersion}" type="text/javascript"></script>
-<script src="~js/wojilu.common.js?v=#{jsVersion}" type="text/javascript"></script>
-<script src="~js/wojilu.site.js?v=#{jsVersion}" type="text/javascript"></script>
 #{pageRssLink}
+<script>var __funcList = []; var _run = function (aFunc) { __funcList.push(aFunc); };</script>
 </head>
 
 <body>
@@ -175,7 +170,7 @@ td.psTitle div{max-width:550px; width:350px; }
 </div>
 
 <script>
-$(document).ready( function() {
+_run(function () {
     var q = wojilu.tool.getQuery( 'skin' );
     if( q== 'custom' ) {
         $('#customSkin').click();
@@ -183,6 +178,7 @@ $(document).ready( function() {
     }
 });
 </script>
+<script data-main="~js/main" src="~js/lib/require-jquery.js"></script>
 #{statsJs}
 </body>
 </html>

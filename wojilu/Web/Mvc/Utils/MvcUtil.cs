@@ -84,52 +84,41 @@ namespace wojilu.Web.Mvc.Utils {
             return builder.ToString();
         }
 
+        //--------------------------------------------------------------------------------------------
 
         internal static String getNoLayoutContent( String body ) {
-
-            return getNoLayoutTemplate() + body + "<div style=\"display:none\">#{elapseTime}</div></body></html>";
+            return getPageBegin() + body + getRequireJs( "nolayout" ) + getPageEnd();
         }
-
-
-
-        private static string getNoLayoutTemplate() {
-            String jsEnv = getJs( "jquery" ) + getJs( "lang." + wojilu.lang.getLangString() ) + getJs( "wojilu.nolayout" ) + getJs( "wojilu.common" ) + getJs( "wojilu.common.admin" );
-            String cssEnv = getCss( "wojilu.common" ) + getCss( "wojilu.common.admin" );
-
-            return "<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Transitional//EN\" \"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd\">" + Environment.NewLine
-                + "<html xmlns=\"http://www.w3.org/1999/xhtml\">" + Environment.NewLine
-                + "<head>" + cssEnv + jsEnv + "</head>" + Environment.NewLine
-                + "<body id=\"boxBody\">";
-        }
-
 
         internal static String getFrameContent( String body ) {
-
-            return getFrameTemplate() + body + "</body></html>";
-
+            return getPageBegin() + body + getRequireJs( "frame" ) + getPageEnd();
         }
 
-        private static String getFrameTemplate() {
+        //--------------------------------------------------------------------------------------------
 
-            String jsEnv = getJs( "jquery" ) + getJs( "lang." + wojilu.lang.getLangString() ) + getJs( "wojilu.frame" ) + getJs( "wojilu.common" ) + getJs( "wojilu.common.admin" );
-            String cssEnv = getCss( "wojilu.common" ) + getCss( "wojilu.common.admin" );
 
-            return "<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Transitional//EN\" \"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd\">" + Environment.NewLine
-                + "<html xmlns=\"http://www.w3.org/1999/xhtml\">" + Environment.NewLine
-                + "<head>" + cssEnv + jsEnv + "</head>" + Environment.NewLine
+        private static String getPageBegin() {
+
+            return "<!DOCTYPE html>" + Environment.NewLine
+                + "<html lang=\"zh-CN\">" + Environment.NewLine
+                + "<head>" + getCss( "wojilu.common" ) + getCss( "wojilu.common.admin" ) + Environment.NewLine
+                + "<script> var __funcList=[]; var _run=function(aFunc) { __funcList.push(aFunc);};</script>"
+                + "</head>" + Environment.NewLine
                 + "<body id=\"boxBody\">";
+        }
 
+        private static String getPageEnd() {
+            return "<div id=\"speedInfo\" style=\"display:none\">Processed in <span id=\"elapseTime\">0</span> seconds, <span id=\"sqlQueries\">0</span> queries</div></body></html>";
         }
 
         private static String getCss( String path ) {
             return "<link href=\"" + sys.Path.Css + path + ".css?v=" + MvcConfig.Instance.CssVersion + "\" rel=\"stylesheet\" type=\"text/css\" />" + Environment.NewLine;
         }
 
-        private static String getJs( String path ) {
-            return "<script src=\"" + sys.Path.Js + path + ".js?v=" + MvcConfig.Instance.JsVersion + "\" type=\"text/javascript\"></script>" + Environment.NewLine;
+        private static String getRequireJs( String jsName ) {
+            String jsEnv = "<script>require(['wojilu." + jsName + "', 'wojilu.common.admin']);</script>";
+            return string.Format( "<script data-main=\"{0}main\" src=\"{0}lib/require-jquery.js\"></script>{1}", sys.Path.Js, jsEnv );
         }
-
-
 
 
     }

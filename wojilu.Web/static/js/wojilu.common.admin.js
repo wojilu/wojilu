@@ -1,14 +1,4 @@
-﻿
-
-function getChoiceList() {
-    var choiceList = [];
-    $('input[name=selectThis]:checked').each( function(i){
-        choiceList.push(this.id.replace('checkbox',''));
-    });
-    return choiceList;
-}
-
-$(document).ready( function() {
+﻿define([],function(){
 
     wojilu.ui.pageReturn();
     wojilu.ui.tip();
@@ -16,6 +6,14 @@ $(document).ready( function() {
     wojilu.ui.ajaxPostForm();
     wojilu.ui.doubleClick();
     wojilu.ui.frmLink();
+
+    function getChoiceList() {
+        var choiceList = [];
+        $('input[name=selectThis]:checked').each( function(i){
+            choiceList.push(this.id.replace('checkbox',''));
+        });
+        return choiceList;
+    }
 
     // 列表管理：全选
     $('#selectAll').click( function() {    

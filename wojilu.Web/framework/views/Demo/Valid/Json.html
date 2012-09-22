@@ -33,7 +33,7 @@
 &lt;/select&gt;
 
 &lt;script&gt;
-$(document).ready( function() {
+_run( function() {
     $('#dropItem').change( function() {    
         $.post( $(this).attr( 'href'), {'Id':$(this).val()}, function( data ) {
         
@@ -85,7 +85,7 @@ public void JsonResult() {
 </div>
 
 <script>
-$(document).ready( function() {
+_run( function() {
     $('#dropItem').change( function() {    
         $.post( $(this).attr( 'href'), {'Id':$(this).val()}, function( data ) {            
             alert( data.Name );        

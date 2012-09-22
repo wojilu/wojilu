@@ -85,7 +85,7 @@ namespace wojilu.Apps.Poll.Views {
             String js = @"
 <script>
 
-$(document).ready( function() {
+_run( function() {
 
     $('#btnPoll').click( function() {
 

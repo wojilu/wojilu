@@ -4,9 +4,9 @@
 #btnPublish { background:url("~img/publish.gif");width:58px; height:45px; border:0px; color:#fff; font-size:16px; font-weight:bold;cursor:pointer;}
 </style>
 
-<script type="text/javascript">
-<!--
-$(document).ready( function() {
+<script>
+
+_run( function() {
 	$('#btnPublish').click( function() {
 	    var btn = $(this);
 		$('#loading').html( '<img src="~img/ajax/loading.gif"/>' );
@@ -41,8 +41,6 @@ function setBgPic( thumbUrl, picUrl ) {
     $('#mcmdImg').click();
 }
 
-
-//-->
 </script>
 
 <style>
