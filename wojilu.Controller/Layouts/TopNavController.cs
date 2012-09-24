@@ -45,6 +45,9 @@ namespace wojilu.Web.Controller.Layouts {
             currencyService = new CurrencyService();
         }
 
+        public void IndexNew() {
+            Index();
+        }
 
         public void Index() {
 

@@ -3,11 +3,12 @@
 #{app.SkinStyle}
 </style>
 
-<script src="~js/wojilu.app.content.js?v=#{jsVersion}" type="text/javascript"></script>
 <script>
-_run( function() {
-    mergeSection();
-});
+    _run(function () {
+        require(['wojilu.app.content'], function () {
+            mergeSection();
+        });
+    });
 </script>
 <div id="portalContainer">
 	<!-- BEGIN rowList -->	

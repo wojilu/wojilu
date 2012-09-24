@@ -1,101 +1,4 @@
-﻿
-
-function addBlogEvent( pageContext ) {
-
-    var elePic;
-    var elePicPanel;
-    var eleVideo;
-    var eleZoomin;
-    var eleLeft;
-    var eleRight;
-
-    if( pageContext ) {
-        elePic=$('.blogPic',pageContext );
-        elePicPanel=$( '.mpicPanel',pageContext  );
-        eleVideo=$('.blogVideo',pageContext );
-        eleZoomin=$( '.cmdZoominLink',pageContext  );
-        eleLeft=$( '.cmdTurnLeftLink',pageContext  );
-        eleRight=$( '.cmdTurnRightLink',pageContext  );
-    }
-    else {
-        elePic=$('.blogPic');
-        elePicPanel=$( '.mpicPanel' );
-        eleVideo=$('.blogVideo');
-        eleZoomin=$( '.cmdZoominLink' );
-        eleLeft=$( '.cmdTurnLeftLink' );
-        eleRight=$( '.cmdTurnRightLink' );
-    }
-
-    elePic.click( function() {
-        
-        var thisImg = $(this);    
-    
-        var panel = $(this).parent().next();
-        var picPanel = $( '.mpicPanel', panel );
-        var simg = $( 'img', picPanel );
-        if( simg.length>0 ) { // 已加载
-            thisImg.parent().hide();
-            panel.show(); 
-            return;
-        }
-        
-        thisImg.after( '<img src="'+wojilu.path.img+'/ajax/loading2.gif" style=" float:left; position:relative; top:40px; left:-120px;" />' );
-        
-        var img = new Image();
-        img.src = $(this).attr( 'pic' );
-        
-        $(img).load( function() {
-            $(this).addClass( 'blogPicM' );
-            picPanel.append( this );
-            
-            thisImg.next().remove();
-            thisImg.parent().hide();
-            panel.show(); 
-        });        
-        
-               
-    });
-    
-    elePicPanel.click( function() {
-        $(this).parent().hide();
-        $(this).parent().prev().show();
-    }); 
-    
-       
-    eleVideo.click( function() {
-        $(this).parent().hide();
-        var flashHtml = $( '.flashHtml', $(this).parent() ).html();
-        var panel = $(this).parent().next();
-        $( '.mvideoPanel', panel ).html( flashHtml );
-        panel.show();        
-    });
-
-    
-    eleZoomin.click( function() {
-        var sPanel = $(this).parent().parent().parent().prev();
-        $(this).parent().parent().parent().hide();
-        sPanel.show();
-    });
-    
-    var rotate = function( ele, rotationVal ) {
-        rotationPic( $( 'img', $(ele).parent().parent().next() ), rotationVal );
-    };
-    
-    var tc = 0;
-    eleLeft.click( function() {
-        tc += 90;
-        rotate( this, -tc );
-    });
-    
-    eleRight.click( function() {
-        tc -= 90;
-        rotate( this, -tc );
-    });
-
-}
-
-
-$( document).ready( function() {
+﻿require( ['wojilu.rotate'], function( rt ) {
 
 	wojilu.tool.makeTab( '.mbNav', 'currentMbNav', '' );
 
@@ -195,6 +98,103 @@ $( document).ready( function() {
     });
 
     // -------------------------------------------------------------------------
+
+
+    function addBlogEvent( pageContext ) {
+
+        var elePic;
+        var elePicPanel;
+        var eleVideo;
+        var eleZoomin;
+        var eleLeft;
+        var eleRight;
+
+        if( pageContext ) {
+            elePic=$('.blogPic',pageContext );
+            elePicPanel=$( '.mpicPanel',pageContext  );
+            eleVideo=$('.blogVideo',pageContext );
+            eleZoomin=$( '.cmdZoominLink',pageContext  );
+            eleLeft=$( '.cmdTurnLeftLink',pageContext  );
+            eleRight=$( '.cmdTurnRightLink',pageContext  );
+        }
+        else {
+            elePic=$('.blogPic');
+            elePicPanel=$( '.mpicPanel' );
+            eleVideo=$('.blogVideo');
+            eleZoomin=$( '.cmdZoominLink' );
+            eleLeft=$( '.cmdTurnLeftLink' );
+            eleRight=$( '.cmdTurnRightLink' );
+        }
+
+        elePic.click( function() {
+            
+            var thisImg = $(this);    
+        
+            var panel = $(this).parent().next();
+            var picPanel = $( '.mpicPanel', panel );
+            var simg = $( 'img', picPanel );
+            if( simg.length>0 ) { // 已加载
+                thisImg.parent().hide();
+                panel.show(); 
+                return;
+            }
+            
+            thisImg.after( '<img src="'+wojilu.path.img+'/ajax/loading2.gif" style=" float:left; position:relative; top:40px; left:-120px;" />' );
+            
+            var img = new Image();
+            img.src = $(this).attr( 'pic' );
+            
+            $(img).load( function() {
+                $(this).addClass( 'blogPicM' );
+                picPanel.append( this );
+                
+                thisImg.next().remove();
+                thisImg.parent().hide();
+                panel.show(); 
+            });        
+            
+                   
+        });
+        
+        elePicPanel.click( function() {
+            $(this).parent().hide();
+            $(this).parent().prev().show();
+        }); 
+        
+           
+        eleVideo.click( function() {
+            $(this).parent().hide();
+            var flashHtml = $( '.flashHtml', $(this).parent() ).html();
+            var panel = $(this).parent().next();
+            $( '.mvideoPanel', panel ).html( flashHtml );
+            panel.show();        
+        });
+
+        
+        eleZoomin.click( function() {
+            var sPanel = $(this).parent().parent().parent().prev();
+            $(this).parent().parent().parent().hide();
+            sPanel.show();
+        });
+        
+        var rotate = function( ele, rotationVal ) {
+            rt.rotationPic( $( 'img', $(ele).parent().parent().next() ), rotationVal );
+        };
+        
+        var tc = 0;
+        eleLeft.click( function() {
+            tc += 90;
+            rotate( this, -tc );
+        });
+        
+        eleRight.click( function() {
+            tc -= 90;
+            rotate( this, -tc );
+        });
+
+    }
+
+
     addBlogEvent();
 
 });

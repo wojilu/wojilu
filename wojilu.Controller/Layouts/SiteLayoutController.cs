@@ -45,7 +45,7 @@ namespace wojilu.Web.Controller.Layouts {
 
         public override void Layout() {
 
-            load( "topNav", new TopNavController().Index );
+            load( "topNav", new TopNavController().IndexNew );
             load( "header", new TopNavController().Header );
             set( "statsJs", config.Instance.Site.GetStatsJs() );
 

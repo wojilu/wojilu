@@ -476,9 +476,10 @@
     <Content Include="framework\views\Users\Profile\UserMenu.html" />
     <Content Include="framework\views\Users\Visitor\Index.html" />
     <Content Include="static\js\main.js" />
+    <Content Include="static\js\wojilu.app.content.digg.js" />
     <Content Include="static\js\wojilu.app.content.js" />
     <Content Include="static\js\wojilu.app.content.upload.js" />
-    <Content Include="static\js\wojilu.digg.js" />
+    <Content Include="static\js\wojilu.comment.js" />
     <Content Include="static\js\wojilu.drag.js" />
     <Content Include="static\js\wojilu.ems.js" />
     <Content Include="static\js\wojilu.forum.upload.js" />
@@ -533,7 +534,6 @@
     <Content Include="static\js\wojilu.common.js" />
     <Content Include="static\js\wojilu.frame.js" />
     <Content Include="static\js\wojilu.group.js" />
-    <Content Include="static\js\wojilu.user.draft.js" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="framework\views\Admin\Apps\Content\Layout\Layout.html" />
@@ -789,7 +789,6 @@
     <Content Include="framework\views\Microblogs\My\MbSave\SavePicIE.html" />
     <Content Include="framework\views\Microblogs\My\MicroblogComments\My.html" />
     <Content Include="framework\views\Microblogs\Main\List.html" />
-    <Content Include="framework\views\Microblogs\Main\副本 Index.html" />
     <Content Include="framework\views\Microblogs\My\Microblog\Publisher.html" />
     <Content Include="framework\views\Photo\Admin\My\Layout.html" />
     <Content Include="framework\views\Microblogs\My\Microblog\Atme.html" />

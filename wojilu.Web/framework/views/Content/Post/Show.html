@@ -45,12 +45,14 @@
 	
 	<div class="clear"></div>	
 </div>
-<script src="~js/wojilu.digg.js?v=#{jsVersion}" type="text/javascript"></script>
+
 <script>
-$( document).ready( function() {    
-    digg( 'btnDiggUp', '#{lnkDiggUp}' );
-    digg( 'btnDiggDown', '#{lnkDiggDown}' );
-});
+    _run(function () {
+        require(['wojilu.app.content.digg'], function (digg) {
+            digg.init('btnDiggUp', '#{lnkDiggUp}');
+            digg.init('btnDiggDown', '#{lnkDiggDown}');
+        });
+    });
 </script>
 
 <div class="shareCmd" style="border:1px #ccc solid; background:#fff; padding:5px 10px;"></div>

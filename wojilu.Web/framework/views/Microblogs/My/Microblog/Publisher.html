@@ -55,9 +55,13 @@
 
 <div id="emBox" class="ebox" style="width:300px;padding:20px 20px; ">
     <div class="mBoxClose" style="float:right;"><img src="~img/box/close.gif" /></div><div id="mbpubEmotion"></div>
-    <script type="text/javascript" src="~js/wojilu.ems.js"></script>
-    <script type="text/javascript" src="~js/wojilu.microblog.js"></script>
-    <script>$('#mbpubEmotion').html(getEmotionTable()) </script>
+    <script>
+        _run(function () {
+            require(["wojilu.microblog"], function (x) {
+                $('#mbpubEmotion').html( x.getEmotionTable() );
+            });
+        });
+    </script>
 </div>
 
 <div id="picUploadBox" class="ebox" style="width:400px;padding:20px 20px;">
@@ -105,7 +109,9 @@ _run( function() {
 
     wojilu.upload.initFlash( '#file_upload', cfg );
 
-    bindMbEvent( '#{getVideoUrl}' , #{mbTotalCount}, '#{ActionLink}');	
+    require(['wojilu.microblog'], function( x ) {
+        x.bindMbEvent( '#{getVideoUrl}' , #{mbTotalCount}, '#{ActionLink}');
+    });
 	
 });
 

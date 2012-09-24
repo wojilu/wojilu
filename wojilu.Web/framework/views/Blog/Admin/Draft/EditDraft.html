@@ -1,7 +1,4 @@
-﻿
-<script src="~js/wojilu.user.draft.js?v=#{jsVersion}" type="text/javascript"></script>
-
-<form method="post" action="#{ActionLink}">
+﻿<form method="post" action="#{ActionLink}">
 	<table cellspacing="1" cellpadding="4" width="98%">
 		<tr>
 			<td><strong>_{title}</strong>
@@ -62,8 +59,8 @@ _run( function() {
     
         var draftId = $( "#draftId" ).val();
         var postData = {
-            "Title":$("input[name=Title]").val(), 
-            "Content":$("input[name=Content]").val(), 
+            "Title":$("input[name=Title]").val(),
+            "Content": $("textarea[name=Content]").val(), 
             "TagList":$("input[name=TagList]").val(), 
             "CategoryId":$("select[name=CategoryId] option:selected").val(),
 			"AccessStatus":$("input[name=AccessStatus]:checked").val(), 

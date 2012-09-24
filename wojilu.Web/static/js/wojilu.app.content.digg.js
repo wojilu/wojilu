@@ -1,4 +1,5 @@
-    
+define( [], function() {
+
     var getDiggNum = function( ele ) {
         var strDiggNum = $('.diggNum', $(ele)).text();
         var diggNum = parseInt( strDiggNum.substring( 1, strDiggNum.length-1 ) );
@@ -46,7 +47,7 @@
     
     //--------------------------------------------------------------------------
 
-    var digg = function( btnId, lnk ) {
+    var initDigg = function( btnId, lnk ) {
         var cmd = 'up';
         if( btnId.indexOf( 'Down' )>0 ) cmd = 'down';
         $('#'+btnId).click( function() {
@@ -60,3 +61,7 @@
             });
         });
     }
+
+    return { init : initDigg }
+
+});
