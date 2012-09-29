@@ -11467,7 +11467,7 @@ wojilu.tool = {
     	wojilu.ui.box.setWidthHeight( bid, width, height );        
         $('#'+iframeId).css( 'width', width+'px').css( 'height', height+'px');
         wojilu.ui.box.resetPos(bid);        
-    	$('#box'+bid).css( 'height', (height+26)+'px');
+    	$('#box'+bid).css( 'height', (height+35)+'px');
     },
     
     resizeFrame : function( frmId, height ) {
