@@ -85,7 +85,6 @@
 
 _run( function() {
 
-    $("#tagBox").draggable();
     $('.cmdTag').click( function() {
 	    var ps = $(this).position(); // 获取当前被点击的元素的位置
 	    $('#tagBox').css( 'top', ps.top+20 ).css( 'left', ps.left ).toggle('fast'); // 通过绝对定位来显示图层

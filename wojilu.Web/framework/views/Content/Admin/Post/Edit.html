@@ -142,10 +142,18 @@ _run( function() {
 			<td class="pubLeft">:{picUrl}</td>
 			<td>
 		        <div style="position:relative;">
-		            <div>
-		                <input id="ImgLink" style="width:350px;" name="ImgLink" type="text" value="#{post.ImgLink}" /><span class="note">或上传</span>
-		                <input id="imgUpload" name="imgUpload" type="file" />
-		            </div>
+
+                    <table>
+                        <tr>
+                        <td>
+                            <input id="ImgLink" style="width:320px;" name="ImgLink" type="text" value="#{post.ImgLink}" />
+                            <span class="note">或上传</span>
+                        </td>
+                        <td><input id="imgUpload" name="imgUpload" type="file" /></td>
+                        </tr>
+                    </table>
+
+
 		            <div><span id="imgUploadStatus" style="color:Blue;"></span></div>
 		            <div id="imgUploadQueue" style="position:absolute; top:0px; left:0px;"></div>		  
                 </div>

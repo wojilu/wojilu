@@ -12,10 +12,12 @@
         $('#'+parentIframeId, window.parent.document ).show();
     }
 
+    /*
+    这个只是在翻页链接中才需要，而且在翻页列表超过一屏的情况下
     var pifrmPosition = $('#'+parentIframeId, window.parent.document ).position();
     if( pifrmPosition !=null ) {
         wojilu.tool.getRootParent().scrollTo(0,pifrmPosition.top);
-    }
+    }*/
     
     hideParentLoading(); 
     

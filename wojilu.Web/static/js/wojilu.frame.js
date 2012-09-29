@@ -1,4 +1,5 @@
-﻿define([],function(){
+﻿// use in box
+define([],function(){
 
     scrollTo(0,0);
 
@@ -30,7 +31,7 @@
         var width = $(document).width();
         var height = parseInt( $(document).height() );
         iResize = iResize + 1;
-        if( iResize>2 ) clearInterval( cmdResize );
+        if( iResize>20 ) clearInterval( cmdResize ); //弹窗中只调整20次，共计50*20=1秒
         
         if( 'boxFrm' == parentIframeClass ) {
             window.parent.wojilu.tool.resizeBox(width,height, parentIframeId); // 为弹窗专门设置大小
@@ -70,14 +71,5 @@
         $(this).append( '<input name="frm" type="hidden" value="true" />' );
     });
 
-
-    
-    //---------------------------------------------------------
-
-    /* (框架内部)点击翻页链接，定位到框架顶部。默认不启用。
-    $('.turnpage a').click( function() {
-        $(this).attr( 'href', $(this).attr('href')+'#');
-    });
-    */
  
 });

@@ -1,4 +1,4 @@
-﻿$(document).ready( function() {
+﻿define(['wojilu.drag'], function( sort ) {
     
     var saveCallback = function() {
      	var newlayout = sort.result();
@@ -9,16 +9,13 @@
     	});
     };
 
-	//sort.to( 'sectionContainer', 'adminColumn', 'adminSection', 'adminSectionTitle', saveCallback );
+    // sort and drag
 	sort.to( 'sectionContainer', 'adminColumn', 'adminSection', 'adminSectionTitleInternal', saveCallback );
-    
 	
 	$( '#chkUpload' ).click( function(){
 		$( '#lnkDiv' ).toggle();$( '#uploadDiv' ).toggle();
 	});
 
-
-    
 
 
 	var hideSection = function( targetId, current ) {

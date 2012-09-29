@@ -235,7 +235,6 @@
     <Content Include="framework\views\Content\Admin\ContentSection\_SettingEdit.html" />
     <Content Include="framework\views\Content\Admin\Row\ConfirmAddRow.html" />
     <Content Include="framework\views\Content\Admin\Content\Home.html" />
-    <Content Include="framework\views\Content\Admin\Content\SetStyle2.html" />
     <Content Include="framework\views\Content\Admin\Layout\Layout.html" />
     <Content Include="framework\views\Content\Admin\Section\Img\AddImgList.html" />
     <Content Include="framework\views\Content\Admin\Section\Img\AddListInfo.html" />
@@ -245,7 +244,6 @@
     <Content Include="framework\views\Content\Admin\Section\Layout\Layout.html" />
     <Content Include="framework\views\Content\Admin\Section\ListImg\AdminSectionShow.html" />
     <Content Include="framework\views\Content\Admin\Section\ListTwo\AdminSectionShow.html" />
-    <Content Include="framework\views\Content\Admin\Section\List\Add.html" />
     <Content Include="framework\views\Content\Admin\Section\List\AddImg.html" />
     <Content Include="framework\views\Content\Admin\Section\List\AdminList.html" />
     <Content Include="framework\views\Content\Admin\Section\List\AdminSectionShow.html" />
@@ -563,8 +561,6 @@
     <Content Include="framework\views\Admin\SiteSkin\script.html" />
     <Content Include="framework\views\Admin\SiteSkin\UploadForm.html" />
     <Content Include="framework\views\Admin\SiteSkin\CustomNav.html" />
-    <Content Include="framework\views\Admin\Sys\MenuSkin\AddMenu.html" />
-    <Content Include="framework\views\Admin\Sys\MenuSkin\List.html" />
     <Content Include="framework\views\Admin\Sys\Site\BeginRestart.html" />
     <Content Include="framework\views\Admin\Sys\SystemFile\Edit.html" />
     <Content Include="framework\views\Admin\Sys\SystemFile\Index.html" />
@@ -623,7 +619,6 @@
     <Content Include="framework\views\Forum\Admin\Setting\Index.html" />
     <Content Include="framework\views\Forum\Recent\ImgTopic.html" />
     <Content Include="framework\views\Forum\Search\Results.html" />
-    <Content Include="framework\views\Admin\Sys\MenuSkin\Index.html" />
     <Content Include="framework\views\Forum\Forum\TopList.html" />
     <Content Include="framework\views\Forum\Users\Uploader\UploadForm.html" />
     <Content Include="framework\views\Groups\Admin\Skin\AddPicUrl.html" />
@@ -752,7 +747,6 @@
     <Content Include="framework\views\Common\Page\VersionShow.html" />
     <Content Include="framework\views\Common\Page\EditWarning.html" />
     <Content Include="framework\views\Content\Admin\Content\Index.html" />
-    <Content Include="framework\views\Content\Admin\Content\Menu.html" />
     <Content Include="framework\views\Content\Admin\Post\Add.html" />
     <Content Include="framework\views\Content\Admin\SectionSetting\Edit.html" />
     <Content Include="framework\views\Content\Binder\Focus.html" />

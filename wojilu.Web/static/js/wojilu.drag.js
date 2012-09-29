@@ -1,4 +1,4 @@
-﻿
+﻿define([], function() {
 var sort = {
 
     saveCallback : null,
@@ -236,3 +236,7 @@ var sort = {
 	}
 
 };
+
+return sort;
+
+});

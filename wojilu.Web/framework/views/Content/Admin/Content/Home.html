@@ -1,7 +1,5 @@
 ﻿<link href="#{skinPath}?v=#{cssVersion}" rel="stylesheet" type="text/css" />
-<link href="~css/wojilu.app.content.admin.css?v=#{jsVersion}" rel="stylesheet" type="text/css" />    
-<script src="~js/wojilu.ui.slider.js?v=0048" type="text/javascript"></script>
-    
+<link href="~css/wojilu.app.content.admin.css?v=#{cssVersion}" rel="stylesheet" type="text/css" />    
 
 <style>
 
@@ -165,88 +163,67 @@
 	
 	<!-- END rowList -->
 
-
 </div>
-
 
 
 </div>
 </div>
 
-
-<script src="~js/wojilu.app.content.admin.js?v=#{jsVersion}" type="text/javascript"></script>
-<script src="~js/wojilu.drag.js?v=#{jsVersion}" type="text/javascript"></script>
 
 <script>
-_run( function() {
-    
-	var adminSidebar = $('#sidebar');
-	
-	$('#toggleSidebar').click( function() {
-	
-		adminSidebar.toggle();		
-		
-		var isHide = (adminSidebar.css( 'display' )=='none');
-		
-		if( isHide ) {
-			$(this).html( '<img src="~img/left.gif"/> :{showSidebar}' );
-		}
-		else {
-			$(this).html( '<img src="~img/close.gif"/> :{closeSidebar}' );
-		}
-		
-	});
-	
-	wojilu.ui.frmUpdate();
-	
-	$('.binderSectionBody a').each( function() {
-	    $(this).attr( 'target', '_blank' );
-	});
-	
-	$('.sectionAdminMenus li a').bind("mousedown",function(e){
-        e.stopPropagation();
-    });
-    
-    $('.moveRow').each( function() {
-        if( $(this).attr( 'href' )!='#' ) {
-            $(this).show();
-        }
-    });
-    
-    $('.moveRow').click( function() {
-        var saveUrl = $(this).attr( 'href' );
-        if( saveUrl == '#' ) return false;
-        $.post( saveUrl.toAjax(), function(data) {
-            if( 'ok'==data ) {
-                wojilu.tool.reloadPage();
+    _run(function () {
+
+        wojilu.ui.slider();
+        wojilu.ui.frmUpdate();
+
+        require(['wojilu.app.content.admin']);
+
+        var adminSidebar = $('#sidebar');
+
+        $('#toggleSidebar').click(function () {
+
+            adminSidebar.toggle();
+
+            var isHide = (adminSidebar.css('display') == 'none');
+
+            if (isHide) {
+                $(this).html('<img src="~img/left.gif"/> :{showSidebar}');
             }
             else {
-                alert( data );
+                $(this).html('<img src="~img/close.gif"/> :{closeSidebar}');
+            }
+
+        });
+        
+
+        $('.binderSectionBody a').each(function () {
+            $(this).attr('target', '_blank');
+        });
+
+        $('.sectionAdminMenus li a').bind("mousedown", function (e) {
+            e.stopPropagation();
+        });
+
+        $('.moveRow').each(function () {
+            if ($(this).attr('href') != '#') {
+                $(this).show();
             }
         });
-        return false;
+
+        $('.moveRow').click(function () {
+            var saveUrl = $(this).attr('href');
+            if (saveUrl == '#') return false;
+            $.post(saveUrl.toAjax(), function (data) {
+                if ('ok' == data) {
+                    wojilu.tool.reloadPage();
+                }
+                else {
+                    alert(data);
+                }
+            });
+            return false;
+        });
+
+
     });
-    
-    /*
-    $('.adminRow').hover( 
-        function() {
-            $('.rowTitle', $(this)).show();
-        },
-        function() {
-            $('.rowTitle', $(this)).hide();
-        }    
-    );
-    
-    $('.adminColumn').hover(
-        function() {
-            $('.columnTitle', $(this)).fadeIn();
-        },
-        function() {
-            $('.columnTitle', $(this)).fadeOut();
-        }
-    );*/
-
-
-    
-});
 </script>

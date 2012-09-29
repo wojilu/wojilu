@@ -4,11 +4,8 @@
 
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<script src="~js/jquery.js?v=#{jsVersion}" type="text/javascript"></script>
-<script src="~js/lang.#{langStr}.js?v=#{jsVersion}" type="text/javascript"></script>
-<script src="~js/wojilu.common.js?v=#{jsVersion}" type="text/javascript"></script>
-<script src="~js/wojilu.nolayout.js?v=#{jsVersion}" type="text/javascript"></script>
 <title>_{userLogin}</title>
+<script>    var __funcList = []; var _run = function (aFunc) { __funcList.push(aFunc); };</script>
 <style>
 body {background2:#a2c4e1; background2:url("~img/admin/login-bg.jpg"); margin:0px; padding:0px;}
 #divLogin {width:550px;height:370px; margin:auto;margin-top:140px; padding:0px; background:url("~img/admin/login.jpg") no-repeat;}
@@ -61,6 +58,8 @@ input { border:1px #aaa inset;}
 	</form>
 </div>
 
+<script data-main="~js/main" src="~js/lib/require-jquery.js"></script>
+<script>require(["wojilu.nolayout"]);</script>
 </body>
 
 </html>
