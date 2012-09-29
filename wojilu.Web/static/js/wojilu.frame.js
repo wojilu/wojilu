@@ -37,7 +37,6 @@
             return;
         }
 
-
         window.parent.wojilu.tool.resizeFrame( parentIframeId, height );
     };
 

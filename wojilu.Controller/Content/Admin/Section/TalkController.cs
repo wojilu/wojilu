@@ -65,7 +65,7 @@ namespace wojilu.Web.Controller.Content.Admin.Section {
 
         [HttpPost, DbTransaction]
         public void Create( int sectionId ) {
-            ContentPost post = ContentValidator.Validate( sectionService.GetById( sectionId, ctx.app.Id ), ctx );
+            ContentPost post = ContentValidator.SetValueBySection( sectionService.GetById( sectionId, ctx.app.Id ), ctx );
             ContentValidator.ValidateTalk( post , ctx);
             if (errors.HasErrors) {
                 run( Add, sectionId );
@@ -100,7 +100,7 @@ namespace wojilu.Web.Controller.Content.Admin.Section {
                 return;
             }
 
-            ContentValidator.ValidateEdit( post, ctx );
+            ContentValidator.SetPostValue( post, ctx );
             ContentValidator.ValidateTalk( post, ctx );
             if (errors.HasErrors) {
                 Edit( postId );

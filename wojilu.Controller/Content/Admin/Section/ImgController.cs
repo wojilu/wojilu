@@ -92,7 +92,7 @@ namespace wojilu.Web.Controller.Content.Admin.Section {
         
         [HttpPost, DbTransaction]
         public void CreateListInfo( int sectionId ) {
-            ContentPost post = ContentValidator.Validate( sectionService.GetById( sectionId, ctx.app.Id ), ctx );
+            ContentPost post = ContentValidator.SetValueBySection( sectionService.GetById( sectionId, ctx.app.Id ), ctx );
             if (strUtil.IsNullOrEmpty( post.Title )) {
                 errors.Add( lang( "exTitle" ) );
                 run(AddListInfo, sectionId );

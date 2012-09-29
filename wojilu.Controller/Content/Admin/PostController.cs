@@ -112,8 +112,8 @@ namespace wojilu.Web.Controller.Content.Admin {
 
         public void Create() {
 
-            ContentPost post = ContentValidator.Validate( ctx );
-            ContentValidator.ValidateArticle( post, ctx );
+            ContentPost post = ContentValidator.SetValue( ctx );
+            ContentValidator.ValidateTitleBody( post, ctx );
 
             String sectionIds = ctx.PostIdList( "postSection" );
             if (strUtil.IsNullOrEmpty( sectionIds )) errors.Add( "请选择区块" );
@@ -257,8 +257,8 @@ namespace wojilu.Web.Controller.Content.Admin {
 
             String sectionIds = ctx.PostIdList( "postSection" );
 
-            ContentValidator.ValidateEdit( post, ctx );
-            ContentValidator.ValidateArticle( post, ctx );
+            ContentValidator.SetPostValue( post, ctx );
+            ContentValidator.ValidateTitleBody( post, ctx );
             if (errors.HasErrors) {
                 run( Edit, postId );
             }

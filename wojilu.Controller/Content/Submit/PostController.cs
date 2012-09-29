@@ -92,8 +92,8 @@ namespace wojilu.Web.Controller.Content.Submit {
                 return;
             }
 
-            ContentPost post = ContentValidator.Validate( sectionService.GetById( sectionId, ctx.app.Id ), ctx );
-            ContentValidator.ValidateArticle( post, ctx );
+            ContentPost post = ContentValidator.SetValueBySection( sectionService.GetById( sectionId, ctx.app.Id ), ctx );
+            ContentValidator.ValidateTitleBody( post, ctx );
 
             if (strUtil.HasText( post.ImgLink )) {
                 post.CategoryId = PostCategory.Img;
@@ -132,7 +132,7 @@ namespace wojilu.Web.Controller.Content.Submit {
                 return;
             }
 
-            ContentPost post = ContentValidator.Validate( sectionService.GetById( sectionId, ctx.app.Id ), ctx );
+            ContentPost post = ContentValidator.SetValueBySection( sectionService.GetById( sectionId, ctx.app.Id ), ctx );
             ContentValidator.ValidateVideo( post, ctx );
 
             if (ctx.HasErrors) {
