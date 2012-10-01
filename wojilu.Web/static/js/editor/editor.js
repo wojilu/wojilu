@@ -121,11 +121,7 @@ wojilu.editor = function( param ) {
     this.selection = { range : null, type : null, text:null };
     
     this.getHiddenEle = function( name, frmId, height, content ) {
-        //var result = '<input type="hidden" id="'+name+'" name="'+name+'" value=\''+content+'\' />';
-        //var result = '<textarea id="'+name+'" name="'+name+'" style="width:80%;" />'+content+'</textarea>';
-        var result = '';
-        result += '<div style="padding:0px;border:0px red solid;"><iframe class="wojiluEditorFrame" id="'+frmId+'" name="'+frmId+'" width="100%" height="'+height+'" frameborder="0" scrolling="auto" style="margin:0px;width:100%;border:0px #000 solid;"></iframe></div>';
-        return result;
+        return '<div class="wojiluEditorFrameWrap" style="padding:0px;border:0px red solid;"><iframe class="wojiluEditorFrame" id="'+frmId+'" name="'+frmId+'" width="100%" height="'+height+'" frameborder="0" scrolling="auto" style="margin:0px;width:100%;border:0px #000 solid;"></iframe></div><div class="resizer"><div class="resizerInner"></div></div>';
     };
 
     this.getEditorId = function() {        
@@ -958,13 +954,53 @@ wojilu.editor.prototype.showPosition = function(target, offset) {
     $('#tempDiv').css( 'position', 'absolute' ).css( 'zIndex', 9 ).css( 'left', (tp.x+offset) ).css( 'top', tp.y );
 };
 
+wojilu.editor.prototype.resize = function() {
+    
+    var $editor = $('#'+this.id );
+    var $resizer =$('.resizer', $editor ); 
+    var _clientY;
+    var frmDoc = this.doc;
+    var doc = document;
+
+    $resizer.mousedown( function(e) {
+
+        e.stopPropagation();
+
+        function bindMove(e) {
+            e.preventDefault();
+
+            var clientY = wojilu.position.getMouse(e).y;
+            var deltaY = clientY - _clientY; 
+            _clientY = clientY;
+
+            var $frm = $('.wojiluEditorFrame', $editor);
+            var newHeight = $frm.height() + deltaY;
+            $frm.height( newHeight );
+            $frm.prev().height( newHeight );
+        }
+    
+        function bindUp(e) {
+            e.preventDefault();
+            $(doc).unbind('mousemove',  bindMove ).unbind('mouseup',  bindUp ).unbind( 'selectstart', bindSelect );
+            $(frmDoc).unbind('mouseup', bindUp).unbind('selectstart',bindSelect);
+            if( $resizer.releaseCapture ) $resizer.releaseCapture();
+        }
+
+        function bindSelect(e) { e.preventDefault(); }
+
+        $(doc).mousemove( bindMove ).mouseup( bindUp ).bind( 'selectstart', bindSelect );
+        $(frmDoc).mouseup( bindUp ).bind( 'selectstart', bindSelect );
+
+        if( $resizer.setCapture ) $resizer.setCapture();
+    });
+
+};
+
 //----------------------------------------------------------------
 
 wojilu.editor.prototype.render = function() {
 
-    if( wojilu.editorConfig.isSupport() == false ) {
-        return;
-    }
+    if( wojilu.editorConfig.isSupport() == false ) return;
     
     wojilu.tool.loadCss( this.skinPath + 'style.css' );    
     var toolBar = this.getBar();    
@@ -974,37 +1010,16 @@ wojilu.editor.prototype.render = function() {
     html += '</div>';
     $( '#'+this.name.replace('.','_')+'Editor' ).append( html );
     
-    //this.editorPanel = $('#'+this.id);
     this.editorPanel = $(document.getElementById(this.id));
     
     this.addImgs();    
     this.makeWritable();    
     this.addCallback();
+    this.resize();
     
-    //$('#'+this.frmId).before( $('#'+this.name) );
-    $(document.getElementById(this.frmId)).before( $(document.getElementById(this.name) ) );
-    var frmrId = this.frmId;
-
-    //this.editor.focus();
-
-    var isPart = function() {
-        if( wojilu.tool.getQuery( 'frm' ) == 'true') return true;
-        if( wojilu.tool.getQuery( 'nolayout' ) !='' ) return true;
-        return false;
-    };
-
-    // 弹窗中编辑器不可resize
-    if( isPart() ==false ) {
-        $('#'+this.id).resizable({
-            resize: function(event, ui) {
-                var that = $(this)[0];
-                var frmr = $('#'+frmrId, that);
-                $(frmr).height( $(that).height()-30 );
-            }
-        });
-    };
-    
-
+    var $frm = $(document.getElementById(this.frmId));
+    var $txt = $(document.getElementById(this.name));
+    $frm.before( $txt );
 };
 
 
