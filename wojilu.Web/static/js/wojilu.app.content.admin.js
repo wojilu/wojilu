@@ -1,4 +1,4 @@
-﻿define(['wojilu.drag'], function( sort ) {
+﻿define(['wojilu.core.drag'], function( sort ) {
     
     var saveCallback = function() {
      	var newlayout = sort.result();

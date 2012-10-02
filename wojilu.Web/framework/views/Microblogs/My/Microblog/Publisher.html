@@ -57,7 +57,7 @@
     <div class="mBoxClose" style="float:right;"><img src="~img/box/close.gif" /></div><div id="mbpubEmotion"></div>
     <script>
         _run(function () {
-            require(["wojilu.microblog"], function (x) {
+            require(["wojilu.app.microblog"], function (x) {
                 $('#mbpubEmotion').html( x.getEmotionTable() );
             });
         });
@@ -109,7 +109,7 @@ _run( function() {
 
     wojilu.upload.initFlash( '#file_upload', cfg );
 
-    require(['wojilu.microblog'], function( x ) {
+    require(['wojilu.app.microblog'], function( x ) {
         x.bindMbEvent( '#{getVideoUrl}' , #{mbTotalCount}, '#{ActionLink}');
     });
 	

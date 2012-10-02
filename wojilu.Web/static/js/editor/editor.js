@@ -250,6 +250,7 @@ wojilu.editor.prototype = {
             };
             this.addimg( cmd );
         };
+        return this;
     },
    
     writeContentToEditor : function ( htmlContent ) {        
@@ -321,6 +322,7 @@ wojilu.editor.prototype = {
             }, false );
             
         };
+        return this;
     }
 
 };
@@ -366,6 +368,7 @@ wojilu.editor.prototype.addCallback = function () {
     };
     
     this.ebarMoreHandler();
+    return this;
 };
 
 wojilu.editor.prototype.dlgHandler = function (cmd) {
@@ -993,7 +996,7 @@ wojilu.editor.prototype.resize = function() {
 
         if( $resizer.setCapture ) $resizer.setCapture();
     });
-
+    return this;
 };
 
 //----------------------------------------------------------------
@@ -1012,10 +1015,7 @@ wojilu.editor.prototype.render = function() {
     
     this.editorPanel = $(document.getElementById(this.id));
     
-    this.addImgs();    
-    this.makeWritable();    
-    this.addCallback();
-    this.resize();
+    this.addImgs().makeWritable().addCallback().resize();
     
     var $frm = $(document.getElementById(this.frmId));
     var $txt = $(document.getElementById(this.name));

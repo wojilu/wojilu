@@ -101,7 +101,7 @@ namespace wojilu.Web.Mvc.Utils {
 
             return "<!DOCTYPE html>" + Environment.NewLine
                 + "<html lang=\"zh-CN\">" + Environment.NewLine
-                + "<head>" + getCss( "wojilu.common" ) + getCss( "wojilu.common.admin" ) + Environment.NewLine
+                + "<head>" + getCss( "wojilu.common" ) + getCss( "wojilu.core.admin" ) + Environment.NewLine
                 + "<script> var __funcList=[]; var _run=function(aFunc) { __funcList.push(aFunc);};</script>"
                 + "</head>" + Environment.NewLine
                 + "<body id=\"boxBody\">";
@@ -116,7 +116,7 @@ namespace wojilu.Web.Mvc.Utils {
         }
 
         private static String getRequireJs( String jsName ) {
-            String jsEnv = "<script>require(['wojilu." + jsName + "', 'wojilu.common.admin']);</script>";
+            String jsEnv = "<script>require(['wojilu.core." + jsName + "', 'wojilu.core.admin']);</script>";
             return string.Format( "<script data-main=\"{0}main\" src=\"{0}lib/require-jquery.js\"></script>{1}", sys.Path.Js, jsEnv );
         }
 

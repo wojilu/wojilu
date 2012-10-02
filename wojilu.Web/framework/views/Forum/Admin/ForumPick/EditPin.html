@@ -35,14 +35,16 @@
 
             }
 
-            $('#idx'+#{x.PinIndex}).attr( 'checked', 'checked' );
+            _run( function() {
+                $('#idx'+#{x.PinIndex}).attr( 'checked', 'checked' );
 
-            var ids = [#{indexIds}];
-            for (var i = 0; i < ids.length; i++) {
-                $('#idx'+ids[i]).attr('disabled', 'disabled')
-                var span = $('#idx'+ids[i]).next();
-                span.html( '<span style="color:#aaa;">'+span.text()+ '(已占用)</span>');
-            }
+                var ids = [#{indexIds}];
+                for (var i = 0; i < ids.length; i++) {
+                    $('#idx'+ids[i]).attr('disabled', 'disabled')
+                    var span = $('#idx'+ids[i]).next();
+                    span.html( '<span style="color:#aaa;">'+span.text()+ '(已占用)</span>');
+                }
+            });
         </script>
 
         </div> 

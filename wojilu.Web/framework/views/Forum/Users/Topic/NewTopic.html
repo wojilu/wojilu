@@ -103,7 +103,7 @@ _run( function() {
     wojilu.ui.valid();
     wojilu.ui.ajaxPostForm();
 
-    require( ['wojilu.forum.upload'], function( attach ) {
+    require( ['wojilu.app.forum.upload'], function( attach ) {
 
         var cfg = wojilu.upload.getSettings();
         cfg.uploader = '#{batchUploadLink}'.toAjax(); // 接受上传的网址

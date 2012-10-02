@@ -1,4 +1,4 @@
-﻿define(['wojilu.ems'], function(x) {
+﻿define(['wojilu.core.ems'], function(x) {
 
     function _getEmotionTable() {
         var trS = '<table cellpadding="3" class="emSelector"><tr id="emRow1">';

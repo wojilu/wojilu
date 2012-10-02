@@ -35,7 +35,7 @@ box-shadow:0px 2px 10px #aaa; -webkit-box-shadow: 0px 2px 10px #aaa;-moz-box-sha
 
 <script>
 _run( function() {
-    require(['wojilu.microblog'], function( x ) {
+    require(['wojilu.app.microblog'], function( x ) {
         x.bindMbEvent( '' , #{mbTotalCount}, '#{ActionLink}');
         x.countStr(#{mbTotalCount});
     });
