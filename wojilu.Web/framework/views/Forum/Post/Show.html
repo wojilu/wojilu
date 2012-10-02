@@ -1,11 +1,13 @@
-﻿<script type="text/javascript" src="~js/syntaxhighlighter/scripts/shCore.js"></script>
-<script type="text/javascript" src="~js/syntaxhighlighter/scripts/shBrushCommon.js"></script>
-<link type="text/css" rel="stylesheet" href="~js/syntaxhighlighter/styles/shCore.css"/>
-<link type="text/css" rel="stylesheet" href="~js/syntaxhighlighter/styles/shThemeDefault.css"/>
+﻿<link type="text/css" rel="stylesheet" href="~js/lib/syntaxhighlighter/styles/shCore.css"/>
+<link type="text/css" rel="stylesheet" href="~js/lib/syntaxhighlighter/styles/shThemeDefault.css"/>
 
 <script type="text/javascript">
-	SyntaxHighlighter.config.clipboardSwf = "~js/syntaxhighlighter/scripts/clipboard.swf";
-	SyntaxHighlighter.all();
+    _run(function () {
+        require(['lib/syntaxhighlighter/scripts/shCore', 'lib/syntaxhighlighter/scripts/shBrushCommon'], function () {
+            SyntaxHighlighter.config.clipboardSwf = "~js/lib/syntaxhighlighter/scripts/clipboard.swf";
+            SyntaxHighlighter.all();
+        });
+    });
 </script>
 
 #{location}

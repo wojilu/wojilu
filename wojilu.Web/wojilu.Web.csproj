@@ -636,18 +636,18 @@
     <Content Include="static\js\wojilu.app.content.js" />
     <Content Include="static\js\wojilu.app.forum.upload.js" />
     <Content Include="static\js\wojilu.app.microblog.js" />
+    <Content Include="static\js\wojilu.app.microblog.rotate.js" />
     <Content Include="static\js\wojilu.app.microblog.view.js" />
-    <Content Include="static\js\wojilu.core.admin.js" />
     <Content Include="static\js\wojilu.core.comment.js" />
     <Content Include="static\js\wojilu.core.drag.js" />
     <Content Include="static\js\wojilu.core.ems.js" />
-    <Content Include="static\js\wojilu.core.frame.js" />
     <Content Include="static\js\wojilu.core.ie6.js" />
-    <Content Include="static\js\wojilu.core.nolayout.js" />
     <Content Include="static\js\wojilu.core.sitetop.js" />
     <Content Include="static\js\wojilu.core.skin.js" />
-    <Content Include="static\js\wojilu.ui.rotate.js" />
-    <Content Include="static\js\wojilu.ui.slider.js" />
+    <Content Include="static\js\wojilu._admin.js" />
+    <Content Include="static\js\wojilu._frame.js" />
+    <Content Include="static\js\wojilu._nolayout.js" />
+    <Content Include="static\js\wojilu._slider.js" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>

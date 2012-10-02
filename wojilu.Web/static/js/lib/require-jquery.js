@@ -11310,7 +11310,7 @@ wojilu.path.js = wojilu.path.st + '/js';
 wojilu.path.img = wojilu.path.st + '/img';
 wojilu.path.siteAndApp = 'http://' + window.location.host + wojilu.path.app;
 wojilu.path.flash = wojilu.path.st + '/flash';'';
-wojilu.path.uploadify = wojilu.path.js + '/uploadify';
+wojilu.path.uploadify = wojilu.path.js + '/lib/uploadify';
 
 wojilu.upload = {};
 wojilu.upload.getSettings = function(){
@@ -12857,7 +12857,7 @@ wojilu.ui.autoSubmitForm = function() {
 };
 
 wojilu.ui.slider = function() {
-    require( ["wojilu.ui.slider"], function( slider ) {
+    require( ["wojilu._slider"], function( slider ) {
         slider.init();
     });
 };

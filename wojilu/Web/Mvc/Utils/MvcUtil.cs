@@ -116,7 +116,7 @@ namespace wojilu.Web.Mvc.Utils {
         }
 
         private static String getRequireJs( String jsName ) {
-            String jsEnv = "<script>require(['wojilu.core." + jsName + "', 'wojilu.core.admin']);</script>";
+            String jsEnv = "<script>require(['wojilu._" + jsName + "', 'wojilu._admin']);</script>";
             return string.Format( "<script data-main=\"{0}main\" src=\"{0}lib/require-jquery.js\"></script>{1}", sys.Path.Js, jsEnv );
         }
 

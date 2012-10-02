@@ -1,4 +1,4 @@
-﻿require( ['wojilu.ui.rotate'], function( rt ) {
+﻿require( ['wojilu.app.microblog.rotate'], function( rt ) {
 
 	wojilu.tool.makeTab( '.mbNav', 'currentMbNav', '' );
 
