@@ -246,7 +246,6 @@
     <Content Include="framework\views\Content\Admin\Section\Layout\Layout.html" />
     <Content Include="framework\views\Content\Admin\Section\ListImg\AdminSectionShow.html" />
     <Content Include="framework\views\Content\Admin\Section\ListTwo\AdminSectionShow.html" />
-    <Content Include="framework\views\Content\Admin\Section\List\AddImg.html" />
     <Content Include="framework\views\Content\Admin\Section\List\AdminList.html" />
     <Content Include="framework\views\Content\Admin\Section\List\AdminSectionShow.html" />
     <Content Include="framework\views\Content\Admin\Section\List\EditImg.html" />
@@ -661,14 +660,12 @@
     <Content Include="framework\views\Content\Admin\ContentSection\EditUI.html" />
     <Content Include="framework\views\Content\Admin\ContentSection\EditSectionUI.html" />
     <Content Include="framework\views\Content\Admin\Content\SetStyle.html" />
-    <Content Include="framework\views\Content\Admin\Section\List\SaveUpload.html" />
     <Content Include="framework\views\Content\Admin\Section\Normal\AdminSectionShow.html" />
     <Content Include="framework\views\Content\Admin\Section\Poll\Add.html" />
     <Content Include="framework\views\Content\Admin\Section\Poll\AdminSectionShow.html" />
     <Content Include="framework\views\Content\Admin\Section\Poll\List.html" />
     <Content Include="framework\views\Content\Admin\Section\Slide\AdminSectionShow.html" />
     <Content Include="framework\views\Content\Admin\Section\ThumbSlide\AdminSectionShow.html" />
-    <Content Include="framework\views\Content\Admin\Section\List\Upload.html" />
     <Content Include="framework\views\Content\Binder\Login.html" />
     <Content Include="framework\views\Content\Section\Normal\SectionShow.html" />
     <Content Include="framework\views\Content\Section\Poll\List.html" />
@@ -744,8 +741,6 @@
     <Content Include="framework\views\Content\Admin\TemplateCustom\EditBinder.html" />
     <Content Include="framework\views\Content\Admin\Template\List.html" />
     <Content Include="framework\views\Content\Admin\Template\Select.html" />
-    <Content Include="framework\views\Content\Admin\Uploader\SaveUpload.html" />
-    <Content Include="framework\views\Content\Admin\Uploader\UploadForm.html" />
     <Content Include="framework\views\Content\Binder\ListTime.html" />
     <Content Include="framework\views\Content\Binder\Rank.html" />
     <Content Include="framework\views\Content\Binder\MyFace.html" />

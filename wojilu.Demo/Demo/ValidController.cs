@@ -210,7 +210,7 @@ namespace wojilu.Web.Controller.Demo {
                 echoRedirect( "请填写articleContent内容" );
             }
             else {
-                actionContent( "<div>postContent</div><hr/>" + html );
+                actionContent( "<div>articleContent</div><hr/>" + html );
             }
         }
 

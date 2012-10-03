@@ -12550,7 +12550,7 @@ wojilu.ui.box = {
         if( !(top===self) ) { window.parent.wojilu.ui.box.showBoxString(content,boxWidth,boxHeight,btitle,loadingDiv);return;}
     
         this.id ++; var bid = this.id;if( !btitle ) btitle=lang.boxTitle;
-        var zIndex = 100*bid;
+        var zIndex = 100*bid+1000;
 
         var boxtext = '<div id="overlay'+bid+'" class="overlay" style="display:none;z-index:'+(zIndex)+'"></div>'+
         '<table id="boxWrap'+bid+'" class="boxWrap" style="display:none;margin:auto;" cellspacing="0" cellpadding="0"><tr><td class="btl"></td><td class="btc"></td><td class="btr"></td></tr>'+

@@ -98,6 +98,12 @@
 
 <script>
 
+function addFile( objFile, deleteLink ) {
+    require( ['wojilu.app.forum.upload'], function( attach ) {
+        attach.addFile( objFile, deleteLink );
+    });
+}
+
 _run( function() {
 
     wojilu.ui.valid();

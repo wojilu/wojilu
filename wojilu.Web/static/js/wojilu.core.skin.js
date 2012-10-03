@@ -125,5 +125,6 @@
     setHeight();
     setBgStyle();
 
+    return {setBgPic: setBgPic, reloadMyPicList:reloadMyPicList }
 
 });

@@ -11,15 +11,18 @@ namespace wojilu.Web.Utils {
 
         private static string getEmotionJson() {
 
-            String filePath = PathHelper.Map( strUtil.Join( sys.Path.DiskJs, "wojilu.ems.js" ) );
+            String filePath = PathHelper.Map( strUtil.Join( sys.Path.DiskJs, "wojilu.core.ems.js" ) );
             if (file.Exists( filePath ) == false) return null;
 
             String emstr = file.Read( filePath );
             if (strUtil.IsNullOrEmpty( emstr )) return null;
 
-            emstr = strUtil.TrimStart( emstr, "var" ).Trim();
+            int idxEms = emstr.IndexOf( "ems" );
+            emstr = emstr.Substring( idxEms ).Trim();
             emstr = strUtil.TrimStart( emstr, "ems" ).Trim();
-            emstr = strUtil.TrimStart( emstr, "=" ).Trim();
+            emstr = strUtil.TrimStart( emstr, ":" ).Trim();
+            emstr = strUtil.TrimEnd( emstr, "});" ).Trim();
+            emstr = strUtil.TrimEnd( emstr, "};" ).Trim();
 
             return emstr;
         }

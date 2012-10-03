@@ -6,7 +6,22 @@
 
 <link type="text/css" href="~js/lib/colorpicker/css/colorpicker.css" rel="stylesheet" />
 
-<script>
+<script type="text/javascript">
+
+    function setBgPic(tpic, pic) {
+
+        require(['wojilu.core.skin'], function (x) {
+            x.setBgPic(tpic, pic);
+        });
+    }
+
+    function reloadMyPicList() {
+
+        require(['wojilu.core.skin'], function (x) {
+            x.reloadMyPicList();
+        });
+    }
+
     _run(function () {
         require(['wojilu.core.skin']);
     });

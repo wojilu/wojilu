@@ -82,44 +82,6 @@ namespace wojilu.Web.Controller.Content.Admin.Section {
 
         }
 
-        ////--------------------------------------- 图片上传处理 -------------------------------------------------------------
-
-        public void Upload( int sectionId ) {
-            target( SaveUpload, sectionId );
-
-            set( "width", ctx.GetInt( "width" ) );
-            set( "height", ctx.GetInt( "height" ) );
-
-        }
-
-        public void SaveUpload( int sectionId ) {
-
-            if (ctx.HasUploadFiles == false) {
-                echoRedirect( alang( "exUploadEmpty" ), to( Upload, sectionId ) );
-                return;
-            }
-
-            HttpFile file = ctx.GetFileSingle();
-            Result result = Uploader.SaveImg( file );
-            if (result.HasErrors)
-                errors.Join( result );
-            else {
-                String imgUrl = sys.Path.GetPhotoOriginal( result.Info.ToString() );
-                set( "imgUrl", imgUrl );
-                set( "width", ctx.PostInt( "width" ) );
-                set( "height", ctx.PostInt( "height" ) );
-            }
-
-        }
-
-        //public void DeleteUpload( int sectionId ) {
-        //    String imgUrl = ctx.Post( "imgUrl" );
-        //    wojilu.Drawing.Img.DeleteImgAndThumb( imgUrl );
-        //    echoAjaxOk();
-        //}
-
-
-
     }
 }
 

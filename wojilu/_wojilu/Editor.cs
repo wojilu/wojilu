@@ -187,14 +187,14 @@ namespace wojilu {
 
             builder.AppendFormat( "<textarea id=\"{0}\" name=\"{0}\" style=\"display:none;width:98%;height:"+this.Height+";\">{1}</textarea>", this.ControlName, this.Content );
 
-            if (this.IsUnique) {
+            //if (this.IsUnique) {
 
                 builder.Append( "<script>_run(function(){require([\"" + RelativePath + "editor\"],function(){" );
                 builder.AppendLine();
                 builder.Append( "var " + EditVarName + "=new wojilu.editor( {editorPath:'" + this.EditorPath + "', height:'" + this.Height + "', name:'" + this.ControlName + "', content:'', toolbarType:'" + this.Toolbar.ToString().ToLower() + "', uploadUrl:'" + this.UploadUrl + "', mypicsUrl:'" + this.MyPicsUrl + "' } );" + EditVarName + ".render();" );
                 builder.AppendLine();
                 builder.Append( "})});</script>" );
-            }
+            //}
 
             builder.Append( "</div>" );
 
