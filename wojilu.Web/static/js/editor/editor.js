@@ -1,9 +1,9 @@
 ﻿wojilu.editorConfig = {
     
-    arrToolbar1 : [ 'bold', 'italic', 'underline', 'separator', 'fontFamily', 'fontSize', 'clearFormat', 'separator', 'forecolor', 'backcolor', 'emotion', 'pic', 'flash', 'separator', 'link', 'unlink', 'table', 'inserthorizontalrule', 'separator','clear', 'about' ],
-    arrToolbar2 : [ 'justifyleft', 'justifycenter', 'justifyright', 'separator', 'indent', 'outdent', 'undo', 'redo', 'separator', 'insertunorderedlist', 'insertorderedlist', 'superscript', 'subscript', 'strikethrough', 'removeFormat', 'separator', 'copy', 'cut', 'delete', 'paste','addCode' ],
+    cmdList1 : [ 'bold', 'italic', 'underline', 'separator', 'fontFamily', 'fontSize', 'clearFormat', 'separator', 'forecolor', 'backcolor', 'emotion', 'pic', 'flash', 'separator', 'link', 'unlink', 'table', 'inserthorizontalrule', 'separator','clear', 'about' ],
+    cmdList2 : [ 'justifyleft', 'justifycenter', 'justifyright', 'separator', 'indent', 'outdent', 'undo', 'redo', 'separator', 'insertunorderedlist', 'insertorderedlist', 'superscript', 'subscript', 'strikethrough', 'removeFormat', 'separator', 'copy', 'cut', 'delete', 'paste','addCode' ],
     
-    basicToolbar : [ 'bold', 'forecolor', 'fontFamily', 'fontSize', 'underline', 'strikethrough', 'clearFormat', 'separator', 'link', 'emotion', 'pic', 'flash', 'inserthorizontalrule','addCode', 'clear' ],
+    basicCmd : [ 'bold', 'forecolor', 'fontFamily', 'fontSize', 'underline', 'strikethrough', 'clearFormat', 'separator', 'link', 'emotion', 'pic', 'flash', 'inserthorizontalrule','addCode', 'clear' ],
     
     fontNames : [
         ['宋体', '宋体'],
@@ -20,30 +20,62 @@
     ],
         
     lang : {
-    
         ok:'确定',
         closeBox:'关闭',
         urlError:'请输入网址',
-        
         insertEmotions:'插入表情符',
         defaultColor:'自动',
         insertTable:'插入表格',
-        
         url:'网址',
         width:'宽度',
         height:'高度',
-        
         imgInsertTitle:'根据图片链接',
         imgUploadTitle:'图片上传',
         imgMyTitle:'浏览我的图片',
         imgInsert:'插入图片',
         imgUpload:'上传图片',
-        
         flashInsert:'插入flash',
         addLink:'加入链接',        
-        
-        aboutUs : '<strong>『我记录』在线编辑器</strong><br/><a href="http://www.wojilu.com" target="_blank">www.wojilu.com</a> &copy; 1999-2011',
+        aboutUs : '<strong>『我记录』在线编辑器</strong><br/><a href="http://www.wojilu.com" target="_blank">www.wojilu.com</a> &copy; 2010-2012',
         sourceCode : 'html'        
+    },
+
+    langtip : {
+        'bold':'加粗',
+        'italic':'斜体',
+        'underline':'下划线',
+        'fontFamily':'设置字体',
+        'fontSize':'设置文字大小',
+        'clearFormat':'清除文档中所有的多余格式',
+        'forecolor':'文字颜色',
+        'backcolor':'背景颜色',
+        'emotion':'插入表情',
+        'pic':'插入图片',
+        'flash':'插入flash(或者视频)',
+        'link':'添加链接',
+        'unlink':'取消链接',
+        'table':'插入表格',
+        'inserthorizontalrule':'插入横线',
+        'clear':'清除所有内容',
+        'about':'编辑器介绍',
+        'justifyleft':'靠左对齐',
+        'justifycenter':'居中对齐',
+        'justifyright':'靠右对齐',
+        'indent':'缩进',
+        'outdent':'凸出',
+        'undo':'撤销',
+        'redo':'重做',
+        'insertunorderedlist':'插入无序列表',
+        'insertorderedlist':'插入有序列表',
+        'superscript':'设为上标',
+        'subscript':'设为下标',
+        'strikethrough':'加上删除线',
+        'removeFormat':'清除选定内容的格式',
+        'copy':'复制copy',
+        'cut':'剪切',
+        'delete':'删除',
+        'paste':'粘贴',
+        'addCode':'添加程序代码(方便语法高亮显示)'
     },
     
     colors : {
@@ -82,41 +114,32 @@ wojilu.editor = function( param ) {
         return;
     }
 
-
     // 配置
-    this.editorPath;
-    this.skinPath;
-    this.imgPath;    
-    this.emPath;   
+    this.editorPath; this.skinPath; this.imgPath; this.emPath;   
     
     this.fontNames = wojilu.editorConfig.fontNames;
-    
-    this.basicToolbar = wojilu.editorConfig.basicToolbar;
-    this.arrToolbar1 = wojilu.editorConfig.arrToolbar1;    
-    this.arrToolbar2 = wojilu.editorConfig.arrToolbar2;
+    this.basicCmd = wojilu.editorConfig.basicCmd;
+    this.cmdList1 = wojilu.editorConfig.cmdList1;    
+    this.cmdList2 = wojilu.editorConfig.cmdList2;
     
     this.lang = wojilu.editorConfig.lang;    
+    this.langtip = wojilu.editorConfig.langtip;
     this.colors = wojilu.editorConfig.colors;
     this.emotions = wojilu.editorConfig.emotions;
     this.tblSize = wojilu.editorConfig.tblSize;
     
     // 属性
-    this.id;
-    this.frmId;
-    this.config;
-    this.name;
-    this.editorPanel;
-    
-    this.html;
-    this.editor;
-    this.doc;
-    this.IsReadOnly = false;
+    this.id; // wojiluEditor1, wojiluEditor2, ...
+    this.index; // 1, 2, ...
+    this.frmId; // wojiluEditor1Frame, wojiluEditor2Frame, ...
+    this.name; // control name
+    this.html; // control value
+    this.context; // $('#'+this.id) =>context
+    this.editor; // frame or window
+    this.doc; // document in frame
 
-    this.hiddenEle;    
-    this.toolBar1Prefix;
-    this.toolBar1Suffix;
-    this.toolBar2Prefix;
-    this.toolBar2Suffix;    
+    this.config; this.IsReadOnly = false;
+    this.hiddenEle; this.toolBar1Prefix; this.toolBar1Suffix; this.toolBar2Prefix; this.toolBar2Suffix;    
     
     this.selection = { range : null, type : null, text:null };
     
@@ -124,19 +147,21 @@ wojilu.editor = function( param ) {
         return '<div class="wojiluEditorFrameWrap" style="padding:0px;border:0px red solid;"><iframe class="wojiluEditorFrame" id="'+frmId+'" name="'+frmId+'" width="100%" height="'+height+'" frameborder="0" scrolling="auto" style="margin:0px;width:100%;border:0px #000 solid;"></iframe></div><div class="resizer"><div class="resizerInner"></div></div>';
     };
 
-    this.getEditorId = function() {        
-        if( !wojilu.ctx.editorList ) {
-            wojilu.ctx.editorList = new Array();
-        };
-        var result = 'wojiluEditor' + (wojilu.ctx.editorList.length+1);
-        wojilu.ctx.editorList.push( result );
-        return result;
-    };
     
     // 初始化    
     this.initEditor = function(param) {    
     
-        this.id = this.getEditorId();
+        function getEditorIndex() {        
+            if( !wojilu.ctx.editorList ) {
+                wojilu.ctx.editorList = [];
+            };
+            var result = wojilu.ctx.editorList.length+1;
+            wojilu.ctx.editorList.push( result );
+            return result;
+        };
+
+        this.index = getEditorIndex();
+        this.id = 'wojiluEditor' + this.index;
         this.frmId = this.id+'Frame';
         
         this.config = param;    
@@ -157,9 +182,9 @@ wojilu.editor = function( param ) {
         this.hiddenEle = this.getHiddenEle( this.name, this.frmId, this.config.height, this.html );
 
 
-    	this.toolBar1Prefix = '<div class="editorToolBar" style="position:relative;" id="'+this.id+'Toolbar"><table class="editorToolBar1 ebarInner"><tr>';
+    	this.toolBar1Prefix = '<div class="editorToolBar" style="position:relative;" id="'+this.id+'Toolbar"><table class="editorToolBar1 wojilu_editor_bar"><tr>';
     	this.toolBar1Suffix = '<td class="wojilu_tool_more"><img src="'+this.imgPath+'down.gif"/></td></tr></table>';
-    	this.toolBar2Prefix = '<table class="editorToolBar2 ebarInner" style="position:relative;display:none;"><tr>';
+    	this.toolBar2Prefix = '<table class="editorToolBar2 wojilu_editor_bar" style="position:relative;display:none;"><tr>';
         this.checkSourceCode = '<td class="wojilu_tool_source"><div class="viewSource"><input id="chksrc'+this.id+'" type="checkbox"/><label for="chksrc'+this.id+'">'+this.lang.sourceCode+'</label></div></td>';
     	this.toolBar2Suffix = '</tr></table></div>';
     };
@@ -198,28 +223,30 @@ wojilu.editor.prototype = {
     },
 
     formatHandler : function (cmd) {
-        var that = this;
+        var _this = this;
         this.cmdCell(cmd).click(function(){
-            that.format(cmd);
+            _this.format(cmd);
         });
     },
     
     td : function ( name ) {
-        if( name=='seperator' ) {return '<td class="editorToolSeperator ></td>';};
-        return '<td class="wojilu_tool_'+name+'"><img/></td>';
+        if( name=='separator' ) return '<td class="wojilu_editor_separator"><div></div></td>';
+        if( name=='fontFamily' ) return '<td class="wojilu_editor_cmd_text wojilu_tool_'+name+'" title="'+this.langtip[name]+'" unselectable="on"><div unselectable="on">字体</div></td>';
+        if( name=='fontSize' ) return '<td class="wojilu_editor_cmd_text wojilu_tool_'+name+'" title="'+this.langtip[name]+'" unselectable="on"><div unselectable="on">大小</div></td>';
+        return '<td class="wojilu_editor_td wojilu_tool_'+name+'" unselectable="on" title="'+this.langtip[name]+'"><div unselectable="on"></div></td>';
     },
 
     getBasicBar : function () {		
         var strBasicBar = '';
-        for( i=0;i<this.basicToolbar.length;i++ ){ strBasicBar += this.td(this.basicToolbar[i]); };
+        for( i=0;i<this.basicCmd.length;i++ ){ strBasicBar += this.td(this.basicCmd[i]); };
         return this.toolBar1Prefix + strBasicBar + this.checkSourceCode + this.toolBar2Suffix;
     },
 
     getFullBar : function () {
         var fullToolbar1 = '';
-        for( i=0;i<this.arrToolbar1.length;i++ ){ if(!document.all && (this.arrToolbar1[i]=='copy' || this.arrToolbar1[i]=='cut' || this.arrToolbar1[i]=='paste')){continue;} fullToolbar1 += this.td( this.arrToolbar1[i] ); };
+        for( i=0;i<this.cmdList1.length;i++ ){ if(!document.all && (this.cmdList1[i]=='copy' || this.cmdList1[i]=='cut' || this.cmdList1[i]=='paste')){continue;} fullToolbar1 += this.td( this.cmdList1[i] ); };
         var fullToolbar2 = '';
-        for( i=0;i<this.arrToolbar2.length;i++ ){ if(!document.all && (this.arrToolbar2[i]=='copy' || this.arrToolbar2[i]=='cut' || this.arrToolbar2[i]=='paste')){continue;} fullToolbar2 += this.td( this.arrToolbar2[i] ); };
+        for( i=0;i<this.cmdList2.length;i++ ){ if(!document.all && (this.cmdList2[i]=='copy' || this.cmdList2[i]=='cut' || this.cmdList2[i]=='paste')){continue;} fullToolbar2 += this.td( this.cmdList2[i] ); };
         return this.toolBar1Prefix + fullToolbar1 + this.toolBar1Suffix + this.toolBar2Prefix + fullToolbar2 + this.checkSourceCode + this.toolBar2Suffix;
     },
     
@@ -229,30 +256,12 @@ wojilu.editor.prototype = {
         return this.getBasicBar();
     },
     
-    cmdCell : function (s) { return $('.wojilu_tool_'+s, this.editorPanel); },
+    cmdCell : function (s) { return $('.wojilu_tool_'+s, this.context); },
     
     addimg : function (s) {
-        $('.wojilu_tool_'+s+' img').attr('src', this.imgPath+s+'.gif' );
+        $('.wojilu_tool_'+s).addClass('btn-'+s );
     },
     
-    addImgs : function () {
-        for( i=0;i<this.arrToolbar1.length;i++ ){
-            var cmd = this.arrToolbar1[i];
-            if( cmd=='separator' ) {
-                this.cmdCell(cmd).addClass( 'editorSeparator' );
-            };
-            this.addimg( cmd );
-        };
-        for( i=0;i<this.arrToolbar2.length;i++ ){
-            var cmd = this.arrToolbar2[i];
-            if( cmd=='separator' ) {
-                this.cmdCell(cmd).addClass( 'editorSeparator' );
-            };
-            this.addimg( cmd );
-        };
-        return this;
-    },
-   
     writeContentToEditor : function ( htmlContent ) {        
         this.doc.open();
         this.doc.write( htmlContent );
@@ -264,68 +273,158 @@ wojilu.editor.prototype = {
     },
 
     clearFormat : function() {
-        this.doc.body.innerHTML = this.doc.body.innerHTML.replace( /<!--((.|\n|\r)*?)-->/g, '');
+        var _this = this;
+        _this.doc.body.innerHTML = _this.doc.body.innerHTML.replace( /<!--((.|\n|\r)*?)-->/g, '');
+
+        function removeAttrPrivate( tag, attrNames ) {
+            var arrAttr = attrNames.split( "," );
+            for( var i=0;i<arrAttr.length;i++) {
+                var attr = $.trim(arrAttr[i]);
+                tag.removeAttribute( attr );
+            }
+        }
+
+        function removeAttr(tagNames) {
+            var arrTags = tagNames.split( "," );
+            for( var i=0;i<arrTags.length;i++) {
+                var tagName = $.trim(arrTags[i]);
+                var tagItems = _this.doc.getElementsByTagName( tagName );
+                if( !tagItems || tagItems.length==0 ) continue;
+                removeAttrPrivate( tagItems[0], 'style,class,border,lang,face,color,width,height,size' );
+            }
+        }
+        
+        removeAttr( 'a,img,span,strong,b,i,em,div,p,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,form,fieldset,input,textarea,blockquote,table,td,tr,th,tbody,font,hr,caption' );
+
         if( document.all ) {
-            $('a, img, span,strong, b,i,em, body, div, p, dl, dt, dd, ul, ol, li, h1, h2, h3, h4, h5, h6, form, fieldset, input, textarea, blockquote ,table, td, tr, th,tbody, font, caption',this.doc.body).removeAttr( 'style').removeAttr('class').removeAttr( 'border').removeAttr('lang').removeAttr('size').removeAttr('face').removeAttr('color');
-        }
-        else{
-            $('a, img, span,strong, b,i,em, body, div, p, dl, dt, dd, ul, ol, li, h1, h2, h3, h4, h5, h6, form, fieldset, input, textarea, blockquote ,table, td, tr, th,tbody, font, caption',this.doc.body).removeAttr( 'style').removeAttr('class').removeAttr( 'width').removeAttr('height').removeAttr( 'border').removeAttr('lang').removeAttr('size').removeAttr('face').removeAttr('color');
-        }
-        $(this.doc.body).find('style').remove();
-        $(this.doc.body).find('script').remove();
-        $(this.doc.body).find('iframe').remove();
-        $(this.doc.body).find('frame').remove();
-        $(this.doc.body).find('xml').remove();
-        $('pre',this.doc.body).removeAttr('style');
-    },
-    
-    makeWritable : function () {
-    
-        var htmlContent = this.html;
-        if( !document.all && wojilu.str.isNull( this.html ) ) {
-            htmlContent = '<br/>'+this.html;
-        }
-        var frameHtml = '<html><link rel="stylesheet" type="text/css" href="'+this.skinPath+ 'style.css'+'" /><body style="background:#fff;border:0px #aaa solid;margin:5px;padding:0px;font-family:verdana;font-size:12px;line-height:150%;cursor:text;">\n' + htmlContent + '\n</body></html>';
-
-        if( document.all ) { this.editor = frames[ this.frmId ]; } else { this.editor = this.$id( this.frmId ).contentWindow; };
-        this.doc = this.editor.document;
-
-        var that = this;
-        if (document.all) {
-            this.writeContentToEditor(frameHtml);            
-            if (!this.IsReadOnly) this.doc.designMode = 'on';            
-            
-            this.editor.attachEvent('onblur', function() {
-                if( that.isHtmlChecked() ) {
-                    //val( that.name, $('#'+this.name).val());
-                    //val( that.name, that.doc.body.innerText );
-                }
-                else {
-                    val( that.name, checkXhtml( that.doc.body.innerHTML ));
-                };
-            });
+            _this.doc.execCommand('removeFormat', false, null);
         }
         else {
-            if (!this.IsReadOnly) this.$id(this.frmId).contentDocument.designMode = 'on';
-            this.writeContentToEditor(frameHtml);
-            this.editor.addEventListener('blur', function() {
-                if( that.isHtmlChecked() ) {
-    				//var html =that.doc.createRange();
-    				//html.selectNodeContents(that.doc.body);
-                    //var html = $('#'+this.name).val();
-                    //val( that.name, html );
-                }
-                else {
-                    val( that.name, checkXhtml(that.doc.body.innerHTML) );
-                };
-            
-            }, false );
-            
-        };
-        return this;
+            $("font", _this.doc.body).replaceWith(function() { return $(this).contents(); });
+        }
+
+        $(_this.doc.body).find('style').remove();
+        $(_this.doc.body).find('script').remove();
+        $(_this.doc.body).find('iframe').remove();
+        $(_this.doc.body).find('frame').remove();
+        $(_this.doc.body).find('xml').remove();
+        $('pre',_this.doc.body).removeAttr('style');
     }
 
 };
+
+wojilu.editor.prototype.beginRender = function() {
+    wojilu.tool.loadCss( this.skinPath + 'style.css' );    
+    var toolBar = this.getBar();    
+    var html = '<div id="'+this.id+'" class="wojiluEditor">';
+    html += toolBar;
+    html += this.hiddenEle;
+    html += '</div>';
+    $( '#'+this.name.replace('.','_')+'Editor' ).append( html );
+    
+    this.context = $('#'+this.id);
+    return this;
+};
+
+
+ wojilu.editor.prototype.addImgs = function () {
+    for( i=0;i<this.cmdList1.length;i++ ){
+        var cmd = this.cmdList1[i];
+        if( cmd !='separator' && cmd !='fontFamily' && cmd !='fontSize' ) {
+            this.addimg( cmd );
+        }
+    };
+    for( i=0;i<this.cmdList2.length;i++ ){
+        var cmd = this.cmdList2[i];
+        if( cmd !='separator' && cmd !='fontFamily' && cmd !='fontSize' ) {
+            this.addimg( cmd );
+        }
+    };
+    return this;
+};
+   
+wojilu.editor.prototype.makeWritable = function () {
+    
+    var htmlContent = this.html;
+    if( !document.all && wojilu.str.isNull( this.html ) ) {
+        htmlContent = '<br/>'+this.html;
+    }
+    var frameHtml = '<html><link rel="stylesheet" type="text/css" href="'+this.skinPath+ 'style.css'+'" /><body style="background:#fff;border:0px #aaa solid;margin:5px;padding:0px;font-family:verdana;font-size:12px;line-height:150%;cursor:text;">\n' + htmlContent + '\n</body></html>';
+
+    if( document.all ) { this.editor = frames[ this.frmId ]; } else { this.editor = this.$id( this.frmId ).contentWindow; };
+    this.doc = this.editor.document;
+
+    var _this = this;
+    if (document.all) {
+        this.writeContentToEditor(frameHtml);            
+        if (!this.IsReadOnly) this.doc.designMode = 'on';            
+        
+        this.editor.attachEvent('onblur', function() {
+            if( _this.isHtmlChecked() ) {
+            }
+            else {
+                val( _this.name, checkXhtml( _this.doc.body.innerHTML ));
+            };
+        });
+    }
+    else {
+        if (!this.IsReadOnly) this.$id(this.frmId).contentDocument.designMode = 'on';
+        this.writeContentToEditor(frameHtml);
+        this.editor.addEventListener('blur', function() {
+            if( _this.isHtmlChecked() ) {
+            }
+            else {
+                val( _this.name, checkXhtml(_this.doc.body.innerHTML) );
+            };
+        
+        }, false );
+        
+    };
+    return this;
+};
+
+wojilu.editor.prototype.resize = function() {
+    
+    var _this = this;
+    var $resizer =$('.resizer', _this.context ); 
+    var _clientY;
+    var frmDoc = _this.doc;
+    var doc = document;
+
+    $resizer.mousedown( function(e) {
+
+        e.stopPropagation();
+
+        function bindMove(e) {
+            e.preventDefault();
+
+            var clientY = wojilu.position.getMouse(e).y;
+            var deltaY = clientY - _clientY; 
+            _clientY = clientY;
+
+            var $frm = $('.wojiluEditorFrame', _this.context);
+            var newHeight = $frm.height() + deltaY;
+            $frm.height( newHeight );
+            $frm.prev().height( newHeight );
+        }
+    
+        function bindUp(e) {
+            e.preventDefault();
+            $(doc).unbind('mousemove',  bindMove ).unbind('mouseup',  bindUp ).unbind( 'selectstart', bindSelect );
+            $(frmDoc).unbind('mouseup', bindUp).unbind('selectstart',bindSelect);
+            if( $resizer.releaseCapture ) $resizer.releaseCapture();
+        }
+
+        function bindSelect(e) { e.preventDefault(); }
+
+        $(doc).mousemove( bindMove ).mouseup( bindUp ).bind( 'selectstart', bindSelect );
+        $(frmDoc).mouseup( bindUp ).bind( 'selectstart', bindSelect );
+
+        if( $resizer.setCapture ) $resizer.setCapture();
+    });
+    return _this;
+};
+
 
 // 主要事件处理
 //-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -344,21 +443,21 @@ wojilu.editor.prototype.addCallback = function () {
         this.dlgHandler(dcmds[i]);
     };
     
-    var that = this;
+    var _this = this;
     this.cmdCell( 'inserthorizontalrule' ).click( function() {
-        that.cacheSelection(); // 针对IE
-        that.insertHTML( '<hr>' );
+        _this.cacheSelection(); // 针对IE
+        _this.insertHTML( '<hr>' );
     });
 
     this.cmdCell( 'clear' ).click( function() {
         if( confirm( '确实删除所有内容？') ) {
-            that.writeContentToEditor( '' );
+            _this.writeContentToEditor( '' );
         }
     });
     
     this.cmdCell( 'clearFormat' ).click( function() {
         if( confirm( '确实需要清除所有格式吗？') ) {
-            that.clearFormat();
+            _this.clearFormat();
         }
     });
     
@@ -372,15 +471,15 @@ wojilu.editor.prototype.addCallback = function () {
 };
 
 wojilu.editor.prototype.dlgHandler = function (cmd) {
-    var that = this;
+    var _this = this;
     this.cmdCell(cmd).click(function() {
     
-        that.cacheSelection();
-        that.dialog( cmd, this );
+        _this.cacheSelection();
+        _this.dialog( cmd, this );
         
         $('.closeSpan').click(function() {
             $('#'+$(this).attr('target')).hide();
-            that.restoreSelection();
+            _this.restoreSelection();
         });
         
     });
@@ -407,9 +506,10 @@ wojilu.editor.prototype.restoreSelection = function () {
     
 wojilu.editor.prototype.dialog = function (cmd, target) {
 
-    var divId = cmd + 'Box';
+    var divId = cmd + 'Box'+this.index;
     var dlg = this.$id(divId);
     var hasDlg = ( dlg==null || dlg == 'undefined' )?false:true;
+
     if( hasDlg ) {
         $(dlg).show();
         return;
@@ -419,7 +519,7 @@ wojilu.editor.prototype.dialog = function (cmd, target) {
         eval( 'divString = this.'+cmd+'Dialog();' );
         $( 'body' ).append( divString );
         dlg = this.$id(divId);
-    
+
         var tp = wojilu.position.getTarget(target);
         $(dlg).css( 'display', 'block' ).css( 'position', 'absolute' ).css( 'zIndex', 98 )
             .css( 'left', tp.x - dlg.offsetWidth/2 + 15 ).css( 'top', tp.y + target.offsetHeight - 2 )
@@ -430,15 +530,15 @@ wojilu.editor.prototype.dialog = function (cmd, target) {
 };
     
 wojilu.editor.prototype.ebarMoreHandler = function () {
-    var that = this;
-    $('.wojilu_tool_more', that.editorPanel ).click( function() {
-        $('.editorToolBar2', that.editorPanel ).toggle();            
+    var _this = this;
+    $('.wojilu_tool_more', _this.context ).click( function() {
+        $('.editorToolBar2', _this.context ).toggle();            
         var arrow = $('img', this);
         if( wojilu.str.endsWith( arrow.attr('src'), 'down.gif' ) ) {
-            arrow.attr( 'src', that.imgPath+'right.gif' );
+            arrow.attr( 'src', _this.imgPath+'right.gif' );
         }
         else {
-            arrow.attr( 'src', that.imgPath+'down.gif' );
+            arrow.attr( 'src', _this.imgPath+'down.gif' );
         };            
     });
 };
@@ -454,39 +554,10 @@ wojilu.editor.prototype.closeImg = function (boxId) {
     return '<span class="closeSpan" target="'+boxId+'" unselectable="on"><img src="'+this.emPath+'close.gif"/><span>';
 };
 
-//----------------------------------------------------------------
-wojilu.editor.prototype.addCodeDialog= function () {
-    var addCodeBoxId = 'addCodeBox';
-    return '<div id="'+addCodeBoxId+'" style="width:400px;height:260px;background:#f2f2f2;padding:10px 10px 10px 20px; border:1px #aaa solid;">'+
-        '<table style="width:390px"><tr><td>请选择代码类型：<select style="width:100px;"><option value="csharp">c#</option><option value="java">java</option><option value="c">c</option><option value="python">python</option><option value="ruby">ruby</option><option value="vb">vb</option><option value="php">php</option><option value="delphi">delphi</option><option value="js">js</option><option value="xml">xml</option><option value="sql">sql</option><option value="css">css</option><option value="text">纯文本</option></select></td><td style="text-align:right;">' + this.closeImg(addCodeBoxId) + '</td></tr></table><div><textarea style="width:380px;height:180px; border:1px solid #EEEEEE"></textarea></div><div><input type="submit" class="btn btn-primary btns" value="插入代码" /></div><div style="clear:both;"></div></div>';
-}
-
-wojilu.editor.prototype.addCodeHandler= function () {
-    var that = this;
-    var addCodeBoxId = 'addCodeBox';
-    var codeBox = $('#'+addCodeBoxId );
-    $('input[type=submit]', codeBox ).click( function() {
-        var codeType = $('select', codeBox ).val();
-        var code = $('textarea', codeBox ).val();
-        if( $.trim( code )=='' ) {
-            alert( '请填写代码！' );
-            $('textarea', codeBox ).focus();
-            return;
-        }
-        code = code.replace( /</g, '&lt;' ).replace( />/g, '&gt;' );
-        if( codeType=='text' ) {
-            that.insertHTML( code.replace(/\n/g,"<br/>") );
-        }
-        else {
-            that.insertHTML( '<br/><br/><pre class="brush: '+codeType+';" >'+code+'</pre><br/></br/>' );
-        }
-        codeBox.hide();
-    });
-}
     
 //----------------------------------------------------------------
 wojilu.editor.prototype.tableDialog = function () {
-    var tblBoxId = 'tableBox';
+    var tblBoxId = 'tableBox'+this.index;
     var lblInsert = this.lang.insertTable;
     var tblString = '<div id="'+tblBoxId+'"><table><tr><td colspan="9" style="width:145px;border:0px;"><div id="lblTableInfo">'+lblInsert+'</div></td><td style="border:0px;">'+this.closeImg(tblBoxId)+'</td></tr></table><table id="tbl" class="drawTable" cellspacing="0" cellpadding="0">';
 
@@ -503,20 +574,20 @@ wojilu.editor.prototype.tableDialog = function () {
 };
 
 wojilu.editor.prototype.tableHandler = function () {
-    var that = this;
-    var tableBox = $('#tableBox');
+    var _this = this;
+    var tableBox = $('#tableBox'+this.index);
     $('.drawTable',tableBox).mouseout( function() {
-        that.clearCellBg();
+        _this.clearCellBg();
     });
     
     $('.drawTable td',tableBox).mouseover( function() {
         var x = $(this).attr('x');
         var y = $(this).attr('y');
-        that.hlCellBg(x,y);
+        _this.hlCellBg(x,y);
     }).unbind('click').click( function() {
         var x = $(this).attr('x');
         var y = $(this).attr('y');
-        that.insertTable(x,y);
+        _this.insertTable(x,y);
         tableBox.hide();
     });        
 };
@@ -555,9 +626,9 @@ wojilu.editor.prototype.insertTable = function ( x, y ) {
 //----------------------------------------------------------------
   
 wojilu.editor.prototype.fontFamilyDialog = function () {
-    var boxId = 'fontFamilyBox';
+    var boxId = 'fontFamilyBox'+this.index;
     var fname = function( name, text ) { return '<div unselectable="on" style="font-family:'+name+'" fontName="'+name+'" class="fontFamilyItem">'+text+'</div>'; };
-    var result = '<div id="'+boxId+'" style="width:150px;background:#fff;border:1px outset;"><div style="padding:5px 10px;" class="fontFamilyContainer">';
+    var result = '<div id="'+boxId+'" style="width:150px;background:#fff;"><div style="padding:5px 10px;" class="fontFamilyContainer">';
     
     for( var i=0;i<this.fontNames.length;i++ ) {
         result += fname( this.fontNames[i][0], this.fontNames[i][1] );        
@@ -567,59 +638,61 @@ wojilu.editor.prototype.fontFamilyDialog = function () {
     return result;
 };
 
+wojilu.editor.prototype.fontFamilyHandler = function () {
+    var ffBox = $('#fontFamilyBox'+this.index);
+    ffBox.mouseout( function() {
+        $(this).hide();
+    });
+    
+    $('.fontFamilyContainer', ffBox).mouseover( function() {
+        ffBox.show();
+    });
+
+    var _this = this;
+    $('.fontFamilyItem', ffBox).unbind('click').click( function() {
+        var fontName = $(this).attr('fontName');
+        _this.format( 'FontName', fontName );
+        ffBox.hide();
+    });
+};
+    
+//----------------------------------------------------------------
+
 wojilu.editor.prototype.fontSizeDialog = function () {
-    var boxId = 'fontSizeBox';
+    var boxId = 'fontSizeBox'+this.index;
     var fsize = function( size, pt ) { return '<div unselectable="on" style="font-size:'+pt+';" fontSize="'+size+'" class="fontSizeItem">'+pt+'</div>'; };
-    var result = '<div id="'+boxId+'" style="width:138px;background:#fff;border:1px outset;"><div style="padding:5px 10px;" class="fontSizeContainer">';
+    var result = '<div id="'+boxId+'" style="width:138px;background:#fff;"><div style="padding:5px 10px;" class="fontSizeContainer">';
     result += fsize(2,'10pt') + fsize(3,'12pt')  + fsize(4,'14pt') + fsize(5,'18pt') + fsize(6,'24pt') + fsize(7,'36pt');
     result += '</div></div>';
     return result;
 };
 
-wojilu.editor.prototype.fontFamilyHandler = function () {
-    var fontFamilyBox = $('#fontFamilyBox');
-    fontFamilyBox.mouseout( function() {
-        $(this).hide();
-    });
-    
-    $('.fontFamilyContainer', fontFamilyBox).mouseover( function() {
-        fontFamilyBox.show();
-    });
-
-    var that = this;
-    $('.fontFamilyItem', fontFamilyBox).unbind('click').click( function() {
-        var fontName = $(this).attr('fontName');
-        that.format( 'FontName', fontName );
-        fontFamilyBox.hide();
-    });
-};
-    
 wojilu.editor.prototype.fontSizeHandler = function () {
-    var fontSizeBox = $('#fontSizeBox');
-    fontSizeBox.mouseout( function() {
+    var fsBox = $('#fontSizeBox'+this.index);
+    fsBox.mouseout( function() {
         $(this).hide();
     });
     
-    $('.fontSizeContainer', fontSizeBox).mouseover( function() {
-        fontSizeBox.show();
+    $('.fontSizeContainer', fsBox).mouseover( function() {
+        fsBox.show();
     });
 
-    var that = this;
-    $('.fontSizeItem', fontSizeBox).unbind('click').click( function() {
+    var _this = this;
+    $('.fontSizeItem', fsBox).unbind('click').click( function() {
         var fontSize = $(this).attr('fontSize');
-        that.format( 'FontSize', fontSize );
-        fontSizeBox.hide();
+        _this.format( 'FontSize', fontSize );
+        fsBox.hide();
     });
 };
 
 //----------------------------------------------------------------
 
 wojilu.editor.prototype.forecolorDialog = function () {
-    return this.getColorDlg('forecolorBox', '#000000');
+    return this.getColorDlg('forecolorBox'+this.index, '#000000');
 };
     
 wojilu.editor.prototype.backcolorDialog = function () {
-    return this.getColorDlg('backcolorBox', '#ffffff');
+    return this.getColorDlg('backcolorBox'+this.index, '#ffffff');
 };
     
 wojilu.editor.prototype.getColorDlg = function (boxId, dcolor) {
@@ -650,21 +723,21 @@ wojilu.editor.prototype.backcolorHandler = function () {
 };
     
 wojilu.editor.prototype.colorHandler = function (cmd) {
-    var that = this;
-    var colorBox = $('#'+cmd+'Box');
+    var _this = this;
+    var colorBox = $('#'+cmd+'Box'+this.index);
     $('.colorNormal', colorBox).unbind('click').click( function() {
         var innerBox = $('.colorInner', this );
         colorBox.hide();
-        that.restoreSelection();
+        _this.restoreSelection();
         var colorValue = innerBox.css( 'background-color' );
-        that.format( cmd, colorValue );
+        _this.format( cmd, colorValue );
     });        
 };
 
 //----------------------------------------------------------------
     
 wojilu.editor.prototype.emotionDialog = function () {
-    var emBoxId = 'emotionBox';
+    var emBoxId = 'emotionBox'+this.index;
     var emsString = '<div id="'+emBoxId+'" style="background:#ffffff;border:1px solid #aaa;padding:10px;"><table cellpadding="3" class="emSelector"><tr><td colspan="9" style="font-size:12px;">'+this.lang.insertEmotions+'</td><td colspan="1" style="text-align:center;">'+this.closeImg(emBoxId)+'</td></tr>';
 
     var trS = '<tr id="emRow1">';
@@ -692,13 +765,13 @@ wojilu.editor.prototype.emotionDialog = function () {
 };
 
 wojilu.editor.prototype.emotionHandler = function () {
-    var that = this;
-    var emBox = $('#emotionBox');
+    var _this = this;
+    var emBox = $('#emotionBox'+this.index);
     $('.emotionItem', emBox).unbind('click').click( function() {
         var imgPath = $('img', this).attr('src');
         emBox.hide();
-        that.restoreSelection();
-        that.format( 'InsertImage', imgPath );        
+        _this.restoreSelection();
+        _this.format( 'InsertImage', imgPath );        
     });
 };
     
@@ -714,18 +787,18 @@ function addEditorPicAndLink( editorString, murl, picLink ) {
 
 
 wojilu.editor.prototype.picDialog = function () {
-    var imgBoxId = 'picBox';
+    var imgBoxId = 'picBox'+this.index;
     var result = '<div class="getImgBox" id="'+imgBoxId+'">';
     result += '<table cellpadding="0" cellspacing="0" class="insertTable">';
     result += '	<tr unselectable="on">';
-    result += '		<td class="tabItem currentTab" id="addPicUrl">'+this.lang.imgInsertTitle+'</td>';
-    result += '		<td class="tabItem" id="uploadPic"></td>';
-    result += '		<td class="tabItem" id="myPics"></td>';
+    result += '		<td class="tabItem currentTab addPicUrl">'+this.lang.imgInsertTitle+'</td>';
+    result += '		<td class="tabItem uploadPic"></td>';
+    result += '		<td class="tabItem myPics"></td>';
     result += '		<td class="closeTab">'+this.closecmd(imgBoxId)+'</td>';
     result += '	</tr>';
     result += '	<tr>';
     result += '		<td colspan="4" class="actionPanel">';
-    result += '		<div class="insertPannel">'+this.lang.url+':&nbsp;<input class="editorImgUrl" type="text" />&nbsp;<input class="btnInsertImg btn btn-primary btns" type="button" value="'+this.lang.imgInsert+'" /></div>';
+    result += '		<div class="insertPannel">'+this.lang.url+': <input class="editorImgUrl" type="text" /> <input class="btnInsertImg btn btn-primary btns" type="button" value="'+this.lang.imgInsert+'" /></div>';
     result += '		</td>';
     result += '	</tr>';
     result += '</table>';
@@ -736,8 +809,8 @@ wojilu.editor.prototype.picDialog = function () {
 wojilu.editor.prototype.picHandler = function () {
 
     var editorName = this.name+'Editor';
-    var picBox = $('#picBox');        
-    var that = this;
+    var picBox = $('#picBox'+this.index);        
+    var _this = this;
     
     $('.tabItem', picBox).click( function() {
         $('td.currentTab', picBox).removeClass( 'currentTab' );
@@ -745,7 +818,7 @@ wojilu.editor.prototype.picHandler = function () {
     });    
     
     var frmHtml = function( frmUrl ) {
-        var frmId = 'picFrmEditor';
+        var frmId = 'picFrmEditor'+_this.index;
         var xwidth = '530px';
         var furl = frmUrl.toAjaxFrame()+'&editor='+editorName;
         return '<iframe id="'+frmId+'" src="'+furl+'" frameborder="0" width="'+xwidth+'" height="120" scrolling="no" style="padding:0px;margin:0px;"></iframe>';
@@ -755,36 +828,36 @@ wojilu.editor.prototype.picHandler = function () {
         $('.btnInsertImg', picBox).unbind('click').click( function() {
             var txtUrl = $('.editorImgUrl', picBox);
             var imgUrl = txtUrl.val();
-            if( imgUrl=='' ) { alert( that.lang.urlError ); txtUrl.focus(); return false; }
+            if( imgUrl=='' ) { alert( _this.lang.urlError ); txtUrl.focus(); return false; }
             
             picBox.hide();
-            that.restoreSelection();
-            that.format( 'InsertImage', imgUrl );
+            _this.restoreSelection();
+            _this.format( 'InsertImage', imgUrl );
         });
     };
     
     bindBtnInsertImg();
     
-    var uploadUrl = that.config.uploadUrl;
-    var myPicsUrl = that.config.mypicsUrl;
+    var uploadUrl = _this.config.uploadUrl;
+    var myPicsUrl = _this.config.mypicsUrl;
     
-    $('#addPicUrl').click( function() {
-        var lnkBox = '<div class="insertPannel">'+that.lang.url+':&nbsp;<input class="editorImgUrl" type="text" />&nbsp;<input class="btnInsertImg" type="button" value="'+that.lang.imgInsert+'" /></div>';
+    $('.addPicUrl', picBox).click( function() {
+        var lnkBox = '<div class="insertPannel">'+_this.lang.url+': <input class="editorImgUrl" type="text" /> <input class="btnInsertImg btn btn-primary" type="button" value="'+_this.lang.imgInsert+'" /></div>';
         $('.actionPanel', picBox).html(lnkBox);
         bindBtnInsertImg();
     });
     
     if( wojilu.str.hasText( uploadUrl ) ) {
-        var tdUploadPic = $('#uploadPic', picBox);
-        tdUploadPic.text( that.lang.imgUploadTitle );
+        var tdUploadPic = $('.uploadPic', picBox);
+        tdUploadPic.text( _this.lang.imgUploadTitle );
         tdUploadPic.click( function() {
             $('.actionPanel', picBox).html(frmHtml(uploadUrl));
         });
     };
     
     if( wojilu.str.hasText( myPicsUrl ) ) {
-        var tdMyPics = $('#myPics', picBox);
-        tdMyPics.text( that.lang.imgMyTitle );
+        var tdMyPics = $('.myPics', picBox);
+        tdMyPics.text( _this.lang.imgMyTitle );
         tdMyPics.click( function() {
             $('.actionPanel', picBox).html(frmHtml(myPicsUrl));
         });
@@ -803,13 +876,13 @@ wojilu.editor.prototype.insertImgAndLink = function (imgUrl, imgLink) {
 //----------------------------------------------------------------
 
 wojilu.editor.prototype.flashDialog = function () {
-    var flashBoxId = 'flashBox';
-    var result = '<div id="'+flashBoxId+'" unselectable="on">';
+    var flashBoxId = 'flashBox'+this.index;
+    var result = '<div id="'+flashBoxId+'" class="flashBox" unselectable="on">';
     result += '<table border="0">';
     result += '	<tr><td colspan="2"><table class="editorBoxTitle"><tr><td class="editorBoxTitleString">'+this.lang.flashInsert+'</td><td style="text-align:right;">'+this.closecmd(flashBoxId)+'</td></tr></table></td></tr>';
-    result += '	<tr><td class="flashBoxLeft">'+this.lang.url+'</td><td><input type="text" id="editorFlashUrl" class="flashBoxUrl"/></td></tr>';
-    result += '	<tr><td class="flashBoxLeft">'+this.lang.width+'</td><td><input type="text" id="editorFlashWidth" value="480" style="width:50px;"/> px</td></tr>';
-    result += '	<tr><td class="flashBoxLeft">'+this.lang.height+'</td><td><input type="text" id="editorFlashHeight" value="360" style="width:50px;" /> px</td></tr>';
+    result += '	<tr><td class="flashBoxLeft">'+this.lang.url+'</td><td><input type="text" class="editorFlashUrl" /></td></tr>';
+    result += '	<tr><td class="flashBoxLeft">'+this.lang.width+'</td><td><input type="text" class="editorFlashWidth" value="480" style="width:50px;"/> px</td></tr>';
+    result += '	<tr><td class="flashBoxLeft">'+this.lang.height+'</td><td><input type="text" class="editorFlashHeight" value="360" style="width:50px;" /> px</td></tr>';
     result += '	<tr><td colspan="2" style="text-align:center;padding-bottom:20px;"><input class="btnInsertFlash btn btn-primary btns" type="button" value="'+this.lang.flashInsert+'" /></td></tr>';
     result += '</table>';
     result += '</div>';
@@ -817,40 +890,40 @@ wojilu.editor.prototype.flashDialog = function () {
 };
 
 wojilu.editor.prototype.flashHandler = function () {
-    var that = this;
-    var flashBox = $('#flashBox');
+    var _this = this;
+    var flashBox = $('#flashBox'+this.index);
     $('.btnInsertFlash', flashBox).unbind('click').click( function() {
-        var flashUrl = $( '#editorFlashUrl' ).val();
-        if( flashUrl == '' ) { alert( that.lang.urlError ); $( '#editorFlashUrl' ).focus(); return false; }
-        var flashHtml = that.getFlashHtml( flashUrl, $( '#editorFlashWidth' ).val(), $( '#editorFlashHeight' ).val() );
+        var flashUrl = $( '.editorFlashUrl', flashBox ).val();
+        if( flashUrl == '' ) { alert( _this.lang.urlError ); $( '.editorFlashUrl', flashBox ).focus(); return false; }
+        var flashHtml = _this.getFlashHtml( flashUrl, $( '.editorFlashWidth', flashBox ).val(), $( '.editorFlashHeight', flashBox ).val() );
         flashBox.hide();
-        that.restoreSelection();
-        that.insertHTML(flashHtml);
+        _this.restoreSelection();
+        _this.insertHTML(flashHtml);
     });
 };    
     
 wojilu.editor.prototype.getFlashHtml = function (srcUrl,width,height) {
-    return '<object classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000" codebase="http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=9,0,28,0" width="' + width + '" height="' + height + '">  <param name="movie" value="' + srcUrl + '" /><param name="quality" value="high" /><embed src="' + srcUrl + '" quality="high" pluginspage="http://www.adobe.com/shockwave/download/download.cgi?P1_Prod_Version=ShockwaveFlash" type="application/x-shockwave-flash" width="' + width + '" height="' + height + '"></embed></object>';
+    return '<embed src="'+srcUrl+'" allowFullScreen="true" quality="high" width="'+width+'" height="'+height+'" align="middle" allowScriptAccess="always" type="application/x-shockwave-flash"></embed>';
 };
 
 //----------------------------------------------------------------
     
 wojilu.editor.prototype.linkDialog = function () {
-    var linkBoxId = 'linkBox';
-    var result ='<div id="'+linkBoxId+'" class="editorBox" unselectable="on"><div><table><tr><td>'+this.lang.url+'</td><td><input class="editorLinkUrl" type="text" value="http://" />&nbsp;</td><td>'+this.closecmd(linkBoxId)+'</td></tr><tr><td>打开方式</td><td colspan=2><select class="editorLinkTarget"><option value="">本页打开</option><option value="_blank">新窗口打开</option></select></td></tr><tr><td></td><td colspan=2><input class="btnCreateLink btn btn-primary btns" type="button" value="'+this.lang.addLink+'" unselectable="on" style="margin-right:10px;"/></td></tr></table></div></div>';
+    var linkBoxId = 'linkBox'+this.index;
+    var result ='<div id="'+linkBoxId+'" class="editorBox linkBox" unselectable="on"><div><table><tr><td>'+this.lang.url+'</td><td><input class="editorLinkUrl" type="text" value="http://" />&nbsp;</td><td>'+this.closecmd(linkBoxId)+'</td></tr><tr><td>打开方式</td><td colspan=2><select class="editorLinkTarget"><option value="">本页打开</option><option value="_blank">新窗口打开</option></select></td></tr><tr><td></td><td colspan=2><input class="btnCreateLink btn btn-primary btns" type="button" value="'+this.lang.addLink+'" unselectable="on" style="margin-right:10px;"/></td></tr></table></div></div>';
     return result;
 };
 
 wojilu.editor.prototype.linkHandler = function () {
-    var that = this;
-    var linkBox = $('#linkBox');
+    var _this = this;
+    var linkBox = $('#linkBox'+this.index);
     $('.btnCreateLink', linkBox).unbind('click').click( function() {
 
         var lnkText = $('.editorLinkUrl', linkBox);
         var linkUrl = lnkText.val();
         
-        if( linkUrl=='' || linkUrl=='http://' ) { alert( that.lang.urlError ); lnkText.focus(); return false; }
-        that.createLink( linkUrl, $('.editorLinkTarget', linkBox ).val() );
+        if( linkUrl=='' || linkUrl=='http://' ) { alert( _this.lang.urlError ); lnkText.focus(); return false; }
+        _this.createLink( linkUrl, $('.editorLinkTarget', linkBox ).val() );
         linkBox.hide();
     });
 };
@@ -863,24 +936,51 @@ wojilu.editor.prototype.createLink = function ( url, lnkTarget ) {
 
 //----------------------------------------------------------------
 
+wojilu.editor.prototype.addCodeDialog= function () {
+    var addCodeBoxId = 'addCodeBox'+this.index;
+    return '<div id="'+addCodeBoxId+'" style="width:400px;height:260px;background:#f2f2f2;padding:10px 10px 10px 20px; border:1px #aaa solid;">'+
+        '<table style="width:390px"><tr><td>请选择代码类型：<select style="width:100px;"><option value="csharp">c#</option><option value="java">java</option><option value="c">c</option><option value="python">python</option><option value="ruby">ruby</option><option value="vb">vb</option><option value="php">php</option><option value="delphi">delphi</option><option value="js">js</option><option value="xml">xml</option><option value="sql">sql</option><option value="css">css</option><option value="text">纯文本</option></select></td><td style="text-align:right;">' + this.closeImg(addCodeBoxId) + '</td></tr></table><div><textarea style="width:380px;height:180px; border:1px solid #EEEEEE"></textarea></div><div><input type="submit" class="btn btn-primary btns" value="插入代码" /></div><div style="clear:both;"></div></div>';
+}
+
+wojilu.editor.prototype.addCodeHandler= function () {
+    var _this = this;
+    var addCodeBoxId = 'addCodeBox'+this.index;
+    var codeBox = $('#'+addCodeBoxId );
+    $('input[type=submit]', codeBox ).click( function() {
+        var codeType = $('select', codeBox ).val();
+        var code = $('textarea', codeBox ).val();
+        if( $.trim( code )=='' ) {
+            alert( '请填写代码！' );
+            $('textarea', codeBox ).focus();
+            return;
+        }
+        code = code.replace( /</g, '&lt;' ).replace( />/g, '&gt;' );
+        if( codeType=='text' ) {
+            _this.insertHTML( code.replace(/\n/g,"<br/>") );
+        }
+        else {
+            _this.insertHTML( '<br/><br/><pre class="brush: '+codeType+';" >'+code+'</pre><br/></br/>' );
+        }
+        codeBox.hide();
+    });
+}
+
+//----------------------------------------------------------------
+
 wojilu.editor.prototype.aboutDialog = function () {
-    var aboutBoxId = 'aboutBox';
-    return '<div id="'+aboutBoxId+'" class="editorBox"><div style="text-align:center;">'+ this.lang.aboutUs +'<br/><input id="btnOk" type="button" value="'+this.lang.ok+'" /></div></div>';
+    var aboutBoxId = 'aboutBox'+this.index;
+    return '<div id="'+aboutBoxId+'" class="editorBox"><div style="text-align:center;">'+ this.lang.aboutUs +'<br/><input class="btnOk btn btn-primary" type="button" value="'+this.lang.ok+'" /></div></div>';
 };
    
 wojilu.editor.prototype.aboutHandler = function () {
-    $('#btnOk').click( function() {
-        $('#aboutBox').hide();
+    $('.btnOk').click( function() {
+        $(this).parent().parent().hide();
     });
 };   
 
 //----------------------------------------------------------------
 
-function checkXhtml( html ) {    
-    return convertXhtml( html );
-}
-
-function convertXhtml(str) {
+function checkXhtml(str) {
 	str = str.replace(/<br.*?>/gi, "<br />");
 	str = str.replace(/<b([^\/]*?>)/gi, "<strong$1");
 	str = str.replace(/<\/b>/gi, "</strong>");
@@ -901,39 +1001,33 @@ function convertXhtml(str) {
 //----------------------------------------------------------------
 
 wojilu.editor.prototype.sourceHandler = function () {
-    var that = this;
+    var _this = this;
     var srcTd = this.cmdCell('source');
     var chk = $('input', srcTd);
-    var viewSource = $('.viewSource', this.editorPanel );
+    var viewSource = $('.viewSource', this.context );
     chk.click( function() {
     
         if( this.checked ) {                
             
-            //$('#'+that.frmId).hide();
-            //$('#'+that.name).val(checkXhtml(that.doc.body.innerHTML)).show();
-            //alert( that.frmId + '___' + that.name + '_____' + that.id );
-            $(document.getElementById(that.frmId)).hide();
-            $(document.getElementById(that.name)).val(checkXhtml(that.doc.body.innerHTML)).show();
+            $(document.getElementById(_this.frmId)).hide();
+            $(document.getElementById(_this.name)).val(checkXhtml(_this.doc.body.innerHTML)).show();
 
             var sp = wojilu.position.getTarget(viewSource[0]);
             viewSource.appendTo($('body'));
             viewSource.css( 'position', 'absolute' ).css( 'zIndex', 99 ).css( 'left', sp.x ).css( 'top', sp.y );
             
-            var toolbar = $('.editorToolBar', that.editorPanel );
-            that.showTempDiv( toolbar[0] );
+            var toolbar = $('.editorToolBar', _this.context );
+            _this.showTempDiv( toolbar[0] );
         }
         else {
-            //$('#'+that.frmId).show();
-            //$('#'+that.name).hide();
-            $(document.getElementById(that.frmId)).show();
-            $(document.getElementById(that.name)).hide();
+            $(document.getElementById(_this.frmId)).show();
+            $(document.getElementById(_this.name)).hide();
 
             $('#tempDiv').hide();
-            var td = $('.wojilu_tool_source', that.editorPanel );
+            var td = $('.wojilu_tool_source', _this.context );
             viewSource.appendTo(td).css( 'position', 'static' );
             
-            //that.doc.body.innerHTML = $('#'+that.name).val();
-            that.doc.body.innerHTML = $(document.getElementById(that.name)).val();
+            _this.doc.body.innerHTML = $(document.getElementById(_this.name)).val();
         };
     });
 };
@@ -947,7 +1041,7 @@ wojilu.editor.prototype.showTempDiv = function (target) {
         return;
     };
     
-    var divString='<div id="tempDiv" style="width:'+$(target).width()+'px;height:'+$(target).height()+'px;background:#eeeeee;filter:alpha(opacity=70); opacity:0.7;"></div>';
+    var divString='<div id="tempDiv" style="width:'+($(target).width()-1)+'px;height:'+$(target).height()+'px;background:#eeeeee;filter:alpha(opacity=70); opacity:0.7;"></div>';
     $( 'body' ).append( divString );
     this.showPosition(target, 0);    
 };
@@ -957,69 +1051,10 @@ wojilu.editor.prototype.showPosition = function(target, offset) {
     $('#tempDiv').css( 'position', 'absolute' ).css( 'zIndex', 9 ).css( 'left', (tp.x+offset) ).css( 'top', tp.y );
 };
 
-wojilu.editor.prototype.resize = function() {
-    
-    var $editor = $('#'+this.id );
-    var $resizer =$('.resizer', $editor ); 
-    var _clientY;
-    var frmDoc = this.doc;
-    var doc = document;
-
-    $resizer.mousedown( function(e) {
-
-        e.stopPropagation();
-
-        function bindMove(e) {
-            e.preventDefault();
-
-            var clientY = wojilu.position.getMouse(e).y;
-            var deltaY = clientY - _clientY; 
-            _clientY = clientY;
-
-            var $frm = $('.wojiluEditorFrame', $editor);
-            var newHeight = $frm.height() + deltaY;
-            $frm.height( newHeight );
-            $frm.prev().height( newHeight );
-        }
-    
-        function bindUp(e) {
-            e.preventDefault();
-            $(doc).unbind('mousemove',  bindMove ).unbind('mouseup',  bindUp ).unbind( 'selectstart', bindSelect );
-            $(frmDoc).unbind('mouseup', bindUp).unbind('selectstart',bindSelect);
-            if( $resizer.releaseCapture ) $resizer.releaseCapture();
-        }
-
-        function bindSelect(e) { e.preventDefault(); }
-
-        $(doc).mousemove( bindMove ).mouseup( bindUp ).bind( 'selectstart', bindSelect );
-        $(frmDoc).mouseup( bindUp ).bind( 'selectstart', bindSelect );
-
-        if( $resizer.setCapture ) $resizer.setCapture();
-    });
-    return this;
-};
-
 //----------------------------------------------------------------
 
 wojilu.editor.prototype.render = function() {
-
     if( wojilu.editorConfig.isSupport() == false ) return;
-    
-    wojilu.tool.loadCss( this.skinPath + 'style.css' );    
-    var toolBar = this.getBar();    
-    var html = '<div id="'+this.id+'" class="wojiluEditor">';
-    html += toolBar;
-    html += this.hiddenEle;
-    html += '</div>';
-    $( '#'+this.name.replace('.','_')+'Editor' ).append( html );
-    
-    this.editorPanel = $(document.getElementById(this.id));
-    
-    this.addImgs().makeWritable().addCallback().resize();
-    
-    var $frm = $(document.getElementById(this.frmId));
-    var $txt = $(document.getElementById(this.name));
-    $frm.before( $txt );
+    this.beginRender().addImgs().makeWritable().addCallback().resize();
+    $('#'+this.frmId).before($('#'+this.name));
 };
-
-
