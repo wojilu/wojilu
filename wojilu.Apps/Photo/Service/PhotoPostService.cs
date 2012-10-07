@@ -135,7 +135,7 @@ namespace wojilu.Apps.Photo.Service {
         }
 
         public virtual List<IBinderValue> GetMyNew( int count, int userId ) {
-            if (count < 0) count = 10;
+            if (count <= 0) count = 10;
             List<PhotoPost> posts = db.find<PhotoPost>( "Creator.Id=" + userId + " and AppId>0 and SaveStatus=" + SaveStatus.Normal ).list( count );
             return SysPhotoService.populatePhoto( posts );
         }
