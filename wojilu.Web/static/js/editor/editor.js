@@ -104,8 +104,6 @@
     }
 };
 
-function val( ele ) {return document.getElementById(ele).value;}
-function val( ele, val ) {document.getElementById(ele).value=val;}
 
 wojilu.editor = function( param ) {
 
@@ -146,11 +144,12 @@ wojilu.editor = function( param ) {
     this.getHiddenEle = function( name, frmId, height, content ) {
         return '<div class="wojiluEditorFrameWrap" style="padding:0px;border:0px red solid;"><iframe class="wojiluEditorFrame" id="'+frmId+'" name="'+frmId+'" width="100%" height="'+height+'" frameborder="0" scrolling="auto" style="margin:0px;width:100%;border:0px #000 solid;"></iframe></div><div class="resizer"><div class="resizerInner"></div></div>';
     };
-
     
     // 初始化    
     this.initEditor = function(param) {    
     
+        var _x = this;
+
         function getEditorIndex() {        
             if( !wojilu.ctx.editorList ) {
                 wojilu.ctx.editorList = [];
@@ -160,33 +159,32 @@ wojilu.editor = function( param ) {
             return result;
         };
 
-        this.index = getEditorIndex();
-        this.id = 'wojiluEditor' + this.index;
-        this.frmId = this.id+'Frame';
+        _x.index = getEditorIndex();
+        _x.id = 'wojiluEditor' + _x.index;
+        _x.frmId = _x.id+'Frame';
         
-        this.config = param;    
+        _x.config = param;    
         
-        if( !this.config.height ) { this.config.height = '300px'; };
-        if( !this.config.name ) { this.name = 'Content'; } else { this.name = this.config.name; };
+        if( !_x.config.height ) { _x.config.height = '300px'; };
+        if( !_x.config.name ) { _x.name = 'Content'; } else { _x.name = _x.config.name; };
         
-        if( !this.config.editorPath ) {this.editorPath='editor/';} else { this.editorPath = this.config.editorPath; };
-        if( wojilu.str.endsWith( this.editorPath, '/' )==false ) {this.editorPath=this.editorPath+'/';};
-        this.skinPath = this.editorPath + 'skin/';
-        this.imgPath = this.skinPath + 'toolbar/';
-        this.emPath = this.skinPath + 'em/';
+        if( !_x.config.editorPath ) {_x.editorPath='editor/';} else { _x.editorPath = _x.config.editorPath; };
+        if( wojilu.str.endsWith( _x.editorPath, '/' )==false ) {_x.editorPath=_x.editorPath+'/';};
+        _x.skinPath = _x.editorPath + 'skin/';
+        _x.imgPath = _x.skinPath + 'toolbar/';
+        _x.emPath = _x.skinPath + 'em/';
         
-        //if( !this.config.content ) { this.html=''; } else {this.html=this.config.content;};
-        this.html = document.getElementById( this.name ).value;
-        if( !this.html ) this.html = '';
+        _x.html = document.getElementById( _x.name ).value;
+        if( !_x.html ) _x.html = '';
                 
-        this.hiddenEle = this.getHiddenEle( this.name, this.frmId, this.config.height, this.html );
+        _x.hiddenEle = _x.getHiddenEle( _x.name, _x.frmId, _x.config.height, _x.html );
 
 
-    	this.toolBar1Prefix = '<div class="editorToolBar" style="position:relative;" id="'+this.id+'Toolbar"><table class="editorToolBar1 wojilu_editor_bar"><tr>';
-    	this.toolBar1Suffix = '<td class="wojilu_tool_more"><img src="'+this.imgPath+'down.gif"/></td></tr></table>';
-    	this.toolBar2Prefix = '<table class="editorToolBar2 wojilu_editor_bar" style="position:relative;display:none;"><tr>';
-        this.checkSourceCode = '<td class="wojilu_tool_source"><div class="viewSource"><input id="chksrc'+this.id+'" type="checkbox"/><label for="chksrc'+this.id+'">'+this.lang.sourceCode+'</label></div></td>';
-    	this.toolBar2Suffix = '</tr></table></div>';
+    	_x.toolBar1Prefix = '<div class="editorToolBar" style="position:relative;" id="'+_x.id+'Toolbar"><table class="editorToolBar1 wojilu_editor_bar"><tr>';
+    	_x.toolBar1Suffix = '<td class="wojilu_tool_more"><img src="'+_x.imgPath+'down.gif"/></td></tr></table>';
+    	_x.toolBar2Prefix = '<table class="editorToolBar2 wojilu_editor_bar" style="position:relative;display:none;"><tr>';
+        _x.checkSourceCode = '<td class="wojilu_tool_source"><div class="viewSource"><input id="chksrc'+_x.id+'" type="checkbox"/><label for="chksrc'+_x.id+'">'+_x.lang.sourceCode+'</label></div></td>';
+    	_x.toolBar2Suffix = '</tr></table></div>';
     };
     
     this.initEditor(param);
@@ -194,66 +192,70 @@ wojilu.editor = function( param ) {
 
 wojilu.editor.prototype = {
 
-    $id : function ( elementName ) { 
-        return document.getElementById( elementName ); 
-    },
-    
-    put : function (str) {
-        document.write(str);
-    },
+    $id : function ( elementName ) { return document.getElementById( elementName ); },
+    val : function ( ele ) { return document.getElementById(ele).value; },
+    val : function ( ele, val ) { document.getElementById(ele).value=val; },
+    put : function ( str ) { document.write(str); },
     
     format : function ( cmd, value ) {
-        this.editor.focus();
+        var _x = this;
+        _x.editor.focus();
         if( !document.all && cmd=='backcolor' ) {
             cmd='hilitecolor';
         };
-        this.doc.execCommand(cmd, false, value);
+        _x.doc.execCommand(cmd, false, value);
     },
 
     insertHTML : function (html) {
-        this.editor.focus();
-        if (document.all) { this.addHtml( html ); } else { this.doc.execCommand( 'insertHTML', false, html ); };
+        var _x = this;
+        _x.editor.focus();
+        if (document.all) { _x.addHtml( html ); } else { _x.doc.execCommand( 'insertHTML', false, html ); };
     }, 
 
     addHtml : function ( html ) {
-        var selectRange = this.selection.range;
+        var _x = this;
+        var selectRange = _x.selection.range;
         selectRange.pasteHTML( html  );
         selectRange.collapse( false );
         selectRange.select();
     },
 
     formatHandler : function (cmd) {
-        var _this = this;
-        this.cmdCell(cmd).click(function(){
-            _this.format(cmd);
+        var _x = this;
+        _x.cmdCell(cmd).click(function(){
+            _x.format(cmd);
         });
     },
     
     td : function ( name ) {
+        var _x = this;
         if( name=='separator' ) return '<td class="wojilu_editor_separator"><div></div></td>';
-        if( name=='fontFamily' ) return '<td class="wojilu_editor_cmd_text wojilu_tool_'+name+'" title="'+this.langtip[name]+'" unselectable="on"><div unselectable="on">字体</div></td>';
-        if( name=='fontSize' ) return '<td class="wojilu_editor_cmd_text wojilu_tool_'+name+'" title="'+this.langtip[name]+'" unselectable="on"><div unselectable="on">大小</div></td>';
-        return '<td class="wojilu_editor_td wojilu_tool_'+name+'" unselectable="on" title="'+this.langtip[name]+'"><div unselectable="on"></div></td>';
+        if( name=='fontFamily' ) return '<td class="wojilu_editor_cmd_text wojilu_tool_'+name+'" title="'+_x.langtip[name]+'" unselectable="on"><div unselectable="on">字体</div></td>';
+        if( name=='fontSize' ) return '<td class="wojilu_editor_cmd_text wojilu_tool_'+name+'" title="'+_x.langtip[name]+'" unselectable="on"><div unselectable="on">大小</div></td>';
+        return '<td class="wojilu_editor_td wojilu_tool_'+name+'" unselectable="on" title="'+_x.langtip[name]+'"><div unselectable="on"></div></td>';
     },
 
     getBasicBar : function () {		
+        var _x = this;
         var strBasicBar = '';
-        for( i=0;i<this.basicCmd.length;i++ ){ strBasicBar += this.td(this.basicCmd[i]); };
-        return this.toolBar1Prefix + strBasicBar + this.checkSourceCode + this.toolBar2Suffix;
+        for( i=0;i<_x.basicCmd.length;i++ ){ strBasicBar += _x.td(_x.basicCmd[i]); };
+        return _x.toolBar1Prefix + strBasicBar + _x.checkSourceCode + _x.toolBar2Suffix;
     },
 
     getFullBar : function () {
+        var _x = this;
         var fullToolbar1 = '';
-        for( i=0;i<this.cmdList1.length;i++ ){ if(!document.all && (this.cmdList1[i]=='copy' || this.cmdList1[i]=='cut' || this.cmdList1[i]=='paste')){continue;} fullToolbar1 += this.td( this.cmdList1[i] ); };
+        for( i=0;i<_x.cmdList1.length;i++ ){ if(!document.all && (_x.cmdList1[i]=='copy' || _x.cmdList1[i]=='cut' || _x.cmdList1[i]=='paste')){continue;} fullToolbar1 += _x.td( _x.cmdList1[i] ); };
         var fullToolbar2 = '';
-        for( i=0;i<this.cmdList2.length;i++ ){ if(!document.all && (this.cmdList2[i]=='copy' || this.cmdList2[i]=='cut' || this.cmdList2[i]=='paste')){continue;} fullToolbar2 += this.td( this.cmdList2[i] ); };
-        return this.toolBar1Prefix + fullToolbar1 + this.toolBar1Suffix + this.toolBar2Prefix + fullToolbar2 + this.checkSourceCode + this.toolBar2Suffix;
+        for( i=0;i<_x.cmdList2.length;i++ ){ if(!document.all && (_x.cmdList2[i]=='copy' || _x.cmdList2[i]=='cut' || _x.cmdList2[i]=='paste')){continue;} fullToolbar2 += _x.td( _x.cmdList2[i] ); };
+        return _x.toolBar1Prefix + fullToolbar1 + _x.toolBar1Suffix + _x.toolBar2Prefix + fullToolbar2 + _x.checkSourceCode + _x.toolBar2Suffix;
     },
     
     getBar : function() {
-        if( this.config.toolbarType == 'basic' ) return this.getBasicBar();
-        if( this.config.toolbarType == 'full' ) return this.getFullBar();
-        return this.getBasicBar();
+        var _x = this;
+        if( _x.config.toolbarType == 'basic' ) return _x.getBasicBar();
+        if( _x.config.toolbarType == 'full' ) return _x.getFullBar();
+        return _x.getBasicBar();
     },
     
     cmdCell : function (s) { return $('.wojilu_tool_'+s, this.context); },
@@ -263,9 +265,10 @@ wojilu.editor.prototype = {
     },
     
     writeContentToEditor : function ( htmlContent ) {        
-        this.doc.open();
-        this.doc.write( htmlContent );
-        this.doc.close();
+        var _x = this;
+        _x.doc.open();
+        _x.doc.write( htmlContent );
+        _x.doc.close();
     },
     
     isHtmlChecked : function() {
@@ -273,8 +276,8 @@ wojilu.editor.prototype = {
     },
 
     clearFormat : function() {
-        var _this = this;
-        _this.doc.body.innerHTML = _this.doc.body.innerHTML.replace( /<!--((.|\n|\r)*?)-->/g, '');
+        var _x = this;
+        _x.doc.body.innerHTML = _x.doc.body.innerHTML.replace( /<!--((.|\n|\r)*?)-->/g, '');
 
         function removeAttrPrivate( tag, attrNames ) {
             var arrAttr = attrNames.split( "," );
@@ -288,7 +291,7 @@ wojilu.editor.prototype = {
             var arrTags = tagNames.split( "," );
             for( var i=0;i<arrTags.length;i++) {
                 var tagName = $.trim(arrTags[i]);
-                var tagItems = _this.doc.getElementsByTagName( tagName );
+                var tagItems = _x.doc.getElementsByTagName( tagName );
                 if( !tagItems || tagItems.length==0 ) continue;
                 removeAttrPrivate( tagItems[0], 'style,class,border,lang,face,color,width,height,size' );
             }
@@ -297,99 +300,117 @@ wojilu.editor.prototype = {
         removeAttr( 'a,img,span,strong,b,i,em,div,p,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,form,fieldset,input,textarea,blockquote,table,td,tr,th,tbody,font,hr,caption' );
 
         if( document.all ) {
-            _this.doc.execCommand('removeFormat', false, null);
+            _x.doc.execCommand('removeFormat', false, null);
         }
         else {
-            $("font", _this.doc.body).replaceWith(function() { return $(this).contents(); });
+            $("font", _x.doc.body).replaceWith(function() { return $(this).contents(); });
         }
 
-        $(_this.doc.body).find('style').remove();
-        $(_this.doc.body).find('script').remove();
-        $(_this.doc.body).find('iframe').remove();
-        $(_this.doc.body).find('frame').remove();
-        $(_this.doc.body).find('xml').remove();
-        $('pre',_this.doc.body).removeAttr('style');
-    }
+        $(_x.doc.body).find('style').remove();
+        $(_x.doc.body).find('script').remove();
+        $(_x.doc.body).find('iframe').remove();
+        $(_x.doc.body).find('frame').remove();
+        $(_x.doc.body).find('xml').remove();
+        $('pre',_x.doc.body).removeAttr('style');
+    },
 
+    checkXhtml : function (str) {
+        str = str.replace(/<br.*?>/gi, "<br />");
+        str = str.replace(/<b([^\/]*?>)/gi, "<strong$1");
+        str = str.replace(/<\/b>/gi, "</strong>");
+        str = str.replace(/(<hr[^>]*[^\/])(>)/gi, "$1 />");
+        str = str.replace(/(<img[^>]*[^\/])(>)/gi, "$1 />");
+        str = str.replace(/(<\w+)(.*?>)/gi, function (all, tag, attr) { 
+            if( attr.toLowerCase().indexOf( 'href' )>0 || attr.toLowerCase().indexOf( 'src' )>0) {
+                return tag.toLowerCase() + attr;
+            }
+            else {
+                return tag.toLowerCase() + attr.toLowerCase();
+            }
+        });
+        str = str.replace(/(<\/\w+>)/gi, function (all, tag) { return tag.toLowerCase(); });
+        return str;
+    }
 };
 
 wojilu.editor.prototype.beginRender = function() {
-    wojilu.tool.loadCss( this.skinPath + 'style.css' );    
-    var toolBar = this.getBar();    
-    var html = '<div id="'+this.id+'" class="wojiluEditor">';
+    var _x = this;
+    wojilu.tool.loadCss( _x.skinPath + 'style.css' );    
+    var toolBar = _x.getBar();    
+    var html = '<div id="'+_x.id+'" class="wojiluEditor">';
     html += toolBar;
-    html += this.hiddenEle;
+    html += _x.hiddenEle;
     html += '</div>';
-    $( '#'+this.name.replace('.','_')+'Editor' ).append( html );
+    $( '#'+_x.name.replace('.','_')+'Editor' ).append( html );
     
-    this.context = $('#'+this.id);
-    return this;
+    _x.context = $('#'+_x.id);
+    return _x;
 };
 
-
  wojilu.editor.prototype.addImgs = function () {
-    for( i=0;i<this.cmdList1.length;i++ ){
-        var cmd = this.cmdList1[i];
+    var _x = this;
+    for( i=0;i<_x.cmdList1.length;i++ ){
+        var cmd = _x.cmdList1[i];
         if( cmd !='separator' && cmd !='fontFamily' && cmd !='fontSize' ) {
-            this.addimg( cmd );
+            _x.addimg( cmd );
         }
     };
-    for( i=0;i<this.cmdList2.length;i++ ){
-        var cmd = this.cmdList2[i];
+    for( i=0;i<_x.cmdList2.length;i++ ){
+        var cmd = _x.cmdList2[i];
         if( cmd !='separator' && cmd !='fontFamily' && cmd !='fontSize' ) {
-            this.addimg( cmd );
+            _x.addimg( cmd );
         }
     };
-    return this;
+    return _x;
 };
    
 wojilu.editor.prototype.makeWritable = function () {
     
-    var htmlContent = this.html;
-    if( !document.all && wojilu.str.isNull( this.html ) ) {
-        htmlContent = '<br/>'+this.html;
+    var _x = this;
+    var htmlContent = _x.html;
+    if( !document.all && wojilu.str.isNull( _x.html ) ) {
+        htmlContent = '<br/>'+_x.html;
     }
-    var frameHtml = '<html><link rel="stylesheet" type="text/css" href="'+this.skinPath+ 'style.css'+'" /><body style="background:#fff;border:0px #aaa solid;margin:5px;padding:0px;font-family:verdana;font-size:12px;line-height:150%;cursor:text;">\n' + htmlContent + '\n</body></html>';
+    var frameHtml = '<html><link rel="stylesheet" type="text/css" href="'+_x.skinPath+ 'style.css'+'" /><body style="background:#fff;border:0px #aaa solid;margin:5px;padding:0px;font-family:verdana;font-size:12px;line-height:150%;cursor:text;">\n' + htmlContent + '\n</body></html>';
 
-    if( document.all ) { this.editor = frames[ this.frmId ]; } else { this.editor = this.$id( this.frmId ).contentWindow; };
-    this.doc = this.editor.document;
+    if( document.all ) { _x.editor = frames[ _x.frmId ]; } else { _x.editor = _x.$id( _x.frmId ).contentWindow; };
+    _x.doc = _x.editor.document;
 
-    var _this = this;
     if (document.all) {
-        this.writeContentToEditor(frameHtml);            
-        if (!this.IsReadOnly) this.doc.designMode = 'on';            
+        _x.writeContentToEditor(frameHtml);            
+        if (!_x.IsReadOnly) _x.doc.designMode = 'on';            
         
-        this.editor.attachEvent('onblur', function() {
-            if( _this.isHtmlChecked() ) {
+        _x.editor.attachEvent('onblur', function() {
+            if( _x.isHtmlChecked() ) {
             }
             else {
-                val( _this.name, checkXhtml( _this.doc.body.innerHTML ));
+                _x.val( _x.name, _x.checkXhtml( _x.doc.body.innerHTML ));
             };
         });
     }
     else {
-        if (!this.IsReadOnly) this.$id(this.frmId).contentDocument.designMode = 'on';
-        this.writeContentToEditor(frameHtml);
-        this.editor.addEventListener('blur', function() {
-            if( _this.isHtmlChecked() ) {
+        if (!_x.IsReadOnly) _x.$id(_x.frmId).contentDocument.designMode = 'on';
+        _x.writeContentToEditor(frameHtml);
+        _x.editor.addEventListener('blur', function() {
+            if( _x.isHtmlChecked() ) {
             }
             else {
-                val( _this.name, checkXhtml(_this.doc.body.innerHTML) );
+                _x.val( _x.name, _x.checkXhtml(_x.doc.body.innerHTML) );
             };
         
         }, false );
         
     };
-    return this;
+    return _x;
 };
 
 wojilu.editor.prototype.resize = function() {
     
-    var _this = this;
-    var $resizer =$('.resizer', _this.context ); 
+    var _x = this;
     var _clientY;
-    var frmDoc = _this.doc;
+    var frmDoc = _x.doc;
     var doc = document;
+    var $resizer =$('.resizer', _x.context ); 
 
     $resizer.mousedown( function(e) {
 
@@ -402,7 +423,7 @@ wojilu.editor.prototype.resize = function() {
             var deltaY = clientY - _clientY; 
             _clientY = clientY;
 
-            var $frm = $('.wojiluEditorFrame', _this.context);
+            var $frm = $('.wojiluEditorFrame', _x.context);
             var newHeight = $frm.height() + deltaY;
             $frm.height( newHeight );
             $frm.prev().height( newHeight );
@@ -422,7 +443,7 @@ wojilu.editor.prototype.resize = function() {
 
         if( $resizer.setCapture ) $resizer.setCapture();
     });
-    return _this;
+    return _x;
 };
 
 
@@ -430,34 +451,34 @@ wojilu.editor.prototype.resize = function() {
 //-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 wojilu.editor.prototype.addCallback = function () {
+    var _x = this;
     
     // 浏览器内置的格式化命令，可以直接操作
     var fcmds = ['bold', 'italic', 'underline', 'justifyleft', 'justifycenter', 'justifyright', 'indent', 'outdent', 'undo', 'redo',  'superscript', 'subscript', 'strikethrough', 'removeFormat', 'unlink', 'insertunorderedlist', 'insertorderedlist', 'copy', 'cut', 'paste', 'delete']; 
     for( var i=0;i<fcmds.length;i++ ) {
-        this.formatHandler(fcmds[i]);
+        _x.formatHandler(fcmds[i]);
     };    
     
     // 自定义的格式化命令（带弹窗或下拉菜单的）
     var dcmds = ['table', 'fontFamily', 'fontSize', 'forecolor', 'backcolor', 'emotion', 'pic', 'flash', 'link', 'about', 'addCode'];
     for( var i=0;i<dcmds.length;i++ ) {
-        this.dlgHandler(dcmds[i]);
+        _x.dlgHandler(dcmds[i]);
     };
     
-    var _this = this;
-    this.cmdCell( 'inserthorizontalrule' ).click( function() {
-        _this.cacheSelection(); // 针对IE
-        _this.insertHTML( '<hr>' );
+    _x.cmdCell( 'inserthorizontalrule' ).click( function() {
+        _x.cacheSelection(); // 针对IE
+        _x.insertHTML( '<hr>' );
     });
 
-    this.cmdCell( 'clear' ).click( function() {
+    _x.cmdCell( 'clear' ).click( function() {
         if( confirm( '确实删除所有内容？') ) {
-            _this.writeContentToEditor( '' );
+            _x.writeContentToEditor( '' );
         }
     });
     
-    this.cmdCell( 'clearFormat' ).click( function() {
+    _x.cmdCell( 'clearFormat' ).click( function() {
         if( confirm( '确实需要清除所有格式吗？') ) {
-            _this.clearFormat();
+            _x.clearFormat();
         }
     });
     
@@ -466,48 +487,50 @@ wojilu.editor.prototype.addCallback = function () {
         eval( 'this.'+ocmds[i]+'Handler();' );
     };
     
-    this.ebarMoreHandler();
-    return this;
+    _x.ebarMoreHandler();
+    return _x;
 };
 
 wojilu.editor.prototype.dlgHandler = function (cmd) {
-    var _this = this;
-    this.cmdCell(cmd).click(function() {
+    var _x = this;
+    _x.cmdCell(cmd).click(function() {
     
-        _this.cacheSelection();
-        _this.dialog( cmd, this );
+        _x.cacheSelection();
+        _x.dialog( cmd, this );
         
         $('.closeSpan').click(function() {
             $('#'+$(this).attr('target')).hide();
-            _this.restoreSelection();
+            _x.restoreSelection();
         });
         
     });
 };
 
 wojilu.editor.prototype.cacheSelection = function () {
+    var _x = this;
     if( document.all ) {
-        this.editor.focus();
-        this.selection.range = this.doc.selection.createRange();
-        this.selection.type = this.doc.selection.type;
-        this.selection.text = this.selection.range.htmlText;
+        _x.editor.focus();
+        _x.selection.range = _x.doc.selection.createRange();
+        _x.selection.type = _x.doc.selection.type;
+        _x.selection.text = _x.selection.range.htmlText;
     }
     else {
-        this.selection.range = this.doc.getSelection().getRangeAt(0);
-        this.selection.text = this.selection.range.toString();
+        _x.selection.range = _x.doc.getSelection().getRangeAt(0);
+        _x.selection.text = _x.selection.range.toString();
     }
 };
 
 wojilu.editor.prototype.restoreSelection = function () {
-    if( document.all && this.selection.range && this.selection.type!='Control') {
-        this.selection.range.select();
+    var _x = this;
+    if( document.all && _x.selection.range && _x.selection.type!='Control') {
+        _x.selection.range.select();
     };
 };
     
 wojilu.editor.prototype.dialog = function (cmd, target) {
-
-    var divId = cmd + 'Box'+this.index;
-    var dlg = this.$id(divId);
+    var _x = this;
+    var divId = cmd + 'Box'+_x.index;
+    var dlg = _x.$id(divId);
     var hasDlg = ( dlg==null || dlg == 'undefined' )?false:true;
 
     if( hasDlg ) {
@@ -518,7 +541,7 @@ wojilu.editor.prototype.dialog = function (cmd, target) {
         var divString;
         eval( 'divString = this.'+cmd+'Dialog();' );
         $( 'body' ).append( divString );
-        dlg = this.$id(divId);
+        dlg = _x.$id(divId);
 
         var tp = wojilu.position.getTarget(target);
         $(dlg).css( 'display', 'block' ).css( 'position', 'absolute' ).css( 'zIndex', 98 )
@@ -530,15 +553,15 @@ wojilu.editor.prototype.dialog = function (cmd, target) {
 };
     
 wojilu.editor.prototype.ebarMoreHandler = function () {
-    var _this = this;
-    $('.wojilu_tool_more', _this.context ).click( function() {
-        $('.editorToolBar2', _this.context ).toggle();            
+    var _x = this;
+    $('.wojilu_tool_more', _x.context ).click( function() {
+        $('.editorToolBar2', _x.context ).toggle();            
         var arrow = $('img', this);
         if( wojilu.str.endsWith( arrow.attr('src'), 'down.gif' ) ) {
-            arrow.attr( 'src', _this.imgPath+'right.gif' );
+            arrow.attr( 'src', _x.imgPath+'right.gif' );
         }
         else {
-            arrow.attr( 'src', _this.imgPath+'down.gif' );
+            arrow.attr( 'src', _x.imgPath+'down.gif' );
         };            
     });
 };
@@ -554,16 +577,16 @@ wojilu.editor.prototype.closeImg = function (boxId) {
     return '<span class="closeSpan" target="'+boxId+'" unselectable="on"><img src="'+this.emPath+'close.gif"/><span>';
 };
 
-    
 //----------------------------------------------------------------
 wojilu.editor.prototype.tableDialog = function () {
-    var tblBoxId = 'tableBox'+this.index;
-    var lblInsert = this.lang.insertTable;
-    var tblString = '<div id="'+tblBoxId+'"><table><tr><td colspan="9" style="width:145px;border:0px;"><div id="lblTableInfo">'+lblInsert+'</div></td><td style="border:0px;">'+this.closeImg(tblBoxId)+'</td></tr></table><table id="tbl" class="drawTable" cellspacing="0" cellpadding="0">';
+    var _x = this;
+    var tblBoxId = 'tableBox'+_x.index;
+    var lblInsert = _x.lang.insertTable;
+    var tblString = '<div id="'+tblBoxId+'"><table><tr><td colspan="9" style="width:145px;border:0px;"><div id="lblTableInfo">'+lblInsert+'</div></td><td style="border:0px;">'+_x.closeImg(tblBoxId)+'</td></tr></table><table id="tbl" class="drawTable" cellspacing="0" cellpadding="0">';
 
-    for( y=1;y<this.tblSize.Y+1;y++ ) { 
+    for( y=1;y<_x.tblSize.Y+1;y++ ) { 
         tblString += '<tr>';
-        for( x=1;x<this.tblSize.X+1;x++ ) {
+        for( x=1;x<_x.tblSize.X+1;x++ ) {
             tblString += '<td x="'+x+'" y="'+y+'" unselectable="on" ></td>';	
         }
         tblString += '</tr>'; 
@@ -574,27 +597,28 @@ wojilu.editor.prototype.tableDialog = function () {
 };
 
 wojilu.editor.prototype.tableHandler = function () {
-    var _this = this;
-    var tableBox = $('#tableBox'+this.index);
+    var _x = this;
+    var tableBox = $('#tableBox'+_x.index);
     $('.drawTable',tableBox).mouseout( function() {
-        _this.clearCellBg();
+        _x.clearCellBg();
     });
     
     $('.drawTable td',tableBox).mouseover( function() {
         var x = $(this).attr('x');
         var y = $(this).attr('y');
-        _this.hlCellBg(x,y);
+        _x.hlCellBg(x,y);
     }).unbind('click').click( function() {
         var x = $(this).attr('x');
         var y = $(this).attr('y');
-        _this.insertTable(x,y);
+        _x.insertTable(x,y);
         tableBox.hide();
     });        
 };
     
 wojilu.editor.prototype.hlCellBg = function ( x, y ) {	
-    $('#lblTableInfo').html( x + "×" + y +  " " + this.lang.insertTable );
-    var rows = this.$id('tbl').getElementsByTagName('tr'); 
+    var _x = this;
+    $('#lblTableInfo').html( x + "×" + y +  " " + _x.lang.insertTable );
+    var rows = _x.$id('tbl').getElementsByTagName('tr'); 
     for( var m=0;m< y;m++ ) { 
         var cols = rows[m].getElementsByTagName('td');
         for( var n=0;n<x;n++ ) {
@@ -604,13 +628,15 @@ wojilu.editor.prototype.hlCellBg = function ( x, y ) {
 };
 
 wojilu.editor.prototype.clearCellBg = function () {
-    var cell = this.$id('tbl').getElementsByTagName('td');
+    var _x = this;
+    var cell = _x.$id('tbl').getElementsByTagName('td');
     for( var i=0;i<cell.length;i++ ) { 
         cell[i].style.background = "#ffffff"; 
     };
 };
     
 wojilu.editor.prototype.insertTable = function ( x, y ) {
+    var _x = this;
     var strTable = '<table style="width:60%;border-collapse:collapse;" border="1">\n';
     for( row=0; row<y; row++ ) {
         strTable +='<tr>';
@@ -620,18 +646,19 @@ wojilu.editor.prototype.insertTable = function ( x, y ) {
         strTable += '</tr>\n';
     };
     strTable += '</table>';
-    this.insertHTML( strTable );		
+    _x.insertHTML( strTable );		
 };
 
 //----------------------------------------------------------------
   
 wojilu.editor.prototype.fontFamilyDialog = function () {
-    var boxId = 'fontFamilyBox'+this.index;
+    var _x = this;
+    var boxId = 'fontFamilyBox'+_x.index;
     var fname = function( name, text ) { return '<div unselectable="on" style="font-family:'+name+'" fontName="'+name+'" class="fontFamilyItem">'+text+'</div>'; };
     var result = '<div id="'+boxId+'" style="width:150px;background:#fff;"><div style="padding:5px 10px;" class="fontFamilyContainer">';
     
-    for( var i=0;i<this.fontNames.length;i++ ) {
-        result += fname( this.fontNames[i][0], this.fontNames[i][1] );        
+    for( var i=0;i<_x.fontNames.length;i++ ) {
+        result += fname( _x.fontNames[i][0], _x.fontNames[i][1] );        
     };
     
     result += '</div></div>';
@@ -639,7 +666,8 @@ wojilu.editor.prototype.fontFamilyDialog = function () {
 };
 
 wojilu.editor.prototype.fontFamilyHandler = function () {
-    var ffBox = $('#fontFamilyBox'+this.index);
+    var _x = this;
+    var ffBox = $('#fontFamilyBox'+_x.index);
     ffBox.mouseout( function() {
         $(this).hide();
     });
@@ -648,10 +676,9 @@ wojilu.editor.prototype.fontFamilyHandler = function () {
         ffBox.show();
     });
 
-    var _this = this;
     $('.fontFamilyItem', ffBox).unbind('click').click( function() {
         var fontName = $(this).attr('fontName');
-        _this.format( 'FontName', fontName );
+        _x.format( 'FontName', fontName );
         ffBox.hide();
     });
 };
@@ -668,7 +695,8 @@ wojilu.editor.prototype.fontSizeDialog = function () {
 };
 
 wojilu.editor.prototype.fontSizeHandler = function () {
-    var fsBox = $('#fontSizeBox'+this.index);
+    var _x = this;
+    var fsBox = $('#fontSizeBox'+_x.index);
     fsBox.mouseout( function() {
         $(this).hide();
     });
@@ -677,10 +705,9 @@ wojilu.editor.prototype.fontSizeHandler = function () {
         fsBox.show();
     });
 
-    var _this = this;
     $('.fontSizeItem', fsBox).unbind('click').click( function() {
         var fontSize = $(this).attr('fontSize');
-        _this.format( 'FontSize', fontSize );
+        _x.format( 'FontSize', fontSize );
         fsBox.hide();
     });
 };
@@ -688,18 +715,21 @@ wojilu.editor.prototype.fontSizeHandler = function () {
 //----------------------------------------------------------------
 
 wojilu.editor.prototype.forecolorDialog = function () {
-    return this.getColorDlg('forecolorBox'+this.index, '#000000');
+    var _x = this;
+    return _x.getColorDlg('forecolorBox'+_x.index, '#000000');
 };
     
 wojilu.editor.prototype.backcolorDialog = function () {
-    return this.getColorDlg('backcolorBox'+this.index, '#ffffff');
+    var _x = this;
+    return _x.getColorDlg('backcolorBox'+_x.index, '#ffffff');
 };
     
 wojilu.editor.prototype.getColorDlg = function (boxId, dcolor) {
-    var colorTableString = '<div id="'+boxId+'" class="colorBox"><table class="tblColorSelector" cellspacing="0" cellpadding="3"><tr><td colspan="7" class="colorNormal" style="text-align:left;cursor:pointer;"><table><tr><td><table style="background:'+dcolor+';" class="colorInner"><tr><td></td></tr></table></td><td style="width:;text-align:center;">'+this.lang.defaultColor+'</td></tr></table></td><td>'+this.closeImg(boxId)+'</td></tr><tr>';
+    var _x = this;
+    var colorTableString = '<div id="'+boxId+'" class="colorBox"><table class="tblColorSelector" cellspacing="0" cellpadding="3"><tr><td colspan="7" class="colorNormal" style="text-align:left;cursor:pointer;"><table><tr><td><table style="background:'+dcolor+';" class="colorInner"><tr><td></td></tr></table></td><td style="width:;text-align:center;">'+_x.lang.defaultColor+'</td></tr></table></td><td>'+_x.closeImg(boxId)+'</td></tr><tr>';
 
     var colorNum = 1;
-    for( var p in this.colors ) {
+    for( var p in _x.colors ) {
         if( colorNum == 9 || colorNum==17 || colorNum==25 || colorNum ==33 ) { colorTableString += '</tr>\n<tr>'; }
 
         var cp = p.substring(1,p.length);
@@ -723,22 +753,23 @@ wojilu.editor.prototype.backcolorHandler = function () {
 };
     
 wojilu.editor.prototype.colorHandler = function (cmd) {
-    var _this = this;
-    var colorBox = $('#'+cmd+'Box'+this.index);
+    var _x = this;
+    var colorBox = $('#'+cmd+'Box'+_x.index);
     $('.colorNormal', colorBox).unbind('click').click( function() {
         var innerBox = $('.colorInner', this );
         colorBox.hide();
-        _this.restoreSelection();
+        _x.restoreSelection();
         var colorValue = innerBox.css( 'background-color' );
-        _this.format( cmd, colorValue );
+        _x.format( cmd, colorValue );
     });        
 };
 
 //----------------------------------------------------------------
     
 wojilu.editor.prototype.emotionDialog = function () {
-    var emBoxId = 'emotionBox'+this.index;
-    var emsString = '<div id="'+emBoxId+'" style="background:#ffffff;border:1px solid #aaa;padding:10px;"><table cellpadding="3" class="emSelector"><tr><td colspan="9" style="font-size:12px;">'+this.lang.insertEmotions+'</td><td colspan="1" style="text-align:center;">'+this.closeImg(emBoxId)+'</td></tr>';
+    var _x = this;
+    var emBoxId = 'emotionBox'+_x.index;
+    var emsString = '<div id="'+emBoxId+'" style="background:#ffffff;border:1px solid #aaa;padding:10px;"><table cellpadding="3" class="emSelector"><tr><td colspan="9" style="font-size:12px;">'+_x.lang.insertEmotions+'</td><td colspan="1" style="text-align:center;">'+_x.closeImg(emBoxId)+'</td></tr>';
 
     var trS = '<tr id="emRow1">';
     var num=1;
@@ -756,7 +787,7 @@ wojilu.editor.prototype.emotionDialog = function () {
             number='0'+i;
         };
         
-        trS+= '<td class="emotionItem"><img src="'+this.emPath+number+ '.gif" title="'+eval( 'this.emotions.$'+number )+'" /></td>';
+        trS+= '<td class="emotionItem"><img src="'+_x.emPath+number+ '.gif" title="'+eval( 'this.emotions.$'+number )+'" /></td>';
     }
     trS+='</tr></table></div>';
 
@@ -765,18 +796,18 @@ wojilu.editor.prototype.emotionDialog = function () {
 };
 
 wojilu.editor.prototype.emotionHandler = function () {
-    var _this = this;
-    var emBox = $('#emotionBox'+this.index);
+    var _x = this;
+    var emBox = $('#emotionBox'+_x.index);
     $('.emotionItem', emBox).unbind('click').click( function() {
         var imgPath = $('img', this).attr('src');
         emBox.hide();
-        _this.restoreSelection();
-        _this.format( 'InsertImage', imgPath );        
+        _x.restoreSelection();
+        _x.format( 'InsertImage', imgPath );        
     });
 };
     
 //----------------------------------------------------------------
-
+// 全局方法，供其他页面iframe等调用
 function addEditorPic( editorString, murl ) {
     eval( editorString+'.insertImg("'+murl+'");' );
 };
@@ -785,20 +816,20 @@ function addEditorPicAndLink( editorString, murl, picLink ) {
     eval( editorString+'.insertImgAndLink("'+murl+'", "'+picLink+'");' );
 };
 
-
 wojilu.editor.prototype.picDialog = function () {
-    var imgBoxId = 'picBox'+this.index;
+    var _x = this;
+    var imgBoxId = 'picBox'+_x.index;
     var result = '<div class="getImgBox" id="'+imgBoxId+'">';
     result += '<table cellpadding="0" cellspacing="0" class="insertTable">';
     result += '	<tr unselectable="on">';
-    result += '		<td class="tabItem currentTab addPicUrl">'+this.lang.imgInsertTitle+'</td>';
+    result += '		<td class="tabItem currentTab addPicUrl">'+_x.lang.imgInsertTitle+'</td>';
     result += '		<td class="tabItem uploadPic"></td>';
     result += '		<td class="tabItem myPics"></td>';
-    result += '		<td class="closeTab">'+this.closecmd(imgBoxId)+'</td>';
+    result += '		<td class="closeTab">'+_x.closecmd(imgBoxId)+'</td>';
     result += '	</tr>';
     result += '	<tr>';
     result += '		<td colspan="4" class="actionPanel">';
-    result += '		<div class="insertPannel">'+this.lang.url+': <input class="editorImgUrl" type="text" /> <input class="btnInsertImg btn btn-primary btns" type="button" value="'+this.lang.imgInsert+'" /></div>';
+    result += '		<div class="insertPannel">'+_x.lang.url+': <input class="editorImgUrl" type="text" /> <input class="btnInsertImg btn btn-primary btns" type="button" value="'+_x.lang.imgInsert+'" /></div>';
     result += '		</td>';
     result += '	</tr>';
     result += '</table>';
@@ -808,9 +839,9 @@ wojilu.editor.prototype.picDialog = function () {
 
 wojilu.editor.prototype.picHandler = function () {
 
-    var editorName = this.name+'Editor';
-    var picBox = $('#picBox'+this.index);        
-    var _this = this;
+    var _x = this;
+    var editorName = _x.name+'Editor';
+    var picBox = $('#picBox'+_x.index);        
     
     $('.tabItem', picBox).click( function() {
         $('td.currentTab', picBox).removeClass( 'currentTab' );
@@ -818,7 +849,7 @@ wojilu.editor.prototype.picHandler = function () {
     });    
     
     var frmHtml = function( frmUrl ) {
-        var frmId = 'picFrmEditor'+_this.index;
+        var frmId = 'picFrmEditor'+_x.index;
         var xwidth = '530px';
         var furl = frmUrl.toAjaxFrame()+'&editor='+editorName;
         return '<iframe id="'+frmId+'" src="'+furl+'" frameborder="0" width="'+xwidth+'" height="120" scrolling="no" style="padding:0px;margin:0px;"></iframe>';
@@ -828,28 +859,28 @@ wojilu.editor.prototype.picHandler = function () {
         $('.btnInsertImg', picBox).unbind('click').click( function() {
             var txtUrl = $('.editorImgUrl', picBox);
             var imgUrl = txtUrl.val();
-            if( imgUrl=='' ) { alert( _this.lang.urlError ); txtUrl.focus(); return false; }
+            if( imgUrl=='' ) { alert( _x.lang.urlError ); txtUrl.focus(); return false; }
             
             picBox.hide();
-            _this.restoreSelection();
-            _this.format( 'InsertImage', imgUrl );
+            _x.restoreSelection();
+            _x.format( 'InsertImage', imgUrl );
         });
     };
     
     bindBtnInsertImg();
     
-    var uploadUrl = _this.config.uploadUrl;
-    var myPicsUrl = _this.config.mypicsUrl;
+    var uploadUrl = _x.config.uploadUrl;
+    var myPicsUrl = _x.config.mypicsUrl;
     
     $('.addPicUrl', picBox).click( function() {
-        var lnkBox = '<div class="insertPannel">'+_this.lang.url+': <input class="editorImgUrl" type="text" /> <input class="btnInsertImg btn btn-primary" type="button" value="'+_this.lang.imgInsert+'" /></div>';
+        var lnkBox = '<div class="insertPannel">'+_x.lang.url+': <input class="editorImgUrl" type="text" /> <input class="btnInsertImg btn btn-primary" type="button" value="'+_x.lang.imgInsert+'" /></div>';
         $('.actionPanel', picBox).html(lnkBox);
         bindBtnInsertImg();
     });
     
     if( wojilu.str.hasText( uploadUrl ) ) {
         var tdUploadPic = $('.uploadPic', picBox);
-        tdUploadPic.text( _this.lang.imgUploadTitle );
+        tdUploadPic.text( _x.lang.imgUploadTitle );
         tdUploadPic.click( function() {
             $('.actionPanel', picBox).html(frmHtml(uploadUrl));
         });
@@ -857,7 +888,7 @@ wojilu.editor.prototype.picHandler = function () {
     
     if( wojilu.str.hasText( myPicsUrl ) ) {
         var tdMyPics = $('.myPics', picBox);
-        tdMyPics.text( _this.lang.imgMyTitle );
+        tdMyPics.text( _x.lang.imgMyTitle );
         tdMyPics.click( function() {
             $('.actionPanel', picBox).html(frmHtml(myPicsUrl));
         });
@@ -876,29 +907,30 @@ wojilu.editor.prototype.insertImgAndLink = function (imgUrl, imgLink) {
 //----------------------------------------------------------------
 
 wojilu.editor.prototype.flashDialog = function () {
-    var flashBoxId = 'flashBox'+this.index;
+    var _x = this;
+    var flashBoxId = 'flashBox'+_x.index;
     var result = '<div id="'+flashBoxId+'" class="flashBox" unselectable="on">';
     result += '<table border="0">';
-    result += '	<tr><td colspan="2"><table class="editorBoxTitle"><tr><td class="editorBoxTitleString">'+this.lang.flashInsert+'</td><td style="text-align:right;">'+this.closecmd(flashBoxId)+'</td></tr></table></td></tr>';
-    result += '	<tr><td class="flashBoxLeft">'+this.lang.url+'</td><td><input type="text" class="editorFlashUrl" /></td></tr>';
-    result += '	<tr><td class="flashBoxLeft">'+this.lang.width+'</td><td><input type="text" class="editorFlashWidth" value="480" style="width:50px;"/> px</td></tr>';
-    result += '	<tr><td class="flashBoxLeft">'+this.lang.height+'</td><td><input type="text" class="editorFlashHeight" value="360" style="width:50px;" /> px</td></tr>';
-    result += '	<tr><td colspan="2" style="text-align:center;padding-bottom:20px;"><input class="btnInsertFlash btn btn-primary btns" type="button" value="'+this.lang.flashInsert+'" /></td></tr>';
+    result += '	<tr><td colspan="2"><table class="editorBoxTitle"><tr><td class="editorBoxTitleString">'+_x.lang.flashInsert+'</td><td style="text-align:right;">'+_x.closecmd(flashBoxId)+'</td></tr></table></td></tr>';
+    result += '	<tr><td class="flashBoxLeft">'+_x.lang.url+'</td><td><input type="text" class="editorFlashUrl" /></td></tr>';
+    result += '	<tr><td class="flashBoxLeft">'+_x.lang.width+'</td><td><input type="text" class="editorFlashWidth" value="480" style="width:50px;"/> px</td></tr>';
+    result += '	<tr><td class="flashBoxLeft">'+_x.lang.height+'</td><td><input type="text" class="editorFlashHeight" value="360" style="width:50px;" /> px</td></tr>';
+    result += '	<tr><td colspan="2" style="text-align:center;padding-bottom:20px;"><input class="btnInsertFlash btn btn-primary btns" type="button" value="'+_x.lang.flashInsert+'" /></td></tr>';
     result += '</table>';
     result += '</div>';
     return result;
 };
 
 wojilu.editor.prototype.flashHandler = function () {
-    var _this = this;
-    var flashBox = $('#flashBox'+this.index);
+    var _x = this;
+    var flashBox = $('#flashBox'+_x.index);
     $('.btnInsertFlash', flashBox).unbind('click').click( function() {
         var flashUrl = $( '.editorFlashUrl', flashBox ).val();
-        if( flashUrl == '' ) { alert( _this.lang.urlError ); $( '.editorFlashUrl', flashBox ).focus(); return false; }
-        var flashHtml = _this.getFlashHtml( flashUrl, $( '.editorFlashWidth', flashBox ).val(), $( '.editorFlashHeight', flashBox ).val() );
+        if( flashUrl == '' ) { alert( _x.lang.urlError ); $( '.editorFlashUrl', flashBox ).focus(); return false; }
+        var flashHtml = _x.getFlashHtml( flashUrl, $( '.editorFlashWidth', flashBox ).val(), $( '.editorFlashHeight', flashBox ).val() );
         flashBox.hide();
-        _this.restoreSelection();
-        _this.insertHTML(flashHtml);
+        _x.restoreSelection();
+        _x.insertHTML(flashHtml);
     });
 };    
     
@@ -909,29 +941,31 @@ wojilu.editor.prototype.getFlashHtml = function (srcUrl,width,height) {
 //----------------------------------------------------------------
     
 wojilu.editor.prototype.linkDialog = function () {
-    var linkBoxId = 'linkBox'+this.index;
-    var result ='<div id="'+linkBoxId+'" class="editorBox linkBox" unselectable="on"><div><table><tr><td>'+this.lang.url+'</td><td><input class="editorLinkUrl" type="text" value="http://" />&nbsp;</td><td>'+this.closecmd(linkBoxId)+'</td></tr><tr><td>打开方式</td><td colspan=2><select class="editorLinkTarget"><option value="">本页打开</option><option value="_blank">新窗口打开</option></select></td></tr><tr><td></td><td colspan=2><input class="btnCreateLink btn btn-primary btns" type="button" value="'+this.lang.addLink+'" unselectable="on" style="margin-right:10px;"/></td></tr></table></div></div>';
+    var _x = this;
+    var linkBoxId = 'linkBox'+_x.index;
+    var result ='<div id="'+linkBoxId+'" class="editorBox linkBox" unselectable="on"><div><table><tr><td>'+_x.lang.url+'</td><td><input class="editorLinkUrl" type="text" value="http://" />&nbsp;</td><td>'+_x.closecmd(linkBoxId)+'</td></tr><tr><td>打开方式</td><td colspan=2><select class="editorLinkTarget"><option value="">本页打开</option><option value="_blank">新窗口打开</option></select></td></tr><tr><td></td><td colspan=2><input class="btnCreateLink btn btn-primary btns" type="button" value="'+_x.lang.addLink+'" unselectable="on" style="margin-right:10px;"/></td></tr></table></div></div>';
     return result;
 };
 
 wojilu.editor.prototype.linkHandler = function () {
-    var _this = this;
-    var linkBox = $('#linkBox'+this.index);
+    var _x = this;
+    var linkBox = $('#linkBox'+_x.index);
     $('.btnCreateLink', linkBox).unbind('click').click( function() {
 
         var lnkText = $('.editorLinkUrl', linkBox);
         var linkUrl = lnkText.val();
         
-        if( linkUrl=='' || linkUrl=='http://' ) { alert( _this.lang.urlError ); lnkText.focus(); return false; }
-        _this.createLink( linkUrl, $('.editorLinkTarget', linkBox ).val() );
+        if( linkUrl=='' || linkUrl=='http://' ) { alert( _x.lang.urlError ); lnkText.focus(); return false; }
+        _x.createLink( linkUrl, $('.editorLinkTarget', linkBox ).val() );
         linkBox.hide();
     });
 };
 
 wojilu.editor.prototype.createLink = function ( url, lnkTarget ) {
+    var _x = this;
     var strTarget='';
     if( lnkTarget == '_blank' ) { strTarget = ' target="_blank"'; };
-    this.insertHTML( '<a href="'+url+'"'+strTarget +'>' + this.selection.text + '</a>' );
+    _x.insertHTML( '<a href="'+url+'"'+strTarget +'>' + _x.selection.text + '</a>' );
 };
 
 //----------------------------------------------------------------
@@ -943,8 +977,8 @@ wojilu.editor.prototype.addCodeDialog= function () {
 }
 
 wojilu.editor.prototype.addCodeHandler= function () {
-    var _this = this;
-    var addCodeBoxId = 'addCodeBox'+this.index;
+    var _x = this;
+    var addCodeBoxId = 'addCodeBox'+_x.index;
     var codeBox = $('#'+addCodeBoxId );
     $('input[type=submit]', codeBox ).click( function() {
         var codeType = $('select', codeBox ).val();
@@ -956,10 +990,10 @@ wojilu.editor.prototype.addCodeHandler= function () {
         }
         code = code.replace( /</g, '&lt;' ).replace( />/g, '&gt;' );
         if( codeType=='text' ) {
-            _this.insertHTML( code.replace(/\n/g,"<br/>") );
+            _x.insertHTML( code.replace(/\n/g,"<br/>") );
         }
         else {
-            _this.insertHTML( '<br/><br/><pre class="brush: '+codeType+';" >'+code+'</pre><br/></br/>' );
+            _x.insertHTML( '<br/><br/><pre class="brush: '+codeType+';" >'+code+'</pre><br/></br/>' );
         }
         codeBox.hide();
     });
@@ -968,8 +1002,9 @@ wojilu.editor.prototype.addCodeHandler= function () {
 //----------------------------------------------------------------
 
 wojilu.editor.prototype.aboutDialog = function () {
-    var aboutBoxId = 'aboutBox'+this.index;
-    return '<div id="'+aboutBoxId+'" class="editorBox"><div style="text-align:center;">'+ this.lang.aboutUs +'<br/><input class="btnOk btn btn-primary" type="button" value="'+this.lang.ok+'" /></div></div>';
+    var _x = this;
+    var aboutBoxId = 'aboutBox'+_x.index;
+    return '<div id="'+aboutBoxId+'" class="editorBox"><div style="text-align:center;">'+ _x.lang.aboutUs +'<br/><input class="btnOk btn btn-primary" type="button" value="'+_x.lang.ok+'" /></div></div>';
 };
    
 wojilu.editor.prototype.aboutHandler = function () {
@@ -980,70 +1015,50 @@ wojilu.editor.prototype.aboutHandler = function () {
 
 //----------------------------------------------------------------
 
-function checkXhtml(str) {
-	str = str.replace(/<br.*?>/gi, "<br />");
-	str = str.replace(/<b([^\/]*?>)/gi, "<strong$1");
-	str = str.replace(/<\/b>/gi, "</strong>");
-	str = str.replace(/(<hr[^>]*[^\/])(>)/gi, "$1 />");
-	str = str.replace(/(<img[^>]*[^\/])(>)/gi, "$1 />");
-    str = str.replace(/(<\w+)(.*?>)/gi, function (all, tag, attr) { 
-        if( attr.toLowerCase().indexOf( 'href' )>0 || attr.toLowerCase().indexOf( 'src' )>0) {
-            return tag.toLowerCase() + attr;
-        }
-        else {
-            return tag.toLowerCase() + attr.toLowerCase();
-        }
-    });
-    str = str.replace(/(<\/\w+>)/gi, function (all, tag) { return tag.toLowerCase(); });
-	return str;
-}
-
-//----------------------------------------------------------------
-
 wojilu.editor.prototype.sourceHandler = function () {
-    var _this = this;
-    var srcTd = this.cmdCell('source');
+    var _x = this;
+    var srcTd = _x.cmdCell('source');
     var chk = $('input', srcTd);
-    var viewSource = $('.viewSource', this.context );
+    var viewSource = $('.viewSource', _x.context );
     chk.click( function() {
     
         if( this.checked ) {                
             
-            $(document.getElementById(_this.frmId)).hide();
-            $(document.getElementById(_this.name)).val(checkXhtml(_this.doc.body.innerHTML)).show();
+            $(document.getElementById(_x.frmId)).hide();
+            $(document.getElementById(_x.name)).val(_x.checkXhtml(_x.doc.body.innerHTML)).show();
 
             var sp = wojilu.position.getTarget(viewSource[0]);
             viewSource.appendTo($('body'));
             viewSource.css( 'position', 'absolute' ).css( 'zIndex', 99 ).css( 'left', sp.x ).css( 'top', sp.y );
             
-            var toolbar = $('.editorToolBar', _this.context );
-            _this.showTempDiv( toolbar[0] );
+            var toolbar = $('.editorToolBar', _x.context );
+            _x.showTempDiv( toolbar[0] );
         }
         else {
-            $(document.getElementById(_this.frmId)).show();
-            $(document.getElementById(_this.name)).hide();
+            $(document.getElementById(_x.frmId)).show();
+            $(document.getElementById(_x.name)).hide();
 
             $('#tempDiv').hide();
-            var td = $('.wojilu_tool_source', _this.context );
+            var td = $('.wojilu_tool_source', _x.context );
             viewSource.appendTo(td).css( 'position', 'static' );
             
-            _this.doc.body.innerHTML = $(document.getElementById(_this.name)).val();
+            _x.doc.body.innerHTML = $(document.getElementById(_x.name)).val();
         };
     });
 };
     
 wojilu.editor.prototype.showTempDiv = function (target) {
-    
-    var result = this.$id('tempDiv');
+    var _x = this;
+    var result = _x.$id('tempDiv');
     if( result ) {
         $(result).show();
-        this.showPosition(target, 0);  
+        _x.showPosition(target, 0);  
         return;
     };
     
     var divString='<div id="tempDiv" style="width:'+($(target).width()-1)+'px;height:'+$(target).height()+'px;background:#eeeeee;filter:alpha(opacity=70); opacity:0.7;"></div>';
     $( 'body' ).append( divString );
-    this.showPosition(target, 0);    
+    _x.showPosition(target, 0);    
 };
 
 wojilu.editor.prototype.showPosition = function(target, offset) {
@@ -1054,7 +1069,8 @@ wojilu.editor.prototype.showPosition = function(target, offset) {
 //----------------------------------------------------------------
 
 wojilu.editor.prototype.render = function() {
+    var _x = this;
     if( wojilu.editorConfig.isSupport() == false ) return;
-    this.beginRender().addImgs().makeWritable().addCallback().resize();
-    $('#'+this.frmId).before($('#'+this.name));
+    _x.beginRender().addImgs().makeWritable().addCallback().resize();
+    $('#'+_x.frmId).before($('#'+_x.name));
 };

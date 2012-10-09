@@ -140,6 +140,13 @@ namespace wojilu {
         }
 
         /// <summary>
+        /// 编辑器名称。在其他页面和编辑器页面进行交互的时候，需要这个名称。
+        /// </summary>
+        public String EditVarName {
+            get { return String.Format( "{0}Editor", ControlName.Replace( ".", "" ) ); }
+        }
+
+        /// <summary>
         /// 设置图片上传网址
         /// </summary>
         /// <param name="ctx"></param>
@@ -185,16 +192,13 @@ namespace wojilu {
 
             builder.AppendFormat( "<div id=\"{0}\">", this.ControlName.Replace( ".", "_" ) + "Editor" );
 
-            builder.AppendFormat( "<textarea id=\"{0}\" name=\"{0}\" class=\"editor-textarea\" style=\"display:none;height:"+this.Height+";\">{1}</textarea>", this.ControlName, this.Content );
+            builder.AppendFormat( "<textarea id=\"{0}\" name=\"{0}\" class=\"editor-textarea\" style=\"display:none;height:" + this.Height + ";\">{1}</textarea>", this.ControlName, this.Content );
 
-            //if (this.IsUnique) {
-
-                builder.Append( "<script>_run(function(){require([\"" + RelativePath + "editor\"],function(){" );
-                builder.AppendLine();
-                builder.Append( "new wojilu.editor( {editorPath:'" + this.EditorPath + "', height:'" + this.Height + "', name:'" + this.ControlName + "', content:'', toolbarType:'" + this.Toolbar.ToString().ToLower() + "', uploadUrl:'" + this.UploadUrl + "', mypicsUrl:'" + this.MyPicsUrl + "' } ).render();" );
-                builder.AppendLine();
-                builder.Append( "})});</script>" );
-            //}
+            builder.Append( "<script>_run(function(){require([\"" + RelativePath + "editor\"],function(){" );
+            builder.AppendLine();
+            builder.Append( "window." + EditVarName + "=new wojilu.editor( {editorPath:'" + this.EditorPath + "', height:'" + this.Height + "', name:'" + this.ControlName + "', content:'', toolbarType:'" + this.Toolbar.ToString().ToLower() + "', uploadUrl:'" + this.UploadUrl + "', mypicsUrl:'" + this.MyPicsUrl + "' } );" + EditVarName + ".render();" );
+            builder.AppendLine();
+            builder.Append( "})});</script>" );
 
             builder.Append( "</div>" );
 
