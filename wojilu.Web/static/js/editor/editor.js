@@ -1,9 +1,9 @@
 ﻿wojilu.editorConfig = {
     
     cmdList1 : [ 'bold', 'italic', 'underline', 'separator', 'fontFamily', 'fontSize', 'clearFormat', 'separator', 'forecolor', 'backcolor', 'emotion', 'pic', 'flash', 'separator', 'link', 'unlink', 'table', 'inserthorizontalrule', 'separator','clear', 'about' ],
-    cmdList2 : [ 'justifyleft', 'justifycenter', 'justifyright', 'separator', 'indent', 'outdent', 'undo', 'redo', 'separator', 'insertunorderedlist', 'insertorderedlist', 'superscript', 'subscript', 'strikethrough', 'removeFormat', 'separator', 'copy', 'cut', 'delete', 'paste','addCode' ],
+    cmdList2 : [ 'justifyleft', 'justifycenter', 'justifyright', 'separator', 'indent', 'outdent', 'undo', 'redo', 'separator', 'insertunorderedlist', 'insertorderedlist', 'superscript', 'subscript', 'strikethrough', 'removeFormat', 'separator', 'copy', 'cut', 'delete', 'paste','pasteText', 'addCode' ],
     
-    basicCmd : [ 'bold', 'forecolor', 'fontFamily', 'fontSize', 'underline', 'strikethrough', 'clearFormat', 'separator', 'link', 'emotion', 'pic', 'flash', 'inserthorizontalrule','addCode', 'clear' ],
+    basicCmd : [ 'bold', 'forecolor', 'fontFamily', 'fontSize', 'underline', 'strikethrough', 'separator', 'link', 'emotion', 'pic', 'flash', 'inserthorizontalrule','separator','pasteText','addCode','clearFormat','clear' ],
     
     fontNames : [
         ['宋体', '宋体'],
@@ -75,6 +75,7 @@
         'cut':'剪切',
         'delete':'删除',
         'paste':'粘贴',
+        'pasteText':'粘贴纯文本',
         'addCode':'添加程序代码(方便语法高亮显示)'
     },
     
@@ -363,6 +364,11 @@ wojilu.editor.prototype.beginRender = function() {
     };
     return _x;
 };
+
+wojilu.editor.prototype.getFrmBody = function( htmlContent ) {
+    var _x = this;
+    return '<html><link rel="stylesheet" type="text/css" href="'+_x.skinPath+ 'style.css'+'" /><body style="background:#fff;border:0px #aaa solid;margin:5px;padding:0px;font-family:verdana;font-size:12px;line-height:150%;cursor:text;">\n' + htmlContent + '\n</body></html>';
+};
    
 wojilu.editor.prototype.makeWritable = function () {
     
@@ -371,7 +377,7 @@ wojilu.editor.prototype.makeWritable = function () {
     if( !document.all && wojilu.str.isNull( _x.html ) ) {
         htmlContent = '<br/>'+_x.html;
     }
-    var frameHtml = '<html><link rel="stylesheet" type="text/css" href="'+_x.skinPath+ 'style.css'+'" /><body style="background:#fff;border:0px #aaa solid;margin:5px;padding:0px;font-family:verdana;font-size:12px;line-height:150%;cursor:text;">\n' + htmlContent + '\n</body></html>';
+    var frameHtml = _x.getFrmBody( htmlContent );
 
     if( document.all ) { _x.editor = frames[ _x.frmId ]; } else { _x.editor = _x.$id( _x.frmId ).contentWindow; };
     _x.doc = _x.editor.document;
@@ -460,7 +466,7 @@ wojilu.editor.prototype.addCallback = function () {
     };    
     
     // 自定义的格式化命令（带弹窗或下拉菜单的）
-    var dcmds = ['table', 'fontFamily', 'fontSize', 'forecolor', 'backcolor', 'emotion', 'pic', 'flash', 'link', 'about', 'addCode'];
+    var dcmds = ['table', 'fontFamily', 'fontSize', 'forecolor', 'backcolor', 'emotion', 'pic', 'flash', 'link', 'about','pasteText','addCode'];
     for( var i=0;i<dcmds.length;i++ ) {
         _x.dlgHandler(dcmds[i]);
     };
@@ -472,7 +478,7 @@ wojilu.editor.prototype.addCallback = function () {
 
     _x.cmdCell( 'clear' ).click( function() {
         if( confirm( '确实删除所有内容？') ) {
-            _x.writeContentToEditor( '' );
+            _x.writeContentToEditor( _x.getFrmBody('') );
         }
     });
     
@@ -816,6 +822,13 @@ function addEditorPicAndLink( editorString, murl, picLink ) {
     eval( editorString+'.insertImgAndLink("'+murl+'", "'+picLink+'");' );
 };
 
+wojilu.editor.prototype.picGetForm = function() {
+    var _x = this;
+    var result = '		<div class="insertPannel" style="height:120px;"><table><tr><td>'+_x.lang.url+':</td><td><input class="editorImgUrl" type="text" /></td></tr>';
+    result += '		<tr><td>宽度:</td><td><input class="editorImgWidth" type="text" style="width:60px;" /><span class="note right10">（选填)</span> 高度：<input class="editorImgHeight" type="text" style="width:60px;" /> <span class="note">(选填)</span></td></tr>';
+    return result+'		<tr><td>&nbsp;</td><td><input class="btnInsertImg btn btn-primary btns" type="button" value="'+_x.lang.imgInsert+'" /></td></tr></table></div>';
+};
+
 wojilu.editor.prototype.picDialog = function () {
     var _x = this;
     var imgBoxId = 'picBox'+_x.index;
@@ -829,7 +842,7 @@ wojilu.editor.prototype.picDialog = function () {
     result += '	</tr>';
     result += '	<tr>';
     result += '		<td colspan="4" class="actionPanel">';
-    result += '		<div class="insertPannel">'+_x.lang.url+': <input class="editorImgUrl" type="text" /> <input class="btnInsertImg btn btn-primary btns" type="button" value="'+_x.lang.imgInsert+'" /></div>';
+    result += _x.picGetForm();
     result += '		</td>';
     result += '	</tr>';
     result += '</table>';
@@ -858,12 +871,18 @@ wojilu.editor.prototype.picHandler = function () {
     var bindBtnInsertImg = function() {
         $('.btnInsertImg', picBox).unbind('click').click( function() {
             var txtUrl = $('.editorImgUrl', picBox);
+            var txtWidth = $('.editorImgWidth', picBox).val();
+            var txtHeight = $('.editorImgHeight', picBox).val();
             var imgUrl = txtUrl.val();
             if( imgUrl=='' ) { alert( _x.lang.urlError ); txtUrl.focus(); return false; }
             
             picBox.hide();
             _x.restoreSelection();
-            _x.format( 'InsertImage', imgUrl );
+            var imgHtml = '<img src="'+imgUrl+'" style="';
+            if( txtWidth && txtWidth.length>0 ) imgHtml += 'width:'+txtWidth+'px;';
+            if( txtHeight && txtHeight.length>0 ) imgHtml += 'height:'+txtHeight+'px;';
+            imgHtml += '" />';
+            _x.insertHTML( imgHtml );
         });
     };
     
@@ -873,8 +892,7 @@ wojilu.editor.prototype.picHandler = function () {
     var myPicsUrl = _x.config.mypicsUrl;
     
     $('.addPicUrl', picBox).click( function() {
-        var lnkBox = '<div class="insertPannel">'+_x.lang.url+': <input class="editorImgUrl" type="text" /> <input class="btnInsertImg btn btn-primary" type="button" value="'+_x.lang.imgInsert+'" /></div>';
-        $('.actionPanel', picBox).html(lnkBox);
+        $('.actionPanel', picBox).html( _x.picGetForm() );
         bindBtnInsertImg();
     });
     
@@ -972,7 +990,7 @@ wojilu.editor.prototype.createLink = function ( url, lnkTarget ) {
 
 wojilu.editor.prototype.addCodeDialog= function () {
     var addCodeBoxId = 'addCodeBox'+this.index;
-    return '<div id="'+addCodeBoxId+'" style="width:400px;height:260px;background:#f2f2f2;padding:10px 10px 10px 20px; border:1px #aaa solid;">'+
+    return '<div id="'+addCodeBoxId+'" style="width:400px;height:290px;background:#f2f2f2;padding:10px 10px 10px 20px; border:1px #aaa solid;">'+
         '<table style="width:390px"><tr><td>请选择代码类型：<select style="width:100px;"><option value="csharp">c#</option><option value="java">java</option><option value="c">c</option><option value="python">python</option><option value="ruby">ruby</option><option value="vb">vb</option><option value="php">php</option><option value="delphi">delphi</option><option value="js">js</option><option value="xml">xml</option><option value="sql">sql</option><option value="css">css</option><option value="text">纯文本</option></select></td><td style="text-align:right;">' + this.closeImg(addCodeBoxId) + '</td></tr></table><div><textarea style="width:380px;height:180px; border:1px solid #EEEEEE"></textarea></div><div><input type="submit" class="btn btn-primary btns" value="插入代码" /></div><div style="clear:both;"></div></div>';
 }
 
@@ -980,6 +998,7 @@ wojilu.editor.prototype.addCodeHandler= function () {
     var _x = this;
     var addCodeBoxId = 'addCodeBox'+_x.index;
     var codeBox = $('#'+addCodeBoxId );
+    $('textarea', codeBox ).focus();
     $('input[type=submit]', codeBox ).click( function() {
         var codeType = $('select', codeBox ).val();
         var code = $('textarea', codeBox ).val();
@@ -999,6 +1018,30 @@ wojilu.editor.prototype.addCodeHandler= function () {
     });
 }
 
+//----------------------------------------------------------------
+
+wojilu.editor.prototype.pasteTextDialog= function () {
+    var pasteTextId = 'pasteTextBox'+this.index;
+    return '<div id="'+pasteTextId+'" style="width:400px;height:260px;background:#f2f2f2;padding:10px 10px 10px 20px; border:1px #aaa solid;">'+
+        '<table style="width:390px"><tr><td>请用快捷键ctrl+v将内容拷贝到下面的文本框中：</td><td style="text-align:right;">' + this.closeImg(pasteTextId) + '</td></tr></table><div><textarea style="width:380px;height:180px; border:1px solid #EEEEEE"></textarea></div><div><input type="submit" class="btn btn-primary btns" value="确定" /></div><div style="clear:both;"></div></div>';
+}
+
+wojilu.editor.prototype.pasteTextHandler= function () {
+    var _x = this;
+    var pasteTextId= 'pasteTextBox'+_x.index;
+    var pBox = $('#'+pasteTextId);
+    $('textarea', pBox ).focus();
+    $('input[type=submit]', pBox ).click( function() {
+        var textValue = $('textarea', pBox ).val();
+        if( $.trim( textValue )=='' ) {
+            alert( '请拷贝内容！' );
+            $('textarea', pBox ).focus();
+            return;
+        }
+        _x.insertHTML( textValue.replace(/\n/g,"<br/>") );
+        pBox.hide();
+    });
+}
 //----------------------------------------------------------------
 
 wojilu.editor.prototype.aboutDialog = function () {

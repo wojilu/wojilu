@@ -76,6 +76,7 @@ div.viewSource label {display:block !important;float:left; width:30px;}
 .btn-cut{background:url(toolbar/bg.png) no-repeat 0px -160px;}
 .btn-delete{background:url(toolbar/bg.png) no-repeat 0px -260px;}
 .btn-paste{background:url(toolbar/bg.png) no-repeat 0px -200px;}
+.btn-pasteText{background:url(toolbar/bg.png) no-repeat 0px -220px;}
 .btn-addCode{background:url(toolbar/bg.png) no-repeat 0px -1680px;}
 
 /*颜色(color)*/
