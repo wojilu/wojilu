@@ -1,0 +1,82 @@
+﻿<link href="~css/wojilu.core.waterfall.css?v=#{cssVersion}" rel="stylesheet" />
+
+<div class="wfnav">
+    <a href="#{lnkNew}" class="right10"><i class="icon-picture"></i> 最新</a>
+    <a href="" class="right10"><i class="icon-fire"></i> 热门</a>
+    <a href="" class="right10"><i class="icon-thumbs-up"></i> 推荐</a>
+    <span class="left20 right5">分类:</span>
+    <!-- BEGIN categories -->
+        <a href="#{x.LinkShow}" class="right10">#{x.Name}</a>
+    <!-- END categories -->
+</div>
+
+#{layout_content}
+
+
+
+<script type="text/javascript">
+    _run(function () {
+
+        require(['lib/jquery.infinitescroll.min', 'lib/jquery.masonry.min'], function () {
+
+            var $container = $('#wfContainer');
+            $container.infinitescroll({
+
+                loading: {
+                    msgText: "<div style='font-size:26px;color:#aaa;margin-top:20px;margin-bottom:20px;'>loading...</div>",
+                    finishedMsg: "<div style='font-size:26px;font-weight:bold;color:#aaa;margin-top:20px;margin-bottom:20px;'>加载完毕</div>",
+                    img: "~img/ajax/big.gif",
+                    selector: '#loadingWrap'
+                },
+
+                navSelector: "div.turnpage",
+                nextSelector: "div.turnpage a:first",
+                itemSelector: ".wfpost"
+
+            }, function (newElements) {
+                var $newElems = $(newElements);
+                $container.masonry('appended', $newElems);
+            });
+
+
+            $container.masonry({
+                itemSelector: '.wfpost'
+                //columnWidth: 200
+            });
+
+        });
+
+        //-------------------------------------------------
+
+        $('body').append('<div id="backTop"><span>回顶部</span></div>');
+
+        $(window).scroll(function () {
+            if ($(window).scrollTop() >= 300) {
+                $("#backTop").fadeIn(800);
+            } else {
+                $("#backTop").fadeOut(800);
+            }
+        });
+
+        $('#backTop').click(function () {
+            $('html,body').animate({ scrollTop: 0 }, 800);
+            return false;
+        });
+
+        //---------------------------------------------------------
+
+        var wftool = '.wfpost-tool';
+        $('.wfpost').live({
+
+            mouseenter: function () {
+                $(wftool, this).show();
+            },
+
+            mouseleave: function () {
+                $(wftool, this).hide();
+            }
+
+        });
+
+    });
+</script>

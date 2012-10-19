@@ -171,6 +171,7 @@
     <Compile Include="Microblogs\MicroblogSaveController.cs" />
     <Compile Include="Microblogs\SecurityController.cs" />
     <Compile Include="Open\CommentController.cs" />
+    <Compile Include="Photo\HomeController.cs" />
     <Compile Include="Security\SiteAdminService.cs" />
     <Compile Include="ShareController.cs" />
     <Compile Include="Photo\Admin\PhotoController.cs" />

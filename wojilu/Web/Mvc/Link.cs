@@ -46,8 +46,16 @@ namespace wojilu.Web.Mvc {
             return To( _owner, getController( action.Target.GetType() ), action.Method.Name );
         }
 
+        public String To( aAction action, int appId ) {
+            return To( _owner, getController( action.Target.GetType() ), action.Method.Name, appId );
+        }
+
         public String To( aActionWithId action, int id ) {
             return To( _owner, getController( action.Target.GetType() ), action.Method.Name, id );
+        }
+
+        public String To( aActionWithId action, int id, int appId ) {
+            return To( _owner, getController( action.Target.GetType() ), action.Method.Name, id, appId );
         }
 
         //public string To( aActionWithQuery action, string param ) {
@@ -58,9 +66,18 @@ namespace wojilu.Web.Mvc {
             return To( member, getController( action.Target.GetType() ), action.Method.Name, -1 );
         }
 
+        public String To( IMember member, aAction action, int appId ) {
+            return To( member, getController( action.Target.GetType() ), action.Method.Name, -1, appId );
+        }
+
         public String To( IMember member, aActionWithId action, int id ) {
             String ownerPath = GetMemberPathPrefix( member );
             return AppendApp( _appId, getController( action.Target.GetType() ), action.Method.Name, id, ownerPath );
+        }
+
+        public String To( IMember member, aActionWithId action, int id, int appId ) {
+            String ownerPath = GetMemberPathPrefix( member );
+            return AppendApp( appId, getController( action.Target.GetType() ), action.Method.Name, id, ownerPath );
         }
 
         public String To( String memberType, String memberUrl, aActionWithId action, int id, int appId ) {

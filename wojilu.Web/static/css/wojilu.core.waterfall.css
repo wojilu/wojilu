@@ -1,0 +1,22 @@
+body {background:url("../img/m/waterfall-bg.gif");}
+.container {margin-top:20px; background-color:transparent !important}
+.site-header, .site-menu-nav { display:none;}
+    
+.container, .wfbody, #wContainer {width:1150px;}
+
+.wfbody {margin-top:20px;}
+.wflist { margin-bottom:10px;}
+
+.wfnav {margin:10px 25px 15px 25px; box-shadow:2px 2px 5px #aaa; padding:10px 20px; font-size:14px; background:#fefefe; border-radius:4px;}
+
+#wfContainer { clear:both; }
+.wfpost { list-style:none; width:200px; margin:5px 25px 10px 0px; box-shadow:0px 2px 3px #ccc; background:#fff; text-align:center; border-radius:4px;}
+.wfpost-pic { margin:10px;}
+.wfpost-pic img { border-radius:4px;max-width:170px;}
+.wfpost-name { color:#999; margin-top:3px;}
+.wfpost-info { background:#f9f9f9; padding:10px; text-align:left; color:#aaa;}
+.wfpost-info .wfpost-face {width:35px;}
+.wfpost-info img {width:30px; height:30px; margin-right:5px;}
+
+.wfpost-tool { display:none;position:absolute;top:10px; right:10px; border-radius:3px; padding:3px 5px; background:#d50b12; background-image:-moz-linear-gradient(center top , #f64538, #d50b12); background-image:-webkit-gradient(linear ,center top,center bottom,from(#f64538), to(#d50b12));  box-shadow:2px 2px 3px #aaa; font-weight:bold;}
+.wfpost-tool a { color:#fff;}

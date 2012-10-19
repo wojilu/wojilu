@@ -385,6 +385,9 @@
     <Content Include="framework\views\Layouts\TopNav\IndexNew.html" />
     <Content Include="framework\views\Main\Login.html" />
     <Content Include="framework\views\Open\Comment\List.html" />
+    <Content Include="framework\views\Photo\Home\Layout.html" />
+    <Content Include="framework\views\Photo\Home\Space.html" />
+    <Content Include="framework\views\Photo\Home\Index.html" />
     <Content Include="framework\views\Register\Register.html" />
     <Content Include="framework\views\msg.html" />
     <Content Include="framework\views\msgbox.html" />

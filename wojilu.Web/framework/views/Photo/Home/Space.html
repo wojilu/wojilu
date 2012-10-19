@@ -1,0 +1,82 @@
+﻿
+<div style="margin:30px 0px 0px 25px;">
+
+    <div style="width:160px; float:left; border:1px solid #ccc; background:#fff;border-radius:4px;">
+
+        <div style="margin:10px; text-align:center;">
+        
+            <div style="margin-top:20px;"><a href="#{u.Link}"><img src="#{u.PicMedium}" style="border-radius:4px;" /></a></div>
+            <div style="margin:3px 0px;"><a href="#{u.Link}">#{u.Name}</a></div>
+            <div class="note">#{u.Created} 加入</div>
+            <div style="margin-top:6px;"><button class="btn btn-success"><i class="icon-user icon-white"></i> 关注</button></div>
+            
+        </div>
+
+        <div style="margin:30px 10px 30px 10px;">
+        
+            <div style="margin:10px 5px; font-weight:bold;">兴趣爱好</div>
+            <div style="margin-left:5px; color:#666;">音乐、电影、旅行</div>
+        </div>
+    
+    </div>
+
+    <style>
+    .wfUserNavWrap {width:900px;  border:1px solid #aaa;border-radius:4px;margin:10px auto 20px auto;background:#fff; }
+    .wfUserNav {width:100%; }
+    .wfUserNav td { padding:8px 0px; text-align:center; font-size:14px;}
+    td.wfNavCurrent { background:#aaa; color:#fff;}
+    td.wfNavItem:hover {background:#eee;}
+    </style>
+
+    <div style=" float:left; width:950px;">
+
+        <div class="wfUserNavWrap">
+        <table class="wfUserNav">
+            <tr>
+                <td style="width:120px;" class="wfNavCurrent">分类 <span>8</span></td>
+                <td style="width:120px;" class="wfNavItem">收集 <span>8</span></td>
+                <td style="width:120px;" class="wfNavItem">喜欢 <span>8</span></td>
+                <td style="width:120px;" class="wfNavItem">粉丝 <span>8</span></td>
+                <td>&nbsp;</td>
+            </tr>
+        </table>
+        </div>
+
+    
+        <div class="wflist">
+		<ul id="wfContainer">
+
+            <!-- BEGIN list -->
+            <li class="wfpost">
+                <div class="wfpost-pic">
+                    <div><a href="#{x.Link}"><img src="#{x.Pic}"/></a></div>
+                    <div class="wfpost-name">#{x.Title}</div>
+                </div>
+                
+                <div class="wfpost-info">
+                    <table><tr><td class="wfpost-face"><a href="#{x.CreatorLink}"><img src="#{x.CreatorPic}" /></a></td>
+                    <td><a href="#{x.CreatorLink}">#{x.CreatorName}</a>  发布到 <a href="#{x.AlbumLink}">#{x.AlbumName}</a>
+                    </td></tr></table>
+                </div>
+
+                <div class="wfpost-tool">
+                    <a href="" class="right10"><i class="icon-share-alt icon-white"></i> 搜集</a>
+                    <a href=""><i class="icon-heart icon-white"></i> 喜欢</a>
+                </div>
+
+            </li>
+            <!-- END list -->
+        </ul>
+        <div id="loadingWrap" style=" text-align:center;padding:10px;"></div>
+    </div>
+
+    <div style=" display:none;">#{page}</div>
+    
+    </div>
+
+    <div style=" clear:both;"></div>
+
+
+
+</div>
+

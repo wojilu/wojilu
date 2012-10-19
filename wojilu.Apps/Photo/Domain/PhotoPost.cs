@@ -23,8 +23,6 @@ namespace wojilu.Apps.Photo.Domain {
         public int AppId { get; set; }
         public int SysCategoryId { get; set; }
 
-        private PhotoAlbum _album = null;
-
         [Column( Name = "CategoryId" )]
         public PhotoAlbum PhotoAlbum { get; set; }
 

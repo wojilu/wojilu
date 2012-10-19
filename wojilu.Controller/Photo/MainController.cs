@@ -14,6 +14,9 @@ using wojilu.Apps.Photo.Interface;
 using wojilu.Web.Controller.Common;
 using wojilu.Web.Controller.Photo.Caching;
 using wojilu.Common.AppBase.Interface;
+using wojilu.Common.AppBase;
+using wojilu.Members.Users.Interface;
+using wojilu.Members.Users.Service;
 
 namespace wojilu.Web.Controller.Photo {
 
@@ -25,6 +28,7 @@ namespace wojilu.Web.Controller.Photo {
         public IPhotoSysCategoryService categoryService { get; set; }
         public IPhotoRankService rankService { get; set; }
 
+
         public MainController() {
 
             photoService = new SysPhotoService();
@@ -33,11 +37,13 @@ namespace wojilu.Web.Controller.Photo {
             rankService = new PhotoRankService();
 
             HideLayout( typeof( LayoutController ) );
+
         }
 
         [CacheAction( typeof( PhotoMainLayoutCache ) )]
         public override void Layout() {
         }
+
 
         private void bindUsers( List<User> userRanks ) {
             IBlock block = getBlock( "users" );
