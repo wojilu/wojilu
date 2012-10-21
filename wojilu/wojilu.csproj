@@ -98,6 +98,7 @@
     <Compile Include="Net\Video\SinaVideo.cs" />
     <Compile Include="Net\Video\VideoHelper.cs" />
     <Compile Include="Web\Mock\IMockContext.cs" />
+    <Compile Include="Web\Mvc\Attr\DataAttribute.cs" />
     <Compile Include="Web\Mvc\CacheInfo.cs" />
     <Compile Include="Web\Mvc\IActionCache.cs" />
     <Compile Include="Web\Mvc\IPageCache.cs" />

@@ -43,7 +43,6 @@ namespace wojilu.Web.Mvc.Utils {
             }
 
             List<IActionFilter> filters = controller.utils.getActionFilters( actionMethod );
-            //filters.Insert( 0, new CacheUrlAttribute() ); // 默认所有网址都可以通过修改配置进行缓存
 
             if (filters.Count == 0) {
                 run();
@@ -51,7 +50,6 @@ namespace wojilu.Web.Mvc.Utils {
             }
 
             for (int i = 0; i < filters.Count; i++) {
-
 
                 filters[i].BeforeAction( controller );
 

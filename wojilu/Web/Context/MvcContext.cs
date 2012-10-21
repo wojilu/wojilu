@@ -1,4 +1,4 @@
-/*
+ï»¿/*
  * Copyright 2010 www.wojilu.com
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -31,7 +31,7 @@ using wojilu.Web.Mock;
 namespace wojilu.Web.Context {
 
     /// <summary>
-    /// mvc ÉÏÏÂÎÄÊı¾İ£º¼´Õû¸öÖ´ĞĞÁ÷³ÌÖĞ³£ÓÃµÄÊı¾İ·â×°
+    /// mvc ä¸Šä¸‹æ–‡æ•°æ®ï¼šå³æ•´ä¸ªæ‰§è¡Œæµç¨‹ä¸­å¸¸ç”¨çš„æ•°æ®å°è£…
     /// </summary>
     public class MvcContext {
 
@@ -47,7 +47,7 @@ namespace wojilu.Web.Context {
         }
 
         /// <summary>
-        /// ¸ß¼¶¹¤¾ß·½·¨MvcContextUtils
+        /// é«˜çº§å·¥å…·æ–¹æ³•MvcContextUtils
         /// </summary>
         public MvcContextUtils utils {
             get {
@@ -62,46 +62,46 @@ namespace wojilu.Web.Context {
         }
 
         /// <summary>
-        /// web Ô­Ê¼Êı¾İºÍ·½·¨·â×°
+        /// web åŸå§‹æ•°æ®å’Œæ–¹æ³•å°è£…
         /// </summary>
         public IWebContext web { get { return _context; } }
 
         private Result _errors = new Result();
 
         /// <summary>
-        /// »ñÈ¡µ±Ç°ctxÖĞµÄ´íÎóĞÅÏ¢
+        /// è·å–å½“å‰ctxä¸­çš„é”™è¯¯ä¿¡æ¯
         /// </summary>
         public Result errors { get { return _errors; } }
 
         /// <summary>
-        /// µ±Ç°Â·ÓÉĞÅÏ¢
+        /// å½“å‰è·¯ç”±ä¿¡æ¯
         /// </summary>
         public Route route { get { return utils.getRoute(); } }
 
         /// <summary>
-        /// µ±Ç°¿ØÖÆÆ÷
+        /// å½“å‰æ§åˆ¶å™¨
         /// </summary>
         public ControllerBase controller { get { return utils.getController(); } }
 
         /// <summary>
-        /// µ±Ç° owner(±»·ÃÎÊµÄ¶ÔÏóĞÅÏ¢)
+        /// å½“å‰ owner(è¢«è®¿é—®çš„å¯¹è±¡ä¿¡æ¯)
         /// </summary>
         public IOwnerContext owner { get { return utils.getOwnerContext(); } }
 
         /// <summary>
-        /// ·ÃÎÊÕßµÄĞÅÏ¢
+        /// è®¿é—®è€…çš„ä¿¡æ¯
         /// </summary>
         public IViewerContext viewer { get { return utils.getViewerContext(); } }
 
         /// <summary>
-        /// µ±Ç° app
+        /// å½“å‰ app
         /// </summary>
         public IAppContext app { get { return utils.getAppContext(); } }
 
         private PageMeta _pageMeta = new PageMeta();
 
         /// <summary>
-        /// Ò³ÃæÔªĞÅÏ¢(°üÀ¨Title/Keywords/Description/RssLink)
+        /// é¡µé¢å…ƒä¿¡æ¯(åŒ…æ‹¬Title/Keywords/Description/RssLink)
         /// </summary>
         /// <returns></returns>
         public PageMeta GetPageMeta() {
@@ -114,7 +114,7 @@ namespace wojilu.Web.Context {
         private Hashtable _contextItems = new Hashtable();
 
         /// <summary>
-        /// ¸ù¾İ key »ñÈ¡´æ´¢ÔÚ ctx ÖĞÄ³ÏîµÄÖµ
+        /// æ ¹æ® key è·å–å­˜å‚¨åœ¨ ctx ä¸­æŸé¡¹çš„å€¼
         /// </summary>
         /// <param name="key"></param>
         /// <returns></returns>
@@ -123,7 +123,7 @@ namespace wojilu.Web.Context {
         }
 
         /// <summary>
-        /// ½«Ä³¸ö¶ÔÏó´æ´¢ÔÚ ctx ÖĞ£¬·½±ã²»Í¬µÄ controller »ò action Ö®¼äµ÷ÓÃ
+        /// å°†æŸä¸ªå¯¹è±¡å­˜å‚¨åœ¨ ctx ä¸­ï¼Œæ–¹ä¾¿ä¸åŒçš„ controller æˆ– action ä¹‹é—´è°ƒç”¨
         /// </summary>
         /// <param name="key"></param>
         /// <param name="val"></param>
@@ -132,7 +132,7 @@ namespace wojilu.Web.Context {
         }
 
         /// <summary>
-        /// ÅĞ¶Ï ctx µÄ´æ´¢Æ÷ÖĞÊÇ·ñ¾ßÓĞÄ³¸ö key ¡£
+        /// åˆ¤æ–­ ctx çš„å­˜å‚¨å™¨ä¸­æ˜¯å¦å…·æœ‰æŸä¸ª key ã€‚
         /// </summary>
         /// <param name="key"></param>
         /// <returns></returns>
@@ -143,7 +143,7 @@ namespace wojilu.Web.Context {
         //---------------------------------------------------------
 
         /// <summary>
-        /// »ñÈ¡Á´½Ó¶ÔÏó
+        /// è·å–é“¾æ¥å¯¹è±¡
         /// </summary>
         /// <returns></returns>
         public Link GetLink() {
@@ -153,7 +153,7 @@ namespace wojilu.Web.Context {
         private UrlInfo _url;
 
         /// <summary>
-        /// »ñÈ¡¾­¹ı·â×°µÄ url ĞÅÏ¢
+        /// è·å–ç»è¿‡å°è£…çš„ url ä¿¡æ¯
         /// </summary>
         public UrlInfo url { get { return getUrl(); } }
 
@@ -166,7 +166,7 @@ namespace wojilu.Web.Context {
         }
 
         /// <summary>
-        /// ÉèÖÃµ±Ç°ÍøÖ·£¬ÓÃÓÚ×Ô¶¨ÒåÍøÖ·
+        /// è®¾ç½®å½“å‰ç½‘å€ï¼Œç”¨äºè‡ªå®šä¹‰ç½‘å€
         /// </summary>
         /// <param name="url"></param>
         public void setUrl( String url ) {
@@ -174,7 +174,7 @@ namespace wojilu.Web.Context {
         }
 
         /// <summary>
-        /// µ±Ç°¿Í»§¶ËÉÏ´«µÄËùÓĞÎÄ¼ş
+        /// å½“å‰å®¢æˆ·ç«¯ä¸Šä¼ çš„æ‰€æœ‰æ–‡ä»¶
         /// </summary>
         /// <returns></returns>
         public List<HttpFile> GetFiles() {
@@ -188,7 +188,7 @@ namespace wojilu.Web.Context {
         }
 
         /// <summary>
-        /// µ±Ç°¿Í»§¶ËÉÏ´«µÄµÚÒ»¸öÎÄ¼ş
+        /// å½“å‰å®¢æˆ·ç«¯ä¸Šä¼ çš„ç¬¬ä¸€ä¸ªæ–‡ä»¶
         /// </summary>
         /// <returns></returns>
         public HttpFile GetFileSingle() {
@@ -196,26 +196,26 @@ namespace wojilu.Web.Context {
         }
 
         /// <summary>
-        /// ¿Í»§¶ËÊÇ·ñÉÏ´«ÁËÎÄ¼ş
+        /// å®¢æˆ·ç«¯æ˜¯å¦ä¸Šä¼ äº†æ–‡ä»¶
         /// </summary>
         public Boolean HasUploadFiles {
             get { return GetFiles().Count > 0 && GetFileSingle().ContentLength > 10; }
         }
 
         /// <summary>
-        /// µ±Ç° ctx ÖĞÊÇ·ñÓĞ´íÎóĞÅÏ¢
+        /// å½“å‰ ctx ä¸­æ˜¯å¦æœ‰é”™è¯¯ä¿¡æ¯
         /// </summary>
         public Boolean HasErrors {
             get { return errors.HasErrors; }
         }
 
         /// <summary>
-        /// ¿Í»§¶ËÌá½»µÄ HttpMethod£¬·µ»ØGET/POST/DELETE/PUT µÈ
+        /// å®¢æˆ·ç«¯æäº¤çš„ HttpMethodï¼Œè¿”å›GET/POST/DELETE/PUT ç­‰
         /// </summary>
         public String HttpMethod { get { return getMethod(); } }
 
         /// <summary>
-        /// µ±Ç°¿Í»§¶ËÌá½»·½·¨ÊÇ·ñÊÇ GET ·½·¨
+        /// å½“å‰å®¢æˆ·ç«¯æäº¤æ–¹æ³•æ˜¯å¦æ˜¯ GET æ–¹æ³•
         /// </summary>
         public Boolean IsGetMethod {
             get { return strUtil.EqualsIgnoreCase( "get", this.HttpMethod ); }
@@ -259,9 +259,9 @@ namespace wojilu.Web.Context {
         }
 
         /// <summary>
-        /// ÇåÀíËùÓĞ×ÊÔ´£¬×¼±¸Å×³öÒì³£
+        /// æ¸…ç†æ‰€æœ‰èµ„æºï¼Œå‡†å¤‡æŠ›å‡ºå¼‚å¸¸
         /// </summary>
-        /// <param name="httpStatus">¸ø¿Í»§¶ËµÄ httpStatus ×´Ì¬ĞÅÏ¢</param>
+        /// <param name="httpStatus">ç»™å®¢æˆ·ç«¯çš„ httpStatus çŠ¶æ€ä¿¡æ¯</param>
         /// <param name="msg"></param>
         /// <returns></returns>
         public MvcException ex( String httpStatus, String msg ) {
@@ -270,7 +270,7 @@ namespace wojilu.Web.Context {
         }
 
         /// <summary>
-        /// ³ÊÏÖ json µ½¿Í»§¶Ë
+        /// å‘ˆç° json åˆ°å®¢æˆ·ç«¯
         /// </summary>
         /// <param name="jsonContent"></param>
         public void RenderJson( String jsonContent ) {
@@ -278,7 +278,7 @@ namespace wojilu.Web.Context {
         }
 
         /// <summary>
-        /// ³ÊÏÖ xml µ½¿Í»§¶Ë
+        /// å‘ˆç° xml åˆ°å®¢æˆ·ç«¯
         /// </summary>
         /// <param name="xmlContent"></param>
         public void RenderXml( String xmlContent ) {
@@ -289,7 +289,7 @@ namespace wojilu.Web.Context {
         //---------------------------------------- Get ---------------------------------------------
 
         /// <summary>
-        /// »ñÈ¡ url ÖĞµÄÄ³ÏîÖµ£¬½á¹ûÒÑ±»¹ıÂË(²»ÔÊĞíhtml)
+        /// è·å– url ä¸­çš„æŸé¡¹å€¼ï¼Œç»“æœå·²è¢«è¿‡æ»¤(ä¸å…è®¸html)
         /// </summary>
         /// <param name="queryItem"></param>
         /// <returns></returns>
@@ -299,7 +299,16 @@ namespace wojilu.Web.Context {
         }
 
         /// <summary>
-        /// ¼ì²é url ÖĞÊÇ·ñ¾ßÓĞÄ³Ïî key
+        /// è·å–å½“å‰è·¯ç”±ä¸­çš„ id å¯¹åº”çš„æ•°æ®(å¿…é¡»å…ˆé€šè¿‡ DataAttribute æŒ‡å®šæ•°æ®ç±»å‹)
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <returns></returns>
+        public T Get<T>() {
+            return (T)this.GetItem( "__currentRouteIdData" );
+        }
+
+        /// <summary>
+        /// æ£€æŸ¥ url ä¸­æ˜¯å¦å…·æœ‰æŸé¡¹ key
         /// </summary>
         /// <param name="key"></param>
         /// <returns></returns>
@@ -308,7 +317,7 @@ namespace wojilu.Web.Context {
         }
 
         /// <summary>
-        /// ´Ó url µÄ²éÑ¯ĞÅÏ¢ (query string) ÖĞ»ñÈ¡ id ÁĞ±í£¬½á¹û¾­¹ıÁËÑéÖ¤£¬ÊÇÀàĞÍ°²È«µÄ¡£Èç¹û²»ºÏ·¨£¬Ôò·µ»Ønull
+        /// ä» url çš„æŸ¥è¯¢ä¿¡æ¯ (query string) ä¸­è·å– id åˆ—è¡¨ï¼Œç»“æœç»è¿‡äº†éªŒè¯ï¼Œæ˜¯ç±»å‹å®‰å…¨çš„ã€‚å¦‚æœä¸åˆæ³•ï¼Œåˆ™è¿”å›null
         /// </summary>
         /// <param name="idname"></param>
         /// <returns></returns>
@@ -321,7 +330,7 @@ namespace wojilu.Web.Context {
         }
 
         /// <summary>
-        /// ´Ó url ÖĞ»ñÈ¡Ä³ÏîµÄÖµ£¬²¢×ª»»³ÉÕûÊı
+        /// ä» url ä¸­è·å–æŸé¡¹çš„å€¼ï¼Œå¹¶è½¬æ¢æˆæ•´æ•°
         /// </summary>
         /// <param name="queryItemName"></param>
         /// <returns></returns>
@@ -333,7 +342,7 @@ namespace wojilu.Web.Context {
         }
 
         /// <summary>
-        /// ´Ó url ÖĞ»ñÈ¡Ä³ÏîµÄÖµ£¬²¢×ª»»³É Decimal
+        /// ä» url ä¸­è·å–æŸé¡¹çš„å€¼ï¼Œå¹¶è½¬æ¢æˆ Decimal
         /// </summary>
         /// <param name="queryItemName"></param>
         /// <returns></returns>
@@ -345,7 +354,7 @@ namespace wojilu.Web.Context {
         }
 
         /// <summary>
-        /// ´Ó url ÖĞ»ñÈ¡Ä³ÏîµÄÖµ£¬²¢×ª»»³É Double
+        /// ä» url ä¸­è·å–æŸé¡¹çš„å€¼ï¼Œå¹¶è½¬æ¢æˆ Double
         /// </summary>
         /// <param name="queryItemName"></param>
         /// <returns></returns>
@@ -357,7 +366,7 @@ namespace wojilu.Web.Context {
         }
 
         /// <summary>
-        /// »ñÈ¡¿Í»§¶Ë ip µØÖ·
+        /// è·å–å®¢æˆ·ç«¯ ip åœ°å€
         /// </summary>
         public String Ip { get { return getIp(); } }
 
@@ -390,7 +399,7 @@ namespace wojilu.Web.Context {
         //------------------------------------------- POST ------------------------------------------
 
         /// <summary>
-        /// »ñÈ¡¿Í»§¶Ë post µÄÖµ£¬½á¹ûÒÑ±»¹ıÂË(²»ÔÊĞíhtml)
+        /// è·å–å®¢æˆ·ç«¯ post çš„å€¼ï¼Œç»“æœå·²è¢«è¿‡æ»¤(ä¸å…è®¸html)
         /// </summary>
         /// <param name="postItem"></param>
         /// <returns></returns>
@@ -400,7 +409,7 @@ namespace wojilu.Web.Context {
         }
 
         /// <summary>
-        /// ¼ì²é¿Í»§¶Ë post µÄÊı¾İÖĞÊÇ·ñÓĞÄ³Ïî key
+        /// æ£€æŸ¥å®¢æˆ·ç«¯ post çš„æ•°æ®ä¸­æ˜¯å¦æœ‰æŸé¡¹ key
         /// </summary>
         /// <param name="key"></param>
         /// <returns></returns>
@@ -409,7 +418,7 @@ namespace wojilu.Web.Context {
         }
 
         /// <summary>
-        /// ´Ó¿Í»§¶Ë post µÄÊı¾İÖĞ»ñÈ¡Ä³ÏîµÄÖµ£¬²¢×ª»»³É decimal
+        /// ä»å®¢æˆ·ç«¯ post çš„æ•°æ®ä¸­è·å–æŸé¡¹çš„å€¼ï¼Œå¹¶è½¬æ¢æˆ decimal
         /// </summary>
         /// <param name="postItem"></param>
         /// <returns></returns>
@@ -421,7 +430,7 @@ namespace wojilu.Web.Context {
         }
 
         /// <summary>
-        /// ´Ó¿Í»§¶Ë post µÄÊı¾İÖĞ»ñÈ¡Ä³ÏîµÄÖµ£¬²¢×ª»»³É Double
+        /// ä»å®¢æˆ·ç«¯ post çš„æ•°æ®ä¸­è·å–æŸé¡¹çš„å€¼ï¼Œå¹¶è½¬æ¢æˆ Double
         /// </summary>
         /// <param name="postItem"></param>
         /// <returns></returns>
@@ -433,7 +442,7 @@ namespace wojilu.Web.Context {
         }
 
         /// <summary>
-        /// ´Ó¿Í»§¶Ë post µÄÊı¾İÖĞ»ñÈ¡ id ÁĞ±í£¬½á¹û¾­¹ıÁËÑéÖ¤£¬ÊÇÀàĞÍ°²È«µÄ
+        /// ä»å®¢æˆ·ç«¯ post çš„æ•°æ®ä¸­è·å– id åˆ—è¡¨ï¼Œç»“æœç»è¿‡äº†éªŒè¯ï¼Œæ˜¯ç±»å‹å®‰å…¨çš„
         /// </summary>
         /// <param name="idname"></param>
         /// <returns></returns>
@@ -446,7 +455,7 @@ namespace wojilu.Web.Context {
         }
 
         /// <summary>
-        /// ´Ó¿Í»§¶Ë post µÄÊı¾İÖĞ»ñÈ¡Ä³ÏîµÄÖµ£¬²¢×ª»»³ÉÕûÊı
+        /// ä»å®¢æˆ·ç«¯ post çš„æ•°æ®ä¸­è·å–æŸé¡¹çš„å€¼ï¼Œå¹¶è½¬æ¢æˆæ•´æ•°
         /// </summary>
         /// <param name="postItem"></param>
         /// <returns></returns>
@@ -458,10 +467,10 @@ namespace wojilu.Web.Context {
         }
 
         /// <summary>
-        /// ¼ì²é¿Í»§¶ËÊÇ·ñÒÑ¾­¹´Ñ¡ÁË¶àÑ¡¿ò£¬Èç¹û¹´Ñ¡·µ»Ø1£¬·ñÔò·µ»Ø0
+        /// æ£€æŸ¥å®¢æˆ·ç«¯æ˜¯å¦å·²ç»å‹¾é€‰äº†å¤šé€‰æ¡†ï¼Œå¦‚æœå‹¾é€‰è¿”å›1ï¼Œå¦åˆ™è¿”å›0
         /// </summary>
         /// <param name="postItem"></param>
-        /// <returns>Èç¹û¹´Ñ¡·µ»Ø1£¬·ñÔò·µ»Ø0</returns>
+        /// <returns>å¦‚æœå‹¾é€‰è¿”å›1ï¼Œå¦åˆ™è¿”å›0</returns>
         public int PostIsCheck( String postItem ) {
             String target = Post( postItem );
             if (strUtil.HasText( target ) && target.Equals( "on" )) {
@@ -471,7 +480,7 @@ namespace wojilu.Web.Context {
         }
 
         /// <summary>
-        /// ´Ó¿Í»§¶Ë post µÄÊı¾İÖĞ»ñÈ¡Ä³ÏîµÄÖµ£¬²¢×ª»»³ÉÊ±¼äÀàĞÍ¡£Èç¹ûÎŞÌá½»Öµ»ò¸ñÊ½´íÎó£¬Ôò·µ»Øµ±Ç°Ê±¼äDateTime.Now
+        /// ä»å®¢æˆ·ç«¯ post çš„æ•°æ®ä¸­è·å–æŸé¡¹çš„å€¼ï¼Œå¹¶è½¬æ¢æˆæ—¶é—´ç±»å‹ã€‚å¦‚æœæ— æäº¤å€¼æˆ–æ ¼å¼é”™è¯¯ï¼Œåˆ™è¿”å›å½“å‰æ—¶é—´DateTime.Now
         /// </summary>
         /// <param name="postItem"></param>
         /// <returns></returns>
@@ -483,7 +492,7 @@ namespace wojilu.Web.Context {
         }
 
         /// <summary>
-        /// »ñÈ¡¿Í»§¶Ë post µÄ html£¬½á¹ûÒÑ±»¹ıÂË£¬Ö»ÓĞÔÚ°×Ãûµ¥ÖĞµÄ tag ²Å±»ÔÊĞí
+        /// è·å–å®¢æˆ·ç«¯ post çš„ htmlï¼Œç»“æœå·²è¢«è¿‡æ»¤ï¼Œåªæœ‰åœ¨ç™½åå•ä¸­çš„ tag æ‰è¢«å…è®¸
         /// </summary>
         /// <param name="postItem"></param>
         /// <returns></returns>
@@ -499,7 +508,7 @@ namespace wojilu.Web.Context {
         }
 
         /// <summary>
-        /// »ñÈ¡¿Í»§¶Ë post µÄ html£¬½á¹ûÒÑ±»¹ıÂË£¬Ö»ÔÊĞí allowedTags ÖĞÖ¸¶¨µÄ tag
+        /// è·å–å®¢æˆ·ç«¯ post çš„ htmlï¼Œç»“æœå·²è¢«è¿‡æ»¤ï¼Œåªå…è®¸ allowedTags ä¸­æŒ‡å®šçš„ tag
         /// </summary>
         /// <param name="postItem"></param>
         /// <param name="allowedTags"></param>
@@ -514,7 +523,7 @@ namespace wojilu.Web.Context {
         }
 
         /// <summary>
-        /// ÔÚÄ¬ÈÏ°×Ãûµ¥µÄ»ù´¡ÉÏ£¬ÔÊĞí allowedTags ÖĞÖ¸¶¨µÄtag
+        /// åœ¨é»˜è®¤ç™½åå•çš„åŸºç¡€ä¸Šï¼Œå…è®¸ allowedTags ä¸­æŒ‡å®šçš„tag
         /// </summary>
         /// <param name="postItem"></param>
         /// <param name="allowedTags"></param>
@@ -530,7 +539,7 @@ namespace wojilu.Web.Context {
         }
 
         /// <summary>
-        /// ÔÊĞí½ÓÊÕ¿Í»§¶ËÈÎÒâ×Ö·û£¬Çë½÷É÷Ê¹ÓÃ
+        /// å…è®¸æ¥æ”¶å®¢æˆ·ç«¯ä»»æ„å­—ç¬¦ï¼Œè¯·è°¨æ…ä½¿ç”¨
         /// </summary>
         /// <param name="postItem"></param>
         /// <returns></returns>
@@ -541,7 +550,7 @@ namespace wojilu.Web.Context {
         //------------------------------------------- PARAMS ------------------------------------------
 
         /// <summary>
-        /// »ñÈ¡¿Í»§¶ËÌá½»µÄÊı¾İ(°üÀ¨getºÍpost)£¬½á¹ûÒÑ±»¹ıÂË(²»ÔÊĞíhtml)
+        /// è·å–å®¢æˆ·ç«¯æäº¤çš„æ•°æ®(åŒ…æ‹¬getå’Œpost)ï¼Œç»“æœå·²è¢«è¿‡æ»¤(ä¸å…è®¸html)
         /// </summary>
         /// <param name="itemName"></param>
         /// <returns></returns>
@@ -551,7 +560,7 @@ namespace wojilu.Web.Context {
         }
 
         /// <summary>
-        /// ´Ó¿Í»§¶ËÌá½»µÄÊı¾İÖĞ»ñÈ¡Ä³ÏîµÄÖµ£¬²¢×ª»»³ÉÕûÊı
+        /// ä»å®¢æˆ·ç«¯æäº¤çš„æ•°æ®ä¸­è·å–æŸé¡¹çš„å€¼ï¼Œå¹¶è½¬æ¢æˆæ•´æ•°
         /// </summary>
         /// <param name="postItem"></param>
         /// <returns></returns>
@@ -563,7 +572,7 @@ namespace wojilu.Web.Context {
         }
 
         /// <summary>
-        /// ´Ó¿Í»§¶ËÌá½»µÄÊı¾İÖĞ»ñÈ¡Ä³ÏîµÄÖµ£¬²¢×ª»»³É Decimal
+        /// ä»å®¢æˆ·ç«¯æäº¤çš„æ•°æ®ä¸­è·å–æŸé¡¹çš„å€¼ï¼Œå¹¶è½¬æ¢æˆ Decimal
         /// </summary>
         /// <param name="postItem"></param>
         /// <returns></returns>
@@ -575,7 +584,7 @@ namespace wojilu.Web.Context {
         }
 
         /// <summary>
-        /// ´Ó¿Í»§¶ËÌá½»µÄÊı¾İÖĞ»ñÈ¡Ä³ÏîµÄÖµ£¬²¢×ª»»³É Double
+        /// ä»å®¢æˆ·ç«¯æäº¤çš„æ•°æ®ä¸­è·å–æŸé¡¹çš„å€¼ï¼Œå¹¶è½¬æ¢æˆ Double
         /// </summary>
         /// <param name="postItem"></param>
         /// <returns></returns>
@@ -589,16 +598,16 @@ namespace wojilu.Web.Context {
         //-------------------------------------------------------------------------------------
 
         /// <summary>
-        /// ÑéÖ¤¶ÔÏóµÄ¸÷ÏîÊôĞÔÊÇ·ñºÏ·¨
+        /// éªŒè¯å¯¹è±¡çš„å„é¡¹å±æ€§æ˜¯å¦åˆæ³•
         /// </summary>
-        /// <param name="target">ĞèÒª±»ÑéÖ¤µÄ¶ÔÏó</param>
-        /// <returns>·µ»ØÑéÖ¤½á¹û</returns>
+        /// <param name="target">éœ€è¦è¢«éªŒè¯çš„å¯¹è±¡</param>
+        /// <returns>è¿”å›éªŒè¯ç»“æœ</returns>
         public Result Validate( IEntity target ) {
             return Validator.Validate( target );
         }
 
         /// <summary>
-        /// »ñÈ¡¿Í»§¶ËpostµÄÊı¾İ£¬²¢×Ô¶¯¸³Öµµ½¶ÔÏó¸÷ÊôĞÔ£¬×îºó½øĞĞÑéÖ¤
+        /// è·å–å®¢æˆ·ç«¯postçš„æ•°æ®ï¼Œå¹¶è‡ªåŠ¨èµ‹å€¼åˆ°å¯¹è±¡å„å±æ€§ï¼Œæœ€åè¿›è¡ŒéªŒè¯
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <returns></returns>
@@ -620,7 +629,7 @@ namespace wojilu.Web.Context {
         }
 
         /// <summary>
-        /// »ñÈ¡¿Í»§¶ËpostµÄÊı¾İ£¬²¢×Ô¶¯¸³Öµµ½¶ÔÏó¸÷ÊôĞÔ£¬×îºó½øĞĞÑéÖ¤
+        /// è·å–å®¢æˆ·ç«¯postçš„æ•°æ®ï¼Œå¹¶è‡ªåŠ¨èµ‹å€¼åˆ°å¯¹è±¡å„å±æ€§ï¼Œæœ€åè¿›è¡ŒéªŒè¯
         /// </summary>
         /// <param name="obj"></param>
         /// <returns></returns>
@@ -741,7 +750,7 @@ namespace wojilu.Web.Context {
         }
 
         /// <summary>
-        /// Á´½Óµ½Ä³¸ö action
+        /// é“¾æ¥åˆ°æŸä¸ª action
         /// </summary>
         /// <param name="action"></param>
         /// <returns></returns>
@@ -750,7 +759,7 @@ namespace wojilu.Web.Context {
         }
 
         /// <summary>
-        /// Á´½Óµ½Ä³¸ö action
+        /// é“¾æ¥åˆ°æŸä¸ª action
         /// </summary>
         /// <param name="action"></param>
         /// <param name="id"></param>
@@ -760,7 +769,7 @@ namespace wojilu.Web.Context {
         }
 
         /// <summary>
-        /// Á´½Óµ½Ä³¸ö action£¬ÍøÖ·ÖĞ²»°üÀ¨ appId ĞÅÏ¢
+        /// é“¾æ¥åˆ°æŸä¸ª actionï¼Œç½‘å€ä¸­ä¸åŒ…æ‹¬ appId ä¿¡æ¯
         /// </summary>
         /// <param name="action"></param>
         /// <returns></returns>
@@ -769,7 +778,7 @@ namespace wojilu.Web.Context {
         }
 
         /// <summary>
-        /// Á´½Óµ½Ä³¸ö action£¬ÍøÖ·ÖĞ²»°üÀ¨ appId ĞÅÏ¢
+        /// é“¾æ¥åˆ°æŸä¸ª actionï¼Œç½‘å€ä¸­ä¸åŒ…æ‹¬ appId ä¿¡æ¯
         /// </summary>
         /// <param name="action"></param>
         /// <param name="id"></param>
