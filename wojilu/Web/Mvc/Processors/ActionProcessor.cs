@@ -89,9 +89,6 @@ namespace wojilu.Web.Mvc.Processors {
 
 
             }
-            else if (ctx.utils.isEnd()) {
-                context.showEnd( actionContent );
-            }
             else {
                 context.setContent( actionContent );
             }

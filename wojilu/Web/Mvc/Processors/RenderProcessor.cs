@@ -78,6 +78,8 @@ namespace wojilu.Web.Mvc.Processors {
 
         private static String processPageMeta( string pageContent, MvcContext ctx ) {
 
+            if (pageContent == null) return "";
+
             String title = ctx.GetPageMeta().Title;
             if (strUtil.IsNullOrEmpty( title )) title = config.Instance.Site.SiteName;
             if (ctx.utils.getIsHome()) title = config.Instance.Site.SiteName + lang.get( "homePage" );

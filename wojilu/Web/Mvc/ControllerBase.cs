@@ -471,10 +471,12 @@ namespace wojilu.Web.Mvc {
             if (ctx.utils.isAjax) {
                 echoText( msg );
             }
-            else if (isFrame())
-                showByMsgBoxTemplate( msg );
-            else
-                showEndByViewTemplate( msg );
+            else if (isFrame()) {
+                ctx.utils.endMsgBox( msg );
+            }
+            else {
+                ctx.utils.endMsgByView( msg );
+            }
         }
 
         /// <summary>
@@ -482,8 +484,7 @@ namespace wojilu.Web.Mvc {
         /// </summary>
         /// <param name="msg"></param>
         public void echoText( String msg ) {
-            actionContent( msg );
-            ctx.utils.end();
+            ctx.utils.endMsgByText( msg );
         }
 
         /// <summary>
@@ -500,7 +501,7 @@ namespace wojilu.Web.Mvc {
         /// </summary>
         /// <param name="xml"></param>
         protected void echoXml( String xml ) {
-            ctx.web.ResponseContentType( "text/xml" );
+            setXmlContentType();
             echoText( xml );
         }
 
@@ -520,7 +521,6 @@ namespace wojilu.Web.Mvc {
             }
             else {
                 echoRedirect( errors.ErrorsHtml );
-                ctx.utils.end();
             }
         }
 
@@ -561,6 +561,10 @@ namespace wojilu.Web.Mvc {
 
         private void setJsonContentType() {
             ctx.web.ResponseContentType( "application/json" );
+        }
+
+        private void setXmlContentType() {
+            ctx.web.ResponseContentType( "text/xml" );
         }
 
 
@@ -630,15 +634,10 @@ namespace wojilu.Web.Mvc {
                 forward( msg, url );
             }
             else {
-
                 String str = "<script>_run( function() {wojilu.tool.forwardPart('" + url + "', " + partNumber + ");});</script><div class=\"forward\" id=\"forward\">" + msg + "</div>";
-                showEndByViewTemplate( str, MvcConfig.Instance.GetForwardTemplatePath() );
+                ctx.utils.endMsgForward( str );
             }
-
-            ctx.utils.end();
         }
-
-
 
         private string clearLayoutInfo( string returnUrl ) {
 
@@ -730,29 +729,14 @@ namespace wojilu.Web.Mvc {
             echoToParentPart( msg, url, 9999 );
         }
 
-
         private void forward( String msg, String url ) {
             String str = "<script>_run( function() {wojilu.tool.forward('" + url + "');});</script><div class=\"forward\" id=\"forward\">" + msg + "</div>";
-            showEndByViewTemplate( str, MvcConfig.Instance.GetForwardTemplatePath() );
+            ctx.utils.endMsgForward( str );
         }
 
         private void forwardPage( String msg, String url ) {
             String str = "<script>_run( function() {wojilu.tool.forwardPage('" + url + "');});</script><div class=\"forward\" id=\"forward\">" + msg + "</div>";
-            showEndByViewTemplate( str, MvcConfig.Instance.GetForwardTemplatePath() );
-        }
-
-        private void showEndByViewTemplate( String content ) {
-            showEndByViewTemplate( content, MvcConfig.Instance.GetMsgTemplatePath() );
-        }
-
-        private void showByMsgBoxTemplate( String content ) {
-            showEndByViewTemplate( content, MvcConfig.Instance.GetMsgBoxTemplatePath() );
-        }
-
-        private void showEndByViewTemplate( String content, String templatePath ) {
-            ITemplate msgView = ctx.utils.getMsgTemplate( content, templatePath );
-            actionContent( msgView.ToString() );
-            ctx.utils.end();
+            ctx.utils.endMsgForward( str );
         }
 
         //-------------------------------------- 直接跳转 ----------------------------------------------
@@ -849,8 +833,6 @@ namespace wojilu.Web.Mvc {
             ctx.utils.skipRender();
             ctx.utils.clearResource();
             ctx.web.ResponseStatus( HttpStatus.Unauthorized_401 );
-
-
         }
 
         // 如果 url 中已经有 frm=true了，则直接返回
@@ -861,7 +843,6 @@ namespace wojilu.Web.Mvc {
 
             return appendParam( url, frmStr );
         }
-
 
         private string addLayoutParams( string url ) {
 
@@ -899,14 +880,12 @@ namespace wojilu.Web.Mvc {
 
         //-------------------------------------- ajax返回值 ----------------------------------------------
 
-
-
         private void echoMsgAndJs( String cmd, int msTime, String msg ) {
             String tcall = "setTimeout( function(){" + cmd + ";wojilu.tool.getBoxParent().wojilu.ui.box.hideBox();}, " + msTime + " );";
 
             String content = "_run( function() { " + tcall + " });";
             content = String.Format( "<script>{0}</script>", content ) + msg;
-            showByMsgBoxTemplate( content );
+            ctx.utils.endMsgBox( content );
         }
 
         private String getReturnUrl() {
