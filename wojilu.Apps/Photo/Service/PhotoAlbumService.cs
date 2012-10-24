@@ -47,6 +47,10 @@ namespace wojilu.Apps.Photo.Service {
             return db.find<PhotoAlbum>( "AppId=" + appId + " order by OrderId desc, Id asc" ).list();
         }
 
+        public virtual List<PhotoAlbum> GetListByUser( int ownerId ) {
+            return db.find<PhotoAlbum>( "OwnerId=" + ownerId + " order by OrderId desc, Id asc" ).list();
+        }
+
         //private PhotoAlbum GetDefaultAlbum( int userId ) {
         //    return db.find<PhotoAlbum>( "IsDefault=1 and OwnerId=" + userId ).first();
         //}

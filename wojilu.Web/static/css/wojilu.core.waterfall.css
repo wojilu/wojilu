@@ -2,6 +2,9 @@ body {background:url("../img/m/waterfall-bg.gif");}
 .container {margin-top:20px; background-color:transparent !important}
 .site-header, .site-menu-nav { display:none;}
     
+#footer-row{ margin:20px auto;width:960px;}
+.footer{ background-image:none;}
+
 .container, .wfbody, #wContainer {width:1150px;}
 
 .wfbody {margin-top:20px;}

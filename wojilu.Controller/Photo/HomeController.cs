@@ -9,17 +9,23 @@ using wojilu.Apps.Photo.Service;
 using wojilu.Apps.Photo.Domain;
 using wojilu.Members.Users.Domain;
 using wojilu.Common.AppBase;
+using wojilu.Web.Mvc.Attr;
 
 namespace wojilu.Web.Controller.Photo {
 
     public class HomeController : ControllerBase {
 
         public IUserService userService { get; set; }
-        public IPhotoSysCategoryService categoryService { get; set; }
+        public IPhotoAlbumService categoryService { get; set; }
+        public IPhotoPostService postService { get; set; }
+        public IPhotoSysCategoryService sysCategoryService { get; set; }
 
         public HomeController() {
             userService = new UserService();
-            categoryService = new PhotoSysCategoryService();
+            categoryService = new PhotoAlbumService();
+            postService = new PhotoPostService();
+            sysCategoryService = new PhotoSysCategoryService();
+          
             HideLayout( typeof( LayoutController ) );
         }
 
@@ -28,6 +34,19 @@ namespace wojilu.Web.Controller.Photo {
             set( "lnkNew", to( Index ) );
 
             bindCategories();
+
+        }
+
+        [Data( typeof( PhotoPost ) )]
+        public void Post( int id ) {
+
+
+            PhotoPost x = ctx.Get<PhotoPost>();
+
+
+            bindPostSingle( base.utils.getCurrentView(), x );
+
+
 
         }
 
@@ -82,13 +101,89 @@ namespace wojilu.Web.Controller.Photo {
                 return;
             }
 
-
-
             bindPhotoList( list );
         }
 
+        //------------------------------------------------------------------------------------------
+
+        [HttpPost, Login, Data( typeof( PhotoPost ) )]
+        public void Like( int  postId ) {
+
+
+            PhotoPost post = ctx.Get<PhotoPost>();
+
+            PhotoLike x = new PhotoLike();
+            x.Post = post;
+            x.User = ctx.viewer.obj as User;
+            x.insert();
+
+            echoAjaxOk();
+        }
+
+        [Login, Data( typeof( PhotoPost ) )]
+        public void Repin( int postId ) {
+
+            target( RepinSave, postId );
+
+            PhotoPost x = ctx.Get<PhotoPost>();
+
+            set( "x.Pic", x.ImgThumbUrl );
+
+            List<PhotoAlbum> categories = categoryService.GetListByUser( ctx.viewer.Id );
+
+            dropList( "categoryId", categories, "Name=Id", null );
+        }
+
+        [HttpPost, Login, Data( typeof( PhotoPost ) )]
+        public void RepinSave( int postId ) {
+
+            PhotoPost x = ctx.Get<PhotoPost>();
+
+            PhotoPost photo = newPost( x );
+
+            photo.insert();
+            photo.Tag.Save( ctx.Post( "tagList" ) );
+            // TODO 动态消息
+
+        }
+
+        private PhotoPost newPost( PhotoPost x ) {
+
+            PhotoPost photo = new PhotoPost();
+
+            PhotoAlbum album = categoryService.GetById( ctx.PostInt( "categoryId" ) );
+            
+            photo.PhotoAlbum = album;
+            photo.Description = ctx.Post( "description" );
+
+            //----------------------------------------------------------
+
+            photo.ParentId = x.Id;
+            photo.RootId = x.RootId > 0 ? x.RootId : x.Id;
+            photo.AppId = album.AppId;
+
+            //----------------------------------------------------------
+
+            photo.SysCategoryId = x.SysCategoryId;
+
+            photo.Creator = (User)ctx.viewer.obj;
+            photo.CreatorUrl = ctx.viewer.obj.Url;
+            photo.OwnerId = photo.Creator.Id;
+            photo.OwnerUrl = photo.Creator.Url;
+            photo.OwnerType = photo.Creator.GetType().FullName;
+
+            photo.Title = x.Title;
+            photo.DataUrl = x.DataUrl;
+            photo.Ip = ctx.Ip;
+
+            return photo;
+        }
+
+
+        //------------------------------------------------------------------------------------------
+
         private void bindCategories() {
-            List<PhotoSysCategory> categories = categoryService.GetAll();
+            List<PhotoSysCategory> categories = sysCategoryService.GetAll();
             IBlock cblock = getBlock( "categories" );
             foreach (PhotoSysCategory x in categories) {
 
@@ -102,27 +197,35 @@ namespace wojilu.Web.Controller.Photo {
             IBlock block = getBlock( "list" );
 
             foreach (PhotoPost x in list.Results) {
-                block.Set( "x.Link", alink.ToAppData( x ) );
-                block.Set( "x.Title", x.Title );
-                block.Set( "x.Pic", x.ImgThumbUrl );
-
-                if (x.PhotoAlbum != null) {
-                    block.Set( "x.AlbumName", x.PhotoAlbum.Name );
-                    block.Set( "x.AlbumLink", Link.To( x.Creator, new PhotoController().Album, x.PhotoAlbum.Id, x.AppId ) );
-                }
-                else {
-                    block.Set( "x.AlbumName", "" );
-                    block.Set( "x.AlbumLink", "#" );
-                }
-
-                block.Set( "x.CreatorName", x.Creator.Name );
-                block.Set( "x.CreatorPic", x.Creator.PicSmall );
-                block.Set( "x.CreatorLink", getUserLink( x.Creator ) );
-                block.Set( "x.Created", cvt.ToTimeString( x.Created ) );
+                bindPostSingle( block, x );
                 block.Next();
             }
 
             set( "page", list.PageBar );
+        }
+
+        private void bindPostSingle( IBlock block, PhotoPost x ) {
+            block.Set( "x.Link", to( Post, x.Id ) );
+            block.Set( "x.Title", x.Title );
+            block.Set( "x.Pic", x.ImgThumbUrl );
+            block.Set( "x.PicM", x.ImgMediumUrl );
+
+            if (x.PhotoAlbum != null) {
+                block.Set( "x.AlbumName", x.PhotoAlbum.Name );
+                block.Set( "x.AlbumLink", Link.To( x.Creator, new PhotoController().Album, x.PhotoAlbum.Id, x.AppId ) );
+            }
+            else {
+                block.Set( "x.AlbumName", "" );
+                block.Set( "x.AlbumLink", "#" );
+            }
+
+            block.Set( "x.CreatorName", x.Creator.Name );
+            block.Set( "x.CreatorPic", x.Creator.PicSmall );
+            block.Set( "x.CreatorLink", getUserLink( x.Creator ) );
+            block.Set( "x.Created", cvt.ToTimeString( x.Created ) );
+
+            block.Set( "x.RepinLink", to( Repin, x.Id ) );
+            block.Set( "x.LikeLink", to( Like, x.Id ) );
         }
     }
 }
