@@ -829,10 +829,15 @@ namespace wojilu.Web.Mvc {
         /// </summary>
         public void redirectLogin() {
 
-            ctx.utils.end();
-            ctx.utils.skipRender();
-            ctx.utils.clearResource();
-            ctx.web.ResponseStatus( HttpStatus.Unauthorized_401 );
+            if (ctx.utils.isAjax) {
+                ctx.utils.endMsg( lang( "exPlsLogin" ), null );
+            }
+            else {
+                ctx.utils.end();
+                ctx.utils.skipRender();
+                ctx.utils.clearResource();
+                ctx.web.ResponseStatus( HttpStatus.Unauthorized_401 );
+            }
         }
 
         // 如果 url 中已经有 frm=true了，则直接返回
