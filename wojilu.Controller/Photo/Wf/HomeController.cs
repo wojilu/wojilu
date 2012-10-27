@@ -11,31 +11,23 @@ using wojilu.Members.Users.Domain;
 using wojilu.Common.AppBase;
 using wojilu.Web.Mvc.Attr;
 
-namespace wojilu.Web.Controller.Photo {
+namespace wojilu.Web.Controller.Photo.Wf {
 
     public class HomeController : ControllerBase {
 
         public IUserService userService { get; set; }
         public IPhotoAlbumService categoryService { get; set; }
         public IPhotoPostService postService { get; set; }
-        public IPhotoSysCategoryService sysCategoryService { get; set; }
 
         public HomeController() {
             userService = new UserService();
             categoryService = new PhotoAlbumService();
             postService = new PhotoPostService();
-            sysCategoryService = new PhotoSysCategoryService();
-          
-            HideLayout( typeof( LayoutController ) );
+
+            HideLayout( typeof( wojilu.Web.Controller.Photo.LayoutController ) );
         }
 
-        public override void Layout() {
 
-            set( "lnkNew", to( Index ) );
-
-            bindCategories();
-
-        }
 
         [Data( typeof( PhotoPost ) )]
         public void Post( int id ) {
@@ -43,41 +35,18 @@ namespace wojilu.Web.Controller.Photo {
 
             PhotoPost x = ctx.Get<PhotoPost>();
 
+            Boolean isLiked = PhotoLike.find( "UserId=" + ctx.viewer.Id + " and PostId=" + id ).first() != null;
 
-            bindPostSingle( base.utils.getCurrentView(), x );
-
-
-
-        }
-
-        public void Space() {
-
-            String userUrl = ctx.route.getItem( "user" );
-            User u = userService.GetByUrl( userUrl );
-
-            if (u == null) {
-                echoRedirect( "用户不存在" );
-                return;
+            List<int> ids = new List<int>();
+            if (isLiked) {
+                ids.Add( id );
             }
 
-            set( "u.Name", u.Name );
-            set( "u.Created", u.Created.ToShortDateString() );
-            set( "u.PicMedium", u.PicMedium );
-            set( "u.Link", getUserLink( u ) );
-
-            DataPage<PhotoPost> list = PhotoPost.findPage( "SaveStatus=" + SaveStatus.Normal + " and OwnerId=" + u.Id, 12 );
-            // 2) 或者超过实际页数，也不再自动翻页
-            if (CurrentRequest.getCurrentPage() > list.PageCount) {
-                echoText( "." );
-                return;
-            }
-
-            bindPhotoList( list );
+            bindPostSingle( base.utils.getCurrentView(), x, ids );
         }
 
-        private String getUserLink( User u ) {
-            return string.Format( "/photo/{0}.aspx", u.Url );
-        }
+
+        //-------------------------------------------------------------------------------------------
 
         public void Index() {
 
@@ -107,17 +76,49 @@ namespace wojilu.Web.Controller.Photo {
         //------------------------------------------------------------------------------------------
 
         [HttpPost, Login, Data( typeof( PhotoPost ) )]
-        public void Like( int  postId ) {
+        public void Like( int postId ) {
 
+            PhotoLike p = PhotoLike.find( "PostId=:pid and UserId=:uid" )
+                .set( "pid", postId )
+                .set( "uid", ctx.viewer.Id )
+                .first();
 
-            PhotoPost post = ctx.Get<PhotoPost>();
+            if (p != null) {
 
-            PhotoLike x = new PhotoLike();
-            x.Post = post;
-            x.User = ctx.viewer.obj as User;
-            x.insert();
+                echoText( "对不起，已经收藏" );
+            }
+            else {
 
-            echoAjaxOk();
+                PhotoPost post = ctx.Get<PhotoPost>();
+
+                PhotoLike x = new PhotoLike();
+                x.Post = post;
+                x.User = ctx.viewer.obj as User;
+                x.insert();
+
+                echoAjaxOk();
+
+            }
+        }
+
+        [HttpPost, Login, Data( typeof( PhotoPost ) )]
+        public void UnLike( int postId ) {
+
+            PhotoLike p = PhotoLike.find( "PostId=:pid and UserId=:uid" )
+                .set( "pid", postId )
+                .set( "uid", ctx.viewer.Id )
+                .first();
+
+            if (p == null) {
+
+                echoText( "对不起，尚未收藏" );
+            }
+            else {
+
+                p.delete();
+                echoAjaxOk();
+
+            }
         }
 
         [Login, Data( typeof( PhotoPost ) )]
@@ -152,7 +153,7 @@ namespace wojilu.Web.Controller.Photo {
             PhotoPost photo = new PhotoPost();
 
             PhotoAlbum album = categoryService.GetById( ctx.PostInt( "categoryId" ) );
-            
+
             photo.PhotoAlbum = album;
             photo.Description = ctx.Post( "description" );
 
@@ -180,31 +181,48 @@ namespace wojilu.Web.Controller.Photo {
         }
 
 
+
+
         //------------------------------------------------------------------------------------------
 
-        private void bindCategories() {
-            List<PhotoSysCategory> categories = sysCategoryService.GetAll();
-            IBlock cblock = getBlock( "categories" );
-            foreach (PhotoSysCategory x in categories) {
-
-                cblock.Set( "x.Name", x.Name );
-                //cblock.Set( "x.LinkShow", to( List, x.Id ) );
-                cblock.Next();
-            }
-        }
 
         private void bindPhotoList( DataPage<PhotoPost> list ) {
             IBlock block = getBlock( "list" );
 
+            List<int> likedIds = getLikedIds( list.Results );
+
             foreach (PhotoPost x in list.Results) {
-                bindPostSingle( block, x );
+                bindPostSingle( block, x, likedIds );
                 block.Next();
             }
 
             set( "page", list.PageBar );
         }
 
-        private void bindPostSingle( IBlock block, PhotoPost x ) {
+        private List<int> getLikedIds( List<PhotoPost> list ) {
+
+            List<int> ids = new List<int>();
+
+            if (list.Count == 0) return ids;
+
+            String postIds = "";
+            foreach (PhotoPost x in list) {
+                postIds += x.Id + ",";
+            }
+            postIds = postIds.TrimEnd( ',' );
+
+            List<PhotoLike> likeList = PhotoLike.find( "UserId=" + ctx.viewer.Id + " and PostId in (" + postIds + ")" ).list();
+
+            foreach (PhotoLike x in likeList) {
+                ids.Add( x.Post.Id );
+            }
+
+            return ids;
+        }
+
+
+
+        private void bindPostSingle( IBlock block, PhotoPost x, List<int> likedIds ) {
             block.Set( "x.Link", to( Post, x.Id ) );
             block.Set( "x.Title", x.Title );
             block.Set( "x.Pic", x.ImgThumbUrl );
@@ -212,7 +230,7 @@ namespace wojilu.Web.Controller.Photo {
 
             if (x.PhotoAlbum != null) {
                 block.Set( "x.AlbumName", x.PhotoAlbum.Name );
-                block.Set( "x.AlbumLink", Link.To( x.Creator, new PhotoController().Album, x.PhotoAlbum.Id, x.AppId ) );
+                block.Set( "x.AlbumLink", PhotoLinker.getCategoryLink( x.PhotoAlbum.OwnerUrl, x.PhotoAlbum.Id ) );
             }
             else {
                 block.Set( "x.AlbumName", "" );
@@ -221,11 +239,25 @@ namespace wojilu.Web.Controller.Photo {
 
             block.Set( "x.CreatorName", x.Creator.Name );
             block.Set( "x.CreatorPic", x.Creator.PicSmall );
-            block.Set( "x.CreatorLink", getUserLink( x.Creator ) );
+            block.Set( "x.CreatorLink", PhotoLinker.getUserLink( x.Creator ) );
             block.Set( "x.Created", cvt.ToTimeString( x.Created ) );
 
             block.Set( "x.RepinLink", to( Repin, x.Id ) );
             block.Set( "x.LikeLink", to( Like, x.Id ) );
+            block.Set( "x.UnLikeLink", to( UnLike, x.Id ) );
+
+            if (likedIds.Contains( x.Id )) {
+                block.Set( "x.LikedCss", "wfpost-liked disabled" );
+                block.Set( "x.LikeName", "已喜欢" );
+            }
+            else {
+                block.Set( "x.LikedCss", "wfpost-like" );
+                block.Set( "x.LikeName", "喜欢" );
+            }
+
         }
+
+
+
     }
 }

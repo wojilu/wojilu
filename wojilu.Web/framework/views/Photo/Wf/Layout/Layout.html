@@ -78,5 +78,46 @@
 
         });
 
+        //---------------------------------------------------------
+
+        $('.wfpost-like').each(function () {
+            $(this).prepend('<i class="icon-heart icon-white"></i>');
+        });
+
+        // 点击喜欢
+        $('.wfpost-like').live('click', function () {
+            var lnk = $(this);
+            var url = $(this).attr('data-like-href').toAjax();
+            $.post(url, function (data) {
+
+                if (data == 'ok') {
+                    lnk.removeClass('wfpost-like').addClass('wfpost-liked').remove('i').text('已喜欢');
+                }
+                else {
+                    alert(data);
+                }
+            });
+
+            return false;
+        });
+
+        // 取消喜欢
+        $('.wfpost-liked').live('click', function () {
+            var lnk = $(this);
+            var url = $(this).attr('data-unlike-href').toAjax();
+            $.post(url, function (data) {
+
+                if (data == 'ok') {
+                    lnk.removeClass('wfpost-liked').addClass('wfpost-like')
+                        .text('喜欢').prepend('<i class="icon-heart icon-white"></i>');
+                }
+                else {
+                    alert(data);
+                }
+            });
+
+            return false;
+        });
+
     });
 </script>
