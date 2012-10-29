@@ -77,7 +77,7 @@ namespace wojilu.Web.Controller.Users.Admin {
 
 
                 cblock.Set( "c.UserPic", c.User.PicSmall );
-                cblock.Set( "c.UserLink", Link.ToMember( c.User ) );
+                cblock.Set( "c.UserLink", toUser( c.User ) );
                 cblock.Set( "c.UserName", c.User.Name );
 
                 cblock.Set( "c.Id", c.Id );
@@ -122,7 +122,7 @@ namespace wojilu.Web.Controller.Users.Admin {
 
             //String shareLink = Link.To( share.Creator, Show, share.Id );
             // 应该是接收者可以查看的，所以网址在接收者后台中
-            
+
             String rootShareLink = Link.To( share.Creator, new ShareController().Show, share.Id );
             String parentShareLink = null;
             if (parentId > 0) {
@@ -146,7 +146,7 @@ namespace wojilu.Web.Controller.Users.Admin {
 </table>
 ";
             String msg = string.Format( str,
-                Link.ToMember( ctx.viewer.obj ),
+                toUser( ctx.viewer.obj ),
                 ctx.viewer.obj.PicSmall,
                 ctx.viewer.obj.Name,
                 cvt.ToTimeString( DateTime.Now ),

@@ -401,7 +401,7 @@ namespace wojilu.Web.Controller.Forum.Admin {
             bind( "log", log );
 
             set( "t.Link", alink.ToAppData( topic ) );
-            set( "p.CreatorLink", Link.ToMember( post.Creator ) );
+            set( "p.CreatorLink", toUser( post.Creator ) );
 
             bind( "t", topic );
             bind( "p", post );

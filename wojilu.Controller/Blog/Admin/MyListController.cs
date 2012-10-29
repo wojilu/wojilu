@@ -195,7 +195,7 @@ namespace wojilu.Web.Controller.Blog.Admin {
 
         private void bindLink( IBlock tpl, String lbl, object obj ) {
             BlogCategory category = obj as BlogCategory;
-            tpl.Set( "c.LinkPostAdmin", Link.To( new MyListController().ListByCategory, category.Id ) );
+            tpl.Set( "c.LinkPostAdmin", to( new MyListController().ListByCategory, category.Id ) );
         }
 
 

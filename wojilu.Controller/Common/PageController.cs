@@ -58,7 +58,7 @@ namespace wojilu.Web.Controller.Common {
             IBlock block = getBlock( "list" );
             foreach (PageHistory p in list.Results) {
                 block.Set( "p.EditorName", p.EditUser.Name );
-                block.Set( "p.EditorUrl", Link.ToMember( p.EditUser ) );
+                block.Set( "p.EditorUrl", toUser( p.EditUser ) );
                 block.Set( "p.EditReason", p.EditReason );
                 block.Set( "p.Updated", p.Updated );
                 block.Set( "p.VersionUrl", to( VersionShow, p.Id ) );
@@ -83,7 +83,7 @@ namespace wojilu.Web.Controller.Common {
             }
 
             set( "postTitle", page.Title );
-            set( "editorUrl", Link.ToMember( ph.EditUser ) );
+            set( "editorUrl", toUser( ph.EditUser ) );
             set( "pageLink", to( Show, page.Id ) );
 
             bind( "post", ph );
@@ -126,7 +126,7 @@ namespace wojilu.Web.Controller.Common {
             if (data.Category.IsShowWiki == 1) {
                 wiki.Bind( "post", data );
                 wiki.Set( "versionLink", to( VersionList, id ) );
-                wiki.Set( "creatorLink", Link.ToMember( data.Creator ) );
+                wiki.Set( "creatorLink", toUser( data.Creator ) );
                 String updated = data.Updated.Year <= 1 ? "" : cvt.ToDayString( data.Updated );
                 wiki.Set( "postUpdated", updated );
 
@@ -234,7 +234,7 @@ namespace wojilu.Web.Controller.Common {
                     view( "EditWarning" );
                     set( "UpdatingTime", data.UpdatingTime );
                     set( "UpdatingUserName", user.Name );
-                    set( "UpdatingUserLink", Link.ToMember( user ) );
+                    set( "UpdatingUserLink", toUser( user ) );
                     return;
                 }
             }
@@ -350,7 +350,7 @@ namespace wojilu.Web.Controller.Common {
             Tree<Page> tree = new Tree<Page>( relativeList );
 
             treeBinder binder = new treeBinder();
-            binder.link = this.Link;
+            binder.link = this.ctx.link;
 
             sidebar.Set( "tree", tree.RenderList( "mytree", true, binder, data.Id ) );
 
@@ -366,7 +366,7 @@ namespace wojilu.Web.Controller.Common {
 
         class treeBinder : INodeBinder {
 
-            public Link link { get; set; }
+            public CtxLink link { get; set; }
 
             public String Bind( INode node ) {
                 String lnk = link.T2( new PageController().Show, node.Id );

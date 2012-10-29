@@ -87,32 +87,32 @@ namespace wojilu.Web.Controller.Utils {
             }
 
             if (menus.Contains( "share" )) {
-                IMenu menu = getMenu( user, "转帖", ctx.t2( new Users.ShareController().Index ), ctx );
+                IMenu menu = getMenu( user, "转帖", ctx.link.T2( new Users.ShareController().Index ), ctx );
                 menuService.Insert( menu, user, user );
             }
 
             if (menus.Contains( "friend" )) {
-                IMenu menu = getMenu( user, "好友", ctx.t2( new Users.FriendController().FriendList ), ctx );
+                IMenu menu = getMenu( user, "好友", ctx.link.T2( new Users.FriendController().FriendList ), ctx );
                 menuService.Insert( menu, user, user );
             }
 
             if (menus.Contains( "visitor" )) {
-                IMenu menu = getMenu( user, "访客", ctx.t2( new Users.VisitorController().Index ), ctx );
+                IMenu menu = getMenu( user, "访客", ctx.link.T2( new Users.VisitorController().Index ), ctx );
                 menuService.Insert( menu, user, user );
             }
 
             if (menus.Contains( "forumpost" )) {
-                IMenu menu = getMenu( user, "论坛帖子", ctx.t2( new Users.ForumController().Topic ), ctx );
+                IMenu menu = getMenu( user, "论坛帖子", ctx.link.T2( new Users.ForumController().Topic ), ctx );
                 menuService.Insert( menu, user, user );
             }
 
             if (menus.Contains( "about" )) {
-                IMenu menu = getMenu( user, "关于我", ctx.t2( new Users.ProfileController().Main ), ctx );
+                IMenu menu = getMenu( user, "关于我", ctx.link.T2( new Users.ProfileController().Main ), ctx );
                 menuService.Insert( menu, user, user );
             }
 
             if (menus.Contains( "feedback" )) {
-                IMenu menu = getMenu( user, "留言", ctx.t2( new Users.FeedbackController().List ), ctx );
+                IMenu menu = getMenu( user, "留言", ctx.link.T2( new Users.FeedbackController().List ), ctx );
                 menuService.Insert( menu, user, user );
             }
 

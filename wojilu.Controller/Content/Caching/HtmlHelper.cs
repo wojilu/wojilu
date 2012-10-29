@@ -87,10 +87,8 @@ namespace wojilu.Web.Controller.Content.Caching {
 
             ContentSetting s = app.GetSettingsObj();
 
-            Link lnk = new Link( ctx );
-
-            String cpLink = lnk.To( new SectionController().Show, sectionId );
-            String caLink = lnk.To( new SectionController().Archive, sectionId );
+            String cpLink = ctx.link.To( new SectionController().Show, sectionId );
+            String caLink = ctx.link.To( new SectionController().Archive, sectionId );
 
             List<String> lnks = ObjectPage.GetPageLinks( cpLink, caLink, recordCount, 3, s.ListPostPerPage );
 
@@ -115,8 +113,7 @@ namespace wojilu.Web.Controller.Content.Caching {
 
             HtmlHelper.CheckSidebarDir();
 
-            Link lnk = new Link( ctx );
-            String addr = strUtil.Join( ctx.url.SiteAndAppPath, lnk.To( new SidebarController().Index ) ) + "?ajax=true";
+            String addr = strUtil.Join( ctx.url.SiteAndAppPath, ctx.link.To( new SidebarController().Index ) ) + "?ajax=true";
 
             String html = makeHtml( addr );
             file.Write( HtmlHelper.GetSidebarPath( ctx.app.Id ), html );
@@ -134,8 +131,7 @@ namespace wojilu.Web.Controller.Content.Caching {
 
             HtmlHelper.CheckAppDir( appId );
 
-            Link lnk = new Link( ctx );
-            String addr = strUtil.Join( ctx.url.SiteAndAppPath, lnk.To( new ContentController().Index ) );
+            String addr = strUtil.Join( ctx.url.SiteAndAppPath, ctx.link.To( new ContentController().Index ) );
 
             String html = makeHtml( addr );
             file.Write( HtmlHelper.GetAppPath( appId ), html );

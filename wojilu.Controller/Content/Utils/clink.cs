@@ -16,25 +16,21 @@ namespace wojilu.Web.Controller.Content.Utils {
 
         public static String toSection( int sectionId, MvcContext ctx ) {
 
-            Link link = new Link( ctx );
-
             if (HtmlHelper.IsMakeHtml( ctx )) {
                 return string.Format( "/html/list/{0}.html", sectionId );
             }
             else {
-                return link.To( new SectionController().Show, sectionId );
+                return ctx.link.To( new SectionController().Show, sectionId );
             }
         }
 
         public static String toArchive( int sectionId, MvcContext ctx ) {
 
-            Link link = new Link( ctx );
-
             if (HtmlHelper.IsMakeHtml( ctx )) {
                 return string.Format( "/html/list/{0}_a.html", sectionId );
             }
             else {
-                return link.To( new SectionController().Show, sectionId );
+                return ctx.link.To( new SectionController().Show, sectionId );
             }
         }
 
@@ -51,13 +47,11 @@ namespace wojilu.Web.Controller.Content.Utils {
 
         public static String toSidebar( MvcContext ctx ) {
 
-            Link link = new Link( ctx );
-
             if (HtmlHelper.IsMakeHtml( ctx )) {
                 return string.Format( "/html/sidebar/{0}.html", ctx.app.Id );
             }
             else {
-                return link.To( new SidebarController().Index );
+                return ctx.link.To( new SidebarController().Index );
             }
         }
 

@@ -51,7 +51,7 @@ namespace wojilu.Web.Controller.Reader {
             foreach (Subscription sf in list.Results) {
                 block.Set( "member.Name", sf.User.Name );
                 block.Set( "member.Face", sf.User.PicSmall );
-                block.Set( "member.Url", Link.ToMember( sf.User ) );
+                block.Set( "member.Url", toUser( sf.User ) );
                 block.Next();
             }
 

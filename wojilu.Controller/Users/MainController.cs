@@ -202,7 +202,7 @@ namespace wojilu.Web.Controller.Users {
             IBlock block = getBlock( "users" );
             foreach (User u in list.Results) {
                 block.Set( "user.Name", u.Name );
-                block.Set( "user.Link", Link.ToMember( u ) );
+                block.Set( "user.Link", toUser( u ) );
                 block.Set( "user.LinkT", alink.ToUserMicroblog( u ) );
                 block.Set( "user.PicSmall", u.PicSmall );
 
@@ -320,7 +320,7 @@ namespace wojilu.Web.Controller.Users {
                 block.Set( "u.Index", i );
                 block.Set( "u.Name", member.Name );
                 block.Set( "u.Face", member.PicSmall );
-                block.Set( "u.Link", Link.ToMember( member ) );
+                block.Set( "u.Link", toUser( member ) );
                 block.Next();
                 i++;
             }

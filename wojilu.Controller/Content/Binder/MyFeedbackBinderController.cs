@@ -47,7 +47,7 @@ namespace wojilu.Web.Controller.Content.Binder {
 
                 block.Set( "f.UserName", f.Creator.Name );
                 block.Set( "f.UserFace", f.Creator.PicSmall );
-                block.Set( "f.UserLink", Link.ToMember( f.Creator ) );
+                block.Set( "f.UserLink", toUser( f.Creator ) );
 
                 block.Set( "f.ReplyLink", t2( new FeedbackController().Reply, f.Id ) );
 

@@ -121,7 +121,7 @@ namespace wojilu.Web.Controller.Admin.Sys {
             foreach (SiteLog l in list.Results) {
 
                 block.Set( "log.UserName", l.User == null ? "" : l.User.Name );
-                block.Set( "log.UserLink", l.User == null ? "" : Link.ToMember( l.User ) );
+                block.Set( "log.UserLink", l.User == null ? "" : toUser( l.User ) );
                 block.Set( "log.Message", l.Message );
                 block.Set( "log.DataInfo", l.DataInfo );
                 block.Set( "log.DataType", l.DataType );

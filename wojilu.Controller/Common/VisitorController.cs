@@ -44,7 +44,7 @@ namespace wojilu.Web.Controller.Common {
             foreach (User user in visitorList) {
                 block.Set( "user.Name", user.Name );
                 block.Set( "user.Face", user.PicSmall );
-                block.Set( "user.Link", Link.ToMember( user ) );
+                block.Set( "user.Link", toUser( user ) );
                 block.Next();
             }
         }

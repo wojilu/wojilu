@@ -47,7 +47,7 @@ namespace wojilu.Web.Controller.Admin {
 
             set( "dateTime", DateTime.Now.ToString( "D" ) + ", " +DateTime.Now.ToString( "dddd" )   );
 
-            String dashboardUrl = Link.T2( new Sys.DashboardController().Index );
+            String dashboardUrl = ctx.link.T2( new Sys.DashboardController().Index );
 
             if (SiteAdminService.HasAdminPermission( ctx.viewer.obj, dashboardUrl )) {
 

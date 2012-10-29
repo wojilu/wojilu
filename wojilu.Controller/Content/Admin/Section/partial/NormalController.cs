@@ -18,11 +18,11 @@ namespace wojilu.Web.Controller.Content.Admin.Section {
 
         private void bindSectionShow( int sectionId, int postcat, int imgcat, List<ContentPost> posts, ContentPost img ) {
 
-            set( "postAddUrl", Link.To( new PostController().Add, sectionId ) + "?categoryId=" + postcat );
-            set( "postListUrl", Link.To( new ListController().AdminList, sectionId ) + "?categoryId=" + postcat );
+            set( "postAddUrl", to( new PostController().Add, sectionId ) + "?categoryId=" + postcat );
+            set( "postListUrl", to( new ListController().AdminList, sectionId ) + "?categoryId=" + postcat );
 
-            set( "imgAddUrl", Link.To( new PostController().Add, sectionId ) + "?categoryId=" + imgcat );
-            set( "imgListUrl", Link.To( new ListController().AdminList, sectionId ) + "?categoryId=" + imgcat );
+            set( "imgAddUrl", to( new PostController().Add, sectionId ) + "?categoryId=" + imgcat );
+            set( "imgListUrl", to( new ListController().AdminList, sectionId ) + "?categoryId=" + imgcat );
 
 
             IBlock block = getBlock( "list" );
@@ -37,7 +37,7 @@ namespace wojilu.Web.Controller.Content.Admin.Section {
                     block.Set( "post.Title", post.Title );
 
 
-                block.Set( "post.Url", Link.To( new PostController().Edit, post.Id ) );
+                block.Set( "post.Url", to( new PostController().Edit, post.Id ) );
                 block.Set( "post.Created", post.Created.ToShortTimeString() );
                 block.Next();
             }
@@ -59,7 +59,7 @@ namespace wojilu.Web.Controller.Content.Admin.Section {
                 imgBlock.Set( "ipost.Width", img.Width );
                 imgBlock.Set( "ipost.Height", img.Height );
 
-                imgBlock.Set( "ipost.EditLink", Link.To( new PostController().EditImg, img.Id ) );
+                imgBlock.Set( "ipost.EditLink", to( new PostController().EditImg, img.Id ) );
                 imgBlock.Next();
             }
         }

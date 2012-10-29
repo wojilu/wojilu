@@ -56,7 +56,7 @@ namespace wojilu.Web.Controller.Users.Admin {
             set( "adminAction", to( Admin ) );
 
             target( SearchSender );
-            set( "friendLink", Link.T2( ctx.viewer.obj, new Users.Admin.Friends.FriendController().SelectBox ) );
+            set( "friendLink", Link.To( ctx.viewer.obj, new Users.Admin.Friends.FriendController().SelectBox ) );
             set( "searchTerm", "" );
 
             bindList( msgService.FindPageAll( ctx.owner.Id ) );
@@ -67,7 +67,7 @@ namespace wojilu.Web.Controller.Users.Admin {
             set( "actionTitle", lang( "sentMsg" ) );
 
             target( SearchReceiver );
-            set( "friendLink", Link.T2( ctx.viewer.obj, new Users.Admin.Friends.FriendController().SelectBox ) );
+            set( "friendLink", Link.To( ctx.viewer.obj, new Users.Admin.Friends.FriendController().SelectBox ) );
             set( "searchTerm", "" );
 
             DataPage<MessageData> list = msgService.FindPageSent( ctx.owner.Id );
@@ -97,7 +97,7 @@ namespace wojilu.Web.Controller.Users.Admin {
             view( "Index" );
 
             target( SearchSender );
-            set( "friendLink", Link.T2( ctx.viewer.obj, new Users.Admin.Friends.FriendController().SelectBox ) );
+            set( "friendLink", Link.To( ctx.viewer.obj, new Users.Admin.Friends.FriendController().SelectBox ) );
 
             String key = strUtil.SqlClean( ctx.Get( "q" ), 20 );
             set( "searchTerm", key );
@@ -113,7 +113,7 @@ namespace wojilu.Web.Controller.Users.Admin {
             set( "adminAction", to( Admin ) );
 
             target( SearchReceiver );
-            set( "friendLink", Link.T2( ctx.viewer.obj, new Users.Admin.Friends.FriendController().SelectBox ) );
+            set( "friendLink", Link.To( ctx.viewer.obj, new Users.Admin.Friends.FriendController().SelectBox ) );
 
             String key = strUtil.SqlClean( ctx.Get( "q" ), 20 );
             set( "searchTerm", key );
@@ -140,7 +140,7 @@ namespace wojilu.Web.Controller.Users.Admin {
             set( "m.ReplyId", "" );
             editor( "Content", "", "200px" );
 
-            set( "friendLink", Link.T2( ctx.viewer.obj, new Users.Admin.Friends.FriendController().SelectBox ) );
+            set( "friendLink", Link.To( ctx.viewer.obj, new Users.Admin.Friends.FriendController().SelectBox ) );
             bindUploadInfo();
         }
 
@@ -164,7 +164,7 @@ namespace wojilu.Web.Controller.Users.Admin {
             set( "m.ReplyId", "" );
             editor( "Content", getForward( msgData.Body ), "200px" );
 
-            set( "friendLink", Link.T2( ctx.viewer.obj, new Users.Admin.Friends.FriendController().SelectBox ) );
+            set( "friendLink", Link.To( ctx.viewer.obj, new Users.Admin.Friends.FriendController().SelectBox ) );
             bindUploadInfo();
         }
 
@@ -192,7 +192,7 @@ namespace wojilu.Web.Controller.Users.Admin {
             set( "m.ReplyId", id );
             editor( "Content", getQuote( msgData.Body ), "200px" );
 
-            set( "friendLink", Link.T2( ctx.viewer.obj, new Users.Admin.Friends.FriendController().SelectBox ) );
+            set( "friendLink", Link.To( ctx.viewer.obj, new Users.Admin.Friends.FriendController().SelectBox ) );
             bindUploadInfo();
         }
 

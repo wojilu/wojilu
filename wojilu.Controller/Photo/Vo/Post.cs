@@ -54,7 +54,7 @@ namespace wojilu.Web.Controller.Photo.Vo {
                 p.Album = post.PhotoAlbum.Name;
 
 
-            p.AlbumLink = ctx.GetLink().To( new PhotoController().Album, post.PhotoAlbum.Id );
+            p.AlbumLink = ctx.link.To( new PhotoController().Album, post.PhotoAlbum.Id );
 
             String lnk = string.Format( " | <a href=\"{0}\">{1}《{2}》</a> ", p.AlbumLink, alang( ctx, "returnAlbum" ), p.Album );
 

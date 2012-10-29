@@ -96,7 +96,7 @@ namespace wojilu.Web.Controller.Microblogs {
             foreach (MicroblogComment c in clist) {
 
                 cblock.Set( "user.Face", c.User.PicSmall );
-                cblock.Set( "user.Link", Link.ToMember( c.User ) );
+                cblock.Set( "user.Link", toUser( c.User ) );
                 cblock.Set( "user.Name", c.User.Name );
 
 
@@ -186,7 +186,7 @@ namespace wojilu.Web.Controller.Microblogs {
             Template t = base.utils.getTemplateByAction( "CommentResult" );
             t.Set( "user.Face", ctx.viewer.obj.PicSmall );
             t.Set( "user.Name", ctx.viewer.obj.Name );
-            t.Set( "user.Link", Link.ToMember( ctx.viewer.obj ) );
+            t.Set( "user.Link", toUser( ctx.viewer.obj ) );
 
             t.Set( "created", cvt.ToTimeString( DateTime.Now ) );
             t.Set( "content", content );

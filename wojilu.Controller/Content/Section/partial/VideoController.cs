@@ -63,7 +63,7 @@ namespace wojilu.Web.Controller.Content.Section {
             set( "post.Hits", post.Hits );
 
             if (post.Creator != null) {
-                set( "post.Submitter", string.Format( "<a href=\"{0}\" target=\"_blank\">{1}</a>", Link.ToMember( post.Creator ), post.Creator.Name ) );
+                set( "post.Submitter", string.Format( "<a href=\"{0}\" target=\"_blank\">{1}</a>", toUser( post.Creator ), post.Creator.Name ) );
             }
             else {
                 set( "post.Submitter", "нч" );

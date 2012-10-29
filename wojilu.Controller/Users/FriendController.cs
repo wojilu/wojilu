@@ -87,7 +87,7 @@ namespace wojilu.Web.Controller.Users {
             foreach (User user in users) {
                 block.Set( "user.Name", user.Name );
                 block.Set( "user.Face", user.PicSmall );
-                block.Set( "user.Link", Link.ToMember( user ) );
+                block.Set( "user.Link", toUser( user ) );
                 block.Next();
             }
         }
@@ -97,7 +97,7 @@ namespace wojilu.Web.Controller.Users {
         [Login]
         public void AddFriend( int targetId ) {
 
-            Result result = friendService.CanAddFriend( ctx.viewer.Id, ctx.owner.Id );
+            Result result = friendService.CanAddFriend( ctx.viewer.Id, targetId );
             if (result.HasErrors) {
                 echo( result.ErrorsText );
                 return;

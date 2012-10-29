@@ -91,7 +91,7 @@ namespace wojilu.Web.Controller.Layouts {
 
         public void AdminLayout() {
 
-            set( "lostPage", Link.T2( Site.Instance, new MainController().lost ) );
+            set( "lostPage", Link.To( Site.Instance, new MainController().lost ) );
             bindCommon();
 
             object isLoadAdminSidebar = ctx.GetItem( "_loadAdminSidebar" );
@@ -109,25 +109,25 @@ namespace wojilu.Web.Controller.Layouts {
             set( "owner.Name", owner.Name );
             set( "owner.Pic", owner.PicSmall );
 
-            set( "owner.EditProfile", Link.T2( owner, new UserProfileController().Profile ) );
-            set( "owner.EditContact", Link.T2( owner, new UserProfileController().Contact ) );
-            set( "owner.EditInterest", Link.T2( owner, new UserProfileController().Interest ) );
-            set( "owner.EditPic", Link.T2( owner, new UserProfileController().Face ) );
-            set( "owner.EditPwd", Link.T2( owner, new UserProfileController().Pwd ) );
+            set( "owner.EditProfile", Link.To( owner, new UserProfileController().Profile ) );
+            set( "owner.EditContact", Link.To( owner, new UserProfileController().Contact ) );
+            set( "owner.EditInterest", Link.To( owner, new UserProfileController().Interest ) );
+            set( "owner.EditPic", Link.To( owner, new UserProfileController().Face ) );
+            set( "owner.EditPwd", Link.To( owner, new UserProfileController().Pwd ) );
 
 
             IList userAppList = userAppService.GetByMember( ctx.owner.Id );
             Boolean isFrm = true;
             bindUserAppList( userAppList, isFrm );
 
-            set( "shareLink", Link.T2( ctx.owner.obj, new Users.Admin.ShareController().Index, -1 ) );
+            set( "shareLink", Link.To( ctx.owner.obj, new Users.Admin.ShareController().Index, -1 ) );
 
             Boolean isUserAppAdminClose = Component.IsClose( typeof( UserAppAdmin ) );
             if (isUserAppAdminClose) {
                 set( "appAdminStyle", "display:none" );
             }
             else {
-                set( "appAdminUrl", Link.T2( ctx.owner.obj, new AppController().Index ) );
+                set( "appAdminUrl", Link.To( ctx.owner.obj, new AppController().Index ) );
                 set( "appAdminStyle", "" );
             }
 
@@ -136,7 +136,7 @@ namespace wojilu.Web.Controller.Layouts {
                 set( "menuAdminStyle", "display:none" );
             }
             else {
-                set( "menuAdminUrl", Link.T2( ctx.owner.obj, new MenuController().Index ) );
+                set( "menuAdminUrl", Link.To( ctx.owner.obj, new MenuController().Index ) );
                 set( "menuAdminStyle", "" );
             }
 
@@ -145,12 +145,12 @@ namespace wojilu.Web.Controller.Layouts {
                 set( "myUrlStyle", "display:none" );
             }
             else {
-                set( "myUrlList", Link.T2( ctx.owner.obj, new MyLinkController().Index ) );
+                set( "myUrlList", Link.To( ctx.owner.obj, new MyLinkController().Index ) );
                 set( "myUrlStyle", "" );
             }
 
             if (Component.IsEnableGroup()) {
-                set( "groupLink", Link.T2( ctx.owner.obj, new MyGroupController().My ) );
+                set( "groupLink", Link.To( ctx.owner.obj, new MyGroupController().My ) );
                 set( "groupLinkStyle", "" );
             }
             else {

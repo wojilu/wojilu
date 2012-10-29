@@ -76,7 +76,7 @@ namespace wojilu.Web.Controller.Forum {
             set( "forum.IsHideLink_Style", s.IsHideLink == 1 ? "display:none" : "" );
 
 
-            String newUserLink = Link.T2( new wojilu.Web.Controller.Users.MainController().ListAll );
+            String newUserLink = ctx.link.T2( new wojilu.Web.Controller.Users.MainController().ListAll );
             String lastUserName = userService.GetLastUserName();
             set( "newUserLink", newUserLink );
             set( "newUserName", lastUserName );
@@ -102,7 +102,7 @@ namespace wojilu.Web.Controller.Forum {
             set( "forum.LastUpdatePostUrl", strUtil.Join( sys.Path.Root, forum.LastUpdatePostUrl ) );
             set( "forum.LastUpdatePostTitle", forum.LastUpdatePostTitle );
             //set( "forum.LastUpdateMemberUrl", memberUtil.GetUrlFull( forum.LastUpdateMemberUrl ) );
-            set( "forum.LastUpdateMemberUrl", Link.ToUser( forum.LastUpdateMemberUrl ) );
+            set( "forum.LastUpdateMemberUrl", toUser( forum.LastUpdateMemberUrl ) );
 
             set( "forum.LastUpdateMemberName", forum.LastUpdateMemberName );
             set( "forum.LastUpdateTime", forum.LastUpdateTime );

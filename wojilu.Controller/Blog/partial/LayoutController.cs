@@ -21,9 +21,9 @@ namespace wojilu.Web.Controller.Blog {
             set( "blog.Count", blog.BlogCount );
             set( "blog.Hits", blog.Hits );
             set( "blog.CommentCount", getBlogComments( blog ) );
-            set( "blog.RssUrl", Link.To( new BlogController().Rss ) );
+            set( "blog.RssUrl", to( new BlogController().Rss ) );
 
-            Page.RssLink = Link.To( new BlogController().Rss );
+            Page.RssLink = to( new BlogController().Rss );
 
         }
 
@@ -38,7 +38,7 @@ namespace wojilu.Web.Controller.Blog {
             IBlock catblock = getBlock( "category" );
             foreach (BlogCategory category in categories) {
                 catblock.Set( "category.Title", category.Name );
-                catblock.Set( "category.Url", Link.To( new CategoryController().Show, category.Id ) );
+                catblock.Set( "category.Url", to( new CategoryController().Show, category.Id ) );
                 catblock.Next();
             }
         }
@@ -66,7 +66,7 @@ namespace wojilu.Web.Controller.Blog {
             IBlock commentblock = getBlock( "comment" );
             foreach (BlogPostComment comment in newComments) {
                 commentblock.Set( "comment.Title", strUtil.SubString( comment.Content, 14 ) );
-                commentblock.Set( "comment.Url", Link.To( new PostController().Show, comment.RootId ) + "#comments" );
+                commentblock.Set( "comment.Url", to( new PostController().Show, comment.RootId ) + "#comments" );
                 commentblock.Next();
             }
 

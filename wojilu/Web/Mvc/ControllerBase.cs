@@ -26,20 +26,15 @@ using wojilu.Web.Mvc.Interface;
 using wojilu.Web.Mvc.Utils;
 using wojilu.Web.Context;
 using wojilu.DI;
+using wojilu.Members.Interface;
 
 namespace wojilu.Web.Mvc {
-
 
 
     /// <summary>
     /// 控制器基类，wojilu mvc 中最常使用的对象
     /// </summary>
     public abstract class ControllerBase {
-
-        /// <summary>
-        /// 链接控件
-        /// </summary>
-        public Link Link;
 
         /// <summary>
         /// 当前 controller 中发生的错误信息
@@ -67,7 +62,6 @@ namespace wojilu.Web.Mvc {
 
         internal void setContext( MvcContext wctx ) {
             ctx = wctx;
-            Link = new Link( wctx );
             errors = wctx.errors;
             _utils = new ControllerCore( this );
         }
@@ -125,7 +119,7 @@ namespace wojilu.Web.Mvc {
         /// </summary>
         /// <param name="blockName">block名称</param>
         /// <returns></returns>
-        protected IBlock getBlock( String blockName ) {
+        public IBlock getBlock( String blockName ) {
             return utils.getCurrentView().GetBlock( blockName );
         }
 
@@ -421,7 +415,7 @@ namespace wojilu.Web.Mvc {
         /// <param name="action"></param>
         /// <returns>返回一个链接</returns>
         public String to( aAction action ) {
-            return this.Link.To( action );
+            return ctx.link.To( action );
         }
 
         /// <summary>
@@ -431,7 +425,7 @@ namespace wojilu.Web.Mvc {
         /// <param name="id"></param>
         /// <returns>返回一个链接</returns>
         public String to( aActionWithId action, int id ) {
-            return this.Link.To( action, id );
+            return ctx.link.To( action, id );
         }
 
         /// <summary>
@@ -440,7 +434,7 @@ namespace wojilu.Web.Mvc {
         /// <param name="action"></param>
         /// <returns></returns>
         public String t2( aAction action ) {
-            return this.Link.T2( action );
+            return ctx.link.T2( action );
         }
 
         /// <summary>
@@ -450,8 +444,17 @@ namespace wojilu.Web.Mvc {
         /// <param name="id"></param>
         /// <returns></returns>
         public String t2( aActionWithId action, int id ) {
-            return this.Link.T2( action, id );
+            return ctx.link.T2( action, id );
         }
+
+        public String toUser( IMember member ) {
+            return Link.ToMember( member );
+        }
+
+        public String toUser( String friendlyUrl ) {
+            return Link.ToUser( friendlyUrl );
+        }
+
 
         /// <summary>
         /// 设置当前 action 返回的内容（一旦设置，先前绑定的模板内容将被覆盖）
@@ -753,7 +756,7 @@ namespace wojilu.Web.Mvc {
         /// </summary>
         /// <param name="action"></param>
         public void redirect( aAction action ) {
-            redirectUrl( Link.To( action ) );
+            redirectUrl( ctx.link.To( action ) );
         }
 
         /// <summary>
@@ -762,7 +765,7 @@ namespace wojilu.Web.Mvc {
         /// <param name="action"></param>
         /// <param name="id"></param>
         public void redirect( aActionWithId action, int id ) {
-            redirectUrl( Link.To( action, id ) );
+            redirectUrl( ctx.link.To( action, id ) );
         }
 
         /// <summary>
@@ -771,7 +774,7 @@ namespace wojilu.Web.Mvc {
         /// <param name="action"></param>
         /// <param name="id"></param>
         public void redirect( String action, int id ) {
-            redirectUrl( Link.To( base.GetType(), action, id ) );
+            redirectUrl( Link.To( ctx.owner.obj, LinkHelper.GetControllerName( base.GetType() ), action, id ) );
         }
 
         /// <summary>

@@ -63,11 +63,9 @@ namespace wojilu.Web.Context.Initor {
         private void initEditorUploadPath( MvcContext ctx ) {
 
             if (ctx.viewer.IsLogin) {
-
-                Link lnk = new Link( ctx );
                 // 此处使用onwer，避免二级域名下的跨域问题
-                ctx.SetItem( "editorUploadUrl", lnk.To( ctx.owner.obj, "Users/UserUpload", "UploadForm", -1, -1 ) );
-                ctx.SetItem( "editorMyPicsUrl", lnk.To( ctx.owner.obj, "Users/UserUpload", "MyPics", -1, -1 ) );
+                ctx.SetItem( "editorUploadUrl", Link.To( ctx.owner.obj, "Users/UserUpload", "UploadForm", -1, -1 ) );
+                ctx.SetItem( "editorMyPicsUrl", Link.To( ctx.owner.obj, "Users/UserUpload", "MyPics", -1, -1 ) );
             }
         }
 

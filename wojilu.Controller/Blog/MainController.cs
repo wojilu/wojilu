@@ -74,7 +74,7 @@ namespace wojilu.Web.Controller.Blog {
             bindUsers( userRanks );
 
             set( "recentLink", to( Recent ) );
-            set( "recentLink2", Link.AppendPage( to( Recent ), 2 ) );
+            set( "recentLink2", PageHelper.AppendNo( to( Recent ), 2 ) );
 
             load( "blogPickedList", TopList );
 
@@ -105,7 +105,7 @@ namespace wojilu.Web.Controller.Blog {
                 block.Set( "x.LinkShow", alink.ToAppData( x ) );
                 block.Set( "x.Created", x.Created );
                 block.Set( "x.CreatorName", x.Creator.Name );
-                block.Set( "x.CreatorLink", Link.ToMember( x.Creator ) );
+                block.Set( "x.CreatorLink", toUser( x.Creator ) );
                 block.Next();
             }
         }

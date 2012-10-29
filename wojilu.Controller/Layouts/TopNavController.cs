@@ -64,9 +64,9 @@ namespace wojilu.Web.Controller.Layouts {
             set( "site.Name", config.Instance.Site.SiteName );
             set( "site.Url", SystemInfo.SiteRoot );
 
-            set( "LoginAction", Link.T2( Site.Instance, new MainController().CheckLogin ) );
-            set( "RegLink", Link.T2( Site.Instance, new RegisterController().Register ) );
-            set( "resetPwdLink", Link.T2( Site.Instance, new wojilu.Web.Controller.Common.ResetPwdController().StepOne ) );
+            set( "LoginAction", Link.To( Site.Instance, new MainController().CheckLogin ) );
+            set( "RegLink", Link.To( Site.Instance, new RegisterController().Register ) );
+            set( "resetPwdLink", Link.To( Site.Instance, new wojilu.Web.Controller.Common.ResetPwdController().StepOne ) );
 
             String emailCredit = getEmailConfirmCredit( 18 );
             String uploadCredit = getEmailConfirmCredit( 17 );
@@ -119,7 +119,7 @@ namespace wojilu.Web.Controller.Layouts {
             objViewer.Add( "Id", user.Id );
             objViewer.Add( "Name", user.Name );
             objViewer.Add( "FriendlyUrl", user.Url );
-            objViewer.Add( "Url", Link.ToMember( user ) );
+            objViewer.Add( "Url", toUser( user ) );
             objViewer.Add( "PicMedium", user.PicMedium );
 
             viewer.Add( "obj", objViewer );
@@ -150,10 +150,10 @@ namespace wojilu.Web.Controller.Layouts {
 
             dic.Add( "viewerName", user.Name );
             dic.Add( "viewerPicSmall", user.PicSmall );
-            dic.Add( "viewerFeeds", Link.T2( user, new FeedController().My, -1 ) );
+            dic.Add( "viewerFeeds", Link.To( user, new FeedController().My, -1 ) );
 
-            dic.Add( "viewerSpace", Link.ToMember( user ) );
-            dic.Add( "viewerMicroblogHome", Link.T2( user, new Microblogs.My.MicroblogController().Home ) );
+            dic.Add( "viewerSpace", toUser( user ) );
+            dic.Add( "viewerMicroblogHome", Link.To( user, new Microblogs.My.MicroblogController().Home ) );
 
             Boolean isUserHomeClose = Component.IsClose( typeof( UserHome ) );
             Boolean isMicroblogClose = Component.IsClose( typeof( MicroblogApp ) );
@@ -182,45 +182,45 @@ namespace wojilu.Web.Controller.Layouts {
             dic.Add( "isUserLinksClose", isUserLinksClose );
             dic.Add( "isUserPrivacyClose", isUserPrivacyClose );
 
-            dic.Add( "viewerTemplateUrl", Link.T2( user, new Users.Admin.SkinController().My ) );
+            dic.Add( "viewerTemplateUrl", Link.To( user, new Users.Admin.SkinController().My ) );
 
-            dic.Add( "viewerMsg", Link.T2( user, new MsgController().All ) );
+            dic.Add( "viewerMsg", Link.To( user, new MsgController().All ) );
             dic.Add( "viewerNewMsgCount", this.getMsgCount() );
             dic.Add( "viewerNewNotificationCount", this.getNewNotificationCount() );
             dic.Add( "viewerNewMicroblogAtCount", this.getNewMicroblogAtCount() );
 
             dic.Add( "viewerSiteNotification", getSiteNotification() );
 
-            dic.Add( "viewerProfileUrl", Link.T2( user, new UserProfileController().Profile ) );
-            dic.Add( "viewerContactLink", Link.T2( user, new UserProfileController().Contact ) );
-            dic.Add( "viewerInterestUrl", Link.T2( user, new UserProfileController().Interest ) );
-            dic.Add( "viewerTagUrl", Link.T2( user, new UserProfileController().Tag ) );
-            dic.Add( "viewerFaceUrl", Link.T2( user, new UserProfileController().Face ) );
-            dic.Add( "viewerPwdUrl", Link.T2( user, new UserProfileController().Pwd ) );
+            dic.Add( "viewerProfileUrl", Link.To( user, new UserProfileController().Profile ) );
+            dic.Add( "viewerContactLink", Link.To( user, new UserProfileController().Contact ) );
+            dic.Add( "viewerInterestUrl", Link.To( user, new UserProfileController().Interest ) );
+            dic.Add( "viewerTagUrl", Link.To( user, new UserProfileController().Tag ) );
+            dic.Add( "viewerFaceUrl", Link.To( user, new UserProfileController().Face ) );
+            dic.Add( "viewerPwdUrl", Link.To( user, new UserProfileController().Pwd ) );
 
-            dic.Add( "viewerInviteLink", Link.T2( user, new Users.Admin.InviteController().Index ) );
+            dic.Add( "viewerInviteLink", Link.To( user, new Users.Admin.InviteController().Index ) );
 
-            dic.Add( "uploadAvatarLink", Link.T2( user, new Users.Admin.UserProfileController().Face ) );
-            dic.Add( "confirmEmailLink", Link.T2( user, new UserProfileController().Contact ) );
+            dic.Add( "uploadAvatarLink", Link.To( user, new Users.Admin.UserProfileController().Face ) );
+            dic.Add( "confirmEmailLink", Link.To( user, new UserProfileController().Contact ) );
 
-            dic.Add( "viewerFriends", Link.T2( user, new Users.Admin.Friends.FriendController().List, 0 ) );
-            dic.Add( "viewerCurrency", Link.T2( user, new Users.Admin.CreditController().My ) );
-            dic.Add( "viewerSettings", Link.T2( user, new Users.Admin.UserProfileController().Privacy ) );
+            dic.Add( "viewerFriends", Link.To( user, new Users.Admin.Friends.FriendController().List, 0 ) );
+            dic.Add( "viewerCurrency", Link.To( user, new Users.Admin.CreditController().My ) );
+            dic.Add( "viewerSettings", Link.To( user, new Users.Admin.UserProfileController().Privacy ) );
 
-            dic.Add( "logoutLink", Link.T2( Site.Instance, new MainController().Logout ) );
+            dic.Add( "logoutLink", Link.To( Site.Instance, new MainController().Logout ) );
 
             String siteAdminCmd = getAdminCmd();
             dic.Add( "siteAdminCmd", siteAdminCmd );
 
             dic.Add( "siteOnlineCount", OnlineStats.Instance.Count );
-            dic.Add( "siteOnlineUrl", Link.T2( Site.Instance, new Users.MainController().OnlineUser ) );
+            dic.Add( "siteOnlineUrl", Link.To( Site.Instance, new Users.MainController().OnlineUser ) );
 
-            dic.Add( "shareLink", Link.T2( user, new Users.Admin.ShareController().Index, -1 ) );
-            dic.Add( "myGroupsLink", Link.T2( user, new MyGroupController().My ) );
+            dic.Add( "shareLink", Link.To( user, new Users.Admin.ShareController().Index, -1 ) );
+            dic.Add( "myGroupsLink", Link.To( user, new MyGroupController().My ) );
 
-            dic.Add( "appAdminUrl", Link.T2( user, new AppController().Index ) );
-            dic.Add( "menuAdminUrl", Link.T2( user, new MenuController().Index ) );
-            dic.Add( "myUrlList", Link.T2( user, new MyLinkController().Index ) );
+            dic.Add( "appAdminUrl", Link.To( user, new AppController().Index ) );
+            dic.Add( "menuAdminUrl", Link.To( user, new MenuController().Index ) );
+            dic.Add( "myUrlList", Link.To( user, new MyLinkController().Index ) );
 
             IList userAppList = userAppService.GetByMember( user.Id );
             dic.Add( "userAppList", getAppList( userAppList ) );
@@ -266,7 +266,7 @@ namespace wojilu.Web.Controller.Layouts {
 
             User user = (User)ctx.viewer.obj;
 
-            String lnk = Link.T2( user, new Users.Admin.SiteNfController().List );
+            String lnk = Link.To( user, new Users.Admin.SiteNfController().List );
             return string.Format( "<a href=\"{0}\">通知(<span id=\"siteNotificationText\">{1}</span>)</a>", lnk, newCount );
         }
 

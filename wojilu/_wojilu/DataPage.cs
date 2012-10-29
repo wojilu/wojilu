@@ -215,10 +215,10 @@ namespace wojilu {
         private String appendPage( String url, int pageNumber, Boolean isHtml ) {
 
             if (isHtml) {
-                return Link.AppendHtmlPage( url, pageNumber );
+                return PageHelper.AppendHtmlNo( url, pageNumber );
             }
             else {
-                return Link.AppendPage( url, pageNumber );
+                return PageHelper.AppendNo( url, pageNumber );
             }
 
         }

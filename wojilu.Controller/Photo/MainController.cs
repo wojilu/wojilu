@@ -50,7 +50,7 @@ namespace wojilu.Web.Controller.Photo {
             foreach (User user in userRanks) {
                 block.Set( "user.Name", user.Name );
                 block.Set( "user.Face", user.PicSmall );
-                block.Set( "user.Link", Link.ToMember( user ) );
+                block.Set( "user.Link", toUser( user ) );
                 block.Next();
             }
         }
@@ -110,7 +110,7 @@ namespace wojilu.Web.Controller.Photo {
                 pblock.Set( "p.LinkShow", alink.ToAppData( p ) );
                 pblock.Set( "p.ImgThumbUrl", p.ImgThumbUrl );
                 pblock.Set( "p.CreatorName", p.Creator.Name );
-                pblock.Set( "p.CreatorLink", Link.ToMember( p.Creator ) );
+                pblock.Set( "p.CreatorLink", toUser( p.Creator ) );
                 pblock.Set( "p.Hits", p.Hits );
                 pblock.Next();
             }
@@ -144,7 +144,7 @@ namespace wojilu.Web.Controller.Photo {
                 pblock.Set( "p.LinkShow", alink.ToAppData( p ) );
                 pblock.Set( "p.ImgThumbUrl", p.ImgThumbUrl );
                 pblock.Set( "p.CreatorName", p.Creator.Name );
-                pblock.Set( "p.CreatorLink", Link.ToMember( p.Creator ) );
+                pblock.Set( "p.CreatorLink", toUser( p.Creator ) );
                 pblock.Set( "p.Hits", p.Hits );
                 pblock.Next();
             }

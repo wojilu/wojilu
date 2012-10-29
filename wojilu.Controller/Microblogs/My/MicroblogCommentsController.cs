@@ -45,7 +45,7 @@ namespace wojilu.Web.Controller.Microblogs.My {
 
                 block.Set( "c.UserName", c.User.Name );
                 block.Set( "c.UserFace", c.User.PicSmall );
-                block.Set( "c.UserLink", Link.ToMember( c.User ) );
+                block.Set( "c.UserLink", toUser( c.User ) );
                 block.Set( "c.UserName", c.User.Name );
 
                 block.Set( "c.Created", c.Created );

@@ -47,7 +47,7 @@ namespace wojilu.Web.Controller.Blog.Admin {
             foreach (BlogPost post in list.Results) {
                 block.Set( "author.Name", post.Creator.Name );
                 block.Set( "author.Face", post.Creator.PicSmall );
-                block.Set( "author.Link", Link.ToMember( post.Creator ) );
+                block.Set( "author.Link", toUser( post.Creator ) );
                 block.Set( "post.Title", post.Title );
                 block.Set( "post.Link", alink.ToAppData( post ) );
                 block.Set( "post.Body", strUtil.ParseHtml( post.Content, 100 ) );

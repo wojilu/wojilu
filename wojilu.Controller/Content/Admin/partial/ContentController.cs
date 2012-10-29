@@ -91,9 +91,9 @@ namespace wojilu.Web.Controller.Content.Admin {
 
                 int rowColumnId = cvt.ToInt( iRow + "" + i );
 
-                String addUrl = Link.To( new ContentSectionController().Add, rowColumnId );
-                String addAutoUrl = Link.To( new ContentSectionController().AddAuto, rowColumnId );
-                String addFeed = Link.To( new ContentSectionController().AddFeed, rowColumnId );
+                String addUrl = to( new ContentSectionController().Add, rowColumnId );
+                String addAutoUrl = to( new ContentSectionController().AddAuto, rowColumnId );
+                String addFeed = to( new ContentSectionController().AddFeed, rowColumnId );
                 String editUILink = to( new ContentSectionController().EditUI, rowColumnId );
 
                 columnBlock.Set( "column.AddModuleUrl", addUrl );
@@ -115,11 +115,11 @@ namespace wojilu.Web.Controller.Content.Admin {
                 sectionBlock.Set( "section.Title", section.Title );
                 sectionBlock.Set( "section.CombineIds", section.CombineIds );
 
-                sectionBlock.Set( "section.DeleteUrl", Link.To( new ContentSectionController().Delete, section.Id ) );
-                sectionBlock.Set( "section.EditUILink", Link.To( new ContentSectionController().EditSectionUI, section.Id ) );
-                sectionBlock.Set( "section.EditTitleUILink", Link.To( new ContentSectionController().EditSectionTitleUI, section.Id ) );
-                sectionBlock.Set( "section.EditContentUILink", Link.To( new ContentSectionController().EditSectionContentUI, section.Id ) );
-                sectionBlock.Set( "section.EditEffectLink", Link.To( new ContentSectionController().EditEffect, section.Id ) );
+                sectionBlock.Set( "section.DeleteUrl", to( new ContentSectionController().Delete, section.Id ) );
+                sectionBlock.Set( "section.EditUILink", to( new ContentSectionController().EditSectionUI, section.Id ) );
+                sectionBlock.Set( "section.EditTitleUILink", to( new ContentSectionController().EditSectionTitleUI, section.Id ) );
+                sectionBlock.Set( "section.EditContentUILink", to( new ContentSectionController().EditSectionContentUI, section.Id ) );
+                sectionBlock.Set( "section.EditEffectLink", to( new ContentSectionController().EditEffect, section.Id ) );
 
                 //
 
@@ -135,7 +135,7 @@ namespace wojilu.Web.Controller.Content.Admin {
         private void bindCombineLink( ContentSection section, IBlock sectionBlock ) {
             IBlock block = sectionBlock.GetBlock( "combineSection" );
             if (cvt.ToIntArray( section.CombineIds ).Length == 0) {
-                block.Set( "section.CombineUrl", Link.To( new ContentSectionController().Combine, section.Id ) );
+                block.Set( "section.CombineUrl", to( new ContentSectionController().Combine, section.Id ) );
                 block.Next();
             }
         }
@@ -149,7 +149,7 @@ namespace wojilu.Web.Controller.Content.Admin {
                 ContentSection target = sectionService.GetById( arrIds[i], ctx.app.Id );
                 if (target == null) continue;
                 block.Set( "r.Name", target.Title );
-                block.Set( "r.RemoveLink", Link.To( new ContentSectionController().RemoveSection, section.Id ) + "?targetSection=" + target.Id );
+                block.Set( "r.RemoveLink", to( new ContentSectionController().RemoveSection, section.Id ) + "?targetSection=" + target.Id );
                 block.Next();
             }
         }
@@ -202,7 +202,7 @@ namespace wojilu.Web.Controller.Content.Admin {
 
             PageSettingLink slink = new PageSettingLink();
             slink.Name = lang( "editSetting" );
-            slink.Url = Link.To( new SectionSettingController().EditBinder, section.Id );
+            slink.Url = to( new SectionSettingController().EditBinder, section.Id );
             setttingLinks.Add( slink );
 
             PageSettingLink lnktmp = new PageSettingLink();

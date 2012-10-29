@@ -43,7 +43,7 @@ namespace wojilu.Web.Controller.Users {
             foreach (User user in users) {
                 block.Set( "user.Name", user.Name );
                 block.Set( "user.Face", user.PicSmall );
-                block.Set( "user.Link", Link.ToMember( user ) );
+                block.Set( "user.Link", toUser( user ) );
                 block.Next();
             }
         }

@@ -153,18 +153,18 @@ namespace wojilu.Web.Controller.Forum {
             block.Set( "p.TitleStyle", topic.TitleStyle );
             block.Set( "p.LabelNew", lblNew );
 
-            String lnk = LinkUtil.appendListPage( Link.To( new TopicController().Show, topic.Id ), ctx );
+            String lnk = LinkUtil.appendListPage( to( new TopicController().Show, topic.Id ), ctx );
 
             block.Set( "p.Url", lnk );
 
             block.Set( "p.Pages", getPostPagesString( alink.ToAppData( topic ), topic.Replies, replySize ) );
             block.Set( "p.MemberName", topic.Creator.Name );
-            block.Set( "p.MemberUrl", Link.ToMember( topic.Creator ) );
+            block.Set( "p.MemberUrl", toUser( topic.Creator ) );
             block.Set( "p.CreateTime", topic.Created.ToShortDateString() );
             block.Set( "p.ReplyCount", topic.Replies );
             block.Set( "p.Hits", topic.Hits );
             block.Set( "p.LastUpdate", topic.Replied.GetDateTimeFormats( 'g' )[0] );
-            block.Set( "p.LastReplyUrl", Link.ToUser( topic.RepliedUserFriendUrl ) );
+            block.Set( "p.LastReplyUrl", toUser( topic.RepliedUserFriendUrl ) );
             block.Set( "p.LastReplyName", topic.RepliedUserName );
 
             String attachments = topic.Attachments > 0 ? "<img src='" + sys.Path.Img + "attachment.gif'/>" : "";
@@ -201,7 +201,7 @@ namespace wojilu.Web.Controller.Forum {
 
         private void bindFormNew( int boardId, IBlock formBlock, List<ForumCategory> categories ) {
 
-            formBlock.Set( "ActionLink", Link.To( new Users.TopicController().Create ) + "?boardId=" + boardId );
+            formBlock.Set( "ActionLink", to( new Users.TopicController().Create ) + "?boardId=" + boardId );
 
             Editor ed = Editor.NewOne( "Content", "", "150px", sys.Path.Editor, MvcConfig.Instance.JsVersion, Editor.ToolbarType.Basic );
             ed.AddUploadUrl( ctx );
@@ -268,7 +268,7 @@ namespace wojilu.Web.Controller.Forum {
         }
 
         private void appendLink( String url, StringBuilder builder, int i ) {
-            builder.AppendFormat( "<a href=\"{0}\" target=\"_blank\">{1}</a> ", LinkUtil.appendListPage( Link.AppendPage( url, i ), ctx ), i );
+            builder.AppendFormat( "<a href=\"{0}\" target=\"_blank\">{1}</a> ", LinkUtil.appendListPage( PageHelper.AppendNo( url, i ), ctx ), i );
         }
 
         private static int getPageCount( int replies, int pageSize ) {
@@ -303,9 +303,9 @@ namespace wojilu.Web.Controller.Forum {
             set( "slinkMonthSix", to( new BoardController().MonthSix, id ) );
 
 
-            set( "newPostUrl", Link.To( new Users.TopicController().NewTopic ) + "?boardId=" + id );
-            set( "newPollUrl", Link.To( new Users.PollController().Add ) + "?boardId=" + id );
-            set( "newQUrl", Link.To( new Users.TopicController().NewQ ) + "?boardId=" + id );
+            set( "newPostUrl", to( new Users.TopicController().NewTopic ) + "?boardId=" + id );
+            set( "newPollUrl", to( new Users.PollController().Add ) + "?boardId=" + id );
+            set( "newQUrl", to( new Users.TopicController().NewQ ) + "?boardId=" + id );
             set( "forumBoard.PollUrl", to( Polls, id ) );
             set( "forumBoard.PickedUrl", to( Picked, id ) );
             set( "page", ctx.GetItem( "topicListPagebar" ) );

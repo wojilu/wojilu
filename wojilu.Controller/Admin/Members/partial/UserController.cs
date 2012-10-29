@@ -37,7 +37,7 @@ namespace wojilu.Web.Controller.Admin.Members {
                 block.Set( "user.LastLoginTime", m.LastLoginTime );
                 block.Set( "user.Id", m.Id );
                 block.Set( "user.EditUrl", to( Edit, m.Id ) );
-                block.Set( "user.Url", Link.ToMember( m ) );
+                block.Set( "user.Url", toUser( m ) );
                 block.Set( "statusIcon", getStatusIcon( m ) );
                 block.Next();
             }

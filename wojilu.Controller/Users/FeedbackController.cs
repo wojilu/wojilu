@@ -238,7 +238,7 @@ namespace wojilu.Web.Controller.Users {
         private void bindItem( IBlock block, Feedback f ) {
             block.Set( "f.UserName", f.Creator.Name );
             block.Set( "f.UserFace", f.Creator.PicSmall );
-            block.Set( "f.UserLink", Link.ToMember( f.Creator ) );
+            block.Set( "f.UserLink", toUser( f.Creator ) );
             block.Set( "f.ReplyLink", t2( new FeedbackController().Reply, f.Id ) );
             block.Set( "f.Content", f.GetContent() );
             block.Set( "f.Created", cvt.ToTimeString( f.Created ) );

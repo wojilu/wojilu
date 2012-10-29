@@ -82,9 +82,9 @@ namespace wojilu.Web.Controller.Layouts {
             set( "siteLink", "<a href='" + sys.Path.Root + "'>" + lang( "siteHome" ) + "</a>" );
             set( "site.OnlineCount", OnlineStats.Instance.Count );
 
-            set( "site.AdminLink", Link.T2( new DashboardController().Index ) );
+            set( "site.AdminLink", Link.To( new DashboardController().Index ) );
             set( "site.LogoutLink", to( new Admin.MainController().Logout ) );
-            set( "lostPage", Link.T2( Site.Instance, new MainController().lost ) );
+            set( "lostPage", Link.To( Site.Instance, new MainController().lost ) );
 
             List<SiteAdminMenu> menus = OperationDB.GetInstance().SiteAdminMenus;
             List<SiteAdminOperation> userActions = SiteAdminOperationConfig.Instance.GetActionsByUser( (User)ctx.viewer.obj );

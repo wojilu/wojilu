@@ -58,7 +58,7 @@ namespace wojilu.Web.Controller.Users.Admin {
             block.Set( "feed.Id", feed.Id );
             block.Set( "feed.DataType", feed.DataType );
             block.Set( "feed.UserFace", feed.Creator.PicSmall );
-            block.Set( "feed.UserLink", Link.ToMember( feed.Creator ) );
+            block.Set( "feed.UserLink", toUser( feed.Creator ) );
 
             String creatorInfo = getCreatorInfos( feed.CreatorList );
             String feedTitle = feedService.GetHtmlValue( feed.TitleTemplate, feed.TitleData, creatorInfo );
@@ -102,7 +102,7 @@ namespace wojilu.Web.Controller.Users.Admin {
         private String getCreatorInfos( List<User> creatorList ) {
             String result = "";
             foreach (User user in creatorList) {
-                result += string.Format( "<a href='{0}'>{1}</a>", Link.ToMember( user ), user.Name );
+                result += string.Format( "<a href='{0}'>{1}</a>", toUser( user ), user.Name );
                 result += "、";
             }
             return result.TrimEnd( '、' );
@@ -135,7 +135,7 @@ namespace wojilu.Web.Controller.Users.Admin {
             foreach (User user in visitorList) {
                 block.Set( "user.Name", user.Name );
                 block.Set( "user.Face", user.PicSmall );
-                block.Set( "user.Link", Link.ToMember( user ) );
+                block.Set( "user.Link", toUser( user ) );
                 block.Next();
             }
         }
@@ -146,7 +146,7 @@ namespace wojilu.Web.Controller.Users.Admin {
             foreach (User user in friends) {
                 block.Set( "user.Name", user.Name );
                 block.Set( "user.Face", user.PicSmall );
-                block.Set( "user.Link", Link.ToMember( user ) );
+                block.Set( "user.Link", toUser( user ) );
                 block.Set( "user.LastActiveTime", getLastActiveTime( user ) );
                 block.Next();
             }
@@ -158,7 +158,7 @@ namespace wojilu.Web.Controller.Users.Admin {
             foreach (User user in friends) {
                 block.Set( "user.Name", user.Name );
                 block.Set( "user.Face", user.PicSmall );
-                block.Set( "user.Link", Link.ToMember( user ) );
+                block.Set( "user.Link", toUser( user ) );
                 block.Set( "user.LastActiveTime", getLastActiveTime( user ) );
                 block.Next();
             }

@@ -113,8 +113,8 @@ namespace wojilu.Web.Controller.Open {
             String authorText = "";
 
             if (user != null && user.Id > 0) {
-                userFace = string.Format( "<a href='{0}'><img src='{1}' style='width:48px;'/></a>", Link.ToMember( user ), user.PicSmall );
-                userName = string.Format( "<a href='{0}'>{1}</a>", Link.ToMember( user ), user.Name );
+                userFace = string.Format( "<a href='{0}'><img src='{1}' style='width:48px;'/></a>", toUser( user ), user.PicSmall );
+                userName = string.Format( "<a href='{0}'>{1}</a>", toUser( user ), user.Name );
                 authorText = user.Name;
             }
             else {

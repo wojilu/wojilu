@@ -67,7 +67,10 @@ namespace wojilu.Web.Controller.Users {
 
         public void UserMenu() {
 
-            User user = ctx.owner.obj as User;
+            User user = ctx.GetItem( "__owner" ) as User;
+            if (user == null) {
+                user = ctx.owner.obj as User;
+            }
 
             if (user == null) {
                 actionContent( "" );
@@ -91,7 +94,7 @@ namespace wojilu.Web.Controller.Users {
             String lnkMsg;
             if (ctx.viewer.IsLogin) {
                 //lnkMsg = Link.T2( ctx.viewer.obj, new Users.Admin.MsgController().New ) + "?ToName=" + ctx.web.UrlDecode( user.Name );
-                lnkMsg = Link.T2( ctx.viewer.obj, new Users.Admin.MsgController().New, user.Id );
+                lnkMsg = Link.To( ctx.viewer.obj, new Users.Admin.MsgController().New, user.Id );
             }
             else {
                 lnkMsg = "#";
@@ -99,9 +102,9 @@ namespace wojilu.Web.Controller.Users {
 
             set( "sendMsgLink", lnkMsg );
 
-            String shareLink = Link.T2( ctx.owner.obj, new wojilu.Web.Controller.ShareController().Add );
+            String shareLink = Link.To( ctx.owner.obj, new wojilu.Web.Controller.ShareController().Add );
             shareLink = shareLink + string.Format( "?url={0}&title={1}&pic={2}",
-                getFullUrl( Link.ToMember( user ) ), user.Name + " 的空间", user.PicOriginal );
+                getFullUrl( toUser( user ) ), user.Name + " 的空间", user.PicOriginal );
 
             set( "shareLink", shareLink );
         }

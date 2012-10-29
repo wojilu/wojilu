@@ -110,15 +110,15 @@ namespace wojilu.Web.Controller.Forum {
             String lnkPost = "";
 
             if (info.PostType.Equals( typeof( ForumTopic ).Name ))
-                lnkPost = Link.To( new TopicController().Show, info.PostId );
+                lnkPost = to( new TopicController().Show, info.PostId );
             else if (info.PostType.Equals( typeof( ForumPost ).Name ))
-                lnkPost = Link.To( new PostController().Show, info.PostId );
+                lnkPost = to( new PostController().Show, info.PostId );
 
             return string.Format( "<div class=\"fblastTitle\"><a href='{0}'>{1}</a></div><div class=\"fblastTime\">by <a href='{3}'>{2}</a> at {4}</div>",
                 lnkPost,
                 strUtil.CutString( info.PostTitle, 30 ),
                 info.CreatorName,
-                Link.ToUser( info.CreatorUrl ),
+                toUser( info.CreatorUrl ),
                 info.UpdateTime.ToShortDateString()
                 );
 

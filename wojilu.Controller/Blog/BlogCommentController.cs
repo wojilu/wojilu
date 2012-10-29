@@ -20,9 +20,9 @@ namespace wojilu.Web.Controller.Blog {
 
             String link;
             if (ctx.viewer.IsLogin && (ctx.viewer.Id == ctx.owner.Id))
-                link = ctx.GetLink().To( new BlogCommentController().AdminList );
+                link = ctx.link.To( new BlogCommentController().AdminList );
             else
-                link = ctx.GetLink().To( new BlogCommentController().List );
+                link = ctx.link.To( new BlogCommentController().List );
 
             return string.Format( "<a href='{0}'>" + wojilu.lang.get( "more" ) + "…</a>", link );
 

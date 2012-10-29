@@ -364,9 +364,9 @@ namespace wojilu.Web.Controller.Forum.Users {
         }
 
         private string getTopicLastPage( ForumPost post ) {
-            String lnk = Link.To( new wojilu.Web.Controller.Forum.TopicController().Show, post.TopicId );
+            String lnk = to( new wojilu.Web.Controller.Forum.TopicController().Show, post.TopicId );
             int pageNo = postService.GetPageCount( post.TopicId, getPageSize( ctx.app.obj ) );
-            lnk = Link.AppendPage( lnk, pageNo );
+            lnk = PageHelper.AppendNo( lnk, pageNo );
 
             if (ctx.web.PathReferrer.IndexOf( "reload=true" ) < 0) {
                 lnk = lnk + "?reload=true#post" + post.Id;
@@ -387,15 +387,15 @@ namespace wojilu.Web.Controller.Forum.Users {
 
             String dataLink;
             if (post.ParentId == 0) {
-                dataLink = Link.To( new wojilu.Web.Controller.Forum.TopicController().Show, post.TopicId );
+                dataLink = to( new wojilu.Web.Controller.Forum.TopicController().Show, post.TopicId );
             }
             else {
-                dataLink = Link.To( new wojilu.Web.Controller.Forum.PostController().Show, post.Id );
+                dataLink = to( new wojilu.Web.Controller.Forum.PostController().Show, post.Id );
             }
 
             String lnk = string.Format( "<a href=\"{0}\" class=\"qOriginal\"><img src=\"{1}back.gif\"/></a>", dataLink, sys.Path.Img );
 
-            String signature = string.Format( " <a href=\"{0}\">{1}</a> at {2} {3}", Link.ToMember( post.Creator ), post.Creator.Name, post.Created.ToString( "g" ), lnk );
+            String signature = string.Format( " <a href=\"{0}\">{1}</a> at {2} {3}", toUser( post.Creator ), post.Creator.Name, post.Created.ToString( "g" ), lnk );
 
 
             String content = string.Format( "<div class=\"quoteContainer\"><div class=\"quote\"><div class=\"qSpan\">{0}<div class=\"quoteAuthor\">{1}</div></div></div></div>", post.Content, signature );

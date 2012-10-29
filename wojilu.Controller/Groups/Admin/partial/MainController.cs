@@ -44,7 +44,7 @@ namespace wojilu.Web.Controller.Groups.Admin {
                 if (mgr.Member == null) continue;
                 block.Set( "user.Id", mgr.Member.RealId );
                 block.Set( "user.Name", mgr.Member.Name );
-                block.Set( "user.Url", Link.ToMember( mgr.Member ) );
+                block.Set( "user.Url", toUser( mgr.Member ) );
                 block.Set( "user.Status", mgr.RoleString );
                 block.Set( "user.LastLoginTime", mgr.Member.LastLoginTime );
 

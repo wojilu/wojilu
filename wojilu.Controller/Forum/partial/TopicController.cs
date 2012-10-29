@@ -48,7 +48,7 @@ namespace wojilu.Web.Controller.Forum {
                 block.Set( "post.Id", data.Id );
                 block.Set( "post.TopicId", data.TopicId );
                 block.Set( "post.MemberName", data.Creator.Name );
-                block.Set( "post.MemberUrl", Link.ToMember( data.Creator ) );
+                block.Set( "post.MemberUrl", toUser( data.Creator ) );
 
                 String face = "";
                 if (strUtil.HasText( data.Creator.Pic )) {
@@ -70,7 +70,7 @@ namespace wojilu.Web.Controller.Forum {
                 String signature = strUtil.HasText( data.Creator.Signature ) ? "<div class=\"posC\">" + data.Creator.Signature + "</div>" : "";
                 block.Set( "post.UserSignature", signature );
 
-                block.Set( "post.OnlyOneMember", Link.To( new TopicController().Show, data.TopicId ) + "?userId=" + data.Creator.Id );
+                block.Set( "post.OnlyOneMember", to( new TopicController().Show, data.TopicId ) + "?userId=" + data.Creator.Id );
                 block.Set( "post.FloorNo", getFloorNumber( pageSize, i ) );
                 block.Set( "post.Title", addRewardInfo( data, data.Title ) );
 
@@ -111,9 +111,9 @@ namespace wojilu.Web.Controller.Forum {
 
         private void bindTopicOne( IBlock block, ForumPost data, ForumBoard board, List<Attachment> attachList ) {
 
-            String quoteLink = Link.To( new Users.PostController().QuoteTopic, data.TopicId ) + "?boardId=" + data.ForumBoardId;
-            String replyLink = Link.To( new Users.PostController().ReplyTopic, data.TopicId ) + "?boardId=" + data.ForumBoardId;
-            String topicUrl = LinkUtil.appendListPageToTopic( Link.To( new TopicController().Show, data.TopicId ), ctx );
+            String quoteLink = to( new Users.PostController().QuoteTopic, data.TopicId ) + "?boardId=" + data.ForumBoardId;
+            String replyLink = to( new Users.PostController().ReplyTopic, data.TopicId ) + "?boardId=" + data.ForumBoardId;
+            String topicUrl = LinkUtil.appendListPageToTopic( to( new TopicController().Show, data.TopicId ), ctx );
 
             block.Set( "post.ReplyQuoteUrl", quoteLink );
             block.Set( "post.ReplyUrl", replyLink );
@@ -139,8 +139,8 @@ namespace wojilu.Web.Controller.Forum {
 
         private void bindPostOne( IBlock block, ForumPost data, ForumBoard board, List<Attachment> attachList ) {
 
-            String quoteLink = Link.To( new Users.PostController().QuotePost, data.Id ) + "?boardId=" + data.ForumBoardId;
-            String replyLink = Link.To( new Users.PostController().ReplyPost, data.Id ) + "?boardId=" + data.ForumBoardId;
+            String quoteLink = to( new Users.PostController().QuotePost, data.Id ) + "?boardId=" + data.ForumBoardId;
+            String replyLink = to( new Users.PostController().ReplyPost, data.Id ) + "?boardId=" + data.ForumBoardId;
             String postUrl = alink.ToAppData( data );
 
             block.Set( "post.ReplyQuoteUrl", quoteLink );
@@ -265,7 +265,7 @@ namespace wojilu.Web.Controller.Forum {
 
         private String getNonBuyedContent( ForumTopic topic, ForumPost post ) {
             StringBuilder builder = getPriceContentPrefix( topic );
-            builder.AppendFormat( "<div class=\"forum-price-cmd\" style=\"margin-top:10px;\"><a class=\"frmBox btn btn-primary\" href=\"{0}\"><i class=\"icon-hand-right icon-white\"></i> {1}</a></div>", Link.To( new Users.PostController().Buy, post.Id ) + "?boardId=" + topic.ForumBoard.Id, alang( "buyTopic" ) );
+            builder.AppendFormat( "<div class=\"forum-price-cmd\" style=\"margin-top:10px;\"><a class=\"frmBox btn btn-primary\" href=\"{0}\"><i class=\"icon-hand-right icon-white\"></i> {1}</a></div>", to( new Users.PostController().Buy, post.Id ) + "?boardId=" + topic.ForumBoard.Id, alang( "buyTopic" ) );
             builder.Append( "</div></div>" );
             return builder.ToString();
         }
@@ -299,48 +299,48 @@ namespace wojilu.Web.Controller.Forum {
             String strLock = "<li cmdurl=\"{0}\"><a href='#' class=\"postAdminItem putCmd\"><i class=\"icon-ban-circle\"></i> " + alang( "cmdBan" ) + "</a></li>";
             String strUnlock = "<li cmdurl=\"{0}\"><a href='#' class=\"postAdminItem putCmd\"><i class=\"icon-ban-circle\"></i> " + alang( "cmdUnban" ) + "</a></li>";
             if (data.Status == 0)
-                sb.AppendFormat( strLock, Link.To( new Moderators.PostSaveController().Ban, data.Id ) + "?boardId=" + data.ForumBoardId );
+                sb.AppendFormat( strLock, to( new Moderators.PostSaveController().Ban, data.Id ) + "?boardId=" + data.ForumBoardId );
             else
-                sb.AppendFormat( strUnlock, Link.To( new Moderators.PostSaveController().UnBan, data.Id ) + "?boardId=" + data.ForumBoardId );
+                sb.AppendFormat( strUnlock, to( new Moderators.PostSaveController().UnBan, data.Id ) + "?boardId=" + data.ForumBoardId );
         }
 
         private void setCreditAction( ForumPost data, StringBuilder sb ) {
-            sb.AppendFormat( "<li cmdurl=\"{0}\"><a href='#' class=\"postAdminItem frmBox\"><i class=\"icon-gift\"></i> {1}</a></li>", Link.To( new Moderators.PostController().AddCredit, data.Id ) + "?boardId=" + data.ForumBoardId, alang( "cmdCredit" ) );
+            sb.AppendFormat( "<li cmdurl=\"{0}\"><a href='#' class=\"postAdminItem frmBox\"><i class=\"icon-gift\"></i> {1}</a></li>", to( new Moderators.PostController().AddCredit, data.Id ) + "?boardId=" + data.ForumBoardId, alang( "cmdCredit" ) );
         }
 
         private void setDeleteAction( ForumPost data, StringBuilder sb ) {
             String strDelete = "<li cmdurl=\"{0}\"><a href='#' class=\"postAdminItem deleteCmd\"><i class=\"icon-trash\"></i> " + alang( "cmdDelete" ) + "</a></li>";
             if (data.ParentId == 0)
-                sb.AppendFormat( strDelete, Link.To( new Moderators.PostSaveController().DeleteTopic, data.TopicId ) + "?boardId=" + data.ForumBoardId );
+                sb.AppendFormat( strDelete, to( new Moderators.PostSaveController().DeleteTopic, data.TopicId ) + "?boardId=" + data.ForumBoardId );
             else
-                sb.AppendFormat( strDelete, Link.To( new Moderators.PostSaveController().DeletePost, data.Id ) + "?boardId=" + data.ForumBoardId );
+                sb.AppendFormat( strDelete, to( new Moderators.PostSaveController().DeletePost, data.Id ) + "?boardId=" + data.ForumBoardId );
         }
 
         private String getEditAction( ForumPost data ) {
             String strEdit = " <a href='{0}' class=\"editCmd {2}\" data-creatorId=\"{4}\" title=\"{3}\" xwidth=\"700\" xheight=\"430\"><img src=\"{1}edit.gif\"/> {3}</a>";
             if (data.ParentId == 0) {
                 if (data.Topic.Reward > 0) {
-                    return string.Format( strEdit, Link.To( new Edits.TopicController().EditQ, data.TopicId ), sys.Path.Img, "", lang( "edit" ), data.Creator.Id );
+                    return string.Format( strEdit, to( new Edits.TopicController().EditQ, data.TopicId ), sys.Path.Img, "", lang( "edit" ), data.Creator.Id );
                 }
                 else {
-                    return string.Format( strEdit, Link.To( new Edits.TopicController().Edit, data.TopicId ), sys.Path.Img, "", lang( "edit" ), data.Creator.Id );
+                    return string.Format( strEdit, to( new Edits.TopicController().Edit, data.TopicId ), sys.Path.Img, "", lang( "edit" ), data.Creator.Id );
                 }
             }
-            return string.Format( strEdit, Link.To( new Edits.PostController().Edit, data.Id ), sys.Path.Img, "frmBox", lang( "edit" ), data.Creator.Id );
+            return string.Format( strEdit, to( new Edits.PostController().Edit, data.Id ), sys.Path.Img, "frmBox", lang( "edit" ), data.Creator.Id );
         }
 
         private void setEditActionItem( ForumPost data, StringBuilder sb ) {
             String str = "<li cmdurl=\"{0}\"><a href='#' class=\"postAdminItem {1}\" title=\"{2}\" xwidth=\"700\" xheight=\"430\"><i class=\"icon-edit\"></i> {2}</a></li>";
             if (data.ParentId == 0) {
                 if (data.Topic.Reward > 0) {
-                    sb.AppendFormat( str, Link.To( new Edits.TopicController().EditQ, data.TopicId ), "", alang( "cmdEdit" ) );
+                    sb.AppendFormat( str, to( new Edits.TopicController().EditQ, data.TopicId ), "", alang( "cmdEdit" ) );
                 }
                 else {
-                    sb.AppendFormat( str, Link.To( new Edits.TopicController().Edit, data.TopicId ), "", alang( "cmdEdit" ) );
+                    sb.AppendFormat( str, to( new Edits.TopicController().Edit, data.TopicId ), "", alang( "cmdEdit" ) );
                 }
             }
             else {
-                sb.AppendFormat( str, Link.To( new Edits.PostController().Edit, data.Id ), "frmBox", alang( "cmdEdit" ) );
+                sb.AppendFormat( str, to( new Edits.PostController().Edit, data.Id ), "frmBox", alang( "cmdEdit" ) );
             }
         }
 
@@ -348,10 +348,10 @@ namespace wojilu.Web.Controller.Forum {
             if (data.ParentId <= 0) {
                 ForumTopic topic = getPostTopic( data );
                 if (topic.IsLocked == 1) {
-                    sb.AppendFormat( "<li cmdurl=\"{0}\"><a href='#' class=\"postAdminItem putCmd\"><i class=\"icon-lock\"></i> {1}</a></li>", Link.To( new Moderators.PostSaveController().UnLock, topic.Id ) + "?boardId=" + data.ForumBoardId, alang( "cmdUnlock" ) );
+                    sb.AppendFormat( "<li cmdurl=\"{0}\"><a href='#' class=\"postAdminItem putCmd\"><i class=\"icon-lock\"></i> {1}</a></li>", to( new Moderators.PostSaveController().UnLock, topic.Id ) + "?boardId=" + data.ForumBoardId, alang( "cmdUnlock" ) );
                 }
                 else {
-                    sb.AppendFormat( "<li cmdurl=\"{0}\"><a href='#' class=\"postAdminItem putCmd\"><i class=\"icon-lock\"></i> {1}</a></li>", Link.To( new Moderators.PostSaveController().Lock, topic.Id ) + "?boardId=" + data.ForumBoardId, alang( "cmdLock" ) );
+                    sb.AppendFormat( "<li cmdurl=\"{0}\"><a href='#' class=\"postAdminItem putCmd\"><i class=\"icon-lock\"></i> {1}</a></li>", to( new Moderators.PostSaveController().Lock, topic.Id ) + "?boardId=" + data.ForumBoardId, alang( "cmdLock" ) );
                 }
             }
         }
@@ -408,7 +408,7 @@ namespace wojilu.Web.Controller.Forum {
         private String addEditInfo( ForumPost data, String content ) {
             User user = userService.GetById( data.EditMemberId );
             String str = string.Format( "<div class=\"updateNote\">" + alang( "lastEditInfo" ) + "</div>",
-                data.EditTime, Link.ToMember( user ), user.Name );
+                data.EditTime, toUser( user ), user.Name );
             content = content + str;
             return content;
         }
@@ -434,7 +434,7 @@ namespace wojilu.Web.Controller.Forum {
             if (topic.RewardAvailable == 0) {
                 builder.AppendFormat( "<img src=\"{0}{1}\"/>", sys.Path.Skin, "apps/forum/question_m.gif" );
                 builder.AppendFormat( " {2}<span class=\"font12 left10\">({3}{0} {1}", topic.Reward, KeyCurrency.Instance.Unit, alang( "qResolved" ), alang( "reward" ) );
-                builder.AppendFormat( " <a href=\"{0}\" class=\"frmBox\">{1}</a>)</span>", Link.To( new Users.PostController().RewardList, topic.Id ) + "?boardId=" + topic.ForumBoard.Id, alang( "viewReward" ) );
+                builder.AppendFormat( " <a href=\"{0}\" class=\"frmBox\">{1}</a>)</span>", to( new Users.PostController().RewardList, topic.Id ) + "?boardId=" + topic.ForumBoard.Id, alang( "viewReward" ) );
             }
             else {
                 builder.AppendFormat( "<img src=\"{0}{1}\"/>", sys.Path.Skin, "apps/forum/question_m.gif" );
@@ -443,7 +443,7 @@ namespace wojilu.Web.Controller.Forum {
                     builder.AppendFormat( "，<span class=\"font12\">" + alang( "scoreStats" ) + "</span> ", topic.Reward - topic.RewardAvailable, topic.RewardAvailable );
                 }
                 if (topic.Creator.Id == ctx.viewer.Id) {
-                    builder.AppendFormat( "<a href=\"{0}\" class=\"left20 btn\"><i class=\"icon-check\"></i> {1}</a>", Link.To( new Users.PostController().SetReward, topic.Id ) + "?boardId=" + topic.ForumBoard.Id, alang( "cmdReward" ) );
+                    builder.AppendFormat( "<a href=\"{0}\" class=\"left20 btn\"><i class=\"icon-check\"></i> {1}</a>", to( new Users.PostController().SetReward, topic.Id ) + "?boardId=" + topic.ForumBoard.Id, alang( "cmdReward" ) );
                 }
             }
             builder.Append( "</div>" );
@@ -468,7 +468,7 @@ namespace wojilu.Web.Controller.Forum {
                 ICurrency currency = currencyService.GetICurrencyById( x.CurrencyId );
 
                 sb.Append( "<tr>" );
-                sb.AppendFormat( "<td class=\"forum-rate-user\"><a href=\"{0}\" target=\"_blank\">{1}</a></td>", Link.ToMember( x.User ), x.User.Name );
+                sb.AppendFormat( "<td class=\"forum-rate-user\"><a href=\"{0}\" target=\"_blank\">{1}</a></td>", toUser( x.User ), x.User.Name );
                 sb.AppendFormat( "<td class=\"forum-rate-name\">{0} <span class=\"forum-rate-value\">+{1}</span></td>", currency.Name, x.Income );
 
                 sb.AppendFormat( "<td class=\"forum-rate-note\">{0}</td>", x.Reason );

@@ -14,8 +14,8 @@ namespace wojilu.Web.Controller.Admin.Credits {
         public override void Layout() {
 
 
-            set( "currencyLink", Link.To( new CurrencyController().Index ) );
-            set( "incomeRuleLink", Link.To( new CreditController().IncomeRule ) );
+            set( "currencyLink", to( new CurrencyController().Index ) );
+            set( "incomeRuleLink", to( new CreditController().IncomeRule ) );
 
 
         }

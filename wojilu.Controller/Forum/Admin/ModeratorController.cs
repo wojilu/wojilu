@@ -53,7 +53,7 @@ namespace wojilu.Web.Controller.Forum.Admin {
             IBlock block = getBlock( "list" );
             foreach (User member in moderatorList) {
                 block.Set( "m.Name", member.Name );
-                block.Set( "m.Url", Link.ToMember( member) );
+                block.Set( "m.Url", toUser( member) );
                 block.Set( "m.DeleteUrl", deleteUrl + "?m=" + member.Id );
                 block.Next();
             }

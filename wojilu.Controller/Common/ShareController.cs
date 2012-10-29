@@ -90,7 +90,7 @@ namespace wojilu.Web.Controller.Common {
             }
             else {
                 feedService.publishUserAction( share );
-                shareInfo.addNotification( creator.Name, Link.ToMember( creator ) );
+                shareInfo.addNotification( creator.Name, toUser( creator ) );
                 echoToParent( lang( "opok" ) );
             }
         }

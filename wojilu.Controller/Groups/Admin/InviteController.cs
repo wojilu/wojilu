@@ -34,7 +34,7 @@ namespace wojilu.Web.Controller.Groups.Admin {
         public void Add() {
             target( Create );
             editor( "msg", "", "150px;" );
-            set( "lnkSelectFriends", Link.T2( ctx.viewer.obj, new Users.Admin.Friends.FriendController().SelectBox ) );
+            set( "lnkSelectFriends", Link.To( ctx.viewer.obj, new Users.Admin.Friends.FriendController().SelectBox ) );
         }
 
         [HttpPost, DbTransaction]
@@ -69,10 +69,10 @@ namespace wojilu.Web.Controller.Groups.Admin {
             foreach (GroupInvite g in list) {
 
                 block.Set( "g.Inviter", g.Inviter.Name );
-                block.Set( "g.InviterLink", Link.ToMember( g.Inviter ) );
+                block.Set( "g.InviterLink", toUser( g.Inviter ) );
 
                 block.Set( "g.Receiver", g.Receiver.Name );
-                block.Set( "g.ReceiverLink", Link.ToMember( g.Receiver ) );
+                block.Set( "g.ReceiverLink", toUser( g.Receiver ) );
 
                 block.Set( "g.Created", g.Created );
 

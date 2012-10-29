@@ -43,7 +43,7 @@ namespace wojilu.Web.Controller.Content.Admin {
 
                 block.Bind( "s", s );
                 block.Set( "s.RoleName", roles.getName( s.RoleId ) );
-                block.Set( "s.UserLink", Link.ToMember( s.User ) );
+                block.Set( "s.UserLink", toUser( s.User ) );
                 block.Set( "s.DeleteLink", to( DeleteUser, s.Id ) );
 
 

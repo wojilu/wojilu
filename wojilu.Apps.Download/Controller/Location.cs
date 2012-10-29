@@ -10,7 +10,7 @@ namespace wojilu.Web.Controller.Download {
 
         public static String GetFile( MvcContext ctx, FileItem f ) {
             String catLocation = GetCategory( ctx, f.CategoryId );
-            String fileLink = string.Format( "<a href=\"{0}\">{1}</a>", ctx.to( new FileController().Show, f.Id ), f.Title );
+            String fileLink = string.Format( "<a href=\"{0}\">{1}</a>", ctx.link.To( new FileController().Show, f.Id ), f.Title );
             return catLocation + " " + separator + " " + fileLink;
         }
 
@@ -27,7 +27,7 @@ namespace wojilu.Web.Controller.Download {
         }
 
         private static String getCatLink( MvcContext ctx, FileCategory cat ) {
-            String catLink = string.Format( "<a href=\"{0}\">{1}</a>", ctx.to( new CategoryController().Show, cat.Id ), cat.Name );
+            String catLink = string.Format( "<a href=\"{0}\">{1}</a>", ctx.link.To( new CategoryController().Show, cat.Id ), cat.Name );
             return catLink;
         }
 
@@ -41,7 +41,7 @@ namespace wojilu.Web.Controller.Download {
             List<FileCategory> subs = FileCategory.GetByParentId( rootId );
             foreach (FileCategory sub in subs) {
 
-                sb.AppendFormat( "<a href=\"{0}\">{1}</a> ", ctx.to( new CategoryController().Show, sub.Id ), sub.Name );
+                sb.AppendFormat( "<a href=\"{0}\">{1}</a> ", ctx.link.To( new CategoryController().Show, sub.Id ), sub.Name );
 
             }
 

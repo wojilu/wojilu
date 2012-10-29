@@ -465,7 +465,7 @@ namespace wojilu.Web.Controller.Content.Admin {
                 block.Set( "post.PubDate", post.Created );
 
                 if (post.Creator != null) {
-                    block.Set( "post.Submitter", string.Format( "<a href=\"{0}\" target=\"_blank\">{1}</a>", Link.ToMember( post.Creator ), post.Creator.Name ) );
+                    block.Set( "post.Submitter", string.Format( "<a href=\"{0}\" target=\"_blank\">{1}</a>", toUser( post.Creator ), post.Creator.Name ) );
                 }
                 else {
                     block.Set( "post.Submitter", "无" );

@@ -23,8 +23,8 @@ namespace wojilu.Apps.Content.Views {
 
             PollBase poll = getByTopic( pollId );
             if (poll == null) throw new NullReferenceException( lang.get( "exPollNotFound" ) );
-            String lnkVote = ctx.GetLink().To( new wojilu.Web.Controller.Content.Section.PollController().Vote, poll.Id ) + "?sectionId=" + sectionId;
-            String lnkVoter = ctx.GetLink().To( new wojilu.Web.Controller.Content.Section.PollController().Voter, poll.Id ) + "?sectionId=" + sectionId;
+            String lnkVote = ctx.link.To( new wojilu.Web.Controller.Content.Section.PollController().Vote, poll.Id ) + "?sectionId=" + sectionId;
+            String lnkVoter = ctx.link.To( new wojilu.Web.Controller.Content.Section.PollController().Voter, poll.Id ) + "?sectionId=" + sectionId;
 
 
             return new PollViewFactory( viewer, poll, lnkVote, lnkVoter ) .GetPollView().GetBody( false );

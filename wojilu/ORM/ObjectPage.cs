@@ -284,11 +284,11 @@ namespace wojilu.ORM {
         }
 
         private static void appendLink( String url, StringBuilder sb, int pageNo ) {
-            sb.Append( Link.AppendPage( url, pageNo ) );
+            sb.Append( PageHelper.AppendNo( url, pageNo ) );
         }
 
         private static void appendHtmlLink( String url, StringBuilder sb, int pageNo ) {
-            sb.Append( Link.AppendHtmlPage( url, pageNo ) );
+            sb.Append( PageHelper.AppendHtmlNo( url, pageNo ) );
         }
 
         //----------------------------------------------------------
@@ -417,7 +417,7 @@ namespace wojilu.ORM {
             int totalPages = ObjectPage.GetPageCount( recordCount, pageSize );
             if (pageWidth > totalPages) pageWidth = totalPages;
             for (int i = 1; i < pageWidth + 1; i++) {
-                String url = Link.AppendPage( recentLink, i );
+                String url = PageHelper.AppendNo( recentLink, i );
                 list.Add( url );
             }
 
@@ -441,7 +441,7 @@ namespace wojilu.ORM {
 
             if (loopPages > totalPages) loopPages = totalPages;
             for (int i = 1; i < loopPages + 1; i++) {
-                String url = Link.AppendPage( archiveLink, i );
+                String url = PageHelper.AppendNo( archiveLink, i );
                 list.Add( url );
             }
 

@@ -38,7 +38,7 @@ namespace wojilu.Web.Controller.Users.Admin.Friends {
             IBlock block = getBlock( "list" );
             foreach (Blacklist b in list.Results) {
                 block.Set( "m.Name", b.Target.Name );
-                block.Set( "m.UrlFull", Link.ToMember( b.Target ) );
+                block.Set( "m.UrlFull", toUser( b.Target ) );
                 block.Set( "m.FaceFull", b.Target.PicSmall );
                 block.Set( "m.DeleteUrl", to( Delete, b.Id ) );
                 block.Next();

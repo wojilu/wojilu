@@ -142,13 +142,6 @@ namespace wojilu.Web.Context {
 
         //---------------------------------------------------------
 
-        /// <summary>
-        /// 获取链接对象
-        /// </summary>
-        /// <returns></returns>
-        public Link GetLink() {
-            return new Link( this );
-        }
 
         private UrlInfo _url;
 
@@ -745,48 +738,18 @@ namespace wojilu.Web.Context {
 
         //------------------------------------------------------------------------------------
 
-        private Link getLink() {
-            return new Link( this );
-        }
+        private CtxLink _link;
 
         /// <summary>
-        /// 链接到某个 action
+        /// 获取链接对象
         /// </summary>
-        /// <param name="action"></param>
         /// <returns></returns>
-        public String to( aAction action ) {
-            return getLink().To( action );
+        public CtxLink link {
+            get {
+                if (_link == null) _link = new CtxLink( this );
+                return _link;
+            }
         }
-
-        /// <summary>
-        /// 链接到某个 action
-        /// </summary>
-        /// <param name="action"></param>
-        /// <param name="id"></param>
-        /// <returns></returns>
-        public String to( aActionWithId action, int id ) {
-            return getLink().To( action, id );
-        }
-
-        /// <summary>
-        /// 链接到某个 action，网址中不包括 appId 信息
-        /// </summary>
-        /// <param name="action"></param>
-        /// <returns></returns>
-        public String t2( aAction action ) {
-            return getLink().T2( action );
-        }
-
-        /// <summary>
-        /// 链接到某个 action，网址中不包括 appId 信息
-        /// </summary>
-        /// <param name="action"></param>
-        /// <param name="id"></param>
-        /// <returns></returns>
-        public String t2( aActionWithId action, int id ) {
-            return getLink().T2( action, id );
-        }
-
 
     }
 }

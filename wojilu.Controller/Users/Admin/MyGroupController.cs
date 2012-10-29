@@ -279,7 +279,7 @@ namespace wojilu.Web.Controller.Users.Admin {
             group.Logo = result.Info.ToString();
             groupService.UpdateLogo( group );
 
-            echoRedirect( "群组创建成功", Link.T2( group, new Groups.Admin.InviteController().Add ) );
+            echoRedirect( "群组创建成功", Link.To( group, new Groups.Admin.InviteController().Add ) );
 
         }
 

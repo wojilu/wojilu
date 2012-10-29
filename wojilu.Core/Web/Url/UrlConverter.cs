@@ -64,7 +64,7 @@ namespace wojilu.Web.Url {
         /// <returns></returns>
         public static String getMenuFullUrl( IMenu menu, MvcContext ctx ) {
 
-            String ownerPath = Link.GetMemberPathPrefix( menu.OwnerType, menu.OwnerUrl );
+            String ownerPath = LinkHelper.GetMemberPathPrefix( menu.OwnerType, menu.OwnerUrl );
 
             return getFullUrl( menu.RawUrl, ownerPath, ctx );
         }
@@ -162,7 +162,7 @@ namespace wojilu.Web.Url {
 
             String appUrl = alink.ToUserAppFull( app );
 
-            String ownerPath = Link.GetMemberPathPrefix( owner.GetType().FullName, owner.Url );
+            String ownerPath = LinkHelper.GetMemberPathPrefix( owner.GetType().FullName, owner.Url );
             ownerPath = ownerPath.TrimStart( '/' );
 
 
@@ -175,7 +175,7 @@ namespace wojilu.Web.Url {
 
             IMember owner = ctx.owner.obj;
 
-            String ownerPath = Link.GetMemberPathPrefix( owner.GetType().FullName, owner.Url );
+            String ownerPath = LinkHelper.GetMemberPathPrefix( owner.GetType().FullName, owner.Url );
             ownerPath = ownerPath.TrimStart( '/' );
 
             return clearUrl( appUrl, ownerPath, ctx );
@@ -183,7 +183,7 @@ namespace wojilu.Web.Url {
 
         public static String clearUrl( IAppData data, MvcContext ctx ) {
 
-            String ownerPath = Link.GetMemberPathPrefix( data.OwnerType, data.OwnerUrl );
+            String ownerPath = LinkHelper.GetMemberPathPrefix( data.OwnerType, data.OwnerUrl );
             ownerPath = ownerPath.TrimStart( '/' );
 
             return clearUrl( alink.ToAppData( data ), ownerPath, ctx );
@@ -191,7 +191,7 @@ namespace wojilu.Web.Url {
 
         public static String clearUrl( String rawUrl, MvcContext ctx, String memberTypeFullName, String memberUrl ) {
 
-            String ownerPath = Link.GetMemberPathPrefix( memberTypeFullName, memberUrl );
+            String ownerPath = LinkHelper.GetMemberPathPrefix( memberTypeFullName, memberUrl );
             ownerPath = ownerPath.TrimStart( '/' );
 
             return clearUrl( rawUrl, ownerPath, ctx );

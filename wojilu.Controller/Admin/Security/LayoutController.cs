@@ -13,11 +13,11 @@ namespace wojilu.Web.Controller.Admin.Security {
 
         public override void Layout() {
 
-            set( "roleLink", Link.To( new SecurityController().Index ) );
+            set( "roleLink", to( new SecurityController().Index ) );
 
 
-            set( "frontPermission", Link.To( new PermissionFrontController().Index ) );
-            set( "backPermission", Link.To( new PermissionBackController().Index ) );
+            set( "frontPermission", to( new PermissionFrontController().Index ) );
+            set( "backPermission", to( new PermissionBackController().Index ) );
 
             //set( "resetRank", to( new SecurityController().ResetRank ) );
 

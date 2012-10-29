@@ -61,7 +61,7 @@ namespace wojilu.Web.Controller.Photo.Admin {
 
             IList albumList = albumService.GetListByApp( ctx.app.Id );
             if (albumList.Count == 0) {
-                echoRedirectPart( alang( "exAlbumRequire" ), Link.To( new AlbumController().Add ), 1 );
+                echoRedirectPart( alang( "exAlbumRequire" ), to( new AlbumController().Add ), 1 );
                 return;
             }
 
@@ -72,7 +72,7 @@ namespace wojilu.Web.Controller.Photo.Admin {
             dropList( "PhotoAlbumId", albumList, "Name=Id", 1 );
             dropList( "SystemCategoryId", categories, "Name=Id", null );
 
-            set( "PhotoAlbumAddUrl", Link.To( new AlbumController().Add ) );
+            set( "PhotoAlbumAddUrl", to( new AlbumController().Add ) );
             //set( "batchUploadLink", to( BatchAdd ) );
 
             // swf上传跨域问题
@@ -109,6 +109,7 @@ namespace wojilu.Web.Controller.Photo.Admin {
             }
         }
 
+        // flash上传(逐个保存)
         public void SaveUpload() {
 
             int albumId = ctx.PostInt( "PhotoAlbumId" );
@@ -133,6 +134,12 @@ namespace wojilu.Web.Controller.Photo.Admin {
                 PhotoApp app = ctx.app.obj as PhotoApp;
                 postService.CreatePost( post, app );
 
+                // 统计
+                User user = ctx.owner.obj as User;
+                user.Pins = PhotoPost.count( "OwnerId=" + user.Id );
+                user.update( "Pins" );
+
+                // feed
                 String photoHtml = string.Format( "<a href='{0}'><img src='{1}'/></a> ", alink.ToAppData( post ), post.ImgThumbUrl );
 
                 String templateData = string.Format( "photoCount: {0}, photos: \"{1}\" ", 1, photoHtml );
@@ -143,7 +150,7 @@ namespace wojilu.Web.Controller.Photo.Admin {
             }
         }
 
-
+        // 普通上传(批量)
         [HttpPost, DbTransaction]
         public void Create() {
 
@@ -195,6 +202,11 @@ namespace wojilu.Web.Controller.Photo.Admin {
                 run( NewPost, albumId );
                 return;
             }
+
+            // 统计
+            User user = ctx.owner.obj as User;
+            user.Pins = PhotoPost.count( "OwnerId=" + user.Id );
+            user.update( "Pins" );
 
             // feed消息
             int photoCount = imgs.Count;

@@ -113,8 +113,8 @@ namespace wojilu.Web.Controller.Forum {
             List<ForumBoard> pathboards = getTree().GetPath( board.Id );
             set( "location", ForumLocationUtil.GetTopic( pathboards, topic, ctx ) );
 
-            set( "newReplyUrl", Link.To( new Users.PostController().ReplyTopic, id ) + "?boardId=" + topic.ForumBoard.Id );
-            set( "newTopicUrl", Link.To( new Users.TopicController().NewTopic ) + "?boardId=" + topic.ForumBoard.Id );
+            set( "newReplyUrl", to( new Users.PostController().ReplyTopic, id ) + "?boardId=" + topic.ForumBoard.Id );
+            set( "newTopicUrl", to( new Users.TopicController().NewTopic ) + "?boardId=" + topic.ForumBoard.Id );
 
             ctx.SetItem( "forumTopic", topic );
             ctx.SetItem( "forumBoard", board );
@@ -176,7 +176,7 @@ namespace wojilu.Web.Controller.Forum {
                 formBlock.Set( "currentUser", user.Name );
             }
 
-            formBlock.Set( "post.ReplyActionUrl", Link.To( new Users.PostController().Create ) + "?boardId=" + topic.ForumBoard.Id );
+            formBlock.Set( "post.ReplyActionUrl", to( new Users.PostController().Create ) + "?boardId=" + topic.ForumBoard.Id );
             formBlock.Set( "post.ReplyTitle", "re:" + topic.Title );
             formBlock.Set( "post.TopicId", topic.Id );
             formBlock.Set( "post.ParentId", lastPost.Id );

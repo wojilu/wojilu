@@ -65,7 +65,7 @@ namespace wojilu.Web.Controller.Admin.Apps.Content {
                 String author = post.Creator == null ? "" : post.Creator.Name;
 
                 block.Set( "post.UserName", author );
-                block.Set( "post.UserLink", Link.ToUser( post.CreatorUrl ) );
+                block.Set( "post.UserLink", toUser( post.CreatorUrl ) );
 
                 String status = getStatus( post );
                 block.Set( "post.Status", status );

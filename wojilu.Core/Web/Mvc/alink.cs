@@ -18,10 +18,10 @@ namespace wojilu.Web.Mvc {
     public class alink {
 
         public static String ToAppAdmin( IMember user, IMemberApp app ) {
-            String ownerPath = Link.GetMemberPathPrefix( user );
+            String ownerPath = LinkHelper.GetMemberPathPrefix( user );
             String appName = strUtil.TrimEnd( app.AppInfo.TypeName, "App" );
             String controller = appName + "/Admin/" + appName;
-            return Link.AppendApp( app.AppOid, controller, "Index", -1, ownerPath );
+            return LinkHelper.AppendApp( app.AppOid, controller, "Index", -1, ownerPath );
         }
 
         public static String ToAppData( IAppData data ) {
@@ -52,8 +52,8 @@ namespace wojilu.Web.Mvc {
         }
 
         private static String To( IAppData data, String controller, String action, int id ) {
-            String ownerPath = Link.GetMemberPathPrefix( data.OwnerType, data.OwnerUrl );
-            return Link.AppendApp( data.AppId, controller, action, id, ownerPath );
+            String ownerPath = LinkHelper.GetMemberPathPrefix( data.OwnerType, data.OwnerUrl );
+            return LinkHelper.AppendApp( data.AppId, controller, action, id, ownerPath );
         }
 
         private static String _app {
@@ -84,7 +84,7 @@ namespace wojilu.Web.Mvc {
 
         private static String getAppLink( String ownerTypeFull, String ownerUrl, String appName, int appId ) {
 
-            String result = Link.GetMemberPathPrefix( ownerTypeFull, ownerUrl );
+            String result = LinkHelper.GetMemberPathPrefix( ownerTypeFull, ownerUrl );
 
             result = strUtil.Join( result, appName );
             if (appId > 0) result = result + appId;
@@ -106,7 +106,7 @@ namespace wojilu.Web.Mvc {
 
         public static String ToUserMicroblog( IMember user ) {
 
-            if (Link.IsMemberSubdomain( typeof( User ).FullName )) {
+            if (LinkHelper.IsMemberSubdomain( typeof( User ).FullName )) {
                 return "http://" + user.Url + "." + SystemInfo.HostNoSubdomain + "/t" + MvcConfig.Instance.UrlExt;
             }
             else {

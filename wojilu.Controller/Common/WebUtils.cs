@@ -39,24 +39,24 @@ namespace wojilu.Web.Controller.Common {
 
         //public static String getShareLink( MvcContext ctx, IShareData data, String name ) {
         //    String queryParam = "?dataType=" + data.GetType().FullName + "&name=" + ctx.web.UrlDecode( name );
-        //    return ctx.GetLink().To( new wojilu.Web.Controller.ShareController().Add ) + queryParam;
+        //    return ctx.link.To( new wojilu.Web.Controller.ShareController().Add ) + queryParam;
         //}
 
         //public static String getShareLink( MvcContext ctx, IShareData data, String name, String dataLink ) {
         //    String queryParam = "?dataType=" + data.GetType().FullName + "&name=" + ctx.web.UrlDecode( name )
         //        + "&dataLink=" + dataLink;
-        //    return ctx.GetLink().To( new wojilu.Web.Controller.ShareController().Add ) + queryParam;
+        //    return ctx.link.To( new wojilu.Web.Controller.ShareController().Add ) + queryParam;
         //}
 
         public static String getFavoriteLink( MvcContext ctx, IShareData data, String name ) {
             String queryParam = "?dataType=" + data.GetType().FullName + "&name=" + ctx.web.UrlDecode( name );
-            return ctx.GetLink().To( new Common.ShareController().Add, data.Id ) + queryParam;
+            return ctx.link.To( new Common.ShareController().Add, data.Id ) + queryParam;
         }
 
         public static String getFavoriteLink( MvcContext ctx, IShareData data, String name, String dataLink ) {
             String queryParam = "?dataType=" + data.GetType().FullName + "&name=" + ctx.web.UrlDecode( name )
                 + "&dataLink=" + dataLink;
-            return ctx.GetLink().To( new Common.ShareController().Add, data.Id ) + queryParam;
+            return ctx.link.To( new Common.ShareController().Add, data.Id ) + queryParam;
 
         }
 
@@ -66,6 +66,11 @@ namespace wojilu.Web.Controller.Common {
 
             int targetId = ctx.owner.Id;
 
+            return getFriendCmd( ctx, targetId );
+        }
+
+        public static string getFriendCmd( MvcContext ctx, int targetId ) {
+
             if (ctx.viewer.Id == targetId) return "";
             if (ctx.viewer.IsFriend( targetId )) return deleteFriendCmd( ctx, targetId );
             if (isWaitingFriendApproving( ctx.viewer.Id, targetId )) return waitingApprovingCmd( ctx, targetId );
@@ -74,31 +79,43 @@ namespace wojilu.Web.Controller.Common {
         }
 
         private static String deleteFriendCmd( MvcContext ctx, int targetId ) {
-            return "<a href='" + ctx.GetLink().T2( new FriendController().DeleteFriend, targetId ) + "' class=\"deleteCmd cmd\"><span>" + lang.get( "canelFriend" ) + "</span></a>";
+            return "<a href='" + ctx.link.T2( new FriendController().DeleteFriend, targetId ) + "' class=\"deleteCmd cmd\"><span>" + lang.get( "canelFriend" ) + "</span></a>";
         }
 
         private static String waitingApprovingCmd( MvcContext ctx, int targetId ) {
 
             String cmd = "<span>" + lang.get( "inApproveFriend" ) + "...</span>";
             String delpic = string.Format( "<img src=\"{0}\" />", strUtil.Join( sys.Path.Img, "delete.gif" ) );
-            String cancelLink = ctx.GetLink().T2( new FriendController().CancelAddFriend, targetId );
+            String cancelLink = ctx.link.T2( new FriendController().CancelAddFriend, targetId );
             String str = "<span class=\"left5 deleteCmd\" style=\"cursor:pointer\" title=\"{0}\" href=\"{1}\">{2}</span>";
             cmd += string.Format( str, lang.get( "canelFriend" ), cancelLink, delpic );
             return cmd;
         }
 
         private static String friendAndFollowCmd( MvcContext ctx, int targetId ) {
-            String cmd = "<a href=\"" + ctx.GetLink().T2( new FriendController().AddFriend, targetId ) + "\" class=\"frmBox cmd\" xwidth=\"500\" title=\"" + lang.get( "addAsFriend" ) + "\"><span>" + lang.get( "addAsFriend" ) + "</span></a>";
+            String cmd = "<a href=\"" + ctx.link.T2( new FriendController().AddFriend, targetId ) + "\" class=\"frmBox cmd\" xwidth=\"500\" title=\"" + lang.get( "addAsFriend" ) + "\"><span>" + lang.get( "addAsFriend" ) + "</span></a>";
 
             if (ctx.viewer.IsFollowing( targetId )) {
-                cmd += "<a href='" + ctx.GetLink().T2( new FriendController().DeleteFollow, targetId ) + "' class=\"deleteCmd cmd left10\"><span>" + lang.get( "cancelFollow" ) + "</span></a>";
+                cmd += "<a href='" + ctx.link.T2( new FriendController().DeleteFollow, targetId ) + "' class=\"deleteCmd cmd left10\"><span>" + lang.get( "cancelFollow" ) + "</span></a>";
             }
             else {
-                cmd += "<a href='" + ctx.GetLink().T2( new FriendController().AddFollow, targetId ) + "' class=\"frmBox cmd left10\" title=\"" + lang.get( "followcmd" ) + "\"><span>" + lang.get( "followcmd" ) + "</span></a>";
+                cmd += "<a href='" + ctx.link.T2( new FriendController().AddFollow, targetId ) + "' class=\"frmBox cmd left10\" title=\"" + lang.get( "followcmd" ) + "\"><span>" + lang.get( "followcmd" ) + "</span></a>";
             }
             return cmd;
         }
 
+        public static String getFollowCmd( MvcContext ctx, int targetId ) {
+
+            if (ctx.viewer.Id == targetId) return "";
+
+            if (ctx.viewer.IsFollowing( targetId )) {
+                return "<a href='" + ctx.link.T2( new FriendController().DeleteFollow, targetId ) + "' class=\"deleteCmd btn  btn-danger left10\"><i class=\"icon-minus-sign icon-white\"></i> " + lang.get( "cancelFollow" ) + "</a>";
+            }
+            else {
+                return "<a href='" + ctx.link.T2( new FriendController().AddFollow, targetId ) + "' class=\"btn btn-success frmBox left10\" title=\"" + lang.get( "followcmd" ) + "\"><i class=\"icon-user icon-white\"></i> " + lang.get( "follow" ) + "</a>";
+            }
+
+        }
 
         private static Boolean isWaitingFriendApproving( int userId, int targetId ) {
             FriendService friendService = new FriendService();

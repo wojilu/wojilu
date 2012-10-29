@@ -72,7 +72,7 @@ namespace wojilu.Web.Controller.Content.Section {
             set( "post.Source", src );
 
             if (post.Creator != null) {
-                set( "post.Submitter", string.Format( "<a href=\"{0}\" target=\"_blank\">{1}</a>", Link.ToMember( post.Creator ), post.Creator.Name ) );
+                set( "post.Submitter", string.Format( "<a href=\"{0}\" target=\"_blank\">{1}</a>", toUser( post.Creator ), post.Creator.Name ) );
             }
             else {
                 set( "post.Submitter", "нч" );
@@ -141,7 +141,7 @@ namespace wojilu.Web.Controller.Content.Section {
             String lnkPost = alink.ToAppData( post );
             List<String> pagedUrls = new List<String>();
             for (int i = 2; i < pageCount + 1; i++) {
-                pagedUrls.Add( Link.AppendPage( lnkPost, i ) );
+                pagedUrls.Add( PageHelper.AppendNo( lnkPost, i ) );
             }
 
             ctx.SetItem( "_relativeUrls", pagedUrls );

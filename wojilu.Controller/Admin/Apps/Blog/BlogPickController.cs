@@ -255,7 +255,7 @@ namespace wojilu.Web.Controller.Admin.Apps.Blog {
 
                 BlogPost topic = getTopic( x.DeleteId );
                 block.Set( "x.User", topic.Creator.Name );
-                block.Set( "x.UserLink", Link.ToMember( topic.Creator ) );
+                block.Set( "x.UserLink", toUser( topic.Creator ) );
 
                 block.Set( "x.LinkShow", alink.ToAppData( topic ) );
                 block.Set( "x.Created", topic.Created );

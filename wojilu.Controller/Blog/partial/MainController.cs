@@ -22,7 +22,7 @@ namespace wojilu.Web.Controller.Blog {
             foreach (User user in userRanks) {
                 block.Set( "user.Name", user.Name );
                 block.Set( "user.Face", user.PicSmall );
-                block.Set( "user.Link", Link.ToMember( user ) );
+                block.Set( "user.Link", toUser( user ) );
                 block.Next();
             }
 
@@ -45,7 +45,7 @@ namespace wojilu.Web.Controller.Blog {
         private void bindLink( IBlock tpl, String lbl, object obj ) {
 
             BlogPost post = obj as BlogPost;
-            String userLink = Link.ToUser( post.CreatorUrl );
+            String userLink = toUser( post.CreatorUrl );
 
             String userFace = "";
             if (strUtil.HasText( post.Creator.Pic )) {
