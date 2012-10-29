@@ -171,9 +171,10 @@
     <Compile Include="Microblogs\MicroblogSaveController.cs" />
     <Compile Include="Microblogs\SecurityController.cs" />
     <Compile Include="Open\CommentController.cs" />
+    <Compile Include="Photo\Helper\PhotoBinder.cs" />
     <Compile Include="Photo\Wf\HomeController.cs" />
     <Compile Include="Photo\Wf\LayoutController.cs" />
-    <Compile Include="Photo\Wf\PhotoLinker.cs" />
+    <Compile Include="Photo\Helper\PhotoLink.cs" />
     <Compile Include="Photo\Wf\UserHomeController.cs" />
     <Compile Include="Security\SiteAdminService.cs" />
     <Compile Include="ShareController.cs" />

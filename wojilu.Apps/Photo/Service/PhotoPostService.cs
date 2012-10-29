@@ -101,10 +101,12 @@ namespace wojilu.Apps.Photo.Service {
         }
 
         public virtual PhotoPost GetNext( PhotoPost post ) {
+            if (post == null || post.PhotoAlbum == null) return null;
             return db.find<PhotoPost>( "OwnerId=" + post.OwnerId + " and CategoryId=" + post.PhotoAlbum.Id + " and Id<" + post.Id ).first();
         }
 
         public virtual PhotoPost GetPre( PhotoPost post ) {
+            if (post == null || post.PhotoAlbum == null) return null;
             return db.find<PhotoPost>( "OwnerId=" + post.OwnerId + " and CategoryId=" + post.PhotoAlbum.Id + " and Id>" + post.Id + " order by Id" ).first();
         }
 
@@ -161,6 +163,13 @@ namespace wojilu.Apps.Photo.Service {
             }
 
             pickedService.DeletePhoto( ids );
+
+            // 统计
+            User user = User.findById( ownerId );
+            if (user != null) {
+                user.Pins = PhotoPost.count( "OwnerId=" + ownerId );
+                user.update( "Pins" );
+            }
         }
 
         public Result Update( PhotoPost post ) {
@@ -182,7 +191,8 @@ namespace wojilu.Apps.Photo.Service {
 
             Result result = db.insert( post );
             if (result.IsValid) {
-                this.updatePostCount( app );
+                this.updateCountApp( app );
+                this.updateCountAlbum( post.PhotoAlbum );
 
                 String msg = string.Format( "上传图片 <a href=\"{0}\">{1}</a>，得到奖励", alink.ToAppData( post ), post.Title );
                 incomeService.AddIncome( post.Creator, UserAction.Photo_CreatePost.Id, msg );
@@ -214,7 +224,7 @@ namespace wojilu.Apps.Photo.Service {
 
             Result result = db.insert( photo );
             if (result.IsValid) {
-                this.updatePostCount( ctx.app.obj as PhotoApp );
+                this.updateCountApp( ctx.app.obj as PhotoApp );
             }
             return result;
         }
@@ -271,10 +281,21 @@ namespace wojilu.Apps.Photo.Service {
             return photo.Id;
         }
 
-        private void updatePostCount( PhotoApp app ) {
+        // app count
+        private void updateCountApp( PhotoApp app ) {
+
             int count = db.count<PhotoPost>( "AppId=" + app.Id );
             app.PhotoCount = count;
             db.update( app, "PhotoCount" );
+
+        }
+
+        // album count
+        private void updateCountAlbum( PhotoAlbum album ) {
+
+            int count = db.count<PhotoPost>( "CategoryId=" + album.Id );
+            album.DataCount = count;
+            db.update( album, "DataCount" );
         }
 
     }

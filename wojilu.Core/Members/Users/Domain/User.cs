@@ -90,6 +90,8 @@ namespace wojilu.Members.Users.Domain {
         public int MicroblogAt { get; set; } // 微博at提到的数量
         public int MicroblogAtUnread { get; set; } // (未读)微博at提到的数量
 
+        public int Pins { get; set; }
+        public int Likes { get; set; }
 
         public int Hits { get; set; }
 

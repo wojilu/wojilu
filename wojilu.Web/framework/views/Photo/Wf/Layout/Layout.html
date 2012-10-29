@@ -2,7 +2,7 @@
 
 <div class="wfnav">
     <a href="#{lnkNew}" class="right10"><i class="icon-picture"></i> 最新</a>
-    <a href="" class="right10"><i class="icon-fire"></i> 热门</a>
+    <a href="#{lnkHot}" class="right10"><i class="icon-fire"></i> 热门</a>
     <a href="" class="right10"><i class="icon-thumbs-up"></i> 推荐</a>
     <span class="left20 right5">分类:</span>
     <!-- BEGIN categories -->
@@ -91,7 +91,7 @@
             $.post(url, function (data) {
 
                 if (data == 'ok') {
-                    lnk.removeClass('wfpost-like').addClass('wfpost-liked').remove('i').text('已喜欢');
+                    lnk.removeClass('wfpost-like').addClass('wfpost-liked').addClass('disabled').remove('i').text('已喜欢');
                 }
                 else {
                     alert(data);

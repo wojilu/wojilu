@@ -9,6 +9,7 @@ using wojilu.Apps.Photo.Service;
 using wojilu.Members.Users.Domain;
 using wojilu.Apps.Photo.Domain;
 using wojilu.Common.AppBase;
+using wojilu.Web.Controller.Common;
 
 namespace wojilu.Web.Controller.Photo.Wf {
 
@@ -40,11 +41,48 @@ namespace wojilu.Web.Controller.Photo.Wf {
             set( "u.Name", u.Name );
             set( "u.Created", u.Created.ToShortDateString() );
             set( "u.PicMedium", u.PicMedium );
-            set( "u.Link", PhotoLinker.getUserLink( u ) );
+            set( "u.Link", PhotoLink.ToUser( u ) );
 
-            set( "u.LikeLink", PhotoLinker.getUserLikeLink( u ) );
-            set( "u.AlbumLink", PhotoLinker.getUserAlbumLink( u ) );
-            set( "u.FollowerLink", PhotoLinker.getUserFollowerLink( u ) );
+            set( "u.Gender", u.GenderString );
+            set( "u.Hobby", getUserHobby( u ) );
+
+            set( "u.Pins", u.Pins );
+            set( "u.Likes", u.Likes );
+
+            set( "u.LikeLink", PhotoLink.ToLike( u ) );
+            set( "u.AlbumLink", PhotoLink.ToAlbumList( u ) );
+            set( "u.FollowerLink", PhotoLink.ToFollower( u ) );
+
+            String followCmd = WebUtils.getFollowCmd( ctx, u.Id );
+            set( "followCmd", followCmd );
+
+            String lnkMsg;
+            if (ctx.viewer.IsLogin) {
+                lnkMsg = Link.To( ctx.viewer.obj, new Users.Admin.MsgController().New, u.Id );
+            }
+            else {
+                lnkMsg = "#";
+            }
+
+            set( "sendMsgLink", lnkMsg );
+
+            String shareLink = Link.To( ctx.owner.obj, new wojilu.Web.Controller.ShareController().Add );
+            shareLink = shareLink + string.Format( "?url={0}&title={1}&pic={2}",
+                getFullUrl( PhotoLink.ToUser( u ) ), u.Name + "的图片首页", u.PicOriginal );
+
+            set( "shareLink", shareLink );
+        }
+
+        private object getUserHobby( User u ) {
+
+            return string.Format( "<div>{0}</div><div>{1}</div><div>{2}</div><div>{3}</div><div>{4}</div><div>{5}</div>", u.Profile.Music, u.Profile.Movie, u.Profile.Sport, u.Profile.Eat, u.Profile.Book, u.Profile.OtherHobby );
+
+        }
+
+        private String getFullUrl( String url ) {
+            if (url == null) return "";
+            if (url.StartsWith( "http" )) return url;
+            return strUtil.Join( ctx.url.SiteAndAppPath, url );
         }
         //-------------------------------------------------------------------------------------------
 
@@ -67,7 +105,7 @@ namespace wojilu.Web.Controller.Photo.Wf {
                 return;
             }
 
-            bindPhotoList( list );
+            PhotoBinder.BindPhotoList( this, list, u.Id );
         }
 
         public void Category( int id ) {
@@ -90,7 +128,7 @@ namespace wojilu.Web.Controller.Photo.Wf {
                 return;
             }
 
-            bindPhotoList( list );
+            PhotoBinder.BindPhotoList( this, list, u.Id );
 
         }
 
@@ -113,7 +151,7 @@ namespace wojilu.Web.Controller.Photo.Wf {
                 return;
             }
 
-            bindPhotoList( getPostPage( list ) );
+            PhotoBinder.BindPhotoList( this, getPostPage( list ), ctx.viewer.Id );
         }
 
         private DataPage<PhotoPost> getPostPage( DataPage<PhotoLike> list ) {
@@ -146,7 +184,7 @@ namespace wojilu.Web.Controller.Photo.Wf {
             foreach (PhotoAlbum album in albumList) {
 
                 block.Set( "album.Name", album.Name );
-                block.Set( "album.Link", PhotoLinker.getCategoryLink( album.OwnerUrl, album.Id ) );
+                block.Set( "album.Link", PhotoLink.ToAlbumOne( album.OwnerUrl, album.Id ) );
 
                 int dataCount = PhotoHelper.getDataCount( album );
                 block.Set( "album.DataCount", dataCount );
@@ -165,81 +203,6 @@ namespace wojilu.Web.Controller.Photo.Wf {
 
         public void Follower() {
         }
-
-        //------------------------------------------------------------------------------------------
-
-
-        private void bindPhotoList( DataPage<PhotoPost> list ) {
-            IBlock block = getBlock( "list" );
-
-            List<int> likedIds = getLikedIds( list.Results );
-
-            foreach (PhotoPost x in list.Results) {
-                bindPostSingle( block, x, likedIds );
-                block.Next();
-            }
-
-            set( "page", list.PageBar );
-        }
-
-        private List<int> getLikedIds( List<PhotoPost> list ) {
-
-            List<int> ids = new List<int>();
-
-            if (list.Count == 0) return ids;
-
-            String postIds = "";
-            foreach (PhotoPost x in list) {
-                postIds += x.Id + ",";
-            }
-            postIds = postIds.TrimEnd( ',' );
-
-            List<PhotoLike> likeList = PhotoLike.find( "UserId=" + ctx.viewer.Id + " and PostId in (" + postIds + ")" ).list();
-
-            foreach (PhotoLike x in likeList) {
-                ids.Add( x.Post.Id );
-            }
-
-            return ids;
-        }
-
-
-
-        private void bindPostSingle( IBlock block, PhotoPost x, List<int> likedIds ) {
-            block.Set( "x.Link", to( new HomeController().Post, x.Id ) );
-            block.Set( "x.Title", x.Title );
-            block.Set( "x.Pic", x.ImgThumbUrl );
-            block.Set( "x.PicM", x.ImgMediumUrl );
-
-            if (x.PhotoAlbum != null) {
-                block.Set( "x.AlbumName", x.PhotoAlbum.Name );
-                block.Set( "x.AlbumLink", PhotoLinker.getCategoryLink( x.PhotoAlbum.OwnerUrl, x.PhotoAlbum.Id ) );
-            }
-            else {
-                block.Set( "x.AlbumName", "" );
-                block.Set( "x.AlbumLink", "#" );
-            }
-
-            block.Set( "x.CreatorName", x.Creator.Name );
-            block.Set( "x.CreatorPic", x.Creator.PicSmall );
-            block.Set( "x.CreatorLink", PhotoLinker.getUserLink( x.Creator ) );
-            block.Set( "x.Created", cvt.ToTimeString( x.Created ) );
-
-            block.Set( "x.RepinLink", to( new HomeController().Repin, x.Id ) );
-            block.Set( "x.LikeLink", to( new HomeController().Like, x.Id ) );
-            block.Set( "x.UnLikeLink", to( new HomeController().UnLike, x.Id ) );
-
-            if (likedIds.Contains( x.Id )) {
-                block.Set( "x.LikedCss", "wfpost-liked disabled" );
-                block.Set( "x.LikeName", "已喜欢" );
-            }
-            else {
-                block.Set( "x.LikedCss", "wfpost-like" );
-                block.Set( "x.LikeName", "喜欢" );
-            }
-
-        }
-
 
     }
 

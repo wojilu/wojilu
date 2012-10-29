@@ -113,40 +113,17 @@ a.currentPageNo {color:#fff;background-color:#296bbc;padding:2px 4px 2px 4px; bo
 td.sort img {cursor:pointer; padding:2px; }
 td.sort img:hover {background:#333;}
 
-.font10 {font-size:10px;}
-.font12 {font-size:12px;}
-.font14 {font-size:14px;}
-.font16 {font-size:16px;}
-.font18 {font-size:18px;}
+.radius2 {border-radius:2px;} .radius3 {border-radius:3px;} .radius4 {border-radius:4px;} .radius5 {border-radius:5px;} .radius6 {border-radius:6px;}
+.font10 {font-size:10px;} .font12 {font-size:12px;} .font14 {font-size:14px;} .font16 {font-size:16px;} .font18 {font-size:18px;}
+.left5 {margin-left:5px;} .left10 {margin-left:10px;} .left15 {margin-left:15px;} .left20 {margin-left:20px;} 
+.right5 {margin-right:5px;} .right10 {margin-right:10px;} .right15 {margin-right:15px;} .right20 {margin-right:20px;}
+.top5 {margin-top:5px;} .top10 {margin-top:10px;} .top15 {margin-top:15px;} .top20 {margin-top:20px;}
+.bottom5 {margin-bottom:5px;} .bottom10 {margin-bottom:10px;} .bottom15 {margin-bottom:15px;} .bottom20 {margin-bottom:20px;}
+.padding5 {padding:5px;} .padding10 {padding:10px;} .padding15 {padding:15px;} .padding20 {padding:20px;}
+.margin5 {margin:5px;} .margin10 {margin:10px;} .margin15 {margin:15px;} .margin20 {margin:20px;}
+.max100 {max-width:100px;max-height:100px;} .max120 {max-width:120px;max-height:120px;} .max150 {max-width:150px;max-height:150px;}
+.width30 {width:30px;} .width200 {width:200px;}
 
-.left5 {margin-left:5px;}
-.left10 {margin-left:10px;}
-.left15 {margin-left:15px;}
-.left20 {margin-left:20px;}
-
-.right5 {margin-right:5px;}
-.right10 {margin-right:10px;}
-.right15 {margin-right:15px;}
-.right20 {margin-right:20px;}
-
-.top10 {margin-top:10px;}
-.top20 {margin-top:20px;}
-
-.bottom10 {margin-bottom:10px;}
-.bottom20 {margin-bottom:20px;}
-
-.padding10 {padding:10px;}
-.padding20 {padding:20px;}
-
-.margin10 {margin:10px;}
-.margin20 {margin:20px;}
-
-.max100 {max-width:100px;max-height:100px;}
-.max120 {max-width:120px;max-height:120px;}
-.max150 {max-width:150px;max-height:150px;}
-
-.width30 {width:30px;}
-.width200 {width:200px;}
 .strong {font-weight:bold;}
 .center {text-align:center;}
 .right {text-align:right;}

@@ -18,12 +18,10 @@ namespace wojilu.Web.Controller.Photo.Wf {
 
         public override void Layout() {
 
-            set( "lnkNew", to( new HomeController().Index ) );
+            set( "lnkNew", PhotoLink.ToHome() );
 
             bindCategories();
-
         }
-
 
         private void bindCategories() {
             List<PhotoSysCategory> categories = sysCategoryService.GetAll();

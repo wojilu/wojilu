@@ -10,9 +10,12 @@ using wojilu.Apps.Photo.Domain;
 using wojilu.Members.Users.Domain;
 using wojilu.Common.AppBase;
 using wojilu.Web.Mvc.Attr;
+using wojilu.Web.Controller.Common;
+using wojilu.Web.Context;
 
 namespace wojilu.Web.Controller.Photo.Wf {
 
+    [App( typeof( PhotoApp ) )]
     public class HomeController : ControllerBase {
 
         public IUserService userService { get; set; }
@@ -27,13 +30,26 @@ namespace wojilu.Web.Controller.Photo.Wf {
             HideLayout( typeof( wojilu.Web.Controller.Photo.LayoutController ) );
         }
 
-
-
         [Data( typeof( PhotoPost ) )]
         public void Post( int id ) {
 
 
             PhotoPost x = ctx.Get<PhotoPost>();
+            postService.AddtHits( x );
+
+            WebUtils.pageTitle( this, x.Title );
+            Page.Keywords = x.Tag.TextString;
+
+            User owner = x.Creator;
+
+            if (ctx.viewer.IsFollowing( owner.Id )) {
+                set( "lblFollow", "已经关注" );
+                set( "clsFollow", "btnUnFollow" );
+            }
+            else {
+                set( "lblFollow", "关注" );
+                set( "clsFollow", "btnFollow" );
+            }
 
             Boolean isLiked = PhotoLike.find( "UserId=" + ctx.viewer.Id + " and PostId=" + id ).first() != null;
 
@@ -42,9 +58,59 @@ namespace wojilu.Web.Controller.Photo.Wf {
                 ids.Add( id );
             }
 
-            bindPostSingle( base.utils.getCurrentView(), x, ids );
+            PhotoBinder.BindPostSingleFull( ctx, base.utils.getCurrentView(), x, ids );
+            set( "lnkPrevNext", getPreNextHtml( x ) );
+
+            bindAlbumPosts( x );
+            bindOtherPosts();
+
+            String commentUrl = t2( new wojilu.Web.Controller.Open.CommentController().List )
+                + "?url=" + PhotoLink.ToPost( x.Id )
+                + "&dataType=" + typeof( PhotoPost ).FullName
+                + "&dataTitle=" + x.Title
+                + "&dataUserId=" + x.Creator.Id
+                + "&dataId=" + x.Id;
+            set( "thisUrl", commentUrl );
         }
 
+        public String getPreNextHtml( PhotoPost post ) {
+
+            PhotoPost prev = postService.GetPre( post );
+            PhotoPost next = postService.GetNext( post );
+
+            String prenext;
+            if (prev == null && next == null)
+                prenext = "";
+            else if (prev == null)
+                prenext = "<a href=\"" + PhotoLink.ToPost( next.Id ) + "\">" + alang( "nextPhoto" ) + "</a> ";
+            else if (next == null)
+                prenext = "<a href=\"" + PhotoLink.ToPost( prev.Id ) + "\">" + alang( "prevPhoto" ) + "</a> ";
+            else
+                prenext = "<a href=\"" + PhotoLink.ToPost( prev.Id ) + "\">" + alang( "prevPhoto" ) + "</a> | <a href=\"" + PhotoLink.ToPost( next.Id ) + "\">" + alang( "nextPhoto" ) + "</a>";
+            return prenext;
+        }
+
+        private void bindAlbumPosts( PhotoPost post ) {
+
+            IBlock block = getBlock( "cposts" );
+            if (post.PhotoAlbum == null) return;
+
+            List<PhotoPost> list = PhotoPost.find( "CategoryId=" + post.PhotoAlbum.Id + " and SaveStatus=" + SaveStatus.Normal ).list( 9 );
+            foreach (PhotoPost x in list) {
+                PhotoBinder.BindPostSingle( ctx, block, x, new List<int>() );
+                block.Next();
+            }
+
+        }
+
+        private void bindOtherPosts() {
+            List<PhotoPost> list = PhotoPost.find( "SaveStatus=" + SaveStatus.Normal ).list( 15 );
+            IBlock block = getBlock( "xposts" );
+            foreach (PhotoPost x in list) {
+                PhotoBinder.BindPostSingle( ctx, block, x, new List<int>() );
+                block.Next();
+            }
+        }
 
         //-------------------------------------------------------------------------------------------
 
@@ -53,6 +119,8 @@ namespace wojilu.Web.Controller.Photo.Wf {
             // 从第二页开始，是ajax获取，所以不需要多余的layout内容
             if (CurrentRequest.getCurrentPage() > 1) {
                 HideLayout( typeof( wojilu.Web.Controller.LayoutController ) );
+                HideLayout( typeof( wojilu.Web.Controller.Photo.LayoutController ) );
+                HideLayout( typeof( wojilu.Web.Controller.Photo.Wf.LayoutController ) );
             }
 
             // 1) 超过最大滚页数，则不再自动翻页
@@ -70,7 +138,7 @@ namespace wojilu.Web.Controller.Photo.Wf {
                 return;
             }
 
-            bindPhotoList( list );
+            PhotoBinder.BindPhotoList( this, list, ctx.viewer.Id );
         }
 
         //------------------------------------------------------------------------------------------
@@ -96,6 +164,13 @@ namespace wojilu.Web.Controller.Photo.Wf {
                 x.User = ctx.viewer.obj as User;
                 x.insert();
 
+                post.Likes = PhotoLike.count( "PostId=" + postId );
+                post.update();
+
+                User user = ctx.viewer.obj as User;
+                user.Likes = PhotoLike.count( "UserId=" + user.Id );
+                user.update( "Likes" );
+
                 echoAjaxOk();
 
             }
@@ -103,6 +178,8 @@ namespace wojilu.Web.Controller.Photo.Wf {
 
         [HttpPost, Login, Data( typeof( PhotoPost ) )]
         public void UnLike( int postId ) {
+
+            PhotoPost post = ctx.Get<PhotoPost>();
 
             PhotoLike p = PhotoLike.find( "PostId=:pid and UserId=:uid" )
                 .set( "pid", postId )
@@ -116,6 +193,14 @@ namespace wojilu.Web.Controller.Photo.Wf {
             else {
 
                 p.delete();
+
+                post.Likes = PhotoLike.count( "PostId=" + postId );
+                post.update();
+
+                User user = ctx.viewer.obj as User;
+                user.Likes = PhotoLike.count( "UserId=" + user.Id );
+                user.update( "Likes" );
+
                 echoAjaxOk();
 
             }
@@ -146,6 +231,13 @@ namespace wojilu.Web.Controller.Photo.Wf {
             photo.Tag.Save( ctx.Post( "tagList" ) );
             // TODO 动态消息
 
+            x.Pins = PhotoPost.count( "RootId=" + postId + " or ParentId=" + postId );
+            x.update( "Pins" );
+
+            User user = ctx.viewer.obj as User;
+            user.Pins = PhotoPost.count( "OwnerId=" + user.Id );
+            user.update( "Pins" );
+
         }
 
         private PhotoPost newPost( PhotoPost x ) {
@@ -167,11 +259,13 @@ namespace wojilu.Web.Controller.Photo.Wf {
 
             photo.SysCategoryId = x.SysCategoryId;
 
-            photo.Creator = (User)ctx.viewer.obj;
-            photo.CreatorUrl = ctx.viewer.obj.Url;
-            photo.OwnerId = photo.Creator.Id;
-            photo.OwnerUrl = photo.Creator.Url;
-            photo.OwnerType = photo.Creator.GetType().FullName;
+            User user = ctx.viewer.obj as User;
+
+            photo.Creator = user;
+            photo.CreatorUrl = user.Url;
+            photo.OwnerId = user.Id;
+            photo.OwnerUrl = user.Url;
+            photo.OwnerType = user.GetType().FullName;
 
             photo.Title = x.Title;
             photo.DataUrl = x.DataUrl;
@@ -180,83 +274,7 @@ namespace wojilu.Web.Controller.Photo.Wf {
             return photo;
         }
 
-
-
-
         //------------------------------------------------------------------------------------------
-
-
-        private void bindPhotoList( DataPage<PhotoPost> list ) {
-            IBlock block = getBlock( "list" );
-
-            List<int> likedIds = getLikedIds( list.Results );
-
-            foreach (PhotoPost x in list.Results) {
-                bindPostSingle( block, x, likedIds );
-                block.Next();
-            }
-
-            set( "page", list.PageBar );
-        }
-
-        private List<int> getLikedIds( List<PhotoPost> list ) {
-
-            List<int> ids = new List<int>();
-
-            if (list.Count == 0) return ids;
-
-            String postIds = "";
-            foreach (PhotoPost x in list) {
-                postIds += x.Id + ",";
-            }
-            postIds = postIds.TrimEnd( ',' );
-
-            List<PhotoLike> likeList = PhotoLike.find( "UserId=" + ctx.viewer.Id + " and PostId in (" + postIds + ")" ).list();
-
-            foreach (PhotoLike x in likeList) {
-                ids.Add( x.Post.Id );
-            }
-
-            return ids;
-        }
-
-
-
-        private void bindPostSingle( IBlock block, PhotoPost x, List<int> likedIds ) {
-            block.Set( "x.Link", to( Post, x.Id ) );
-            block.Set( "x.Title", x.Title );
-            block.Set( "x.Pic", x.ImgThumbUrl );
-            block.Set( "x.PicM", x.ImgMediumUrl );
-
-            if (x.PhotoAlbum != null) {
-                block.Set( "x.AlbumName", x.PhotoAlbum.Name );
-                block.Set( "x.AlbumLink", PhotoLinker.getCategoryLink( x.PhotoAlbum.OwnerUrl, x.PhotoAlbum.Id ) );
-            }
-            else {
-                block.Set( "x.AlbumName", "" );
-                block.Set( "x.AlbumLink", "#" );
-            }
-
-            block.Set( "x.CreatorName", x.Creator.Name );
-            block.Set( "x.CreatorPic", x.Creator.PicSmall );
-            block.Set( "x.CreatorLink", PhotoLinker.getUserLink( x.Creator ) );
-            block.Set( "x.Created", cvt.ToTimeString( x.Created ) );
-
-            block.Set( "x.RepinLink", to( Repin, x.Id ) );
-            block.Set( "x.LikeLink", to( Like, x.Id ) );
-            block.Set( "x.UnLikeLink", to( UnLike, x.Id ) );
-
-            if (likedIds.Contains( x.Id )) {
-                block.Set( "x.LikedCss", "wfpost-liked disabled" );
-                block.Set( "x.LikeName", "已喜欢" );
-            }
-            else {
-                block.Set( "x.LikedCss", "wfpost-like" );
-                block.Set( "x.LikeName", "喜欢" );
-            }
-
-        }
-
 
 
     }

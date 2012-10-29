@@ -14,11 +14,12 @@ using wojilu.Common.Tags;
 using wojilu.Common.Jobs;
 using wojilu.Common.AppBase.Interface;
 using wojilu.Common;
+using wojilu.Common.Comments;
 
 namespace wojilu.Apps.Photo.Domain {
 
     [Serializable]
-    public class PhotoPost : ObjectBase<PhotoPost>, IAppData, IShareData, IHits {
+    public class PhotoPost : ObjectBase<PhotoPost>, IAppData, IShareData, IHits, ICommentTarget {
 
         public int AppId { get; set; }
         public int SysCategoryId { get; set; }
@@ -48,6 +49,9 @@ namespace wojilu.Apps.Photo.Domain {
         public int Replies { get; set; }
 
         //--------------------------------------------------------------------
+
+        public int Likes { get; set; }
+        public int Pins { get; set; }
 
         public String SrcName { get; set; } // 来源网站
         public String SrcUrl { get; set; } // 来源网址
