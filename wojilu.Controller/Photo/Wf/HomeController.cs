@@ -21,11 +21,15 @@ namespace wojilu.Web.Controller.Photo.Wf {
         public IUserService userService { get; set; }
         public IPhotoAlbumService categoryService { get; set; }
         public IPhotoPostService postService { get; set; }
+        public IPickedService pickedService { get; set; }
+        public IFollowerService followerService { get; set; }
 
         public HomeController() {
             userService = new UserService();
             categoryService = new PhotoAlbumService();
             postService = new PhotoPostService();
+            pickedService = new PickedService();
+            followerService = new FollowerService();
 
             HideLayout( typeof( wojilu.Web.Controller.Photo.LayoutController ) );
         }
@@ -130,7 +134,135 @@ namespace wojilu.Web.Controller.Photo.Wf {
                 return;
             }
 
+            // 最近的500条图片
+            int recentCount = 500;
+            int recentId = (int)db.RunScalar<PhotoPost>( "select min(Id) from (select top " + recentCount + " Id from PhotoPost order by Id desc)" );
+
+            // 关注的图片
+            String ids = followerService.GetFollowingIds( ctx.viewer.Id );
+            String condition = "Id>" + recentId;
+            if (strUtil.HasText( ids )) condition = "(" + condition + " or OwnerId in (" + ids + ") )";
+
+            DataPage<PhotoPost> list = PhotoPost.findPage( condition + " and SaveStatus=" + SaveStatus.Normal, 20 );
+
+            // 2) 或者超过实际页数，也不再自动翻页
+            if (CurrentRequest.getCurrentPage() > list.PageCount) {
+                echoText( "." );
+                return;
+            }
+
+            PhotoBinder.BindPhotoList( this, list, ctx.viewer.Id );
+        }
+
+
+        public void New() {
+
+            view( "Index" );
+
+            // 从第二页开始，是ajax获取，所以不需要多余的layout内容
+            if (CurrentRequest.getCurrentPage() > 1) {
+                HideLayout( typeof( wojilu.Web.Controller.LayoutController ) );
+                HideLayout( typeof( wojilu.Web.Controller.Photo.LayoutController ) );
+                HideLayout( typeof( wojilu.Web.Controller.Photo.Wf.LayoutController ) );
+            }
+
+            // 1) 超过最大滚页数，则不再自动翻页
+            int maxPage = 10;
+            if (CurrentRequest.getCurrentPage() > maxPage) {
+                echoText( "." );
+                return;
+            }
+
             DataPage<PhotoPost> list = PhotoPost.findPage( "SaveStatus=" + SaveStatus.Normal, 20 );
+
+            // 2) 或者超过实际页数，也不再自动翻页
+            if (CurrentRequest.getCurrentPage() > list.PageCount) {
+                echoText( "." );
+                return;
+            }
+
+            PhotoBinder.BindPhotoList( this, list, ctx.viewer.Id );
+        }
+
+        public void Category( int categoryId ) {
+
+            view( "Index" );
+
+            // 从第二页开始，是ajax获取，所以不需要多余的layout内容
+            if (CurrentRequest.getCurrentPage() > 1) {
+                HideLayout( typeof( wojilu.Web.Controller.LayoutController ) );
+                HideLayout( typeof( wojilu.Web.Controller.Photo.LayoutController ) );
+                HideLayout( typeof( wojilu.Web.Controller.Photo.Wf.LayoutController ) );
+            }
+
+            // 1) 超过最大滚页数，则不再自动翻页
+            int maxPage = 10;
+            if (CurrentRequest.getCurrentPage() > maxPage) {
+                echoText( "." );
+                return;
+            }
+
+            DataPage<PhotoPost> list = PhotoPost.findPage( "SaveStatus=" + SaveStatus.Normal + " and SysCategoryId=" + categoryId, 20 );
+
+            // 2) 或者超过实际页数，也不再自动翻页
+            if (CurrentRequest.getCurrentPage() > list.PageCount) {
+                echoText( "." );
+                return;
+            }
+
+            PhotoBinder.BindPhotoList( this, list, ctx.viewer.Id );
+
+        }
+
+        public void Hot() {
+
+            view( "Index" );
+
+            // 从第二页开始，是ajax获取，所以不需要多余的layout内容
+            if (CurrentRequest.getCurrentPage() > 1) {
+                HideLayout( typeof( wojilu.Web.Controller.LayoutController ) );
+                HideLayout( typeof( wojilu.Web.Controller.Photo.LayoutController ) );
+                HideLayout( typeof( wojilu.Web.Controller.Photo.Wf.LayoutController ) );
+            }
+
+            // 1) 超过最大滚页数，则不再自动翻页
+            int maxPage = 10;
+            if (CurrentRequest.getCurrentPage() > maxPage) {
+                echoText( "." );
+                return;
+            }
+
+            DataPage<PhotoPost> list = PhotoPost.findPage( "SaveStatus=" + SaveStatus.Normal + " order by Likes desc, Pins desc, Hits desc, Replies desc", 20 );
+
+            // 2) 或者超过实际页数，也不再自动翻页
+            if (CurrentRequest.getCurrentPage() > list.PageCount) {
+                echoText( "." );
+                return;
+            }
+
+            PhotoBinder.BindPhotoList( this, list, ctx.viewer.Id );
+        }
+
+
+        public void Pick() {
+
+            view( "Index" );
+
+            // 从第二页开始，是ajax获取，所以不需要多余的layout内容
+            if (CurrentRequest.getCurrentPage() > 1) {
+                HideLayout( typeof( wojilu.Web.Controller.LayoutController ) );
+                HideLayout( typeof( wojilu.Web.Controller.Photo.LayoutController ) );
+                HideLayout( typeof( wojilu.Web.Controller.Photo.Wf.LayoutController ) );
+            }
+
+            // 1) 超过最大滚页数，则不再自动翻页
+            int maxPage = 10;
+            if (CurrentRequest.getCurrentPage() > maxPage) {
+                echoText( "." );
+                return;
+            }
+
+            DataPage<PhotoPost> list = pickedService.GetAll( 20 );
 
             // 2) 或者超过实际页数，也不再自动翻页
             if (CurrentRequest.getCurrentPage() > list.PageCount) {

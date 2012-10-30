@@ -1,18 +1,81 @@
 ﻿<link href="~css/wojilu.core.waterfall.css?v=#{cssVersion}" rel="stylesheet" />
 
-<div class="wfnav">
-    <a href="#{lnkNew}" class="right10"><i class="icon-picture"></i> 最新</a>
-    <a href="#{lnkHot}" class="right10"><i class="icon-fire"></i> 热门</a>
-    <a href="" class="right10"><i class="icon-thumbs-up"></i> 推荐</a>
-    <span class="left20 right5">分类:</span>
+<div class="wfnav clearfix">
+    <a id="pHome" href="#{lnkHome}" class=""><i class="icon-home"></i> 图片首页</a>
+    <a id="pNew" href="#{lnkNew}" class=""><i class="icon-picture"></i> 最新</a>
+    <a id="pHot" href="#{lnkHot}" class=""><i class="icon-fire"></i> 热门</a>
+    <a id="pPick" href="#{lnkPick}" class=""><i class="icon-thumbs-up"></i> 推荐</a>
+
+    <span style="margin-left:30px; font-weight:bold;"><i class="icon-th"></i> 分类</span>
     <!-- BEGIN categories -->
-        <a href="#{x.LinkShow}" class="right10">#{x.Name}</a>
+        <a id="pCat#{x.Name}" href="#{x.LinkShow}" class="pCat">#{x.Name}</a>
     <!-- END categories -->
+    <a id="pAdd" href="#{lnkAdd}" target="_blank" class="frmLink1" loadTo="wfAddWrap" nolayout=999 style="margin-left:50px;"><img src="~img/s/upload.png" /> 上传</a>
 </div>
+<style>
+.wfnav {padding:0px 10px;}
+.wfnav a { display:block;margin:0px; padding:10px 10px; float:left; text-decoration:none;}
+.wfnav span { display:block;margin:0px; padding:10px 10px; float:left;}
 
+.wfNavCurrent { background:#61c0d6; color:#fff; font-weight:bold;}
+.wfNavCurrent a { color:#fff;}
+</style>
+<script>
+    _run(function () {
+        var href = window.location.href;
+
+        if (href.indexOf('home') > -1) {
+            $('#pHome').addClass('wfNavCurrent');
+            $('i', '#pHome').addClass('icon-white');
+        }
+        else if (href.indexOf('New') > -1) {
+            $('#pNew').addClass('wfNavCurrent');
+            $('i', '#pNew').addClass('icon-white');
+        }
+        else if (href.indexOf('Hot') > -1) {
+            $('#pHot').addClass('wfNavCurrent');
+            $('i', '#pHot').addClass('icon-white');
+        }
+        else if (href.indexOf('Pick') > -1) {
+            $('#pPick').addClass('wfNavCurrent');
+            $('i', '#pPick').addClass('icon-white');
+        }
+        else if (href.indexOf('Category') > -1) {
+            $('.pCat').each(function () {
+                var thisUrl = $(this).attr('href');
+                if (href.indexOf(thisUrl) > -1) {
+                    $(this).addClass('wfNavCurrent');
+                }
+            });
+        }
+        else {
+            //$('#pHome').addClass('wfNavCurrent');
+            //$('i', '#pHome').addClass('icon-white');
+        }
+
+        $('#pAdd').click(function () {
+
+            /*
+            $('i', '.wfNavCurrent').removeClass('icon-white');
+            $('.wfnav a').removeClass('wfNavCurrent');
+            $(this).addClass('wfNavCurrent');
+
+            
+            $('#wfAddWrap').show();
+            $('#wfMain').hide();
+            */
+        });
+
+        wojilu.ui.frmLink();
+
+    });
+</script>
+
+<div id="wfAddWrap" style="width:800px;margin:20px auto; display:none;">
+</div>
+<div id="wfMain">
 #{layout_content}
-
-
+</div>
 
 <script type="text/javascript">
     _run(function () {

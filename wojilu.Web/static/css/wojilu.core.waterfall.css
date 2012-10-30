@@ -10,10 +10,10 @@ body {background:url("../img/m/waterfall-bg.gif");}
 .wfbody {margin-top:20px;}
 .wflist { margin-bottom:10px;}
 
-.wfnav {margin:10px 25px 15px 25px; box-shadow:2px 2px 5px #aaa; padding:10px 20px; font-size:14px; background:#fefefe; border-radius:4px;}
+.wfnav {margin:0px 25px 0px 25px; box-shadow1:0px 1px 1px #ccc; padding:10px 20px; font-size:14px; background:#f7f7f7; border-radius:4px;border:1px solid #ccc;}
 
 #wfContainer { clear:both; }
-.wfpost { list-style:none; width:200px; margin:5px 25px 10px 0px; box-shadow:0px 2px 3px #ccc; background:#fff; text-align:center; border-radius:4px;}
+.wfpost { list-style:none; width:200px; margin:5px 25px 10px 0px; box-shadow:0px 1px 2px #aaa; background:#fff; text-align:center; border-radius:3px;border-width:1px;border-color:#E2E0E1 #D8D5D6 #C7C4C5;z-index:10px;}
 .wfpost-pic { margin:10px;}
     .wfpost-pic img { border-radius:4px;max-width:170px;height:170px;margin-top:5px;}
     .wfpost-name { color:#666; margin-top:3px; text-align:left;}

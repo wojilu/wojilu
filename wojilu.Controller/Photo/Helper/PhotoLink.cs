@@ -42,16 +42,30 @@ namespace wojilu.Web.Controller.Photo {
             return string.Format( "/photo/follower/{0}{1}", u.Url, ext );
         }
 
-        //public static String ToAdminPost( User u, MvcContext ctx ) {
+        public static String ToAdminPost( User u ) {
 
-        //    PhotoApp app = PhotoApp.find( "OwnerId="+ u.Id ).first();
-        //    if (app == null) return;
+            PhotoApp app = PhotoApp.find( "OwnerId=" + u.Id ).first();
+            if (app == null) return "";
+
+            return Link.To( u, new Photo.Admin.MyController().My, app.Id );
+        }
+
+        public static String ToAdminAlbum( User u ) {
+            PhotoApp app = PhotoApp.find( "OwnerId=" + u.Id ).first();
+            if (app == null) return "";
+
+            return Link.To( u, new Photo.Admin.AlbumController().List, app.Id );
+        }
 
 
-        //}
+        public static String ToAdminAdd( User u ) {
+            if (u.Id <= 0) return "javascript:alert('请先登录');return false;";
 
-        //public static String ToAdminAlbum( User u ) {
-        //}
+            PhotoApp app = PhotoApp.find( "OwnerId=" + u.Id ).first();
+            if (app == null) return "";
+
+            return Link.To( u, new Photo.Admin.PostController().Add, app.Id );
+        }
 
 
     }

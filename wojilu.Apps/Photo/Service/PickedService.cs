@@ -65,8 +65,12 @@ namespace wojilu.Apps.Photo.Service {
         }
 
         public virtual DataPage<PhotoPost> GetAll() {
+            return this.GetAll( 20 ) ;
+        }
 
-            DataPage<PhotoPostPicked> list = db.findPage<PhotoPostPicked>( "" );
+        public virtual DataPage<PhotoPost> GetAll( int pageSize ) {
+
+            DataPage<PhotoPostPicked> list = db.findPage<PhotoPostPicked>( "", pageSize );
             DataPage<PhotoPost> r = new DataPage<PhotoPost>();
             r.Results = populatePosts( list.Results );
             r.PageCount = list.PageCount;

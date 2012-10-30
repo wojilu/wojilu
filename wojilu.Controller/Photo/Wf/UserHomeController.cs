@@ -35,6 +35,18 @@ namespace wojilu.Web.Controller.Photo.Wf {
             String userUrl = ctx.route.getItem( "user" );
             User u = userService.GetByUrl( userUrl );
             bindUserInfo( u );
+
+            bindAdminCmd( u );
+        }
+
+        private void bindAdminCmd( User u ) {
+
+            String adminCmd = "";
+            if (u.Id == ctx.viewer.Id) {
+                adminCmd = string.Format( "<a href='{0}' target='_blank'><i class='icon-picture'></i> 管理图片</a> <a href='{1}' class='left20' target='_blank'><i class='icon-th'></i> 管理分类</a>", PhotoLink.ToAdminPost( u ), PhotoLink.ToAdminAlbum( u ) );
+            }
+
+            set( "adminCmd", adminCmd );
         }
 
         private void bindUserInfo( User u ) {
@@ -48,10 +60,12 @@ namespace wojilu.Web.Controller.Photo.Wf {
 
             set( "u.Pins", u.Pins );
             set( "u.Likes", u.Likes );
+            set( "u.Albums", getUserAlbums( u ) );
+            set( "u.Followers", u.FollowersCount );
 
             set( "u.LikeLink", PhotoLink.ToLike( u ) );
             set( "u.AlbumLink", PhotoLink.ToAlbumList( u ) );
-            set( "u.FollowerLink", PhotoLink.ToFollower( u ) );
+            set( "u.FollowerLink", Link.To( u, new Users.FriendController().FollowerList ) );
 
             String followCmd = WebUtils.getFollowCmd( ctx, u.Id );
             set( "followCmd", followCmd );
@@ -71,6 +85,11 @@ namespace wojilu.Web.Controller.Photo.Wf {
                 getFullUrl( PhotoLink.ToUser( u ) ), u.Name + "的图片首页", u.PicOriginal );
 
             set( "shareLink", shareLink );
+        }
+
+        private object getUserAlbums( User u ) {
+
+            return ndb.count( typeof( PhotoAlbum ), "OwnerId=" + u.Id );
         }
 
         private object getUserHobby( User u ) {

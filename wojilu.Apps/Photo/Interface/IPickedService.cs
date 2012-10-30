@@ -22,6 +22,7 @@ namespace wojilu.Apps.Photo.Interface {
 
         List<PhotoPost> GetTop( int count );
         DataPage<PhotoPost> GetAll();
+        DataPage<PhotoPost> GetAll( int pageSize );
     }
 
 }

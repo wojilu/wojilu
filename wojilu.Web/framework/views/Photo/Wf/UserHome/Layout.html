@@ -1,8 +1,8 @@
 ﻿<link href="~css/wojilu.core.space.css?v=#{cssVersion}" rel="stylesheet" />
 
-<div style="margin:30px 0px 0px 25px;">
+<div style="margin:20px 0px 0px 25px;">
 
-    <div style="width:160px; float:left; border:1px solid #ccc; background:#fff;border-radius:4px;">
+    <div style="width:190px; float:left; border:1px solid #ccc; background:#fff;border-radius:4px;">
 
         <div style="margin:10px 0px; text-align:center;">
 
@@ -35,50 +35,52 @@
     </div>
 
     <style>
-    .wfUserNavWrap {width:900px;  border:1px solid #aaa;border-radius:4px;margin:10px auto 20px auto;background:#fff; }
+    .wfUserNavWrap {width:880px;  border:1px solid #dedede;border-radius:4px;margin:0px auto 20px auto;background:#fff; }
     .wfUserNav {width:100%; }
     .wfUserNav td { padding:8px 0px; text-align:center; font-size:14px;}
-    
+    .wfUserNav a { text-decoration:none;}
 
-    .wfNavItem:hover {background:#eee;}
-    .wfNavCurrent { background:#aaa; color:#fff;}
+    .wfNavItem:hover {background:#efefef;}    
+    .wfNavCurrent { background:#61c0d6; color:#fff;}
     .wfNavCurrent a {color:#fff;}
-    .wfNavCurrent:hover {background:#aaa;}
+    .wfNavCurrent:hover {background:#61c0d6;}
     
     </style>
 
-    <div style=" float:left; width:950px;">
+    <div style=" float:left; width:930px;">
 
         <div class="wfUserNavWrap">
         <table class="wfUserNav">
             <tr>
-                <td id="tIndex" style="width:120px;" class="wfNavItem"><a href="#{u.Link}">收集</a> <span>#{u.Pins}</span></td>
-                <td id="tLike" style="width:120px;" class="wfNavItem"><a href="#{u.LikeLink}">喜欢</a> <span>#{u.Likes}</span></td>
-                <td id="tAlbum" style="width:120px;" class="wfNavItem"><a href="#{u.AlbumLink}">分类</a> <span>8</span></td>
-                <td id="tFollower" style="width:120px;" class="wfNavItem"><a href="#{u.FollowerLink}">粉丝</a> <span>8</span></td>
-                <td>&nbsp;</td>
+                <td id="tIndex" style="width:120px;" class="wfNavItem"><a href="#{u.Link}">收集 <span>#{u.Pins}</span></a></td>
+                <td id="tLike" style="width:120px;" class="wfNavItem"><a href="#{u.LikeLink}">喜欢 <span>#{u.Likes}</span></a></td>
+                <td id="tAlbum" style="width:120px;" class="wfNavItem"><a href="#{u.AlbumLink}">分类 <span>#{u.Albums}</span></a></td>
+                <td id="tFollower" style="width:120px;display:none;" class="wfNavItem"><a href="#{u.FollowerLink}" target="_blank">粉丝 <span>#{u.Followers}</span></a></td>
+                <td style=" text-align:right;">                
+                <div style="margin-right:30px;">#{adminCmd}</div>
+                </td>
             </tr>
         </table>
         </div>
 
-        <script>
-            _run(function () {
-                var href = window.location.href;
+<script>
+_run(function () {
+    var href = window.location.href;
 
-                if (href.indexOf('like') > -1) {
-                    $('#tLike').addClass('wfNavCurrent');
-                }
-                else if (href.indexOf('album') > -1 || href.indexOf('category') > -1) {
-                    $('#tAlbum').addClass('wfNavCurrent');
-                }
-                else if (href.indexOf('follower') > -1) {
-                    $('#tFollower').addClass('wfNavCurrent');
-                }
-                else {
-                    $('#tIndex').addClass('wfNavCurrent');
-                }
+    if (href.indexOf('like') > -1) {
+        $('#tLike').addClass('wfNavCurrent');
+    }
+    else if (href.indexOf('album') > -1 || href.indexOf('category') > -1) {
+        $('#tAlbum').addClass('wfNavCurrent');
+    }
+    else if (href.indexOf('follower') > -1) {
+        $('#tFollower').addClass('wfNavCurrent');
+    }
+    else {
+        $('#tIndex').addClass('wfNavCurrent');
+    }
 
-            });
+});
 </script>
     
 

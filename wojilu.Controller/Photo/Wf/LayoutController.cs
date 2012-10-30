@@ -5,6 +5,7 @@ using wojilu.Web.Mvc;
 using wojilu.Apps.Photo.Domain;
 using wojilu.Apps.Photo.Interface;
 using wojilu.Apps.Photo.Service;
+using wojilu.Members.Users.Domain;
 
 namespace wojilu.Web.Controller.Photo.Wf {
 
@@ -18,7 +19,12 @@ namespace wojilu.Web.Controller.Photo.Wf {
 
         public override void Layout() {
 
-            set( "lnkNew", PhotoLink.ToHome() );
+            set( "lnkHome", PhotoLink.ToHome() );
+            set( "lnkNew", to( new HomeController().New ) );
+            set( "lnkHot", to( new HomeController().Hot ) );
+            set( "lnkPick", to( new HomeController().Pick ) );
+
+            set( "lnkAdd", PhotoLink.ToAdminAdd( ctx.viewer.obj as User ) );
 
             bindCategories();
         }
@@ -29,7 +35,7 @@ namespace wojilu.Web.Controller.Photo.Wf {
             foreach (PhotoSysCategory x in categories) {
 
                 cblock.Set( "x.Name", x.Name );
-                //cblock.Set( "x.LinkShow", to( List, x.Id ) );
+                cblock.Set( "x.LinkShow", to( new HomeController().Category, x.Id ) );
                 cblock.Next();
             }
         }
