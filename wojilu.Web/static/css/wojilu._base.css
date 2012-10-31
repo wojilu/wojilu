@@ -182,6 +182,16 @@ body { background:#cee0ee}
         #loginForm {padding-top:5px;padding-right:5px;}
         #top-nav-login-form-remember {width:60px;margin:0px;}
 
+    #msgLink {text-decoration:none;}
+    #newMsgCount {padding-left:20px;background:url('../img/mail/mail.gif') 3px center no-repeat;font-size:12px;}
+
+    #top-nav-right .NewNotificationCount { background:#0071b5; background:#fdffea; padding:5px;padding-left:10px;}
+    #top-nav-right .NewNotificationCount a{ color:#333 ;font-size:12px; background:url('../img/sound.gif') 3px center no-repeat; padding:0px 0px 0px 20px; margin:0px 5px 0px 0px;font-family:tahoma;}
+    #siteNotification {margin-left:5px;}
+    .closeNt {cursor:pointer;}
+    #myUploadDlg, #confirmEmailPanel,.NewNotificationCount {width:160px;}
+    #myUploadDlg, #confirmEmailPanel { background:#FDFFEA; padding:5px 5px 5px 10px; margin:0px 0px 0px 0px;}
+    #viewerNewMicroblogAtCount {margin-bottom:5px;}
 
 .site-header {}
 .site-header-inner {background:url(/static/skin/site/new/header-bg.jpg);height:125px; }

@@ -24,7 +24,7 @@
 .closeNt {cursor:pointer;}
 
 #myUploadDlg, #confirmEmailPanel,.NewNotificationCount {width:160px;}
-#myUploadDlg, #confirmEmailPanel { border-bottom:1px #aaa solid; background:#FDFFEA; padding:5px 5px 5px 10px; margin:0px 0px 0px 0px;}
+#myUploadDlg, #confirmEmailPanel { background:#FDFFEA; padding:5px 5px 5px 10px; margin:0px 0px 0px 0px;}
 
 .quickCmd {margin:0px 10px 0px 10px;}
 
