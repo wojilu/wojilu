@@ -2,7 +2,7 @@
 
 <div class="wfnav clearfix">
     <a id="pHome" href="#{lnkHome}" class=""><i class="icon-home"></i> 图片首页</a>
-    <a id="pNew" href="#{lnkNew}" class=""><i class="icon-picture"></i> 最新</a>
+    <a id="pFollowing" href="#{lnkFollowing}" class=""><i class="icon-picture"></i> 我关注的</a>
     <a id="pHot" href="#{lnkHot}" class=""><i class="icon-fire"></i> 热门</a>
     <a id="pPick" href="#{lnkPick}" class=""><i class="icon-thumbs-up"></i> 推荐</a>
 
@@ -11,6 +11,7 @@
         <a id="pCat#{x.Name}" href="#{x.LinkShow}" class="pCat">#{x.Name}</a>
     <!-- END categories -->
     <a id="pAdd" href="#{lnkAdd}" target="_blank" class="frmLink1" loadTo="wfAddWrap" nolayout=999 style="margin-left:50px;"><img src="~img/s/upload.png" /> 上传</a>
+    #{adminCmd}
 </div>
 <style>
 .wfnav {padding:0px 10px;}
@@ -28,19 +29,19 @@
             $('#pHome').addClass('wfNavCurrent');
             $('i', '#pHome').addClass('icon-white');
         }
-        else if (href.indexOf('New') > -1) {
-            $('#pNew').addClass('wfNavCurrent');
-            $('i', '#pNew').addClass('icon-white');
+        else if (href.indexOf('Following') > -1) {
+            $('#pFollowing').addClass('wfNavCurrent');
+            $('i', '#pFollowing').addClass('icon-white');
         }
-        else if (href.indexOf('Hot') > -1) {
+        else if (href.indexOf('/hot') > -1) {
             $('#pHot').addClass('wfNavCurrent');
             $('i', '#pHot').addClass('icon-white');
         }
-        else if (href.indexOf('Pick') > -1) {
+        else if (href.indexOf('pick') > -1) {
             $('#pPick').addClass('wfNavCurrent');
             $('i', '#pPick').addClass('icon-white');
         }
-        else if (href.indexOf('Category') > -1) {
+        else if (href.indexOf('category') > -1) {
             $('.pCat').each(function () {
                 var thisUrl = $(this).attr('href');
                 if (href.indexOf(thisUrl) > -1) {

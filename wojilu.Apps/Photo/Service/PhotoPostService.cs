@@ -157,12 +157,7 @@ namespace wojilu.Apps.Photo.Service {
             String condition = string.Format( "Id in ({0}) and OwnerId={1}", ids, ownerId );
             List<PhotoPost> list = db.find<PhotoPost>( condition ).list();
 
-            foreach (PhotoPost post in list) {
-                db.delete( post );
-                wojilu.Drawing.Img.DeleteImgAndThumb( strUtil.Join( sys.Path.DiskPhoto, post.DataUrl ) );
-            }
-
-            pickedService.DeletePhoto( ids );
+            DeletePosts( ids, list );
 
             // 统计
             User user = User.findById( ownerId );
@@ -170,6 +165,44 @@ namespace wojilu.Apps.Photo.Service {
                 user.Pins = PhotoPost.count( "OwnerId=" + ownerId );
                 user.update( "Pins" );
             }
+        }
+
+        public void DeletePosts( String ids, List<PhotoPost> list ) {
+            foreach (PhotoPost post in list) {
+                db.delete( post );
+                if (CanDeleteImg( post )) {
+                    wojilu.Drawing.Img.DeleteImgAndThumb( strUtil.Join( sys.Path.DiskPhoto, post.DataUrl ) );
+                }
+            }
+
+            pickedService.DeletePhoto( ids );
+        }
+
+        public Boolean CanDeleteImg( PhotoPost post ) {
+            // 原始图片
+            if (post.RootId == 0) {
+                return noRepins( post ); // 是否有其他人收集
+            }
+            // 只是转发: 原始图片存在
+            else if (isRootExits( post.RootId )) {
+                return false;
+            }
+            // 只是转发
+            else {
+                return isLastRepin( post );  //看是否是最后一个转发 
+            }
+        }
+
+        private bool isRootExits( int rootId ) {
+            return this.GetById_Admin( rootId ) != null;
+        }
+
+        private bool isLastRepin( PhotoPost post ) {
+            return PhotoPost.find( "RootId=" + post.RootId + " and Id<>" + post.Id ).first() == null;
+        }
+
+        private bool noRepins( PhotoPost post ) {
+            return PhotoPost.find( "RootId=" + post.Id ).first() == null;
         }
 
         public Result Update( PhotoPost post ) {

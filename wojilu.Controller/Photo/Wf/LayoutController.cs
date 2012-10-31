@@ -20,13 +20,14 @@ namespace wojilu.Web.Controller.Photo.Wf {
         public override void Layout() {
 
             set( "lnkHome", PhotoLink.ToHome() );
-            set( "lnkNew", to( new HomeController().New ) );
-            set( "lnkHot", to( new HomeController().Hot ) );
-            set( "lnkPick", to( new HomeController().Pick ) );
+            set( "lnkFollowing", to( new HomeController().Following ) );
+            set( "lnkHot", PhotoLink.ToHot() );
+            set( "lnkPick", PhotoLink.ToPick() );
 
-            set( "lnkAdd", PhotoLink.ToAdminAdd( ctx.viewer.obj as User ) );
+            set( "lnkAdd", to( new HomeController().Add ) );
 
             bindCategories();
+            bindAdminCmd();
         }
 
         private void bindCategories() {
@@ -35,9 +36,22 @@ namespace wojilu.Web.Controller.Photo.Wf {
             foreach (PhotoSysCategory x in categories) {
 
                 cblock.Set( "x.Name", x.Name );
-                cblock.Set( "x.LinkShow", to( new HomeController().Category, x.Id ) );
+                cblock.Set( "x.LinkShow", PhotoLink.ToCategory( x.Id ) );
                 cblock.Next();
             }
+        }
+
+        private void bindAdminCmd() {
+
+            String adminCmd = "";
+
+            if (ctx.viewer.IsLogin) {
+
+                User u = ctx.viewer.obj as User;
+                adminCmd = string.Format( "<a href='{0}' target='_blank'><i class='icon-picture'></i> 管理图片</a> <a href='{1}' class='left20' target='_blank'><i class='icon-th'></i> 管理专辑</a>", PhotoLink.ToAdminPost( u ), PhotoLink.ToAdminAlbum( u ) );
+            }
+
+            set( "adminCmd", adminCmd );
         }
 
     }

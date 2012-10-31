@@ -22,6 +22,20 @@ namespace wojilu.Web.Controller.Photo {
             return string.Format( "/photo/post/{0}{1}", postId, ext );
         }
 
+        public static String ToHot() {
+            return string.Format( "/photo/hot{0}", ext );
+        }
+
+        public static String ToPick() {
+            return string.Format( "/photo/pick{0}", ext );
+        }
+
+        public static String ToCategory( int categoryId ) {
+            return string.Format( "/photo/category/{0}{1}", categoryId, ext );
+        }
+
+        //-----------------------------------------------------------
+
         public static String ToUser( User u ) {
             return string.Format( "/photo/{0}{1}", u.Url, ext );
         }
@@ -31,11 +45,11 @@ namespace wojilu.Web.Controller.Photo {
         }
 
         public static String ToAlbumOne( String userFriendlyUrl, int albumId ) {
-            return string.Format( "/photo/category/{0}/{1}{2}", userFriendlyUrl, albumId, ext );
+            return string.Format( "/photo/album/{0}/{1}{2}", userFriendlyUrl, albumId, ext );
         }
 
         public static String ToAlbumList( User u ) {
-            return string.Format( "/photo/album/{0}{1}", u.Url, ext );
+            return string.Format( "/photo/albums/{0}{1}", u.Url, ext );
         }
 
         public static String ToFollower( User u ) {
@@ -56,17 +70,6 @@ namespace wojilu.Web.Controller.Photo {
 
             return Link.To( u, new Photo.Admin.AlbumController().List, app.Id );
         }
-
-
-        public static String ToAdminAdd( User u ) {
-            if (u.Id <= 0) return "javascript:alert('请先登录');return false;";
-
-            PhotoApp app = PhotoApp.find( "OwnerId=" + u.Id ).first();
-            if (app == null) return "";
-
-            return Link.To( u, new Photo.Admin.PostController().Add, app.Id );
-        }
-
 
     }
 

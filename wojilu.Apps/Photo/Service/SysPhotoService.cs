@@ -16,9 +16,11 @@ namespace wojilu.Apps.Photo.Service {
     public class SysPhotoService : ISysPhotoService {
 
         public virtual IPickedService pickedService { get; set; }
+        public virtual IPhotoPostService postService { get; set; }
 
         public SysPhotoService() {
             pickedService = new PickedService();
+            postService = new PhotoPostService();
         }
         public virtual DataPage<PhotoPost> GetSysPostPage( int categoryId, int pageSize ) {
 
@@ -70,13 +72,11 @@ namespace wojilu.Apps.Photo.Service {
             String condition = string.Format( "Id in ({0})", ids );
             List<PhotoPost> list = db.find<PhotoPost>( condition ).list();
 
-            foreach (PhotoPost post in list) {
-                db.delete( post );
-                wojilu.Drawing.Img.DeleteImgAndThumb( strUtil.Join( sys.Path.DiskPhoto, post.DataUrl ) );
-            }
+            postService.DeletePosts( ids, list );
+        }
 
-            pickedService.DeletePhoto( ids );
-
+        private bool noRepins( PhotoPost post ) {
+            return PhotoPost.find( "RootId=" + post.Id ).first() == null;
         }
 
         public virtual int GetSystemDeleteCount() {

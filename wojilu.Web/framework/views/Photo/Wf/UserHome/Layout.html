@@ -54,10 +54,10 @@
             <tr>
                 <td id="tIndex" style="width:120px;" class="wfNavItem"><a href="#{u.Link}">收集 <span>#{u.Pins}</span></a></td>
                 <td id="tLike" style="width:120px;" class="wfNavItem"><a href="#{u.LikeLink}">喜欢 <span>#{u.Likes}</span></a></td>
-                <td id="tAlbum" style="width:120px;" class="wfNavItem"><a href="#{u.AlbumLink}">分类 <span>#{u.Albums}</span></a></td>
+                <td id="tAlbum" style="width:120px;" class="wfNavItem"><a href="#{u.AlbumLink}">专辑 <span>#{u.Albums}</span></a></td>
                 <td id="tFollower" style="width:120px;display:none;" class="wfNavItem"><a href="#{u.FollowerLink}" target="_blank">粉丝 <span>#{u.Followers}</span></a></td>
                 <td style=" text-align:right;">                
-                <div style="margin-right:30px;">#{adminCmd}</div>
+                
                 </td>
             </tr>
         </table>
@@ -70,7 +70,7 @@ _run(function () {
     if (href.indexOf('like') > -1) {
         $('#tLike').addClass('wfNavCurrent');
     }
-    else if (href.indexOf('album') > -1 || href.indexOf('category') > -1) {
+    else if (href.indexOf('album') > -1) {
         $('#tAlbum').addClass('wfNavCurrent');
     }
     else if (href.indexOf('follower') > -1) {

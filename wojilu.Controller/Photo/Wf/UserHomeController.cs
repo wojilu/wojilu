@@ -35,18 +35,6 @@ namespace wojilu.Web.Controller.Photo.Wf {
             String userUrl = ctx.route.getItem( "user" );
             User u = userService.GetByUrl( userUrl );
             bindUserInfo( u );
-
-            bindAdminCmd( u );
-        }
-
-        private void bindAdminCmd( User u ) {
-
-            String adminCmd = "";
-            if (u.Id == ctx.viewer.Id) {
-                adminCmd = string.Format( "<a href='{0}' target='_blank'><i class='icon-picture'></i> 管理图片</a> <a href='{1}' class='left20' target='_blank'><i class='icon-th'></i> 管理分类</a>", PhotoLink.ToAdminPost( u ), PhotoLink.ToAdminAlbum( u ) );
-            }
-
-            set( "adminCmd", adminCmd );
         }
 
         private void bindUserInfo( User u ) {
@@ -105,8 +93,13 @@ namespace wojilu.Web.Controller.Photo.Wf {
         }
         //-------------------------------------------------------------------------------------------
 
+        private void setWaterfallView() {
+            view( "/Photo/Wf/Home/Index" );
+        }
 
         public void Index() {
+
+            setWaterfallView();
 
             String userUrl = ctx.route.getItem( "user" );
             User u = userService.GetByUrl( userUrl );
@@ -119,7 +112,7 @@ namespace wojilu.Web.Controller.Photo.Wf {
 
             DataPage<PhotoPost> list = PhotoPost.findPage( "SaveStatus=" + SaveStatus.Normal + " and OwnerId=" + u.Id, 12 );
             // 2) 或者超过实际页数，也不再自动翻页
-            if (CurrentRequest.getCurrentPage() > list.PageCount) {
+            if (CurrentRequest.getCurrentPage() > list.PageCount && list.PageCount > 0) {
                 echoText( "." );
                 return;
             }
@@ -128,6 +121,9 @@ namespace wojilu.Web.Controller.Photo.Wf {
         }
 
         public void Category( int id ) {
+
+            setWaterfallView();
+
 
             String userUrl = ctx.route.getItem( "user" );
             User u = userService.GetByUrl( userUrl );
@@ -139,10 +135,13 @@ namespace wojilu.Web.Controller.Photo.Wf {
 
             PhotoAlbum album = categoryService.GetById( id );
             set( "albumName", album.Name );
+            set( "showAlbumCss", "display:block" );
+            set( "albumDataCount", album.DataCount );
+
 
             DataPage<PhotoPost> list = PhotoPost.findPage( "SaveStatus=" + SaveStatus.Normal + " and CategoryId=" + id + " and OwnerId=" + u.Id, 12 );
             // 2) 或者超过实际页数，也不再自动翻页
-            if (CurrentRequest.getCurrentPage() > list.PageCount) {
+            if (CurrentRequest.getCurrentPage() > list.PageCount && list.PageCount > 0) {
                 echoText( "." );
                 return;
             }
@@ -153,7 +152,7 @@ namespace wojilu.Web.Controller.Photo.Wf {
 
         public void Like() {
 
-            view( "Index" );
+            setWaterfallView();
 
             String userUrl = ctx.route.getItem( "user" );
             User u = userService.GetByUrl( userUrl );
@@ -165,7 +164,7 @@ namespace wojilu.Web.Controller.Photo.Wf {
 
             DataPage<PhotoLike> list = PhotoLike.findPage( "UserId=" + u.Id, 12 );
             // 2) 或者超过实际页数，也不再自动翻页
-            if (CurrentRequest.getCurrentPage() > list.PageCount) {
+            if (CurrentRequest.getCurrentPage() > list.PageCount && list.PageCount > 0) {
                 echoText( "." );
                 return;
             }

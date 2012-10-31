@@ -40,7 +40,8 @@ namespace wojilu.Apps.Photo.Interface {
 
 
         void DeleteTrue( String ids, int ownerId );
-
+        Boolean CanDeleteImg( PhotoPost post );
+        void DeletePosts( String ids, List<PhotoPost> list );
 
         void CreatePostTemp( PhotoPost post );
     }

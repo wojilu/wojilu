@@ -34,6 +34,9 @@ namespace wojilu.Web.Controller.Photo.Wf {
             HideLayout( typeof( wojilu.Web.Controller.Photo.LayoutController ) );
         }
 
+        public override void Layout() {
+        }
+
         [Data( typeof( PhotoPost ) )]
         public void Post( int id ) {
 
@@ -118,7 +121,25 @@ namespace wojilu.Web.Controller.Photo.Wf {
 
         //-------------------------------------------------------------------------------------------
 
-        public void Index() {
+        [Login]
+        public void Add() {
+
+            User u = ctx.viewer.obj as User;
+
+            PhotoApp app = PhotoApp.find( "OwnerId=" + u.Id ).first();
+            if (app == null) {
+                echoError( "请先添加PhotoApp" );
+                return;
+            }
+
+            redirectUrl( Link.To( u, new Photo.Admin.PostController().Add, app.Id ) );
+        }
+
+
+        [Login]
+        public void Following() {
+
+            view( "Index" );
 
             // 从第二页开始，是ajax获取，所以不需要多余的layout内容
             if (CurrentRequest.getCurrentPage() > 1) {
@@ -134,19 +155,13 @@ namespace wojilu.Web.Controller.Photo.Wf {
                 return;
             }
 
-            // 最近的500条图片
-            int recentCount = 500;
-            int recentId = (int)db.RunScalar<PhotoPost>( "select min(Id) from (select top " + recentCount + " Id from PhotoPost order by Id desc)" );
-
             // 关注的图片
             String ids = followerService.GetFollowingIds( ctx.viewer.Id );
-            String condition = "Id>" + recentId;
-            if (strUtil.HasText( ids )) condition = "(" + condition + " or OwnerId in (" + ids + ") )";
-
-            DataPage<PhotoPost> list = PhotoPost.findPage( condition + " and SaveStatus=" + SaveStatus.Normal, 20 );
+            ids = strUtil.HasText( ids ) ? ids + "," + ctx.viewer.Id : ctx.viewer.Id.ToString();
+            DataPage<PhotoPost> list = PhotoPost.findPage( "OwnerId in (" + ids + ") and SaveStatus=" + SaveStatus.Normal, 20 );
 
             // 2) 或者超过实际页数，也不再自动翻页
-            if (CurrentRequest.getCurrentPage() > list.PageCount) {
+            if (CurrentRequest.getCurrentPage() > list.PageCount && list.PageCount > 0) {
                 echoText( "." );
                 return;
             }
@@ -155,9 +170,7 @@ namespace wojilu.Web.Controller.Photo.Wf {
         }
 
 
-        public void New() {
-
-            view( "Index" );
+        public void Index() {
 
             // 从第二页开始，是ajax获取，所以不需要多余的layout内容
             if (CurrentRequest.getCurrentPage() > 1) {
@@ -176,7 +189,7 @@ namespace wojilu.Web.Controller.Photo.Wf {
             DataPage<PhotoPost> list = PhotoPost.findPage( "SaveStatus=" + SaveStatus.Normal, 20 );
 
             // 2) 或者超过实际页数，也不再自动翻页
-            if (CurrentRequest.getCurrentPage() > list.PageCount) {
+            if (CurrentRequest.getCurrentPage() > list.PageCount && list.PageCount > 0) {
                 echoText( "." );
                 return;
             }
@@ -205,7 +218,7 @@ namespace wojilu.Web.Controller.Photo.Wf {
             DataPage<PhotoPost> list = PhotoPost.findPage( "SaveStatus=" + SaveStatus.Normal + " and SysCategoryId=" + categoryId, 20 );
 
             // 2) 或者超过实际页数，也不再自动翻页
-            if (CurrentRequest.getCurrentPage() > list.PageCount) {
+            if (CurrentRequest.getCurrentPage() > list.PageCount && list.PageCount > 0) {
                 echoText( "." );
                 return;
             }
@@ -235,7 +248,7 @@ namespace wojilu.Web.Controller.Photo.Wf {
             DataPage<PhotoPost> list = PhotoPost.findPage( "SaveStatus=" + SaveStatus.Normal + " order by Likes desc, Pins desc, Hits desc, Replies desc", 20 );
 
             // 2) 或者超过实际页数，也不再自动翻页
-            if (CurrentRequest.getCurrentPage() > list.PageCount) {
+            if (CurrentRequest.getCurrentPage() > list.PageCount && list.PageCount > 0) {
                 echoText( "." );
                 return;
             }
@@ -265,7 +278,7 @@ namespace wojilu.Web.Controller.Photo.Wf {
             DataPage<PhotoPost> list = pickedService.GetAll( 20 );
 
             // 2) 或者超过实际页数，也不再自动翻页
-            if (CurrentRequest.getCurrentPage() > list.PageCount) {
+            if (CurrentRequest.getCurrentPage() > list.PageCount && list.PageCount > 0) {
                 echoText( "." );
                 return;
             }
@@ -343,7 +356,18 @@ namespace wojilu.Web.Controller.Photo.Wf {
 
             target( RepinSave, postId );
 
+            set( "lnkAlbumAdd", to( AlbumAdd ) );
+
             PhotoPost x = ctx.Get<PhotoPost>();
+
+            String condition = "OwnerId=" + ctx.viewer.Id + " and ";
+            condition += x.RootId > 0
+                ? "(RootId=" + postId + " or RootId=" + x.RootId + ")"
+                : "RootId=" + postId;
+
+            Boolean isPin = (x.OwnerId == ctx.viewer.Id || PhotoPost.find( condition ).first() != null);
+            String pinInfo = isPin ? "<div class='wfWarning'>提醒：您已经收集过本图片</div>" : "";
+            set( "pinInfo", pinInfo );
 
             set( "x.Pic", x.ImgThumbUrl );
 
@@ -370,6 +394,38 @@ namespace wojilu.Web.Controller.Photo.Wf {
             user.Pins = PhotoPost.count( "OwnerId=" + user.Id );
             user.update( "Pins" );
 
+        }
+
+
+        [Login]
+        public void AlbumAdd() {
+            target( AlbumSave );
+        }
+
+        [Login]
+        public void AlbumSave() {
+
+            PhotoAlbum album = ctx.PostValue<PhotoAlbum>();
+            if (ctx.HasErrors) {
+                echoError();
+                return;
+            }
+
+            album.AppId = getAlbumAppId( ctx.viewer.Id );
+            album.OwnerId = ctx.viewer.Id;
+            album.OwnerUrl = ctx.viewer.obj.Url;
+
+            Result result = categoryService.Create( album );
+
+            List<PhotoAlbum> categories = categoryService.GetListByApp( album.AppId );
+            dropList( "categoryId", categories, "Name=Id", album.Id );
+            set( "cid", album.Id );
+        }
+
+        private int getAlbumAppId( int userId ) {
+            PhotoApp app = PhotoApp.find( "OwnerId=" + userId ).first();
+            if (app == null) return 0;
+            return app.Id;
         }
 
         private PhotoPost newPost( PhotoPost x ) {
