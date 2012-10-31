@@ -179,6 +179,8 @@ body { background:#cee0ee}
         #top-nav-right { float:right; margin-top:5px;}
         #topNavMenu { margin-top:5px; }
         #topNavMenu a { font-size:14px;}
+        #topNavMenu .dropdown-menu li a {font-size:12px;}
+
         #loginForm {padding-top:5px;padding-right:5px;}
         #top-nav-login-form-remember {width:60px;margin:0px;}
 
