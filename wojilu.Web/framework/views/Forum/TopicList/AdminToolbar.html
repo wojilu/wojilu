@@ -76,7 +76,7 @@ _run( function() {
 
     
     function getParamValue() {
-        var ctl = $("input[name='postSelect'][@checked]");
+        var ctl = $("input[name='postSelect']:checked");
         if( ctl.length==0 ) {
             alert( msg );
             return false;

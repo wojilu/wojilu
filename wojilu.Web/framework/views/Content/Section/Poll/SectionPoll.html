@@ -26,7 +26,7 @@ _run( function() {
     $('#btnPoll#{poll.Id}').click( function() {
         var ctx = $( '#poll' + $(this).attr('cid') );
         
-        var selectedControl = $( 'input[name=pollOption][@checked]', ctx );
+        var selectedControl = $( 'input[name=pollOption]:checked', ctx );
         var pValue = selectedControl.serialize();
         if( wojilu.str.hasText( pValue )==false ) {
             alert( '_{pollSelectRequire}' );
