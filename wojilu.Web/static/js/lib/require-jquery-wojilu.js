@@ -12604,7 +12604,7 @@ wojilu.ui.box = {
 wojilu.ui.frmBox = function(ele) {
 
     var objEle = ele ? $('.frmBox', $(ele) ) : $('.frmBox' );
-    objEle.click( frmBoxCallback );
+    objEle.live( 'click', frmBoxCallback );
 
     function frmBoxCallback() {
     
@@ -12665,7 +12665,7 @@ wojilu.ui.frmLink = function() {
         return pfrmPath+ '-'+ getCurrentFrmNo();
     };
 
-    $('.frmLink' ).click( function() {
+    $('.frmLink' ).live('click', function() {
         var frmPath = getFrmPath();var cno = getCurrentFrmNo();
 
         var rUrl = $(this).attr( 'href' ); 
@@ -12715,7 +12715,7 @@ wojilu.ui.ajaxLoader = function() {
 
 wojilu.ui.frmUpdate = function(ele) {
     var eleUpdate = ele ? $('.frmUpdate',$(ele)):$('.frmUpdate');
-    eleUpdate.click( function() {
+    eleUpdate.live( 'click', function() {
 
 		var frmUrl = $(this).attr( 'href' ).toAjaxFrame();
 		var loadTo = $(this).attr( 'loadTo' );
