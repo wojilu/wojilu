@@ -126,9 +126,15 @@ namespace wojilu.Web.Mvc {
         /// <summary>
         /// 手动指定当前 action 的视图文件(指定视图文件之后，默认的模板将被忽略)
         /// </summary>
-        /// <param name="actionViewName">视图文件的名称</param>
+        /// <param name="actionViewName">视图文件的名称，比如 List，或者带上路径 /Blog/Show(路径从视图view根目录算起)</param>
         public void view( String actionViewName ) {
-            utils.setCurrentView( utils.getTemplateByAction( actionViewName ) );
+            if (actionViewName == null) throw new ArgumentNullException( "actionViewName" );
+            if (actionViewName.IndexOf( '/' ) >= 0) {
+                utils.setCurrentView( utils.getTemplateByFileName( actionViewName ) );
+            }
+            else {
+                utils.setCurrentView( utils.getTemplateByAction( actionViewName ) );
+            }
         }
 
         /// <summary>
