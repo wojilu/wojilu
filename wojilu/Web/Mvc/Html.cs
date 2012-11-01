@@ -188,7 +188,7 @@ namespace wojilu.Web.Mvc {
                 if (string.Compare( items[i], str.ToString(), true ) == 0) {
                     strchk = "checked=\"checked\"";
                 }
-                builder.AppendFormat( "<label class=\"radio\"><input type=\"radio\" id=\"{0}{3}\" name=\"{0}\" value=\"{1}\" {2}/>{1}</label> ", radioName, items[i], strchk, i );
+                builder.AppendFormat( "<label class=\"radio inline\"><input type=\"radio\" id=\"{0}{3}\" name=\"{0}\" value=\"{1}\" {2}/>{1}</label> ", radioName, items[i], strchk, i );
             }
             return builder.ToString();
         }
@@ -206,7 +206,7 @@ namespace wojilu.Web.Mvc {
             int i = 0;
             foreach (KeyValuePair<String, String> kv in dic) {
                 String strchk = kv.Value.Equals( selval ) ? "checked=\"checked\"" : String.Empty;
-                builder.AppendFormat( "<label class=\"radio\"><input type=\"radio\" id=\"{0}{4}\" name=\"{0}\" value=\"{1}\" {2}/>{3}</label> ", radioName, kv.Value, strchk, kv.Key, i );
+                builder.AppendFormat( "<label class=\"radio inline\"><input type=\"radio\" id=\"{0}{4}\" name=\"{0}\" value=\"{1}\" {2}/>{3}</label> ", radioName, kv.Value, strchk, kv.Key, i );
                 i++;
             }
             return builder.ToString();
@@ -231,7 +231,7 @@ namespace wojilu.Web.Mvc {
                 if (string.Compare( fval, str.ToString(), true ) == 0) {
                     strchk = "checked=\"checked\"";
                 }
-                builder.AppendFormat( "<label class=\"radio\"><input type=\"radio\" id=\"{0}{4}\" name=\"{0}\" value=\"{1}\" {3}/>{2}</label> ", radioName, fval, txt, strchk, i );
+                builder.AppendFormat( "<label class=\"radio inline\"><input type=\"radio\" id=\"{0}{4}\" name=\"{0}\" value=\"{1}\" {3}/>{2}</label> ", radioName, fval, txt, strchk, i );
             }
             return builder.ToString();
         }
@@ -306,7 +306,7 @@ namespace wojilu.Web.Mvc {
         }
 
         private static String GetRadio( String name, String val, String text ) {
-            return String.Format( "<label class=\"radio\"><input type=\"radio\" name=\"{0}\" id=\"{3}\" value=\"{1}\" /> {2}</label> ", name, val, text, name + val );
+            return String.Format( "<label class=\"radio inline\"><input type=\"radio\" name=\"{0}\" id=\"{3}\" value=\"{1}\" /> {2}</label> ", name, val, text, name + val );
         }
 
         private static String getSelectedValue( String dropName, Object val ) {
