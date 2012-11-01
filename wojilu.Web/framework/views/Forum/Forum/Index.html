@@ -29,22 +29,22 @@
 <div class="row" style="#{forum.IsHideStats_Style}">	
     <div class="span12 forum-stats-row">
 
-        <div class="span4 forum-stats-title">
+        <div class="span2 forum-stats-title">
             <div style="float:left; line-height:18px;margin-top:8px;font-size:18px; font-weight:bold; font-family:微软雅黑; color:#666;"><img src="~static/skin/site/new/home.png" /> 讨论区</div>
             <div style="float:left;margin-left:10px;"><img src="~static/skin/site/new/forum-arrow.jpg" /></div>
         </div>
 
-	    <div class="span7 forum-stats-data pull-right">
+	    <div class="span9 forum-stats-data pull-right">
 		    <div class="pull-right" style="margin:10px 20px 0px 0px;">
                 <i class="icon-signal"></i>
-                _{today}:<span class="forum-stats-num">#{forum.TodayPost}</span> 
+                _{today}:<span class="forum-stats-num forum-stats-today">#{forum.TodayPost}</span> 
                 :{topic}:<span class="forum-stats-num">#{forum.TodayTopic}</span>
                 _{yesterday}:<span class="forum-stats-num">#{forum.YestodayPostCount}</span>
                 :{maxDay}:<span class="forum-stats-num">#{forum.PeakPostCount}</span> 
                 :{topic}:<span class="forum-stats-num">#{forum.TopicCount}</span>
                 :{post}:<span class="forum-stats-num">#{forum.PostCount}</span>
                 _{member}:<span class="forum-stats-num">#{forum.MemberCount}</span>
-                <span class="left10"><i class="icon-user"></i> :{welcomeNewMember}</span> <a href="#{newUserLink}" target="_blank" style="color:#e85446; font-weight:bold;">#{newUserName}</a>
+                <span class="left10"><i class="icon-user"></i> :{welcomeNewMember}</span> <a href="#{newUserLink}" class="forum-stats-lastUser" target="_blank">#{newUserName}</a>
             </div>			
 	    </div>
 

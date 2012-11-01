@@ -21,20 +21,37 @@ namespace wojilu.Web.Controller.Forum {
     public partial class TopicListController : ControllerBase {
 
 
-        private void bindAll( int boardId, List<ForumTopic> stickyList, DataPage<ForumTopic> topicList, List<ForumCategory> categories, Boolean isAdmin ) {
+        private void bindAll( int id, List<ForumTopic> stickyList, DataPage<ForumTopic> topicList, List<ForumCategory> categories, Boolean isAdmin ) {
+
+            set( "slink", to( new BoardController().Show, id ) );
+            set( "slinkReplied", to( new BoardController().Replied, id ) );
+            set( "slinkCreated", to( new BoardController().Created, id ) );
+            set( "slinkReplies", to( new BoardController().Replies, id ) );
+            set( "slinkViews", to( new BoardController().Views, id ) );
+
+            set( "slinkAll", to( new BoardController().All, id ) );
+            set( "slinkDay", to( new BoardController().Day, id ) );
+            set( "slinkDayTwo", to( new BoardController().DayTwo, id ) );
+            set( "slinkWeek", to( new BoardController().Week, id ) );
+            set( "slinkMonth", to( new BoardController().Month, id ) );
+            set( "slinkMonthThree", to( new BoardController().MonthThree, id ) );
+            set( "slinkMonthSix", to( new BoardController().MonthSix, id ) );
+
+            set( "forumBoard.PollUrl", to( Polls, id ) );
+            set( "forumBoard.PickedUrl", to( Picked, id ) );
 
             int replySize = ((ForumApp)ctx.app.obj).GetSettingsObj().ReplySize;
 
             bindBoardInfo();
 
-            bindCategories( boardId, categories );
+            bindCategories( id, categories );
 
             bindTopicList( stickyList, getBlock( "stickyList" ), isAdmin, true, replySize );
 
             bindTopicList( topicList.Results, getBlock( "postlist" ), isAdmin, false, replySize );
 
             // 分页和表单
-            bindPagerAndForm( boardId, topicList );
+            bindPagerAndForm( id, topicList );
 
             bindToolbar( topicList );
 
@@ -75,11 +92,7 @@ namespace wojilu.Web.Controller.Forum {
             set( "toolbarBottom", toolbarBottomHtml );
         }
 
-
         private void bindAdminToolbar( Boolean isAdmin ) {
-            //String adminTool = isAdmin ? loadHtml( AdminToolbar ) : "";
-            //set( "adminToolbar", adminTool );
-
             load( "adminToolbar", AdminToolbar );
         }
 
@@ -92,7 +105,12 @@ namespace wojilu.Web.Controller.Forum {
             set( "forumBoard.Title", fb.Name );
             set( "forumBoard.Url", to( new BoardController().Show, fb.Id ) );
 
-            set( "forumBoard.Notice", strUtil.HasText( fb.Notice ) ? alang( "notice" ) + ": " + fb.Notice : "" );
+            set( "forumBoard.TodayPosts", fb.TodayPosts );
+            set( "forumBoard.Topics", fb.Topics );
+            set( "forumBoard.Posts", fb.Posts );
+
+
+            set( "forumBoard.Notice", strUtil.HasText( fb.Notice ) ? "<div class=\"board-info-notice clearfix\">" + fb.Notice : "</div>" );
             set( "forumBoard.Moderator", moderatorService.GetModeratorHtml( fb ) );
 
             set( "moderatorJson", moderatorService.GetModeratorJson( fb ) );
@@ -288,26 +306,9 @@ namespace wojilu.Web.Controller.Forum {
 
             int id = fb.Id;
 
-            set( "slink", to( new BoardController().Show, id ) );
-            set( "slinkReplied", to( new BoardController().Replied, id ) );
-            set( "slinkCreated", to( new BoardController().Created, id ) );
-            set( "slinkReplies", to( new BoardController().Replies, id ) );
-            set( "slinkViews", to( new BoardController().Views, id ) );
-
-            set( "slinkAll", to( new BoardController().All, id ) );
-            set( "slinkDay", to( new BoardController().Day, id ) );
-            set( "slinkDayTwo", to( new BoardController().DayTwo, id ) );
-            set( "slinkWeek", to( new BoardController().Week, id ) );
-            set( "slinkMonth", to( new BoardController().Month, id ) );
-            set( "slinkMonthThree", to( new BoardController().MonthThree, id ) );
-            set( "slinkMonthSix", to( new BoardController().MonthSix, id ) );
-
-
             set( "newPostUrl", to( new Users.TopicController().NewTopic ) + "?boardId=" + id );
             set( "newPollUrl", to( new Users.PollController().Add ) + "?boardId=" + id );
             set( "newQUrl", to( new Users.TopicController().NewQ ) + "?boardId=" + id );
-            set( "forumBoard.PollUrl", to( Polls, id ) );
-            set( "forumBoard.PickedUrl", to( Picked, id ) );
             set( "page", ctx.GetItem( "topicListPagebar" ) );
         }
 

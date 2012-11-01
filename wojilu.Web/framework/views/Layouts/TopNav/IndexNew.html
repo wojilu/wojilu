@@ -40,6 +40,7 @@
             <div id="top-nav-right">
                 <!---------------login form---------------->
                 <form id="loginForm" class="navbar-form form-inline" action="#{LoginAction}" method="post" style="display:none; ">
+                    <span class="help-inline"><a href="#{RegLink}" class="right10">_{register}</a></span>
                     <input type="text" name="txtUid" class="input-small" placeholder="用户名" style="height:14px;margin:0px;">
                     <input type="password" name="txtPwd" class="input-small" placeholder="密码" style="height:14px;margin:0px;">
                     <label id="top-nav-login-form-remember" class="checkbox"><input name="RememberMe" type="checkbox" id="chkRemember" checked="checked" style="margin:0px;margin-top:2px;" > 记住我</label>
@@ -55,7 +56,7 @@
                     <li><a href="" class="frmLink" id="msgLink" loadTo="uaMain" nolayout=1>_{msg}<span id="viewerNewMsgCount"></span></a></li>
                     <li style="position:relative"><a href="#" id="nfMsg"></a>&nbsp;
                     <div style="position:relative;">
-                        <div id="ntBox" style="position:absolute; background:#FDFFEA; text-align:left; z-index:999;left:-70px;top:12px;width:180px; ">                        
+                        <div id="ntBox" style="position:absolute; background1:#FDFFEA; text-align:left; z-index:999;left:-70px;top:12px;width:180px; ">                        
                             <div id="myUploadDlg" class="hide">
                                 <img src="~img/s/upload1.png" /> <a href="#" id="uploadAvatar" style="color:#e56f04;">上传头像</a> #{uploadCredit}
                                 <span class="closeNt">×</span>

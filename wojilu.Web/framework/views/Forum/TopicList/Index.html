@@ -1,14 +1,31 @@
 ﻿#{forumPath}
 
-<div class="fbNotice" style="margin-top:10px;">
-	<div>#{forumBoard.Notice}</div>
-	<div>#{forumBoard.Moderator}</div>
- </div> 
+ <div class="board-info">
+    <div class="board-info-title clearfix">
+        <div class="span10">
+            <span class="board-info-name">#{forumBoard.Title}</span> 
+            今日: <span class="board-info-num-today">#{forumBoard.TodayPosts}</span>
+            <span class="board-info-sp">|</span>
+            主题: <span class="board-info-num">#{forumBoard.Topics}</span>
+            <span class="board-info-sp">|</span>
+            帖子: <span class="board-info-num">#{forumBoard.Posts}</span>
+            <span class="board-info-moderator">#{forumBoard.Moderator}</span>
+        </div>
+    </div>
+    #{forumBoard.Notice}
+ </div>
+ <script>
+     _run(function () {
+         $('.board-info-num-today').each(function () {
+             if (parseInt($(this).text()) > 0) $(this).css('color', 'red');
+         });
+     });
+ </script>
 
 #{toolbar}
 <!-- BEGIN categoryPanel -->
-<div id="psCategories">
-<a href="#{boardLink}"><strong class="right10">_{all}</strong></a> <!-- BEGIN categories --><a href="#{c.LinkShow}" style="color:#{c.NameColor}" class="right10">#{c.Name}</a><!-- END categories -->
+<div class="board-cat">
+<a href="#{boardLink}"><strong>_{all}</strong></a><!-- BEGIN categories --><a href="#{c.LinkShow}" style="color:#{c.NameColor}">#{c.Name}</a><!-- END categories -->
 </div>
 <!-- END categoryPanel -->
 
@@ -16,13 +33,53 @@
 <div class="span12">
 <table id="forumPostList" class="table table-condensed forum-topic-list">
 
-	<thead class="psHeader">
+	<tr class="forum-topic-list-header">
 		<th style="width:5%">&nbsp;</th>
-		<th style="width:55%;">_{title}</th>
+		<th style="width:55%; ">
+            <div class="pull-left right10"><strong>_{title}</strong></div>
+
+            <div class="pull-left"><a href="#{forumBoard.PollUrl}" class="left20 right10">:{poll}</a></div>
+            <div class="pull-left forum-cmd-sp">|</div>
+
+            <div class="pull-left"><a href="#{forumBoard.PickedUrl}" class="right10">:{picked}</a></div>
+            <div class="pull-left forum-cmd-sp">|</div>
+
+            <div class="pull-left dropdown right10">
+                <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                    :{sort} <span class="caret"></span>
+                </a>
+			    <ul class="dropdown-menu" id="sortCmds"  style="min-width:100px;">
+				    <li><a href="#{slinkReplied}"><i class="icon-th-list"></i> :{sortReplied}</a></li>
+				    <li><a href="#{slinkCreated}"><i class="icon-th-list"></i> :{sortCreated}</a></li>
+                    <li class="divider"></li>
+				    <li><a href="#{slinkReplies}"><i class="icon-th-list"></i> :{sortReplies}</a></li>
+				    <li><a href="#{slinkViews}"><i class="icon-th-list"></i> :{sortViews}</a></li>
+			    </ul>
+            </div>
+            <div class="pull-left forum-cmd-sp">|</div>
+
+            <div class="dropdown pull-left">
+                <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                    :{timeFilter} <span class="caret"></span>
+                </a>
+			    <ul class="dropdown-menu" id="timeFilter" style="min-width:100px;">
+				    <li><a href="#{slinkAll}"><i class="icon-hand-right"></i> :{tAll}</a></li>
+                    <li class="divider"></li>
+				    <li><a href="#{slinkDay}"><i class="icon-hand-right"></i> :{tDay}</a></li>
+				    <li><a href="#{slinkDayTwo}"><i class="icon-hand-right"></i> :{tDay2}</a></li>
+				    <li><a href="#{slinkWeek}"><i class="icon-hand-right"></i> :{tWeek}</a></li>
+                    <li class="divider"></li>
+				    <li><a href="#{slinkMonth}"><i class="icon-hand-right"></i> :{tMonth}</a></li>
+				    <li><a href="#{slinkMonthThree}"><i class="icon-hand-right"></i> :{tMonth3}</a></li>
+				    <li><a href="#{slinkMonthSix}"><i class="icon-hand-right"></i> :{tMonth6}</a></li>
+			    </ul>
+            </div> 
+        
+        </th>
 		<th style="width:15%" class="center">_{author}</th>
 		<th style="width:10%" class="center">_{reply}/_{view}</th>
 		<th style="width:15%" class="center">:{lastPost}</th>
-	</thead>
+	</tr>
 	
 	<!-- BEGIN stickyList -->
 	<tr class="psSticky">
@@ -82,7 +139,7 @@
             <div class="control-group">
                   <label class="control-label" for="txtTitle">_{title}</label>
                   <div class="controls">
-                    #{Category}<input id="txtTitle" name="Title" type="text" placeholder="请填写标题" style="width:600px;float:left;"> 
+                    <div id="forum-form-cat">#{Category}</div><input id="txtTitle" name="Title" type="text" placeholder="请填写标题" style="float:left;"> 
                       <div style="clear:both;"></div>
                   </div>
                   <div class="hide"><span class="valid" msg="_{exTitle}" to="Title" mode="border"></span></div>
