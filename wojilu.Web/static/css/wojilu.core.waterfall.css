@@ -1,5 +1,5 @@
 body {background:url("../img/m/waterfall-bg.gif");}
-.container {margin-top:20px; background-color:transparent !important}
+.container {padding-top:20px; background-color:transparent !important; box-shadow:0px 0px 0px #fff;}
 .site-header, .site-menu-nav { display:none;}
     
 #footer-row{ margin:20px auto;width:960px;}
