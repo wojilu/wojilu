@@ -29,11 +29,13 @@
             <div class="row">
                 
                 <div class="span9" style="padding-top:20px;">
-                    <div class="span5">
+                    <div class="span5" style="padding-top:3px;">
                         <span>收集:#{x.Pins}</span>
                         <span class="left10">喜欢:#{x.Likes}</span>
-                        <span class="left10">评论:<span id="contentReplies">0</span></span>
-                        <span class="left20">#{lnkPrevNext}</span>
+                        <span class="left10">评论:<span id="contentReplies">0</span></span>                        
+                        <span class="left20"><img src="~img/zoomOut.gif" /></span> <a href="#{x.PicO}" target="_blank">:{viewOriginalPhoto}</a>
+                        <span class="left10">#{lnkPrevNext}</span>
+                        
                     </div>
 
                     <div class="span3 pull-right">
@@ -58,6 +60,7 @@
             <div class="row top10">
                 <div style=" background:#f2f2f2; padding:5px 0px;margin-left:20px;">
                     <div style="text-align:right; margin-right:40px;">
+                        <span class="right20">所属专辑：<a href="#{x.AlbumLink}">#{x.AlbumName}</a></span>
                         <span class="note"><i class="icon-hand-right"></i> 来源：#{x.SrcInfo}</span>
                     </div>
                 </div>
@@ -108,8 +111,12 @@
     <div class="span4">
 
 
-        <div style=" background:#fff; border:1px solid #ccc; border-radius:4px; padding:10px 20px;">        
-            <div><i class="icon-th"></i> <span class="font14">#{x.AlbumName}</span></div>
+        <div style=" background:#fff; border:1px solid #ccc; border-radius:4px; padding:10px 20px;">
+            <div class="clearfix">
+                <div class="pull-left"><i class="icon-th"></i> <span class="font14">#{x.AlbumName}</span>            
+                </div>
+                <div class="pull-right"><a href="#{x.AlbumLink}">_{more}</a></div>
+            </div>
 
             <ul class="unstyled"><!-- BEGIN cposts -->
                 <li style=" float:left; margin:10px 10px 5px 0px;">
