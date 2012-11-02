@@ -294,7 +294,9 @@ wojilu.editor.prototype = {
                 var tagName = $.trim(arrTags[i]);
                 var tagItems = _x.doc.getElementsByTagName( tagName );
                 if( !tagItems || tagItems.length==0 ) continue;
-                removeAttrPrivate( tagItems[0], 'style,class,border,lang,face,color,width,height,size' );
+                for( var k=0;k<tagItems.length;k++) {
+                    removeAttrPrivate( tagItems[k], 'style,class,border,lang,face,color,width,height,size' );
+                }
             }
         }
         
@@ -405,8 +407,14 @@ wojilu.editor.prototype.makeWritable = function () {
             };
         
         }, false );
-        
     };
+
+    $(_x.doc).bind('paste',function(e){
+        setTimeout( function() {
+            _x.clearFormat();
+        }, 30 );
+    });
+
     return _x;
 };
 
@@ -479,6 +487,11 @@ wojilu.editor.prototype.addCallback = function () {
     _x.cmdCell( 'clear' ).click( function() {
         if( confirm( '确实删除所有内容？') ) {
             _x.writeContentToEditor( _x.getFrmBody('') );
+            $(_x.editor).unbind('paste').bind('paste',function(e){
+                setTimeout( function() {
+                    _x.clearFormat();
+                }, 30 );
+            });
         }
     });
     
