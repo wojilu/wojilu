@@ -55,13 +55,20 @@ namespace wojilu.Web.Controller.Admin.Apps.Blog {
             dropList( "adminDropCategoryList", list, "Name=Id", null );
         }
 
+        private static readonly int zeroCatId = 99999999;
+
         private List<BlogSysCategory> addSelectInfo( List<BlogSysCategory> categories ) {
             BlogSysCategory category = new BlogSysCategory();
             category.Id = -1;
             category.Name = lang( "setCategory" );
 
+            BlogSysCategory nullCat = new BlogSysCategory();
+            nullCat.Id = zeroCatId;
+            nullCat.Name = "--无分类--";
+
             List<BlogSysCategory> list = new List<BlogSysCategory>();
             list.Add( category );
+            list.Add( nullCat );
             foreach (BlogSysCategory cat in categories) {
                 list.Add( cat );
             }
@@ -127,10 +134,13 @@ namespace wojilu.Web.Controller.Admin.Apps.Blog {
                 echoAjaxOk();
             }
             else if ("category".Equals( cmd )) {
-                if (categoryId <= 0) {
+                if (categoryId < 0) {
                     actionContent( lang( "exCategoryNotFound" ) );
                     return;
                 }
+
+                if (categoryId == zeroCatId) categoryId = 0;
+
                 BlogPost.updateBatch( "set SysCategoryId=" + categoryId, condition );
                 log( SiteLogString.MoveBlogPost(), ids );
 
