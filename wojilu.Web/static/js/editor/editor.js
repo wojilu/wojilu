@@ -295,12 +295,12 @@ wojilu.editor.prototype = {
                 var tagItems = _x.doc.getElementsByTagName( tagName );
                 if( !tagItems || tagItems.length==0 ) continue;
                 for( var k=0;k<tagItems.length;k++) {
-                    removeAttrPrivate( tagItems[k], 'style,class,border,lang,face,color,width,height,size' );
+                    removeAttrPrivate( tagItems[k], 'style,border,lang,face,color,width,height,size' );
                 }
             }
         }
         
-        removeAttr( 'a,img,span,strong,b,i,em,div,p,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,form,fieldset,input,textarea,blockquote,table,td,tr,th,tbody,font,hr,caption' );
+        removeAttr( 'a,img,span,strong,b,i,em,div,p,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,form,fieldset,input,textarea,blockquote,table,td,tr,th,tbody,font,hr,caption,address' );
 
         if( document.all ) {
             _x.doc.execCommand('removeFormat', false, null);
@@ -369,7 +369,7 @@ wojilu.editor.prototype.beginRender = function() {
 
 wojilu.editor.prototype.getFrmBody = function( htmlContent ) {
     var _x = this;
-    return '<html><link rel="stylesheet" type="text/css" href="'+_x.skinPath+ 'style.css'+'" /><body style="background:#fff;border:0px #aaa solid;margin:5px;padding:0px;font-family:verdana;font-size:12px;line-height:150%;cursor:text;">\n' + htmlContent + '\n</body></html>';
+    return '<html><link rel="stylesheet" type="text/css" href="'+_x.skinPath+ 'style.css'+'" /><body style="background:#fff;border:0px #aaa solid;margin:5px;padding:0px;font-family:verdana;font-size:14px;line-height:150%;cursor:text;">\n' + htmlContent + '\n</body></html>';
 };
    
 wojilu.editor.prototype.makeWritable = function () {

@@ -22,6 +22,7 @@ _run( function(){
     cfg.onUploadSuccess = function (file, data, response) {            
             var obj = eval( '(' + data + ')' );
             window.parent.addEditorPicAndLink( '#{editorName}', obj.PicUrl, obj.OpicUrl );
+            wojilu.tool.reloadPage();// 解决上传完毕，无法输入中文问题
     };
 
     wojilu.upload.initFlash( '#file_upload', cfg );
