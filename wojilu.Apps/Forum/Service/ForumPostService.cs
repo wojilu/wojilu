@@ -104,13 +104,13 @@ namespace wojilu.Apps.Forum.Service {
 
         public virtual DataPage<ForumPost> GetPageList( int topicId, int pageSize, int memberId ) {
             if (memberId > 0) {
-                return db.findPage<ForumPost>( "TopicId=" + topicId + " and Creator.Id=" + memberId + " and " + getNonDelCondition() + " order by Id asc", pageSize );
+                return db.findPage<ForumPost>( "TopicId=" + topicId + " and Creator.Id=" + memberId + " and " + TopicStatus.GetShowCondition() + " order by Id asc", pageSize );
             }
-            return db.findPage<ForumPost>( "TopicId=" + topicId + " and " + getNonDelCondition() + " order by Id asc", pageSize );
+            return db.findPage<ForumPost>( "TopicId=" + topicId + " and " + TopicStatus.GetShowCondition() + " order by Id asc", pageSize );
         }
 
         public virtual int GetPageCount( int topicId, int pageSize ) {
-            String strCondition = "TopicId=" + topicId + " and " + getNonDelCondition();
+            String strCondition = "TopicId=" + topicId + " and " + TopicStatus.GetShowCondition();
             int count = ForumPost.count( strCondition );
             int page = count / pageSize;
             int imod = count % pageSize;
@@ -122,7 +122,7 @@ namespace wojilu.Apps.Forum.Service {
         }
 
         public virtual List<ForumPost> GetRecentByApp( int appId, int count ) {
-            return ForumPost.find( "AppId=" + appId + " and " + getNonDelCondition() ).list( count );
+            return ForumPost.find( "AppId=" + appId + " and " + TopicStatus.GetShowCondition() ).list( count );
         }
 
         public virtual ForumPost GetPostByTopic( int topicId ) {
@@ -140,12 +140,12 @@ namespace wojilu.Apps.Forum.Service {
 
         public virtual DataPage<ForumPost> GetByAppAndUser( int appId, int userId, int pageSize ) {
             if (userId <= 0 || appId <= 0) return DataPage<ForumPost>.GetEmpty();
-            return ForumPost.findPage( "AppId=" + appId + " and CreatorId=" + userId + " and " + getNonDelCondition(), pageSize );
+            return ForumPost.findPage( "AppId=" + appId + " and CreatorId=" + userId + " and " + TopicStatus.GetShowCondition(), pageSize );
         }
 
         public virtual DataPage<ForumPost> GetByUser( int userId, int pageSize ) {
             if (userId <= 0) return DataPage<ForumPost>.GetEmpty();
-            return ForumPost.findPage( "CreatorId=" + userId + " and OwnerType='" + typeof( Site ).FullName + "' and " + getNonDelCondition(), pageSize );
+            return ForumPost.findPage( "CreatorId=" + userId + " and OwnerType='" + typeof( Site ).FullName + "' and " + TopicStatus.GetShowCondition(), pageSize );
         }
 
         public virtual List<IBinderValue> GetNewSitePost( int count ) {
@@ -161,7 +161,7 @@ namespace wojilu.Apps.Forum.Service {
 
             String bd = " and ForumBoardId in ( " + sids + " )";
 
-            List<ForumPost> list = db.find<ForumPost>( getNonDelCondition() + bd + " and OwnerType=:otype order by Id desc" )
+            List<ForumPost> list = db.find<ForumPost>( TopicStatus.GetShowCondition() + bd + " and OwnerType=:otype order by Id desc" )
                 .set( "otype", typeof( Site ).FullName )
                 .list( count );
 
@@ -175,7 +175,7 @@ namespace wojilu.Apps.Forum.Service {
 
             String bd = boardId > 0 ? " and ForumBoardId=" + boardId : "";
 
-            List<ForumPost> list = db.find<ForumPost>( getNonDelCondition() + bd + " and OwnerType=:otype order by Id desc" )
+            List<ForumPost> list = db.find<ForumPost>( TopicStatus.GetShowCondition() + bd + " and OwnerType=:otype order by Id desc" )
                 .set( "otype", ownerType.FullName )
                 .list( count );
 
@@ -218,11 +218,6 @@ namespace wojilu.Apps.Forum.Service {
 
             return sids;
         }
-
-        private String getNonDelCondition() {
-            return string.Format( " (Status={0} or Status={1})", (int)TopicStatus.Normal, (int)TopicStatus.Sticky );
-        }
-
 
         public virtual Result Insert( ForumPost post, User creator, IMember owner, IApp app ) {
 
@@ -328,7 +323,7 @@ namespace wojilu.Apps.Forum.Service {
 
             ForumBoard fb = ForumBoard.findById( post.ForumBoardId );
             fb.TodayPosts++;
-            fb.Posts++;
+            fb.Posts = boardService.CountPost( fb.Id );
 
             LastUpdateInfo info = new LastUpdateInfo();
             info.PostId = post.Id;
@@ -457,7 +452,7 @@ namespace wojilu.Apps.Forum.Service {
         }
 
         public virtual DataPage<ForumPost> GetPageByApp( int appId, int pageSize ) {
-            return db.findPage<ForumPost>( "AppId=" + appId + " and " + getNonDelCondition(), pageSize );
+            return db.findPage<ForumPost>( "AppId=" + appId + " and " + TopicStatus.GetShowCondition(), pageSize );
         }
 
         public virtual DataPage<ForumPost> GetDeletedPage( int appId ) {

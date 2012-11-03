@@ -86,13 +86,13 @@ namespace wojilu.Apps.Forum.Service {
         }
 
         public virtual int GetBoardPage( int topicId, int boardId, int pageSize ) {
-            int count = ForumTopic.count( "Id>=" + topicId + " and ForumBoardId=" + boardId + " and " + getNonDelCondition() );
+            int count = ForumTopic.count( "Id>=" + topicId + " and ForumBoardId=" + boardId + " and " + TopicStatus.GetShowCondition() );
             return getPage( count, pageSize );
         }
 
         public virtual int GetPostPage( int postId, int topicId, int pageSize ) {
 
-            int count = ForumPost.count( "Id<=" + postId + " and TopicId=" + topicId + " and " + getNonDelCondition() );
+            int count = ForumPost.count( "Id<=" + postId + " and TopicId=" + topicId + " and " + TopicStatus.GetShowCondition() );
             return getPage( count, pageSize );
         }
 
@@ -108,29 +108,29 @@ namespace wojilu.Apps.Forum.Service {
         }
 
         public virtual List<ForumTopic> GetByApp( int appId, int count ) {
-            return ForumTopic.find( "AppId=" + appId + " and " + getNonDelCondition() ).list( count );
+            return ForumTopic.find( "AppId=" + appId + " and " + TopicStatus.GetShowCondition() ).list( count );
         }
 
         public virtual DataPage<ForumTopic> GetPageByApp( int appId, int pageSize ) {
-            return ForumTopic.findPage( "AppId=" + appId + " and " + getNonDelCondition(), pageSize );
+            return ForumTopic.findPage( "AppId=" + appId + " and " + TopicStatus.GetShowCondition(), pageSize );
         }
 
         public virtual DataPage<ForumTopic> GetByUserAndApp( int appId, int userId, int pageSize ) {
             if (userId <= 0 || appId <= 0) return DataPage<ForumTopic>.GetEmpty();
-            return ForumTopic.findPage( "AppId=" + appId + " and CreatorId=" + userId + " and " + getNonDelCondition(), pageSize );
+            return ForumTopic.findPage( "AppId=" + appId + " and CreatorId=" + userId + " and " + TopicStatus.GetShowCondition(), pageSize );
         }
 
         public virtual DataPage<ForumTopic> GetByUser( int userId, int pageSize ) {
             if (userId <= 0) return DataPage<ForumTopic>.GetEmpty();
-            return ForumTopic.findPage( "CreatorId=" + userId + " and OwnerType='" + typeof( Site ).FullName + "' and " + getNonDelCondition(), pageSize );
+            return ForumTopic.findPage( "CreatorId=" + userId + " and OwnerType='" + typeof( Site ).FullName + "' and " + TopicStatus.GetShowCondition(), pageSize );
         }
 
         public virtual DataPage<ForumTopic> GetPickedByApp( int appId, int pageSize ) {
-            return ForumTopic.findPage( "AppId=" + appId + " and IsPicked=1 and " + getNonDelCondition(), pageSize );
+            return ForumTopic.findPage( "AppId=" + appId + " and IsPicked=1 and " + TopicStatus.GetShowCondition(), pageSize );
         }
 
         public virtual List<ForumTopic> GetByAppAndReplies( int appId, int count ) {
-            return ForumTopic.find( "AppId=" + appId + " and " + getNonDelCondition() + " order by Replies desc, Id desc" ).list( count );
+            return ForumTopic.find( "AppId=" + appId + " and " + TopicStatus.GetShowCondition() + " order by Replies desc, Id desc" ).list( count );
         }
 
         public virtual List<ForumTopic> GetByAppAndReplies( int appId, int count, int days ) {
@@ -142,11 +142,11 @@ namespace wojilu.Apps.Forum.Service {
             DateTime now = DateTime.Now;
             String dc = string.Format( fs, now.AddDays( -days + 1 ).ToShortDateString(), now.AddDays( 1 ).ToShortDateString() ); // 加1表示包含今天
 
-            return ForumTopic.find( "AppId=" + appId + " and " + getNonDelCondition() + dc + " order by Replies desc, Id desc" ).list( count );
+            return ForumTopic.find( "AppId=" + appId + " and " + TopicStatus.GetShowCondition() + dc + " order by Replies desc, Id desc" ).list( count );
         }
 
         public virtual List<ForumTopic> GetByAppAndViews( int appId, int count ) {
-            return ForumTopic.find( "AppId=" + appId + " and " + getNonDelCondition() + " order by Hits desc, Id desc" ).list( count );
+            return ForumTopic.find( "AppId=" + appId + " and " + TopicStatus.GetShowCondition() + " order by Hits desc, Id desc" ).list( count );
         }
 
 
@@ -173,7 +173,7 @@ namespace wojilu.Apps.Forum.Service {
 
             String bd = " and ForumBoardId in ( " + sids + " )";
 
-            List<ForumTopic> list = db.find<ForumTopic>( getNonDelCondition() + bd + " and OwnerType=:otype order by Id desc" )
+            List<ForumTopic> list = db.find<ForumTopic>( TopicStatus.GetShowCondition() + bd + " and OwnerType=:otype order by Id desc" )
                 .set( "otype", typeof( Site ).FullName )
                 .list( count );
 
@@ -198,7 +198,7 @@ namespace wojilu.Apps.Forum.Service {
         private List<IBinderValue> getNewTopic( int count, Type ownerType ) {
             if (count <= 0) count = 10;
 
-            List<ForumTopic> list = db.find<ForumTopic>( getNonDelCondition() + " and OwnerType=:otype order by Id desc" )
+            List<ForumTopic> list = db.find<ForumTopic>( TopicStatus.GetShowCondition() + " and OwnerType=:otype order by Id desc" )
                 .set( "otype", ownerType.FullName )
                 .list( count );
 
@@ -357,10 +357,6 @@ namespace wojilu.Apps.Forum.Service {
 
         private String getCondition( int boardId ) {
             return string.Format( "ForumBoardId={0} and Status={1}", boardId, TopicStatus.Normal );
-        }
-
-        private String getNonDelCondition() {
-            return string.Format( " (Status={0} or Status={1})", (int)TopicStatus.Normal, TopicStatus.Sticky );
         }
 
         //--------------------------------------------------------------------------------
@@ -885,7 +881,7 @@ namespace wojilu.Apps.Forum.Service {
         public virtual DataPage<ForumTopic> Search( int appId, string key, int pageSize ) {
             if (strUtil.IsNullOrEmpty( key )) return DataPage<ForumTopic>.GetEmpty();
             String q = strUtil.SqlClean( key, 10 );
-            return ForumTopic.findPage( "AppId=" + appId + " and Title like '%" + q + "%' and " + getNonDelCondition(), pageSize );
+            return ForumTopic.findPage( "AppId=" + appId + " and Title like '%" + q + "%' and " + TopicStatus.GetShowCondition(), pageSize );
         }
 
     }
