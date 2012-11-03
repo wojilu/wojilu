@@ -110,23 +110,6 @@
 
         });
 
-        //-------------------------------------------------
-
-        $('body').append('<div id="backTop"><span>回顶部</span></div>');
-
-        $(window).scroll(function () {
-            if ($(window).scrollTop() >= 300) {
-                $("#backTop").fadeIn(800);
-            } else {
-                $("#backTop").fadeOut(800);
-            }
-        });
-
-        $('#backTop').click(function () {
-            $('html,body').animate({ scrollTop: 0 }, 800);
-            return false;
-        });
-
         //---------------------------------------------------------
 
         var wftool = '.wfpost-tool';
