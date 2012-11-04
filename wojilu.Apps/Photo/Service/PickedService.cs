@@ -81,6 +81,20 @@ namespace wojilu.Apps.Photo.Service {
             return r;
         }
 
+        public virtual DataPage<PhotoPost> GetShowAll( int pageSize ) {
+            DataPage<PhotoPost> list = this.GetAll( pageSize );
+            list.Results = filterBySysCategory( list.Results );
+            return list;
+        }
+
+        private List<PhotoPost> filterBySysCategory( List<PhotoPost> list ) {
+            List<PhotoPost> xlist = new List<PhotoPost>();
+            foreach (PhotoPost x in list) {
+                if (x.SysCategoryId > 0) xlist.Add( x );
+            }
+            return xlist;
+        }
+
         public virtual List<PhotoPost> GetTop( int count ) {
 
             List<PhotoPostPicked> picked = db.find<PhotoPostPicked>( "order by Id desc" ).list( count );

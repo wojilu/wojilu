@@ -146,6 +146,22 @@ namespace wojilu.Apps.Photo.Service {
         }
 
 
+
+
+        public DataPage<PhotoPost> GetShowRecent( int pageSize ) {
+            return PhotoPost.findPage( "SysCategoryId>0 and SaveStatus=" + SaveStatus.Normal, pageSize );
+        }
+
+        public DataPage<PhotoPost> GetShowByCategory( int categoryId, int pageSize ) {
+
+            return db.findPage<PhotoPost>( "SaveStatus=" + SaveStatus.Normal + " and SysCategoryId=" + categoryId, pageSize );
+        }
+
+        public DataPage<PhotoPost> GetShowHot( int pageSize ) {
+            return PhotoPost.findPage( "SysCategoryId>0 and SaveStatus=" + SaveStatus.Normal + " order by Likes desc, Pins desc, Hits desc, Replies desc", pageSize );
+        }
+
+
     }
 }
 

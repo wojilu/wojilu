@@ -21,12 +21,14 @@ namespace wojilu.Web.Controller.Photo.Wf {
         public IPhotoAlbumService categoryService { get; set; }
         public IPhotoPostService postService { get; set; }
         public IPhotoSysCategoryService sysCategoryService { get; set; }
+        public PhotoLikeService likeService { get; set; }
 
         public UserHomeController() {
             userService = new UserService();
             categoryService = new PhotoAlbumService();
             postService = new PhotoPostService();
             sysCategoryService = new PhotoSysCategoryService();
+            likeService = new PhotoLikeService();
 
             HideLayout( typeof( wojilu.Web.Controller.Photo.LayoutController ) );
         }
@@ -109,8 +111,7 @@ namespace wojilu.Web.Controller.Photo.Wf {
                 return;
             }
 
-
-            DataPage<PhotoPost> list = PhotoPost.findPage( "SaveStatus=" + SaveStatus.Normal + " and OwnerId=" + u.Id, 12 );
+            DataPage<PhotoPost> list = postService.GetShowByUser( u.Id, 12 );
             // 2) 或者超过实际页数，也不再自动翻页
             if (CurrentRequest.getCurrentPage() > list.PageCount && list.PageCount > 0) {
                 echoText( "." );
@@ -123,7 +124,6 @@ namespace wojilu.Web.Controller.Photo.Wf {
         public void Category( int id ) {
 
             setWaterfallView();
-
 
             String userUrl = ctx.route.getItem( "user" );
             User u = userService.GetByUrl( userUrl );
@@ -139,7 +139,8 @@ namespace wojilu.Web.Controller.Photo.Wf {
             set( "albumDataCount", album.DataCount );
 
 
-            DataPage<PhotoPost> list = PhotoPost.findPage( "SaveStatus=" + SaveStatus.Normal + " and CategoryId=" + id + " and OwnerId=" + u.Id, 12 );
+            DataPage<PhotoPost> list = postService.GetShowByUser( u.Id, id, 12 );
+
             // 2) 或者超过实际页数，也不再自动翻页
             if (CurrentRequest.getCurrentPage() > list.PageCount && list.PageCount > 0) {
                 echoText( "." );
@@ -147,7 +148,6 @@ namespace wojilu.Web.Controller.Photo.Wf {
             }
 
             PhotoBinder.BindPhotoList( this, list, u.Id );
-
         }
 
         public void Like() {
@@ -162,25 +162,14 @@ namespace wojilu.Web.Controller.Photo.Wf {
                 return;
             }
 
-            DataPage<PhotoLike> list = PhotoLike.findPage( "UserId=" + u.Id, 12 );
+            DataPage<PhotoPost> list = likeService.GetByUser( u.Id, 12 );
             // 2) 或者超过实际页数，也不再自动翻页
             if (CurrentRequest.getCurrentPage() > list.PageCount && list.PageCount > 0) {
                 echoText( "." );
                 return;
             }
 
-            PhotoBinder.BindPhotoList( this, getPostPage( list ), ctx.viewer.Id );
-        }
-
-        private DataPage<PhotoPost> getPostPage( DataPage<PhotoLike> list ) {
-
-            DataPage<PhotoPost> results = new DataPage<PhotoPost>( list );
-            List<PhotoPost> xlist = new List<PhotoPost>();
-            foreach (PhotoLike x in list.Results) {
-                xlist.Add( x.Post );
-            }
-            results.Results = xlist;
-            return results;
+            PhotoBinder.BindPhotoList( this, list, ctx.viewer.Id );
         }
 
         public void Album() {
@@ -193,7 +182,7 @@ namespace wojilu.Web.Controller.Photo.Wf {
                 return;
             }
 
-            List<PhotoAlbum> albumList = db.find<PhotoAlbum>( "OwnerId=" + u.Id ).list();
+            List<PhotoAlbum> albumList = categoryService.GetListByUser( u.Id );
             bindAlbumList( albumList );
         }
 

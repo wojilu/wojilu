@@ -14,9 +14,14 @@ namespace wojilu.Apps.Photo.Interface {
         List<IBinderValue> GetNewAll( int count );
 
         List<PhotoPost> GetSysHits( int count );
+        int GetSystemDeleteCount();
+
         DataPage<PhotoPost> GetSysPostPage( int categoryId, int pageSize );
         DataPage<PhotoPost> GetSysPostTrashPage( int pageSize );
-        int GetSystemDeleteCount();
+
+        DataPage<PhotoPost> GetShowRecent( int pageSize );
+        DataPage<PhotoPost> GetShowByCategory( int categoryId, int pageSize );
+        DataPage<PhotoPost> GetShowHot( int pageSize );
 
         List<PhotoPost> GetSysTop( int categoryId, int count );
 
