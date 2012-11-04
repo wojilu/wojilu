@@ -10,8 +10,12 @@ using wojilu.Web.Mvc.Routes;
 
 namespace wojilu.Test.Web.Mvc {
 
+
+    /// <summary>
+    /// 测试横杠分隔的url，比如 "forum-post-32.aspx"
+    /// </summary>
     [TestFixture]
-    public class RouteTest {
+    public class RouteTestNew {
 
 
 
@@ -29,67 +33,6 @@ namespace wojilu.Test.Web.Mvc {
 
 
 
-
-        [Test]
-        public void testParseConfig2() {
-
-            string routecfg = @"
-default;default:{controller=SiteInit}
-//default;default:{owner=userUrl,ownertype=user}
-
-user;default:{ownertype=site,owner=site}
-bbs;default:{ownertype=site,owner=site}
-group;default:{ownertype=site,owner=site}
-blog;default:{ownertype=site,owner=site}
-photo;default:{ownertype=site,owner=site}
-article;default:{ownertype=site,owner=site}
-news;default:{ownertype=site,owner=site}
-download;default:{ownertype=site,owner=site}
-
-
-{owner};default:{ownertype=user,controller=Users.Microblog,action=List}
-t/{owner};default:{ownertype=user,controller=Users.Microblog,action=List}
-t/{owner}/{page};default:{ownertype=user,controller=Users.Microblog,action=List}
-
-~/{controller}/{id};requirements:{id=int}
-~/{controller}/{action};requirements:{controller=letter,action=letter}
-~/{controller}/{id}/{action};requirements:{controller=letter,id=int,action=letter}
-~/{controller}/{action}/{page};requirements:{controller=letter,action=letter,page=page}
-~/{controller}/{id}/{page};requirements:{controller=letter,id=int,page=page}
-~/{controller}/{id}/{action}/{page};requirements:{controller=letter,id=int,action=letter,page=page}
-
-";
-
-
-            RouteTable.GetRoutes().Clear();
-            RouteTable.Init( routecfg );
-
-            //List<RouteSetting> routes = RouteTable.GetRoutes();
-
-        }
-
-
-
-
-        [Test]
-        public void testParseConfig() {
-
-            string routecfg = @"
-~/{controller}/{id};default:{action=Show};requirements:{id=int}
-~/{controller}/{id}/{action}
-";
-            RouteTable.GetRoutes().Clear();
-            RouteTable.Init( routecfg );
-
-            List<RouteSetting> routes = RouteTable.GetRoutes();
-
-            Assert.AreEqual( 2, routes.Count );
-
-            RouteSetting rt = routes[1];
-
-            Assert.AreEqual( 3, rt.GetPathItems().Count );
-        }
-
         [Test]
         public void testSimple() {
 
@@ -99,22 +42,18 @@ t/{owner}/{page};default:{ownertype=user,controller=Users.Microblog,action=List}
 ~/{controller}/{id}/{action};
 ";
 
-            //            routecfg = @"
-            //~/{controller}/{id}/{action};requirements:{controller=letter,id=int,action=letter}
-            //~/{controller}/{id}/{action}/{page};requirements:{controller=letter,id=int,action=letter,page=page}";
-
             RouteTable.GetRoutes().Clear();
             RouteTable.Init( routecfg );
 
 
-            Route result = RouteTool.RecognizePath( "blog/8/show" );
+            Route result = RouteTool.RecognizePath( "blog-8-show" );
 
             Assert.AreEqual( "blog", result.controller );
             Assert.AreEqual( "show", result.action );
             Assert.AreEqual( 8, result.id );
             Assert.AreEqual( 1, result.page );
 
-            Route result2 = RouteTool.RecognizePath( "blog/list" );
+            Route result2 = RouteTool.RecognizePath( "blog-list" );
 
             Assert.AreEqual( "blog", result2.controller );
             Assert.AreEqual( "list", result2.action );
@@ -127,6 +66,9 @@ t/{owner}/{page};default:{ownertype=user,controller=Users.Microblog,action=List}
             Assert.AreEqual( "Show", result3.action );
             Assert.AreEqual( 0, result3.id );
             Assert.AreEqual( 1, result3.page );
+
+
+
         }
 
         [Test]
@@ -141,14 +83,14 @@ t/{owner}/{page};default:{ownertype=user,controller=Users.Microblog,action=List}
             RouteTable.GetRoutes().Clear();
             RouteTable.Init( routecfg );
 
-            Route result = RouteTool.RecognizePath( "http://www.abc.com/blog/8/show" );
+            Route result = RouteTool.RecognizePath( "http://www.abc.com/blog-8-show" );
 
             Assert.AreEqual( "blog", result.controller );
             Assert.AreEqual( "show", result.action );
             Assert.AreEqual( 8, result.id );
             Assert.AreEqual( 1, result.page );
 
-            Route result2 = RouteTool.RecognizePath( "http://blog.abc.com/blog/8/show" );
+            Route result2 = RouteTool.RecognizePath( "http://blog.abc.com/blog-8-show" );
 
             Assert.AreEqual( "blog", result2.controller );
             Assert.AreEqual( "show", result2.action );
@@ -180,44 +122,43 @@ book/{author};default:{controller=_.Book,action=List}
             RouteTable.GetRoutes().Clear();
             RouteTable.Init( routecfg );
 
-            Route result = RouteTool.RecognizePath( "blog/8/show" );
+            Route result = RouteTool.RecognizePath( "blog-8-show" );
 
             Assert.AreEqual( "blog", result.controller );
             Assert.AreEqual( "show", result.action );
             Assert.AreEqual( 8, result.id );
             Assert.AreEqual( 1, result.page );
 
-            Route result2 = RouteTool.RecognizePath( "blog/list" );
+            Route result2 = RouteTool.RecognizePath( "blog-list" );
 
             Assert.AreEqual( "blog", result2.controller );
             Assert.AreEqual( "list", result2.action );
             Assert.AreEqual( 0, result2.id );
             Assert.AreEqual( 1, result2.page );
 
-            result = RouteTool.RecognizePath( "search/新闻" );
+            result = RouteTool.RecognizePath( "search-新闻" );
             Assert.AreEqual( result.controller, "Main" );
             Assert.AreEqual( result.action, "Search" );
             Assert.AreEqual( result.query, "新闻" );
 
-            result = RouteTool.RecognizePath( "product/苹果/电脑" );
+            result = RouteTool.RecognizePath( "product-苹果-电脑" );
             Assert.AreEqual( result.controller, "Product" );
             Assert.AreEqual( result.action, "List" );
             Assert.AreEqual( result.getItem( "factory" ), "苹果" );
             Assert.AreEqual( result.getItem( "category" ), "电脑" );
 
-            result = RouteTool.RecognizePath( "book/金庸" );
+            result = RouteTool.RecognizePath( "book-金庸" );
             Assert.AreEqual( result.controller, "Book" );
             Assert.AreEqual( result.action, "List" );
             Assert.AreEqual( result.getItem( "author" ), "金庸" );
 
             //-------------
 
-            result = RouteTool.RecognizePath( "article/12/1" );
+            result = RouteTool.RecognizePath( "article-12-1" );
             Assert.AreEqual( result.controller, "Article" );
             Assert.AreEqual( result.action, "List" );
             Assert.AreEqual( result.getItem( "typeid" ), "12" );
             Assert.AreEqual( 1, result.id );
-
         }
 
         [Test]
@@ -232,14 +173,14 @@ book/{author};default:{controller=_.Book,action=List}
             RouteTable.GetRoutes().Clear();
             RouteTable.Init( routecfg );
 
-            Route rt = RouteTool.RecognizePath( "myapp/newdata/blog/8/show" );
+            Route rt = RouteTool.RecognizePath( "myapp-newdata-blog-8-show" );
 
             Assert.AreEqual( "blog", rt.controller );
             Assert.AreEqual( "show", rt.action );
             Assert.AreEqual( 8, rt.id );
             Assert.AreEqual( "myapp.newdata", rt.ns );
 
-            Route result = RouteTool.RecognizePath( "blog/8/show" );
+            Route result = RouteTool.RecognizePath( "blog-8-show" );
 
             Assert.AreEqual( "blog", result.controller );
             Assert.AreEqual( "show", result.action );
@@ -261,7 +202,7 @@ book/{author};default:{controller=_.Book,action=List}
             RouteTable.GetRoutes().Clear();
             RouteTable.Init( routecfg );
 
-            Route rt = RouteTool.RecognizePath( "blog/8/show" );
+            Route rt = RouteTool.RecognizePath( "blog-8-show" );
 
             Assert.AreEqual( "blog", rt.controller );
             Assert.AreEqual( "show", rt.action );
@@ -269,7 +210,7 @@ book/{author};default:{controller=_.Book,action=List}
             Assert.AreEqual( "site", rt.owner );
             Assert.AreEqual( "site", rt.ownerType );
 
-            Route rt2 = RouteTool.RecognizePath( "space/zhangsan/blog/8/show" );
+            Route rt2 = RouteTool.RecognizePath( "space-zhangsan-blog-8-show" );
 
             Assert.AreEqual( "blog", rt2.controller );
             Assert.AreEqual( "show", rt2.action );
@@ -277,7 +218,7 @@ book/{author};default:{controller=_.Book,action=List}
             Assert.AreEqual( "zhangsan", rt2.owner );
             Assert.AreEqual( "user", rt2.ownerType );
 
-            Route rt3 = RouteTool.RecognizePath( "space/zhangsan/myapp/newdata/blog/8/show" );
+            Route rt3 = RouteTool.RecognizePath( "space-zhangsan-myapp-newdata-blog-8-show" );
             Assert.AreEqual( "blog", rt3.controller );
             Assert.AreEqual( "show", rt3.action );
             Assert.AreEqual( 8, rt3.id );
@@ -285,7 +226,7 @@ book/{author};default:{controller=_.Book,action=List}
             Assert.AreEqual( "user", rt3.ownerType );
             Assert.AreEqual( "myapp.newdata", rt3.ns );
 
-            Route rt4 = RouteTool.RecognizePath( "group/zhangsan/myapp/newdata/blog/8/show" );
+            Route rt4 = RouteTool.RecognizePath( "group-zhangsan-myapp-newdata-blog-8-show" );
             Assert.AreEqual( "blog", rt4.controller );
             Assert.AreEqual( "show", rt4.action );
             Assert.AreEqual( 8, rt4.id );
@@ -306,8 +247,7 @@ book/{author};default:{controller=_.Book,action=List}
             RouteTable.GetRoutes().Clear();
             RouteTable.Init( routecfg );
 
-
-            Route rt = RouteTool.RecognizePath( "blog256/post/8/show" );
+            Route rt = RouteTool.RecognizePath( "blog256-post-8-show" );
 
             Assert.AreEqual( "post", rt.controller );
             Assert.AreEqual( "show", rt.action );
@@ -315,7 +255,7 @@ book/{author};default:{controller=_.Book,action=List}
             Assert.AreEqual( "blog", rt.ns );
             Assert.AreEqual( 256, rt.appId );
 
-            Route rt3 = RouteTool.RecognizePath( "space/zhangsan/myapp38/newdata/blog/8/show" );
+            Route rt3 = RouteTool.RecognizePath( "space-zhangsan-myapp38-newdata-blog-8-show" );
 
             Assert.AreEqual( "blog", rt3.controller );
             Assert.AreEqual( "show", rt3.action );
@@ -327,7 +267,7 @@ book/{author};default:{controller=_.Book,action=List}
             Assert.AreEqual( "myapp.newdata", rt3.ns );
             Assert.AreEqual( 38, rt3.appId );
 
-            Route x4 = RouteTool.RecognizePath( "/Forum11/Board/21" );
+            Route x4 = RouteTool.RecognizePath( "Forum11-Board-21" );
             Assert.AreEqual( "Board", x4.controller );
             Assert.AreEqual( "Show", x4.action );
             Assert.AreEqual( 11, x4.appId );
@@ -503,7 +443,7 @@ t/{owner}/{page};default:{ownertype=user,controller=Users.Microblog,action=List}
             Assert.AreEqual( "user", rr3.ownerType );
             Assert.AreEqual( "dddddddddd", rr3.owner );
 
-            Route rt3 = RouteTool.RecognizePath( "space/zhangsan/myapp38/newdata/blog/8/show" );
+            Route rt3 = RouteTool.RecognizePath( "space-zhangsan-myapp38-newdata-blog-8-show" );
 
             Assert.AreEqual( "blog", rt3.controller );
             Assert.AreEqual( "show", rt3.action );
@@ -515,7 +455,7 @@ t/{owner}/{page};default:{ownertype=user,controller=Users.Microblog,action=List}
             Assert.AreEqual( "myapp.newdata", rt3.ns );
             Assert.AreEqual( 38, rt3.appId );
 
-            Route nrt = RouteTool.RecognizePath( "space/lvxing/Blog1/BlogComment/47/Create" );
+            Route nrt = RouteTool.RecognizePath( "space-lvxing-Blog1-BlogComment-47-Create" );
             Assert.AreEqual( "BlogComment", nrt.controller );
             Assert.AreEqual( "Create", nrt.action );
             Assert.AreEqual( 47, nrt.id );
@@ -529,7 +469,7 @@ t/{owner}/{page};default:{ownertype=user,controller=Users.Microblog,action=List}
         public void testMicroblogUrl() {
 
             string routecfg = @"
-t/{owner};default:{ownertype=user,controller=Users.Microblog,action=List}
+t-{owner};default:{ownertype=user,controller=Users.Microblog,action=List}
 
 ~/{controller}/{id};default:{action=Show};requirements:{id=int}
 ~/{controller}/{action};requirements:{controller=letter}
@@ -538,7 +478,7 @@ t/{owner};default:{ownertype=user,controller=Users.Microblog,action=List}
             RouteTable.GetRoutes().Clear();
             RouteTable.Init( routecfg );
 
-            Route result = RouteTool.RecognizePath( "t/zhangsan" );
+            Route result = RouteTool.RecognizePath( "t-zhangsan" );
 
             Assert.AreEqual( "zhangsan", result.owner );
             Assert.AreEqual( "Users", result.ns );
@@ -570,7 +510,7 @@ photo/{controller}/{action}/{query};default:{ns=myphoto};
             RouteTable.GetRoutes().Clear();
             RouteTable.Init( routecfg );
 
-            Route result = RouteTool.RecognizePath( "blog/post/show/recent" );
+            Route result = RouteTool.RecognizePath( "blog-post-show-recent" );
 
             Assert.AreEqual( "blog", result.ns );
             Assert.AreEqual( "post", result.controller );
@@ -581,20 +521,20 @@ photo/{controller}/{action}/{query};default:{ns=myphoto};
             Assert.AreEqual( 0, result.id );
 
 
-            Route r2 = RouteTool.RecognizePath( "photo/post/show/recent" );
+            Route r2 = RouteTool.RecognizePath( "photo-post-show-recent" );
 
             Assert.AreEqual( "myphoto", r2.ns );
             Assert.AreEqual( "post", r2.controller );
             Assert.AreEqual( "show", r2.action );
             Assert.AreEqual( "recent", r2.query );
 
-            Route rtTag = RouteTool.RecognizePath( "tag/互联网" );
+            Route rtTag = RouteTool.RecognizePath( "tag-互联网" );
 
             Assert.AreEqual( "", rtTag.ns );
             Assert.AreEqual( "Tag", rtTag.controller );
             Assert.AreEqual( "Show", rtTag.action );
 
-            Route rt3 = RouteTool.RecognizePath( "space/zhangsan/myapp38/newdata/blog/8/show" );
+            Route rt3 = RouteTool.RecognizePath( "space-zhangsan-myapp38-newdata-blog-8-show" );
 
             Assert.AreEqual( "blog", rt3.controller );
             Assert.AreEqual( "show", rt3.action );
@@ -616,16 +556,11 @@ photo/{controller}/{action}/{query};default:{ns=myphoto};
 ~/{controller}/{id}/{action};
 ";
 
-            //            routecfg = @"
-            //~/{controller}/{id}/{action};requirements:{controller=letter,id=int,action=letter}
-            //~/{controller}/{id}/{action}/{page};requirements:{controller=letter,id=int,action=letter,page=page}";
-
             RouteTable.GetRoutes().Clear();
             RouteTable.Init( routecfg );
 
-            Route result = RouteTool.RecognizePath( "blog/post/256" );
+            Route result = RouteTool.RecognizePath( "blog-post-256" );
 
-            //Assert.AreEqual( "blog", result.ns );
             Assert.AreEqual( "post", result.controller );
             Assert.AreEqual( "Show", result.action );
             Assert.AreEqual( 256, result.id );
@@ -645,14 +580,14 @@ photo/{controller}/{action}/{query};default:{ns=myphoto};
             RouteTable.GetRoutes().Clear();
             RouteTable.Init( routecfg );
 
-            Route result = RouteTool.RecognizePath( "blog/8/p22" );
+            Route result = RouteTool.RecognizePath( "blog-8-p22" );
 
             Assert.AreEqual( "blog", result.controller );
             Assert.AreEqual( "Show", result.action );
             Assert.AreEqual( 8, result.id );
             Assert.AreEqual( 22, result.page );
 
-            Route rt = RouteTool.RecognizePath( "blog/Index/p22" );
+            Route rt = RouteTool.RecognizePath( "blog-Index-p22" );
 
             Assert.AreEqual( "blog", rt.controller );
             Assert.AreEqual( "Index", rt.action );
@@ -675,14 +610,14 @@ photo/{controller}/{action}/{query};default:{ns=myphoto};
             RouteTable.GetRoutes().Clear();
             RouteTable.Init( routecfg );
 
-            Route result = RouteTool.RecognizePath( "blog/8/p22" );
+            Route result = RouteTool.RecognizePath( "blog-8-p22" );
 
             Assert.AreEqual( "blog", result.controller );
             Assert.AreEqual( "Show", result.action );
             Assert.AreEqual( 8, result.id );
             Assert.AreEqual( 22, result.page );
 
-            Route rt = RouteTool.RecognizePath( "blog/Index/p22" );
+            Route rt = RouteTool.RecognizePath( "blog-Index-p22" );
 
             Assert.AreEqual( "blog", rt.controller );
             Assert.AreEqual( "Index", rt.action );
@@ -711,65 +646,18 @@ home/{userName}/{controller}/{action};requirements:{controller=letter,action=let
             RouteTable.GetRoutes().Clear();
             RouteTable.Init( routecfg );
 
-            Route result = RouteTool.RecognizePath( "space/user3" );
+            Route result = RouteTool.RecognizePath( "space-user3" );
             Assert.AreEqual( "user", result.ownerType );
             Assert.AreEqual( "user3", result.owner );
 
-            Route rt = RouteTool.RecognizePath( "group/gao086" );
+            Route rt = RouteTool.RecognizePath( "group-gao086" );
             Assert.AreEqual( "group", rt.ownerType );
             Assert.AreEqual( "gao086", rt.owner );
 
 
-            //Route rt1 = RouteTool.RecognizePath( "home/lisi" );
-            ////Assert.AreEqual( "Users.MainPage", rt1.controller );
-            //Assert.AreEqual( "Index", rt1.action );
-            //Assert.AreEqual( "lisi", rt1.getItem( "userName" ) );
-
-            //Route rt2 = RouteTool.RecognizePath( "home/lisi/Post/List" );
-            //Assert.AreEqual( "Post", rt2.controller );
-            //Assert.AreEqual( "List", rt2.action );
-            //Assert.AreEqual( "lisi", rt2.getItem( "userName" ) );
         }
 
     }
 
-
-    /// <summary>
-    /// 路由中获取 owner 类型(只有当本类型存在，才可以在路由中启用owner)
-    /// </summary>
-    public class User : IMember {
-
-        // 路由中开头的值
-        public string GetUrl() { return "space"; }
-
-        public int Id { get; set; }
-        public string Name { get; set; }
-        public string Url { get; set; }
-        public int TemplateId { get; set; }
-        public int Status { get; set; }
-        public DateTime Created { get; set; }
-        public System.Collections.IList GetRoles() { return new ArrayList(); }
-        public wojilu.Common.Security.IRole GetAdminRole() { return null; }
-        public wojilu.Common.Security.IRole GetUserRole( IMember user ) { return null; }
-    }
-
-    /// <summary>
-    /// 路由中获取 owner 类型(只有当本类型存在，才可以在路由中启用owner)
-    /// </summary>
-    public class Group : IMember {
-
-        // 路由中开头的值
-        public string GetUrl() { return "group"; }
-
-        public int Id { get; set; }
-        public string Name { get; set; }
-        public string Url { get; set; }
-        public int TemplateId { get; set; }
-        public int Status { get; set; }
-        public DateTime Created { get; set; }
-        public System.Collections.IList GetRoles() { return new ArrayList(); }
-        public wojilu.Common.Security.IRole GetAdminRole() { return null; }
-        public wojilu.Common.Security.IRole GetUserRole( IMember user ) { return null; }
-    }
 
 }

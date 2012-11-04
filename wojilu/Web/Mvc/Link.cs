@@ -18,12 +18,14 @@ using System.Collections.Generic;
 using System.Text;
 using wojilu.Members.Interface;
 using wojilu.Common;
+using wojilu.Web.Mvc.Attr;
 
 namespace wojilu.Web.Mvc {
 
     /// <summary>
     /// 通用链接生成工具
     /// </summary>
+    [MvcLink]
     public class Link {
 
         public static String To( aAction action ) {
@@ -107,7 +109,7 @@ namespace wojilu.Web.Mvc {
                 if (memberType.Equals( ConstString.SiteTypeFullName )) return LinkHelper.GetRootPath();
                 if (memberType.Equals( ConstString.UserTypeFullName )) return ToUser( memberUrl );
                 String ownerPath = MemberPath.GetPath( strUtil.GetTypeName( memberType ) );
-                return strUtil.Append( strUtil.Join( strUtil.Join( LinkHelper.AppPath, ownerPath ), memberUrl ), MvcConfig.Instance.UrlExt );
+                return strUtil.Append( LinkHelper.Join( LinkHelper.Join( LinkHelper.AppPath, ownerPath ), memberUrl ), MvcConfig.Instance.UrlExt );
             }
         }
 
@@ -121,7 +123,7 @@ namespace wojilu.Web.Mvc {
                 return "http://" + friendUrl + "." + SystemInfo.HostNoSubdomain;
             }
             else {
-                return strUtil.Append( strUtil.Join( LinkHelper.AppPath, friendUrl ), MvcConfig.Instance.UrlExt );
+                return strUtil.Append( LinkHelper.Join( LinkHelper.AppPath, friendUrl ), MvcConfig.Instance.UrlExt );
             }
         }
 

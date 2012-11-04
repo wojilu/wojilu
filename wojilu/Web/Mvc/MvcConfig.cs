@@ -45,6 +45,11 @@ namespace wojilu.Web.Mvc {
         public String UrlExt { get { return _urlExt; } }
 
         /// <summary>
+        /// 网址分隔符，默认是斜杠 "/"，可以配置成横杠 "-"
+        /// </summary>
+        public String UrlSeparator { get { return "-"; } }
+
+        /// <summary>
         /// 视图文件的后缀名。默认是.html，如果不为空，则带前缀.点号
         /// </summary>
         public String ViewExt { get { return _viewExt; } }

@@ -17,6 +17,8 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using wojilu.Web.Mvc;
+using wojilu.Web.Mvc.Routes;
 
 namespace wojilu {
 
@@ -92,21 +94,20 @@ namespace wojilu {
             if (pageNumber <= 1)
                 return url + ext + query;
             else
-                return url + "/p" + pageNumber + ext + query;
+                return url + MvcConfig.Instance.UrlSeparator + "p" + pageNumber + ext + query;
         }
 
         private static String getPageNumberLabel( String url ) {
 
             if (strUtil.IsNullOrEmpty( url )) return "";
 
-            char separator = '/';
-            String[] arr = url.Split( separator );
+            String[] arr = url.Split( RouteTool.Separator );
             if (arr.Length < 2) return "";
 
             String end = arr[arr.Length - 1];
 
             if (end.StartsWith( "p" ) && cvt.IsInt( end.Substring( 1 ) )) {
-                return separator + end;
+                return MvcConfig.Instance.UrlSeparator + end;
             }
 
             return "";
@@ -114,7 +115,7 @@ namespace wojilu {
 
         private static String getExt( String url ) {
             int dotIndex = url.LastIndexOf( "." );
-            int slashIndex = url.LastIndexOf( "/" );
+            int slashIndex = url.LastIndexOf( MvcConfig.Instance.UrlSeparator );
             if (dotIndex < 0) return "";
             if (dotIndex < slashIndex) return "";
             return url.Substring( dotIndex, (url.Length - dotIndex) );
