@@ -46,7 +46,7 @@
                 <td style="width:50px; vertical-align:top;">
                 <div class="menuMore" list="myMenuHot">
                     <img src="~img/edit.gif" /> 修改
-                    <ul id="myMenuHot" class="menuItems" style="width:90px;">                        <li><a href="#{x.EditLink}" class="frmBox">编辑此帖</a></li>                        <li><a href="#{x.DeleteLink}" class="frmBox">隐藏此帖</a></li>                        <li><a href="#{x.PinLink}" class="frmBox">固定位置</a></li>                    </ul>                        
+                    <ul id="myMenuHot" class="menuItems" style="width:90px;">                        <li><a href="#{x.EditLink}" class="frmBox">编辑此帖</a></li>                        <li><a href="#{x.DeleteLink}" class="frmBox">#{x.DeleteCmd}</a></li>                        <li><a href="#{x.PinLink}" class="frmBox">固定位置</a></li>                    </ul>                        
                 </div>
                 </td>            
             </tr>            
@@ -74,7 +74,7 @@
                     <td>
                         <div class="menuMore" list="myMenu#{x.Id}">
                             <img src="~img/edit.gif" />
-                            <ul id="myMenu#{x.Id}" class="menuItems" style="width:90px;">                                <li><a href="#{x.EditLink}" class="frmBox">编辑此帖</a></li>                                <li><a href="#{x.DeleteLink}" class="frmBox">隐藏此帖</a></li>                                <li><a href="#{x.PinLink}" class="frmBox">固定位置</a></li>                            </ul>       
+                            <ul id="myMenu#{x.Id}" class="menuItems" style="width:90px;">                                <li><a href="#{x.EditLink}" class="frmBox">编辑此帖</a></li>                                <li><a href="#{x.DeleteLink}" class="frmBox">#{x.DeleteCmd}</a></li>                                <li><a href="#{x.PinLink}" class="frmBox">固定位置</a></li>                            </ul>       
                         
                         </div>            
 
