@@ -27,6 +27,19 @@ namespace wojilu.Web.Mvc.Utils {
 
     internal class ActionRunner {
 
+        internal static MethodInfo getActionMethod( ControllerBase controller, String actionName ) {
+
+            MethodInfo x = controller.GetType().GetMethod( actionName );
+            if (x != null) return x;
+            if (MvcConfig.Instance.IsUrlToLower == false) return x;
+
+            Dictionary<String, ControllerAction> actionMap = ControllerMeta.GetController( controller.GetType().FullName ).ActionMaps;
+            foreach (KeyValuePair<String, ControllerAction> kv in actionMap) {
+                if (strUtil.EqualsIgnoreCase( kv.Key, actionName )) return kv.Value.MethodInfo;
+            }
+            return null;
+        }
+
         public static void runLayoutAction( MvcContext ctx, ControllerBase layoutController, aAction action ) {
             runAction( ctx, layoutController, action.Method, action, true );
         }

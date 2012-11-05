@@ -110,7 +110,7 @@ namespace wojilu.Web.Mvc {
                 cm.AttributeList.Add( a );
             }
 
-            MethodInfo[] mi = rft.GetMethods( cm.ControllerType );
+            MethodInfo[] mi = rft.GetMethodsAll( cm.ControllerType );
             cm.ActionMaps = loadActionMaps( mi );
             return cm;
         }
@@ -118,6 +118,9 @@ namespace wojilu.Web.Mvc {
         private static Dictionary<String, ControllerAction> loadActionMaps( MethodInfo[] mi ) {
             Dictionary<String, ControllerAction> dic = new Dictionary<String, ControllerAction>();
             foreach (MethodInfo m in mi) {
+                if (dic.ContainsKey( m.Name )) {
+                    continue;
+                }
                 dic.Add( m.Name, loadControllerAction( m ) );
             }
             return dic;

@@ -68,17 +68,31 @@ namespace wojilu.Web.Mvc {
 
             if (typeName == null) throw new NullReferenceException();
 
-            if (ObjectContext.Instance.TypeList.ContainsKey( typeName ) == false) return null;
-            Type controllerType = ObjectContext.Instance.TypeList[typeName] as Type;
-            return FindController( controllerType, ctx );
+            if (ObjectContext.Instance.TypeList.ContainsKey( typeName )) {
 
-            //IControllerFactory factory;
-            //factories.TryGetValue( typeName, out factory );
-            //if (factory == null) return null;
-            //ControllerBase result = factory.New();
-            //InjectController( result, ctx );
+                Type controllerType = ObjectContext.Instance.TypeList[typeName] as Type;
+                return FindController( controllerType, ctx );
 
-            //return result;
+            }
+            else if (MvcConfig.Instance.IsUrlToLower 
+                && ObjectContext.Instance.LowerTypeList.ContainsKey( typeName.ToLower() )
+                ) {
+
+                Type controllerType = ObjectContext.Instance.LowerTypeList[typeName.ToLower()] as Type;
+                return FindController( controllerType, ctx );
+            }
+
+            else {
+                return null;
+            }
+
+
+            //if (ObjectContext.Instance.TypeList.ContainsKey( typeName ) == false) return null;
+
+            //Type controllerType = ObjectContext.Instance.TypeList[typeName] as Type;
+            //return FindController( controllerType, ctx );
+
+
         }
 
         /// <summary>
@@ -94,13 +108,6 @@ namespace wojilu.Web.Mvc {
             if (result == null) return null;
             result.setContext( ctx );
             setControllerAppInfo( controllerType, result );
-
-            //IControllerFactory factory;
-            //factories.TryGetValue( controllerType.FullName, out factory );
-            //if (factory == null) return null;
-
-            //ControllerBase result = factory.New();
-            //InjectController( result, ctx );
 
             return result;
         }

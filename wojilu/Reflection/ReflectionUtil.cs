@@ -163,6 +163,15 @@ namespace wojilu.Reflection {
         }
 
         /// <summary>
+        /// 获取 public 实例方法，包括继承的方法。子对象的方法在前，父对象的方法在后。
+        /// </summary>
+        /// <param name="t"></param>
+        /// <returns></returns>
+        public static MethodInfo[] GetMethodsAll( Type t ) {
+            return t.GetMethods( BindingFlags.Public | BindingFlags.Instance );
+        }
+
+        /// <summary>
         /// 获取 public 实例方法，包括继承的方法
         /// </summary>
         /// <param name="t"></param>

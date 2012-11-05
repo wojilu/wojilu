@@ -59,11 +59,19 @@ namespace wojilu.DI {
             loadAssemblyAndTypes( ctx );
             resolveAndInject( ctx );
             addNamedObjects( ctx );
+            addLowerTypeList( ctx );
+        }
+
+        private static void addLowerTypeList( ObjectContext ctx ) {
+            foreach (KeyValuePair<String, Type> kv in ctx.TypeList) {
+                ctx.LowerTypeList.Add( kv.Key.ToLower(), kv.Value );
+            }
         }
 
         private Dictionary<String, Assembly> _assemblyList = new Dictionary<String, Assembly>();
         private Dictionary<String, Type[]> _assemblyTypes = new Dictionary<String, Type[]>();
         private Dictionary<String, Type> _typeList = new Dictionary<String, Type>();
+        private Dictionary<String, Type> _lowerTypeList = new Dictionary<String, Type>();
 
 
         private Dictionary<String, MapItem> _resolvedMap = new Dictionary<String, MapItem>();
@@ -103,6 +111,14 @@ namespace wojilu.DI {
         public Dictionary<String, Type> TypeList {
             get { return _typeList; }
             set { _typeList = value; }
+        }
+
+        /// <summary>
+        /// 所有纳入容器管理的类型(小写)
+        /// </summary>
+        public Dictionary<String, Type> LowerTypeList {
+            get { return _lowerTypeList; }
+            set { _lowerTypeList = value; }
         }
 
         /// <summary>

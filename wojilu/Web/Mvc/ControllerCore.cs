@@ -268,27 +268,6 @@ namespace wojilu.Web.Mvc {
         public void runAction( String actionName ) {
 
             ControllerRunner.runAction( controller, actionName );
-
-            //MethodInfo method = getMethod( actionName );
-            //if (method == null) {
-            //    throw new Exception( "action " + wojilu.lang.get( "exNotFound" ) );
-            //}
-
-            //ParameterInfo[] parameters = getParameters( method );
-            //if (parameters.Length == 1) {
-            //    if (parameters[0].ParameterType == typeof( String )) {
-            //        method.Invoke( controller, new object[] { HttpUtility.UrlDecode( ctx.route.query ) } );
-            //    }
-            //    else {
-            //        method.Invoke( controller, new object[] { ctx.route.id } );
-            //    }
-            //}
-            //else if (parameters.Length == 0) {
-            //    method.Invoke( controller, null );
-            //}
-            //else {
-            //    throw new Exception( "action " + wojilu.lang.get( "exNotFound" ) );
-            //}
         }
 
         /// <summary>
@@ -298,7 +277,7 @@ namespace wojilu.Web.Mvc {
         /// <returns></returns>
         public MethodInfo getMethod( String actionName ) {
 
-            return controller.GetType().GetMethod( actionName );
+            return ActionRunner.getActionMethod( controller, actionName );
         }
 
         /// <summary>

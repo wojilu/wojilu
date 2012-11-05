@@ -1092,7 +1092,8 @@ namespace wojilu.Web.Mvc {
             if (controllerType == base.GetType()) {
 
                 view( actionName );
-                MethodInfo method = base.GetType().GetMethod( actionName );
+
+                MethodInfo method = ActionRunner.getActionMethod( this, actionName );
                 if (method == null) {
                     throw new Exception( "action " + wojilu.lang.get( "exNotFound" ) );
                 }

@@ -35,10 +35,12 @@ namespace wojilu.Web.Mvc {
             if (controller.EndsWith( "Controller" )) controller = strUtil.TrimEnd( controller, "Controller" );
 
             controller = addAppId( controller, appId );
+            controller = processController( controller );
+
             result = Join( result, controller );
 
             if (id > 0) result = Join( result, id.ToString() );
-            if (!action.Equals( "Show" )) result = Join( result, action );
+            result = joinAction( action, result );
 
             result = result + MvcConfig.Instance.UrlExt;
             return result;
@@ -49,15 +51,28 @@ namespace wojilu.Web.Mvc {
             if (controller.EndsWith( "Controller" )) controller = strUtil.TrimEnd( controller, "Controller" );
 
             controller = addAppId( controller, appId );
+            controller = processController( controller );
+
             result = Join( result, controller );
 
             result = Join( result, param );
-            if (!action.Equals( "Show" )) result = Join( result, action );
+
+            result = joinAction( action, result );
 
             result = result + MvcConfig.Instance.UrlExt;
             return result;
         }
 
+        private static String processController( String controller ) {
+            if (MvcConfig.Instance.IsUrlToLower) return controller.ToLower();
+            return controller;
+        }
+
+        private static String joinAction( String action, String result ) {
+            if (action.Equals( "Show" )) return result;
+            if (MvcConfig.Instance.IsUrlToLower) return Join( result, action.ToLower() );
+            return Join( result, action );
+        }
 
         /// <summary>
         /// 获取成员根路径，比如 /space/zhangsan, /group/moon 等；如果是二级域名，返回 http://zhangsan.abc.com
@@ -102,6 +117,7 @@ namespace wojilu.Web.Mvc {
             return trimRootNamespace( strUtil.GetTypeFullName( controllerType ) )
                 .TrimStart( '.' )
                 .Replace( ".", MvcConfig.Instance.UrlSeparator );
+            //return MvcConfig.Instance.IsUrlToLower ? str.ToLower() : str;
         }
 
         internal static String GetMemberUrl( String memberTypeFullName, String memberUrl ) {

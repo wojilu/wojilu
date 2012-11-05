@@ -208,9 +208,23 @@ namespace wojilu.Web.Mvc.Routes {
                 String ns = this.getNamespace();
 
                 if (strUtil.IsNullOrEmpty( ns )) return false;
-                if (ns.Equals( "Admin" ) || ns.StartsWith( "Admin." ) || ns.EndsWith( ".Admin" )) return true;
+                return isAdminPrivate( ns );
+            }
+        }
 
+        private static bool isAdminPrivate( String ns ) {
+
+            if (MvcConfig.Instance.IsUrlToLower) {
+                if (ns.ToLower().Equals( "admin" )
+                    || ns.ToLower().StartsWith( "admin." )
+                    || ns.ToLower().EndsWith( ".admin" )) return true;
+                return ns.ToLower().IndexOf( ".admin." ) >= 0;
+            }
+            else {
+
+                if (ns.Equals( "Admin" ) || ns.StartsWith( "Admin." ) || ns.EndsWith( ".Admin" )) return true;
                 return ns.IndexOf( ".Admin." ) >= 0;
+
             }
         }
 

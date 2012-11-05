@@ -138,7 +138,7 @@ namespace wojilu.Web.Mvc.Utils {
         /// <returns></returns>
         public static MethodInfo getMethod( ControllerBase controller, String actionName ) {
 
-            return controller.GetType().GetMethod( actionName );
+            return ActionRunner.getActionMethod( controller, actionName );
         }
 
         /// <summary>
