@@ -224,6 +224,8 @@
     <Compile Include="Forum\Service\SysForumTopicService.cs" />
     <Compile Include="Photo\Domain\PhotoLike.cs" />
     <Compile Include="Photo\Interface\IPhotoService.cs" />
+    <Compile Include="Photo\Interface\IPhotoLikeService.cs" />
+    <Compile Include="Photo\Service\PhotoLikeService.cs" />
     <Compile Include="Photo\Service\PhotoService.cs" />
     <Compile Include="Poll\Domain\PollApp.cs" />
     <Compile Include="Poll\Domain\PollComment.cs" />

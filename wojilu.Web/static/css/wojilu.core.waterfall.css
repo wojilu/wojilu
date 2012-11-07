@@ -16,8 +16,8 @@ body {background:url("../img/m/waterfall-bg.gif");}
 .wfpost { list-style:none; width:200px; margin:5px 25px 10px 0px; box-shadow:0px 1px 2px #aaa; background:#fff; text-align:center; border-radius:3px;border-width:1px;border-color:#E2E0E1 #D8D5D6 #C7C4C5;z-index:10px;}
 .wfpost-pic { margin:10px;}
     .wfpost-pic img { border-radius:4px;max-width:170px;height:170px;margin-top:5px;}
-    .wfpost-name { color:#666; margin-top:3px; text-align:left;}
-    .wfpost-pins-likes { text-align:left; color:#999;}
+    .wfpost-name { color:#666; margin-top:3px; text-align:left; width:160px;overflow:hidden;text-overflow:clip;margin-left:5px; }
+    .wfpost-pins-likes { text-align:left; color:#999; margin-left:5px;}
 .wfpost-info { background:#f9f9f9; padding:10px; text-align:left; color:#aaa;}
 .wfpost-info .wfpost-face {width:35px;border-radius:4px;}
 .wfpost-info img {width:30px; height:30px; margin-right:5px;border-radius:3px;}

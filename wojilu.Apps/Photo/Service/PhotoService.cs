@@ -26,7 +26,9 @@ namespace wojilu.Apps.Photo.Service {
         }
 
 
-
+        public PhotoApp GetByUser( int userId ) {
+            return PhotoApp.find( "OwnerId=" + userId ).first();
+        }
 
         public List<PhotoApp> GetAppAll() {
             return PhotoApp.findAll();

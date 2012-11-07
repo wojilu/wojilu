@@ -22,15 +22,23 @@ namespace wojilu.Apps.Photo.Interface {
 
         int GetCountByUser( int userId );
         PhotoPost GetFirst( PhotoPost post );
-        DataPage<PhotoPost> GetFriendsPhoto( int userId, int friendId );
         List<IBinderValue> GetMyNew( int count, int userId );
         PhotoPost GetNext( PhotoPost post );
         PhotoPost GetPre( PhotoPost post );
 
+        List<PhotoPost> GetByAlbum( int albumId, int count );
+        List<PhotoPost> GetNew( int userId, int count );
+        List<PhotoPost> GetNew( int count );
+
+        DataPage<PhotoPost> GetFriendsPhoto( int userId, int friendId );
         DataPage<PhotoPost> GetSingle( int ownerId, int id );
         DataPage<PhotoPost> GetPostPage( int ownerId, int appId, int pageSize );
         DataPage<PhotoPost> GetPostPageByAlbum( int ownerId, int appId, int albumId, int pageSize );
         DataPage<PhotoPost> GetByUser( int userId, int pageSize );
+        DataPage<PhotoPost> GetFollowing( int userId, int pageSize );
+
+        DataPage<PhotoPost> GetShowByUser( int userId, int pageSize );
+        DataPage<PhotoPost> GetShowByUser( int userId, int categoryId, int pageSize );
 
         Result CreatePost( Result uploadResult, String photoName, int albumId, wojilu.Web.Context.MvcContext ctx );
         Result CreatePost( PhotoPost post, PhotoApp app );
@@ -44,6 +52,10 @@ namespace wojilu.Apps.Photo.Interface {
         void DeletePosts( String ids, List<PhotoPost> list );
 
         void CreatePostTemp( PhotoPost post );
+
+
+        Boolean IsPin( int userId, PhotoPost x );
+        void SavePin( PhotoPost x, PhotoPost postedPhoto, String tagList );
     }
 
 }

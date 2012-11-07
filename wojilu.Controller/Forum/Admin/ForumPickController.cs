@@ -76,12 +76,14 @@ namespace wojilu.Web.Controller.Forum.Admin {
         }
 
         private void bindPickCustom( MergedPost x, IBlock block, int index ) {
+
             block.Set( "x.Id", index );
             block.Set( "x.Title", x.Title );
             block.Set( "x.Summary", x.Summary );
             block.Set( "x.LinkShow", x.Link );
 
             block.Set( "x.EditLink", to( EditPin, index ) );
+            block.Set( "x.DeleteCmd", "取消固定" );
             block.Set( "x.DeleteLink", to( DeletePinConfirm, index ) );
             block.Set( "x.PinLink", to( EditPin, index ) );
 
@@ -91,6 +93,7 @@ namespace wojilu.Web.Controller.Forum.Admin {
         }
 
         private void bindPickTopic( MergedPost x, IBlock block, int index ) {
+
             block.Set( "x.Id", index );
             block.Set( "x.Title", x.Title );
             block.Set( "x.Summary", x.Summary );
@@ -98,6 +101,7 @@ namespace wojilu.Web.Controller.Forum.Admin {
             block.Set( "x.LinkShow", alink.ToAppData( x.Topic ) );
 
             block.Set( "x.EditLink", to( EditTopic, x.Topic.Id ) );
+            block.Set( "x.DeleteCmd", "隐藏此帖" );
             block.Set( "x.DeleteLink", to( DeleteTopicConfirm, x.Topic.Id ) );
             block.Set( "x.PinLink", to( PinTopic, x.Topic.Id ) );
 

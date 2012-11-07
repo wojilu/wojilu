@@ -97,7 +97,7 @@ namespace wojilu.Web.Controller.Photo {
             }
             else {
                 block.Set( "x.LikedCss", "wfpost-like" );
-                block.Set( "x.LikeName", "喜欢" );
+                block.Set( "x.LikeName", "<i class=\"icon-heart icon-white\"></i> 喜欢" );
             }
         }
 

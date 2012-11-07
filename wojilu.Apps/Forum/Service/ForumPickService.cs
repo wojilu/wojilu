@@ -110,7 +110,7 @@ namespace wojilu.Apps.Forum.Service {
         public String GetIndexIds( int appId, int index ) {
 
             return ForumPick
-                .find( "AppId=" + appId + " and IsPin=1 and PinIndex<>"+index ).get( "PinIndex" );
+                .find( "AppId=" + appId + " and IsPin=1 and PinIndex<>" + index ).get( "PinIndex" );
         }
 
         public void AddPinTopic( ForumTopic topic, int index ) {

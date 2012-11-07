@@ -30,11 +30,13 @@ namespace wojilu.Apps.Photo.Service {
         public virtual IFriendService friendService { get; set; }
         public virtual IPickedService pickedService { get; set; }
         public virtual IUserIncomeService incomeService { get; set; }
+        public virtual IFollowerService followerService { get; set; }
 
         public PhotoPostService() {
             friendService = new FriendService();
             pickedService = new PickedService();
             incomeService = new UserIncomeService();
+            followerService = new FollowerService();
         }
 
         public virtual DataPage<PhotoPost> GetPostPage( int ownerId, int appId, int pageSize ) {
@@ -137,13 +139,19 @@ namespace wojilu.Apps.Photo.Service {
         }
 
         public virtual List<IBinderValue> GetMyNew( int count, int userId ) {
-            if (count <= 0) count = 10;
-            List<PhotoPost> posts = db.find<PhotoPost>( "Creator.Id=" + userId + " and AppId>0 and SaveStatus=" + SaveStatus.Normal ).list( count );
-            return SysPhotoService.populatePhoto( posts );
+            return SysPhotoService.populatePhoto( GetNew( userId, count ) );
         }
 
         public virtual DataPage<PhotoPost> GetByUser( int userId, int pageSize ) {
             return PhotoPost.findPage( "OwnerId=" + userId, pageSize );
+        }
+
+        public virtual DataPage<PhotoPost> GetShowByUser( int userId, int pageSize ) {
+            return PhotoPost.findPage( "SysCategoryId>0 and  SaveStatus=" + SaveStatus.Normal + " and OwnerId=" + userId, pageSize );
+        }
+
+        public virtual DataPage<PhotoPost> GetShowByUser( int userId, int categoryId, int pageSize ) {
+            return PhotoPost.findPage( "SysCategoryId>0 and CategoryId=" + categoryId + " and SaveStatus=" + SaveStatus.Normal + " and OwnerId=" + userId, pageSize );
         }
 
         public virtual void UpdateAlbum( int categoryId, String ids, int ownerId, int appId ) {
@@ -330,6 +338,70 @@ namespace wojilu.Apps.Photo.Service {
             album.DataCount = count;
             db.update( album, "DataCount" );
         }
+
+        public List<PhotoPost> GetByAlbum( int albumId, int count ) {
+            return PhotoPost.find( "CategoryId=" + albumId + " and SaveStatus=" + SaveStatus.Normal ).list( count );
+        }
+
+        public List<PhotoPost> GetNew( int userId, int count ) {
+            if (count <= 0) count = 10;
+            return db.find<PhotoPost>( "Creator.Id=" + userId + " and SysCategoryId>0 and AppId>0 and SaveStatus=" + SaveStatus.Normal ).list( count );
+        }
+
+        public List<PhotoPost> GetNew( int count ) {
+            if (count <= 0) count = 10;
+            return db.find<PhotoPost>( "SysCategoryId>0 and SaveStatus=" + SaveStatus.Normal ).list( count );
+        }
+
+        public DataPage<PhotoPost> GetFollowing( int userId, int pageSize ) {
+            String ids = followerService.GetFollowingIds( userId );
+            ids = strUtil.HasText( ids ) ? ids + "," + userId : userId.ToString();
+            return PhotoPost.findPage( "OwnerId in (" + ids + ") and SaveStatus=" + SaveStatus.Normal, pageSize );
+        }
+
+        public bool IsPin( int userId, PhotoPost x ) {
+
+            String condition = "OwnerId=" + userId + " and ";
+            condition += x.RootId > 0
+                ? "(RootId=" + x.Id + " or RootId=" + x.RootId + ")"
+                : "RootId=" + x.Id;
+
+            return (x.OwnerId == userId || PhotoPost.find( condition ).first() != null);
+
+        }
+
+
+
+
+        public void SavePin( PhotoPost x, PhotoPost photo, String tagList ) {
+
+
+            populatePostInfo( photo, x );
+
+
+            photo.insert();
+            photo.Tag.Save( tagList );
+            // TODO ¶¯Ì¬ÏûÏ¢
+
+            x.Pins = PhotoPost.count( "RootId=" + x.Id + " or ParentId=" + x.Id );
+            x.update( "Pins" );
+
+            User user = photo.Creator;
+            user.Pins = PhotoPost.count( "OwnerId=" + user.Id );
+            user.update( "Pins" );
+        }
+
+        private void populatePostInfo( PhotoPost photo, PhotoPost x ) {
+
+            photo.ParentId = x.Id;
+            photo.RootId = x.RootId > 0 ? x.RootId : x.Id;
+
+            photo.SysCategoryId = x.SysCategoryId;
+
+            photo.Title = x.Title;
+            photo.DataUrl = x.DataUrl;
+        }
+
 
     }
 

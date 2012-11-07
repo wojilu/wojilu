@@ -22,14 +22,19 @@ namespace wojilu.Web.Controller.Photo.Wf {
         public IPhotoAlbumService categoryService { get; set; }
         public IPhotoPostService postService { get; set; }
         public IPickedService pickedService { get; set; }
-        public IFollowerService followerService { get; set; }
+        public IPhotoService photoService { get; set; }
+        public ISysPhotoService sysPostService { get; set; }
+
+        public PhotoLikeService likeService { get; set; }
 
         public HomeController() {
             userService = new UserService();
             categoryService = new PhotoAlbumService();
             postService = new PhotoPostService();
             pickedService = new PickedService();
-            followerService = new FollowerService();
+            likeService = new PhotoLikeService();
+            photoService = new PhotoService();
+            sysPostService = new SysPhotoService();
 
             HideLayout( typeof( wojilu.Web.Controller.Photo.LayoutController ) );
         }
@@ -58,7 +63,7 @@ namespace wojilu.Web.Controller.Photo.Wf {
                 set( "clsFollow", "btnFollow" );
             }
 
-            Boolean isLiked = PhotoLike.find( "UserId=" + ctx.viewer.Id + " and PostId=" + id ).first() != null;
+            Boolean isLiked = likeService.IsLiked( ctx.viewer.Id, id );
 
             List<int> ids = new List<int>();
             if (isLiked) {
@@ -102,7 +107,7 @@ namespace wojilu.Web.Controller.Photo.Wf {
             IBlock block = getBlock( "cposts" );
             if (post.PhotoAlbum == null) return;
 
-            List<PhotoPost> list = PhotoPost.find( "CategoryId=" + post.PhotoAlbum.Id + " and SaveStatus=" + SaveStatus.Normal ).list( 9 );
+            List<PhotoPost> list = postService.GetByAlbum( post.PhotoAlbum.Id, 9 );
             foreach (PhotoPost x in list) {
                 PhotoBinder.BindPostSingle( ctx, block, x, new List<int>() );
                 block.Next();
@@ -111,7 +116,7 @@ namespace wojilu.Web.Controller.Photo.Wf {
         }
 
         private void bindOtherPosts() {
-            List<PhotoPost> list = PhotoPost.find( "SaveStatus=" + SaveStatus.Normal ).list( 15 );
+            List<PhotoPost> list = postService.GetNew( 15 );
             IBlock block = getBlock( "xposts" );
             foreach (PhotoPost x in list) {
                 PhotoBinder.BindPostSingle( ctx, block, x, new List<int>() );
@@ -126,7 +131,7 @@ namespace wojilu.Web.Controller.Photo.Wf {
 
             User u = ctx.viewer.obj as User;
 
-            PhotoApp app = PhotoApp.find( "OwnerId=" + u.Id ).first();
+            PhotoApp app = photoService.GetByUser( u.Id );
             if (app == null) {
                 echoError( "请先添加PhotoApp" );
                 return;
@@ -156,9 +161,7 @@ namespace wojilu.Web.Controller.Photo.Wf {
             }
 
             // 关注的图片
-            String ids = followerService.GetFollowingIds( ctx.viewer.Id );
-            ids = strUtil.HasText( ids ) ? ids + "," + ctx.viewer.Id : ctx.viewer.Id.ToString();
-            DataPage<PhotoPost> list = PhotoPost.findPage( "OwnerId in (" + ids + ") and SaveStatus=" + SaveStatus.Normal, 20 );
+            DataPage<PhotoPost> list = postService.GetFollowing( ctx.viewer.Id, 20 );
 
             // 2) 或者超过实际页数，也不再自动翻页
             if (CurrentRequest.getCurrentPage() > list.PageCount && list.PageCount > 0) {
@@ -186,7 +189,7 @@ namespace wojilu.Web.Controller.Photo.Wf {
                 return;
             }
 
-            DataPage<PhotoPost> list = PhotoPost.findPage( "SaveStatus=" + SaveStatus.Normal, 20 );
+            DataPage<PhotoPost> list = sysPostService.GetShowRecent( 20 );
 
             // 2) 或者超过实际页数，也不再自动翻页
             if (CurrentRequest.getCurrentPage() > list.PageCount && list.PageCount > 0) {
@@ -215,7 +218,7 @@ namespace wojilu.Web.Controller.Photo.Wf {
                 return;
             }
 
-            DataPage<PhotoPost> list = PhotoPost.findPage( "SaveStatus=" + SaveStatus.Normal + " and SysCategoryId=" + categoryId, 20 );
+            DataPage<PhotoPost> list = sysPostService.GetShowByCategory( categoryId, 20 );
 
             // 2) 或者超过实际页数，也不再自动翻页
             if (CurrentRequest.getCurrentPage() > list.PageCount && list.PageCount > 0) {
@@ -245,7 +248,7 @@ namespace wojilu.Web.Controller.Photo.Wf {
                 return;
             }
 
-            DataPage<PhotoPost> list = PhotoPost.findPage( "SaveStatus=" + SaveStatus.Normal + " order by Likes desc, Pins desc, Hits desc, Replies desc", 20 );
+            DataPage<PhotoPost> list = sysPostService.GetShowHot( 20 );
 
             // 2) 或者超过实际页数，也不再自动翻页
             if (CurrentRequest.getCurrentPage() > list.PageCount && list.PageCount > 0) {
@@ -275,7 +278,7 @@ namespace wojilu.Web.Controller.Photo.Wf {
                 return;
             }
 
-            DataPage<PhotoPost> list = pickedService.GetAll( 20 );
+            DataPage<PhotoPost> list = pickedService.GetShowAll( 20 );
 
             // 2) 或者超过实际页数，也不再自动翻页
             if (CurrentRequest.getCurrentPage() > list.PageCount && list.PageCount > 0) {
@@ -291,60 +294,32 @@ namespace wojilu.Web.Controller.Photo.Wf {
         [HttpPost, Login, Data( typeof( PhotoPost ) )]
         public void Like( int postId ) {
 
-            PhotoLike p = PhotoLike.find( "PostId=:pid and UserId=:uid" )
-                .set( "pid", postId )
-                .set( "uid", ctx.viewer.Id )
-                .first();
+            Boolean isLiked = likeService.IsLiked( ctx.viewer.Id, postId );
 
-            if (p != null) {
-
-                echoText( "对不起，已经收藏" );
+            if (isLiked) {
+                echoText( "对不起，已经喜欢" );
             }
             else {
 
                 PhotoPost post = ctx.Get<PhotoPost>();
-
-                PhotoLike x = new PhotoLike();
-                x.Post = post;
-                x.User = ctx.viewer.obj as User;
-                x.insert();
-
-                post.Likes = PhotoLike.count( "PostId=" + postId );
-                post.update();
-
-                User user = ctx.viewer.obj as User;
-                user.Likes = PhotoLike.count( "UserId=" + user.Id );
-                user.update( "Likes" );
+                likeService.Like( ctx.viewer.obj as User, post );
 
                 echoAjaxOk();
-
             }
         }
 
         [HttpPost, Login, Data( typeof( PhotoPost ) )]
         public void UnLike( int postId ) {
 
-            PhotoPost post = ctx.Get<PhotoPost>();
+            Boolean isLiked = likeService.IsLiked( ctx.viewer.Id, postId );
 
-            PhotoLike p = PhotoLike.find( "PostId=:pid and UserId=:uid" )
-                .set( "pid", postId )
-                .set( "uid", ctx.viewer.Id )
-                .first();
-
-            if (p == null) {
-
-                echoText( "对不起，尚未收藏" );
+            if (!isLiked) {
+                echoText( "对不起，尚未喜欢" );
             }
             else {
+                PhotoPost post = ctx.Get<PhotoPost>();
 
-                p.delete();
-
-                post.Likes = PhotoLike.count( "PostId=" + postId );
-                post.update();
-
-                User user = ctx.viewer.obj as User;
-                user.Likes = PhotoLike.count( "UserId=" + user.Id );
-                user.update( "Likes" );
+                likeService.UnLike( ctx.viewer.obj as User, post );
 
                 echoAjaxOk();
 
@@ -360,12 +335,7 @@ namespace wojilu.Web.Controller.Photo.Wf {
 
             PhotoPost x = ctx.Get<PhotoPost>();
 
-            String condition = "OwnerId=" + ctx.viewer.Id + " and ";
-            condition += x.RootId > 0
-                ? "(RootId=" + postId + " or RootId=" + x.RootId + ")"
-                : "RootId=" + postId;
-
-            Boolean isPin = (x.OwnerId == ctx.viewer.Id || PhotoPost.find( condition ).first() != null);
+            Boolean isPin = postService.IsPin( ctx.viewer.Id, x );
             String pinInfo = isPin ? "<div class='wfWarning'>提醒：您已经收集过本图片</div>" : "";
             set( "pinInfo", pinInfo );
 
@@ -380,21 +350,34 @@ namespace wojilu.Web.Controller.Photo.Wf {
         public void RepinSave( int postId ) {
 
             PhotoPost x = ctx.Get<PhotoPost>();
+            PhotoPost photo = getFormPosted();
 
-            PhotoPost photo = newPost( x );
+            postService.SavePin( x, photo, ctx.Post( "tagList" ) );
+        }
 
-            photo.insert();
-            photo.Tag.Save( ctx.Post( "tagList" ) );
-            // TODO 动态消息
+        private PhotoPost getFormPosted() {
 
-            x.Pins = PhotoPost.count( "RootId=" + postId + " or ParentId=" + postId );
-            x.update( "Pins" );
+            PhotoPost photo = new PhotoPost();
+
+            PhotoAlbum album = categoryService.GetById( ctx.PostInt( "categoryId" ) );
+
+            photo.PhotoAlbum = album;
+            photo.Description = ctx.Post( "description" );
+            photo.AppId = album.AppId;
 
             User user = ctx.viewer.obj as User;
-            user.Pins = PhotoPost.count( "OwnerId=" + user.Id );
-            user.update( "Pins" );
 
+            photo.Creator = user;
+            photo.CreatorUrl = user.Url;
+            photo.OwnerId = user.Id;
+            photo.OwnerUrl = user.Url;
+            photo.OwnerType = user.GetType().FullName;
+
+            photo.Ip = ctx.Ip;
+
+            return photo;
         }
+
 
 
         [Login]
@@ -423,46 +406,12 @@ namespace wojilu.Web.Controller.Photo.Wf {
         }
 
         private int getAlbumAppId( int userId ) {
-            PhotoApp app = PhotoApp.find( "OwnerId=" + userId ).first();
+            PhotoApp app = photoService.GetByUser( userId );
             if (app == null) return 0;
             return app.Id;
+
         }
 
-        private PhotoPost newPost( PhotoPost x ) {
-
-            PhotoPost photo = new PhotoPost();
-
-            PhotoAlbum album = categoryService.GetById( ctx.PostInt( "categoryId" ) );
-
-            photo.PhotoAlbum = album;
-            photo.Description = ctx.Post( "description" );
-
-            //----------------------------------------------------------
-
-            photo.ParentId = x.Id;
-            photo.RootId = x.RootId > 0 ? x.RootId : x.Id;
-            photo.AppId = album.AppId;
-
-            //----------------------------------------------------------
-
-            photo.SysCategoryId = x.SysCategoryId;
-
-            User user = ctx.viewer.obj as User;
-
-            photo.Creator = user;
-            photo.CreatorUrl = user.Url;
-            photo.OwnerId = user.Id;
-            photo.OwnerUrl = user.Url;
-            photo.OwnerType = user.GetType().FullName;
-
-            photo.Title = x.Title;
-            photo.DataUrl = x.DataUrl;
-            photo.Ip = ctx.Ip;
-
-            return photo;
-        }
-
-        //------------------------------------------------------------------------------------------
 
 
     }
