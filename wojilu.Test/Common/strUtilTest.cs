@@ -334,7 +334,7 @@ namespace wojilu.Test.Common {
         }
 
         private static int getPage( string url ) {
-            return ObjectPage.GetPageByUrl( url );
+            return PageHelper.GetPageByUrl( url );
         }
 
         [Test]

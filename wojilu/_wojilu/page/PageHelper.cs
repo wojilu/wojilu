@@ -22,30 +22,31 @@ using wojilu.Web;
 using wojilu.Web.Mvc;
 using wojilu.Web.Mvc.Routes;
 
-namespace wojilu.ORM {
+namespace wojilu {
 
     /// <summary>
-    /// 分页查询的结果集的处理，确定当前页、生成分页栏 html 等 
+    /// 分页查询的结果集的处理，确定当前页、生成分页栏 html 、生成链接、追加页码等 
     /// </summary>
     /// <example>
-    /// 只要提供三个参数，就可以获取分页bar<br/>
+    /// 静态方法：PageHelper 提供了多个静态方法，请看方法的注释。<br/>
+    /// 实例方法：只要提供三个参数，就可以获取分页bar<br/>
     /// 1）recordCount (记录总数)  <br/>
     /// 2）pageSize (每页数量)  <br/>
     /// 3）currentPage (当前页码)  <br/>
-    /// 然后通过构造函数给 ObjectPage 赋值，然后通过它的 PageBar 属性就可以得到分页栏了。
+    /// 然后通过构造函数给 PageHelper 赋值，然后通过它的 PageBar 属性就可以得到分页栏了。
     /// int recordCount = 302; 
     /// int pageSize = 15;
     /// int currentPage = ctx.route.page;
-    /// wojilu.ORM.ObjectPage op = new wojilu.ORM.ObjectPage( recordCount, pageSize, currentPage );
+    /// wojilu.PageHelper op = new wojilu.PageHelper( recordCount, pageSize, currentPage );
     /// set( "page", op.PageBar );
     /// </example>
     [Serializable]
-    public class ObjectPage {
+    public class PageHelper {
 
-        public ObjectPage() {
+        public PageHelper() {
         }
 
-        public ObjectPage( int recordCount, int pageSize, int currentPage ) {
+        public PageHelper( int recordCount, int pageSize, int currentPage ) {
 
             this.setSize( pageSize );
             this.RecordCount = recordCount;
@@ -77,30 +78,6 @@ namespace wojilu.ORM {
             return this.PageCount;
         }
 
-        public static int GetPageByUrl( String url ) {
-            if (strUtil.IsNullOrEmpty( url )) return 1;
-
-            String[] arr = url.Split( '/' );
-
-            String[] arrItem = arr[arr.Length - 1].Split( '.' );
-
-            String strPage = arrItem[0];
-
-            if (strPage.StartsWith( "p" ) == false) return 1;
-            String strNo = strPage.TrimStart( 'p' );
-            if (cvt.IsInt( strNo ) == false) return 1;
-
-            return cvt.ToInt( strNo );
-        }
-
-        public static int GetPageCount( int recordCount, int pageSize ) {
-            int pcount = recordCount / pageSize;
-            int imod = recordCount % pageSize;
-            if (imod > 0) pcount = pcount + 1;
-
-            return pcount;
-        }
-
         public void resetCurrent() {
             if (this.getCurrent() <= 1) {
                 this.setCurrent( 1 );
@@ -127,68 +104,6 @@ namespace wojilu.ORM {
             return GetSimplePageBar( this.getPath(), this.getCurrent(), this.PageCount );
         }
 
-        /// <summary>
-        /// 获取简易形式的分页栏
-        /// </summary>
-        /// <param name="url"></param>
-        /// <param name="currentPage"></param>
-        /// <param name="pageCount"></param>
-        /// <returns></returns>
-        public static String GetSimplePageBar( String url, int currentPage, int pageCount ) {
-            return GetSimplePageBar( url, currentPage, pageCount, false );
-        }
-
-        /// <summary>
-        /// 获取简易形式的分页栏
-        /// </summary>
-        /// <returns></returns>
-        public static String GetSimplePageBar( String url, int currentPage, int pageCount, Boolean isHtml ) {
-            StringBuilder sb = new StringBuilder();
-            sb.Append( "<div class=\"turnpage\" style='text-align:center'>" );
-
-            if (currentPage > 1) {
-                sb.Append( "<a href=\"" );
-                appendLinkPrivate( url, sb, currentPage - 1, isHtml );
-                sb.Append( "\" class=\"pagePrev\">&laquo;" + lang.get( "prevPage" ) + "</a>&nbsp;" );
-            }
-            if (currentPage <= 8) {
-                loopPrivate( url, sb, 1, currentPage, isHtml );
-            }
-            else {
-                loopPrivate( url, sb, 1, 3, isHtml );
-                sb.Append( "...&nbsp;" );
-                if ((pageCount - currentPage) < 3) {
-                    loopPrivate( url, sb, pageCount - 6, currentPage, isHtml );
-                }
-                else {
-                    loopPrivate( url, sb, currentPage - 3, currentPage, isHtml );
-                }
-            }
-            sb.Append( "<span class=\"currentPageNo\">" );
-            sb.Append( currentPage );
-            sb.Append( "</span>&nbsp;" );
-            if ((pageCount - currentPage) <= 7) {
-                loopPrivate( url, sb, currentPage + 1, pageCount + 1, isHtml );
-            }
-            else {
-                if ((currentPage + 3) < 7) {
-                    loopPrivate( url, sb, currentPage + 1, 8, isHtml );
-                }
-                else {
-                    loopPrivate( url, sb, currentPage + 1, currentPage + 4, isHtml );
-                }
-                sb.Append( "...&nbsp;" );
-                loopPrivate( url, sb, pageCount - 1, pageCount + 1, isHtml );
-            }
-            if (currentPage < pageCount) {
-                sb.Append( "<a href=\"" );
-                appendLinkPrivate( url, sb, currentPage + 1, isHtml );
-                sb.Append( "\" class=\"pageNext\">" + lang.get( "nextPage" ) + "&raquo;</a>&nbsp;" );
-            }
-            sb.Append( "</div>" );
-            return sb.ToString();
-        }
-
         private static void appendLinkPrivate( String url, StringBuilder sb, int currentPage, Boolean isHtml ) {
             if (isHtml) {
                 appendHtmlLink( url, sb, currentPage );
@@ -213,7 +128,7 @@ namespace wojilu.ORM {
 
             StringBuilder sb = new StringBuilder();
 
-            sb.Append( "<div class=\"turnpage\">" );
+            sb.AppendFormat( "<div class=\"turnpage\" data-records={0} data-pages={1} data-page-size={2}>", RecordCount, PageCount, this.getSize() );
             sb.AppendFormat( lang.get( "pageStats" ), RecordCount, this.getSize() );
 
 
@@ -284,11 +199,11 @@ namespace wojilu.ORM {
         }
 
         private static void appendLink( String url, StringBuilder sb, int pageNo ) {
-            sb.Append( PageHelper.AppendNo( url, pageNo ) );
+            sb.Append( AppendNo( url, pageNo ) );
         }
 
         private static void appendHtmlLink( String url, StringBuilder sb, int pageNo ) {
-            sb.Append( PageHelper.AppendHtmlNo( url, pageNo ) );
+            sb.Append( AppendHtmlNo( url, pageNo ) );
         }
 
         //----------------------------------------------------------
@@ -311,7 +226,193 @@ namespace wojilu.ORM {
             return PageBar;
         }
 
-        //-----------------------------------------------------------------------------------
+        //-----------------------------以下是静态方法------------------------------------------------------
+
+
+        /// <summary>
+        /// 计算分页的页码
+        /// </summary>
+        /// <param name="count">数据量</param>
+        /// <param name="pageSize">每页数量</param>
+        /// <returns>总计多少页</returns>
+        public static int GetPageIndex( int count, int pageSize ) {
+
+            if (count == 0) return 1;
+
+            int mod = count % pageSize;
+            if (mod == 0) return count / pageSize;
+
+            return count / pageSize + 1;
+        }
+
+        /// <summary>
+        /// "/html/2010/11/22/195.html" => "/html/2010/11/22/195_2.html"
+        /// </summary>
+        /// <param name="srcUrl"></param>
+        /// <param name="pageNumber"></param>
+        /// <returns></returns>
+        public static String AppendHtmlNo( String srcUrl, int pageNumber ) {
+
+            if (strUtil.IsNullOrEmpty( srcUrl )) return srcUrl;
+            if (pageNumber <= 1) return srcUrl;
+
+            int lastDot = srcUrl.LastIndexOf( '.' );
+            if (lastDot <= 0 || lastDot >= srcUrl.Length - 1) return srcUrl;
+
+            String path = srcUrl.Substring( 0, lastDot );
+            String ext = srcUrl.Substring( lastDot + 1, srcUrl.Length - lastDot - 1 );
+
+            return path + "_" + pageNumber + "." + ext;
+        }
+
+        /// <summary>
+        /// 在已有网址url后加上页码 Post/List.aspx=>Post/List/p6.aspx
+        /// </summary>
+        /// <param name="srcUrl">原始网址</param>
+        /// <param name="pageNumber">页码</param>
+        /// <returns></returns>
+        public static String AppendNo( String srcUrl, int pageNumber ) {
+
+            if (strUtil.IsNullOrEmpty( srcUrl )) return srcUrl;
+
+            String url = srcUrl;
+
+            // 查询字符串
+            int qIndex = url.IndexOf( "?" );
+            String query = "";
+            if (qIndex > 0) {
+                url = srcUrl.Substring( 0, qIndex );
+                query = srcUrl.Substring( qIndex, (srcUrl.Length - qIndex) );
+            }
+
+            String ext = getExt( url );
+
+            // 有扩展名
+            if (ext.Length > 0) {
+                url = strUtil.TrimEnd( url, ext );
+            }
+
+            String originalPage = getPageNumberLabel( url );
+            if (originalPage.Length > 0) url = strUtil.TrimEnd( url, originalPage );
+
+            if (pageNumber <= 1)
+                return url + ext + query;
+            else
+                return url + MvcConfig.Instance.UrlSeparator + "p" + pageNumber + ext + query;
+        }
+
+        private static String getPageNumberLabel( String url ) {
+
+            if (strUtil.IsNullOrEmpty( url )) return "";
+
+            String[] arr = url.Split( RouteTool.Separator );
+            if (arr.Length < 2) return "";
+
+            String end = arr[arr.Length - 1];
+
+            if (end.StartsWith( "p" ) && cvt.IsInt( end.Substring( 1 ) )) {
+                return MvcConfig.Instance.UrlSeparator + end;
+            }
+
+            return "";
+        }
+
+        private static String getExt( String url ) {
+            int dotIndex = url.LastIndexOf( "." );
+            int slashIndex = url.LastIndexOf( MvcConfig.Instance.UrlSeparator );
+            if (dotIndex < 0) return "";
+            if (dotIndex < slashIndex) return "";
+            return url.Substring( dotIndex, (url.Length - dotIndex) );
+        }
+
+
+
+        public static int GetPageByUrl( String url ) {
+            if (strUtil.IsNullOrEmpty( url )) return 1;
+
+            String[] arr = url.Split( '/' );
+
+            String[] arrItem = arr[arr.Length - 1].Split( '.' );
+
+            String strPage = arrItem[0];
+
+            if (strPage.StartsWith( "p" ) == false) return 1;
+            String strNo = strPage.TrimStart( 'p' );
+            if (cvt.IsInt( strNo ) == false) return 1;
+
+            return cvt.ToInt( strNo );
+        }
+
+        public static int GetPageCount( int recordCount, int pageSize ) {
+            int pcount = recordCount / pageSize;
+            int imod = recordCount % pageSize;
+            if (imod > 0) pcount = pcount + 1;
+
+            return pcount;
+        }
+
+        /// <summary>
+        /// 获取简易形式的分页栏
+        /// </summary>
+        /// <param name="url"></param>
+        /// <param name="currentPage"></param>
+        /// <param name="pageCount"></param>
+        /// <returns></returns>
+        public static String GetSimplePageBar( String url, int currentPage, int pageCount ) {
+            return GetSimplePageBar( url, currentPage, pageCount, false );
+        }
+
+        /// <summary>
+        /// 获取简易形式的分页栏
+        /// </summary>
+        /// <returns></returns>
+        public static String GetSimplePageBar( String url, int currentPage, int pageCount, Boolean isHtml ) {
+            StringBuilder sb = new StringBuilder();
+            sb.AppendFormat( "<div class=\"turnpage\" data-pages={0} style=\"text-align:center\">", pageCount );
+
+            if (currentPage > 1) {
+                sb.Append( "<a href=\"" );
+                appendLinkPrivate( url, sb, currentPage - 1, isHtml );
+                sb.Append( "\" class=\"pagePrev\">&laquo;" + lang.get( "prevPage" ) + "</a>&nbsp;" );
+            }
+            if (currentPage <= 8) {
+                loopPrivate( url, sb, 1, currentPage, isHtml );
+            }
+            else {
+                loopPrivate( url, sb, 1, 3, isHtml );
+                sb.Append( "...&nbsp;" );
+                if ((pageCount - currentPage) < 3) {
+                    loopPrivate( url, sb, pageCount - 6, currentPage, isHtml );
+                }
+                else {
+                    loopPrivate( url, sb, currentPage - 3, currentPage, isHtml );
+                }
+            }
+            sb.Append( "<span class=\"currentPageNo\">" );
+            sb.Append( currentPage );
+            sb.Append( "</span>&nbsp;" );
+            if ((pageCount - currentPage) <= 7) {
+                loopPrivate( url, sb, currentPage + 1, pageCount + 1, isHtml );
+            }
+            else {
+                if ((currentPage + 3) < 7) {
+                    loopPrivate( url, sb, currentPage + 1, 8, isHtml );
+                }
+                else {
+                    loopPrivate( url, sb, currentPage + 1, currentPage + 4, isHtml );
+                }
+                sb.Append( "...&nbsp;" );
+                loopPrivate( url, sb, pageCount - 1, pageCount + 1, isHtml );
+            }
+            if (currentPage < pageCount) {
+                sb.Append( "<a href=\"" );
+                appendLinkPrivate( url, sb, currentPage + 1, isHtml );
+                sb.Append( "\" class=\"pageNext\">" + lang.get( "nextPage" ) + "&raquo;</a>&nbsp;" );
+            }
+            sb.Append( "</div>" );
+            return sb.ToString();
+        }
+
 
         /// <summary>
         /// 在已有的翻页链接后，增加额外的分页码。采用query形式："?cp=***"
@@ -322,7 +423,7 @@ namespace wojilu.ORM {
         /// <returns></returns>
         public static String GetPageBarByLink( String lnk, int pageCount, int currentPage ) {
             StringBuilder sb = new StringBuilder();
-            sb.Append( "<div class=\"turnpage\">" );
+            sb.AppendFormat( "<div class=\"turnpage\" data-pages={0}>", pageCount );
 
             if (currentPage > 1) {
                 sb.Append( "<a href=\"" );
@@ -414,10 +515,10 @@ namespace wojilu.ORM {
 
             List<String> list = new List<String>();
 
-            int totalPages = ObjectPage.GetPageCount( recordCount, pageSize );
+            int totalPages = PageHelper.GetPageCount( recordCount, pageSize );
             if (pageWidth > totalPages) pageWidth = totalPages;
             for (int i = 1; i < pageWidth + 1; i++) {
-                String url = PageHelper.AppendNo( recentLink, i );
+                String url = AppendNo( recentLink, i );
                 list.Add( url );
             }
 
@@ -436,12 +537,12 @@ namespace wojilu.ORM {
 
             List<String> list = new List<String>();
 
-            int totalPages = ObjectPage.GetPageCount( recordCount, pageSize );
+            int totalPages = PageHelper.GetPageCount( recordCount, pageSize );
             int loopPages = totalPages - pageWidth;
 
             if (loopPages > totalPages) loopPages = totalPages;
             for (int i = 1; i < loopPages + 1; i++) {
-                String url = PageHelper.AppendNo( archiveLink, i );
+                String url = AppendNo( archiveLink, i );
                 list.Add( url );
             }
 

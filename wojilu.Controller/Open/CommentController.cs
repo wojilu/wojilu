@@ -62,7 +62,7 @@ namespace wojilu.Web.Controller.Open {
 
             String pageBar = "";
             if (datas.PageCount > 1) {
-                pageBar = new ObjectPage( datas.RecordCount, datas.Size, datas.Current ).GetSimplePageBar();
+                pageBar = new PageHelper( datas.RecordCount, datas.Size, datas.Current ).GetSimplePageBar();
             }
             set( "page", pageBar );
         }

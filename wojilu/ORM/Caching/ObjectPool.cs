@@ -56,7 +56,7 @@ namespace wojilu.ORM.Caching {
             }
         }
 
-        public static void AddPage( Type t, String condition, ObjectPage pager, IList list ) {
+        public static void AddPage( Type t, String condition, PageHelper pager, IList list ) {
             foreach (IObjectPool pool in pools) {
                 pool.AddPage( t, condition, pager, list );
             }
@@ -117,7 +117,7 @@ namespace wojilu.ORM.Caching {
             return null;
         }
 
-        public static IPageList FindPage( Type t, String condition, ObjectPage pager ) {
+        public static IPageList FindPage( Type t, String condition, PageHelper pager ) {
             foreach (IObjectPool pool in pools) {
                 IPageList result = pool.FindPage( t, condition, pager );
                 if (result != null) return result;

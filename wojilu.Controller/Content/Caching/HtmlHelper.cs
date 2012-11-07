@@ -54,7 +54,7 @@ namespace wojilu.Web.Controller.Content.Caching {
             foreach (String url in pagedUrls) {
                 String addrPaged = strUtil.Join( ctx.url.SiteAndAppPath, url );
                 String htmlPaged = makeHtml( addrPaged );
-                file.Write( HtmlHelper.GetPostPath( post, ObjectPage.GetPageByUrl( url ) ), htmlPaged );
+                file.Write( HtmlHelper.GetPostPath( post, PageHelper.GetPageByUrl( url ) ), htmlPaged );
             }
         }
 
@@ -90,11 +90,11 @@ namespace wojilu.Web.Controller.Content.Caching {
             String cpLink = ctx.link.To( new SectionController().Show, sectionId );
             String caLink = ctx.link.To( new SectionController().Archive, sectionId );
 
-            List<String> lnks = ObjectPage.GetPageLinks( cpLink, caLink, recordCount, 3, s.ListPostPerPage );
+            List<String> lnks = PageHelper.GetPageLinks( cpLink, caLink, recordCount, 3, s.ListPostPerPage );
 
             foreach (String url in lnks) {
 
-                int page = ObjectPage.GetPageByUrl( url );
+                int page = PageHelper.GetPageByUrl( url );
 
                 Boolean isArchive = url.IndexOf( "/Archive" ) > 0;
 

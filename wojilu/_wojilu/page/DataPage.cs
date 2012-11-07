@@ -282,7 +282,7 @@ namespace wojilu {
 
         public static DataPage<T> GetPage( List<T> list, int pageSize ) {
 
-            ObjectPage op = new ObjectPage();
+            PageHelper op = new PageHelper();
             if (pageSize <= 0) pageSize = 20;
             op.setSize( pageSize );
             op.RecordCount = list.Count;

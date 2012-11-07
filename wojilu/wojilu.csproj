@@ -129,7 +129,6 @@
     <Compile Include="Web\Utils\Emotions.cs" />
     <Compile Include="Web\Utils\WebHelpers.cs" />
     <Compile Include="_wojilu\IDto.cs" />
-    <Compile Include="_wojilu\PageHelper.cs" />
     <Compile Include="_wojilu\sys.cs" />
     <Compile Include="Data\TableBuilder\AccessTableBuilder.cs" />
     <Compile Include="Data\DbConfig.cs" />
@@ -311,7 +310,7 @@
     <Compile Include="IO\File.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="_wojilu\IPageList.cs">
+    <Compile Include="_wojilu\page\IPageList.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Common\LoginTime.cs">
@@ -360,7 +359,7 @@
     <Compile Include="ORM\Operation\FinderBase.cs" />
     <Compile Include="ORM\MetaList.cs" />
     <Compile Include="ORM\NoCacheDbFinder.cs" />
-    <Compile Include="_wojilu\DataPage.cs" />
+    <Compile Include="_wojilu\page\DataPage.cs" />
     <Compile Include="ORM\Utils\CacheUtil.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -436,7 +435,7 @@
     <Compile Include="ORM\ObjectInfo.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="ORM\ObjectPage.cs">
+    <Compile Include="_wojilu\page\PageHelper.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="ORM\Caching\ObjectPool.cs">
@@ -472,7 +471,7 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="ORM\xQuery.cs" />
-    <Compile Include="_wojilu\PageList.cs">
+    <Compile Include="_wojilu\page\DataPageInfo.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="_wojilu\PathHelper.cs" />

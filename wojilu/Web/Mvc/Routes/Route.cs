@@ -245,7 +245,7 @@ namespace wojilu.Web.Mvc.Routes {
         //--------------------------------------------------------------------------------------------------------------
 
         /// <summary>
-        /// 将实际映射到的目标path存入 httpContext，方便ObjectPage生成翻页链接
+        /// 将实际映射到的目标path存入 httpContext，方便 PageHelper 生成翻页链接
         /// </summary>
         /// <param name="path"></param>
         public static void setRoutePath( String path ) {

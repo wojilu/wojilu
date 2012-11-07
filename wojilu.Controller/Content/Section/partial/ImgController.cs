@@ -69,7 +69,7 @@ namespace wojilu.Web.Controller.Content.Section {
 
             Boolean isMakeHtml = HtmlHelper.IsMakeHtml( ctx );
             String postLink = alink.ToAppData( post, ctx );
-            String pageBar = ObjectPage.GetSimplePageBar( postLink, imgPage.Current, imgPage.PageCount, isMakeHtml );
+            String pageBar = PageHelper.GetSimplePageBar( postLink, imgPage.Current, imgPage.PageCount, isMakeHtml );
 
             set( "page", pageBar );
 

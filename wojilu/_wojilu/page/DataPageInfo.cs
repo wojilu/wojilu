@@ -1,4 +1,4 @@
-/*
+ï»¿/*
  * Copyright 2010 www.wojilu.com
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -20,14 +20,14 @@ using System.Collections;
 namespace wojilu {
 
     /// <summary>
-    /// ·ÖÒ³ºóµÄ½á¹û¼¯
+    /// åˆ†é¡µåçš„ç»“æœé›†ï¼Œéæ³›å‹å¯¹è±¡ã€‚æ³›å‹è¯·ç”¨ DataPage<T>
     /// </summary>
-    public class PageList : IPageList {
+    public class DataPageInfo : IPageList {
 
-        public PageList() {
+        public DataPageInfo() {
         }
 
-        public PageList( IList list ) {
+        public DataPageInfo( IList list ) {
             this.Results = list;
         }
 
@@ -39,7 +39,7 @@ namespace wojilu {
         private int _size;
 
         /// <summary>
-        /// µ±Ç°Ò³Âë
+        /// å½“å‰é¡µç 
         /// </summary>
         public int Current {
             get { return _current; }
@@ -47,7 +47,7 @@ namespace wojilu {
         }
 
         /// <summary>
-        /// Ã¿Ò³ÊıÁ¿
+        /// æ¯é¡µæ•°é‡
         /// </summary>
         public int Size {
             get { return _size; }
@@ -55,7 +55,7 @@ namespace wojilu {
         }
 
         /// <summary>
-        /// ÒÑ¾­·â×°ºÃµÄhtml·ÖÒ³À¸
+        /// å·²ç»å°è£…å¥½çš„htmlåˆ†é¡µæ 
         /// </summary>
         public String PageBar {
             get { return _pageBar; }
@@ -63,7 +63,7 @@ namespace wojilu {
         }
 
         /// <summary>
-        /// ×Ü¹²Ò³Êı
+        /// æ€»å…±é¡µæ•°
         /// </summary>
         public int PageCount {
             get { return _pageCount; }
@@ -71,7 +71,7 @@ namespace wojilu {
         }
 
         /// <summary>
-        /// ËùÓĞ¼ÇÂ¼Êı
+        /// æ‰€æœ‰è®°å½•æ•°
         /// </summary>
         public int RecordCount {
             get { return _recordCount; }
@@ -79,7 +79,7 @@ namespace wojilu {
         }
 
         /// <summary>
-        /// µ±Ç°Ò³µÄÊı¾İÁĞ±í
+        /// å½“å‰é¡µçš„æ•°æ®åˆ—è¡¨
         /// </summary>
         public IList Results {
             get { return _results; }
@@ -87,11 +87,11 @@ namespace wojilu {
         }
 
         /// <summary>
-        /// ·µ»ØÒ»¸ö¿ÕµÄ·ÖÒ³½á¹û¼¯
+        /// è¿”å›ä¸€ä¸ªç©ºçš„åˆ†é¡µç»“æœé›†
         /// </summary>
         /// <returns></returns>
-        public static PageList GetEmpty() {
-            PageList p = new PageList();
+        public static DataPageInfo GetEmpty() {
+            DataPageInfo p = new DataPageInfo();
             p.Results = new ArrayList();
             p.Current = 1;
             p.RecordCount = 0;

@@ -127,7 +127,7 @@ namespace wojilu.Web.Controller.Content.Section {
             content = strUtil.CloseHtml( content );
 
             Boolean isMakeHtml = HtmlHelper.IsMakeHtml( ctx );
-            content += ObjectPage.GetSimplePageBar( alink.ToAppData( post, ctx ), currentPage, arrContent.Length, isMakeHtml );
+            content += PageHelper.GetSimplePageBar( alink.ToAppData( post, ctx ), currentPage, arrContent.Length, isMakeHtml );
 
             setPagedUrls( post, arrContent.Length );
 

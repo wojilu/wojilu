@@ -52,7 +52,7 @@ namespace wojilu.ORM.Caching {
             addList( CacheKey.getQuery( t, sql, parameters ), objList );
         }
 
-        public void AddPage( Type t, String condition, ObjectPage pager, IList list ) {
+        public void AddPage( Type t, String condition, PageHelper pager, IList list ) {
             String key = CacheKey.getPageList( t, condition, pager.getSize(), pager.getCurrent() );
             addList( key, list );
         }
@@ -111,7 +111,7 @@ namespace wojilu.ORM.Caching {
             return getListFromCache( CacheKey.getQuery( type, _queryString, _namedParameters ), type );
         }
 
-        public IPageList FindPage( Type t, String condition, ObjectPage pager ) {
+        public IPageList FindPage( Type t, String condition, PageHelper pager ) {
             return null;
         }
 

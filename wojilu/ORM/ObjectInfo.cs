@@ -28,7 +28,7 @@ namespace wojilu.ORM {
 
         private int _cacheMinutes;
         private String _order;
-        private ObjectPage pager;
+        private PageHelper pager;
         private Boolean _findChild;
 
         private EntityInfo _entityInfo;
@@ -56,7 +56,7 @@ namespace wojilu.ORM {
         private void init() {
             _order = "desc";
             _findChild = true;
-            pager = new ObjectPage();
+            pager = new PageHelper();
         }
 
         public ObjectInfo Copy( ObjectInfo state ) {
@@ -133,7 +133,7 @@ namespace wojilu.ORM {
             }
         }
 
-        public ObjectPage Pager {
+        public PageHelper Pager {
             get { return pager; }
             set { pager = value; }
         }
