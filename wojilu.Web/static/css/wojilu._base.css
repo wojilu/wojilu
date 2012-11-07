@@ -207,6 +207,6 @@ body { background:#cee0ee}
 .footer-inner {padding-top:10px;}
 
 
-#backTop { display:none;position: fixed; bottom: 30px; right: 10px; z-index:1999 ; width: 71px;cursor:pointer;}
+#backTop { display:none;position: fixed; bottom: 20px; right: 20px; z-index:1999 ; width: 71px;cursor:pointer;}
 #backTop span { display: block; width: 71px; height: 24px; padding-top: 48px; background: url("../img/m/backTop.gif") no-repeat; text-align: center; color: #777; }
 #backTop span:hover { background: url("../img/m/backTop.gif") no-repeat -88px 0px; }

@@ -52,7 +52,7 @@ namespace wojilu.Web.Controller.Layouts {
 
         public override void Layout() {
 
-            load( "topNav", new TopNavController().Index );
+            load( "topNav", new TopNavController().IndexNew );
 
             bindSiteInfo();
             bindSiteSkin();

@@ -11724,7 +11724,8 @@ wojilu.tool = {
     	$(containerClassOrId+' a' ).each( function(i) {
             var link = $(this).attr( 'href' );
             link = wojilu.tool.getUrlWithoutQuery( wojilu.str.trimExt( link ) );
-            if( currentUrl.indexOf( link )>=0 || link.indexOf( currentUrl )>=0 ) {
+            //if( currentUrl.indexOf( link )>=0 || link.indexOf( currentUrl )>=0 ) {
+            if( currentUrl==link ) {
                 $(this).parent().removeClass( otherClass ).addClass( currentClass );
             };
     	});
