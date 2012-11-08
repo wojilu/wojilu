@@ -12,7 +12,7 @@
 <link href="~css/wojilu._base.css?v=#{cssVersion}" rel="stylesheet" />
 #{skinContent}
 
-<script>var __funcList = []; var _run = function (aFunc) { __funcList.push(aFunc); };</script>
+<script>var __funcList = []; var _run = function (aFunc) { __funcList.push(aFunc); }; var require = { urlArgs: 'v=#{jsVersion}' };</script>
 #{pageRssLink}
 
 <!--[if IE 6]>
@@ -184,7 +184,8 @@ _run(function () {
     }
 });
 </script>
-<script data-main="~js/main" src="~js/lib/require-jquery-wojilu.js"></script>
+
+<script data-main="~js/main" src="~js/lib/require-jquery-wojilu.js?v=#{jsVersion}"></script>
 #{statsJs}
 </body>
 </html>

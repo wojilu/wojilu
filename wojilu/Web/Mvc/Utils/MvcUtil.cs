@@ -116,8 +116,9 @@ namespace wojilu.Web.Mvc.Utils {
         }
 
         private static String getRequireJs( String jsName ) {
-            String jsEnv = "<script>require(['wojilu._" + jsName + "', 'wojilu._admin']);</script>";
-            return string.Format( "<script data-main=\"{0}main\" src=\"{0}lib/require-jquery-wojilu.js\"></script>{1}", sys.Path.Js, jsEnv );
+            return "<script> var require = {urlArgs: 'v=" + MvcConfig.Instance.JsVersion + "'};</script>"
+                + string.Format( "<script data-main=\"{0}main\" src=\"{0}lib/require-jquery-wojilu.js?v={1}\"></script>", sys.Path.Js, MvcConfig.Instance.JsVersion )
+                + "<script>require(['wojilu._" + jsName + "', 'wojilu._admin']);</script>";
         }
 
 

@@ -296,6 +296,7 @@
     <Content Include="framework\views\Content\Sidebar\Index.html" />
     <Content Include="framework\views\Demo\Upload\FrameUpload.html" />
     <Content Include="framework\views\Demo\Upload\FlashUpload.html" />
+    <Content Include="framework\views\error.html" />
     <Content Include="framework\views\Forum\Admin\ForumPick\RestoreList.html" />
     <Content Include="framework\views\Forum\Admin\Forum\AddBoard.html" />
     <Content Include="framework\views\Forum\Admin\Forum\AddCategory.html" />

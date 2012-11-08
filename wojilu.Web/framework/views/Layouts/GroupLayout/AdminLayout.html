@@ -40,7 +40,7 @@ div.tabMain {border-left:0px #cdcdcd solid;border-right:0px #cdcdcd solid;border
 </style>
 #{pageRssLink}
 
-<script>var __funcList = []; var _run = function (aFunc) { __funcList.push(aFunc); };</script>
+<script>var __funcList = []; var _run = function (aFunc) { __funcList.push(aFunc); }; var require = { urlArgs: 'v=#{jsVersion}' };</script>
 </head>
 
 <body>
@@ -107,7 +107,8 @@ div.tabMain {border-left:0px #cdcdcd solid;border-right:0px #cdcdcd solid;border
     	
     </div>
 </div>
-<script data-main="~js/main" src="~js/lib/require-jquery-wojilu.js"></script>
+
+<script data-main="~js/main" src="~js/lib/require-jquery-wojilu.js?v=#{jsVersion}"></script>
 <script>require(["wojilu._admin"])</script>
 #{statsJs}
 

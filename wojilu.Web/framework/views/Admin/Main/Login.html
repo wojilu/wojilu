@@ -5,7 +5,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>_{userLogin}</title>
-<script>    var __funcList = []; var _run = function (aFunc) { __funcList.push(aFunc); };</script>
+<script>var __funcList = []; var _run = function (aFunc) { __funcList.push(aFunc); }; var require = { urlArgs: 'v=#{jsVersion}' };</script>
 <style>
 body {background2:#a2c4e1; background2:url("~img/admin/login-bg.jpg"); margin:0px; padding:0px;}
 #divLogin {width:550px;height:370px; margin:auto;margin-top:140px; padding:0px; background:url("~img/admin/login.jpg") no-repeat;}
@@ -58,7 +58,7 @@ input { border:1px #aaa inset;}
 	</form>
 </div>
 
-<script data-main="~js/main" src="~js/lib/require-jquery-wojilu.js"></script>
+<script data-main="~js/main" src="~js/lib/require-jquery-wojilu.js?v=#{jsVersion}"></script>
 <script>require(["wojilu._nolayout"]);</script>
 </body>
 

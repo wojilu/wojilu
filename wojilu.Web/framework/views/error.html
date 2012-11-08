@@ -3,7 +3,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>#{exMsg}_#{pageTitle}</title>
-<script> var __funcList=[]; var _run=function(aFunc) { __funcList.push(aFunc);};</script>
+<script>var __funcList = []; var _run = function (aFunc) { __funcList.push(aFunc); }; var require = { urlArgs: 'v=#{jsVersion}' };</script>
 <script>
 _run( function() { 
 
@@ -39,5 +39,5 @@ body {font-size:14px;line-height:150%;font-family:verdana; }
     </div>
 </body>
 
-<script data-main="~js/main" src="~js/lib/require-jquery-wojilu.js"></script>
+<script data-main="~js/main" src="~js/lib/require-jquery-wojilu.js?v=#{jsVersion}"></script>
 </html>

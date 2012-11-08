@@ -13,7 +13,7 @@
 <link href="~css/wojilu.core.space.css?v=#{cssVersion}" rel="stylesheet" type="text/css" />
 #{skinContent}
 #{pageRssLink}
-<script>var __funcList = []; var _run = function (aFunc) { __funcList.push(aFunc); };</script>
+<script>var __funcList = []; var _run = function (aFunc) { __funcList.push(aFunc); }; var require = { urlArgs: 'v=#{jsVersion}' };</script>
 </head>
 
 <body>
@@ -52,7 +52,8 @@ _run( function() {
     }
 });
 </script>
-<script data-main="~js/main" src="~js/lib/require-jquery-wojilu.js"></script>
+
+<script data-main="~js/main" src="~js/lib/require-jquery-wojilu.js?v=#{jsVersion}"></script>
 #{statsJs}
 </body>
 </html>

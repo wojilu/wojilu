@@ -11,7 +11,7 @@
 #{siteSkinContent}
 <link href="~css/wojilu.app.microblog.css?v=#{cssVersion}" rel="stylesheet" type="text/css" />
 
-<script>var __funcList = []; var _run = function (aFunc) { __funcList.push(aFunc); };</script>
+<script>var __funcList = []; var _run = function (aFunc) { __funcList.push(aFunc); }; var require = { urlArgs: 'v=#{jsVersion}' };</script>
 </head>
 
 <body>
@@ -61,7 +61,7 @@
 <div id="myBoxFav" class="ebox" style="width:120px;height:30px; text-align:center; padding-top:10px; "> <img src="~img/ok.gif" /> 收藏成功</div>
 <div id="myBoxFavX" class="ebox" style="width:120px;height:30px; text-align:center; padding-top:10px; "> <img src="~img/ok.gif" /> 取消收藏成功</div>
 
-<script data-main="~js/main" src="~js/lib/require-jquery-wojilu.js"></script>
+<script data-main="~js/main" src="~js/lib/require-jquery-wojilu.js?v=#{jsVersion}"></script>
 <script>require(['wojilu.app.microblog.view']);</script>
 
 </body>
