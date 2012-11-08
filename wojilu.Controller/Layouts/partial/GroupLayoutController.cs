@@ -1,4 +1,4 @@
-/*
+﻿/*
  * Copyright (c) 2010, www.wojilu.com. All rights reserved.
  */
 
@@ -64,7 +64,17 @@ namespace wojilu.Web.Controller.Layouts {
             foreach (IMenu menu in list) {
 
                 IBlock subNavBlock = block.GetBlock( "subNav" );
+
                 IBlock rootBlock = block.GetBlock( "rootNav" );
+
+                // 是否讨论区：临时处理
+                if (menu.RawUrl.ToLower().IndexOf( "forum" )>-1) {
+                    rootBlock.Set( "menu.IsForum", "true" );
+                }
+                else {
+                    rootBlock.Set( "menu.IsForum", "false" );
+                }
+
                 List<IMenu> subMenus = MenuHelper.getSubMenus( menus, menu );
 
                 if (subMenus.Count == 0) {

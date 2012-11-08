@@ -489,6 +489,7 @@
     <Content Include="license.txt" />
     <Content Include="static\css\wojilu.app.forum.css" />
     <Content Include="static\css\wojilu.app.microblog.css" />
+    <Content Include="static\css\wojilu.core.waterfall.css" />
     <Content Include="static\css\wojilu._admin.css" />
     <Content Include="static\css\wojilu._base.css" />
     <Content Include="static\css\wojilu.core.ie6.css" />
@@ -627,7 +628,6 @@
     <Content Include="robots.txt" />
     <Content Include="static\css\wojilu.app.content.admin.css" />
     <Content Include="static\css\wojilu._common.css" />
-    <Content Include="static\css\wojilu.core.group.css" />
     <Content Include="static\css\wojilu.core.space.css" />
     <Content Include="static\js\wojilu.app.content.admin.js" />
     <Content Include="static\js\wojilu.core.group.js" />

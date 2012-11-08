@@ -28,7 +28,29 @@
 
 <script>
     _run(function () {
-        wojilu.tool.makeTab('#group-nav', 'current-group-menu', '');
+
+        var cmName = 'current-group-menu';
+
+        wojilu.tool.makeTab('#group-nav', cmName, '');
+
+        var href = window.location.href.toLowerCase();
+
+        // 论坛页面
+        if (href.indexOf('forum') > -1) {
+
+            //alert('forum');
+            // 获取当前menu的实际url，判断是否是bbs
+            // 如果是bbs，则 $(this).parent().addClass(cmName);
+
+            $('#group-nav li a').each(function () {
+                var isForum = $(this).attr('data-forum');
+                if (isForum == 'true') {
+                    $(this).parent().addClass(cmName);
+                }
+            });
+
+        }
+
     });
 </script>
     
@@ -75,7 +97,7 @@
 	                <ul class="unstyled">
 	                    <!-- BEGIN gnavLink -->
 		                <li>
-		                    <!-- BEGIN rootNav --><a href="#{menu.Link}" style="#{menu.Style}" #{menu.LinkTarget}>#{menu.Name}</a><!-- END rootNav -->
+		                    <!-- BEGIN rootNav --><a href="#{menu.Link}" data-forum="#{menu.IsForum}" style="#{menu.Style}" #{menu.LinkTarget}>#{menu.Name}</a><!-- END rootNav -->
     		    
 		                    <!-- BEGIN subNav -->
 		                        <a href="#{menu.Link}" style="#{menu.Style}" class="menuMore" list="subMenus#{menu.Id}" #{menu.LinkTarget}>#{menu.Name}</a>
