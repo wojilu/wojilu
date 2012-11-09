@@ -25,11 +25,11 @@ namespace wojilu.Config {
     public class GroupSetting {
 
         public int LogoHeight {
-            get { return 120; }
+            get { return 200; }
         }
 
         public int LogoWidth {
-            get { return 120; }
+            get { return 200; }
         }
 
         public int TemplateId {

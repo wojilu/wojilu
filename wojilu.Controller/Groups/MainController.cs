@@ -63,13 +63,13 @@ namespace wojilu.Web.Controller.Groups {
 
             WebUtils.pageTitle( this, lang( "group" ) );
 
-            List<ForumTopic> posts = postService.GetHotTopic( 20 );
+            List<ForumTopic> posts = postService.GetHotTopic( 10 );
             bindPosts( posts, "list" );
 
-            List<Group> hots = groupService.GetHots( 18 );
+            List<Group> hots = groupService.GetHots( 8 );
             bindGroups( hots, "hots" );
 
-            List<Group> recent = groupService.GetRecent( 18 );
+            List<Group> recent = groupService.GetRecent( 12 );
             bindGroups( recent, "recent" );
 
             set( "allGroupLink", to( List, -1 ) );
