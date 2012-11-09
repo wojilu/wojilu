@@ -66,9 +66,7 @@ namespace wojilu.Web.Mvc.Utils {
 
                 filters[i].BeforeAction( controller );
 
-                if (ctx.utils.isEnd()) {
-                    return;
-                }
+                if (ctx.utils.isEnd()) return;
 
             }
 
@@ -86,10 +84,7 @@ namespace wojilu.Web.Mvc.Utils {
 
                     filters[i].AfterAction( controller );
 
-                    if (ctx.utils.isEnd()) {
-                        break;
-                    }
-
+                    if (ctx.utils.isEnd()) break;
                 }
 
                 Exception ex = ctx.utils.getException();

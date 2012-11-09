@@ -33,7 +33,7 @@ namespace wojilu.Web.Mvc.Processors {
             MethodInfo actionMethod = ctx.controller.utils.getMethod( ctx.route.action );
 
             if (actionMethod == null) {
-                context.endMsg( lang.get( "exActionNotFound" ) + ": " + ctx.route.getControllerAndActionFullName(), HttpStatus.NotFound_404 );
+                ctx.utils.endMsg( lang.get( "exActionNotFound" ) + ": " + ctx.route.getControllerAndActionFullName(), HttpStatus.NotFound_404 );
             }
             else {
                 context.ctx.setActionMethodInfo( actionMethod );

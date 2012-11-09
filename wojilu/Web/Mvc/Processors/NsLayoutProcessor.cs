@@ -48,11 +48,7 @@ namespace wojilu.Web.Mvc.Processors {
 
                 content = addLayoutPrivate( paths[i].ToString(), content, ctx, isLastLayout );
 
-                if (ctx.utils.isEnd()) {
-
-                    context.endMsgByView( content );
-                    return;
-                }
+                if (ctx.utils.isEnd()) return;
             }
 
 
@@ -73,9 +69,6 @@ namespace wojilu.Web.Mvc.Processors {
         // 2) path => ""
         private static String addLayoutPrivate( String path, String actionContent, MvcContext ctx, Boolean isLastLayout ) {
 
-            // String content = layoutCacher.getByPath( path )
-            // if( strUtil.HasText( content ) ) return HtmlCombiner.combinePage( content, actionContent );
-
             ControllerBase controller = ControllerFactory.FindLayoutController( path, ctx );
             if (controller == null) return actionContent;
 
@@ -95,7 +88,7 @@ namespace wojilu.Web.Mvc.Processors {
             ActionRunner.runLayoutAction( ctx, controller, controller.Layout );
 
             if (ctx.utils.isEnd()) {
-                return controller.utils.getActionResult();
+                return ctx.utils.getCurrentOutputString();
             }
 
             String actionResult = controller.utils.getActionResult();

@@ -37,7 +37,7 @@ namespace wojilu.Web.Mvc.Processors {
 
             MvcContext ctx = context.ctx;
 
-            ControllerBase controller = context.getController();
+            ControllerBase controller = ctx.controller;
 
             // 检查缓存
             CacheInfo ci = CacheInfo.Init( ctx );
@@ -56,9 +56,7 @@ namespace wojilu.Web.Mvc.Processors {
 
             // 运行并处理post值
             ActionRunner.runAction( ctx, controller, actionMethod, controller.utils.runAction );
-            if (ctx.utils.isEnd()) {
-                return;
-            }
+            if (ctx.utils.isEnd()) return;
 
             String actionContent = controller.utils.getActionResult();
 

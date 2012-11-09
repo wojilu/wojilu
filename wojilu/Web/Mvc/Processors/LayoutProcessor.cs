@@ -35,7 +35,7 @@ namespace wojilu.Web.Mvc.Processors {
             if (context.ctx.utils.isSkipCurrentProcessor()) return;
 
             MvcContext ctx = context.ctx;
-            ControllerBase controller = context.getController();
+            ControllerBase controller = ctx.controller;
 
             if (controller.utils.isHided( controller.GetType() )) {
                 return;
@@ -64,13 +64,9 @@ namespace wojilu.Web.Mvc.Processors {
                 ci.AddContentToCache( layoutContent );
             }
 
-            if (ctx.utils.isEnd()) {
-                context.endMsgByText( layoutContent );
-            }
-            else {
-                context.setContent( HtmlCombiner.combinePage( layoutContent, actionContent ) );
-            }
+            if (ctx.utils.isEnd()) return;
 
+            context.setContent( HtmlCombiner.combinePage( layoutContent, actionContent ) );
         }
 
 

@@ -26,21 +26,23 @@ namespace wojilu.Web.Mvc.Processors {
 
         public override void Process( ProcessContext context ) {
 
-            MvcEventPublisher.Instance.BeginParseRoute( context.ctx );
-            if (context.ctx.utils.isSkipCurrentProcessor()) return;
+            MvcContext ctx = context.ctx;
+
+            MvcEventPublisher.Instance.BeginParseRoute( ctx );
+            if (ctx.utils.isSkipCurrentProcessor()) return;
 
             try {
-                Route r = RouteTool.Recognize( context.ctx );
+                Route r = RouteTool.Recognize( ctx );
 
                 if (r == null) {
-                    throw new MvcException( HttpStatus.NotFound_404, "can't find matching route : Url=" + context.ctx.url.ToString() );
+                    throw new MvcException( HttpStatus.NotFound_404, "can't find matching route : Url=" + ctx.url.ToString() );
                 }
 
-                context.ctx.utils.setRoute( r );
-                IsSiteClosed( context.ctx );
+                ctx.utils.setRoute( r );
+                IsSiteClosed( ctx );
             }
             catch (MvcException ex) {
-                context.endMsg( ex.Message, HttpStatus.NotFound_404 );
+                ctx.utils.endMsg( ex.Message, HttpStatus.NotFound_404 );
             }
 
         }
