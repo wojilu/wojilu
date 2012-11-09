@@ -311,12 +311,11 @@ namespace wojilu.Web.Controller.Layouts {
 
                 IMenu menu = list[i];
 
-                String currentClass = "";
-                if (currentRootMenu != null && menu.Id == currentRootMenu.Id) currentClass = " class=\"currentRootMenu\" ";
-                block.Set( "menu.CurrentClass", currentClass );
-
                 IBlock subNavBlock = block.GetBlock( "subNav" );
                 IBlock rootBlock = block.GetBlock( "rootNav" );
+
+                rootBlock.Set( "menu.RawUrl", menu.RawUrl );
+
                 List<IMenu> subMenus = MenuHelper.getSubMenus( menus, menu );
 
                 if (subMenus.Count == 0) {

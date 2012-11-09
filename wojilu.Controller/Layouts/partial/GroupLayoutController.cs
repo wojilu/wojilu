@@ -67,12 +67,9 @@ namespace wojilu.Web.Controller.Layouts {
 
                 IBlock rootBlock = block.GetBlock( "rootNav" );
 
-                // 是否讨论区：临时处理
-                if (menu.RawUrl.ToLower().IndexOf( "forum" )>-1) {
-                    rootBlock.Set( "menu.IsForum", "true" );
-                }
-                else {
-                    rootBlock.Set( "menu.IsForum", "false" );
+                // 讨论区：修改 rawUrl 为 app 首页
+                if (menu.RawUrl.ToLower().IndexOf( "forum" ) > -1) {
+                    rootBlock.Set( "menu.RawUrl", getForumAppUrl( menu.RawUrl ) );
                 }
 
                 List<IMenu> subMenus = MenuHelper.getSubMenus( menus, menu );
@@ -89,6 +86,15 @@ namespace wojilu.Web.Controller.Layouts {
                 block.Next();
 
             }
+        }
+
+        private string getForumAppUrl( string rawUrl ) {
+            String[] arr = rawUrl.Split( wojilu.Web.Mvc.Routes.RouteTool.Separator );
+            return joinUrl( joinUrl( arr[0], "Forum" ), "Index" );
+        }
+
+        private String joinUrl( String a, String b ) {
+            return strUtil.Join( a, b, MvcConfig.Instance.UrlSeparator );
         }
 
 

@@ -14,31 +14,34 @@
 </div>
 
 <script>
-_run( function() {
-    
-    var showAdminTool = function() {
-    
-        if( typeof(ctx) == 'undefined' ) return;
-        if( ctx.viewer.IsLogin==false  ) return;
-        
-        if( ctx.owner.IsSite) {
-            if( ctx.viewer.IsAdministrator ) {
+    _run(function () {
+
+        var showAdminTool = function () {
+
+            if (typeof (ctx) == 'undefined') return;
+            if (ctx.viewer.IsLogin == false) return;
+
+            if (ctx.owner.IsSite) {
+                if (ctx.viewer.IsAdministrator) {
+                    $('#adminTool').show();
+                }
+                else if (ctx.viewer.IsInAdminGroup) {
+                    $.post('#{adminCheckUrl}'.toAjax(), function (data) {
+                        if ('ok' == data) $('#adminTool').show();
+                    });
+                }
+            }
+            else {
                 $('#adminTool').show();
             }
-            else if( ctx.viewer.IsInAdminGroup )  {
-                $.post( '#{adminCheckUrl}'.toAjax(), function(data) {
-                    if( 'ok'==data ) $('#adminTool').show();
-                });
-            }
-        }
-        else {
-            $('#adminTool').show();
-        }            
-        
-    };
-    
-    wojilu.site.load( showAdminTool );
 
-    wojilu.ui.frmLink();
-});
+        };
+
+        wojilu.site.load(showAdminTool);
+
+        wojilu.ui.frmLink();
+
+        _moduleList.push('#{appUrl}');
+
+    });
 </script>

@@ -12,7 +12,7 @@
 <link href="~css/wojilu._base.css?v=#{cssVersion}" rel="stylesheet" />
 #{skinContent}
 
-<script>var __funcList = []; var _run = function (aFunc) { __funcList.push(aFunc); }; var require = { urlArgs: 'v=#{jsVersion}' };</script>
+<script>var __funcList = []; var _run = function (aFunc) { __funcList.push(aFunc); }; var require = { urlArgs: 'v=#{jsVersion}' }; _moduleList = [];</script>
 #{pageRssLink}
 
 <!--[if IE 6]>
@@ -29,27 +29,7 @@
 <script>
     _run(function () {
 
-        var cmName = 'current-group-menu';
-
-        wojilu.tool.makeTab('#group-nav', cmName, '');
-
-        var href = window.location.href.toLowerCase();
-
-        // 论坛页面
-        if (href.indexOf('forum') > -1) {
-
-            //alert('forum');
-            // 获取当前menu的实际url，判断是否是bbs
-            // 如果是bbs，则 $(this).parent().addClass(cmName);
-
-            $('#group-nav li a').each(function () {
-                var isForum = $(this).attr('data-forum');
-                if (isForum == 'true') {
-                    $(this).parent().addClass(cmName);
-                }
-            });
-
-        }
+        wojilu.tool.makeTab('#group-nav', 'current-group-menu', '');
 
     });
 </script>
@@ -97,7 +77,7 @@
 	                <ul class="unstyled">
 	                    <!-- BEGIN gnavLink -->
 		                <li>
-		                    <!-- BEGIN rootNav --><a href="#{menu.Link}" data-forum="#{menu.IsForum}" style="#{menu.Style}" #{menu.LinkTarget}>#{menu.Name}</a><!-- END rootNav -->
+		                    <!-- BEGIN rootNav --><a href="#{menu.Link}" data-raw-url="#{menu.RawUrl}" style="#{menu.Style}" #{menu.LinkTarget}>#{menu.Name}</a><!-- END rootNav -->
     		    
 		                    <!-- BEGIN subNav -->
 		                        <a href="#{menu.Link}" style="#{menu.Style}" class="menuMore" list="subMenus#{menu.Id}" #{menu.LinkTarget}>#{menu.Name}</a>
@@ -199,11 +179,11 @@
 
 <script>
 _run(function () {
-    var q = wojilu.tool.getQuery( 'skin' );
-    if( q== 'custom' ) {
-        $('#customSkin').click();
-        wojilu.ui.box.hideBg();
-    }
+
+    require(['wojilu.core.base'], function (x) {
+        x.customSkin().backTop().setCurrent('#group-nav', 'current-group-menu');
+    });
+
 });
 </script>
 

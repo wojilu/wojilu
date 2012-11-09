@@ -14,7 +14,6 @@ namespace wojilu.Web.Controller.Layouts {
 
         public static void bindMenuSingle( IBlock block, IMenu menu, MvcContext ctx ) {
 
-
             block.Set( "menu.Id", menu.Id );
             block.Set( "menu.Name", menu.Name );
             block.Set( "menu.Style", menu.Style );

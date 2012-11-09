@@ -9,7 +9,7 @@
 <link href="~css/bootstrap/css/bootstrap.css?v=#{cssVersion}" rel="stylesheet" />
 <link href="~css/wojilu._base.css?v=#{cssVersion}" rel="stylesheet" />
 
-<script>var __funcList = []; var _run = function (aFunc) { __funcList.push(aFunc); }; var require = { urlArgs: 'v=#{jsVersion}' };</script>
+<script>var __funcList = []; var _run = function (aFunc) { __funcList.push(aFunc); }; var require = { urlArgs: 'v=#{jsVersion}' };_moduleList = [];</script>
 
 <!--[if IE 6]>
 <link href="~css/bootstrap/ie6.css?v=#{cssVersion}" rel="stylesheet">
@@ -47,29 +47,15 @@
 
 </div>
 <script>
-_run(function () {
+    _run(function () {
 
-    $('body').append('<div id="backTop"><span>回顶部</span></div>');
+        require(['wojilu.core.base'], function (x) {
+            x.customSkin().backTop().setCurrent('#site-nav', 'current-site-menu');
+        });
 
-    $(window).scroll(function () {
-        if ($(window).scrollTop() >= 300) {
-            $("#backTop").fadeIn(800);
-        } else {
-            $("#backTop").fadeOut(800);
-        }
     });
-
-    $('#backTop').click(function () {
-        $('html,body').animate({ scrollTop: 0 }, 800);
-        return false;
-    });
-    var q = wojilu.tool.getQuery('skin');
-    if( q== 'custom' ) {
-        $('#customSkin').click();
-        wojilu.ui.box.hideBg();
-    }
-});
 </script>
+
 
 <script data-main="~js/main" src="~js/lib/require-jquery-wojilu.js?v=#{jsVersion}"></script>
 #{statsJs}

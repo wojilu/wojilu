@@ -29,7 +29,7 @@ namespace wojilu.Web.Mvc.Routes {
     /// </summary>
     public class RouteTool {
 
-        internal static readonly char[] Separator = getSeparator();
+        public static readonly char[] Separator = getSeparator();
 
         private static char[] getSeparator() {
             if (MvcConfig.Instance.UrlSeparator == "/") return new char[] { '/' };

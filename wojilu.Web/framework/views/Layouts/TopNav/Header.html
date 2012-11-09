@@ -1,4 +1,8 @@
-﻿<div class="row site-header">
+﻿<style>
+.current-site-menu { background:#fff; }
+.current-site-menu a { color:#666 !important;}
+</style>
+<div class="row site-header">
     <div class="span12 site-header-inner">
         <div class="span4">
             <h1 id="slogo">
@@ -10,27 +14,14 @@
 </div>
 
 <div class="site-menu-nav">
-
-    <ul class="nav nav-pills">
-                
+    <ul class="nav nav-pills" id="site-nav">                
         <!-- BEGIN navLink -->
-        <li id="#{menu.ItemId}" #{menu.CurrentClass}>
-            <!-- BEGIN rootNav -->
-            <a href="#{menu.Link}" style="#{menu.Style}" #{menu.LinkTarget}>#{menu.Name}</a>
-            <!-- END rootNav -->
-                
-            <!-- BEGIN subNav -->
+        <li id="#{menu.ItemId}"><!-- BEGIN rootNav -->
+            <a href="#{menu.Link}" data-raw-url="#{menu.RawUrl}" style="#{menu.Style}" #{menu.LinkTarget}>#{menu.Name}</a><!-- END rootNav --> <!-- BEGIN subNav -->
             <a href="#{menu.Link}" style="#{menu.Style}" #{menu.LinkTarget}>#{menu.Name}<span class="caret" style="border-top-color:#fff;"></span></a>
-            <ul class="dropdown-menu">
-                <!-- BEGIN subMenu --><li><a href="#{menu.Link}" style="#{menu.Style}" #{menu.LinkTarget}>#{menu.Name}</a></li><!-- END subMenu -->
-            </ul><!-- END subNav -->
-
-                
+            <ul class="dropdown-menu"><!-- BEGIN subMenu --><li><a href="#{menu.Link}" style="#{menu.Style}" #{menu.LinkTarget}>#{menu.Name}</a></li><!-- END subMenu --></ul><!-- END subNav -->                
         </li><!-- END navLink -->
-
     </ul>
-
 </div>
 
 <div class="row"><div id="navBottomAdWrap" class="adItem" data-ad="NavBottom">#{adNavBottom}</div></div>
-
