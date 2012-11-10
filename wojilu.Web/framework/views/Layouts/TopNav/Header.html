@@ -1,8 +1,4 @@
-﻿<style>
-.current-site-menu { background:#fff; }
-.current-site-menu a { color:#666 !important;}
-</style>
-<div class="row site-header">
+﻿<div class="row site-header">
     <div class="span12 site-header-inner">
         <div class="span4">
             <h1 id="slogo">
@@ -13,8 +9,8 @@
     </div>
 </div>
 
-<div class="site-menu-nav">
-    <ul class="nav nav-pills" id="site-nav">                
+<div class="site-nav-wrap">
+    <ul id="site-nav">     
         <!-- BEGIN navLink -->
         <li id="#{menu.ItemId}" class="#{menu.CurrentClass}"><!-- BEGIN rootNav -->
             <a href="#{menu.Link}" style="#{menu.Style}" #{menu.LinkTarget}>#{menu.Name}</a><!-- END rootNav --> <!-- BEGIN subNav -->

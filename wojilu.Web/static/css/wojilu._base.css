@@ -160,7 +160,7 @@ input.searchs {background:url('../img/search2.gif') no-repeat;width:20px;height:
 
 /****************************************************************/
 
-body { background:#cee0ee}
+body { background:url(../skin/site/new/body-bg.jpg);}
 .container { background:#fff; box-shadow:0px 5px 30px #aaa;}
 
 .navbar{
@@ -199,13 +199,17 @@ body { background:#cee0ee}
 .site-header-inner {background:url(../skin/site/new/header-bg.jpg);height:125px; }
     #slogo {margin:40px 0px 0px 30px;}
 
-.site-menu-nav {background:url(../skin/site/new/menu-nav-bg.jpg); height:40px;}
-.site-menu-nav .nav a { color:#fff; font-weight:bold; font-size:14px;}
-.site-menu-nav .nav {margin-left:20px; padding-top:3px;}
+#site-nav {background:url(../skin/site/new/menu-nav-bg.jpg); height:40px;margin:0px;padding-left:20px;}
+#site-nav li { float:left; display:block; margin:0px;height:38px;margin-top:2px;}
+#site-nav a { color:#fff;display:block;font-weight:bold;height:38px; font-size:14px;padding:10px 15px 0px 15px; text-decoration:none;}
+#site-nav li:hover { background:#f2f2f2;}
+#site-nav li a:hover { color:#666;}
+
+#site-nav .current-site-menu { background:#fff; }
+#site-nav .current-site-menu a { color:#666; }
 
 .footer{background:url(../skin/site/new/footer-bg.jpg); text-align:center; height:78px;margin-top:0px;padding-top:0px;}
 .footer-inner {padding-top:10px;}
-
 
 #backTop { display:none;position: fixed; bottom: 20px; right: 20px; z-index:1999 ; width: 71px;cursor:pointer;}
 #backTop span { display: block; width: 71px; height: 24px; padding-top: 48px; background: url("../img/m/backTop.gif") no-repeat; text-align: center; color: #777; }
