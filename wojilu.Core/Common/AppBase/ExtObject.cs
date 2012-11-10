@@ -14,9 +14,9 @@ namespace wojilu.Common.AppBase {
 
 
 
-    public class ExtData {
+    public class ExtObject {
 
-        private static readonly ILog logger = LogManager.GetLogger( typeof( ExtData ) );
+        private static readonly ILog logger = LogManager.GetLogger( typeof( ExtObject ) );
 
         // 参数 ctx 提供当前登录用户信息和link
         public static String GetExtView( int id, String typeFullName, String extTypeFullName, MvcContext ctx ) {

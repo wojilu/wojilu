@@ -26,7 +26,7 @@ namespace wojilu.Web.Controller.Content.Admin.Section {
 
                 // 显示投票选项
                 ctx.SetItem( "sectionId", sectionId );
-                String html = ExtData.GetExtView( c.Id, typeof( ContentPost ).FullName, typeof( ContentPoll ).FullName, ctx );
+                String html = wojilu.Common.AppBase.ExtObject.GetExtView( c.Id, typeof( ContentPost ).FullName, typeof( ContentPoll ).FullName, ctx );
 
                 set( "poll.Html", html );
             }

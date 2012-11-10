@@ -452,7 +452,7 @@ namespace wojilu.Web.Controller.Forum {
         }
 
         private String addContentInfo( ForumTopic data, String content ) {
-            return content + "<div class=\"extDataPanel\">" + ExtData.GetExtView( data.Id, typeof( ForumTopic ).FullName, data.TypeName, ctx ) + "</div>";
+            return content + "<div class=\"extDataPanel\">" + wojilu.Common.AppBase.ExtObject.GetExtView( data.Id, typeof( ForumTopic ).FullName, data.TypeName, ctx ) + "</div>";
         }
 
         private String addRateLog( ForumPost data, String content ) {
