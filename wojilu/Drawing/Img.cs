@@ -237,7 +237,7 @@ namespace wojilu.Drawing {
                     using (Graphics g = Graphics.FromImage( newImg )) {
                         g.InterpolationMode = InterpolationMode.High;
                         g.SmoothingMode = SmoothingMode.HighQuality;
-                        g.Clear( Color.Transparent );
+                        g.Clear( Color.White );
                         g.DrawImage( srcImg, t.getNewRect(), t.getRect(), GraphicsUnit.Pixel );
 
                         try {

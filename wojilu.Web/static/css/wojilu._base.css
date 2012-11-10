@@ -201,7 +201,7 @@ body { background:url(../skin/site/new/body-bg.jpg);}
 
 #site-nav {background:url(../skin/site/new/menu-nav-bg.jpg); height:40px;margin:0px;padding-left:20px;}
 #site-nav li { float:left; display:block; margin:0px;height:38px;margin-top:2px;}
-#site-nav a { color:#fff;display:block;font-weight:bold;height:38px; font-size:14px;padding:10px 15px 0px 15px; text-decoration:none;}
+#site-nav a { color:#fff;display:block;font-weight:bold;height:38px; font-size:14px;padding:10px 13px 0px 13px; text-decoration:none;}
 #site-nav li:hover { background:#f2f2f2;}
 #site-nav li a:hover { color:#666;}
 
