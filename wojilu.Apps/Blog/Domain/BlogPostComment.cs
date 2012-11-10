@@ -69,7 +69,7 @@ namespace wojilu.Apps.Blog.Domain {
 
             BlogPost data = db.findById<BlogPost>( this.RootId );
 
-            String lnkUser = Link.ToMember( data.Creator );
+            String lnkUser = wojilu.Web.Mvc.Link.ToMember( data.Creator );
             String target = string.Format( "<a href=\"{0}\">{1}</a>", lnkUser, data.Creator.Name );
             String blog = string.Format( "<a href=\"{0}\">{1}</a>", lnkPost, data.Title );
 

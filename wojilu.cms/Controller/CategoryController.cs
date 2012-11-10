@@ -10,7 +10,7 @@ namespace wojilu.cms.Controller {
     public class CategoryController : ControllerBase {
 
         public CategoryController() {
-            base.LayoutControllerType = typeof(ArticleController);
+            base.LayoutControllerType = typeof( ArticleController );
         }
 
         public void Show( int id ) {
@@ -19,14 +19,25 @@ namespace wojilu.cms.Controller {
             bind( "c", c );
             ctx.SetItem( "category", c );
 
+            DataPage<Article> list = Article.findPage( "CategoryId=" + id );
 
-            DataPage<Article> list = Article.findPage( "CategoryId=" +id );
-            IBlock block = getBlock( "list" );
-            foreach (Article a in list.Results) {
-                block.Set( "a.Title", a.Title );
-                block.Set( "a.ShowLink", to( new ArticleController().Show, a.Id ) );
-                block.Next();
-            }
+            // 提供了默认的3个强类型链接名称: show/edit/delete
+            list.Results.ForEach( x => x.data.show = to( new ArticleController().Show, x.Id ) );
+
+            // 自定义其他链接
+            list.Results.ForEach( x => x.data["MyLink"] = to( new ArticleController().Show, 88888 ) );
+
+            // 自定义其他扩展数据
+            list.Results.ForEach( x => x.data["ShortTitle"] = strUtil.SubString( x.Title, 5 ) );
+
+            bindList( "list", "a", list.Results );
+
+            //IBlock block = getBlock( "list" );
+            //foreach (Article a in list.Results) {
+            //    block.Set( "a.Title", a.Title );
+            //    block.Set( "a.ShowLink", to( new ArticleController().Show, a.Id ) );
+            //    block.Next();
+            //}
 
             set( "page", list.PageBar );
         }

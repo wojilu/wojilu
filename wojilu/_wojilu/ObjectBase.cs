@@ -23,8 +23,23 @@ using wojilu.Serialization;
 
 namespace wojilu {
 
+    public class ExtData : Dictionary<String, String> {
+        public String show {
+            get { return this["show"]; }
+            set { this["show"] = value; }
+        }
+        public String edit {
+            get { return this["edit"]; }
+            set { this["edit"] = value; }
+        }
+        public String delete {
+            get { return this["delete"]; }
+            set { this["delete"] = value; }
+        }
+    }
+
     /// <summary>
-    /// ËùÓĞORMÖĞµÄÁìÓòÄ£ĞÍ¶¼ĞèÒª¼Ì³ĞµÄ»ùÀà
+    /// æ‰€æœ‰ORMä¸­çš„é¢†åŸŸæ¨¡å‹éƒ½éœ€è¦ç»§æ‰¿çš„åŸºç±»
     /// </summary>
     /// <typeparam name="T"></typeparam>
     [Serializable]
@@ -33,7 +48,7 @@ namespace wojilu {
         private int _id;
 
         /// <summary>
-        /// ¶ÔÏóµÄ id
+        /// å¯¹è±¡çš„ id
         /// </summary>
         public int Id {
             get { return _id; }
@@ -43,134 +58,149 @@ namespace wojilu {
         protected virtual void setId( int id ) {
         }
 
+        private ExtData _extData;
+
+        [NotSave]
+        public ExtData data {
+            get {
+                if (_extData == null) _extData = new ExtData();
+                return _extData;
+            }
+            set {
+                _extData = value;
+            }
+        }
+
+        //----------------------------------------------------------------------------
+
         /// <summary>
-        /// ²éÑ¯ËùÓĞÊı¾İ
+        /// æŸ¥è¯¢æ‰€æœ‰æ•°æ®
         /// </summary>
         /// <returns></returns>
         public static List<T> findAll() { return db.findAll<T>(); }
 
         /// <summary>
-        /// ¸ù¾İ id ²éÑ¯¶ÔÏó
+        /// æ ¹æ® id æŸ¥è¯¢å¯¹è±¡
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
         public static T findById( int id ) { return db.findById<T>( id ); }
 
         /// <summary>
-        /// Í³¼ÆËùÓĞµÄÊı¾İÁ¿
+        /// ç»Ÿè®¡æ‰€æœ‰çš„æ•°æ®é‡
         /// </summary>
         /// <returns></returns>
         public static int count() { return db.count<T>(); }
 
         /// <summary>
-        /// ¸ù¾İÌõ¼şÍ³¼ÆÊı¾İÁ¿
+        /// æ ¹æ®æ¡ä»¶ç»Ÿè®¡æ•°æ®é‡
         /// </summary>
         /// <param name="condition"></param>
         /// <returns></returns>
         public static int count( String condition ) { return db.count<T>( condition ); }
 
         /// <summary>
-        /// ¸ù¾İ²éÑ¯Ìõ¼ş£¬·µ»ØÒ»¸ö²éÑ¯¶ÔÏó¡£Ò»°ãÓÃÓÚ²ÎÊı»¯²éÑ¯¡£
+        /// æ ¹æ®æŸ¥è¯¢æ¡ä»¶ï¼Œè¿”å›ä¸€ä¸ªæŸ¥è¯¢å¯¹è±¡ã€‚ä¸€èˆ¬ç”¨äºå‚æ•°åŒ–æŸ¥è¯¢ã€‚
         /// </summary>
-        /// <param name="condition">²éÑ¯Ìõ¼ş</param>
-        /// <returns>·µ»Ø²éÑ¯¶ÔÏóxQuery£¬¿ÉÒÔ½øÒ»²½²ÎÊı»¯¸³Öµ£¬²¢µÃµ½½á¹û</returns>
+        /// <param name="condition">æŸ¥è¯¢æ¡ä»¶</param>
+        /// <returns>è¿”å›æŸ¥è¯¢å¯¹è±¡xQueryï¼Œå¯ä»¥è¿›ä¸€æ­¥å‚æ•°åŒ–èµ‹å€¼ï¼Œå¹¶å¾—åˆ°ç»“æœ</returns>
         public static xQuery<T> find( String condition ) { return db.find<T>( condition ); }
 
         /// <summary>
-        /// ¸ù¾İ²éÑ¯Ìõ¼ş£¬·µ»Ø·ÖÒ³Êı¾İ¼¯ºÏ
+        /// æ ¹æ®æŸ¥è¯¢æ¡ä»¶ï¼Œè¿”å›åˆ†é¡µæ•°æ®é›†åˆ
         /// </summary>
-        /// <param name="condition">²éÑ¯Ìõ¼ş</param>
+        /// <param name="condition">æŸ¥è¯¢æ¡ä»¶</param>
         /// <returns></returns>
         public static DataPage<T> findPage( String condition ) { return db.findPage<T>( condition ); }
 
         /// <summary>
-        /// ¸ù¾İ²éÑ¯Ìõ¼şºÍÃ¿Ò³ÊıÁ¿£¬·µ»Ø·ÖÒ³Êı¾İ¼¯ºÏ
+        /// æ ¹æ®æŸ¥è¯¢æ¡ä»¶å’Œæ¯é¡µæ•°é‡ï¼Œè¿”å›åˆ†é¡µæ•°æ®é›†åˆ
         /// </summary>
-        /// <param name="condition">²éÑ¯Ìõ¼ş</param>
-        /// <param name="pageSize">Ã¿Ò³ÊıÁ¿</param>
+        /// <param name="condition">æŸ¥è¯¢æ¡ä»¶</param>
+        /// <param name="pageSize">æ¯é¡µæ•°é‡</param>
         /// <returns></returns>
         public static DataPage<T> findPage( String condition, int pageSize ) { return db.findPage<T>( condition, pageSize ); }
 
         /// <summary>
-        /// ´æµµÄ£Ê½·­Ò³(Ä¬ÈÏ°´ÕÕ order by Id asc ÅÅĞò)
+        /// å­˜æ¡£æ¨¡å¼ç¿»é¡µ(é»˜è®¤æŒ‰ç…§ order by Id asc æ’åº)
         /// </summary>
-        /// <param name="condition">²éÑ¯Ìõ¼ş</param>
-        /// <returns>·ÖÒ³Êı¾İÁĞ±í£¬°üÀ¨µ±Ç°Ò³¡¢×Ü¼ÇÂ¼Êı¡¢·ÖÒ³ÌõµÈ</returns>
+        /// <param name="condition">æŸ¥è¯¢æ¡ä»¶</param>
+        /// <returns>åˆ†é¡µæ•°æ®åˆ—è¡¨ï¼ŒåŒ…æ‹¬å½“å‰é¡µã€æ€»è®°å½•æ•°ã€åˆ†é¡µæ¡ç­‰</returns>
         public static DataPage<T> findPageArchive( String condition ) { return db.findPageArchive<T>( condition ); }
 
         /// <summary>
-        /// ´æµµÄ£Ê½·­Ò³(Ä¬ÈÏ°´ÕÕ order by Id asc ÅÅĞò)
+        /// å­˜æ¡£æ¨¡å¼ç¿»é¡µ(é»˜è®¤æŒ‰ç…§ order by Id asc æ’åº)
         /// </summary>
-        /// <param name="condition">²éÑ¯Ìõ¼ş</param>
-        /// <param name="pageSize">Ã¿Ò³ÊıÁ¿</param>
-        /// <returns>·ÖÒ³Êı¾İÁĞ±í£¬°üÀ¨µ±Ç°Ò³¡¢×Ü¼ÇÂ¼Êı¡¢·ÖÒ³ÌõµÈ</returns>
+        /// <param name="condition">æŸ¥è¯¢æ¡ä»¶</param>
+        /// <param name="pageSize">æ¯é¡µæ•°é‡</param>
+        /// <returns>åˆ†é¡µæ•°æ®åˆ—è¡¨ï¼ŒåŒ…æ‹¬å½“å‰é¡µã€æ€»è®°å½•æ•°ã€åˆ†é¡µæ¡ç­‰</returns>
         public static DataPage<T> findPageArchive( String condition, int pageSize ) { return db.findPageArchive<T>( condition, pageSize ); }
 
 
         /// <summary>
-        /// Ö±½ÓÊ¹ÓÃ sql Óï¾ä²éÑ¯£¬·µ»Ø¶ÔÏóÁĞ±í
+        /// ç›´æ¥ä½¿ç”¨ sql è¯­å¥æŸ¥è¯¢ï¼Œè¿”å›å¯¹è±¡åˆ—è¡¨
         /// </summary>
         /// <param name="sql"></param>
         /// <returns></returns>
         public static List<T> findBySql( String sql ) { return db.findBySql<T>( sql ); }
 
         /// <summary>
-        /// ½«¶ÔÏó²åÈëÊı¾İ¿â
+        /// å°†å¯¹è±¡æ’å…¥æ•°æ®åº“
         /// </summary>
-        /// <returns>·µ»ØÒ»¸ö½á¹û¶ÔÏó Result¡£Èç¹û·¢Éú´íÎó£¬Ôò Result ÖĞ°üº¬´íÎóĞÅÏ¢</returns>
+        /// <returns>è¿”å›ä¸€ä¸ªç»“æœå¯¹è±¡ Resultã€‚å¦‚æœå‘ç”Ÿé”™è¯¯ï¼Œåˆ™ Result ä¸­åŒ…å«é”™è¯¯ä¿¡æ¯</returns>
         public Result insert() { return db.insert( this ); }
 
         /// <summary>
-        /// ¸üĞÂÊı¾İ
+        /// æ›´æ–°æ•°æ®
         /// </summary>
-        /// <returns>·µ»ØÒ»¸ö½á¹û¶ÔÏó Result¡£Èç¹û·¢Éú´íÎó£¬Ôò Result ÖĞ°üº¬´íÎóĞÅÏ¢</returns>
+        /// <returns>è¿”å›ä¸€ä¸ªç»“æœå¯¹è±¡ Resultã€‚å¦‚æœå‘ç”Ÿé”™è¯¯ï¼Œåˆ™ Result ä¸­åŒ…å«é”™è¯¯ä¿¡æ¯</returns>
         public Result update() { return db.update( this ); }
 
         /// <summary>
-        /// Ö»ĞŞ¸Ä¶ÔÏóµÄÄ³¸öÌØ¶¨ÊôĞÔ
+        /// åªä¿®æ”¹å¯¹è±¡çš„æŸä¸ªç‰¹å®šå±æ€§
         /// </summary>
-        /// <param name="propertyName">ÊôĞÔÃû³Æ</param>
+        /// <param name="propertyName">å±æ€§åç§°</param>
         public void update( String propertyName ) { db.update( this, propertyName ); }
 
         /// <summary>
-        /// Ö»ĞŞ¸Ä¶ÔÏóµÄÌØ¶¨ÊôĞÔ
+        /// åªä¿®æ”¹å¯¹è±¡çš„ç‰¹å®šå±æ€§
         /// </summary>
-        /// <param name="arrPropertyName">ĞèÒªĞŞ¸ÄµÄÊôĞÔµÄÊı×é</param>
+        /// <param name="arrPropertyName">éœ€è¦ä¿®æ”¹çš„å±æ€§çš„æ•°ç»„</param>
         public void update( String[] arrPropertyName ) { db.update( this, arrPropertyName ); }
 
         /// <summary>
-        /// É¾³ı¶ÔÏó
+        /// åˆ é™¤å¯¹è±¡
         /// </summary>
-        /// <returns>·µ»ØÊÜÓ°ÏìµÄĞĞÊı</returns>
+        /// <returns>è¿”å›å—å½±å“çš„è¡Œæ•°</returns>
         public int delete() { return db.delete( this ); }
 
         /// <summary>
-        /// ÅúÁ¿¸üĞÂ¶ÔÏó
+        /// æ‰¹é‡æ›´æ–°å¯¹è±¡
         /// </summary>
-        /// <param name="action">¸üĞÂµÄ²Ù×÷</param>
-        /// <param name="condition">¸üĞÂµÄÌõ¼ş</param>
+        /// <param name="action">æ›´æ–°çš„æ“ä½œ</param>
+        /// <param name="condition">æ›´æ–°çš„æ¡ä»¶</param>
         public static void updateBatch( String action, String condition ) { db.updateBatch<T>( action, condition ); }
 
         /// <summary>
-        /// ¸ù¾İ id É¾³ı¶ÔÏó
+        /// æ ¹æ® id åˆ é™¤å¯¹è±¡
         /// </summary>
         /// <param name="id"></param>
-        /// <returns>·µ»ØÊÜÓ°ÏìµÄĞĞÊı</returns>
+        /// <returns>è¿”å›å—å½±å“çš„è¡Œæ•°</returns>
         public static int delete( int id ) { return db.delete<T>( id ); }
 
         /// <summary>
-        /// ÅúÁ¿É¾³ı¶ÔÏó
+        /// æ‰¹é‡åˆ é™¤å¯¹è±¡
         /// </summary>
-        /// <param name="condition">É¾³ıÌõ¼ş</param>
-        /// <returns>·µ»ØÊÜÓ°ÏìµÄĞĞÊı</returns>
+        /// <param name="condition">åˆ é™¤æ¡ä»¶</param>
+        /// <returns>è¿”å›å—å½±å“çš„è¡Œæ•°</returns>
         public static int deleteBatch( String condition ) { return db.deleteBatch<T>( condition ); }
 
-        //------------------------------------- ÒÔÏÂÊµÀı·½·¨ --------------------------------------------
+        //------------------------------------- ä»¥ä¸‹å®ä¾‹æ–¹æ³• --------------------------------------------
 
         /// <summary>
-        /// ¸ù¾İÊôĞÔÃû³Æ»ñÈ¡ÊôĞÔµÄÖµ
+        /// æ ¹æ®å±æ€§åç§°è·å–å±æ€§çš„å€¼
         /// </summary>
-        /// <param name="propertyName">ÊôĞÔÃû³Æ</param>
+        /// <param name="propertyName">å±æ€§åç§°</param>
         /// <returns></returns>
         public Object get( String propertyName ) {
             EntityInfo ei = getEntityInfo();
@@ -194,10 +224,10 @@ namespace wojilu {
         }
 
         /// <summary>
-        /// ÉèÖÃÊôĞÔµÄÖµ
+        /// è®¾ç½®å±æ€§çš„å€¼
         /// </summary>
-        /// <param name="propertyName">ÊôĞÔÃû³Æ</param>
-        /// <param name="propertyValue">ÊôĞÔµÄÖµ</param>
+        /// <param name="propertyName">å±æ€§åç§°</param>
+        /// <param name="propertyValue">å±æ€§çš„å€¼</param>
         public void set( String propertyName, Object propertyValue ) {
             getEntityInfo().GetProperty( propertyName ).SetValue( this, propertyValue );
         }
@@ -205,10 +235,10 @@ namespace wojilu {
         //-------------------------------------------------------------------------
 
         /// <summary>
-        /// »ñÈ¡À©Õ¹ÊôĞÔÄÚ²¿Ä³ÏîµÄÖµ
+        /// è·å–æ‰©å±•å±æ€§å†…éƒ¨æŸé¡¹çš„å€¼
         /// </summary>
-        /// <param name="propertyName">À©Õ¹ÊôĞÔÃû³Æ</param>
-        /// <param name="key">À©Õ¹ÊôĞÔÄÚ²¿Ä³ÏîµÄ key</param>
+        /// <param name="propertyName">æ‰©å±•å±æ€§åç§°</param>
+        /// <param name="key">æ‰©å±•å±æ€§å†…éƒ¨æŸé¡¹çš„ key</param>
         /// <returns></returns>
         public Object getExt( String propertyName, String key ) {
             Dictionary<String, Object> dic = this.getExtDic( propertyName );
@@ -218,9 +248,9 @@ namespace wojilu {
         }
 
         /// <summary>
-        /// »ñÈ¡À©Õ¹ÊôĞÔ±¾ÉíµÄÖµ
+        /// è·å–æ‰©å±•å±æ€§æœ¬èº«çš„å€¼
         /// </summary>
-        /// <param name="propertyName">À©Õ¹ÊôĞÔÃû³Æ</param>
+        /// <param name="propertyName">æ‰©å±•å±æ€§åç§°</param>
         /// <returns></returns>
         public Dictionary<String, Object> getExtDic( String propertyName ) {
             Object pvalue = this.get( propertyName );
@@ -235,11 +265,11 @@ namespace wojilu {
         }
 
         /// <summary>
-        /// ¸øÀ©Õ¹ÊôĞÔÄÚ²¿Ä³Ïî¸³Öµ
+        /// ç»™æ‰©å±•å±æ€§å†…éƒ¨æŸé¡¹èµ‹å€¼
         /// </summary>
-        /// <param name="propertyName">À©Õ¹ÊôĞÔÃû³Æ</param>
-        /// <param name="key">À©Õ¹ÊôĞÔÄÚ²¿Ä³ÏîµÄ key</param>
-        /// <param name="val">À©Õ¹ÊôĞÔÄÚ²¿Ä³ÏîµÄ val</param>
+        /// <param name="propertyName">æ‰©å±•å±æ€§åç§°</param>
+        /// <param name="key">æ‰©å±•å±æ€§å†…éƒ¨æŸé¡¹çš„ key</param>
+        /// <param name="val">æ‰©å±•å±æ€§å†…éƒ¨æŸé¡¹çš„ val</param>
         public void setExt( String propertyName, String key, String val ) {
 
             Dictionary<String, Object> dic = this.getExtDic( propertyName );
@@ -248,10 +278,10 @@ namespace wojilu {
         }
 
         /// <summary>
-        /// ¸øÀ©Õ¹ÊôĞÔ±¾ÉíµÄ¸³Öµ
+        /// ç»™æ‰©å±•å±æ€§æœ¬èº«çš„èµ‹å€¼
         /// </summary>
-        /// <param name="propertyName">À©Õ¹ÊôĞÔÃû³Æ</param>
-        /// <param name="dic">À©Õ¹ÊôĞÔµÄÖµ</param>
+        /// <param name="propertyName">æ‰©å±•å±æ€§åç§°</param>
+        /// <param name="dic">æ‰©å±•å±æ€§çš„å€¼</param>
         public void setExtDic( String propertyName, Dictionary<String, Object> dic ) {
             this.set( propertyName, JSON.DicToString( dic ) );
             this.update( propertyName );
@@ -269,7 +299,7 @@ namespace wojilu {
         }
 
         /// <summary>
-        /// ÅÅĞò·½·¨(¸ù¾İId´óĞ¡ÅÅĞò)
+        /// æ’åºæ–¹æ³•(æ ¹æ®Idå¤§å°æ’åº)
         /// </summary>
         /// <param name="obj"></param>
         /// <returns></returns>
