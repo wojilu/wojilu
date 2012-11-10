@@ -63,14 +63,10 @@ namespace wojilu.Web.Controller.Layouts {
             IBlock block = getBlock( "gnavLink" );
             foreach (IMenu menu in list) {
 
+                block.Set( "menu.CurrentClass", getCurrentClass( menu, ctx.GetItemString( "_moduleUrl" ), "current-group-menu" ) );
+
                 IBlock subNavBlock = block.GetBlock( "subNav" );
-
                 IBlock rootBlock = block.GetBlock( "rootNav" );
-
-                // 讨论区：修改 rawUrl 为 app 首页
-                if (menu.RawUrl.ToLower().IndexOf( "forum" ) > -1) {
-                    rootBlock.Set( "menu.RawUrl", getForumAppUrl( menu.RawUrl ) );
-                }
 
                 List<IMenu> subMenus = MenuHelper.getSubMenus( menus, menu );
 
@@ -86,6 +82,19 @@ namespace wojilu.Web.Controller.Layouts {
                 block.Next();
 
             }
+        }
+
+        public string getCurrentClass( IMenu menu, String currentModuleUrl, String currentClass ) {
+
+            if (strUtil.IsNullOrEmpty( currentModuleUrl )) return "";
+
+            // 论坛特殊处理：因为论坛链接不是论坛首页，而是版块首页
+            if (menu.RawUrl.ToLower().IndexOf( "forum" ) < 0) return MenuHelper.getCurrentClass( menu, currentModuleUrl, currentClass );
+
+            String forumAppUrl = getForumAppUrl( menu.RawUrl );
+
+            if (currentModuleUrl.IndexOf( forumAppUrl ) >= 0) return currentClass;
+            return "";
         }
 
         private string getForumAppUrl( string rawUrl ) {

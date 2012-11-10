@@ -307,14 +307,13 @@ namespace wojilu.Web.Controller.Layouts {
             for (int i = 0; i < list.Count; i++) {
 
                 String itemId = (i == list.Count - 1 ? "menuItemLast" : "menuItem" + i);
-                block.Set( "menu.ItemId", itemId );
-
                 IMenu menu = list[i];
+
+                block.Set( "menu.ItemId", itemId );
+                block.Set( "menu.CurrentClass", MenuHelper.getCurrentClass( menu, ctx.GetItemString( "_moduleUrl" ), "current-site-menu" ) );
 
                 IBlock subNavBlock = block.GetBlock( "subNav" );
                 IBlock rootBlock = block.GetBlock( "rootNav" );
-
-                rootBlock.Set( "menu.RawUrl", menu.RawUrl );
 
                 List<IMenu> subMenus = MenuHelper.getSubMenus( menus, menu );
 
@@ -331,6 +330,7 @@ namespace wojilu.Web.Controller.Layouts {
 
             }
         }
+
 
 
         private IMenu bindSubMenus( List<IMenu> list ) {

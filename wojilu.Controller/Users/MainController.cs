@@ -41,6 +41,10 @@ namespace wojilu.Web.Controller.Users {
 
             List<User> picked = userService.GetPickedList( 20 );
             bindUsers( picked, "picked" );
+
+            // 当前app/module所有页面，所属的首页
+            ctx.SetItem( "_moduleUrl", to( Index ) );
+
         }
 
         [CachePage( typeof( UserMainPageCache ) )]
@@ -218,6 +222,9 @@ namespace wojilu.Web.Controller.Users {
         public void Search() {
 
             HideLayout( typeof( MainController ) );
+
+            // 当前app/module所有页面，所属的首页
+            ctx.SetItem( "_moduleUrl", to( Index ) );
 
             set( "userMainLink", to( Index ) );
 

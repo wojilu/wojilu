@@ -42,6 +42,8 @@ namespace wojilu.Web.Controller.Photo {
 
         [CacheAction( typeof( PhotoMainLayoutCache ) )]
         public override void Layout() {
+            // 当前app/module所有页面，所属的首页
+            ctx.SetItem( "_moduleUrl", to( Index ) );
         }
 
 

@@ -32,7 +32,11 @@
                 }
             }
             else {
-                $('#adminTool').show();
+
+                $.post('#{adminCheckUrl}'.toAjax(), function (data) {
+                    if ('ok' == data) $('#adminTool').show();
+                });
+
             }
 
         };
@@ -40,8 +44,5 @@
         wojilu.site.load(showAdminTool);
 
         wojilu.ui.frmLink();
-
-        _moduleList.push('#{appUrl}');
-
     });
 </script>

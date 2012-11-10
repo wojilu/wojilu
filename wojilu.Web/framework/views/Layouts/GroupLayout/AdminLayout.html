@@ -13,9 +13,15 @@
 
 #{siteSkinContent}
 <style>#topNavWrap {background:url("~skin/site/topNavBg.png");}</style>
-<link href="~css/wojilu.core.group.css?v=#{cssVersion}" rel="stylesheet" type="text/css" />
+
 #{skinContent}
 <style>
+#groupPage {width:940px;margin:auto;}
+
+ /*页脚*/
+#group-footer-wrap {margin: auto; }
+#group-footer { text-align:center;padding:20px ; }
+
 #gAdminWrap{background:#eee;  line-height:150%; border-left:0px #aaa solid; border-right:0px #aaa solid; }
 #gAdminWrap a {}
 
@@ -98,8 +104,8 @@ div.tabMain {border-left:0px #cdcdcd solid;border-right:0px #cdcdcd solid;border
 		    </tr>
 	    </table>
     	
-	    <div id="groupFooterWrap">
-		    <div id="groupFooter">
+	    <div id="group-footer-wrap">
+		    <div id="group-footer">
 			    <div>copyright &copy <a href="#{groupLink}">#{groupName}</a> 20011-2012</div>
 			    <div>Powered by <a href="#{sitelink}">#{sitename}</a></div>
 		    </div>

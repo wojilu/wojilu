@@ -9,30 +9,21 @@
 <link href="~css/bootstrap/css/bootstrap.css?v=#{cssVersion}" rel="stylesheet" />
 <link href="~css/wojilu._base.css?v=#{cssVersion}" rel="stylesheet" />
 
-<script>var __funcList = []; var _run = function (aFunc) { __funcList.push(aFunc); }; var require = { urlArgs: 'v=#{jsVersion}' };_moduleList = [];</script>
+<script>var __funcList = []; var _run = function (aFunc) { __funcList.push(aFunc); }; var require = { urlArgs: 'v=#{jsVersion}' };</script>
 
 <!--[if IE 6]>
 <link href="~css/bootstrap/ie6.css?v=#{cssVersion}" rel="stylesheet">
 <link href="~css/wojilu.core.ie6.css?v=#{cssVersion}" rel="stylesheet">
 <script src="~js/wojilu.core.ie6.js?v=#{jsVersion}" type="text/javascript"></script>
 <![endif]-->
-
 </head>
 
 <body>
-
 #{topNav}
-
 <div class="container page-container" id="page-container">
-
-
     #{header}
-
     #{layout_content}
-
-
     <div id="footerTopAd" class="adItem" data-ad="Footer">#{adFooter}</div>
-
     <div class="row" id="footer-row">       
         <div class="span12 footer">        
             <div class="footer-inner">
@@ -42,21 +33,13 @@
 	            <div><a href="#{customSkinLink}" id="customSkin" class="frmBox" title="_{customSkin}"></a></div>
             </div>
         </div>
-
-    </div>    
-
+    </div>
 </div>
 <script>
     _run(function () {
-
-        require(['wojilu.core.base'], function (x) {
-            x.customSkin().backTop().setCurrent('#site-nav', 'current-site-menu');
-        });
-
+        require(['wojilu.core.base'], function (x) { x.customSkin().backTop(); });
     });
 </script>
-
-
 <script data-main="~js/main" src="~js/lib/require-jquery-wojilu.js?v=#{jsVersion}"></script>
 #{statsJs}
 </body>

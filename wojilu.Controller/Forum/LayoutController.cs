@@ -19,6 +19,9 @@ namespace wojilu.Web.Controller.Forum {
 
             set( "adminCheckUrl", t2( new wojilu.Web.Controller.SecurityController().CanAppAdmin, app.Id ) + "?appType=" + typeof( ForumApp ).FullName );
 
+            // 当前app/module所有页面，所属的首页
+            ctx.SetItem( "_moduleUrl", to( new ForumController().Index ) );
+
         }
     }
 

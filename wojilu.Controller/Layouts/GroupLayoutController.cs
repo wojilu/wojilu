@@ -69,23 +69,15 @@ namespace wojilu.Web.Controller.Layouts {
             // 论坛属性(公开/半公开/秘密)
             set( "group.AccessStatusStr", group.GetAccessString() );
             set( "g.JoinTool", getJoinCmd( group ) );
-            set( "g.Description", group.Description.Replace( "\n", "<br/>" ) );
+            set( "g.Description", strUtil.CutString( group.Description, 150 ) );
             set( "g.MemberCount", group.MemberCount );
             set( "g.MemberList", t2( new Groups.MemberController().List ) );
 
             // 群组统计信息
             bindGroupStats( group ); 
 
-            IList newMember = mgrService.GetNewMember( group.Id, 12 );
-            bindNewMemberList( newMember );
-
-            IList friends = gfService.GetFriends( group.Id, 8 );
-            bindFriends( friends );
-
             set( "customSkinLink", to( new Groups.Admin.SkinController().CustomBg ) );
-
         }
-
 
         public void AdminLayout() {
 

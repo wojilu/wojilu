@@ -12,6 +12,19 @@ namespace wojilu.Web.Controller.Layouts {
 
     public class MenuHelper {
 
+        public static string getCurrentClass( IMenu menu, String currentModuleUrl, String currentClass ) {
+            return getCurrentClass( menu.RawUrl, currentModuleUrl, currentClass );
+        }
+
+        public static string getCurrentClass( String rawUrl, String currentModuleUrl, String currentClass ) {
+
+            if (currentModuleUrl == null) return "";
+
+            currentModuleUrl = strUtil.TrimEnd( currentModuleUrl, MvcConfig.Instance.UrlExt ).TrimStart( '/' );
+
+            return strUtil.EqualsIgnoreCase( currentModuleUrl, rawUrl ) ? currentClass : "";
+        }
+
         public static void bindMenuSingle( IBlock block, IMenu menu, MvcContext ctx ) {
 
             block.Set( "menu.Id", menu.Id );

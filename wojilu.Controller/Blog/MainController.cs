@@ -11,7 +11,6 @@ using wojilu.ORM;
 using wojilu.Web.Mvc;
 using wojilu.Web.Mvc.Attr;
 
-
 using wojilu.Members.Users.Domain;
 using wojilu.Members.Users.Service;
 using wojilu.Members.Users.Interface;
@@ -48,6 +47,9 @@ namespace wojilu.Web.Controller.Blog {
 
         [CacheAction( typeof( BlogMainLayoutCache ) )]
         public override void Layout() {
+
+            // 当前app/module所有页面，所属的首页
+            ctx.SetItem( "_moduleUrl", to( Index ) );
 
             List<BlogPost> tops = pickedService.GetTop( 10 );
             List<BlogPost> hits = sysblogService.GetSysHit( 15 );

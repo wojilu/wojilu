@@ -41,6 +41,9 @@ namespace wojilu.Web.Controller.Groups {
         [CacheAction( typeof( GroupMainLayoutCache ) )]
         public override void Layout() {
 
+            // 当前app/module所有页面，所属的首页
+            ctx.SetItem( "_moduleUrl", to( Index ) );
+
             List<GroupCategory> categories = GroupCategory.GetAll();
             IBlock block = getBlock( "categories" );
             foreach (GroupCategory c in categories) {

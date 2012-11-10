@@ -46,8 +46,11 @@ td.regLeft {font-weight:bold; vertical-align:top;}
 			</td>
 		</tr>
 		<tr class="bottomRow">
-			<td class="regLeft">_{groupDescription}</td>
-			<td><textarea name="Description" style="width: 98%; height: 180px">#{g.Description}</textarea>
+			<td class="regLeft">
+                <div>_{groupDescription}</div>
+                <div style=" font-weight:normal; color:#666;">(一句话)</div>
+            </td>
+			<td><textarea name="Description" style="width: 98%; height: 100px">#{g.Description}</textarea>
 			</td>
 		</tr>
 		<tr class="bottomRow">

@@ -110,7 +110,7 @@ namespace wojilu.Web.Controller.Forum {
             set( "forumBoard.Posts", fb.Posts );
 
 
-            set( "forumBoard.Notice", strUtil.HasText( fb.Notice ) ? "<div class=\"board-info-notice clearfix\">" + fb.Notice : "</div>" );
+            set( "forumBoard.Notice", strUtil.HasText( fb.Notice ) ? "<div class=\"board-info-notice clearfix\">" + fb.Notice + "</div>" : "" );
             set( "forumBoard.Moderator", moderatorService.GetModeratorHtml( fb ) );
 
             set( "moderatorJson", moderatorService.GetModeratorJson( fb ) );
@@ -347,7 +347,7 @@ namespace wojilu.Web.Controller.Forum {
             String adminGlobalStickyUndo = string.Format( cmdPost, gstickyUndoLink, alang( "cmdGlobalStickyUndo" ) );
 
             String moveLink = urlto( t.Move, id );
-            String adminMove = string.Format( cmd, moveLink, "<i class=\"icon-move\"></i> "+alang( "moveTopic" ) );
+            String adminMove = string.Format( cmd, moveLink, "<i class=\"icon-move\"></i> " + alang( "moveTopic" ) );
 
             set( "adminGsticky", adminGlobalSticky );
             set( "adminGstickyUndo", adminGlobalStickyUndo );

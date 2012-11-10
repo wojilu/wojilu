@@ -5,19 +5,21 @@
 
     #group-header { height:250px; }
 
-    #group-header-info {height:150px; background:#f2f2f2;}
-        #group-logo-wrap {width:170px; height:220px; background:#fff; margin-top:-82px; border:1px solid #aaa; padding:5px;}
-            #group-logo-pic {width:170px;}
-            #group-logo-info { text-align:center; margin-top:8px; color:#666;}
+    #group-header-info {height:155px; background:#f2f2f2;}
+        #group-logo-wrap {width:200px; height:260px; background:#fff; margin-top:-130px; border:1px solid #aaa; padding:5px; box-shadow:0px 0px 10px #aaa;}
+            #group-logo-pic {width:200px; height:200px;}
+            #group-logo-info { text-align:center; margin-top:10px; color:#666;}
 
-        #group-meta-wrap {margin-left:23px; margin-top:0px;  height:150px;}
-            #group-name { font-size:26px; font-weight:bold;}
+        #group-meta-wrap {margin-left:55px; margin-top:0px;  height:110px;}
 
-/*导航*/
-#group-nav {margin-left:20px;height:35px;}
-#group-nav li { float:left; margin-right:0px; font-size:16px; display:block; padding:10px 20px;}
-    .current-group-menu { background:#fff;}
-    .current-group-menu a { color:#666; font-weight:bold;}
+            #group-meta-top {height:108px; *height:118px; margin-top:0px;}
+                #group-name { font-size:22px; font-weight:bold;}
+
+            /*导航*/
+            #group-nav {margin-left:20px;height:35px;}
+            #group-nav li { float:left; margin-right:0px; font-size:16px; display:block; padding:10px 20px;}
+                .current-group-menu { background:#fff;}
+                .current-group-menu a { color:#666; font-weight:bold;}
 
 .forum-location { display:none;}
 

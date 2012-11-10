@@ -12,6 +12,8 @@ using wojilu.Members.Users.Domain;
 using wojilu.Members.Sites.Service;
 using wojilu.Common.MemberApp.Interface;
 using wojilu.DI;
+using System.Collections.Generic;
+using wojilu.Common;
 
 namespace wojilu.Web.Controller.Security {
 
@@ -34,6 +36,16 @@ namespace wojilu.Web.Controller.Security {
 
             IMemberAppService siteAppService = new SiteAppService();
             IMemberApp app = siteAppService.GetByApp( appType, appInstanceId );
+
+            return IsRoleInApp( roleId, app.Id );
+        }
+
+        public static Boolean CanAppAdmin( IUser user, IMember owner, Type appType, int appInstanceId ) {
+
+            int roleId = ((User)user).RoleId;
+
+            IMemberAppService appService = ServiceMap.GetUserAppService( owner.GetType() );
+            IMemberApp app = appService.GetByApp( appType, appInstanceId );
 
             return IsRoleInApp( roleId, app.Id );
         }

@@ -21,7 +21,8 @@ namespace wojilu.Web.Controller {
         private static readonly ILog logger = LogManager.GetLogger( typeof( TagController ) );
 
         public override void Layout() {
-
+            // 当前app/module所有页面，所属的首页
+            ctx.SetItem( "_moduleUrl", to( Index ) );
         }
 
         public void Index() {

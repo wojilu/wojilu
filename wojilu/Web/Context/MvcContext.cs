@@ -123,6 +123,16 @@ namespace wojilu.Web.Context {
         }
 
         /// <summary>
+        /// 根据 key 获取存储在 ctx 中某项的值，以字符串形式返回
+        /// </summary>
+        /// <param name="key"></param>
+        /// <returns></returns>
+        public String GetItemString( String key ) {
+            if (_contextItems[key] == null) return null;
+            return _contextItems[key].ToString();
+        }
+
+        /// <summary>
         /// 将某个对象存储在 ctx 中，方便不同的 controller 或 action 之间调用
         /// </summary>
         /// <param name="key"></param>
