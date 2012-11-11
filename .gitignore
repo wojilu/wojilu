@@ -35,6 +35,7 @@ _ReSharper*/
 
 #static html files
 wojilu.Web/html/
+wojilu.Web/cms*/
 #wojilu temp files
 _wtemp/
 
