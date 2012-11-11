@@ -202,7 +202,7 @@ namespace wojilu.Web.Controller.Content.Admin {
             set( "post.Width", post.Width );
             set( "post.Height", post.Height );
 
-            editor( "Content", strUtil.Edit( post.Content ), "250px" );
+            editor( "Content", post.Content, "250px" );
 
             set( "post.Created", post.Created );
             set( "post.Hits", post.Hits );

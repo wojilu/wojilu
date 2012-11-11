@@ -128,15 +128,6 @@ namespace wojilu {
         }
 
         /// <summary>
-        /// 将字符串转换为编辑器中可用的字符串(替换掉换行符号)
-        /// </summary>
-        /// <param name="str"></param>
-        /// <returns></returns>
-        public static String Edit( String str ) {
-            return str.Replace( "\n", "" ).Replace( "\r", "" ).Replace( "'", "&#39;" );
-        }
-
-        /// <summary>
         /// 对双引号进行编码
         /// </summary>
         /// <param name="src"></param>
