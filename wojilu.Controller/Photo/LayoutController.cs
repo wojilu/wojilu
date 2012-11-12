@@ -35,12 +35,12 @@ namespace wojilu.Web.Controller.Photo {
 
             set( "adminUrl", to( new Admin.MyController().My ) );
 
-            set( "photo.AppUrl", Link.To( new PhotoController().Index ) );
+            set( "photo.AppUrl", to( new PhotoController().Index ) );
             IBlock block = getBlock( "list" );
             List<PhotoAlbum> albumList = albumService.GetListByApp( ctx.app.Id );
             foreach (PhotoAlbum album in albumList) {
                 block.Set( "category.Title", album.Name );
-                block.Set( "category.Url", Link.To( new PhotoController().Album, album.Id ) );
+                block.Set( "category.Url", to( new PhotoController().Album, album.Id ) );
                 String coverImg = PhotoHelper.getCover( album );
                 block.Set( "category.Cover", coverImg );
                 block.Next();
@@ -68,7 +68,7 @@ namespace wojilu.Web.Controller.Photo {
 
             foreach (PhotoPostComment comment in newComments) {
                 commentblock.Set( "comment.Title", strUtil.SubString( comment.Content, 14 ) );
-                commentblock.Set( "comment.Url", Link.To( new PostController().Show, comment.RootId ) + "#comments" );
+                commentblock.Set( "comment.Url", to( new PostController().Show, comment.RootId ) + "#comments" );
                 commentblock.Next();
             }
 

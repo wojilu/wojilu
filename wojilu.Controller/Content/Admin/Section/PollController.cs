@@ -14,6 +14,7 @@ using wojilu.Apps.Content.Interface;
 using wojilu.Apps.Content.Service;
 using wojilu.Web.Controller.Poll.Utils;
 using wojilu.Common.AppBase;
+using wojilu.Web.Controller.Content.Caching;
 
 namespace wojilu.Web.Controller.Content.Admin.Section {
 
@@ -70,6 +71,7 @@ namespace wojilu.Web.Controller.Content.Admin.Section {
             }
 
             echoRedirect( lang( "opok" ) );
+            HtmlHelper.SetCurrentPost( ctx, post );
         }
 
         [HttpPost, DbTransaction]
@@ -90,6 +92,7 @@ namespace wojilu.Web.Controller.Content.Admin.Section {
             ContentPost post = postService.GetById( poll.TopicId, ctx.owner.Id );
 
             echoToParentPart( lang( "opok" ) );
+            HtmlHelper.SetCurrentPost( ctx, post );
         }
 
     }

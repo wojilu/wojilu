@@ -56,13 +56,13 @@ namespace wojilu.Web.Controller.Content.Binder {
             set( "user.AddFriendLink", t2( new FriendController().AddFriend, ctx.owner.Id ) );
             set( "user.AddFollowLink", t2( new FriendController().AddFollow, ctx.owner.Id ) );
 
-            String lnkMsg = Link.T2( new LinkController().NewMsg, ctx.owner.Id );
+            String lnkMsg = Link.To( new LinkController().NewMsg, ctx.owner.Id );
 
             set( "sendMsgLink", lnkMsg );
 
-            String shareLink = Link.T2( ctx.owner.obj, new wojilu.Web.Controller.ShareController().Add );
+            String shareLink = Link.To( ctx.owner.obj, new wojilu.Web.Controller.ShareController().Add );
             shareLink = shareLink + string.Format( "?url={0}&title={1}&pic={2}",
-                getFullUrl( Link.ToMember( user ) ), "" + user.Name + " 的空间", user.PicOriginal );
+                getFullUrl( toUser( user ) ), "" + user.Name + " 的空间", user.PicOriginal );
 
             set( "shareLink", shareLink );
 

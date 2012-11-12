@@ -1,4 +1,4 @@
-/*
+﻿/*
  * Copyright (c) 2010, www.wojilu.com. All rights reserved.
  */
 
@@ -14,16 +14,15 @@ using wojilu.Common.Tags;
 using wojilu.Common.Jobs;
 using wojilu.Common.AppBase.Interface;
 using wojilu.Common;
+using wojilu.Common.Comments;
 
 namespace wojilu.Apps.Photo.Domain {
 
     [Serializable]
-    public class PhotoPost : ObjectBase<PhotoPost>, IAppData, IShareData, IHits {
+    public class PhotoPost : ObjectBase<PhotoPost>, IAppData, IShareData, IHits, ICommentTarget {
 
         public int AppId { get; set; }
         public int SysCategoryId { get; set; }
-
-        private PhotoAlbum _album = null;
 
         [Column( Name = "CategoryId" )]
         public PhotoAlbum PhotoAlbum { get; set; }
@@ -44,12 +43,24 @@ namespace wojilu.Apps.Photo.Domain {
         [NotNull( Lang = "exPicUrl" )]
         public String DataUrl { get; set; }
 
-
         [LongText]
         public String Description { get; set; }
         public int Hits { get; set; }
         public int Replies { get; set; }
 
+        //--------------------------------------------------------------------
+
+        public int Likes { get; set; }
+        public int Pins { get; set; }
+
+        public String SrcName { get; set; } // 来源网站
+        public String SrcUrl { get; set; } // 来源网址
+        public String SrcTool { get; set; } // 采集工具
+
+        public int ParentId { get; set; } // 转采来源 parent
+        public int RootId { get; set; } // 转采来源 root
+
+        //--------------------------------------------------------------------
 
         public int SaveStatus { get; set; }
         public int AccessStatus { get; set; }

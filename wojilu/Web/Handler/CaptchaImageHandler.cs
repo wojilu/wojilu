@@ -47,7 +47,7 @@ namespace wojilu.Web.Handler {
 
             String code = getServerCode( context );
 
-            using (Image vimg = new ValidationCode().CreateImage( code, 80, 32, "" )) {
+            using (Image vimg = new ValidationCode().CreateImage( code, 120, 30, "" )) {
 
                 context.Response.Clear();
                 context.Response.ContentType = "image/jpeg";

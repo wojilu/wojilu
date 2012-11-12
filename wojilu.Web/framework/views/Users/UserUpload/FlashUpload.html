@@ -2,54 +2,31 @@
 <div><input id="file_upload" name="file_upload" type="file" /> <span id="status"></span></div>
 <div id="uploader"></div>
 
-<link href="~js/uploadify/uploadify.css" type="text/css" rel="stylesheet" />
-<script type="text/javascript" src="#{jsPath}uploadify/swfobject.js"></script>
-<script type="text/javascript" src="#{jsPath}uploadify/jquery.uploadify.v2.1.4.min.js"></script>
-<script type="text/javascript">
-<!--
-$(document).ready( function(){
+
+<script>
+
+_run( function(){
 
     $('#nlink').click( function() {
         wojilu.tool.forward( '#{normalLink}'.toAjaxFrame(), 0 );
     });
-    
-    var params = #{authJson};
 
-    $('#file_upload').uploadify({
-        'uploader' : "#{jsPath}uploadify/uploadify.swf",
-        'script' : '#{uploadLink}',
-        'cancelImg' : "#{jsPath}uploadify/cancel.png",
-        'buttonImg' : "#{jsPath}uploadify/browser.gif",
-        'width':90,
-        'height':24,
-        'auto' : true,
-        'multi': true,
-        'scriptAccess':'always',
-        'fileExt' : '*.jpg;*.gif;*.png;*.jpeg;*.bmp;',
-        'fileDesc'  : 'Image Files (.JPG, .GIF, .PNG, .jpeg, .bmp)',
-        'removeCompleted': true,
-        'queueID' : 'uploader',
-        'displayData' : 'speed',
-        'queueSizeLimit':10,
-        'scriptData':params,
-        
-        'onSelectOnce'   : function(event,data) {
-            $('#status').text(data.filesSelected + ' 个文件等待上传');
-        },
-        
-        'onAllComplete'  : function(event,data) {
-            $('#status').text(data.filesUploaded + ' 个文件上传成功, ' + data.errors + ' 个错误.');
-        },
-        
-        'onError' : function (event,ID,fileObj,errorObj) {
-            //alert(errorObj.type + ', Error: ' + errorObj.info + ', fileObj=' + fileObj);
-        },
-        
-        'onComplete'  : function(event, ID, fileObj, response, data) {
-            var obj = eval( '(' + response + ')' );            
+    var cfg = wojilu.upload.getSettings();
+
+    cfg.uploader = '#{uploadLink}'.toAjax(); // 接受上传的网址
+    cfg.postData = #{authJson}; // 客户端验证信息(cookie等)
+    cfg.fileTypeExts = '*.jpg;*.gif;*.png;*.jpeg;*.bmp;'; // 允许上传的文件类型
+    cfg.fileTypeDesc = 'Image Files'; // 选择框中文件类型描述
+    cfg.queueID = 'uploader'; // 显示进度条的容器
+
+    cfg.onUploadSuccess = function (file, data, response) {            
+            var obj = eval( '(' + data + ')' );
             window.parent.addEditorPicAndLink( '#{editorName}', obj.PicUrl, obj.OpicUrl );
-        }
-    });
+            wojilu.tool.reloadPage();// 解决上传完毕，无法输入中文问题
+    };
+
+    wojilu.upload.initFlash( '#file_upload', cfg );
+    
 });
-//-->
+
 </script>

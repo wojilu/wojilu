@@ -1,12 +1,11 @@
 ﻿
 
-<div style="padding:10px 0px 30px 30px;height:420px">
+<div style="padding:10px 0px 30px 30px;height:500px">
 
 <style>
 
-div.lgReginfo {padding:10px 0px 10px 20px; background:#f2f2f2; width:600px; margin-top:15px;}
 
-#register{ border:0px #ccc solid; border-collapse:collapse;  width:600px}
+#register{ border:0px #ccc solid; border-collapse:collapse;  width:680px}
 #register td{font-size:12px; padding:3px;height:20px;}
 #register .right {width:120px; padding-right:5px}
 #register .lgTitle{padding:15px 10px 10px 0px; font-size:28px;font-weight:bold;}
@@ -21,7 +20,7 @@ div.lgReginfo {padding:10px 0px 10px 20px; background:#f2f2f2; width:600px; marg
 
 <form method="post" action="#{ActionLink}" class="registerForm">
 
-	<div class="lgReginfo">
+	<div class="alert alert-warning" style="margin:20px;width:80%;">
 	<ul style="padding-left:70px;">
 	    <li style="list-style-type:disc;">#{loginTip}</li>
 	    <!-- BEGIN sendConfirmEmail -->
@@ -47,7 +46,7 @@ div.lgReginfo {padding:10px 0px 10px 20px; background:#f2f2f2; width:600px; marg
         <!-- BEGIN friendlyUrl -->
 		<tr>
 			<td class="right">_{friendlyUrl}</td>
-			<td><span class="note">#{userUrlPrefix}</span><input name="FriendUrl" type="text" value="#{m.FriendUrl}" style="width:80px;"> <span class="note">#{urlExt}</span>
+			<td><span class="note">#{userUrlPrefix}</span><input name="FriendUrl" type="text" value="#{m.FriendUrl}" style="width:80px; height:15px;"> <span class="note">#{urlExt}</span>
 			<span class="valid" to="FriendUrl" msg="_{furlNote}" show="true" rule="name" ajaxAction="#{isUrlValidLink}"></span>
 			</td>
 		</tr><!-- END friendlyUrl -->
@@ -76,11 +75,11 @@ div.lgReginfo {padding:10px 0px 10px 20px; background:#f2f2f2; width:600px; marg
 		</tr>
 		<tr>
 			<td class="right">_{gender}</td>
-			<td>#{m.Gender}</td>
+			<td><div class="inline">#{m.Gender}</div></td>
 		</tr>
 		<tr><td></td><td class="lgsubmit">
-		<input name="btnRegister" type="submit" class="btn" value="_{submitReg}">
-		<input name="Reset1" type="reset" value="_{regReset}" class="btnReset" id="btnReset" />
+		<input name="btnRegister" type="submit" class="btn btn-primary" value="_{submitReg}">
+		<input name="Reset1" type="reset" value="_{regReset}" class="btn btnReset left10" id="btnReset" />
 		</td></tr>
 		<tr><td></td><td><label for="readLow" style="color:#aaa;">_{readAndAgree} <a href="/agreement.html" style="text-decoration:underline;" target="_blank">_{regService}</a></label></td></tr>
 	</table>
@@ -89,7 +88,7 @@ div.lgReginfo {padding:10px 0px 10px 20px; background:#f2f2f2; width:600px; marg
 
 <script type="text/javascript">
 
-$(document).ready( function() {
+_run( function() {
 	wojilu.ui.valid();
 	var vimg = $('#validationRow img');
 	$('#btnReset').click( function() {wojilu.tool.refreshImg(vimg);} );

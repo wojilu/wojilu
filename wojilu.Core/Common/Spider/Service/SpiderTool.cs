@@ -7,7 +7,10 @@ using wojilu.Data;
 using wojilu.Net;
 using System.Threading;
 using wojilu.Common.Spider.Interface;
-
+using HtmlAgilityPack;
+using Fizzler;
+using Fizzler.Systems.HtmlAgilityPack;
+using System.Linq;
 namespace wojilu.Common.Spider.Service {
 
     public class SpiderTool : ISpiderTool {
@@ -51,9 +54,10 @@ namespace wojilu.Common.Spider.Service {
 
             List<DetailLink> list = new List<DetailLink>();
             if (strUtil.IsNullOrEmpty( page )) return list;
-
-            MatchCollection matchs = Regex.Matches( page, s.ListPattern, RegexOptions.Singleline );
-            sb.AppendLine( "共抓取到链接：" + matchs.Count );
+            
+            //获取全部url
+            MatchCollection matchs = Regex.Matches(page, SpiderConfig.ListLinkPattern, RegexOptions.Singleline);
+            
             for (int i = matchs.Count - 1; i >= 0; i--) {
                 DetailLink dlink = getDetailLink( matchs[i], s );
 
@@ -62,6 +66,7 @@ namespace wojilu.Common.Spider.Service {
                 if (dlink.Url.Length > 100) continue;
                 list.Add( dlink );
             }
+            sb.AppendLine("共抓取到链接：" + list.Count);
             return list;
         }
 
@@ -106,12 +111,27 @@ namespace wojilu.Common.Spider.Service {
             }
             return isExist;
         }
+        //解析用户输入的通配符方式的目标网页模式
+        //将/www.cnblogs.com/*/archive/*/*/*/*.html
+        //转换为www\.cnblogs\.com/(.*?)/archive/(.*?)/(.*?)/(.*?)/(.*?).html
+        private static string ParseUrl(string strUrlSrc)
+        {
+            string strRet = strUrlSrc.Replace(".", @"\.");
+            strRet = strRet.Replace("?", @"\?");
+            strRet = strRet.Replace("*", "(.*?)");
+            return strRet;
+        }
 
         private static DetailLink getDetailLink( Match match, SpiderTemplate s ) {
 
             string url = match.Groups[1].Value;
             string title = match.Groups[2].Value;
-
+            //判断输入的url是否满足用户定义的通配符方式的模式
+            MatchCollection matchs = Regex.Matches(url, ParseUrl(s.ListPattern), RegexOptions.Singleline);
+            if (matchs.Count == 0)
+            {
+                return null;
+            }
             if (url.IndexOf( "javascript:" ) >= 0) return null;
             if (url.StartsWith( "#" )) return null;
 
@@ -169,14 +189,39 @@ namespace wojilu.Common.Spider.Service {
                 return target;
             }
 
-            Match match = Regex.Match( target, s.GetListBodyPattern(), RegexOptions.Singleline );
-            if (match.Success) {
-                target = match.Value;
+            if (!strUtil.IsNullOrEmpty(s.GetListBodyPattern()))
+            {
+                HtmlDocument htmlDoc = new HtmlDocument
+                {
+                    OptionAddDebuggingAttributes = false,
+                    OptionAutoCloseOnEnd = true,
+                    OptionFixNestedTags = true,
+                    OptionReadEncoding = true
+                };
+                htmlDoc.LoadHtml(target);
+                IEnumerable<HtmlNode> Nodes = htmlDoc.DocumentNode.QuerySelectorAll(s.GetListBodyPattern());
+                if (Nodes.Count() > 0)
+                {
+                    target = Nodes.ToArray()[0].OuterHtml;
+                    return target.Trim();
+                }
+                else
+                {
+                    logInfo("error=没有匹配的页面内容:" + s.ListUrl, s, sb);
+                    return null;
+                }
             }
-            else {
-                target = "";
-                logInfo( "error=没有匹配的页面内容:" + s.ListUrl, s, sb );
-            }
+            //这里未来也可以改成css选择器的方式，来细化目标url集合的范围
+            //Match match = Regex.Match(target, s.GetListBodyPattern(), RegexOptions.Singleline);
+            //if (match.Success)
+            //{
+            //    target = match.Value;
+            //}
+            //else
+            //{
+            //    target = "";
+            //    logInfo("error=没有匹配的页面内容:" + s.ListUrl, s, sb);
+            //}
 
             return target.Trim();
         }

@@ -11,15 +11,16 @@
         <div style="margin:10px; padding:5px; font-weight:bold;"><img src="~img/talk.gif" /> 大家正在说</div>
         #{recentList}
         <script>
-        
-        setInterval( function() {
+        _run( function() { 
+            setInterval( function() {
 
-            var lastEle = $('#blogList .blogItem:last-child');
-            lastEle.hide();
-            $('#blogList').prepend( lastEle );
-            lastEle.slideDown('slow');
-        }, 3000);
-        
+                var lastEle = $('#blogList .blogItem:last-child');
+                lastEle.hide();
+                $('#blogList').prepend( lastEle );
+                lastEle.slideDown('slow');
+            }, 3000);
+
+        });
         </script>
     
     </div>   
@@ -30,7 +31,7 @@
         
             <div style="margin:10px; font-weight:bold; border-bottom:1px #ccc solid; padding:5px 10px;"><img src="~img/s/users.png" /> 最受关注排行</div>
          
-			<ul class="userAvatar">
+			<ul class="userAvatar unstyled">
 				<!-- BEGIN followers --><li>
 				<a href="#{user.Link}"><img src="#{user.Face}"/></a>
 				<div><a href="#{user.Link}">#{user.Name}</a></div></li>
@@ -41,7 +42,7 @@
             
             <div style="margin:10px; font-weight:bold; border-bottom:1px #ccc solid; padding:5px 10px;"><img src="~img/s/users.png" /> 最新注册</div>
         
-			<ul class="userAvatar">
+			<ul class="userAvatar unstyled">
 				<!-- BEGIN recent --><li>
 				<a href="#{user.Link}"><img src="#{user.Face}"/></a>
 				<div><a href="#{user.Link}">#{user.Name}</a></div></li>

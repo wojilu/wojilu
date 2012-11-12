@@ -1,66 +1,67 @@
-﻿
-<div class="sectionPanel">
-<div class="sectionTitle utitle">_{whoIsOnline} <a href="#{lnkOnlineAll}" class="left20 note">_{all}...</a></div>
-<table style="width: 100%">
-	<tr>
-		<td id="onlinePanel"><div style="text-align:center; padding:20px;"><img src="~img/ajax/big.gif" /> loading...</div></td>
-	</tr>
-</table>
+﻿<div class="section-panel">
+    <div class="pull-right" style="padding-right:40px;padding-top:10px;"><a href="#{lnkOnlineAll}">&rsaquo;&rsaquo;_{all}</a></div>
+    <h3><img src="~img/s/online.png" /> _{whoIsOnline} </h3>
+    <div class="hero-unit" style="padding:10px 10px 0px 0px; margin:0px 5px;">
+    <table style="width: 100%">
+	    <tr>
+		    <td id="onlinePanel" style="padding:0px 10px 0px 0px;"><div style="text-align:center;"><img src="~img/ajax/big.gif" /> loading...</div></td>
+	    </tr>
+    </table>
+    </div>
 </div>
 
 <script>
-$(document).ready( function() {
+    _run( function() {
+        $.post('#{onlineMemberLink}'.toAjax(), function (users) {
 
-    $.post( '#{onlineMemberLink}'.toAjax(), function(users) {    
-    
-        var html = '';
-        for( var i=0;i<users.length;i++ ) {
-            html += '<div class="uItem">';
-            html += '<a href="'+users[i].UserUrl+'"><img src="'+users[i].UserPicUrl+'"/><br/>'+users[i].UserName+'</a>';
-            html += '</div>';
-        }
-        
-        $('#onlinePanel').html( html );    
+            var html = '<ul class="thumbnails user-list" style="margin:0px;padding:0px;_margin-left:-20px;_margin-bottom:10px;">';
+            for (var i = 0; i < users.length; i++) {
+                html += '<li><div class="thumbnail">';
+                html += '<a href="' + users[i].UserUrl + '"><img src="' + users[i].UserPicUrl + '"/></a><div><a href="">' + users[i].UserName + '</a></div>';
+                html += '</div></li>';
+            }
+            html += '</ul>';
+
+            $('#onlinePanel').html(html);
+        });
+
     });
 
-});
 </script>
 
 
-<div class="sectionPanel">
-<div class="sectionTitle utitle">_{userCharts} <span class="note left20">
-	<a href="#{lnkRank}">_{all}...</a>
-	</span>
-</div>
-<table style="width: 100%" id="tblUsers">
-	<tr>
-		<td>
+<div class="section-panel">
+
+    <div class="pull-right" style="padding-right:40px;padding-top:10px;"><a href="#{lnkRank}">&rsaquo;&rsaquo;_{all}</a></div>
+    <h3 style=" margin-bottom:5px;"><img src="~img/s/users24.png" /> _{userCharts}</h3>
+    <ul class="thumbnails user-list">
 		<!-- BEGIN ranks -->
-		<div class="uItem">
-			<a href="#{u.Link}"><img src="#{u.Face}"/><br/>
-			#{u.Name}</a>
-		</div>
-		<!-- END ranks -->		
-		</td>
-	</tr>
-</table>
+		<li style="width:62px;">
+            <div class="thumbnail">
+			    <a href="#{u.Link}"><img src="#{u.Face}"/></a>
+                <div><a href="#{u.Link}">#{u.Name}</a></div>
+            </div>
+		</li>
+		<!-- END ranks -->    
+    </ul>
 </div>
 
 
-<div class="sectionPanel">
-<div class="sectionTitle utitle">_{newRegUser} <a href="#{linkAll}" class="left20 note">_{all}...</a></div>
-<table style="width: 100%">
-	<tr>
-		<td>
+<div class="section-panel">
+
+    <div class="pull-right" style="padding-right:40px;padding-top:10px;"><a href="#{linkAll}">&rsaquo;&rsaquo;_{all}</a></div>
+    <h3 style="  margin-bottom:5px;"><img src="~img/s/users242.png" /> _{newRegUser} </h3>
+    <ul class="thumbnails user-list">
 		<!-- BEGIN users -->
-		<div class="uItem">
-			<a href="#{u.Link}"><img src="#{u.Face}"/><br/>
-			#{u.Name}</a>
-		</div>
-		<!-- END users -->		
-		</td>
-	</tr>
-</table>
+		<li style="width:62px;">
+            <div class="thumbnail">
+			    <a href="#{u.Link}"><img src="#{u.Face}"/></a>
+                <div><a href="#{u.Link}">#{u.Name}</a></div>
+            </div>
+		</li>
+		<!-- END users -->    
+    </ul>
+
 </div>
 
 

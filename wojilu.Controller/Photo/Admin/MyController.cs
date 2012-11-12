@@ -100,7 +100,7 @@ namespace wojilu.Web.Controller.Photo.Admin {
         }
 
         private void bindLink( IBlock tpl, String lbl, object obj ) {
-            tpl.Set( "c.LinkPostAdmin", Link.To( new MyController().Category, ((IEntity)obj).Id ) );
+            tpl.Set( "c.LinkPostAdmin", to( new MyController().Category, ((IEntity)obj).Id ) );
         }
 
         private void setCategoryDropList() {

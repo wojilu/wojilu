@@ -70,6 +70,7 @@ namespace wojilu.Apps.Content.Domain {
             return s;
         }
 
+        [LongText]
         public String Settings { get; set; }
 
         public ContentSetting GetSettingsObj() {

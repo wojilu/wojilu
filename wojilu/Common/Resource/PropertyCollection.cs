@@ -1,4 +1,4 @@
-/*
+ï»¿/*
  * Copyright 2010 www.wojilu.com
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -21,7 +21,7 @@ using System.Reflection;
 namespace wojilu.Common.Resource {
 
     /// <summary>
-    /// ÊôĞÔÊı¾İÁĞ±í£¬³£ÓÃÓÚÏÂÀ­ÁĞ±íÖĞ
+    /// å±æ€§æ•°æ®åˆ—è¡¨ï¼Œå¸¸ç”¨äºä¸‹æ‹‰åˆ—è¡¨ä¸­
     /// </summary>
     public class PropertyCollection : CollectionBase {
         public int Add( PropertyItem item ) {
@@ -44,6 +44,7 @@ namespace wojilu.Common.Resource {
         public String GetName( int val ) {
             PropertyItem item = FindByValue( val );
             if (item == null) return "";
+            if (AppResource.IsSelectTip( item.Name )) return "";
             return item.Name;
         }
 

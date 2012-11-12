@@ -49,7 +49,7 @@ namespace wojilu.Web.Controller.Content.Section {
 
                 block.Set( "post.TitleCss", post.Style );
                 block.Set( "post.TitleFull", post.Title );
-                block.Set( "post.Url", alink.ToAppData( post ) );
+                block.Set( "post.Url", alink.ToAppData( post, ctx ) );
 
 
                 if (strUtil.HasText( post.TitleHome ))
@@ -83,7 +83,7 @@ namespace wojilu.Web.Controller.Content.Section {
                 imgBlock.Set( "ipost.Width", img.Width );
                 imgBlock.Set( "ipost.Height", img.Height );
 
-                imgBlock.Set( "ipost.Url", alink.ToAppData( img ) );
+                imgBlock.Set( "ipost.Url", alink.ToAppData( img, ctx ) );
 
 
                 imgBlock.Next();
@@ -105,7 +105,7 @@ namespace wojilu.Web.Controller.Content.Section {
 
                 imgBlock.Set( "img.Thumb", img.GetImgThumb() );
 
-                imgBlock.Set( "img.Url", alink.ToAppData( img ) );
+                imgBlock.Set( "img.Url", alink.ToAppData( img, ctx ) );
 
                 imgBlock.Bind( "img", img );
 
@@ -117,6 +117,10 @@ namespace wojilu.Web.Controller.Content.Section {
 
         public void List( int sectionId ) {
             run( new ListController().List, sectionId );
+        }
+
+        public void Archive( int sectionId ) {
+            run( new ListController().Archive, sectionId );
         }
 
         public void Show( int id ) {

@@ -55,9 +55,13 @@
 
 <div id="emBox" class="ebox" style="width:300px;padding:20px 20px; ">
     <div class="mBoxClose" style="float:right;"><img src="~img/box/close.gif" /></div><div id="mbpubEmotion"></div>
-    <script type="text/javascript" src="~js/wojilu.ems.js"></script>
-    <script type="text/javascript" src="~js/wojilu.microblog.js"></script>
-    <script>$('#mbpubEmotion').html(getEmotionTable()) </script>
+    <script>
+        _run(function () {
+            require(["wojilu.app.microblog"], function (x) {
+                $('#mbpubEmotion').html( x.getEmotionTable() );
+            });
+        });
+    </script>
 </div>
 
 <div id="picUploadBox" class="ebox" style="width:400px;padding:20px 20px;">
@@ -82,58 +86,33 @@
     <input id="btnVideo" class="btn btns" type="button" value="确定" /></div>
 </div>
 
-<link href="~js/uploadify/uploadify.css" type="text/css" rel="stylesheet" />
-<script type="text/javascript" src="#{jsPath}uploadify/swfobject.js"></script>
-<script type="text/javascript" src="#{jsPath}uploadify/jquery.uploadify.v2.1.4.min.js"></script>
+<script>
 
+_run( function() {
 
-<script type="text/javascript">
-<!--
+    var cfg = wojilu.upload.getSettings();
 
-$(document).ready( function() {
+    cfg.uploader = '#{savPicLink}'.toAjax(); // 接受上传的网址
+    cfg.postData = #{authJson}; // 客户端验证信息(cookie等)
+    cfg.fileTypeExts = '*.jpg;*.gif;*.png;'; // 允许上传的文件类型
+    cfg.fileTypeDesc = 'Image Files'; // 选择框中文件类型描述
+    cfg.queueID = 'myqueue'; // 显示进度条的容器
+    cfg.queueSizeLimit = 1;
+    cfg.multi = false;
 
-    var param = #{authJson};
+    cfg.onUploadSuccess = function (file, data, response) {            
+        var obj = eval( '('+data+')' );
+        $('#uploadPicThumb').html( '<img src="'+obj.picThumbUrl+'" />' );
+        $('#picUrl').val( obj.picUrl );
+        $('#picUploadBox').slideUp();
+    };
 
-    $('#file_upload').uploadify({
-        'uploader' : "#{jsPath}uploadify/uploadify.swf",
-        'script' : '#{savPicLink}'.toAjax(),
-        'cancelImg' : "#{jsPath}uploadify/cancel.png",
-        'buttonImg' : "#{jsPath}uploadify/browser.gif",
-        'width':90,
-        'height':24,
-        'auto' : true,
-        'multi': false,
-        'fileExt' : '*.jpg;*.gif;*.png;',
-        'fileDesc'  : 'Image Files (.JPG, .GIF, .PNG)',
-        'removeCompleted': true,
-        'queueID' : 'myqueue',
-        'displayData' : 'speed',
-        'queueSizeLimit':1,
-        'scriptData':param,
-        
-        'onSelectOnce'   : function(event,data) {
-            $('#status').text(data.filesSelected + ' 个文件等待上传');
-        },
-        
-        'onComplete'  : function(event, ID, fileObj, response, data) {
-            var obj = eval( '('+response+')' );
-            $('#uploadPicThumb').html( '<img src="'+obj.picThumbUrl+'" />' );
-            $('#picUrl').val( obj.picUrl );
-            $('#picUploadBox').hide();
-        }, 
-        
-        'onAllComplete'  : function(event,data) {
-            $('#status').text(data.filesUploaded + ' 个文件上传成功, ' + data.errors + ' 个错误.');
-        }
+    wojilu.upload.initFlash( '#file_upload', cfg );
 
+    require(['wojilu.app.microblog'], function( x ) {
+        x.bindMbEvent( '#{getVideoUrl}' , #{mbTotalCount}, '#{ActionLink}');
     });
-    
-    bindMbEvent( '#{getVideoUrl}' , #{mbTotalCount}, '#{ActionLink}');
-	
 	
 });
 
-//-->
 </script>
-
-

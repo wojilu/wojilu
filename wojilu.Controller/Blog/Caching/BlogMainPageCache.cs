@@ -21,7 +21,7 @@ namespace wojilu.Web.Controller.Blog.Caching {
 
         public override void UpdateCache( MvcContext ctx ) {
 
-            String url = new Link( ctx ).T2( Site.Instance, new Blog.MainController().Index );
+            String url = Link.To( Site.Instance, new Blog.MainController().Index );
 
             logger.Info( "update blogMain page=" + url );
 

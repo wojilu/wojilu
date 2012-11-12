@@ -52,5 +52,7 @@ namespace wojilu.Apps.Content.Domain {
         public int ArticleListMode { get; set; }
         public int SummaryLength { get; set; }
 
+        public String StaticDir { get; set; }
+
     }
 }

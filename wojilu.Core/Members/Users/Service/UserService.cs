@@ -182,6 +182,7 @@ namespace wojilu.Members.Users.Service {
                 db.update( user, "RoleId" );
             }
 
+
             return user;
         }
 
@@ -352,15 +353,15 @@ namespace wojilu.Members.Users.Service {
 
         private void addIncomeAndSendMsg( User user ) {
 
-            int actionId = 17;
+            int actionId = UserAction.User_UpdateAvatar.Id;
             KeyIncomeRule rule = currencyService.GetKeyIncomeRulesByAction( actionId );
 
             int creditValue = rule.Income;
             String creditName = rule.CurrencyName;
 
-            userIncomeService.AddIncome( user, actionId );
-
             String msgTitle = "感谢您上传头像";
+            userIncomeService.AddIncome( user, actionId, msgTitle );
+
             String msgBody = string.Format( "{0}：<br/>您好！<br/>感谢您上传头像，您因此获得{1}奖励，共{2}分。<br/>欢迎继续参与，谢谢。<br/>------------------------------------------<br/>这是系统自动发信，请勿回复。", user.Name, creditName, creditValue );
 
 

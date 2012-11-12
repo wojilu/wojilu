@@ -49,8 +49,14 @@ namespace wojilu.Common.Money.Service {
             return db.find<UserIncome>( "UserId=" + userId ).list();
         }
 
-        public virtual DataPage<UserIncomeLog> GetUserIncomeLog( int userId ) {
-            return db.findPage<UserIncomeLog>( "UserId=" + userId );
+        public virtual DataPage<UserIncomeLog> GetUserIncomeLog( int userId, int currencyId ) {
+            // KeyCurrency: currencyId==0  
+            if (currencyId >= 0) {
+                return db.findPage<UserIncomeLog>( "UserId=" + userId + " and CurrencyId=" + currencyId );
+            }
+            else {
+                return db.findPage<UserIncomeLog>( "UserId=" + userId );
+            }
         }
 
         public virtual UserIncome GetUserIncome( int userId, int currencyId ) {
@@ -68,24 +74,26 @@ namespace wojilu.Common.Money.Service {
         //-------------------------------- 增加收入 --------------------------------------
 
         public virtual Boolean HasEnoughKeyIncome( int userId, int income ) {
+            UserIncome keyIncome = GetUserIncome( userId, KeyCurrency.Instance.Id );
+            return keyIncome.Income >= income;
+        }
+
+        public virtual void AddKeyIncome( int userId, int income, String msg ) {
             User user = User.findById( userId );
-            return user.Credit >= income;
+            AddKeyIncome( user, income, msg );
         }
 
-        public virtual void AddKeyIncome( int userId, int income ) {
-            User user = User.findById( userId );
-            AddKeyIncome( user, income );
+        public virtual void AddKeyIncome( User user, int income, String msg ) {
+            addKeyIncome( user, income, msg );
         }
 
-        public virtual void AddKeyIncome( User user, int income ) {
-            addKeyIncome( user, income );
-        }
+        private void addKeyIncome( User user, int income, String msg ) {
 
-        private void addKeyIncome( User user, int income ) {
+            // 更新用户当前货币的收入
+            int totalIncome = UpdateUserIncome( user, KeyCurrency.Instance.Id, income, msg );
 
-            user.Credit += income;
+            user.Credit = totalIncome; // cache income
             db.update( user, "Credit" );
-
 
             // 检查是否晋级
             int newRankId = roleService.GetRankByCredit( user.Credit ).Id;
@@ -93,59 +101,51 @@ namespace wojilu.Common.Money.Service {
                 user.RankId = newRankId;
                 db.update( user, "RankId" );
             }
-
-            // 更新用户当前货币的收入
-            UpdateUserIncome( user, KeyCurrency.Instance.Id, income );
         }
 
         //--------------------------
 
-        public virtual void AddIncome( User user, int currencyId, int income ) {
+        public virtual void AddIncome( User user, int currencyId, int income, String msg ) {
             if (currencyId == KeyCurrency.Instance.Id) {
-                addKeyIncome( user, income );
+                addKeyIncome( user, income, msg );
             }
             else {
-                UpdateUserIncome( user, currencyId, income );
+                UpdateUserIncome( user, currencyId, income, msg );
             }
         }
 
-        public virtual void AddIncome( User user, int actionId ) {
+        public virtual void AddIncome( User user, int actionId, String msg ) {
 
             // 添加基础货币：积分
             KeyIncomeRule keyRule = KeyIncomeRule.GetByAction( actionId );
             if (keyRule != null) {
-                addKeyIncome( user, keyRule.Income );
+                addKeyIncome( user, keyRule.Income, msg );
             }
 
             // 其他货币计算
             IList rules = currencyService.GetRulesByAction( actionId );
             foreach (IncomeRule rule in rules) {
                 if (rule.Income != 0) {
-                    UpdateUserIncome( user, rule.CurrencyId, rule.Income );
+                    UpdateUserIncome( user, rule.CurrencyId, rule.Income, msg );
                 }
             }
-
-            // TODO添加历史记录
         }
 
-        public virtual void AddIncomeReverse( User user, int actionId ) {
+        public virtual void AddIncomeReverse( User user, int actionId, String msg ) {
             // 添加基础货币：积分
             KeyIncomeRule keyRule = KeyIncomeRule.GetByAction( actionId );
             if (keyRule != null) {
-                addKeyIncome( user, -keyRule.Income );
+                addKeyIncome( user, -keyRule.Income, msg );
             }
 
             // 其他货币计算
             IList rules = currencyService.GetRulesByAction( actionId );
             foreach (IncomeRule rule in rules) {
                 if (rule.Income != 0) {
-                    UpdateUserIncome( user, rule.CurrencyId, -rule.Income );
+                    UpdateUserIncome( user, rule.CurrencyId, -rule.Income, msg );
                 }
             }
-            // TODO添加历史记录
         }
-
-
 
         //-------------------------------------- 初始化 -----------------------------------------
 
@@ -167,6 +167,14 @@ namespace wojilu.Common.Money.Service {
             income.CurrencyId = c.Id;
             income.Income = c.InitValue;
             InsertIncome( income );
+
+            // save log
+            UserIncomeLog incomeLog = new UserIncomeLog();
+            incomeLog.UserId = user.Id;
+            incomeLog.CurrencyId = c.Id;
+            incomeLog.Income = c.InitValue;
+            incomeLog.Note = "注册奖励";
+            incomeLog.insert();
         }
 
         //-------------------------------------- 头像下面显示部分 -----------------------------------------
@@ -248,10 +256,20 @@ namespace wojilu.Common.Money.Service {
             db.insert( income );
         }
 
-        public virtual void UpdateUserIncome( User user, int currencyId, int income ) {
+        public virtual int UpdateUserIncome( User user, int currencyId, int income, String msg ) {
             UserIncome userIncome = this.GetUserIncome( user.Id, currencyId );
             userIncome.Income += income;
             this.UpdateUserIncome( userIncome );
+
+            // save log
+            UserIncomeLog incomeLog = new UserIncomeLog();
+            incomeLog.UserId = user.Id;
+            incomeLog.CurrencyId = currencyId;
+            incomeLog.Income = income;
+            incomeLog.Note = msg;
+            incomeLog.insert();
+
+            return userIncome.Income; // return total income
         }
 
     }

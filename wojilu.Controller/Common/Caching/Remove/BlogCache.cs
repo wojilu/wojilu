@@ -31,7 +31,7 @@ namespace wojilu.Web.Controller.Blog {
             cacheHelper.SetTimestamp( recentKey, DateTime.Now );
 
             // 用户博客首页
-            String homeKey = controller.Link.To( post.Creator, new BlogController().Index );
+            String homeKey = Link.To( post.Creator, new BlogController().Index );
             removeCacheSingle( homeKey );
 
             // 检查是否生成新的列表页

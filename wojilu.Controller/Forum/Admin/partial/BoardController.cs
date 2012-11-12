@@ -68,13 +68,13 @@ namespace wojilu.Web.Controller.Forum.Admin {
 
             int categoryCount = categoryService.CountByBoard( fb.Id );
             String categoryCountStr = categoryCount > 0 ? "(" + categoryCount + ")" : "";
-            String lnkSetCategory = string.Format( "<a href='{0}' class='frmBox' title='" + alang( "postCategoryAdmin" ) + "'>" + alang( "category" ) + "{1}</a>", Link.To( new CategoryController().Admin, fb.Id ), categoryCountStr );
+            String lnkSetCategory = string.Format( "<a href='{0}' class='frmBox' title='" + alang( "postCategoryAdmin" ) + "'>" + alang( "category" ) + "{1}</a>", to( new CategoryController().Admin, fb.Id ), categoryCountStr );
 
             String imgUser = strUtil.Join( sys.Path.Img, "users.gif" );
             String imgSecurity = strUtil.Join( sys.Path.Img, "security.gif" );
 
-            String lnkSetModerator = string.Format( "<a href='{0}' class='frmBox' title='" + alang( "setModerator" ) + "'><img src=\"{1}\"/> " + alang( "setModerator" ) + "</a>", Link.To( new ModeratorController().List, fb.Id ), imgUser );
-            String lnkSetSecurity = string.Format( "<a href='{0}' class='frmBox' xwidth='600' title='" + alang( "setSecurity" ) + "'><img src=\"{1}\"/> " + alang( "setSecurity" ) + "</a>", Link.To( new SecurityController().BoardSetting, fb.Id ), imgSecurity );
+            String lnkSetModerator = string.Format( "<a href='{0}' class='frmBox' title='" + alang( "setModerator" ) + "'><img src=\"{1}\"/> " + alang( "setModerator" ) + "</a>", to( new ModeratorController().List, fb.Id ), imgUser );
+            String lnkSetSecurity = string.Format( "<a href='{0}' class='frmBox' xwidth='600' title='" + alang( "setSecurity" ) + "'><img src=\"{1}\"/> " + alang( "setSecurity" ) + "</a>", to( new SecurityController().BoardSetting, fb.Id ), imgSecurity );
 
             fbBlock.Set( "board.SetCategory", lnkSetCategory );
             fbBlock.Set( "board.Moderator", moderatorService.GetModeratorText( fb.Moderator ) );
@@ -90,7 +90,7 @@ namespace wojilu.Web.Controller.Forum.Admin {
 
             set( "Name", ctx.Post( "Name" ) );
             set( "Description", ctx.Post( "Description" ) );
-            editor( "Notice", ctx.Post( "Notice" ), "200px" );
+            editor( "Notice", ctx.Post( "Notice" ), "100px" );
             set( "boardLogo", string.Empty );
 
             set( "CategoryDropDown", Html.InputHidden( "ParentId", boardId.ToString() ) + board.Name );
@@ -118,7 +118,7 @@ namespace wojilu.Web.Controller.Forum.Admin {
 
             set( "chkIsCategory", Html.CheckBox( "IsCategory", alang( "noPost" ), "1", (board.IsCategory == 1) ) );
 
-            editor( "Notice", board.Notice, "200px" );
+            editor( "Notice", board.Notice, "100px" );
 
             set( "CategoryDropDown", getTree().DropList( "ParentId", board.ParentId, board.Id, lang( "rootNode" ) ) );
             set( "ViewId", BoardViewStatus.GetDropList( "ViewId", board.ViewId ) );
@@ -130,7 +130,7 @@ namespace wojilu.Web.Controller.Forum.Admin {
                 block.Set( "post.Id", topic.Id );
                 block.Set( "post.Title", topic.Title );
                 block.Set( "post.MemberName", topic.Creator == null ? "" : topic.Creator.Name );
-                block.Set( "post.MemberUrl", topic.Creator == null ? "" : Link.ToMember( topic.Creator ) );
+                block.Set( "post.MemberUrl", topic.Creator == null ? "" : toUser( topic.Creator ) );
                 block.Set( "post.ForumBoardName", topic.ForumBoard.Name );
                 block.Set( "post.LinkShow", to( ViewDeletedTopic, topic.Id ) );
                 block.Set( "post.Hits", topic.Hits );
@@ -154,7 +154,7 @@ namespace wojilu.Web.Controller.Forum.Admin {
                 block.Set( "post.TopicTitle", topic.Title );
 
                 block.Set( "post.MemberName", data.Creator == null ? "" : data.Creator.Name );
-                block.Set( "post.MemberUrl", data.Creator == null ? "" : Link.ToMember( data.Creator ) );
+                block.Set( "post.MemberUrl", data.Creator == null ? "" : toUser( data.Creator ) );
                 block.Set( "post.ForumBoardName", topic.ForumBoard.Name );
                 block.Set( "post.LinkShow", to( ViewDeletedPost, data.Id ) );
                 block.Set( "post.Created", data.Created );

@@ -56,8 +56,8 @@ namespace wojilu.Web.Controller.Users {
             //bindOnlineInfos( OnlineService.GetRecent( 20 ) );
             set( "onlineMemberLink", to( OnlineUserData ) );
 
-            List<User> ranks = userService.GetRanked( 20 );
-            List<User> newList = userService.GetNewListValid( 20 );
+            List<User> ranks = userService.GetRanked( 21 );
+            List<User> newList = userService.GetNewListValid( 21 );
             bindUsers( ranks, "ranks" );
             bindUsers( newList, "users" );
         }
@@ -166,7 +166,7 @@ namespace wojilu.Web.Controller.Users {
 
             WebUtils.pageTitle( this, lang( "allUser" ) );
 
-            DataPage<User> list = userService.GetAllValid( 50 );
+            DataPage<User> list = userService.GetAllValid( 56 );
             bindUsers( list.Results, "list" );
             set( "page", list.PageBar );
         }
@@ -202,7 +202,7 @@ namespace wojilu.Web.Controller.Users {
             IBlock block = getBlock( "users" );
             foreach (User u in list.Results) {
                 block.Set( "user.Name", u.Name );
-                block.Set( "user.Link", Link.ToMember( u ) );
+                block.Set( "user.Link", toUser( u ) );
                 block.Set( "user.LinkT", alink.ToUserMicroblog( u ) );
                 block.Set( "user.PicSmall", u.PicSmall );
 
@@ -219,6 +219,8 @@ namespace wojilu.Web.Controller.Users {
 
             HideLayout( typeof( MainController ) );
 
+            set( "userMainLink", to( Index ) );
+
             WebUtils.pageTitle( this, lang( "searchUser" ) );
 
             set( "ActionLink", ctx.url.Path );
@@ -233,7 +235,7 @@ namespace wojilu.Web.Controller.Users {
 
 
             String condition = getCondition();
-            DataPage<User> list = userService.SearchBy( condition, 36 );
+            DataPage<User> list = userService.SearchBy( condition, 40 );
 
             bindUsers( list.Results, "list" );
             set( "page", list.PageBar );
@@ -318,7 +320,7 @@ namespace wojilu.Web.Controller.Users {
                 block.Set( "u.Index", i );
                 block.Set( "u.Name", member.Name );
                 block.Set( "u.Face", member.PicSmall );
-                block.Set( "u.Link", Link.ToMember( member ) );
+                block.Set( "u.Link", toUser( member ) );
                 block.Next();
                 i++;
             }

@@ -56,6 +56,10 @@ namespace wojilu.Web.Mvc.Processors {
 
             // 运行并处理post值
             ActionRunner.runAction( ctx, controller, actionMethod, controller.utils.runAction );
+            if (ctx.utils.isEnd()) {
+                return;
+            }
+
             String actionContent = controller.utils.getActionResult();
 
             // 加入缓存
@@ -84,9 +88,6 @@ namespace wojilu.Web.Mvc.Processors {
                 }
 
 
-            }
-            else if (ctx.utils.isEnd()) {
-                context.showEnd( actionContent );
             }
             else {
                 context.setContent( actionContent );

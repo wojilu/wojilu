@@ -120,7 +120,7 @@ namespace wojilu.Web.Controller.Forum.Utils {
             String turl = controller.to( new TopicController().Show, topic.Id );
             int pageNumber = getPostPage( post.Id, topic.Id, 10 ); // 所属主题详细页的分页页面失效
             if (pageNumber > 1) {
-                turl = Link.AppendPage( turl, pageNumber );
+                turl = PageHelper.AppendNo( turl, pageNumber );
             }
             urls.Add( turl );
 
@@ -235,7 +235,7 @@ namespace wojilu.Web.Controller.Forum.Utils {
             int page = getPage( bd, topic ); // 所在版块的分页列表失效
             String url = controller.to( new BoardController().Show, bd.Id );
             if (page > 1) {
-                url = Link.AppendPage( url, page );
+                url = PageHelper.AppendNo( url, page );
             }
             return url;
         }
@@ -266,7 +266,7 @@ namespace wojilu.Web.Controller.Forum.Utils {
             String turl = controller.to( new TopicController().Show, post.TopicId );
             int pageNumber = getPostPage( post.Id, post.TopicId, 10 ); // 所属主题详细页的分页页面失效
             if (pageNumber > 1) {
-                turl = Link.AppendPage( turl, pageNumber );
+                turl = PageHelper.AppendNo( turl, pageNumber );
             }
             removeCacheSingle( turl );
 
@@ -307,7 +307,7 @@ namespace wojilu.Web.Controller.Forum.Utils {
 
             String url = controller.to( new BoardController().Show, bd.Id );
             if (pageNumber > 1) {
-                url = Link.AppendPage( url, pageNumber );
+                url = PageHelper.AppendNo( url, pageNumber );
             }
 
             urls.Add( url );

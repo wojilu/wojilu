@@ -1,16 +1,17 @@
 ﻿<div class="sectionPanel">
-<div class="sectionTitle utitle">_{allUser}</div>
-<table style="width: 100%">
-	<tr>
-		<td>
+<h3 style="margin-bottom:10px; padding-left:10px;""><img src="~img/s/users242.png" /> _{allUser}</h3>
+
+
+    <ul class="thumbnails user-list">
 		<!-- BEGIN list -->
-		<div class="uItem">
-			<a href="#{u.Link}"><img src="#{u.Face}"/><br/>
-			#{u.Name}</a>
-		</div>
-		<!-- END list -->		
-		</td>
-	</tr>
-</table>
+		<li style="width:62px;">
+            <div class="thumbnail" style=" text-align:center;">
+			    <a href="#{u.Link}"><img src="#{u.Face}"/></a>
+                <div style="margin-top:5px;"><a href="#{u.Link}">#{u.Name}</a></div>
+            </div>
+		</li>
+		<!-- END list -->    
+    </ul>
+
 </div>
-<div>#{page}</div>
+<div style="margin-top:10px;">#{page}</div>

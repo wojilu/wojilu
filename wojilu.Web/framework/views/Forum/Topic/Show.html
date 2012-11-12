@@ -1,77 +1,129 @@
-﻿<script type="text/javascript" src="~js/syntaxhighlighter/scripts/shCore.js"></script>
-<script type="text/javascript" src="~js/syntaxhighlighter/scripts/shBrushCommon.js"></script>
-<link type="text/css" rel="stylesheet" href="~js/syntaxhighlighter/styles/shCore.css"/>
-<link type="text/css" rel="stylesheet" href="~js/syntaxhighlighter/styles/shThemeDefault.css"/>
-
+﻿<link type="text/css" rel="stylesheet" href="~js/lib/syntaxhighlighter/styles/sh.css"/>
 <script type="text/javascript">
-	SyntaxHighlighter.config.clipboardSwf = "~js/syntaxhighlighter/scripts/clipboard.swf";
-	SyntaxHighlighter.all();
+    _run( function() {
+        require(['lib/syntaxhighlighter/scripts/sh'], function () {
+            SyntaxHighlighter.config.clipboardSwf = "~js/lib/syntaxhighlighter/scripts/clipboard.swf";
+            SyntaxHighlighter.all();
+        });
+    });
 </script>
 
-#{location}
+<div class="row" style="margin-bottom:15px;"><div class="span12">#{location}</div></div>
 
-<table class="fdPanel">
-	<tr>
-		<td class="fPrevNext">
-			<a href="?pre">&lsaquo;&lsaquo; :{prevTopic}</a> | <a href="?next">:{nextTopic} &rsaquo;&rsaquo;</a>
-		</td>
-		<td>#{page}</td>
-		<td class="fNewReplyCmd">
-			<a href="#{newReplyUrl}" class="cmdreply" rel="nofollow">_{reply}</a> <a href="#{newTopicUrl}" class="cmdnew" rel="nofollow">:{addTopic}</a>
-		</td>
-	</tr>
-</table>
+<div class="row">
+    <div class="span12 forum-topic-prenext">
+        <div class="row">
+            <div class="span3">
+                <div class="pull-left forum-prenext-spl"></div>
+                <div class="pull-left forum-prenext-pre"><a href="?pre">:{prevTopic}</a></div>
+                <div class="pull-left forum-prenext-sp">|</div>
+                <div class="pull-left forum-prenext-next"><a href="?next">:{nextTopic}</a></div>
+                <div class="pull-left forum-prenext-spr"></div>
+            </div>
+            <div class="span6"><div style="padding-top:3px">#{page}</div></div>
+            <div class="span2 pull-right forum-prenext-cmd">
+                <a href="#{newReplyUrl}" class="cmdreply" rel="nofollow"><img src="~skin/site/new/forum-btn-reply.png" /></a> 
+                <a href="#{newTopicUrl}" class="cmdnew" rel="nofollow"><img src="~skin/site/new/forum-btn-topic.png" /></a>
+            </div>
+        </div>
+    </div>
+</div>
 
 #{postBlock}
 
 <!-- copy from above -->
-<table class="fdPanel">
-	<tr>
-		<td class="fPrevNext">
-			<a href="?pre">&lsaquo;&lsaquo; :{prevTopic}</a> | <a href="?next">:{nextTopic} &rsaquo;&rsaquo;</a>
-		</td>
-		<td>#{page}</td>
-		<td class="fNewReplyCmd">
-			<a href="#{newReplyUrl}" class="cmdreply" rel="nofollow">_{reply}</a> <a href="#{newTopicUrl}" class="cmdnew" rel="nofollow">:{addTopic}</a>
-		</td>
-	</tr>
-</table>
-
+<div class="row">
+    <div class="span12 forum-topic-prenext">
+        <div class="row">
+            <div class="span3">
+                <div class="pull-left forum-prenext-spl"></div>
+                <div class="pull-left forum-prenext-pre"><a href="?pre">:{prevTopic}</a></div>
+                <div class="pull-left forum-prenext-sp">|</div>
+                <div class="pull-left forum-prenext-next"><a href="?next">:{nextTopic}</a></div>
+                <div class="pull-left forum-prenext-spr"></div>
+            </div>
+            <div class="span6"><div style="padding-top:3px">#{page}</div></div>
+            <div class="span2 pull-right forum-prenext-cmd">
+                <a href="#{newReplyUrl}" class="cmdreply" rel="nofollow">
+                <img src="~skin/site/new/forum-btn-reply.png" /></a> 
+                <a href="#{newTopicUrl}" class="cmdnew" rel="nofollow">
+                <img src="~skin/site/new/forum-btn-topic.png" /></a>
+            </div>
+        </div>
+    </div>
+</div>
 
 <!-- BEGIN form -->
-<div class="forumSimpleForm" id="topicForm">
-	<div class="forumFormTitle">:{replyTopic}</div>
 
-	<form method="post" action="#{post.ReplyActionUrl}" class="ajaxPostForm autoSubmitForm">
-	<table class="forumFormTable">
-		<tr>
-			<td style="width:100px;vertical-align:top;" rowspan="3" id="pubUserPic">#{currentUser}</td>
-			<td style="width:50px;text-align:right">_{title}</td>
-			<td><input name="Title" type="text" value="#{post.ReplyTitle}" style="width: 480px"><span class="valid" msg="_{exTitle}" mode="border"></span></td>
-		</tr>
-		<tr>
-			<td style="vertical-align:top;text-align:right;">_{content}</td>
-			<td>#{Editor}</td>
-		</tr>
-		<tr>
-			
-			<td><span class="valid" to="Content" mode="border"></span></td>
-			
-			<td><input type="submit" value=":{submitPost}" name="btnSubmit" class="btn">
-			<input type="hidden" name="forumId" value="#{forumBoard.Id}" />
-			<input type="hidden" name="topicId" value="#{post.TopicId}" />
-			<input type="hidden" name="parentId" value="#{post.ParentId}" />
-			</td>
-		</tr>
-	</table>
-	</form>
+
+<div class="row">
+<div class="span12">
+<div class="forum-form-container" id="topicForm">
+
+	    <div class="row">
+            <div style="padding-left:40px;"><h3>:{replyTopic}</h3></div>
+        </div>
+
+        <div class="clearfix" style="margin-top:10px;">
+
+	        <form method="post" action="#{post.ReplyActionUrl}" class="form-horizontal ajaxPostForm autoSubmitForm" id="pubTopicForm">
+
+            <div class="pull-left" id="pubUserPic" style=" text-align:right;width:124px;margin-left:20px;margin-top:10px;">#{currentUser}</div>
+
+
+            <div class="pull-left forum-form-quick">
+
+                <div class="control-group">
+                      <label class="control-label" for="txtTitle">_{title}</label>
+                      <div class="controls">
+                        <input id="txtTitle" name="Title" type="text" placeholder="请填写标题" value="#{post.ReplyTitle}" style="width:600px;">
+                        
+                      </div>
+                      <div class="hide"><span class="valid" to="Title" msg="_{exTitle}" mode="border"></span></div>
+                </div>
+
+                <div class="control-group">
+                      <label class="control-label">_{content}</label>
+                      <div class="controls" style="width:610px;">
+                        #{Editor}
+                      </div>
+                      <div class="hide"><span class="valid" to="Content" mode="border"></span></div>
+                </div>
+
+                <div class="control-group">    
+                    <label class="control-label"></label>
+
+                    <!-- Button --> 
+                    <div class="controls">
+
+                        <button name="btnSubmit" class="btn btn-primary" type="submit">
+                            <i class="icon-pencil icon-white"></i>
+                            :{submitPost}
+                        </button>
+
+			            <input type="hidden" name="forumId" value="#{forumBoard.Id}" />
+			            <input type="hidden" name="topicId" value="#{post.TopicId}" />
+			            <input type="hidden" name="parentId" value="#{post.ParentId}" />
+                    </div>
+                </div>
+
+            </div>
+
+	        </form>
+        </div>
+
+
+
+
+    </div>
+    </div>
 </div>
 <!-- END form -->
 
 
 
 <script>
-$(document).ready( function() {
+_run( function() {
     wojilu.ui.valid();
     wojilu.ui.ajaxPostForm();
     

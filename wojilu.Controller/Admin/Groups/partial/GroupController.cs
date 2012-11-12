@@ -192,7 +192,7 @@ namespace wojilu.Web.Controller.Admin.Groups {
                 pblock.Set( "p.Created", cvt.ToTimeString( post.Created ) );
 
                 pblock.Set( "p.UserName", post.Creator.Name );
-                pblock.Set( "p.UserLink", Link.ToMember( post.Creator ) );
+                pblock.Set( "p.UserLink", toUser( post.Creator ) );
 
                 Group g = getGroup( post );
                 if (g == null) continue;
@@ -212,10 +212,10 @@ namespace wojilu.Web.Controller.Admin.Groups {
             foreach (Group g in groups) {
 
                 gblock.Set( "g.UserName", g.Creator.Name );
-                gblock.Set( "g.UserLink", Link.ToMember( g.Creator ) );
+                gblock.Set( "g.UserLink", toUser( g.Creator ) );
 
                 gblock.Set( "g.Name", g.Name );
-                gblock.Set( "g.Link", Link.ToMember( g ) );
+                gblock.Set( "g.Link", toUser( g ) );
                 gblock.Set( "g.Logo", g.LogoSmall );
                 gblock.Set( "g.Created", cvt.ToTimeString( g.Created ) );
                 gblock.Set( "g.Description", strUtil.CutString( g.Description, 50 ) );

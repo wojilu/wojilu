@@ -92,9 +92,9 @@ namespace wojilu.Web.Controller.Forum {
             ctx.SetItem( "posts", posts );
             ctx.SetItem( "attachs", attachments );
             ctx.SetItem( "pageSize", -1 );
-            load( "currentPost", new PostBlockController().Show );
+            load( "currentPost", new TopicController().PostLoop );
 
-            set( "topic.Url", Link.To( new TopicController().Show, post.TopicId ) );
+            set( "topic.Url", to( new TopicController().Show, post.TopicId ) );
 
             DataPage<ForumPost> replyList = postService.GetPageList( post.TopicId, 200, 0 );
 
@@ -109,7 +109,7 @@ namespace wojilu.Web.Controller.Forum {
             foreach (ForumPost post in replyList) {
 
                 if (post.Creator == null) continue;
-                block.Set( "p.MemberUrl", Link.ToMember( post.Creator ) );
+                block.Set( "p.MemberUrl", toUser( post.Creator ) );
                 block.Set( "p.MemberName", post.Creator.Name );
 
                 block.Set( "p.Title", post.Title );
@@ -117,7 +117,7 @@ namespace wojilu.Web.Controller.Forum {
                 block.Set( "p.CreateTime", post.Created );
                 block.Set( "p.Hits", post.Hits );
 
-                String plink = post.ParentId == 0 ? Link.To( new TopicController().Show, post.TopicId ) : alink.ToAppData( post );
+                String plink = post.ParentId == 0 ? to( new TopicController().Show, post.TopicId ) : alink.ToAppData( post );
                 block.Set( "p.Url", plink );
 
                 String pclass = post.Id == currentPostId ? "red strong" : "";

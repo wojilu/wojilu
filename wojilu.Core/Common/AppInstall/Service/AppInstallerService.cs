@@ -9,16 +9,6 @@ namespace wojilu.Common.AppInstall {
 
     public class AppInstallerService : IAppInstallerService {
 
-        //public virtual List<AppInstaller> GetByOwnerType( Type ownerType ) {
-        //    int catId = AppCategory.GetIdByOwnerType( ownerType.FullName );
-        //    List<AppInstaller> all = GetAll();
-        //    List<AppInstaller> results = new List<AppInstaller>();
-        //    foreach (AppInstaller app in all) {
-        //        if (app.CatId == catId || app.CatId== AppCategory.General) results.Add( app );
-        //    }
-        //    return results;
-        //}
-
         public virtual List<AppInstaller> GetByOwnerType( Type ownerType ) {
             List<AppInstaller> all = GetAll();
             List<AppInstaller> results = new List<AppInstaller>();
@@ -33,7 +23,13 @@ namespace wojilu.Common.AppInstall {
             List<AppInstaller> results = new List<AppInstaller>();
             List<AppInstaller> list = cdb.findAll<AppInstaller>();
             foreach (AppInstaller a in list) {
-                if (a.Status == AppInstallerStatus.Run.Id) results.Add( a );
+                if (a.Status == AppInstallerStatus.Run.Id) {
+                    results.Add( a );
+                }
+                // bug fixed by: http://www.wojilu.com/space/robin_qu/Blog2588/Post/355 
+                else if (a.Status == AppInstallerStatus.Custom.Id) {
+                    results.Add( a );
+                }
             }
             return results;
         }

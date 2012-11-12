@@ -1,38 +1,76 @@
-﻿	<div class="sectionPanel cpPanel">
-		<div class="sectionTitle">:{blogUserRank}</div>
-		<ul id="userRank">
-			<!-- BEGIN users -->
-			<li class="userItem"><a href="#{user.Link}"><img src="#{user.Face}"/></a><div><a href="#{user.Link}">#{user.Name}</a></div></li><!-- END users -->
-		</ul>
-		<div class="clear"></div>
-	</div>
-		
-		
-	<div id="blogSearchPanel" class="sectionPanel ">
-	<form method="get" action="#{recentLink}">
-	:{blogSearch}: <input name="qword" type="text" /> #{droplist} <input name="Submit1" type="submit" value=":{quickSearch}" />
-	<a href="#{recentLink}" style="margin-left:10px;font-size:12px;">_{all}...</a>
-	</form>
-	</div>	
+﻿<style>
+.user-rank {border:1px #d4c6dd solid; border-radius:5px; padding:5px 8px 5px 10px; margin-bottom:25px; }
+.user-rank-title {font-size:14px; font-weight:bold; color:#666; border-bottom:1px #eee solid; padding:5px; margin-right:10px;}
+.user-rank ul { padding:10px 5px 5px 0px;}
+.user-rank li{float:left; margin:5px 7px 5px 7px;padding:3px; width:60px;height:70px; text-align:center;}
+.user-rank li:hover { background:#f2f2f2;}
+.user-rank li img {width:48px; height:48px; border-radius:4px;}
+.user-rank li a {color:#aaa;}
 
-	<div class="cpPanel">
-		<div class="sectionTitle">
-		    <div style="float:left;">:{newBlog}</div>
-		    <div style="float:right"><a href="#{recentLink2}">_{more}...</a></div>
-		    <div class="clear"></div>
-		</div>
-		
-		<!-- BEGIN list -->	
-		<table class="blogIndexItem">
-			<tr>
-				<td style="width:15%;padding:10px 5px 5px 5px;vertical-align:top">#{post.Face}</td>
-				<td style="width:85%">
-				<div class="cpPostTitle"><a href="#{post.LinkShow}">#{post.Title}</a></div>				
-				<div class="bmContent">#{post.Abstract}</div>
-				<div class="bmTime">#{post.Created}</div>
-				</td>
-			</tr>
-		</table>	
-		<!-- END list -->
-		<div style="text-align:right"><a href="#{recentLink2}">_{more}...</a></div>
-	</div>
+.blog-category-wrap { margin-right:-20px;}
+.blog-category {margin-top:0px; margin-bottom:10px; width:300px; float:left;display:inline;}
+.blog-category-item0 { margin-right:10px;}
+.blog-category-inner {border1:1px #ccc solid; }
+
+.blog-category-name { height:30px; line-height:30px;border:1px ##08c solid; padding-left:10px; padding-right:10px;
+border-top-left-radius: 4px;
+border-top-right-radius: 4px;
+background: #08c;
+
+}
+
+.blog-category-text {float:left; font-weight:bold; color:#fff}
+.blog-category-more {float:right;}
+.blog-category-more a { color:#fff;}
+
+.blog-list { padding:10px; padding-left:10px;border:1px #d5d5d5 solid; border-top:0px; height:190px;
+border-bottom-left-radius: 4px;
+border-bottom-right-radius: 4px;
+}
+.blog-list li{margin-top:5px; margin-bottom:3px;}
+.blog-list-title {float:left;width:220px;font-size:14px; border1:1px red solid;}
+.blog-list-title a { color:#333;}
+.blog-list-author {float:right;width:50px; text-align:right; border1:1px red solid;}
+.blog-list-author a { color:#666;}
+.blog-list-title, .blog-list-author{overflow: hidden; text-overflow:clip; white-space:nowrap;}
+</style>
+
+#{blogPickedList}
+
+<div class="user-rank">
+	<div class="user-rank-title"><i class="icon-user"></i> :{blogUserRank}</div>
+	<ul class="unstyled">
+		<!-- BEGIN users -->
+		<li><a href="#{user.Link}"><img src="#{user.Face}"/></a><div><a href="#{user.Link}">#{user.Name}</a></div></li><!-- END users -->
+	</ul>
+	<div class="clear"></div>
+</div>
+
+<div class="row">
+<div class="span8">
+<div class="blog-category-wrap">
+<!-- BEGIN categories -->
+<div class=" blog-category blog-category-item#{c.Index}">
+    <div class="blog-category-inner">
+    <div class="blog-category-name">    
+        <div class="blog-category-text "><i class="icon-file icon-white"></i>#{c.Name}</div>
+        <div class="blog-category-more"><a href="#{c.LinkShow}">more...</a></div>
+        <div class="clear"></div>
+    </div>
+
+    <ul class="blog-list unstyled">
+        <!-- BEGIN list -->
+        <li>
+            <div class="blog-list-title"><a href="#{x.LinkShow}" target="_blank">#{x.Title}</a></div>
+            <div class="blog-list-author"><a href="#{x.CreatorLink}" target="_blank">#{x.CreatorName}</a></div>
+            <div class="clear"></div>
+        </li>
+        <!-- END list -->
+    </ul>
+    </div>
+</div>
+<!-- END categories -->
+<div class="clear"></div>
+</div>
+</div>
+</div>

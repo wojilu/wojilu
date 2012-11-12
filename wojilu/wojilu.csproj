@@ -93,9 +93,12 @@
     <Compile Include="Common\Onlines\OnlineService.cs" />
     <Compile Include="Common\Onlines\OnlineStats.cs" />
     <Compile Include="Common\Onlines\OnlineManager.cs" />
+    <Compile Include="Data\Enum\IdType.cs" />
     <Compile Include="Net\Video\IFengSpider.cs" />
     <Compile Include="Net\Video\SinaVideo.cs" />
     <Compile Include="Net\Video\VideoHelper.cs" />
+    <Compile Include="Web\Mock\IMockContext.cs" />
+    <Compile Include="Web\Mvc\Attr\DataAttribute.cs" />
     <Compile Include="Web\Mvc\CacheInfo.cs" />
     <Compile Include="Web\Mvc\IActionCache.cs" />
     <Compile Include="Web\Mvc\IPageCache.cs" />
@@ -116,10 +119,16 @@
     <Compile Include="ORM\Attribute\DecimalAttribute.cs" />
     <Compile Include="Web\Mvc\ControllerMeta.cs" />
     <Compile Include="Web\Mvc\IControllerFactory.cs" />
+    <Compile Include="Web\Mvc\LinkHelper.cs" />
     <Compile Include="Web\Mvc\Utils\ControllerRunner.cs" />
+    <Compile Include="Web\Mvc\Link.cs" />
+    <Compile Include="Web\Utils\AvatarCopySaver.cs" />
+    <Compile Include="Web\Utils\AvatarSaver.cs" />
+    <Compile Include="Web\Utils\AvatarUploadSaver.cs" />
     <Compile Include="Web\Utils\Emotions.cs" />
     <Compile Include="Web\Utils\WebHelpers.cs" />
     <Compile Include="_wojilu\IDto.cs" />
+    <Compile Include="_wojilu\PageHelper.cs" />
     <Compile Include="_wojilu\sys.cs" />
     <Compile Include="Data\TableBuilder\AccessTableBuilder.cs" />
     <Compile Include="Data\DbConfig.cs" />
@@ -426,7 +435,7 @@
     <Compile Include="ORM\ObjectInfo.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="ORM\Page\ObjectPage.cs">
+    <Compile Include="ORM\ObjectPage.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="ORM\Caching\ObjectPool.cs">
@@ -660,7 +669,7 @@
     <Compile Include="Web\Mvc\CoreHandler.cs" />
     <Compile Include="Web\Mvc\Html.cs" />
     <Compile Include="Web\Mvc\Interface\IActionFilter.cs" />
-    <Compile Include="Web\Mvc\Link.cs" />
+    <Compile Include="Web\Mvc\CtxLink.cs" />
     <Compile Include="Web\Mvc\MemberPath.cs" />
     <Compile Include="Web\Mvc\MvcConfig.cs" />
     <Compile Include="Web\Mvc\OwnerInfo.cs" />
@@ -724,6 +733,7 @@
       <Install>false</Install>
     </BootstrapperPackage>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PreBuildEvent>

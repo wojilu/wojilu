@@ -1,0 +1,30 @@
+body {background:url("../img/m/waterfall-bg.gif");}
+.container {padding-top:20px; background-color:transparent !important; box-shadow:0px 0px 0px #fff;}
+.site-header, .site-menu-nav { display:none;}
+    
+#footer-row{ margin:20px auto;width:960px;}
+.footer{ background-image:none;}
+
+.container, .wfbody, #wContainer {width:1150px;}
+
+.wfbody {margin-top:20px;}
+.wflist { margin-bottom:10px;}
+
+.wfnav {margin:0px 25px 0px 25px; box-shadow1:0px 1px 1px #ccc; padding:10px 20px; font-size:14px; background:#f7f7f7; border-radius:4px;border:1px solid #ccc;}
+
+#wfContainer { clear:both; }
+.wfpost { list-style:none; width:200px; margin:5px 25px 10px 0px; box-shadow:0px 1px 2px #aaa; background:#fff; text-align:center; border-radius:3px;border-width:1px;border-color:#E2E0E1 #D8D5D6 #C7C4C5;z-index:10px;}
+.wfpost-pic { margin:10px;}
+    .wfpost-pic img { border-radius:4px;max-width:170px;height:170px;margin-top:5px;}
+    .wfpost-name { color:#666; margin-top:3px; text-align:left; width:160px;overflow:hidden;text-overflow:clip;margin-left:5px; }
+    .wfpost-pins-likes { text-align:left; color:#999; margin-left:5px;}
+.wfpost-info { background:#f9f9f9; padding:10px; text-align:left; color:#aaa;}
+.wfpost-info .wfpost-face {width:35px;border-radius:4px;}
+.wfpost-info img {width:30px; height:30px; margin-right:5px;border-radius:3px;}
+
+.wfpost-tool { display:none;position:absolute;top:10px; right:10px; border-radius:3px; padding:3px 5px; background:#d50b12; background-image:-moz-linear-gradient(center top , #f64538, #d50b12); background-image:-webkit-gradient(linear ,center top,center bottom,from(#f64538), to(#d50b12));  box-shadow:2px 2px 3px #aaa; font-weight:bold;}
+.wfpost-tool a { color:#fff;}
+
+
+.wfpost-like {color:#fff;cursor:pointer;}
+.wfpost-liked {color:#ddd;cursor:pointer;}

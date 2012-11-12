@@ -1,23 +1,20 @@
-﻿<link href="~css/wojilu.app.forum.css?v=#{cssVersion}" rel="stylesheet" type="text/css">
-<script src="~js/wojilu.app.forum.js?v=#{jsVersion}" type="text/javascript"></script>
-<div style="padding-top:1px;">
-    <div id="adminTool" class="appAdminTool" style="padding:0px; display:none;">
-        <div style="padding:8px 5px 0px 0px; float:right;">
-        <a href="#{adminUrl}" class="frmLink btnBig" loadTo="forumContainer" nolayout=1> 管理当前程序</a>
-        </div>
-        <div class="clear"></div>
-    </div>
-    
-    <div style="clear:both;padding-top:10px"></div>
-    <div id="forumContainer">#{layout_content}</div>
-    <div style="clear:both;padding-top:10px"></div>
- 
+﻿
+<link href="~css/wojilu.app.forum.css?v=#{cssVersion}" rel="stylesheet" />
 
+<div id="adminTool" class="row appAdminTool" style=" display:none;">
+    <div class="span3 pull-right" style="text-align:right; padding:10px;">
+        <a href="#{adminUrl}" class="frmLink btn btn-primary" loadTo="forumContainer" nolayout=1>
+            <i class="icon-wrench icon-white"></i> 管理当前程序            
+        </a>
+    </div>
 </div>
 
+<div id="forumContainer">
+#{layout_content}
+</div>
 
 <script>
-$(document).ready( function() {
+_run( function() {
     
     var showAdminTool = function() {
     

@@ -1,56 +1,36 @@
-﻿    <div id="headerWrap">
-    <div id="header">
-        <table style="width: 100%;" cellpadding="0" cellspacing="0"><tr>
-        <td id="slogo"><a href="~/">#{site.Logo}</a></td>
-        <td style="vertical-align:top;" class="adItem" data-ad="Banner">#{adBanner}</td>
-        <td id="">
-            <script>
-            var xd = new Date();
-            var weekDay = "星期" + "日一二三四五六".split("")[xd.getDay()];
-            </script>
-            <table id="calendar" border="0" cellpadding="0" cellspacing="0">
-                <tr><td id="calendarDay"><script> document.write(xd.getDate());</script></td><td><div id="calendarYear"><script> document.write(xd.getFullYear() + "年" + (xd.getMonth()+1) + "月");</script></div><div id="calendarWeek"><script> document.write(weekDay);</script></div></td></tr>
-            </table>
-        </td></tr></table>
-    </div>
-    </div>
-
-    <div id="navWrap">
-    <span class="navRight fr"></span>
-    <span class="navLeft fl"></span>
-
-    <div id="nav">	
-	    <ul>
-	        <!-- BEGIN navLink --><li id="#{menu.ItemId}" #{menu.CurrentClass}>
-	            <!-- BEGIN rootNav --><a href="#{menu.Link}" style="#{menu.Style}" #{menu.LinkTarget}>#{menu.Name}</a><!-- END rootNav -->
-			    <!-- BEGIN subNav -->
-			        <span class="menuMore" list="subMenus#{menu.Id}"><a href="#{menu.Link}" style="#{menu.Style}" #{menu.LinkTarget}>#{menu.Name}</a>
-			        <ul id="subMenus#{menu.Id}" class="menuItems" style="width:110px;">
-			        <!-- BEGIN subMenu --><li><a href="#{menu.Link}" style="color:#005eac;#{menu.Style}" #{menu.LinkTarget}>#{menu.Name}</a></li><!-- END subMenu -->
-			        </ul></span>
-			    <!-- END subNav -->
-            </li><!-- END navLink -->
-	    </ul>
-	    
-        <div id="langMenu" class="menuMore" list="langList" style="display:none;">_{switchLang}<img src="~img/downWhite.gif"/>
-            <ul id="langList" class="menuItems">
-	            <!-- BEGIN langs -->
-	            <li class="putCmd" href="#{lang.SetLink}">#{lang.CurrentStyle} #{lang.Name}</li><!-- END langs -->
-            </ul>
+﻿<div class="row site-header">
+    <div class="span12 site-header-inner">
+        <div class="span4">
+            <h1 id="slogo">
+                <a href="~/" style="color:#fff;">#{site.Logo}</a>
+            </h1>
         </div>
-    </div>    
+        <div class="span8 adItem" data-ad="Banner">#{adBanner}</div>
     </div>
-    <div class="clear"></div>       
-     
-    <!-- BEGIN subMenusPanel -->
-    <div id="subMenusWrap">
-    <div id="subMenusPanel">
-        <!-- BEGIN subMenus -->
-            <span class="right10"><a href="#{menu.Link}" style="color:#2b2b2b;#{menu.Style}" #{menu.LinkTarget}>#{menu.Name}</a></span>
-        <!-- END subMenus -->
-    </div>
-    </div>
-    <!-- END subMenusPanel -->
-    
-    <div class="clear"></div>
-    <div id="navBottomAdWrap" class="adItem" data-ad="NavBottom">#{adNavBottom}</div>
+</div>
+
+<div class="site-menu-nav">
+
+    <ul class="nav nav-pills">
+                
+        <!-- BEGIN navLink -->
+        <li id="#{menu.ItemId}" #{menu.CurrentClass}>
+            <!-- BEGIN rootNav -->
+            <a href="#{menu.Link}" style="#{menu.Style}" #{menu.LinkTarget}>#{menu.Name}</a>
+            <!-- END rootNav -->
+                
+            <!-- BEGIN subNav -->
+            <a href="#{menu.Link}" style="#{menu.Style}" #{menu.LinkTarget}>#{menu.Name}<span class="caret" style="border-top-color:#fff;"></span></a>
+            <ul class="dropdown-menu">
+                <!-- BEGIN subMenu --><li><a href="#{menu.Link}" style="#{menu.Style}" #{menu.LinkTarget}>#{menu.Name}</a></li><!-- END subMenu -->
+            </ul><!-- END subNav -->
+
+                
+        </li><!-- END navLink -->
+
+    </ul>
+
+</div>
+
+<div class="row"><div id="navBottomAdWrap" class="adItem" data-ad="NavBottom">#{adNavBottom}</div></div>
+

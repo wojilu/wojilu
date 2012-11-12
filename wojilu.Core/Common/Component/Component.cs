@@ -17,7 +17,7 @@ namespace wojilu.Common {
 
         [NotSave]
         public String StatusName {
-            get { return ComponentStatus.GetStatusName( this.Status ); }
+            get { return ComponentStatus.GetStatusName( this.TypeFullName, this.Status ); }
         }
 
         public static Boolean IsClose( Type t ) {
@@ -34,13 +34,19 @@ namespace wojilu.Common {
             return false;
         }
 
-
         public static Boolean IsEnableUserSpace() {
             return IsClose( typeof( User ) ) == false;
         }
 
         public static Boolean IsEnableGroup() {
             return IsClose( typeof( Group ) ) == false;
+        }
+
+        public static Boolean IsEnableUserCreateGroup() {
+            List<Component> clist = cdb.findBy<Component>( "TypeFullName", typeof( Group ).FullName );
+            if (clist.Count == 0) return true;
+            Component c = clist[0];
+            return c.Status == 0;
         }
 
 

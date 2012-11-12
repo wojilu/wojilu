@@ -14,6 +14,7 @@ using wojilu.Apps.Content.Service;
 using wojilu.Common.AppBase.Interface;
 using wojilu.Apps.Content.Enum;
 using wojilu.Common.AppBase;
+using wojilu.Web.Controller.Content.Caching;
 
 namespace wojilu.Web.Controller.Content.Admin.Section {
 
@@ -69,15 +70,15 @@ namespace wojilu.Web.Controller.Content.Admin.Section {
         
         [HttpPost, DbTransaction]
         public void Create( int sectionId ) {
-            ContentPost post = ContentValidator.Validate( sectionService.GetById( sectionId, ctx.app.Id ), ctx );
+            ContentPost post = ContentValidator.SetValueBySection( sectionService.GetById( sectionId, ctx.app.Id ), ctx );
             ContentValidator.ValidateVideo( post, ctx );
             if (ctx.HasErrors) {
                 run( Add, sectionId );
             }
             else {
-                postService.Insert( post, null );
-                
+                postService.Insert( post, null );                
                 echoToParentPart( lang( "opok" ) );
+                HtmlHelper.SetCurrentPost( ctx, post );
             }
         }
 
@@ -100,15 +101,15 @@ namespace wojilu.Web.Controller.Content.Admin.Section {
                 return;
             }
 
-            ContentValidator.ValidateEdit( post, ctx );
+            ContentValidator.SetPostValue( post, ctx );
             ContentValidator.ValidateVideo( post, ctx );
             if (ctx.HasErrors) {
                 run( Edit, postId );
             }
             else {
                 postService.Update( post, null );
-
                 echoToParentPart( lang( "opok" ) );
+                HtmlHelper.SetCurrentPost( ctx, post );
             }
         }
 
@@ -120,9 +121,9 @@ namespace wojilu.Web.Controller.Content.Admin.Section {
                 return;
             }
 
-            postService.Delete( post );
-            
+            postService.Delete( post );            
             echoRedirect( lang( "opok" ) );
+            HtmlHelper.SetCurrentPost( ctx, post );
         }
 
 

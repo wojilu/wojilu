@@ -86,9 +86,9 @@ namespace wojilu.Web.Controller.Admin.Sys {
 
                 block.Set( "feed.DataType", feed.DataType );
                 block.Set( "feed.UserFace", feed.Creator.PicSmall );
-                block.Set( "feed.UserLink", Link.ToMember( feed.Creator ) );
+                block.Set( "feed.UserLink", toUser( feed.Creator ) );
 
-                String creatorInfo = string.Format( "<a href='{0}'>{1}</a>", Link.ToMember( feed.Creator ), feed.Creator.Name );
+                String creatorInfo = string.Format( "<a href='{0}'>{1}</a>", toUser( feed.Creator ), feed.Creator.Name );
                 String feedTitle = feedService.GetHtmlValue( feed.TitleTemplate, feed.TitleData, creatorInfo );
                 block.Set( "feed.Title", feedTitle );
 
@@ -126,7 +126,7 @@ namespace wojilu.Web.Controller.Admin.Sys {
                 block.Set( "user.Face", user.PicSmall );
                 block.Set( "user.Created", cvt.ToTimeString( user.Created ) );
                 block.Set( "user.LastLoginTime", cvt.ToTimeString( user.LastLoginTime ) );
-                block.Set( "user.Link", Link.ToMember( user ) );
+                block.Set( "user.Link", toUser( user ) );
                 block.Next();
             }
         }

@@ -20,6 +20,7 @@ using wojilu.Common.AppBase;
 using wojilu.Common.AppBase.Interface;
 using wojilu.Web.Controller.Content.Utils;
 using wojilu.Common;
+using wojilu.Web.Controller.Content.Caching;
 
 namespace wojilu.Web.Controller.Content.Section {
 
@@ -47,6 +48,15 @@ namespace wojilu.Web.Controller.Content.Section {
         }
 
         public void List( int sectionId ) {
+            bindPostsInfo( sectionId, false );
+        }
+
+        public void Archive( int sectionId ) {
+            view( "List" );
+            bindPostsInfo( sectionId, true );
+        }
+
+        private void bindPostsInfo( int sectionId, Boolean isArchive ) {
             ContentSection section = sectionService.GetById( sectionId, ctx.app.Id );
             if (section == null) {
                 echoRedirect( lang( "exDataNotFound" ) );
@@ -59,7 +69,19 @@ namespace wojilu.Web.Controller.Content.Section {
 
             if (s.ArticleListMode == ArticleListMode.Summary) view( "ListSummary" );
 
-            DataPage<ContentPost> posts = postService.GetBySectionAndCategory( section.Id, ctx.GetInt( "categoryId" ), s.ListPostPerPage );
+            String cpLink = clink.toSection( sectionId, ctx );
+            String apLink = clink.toArchive( sectionId, ctx );
+
+            Boolean isMakeHtml = HtmlHelper.IsMakeHtml( ctx );
+            DataPage<ContentPost> posts;
+            if (isArchive) {
+                posts = postService.GetPageBySectionArchive( section.Id, s.ListPostPerPage );
+                set( "page", posts.GetArchivePage( cpLink, apLink, 3, isMakeHtml ) );
+            }
+            else {
+                posts = postService.GetPageBySection( sectionId, s.ListPostPerPage );
+                set( "page", posts.GetRecentPage( cpLink, apLink, 3, isMakeHtml ) );
+            }
 
             bindPostList( section, posts, s );
         }
@@ -86,7 +108,7 @@ namespace wojilu.Web.Controller.Content.Section {
             }
 
             postService.AddHits( post );
-            
+
             ctx.SetItem( "ContentPost", post );
 
             bindDetail( id, post );

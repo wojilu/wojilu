@@ -54,27 +54,12 @@ fieldset {border:0px #ccc solid;}
         <tr>
             <td style="vertical-align:top; padding-top:22px;" class="formLeft">匹配规则</td>
             <td>
-                <div class="red font12" id="lblBeginEnd1">任务说明：抓取开始代码和结束代码之间的所有链接(首尾请勿带多余空格)</div>
-                <div class="red font12 hide" id="lblCustomPattern1">直接填写正则表达式：</div>
-                <table id="startEndCode1" cellpadding="0" cellspacing="0" border="0" style="width:100%;" class="cbg">
-                    <tr>
-                       <td style="width:9%; vertical-align:top; padding:3px;">开始标志</td>
-                        <td style="width:41%; vertical-align:top;padding:3px 0px;"><textarea id="listBeginCode" class="txtCode" name="listBeginCode" style="margin-right:15px;"></textarea></td>
-                       <td style="width:9%; vertical-align:top; padding:3px;">结束标志</td>
-                       <td style="width:41%; vertical-align:top;padding:3px 0px;"><textarea id="listEndCode" class="txtCode" name="listEndCode"></textarea> </td>
-   
-                    </tr>
-                </table>
-                
-                <div id="bodyPatternWrap1" style="display:none;">
-                <div>列表区域<textarea id="ListBodyPattern" name="ListBodyPattern" style="width:98%; height:30px;"></textarea></div>
-                <div>获取列表中的链接(可留空)<textarea id="ListPattern" name="ListPattern" style="width:98%; height:30px;"></textarea></div>
+                <div class="red font12" id="lblBeginEnd1">任务说明：抓取所有链接集合(css路径方式)</div>
+                <div id="bodyPatternWrap1">
+                <div>链接集合设置(css路径方式)<textarea id="ListBodyPattern" name="ListBodyPattern" style="width:98%; height:30px;"></textarea></div>
+                <div>匹配链接模板设置(通配符方式)<textarea id="ListPattern" name="ListPattern" style="width:98%; height:30px;"></textarea></div>
                 </div>
-                <div>
-                <label class="" style="color:Blue;font-weight:bold;"><input id="chkCustom1" type="checkbox" /> 自定义规则(直接填写正则表达式)</label>
-                </div>
-                            
-                </td>
+            </td>
         </tr>
         <tr>
             <td>
@@ -120,26 +105,10 @@ fieldset {border:0px #ccc solid;}
         <tr>
             <td style="vertical-align:top; padding-top:22px;" class="formLeft">匹配规则</td>
             <td>
-                <div class="red font12" id="lblBeginEnd2">任务说明：抓取开始代码和结束代码之间的内容(首尾请勿带多余空格)</div>
-                <div class="red font12 hide" id="lblCustomPattern2">直接填写正则表达式：</div>
-
-                <table id="startEndCode2" cellpadding="0" cellspacing="0" border="0" style="width:100%;" class="cbg">
-                    <tr>
-                       <td style="width:9%; vertical-align:top; padding:3px;">开始标志</td>
-                    <td style="width:41%; vertical-align:top;padding:3px 0px;"><textarea id="detailBeginCode"  class="txtCode" name="detailBeginCode" style="margin-right:15px;"></textarea></td>
-                    <td style="width:9%; vertical-align:top;padding:3px;">结束标志</td>
-                    <td style="width:41%; vertical-align:top;padding:3px 0px;"><textarea id="detailEndCode"  class="txtCode" name="detailEndCode"></textarea></td>
-                    </tr>
-                </table>
-                
-                <div id="bodyPatternWrap2" style="display:none;">
+                <div class="red font12" id="lblBeginEnd2">任务说明：抓取网页内容设置(css路径方式)</div>
+                <div id="bodyPatternWrap2">
                 <div><textarea id="DetailPattern" name="DetailPattern" style="width:98%; height:50px;"></textarea></div>
                 </div>
-                <div>
-                <label class="" style="color:Blue;font-weight:bold;"><input id="chkCustom2" type="checkbox" /> 自定义规则(直接填写正则表达式)</label>
-                </div>
-
-             
             </td>
         </tr>
         <tr><td>&nbsp;</td><td>
@@ -183,50 +152,28 @@ fieldset {border:0px #ccc solid;}
 
 </div>
 
-
-
 <script language="javascript" type="text/javascript">
 // <!CDATA[
 
 
-$(document).ready( function() {
-
-    $('#chkCustom1').click( function() {
-        $('#startEndCode1').toggle();
-        $('#bodyPatternWrap1').toggle();
-        $('#lblBeginEnd1').toggle();
-        $('#lblCustomPattern1').toggle();
-    });
-    
-    $('#chkCustom2').click( function() {
-        $('#startEndCode2').toggle();
-        $('#bodyPatternWrap2').toggle();
-        $('#lblBeginEnd2').toggle();
-        $('#lblCustomPattern2').toggle();
-    });
-
-
+_run( function() {
     var objT = #{objTemplate};
     
     if( objT.Id>0 ) {
         $('#listUrl').val( objT.ListUrl );
         $('#listEncoding').val( objT.ListEncoding );
-        $('#listBeginCode').val( objT.ListBodyBegin.replace(/&lt;/g,"<").replace(/&gt;/g,">") );
-        $('#listEndCode').val( objT.ListBodyEnd.replace(/&lt;/g,"<").replace(/&gt;/g,">") );
+        $('#ListBodyPattern').val( objT.ListBodyPattern.replace(/&lt;/g,"<").replace(/&gt;/g,">") );
+        $('#ListPattern').val( objT.ListPattern );
+        
+        $('#DetailPattern').val( objT.DetailPattern );
     }
 
 
     // 第一步：抓取列表
     $('#btnGetList').click( function() {
-    
-        
-        if( $('#chkCustom1').attr( 'checked' ) != 'checked' ) {
-            var ListBodyPattern = $('#listBeginCode').val() + '.+?'+$('#listEndCode').val();
-            $('#ListBodyPattern').val( ListBodyPattern );
-        }        
-        var listPattern = $('#ListBodyPattern').val();
 
-    
+        var listPattern = $('#ListBodyPattern').val();
+   
         var mybtn = $(this);
         mybtn.attr( 'disabled', 'disabled' );
 
@@ -291,20 +238,12 @@ $(document).ready( function() {
 
         var mybtn = $(this);
         mybtn.attr( 'disabled', 'disabled' );
-        
-        if( $('#chkCustom2').attr( 'checked' ) != 'checked' ) {
-            var cDetailPattern = $('#detailBeginCode').val() + '(.+?)'+$('#detailEndCode').val();
-            $('#DetailPattern').val( cDetailPattern );
-        }        
-        var DetailPattern = $('#DetailPattern').val();
-
 
         $.post( '#{detailAction}'.toAjax(), 
             {
                 'detailUrl': $('#detailUrl').val(), 
                 'detailTitle': $('#detailTitle').val(),
-
-                'DetailPattern':DetailPattern,
+                'DetailPattern': $('#DetailPattern').val(),
                 'detailEncoding':$('#detailEncoding').val()
             }, 
 
@@ -314,10 +253,7 @@ $(document).ready( function() {
                 
                 $('#step2').hide();
                 $('#step3').show();
-
-
                 $('#loadingDetail').html('');
-
                 $('#doutPanel').show();
                 $('#dout').val( data );
         });
@@ -335,20 +271,17 @@ $(document).ready( function() {
         mybtn.attr( 'disabled', 'disabled' );
 
         var listUrl = $('#listUrl').val();
-        var plist1 = $('#listBeginCode').val() 
-        var plist2 = $('#listEndCode').val();
-        var pdetail1 = $('#detailBeginCode').val() 
-        var pdetail2 = $('#detailEndCode').val();
         var siteName = $('#siteName').val();
-        
+        var listBodyPattern = $('#ListBodyPattern').val();
+        var listPattern = $('#ListPattern').val();
+        var DetailPattern = $('#DetailPattern').val();
         $.post( '#{saveLink}'.toAjax(), {
             'tid': objT.Id,
             'siteName':siteName,
             'listUrl':listUrl,
-            'listBeginCode':plist1,
-            'listEndCode':plist2,
-            'detailBeginCode':pdetail1,
-            'detailEndCode':pdetail2,
+            'ListBodyPattern':listBodyPattern,
+            'ListPattern':listPattern,
+            'DetailPattern':DetailPattern,
             'listEncoding':$('#listEncoding').val(),
             'detailEncoding':$('#detailEncoding').val(),
             'checkPic':$('#checkPic').attr("checked")

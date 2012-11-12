@@ -26,7 +26,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyConfiguration( "" )]
 [assembly: AssemblyCompany( "http://www.wojilu.com" )]
 [assembly: AssemblyProduct( "Wojilu Framework" )]
-[assembly: AssemblyCopyright( "Copyright (c) 2010-2011 www.wojilu.com" )]
+[assembly: AssemblyCopyright( "Copyright (c) 2010-2012 www.wojilu.com" )]
 [assembly: AssemblyTrademark( "" )]
 [assembly: AssemblyCulture( "" )]
 
@@ -45,5 +45,5 @@ using System.Runtime.InteropServices;
 //      内部版本号
 //      修订号
 //
-[assembly: AssemblyVersion( "1.8.*" )]
-[assembly: AssemblyFileVersion( "1.8" )]
+[assembly: AssemblyVersion( "1.9.*" )]
+[assembly: AssemblyFileVersion( "1.9" )]

@@ -41,6 +41,9 @@ namespace wojilu.Web.Controller.Forum.Caching {
 
             observe( new Users.TopicController().Create );
             observe( new Users.PostController().Create );
+            observe( new Users.PostController().SaveReward );
+            observe( new Users.PostController().SaveBuy );
+
             observe( new Users.PollController().Create );
 
             observe( new Edits.TopicController().Update );
@@ -64,8 +67,6 @@ namespace wojilu.Web.Controller.Forum.Caching {
             observe( mt.Category );
 
             Moderators.PostSaveController mp = new wojilu.Web.Controller.Forum.Moderators.PostSaveController();
-            observe( mp.SaveReward );
-            observe( mp.Buy );
             observe( mp.SaveCredit );
             observe( mp.Ban );
             observe( mp.UnBan );

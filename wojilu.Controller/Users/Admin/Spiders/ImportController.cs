@@ -130,12 +130,12 @@ namespace wojilu.Web.Controller.Users.Admin.Spiders {
             if (cmd == "up") {
 
                 new SortUtil<SpiderImport>( s, list ).MoveUp();
-                echoRedirect( "ok" );
+                echoJsonOk();
             }
             else if (cmd == "down") {
 
                 new SortUtil<SpiderImport>( s, list ).MoveDown();
-                echoRedirect( "ok" );
+                echoJsonOk();
             }
             else {
                 echoError( lang( "exUnknowCmd" ) );

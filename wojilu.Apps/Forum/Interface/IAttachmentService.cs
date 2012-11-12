@@ -13,7 +13,7 @@ namespace wojilu.Apps.Forum.Interface {
 
     public interface IAttachmentService {
 
-        void AddHits( Attachment attachment );
+        void AddHits( Attachment attachment, User user );
 
         Result Create( Attachment a, User user, IMember owner );
         Result CreateTemp( AttachmentTemp a, User user, IMember owner );
@@ -39,6 +39,7 @@ namespace wojilu.Apps.Forum.Interface {
         void Delete( int id );
 
         List<Attachment> GetTopicAttachments( int topicId );
+
     }
 
 }

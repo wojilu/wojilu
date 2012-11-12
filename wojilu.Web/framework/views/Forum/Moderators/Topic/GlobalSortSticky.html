@@ -1,8 +1,6 @@
 ﻿
 #{location}
 
-<script src="~js/wojilu.common.admin.js?v=#{jsVersion}" type="text/javascript"></script>
-
 <div style="padding:20px;">
 
 <style>
@@ -12,8 +10,6 @@
 .dataRow:hover {background:#f2f2f2;}
 .dataTitle {color:#000;}
 </style>
-
-
 
 <h2 class="font18 msfont strong">:{sortStickyTip}</h2>
 
@@ -41,5 +37,11 @@
 
 
 </table>
+
+<script>
+    _run(function () {
+        require(['wojilu._admin']);
+    });
+</script>
 
 </div>

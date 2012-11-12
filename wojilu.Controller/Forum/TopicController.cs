@@ -20,12 +20,15 @@ using wojilu.Common.Money.Interface;
 
 using wojilu.Web.Controller.Forum.Utils;
 using wojilu.Web.Controller.Common;
+using wojilu.Members.Users.Interface;
+using wojilu.Members.Users.Service;
+
 
 namespace wojilu.Web.Controller.Forum {
 
 
     [App( typeof( ForumApp ) )]
-    public class TopicController : ControllerBase {
+    public partial class TopicController : ControllerBase {
 
         public IForumBoardService boardService { get; set; }
         public IForumTopicService topicService { get; set; }
@@ -33,12 +36,24 @@ namespace wojilu.Web.Controller.Forum {
         public IUserIncomeService incomeService { get; set; }
         public IAttachmentService attachService { get; set; }
 
+        public IUserService userService { get; set; }
+        public IForumRateService rateService { get; set; }
+        public ICurrencyService currencyService { get; set; }
+        public IForumBuyLogService buylogService { get; set; }
+        public IModeratorService moderatorService { get; set; }
+
         public TopicController() {
             boardService = new ForumBoardService();
             topicService = new ForumTopicService();
             postService = new ForumPostService();
             incomeService = new UserIncomeService();
             attachService = new AttachmentService();
+
+            userService = new UserService();
+            rateService = new ForumRateService();
+            currencyService = new CurrencyService();
+            buylogService = new ForumBuyLogService();
+            moderatorService = new ModeratorService();
         }
 
         public override void CheckPermission() {
@@ -98,8 +113,8 @@ namespace wojilu.Web.Controller.Forum {
             List<ForumBoard> pathboards = getTree().GetPath( board.Id );
             set( "location", ForumLocationUtil.GetTopic( pathboards, topic, ctx ) );
 
-            set( "newReplyUrl", Link.To( new Users.PostController().ReplyTopic, id ) + "?boardId=" + topic.ForumBoard.Id );
-            set( "newTopicUrl", Link.To( new Users.TopicController().NewTopic ) + "?boardId=" + topic.ForumBoard.Id );
+            set( "newReplyUrl", to( new Users.PostController().ReplyTopic, id ) + "?boardId=" + topic.ForumBoard.Id );
+            set( "newTopicUrl", to( new Users.TopicController().NewTopic ) + "?boardId=" + topic.ForumBoard.Id );
 
             ctx.SetItem( "forumTopic", topic );
             ctx.SetItem( "forumBoard", board );
@@ -107,7 +122,7 @@ namespace wojilu.Web.Controller.Forum {
             ctx.SetItem( "attachs", attachments );
             ctx.SetItem( "pageSize", getPageSize( ctx.app.obj ) );
 
-            load( "postBlock", new PostBlockController().Show );
+            load( "postBlock", PostLoop );
 
             bindForm( topic, board, lastPost );
 
@@ -161,7 +176,7 @@ namespace wojilu.Web.Controller.Forum {
                 formBlock.Set( "currentUser", user.Name );
             }
 
-            formBlock.Set( "post.ReplyActionUrl", Link.To( new Users.PostController().Create ) + "?boardId=" + topic.ForumBoard.Id );
+            formBlock.Set( "post.ReplyActionUrl", to( new Users.PostController().Create ) + "?boardId=" + topic.ForumBoard.Id );
             formBlock.Set( "post.ReplyTitle", "re:" + topic.Title );
             formBlock.Set( "post.TopicId", topic.Id );
             formBlock.Set( "post.ParentId", lastPost.Id );

@@ -123,7 +123,6 @@ namespace wojilu.Web.Controller.Forum.Users {
                 return;
             }
 
-            //saveAttachment( topic );
             saveUploadedAttachments( topic );
 
             if (ctx.HasErrors) {
@@ -131,9 +130,7 @@ namespace wojilu.Web.Controller.Forum.Users {
                 return;
             }
 
-
             new ForumCacheRemove( boardService, this ).CreateTopic( board );
-
 
             echoRedirect( lang( "opok" ), alink.ToAppData( topic ) );
 
@@ -145,7 +142,6 @@ namespace wojilu.Web.Controller.Forum.Users {
         private void saveUploadedAttachments( ForumTopic topic ) {
             String ids = ctx.PostIdList( "uploadFileIds" );
             int[] arrIds = cvt.ToIntArray( ids );
-
 
             attachService.CreateByTemp( ids, topic );
         }

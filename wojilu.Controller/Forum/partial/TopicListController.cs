@@ -21,20 +21,37 @@ namespace wojilu.Web.Controller.Forum {
     public partial class TopicListController : ControllerBase {
 
 
-        private void bindAll( int boardId, List<ForumTopic> stickyList, DataPage<ForumTopic> topicList, List<ForumCategory> categories, Boolean isAdmin ) {
+        private void bindAll( int id, List<ForumTopic> stickyList, DataPage<ForumTopic> topicList, List<ForumCategory> categories, Boolean isAdmin ) {
+
+            set( "slink", to( new BoardController().Show, id ) );
+            set( "slinkReplied", to( new BoardController().Replied, id ) );
+            set( "slinkCreated", to( new BoardController().Created, id ) );
+            set( "slinkReplies", to( new BoardController().Replies, id ) );
+            set( "slinkViews", to( new BoardController().Views, id ) );
+
+            set( "slinkAll", to( new BoardController().All, id ) );
+            set( "slinkDay", to( new BoardController().Day, id ) );
+            set( "slinkDayTwo", to( new BoardController().DayTwo, id ) );
+            set( "slinkWeek", to( new BoardController().Week, id ) );
+            set( "slinkMonth", to( new BoardController().Month, id ) );
+            set( "slinkMonthThree", to( new BoardController().MonthThree, id ) );
+            set( "slinkMonthSix", to( new BoardController().MonthSix, id ) );
+
+            set( "forumBoard.PollUrl", to( Polls, id ) );
+            set( "forumBoard.PickedUrl", to( Picked, id ) );
 
             int replySize = ((ForumApp)ctx.app.obj).GetSettingsObj().ReplySize;
 
             bindBoardInfo();
 
-            bindCategories( boardId, categories );
+            bindCategories( id, categories );
 
             bindTopicList( stickyList, getBlock( "stickyList" ), isAdmin, true, replySize );
 
             bindTopicList( topicList.Results, getBlock( "postlist" ), isAdmin, false, replySize );
 
             // 分页和表单
-            bindPagerAndForm( boardId, topicList );
+            bindPagerAndForm( id, topicList );
 
             bindToolbar( topicList );
 
@@ -75,11 +92,7 @@ namespace wojilu.Web.Controller.Forum {
             set( "toolbarBottom", toolbarBottomHtml );
         }
 
-
         private void bindAdminToolbar( Boolean isAdmin ) {
-            //String adminTool = isAdmin ? loadHtml( AdminToolbar ) : "";
-            //set( "adminToolbar", adminTool );
-
             load( "adminToolbar", AdminToolbar );
         }
 
@@ -92,7 +105,12 @@ namespace wojilu.Web.Controller.Forum {
             set( "forumBoard.Title", fb.Name );
             set( "forumBoard.Url", to( new BoardController().Show, fb.Id ) );
 
-            set( "forumBoard.Notice", strUtil.HasText( fb.Notice ) ? alang( "notice" ) + ": " + fb.Notice : "" );
+            set( "forumBoard.TodayPosts", fb.TodayPosts );
+            set( "forumBoard.Topics", fb.Topics );
+            set( "forumBoard.Posts", fb.Posts );
+
+
+            set( "forumBoard.Notice", strUtil.HasText( fb.Notice ) ? "<div class=\"board-info-notice clearfix\">" + fb.Notice : "</div>" );
             set( "forumBoard.Moderator", moderatorService.GetModeratorHtml( fb ) );
 
             set( "moderatorJson", moderatorService.GetModeratorJson( fb ) );
@@ -153,18 +171,18 @@ namespace wojilu.Web.Controller.Forum {
             block.Set( "p.TitleStyle", topic.TitleStyle );
             block.Set( "p.LabelNew", lblNew );
 
-            String lnk = LinkUtil.appendListPage( Link.To( new TopicController().Show, topic.Id ), ctx );
+            String lnk = LinkUtil.appendListPage( to( new TopicController().Show, topic.Id ), ctx );
 
             block.Set( "p.Url", lnk );
 
             block.Set( "p.Pages", getPostPagesString( alink.ToAppData( topic ), topic.Replies, replySize ) );
             block.Set( "p.MemberName", topic.Creator.Name );
-            block.Set( "p.MemberUrl", Link.ToMember( topic.Creator ) );
+            block.Set( "p.MemberUrl", toUser( topic.Creator ) );
             block.Set( "p.CreateTime", topic.Created.ToShortDateString() );
             block.Set( "p.ReplyCount", topic.Replies );
             block.Set( "p.Hits", topic.Hits );
             block.Set( "p.LastUpdate", topic.Replied.GetDateTimeFormats( 'g' )[0] );
-            block.Set( "p.LastReplyUrl", Link.ToUser( topic.RepliedUserFriendUrl ) );
+            block.Set( "p.LastReplyUrl", toUser( topic.RepliedUserFriendUrl ) );
             block.Set( "p.LastReplyName", topic.RepliedUserName );
 
             String attachments = topic.Attachments > 0 ? "<img src='" + sys.Path.Img + "attachment.gif'/>" : "";
@@ -201,7 +219,7 @@ namespace wojilu.Web.Controller.Forum {
 
         private void bindFormNew( int boardId, IBlock formBlock, List<ForumCategory> categories ) {
 
-            formBlock.Set( "ActionLink", Link.To( new Users.TopicController().Create ) + "?boardId=" + boardId );
+            formBlock.Set( "ActionLink", to( new Users.TopicController().Create ) + "?boardId=" + boardId );
 
             Editor ed = Editor.NewOne( "Content", "", "150px", sys.Path.Editor, MvcConfig.Instance.JsVersion, Editor.ToolbarType.Basic );
             ed.AddUploadUrl( ctx );
@@ -268,7 +286,7 @@ namespace wojilu.Web.Controller.Forum {
         }
 
         private void appendLink( String url, StringBuilder builder, int i ) {
-            builder.AppendFormat( "<a href=\"{0}\" target=\"_blank\">{1}</a> ", LinkUtil.appendListPage( Link.AppendPage( url, i ), ctx ), i );
+            builder.AppendFormat( "<a href=\"{0}\" target=\"_blank\">{1}</a> ", LinkUtil.appendListPage( PageHelper.AppendNo( url, i ), ctx ), i );
         }
 
         private static int getPageCount( int replies, int pageSize ) {
@@ -288,26 +306,9 @@ namespace wojilu.Web.Controller.Forum {
 
             int id = fb.Id;
 
-            set( "slink", to( new BoardController().Show, id ) );
-            set( "slinkReplied", to( new BoardController().Replied, id ) );
-            set( "slinkCreated", to( new BoardController().Created, id ) );
-            set( "slinkReplies", to( new BoardController().Replies, id ) );
-            set( "slinkViews", to( new BoardController().Views, id ) );
-
-            set( "slinkAll", to( new BoardController().All, id ) );
-            set( "slinkDay", to( new BoardController().Day, id ) );
-            set( "slinkDayTwo", to( new BoardController().DayTwo, id ) );
-            set( "slinkWeek", to( new BoardController().Week, id ) );
-            set( "slinkMonth", to( new BoardController().Month, id ) );
-            set( "slinkMonthThree", to( new BoardController().MonthThree, id ) );
-            set( "slinkMonthSix", to( new BoardController().MonthSix, id ) );
-
-
-            set( "newPostUrl", Link.To( new Users.TopicController().NewTopic ) + "?boardId=" + id );
-            set( "newPollUrl", Link.To( new Users.PollController().Add ) + "?boardId=" + id );
-            set( "newQUrl", Link.To( new Users.TopicController().NewQ ) + "?boardId=" + id );
-            set( "forumBoard.PollUrl", to( Polls, id ) );
-            set( "forumBoard.PickedUrl", to( Picked, id ) );
+            set( "newPostUrl", to( new Users.TopicController().NewTopic ) + "?boardId=" + id );
+            set( "newPollUrl", to( new Users.PollController().Add ) + "?boardId=" + id );
+            set( "newQUrl", to( new Users.TopicController().NewQ ) + "?boardId=" + id );
             set( "page", ctx.GetItem( "topicListPagebar" ) );
         }
 
@@ -334,19 +335,19 @@ namespace wojilu.Web.Controller.Forum {
             set( "stickyOrderLink", urlto( t.SortSticky, id ) );
 
 
-            String cmdGsticky = string.Format( "<span class=\"cmdGsticky\"> {0}</span>", alang( "cmdGlobalSticky" ) );
-            String cmd = "<span class=\"ajaxCmd\" url=\"{0}\">{1}</span>";
+            String cmdGsticky = string.Format( "<i class=\"icon-circle-arrow-up\"></i> <span class=\"cmdGsticky\"> {0}</span>", alang( "cmdGlobalSticky" ) );
+            String cmd = "<span class=\"ajaxCmd btn\" url=\"{0}\">{1}</span>";
             String adminGlobalSticky = string.Format( cmd, urlto( t.GlobalSticky, id ), cmdGsticky );
 
             String gstickyOrderLink = urlto( t.GlobalSortSticky, id );
             adminGlobalSticky += " <a href=\"" + gstickyOrderLink + "\">&rsaquo;&rsaquo; " + alang( "pSortStickyTopic" ) + "</a>";
 
             String gstickyUndoLink = urlto( ts.GlobalStickyUndo, id );
-            String cmdPost = "<span class=\"ajaxForumPost\" url=\"{0}\">{1}</span>";
+            String cmdPost = "<span class=\"ajaxForumPost btn\" url=\"{0}\"><i class=\"icon-circle-arrow-down\"></i> {1}</span>";
             String adminGlobalStickyUndo = string.Format( cmdPost, gstickyUndoLink, alang( "cmdGlobalStickyUndo" ) );
 
             String moveLink = urlto( t.Move, id );
-            String adminMove = string.Format( cmd, moveLink, alang( "moveTopic" ) );
+            String adminMove = string.Format( cmd, moveLink, "<i class=\"icon-move\"></i> "+alang( "moveTopic" ) );
 
             set( "adminGsticky", adminGlobalSticky );
             set( "adminGstickyUndo", adminGlobalStickyUndo );

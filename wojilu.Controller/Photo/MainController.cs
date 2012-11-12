@@ -13,6 +13,10 @@ using wojilu.Apps.Photo.Service;
 using wojilu.Apps.Photo.Interface;
 using wojilu.Web.Controller.Common;
 using wojilu.Web.Controller.Photo.Caching;
+using wojilu.Common.AppBase.Interface;
+using wojilu.Common.AppBase;
+using wojilu.Members.Users.Interface;
+using wojilu.Members.Users.Service;
 
 namespace wojilu.Web.Controller.Photo {
 
@@ -24,6 +28,7 @@ namespace wojilu.Web.Controller.Photo {
         public IPhotoSysCategoryService categoryService { get; set; }
         public IPhotoRankService rankService { get; set; }
 
+
         public MainController() {
 
             photoService = new SysPhotoService();
@@ -32,25 +37,20 @@ namespace wojilu.Web.Controller.Photo {
             rankService = new PhotoRankService();
 
             HideLayout( typeof( LayoutController ) );
+
         }
 
         [CacheAction( typeof( PhotoMainLayoutCache ) )]
         public override void Layout() {
-
-            List<User> userRanks = rankService.GetTop( 9 );
-            bindUsers( userRanks );
-
-            // 点击排行
-            List<PhotoPost> photos = photoService.GetSysHits( 18 );
-            bindPhotos( "hits", photos );
         }
+
 
         private void bindUsers( List<User> userRanks ) {
             IBlock block = getBlock( "users" );
             foreach (User user in userRanks) {
                 block.Set( "user.Name", user.Name );
                 block.Set( "user.Face", user.PicSmall );
-                block.Set( "user.Link", Link.ToMember( user ) );
+                block.Set( "user.Link", toUser( user ) );
                 block.Next();
             }
         }
@@ -70,6 +70,23 @@ namespace wojilu.Web.Controller.Photo {
 
             WebUtils.pageTitle( this, lang( "photo" ) );
 
+            bindPicked();
+
+            List<User> userRanks = rankService.GetTop( 9 );
+            bindUsers( userRanks );
+
+            List<PhotoSysCategory> categories = categoryService.GetAll();
+            IBlock block = getBlock( "categories" );
+            foreach (PhotoSysCategory c in categories) {
+
+                List<PhotoPost> photos = photoService.GetSysTop( c.Id, 8 );
+                bindOneCategory( block, c, photos );
+                block.Next();
+
+            }
+        }
+
+        private void bindPicked() {
             List<PhotoPost> pickedlist = PickedService.GetTop( 4 );
             IBlock pickeBlock = getBlock( "picked" );
             foreach (PhotoPost p in pickedlist) {
@@ -77,16 +94,6 @@ namespace wojilu.Web.Controller.Photo {
                 pickeBlock.Set( "p.ImgThumbUrl", p.ImgThumbUrl );
                 pickeBlock.Set( "p.ImgUrl", p.ImgUrl );
                 pickeBlock.Next();
-            }
-
-            List<PhotoSysCategory> categories = categoryService.GetAll();
-            IBlock block = getBlock( "categories" );
-            foreach (PhotoSysCategory c in categories) {
-
-                List<PhotoPost> photos = photoService.GetSysTop( c.Id, 10 );
-                bindOneCategory( block, c, photos );
-                block.Next();
-
             }
         }
 
@@ -103,7 +110,7 @@ namespace wojilu.Web.Controller.Photo {
                 pblock.Set( "p.LinkShow", alink.ToAppData( p ) );
                 pblock.Set( "p.ImgThumbUrl", p.ImgThumbUrl );
                 pblock.Set( "p.CreatorName", p.Creator.Name );
-                pblock.Set( "p.CreatorLink", Link.ToMember( p.Creator ) );
+                pblock.Set( "p.CreatorLink", toUser( p.Creator ) );
                 pblock.Set( "p.Hits", p.Hits );
                 pblock.Next();
             }
@@ -111,12 +118,14 @@ namespace wojilu.Web.Controller.Photo {
 
         public void List( int categoryId ) {
 
+            set( "appLink", to( Index ) );
+
             PhotoSysCategory category = categoryService.GetById( categoryId );
-            DataPage<PhotoPost> list = photoService.GetSysPostPage( categoryId, 35 );
+            WebUtils.pageTitle( this, category.Name, lang( "photo" ) );
+
+            DataPage<PhotoPost> list = photoService.GetSysPostPage( categoryId, 20 );
             bindOneCategory( this.utils.getCurrentView(), category, list.Results );
             set( "page", list.PageBar );
-
-            WebUtils.pageTitle( this, category.Name, lang( "photo" ) );
         }
 
         public void Recent() {
@@ -135,7 +144,7 @@ namespace wojilu.Web.Controller.Photo {
                 pblock.Set( "p.LinkShow", alink.ToAppData( p ) );
                 pblock.Set( "p.ImgThumbUrl", p.ImgThumbUrl );
                 pblock.Set( "p.CreatorName", p.Creator.Name );
-                pblock.Set( "p.CreatorLink", Link.ToMember( p.Creator ) );
+                pblock.Set( "p.CreatorLink", toUser( p.Creator ) );
                 pblock.Set( "p.Hits", p.Hits );
                 pblock.Next();
             }

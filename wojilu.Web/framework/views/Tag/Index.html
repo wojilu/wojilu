@@ -1,48 +1,30 @@
 ﻿
-<div style="padding:15px 10px 10px 20px;">
-    
-    <div id="tagList">
-    
-        <div style="padding:0px 10px 10px 10px;">
-        
-            <div class="tagListTitle">
-                <div class="tagTitleLable">tag一览</div>
-                <div class="tagSearchForm">
-                    <form id="tagForm">
-                    <strong>搜索</strong> <input id="txtTag" type="text" value="" /> 
-                    <input id="btnTagSearch" class="btn btns" type="submit" value="_{search}tag" /></form>
-                </div>
-                <div class="clear"></div>
+
+
+<div class="row" style="padding-top:20px; padding-bottom:20px;">
+    <div class="span8">
+        <div style="margin:20px;">
+            <h2 style="margin-bottom:30px;"><img src="~img/m/tag.png" /> Tag 一览</h2>
+            <div style=" line-height:300%;font-size:14px;">
+                <!-- BEGIN tags -->
+                <span dataCount="#{tag.DataCount}" class="right10"><a href="#{tag.Link}" style="font-size:#{tag.FontSize}em;">#{tag.Name}</a></span><!-- END tags -->
             </div>
-            
-            <div class="tagListMain">
-                <div style="line-height:250%;">
-                    <!-- BEGIN tags -->
-                    <span dataCount="#{tag.DataCount}"><a href="#{tag.Link}" style="font-size:#{tag.FontSize}em;">#{tag.Name}</a></span><!-- END tags -->
-                </div>
-                
-            </div>
-            
-            
-            
-        </div>    
-        
-        <div>#{page}</div>   
-        
-    </div>    
+            <div style="margin-top:20px;">#{page}</div>
+        </div>
+    </div>
+
+    <div class="span4">
+        <h2 style="margin-top:20px;"><img src="~img/m/search.png" /> _{search}</h2>
+        <div style="margin-right:20px; margin-top:10px;">
+            <form id="tagForm" class="well">
+                <input id="txtTag" type="text" class="input-medium search-query" /> 
+
+                <button id="btnTagSearch" class="btn btn-primary" type="submit">
+                    <i class="icon-search icon-white"></i>
+                    _{search}tag
+                </button>
+            </form>
+        </div>
+    </div>
 
 </div>
-
-
-<style>
-
-#tagList {  }
-.tagListTitle { font-size:14px; font-weight:bold; margin:0px 0px 10px 0px; text-align:left;}
-.tagTitleLable {float:left;}
-.tagSearchForm { float:right; width:280px;}
-
-.tagListMain {}
-#tagList .tagListMain span { margin:5px 10px 5px 0px; height:25px; vertical-align:middle}
-
-</style>
-

@@ -26,12 +26,12 @@ namespace wojilu.Web.Controller.Layouts {
 
                 String lk = string.Format( "<img src=\"{0}lock.gif\"/> ", sys.Path.Img );
 
-                siteAdminCmd += string.Format( "<a href=\"{0}\" class=\"quickCmd\">采集</a> ", Link.T2( ctx.viewer.obj, new Users.Admin.Spiders.ArticleController().List, 0 ) );
+                //siteAdminCmd += string.Format( "<a href=\"{0}\" class=\"quickCmd\">采集</a> ", Link.T2( ctx.viewer.obj, new Users.Admin.Spiders.ArticleController().List, 0 ) );
 
                 if (AdminSecurityUtils.HasSession( ctx ))
-                    siteAdminCmd += string.Format( "<a href='{0}'>{2}{1}</a>", Link.T2( Site.Instance, new Admin.MainController().Welcome ), lang( "siteAdmin" ), lk );
+                    siteAdminCmd += string.Format( "<a href='{0}'>{2}{1}</a>", Link.To( Site.Instance, new Admin.MainController().Welcome ), lang( "siteAdmin" ), lk );
                 else
-                    siteAdminCmd += string.Format( "<a href='{0}'>{2}{1}</a>", Link.T2( Site.Instance, new Admin.MainController().Login ), lang( "siteAdmin" ),lk );
+                    siteAdminCmd += string.Format( "<a href='{0}'>{2}{1}</a>", Link.To( Site.Instance, new Admin.MainController().Login ), lang( "siteAdmin" ), lk );
             }
             return siteAdminCmd;
         }
@@ -48,7 +48,7 @@ namespace wojilu.Web.Controller.Layouts {
 
             String msg = string.Format( lang( "notificationInfo" ), nCount );
 
-            return nCount > 0 ? "<div class=\"NewNotificationCount\"><a href='" + Link.T2( ctx.viewer.obj, new Users.Admin.NotificationController().List ) + "'>" + msg + "</a></div>" : "";
+            return nCount > 0 ? "<div class=\"NewNotificationCount\"><a href='" + Link.To( ctx.viewer.obj, new Users.Admin.NotificationController().List ) + "'>" + msg + "</a></div>" : "";
         }
 
         private String getNewMicroblogAtCount() {
@@ -56,7 +56,7 @@ namespace wojilu.Web.Controller.Layouts {
             int nCount = ((User)ctx.viewer.obj).MicroblogAtUnread;
 
             if (nCount > 0) {
-                return string.Format( "<div class=\"NewNotificationCount\"><a href=\"{1}\">{0}条at我的微博</a></div>", nCount, Link.T2( ctx.viewer.obj, new Microblogs.My.MicroblogController().Atme ) );
+                return string.Format( "<div class=\"NewNotificationCount\"><a href=\"{1}\">{0}条at我的微博</a></div>", nCount, Link.To( ctx.viewer.obj, new Microblogs.My.MicroblogController().Atme ) );
             }
 
 

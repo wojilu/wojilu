@@ -70,12 +70,12 @@ namespace wojilu.Web.Controller.Users.Admin.Spiders {
             if (cmd == "up") {
 
                 new SortUtil<SpiderTemplate>( s, list ).MoveUp();
-                echoRedirect( "ok" );
+                echoJsonOk();
             }
             else if (cmd == "down") {
 
                 new SortUtil<SpiderTemplate>( s, list ).MoveDown();
-                echoRedirect( "ok" );
+                echoJsonOk();
             }
             else {
                 echoError( lang( "exUnknowCmd" ) );
@@ -256,17 +256,20 @@ namespace wojilu.Web.Controller.Users.Admin.Spiders {
 
             String listUrl = ctx.Post( "listUrl" );
 
-            String beginCode = ctx.PostHtmlAll( "listBeginCode" );
-            String endCode = ctx.PostHtmlAll( "listEndCode" );
+            //String beginCode = ctx.PostHtmlAll( "listBeginCode" );
+            //String endCode = ctx.PostHtmlAll( "listEndCode" );
+            String listBodyPattern = ctx.PostHtmlAll("ListBodyPattern");
+            String ListPattern = ctx.PostHtmlAll("ListPattern");
 
-            String detailBeginCode = ctx.PostHtmlAll( "detailBeginCode" );
-            String detailEndCode = ctx.PostHtmlAll( "detailEndCode" );
+            //String detailBeginCode = ctx.PostHtmlAll( "detailBeginCode" );
+            //String detailEndCode = ctx.PostHtmlAll( "detailEndCode" );
+            String DetailPattern = ctx.PostHtmlAll("DetailPattern");
 
             if (strUtil.IsNullOrEmpty( listUrl )) errors.Add( "请填写列表页的网址" );
-            if (strUtil.IsNullOrEmpty( beginCode )) errors.Add( "请填写列表页开始代码" );
-            if (strUtil.IsNullOrEmpty( endCode )) errors.Add( "请填写列表页结束代码" );
-            if (strUtil.IsNullOrEmpty( detailBeginCode )) errors.Add( "请填写详细页开始代码" );
-            if (strUtil.IsNullOrEmpty( detailEndCode )) errors.Add( "请填写详细页结束代码" );
+            //if (strUtil.IsNullOrEmpty( beginCode )) errors.Add( "请填写列表页开始代码" );
+            //if (strUtil.IsNullOrEmpty( endCode )) errors.Add( "请填写列表页结束代码" );
+            //if (strUtil.IsNullOrEmpty( detailBeginCode )) errors.Add( "请填写详细页开始代码" );
+            //if (strUtil.IsNullOrEmpty( detailEndCode )) errors.Add( "请填写详细页结束代码" );
 
             if (ctx.HasErrors) {
                 echoError();
@@ -281,14 +284,15 @@ namespace wojilu.Web.Controller.Users.Admin.Spiders {
             }
 
             s.ListUrl = listUrl;
-            s.ListBodyBegin = beginCode;
-            s.ListBodyEnd = endCode;
+            //s.ListBodyBegin = beginCode;
+            //s.ListBodyEnd = endCode;
 
-            s.ListPattern = SpiderConfig.ListLinkPattern;
+            s.ListPattern = ListPattern;
+            s.ListBodyPattern = listBodyPattern;
 
-            s.DetailBegin = detailBeginCode;
-            s.DetailEnd = detailEndCode;
-
+            //s.DetailBegin = detailBeginCode;
+            //s.DetailEnd = detailEndCode;
+            s.DetailPattern = DetailPattern;
             s.SiteName = ctx.Post( "siteName" );
 
             s.ListEncoding = ctx.Post( "listEncoding" );

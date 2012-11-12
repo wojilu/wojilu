@@ -55,7 +55,7 @@ namespace wojilu.Web.Controller.Content.Admin {
 
         [HttpPost, DbTransaction]
         public void Create( int columnId ) {
-            ContentSection section = ContentValidator.ValidateSection( columnId, ctx );
+            ContentSection section = ContentValidator.SetSectionValueAndValidate( columnId, ctx );
             if (errors.HasErrors) {
                 run( Add, columnId );
             }
@@ -109,7 +109,7 @@ namespace wojilu.Web.Controller.Content.Admin {
 
         [HttpPost, DbTransaction]
         public void CreateAuto( int columnId ) {
-            ContentSection section = ContentValidator.ValidateSection( columnId, ctx );
+            ContentSection section = ContentValidator.SetSectionValueAndValidate( columnId, ctx );
             if (errors.HasErrors) {
                 run( AddAutoThree, columnId );
             }

@@ -16,6 +16,9 @@ namespace wojilu.Apps.Blog.Service {
 
     public class SysBlogService : ISysBlogService {
 
+        public virtual List<BlogPost> GetByCategory( int categoryId, int count ) {
+            return db.find<BlogPost>( "SaveStatus=" + SaveStatus.Normal + " and SysCategoryId=" + categoryId ).list( count );
+        }
 
         //------------------------------------------ 系统数据操作 --------------------------------------------------
 
@@ -30,7 +33,7 @@ namespace wojilu.Apps.Blog.Service {
         }
 
         public virtual List<IBinderValue> GetPostByHits( int count ) {
-            return getResult( GetSysHit(count) );
+            return getResult( GetSysHit( count ) );
         }
 
         public virtual List<IBinderValue> GetPostByReply( int count ) {
@@ -55,6 +58,13 @@ namespace wojilu.Apps.Blog.Service {
 
         public virtual DataPage<BlogPost> GetSysPage( int size ) {
             return db.findPage<BlogPost>( "SaveStatus=" + SaveStatus.Normal + "" );
+        }
+
+        public virtual DataPage<BlogPost> GetSysPageByCategory( int categoryId, int size ) {
+            if (categoryId <= 0) {
+                return db.findPage<BlogPost>( "SaveStatus=" + SaveStatus.Normal );
+            }
+            return db.findPage<BlogPost>( "SaveStatus=" + SaveStatus.Normal + " and SysCategoryId=" + categoryId );
         }
 
         public virtual DataPage<BlogPost> GetSysPageBySearch( String condition ) {

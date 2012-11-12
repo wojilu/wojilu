@@ -8,38 +8,42 @@ using System.Collections.Generic;
 using wojilu.Members.Users.Domain;
 using wojilu.Common.Money.Domain;
 using wojilu.Apps.Forum.Interface;
+using wojilu.Apps.Forum.Domain;
 
 namespace wojilu.Apps.Forum.Service {
 
 
     public class ForumRateService : IForumRateService {
 
-        public virtual UserIncomeLog GetByOperatorAndPost( User user, int postId ) {
-            return db.find<UserIncomeLog>( "DataId=" + postId + " and OperatorId=" + user.Id + " and ActionId=" + 100 ).first();
+        public virtual List<ForumRateLog> GetByPost( int postId ) {
+            return db.find<ForumRateLog>( "PostId=" + postId ).list();
         }
 
-        public virtual List<UserIncomeLog> GetByPost( int postId ) {
-            return db.find<UserIncomeLog>( "DataId=" + postId + " and ActionId=" + 100 ).list();
+        public virtual ForumRateLog GetByPostAndOperator( int userId, int postId ) {
+            return db.find<ForumRateLog>( "PostId=" + postId + " and UserId=" + userId ).first();
         }
 
-        public virtual void Insert( int postId, int userId, int operatorId, String operatorName, int currencyId, int income, String reason ) {
+        public virtual void Insert( int postId, User operateUser, int currencyId, int income, String reason ) {
 
-            UserIncomeLog log = new UserIncomeLog();
-            log.UserId = userId;
+            ForumRateLog log = new ForumRateLog();
+
+            log.User = operateUser;
+
+            log.PostId = postId;
+
             log.CurrencyId = currencyId;
             log.Income = income;
-            log.DataId = postId;
-            log.OperatorId = operatorId;
-            log.OperatorName = operatorName;
-            log.Note = reason;
-            log.ActionId = 100;
 
-            db.insert(log);
+            log.Reason = reason;
+
+            db.insert( log );
         }
 
-        public virtual Boolean IsUserRate( User user, int postId ) {
-            return (this.GetByOperatorAndPost( user, postId ) != null);
+        public virtual Boolean HasRate( int operatorId, int postId ) {
+            return GetByPostAndOperator( operatorId, postId ) != null;
         }
+
+
     }
 }
 

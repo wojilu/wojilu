@@ -28,7 +28,6 @@ namespace wojilu.Apps.Forum.Domain {
         [NotNull( Lang = "exUrl" )]
         public String Url { get; set; }
 
-        [NotNull( Lang = "exLogo" )]
         public String Logo { get; set; }
 
         public DateTime Created { get; set; }

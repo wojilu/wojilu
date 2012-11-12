@@ -1,6 +1,7 @@
-﻿#{layout_content}
+﻿<div style="">#{layout_content}</div>
+
 <script>
-$(document).ready( function() {
+_run( function() {
     $('#tagForm').submit( function() {
     
         var ext = wojilu.str.getExt( location.href );
@@ -15,5 +16,12 @@ $(document).ready( function() {
         
         return false;    
     });
+});
+</script>
+
+<div id="tempie6" ></div>
+<script>
+_run( function() {
+    $('#tempie6').html( '');    
 });
 </script>

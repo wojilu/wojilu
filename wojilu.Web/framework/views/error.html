@@ -1,13 +1,11 @@
-﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
+﻿<!DOCTYPE html>
+<html lang="zh-CN">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>#{exMsg}_#{pageTitle}</title>
-<script src="~js/jquery.js?v=#{jsVersion}" type="text/javascript"></script>
-<script src="~js/lang.#{langStr}.js?v=#{jsVersion}" type="text/javascript"></script>
-<script src="~js/wojilu.common.js?v=#{jsVersion}" type="text/javascript"></script>
+<script> var __funcList=[]; var _run=function(aFunc) { __funcList.push(aFunc);};</script>
 <script>
-$(document).ready( function() {
+_run( function() { 
 
     var parentIframeId = wojilu.tool.getCurrentFrmId();
     
@@ -23,13 +21,23 @@ $(document).ready( function() {
 
 <style>
 body {font-size:14px;line-height:150%;font-family:verdana; }
+#navLink a{ color:#666; text-decoration:none;}
+#navLink a:hover { text-decoration:underline;}
 </style>
 </head>
 
-<body>
-    <h2>#{exTitle}</h2>
-    <div>#{navLink}</div>
-    <div style="width:95%;border:1px #ccc solid;padding:15px;font-size:12px;color:#333;background:#f2f2f2;">#{exDetail}</div>
+<body style="padding:0px;margin:0px;background:#ccc;">
+
+    <div style="width:850px;margin:30px auto;background:#fff;border-radius:5px;box-shadow:5px 5px 15px #666;">
+
+        <div style="margin:0px 30px;padding-top:10px;padding-bottom:30px;">
+            <h2 style="font-size:22px;">#{exTitle}</h2>
+            <div style="font-size:14px;" id="navLink">#{navLink}</div>
+            <div style="width:95%;border:1px #aaa solid;padding:15px;font-size:12px;color:#333;background:#f2f2f2;border-radius:5px;">#{exDetail}</div>
+        </div>
+
+    </div>
 </body>
 
+<script data-main="~js/main" src="~js/lib/require-jquery-wojilu.js"></script>
 </html>

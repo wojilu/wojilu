@@ -1,4 +1,4 @@
-/*
+ï»¿/*
  * Copyright 2010 www.wojilu.com
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -20,92 +20,92 @@ using System.Collections.Generic;
 namespace wojilu.Common.Resource {
 
     /// <summary>
-    /// ¸÷Àà³£ÓÃ»ù´¡Êı¾İÁĞ±í(Ê¡·İ¡¢ĞÔ±ğ¡¢Ê±¼ä¡¢Éí¸ß¡¢»éÒö¡¢ÑªĞÍ¡¢ĞÇ×ùµÈ)
+    /// å„ç±»å¸¸ç”¨åŸºç¡€æ•°æ®åˆ—è¡¨(çœä»½ã€æ€§åˆ«ã€æ—¶é—´ã€èº«é«˜ã€å©šå§»ã€è¡€å‹ã€æ˜Ÿåº§ç­‰)
     /// </summary>
     public class AppResource {
 
         /// <summary>
-        /// ÌåĞÍ
+        /// ä½“å‹
         /// </summary>
         public static PropertyCollection Body = GetPropertyList( "member_body" );
 
         /// <summary>
-        /// ÆäËûÓÃ»§ÁªÏµÎÒµÄÌõ¼ş
+        /// å…¶ä»–ç”¨æˆ·è”ç³»æˆ‘çš„æ¡ä»¶
         /// </summary>
         public static PropertyCollection ContactCondition = GetPropertyList( "member_contactcondition" );
 
         /// <summary>
-        /// emailÍ¨Öª×´Ì¬(ÆôÓÃ/½ûÓÃ)
+        /// emailé€šçŸ¥çŠ¶æ€(å¯ç”¨/ç¦ç”¨)
         /// </summary>
         public static PropertyCollection EmailNotify = GetPropertyList( "member_emailnotify" );
 
         /// <summary>
-        /// ĞÔ±ğ(±£ÃÜ/ÄĞ/Å®)
+        /// æ€§åˆ«(ä¿å¯†/ç”·/å¥³)
         /// </summary>
         public static PropertyCollection Gender = GetPropertyList( "member_gender" );
 
         /// <summary>
-        /// Í··¢ÑÕÉ«
+        /// å¤´å‘é¢œè‰²
         /// </summary>
         public static PropertyCollection Hair = GetPropertyList( "member_hair" );
 
         /// <summary>
-        /// Éí¸ßÑ¡Ïî
+        /// èº«é«˜é€‰é¡¹
         /// </summary>
         public static PropertyCollection Height = getHeightPropertyList();
 
         /// <summary>
-        /// Ê¡·İ
+        /// çœä»½
         /// </summary>
         public static PropertyCollection Province = GetPropertyList( "province" );
 
         /// <summary>
-        /// ×¢²áÄ¿µÄ
+        /// æ³¨å†Œç›®çš„
         /// </summary>
         public static PropertyCollection Purpose = GetPropertyList( "member_regpurpose" );
 
         /// <summary>
-        /// »éÒö×´¿ö
+        /// å©šå§»çŠ¶å†µ
         /// </summary>
         public static PropertyCollection Relationship = GetPropertyList( "member_relationship" );
 
         /// <summary>
-        /// ĞÔÈ¡Ïò
+        /// æ€§å–å‘
         /// </summary>
         public static PropertyCollection Sexuality = GetPropertyList( "member_sexuality" );
 
         /// <summary>
-        /// Ë¯ÃßÏ°¹ß
+        /// ç¡çœ ä¹ æƒ¯
         /// </summary>
         public static PropertyCollection Sleeping = GetPropertyList( "member_sleeping" );
 
         /// <summary>
-        /// ÎüÑÌ°®ºÃ
+        /// å¸çƒŸçˆ±å¥½
         /// </summary>
         public static PropertyCollection Smoking = GetPropertyList( "member_smoking" );
 
         /// <summary>
-        /// ÌåÖØ
+        /// ä½“é‡
         /// </summary>
         public static PropertyCollection Weight = getWeightPropertyList();
 
         /// <summary>
-        /// ÑªĞÍ
+        /// è¡€å‹
         /// </summary>
         public static PropertyCollection Blood = GetPropertyList( "member_blood" );
 
         /// <summary>
-        /// ĞÇ×ù
+        /// æ˜Ÿåº§
         /// </summary>
         public static PropertyCollection Zodiac = GetPropertyList( "member_zodiac" );
 
         /// <summary>
-        /// Ê±¼äÁĞ±í
+        /// æ—¶é—´åˆ—è¡¨
         /// </summary>
         public static String[] Time = getOneDayTime();
 
         /// <summary>
-        /// Ñ§Àú
+        /// å­¦å†
         /// </summary>
         public static PropertyCollection Degree = GetPropertyList( "degree_list" );
 
@@ -119,9 +119,9 @@ namespace wojilu.Common.Resource {
         }
 
         /// <summary>
-        /// »ñÈ¡ÓïÑÔ°üÀï´æ´¢µÄ¼üÖµ¶ÔÁĞ±í(ÓÃÓÚ×Ô¶¨ÒåÀ©Õ¹)
+        /// è·å–è¯­è¨€åŒ…é‡Œå­˜å‚¨çš„é”®å€¼å¯¹åˆ—è¡¨(ç”¨äºè‡ªå®šä¹‰æ‰©å±•)
         /// </summary>
-        /// <param name="langItemName">ÓïÑÔkey</param>
+        /// <param name="langItemName">è¯­è¨€key</param>
         /// <returns></returns>
         public static PropertyCollection GetPropertyList( String langItemName ) {
 
@@ -143,7 +143,7 @@ namespace wojilu.Common.Resource {
         }
 
         /// <summary>
-        /// ¸ù¾İÖµ»ñÈ¡Ê¡·İÃû³Æ
+        /// æ ¹æ®å€¼è·å–çœä»½åç§°
         /// </summary>
         /// <param name="provinceId"></param>
         /// <returns></returns>
@@ -156,11 +156,11 @@ namespace wojilu.Common.Resource {
         }
 
         /// <summary>
-        /// ¸ù¾İÏîÖµ£¬»ñÈ¡ÏîµÄÃû³Æ
+        /// æ ¹æ®é¡¹å€¼ï¼Œè·å–é¡¹çš„åç§°
         /// </summary>
-        /// <param name="langKey">ÓïÑÔ°üÖĞµÄkey</param>
-        /// <param name="itemId">ÏîÖµ</param>
-        /// <returns>ÏîµÄÃû³Æ</returns>
+        /// <param name="langKey">è¯­è¨€åŒ…ä¸­çš„key</param>
+        /// <param name="itemId">é¡¹å€¼</param>
+        /// <returns>é¡¹çš„åç§°</returns>
         public static String GetItemName( String langKey, int itemId ) {
             PropertyCollection list = GetPropertyList( langKey );
             foreach (PropertyItem item in list) {
@@ -176,6 +176,15 @@ namespace wojilu.Common.Resource {
                 propertys.Add( new PropertyItem( i + " kg", i ) );
             }
             return propertys;
+        }
+        /// <summary>
+        /// æ˜¯å¦æ˜¯â€œè¯·é€‰æ‹©â€è¿™ä¸ªå€¼
+        /// </summary>
+        /// <param name="name"></param>
+        /// <returns></returns>
+        public static Boolean IsSelectTip( String name ) {
+            if (name == null) return false;
+            return name.Equals( lang.get( "plsSelect" ) );
         }
 
         private static String[] getOneDayTime() {
@@ -258,11 +267,11 @@ namespace wojilu.Common.Resource {
         }
 
         /// <summary>
-        /// »ñÈ¡ÊıÖµÁĞ±í£¬ÓÃÓÚÏÂÀ­Ñ¡Ïî¡£×Ô¶¯ÔÚµÚÒ»ÏîÇ°ÃæÔö¼Ó¡°ÇëÑ¡Ôñ¡±Ïî£¬ÆäÖµÎª0
+        /// è·å–æ•°å€¼åˆ—è¡¨ï¼Œç”¨äºä¸‹æ‹‰é€‰é¡¹ã€‚è‡ªåŠ¨åœ¨ç¬¬ä¸€é¡¹å‰é¢å¢åŠ â€œè¯·é€‰æ‹©â€é¡¹ï¼Œå…¶å€¼ä¸º0
         /// </summary>
-        /// <param name="intFrom">ÆğÊ¼Öµ</param>
-        /// <param name="intTo">ÖÕÖ¹Öµ</param>
-        /// <returns>ÊıÖµÁĞ±í</returns>
+        /// <param name="intFrom">èµ·å§‹å€¼</param>
+        /// <param name="intTo">ç»ˆæ­¢å€¼</param>
+        /// <returns>æ•°å€¼åˆ—è¡¨</returns>
         public static PropertyCollection GetInts( int intFrom, int intTo ) {
 
             PropertyCollection propertys = new PropertyCollection();

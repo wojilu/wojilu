@@ -1,4 +1,4 @@
-/*
+ï»¿/*
  * Copyright 2010 www.wojilu.com
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -21,22 +21,22 @@ using wojilu.Web.Context;
 namespace wojilu {
 
     /// <summary>
-    /// ÔÚ web ÖĞÊ¹ÓÃµÄ¸»ÎÄ±¾±à¼­Æ÷
+    /// åœ¨ web ä¸­ä½¿ç”¨çš„å¯Œæ–‡æœ¬ç¼–è¾‘å™¨
     /// </summary>
     public class Editor {
 
         /// <summary>
-        /// ¹¤¾ßÀ¸ÀàĞÍ
+        /// å·¥å…·æ ç±»å‹
         /// </summary>
         public enum ToolbarType {
 
             /// <summary>
-            /// »ù±¾°´Å¥
+            /// åŸºæœ¬æŒ‰é’®
             /// </summary>
             Basic,
 
             /// <summary>
-            /// È«²¿°´Å¥
+            /// å…¨éƒ¨æŒ‰é’®
             /// </summary>
             Full
         }
@@ -55,7 +55,7 @@ namespace wojilu {
         private String _mypicsUrl;
 
         /// <summary>
-        /// Í¼Æ¬ÉÏ´«ÍøÖ·
+        /// å›¾ç‰‡ä¸Šä¼ ç½‘å€
         /// </summary>
         public String UploadUrl {
             get { return _uploadUrl; }
@@ -63,7 +63,7 @@ namespace wojilu {
         }
 
         /// <summary>
-        /// µ±Ç°ÓÃ»§µÄËùÓĞÍ¼Æ¬µÄÍøÖ·
+        /// å½“å‰ç”¨æˆ·çš„æ‰€æœ‰å›¾ç‰‡çš„ç½‘å€
         /// </summary>
         public String MyPicsUrl {
             get { return _mypicsUrl; }
@@ -76,17 +76,21 @@ namespace wojilu {
         }
 
         /// <summary>
-        /// ±à¼­Æ÷Ãû³Æ
+        /// ç¼–è¾‘å™¨åç§°
         /// </summary>
         public String ControlName {
             get { return _controlName; }
         }
 
         /// <summary>
-        /// ±à¼­Æ÷ÎÄ¼ş(js¡¢css¡¢Í¼Æ¬µÈ)ËùÔÚÂ·¾¶
+        /// ç¼–è¾‘å™¨æ–‡ä»¶(jsã€cssã€å›¾ç‰‡ç­‰)æ‰€åœ¨è·¯å¾„
         /// </summary>
         public String EditorPath {
             get { return _editorPath; }
+        }
+
+        public String RelativePath {
+            get { return strUtil.TrimStart( this.EditorPath, sys.Path.Js ); }
         }
 
         private String FrameId {
@@ -94,14 +98,14 @@ namespace wojilu {
         }
 
         /// <summary>
-        /// ¸ß¶È
+        /// é«˜åº¦
         /// </summary>
         public String Height {
             get { return _height; }
         }
 
         /// <summary>
-        /// ¹¤¾ßÀ¸ÀàĞÍ
+        /// å·¥å…·æ ç±»å‹
         /// </summary>
         public ToolbarType Toolbar {
             get { return _Toolbar; }
@@ -109,21 +113,21 @@ namespace wojilu {
         }
 
         /// <summary>
-        /// ¿í¶È£¬Ä¬ÈÏÊÇ¸¸ÈİÆ÷µÄ100%
+        /// å®½åº¦ï¼Œé»˜è®¤æ˜¯çˆ¶å®¹å™¨çš„100%
         /// </summary>
         public String Width {
             get { return _width; }
         }
 
-        /// <summary>
-        /// ±à¼­Æ÷±äÁ¿Ãû³Æ(jsÖĞÊ¹ÓÃ)
-        /// </summary>
-        public String EditVarName {
-            get { return String.Format( "{0}Editor", ControlName.Replace( ".", "" ) ); }
-        }
+        ///// <summary>
+        ///// ç¼–è¾‘å™¨å˜é‡åç§°(jsä¸­ä½¿ç”¨)
+        ///// </summary>
+        //public String EditVarName {
+        //    get { return String.Format( "{0}Editor", ControlName.Replace( ".", "" ) ); }
+        //}
 
         /// <summary>
-        /// ĞèÒª±à¼­µÄÄÚÈİ(html¸ñÊ½)
+        /// éœ€è¦ç¼–è¾‘çš„å†…å®¹(htmlæ ¼å¼)
         /// </summary>
         public String Content {
             get {
@@ -136,7 +140,14 @@ namespace wojilu {
         }
 
         /// <summary>
-        /// ÉèÖÃÍ¼Æ¬ÉÏ´«ÍøÖ·
+        /// ç¼–è¾‘å™¨åç§°ã€‚åœ¨å…¶ä»–é¡µé¢å’Œç¼–è¾‘å™¨é¡µé¢è¿›è¡Œäº¤äº’çš„æ—¶å€™ï¼Œéœ€è¦è¿™ä¸ªåç§°ã€‚
+        /// </summary>
+        public String EditVarName {
+            get { return String.Format( "{0}Editor", ControlName.Replace( ".", "" ) ); }
+        }
+
+        /// <summary>
+        /// è®¾ç½®å›¾ç‰‡ä¸Šä¼ ç½‘å€
         /// </summary>
         /// <param name="ctx"></param>
         public void AddUploadUrl( MvcContext ctx ) {
@@ -159,7 +170,7 @@ namespace wojilu {
         }
 
         /// <summary>
-        /// ´´½¨±à¼­Æ÷(Ò³ÃæÖĞµÚÒ»¸ö)
+        /// åˆ›å»ºç¼–è¾‘å™¨(é¡µé¢ä¸­ç¬¬ä¸€ä¸ª)
         /// </summary>
         /// <param name="controlName"></param>
         /// <param name="content"></param>
@@ -176,18 +187,18 @@ namespace wojilu {
         }
 
         private String Render() {
+
             StringBuilder builder = new StringBuilder();
-            if (this.IsUnique) {
-                builder.AppendFormat( "<script src=\"{0}editor.js{1}\" type=\"text/javascript\"></script>", EditorPath, getJsVersionString() );
-            }
 
             builder.AppendFormat( "<div id=\"{0}\">", this.ControlName.Replace( ".", "_" ) + "Editor" );
 
-            //builder.Append( "<script type=\"text/javascript\">var " + EditVarName + "=new wojilu.editor( {editorPath:'" + this.EditorPath + "', height:'" + this.Height + "', name:'" + this.ControlName + "', content:'" + this.Content.Replace( "\\", "\\\\" ) + "', toolbarType:'" + this.Toolbar.ToString().ToLower() + "', uploadUrl:'" + this.UploadUrl + "', mypicsUrl:'" + this.MyPicsUrl + "' } );" + EditVarName + ".render();</script>" );
+            builder.AppendFormat( "<textarea id=\"{0}\" name=\"{0}\" class=\"editor-textarea\" style=\"display:none;height:" + this.Height + ";\">{1}</textarea>", this.ControlName, this.Content );
 
-            builder.AppendFormat( "<textarea id=\"{0}\" name=\"{0}\" style=\"display:none;width:99%;height:"+this.Height+";\">{1}</textarea>", this.ControlName, this.Content );
-
-            builder.Append( "<script type=\"text/javascript\">var " + EditVarName + "=new wojilu.editor( {editorPath:'" + this.EditorPath + "', height:'" + this.Height + "', name:'" + this.ControlName + "', content:'', toolbarType:'" + this.Toolbar.ToString().ToLower() + "', uploadUrl:'" + this.UploadUrl + "', mypicsUrl:'" + this.MyPicsUrl + "' } );" + EditVarName + ".render();</script>" );
+            builder.Append( "<script>_run(function(){require([\"" + RelativePath + "editor\"],function(){" );
+            builder.AppendLine();
+            builder.Append( "window." + EditVarName + "=new wojilu.editor( {editorPath:'" + this.EditorPath + "', height:'" + this.Height + "', name:'" + this.ControlName + "', content:'', toolbarType:'" + this.Toolbar.ToString().ToLower() + "', uploadUrl:'" + this.UploadUrl + "', mypicsUrl:'" + this.MyPicsUrl + "' } );" + EditVarName + ".render();" );
+            builder.AppendLine();
+            builder.Append( "})});</script>" );
 
             builder.Append( "</div>" );
 
@@ -195,7 +206,7 @@ namespace wojilu {
         }
 
         /// <summary>
-        /// ±à¼­Æ÷Éú³ÉµÄjsºÍhtmlÄÚÈİ
+        /// ç¼–è¾‘å™¨ç”Ÿæˆçš„jså’Œhtmlå†…å®¹
         /// </summary>
         /// <returns></returns>
         public override String ToString() {

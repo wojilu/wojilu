@@ -91,7 +91,7 @@
 </div>
 
 <script>
-    $(document).ready(function () {
+    _run( function() {
         $('#homeFeedList a').click(function () {
             $(this).attr('href', wojilu.str.trimEnd($(this).attr('href'), '?nolayout=1'));
             $(this).attr('target', '_blank');

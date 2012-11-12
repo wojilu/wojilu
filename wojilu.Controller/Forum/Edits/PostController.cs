@@ -71,9 +71,9 @@ namespace wojilu.Web.Controller.Forum.Edits {
         private static Random rd = new Random();
 
         private string getTopicLastPage( ForumPost post ) {
-            String lnk = Link.To( new wojilu.Web.Controller.Forum.TopicController().Show, post.TopicId );
+            String lnk = to( new wojilu.Web.Controller.Forum.TopicController().Show, post.TopicId );
             int pageNo = postService.GetPageCount( post.TopicId, getPageSize( ctx.app.obj ) );
-            lnk = Link.AppendPage( lnk, pageNo );
+            lnk = PageHelper.AppendNo( lnk, pageNo );
 
             lnk = lnk + "?rd=" + getRandomStr() + "#post" + post.Id;
 

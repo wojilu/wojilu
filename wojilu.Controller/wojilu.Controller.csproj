@@ -75,6 +75,8 @@
     <Compile Include="Admin\AppController.cs" />
     <Compile Include="Admin\Apps\Blog\CommentController.cs" />
     <Compile Include="Admin\Apps\Blog\MainController.cs" />
+    <Compile Include="Admin\Apps\Blog\PickedImgController.cs" />
+    <Compile Include="Admin\Apps\Blog\SysCategoryController.cs" />
     <Compile Include="Admin\Apps\Content\CommentController.cs" />
     <Compile Include="Admin\Apps\Content\LayoutController.cs" />
     <Compile Include="Admin\Apps\Content\MainController.cs" />
@@ -121,6 +123,7 @@
     <Compile Include="Admin\Utils\AdminSecurityUtils.cs" />
     <Compile Include="Blog\Admin\BlogController.cs" />
     <Compile Include="Blog\Admin\DraftController.cs" />
+    <Compile Include="Admin\Apps\Blog\BlogPickController.cs" />
     <Compile Include="Blog\Admin\MyListController.cs" />
     <Compile Include="Blog\Admin\SettingController.cs" />
     <Compile Include="Blog\Admin\TrashController.cs" />
@@ -131,11 +134,18 @@
     <Compile Include="Blog\Caching\BlogMainPageCache.cs" />
     <Compile Include="Common\ActivationController.cs" />
     <Compile Include="Common\AdLoaderController.cs" />
+    <Compile Include="Common\Installers\SimpleInstaller.cs" />
     <Compile Include="Common\Service\VideoController.cs" />
+    <Compile Include="Content\Admin\HtmlController.cs" />
     <Compile Include="Content\Admin\RowSettingController.cs" />
     <Compile Include="Content\Binder\FocusBinderController.cs" />
-    <Compile Include="Content\Caching\Actions\HtmlCacheAction.cs" />
+    <Compile Include="Content\Caching\Actions\PostAddCache.cs" />
+    <Compile Include="Content\Caching\Actions\PostDeleteCache.cs" />
     <Compile Include="Content\Caching\ContentIndexPageCache.cs" />
+    <Compile Include="Content\Caching\HtmlHelper.cs" />
+    <Compile Include="Content\SidebarController.cs" />
+    <Compile Include="Content\Utils\clink.cs" />
+    <Compile Include="Forum\Admin\ForumPickController.cs" />
     <Compile Include="Forum\AttachmentController.cs" />
     <Compile Include="Forum\Caching\Pages\ForumIndexPageCache.cs" />
     <Compile Include="Forum\Edits\PostController.cs" />
@@ -145,6 +155,7 @@
     <Compile Include="Forum\Moderators\TopicSaveController.cs" />
     <Compile Include="Forum\Moderators\PostController.cs" />
     <Compile Include="Forum\Moderators\SecurityController.cs" />
+    <Compile Include="Forum\partial\TopicController.cs" />
     <Compile Include="Forum\Users\PostController.cs" />
     <Compile Include="Forum\Users\SecurityController.cs" />
     <Compile Include="Forum\Users\TopicController.cs" />
@@ -156,8 +167,15 @@
     <Compile Include="Groups\Caching\GroupMainPageCache.cs" />
     <Compile Include="Groups\JoinController.cs" />
     <Compile Include="Groups\SecurityController.cs" />
+    <Compile Include="Admin\Members\ImportController.cs" />
     <Compile Include="Microblogs\MicroblogSaveController.cs" />
     <Compile Include="Microblogs\SecurityController.cs" />
+    <Compile Include="Open\CommentController.cs" />
+    <Compile Include="Photo\Helper\PhotoBinder.cs" />
+    <Compile Include="Photo\Wf\HomeController.cs" />
+    <Compile Include="Photo\Wf\LayoutController.cs" />
+    <Compile Include="Photo\Helper\PhotoLink.cs" />
+    <Compile Include="Photo\Wf\UserHomeController.cs" />
     <Compile Include="Security\SiteAdminService.cs" />
     <Compile Include="ShareController.cs" />
     <Compile Include="Photo\Admin\PhotoController.cs" />
@@ -309,7 +327,6 @@
     <Compile Include="Forum\partial\TopicListController.cs" />
     <Compile Include="Forum\SearchController.cs" />
     <Compile Include="Forum\Edits\TagController.cs" />
-    <Compile Include="Forum\TopController.cs" />
     <Compile Include="Forum\Users\UploaderController.cs" />
     <Compile Include="Common\Caching\Remove\ForumCacheRemove.cs" />
     <Compile Include="Forum\Utils\LinkUtil.cs" />
@@ -452,7 +469,6 @@
     <Compile Include="Blog\Admin\BlogrollController.cs" />
     <Compile Include="Forum\Admin\LayoutController.cs" />
     <Compile Include="Forum\SecurityController.cs" />
-    <Compile Include="Forum\PostBlockController.cs" />
     <Compile Include="Forum\Security\SecurityHelper.cs" />
     <Compile Include="Admin\Sys\PageCategoryController.cs" />
     <Compile Include="Admin\Sys\PageController.cs" />
@@ -503,7 +519,7 @@
     <Compile Include="Admin\Credits\CurrencyController.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Forum\Admin\BoardController.cs">
+    <Compile Include="Forum\Admin\ForumController.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Forum\BoardController.cs">
@@ -616,6 +632,7 @@
     </Compile>
     <Compile Include="Common\PageController.cs" />
     <Compile Include="Microblogs\My\MicroblogCommentsController.cs" />
+    <Compile Include="Utils\RegUtils.cs" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
@@ -652,6 +669,10 @@
     <ProjectReference Include="..\wojilu.Core\wojilu.Core.csproj">
       <Project>{5D4E912F-B5A1-4E58-BFE1-62FCD30CC9E6}</Project>
       <Name>wojilu.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\wojilu.Open\wojilu.Open.csproj">
+      <Project>{CDA34090-1370-4F29-9112-A27D030519F1}</Project>
+      <Name>wojilu.Open</Name>
     </ProjectReference>
     <ProjectReference Include="..\wojilu\wojilu.csproj">
       <Project>{5912B6E1-6099-4392-9A67-AFD3A8AA4343}</Project>

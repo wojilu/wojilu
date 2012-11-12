@@ -1,6 +1,7 @@
 .sectionPanel {} /*页面区块*/
 .sectionTitle {} /*区块标题的背景色 和上面的边线*/ 
 .sectionTitle,  .sectionTitle a {} /*区块标题颜色*/
+.clear { clear:both;}
 
 /*************************************************************************************/
 
@@ -9,12 +10,13 @@
 
     .columnContainer {float: left;overflow:hidden;display:inline;}
     
-        .sectionPanel {margin-bottom:10px; clear:both; }
+        .sectionPanel {margin-bottom:10px; clear:both; border-radius:5px; }
 
             .sectionTitle { padding:0px 5px; font-size:14px;font-weight:bold;}
             .sectionMore {float:right;padding:6px 3px 0px 0px;font-weight:normal;font-size:12px;}
             .sectionMore a {font-size:12px;color:#555;font-weight:normal;}
-            .sectionContent {line-height:150%; font-size:14px;}
+            .sectionContent {line-height:150%; font-size:14px;padding:10px 6px;}
+            .sectionContent li {margin:2px 0px 3px 0px;}
             
                 .sectionTitleText {float:left; }
                 .sectionTitleText div {float:left; margin-right:8px; margin-top:0px; padding:5px 8px;cursor:default;}
@@ -58,7 +60,7 @@ div.articleLocation {margin:0px 10px 10px 5px; color:#666;}
 
     #postMain {float:left;  padding:10px 10px 10px 0px; margin:10px 10px 10px 0px }
     #postMain h4{font-size:18px; margin:5px;}
-        #postMainContainer {padding:15px; background:#ebf4ff;border:1px #92b0dd solid; width:620px;}
+        #postMainContainer {padding:15px; background:#ebf4ff;border:1px #92b0dd solid; width:600px;}
         
         .ulimgMiddle li {float:left;width:115px;height:125px;margin:10px; padding-top:10px; background:#fff;text-align:center}
         .ulimgMiddle li div {margin:5px; }
@@ -76,7 +78,7 @@ div.articleLocation {margin:0px 10px 10px 5px; color:#666;}
         
         .postSummary {margin:10px 0px;padding:10px;border:1px #ccc solid; background:#fff; line-height:150%;}
         
-    #postSidebar { width:283px; float:left; padding:10px 0px 0px 0px; }
+    #postSidebar { width:280px; float:left; padding:10px 0px 0px 0px; }
     #postSidebarContainer {padding:10px 0px 0px 0px; }
         .postPanel {margin:0px 0px 10px 0px;padding-bottom:10px; border:1px #aaccee solid; line-height:150%; font-size:14px; display:block;}
         .postPanelTitle {padding:3px 0px 1px 10px; border-bottom:1px #aaccee solid; background:#e2eaf8; color:#004499; font-weight:bold; font-size:14px; line-height:25px;}

@@ -19,6 +19,7 @@ namespace wojilu.Apps.Content.Interface {
         List<ContentPost> GetRecentPost( int appId, int count, int typeId );
         List<ContentPost> GetRankPost( int appId, int count, int typeId );
 
+        int GetCountBySection( int sectionId );
         List<ContentPost> GetBySection( int sectionId );
         List<ContentPost> GetBySection( List<ContentPost> dataAll, int sectionId );
         List<ContentPost> GetBySection( int appId, int sectionId );
@@ -32,6 +33,9 @@ namespace wojilu.Apps.Content.Interface {
         DataPage<ContentPost> GetPageBySectionAndCategory( int sectionId, int categoryId );
 
         List<ContentPost> GetTopBySectionAndCategory( int sectionId, int categoryId, int appId );
+        List<ContentPost> GetByIds( string ids );
+
+        List<ContentPost> GetByApp( int appId );
 
         DataPage<ContentPost> GetByApp( int appId, int pageSize );
         DataPage<ContentPost> GetBySearch( int appId, string key, int pageSize );
@@ -71,6 +75,11 @@ namespace wojilu.Apps.Content.Interface {
         void SetStatus_Pick( string ids );
         void SetStatus_Normal( string ids );
         void SetStatus_Focus( string ids );
+
+
+        DataPage<ContentPost> GetPageBySectionArchive( int sectionId, int pageSize );
+
+
 
     }
 }

@@ -7,8 +7,14 @@ using System.Collections.Generic;
 
 using wojilu.Web.Mvc;
 
+using wojilu.ORM;
+using wojilu.Serialization;
+
+using wojilu.Common;
 using wojilu.Common.Tags;
 using wojilu.Common.AppBase.Interface;
+using wojilu.Common.Jobs;
+using wojilu.Common.AppBase;
 
 using wojilu.Common.Money.Domain;
 using wojilu.Common.Money.Service;
@@ -25,15 +31,10 @@ using wojilu.Members.Groups.Domain;
 
 using wojilu.Apps.Forum.Domain;
 using wojilu.Apps.Forum.Interface;
-using wojilu.Common;
-using wojilu.Data;
-using wojilu.ORM;
-using wojilu.Serialization;
-using wojilu.Common.Jobs;
-using wojilu.Common.AppBase;
+using wojilu.Common.Msg.Interface;
+using wojilu.Common.Msg.Service;
 
 namespace wojilu.Apps.Forum.Service {
-
 
     public class ForumTopicService : IForumTopicService {
 
@@ -44,6 +45,7 @@ namespace wojilu.Apps.Forum.Service {
         public virtual IForumLogService logService { get; set; }
         public virtual IUserService userService { get; set; }
         public virtual IUserIncomeService incomeService { get; set; }
+        public virtual IMessageService msgService { get; set; }
 
         public ForumTopicService() {
             forumService = new ForumService();
@@ -53,6 +55,7 @@ namespace wojilu.Apps.Forum.Service {
             AttachmentService = new AttachmentService();
             logService = new ForumLogService();
             incomeService = new UserIncomeService();
+            msgService = new MessageService();
         }
 
         public virtual ForumTopic GetById_ForAdmin( int id ) {
@@ -83,13 +86,13 @@ namespace wojilu.Apps.Forum.Service {
         }
 
         public virtual int GetBoardPage( int topicId, int boardId, int pageSize ) {
-            int count = ForumTopic.count( "Id>=" + topicId + " and ForumBoardId=" + boardId + " and " + getNonDelCondition() );
+            int count = ForumTopic.count( "Id>=" + topicId + " and ForumBoardId=" + boardId + " and " + TopicStatus.GetShowCondition() );
             return getPage( count, pageSize );
         }
 
         public virtual int GetPostPage( int postId, int topicId, int pageSize ) {
 
-            int count = ForumPost.count( "Id<=" + postId + " and TopicId=" + topicId + " and " + getNonDelCondition() );
+            int count = ForumPost.count( "Id<=" + postId + " and TopicId=" + topicId + " and " + TopicStatus.GetShowCondition() );
             return getPage( count, pageSize );
         }
 
@@ -105,29 +108,29 @@ namespace wojilu.Apps.Forum.Service {
         }
 
         public virtual List<ForumTopic> GetByApp( int appId, int count ) {
-            return ForumTopic.find( "AppId=" + appId + " and " + getNonDelCondition() ).list( count );
+            return ForumTopic.find( "AppId=" + appId + " and " + TopicStatus.GetShowCondition() ).list( count );
         }
 
         public virtual DataPage<ForumTopic> GetPageByApp( int appId, int pageSize ) {
-            return ForumTopic.findPage( "AppId=" + appId + " and " + getNonDelCondition(), pageSize );
+            return ForumTopic.findPage( "AppId=" + appId + " and " + TopicStatus.GetShowCondition(), pageSize );
         }
 
         public virtual DataPage<ForumTopic> GetByUserAndApp( int appId, int userId, int pageSize ) {
             if (userId <= 0 || appId <= 0) return DataPage<ForumTopic>.GetEmpty();
-            return ForumTopic.findPage( "AppId=" + appId + " and CreatorId=" + userId + " and " + getNonDelCondition(), pageSize );
+            return ForumTopic.findPage( "AppId=" + appId + " and CreatorId=" + userId + " and " + TopicStatus.GetShowCondition(), pageSize );
         }
 
         public virtual DataPage<ForumTopic> GetByUser( int userId, int pageSize ) {
             if (userId <= 0) return DataPage<ForumTopic>.GetEmpty();
-            return ForumTopic.findPage( "CreatorId=" + userId + " and OwnerType='" + typeof( Site ).FullName + "' and " + getNonDelCondition(), pageSize );
+            return ForumTopic.findPage( "CreatorId=" + userId + " and OwnerType='" + typeof( Site ).FullName + "' and " + TopicStatus.GetShowCondition(), pageSize );
         }
 
         public virtual DataPage<ForumTopic> GetPickedByApp( int appId, int pageSize ) {
-            return ForumTopic.findPage( "AppId=" + appId + " and IsPicked=1 and " + getNonDelCondition(), pageSize );
+            return ForumTopic.findPage( "AppId=" + appId + " and IsPicked=1 and " + TopicStatus.GetShowCondition(), pageSize );
         }
 
         public virtual List<ForumTopic> GetByAppAndReplies( int appId, int count ) {
-            return ForumTopic.find( "AppId=" + appId + " and " + getNonDelCondition() + " order by Replies desc, Id desc" ).list( count );
+            return ForumTopic.find( "AppId=" + appId + " and " + TopicStatus.GetShowCondition() + " order by Replies desc, Id desc" ).list( count );
         }
 
         public virtual List<ForumTopic> GetByAppAndReplies( int appId, int count, int days ) {
@@ -139,11 +142,11 @@ namespace wojilu.Apps.Forum.Service {
             DateTime now = DateTime.Now;
             String dc = string.Format( fs, now.AddDays( -days + 1 ).ToShortDateString(), now.AddDays( 1 ).ToShortDateString() ); // 加1表示包含今天
 
-            return ForumTopic.find( "AppId=" + appId + " and " + getNonDelCondition() + dc + " order by Replies desc, Id desc" ).list( count );
+            return ForumTopic.find( "AppId=" + appId + " and " + TopicStatus.GetShowCondition() + dc + " order by Replies desc, Id desc" ).list( count );
         }
 
         public virtual List<ForumTopic> GetByAppAndViews( int appId, int count ) {
-            return ForumTopic.find( "AppId=" + appId + " and " + getNonDelCondition() + " order by Hits desc, Id desc" ).list( count );
+            return ForumTopic.find( "AppId=" + appId + " and " + TopicStatus.GetShowCondition() + " order by Hits desc, Id desc" ).list( count );
         }
 
 
@@ -170,7 +173,7 @@ namespace wojilu.Apps.Forum.Service {
 
             String bd = " and ForumBoardId in ( " + sids + " )";
 
-            List<ForumTopic> list = db.find<ForumTopic>( getNonDelCondition() + bd + " and OwnerType=:otype order by Id desc" )
+            List<ForumTopic> list = db.find<ForumTopic>( TopicStatus.GetShowCondition() + bd + " and OwnerType=:otype order by Id desc" )
                 .set( "otype", typeof( Site ).FullName )
                 .list( count );
 
@@ -195,7 +198,7 @@ namespace wojilu.Apps.Forum.Service {
         private List<IBinderValue> getNewTopic( int count, Type ownerType ) {
             if (count <= 0) count = 10;
 
-            List<ForumTopic> list = db.find<ForumTopic>( getNonDelCondition() + " and OwnerType=:otype order by Id desc" )
+            List<ForumTopic> list = db.find<ForumTopic>( TopicStatus.GetShowCondition() + " and OwnerType=:otype order by Id desc" )
                 .set( "otype", ownerType.FullName )
                 .list( count );
 
@@ -356,41 +359,14 @@ namespace wojilu.Apps.Forum.Service {
             return string.Format( "ForumBoardId={0} and Status={1}", boardId, TopicStatus.Normal );
         }
 
-        private String getNonDelCondition() {
-            return string.Format( " (Status={0} or Status={1})", (int)TopicStatus.Normal, TopicStatus.Sticky );
-        }
-
         //--------------------------------------------------------------------------------
 
-        //public void AddRewardDefault( ForumTopic topic ) {
-        //    EntityInfo info = MappingClass.Instance.ClassList[typeof( ForumPost ).FullName] as EntityInfo;
-        //    String tableName = info.TableName;
-        //    String sql = "select distinct CreatorId,Id from tbl where topicId=? and parentId>0";
-        //    //int num = 0;
-        //    String ids = string.Empty;
-        //    IDataReader reader = EasyDB.ExecuteReader( sql, DbContext.Connection );
-        //    while (reader.Read()) {
-        //        ids = ids + cvt.ToInt( reader[0] ) + ",";
-        //        //num++;
-        //    }
-        //    reader.Close();
-        //    ids = ids.TrimEnd( new char[] { ',' } );
-        //    topic.RewardAvailable = 0;
-        //    topic.Update( "RewardAvailable" );
-        //}
-
-        public virtual void AdminUpdate( String action, String condition ) {
-            db.updateBatch<ForumTopic>( action, condition );
-        }
 
         public virtual int CountReply( int topicId ) {
             return ForumPost.find( "TopicId=" + topicId + " and Status<>" + TopicStatus.Delete ).count() - 1;
         }
 
         public virtual Result CreateTopic( ForumTopic topic, User user, IMember owner, IApp app ) {
-
-            if (topic.Reward > 0)
-                topic.TypeName = PostTypeString.Question;
 
             populateData( topic, user, owner, app.Id );
             return saveToDb( topic, user, app );
@@ -442,6 +418,14 @@ namespace wojilu.Apps.Forum.Service {
 
         private Result saveToDb( ForumTopic topic, User user, IApp app ) {
 
+            if (topic.Reward > 0) {
+                topic.TypeName = PostTypeString.Question;
+            }
+
+            if (topic.Reward > 0 && topic.Reward > user.Credit) {
+                return new Result( string.Format( "对不起，您现有积分{0}，不够悬赏", user.Credit ) );
+            }
+
             Result result = db.insert( topic );
             if (result.HasErrors) throw new Exception( "insert forumtopic error" );
 
@@ -452,14 +436,15 @@ namespace wojilu.Apps.Forum.Service {
 
             // 发布悬赏问题，不会产生任何收益
             if (topic.Reward > 0) {
-                incomeService.AddIncome( user, KeyCurrency.Instance.Id, -topic.Reward );
+                String msg = string.Format( "发布悬赏帖子 <a href=\"{0}\">{1}</a>，扣除积分", alink.ToAppData( topic ), topic.Title );
+                incomeService.AddIncome( user, KeyCurrency.Instance.Id, -topic.Reward, msg );
             }
             else {
-                incomeService.AddIncome( user, UserAction.Forum_CreateTopic.Id );
+                String msg = string.Format( "发布主题 <a href=\"{0}\">{1}</a>，得到奖励", alink.ToAppData( topic ), topic.Title );
+                incomeService.AddIncome( user, UserAction.Forum_CreateTopic.Id, msg );
             }
 
             addFeedInfo( topic );
-
 
             return result;
         }
@@ -579,8 +564,13 @@ namespace wojilu.Apps.Forum.Service {
                 db.update( p, "Status" );
             }
 
-            logService.AddTopic( creator, topic.AppId, topic.Id, ForumLogAction.Delete, ip );
+            // 更新作者的收入
+            if (topic.Creator != null && topic.Creator.Id > 0) { // 规避已注销用户
+                String msg = string.Format( "主题被删除<a href=\"{0}\">{1}</a>", alink.ToAppData( topic ), topic.Title );
+                incomeService.AddIncome( topic.Creator, UserAction.Forum_TopicDeleted.Id, msg );
+            }
 
+            logService.AddTopic( creator, topic.AppId, topic.Id, ForumLogAction.Delete, ip );
         }
 
         public virtual void DeleteTrue( ForumTopic topic, User viewer, String ip ) {
@@ -610,11 +600,6 @@ namespace wojilu.Apps.Forum.Service {
             //int replies = topic.Replies;
             //int forumBoardId = topic.ForumBoard.Id;
             //boardService.DeleteTopicCount( forumBoardId, replies, topic.OwnerId );
-
-            // 更新作者的收入
-            if (creatorId > 0) { // 规避已注销用户
-                incomeService.AddIncome( topic.Creator, UserAction.Forum_TopicDeleted.Id );
-            }
 
             logService.AddTopic( viewer, topic.AppId, topic.Id, ForumLogAction.DeleteTrue, ip );
         }
@@ -658,6 +643,9 @@ namespace wojilu.Apps.Forum.Service {
                     db.update( p, "Status" );
                 }
 
+                String msg = string.Format( "撤销删除(主题): <a href=\"{0}\">{1}</a>", alink.ToAppData( topic ), topic.Title );
+                incomeService.AddIncomeReverse( topic.Creator, UserAction.Forum_TopicDeleted.Id, msg );
+
             }
         }
 
@@ -676,8 +664,6 @@ namespace wojilu.Apps.Forum.Service {
             db.update( topic );
         }
 
-        //--------------------------------------- admin -----------------------------------------
-
         public void AddHits( ForumTopic topic ) {
             //topic.Hits++;
             //db.update( topic, "Hits" );
@@ -689,20 +675,163 @@ namespace wojilu.Apps.Forum.Service {
             db.update( topic, "RewardAvailable" );
         }
 
-        public virtual void Move( int targetForumId, String idList ) {
+        //--------------------------------------- admin -----------------------------------------
+        
+        public virtual void AdminUpdate( String action, String condition ) {
+            db.updateBatch<ForumTopic>( action, condition );
+        }
 
-            String condition = "Id in (" + idList + ")";
-            String conditionPost = "TopicId in (" + idList + ")";
+        public virtual void MakeSticky( AdminValue av ) {
+            av.ActionId = ForumLogAction.Sticky;
+            AdminUpdate( "set Status=" + TopicStatus.Sticky, av.Condition );
+            AddAuthorIncome( av.Condition, UserAction.Forum_TopicSticky.Id, "置顶" );
+            makeLog( av );
+        }
+
+        public virtual void MakeStickyUndo( AdminValue av ) {
+            av.ActionId = ForumLogAction.UnSticky;
+            AdminUpdate( "set Status=" + TopicStatus.Normal, av.Condition );
+            //取消置顶不减少积分
+            makeLog( av );
+        }
+
+        public virtual void MakePick( AdminValue av ) {
+            av.ActionId = ForumLogAction.Pick;
+            AdminUpdate( "set IsPicked=1", av.Condition );
+            AddAuthorIncome( av.Condition, UserAction.Forum_TopicPicked.Id, "加为精华" );
+            makeLog( av );
+        }
+
+        public virtual void MakePickUndo( AdminValue av ) {
+            av.ActionId = ForumLogAction.UnPick;
+            AdminUpdate( "set IsPicked=0", av.Condition );
+            //取消精华不减少积分
+            makeLog( av );
+        }
+
+        public virtual void MakeHighlight( String style, AdminValue av ) {
+            av.ActionId = ForumLogAction.Highlight;
+            String action = string.Format( "set TitleStyle='{0}'", style );
+            ForumTopic.updateBatch( action, av.Condition );
+            makeLog( av );
+        }
+
+        public virtual void MakeHighlightUndo( AdminValue av ) {
+            av.ActionId = ForumLogAction.UnHighlight;
+            String action = "set TitleStyle=''";
+            ForumTopic.updateBatch( action, av.Condition );
+            makeLog( av );
+        }
+
+        public virtual void MakeLock( AdminValue av ) {
+            av.ActionId = ForumLogAction.Lock;
+            AdminUpdate( "set IsLocked=1", av.Condition );
+            // 积分规则中本身定义的是负值，所以此处用AddIncome
+            AddAuthorIncome( av.Condition, UserAction.Forum_TopicLocked.Id, "锁定" );
+            makeLog( av );
+        }
+
+        public virtual void MakeLockUndo( AdminValue av ) {
+            av.ActionId = ForumLogAction.UnLock;
+            AdminUpdate( "set IsLocked=0", av.Condition );
+            // 积分规则中本身定义的是负值，所以反操作用SubstractIncome
+            SubstractAuthorIncome( av.Condition, UserAction.Forum_TopicLocked.Id, "取消锁定" );
+            makeLog( av );
+        }
+
+        public virtual void DeleteList( AdminValue av ) {
+            av.ActionId = ForumLogAction.Delete;
+
+            DeleteListToTrash( av.Ids );
+            // 积分规则中本身定义的是负值，所以此处用AddIncome
+            AddAuthorIncome( av.Condition, UserAction.Forum_TopicDeleted.Id, "删除" );
+            makeLog( av );
+        }
+
+        public virtual void MakeCategory( int categoryId, AdminValue av ) {
+            av.ActionId = ForumLogAction.SetCategory;
+            String action = string.Format( "set CategoryId=" + categoryId );
+            ForumTopic.updateBatch( action, av.Condition );
+            makeLog( av );
+        }
+
+        public virtual void MakeMove( int targetForumId, AdminValue av) {
+
+            av.ActionId = ForumLogAction.MoveTopic;
+
+            String condition = "Id in (" + av.Ids + ")";
+            String conditionPost = "TopicId in (" + av.Ids + ")";
             String action = "set ForumBoardId=" + targetForumId;
 
             db.updateBatch<ForumTopic>( action, condition );
             db.updateBatch<ForumPost>( action, conditionPost );
+
+            makeLog( av );
         }
+
+        public virtual void MakeGlobalSticky( AdminValue av ) {
+
+            av.ActionId = ForumLogAction.GlobalSticky;
+
+            ForumApp app = db.findById<ForumApp>( av.AppId );
+            if (app == null) return;
+
+            List<ForumTopic> newStickTopics = db.find<ForumTopic>( av.Condition ).list();
+
+            app.StickyTopic = StickyTopic.MergeData( app.StickyTopic, newStickTopics );
+            db.update( app );
+
+            makeLog( av );
+        }
+
+        public virtual void MakeGloablStickyUndo( AdminValue av ) {
+
+            av.ActionId = ForumLogAction.GlobalUnSticky;
+
+            ForumApp app = db.findById<ForumApp>( av.AppId );
+            if (app == null) return;
+
+            List<ForumTopic> newStickTopics = db.find<ForumTopic>( av.Condition ).list();
+
+            app.StickyTopic = StickyTopic.SubtractData( app.StickyTopic, newStickTopics );
+            db.update( app );
+
+            makeLog( av );
+        }
+
+        private void makeLog( AdminValue av ) {
+
+            List<ForumTopic> topics = GetByIds( av.Ids );
+
+            foreach (ForumTopic topic in topics) {
+
+                logService.AddTopic( av.User, av.AppId, topic.Id, av.ActionId, av.Reason, av.Ip );
+
+                // 发送短信通知
+                if (!av.IsSendMsg) continue;
+
+                String msg = ForumLogAction.GetLable( av.ActionId );
+                String title = string.Format( alang.get( typeof( ForumApp ), "adminPostMsgTitle" ), topic.Title, msg );
+
+                String topicInfo = "<a href='" + alink.ToAppData( topic ) + "'>" + topic.Title + "</a>";
+                if (av.ActionId == ForumLogAction.Delete) topicInfo = topic.Title;
+
+                String body = string.Format( alang.get( typeof( ForumApp ), "adminPostMsgBody" ), topicInfo, msg, DateTime.Now, av.Reason );
+
+                msgService.SiteSend( title, body, topic.Creator );
+            }
+
+        }
+
+        //-----------------------------------------------------------------------------------------
+
 
         public virtual void Lock( ForumTopic topic, User user, String ip ) {
             topic.IsLocked = 1;
             db.update( topic, "IsLocked" );
-            incomeService.AddIncome( topic.Creator, UserAction.Forum_TopicLocked.Id );
+
+            String msg = string.Format( "帖子被锁定 <a href=\"{0}\">{1}</a>", alink.ToAppData( topic ), topic.Title );
+            incomeService.AddIncome( topic.Creator, UserAction.Forum_TopicLocked.Id, msg );
 
             logService.AddTopic( user, topic.AppId, topic.Id, ForumLogAction.Lock, ip );
         }
@@ -710,47 +839,26 @@ namespace wojilu.Apps.Forum.Service {
         public virtual void UnLock( ForumTopic topic, User user, String ip ) {
             topic.IsLocked = 0;
             db.update( topic, "IsLocked" );
-            incomeService.AddIncomeReverse( topic.Creator, UserAction.Forum_TopicLocked.Id );
+
+            String msg = string.Format( "帖子取消锁定 <a href=\"{0}\">{1}</a>", alink.ToAppData( topic ), topic.Title );
+            incomeService.AddIncomeReverse( topic.Creator, UserAction.Forum_TopicLocked.Id, msg );
             logService.AddTopic( user, topic.AppId, topic.Id, ForumLogAction.UnLock, ip );
-        }
-
-        public virtual void SetGlobalSticky( int appId, String ids ) {
-
-            ForumApp app = db.findById<ForumApp>( appId );
-            if (app == null) return;
-
-            String condition = "Id in (" + ids + ")";
-            List<ForumTopic> newStickTopics = db.find<ForumTopic>( condition ).list();
-
-            app.StickyTopic = StickyTopic.MergeData( app.StickyTopic, newStickTopics );
-            db.update( app );
-        }
-
-        public virtual void SetGloablStickyUndo( int appId, String ids ) {
-
-            ForumApp app = db.findById<ForumApp>( appId );
-            if (app == null) return;
-
-            String condition = "Id in (" + ids + ")";
-            List<ForumTopic> newStickTopics = db.find<ForumTopic>( condition ).list();
-
-            app.StickyTopic = StickyTopic.SubtractData( app.StickyTopic, newStickTopics );
-            db.update( app );
         }
 
         //--------------------------------------- income -----------------------------------------
 
-        public virtual void AddAuthorIncome( String condition, int actionId ) {
+        public virtual void AddAuthorIncome( String condition, int actionId, String actionName ) {
             List<ForumTopic> topics = db.find<ForumTopic>( condition ).list();
             foreach (ForumTopic topic in topics) {
-                incomeService.AddIncome( topic.Creator, actionId );
+                String msg = string.Format( "帖子被{0} <a href=\"{1}\">{2}</a>", actionName, alink.ToAppData( topic ), topic.Title ); incomeService.AddIncome( topic.Creator, actionId, msg );
             }
         }
 
-        public virtual void SubstractAuthorIncome( String condition, int actionId ) {
+        public virtual void SubstractAuthorIncome( String condition, int actionId, String actionName ) {
             List<ForumTopic> topics = db.find<ForumTopic>( condition ).list();
             foreach (ForumTopic topic in topics) {
-                incomeService.AddIncomeReverse( topic.Creator, actionId );
+                String msg = string.Format( "帖子被{0} <a href=\"{1}\">{2}</a>", actionName, alink.ToAppData( topic ), topic.Title );
+                incomeService.AddIncomeReverse( topic.Creator, actionId, msg );
             }
         }
 
@@ -773,7 +881,7 @@ namespace wojilu.Apps.Forum.Service {
         public virtual DataPage<ForumTopic> Search( int appId, string key, int pageSize ) {
             if (strUtil.IsNullOrEmpty( key )) return DataPage<ForumTopic>.GetEmpty();
             String q = strUtil.SqlClean( key, 10 );
-            return ForumTopic.findPage( "AppId=" + appId + " and Title like '%" + q + "%' and " + getNonDelCondition(), pageSize );
+            return ForumTopic.findPage( "AppId=" + appId + " and Title like '%" + q + "%' and " + TopicStatus.GetShowCondition(), pageSize );
         }
 
     }

@@ -1,4 +1,4 @@
-﻿<div id="topNavWrap">
+<div id="topNavWrap">
 
 <table id="topNav" cellpadding="0" cellspacing="0" >
 	<tr>
@@ -41,7 +41,7 @@
 
 		<table id="userAccountTable" cellpadding="0" cellspacing="0" border="0" style="display:none;">
 		    <tr>
-		        <td style="width:130px; text-align:right;">
+		        <td style="width:180px; text-align:right;">
 		            <div>
 		            <span id="siteNotification"></span>
 			        <a href="#" class="frmLink left10" id="msgLink" loadTo="uaMain" nolayout=1>_{msg}<span id="viewerNewMsgCount"></span></a>
@@ -49,13 +49,13 @@
 			        </div>
 			        
 			        <div style="position:relative">
-                    <div id="ntBox" style="position:absolute; text-align:left; z-index:999;left:80px;top:10px;">                        
+                    <div id="ntBox" style="position:absolute; text-align:left; z-index:999;left:80px;top:8px;">                        
                         <div id="myUploadDlg" class="hide">
                             <img src="~img/s/upload1.png" /> <a href="#" id="uploadAvatar" style="color:#e56f04;">上传头像</a> #{uploadCredit}
                              <span class="closeNt">×</span>
                         </div>
                         <div id="confirmEmailPanel" class="hide">
-                            <img src="~img/mail/mail.gif" /> <a href="#" id="confirmEmailLink" style="color:#e56f04;">激活邮件</a> #{emailCredit} <span class="closeNt">×</span>
+                            <img src="~img/mail/mail.gif" /> <a href="#" id="confirmEmailLink" style="color:#e56f04;">激活邮�/a> #{emailCredit} <span class="closeNt">×</span>
                         </div>
                         <div id="viewerNewNotificationCount"></div>
                         <div id="viewerNewMicroblogAtCount"></div>
@@ -65,7 +65,7 @@
 		        <td style="width:35px; text-align:right; padding-right:5px;">
 		            <a href="#" id="viewerInviteLink" style="display:inline-block;margin-bottom:-2px; " class="frmLink" loadTo="uaMain" nolayout=1>_{invite}</a>		            
 		        </td>
-		        <td style="width:50px;">
+		        <td style="">
 	                <a href="#" id="siteOnlineUrl">_{online}<span style="font-size:11px;">(<span id="siteOnlineCount"></span>)</span></a>
                 </td>
 		        <td style="width:30px;padding-right:6px; text-align:right;">
@@ -98,5 +98,11 @@
 </table>
 
 </div>
-<script type="text/javascript">var ctx = null;var navUrl = '#{navUrl}';</script>
-<script type="text/javascript" src="~js/wojilu.site.topnav.js?v=#{jsVersion}"></script>
+
+<script>
+_run( function() {
+    require( ["wojilu.core.sitetop"], function( topnav ) {
+        topnav.init( '#{navUrl}');
+    });
+});
+</script>

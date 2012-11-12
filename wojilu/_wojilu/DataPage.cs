@@ -1,4 +1,4 @@
-/*
+ï»¿/*
  * Copyright 2010 www.wojilu.com
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -26,9 +26,9 @@ using wojilu.Web;
 namespace wojilu {
 
     /// <summary>
-    /// ·â×°ÁË ORM ·ÖÒ³²éÑ¯µÄ½á¹û¼¯
+    /// å°è£…äº† ORM åˆ†é¡µæŸ¥è¯¢çš„ç»“æœé›†
     /// </summary>
-    /// <typeparam name="T">Êı¾İÀàĞÍ</typeparam>
+    /// <typeparam name="T">æ•°æ®ç±»å‹</typeparam>
     [Serializable]
     public class DataPage<T> : IPageList {
 
@@ -60,7 +60,7 @@ namespace wojilu {
         private int _size;
 
         /// <summary>
-        /// µ±Ç°Ò³Âë
+        /// å½“å‰é¡µç 
         /// </summary>
         public int Current {
             get { return _current; }
@@ -68,7 +68,7 @@ namespace wojilu {
         }
 
         /// <summary>
-        /// Ã¿Ò³Êı¾İÁ¿
+        /// æ¯é¡µæ•°æ®é‡
         /// </summary>
         public int Size {
             get { return _size; }
@@ -76,7 +76,7 @@ namespace wojilu {
         }
 
         /// <summary>
-        /// ·ç×ª¹ıµÄ html ·ÖÒ³À¸(Ò²¿ÉÒÔ×Ô¶¨Òå)
+        /// é£è½¬è¿‡çš„ html åˆ†é¡µæ (ä¹Ÿå¯ä»¥è‡ªå®šä¹‰)
         /// </summary>
         public String PageBar {
             get { return _pageBar; }
@@ -84,7 +84,7 @@ namespace wojilu {
         }
 
         /// <summary>
-        /// ×ÜÒ³Âë
+        /// æ€»é¡µç 
         /// </summary>
         public int PageCount {
             get { return _pageCount; }
@@ -92,7 +92,7 @@ namespace wojilu {
         }
 
         /// <summary>
-        /// ×Ü¼ÇÂ¼Êı
+        /// æ€»è®°å½•æ•°
         /// </summary>
         public int RecordCount {
             get { return _recordCount; }
@@ -100,7 +100,7 @@ namespace wojilu {
         }
 
         /// <summary>
-        /// ²éÑ¯½á¹û£º¶ÔÏóµÄÁĞ±í
+        /// æŸ¥è¯¢ç»“æœï¼šå¯¹è±¡çš„åˆ—è¡¨
         /// </summary>
         public List<T> Results {
             get { return _results; }
@@ -108,7 +108,7 @@ namespace wojilu {
         }
 
         /// <summary>
-        /// ·µ»Ø¿ÕµÄ·ÖÒ³½á¹û¼¯
+        /// è¿”å›ç©ºçš„åˆ†é¡µç»“æœé›†
         /// </summary>
         /// <returns></returns>
         public static DataPage<T> GetEmpty() {
@@ -126,33 +126,51 @@ namespace wojilu {
             }
         }
 
+        public String GetRecentPage( String recentLink, String archiveLink, int recentPageCount, Boolean isHtml ) {
+            return GetRecentPage( recentLink, archiveLink, recentPageCount, recentPageCount, isHtml );
+        }
+
         /// <summary>
-        /// ×î½üÊı¾İÁĞ±íµÄ·ÖÒ³À¸
+        /// æœ€è¿‘æ•°æ®åˆ—è¡¨çš„åˆ†é¡µæ 
         /// </summary>
-        /// <param name="recentLink">×î½üÊı¾İÁĞ±íÍøÖ·(²»´øÒ³Âë)</param>
-        /// <param name="archiveLink">´æµµÊı¾İÁĞ±íÍøÖ·(²»´øÒ³Âë)</param>
-        /// <param name="recentPageCount">×î½üÊı¾İÁĞ±íĞèÒªÕ¹Ê¾µÄÒ³Êı</param>
+        /// <param name="recentLink">æœ€è¿‘æ•°æ®åˆ—è¡¨ç½‘å€(ä¸å¸¦é¡µç )</param>
+        /// <param name="archiveLink">å­˜æ¡£æ•°æ®åˆ—è¡¨ç½‘å€(ä¸å¸¦é¡µç )</param>
+        /// <param name="recentPageCount">æœ€è¿‘æ•°æ®åˆ—è¡¨éœ€è¦å±•ç¤ºçš„é¡µæ•°</param>
         /// <returns></returns>
         public String GetRecentPage( String recentLink, String archiveLink, int recentPageCount ) {
             return GetRecentPage( recentLink, archiveLink, recentPageCount, recentPageCount );
         }
 
         /// <summary>
-        /// ×î½üÊı¾İÁĞ±íµÄ·ÖÒ³À¸
+        /// æœ€è¿‘æ•°æ®åˆ—è¡¨çš„åˆ†é¡µæ 
         /// </summary>
-        /// <param name="recentLink">×î½üÊı¾İÁĞ±íÍøÖ·(²»´øÒ³Âë)</param>
-        /// <param name="archiveLink">´æµµÊı¾İÁĞ±íÍøÖ·(²»´øÒ³Âë)</param>
-        /// <param name="recentPageCount">×î½üÊı¾İÁĞ±íĞèÒªÕ¹Ê¾µÄÒ³Êı</param>
-        /// <param name="pageWidth">·ÖÒ³À¸¿í¶È</param>
+        /// <param name="recentLink">æœ€è¿‘æ•°æ®åˆ—è¡¨ç½‘å€(ä¸å¸¦é¡µç )</param>
+        /// <param name="archiveLink">å­˜æ¡£æ•°æ®åˆ—è¡¨ç½‘å€(ä¸å¸¦é¡µç )</param>
+        /// <param name="recentPageCount">æœ€è¿‘æ•°æ®åˆ—è¡¨éœ€è¦å±•ç¤ºçš„é¡µæ•°</param>
+        /// <param name="pageWidth">åˆ†é¡µæ å®½åº¦</param>
         /// <returns></returns>
         public String GetRecentPage( String recentLink, String archiveLink, int recentPageCount, int pageWidth ) {
+            return GetRecentPage( recentLink, archiveLink, recentPageCount, pageWidth, false );
+        }
+
+
+        /// <summary>
+        /// æœ€è¿‘æ•°æ®åˆ—è¡¨çš„åˆ†é¡µæ 
+        /// </summary>
+        /// <param name="recentLink">æœ€è¿‘æ•°æ®åˆ—è¡¨ç½‘å€(ä¸å¸¦é¡µç )</param>
+        /// <param name="archiveLink">å­˜æ¡£æ•°æ®åˆ—è¡¨ç½‘å€(ä¸å¸¦é¡µç )</param>
+        /// <param name="recentPageCount">æœ€è¿‘æ•°æ®åˆ—è¡¨éœ€è¦å±•ç¤ºçš„é¡µæ•°</param>
+        /// <param name="pageWidth">åˆ†é¡µæ å®½åº¦</param>
+        /// <param name="isHtml">æ˜¯å¦htmlåˆ¶ä½œè¯·æ±‚</param>
+        /// <returns></returns>
+        public String GetRecentPage( String recentLink, String archiveLink, int recentPageCount, int pageWidth, Boolean isHtml ) {
 
             StringBuilder sb = new StringBuilder();
             sb.Append( "<div class=\"turnpage\">" );
 
             // prev
             if (this.Current > 1) {
-                sb.AppendFormat( "<a href=\"{0}\">&lt;{1}</a>&nbsp;", Link.AppendPage( recentLink, this.Current - 1 ), lang.get( "prevPage" ) );
+                sb.AppendFormat( "<a href=\"{0}\">&lt;{1}</a>&nbsp;", appendPage( recentLink, this.Current - 1, isHtml ), lang.get( "prevPage" ) );
             }
 
             // page number
@@ -173,7 +191,7 @@ namespace wojilu {
 
             for (int i = startNo; i <= endNo; i++) {
                 String pstyle = this.Current == i ? "currentPageNo" : "pageNo";
-                sb.AppendFormat( "<a href=\"{0}\" class=\"{1}\">{2}</a>&nbsp;", Link.AppendPage( recentLink, i ), pstyle, i );
+                sb.AppendFormat( "<a href=\"{0}\" class=\"{1}\">{2}</a>&nbsp;", appendPage( recentLink, i, isHtml ), pstyle, i );
             }
 
             // next
@@ -181,20 +199,12 @@ namespace wojilu {
             }
             else if (this.Current + 1 > recentPageCount) {
                 int nextPage = this.PageCount - recentPageCount;
-                sb.AppendFormat( "<a href=\"{0}\">{1}&gt;</a>&nbsp;", Link.AppendPage( archiveLink, nextPage ), lang.get( "nextPage" ) );
+                sb.AppendFormat( "<a href=\"{0}\">{1}&gt;</a>&nbsp;", appendPage( archiveLink, nextPage, isHtml ), lang.get( "nextPage" ) );
             }
             else {
-                sb.AppendFormat( "<a href=\"{0}\">{1}&gt;</a>&nbsp;", Link.AppendPage( recentLink, this.Current + 1 ), lang.get( "nextPage" ) );
+                sb.AppendFormat( "<a href=\"{0}\">{1}&gt;</a>&nbsp;", appendPage( recentLink, this.Current + 1, isHtml ), lang.get( "nextPage" ) );
             }
 
-            // last
-            //if (this.Current >= this.PageCount) {
-            //}
-            //else if (recentPageCount > this.PageCount) {
-            //}
-            //else {
-            //    sb.AppendFormat( "<a href=\"{0}\">{1}&raquo;</a>&nbsp;", Link.AppendPage( archiveLink, 1 ), lang.get( "lastPage" ) );
-            //}
             sb.AppendFormat( "<span class=\"pageCount\">" + lang.get( "pageCount" ) + "</span>", this.PageCount );
 
             sb.Append( "</div>" );
@@ -202,14 +212,37 @@ namespace wojilu {
             return sb.ToString();
         }
 
+        private String appendPage( String url, int pageNumber, Boolean isHtml ) {
+
+            if (isHtml) {
+                return PageHelper.AppendHtmlNo( url, pageNumber );
+            }
+            else {
+                return PageHelper.AppendNo( url, pageNumber );
+            }
+
+        }
+
         /// <summary>
-        /// ´æµµÊı¾İÁĞ±íµÄ·ÖÒ³À¸
+        /// å­˜æ¡£æ•°æ®åˆ—è¡¨çš„åˆ†é¡µæ 
         /// </summary>
-        /// <param name="recentLink">×î½üÊı¾İÁĞ±íÍøÖ·(²»´øÒ³Âë)</param>
-        /// <param name="archiveLink">´æµµÊı¾İÁĞ±íÍøÖ·(²»´øÒ³Âë)</param>
-        /// <param name="recentPageCount">×î½üÊı¾İÁĞ±íĞèÒªÕ¹Ê¾µÄÒ³Êı</param>
+        /// <param name="recentLink">æœ€è¿‘æ•°æ®åˆ—è¡¨ç½‘å€(ä¸å¸¦é¡µç )</param>
+        /// <param name="archiveLink">å­˜æ¡£æ•°æ®åˆ—è¡¨ç½‘å€(ä¸å¸¦é¡µç )</param>
+        /// <param name="recentPageCount">æœ€è¿‘æ•°æ®åˆ—è¡¨éœ€è¦å±•ç¤ºçš„é¡µæ•°</param>
         /// <returns></returns>
         public String GetArchivePage( String recentLink, String archiveLink, int recentPageCount ) {
+            return GetArchivePage( recentLink, archiveLink, recentPageCount, false );
+        }
+
+        /// <summary>
+        /// å­˜æ¡£æ•°æ®åˆ—è¡¨çš„åˆ†é¡µæ 
+        /// </summary>
+        /// <param name="recentLink">æœ€è¿‘æ•°æ®åˆ—è¡¨ç½‘å€(ä¸å¸¦é¡µç )</param>
+        /// <param name="archiveLink">å­˜æ¡£æ•°æ®åˆ—è¡¨ç½‘å€(ä¸å¸¦é¡µç )</param>
+        /// <param name="recentPageCount">æœ€è¿‘æ•°æ®åˆ—è¡¨éœ€è¦å±•ç¤ºçš„é¡µæ•°</param>
+        /// <param name="isHtml">æ˜¯å¦htmlåˆ¶ä½œè¯·æ±‚</param>
+        /// <returns></returns>
+        public String GetArchivePage( String recentLink, String archiveLink, int recentPageCount, Boolean isHtml ) {
 
             StringBuilder sb = new StringBuilder();
             sb.Append( "<div class=\"turnpage\">" );
@@ -220,11 +253,11 @@ namespace wojilu {
 
             if (this.PageCount - this.Current <= recentPageCount) {
                 int prevPage = this.PageCount - this.Current;
-                sb.AppendFormat( "<a href=\"{0}\">&lt;{1}</a>", Link.AppendPage( recentLink, prevPage ), lang.get( "prevPage" ) );
+                sb.AppendFormat( "<a href=\"{0}\">&lt;{1}</a>", appendPage( recentLink, prevPage, isHtml ), lang.get( "prevPage" ) );
                 sb.Append( "<span class=\"\">&nbsp;</span>" );
             }
             else {
-                sb.AppendFormat( "<a href=\"{0}\">&lt;{1}</a>", Link.AppendPage( archiveLink, this.Current + 1 ), lang.get( "prevPage" ) );
+                sb.AppendFormat( "<a href=\"{0}\">&lt;{1}</a>", appendPage( archiveLink, this.Current + 1, isHtml ), lang.get( "prevPage" ) );
                 sb.Append( "<span class=\"\">&nbsp;</span>" );
             }
 
@@ -233,12 +266,12 @@ namespace wojilu {
                 int nextPage = this.Current - 1;
 
                 if (nextPage > 1) {
-                    sb.AppendFormat( "<a href=\"{0}\">{1}&gt;</a>", Link.AppendPage( archiveLink, this.Current - 1 ), lang.get( "nextPage" ) );
+                    sb.AppendFormat( "<a href=\"{0}\">{1}&gt;</a>", appendPage( archiveLink, this.Current - 1, isHtml ), lang.get( "nextPage" ) );
                     sb.Append( "<span class=\"\">&nbsp;</span>" );
-                    sb.AppendFormat( "<a href=\"{0}\">{1}&raquo;</a>", Link.AppendPage( archiveLink, 1 ), lang.get( "lastPage" ) );
+                    sb.AppendFormat( "<a href=\"{0}\">{1}&raquo;</a>", appendPage( archiveLink, 1, isHtml ), lang.get( "lastPage" ) );
                 }
                 else {
-                    sb.AppendFormat( "<a href=\"{0}\">{1}&gt;</a>", Link.AppendPage( archiveLink, this.Current - 1 ), lang.get( "nextPage" ) );
+                    sb.AppendFormat( "<a href=\"{0}\">{1}&gt;</a>", appendPage( archiveLink, this.Current - 1, isHtml ), lang.get( "nextPage" ) );
                 }
             }
             sb.Append( "</div>" );
@@ -247,23 +280,22 @@ namespace wojilu {
         }
 
 
-
         public static DataPage<T> GetPage( List<T> list, int pageSize ) {
 
             ObjectPage op = new ObjectPage();
             if (pageSize <= 0) pageSize = 20;
             op.setSize( pageSize );
             op.RecordCount = list.Count;
-            // ¼ÆËãÒ³Êı
+            // è®¡ç®—é¡µæ•°
             op.computePageCount();
 
-            // ½ÃÕıµ±Ç°Ò³Âë
+            // çŸ«æ­£å½“å‰é¡µç 
             int currentPageNumber = CurrentRequest.getCurrentPage();
             op.setCurrent( currentPageNumber );
             op.resetCurrent();
             currentPageNumber = op.getCurrent();
 
-            // µÃµ½½á¹û¼¯
+            // å¾—åˆ°ç»“æœé›†
             List<T> results = new List<T>();
             int start = (currentPageNumber - 1) * pageSize;
             int count = 1;
@@ -273,7 +305,7 @@ namespace wojilu {
                 count++;
             }
 
-            // Ìî³ä·ÖÒ³Êı¾İ
+            // å¡«å……åˆ†é¡µæ•°æ®
             DataPage<T> page = new DataPage<T>();
             page.Results = results;
             page.Current = currentPageNumber;

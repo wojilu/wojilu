@@ -49,7 +49,7 @@ namespace wojilu.Web.Controller.Content.Admin.Section {
         }
 
         private void bindEditInfo( int postId, ContentPost post ) {
-            set( "post.DeleteUrl", Link.To( new ListController().Delete, postId ) );
+            set( "post.DeleteUrl", to( new ListController().Delete, postId ) );
             set( "module.Name", post.PageSection.Title );
             set( "module.Id", post.PageSection.Id );
             set( "post.Title", post.Title );

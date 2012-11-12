@@ -1,4 +1,4 @@
-/*
+﻿/*
  * Copyright 2010 www.wojilu.com
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -21,7 +21,7 @@ using System.Text;
 namespace wojilu.Common {
 
     /// <summary>
-    /// ͨ�ð󶨶���ӿ�
+    /// 通用绑定对象接口
     /// </summary>
     public interface IBinderValue {
 

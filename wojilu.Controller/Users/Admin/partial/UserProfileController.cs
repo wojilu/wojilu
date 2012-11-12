@@ -101,7 +101,7 @@ namespace wojilu.Web.Controller.Users.Admin {
             else if (config.Instance.Site.EnableEmail) {
                 KeyIncomeRule rule = currencyService.GetKeyIncomeRulesByAction( 18 );
                 confirmTip = string.Format( "<img src=\"{3}\"/> 提醒：您的邮箱尚未激活。激活<span class=\"red\">可奖励{0}{1}</span>；<br/><span class=\"left20\">请查看您的邮箱(包括垃圾箱)是否有激活邮件，如果没有，请 <a href=\"{2}\" target=\"_blank\">点击此处</a> 重发激活邮件</span>",
-                    rule.Income, rule.CurrencyUnit , Link.T2(Site.Instance, new Common.ActivationController().SendEmailLogin ),
+                    rule.Income, rule.CurrencyUnit, Link.To( Site.Instance, new Common.ActivationController().SendEmailLogin ),
                     strUtil.Join( sys.Path.Img, "info.gif")
                     );
             }

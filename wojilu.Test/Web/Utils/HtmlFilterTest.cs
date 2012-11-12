@@ -203,7 +203,20 @@ namespace wojilu.Test.Web.Utils {
 
         }
 
+        [Test]
+        public void testLink() {
 
+            String str = "aaa<a href=\"xxx.html\">ccc</a>zzz";
+            string val = HtmlFilter.Filter( str );
+            Assert.AreEqual( val, str );
+
+            str = "AAA<a href=\"XXX.html\">CCC</a>ZZZ";
+            val = HtmlFilter.Filter( str );
+            Assert.AreEqual( val, str );
+        }
+
+
+        [Test]
         public void testStyle() {
 
             String input = @"<style id=""abc"">
@@ -235,5 +248,8 @@ namespace wojilu.Test.Web.Utils {
 
         private string target = "国灭亡论，是中国人就得看！！！——日本宣称将于2015年灭亡中国。本文并非在下所写，只是基于一个爱国者的心，将此文贴于此。（这是一个在日本人气极旺的帖子，感谢一位不知名的网友，翻译过来。本着“奇文共欣赏，疑义相与析”的原则，转载过来是给大家一个对“日本”这个禽兽国度清醒的";
     }
+
+
+
 
 }

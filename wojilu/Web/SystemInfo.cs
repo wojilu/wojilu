@@ -190,30 +190,31 @@ namespace wojilu.Web {
 
         //-------------------------------------------------------------------------------------------------
 
+        public static readonly String clientSessionID = "clientSessionID";
+
         public static void UpdateSessionId() {
-            String sessionId = getSessionId();
+            String sessionId = getClientSessionId();
             if (sessionId != null) updateCookie( sessionId );
         }
 
-        private static String getSessionId() {
-            String sessionId = "ASPNET_SESSIONID";
+        private static String getClientSessionId() {
             HttpRequest req = HttpContext.Current.Request;
-            if (req.Form[sessionId] != null) return req.Form[sessionId];
-            if (req.QueryString[sessionId] != null) return req.QueryString[sessionId];
+            if (req.Form[clientSessionID] != null) return req.Form[clientSessionID];
+            if (req.QueryString[clientSessionID] != null) return req.QueryString[clientSessionID];
             return null;
         }
 
         private static void updateCookie( String sessionId ) {
 
-            String cookieName = "ASP.NET_SESSIONID";
+            String aspSessionCookieName = "ASP.NET_SESSIONID";
 
             HttpRequest req = HttpContext.Current.Request;
             HttpResponse res = HttpContext.Current.Response;
 
-            HttpCookie cookie = req.Cookies.Get( cookieName );
+            HttpCookie cookie = req.Cookies.Get( aspSessionCookieName );
 
             if (cookie == null) {
-                res.Cookies.Add( new HttpCookie( cookieName, sessionId ) );
+                res.Cookies.Add( new HttpCookie( aspSessionCookieName, sessionId ) );
             }
             else {
                 cookie.Value = sessionId;

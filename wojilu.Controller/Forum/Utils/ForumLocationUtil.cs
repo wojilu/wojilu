@@ -18,7 +18,7 @@ namespace wojilu.Web.Controller.Forum.Utils {
 
     public class ForumLocationUtil {
 
-        public static readonly String separator = "&rsaquo;&rsaquo;";
+        public static readonly String separator = "<div class=\"pull-left forum-location-sp\"></div>";
 
         private static String alang( MvcContext ctx, String key ) {
             return ctx.controller.alang( key );
@@ -28,29 +28,15 @@ namespace wojilu.Web.Controller.Forum.Utils {
         public static String GetBoard( List<ForumBoard> boards, MvcContext ctx ) {
             StringBuilder sb = getBuilder( boards, ctx );
             int length = separator.Length + 1;
-            sb.Remove( sb.Length - length, separator.Length );
-            sb.Append( "</div></div>" );
+            sb.Remove( sb.Length - length, separator.Length+1 );
+            appendEnd( sb );
             return sb.ToString();
         }
 
         public static String GetRecent( List<ForumBoard> boards, MvcContext ctx ) {
             StringBuilder sb = getBuilder( boards, ctx );
-            sb.Append( alang( ctx, "recentPostList" ) );
-            sb.Append( "</div></div>" );
-            return sb.ToString();
-        }
-
-        public static String GetTopicRecent( List<ForumBoard> boards, MvcContext ctx ) {
-            StringBuilder sb = getBuilder( boards, ctx );
-            sb.Append( alang( ctx, "recentTopicList" ) );
-            sb.Append( "</div></div>" );
-            return sb.ToString();
-        }
-
-        public static String GetPostRecent( List<ForumBoard> boards, MvcContext ctx ) {
-            StringBuilder sb = getBuilder( boards, ctx );
-            sb.Append( alang( ctx, "allRecentPost" ) );
-            sb.Append( "</div></div>" );
+            sb.AppendFormat( "<div class=\"pull-left\">{0}</div>", alang( ctx, "recentPostList" ) );
+            appendEnd( sb );
             return sb.ToString();
         }
 
@@ -58,29 +44,29 @@ namespace wojilu.Web.Controller.Forum.Utils {
 
         public static String GetPollAdd( List<ForumBoard> boards, MvcContext ctx ) {
             StringBuilder sb = getBuilder( boards, ctx );
-            sb.Append( "<span style=\"font-weight:normal;margin-left:5px;\">" + alang( ctx, "pAddPoll" ) + "</span>" );
-            sb.Append( "</div></div>" );
+            sb.Append( "<div class=\"pull-left\">" + alang( ctx, "pAddPoll" ) + "</div>" );
+            appendEnd( sb );
             return sb.ToString();
         }
 
         public static String GetQuestionAdd( List<ForumBoard> boards, MvcContext ctx ) {
             StringBuilder sb = getBuilder( boards, ctx );
-            sb.Append( "<span style=\"font-weight:normal;margin-left:5px;\">" + alang( ctx, "pAddQuestion" ) + "</span>" );
-            sb.Append( "</div></div>" );
+            sb.Append( "<div class=\"pull-left\">" + alang( ctx, "pAddQuestion" ) + "</div>" );
+            appendEnd( sb );
             return sb.ToString();
         }
 
         public static String GetReply( List<ForumBoard> boards, ForumTopic topic, MvcContext ctx ) {
             StringBuilder sb = getBuilder( boards, ctx );
-            sb.AppendFormat( "<a href=\"{0}\" style=\"font-weight:normal;margin-left:5px;\">" + alang( ctx, "pReply" ) + ": {1}</a>", alink.ToAppData( topic ), topic.Title );
-            sb.Append( "</div></div>" );
+            sb.AppendFormat( "<div class=\"pull-left\"><a href=\"{0}\">" + alang( ctx, "pReply" ) + ": {1}</a></div>", alink.ToAppData( topic ), topic.Title );
+            appendEnd( sb );
             return sb.ToString();
         }
 
         public static String GetSetReward( List<ForumBoard> boards, ForumTopic topic, MvcContext ctx ) {
             StringBuilder sb = getBuilder( boards, ctx );
-            sb.AppendFormat( "<span style=\"font-weight:normal;margin-left:5px;\">" + alang( ctx, "pReward" ) + ": <a href=\"{0}\">{1}</a></span>", alink.ToAppData( topic ), topic.Title );
-            sb.Append( "</div></div>" );
+            sb.AppendFormat( "<div class=\"pull-left\">" + alang( ctx, "pReward" ) + ": <a href=\"{0}\">{1}</a></div>", alink.ToAppData( topic ), topic.Title );
+            appendEnd( sb );
             return sb.ToString();
         }
 
@@ -88,15 +74,15 @@ namespace wojilu.Web.Controller.Forum.Utils {
 
         public static String GetPost( List<ForumBoard> boards, ForumPost post, MvcContext ctx ) {
             StringBuilder sb = getBuilder( boards, ctx );
-            sb.AppendFormat( "<a href=\"{0}\" style=\"margin-left:5px;\">" + alang( ctx, "pPost" ) + ": {1}</a>", alink.ToAppData( post ), post.Title );
-            sb.Append( "</div></div>" );
+            sb.AppendFormat( "<div class=\"pull-left\"><a href=\"{0}\">" + alang( ctx, "pPost" ) + ": {1}</a></div>", alink.ToAppData( post ), post.Title );
+            appendEnd( sb );
             return sb.ToString();
         }
 
         public static String GetPostEdit( List<ForumBoard> boards, ForumPost post, MvcContext ctx ) {
             StringBuilder sb = getBuilder( boards, ctx );
-            sb.AppendFormat( "<span style=\"margin-left:5px;\">" + alang( ctx, "pPostEdit" ) + ": <a href=\"{0}\">{1}</a></span>", alink.ToAppData( post ), post.Title );
-            sb.Append( "</div></div>" );
+            sb.AppendFormat( "<div class=\"pull-left\">" + alang( ctx, "pPostEdit" ) + ": <a href=\"{0}\">{1}</a></div>", alink.ToAppData( post ), post.Title );
+            appendEnd( sb );
             return sb.ToString();
         }
 
@@ -105,31 +91,31 @@ namespace wojilu.Web.Controller.Forum.Utils {
         public static String GetTopic( List<ForumBoard> boards, ForumTopic topic, MvcContext ctx ) {
             StringBuilder sb = getBuilder( boards, ctx );
             String url = LinkUtil.appendListPageToTopic( alink.ToAppData( topic ), ctx );
-            sb.AppendFormat( "<a href=\"{0}\" style=\"font-weight:normal;margin-left:5px;\">" + alang( ctx, "pTopic" ) + ": {1}</a>", url, topic.Title );
+            sb.AppendFormat( "<div class=\"pull-left\"><a href=\"{0}\">" + alang( ctx, "pTopic" ) + ": {1}</a></div>", url, topic.Title );
 
-            sb.Append( "</div></div>" );
+            appendEnd( sb );
             return sb.ToString();
         }
 
 
         public static String GetTopicAdd( List<ForumBoard> boards, MvcContext ctx ) {
             StringBuilder sb = getBuilder( boards, ctx );
-            sb.Append( "<span style=\"font-weight:normal;margin-left:5px;\">" + alang( ctx, "pAddTopic" ) + "</span>" );
-            sb.Append( "</div></div>" );
+            sb.Append( "<div class=\"pull-left\">" + alang( ctx, "pAddTopic" ) + "</div>" );
+            appendEnd( sb );
             return sb.ToString();
         }
 
         public static String GetTopicSort( List<ForumBoard> boards, MvcContext ctx ) {
             StringBuilder sb = getBuilder( boards, ctx );
-            sb.Append( "<span style=\"font-weight:normal;margin-left:5px;\">" + alang( ctx, "pSortStickyTopic" ) + "</span>" );
-            sb.Append( "</div></div>" );
+            sb.Append( "<div class=\"pull-left\">" + alang( ctx, "pSortStickyTopic" ) + "</div>" );
+            appendEnd( sb );
             return sb.ToString();
         }
 
         public static String GetGlobalTopicSort( MvcContext ctx ) {
             StringBuilder sb = getBuilder( null, ctx );
-            sb.Append( "<span style=\"font-weight:normal;margin-left:5px;\">" + alang( ctx, "pSortStickyTopic" ) + "</span>" );
-            sb.Append( "</div></div>" );
+            sb.Append( "<div class=\"pull-left\">" + alang( ctx, "pSortStickyTopic" ) + "</div>" );
+            appendEnd( sb );
             return sb.ToString();
         }
 
@@ -137,24 +123,27 @@ namespace wojilu.Web.Controller.Forum.Utils {
             StringBuilder sb = getBuilder( boards, ctx );
 
 
-            sb.AppendFormat( "<span style=\"font-weight:normal;margin-left:5px;\">" + alang( ctx, "pTopicEdit" ) + ": <a href=\"{0}\">{1}</a></span>", alink.ToAppData( topic ), topic.Title );
-            //sb.AppendFormat( "<span style=\"font-weight:normal;margin-left:5px;\">" + alang( ctx, "pTopicEdit" ) + ": {0}</span>", topic.Title );
+            sb.AppendFormat( "<div class=\"pull-left\">" + alang( ctx, "pTopicEdit" ) + ": <a href=\"{0}\">{1}</a></div>", alink.ToAppData( topic ), topic.Title );
 
-            sb.Append( "</div></div>" );
+            appendEnd( sb );
             return sb.ToString();
         }
 
         public static String GetTopicAttachment( List<ForumBoard> boards, ForumTopic topic, MvcContext ctx ) {
             StringBuilder sb = getBuilder( boards, ctx );
-            sb.AppendFormat( "<a href=\"{0}\" style=\"font-weight:normal;margin-left:5px;\">{1}</a>", alink.ToAppData( topic ), topic.Title );
-            sb.Append( "</div></div>" );
+            sb.AppendFormat( "<div class=\"pull-left\"><a href=\"{0}\">{1}</a></div>", alink.ToAppData( topic ), topic.Title );
+            appendEnd( sb );
             return sb.ToString();
+        }
+
+        private static void appendEnd( StringBuilder sb ) {
+            sb.Append( "</div></div>" );
         }
 
         //----------------------------------------------------------------------------------------------------------------------------
 
         private static StringBuilder getBuilder( List<ForumBoard> boards, MvcContext ctx ) {
-            StringBuilder sb = new StringBuilder( "<div id=\"forumLocationContainer\"><div id=\"forumLocation\">" );
+            StringBuilder sb = new StringBuilder( "<div class=\"row\"><div class=\"span12 forum-location\">" );
             appendAppBoard( sb, boards, ctx );
             return sb;
         }
@@ -170,10 +159,12 @@ namespace wojilu.Web.Controller.Forum.Utils {
             }
             else {
 
-                sb.Append( "<span style=\"\" class=\"menuMore\" list=\"locationBoards\">" );
-                sb.AppendFormat( "<a href=\"{0}\" id=\"locationHome\">{1} <img src=\"{2}down.gif\" /></a>", ctx.GetLink().To( new ForumController().Index ), ((AppContext)ctx.app).UserApp.Name, sys.Path.Img );
+                String homePath = strUtil.Join( sys.Path.Skin, "site/new/home.png" );
+                sb.AppendFormat( "<div class=\"pull-left dropdown\"><img src=\"{0}\" /> ", homePath );
+                sb.AppendFormat( "<a class=\"dropdown-toggle\" data-toggle=\"dropdown\" href=\"{0}\">{1} <span class=\"caret\"></span></a>", ctx.link.To( new ForumController().Index ), ((AppContext)ctx.app).UserApp.Name );
+
                 addLocationMenu( sb, ctx );
-                sb.Append( "</span>" );
+                sb.Append( "</div>" );
                 sb.Append( " " );
                 sb.Append( separator );
                 sb.Append( " " );
@@ -185,22 +176,22 @@ namespace wojilu.Web.Controller.Forum.Utils {
 
         private static void addLocationMenu( StringBuilder sb, MvcContext ctx ) {
 
-            sb.Append( "<div class=\"menuItems\" id=\"locationBoards\">" );
+            sb.Append( "<ul class=\"dropdown-menu\" id=\"locationBoards\">" );
 
             ForumBoardService service = new ForumBoardService();
             Tree<ForumBoard> tree = new Tree<ForumBoard>( service.GetBoardAll( ctx.app.Id, ctx.viewer.IsLogin ) );
             List<ForumBoard> categories = tree.GetRoots();
 
             foreach (ForumBoard category in categories) {
-                sb.AppendFormat( "<div class=\"forum_location_category\">{0}</div>", category.Name );
-                sb.Append( "<div class=\"forum_location_forums\">" );
+                sb.AppendFormat( "<li class=\"forum_location_category\">{0}</li>", category.Name );
+                sb.Append( "<li class=\"forum_location_forums\">" );
                 List<ForumBoard> children = tree.GetChildren( category.Id );
                 foreach (ForumBoard board in children) {
                     sb.AppendFormat( "<a href=\"{0}\">{1}</a> ", alink.ToAppData( board ), board.Name );
                 }
-                sb.Append( "</div>" );
+                sb.Append( "</li>" );
             }
-            sb.Append( "</div>" );
+            sb.Append( "</ul>" );
         }
 
 
@@ -211,7 +202,7 @@ namespace wojilu.Web.Controller.Forum.Utils {
                 String url = alink.ToAppData( boards[i] );
                 if (i == boards.Count - 1) url = LinkUtil.appendListPageToBoard( url, ctx );
 
-                sb.AppendFormat( "<a href=\"{0}\" class=\"left5 right5\">{1}</a> {2} ", url, boards[i].Name, separator );
+                sb.AppendFormat( "<div class=\"pull-left\"><a href=\"{0}\">{1}</a></div> {2}", url, boards[i].Name, separator );
             }
         }
 

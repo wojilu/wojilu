@@ -44,7 +44,7 @@ namespace wojilu.Web.Controller.Layouts {
             set( "sitename", Site.Instance.Name );
             set( "sitelink", ctx.url.AppPath );
 
-            set( "g.IndexLink", Link.T2( Site.Instance, new Groups.MainController().Index ) );
+            set( "g.IndexLink", Link.To( Site.Instance, new Groups.MainController().Index ) );
             set( "g.FriendGroupLink", to( new Groups.FriendController().Index ) );
 
             set( "groupName", ctx.owner.obj.Name );
@@ -198,7 +198,7 @@ namespace wojilu.Web.Controller.Layouts {
             if (isOffice || ctx.viewer.IsAdministrator()) {
                 String imgTools = strUtil.Join( sys.Path.Img, "tools.gif" );
                 adminLink = string.Format( "<a href='{0}' class='strong'><img src='{1}'/> {2}</a>",
-                    Link.T2( ctx.owner.obj, new Groups.Admin.MainController().Index ),
+                    Link.To( ctx.owner.obj, new Groups.Admin.MainController().Index ),
                     imgTools,
                     lang( "groupAdm" )
                     );
@@ -211,7 +211,7 @@ namespace wojilu.Web.Controller.Layouts {
             isOffice = false;
             foreach (User user in officerList) {
                 sb.Append( "<a href=\"" );
-                sb.Append( Link.ToMember( user ) );
+                sb.Append( toUser( user ) );
                 sb.Append( "\">" );
                 sb.Append( user.Name );
                 sb.Append( "</a>" );
@@ -240,8 +240,8 @@ namespace wojilu.Web.Controller.Layouts {
 
             if (ctx.viewer.IsLogin == false) return "";
 
-            String loginLink = Link.T2( Site.Instance, new MainController().Login );
-            String regLink = Link.T2( Site.Instance, new RegisterController().Register );
+            String loginLink = Link.To( Site.Instance, new MainController().Login );
+            String regLink = Link.To( Site.Instance, new RegisterController().Register );
             String loginInfo = string.Format( "<a href='{0}'>{1}</a> <a href='{2}' class='left10'>{3}</a>", loginLink, lang( "login" ), regLink, lang( "register" ) );
             return loginInfo;
 

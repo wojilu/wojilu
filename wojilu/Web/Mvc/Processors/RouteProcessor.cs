@@ -32,7 +32,9 @@ namespace wojilu.Web.Mvc.Processors {
             try {
                 Route r = RouteTool.Recognize( context.ctx );
 
-                //logger.Info( string.Format( "owner={0}, ownertype={1}, controller={2}, action={3}", r.owner, r.ownerType, r.controller, r.action ) );
+                if (r == null) {
+                    throw new MvcException( HttpStatus.NotFound_404, "can't find matching route : Url=" + context.ctx.url.ToString() );
+                }
 
                 context.ctx.utils.setRoute( r );
                 IsSiteClosed( context.ctx );

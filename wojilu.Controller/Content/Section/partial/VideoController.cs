@@ -29,7 +29,7 @@ namespace wojilu.Web.Controller.Content.Section {
                 else
                     block.Set( "post.Title", post.Title );
 
-                block.Set( "post.Url", alink.ToAppData( post ) );
+                block.Set( "post.Url", alink.ToAppData( post, ctx ) );
 
                 block.Set( "post.PicUrl", post.ImgLink );
 
@@ -44,7 +44,7 @@ namespace wojilu.Web.Controller.Content.Section {
             ctx.SetItem( "PageTitle", Page.Title );
             IBlock block = getBlock( "list" );
             foreach (ContentPost post in posts.Results) {
-                block.Set( "img.Url", alink.ToAppData( post ) );
+                block.Set( "img.Url", alink.ToAppData( post, ctx ) );
 
                 block.Set( "img.Thumb", post.ImgLink );
                 block.Set( "img.Title", post.Title );
@@ -63,7 +63,7 @@ namespace wojilu.Web.Controller.Content.Section {
             set( "post.Hits", post.Hits );
 
             if (post.Creator != null) {
-                set( "post.Submitter", string.Format( "<a href=\"{0}\" target=\"_blank\">{1}</a>", Link.ToMember( post.Creator ), post.Creator.Name ) );
+                set( "post.Submitter", string.Format( "<a href=\"{0}\" target=\"_blank\">{1}</a>", toUser( post.Creator ), post.Creator.Name ) );
             }
             else {
                 set( "post.Submitter", "нч" );

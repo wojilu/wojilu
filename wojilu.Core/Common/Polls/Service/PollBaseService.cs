@@ -1,4 +1,4 @@
-/*
+﻿/*
  * Copyright (c) 2010, www.wojilu.com. All rights reserved.
  */
 
@@ -38,10 +38,15 @@ namespace wojilu.Common.Polls.Service {
 
         public virtual Result CreateResult( TR pr, String postLink ) {
 
+            TP poll = getPoll( pr );
+
             Result result = db.insert( pr );
             if (result.IsValid) {
+
                 this.updatePollResult( pr );
-                incomeService.AddIncome( pr.User, UserAction.Forum_Vote.Id );
+
+                String msg = string.Format( "参与投票 <a href=\"{0}\">{1}</a>, 获得奖励", postLink, poll.Title );
+                incomeService.AddIncome( pr.User, UserAction.Forum_Vote.Id, msg );
 
                 addFeedInfo( pr, postLink );
             }

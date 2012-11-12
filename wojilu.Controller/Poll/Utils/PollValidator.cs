@@ -76,9 +76,9 @@ namespace wojilu.Web.Controller.Poll.Utils {
                 isVisible = 1;
             }
 
-            int isOpenVoter = 0;
+            int isOpenVoter = 1;
             if (strUtil.HasText( openVoter ) && openVoter.Equals( "on" )) {
-                isOpenVoter = 1;
+                isOpenVoter = 0;
             }
 
             poll.Type = polltype;

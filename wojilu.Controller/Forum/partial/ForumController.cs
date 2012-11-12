@@ -19,7 +19,7 @@ namespace wojilu.Web.Controller.Forum {
 
             bindCategories( categories );
 
-            load( "forumNewPosts", new TopController().List );
+            load( "forumNewPosts", TopList );
 
             bindLink( linkList );
 
@@ -76,7 +76,7 @@ namespace wojilu.Web.Controller.Forum {
             set( "forum.IsHideLink_Style", s.IsHideLink == 1 ? "display:none" : "" );
 
 
-            String newUserLink = Link.T2( new wojilu.Web.Controller.Users.MainController().ListAll );
+            String newUserLink = ctx.link.T2( new wojilu.Web.Controller.Users.MainController().ListAll );
             String lastUserName = userService.GetLastUserName();
             set( "newUserLink", newUserLink );
             set( "newUserName", lastUserName );
@@ -102,7 +102,7 @@ namespace wojilu.Web.Controller.Forum {
             set( "forum.LastUpdatePostUrl", strUtil.Join( sys.Path.Root, forum.LastUpdatePostUrl ) );
             set( "forum.LastUpdatePostTitle", forum.LastUpdatePostTitle );
             //set( "forum.LastUpdateMemberUrl", memberUtil.GetUrlFull( forum.LastUpdateMemberUrl ) );
-            set( "forum.LastUpdateMemberUrl", Link.ToUser( forum.LastUpdateMemberUrl ) );
+            set( "forum.LastUpdateMemberUrl", toUser( forum.LastUpdateMemberUrl ) );
 
             set( "forum.LastUpdateMemberName", forum.LastUpdateMemberName );
             set( "forum.LastUpdateTime", forum.LastUpdateTime );
@@ -111,13 +111,36 @@ namespace wojilu.Web.Controller.Forum {
 
         private void bindLink( List<ForumLink> linkList ) {
 
-            IBlock linkBlock = getBlock( "flinks" );
-            foreach (ForumLink link in linkList) {
-                linkBlock.Set( "flink.Name", link.Name );
-                linkBlock.Set( "flink.Url", link.Url );
-                linkBlock.Set( "flink.Logo", link.Logo );
-                linkBlock.Next();
+            List<ForumLink> picLinks = getPicLink( linkList );
+            List<ForumLink> textLinks = getTextLink( linkList );
+
+            bindLinkPrivate( picLinks, getBlock( "picLinks" ) );
+            bindLinkPrivate( textLinks, getBlock( "textLinks" ) );
+        }
+
+        private static void bindLinkPrivate( List<ForumLink> linkList, IBlock block ) {
+            foreach (ForumLink x in linkList) {
+                block.Set( "x.Name", x.Name );
+                block.Set( "x.Url", x.Url );
+                block.Set( "x.Logo", x.Logo );
+                block.Next();
             }
+        }
+
+        private List<ForumLink> getPicLink( List<ForumLink> linkList ) {
+            List<ForumLink> list = new List<ForumLink>();
+            foreach (ForumLink x in linkList) {
+                if (strUtil.HasText( x.Logo )) list.Add( x );
+            }
+            return list;
+        }
+
+        private List<ForumLink> getTextLink( List<ForumLink> linkList ) {
+            List<ForumLink> list = new List<ForumLink>();
+            foreach (ForumLink x in linkList) {
+                if (strUtil.IsNullOrEmpty( x.Logo )) list.Add( x );
+            }
+            return list;
         }
 
         private void bindOnlineUsers( List<OnlineUser> onlineUsers ) {
@@ -141,6 +164,42 @@ namespace wojilu.Web.Controller.Forum {
                     onlineBlock.Set( "onlineUser.Url", "javascript:void(0)" );
                 }
                 onlineBlock.Next();
+            }
+        }
+
+        //------------------------------------------------------------------------------------
+
+        private void bindImgs( List<ForumPickedImg> list ) {
+            IBlock block = getBlock( "pickedImg" );
+            foreach (ForumPickedImg f in list) {
+                block.Set( "f.Title", f.Title );
+                block.Set( "f.Url", f.Url );
+                block.Set( "f.ImgUrl", f.ImgUrl );
+                block.Next();
+            }
+        }
+
+        private void bindTopics( List<ForumTopic> newPosts, String blockName ) {
+            IBlock block = getBlock( blockName );
+            int i = 1;
+            foreach (ForumTopic t in newPosts) {
+                block.Set( "topic.Index", i );
+                block.Set( "topic.Title", t.Title );
+                block.Set( "topic.Link", to( new TopicController().Show, t.Id ) );
+                block.Next();
+                i++;
+            }
+        }
+
+        private void bindPosts( List<ForumPost> newPosts, String blockName ) {
+            IBlock block = getBlock( blockName );
+            int i = 1;
+            foreach (ForumPost t in newPosts) {
+                block.Set( "post.Index", i );
+                block.Set( "post.Title", t.Title );
+                block.Set( "post.Link", to( new PostController().Show, t.Id ) );
+                block.Next();
+                i++;
             }
         }
 

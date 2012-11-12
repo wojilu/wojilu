@@ -110,8 +110,8 @@ namespace wojilu.Web.Controller.Common {
             String userFace = "<img src='" + sys.Path.AvatarGuest + "' style='width:48px;'/></a>";
             String userName = c.Author;
             if (c.Member != null && c.Member.Id > 0) {
-                userFace = string.Format( "<a href='{0}'><img src='{1}' style='width:48px;'/></a>", Link.ToMember( c.Member ), c.Member.PicSmall );
-                userName = string.Format( "<a href='{0}'>{1}</a>", Link.ToMember( c.Member ), c.Member.Name );
+                userFace = string.Format( "<a href='{0}'><img src='{1}' style='width:48px;'/></a>", toUser( c.Member ), c.Member.PicSmall );
+                userName = string.Format( "<a href='{0}'>{1}</a>", toUser( c.Member ), c.Member.Name );
             }
             block.Set( "c.UserName", userName );
             block.Set( "c.UserFace", userFace );
@@ -345,7 +345,7 @@ namespace wojilu.Web.Controller.Common {
                     block.Set( "c.Author", c.Author );
                 }
                 else {
-                    String loginUser = string.Format( "<a href='{0}'>{1}</a>", Link.ToMember( c.Member ), c.Author );
+                    String loginUser = string.Format( "<a href='{0}'>{1}</a>", toUser( c.Member ), c.Author );
                     block.Set( "c.Author", (c.Member.Id > 0) ? loginUser : c.Author );
                 }
                 block.Set( "c.Content", strUtil.ParseHtml( c.Content, 30 ) );

@@ -77,7 +77,7 @@ namespace wojilu.Members.Users.Domain {
         public int FollowingCount { get; set; } // 关注的人数
         public int FollowersCount { get; set; } // 粉丝数
 
-        public int Credit { get; set; }
+        public int Credit { get; set; } // cache from [UserIncome] KeyCurrency
 
         public int LoginCount { get; set; }
         public int LoginDay { get; set; }
@@ -90,6 +90,8 @@ namespace wojilu.Members.Users.Domain {
         public int MicroblogAt { get; set; } // 微博at提到的数量
         public int MicroblogAtUnread { get; set; } // (未读)微博at提到的数量
 
+        public int Pins { get; set; }
+        public int Likes { get; set; }
 
         public int Hits { get; set; }
 

@@ -6,17 +6,18 @@ using System;
 using System.Collections.Generic;
 using wojilu.Common.Money.Domain;
 using wojilu.Members.Users.Domain;
+using wojilu.Apps.Forum.Domain;
 
 namespace wojilu.Apps.Forum.Interface {
 
     public interface IForumRateService {
 
-        UserIncomeLog GetByOperatorAndPost( User user, int postId );
-        List<UserIncomeLog> GetByPost( int postId );
+        List<ForumRateLog> GetByPost( int postId );
+        ForumRateLog GetByPostAndOperator( int userId, int postId );
 
-        void Insert( int postId, int userId, int operatorId, String operatorName, int currencyId, int income, String reason );
+        void Insert( int postId, User operateUser, int currencyId, int income, String reason );
 
-        Boolean IsUserRate( User user, int postId );
+        Boolean HasRate( int operatorId, int postId );
 
     }
 

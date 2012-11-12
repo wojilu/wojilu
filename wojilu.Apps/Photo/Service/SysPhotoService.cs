@@ -16,16 +16,20 @@ namespace wojilu.Apps.Photo.Service {
     public class SysPhotoService : ISysPhotoService {
 
         public virtual IPickedService pickedService { get; set; }
+        public virtual IPhotoPostService postService { get; set; }
 
         public SysPhotoService() {
             pickedService = new PickedService();
+            postService = new PhotoPostService();
         }
         public virtual DataPage<PhotoPost> GetSysPostPage( int categoryId, int pageSize ) {
 
-            if (categoryId <= 0)
+            if (categoryId <= 0) {
                 return db.findPage<PhotoPost>( "SaveStatus=" + SaveStatus.Normal, pageSize );
-            else
+            }
+            else {
                 return db.findPage<PhotoPost>( "SaveStatus=" + SaveStatus.Normal + " and SysCategoryId=" + categoryId, pageSize );
+            }
         }
 
         public virtual DataPage<PhotoPost> GetSysPostTrashPage( int pageSize ) {
@@ -68,13 +72,11 @@ namespace wojilu.Apps.Photo.Service {
             String condition = string.Format( "Id in ({0})", ids );
             List<PhotoPost> list = db.find<PhotoPost>( condition ).list();
 
-            foreach (PhotoPost post in list) {
-                db.delete( post );
-                wojilu.Drawing.Img.DeleteImgAndThumb( strUtil.Join( sys.Path.DiskPhoto, post.DataUrl ) );
-            }
+            postService.DeletePosts( ids, list );
+        }
 
-            pickedService.DeletePhoto( ids );
-
+        private bool noRepins( PhotoPost post ) {
+            return PhotoPost.find( "RootId=" + post.Id ).first() == null;
         }
 
         public virtual int GetSystemDeleteCount() {
@@ -141,6 +143,22 @@ namespace wojilu.Apps.Photo.Service {
                 results.Add( vo );
             }
             return results;
+        }
+
+
+
+
+        public DataPage<PhotoPost> GetShowRecent( int pageSize ) {
+            return PhotoPost.findPage( "SysCategoryId>0 and SaveStatus=" + SaveStatus.Normal, pageSize );
+        }
+
+        public DataPage<PhotoPost> GetShowByCategory( int categoryId, int pageSize ) {
+
+            return db.findPage<PhotoPost>( "SaveStatus=" + SaveStatus.Normal + " and SysCategoryId=" + categoryId, pageSize );
+        }
+
+        public DataPage<PhotoPost> GetShowHot( int pageSize ) {
+            return PhotoPost.findPage( "SysCategoryId>0 and SaveStatus=" + SaveStatus.Normal + " order by Likes desc, Pins desc, Hits desc, Replies desc", pageSize );
         }
 
 

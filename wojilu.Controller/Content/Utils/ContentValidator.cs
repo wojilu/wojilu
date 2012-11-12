@@ -15,46 +15,44 @@ namespace wojilu.Web.Controller.Content {
 
     public class ContentValidator {
 
-        public static ContentPost Validate( MvcContext ctx ) {
+        public static ContentPost SetValue( MvcContext ctx ) {
 
             ContentPost post = new ContentPost();
             post.Creator = (User)ctx.viewer.obj;
             post.CreatorUrl = ctx.viewer.obj.Url;
+
             post.OwnerId = ctx.owner.Id;
             post.OwnerUrl = ctx.owner.obj.Url;
             post.OwnerType = ctx.owner.obj.GetType().FullName;
+
             post.AppId = ctx.app.Id;
-
             post.CategoryId = ctx.GetInt( "categoryId" );
 
-            ValidateEdit( post, ctx );
+            SetPostValue( post, ctx );
 
             return post;
         }
 
-        public static ContentPost Validate( ContentSection section, MvcContext ctx ) {
+        public static ContentPost SetValueBySection( ContentSection section, MvcContext ctx ) {
             ContentPost post = new ContentPost();
             post.Creator = (User)ctx.viewer.obj;
             post.CreatorUrl = ctx.viewer.obj.Url;
+
             post.OwnerId = ctx.owner.Id;
             post.OwnerUrl = ctx.owner.obj.Url;
             post.OwnerType = ctx.owner.obj.GetType().FullName;
+
             post.AppId = section.AppId;
-            post.PageSection = section;
             post.CategoryId = ctx.GetInt( "categoryId" );
 
-            post.Width = ctx.PostInt( "Width" );
-            post.Height = ctx.PostInt( "Height" );
+            post.PageSection = section;
 
-
-            ValidateEdit( post, ctx );
-
-            if (strUtil.IsNullOrEmpty( post.Title )) post.Title = section.Title + " " + DateTime.Now.ToShortDateString();
+            SetPostValue( post, ctx );
 
             return post;
         }
 
-        public static ContentPost ValidateArticle( ContentPost post, MvcContext ctx ) {
+        public static ContentPost ValidateTitleBody( ContentPost post, MvcContext ctx ) {
 
             if (strUtil.IsNullOrEmpty( post.Title ))
                 ctx.errors.Add( lang.get( "exTitle" ) );
@@ -65,7 +63,7 @@ namespace wojilu.Web.Controller.Content {
             return post;
         }
 
-        public static ContentPost ValidateEdit( ContentPost post, MvcContext ctx ) {
+        public static ContentPost SetPostValue( ContentPost post, MvcContext ctx ) {
 
             post.Author = strUtil.CutString( ctx.Post( "Author" ), 100 );
             post.Title = strUtil.CutString( ctx.Post( "Title" ), 100 );
@@ -110,7 +108,7 @@ namespace wojilu.Web.Controller.Content {
             return post;
         }
 
-        public static ContentSection ValidateSection( int layoutId, MvcContext ctx ) {
+        public static ContentSection SetSectionValueAndValidate( int layoutId, MvcContext ctx ) {
             ContentSection section = new ContentSection();
             section.AppId = ctx.app.Id;
 

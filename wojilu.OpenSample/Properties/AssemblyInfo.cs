@@ -5,12 +5,12 @@ using System.Runtime.InteropServices;
 // 有关程序集的常规信息通过下列属性集
 // 控制。更改这些属性值可修改
 // 与程序集关联的信息。
-[assembly: AssemblyTitle( "wojilu.OtherSite" )]
+[assembly: AssemblyTitle( "wojilu.OpenSample" )]
 [assembly: AssemblyDescription( "" )]
 [assembly: AssemblyConfiguration( "" )]
-[assembly: AssemblyCompany( "abc" )]
-[assembly: AssemblyProduct( "wojilu.OtherSite" )]
-[assembly: AssemblyCopyright( "Copyright © abc 2011" )]
+[assembly: AssemblyCompany( "http://www.wojilu.com" )]
+[assembly: AssemblyProduct( "wojilu.OpenSample" )]
+[assembly: AssemblyCopyright( "Copyright © 2010-2012 www.wojilu.com" )]
 [assembly: AssemblyTrademark( "" )]
 [assembly: AssemblyCulture( "" )]
 
@@ -31,5 +31,5 @@ using System.Runtime.InteropServices;
 //
 // 可以指定所有这些值，也可以使用“修订号”和“内部版本号”的默认值，
 // 方法是按如下所示使用“*”:
-[assembly: AssemblyVersion( "1.0.0.0" )]
-[assembly: AssemblyFileVersion( "1.0.0.0" )]
+[assembly: AssemblyVersion( "1.9.*" )]
+[assembly: AssemblyFileVersion( "1.9" )]

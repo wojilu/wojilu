@@ -34,27 +34,85 @@ namespace wojilu.Web.Utils {
         /// 保存用户上传的头像
         /// </summary>
         /// <param name="postedFile"></param>
-        /// <param name="viewerUrl"></param>
+        /// <param name="userId"></param>
         /// <returns></returns>
-        public static Result Save( HttpFile postedFile, String viewerUrl ) {
-            return upload_private( sys.Path.DiskAvatar, postedFile, viewerUrl );
+        public static Result Save( HttpFile postedFile, int userId ) {
+            return upload_private( sys.Path.DiskAvatar, postedFile, userId );
         }
 
-        private static Result upload_private( String uploadPath, HttpFile postedFile, String picName ) {
 
-            logger.Info( "uploadPath:" + uploadPath + ", picName:" + picName );
+        public static void Delete( String picPath ) {
+
+            String fullPath = strUtil.Join( "/static/upload/", picPath );
+            Boolean deleted = deleteImgPrivate( fullPath, "small" );
+
+            String oPath = Img.GetOriginalPath( fullPath );
+            deleteImgPrivate( oPath, "original" );
+
+            if (config.Instance.Site.IsSaveAvatarMedium) {
+                String mPath = Img.GetThumbPath( fullPath, ThumbnailType.Medium );
+                deleteImgPrivate( mPath, "medium" );
+            }
+
+            if (config.Instance.Site.IsSaveAvatarBig) {
+                String bPath = Img.GetThumbPath( fullPath, ThumbnailType.Big );
+                deleteImgPrivate( bPath, "big" );
+            }
+        }
+
+        private static Boolean deleteImgPrivate( String fullPath, String dtype ) {
+            String absPath = PathHelper.Map( fullPath );
+            if (file.Exists( absPath )) {
+                file.Delete( absPath );
+                logger.Info( "删除头像成功" + dtype + ":" + absPath );
+                return true;
+            }
+            else {
+                logger.Error( "头像不存在" + dtype + ":" + absPath );
+                return false;
+            }
+        }
+
+
+        public static Result Save( String oPicAbsPath, int userId ) {
 
             Result result = new Result();
 
-            Uploader.checkUploadPic( postedFile, result );
-            if (result.HasErrors) return result;
+            if (file.Exists( oPicAbsPath ) == false) {
+                String msg = "图片不存在" + oPicAbsPath;
+                logger.Error( msg );
+                result.Add( msg );
+                return result;
+            }
 
-            String str = PathHelper.Map( uploadPath );
-            String str2 = picName + "." + Img.GetImageExt( postedFile.ContentType );
-            String srcPath = Path.Combine( str, str2 );
+            String uploadPath = sys.Path.DiskAvatar;
+
+            AvatarSaver aSaver = AvatarSaver.New( oPicAbsPath );
+
+            return savePicCommon( aSaver, userId, result, uploadPath );
+
+        }
+
+        private static Result savePicCommon( AvatarSaver aSaver, int userId, Result result, String uploadPath ) {
+
+            DateTime now = DateTime.Now;
+            String strDir = getDirName( now );
+            String fullDir = strUtil.Join( uploadPath, strDir );
+
+            String absPath = PathHelper.Map( fullDir );
+            if (!Directory.Exists( absPath )) {
+                Directory.CreateDirectory( absPath );
+                logger.Info( "CreateDirectory:" + absPath );
+            }
+
+            String picName = string.Format( "{0}_{1}_{2}_{3}", userId, now.Hour, now.Minute, now.Second );
+            String picNameWithExt = strUtil.Join( picName, aSaver.GetExt(), "." );
+
+            String picAbsPath = Path.Combine( absPath, picNameWithExt );
             try {
-                postedFile.SaveAs( srcPath );
-                saveAvatarThumb( srcPath );
+
+                aSaver.Save( picAbsPath );
+                saveAvatarThumb( picAbsPath );
             }
             catch (Exception exception) {
                 logger.Error( lang.get( "exPhotoUploadError" ) + ":" + exception.Message );
@@ -62,13 +120,72 @@ namespace wojilu.Web.Utils {
                 return result;
             }
 
-
-
             // 返回的信息是缩略图
-            String thumbPath = Img.GetThumbPath( srcPath );
-            result.Info = "face/" + Path.GetFileName( thumbPath );
+            String relPath = strUtil.Join( fullDir, picNameWithExt ).TrimStart( '/' );
+            relPath = strUtil.TrimStart( relPath, "static/upload/" );
+            String thumbPath = Img.GetThumbPath( relPath );
+
+            logger.Info( "return thumbPath=" + thumbPath );
+
+            result.Info = thumbPath;
             return result;
         }
+
+        private static Result upload_private( String uploadPath, HttpFile postedFile, int userId ) {
+
+            logger.Info( "uploadPath:" + uploadPath + ", userId:" + userId );
+
+            Result result = new Result();
+
+            Uploader.checkUploadPic( postedFile, result );
+            if (result.HasErrors) return result;
+
+            AvatarSaver aSaver = AvatarSaver.New( postedFile );
+
+            return savePicCommon( aSaver, userId, result, uploadPath );
+
+
+            //DateTime now = DateTime.Now;
+            //String strDir = getDirName( now );
+            //String fullDir = strUtil.Join( uploadPath, strDir );
+
+            //String absPath = PathHelper.Map( fullDir );
+            //if (!Directory.Exists( absPath )) {
+            //    Directory.CreateDirectory( absPath );
+            //    logger.Info( "CreateDirectory:" + absPath );
+            //}
+
+            //String picName = string.Format( "{0}_{1}_{2}_{3}", userId, now.Hour, now.Minute, now.Second );
+            //String picNameWithExt = picName + "." + Img.GetImageExt( postedFile.ContentType );
+
+            //String picAbsPath = Path.Combine( absPath, picNameWithExt );
+            //try {
+            //    postedFile.SaveAs( picAbsPath );
+            //    saveAvatarThumb( picAbsPath );
+            //}
+            //catch (Exception exception) {
+            //    logger.Error( lang.get( "exPhotoUploadError" ) + ":" + exception.Message );
+            //    result.Add( lang.get( "exPhotoUploadErrorTip" ) );
+            //    return result;
+            //}
+
+            //// 返回的信息是缩略图
+            //String relPath = strUtil.Join( fullDir, picNameWithExt ).TrimStart( '/' );
+            //relPath = strUtil.TrimStart( relPath, "static/upload/" );
+            //String thumbPath = Img.GetThumbPath( relPath );
+
+            //logger.Info( "return thumbPath=" + thumbPath );
+
+            //result.Info = thumbPath;
+            //return result;
+
+        }
+
+
+        private static string getDirName( DateTime now ) {
+            return string.Format( "{0}/{1}/{2}", now.Year, now.Month, now.Day );
+        }
+
 
         private static void saveAvatarThumb( String srcPath ) {
 
@@ -102,7 +219,7 @@ namespace wojilu.Web.Utils {
                     File.Copy( srcPath, thumbPath );
                 }
                 else {
-                    logger.Info( "SaveThumbnail..." );
+                    logger.Info( "SaveThumbnail..." + ttype.ToString() );
                     Img.SaveThumbnail( srcPath, thumbPath, x, y, SaveThumbnailMode.Cut );
                 }
             }

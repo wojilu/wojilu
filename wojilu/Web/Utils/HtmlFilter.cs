@@ -29,7 +29,8 @@ namespace wojilu.Web.Utils {
         private static readonly Regex scriptReg = new Regex( @"<script[\s\S]+</script *>", RegexOptions.IgnoreCase );
         private static readonly Regex iframeReg = new Regex( @"<iframe[\s\S]+</iframe *>", RegexOptions.IgnoreCase );
         private static readonly Regex framesetReg = new Regex( @"<frameset[\s\S]+</frameset *>", RegexOptions.IgnoreCase );
-        
+        private static readonly Regex styleReg = new Regex( @"<style[\s\S]+</style *>", RegexOptions.IgnoreCase );
+
         /// <summary>
         /// 默认是不允许 script/iframe/frameset 标签的
         /// </summary>
@@ -42,6 +43,7 @@ namespace wojilu.Web.Utils {
             String s = scriptReg.Replace( srcString, "" );
             s = iframeReg.Replace( s, "" );
             s = framesetReg.Replace( s, "" );
+            s = styleReg.Replace( s, "" );
 
             s = TagFilter.Clear( s );
 
@@ -61,6 +63,7 @@ namespace wojilu.Web.Utils {
             String s = scriptReg.Replace( srcString, "" );
             s = iframeReg.Replace( s, "" );
             s = framesetReg.Replace( s, "" );
+            s = styleReg.Replace( s, "" );
 
             s = TagFilter.Clear( s, allowedTags );
 
@@ -80,6 +83,7 @@ namespace wojilu.Web.Utils {
             String s = scriptReg.Replace( srcString, "" );
             s = iframeReg.Replace( s, "" );
             s = framesetReg.Replace( s, "" );
+            s = styleReg.Replace( s, "" );
 
             s = TagFilter.ClearWithAllowedTags( s, allowedTags );
 

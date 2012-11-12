@@ -1,4 +1,4 @@
-/*
+ï»¿/*
  * Copyright (c) 2010, www.wojilu.com. All rights reserved.
  */
 
@@ -26,9 +26,6 @@ namespace wojilu.Members.Users.Service {
             msgService = new MessageService();
         }
 
-        //public virtual void AddConfirm( String code ) {
-        //}
-
         public virtual Result CanSend( User user ) {
 
             int maxMinutes = config.Instance.Site.UserSendConfirmEmailInterval;
@@ -39,7 +36,7 @@ namespace wojilu.Members.Users.Service {
 
             if (DateTime.Now.Subtract( ac.Created ).Minutes < maxMinutes) {
 
-                result.Add( string.Format( "{0} ·ÖÖÓÖ®ÄÚ£¬×î¶àÖ»ÄÜ·¢ËÍÒ»´Î", maxMinutes ) );
+                result.Add( string.Format( "{0} åˆ†é’Ÿä¹‹å†…ï¼Œæœ€å¤šåªèƒ½å‘é€ä¸€æ¬¡", maxMinutes ) );
 
                 return result;
 
@@ -82,30 +79,29 @@ namespace wojilu.Members.Users.Service {
 
             addIncomeAndMsg( user );
 
-
-
             return user;
-
         }
 
         private void addIncomeAndMsg( User user ) {
 
-            int actionId = 18;
+            int actionId = UserAction.User_ConfirmEmail.Id;
 
-            userIncomeService.AddIncome( user, actionId );
+            String msgTitle = "æ„Ÿè°¢æ‚¨é‚®ä»¶æ¿€æ´»";
+            userIncomeService.AddIncome( user, actionId, msgTitle ); // ç»™ç”¨æˆ·å¢åŠ æ”¶å…¥
 
-            KeyIncomeRule rule = currencyService.GetKeyIncomeRulesByAction( actionId ); // »ñÈ¡µ±Ç°²Ù×÷actionÊÕÈë¹æÔò¡£ÕâÀï»ñÈ¡µÄÊÇÖĞĞÄ»õ±Ò£¬ÄãÒ²¿ÉÒÔÊ¹ÓÃ GetRulesByAction(actionId) »ñÈ¡ÆäËûËùÓĞ»õ±ÒµÄÊÕÈë¹æÔò
-
-            int creditValue = rule.Income; // ÊÕÈëµÄÖµ
-            String creditName = rule.CurrencyName; // »õ±ÒµÄÃû³Æ¡£ÕâÀïÊÇ»ñÈ¡µÄÖĞĞÄ»õ±Ò¡£
-
-            userIncomeService.AddIncome( user, actionId ); // ¸øÓÃ»§Ôö¼ÓÊÕÈë
-
-            String msgTitle = "¸ĞĞ»Äú¼¤»îÓÊ¼ş";
-            String msgBody = string.Format( "{0}£º<br/>ÄúºÃ£¡<br/>¸ĞĞ»Äú¼¤»îÓÊ¼ş£¬ÄúÒò´Ë»ñµÃ{1}½±Àø£¬¹²{2}¡£<br/>»¶Ó­¼ÌĞø²ÎÓë£¬Ğ»Ğ»¡£", user.Name, creditName, creditValue );
-            msgService.SiteSend( msgTitle, msgBody, user ); // ¸øÓÃ»§·¢ËÍÕ¾ÄÚË½ĞÅ
+            String msgBody = getMsgBody( user, actionId );
+            msgService.SiteSend( msgTitle, msgBody, user ); // ç»™ç”¨æˆ·å‘é€ç«™å†…ç§ä¿¡
         }
 
+        private String getMsgBody( User user, int actionId ) {
+
+            KeyIncomeRule rule = currencyService.GetKeyIncomeRulesByAction( actionId ); // è·å–å½“å‰æ“ä½œactionæ”¶å…¥è§„åˆ™ã€‚è¿™é‡Œè·å–çš„æ˜¯ä¸­å¿ƒè´§å¸ï¼Œä½ ä¹Ÿå¯ä»¥ä½¿ç”¨ GetRulesByAction(actionId) è·å–å…¶ä»–æ‰€æœ‰è´§å¸çš„æ”¶å…¥è§„åˆ™
+            int creditValue = rule.Income; // æ”¶å…¥çš„å€¼
+            String creditName = rule.CurrencyName; // è´§å¸çš„åç§°ã€‚è¿™é‡Œæ˜¯è·å–çš„ä¸­å¿ƒè´§å¸ã€‚
+
+            String msgBody = string.Format( "{0}ï¼š<br/>æ‚¨å¥½ï¼<br/>æ„Ÿè°¢æ‚¨æ¿€æ´»é‚®ä»¶ï¼Œæ‚¨å› æ­¤è·å¾—{1}å¥–åŠ±ï¼Œå…±{2}ã€‚<br/>æ¬¢è¿ç»§ç»­å‚ä¸ï¼Œè°¢è°¢ã€‚", user.Name, creditName, creditValue );
+            return msgBody;
+        }
 
         public virtual void AddConfirm( UserConfirm uc ) {
             db.insert( uc );

@@ -14,6 +14,7 @@ namespace wojilu.Apps.Photo.Interface {
         PhotoAlbum GetById( int id, int ownerId );
         PhotoAlbum GetByIdWithDefault( int id, int ownerId );
         List<PhotoAlbum> GetListByApp( int appId );
+        List<PhotoAlbum> GetListByUser( int ownerId );
 
         Result Create( PhotoAlbum album );
         Result Update( PhotoAlbum album );

@@ -42,7 +42,7 @@ namespace wojilu.Web.Controller.Microblogs {
             set( "user.PicBig", user.PicBig );
 
             if (Component.IsEnableUserSpace()) {
-                set( "user.Link", lnkFull( Link.ToMember( user ) ) );
+                set( "user.Link", lnkFull( toUser( user ) ) );
                 set( "userLinkStyle", "" );
             }
             else {
@@ -68,7 +68,7 @@ namespace wojilu.Web.Controller.Microblogs {
             List<UserTagShip> list = userTagService.GetPage( ctx.owner.Id );
             foreach (UserTagShip ut in list) {
                 block.Set( "tag.Name", ut.Tag.Name );
-                block.Set( "tag.Link", Link.T2( Site.Instance, new Users.MainController().Tag, ut.Tag.Id ) );
+                block.Set( "tag.Link", Link.To( Site.Instance, new Users.MainController().Tag, ut.Tag.Id ) );
                 block.Next();
             }
         }
@@ -124,7 +124,7 @@ namespace wojilu.Web.Controller.Microblogs {
             foreach (MicroblogComment c in clist) {
 
                 cblock.Set( "user.Face", c.User.PicSmall );
-                cblock.Set( "user.Link", Link.ToMember( c.User ) );
+                cblock.Set( "user.Link", toUser( c.User ) );
                 cblock.Set( "user.Name", c.User.Name );
                 cblock.Set( "comment.Id", c.Id );
                 cblock.Set( "comment.RootId", c.Root.Id );
@@ -257,7 +257,7 @@ namespace wojilu.Web.Controller.Microblogs {
             Microblog blog = microblogService.GetById( id );
 
             set( "blog.UserName", blog.User.Name );
-            set( "blog.UserLink", Link.ToMember( blog.User ) );
+            set( "blog.UserLink", toUser( blog.User ) );
             set( "blog.Content", blog.Content );
 
             set( "blog.ShowLink", Link.To( blog.User, new MicroblogController().Show, id ) );

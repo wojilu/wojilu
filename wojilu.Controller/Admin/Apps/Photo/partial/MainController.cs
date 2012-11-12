@@ -28,8 +28,6 @@ namespace wojilu.Web.Controller.Admin.Apps.Photo {
             tpl.Set( "photo.PickedClass", cssClass );
 
             tpl.Set( "photo.LinkShow", alink.ToAppData( data ) );
-            //tpl.Set( "photo.LinkDelete", to( Delete, data.Id ) );
-            //tpl.Set( "photo.LinkUnDelete", to( UnDelete, data.Id ) );
         }
 
         private String getStatus( PhotoPost post ) {

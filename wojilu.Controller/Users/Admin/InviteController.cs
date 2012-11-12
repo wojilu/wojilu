@@ -90,7 +90,7 @@ namespace wojilu.Web.Controller.Users.Admin {
         public void MailBody() {
 
             User user = ctx.owner.obj as User;
-            String userLink = getFullUrl( Link.ToMember( user ) );
+            String userLink = getFullUrl( toUser( user ) );
 
             set( "inviteLink", ctx.GetItem( "inviteLink" ) );
             set( "userName", user.Name );

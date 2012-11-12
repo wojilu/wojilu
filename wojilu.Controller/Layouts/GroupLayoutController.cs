@@ -105,20 +105,20 @@ namespace wojilu.Web.Controller.Layouts {
 
         private void bindGroupAdminHeader( Group g ) {
 
-            set( "lnkHome", Link.To( new Groups.Admin.MainController().Index ) );
-            set( "lnkBaseInfo", Link.To( new Groups.Admin.MainController().Index ) );
-            set( "lnkLogo", Link.To( new Groups.Admin.MainController().Logo ) );
-            set( "lnkMember", Link.To( new Groups.Admin.MainController().Members, 0 ) );
-            set( "lnkInvite", Link.To( new Groups.Admin.InviteController().Add ) );
+            set( "lnkHome", to( new Groups.Admin.MainController().Index ) );
+            set( "lnkBaseInfo", to( new Groups.Admin.MainController().Index ) );
+            set( "lnkLogo", to( new Groups.Admin.MainController().Logo ) );
+            set( "lnkMember", to( new Groups.Admin.MainController().Members, 0 ) );
+            set( "lnkInvite", to( new Groups.Admin.InviteController().Add ) );
 
-            set( "lnkSkin", Link.To( new Groups.Admin.SkinController().My ) );
+            set( "lnkSkin", to( new Groups.Admin.SkinController().My ) );
 
-            set( "lnkLog", Link.To( new Groups.Admin.MainController().AdminLog ) );
-            set( "lnkFriends", Link.To( new Groups.Admin.FriendController().Index ) );
+            set( "lnkLog", to( new Groups.Admin.MainController().AdminLog ) );
+            set( "lnkFriends", to( new Groups.Admin.FriendController().Index ) );
 
-            set( "lnkAppAdmin", Link.T2( ctx.owner.obj, new AppController().Index ) );
-            set( "lnkMenuAdmin", Link.T2( ctx.owner.obj, new MenuController().Index ) );
-            set( "urlList", Link.T2( ctx.owner.obj, new GLinkController().Index ) );
+            set( "lnkAppAdmin", Link.To( ctx.owner.obj, new AppController().Index ) );
+            set( "lnkMenuAdmin", Link.To( ctx.owner.obj, new MenuController().Index ) );
+            set( "urlList", Link.To( ctx.owner.obj, new GLinkController().Index ) );
 
             IList apps = groupAppService.GetByMember( ctx.owner.Id );
             bindAppList( apps );

@@ -64,12 +64,12 @@ namespace wojilu.Web.Controller.Admin.Apps.Photo {
             if (cmd == "up") {
 
                 new SortUtil<PhotoSysCategory>( target, list ).MoveUp();
-                echoRedirect( "ok" );
+                echoJsonOk();
             }
             else if (cmd == "down") {
 
                 new SortUtil<PhotoSysCategory>( target, list ).MoveDown();
-                echoRedirect( "ok" );
+                echoJsonOk();
             }
             else {
                 echoError( lang( "exUnknowCmd" ) );

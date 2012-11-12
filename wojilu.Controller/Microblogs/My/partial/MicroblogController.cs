@@ -28,7 +28,7 @@ namespace wojilu.Web.Controller.Microblogs.My {
             set( "user.PicSmall", user.PicSmall );
 
             set( "user.PicBig", user.PicBig );
-            set( "user.Link", getFullUrl( Link.ToMember( user ) ) );
+            set( "user.Link", getFullUrl( toUser( user ) ) );
             set( "user.MLink", getFullUrl( alink.ToUserMicroblog( user ) ) );
             set( "user.Signature", user.Signature );
             set( "user.Description", user.Profile.Description );

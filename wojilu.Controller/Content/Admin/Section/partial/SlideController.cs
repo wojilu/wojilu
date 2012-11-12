@@ -17,8 +17,8 @@ namespace wojilu.Web.Controller.Content.Admin.Section {
         private void bindSectionShow( int sectionId, int imgcat, List<ContentPost> posts, ContentPost first ) {
 
             set( "sectionId", sectionId );
-            set( "addUrl", Link.To( new PostController().Add, sectionId ) + "?categoryId=" + imgcat );
-            set( "listUrl", Link.To( new ListController().AdminList, sectionId ) + "?categoryId=" + imgcat );
+            set( "addUrl", to( new PostController().Add, sectionId ) + "?categoryId=" + imgcat );
+            set( "listUrl", to( new ListController().AdminList, sectionId ) + "?categoryId=" + imgcat );
 
             int slideWidth = first == null ? 300 : first.Width;
             int slideHeight = first == null ? 220 : first.Height;
@@ -38,7 +38,7 @@ namespace wojilu.Web.Controller.Content.Admin.Section {
                     block.Set( "photo.Title", photo.Title );
 
                 block.Set( "photo.ImgUrl", photo.GetImgMedium() );
-                String lnk = photo.HasImg() ? Link.To( new PostController().EditImg, photo.Id ) : "#";
+                String lnk = photo.HasImg() ? to( new PostController().EditImg, photo.Id ) : "#";
                 block.Set( "photo.Link", lnk );
                 block.Next();
 

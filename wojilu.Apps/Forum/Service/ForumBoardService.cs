@@ -78,11 +78,11 @@ namespace wojilu.Apps.Forum.Service {
         }
 
         public virtual int CountPost( int forumBoardId ) {
-            return db.find<ForumPost>( "ForumBoardId=" + forumBoardId ).count();
+            return db.find<ForumPost>( "ForumBoardId=" + forumBoardId + " and " + TopicStatus.GetShowCondition() ).count();
         }
 
         public virtual int CountTopic( int forumBoardId ) {
-            return db.find<ForumTopic>( "ForumBoardId=" + forumBoardId ).count();
+            return db.find<ForumTopic>( "ForumBoardId=" + forumBoardId + " and " + TopicStatus.GetShowCondition() ).count();
         }
 
         //------------------------------------------------------------------------------------

@@ -143,12 +143,12 @@ namespace wojilu.Web.Controller.Forum.Edits {
             if (cmd == "up") {
 
                 new SortUtil<Attachment>( data, list ).MoveUp();
-                echoRedirect( "ok" );
+                echoJsonOk();
             }
             else if (cmd == "down") {
 
                 new SortUtil<Attachment>( data, list ).MoveDown();
-                echoRedirect( "ok" );
+                echoJsonOk();
             }
             else {
                 echoError( lang( "exUnknowCmd" ) );

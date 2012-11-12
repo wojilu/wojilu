@@ -1,0 +1,61 @@
+/*button i {display:none !important;}*/
+
+.caret { width:10px !important;height:5px !important;margin-top:5px !important;margin-left:0px !important; background:url(/static/img/down.gif) no-repeat !important;border:0px !important};
+
+.row {margin-left:0px;}
+.span4 {margin-left:20px;}
+
+/********************************************/
+
+#topNavMenu { margin-top:3px;}
+#topNavMenu li {float:left; margin:5px 6px 0px 0px;}
+#userAccountTable {margin-top:3px;}
+#userAccountTable li {float:left;margin:5px 6px 0px 0px;}
+
+.site-header{margin-left:0px;}
+.site-header-inner {padding-left:10px;}
+
+.site-menu-nav .nav li {float:left; margin-right:15px;margin-bottom:-5px;}
+.site-menu-nav .nav li a{display:block; padding-top:8px;float:left; }
+
+#top-nav-left { width1:550px;}
+#top-nav-right { width1:380px; text-align:right;}
+#top-nav-login-form-remember {display:inline-block;width:70px;padding-top:3px; }
+#chkRemember {display:inline-block;width:22px;}
+
+.footer { width:940px;}
+
+/*********** forum **************/
+.forum-search-row, .forum-stats-row , .forum-location{width:940px;} 
+    .forum-stats-title {_margin-left:20px;}
+    .forum-stats-data {_margin-left:100px;}
+
+.forum-top-list { background:#fff; }
+.forum-top-list .slideWrap{ margin:10px !important;margin-left:5px !important; }
+
+.forum-bottom-title { width:890px;}
+
+    .forum-category-arrow { margin-left:22px !important;}
+    .forum-prenext-spl { margin-left:5px !important;}
+
+/*********** photo **************/
+#pick-row {margin-bottom:0px; }
+#pick-row .span4{margin-left:15px;}
+#pick-row .user-rank li {margin:0px 5px;padding:0px 3px;}
+.img-section li {margin:15px 22px 0px 0px !important;}
+
+
+/*********** blog **************/
+#blog-main-row .span4 {margin-left:10px !important;}
+.blog-top-list { margin-left:20px !important;}
+.blog-category-item0 {margin-right:10px !important;}
+.blog-search button {float:left;display:block;}
+
+/*********** microblog **************/
+
+
+
+#pubUserPic {float:left; margin;0px !important;}
+
+.forum-form-quick {width:700px;}
+#txtTitle {width:550px !important;}

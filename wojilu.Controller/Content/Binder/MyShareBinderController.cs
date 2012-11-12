@@ -35,7 +35,7 @@ namespace wojilu.Web.Controller.Content.Binder {
             IBlock block = getBlock( "list" );
             foreach (Share share in serviceData) {
 
-                String creatorInfo = string.Format( "<a href='{0}'>{1}</a>", Link.ToMember( share.Creator ), share.Creator.Name );
+                String creatorInfo = string.Format( "<a href='{0}'>{1}</a>", toUser( share.Creator ), share.Creator.Name );
 
                 block.Set( "share.Title", feedService.GetHtmlValue( share.TitleTemplate, share.TitleData, creatorInfo ) );
                 block.Set( "share.Created", cvt.ToTimeString( share.Created ) );

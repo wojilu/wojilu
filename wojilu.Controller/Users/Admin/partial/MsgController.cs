@@ -109,7 +109,7 @@ namespace wojilu.Web.Controller.Users.Admin {
             String senderUrl = "";
             String replyButton = "";
             if (dataSender.GetType() != typeof( Site )) {
-                String userLink = getFullUrl( Link.ToMember( dataSender ) );
+                String userLink = getFullUrl( toUser( dataSender ) );
                 senderUrl = string.Format( "<span class=\"senderUrl\">&lt;<a href=\"{0}\" target=\"_blank\">{0}</a>&gt;</span>&nbsp;<a href=\"{0}\" target=\"_blank\">{1}</a>", userLink, lang( "viewSender" ) );
                 replyButton = string.Format( "<a href=\"{1}\" />{0}</a>", lang( "reply" ), to( Reply, id ) );
             }

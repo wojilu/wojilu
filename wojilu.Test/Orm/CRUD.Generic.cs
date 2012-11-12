@@ -48,6 +48,7 @@ namespace wojilu.Test.Orm {
             String dbName = "default";
             ConnectionString cnstr = DbConfig.Instance.GetConnectionStringMap()[dbName];
             Console.WriteLine( "当前运行数据库类型：" + cnstr.DbType );
+            Console.WriteLine("当前运行数据库ID类型：" + DbConfig.Instance.IdType);
             Console.WriteLine( "当前运行数据库类型：" + cnstr.StringContent );
         }
 
@@ -172,7 +173,8 @@ namespace wojilu.Test.Orm {
             List<TCat> cats = db.find<TCat>( "Id in (:id1,:id2,:id3)" )
                 .set( "id1", 6 )
                 .set( "id2", 7 )
-                .set( "id8", 8 )
+                //.set( "id8", 8 )
+                .set("id3", 8)
                 .list();
 
 

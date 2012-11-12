@@ -45,7 +45,7 @@ namespace wojilu.Web.Controller.Content.Submit {
             IBlock block = getBlock( "list" );
             foreach (ContentTempPost p in list.Results) {
                 block.Bind( "post", p );
-                block.Set( "post.UserLink", Link.ToMember( p.Creator ) );
+                block.Set( "post.UserLink", toUser( p.Creator ) );
                 block.Set( "post.PassLink", to( Pass, p.Id ) );
                 block.Set( "post.ShowLink", to( new PostController().Show, p.Id ) );
 

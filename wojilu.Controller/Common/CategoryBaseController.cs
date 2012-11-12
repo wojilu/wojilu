@@ -59,12 +59,12 @@ namespace wojilu.Web.Controller.Common {
             if (cmd == "up") {
 
                 new SortUtil<T>( acategory, list ).MoveUp();
-                echoRedirect( "ok" );
+                echoJsonOk();
             }
             else if (cmd == "down") {
 
                 new SortUtil<T>( acategory, list ).MoveDown();
-                echoRedirect( "ok" );
+                echoJsonOk();
             }
             else {
                 echoError( lang( "exUnknowCmd" ) );

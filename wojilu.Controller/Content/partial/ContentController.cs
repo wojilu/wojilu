@@ -109,7 +109,7 @@ namespace wojilu.Web.Controller.Content {
 
             if (section.ServiceId > 0) return section.MoreLink;
 
-            return to( new SectionController().Show, section.Id );
+            return clink.toSection( section.Id, ctx );
         }
         
         private Boolean isUrl( String url ) {

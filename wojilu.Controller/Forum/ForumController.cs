@@ -27,6 +27,8 @@ namespace wojilu.Web.Controller.Forum {
         public IForumLinkService linkService { get; set; }
         public IForumTopicService topicService { get; set; }
         public IUserService userService { get; set; }
+        public IForumPostService postService { get; set; }
+        public IForumPickService pickService { get; set; }
 
         public ForumController() {
             forumService = new ForumService();
@@ -34,6 +36,8 @@ namespace wojilu.Web.Controller.Forum {
             linkService = new ForumLinkService();
             topicService = new ForumTopicService();
             userService = new UserService();
+            postService = new ForumPostService();
+            pickService = new ForumPickService();
         }
 
         [CachePage( typeof( ForumIndexPageCache ) )]
@@ -51,6 +55,66 @@ namespace wojilu.Web.Controller.Forum {
 
             bindAll( categories, linkList );
         }
+
+
+        [NonVisit]
+        public void TopList() {
+
+            ForumApp app = ctx.app.obj as ForumApp;
+
+            set( "recentTopicLink", to( new RecentController().Topic ) );
+            set( "recentPostLink", to( new RecentController().Post ) );
+            set( "recentHotLink", to( new RecentController().Replies ) );
+            set( "recentPickedImgLink", to( new RecentController().ImgTopic ) );
+
+            ForumSetting s = app.GetSettingsObj();
+
+            List<ForumPickedImg> pickedImg = ForumPickedImg.find( "AppId=" + ctx.app.Id ).list( s.HomeImgCount );
+            bindImgs( pickedImg );
+
+            //List<ForumTopic> newPosts = topicService.GetByApp( ctx.app.Id, s.HomeListCount );
+            //bindTopics( newPosts, "topic" );
+
+            //List<ForumTopic> hots = topicService.GetByAppAndReplies( ctx.app.Id, s.HomeListCount, s.HomeHotDays );
+            //bindTopics( hots, "hot" );
+
+            //List<ForumPost> posts = postService.GetRecentByApp( ctx.app.Id, s.HomeListCount );
+            //bindPosts( posts, "post" );
+
+            List<ForumTopic> newPosts = topicService.GetByApp( ctx.app.Id, 30 );
+            List<MergedPost> results = pickService.GetAll( newPosts, ctx.app.Id );
+
+            bindCustomList( results );
+        }
+
+
+        private void bindCustomList( List<MergedPost> list ) {
+
+            IBlock hBlock = getBlock( "hotPick" );
+            IBlock pBlock = getBlock( "pickList" );
+
+            // 绑定第一个
+            if (list.Count == 0) return;
+            bindPick( list[0], hBlock, 1 );
+
+            // 绑定列表
+            if (list.Count == 1) return;
+            for (int i = 1; i < list.Count; i++) {
+                bindPick( list[i], pBlock, i + 1 );
+            }
+        }
+
+        private void bindPick( MergedPost x, IBlock block, int index ) {
+
+            block.Set( "x.Title", x.Title );
+            block.Set( "x.Summary", x.Summary );
+
+            String lnk = x.Topic == null ? x.Link : alink.ToAppData( x.Topic );
+            block.Set( "x.LinkShow", lnk );
+
+            block.Next();
+        }
+
 
         private Tree<ForumBoard> _tree;
 

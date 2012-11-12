@@ -11,6 +11,10 @@ namespace wojilu.Apps.Forum.Domain {
         public static readonly int Sticky = 1;
         public static readonly int Approve = 2;
         public static readonly int Delete = 3;
+
+        public static String GetShowCondition() {
+            return "Status<=1";
+        }
     }
 
 }

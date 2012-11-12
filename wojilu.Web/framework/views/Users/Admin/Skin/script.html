@@ -4,6 +4,25 @@
 #lblHeight {float:left;width:150px;padding-top:6px;}
 </style>
 
-<link type="text/css" href="~js/colorpicker/css/colorpicker.css" rel="stylesheet" />
-<script type="text/javascript" src="~js/colorpicker/js/colorpicker.js"></script>
-<script type="text/javascript" src="~js/wojilu.skin.js"></script>
+<link type="text/css" href="~js/lib/colorpicker/css/colorpicker.css" rel="stylesheet" />
+
+<script type="text/javascript">
+
+    function setBgPic(tpic, pic) {
+
+        require(['wojilu.core.skin'], function (x) {
+            x.setBgPic(tpic, pic);
+        });
+    }
+
+    function reloadMyPicList() {
+
+        require(['wojilu.core.skin'], function (x) {
+            x.reloadMyPicList();
+        });
+    }
+
+    _run(function () {
+        require(['wojilu.core.skin']);
+    });
+</script>

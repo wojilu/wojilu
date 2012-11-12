@@ -1,4 +1,4 @@
-/*
+ï»¿/*
  * Copyright 2010 www.wojilu.com
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -21,17 +21,17 @@ using System.Text;
 namespace wojilu.Common {
 
     /// <summary>
-    /// ³£ÓÃµÄ¹Ì¶¨×Ö·û´®
+    /// å¸¸ç”¨çš„å›ºå®šå­—ç¬¦ä¸²
     /// </summary>
     public class ConstString {
 
         /// <summary>
-        /// ÍøÕ¾ÀàĞÍÈ«Ãû
+        /// ç½‘ç«™ç±»å‹å…¨å
         /// </summary>
         public static readonly String SiteTypeFullName = "wojilu.Members.Sites.Domain.Site";
 
         /// <summary>
-        /// ÓÃ»§ÀàĞÍÈ«Ãû
+        /// ç”¨æˆ·ç±»å‹å…¨å
         /// </summary>
         public static readonly String UserTypeFullName = "wojilu.Members.Users.Domain.User";
 

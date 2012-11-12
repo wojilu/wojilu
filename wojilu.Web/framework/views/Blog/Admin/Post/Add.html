@@ -1,56 +1,56 @@
 ﻿<script type="text/javascript">
 <!--
-$(document).ready( function() {
+    _run(function () {
 
-    var btnSaveBlog;    
-    
-    var callback = function(data) {
-        var result = data;
-        if( !result.IsValid ) {
-            $( '#saveInfo' ).html( '<span>:{exSave}:'+result.Msg+'</span>' );
-        }
-        else {			
-            var resultId = parseInt( result.Msg );				
-            $( "#draftId" ).val( resultId );
-            $( '#saveInfo' ).html( ':{saveDraftOk}:' + wojilu.tool.getTime() );
-        }
-        btnSaveBlog.disabled=false;
-        $( btnSaveBlog ).val( ':{saveDraft}' );
-    };
-    
-    var autoSave = function() {
-    
-    
-        var draftId = $( "#draftId" ).val();
-        var postData = {
-            "Title":$("input[name=Title]").val(), 
-            "Content":$("input[name=Content]").val(), 
-            "TagList":$("input[name=TagList]").val(), 
-            "CategoryId":$("select[name=CategoryId] option:selected").val(),
-			"AccessStatus":$("input[name=AccessStatus]:checked").val(), 
-            "IsCloseComment":$("input[name=IsCloseComment]:checked").val(), 
-            "draftId":draftId
+        var btnSaveBlog;
+
+        var callback = function (data) {
+            var result = data;
+            if (!result.IsValid) {
+                $('#saveInfo').html('<span>:{exSave}:' + result.Msg + '</span>');
+            }
+            else {
+                var resultId = parseInt(result.Msg);
+                $("#draftId").val(resultId);
+                $('#saveInfo').html(':{saveDraftOk}:' + wojilu.tool.getTime());
+            }
+            btnSaveBlog.disabled = false;
+            $(btnSaveBlog).val(':{saveDraft}');
         };
-        
- 		if( !postData.IsCloseComment ) postData.IsCloseComment=0;
-		if( wojilu.str.isNull( postData.Content ) ) return;
-        
- 		btnSaveBlog = this;
-		btnSaveBlog.disabled=true;
-		$( btnSaveBlog ).val( ':{saving}' );
-        
-        var draftActionUrl = $("#draftActionUrl").val().toAjax();
-        $.post( draftActionUrl, postData, callback );
-      
-    };    
 
-	setInterval( autoSave, 1000*60*3 );
-    
-    $("#btnSaveDraftBlog").click( autoSave );
-    
- 
-    
-});
+        var autoSave = function () {
+
+            var draftId = $("#draftId").val();
+            var postData = {
+                "Title": $("input[name=Title]").val(),
+                "Content": $("textarea[name=Content]").val(),
+                "TagList": $("input[name=TagList]").val(),
+                "CategoryId": $("select[name=CategoryId] option:selected").val(),
+                "AccessStatus": $("input[name=AccessStatus]:checked").val(),
+                "IsCloseComment": $("input[name=IsCloseComment]:checked").val(),
+                "draftId": draftId
+            };
+
+            if (!postData.IsCloseComment) postData.IsCloseComment = 0;
+
+            if (wojilu.str.isNull(postData.Content)) return;
+
+            btnSaveBlog = this;
+            btnSaveBlog.disabled = true;
+            $(btnSaveBlog).val(':{saving}');
+
+            var draftActionUrl = $("#draftActionUrl").val().toAjax();
+            $.post(draftActionUrl, postData, callback);
+
+        };
+
+        setInterval(autoSave, 1000 * 60 * 3);
+
+        $("#btnSaveDraftBlog").click(autoSave);
+
+
+
+    });
 //-->
 </script>
 
@@ -129,7 +129,7 @@ function refreshCategories( chtml, categoryId ) {
     $('#CategoryId').val( categoryId );
 }
 
-$(document).ready( function() {
+_run( function() {
     if( #{showCategoryBox} ) $('#categoryBox').click();
 });
 

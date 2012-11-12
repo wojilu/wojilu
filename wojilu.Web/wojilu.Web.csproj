@@ -54,6 +54,10 @@
       <Project>{5D4E912F-B5A1-4E58-BFE1-62FCD30CC9E6}</Project>
       <Name>wojilu.Core</Name>
     </ProjectReference>
+    <ProjectReference Include="..\wojilu.Demo\wojilu.Demo.csproj">
+      <Project>{6FFA2E65-6C26-4D8B-AD3F-8A29CBBF57AA}</Project>
+      <Name>wojilu.Demo</Name>
+    </ProjectReference>
     <ProjectReference Include="..\wojilu.Installer\wojilu.Installer.csproj">
       <Project>{24541506-9672-4B44-8718-2C6B5B5C34EF}</Project>
       <Name>wojilu.Installer</Name>
@@ -64,11 +68,19 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="agreement.html" />
+    <Content Include="crossdomain.xml" />
     <Content Include="framework\data\初始化需要清空的数据.txt" />
     <Content Include="framework\views\Admin\Apps\Blog\Layout\Layout.html" />
     <Content Include="framework\views\Admin\Apps\Blog\Main\Index.html" />
     <Content Include="framework\views\Admin\Apps\Blog\Main\Picked.html" />
     <Content Include="framework\views\Admin\Apps\Blog\Main\Trash.html" />
+    <Content Include="framework\views\Admin\Apps\Blog\PickedImg\Add.html" />
+    <Content Include="framework\views\Admin\Apps\Blog\PickedImg\Edit.html" />
+    <Content Include="framework\views\Admin\Apps\Blog\PickedImg\Index.html" />
+    <Content Include="framework\views\Admin\Apps\Blog\SysCategory\Add.html" />
+    <Content Include="framework\views\Admin\Apps\Blog\SysCategory\Edit.html" />
+    <Content Include="framework\views\Admin\Apps\Blog\SysCategory\List.html" />
     <Content Include="framework\views\Admin\Apps\Photo\Layout\Layout.html" />
     <Content Include="framework\views\Admin\Apps\Photo\Main\Index.html" />
     <Content Include="framework\views\Admin\Apps\Photo\Main\Picked.html" />
@@ -95,6 +107,7 @@
     <Content Include="framework\views\Admin\Groups\Layout\Layout.html" />
     <Content Include="framework\views\Admin\Main\Login.html" />
     <Content Include="framework\views\Admin\Members\Layout\Layout.html" />
+    <Content Include="framework\views\Admin\Members\User\AddUser.html" />
     <Content Include="framework\views\Admin\Members\User\Index.html" />
     <Content Include="framework\views\Admin\Members\User\ResetPwd.html" />
     <Content Include="framework\views\Admin\Members\User\SendEmail.html" />
@@ -148,6 +161,14 @@
     <Content Include="framework\views\Admin\Sys\SiteLog\Index.html" />
     <Content Include="framework\views\Admin\Sys\SiteLog\Layout.html" />
     <Content Include="framework\views\Admin\Sys\Stats\Index.html" />
+    <Content Include="framework\views\Admin\Apps\Blog\BlogPick\DeletePinConfirm.html" />
+    <Content Include="framework\views\Admin\Apps\Blog\BlogPick\DeleteTopicConfirm.html" />
+    <Content Include="framework\views\Admin\Apps\Blog\BlogPick\EditPin.html" />
+    <Content Include="framework\views\Admin\Apps\Blog\BlogPick\EditTopic.html" />
+    <Content Include="framework\views\Admin\Apps\Blog\BlogPick\Index.html" />
+    <Content Include="framework\views\Admin\Apps\Blog\BlogPick\PinAd.html" />
+    <Content Include="framework\views\Admin\Apps\Blog\BlogPick\PinTopic.html" />
+    <Content Include="framework\views\Admin\Apps\Blog\BlogPick\RestoreList.html" />
     <Content Include="framework\views\Blog\Admin\Blogroll\Add.html" />
     <Content Include="framework\views\Blog\Admin\Blogroll\AdminList.html" />
     <Content Include="framework\views\Blog\Admin\Blogroll\Edit.html" />
@@ -167,6 +188,7 @@
     <Content Include="framework\views\Blog\Main\Index.html" />
     <Content Include="framework\views\Blog\Main\Layout.html" />
     <Content Include="framework\views\Blog\Main\Recent.html" />
+    <Content Include="framework\views\Blog\Main\TopList.html" />
     <Content Include="framework\views\Blog\Post\Show.html" />
     <Content Include="framework\views\Common\Admin\AppBase\Edit.html" />
     <Content Include="framework\views\Common\Admin\AppBase\Layout.html" />
@@ -208,11 +230,13 @@
     <Content Include="framework\views\Content\Admin\ContentSection\AddAutoTwo.html" />
     <Content Include="framework\views\Content\Admin\ContentSection\AddFeed.html" />
     <Content Include="framework\views\Content\Admin\ContentSection\_Edit.html" />
+    <Content Include="framework\views\Content\Admin\Html\EditHtmlDir.html" />
+    <Content Include="framework\views\Content\Admin\Html\Index.html" />
+    <Content Include="framework\views\Content\Admin\Html\MakeDone.html" />
     <Content Include="framework\views\Content\Admin\SectionSetting\EditBinder.html" />
     <Content Include="framework\views\Content\Admin\ContentSection\_SettingEdit.html" />
     <Content Include="framework\views\Content\Admin\Row\ConfirmAddRow.html" />
     <Content Include="framework\views\Content\Admin\Content\Home.html" />
-    <Content Include="framework\views\Content\Admin\Content\SetStyle2.html" />
     <Content Include="framework\views\Content\Admin\Layout\Layout.html" />
     <Content Include="framework\views\Content\Admin\Section\Img\AddImgList.html" />
     <Content Include="framework\views\Content\Admin\Section\Img\AddListInfo.html" />
@@ -222,11 +246,8 @@
     <Content Include="framework\views\Content\Admin\Section\Layout\Layout.html" />
     <Content Include="framework\views\Content\Admin\Section\ListImg\AdminSectionShow.html" />
     <Content Include="framework\views\Content\Admin\Section\ListTwo\AdminSectionShow.html" />
-    <Content Include="framework\views\Content\Admin\Section\List\Add.html" />
-    <Content Include="framework\views\Content\Admin\Section\List\AddImg.html" />
     <Content Include="framework\views\Content\Admin\Section\List\AdminList.html" />
     <Content Include="framework\views\Content\Admin\Section\List\AdminSectionShow.html" />
-    <Content Include="framework\views\Content\Admin\Section\List\Edit.html" />
     <Content Include="framework\views\Content\Admin\Section\List\EditImg.html" />
     <Content Include="framework\views\Content\Admin\Section\Talk\Add.html" />
     <Content Include="framework\views\Content\Admin\Section\Talk\AdminList.html" />
@@ -272,10 +293,21 @@
     <Content Include="framework\views\Content\Section\Video\List.html" />
     <Content Include="framework\views\Content\Section\Video\SectionShow.html" />
     <Content Include="framework\views\Content\Section\Video\Show.html" />
+    <Content Include="framework\views\Content\Sidebar\Index.html" />
+    <Content Include="framework\views\Demo\Upload\FrameUpload.html" />
+    <Content Include="framework\views\Demo\Upload\FlashUpload.html" />
+    <Content Include="framework\views\Forum\Admin\ForumPick\RestoreList.html" />
     <Content Include="framework\views\Forum\Admin\Forum\AddBoard.html" />
     <Content Include="framework\views\Forum\Admin\Forum\AddCategory.html" />
     <Content Include="framework\views\Forum\Admin\Forum\DataCombine.html" />
+    <Content Include="framework\views\Forum\Admin\ForumPick\DeletePinConfirm.html" />
+    <Content Include="framework\views\Forum\Admin\ForumPick\DeleteTopicConfirm.html" />
     <Content Include="framework\views\Forum\Admin\Forum\ListBoard.html" />
+    <Content Include="framework\views\Forum\Admin\ForumPick\Index.html" />
+    <Content Include="framework\views\Forum\Admin\ForumPick\EditPin.html" />
+    <Content Include="framework\views\Forum\Admin\ForumPick\EditTopic.html" />
+    <Content Include="framework\views\Forum\Admin\ForumPick\PinAd.html" />
+    <Content Include="framework\views\Forum\Admin\ForumPick\PinTopic.html" />
     <Content Include="framework\views\Forum\Admin\Forum\PostTrash.html" />
     <Content Include="framework\views\Forum\Admin\Forum\TopicTrash.html" />
     <Content Include="framework\views\Forum\Admin\Forum\ViewDeletedPost.html" />
@@ -295,28 +327,26 @@
     <Content Include="framework\views\Forum\Admin\Security\SettingSingle.html" />
     <Content Include="framework\views\Forum\Board\List.html" />
     <Content Include="framework\views\Forum\Board\List1.html" />
-    <Content Include="framework\views\Forum\Board\Move.html" />
     <Content Include="framework\views\Forum\Board\Show.html" />
+    <Content Include="framework\views\Forum\Edits\Topic\EditQ.html" />
     <Content Include="framework\views\Forum\Forum\Index.html" />
     <Content Include="framework\views\Forum\Layout\Layout.html" />
     <Content Include="framework\views\Forum\Users\Poll\Add.html" />
+    <Content Include="framework\views\Forum\Users\Poll\Detail.html" />
+    <Content Include="framework\views\Forum\Users\Poll\pollForm.html" />
+    <Content Include="framework\views\Forum\Users\Poll\pollResult.html" />
     <Content Include="framework\views\Forum\Users\Poll\Voter.html" />
     <Content Include="framework\views\Forum\Moderators\Post\AddCredit.html" />
-    <Content Include="framework\views\Forum\Moderators\Post\AddReward.html" />
-    <Content Include="framework\views\Forum\Moderators\Post\RewardList.html" />
-    <Content Include="framework\views\Forum\Moderators\Post\SetReward.html" />
-    <Content Include="framework\views\Forum\PostBlock\Show.html" />
+    <Content Include="framework\views\Forum\Users\Post\AddReward.html" />
+    <Content Include="framework\views\Forum\Users\Post\Buy.html" />
+    <Content Include="framework\views\Forum\Users\Post\RewardList.html" />
+    <Content Include="framework\views\Forum\Users\Post\SetReward.html" />
+    <Content Include="framework\views\Forum\Topic\PostLoop.html" />
     <Content Include="framework\views\Forum\Edits\Post\Edit.html" />
     <Content Include="framework\views\Forum\Users\Post\Quote.html" />
     <Content Include="framework\views\Forum\Post\Show.html" />
     <Content Include="framework\views\Forum\Recent\Post.html" />
     <Content Include="framework\views\Forum\Recent\Topic.html" />
-    <Content Include="framework\views\Forum\TopicAdmin\AdminCategory.html" />
-    <Content Include="framework\views\Forum\TopicAdmin\AdminMove.html" />
-    <Content Include="framework\views\Forum\TopicAdmin\AdminPost.html" />
-    <Content Include="framework\views\Forum\TopicAdmin\GlobalSortSticky.html" />
-    <Content Include="framework\views\Forum\TopicAdmin\Highlight.html" />
-    <Content Include="framework\views\Forum\TopicAdmin\SortSticky.html" />
     <Content Include="framework\views\Forum\TopicList\AdminToolbar.html" />
     <Content Include="framework\views\Forum\TopicList\Index.html" />
     <Content Include="framework\views\Forum\TopicList\Toolbar.html" />
@@ -342,6 +372,7 @@
     <Content Include="framework\views\Groups\Main\List.html" />
     <Content Include="framework\views\Groups\Main\Search.html" />
     <Content Include="framework\views\Groups\Member\List.html" />
+    <Content Include="framework\views\Admin\Members\Import\Index.html" />
     <Content Include="framework\views\Layouts\GroupLayout\AdminLayout.html" />
     <Content Include="framework\views\Layouts\GroupLayout\Layout.html" />
     <Content Include="framework\views\Layouts\SiteLayout\AdminLayout.html" />
@@ -349,7 +380,21 @@
     <Content Include="framework\views\Layouts\SpaceLayout\AdminLayout.html" />
     <Content Include="framework\views\Layouts\SpaceLayout\Layout.html" />
     <Content Include="framework\views\Layouts\SpaceLayout\SiteNav.html" />
+    <Content Include="framework\views\Layouts\TopNav\Header.html" />
+    <Content Include="framework\views\Layouts\TopNav\Index.html" />
+    <Content Include="framework\views\Layouts\TopNav\IndexNew.html" />
     <Content Include="framework\views\Main\Login.html" />
+    <Content Include="framework\views\Open\Comment\List.html" />
+    <Content Include="framework\views\Photo\Wf\Home\AlbumAdd.html" />
+    <Content Include="framework\views\Photo\Wf\Home\AlbumSave.html" />
+    <Content Include="framework\views\Photo\Wf\Home\Layout.html" />
+    <Content Include="framework\views\Photo\Wf\Layout\Layout.html" />
+    <Content Include="framework\views\Photo\Wf\Home\Post.html" />
+    <Content Include="framework\views\Photo\Wf\Home\Repin.html" />
+    <Content Include="framework\views\Photo\Wf\Home\RepinSave.html" />
+    <Content Include="framework\views\Photo\Wf\UserHome\Layout.html" />
+    <Content Include="framework\views\Photo\Wf\Home\Index.html" />
+    <Content Include="framework\views\Photo\Wf\UserHome\Album.html" />
     <Content Include="framework\views\Register\Register.html" />
     <Content Include="framework\views\msg.html" />
     <Content Include="framework\views\msgbox.html" />
@@ -361,7 +406,6 @@
     <Content Include="framework\views\Photo\Admin\My\Index2.html" />
     <Content Include="framework\views\Photo\Admin\My\My.html" />
     <Content Include="framework\views\Photo\Admin\Post\Add.html" />
-    <Content Include="framework\views\Photo\Admin\Post\BatchAdd.html" />
     <Content Include="framework\views\Photo\Admin\Post\Edit.html" />
     <Content Include="framework\views\Photo\Admin\Post\NewPost.html" />
     <Content Include="framework\views\Photo\Layout\Layout.html" />
@@ -385,6 +429,7 @@
     <Content Include="framework\views\SiteInit\view1InitData.html" />
     <Content Include="framework\views\SiteInit\view2Register.html" />
     <Content Include="framework\views\SiteInit\view3Initok.html" />
+    <Content Include="framework\views\Users\Admin\Credit\IncomeLog.html" />
     <Content Include="framework\views\Users\Admin\Credit\IncomeRule.html" />
     <Content Include="framework\views\Users\Admin\Credit\Layout.html" />
     <Content Include="framework\views\Users\Admin\Credit\My.html" />
@@ -440,6 +485,117 @@
     <Content Include="framework\views\Users\Profile\Main.html" />
     <Content Include="framework\views\Users\Profile\UserMenu.html" />
     <Content Include="framework\views\Users\Visitor\Index.html" />
+    <Content Include="license.txt" />
+    <Content Include="static\css\wojilu.app.forum.css" />
+    <Content Include="static\css\wojilu.app.microblog.css" />
+    <Content Include="static\css\wojilu._admin.css" />
+    <Content Include="static\css\wojilu._base.css" />
+    <Content Include="static\css\wojilu.core.ie6.css" />
+    <Content Include="static\js\editor\editor.js" />
+    <Content Include="static\js\editor\skin\em\001.gif" />
+    <Content Include="static\js\editor\skin\em\002.gif" />
+    <Content Include="static\js\editor\skin\em\003.gif" />
+    <Content Include="static\js\editor\skin\em\004.gif" />
+    <Content Include="static\js\editor\skin\em\005.gif" />
+    <Content Include="static\js\editor\skin\em\006.gif" />
+    <Content Include="static\js\editor\skin\em\007.gif" />
+    <Content Include="static\js\editor\skin\em\008.gif" />
+    <Content Include="static\js\editor\skin\em\009.gif" />
+    <Content Include="static\js\editor\skin\em\010.gif" />
+    <Content Include="static\js\editor\skin\em\011.gif" />
+    <Content Include="static\js\editor\skin\em\012.gif" />
+    <Content Include="static\js\editor\skin\em\013.gif" />
+    <Content Include="static\js\editor\skin\em\014.gif" />
+    <Content Include="static\js\editor\skin\em\015.gif" />
+    <Content Include="static\js\editor\skin\em\016.gif" />
+    <Content Include="static\js\editor\skin\em\017.gif" />
+    <Content Include="static\js\editor\skin\em\018.gif" />
+    <Content Include="static\js\editor\skin\em\019.gif" />
+    <Content Include="static\js\editor\skin\em\020.gif" />
+    <Content Include="static\js\editor\skin\em\021.gif" />
+    <Content Include="static\js\editor\skin\em\0211.gif" />
+    <Content Include="static\js\editor\skin\em\022.gif" />
+    <Content Include="static\js\editor\skin\em\023.gif" />
+    <Content Include="static\js\editor\skin\em\024.gif" />
+    <Content Include="static\js\editor\skin\em\025.gif" />
+    <Content Include="static\js\editor\skin\em\026.gif" />
+    <Content Include="static\js\editor\skin\em\027.gif" />
+    <Content Include="static\js\editor\skin\em\028.gif" />
+    <Content Include="static\js\editor\skin\em\029.gif" />
+    <Content Include="static\js\editor\skin\em\030.gif" />
+    <Content Include="static\js\editor\skin\em\031.gif" />
+    <Content Include="static\js\editor\skin\em\032.gif" />
+    <Content Include="static\js\editor\skin\em\033.gif" />
+    <Content Include="static\js\editor\skin\em\034.gif" />
+    <Content Include="static\js\editor\skin\em\035.gif" />
+    <Content Include="static\js\editor\skin\em\036.gif" />
+    <Content Include="static\js\editor\skin\em\037.gif" />
+    <Content Include="static\js\editor\skin\em\038.gif" />
+    <Content Include="static\js\editor\skin\em\039.gif" />
+    <Content Include="static\js\editor\skin\em\040.gif" />
+    <Content Include="static\js\editor\skin\em\041.gif" />
+    <Content Include="static\js\editor\skin\em\042.gif" />
+    <Content Include="static\js\editor\skin\em\043.gif" />
+    <Content Include="static\js\editor\skin\em\044.gif" />
+    <Content Include="static\js\editor\skin\em\045.gif" />
+    <Content Include="static\js\editor\skin\em\046.gif" />
+    <Content Include="static\js\editor\skin\em\047.gif" />
+    <Content Include="static\js\editor\skin\em\048.gif" />
+    <Content Include="static\js\editor\skin\em\049.gif" />
+    <Content Include="static\js\editor\skin\em\050.gif" />
+    <Content Include="static\js\editor\skin\em\051.gif" />
+    <Content Include="static\js\editor\skin\em\052.gif" />
+    <Content Include="static\js\editor\skin\em\053.gif" />
+    <Content Include="static\js\editor\skin\em\054.gif" />
+    <Content Include="static\js\editor\skin\em\055.gif" />
+    <Content Include="static\js\editor\skin\em\056.gif" />
+    <Content Include="static\js\editor\skin\em\057.gif" />
+    <Content Include="static\js\editor\skin\em\058.gif" />
+    <Content Include="static\js\editor\skin\em\059.gif" />
+    <Content Include="static\js\editor\skin\em\060.gif" />
+    <Content Include="static\js\editor\skin\em\061.gif" />
+    <Content Include="static\js\editor\skin\em\062.gif" />
+    <Content Include="static\js\editor\skin\em\063.gif" />
+    <Content Include="static\js\editor\skin\em\064.gif" />
+    <Content Include="static\js\editor\skin\em\065.gif" />
+    <Content Include="static\js\editor\skin\em\066.gif" />
+    <Content Include="static\js\editor\skin\em\067.gif" />
+    <Content Include="static\js\editor\skin\em\068.gif" />
+    <Content Include="static\js\editor\skin\em\069.gif" />
+    <Content Include="static\js\editor\skin\em\1120.gif" />
+    <Content Include="static\js\editor\skin\em\117.gif" />
+    <Content Include="static\js\editor\skin\em\261.gif" />
+    <Content Include="static\js\editor\skin\em\close.gif" />
+    <Content Include="static\js\editor\skin\em\shocked.gif" />
+    <Content Include="static\js\editor\skin\em\smile.gif" />
+    <Content Include="static\js\editor\skin\em\tongue.gif" />
+    <Content Include="static\js\editor\skin\em\z035.gif" />
+    <Content Include="static\js\editor\skin\style.css" />
+    <Content Include="static\js\editor\skin\toolbar\bg.png" />
+    <Content Include="static\js\editor\skin\toolbar\down.gif" />
+    <Content Include="static\js\editor\skin\toolbar\em.gif" />
+    <Content Include="static\js\editor\skin\toolbar\resize-s.gif" />
+    <Content Include="static\js\editor\skin\toolbar\right.gif" />
+    <Content Include="static\js\lib\bootstrap-dropdown.js" />
+    <Content Include="static\js\lib\jquery.easing.1.3.js" />
+    <Content Include="static\js\lib\require-jquery.js" />
+    <Content Include="static\js\main.js" />
+    <Content Include="static\js\wojilu.app.content.digg.js" />
+    <Content Include="static\js\wojilu.app.content.js" />
+    <Content Include="static\js\wojilu.app.forum.upload.js" />
+    <Content Include="static\js\wojilu.app.microblog.js" />
+    <Content Include="static\js\wojilu.app.microblog.rotate.js" />
+    <Content Include="static\js\wojilu.app.microblog.view.js" />
+    <Content Include="static\js\wojilu.core.comment.js" />
+    <Content Include="static\js\wojilu.core.drag.js" />
+    <Content Include="static\js\wojilu.core.ems.js" />
+    <Content Include="static\js\wojilu.core.ie6.js" />
+    <Content Include="static\js\wojilu.core.sitetop.js" />
+    <Content Include="static\js\wojilu.core.skin.js" />
+    <Content Include="static\js\wojilu._admin.js" />
+    <Content Include="static\js\wojilu._frame.js" />
+    <Content Include="static\js\wojilu._nolayout.js" />
+    <Content Include="static\js\wojilu._slider.js" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
@@ -455,14 +611,12 @@
     <Content Include="framework\views\Content\Admin\ContentSection\EditUI.html" />
     <Content Include="framework\views\Content\Admin\ContentSection\EditSectionUI.html" />
     <Content Include="framework\views\Content\Admin\Content\SetStyle.html" />
-    <Content Include="framework\views\Content\Admin\Section\List\SaveUpload.html" />
     <Content Include="framework\views\Content\Admin\Section\Normal\AdminSectionShow.html" />
     <Content Include="framework\views\Content\Admin\Section\Poll\Add.html" />
     <Content Include="framework\views\Content\Admin\Section\Poll\AdminSectionShow.html" />
     <Content Include="framework\views\Content\Admin\Section\Poll\List.html" />
     <Content Include="framework\views\Content\Admin\Section\Slide\AdminSectionShow.html" />
     <Content Include="framework\views\Content\Admin\Section\ThumbSlide\AdminSectionShow.html" />
-    <Content Include="framework\views\Content\Admin\Section\List\Upload.html" />
     <Content Include="framework\views\Content\Binder\Login.html" />
     <Content Include="framework\views\Content\Section\Normal\SectionShow.html" />
     <Content Include="framework\views\Content\Section\Poll\List.html" />
@@ -473,163 +627,11 @@
     <Content Include="Global.asax" />
     <Content Include="robots.txt" />
     <Content Include="static\css\wojilu.app.content.admin.css" />
-    <Content Include="static\css\wojilu.app.forum.css" />
-    <Content Include="static\css\wojilu.common.admin.css" />
-    <Content Include="static\css\wojilu.common.css" />
-    <Content Include="static\css\wojilu.group.css" />
-    <Content Include="static\css\wojilu.space.css" />
-    <Content Include="static\js\editor2\editor.js" />
-    <Content Include="static\js\editor2\skin\em\001.gif" />
-    <Content Include="static\js\editor2\skin\em\002.gif" />
-    <Content Include="static\js\editor2\skin\em\003.gif" />
-    <Content Include="static\js\editor2\skin\em\004.gif" />
-    <Content Include="static\js\editor2\skin\em\005.gif" />
-    <Content Include="static\js\editor2\skin\em\006.gif" />
-    <Content Include="static\js\editor2\skin\em\007.gif" />
-    <Content Include="static\js\editor2\skin\em\008.gif" />
-    <Content Include="static\js\editor2\skin\em\009.gif" />
-    <Content Include="static\js\editor2\skin\em\010.gif" />
-    <Content Include="static\js\editor2\skin\em\011.gif" />
-    <Content Include="static\js\editor2\skin\em\012.gif" />
-    <Content Include="static\js\editor2\skin\em\013.gif" />
-    <Content Include="static\js\editor2\skin\em\014.gif" />
-    <Content Include="static\js\editor2\skin\em\015.gif" />
-    <Content Include="static\js\editor2\skin\em\016.gif" />
-    <Content Include="static\js\editor2\skin\em\017.gif" />
-    <Content Include="static\js\editor2\skin\em\018.gif" />
-    <Content Include="static\js\editor2\skin\em\019.gif" />
-    <Content Include="static\js\editor2\skin\em\020.gif" />
-    <Content Include="static\js\editor2\skin\em\021.gif" />
-    <Content Include="static\js\editor2\skin\em\0211.gif" />
-    <Content Include="static\js\editor2\skin\em\022.gif" />
-    <Content Include="static\js\editor2\skin\em\023.gif" />
-    <Content Include="static\js\editor2\skin\em\024.gif" />
-    <Content Include="static\js\editor2\skin\em\025.gif" />
-    <Content Include="static\js\editor2\skin\em\026.gif" />
-    <Content Include="static\js\editor2\skin\em\027.gif" />
-    <Content Include="static\js\editor2\skin\em\028.gif" />
-    <Content Include="static\js\editor2\skin\em\029.gif" />
-    <Content Include="static\js\editor2\skin\em\030.gif" />
-    <Content Include="static\js\editor2\skin\em\031.gif" />
-    <Content Include="static\js\editor2\skin\em\032.gif" />
-    <Content Include="static\js\editor2\skin\em\033.gif" />
-    <Content Include="static\js\editor2\skin\em\034.gif" />
-    <Content Include="static\js\editor2\skin\em\035.gif" />
-    <Content Include="static\js\editor2\skin\em\036.gif" />
-    <Content Include="static\js\editor2\skin\em\037.gif" />
-    <Content Include="static\js\editor2\skin\em\038.gif" />
-    <Content Include="static\js\editor2\skin\em\039.gif" />
-    <Content Include="static\js\editor2\skin\em\040.gif" />
-    <Content Include="static\js\editor2\skin\em\041.gif" />
-    <Content Include="static\js\editor2\skin\em\042.gif" />
-    <Content Include="static\js\editor2\skin\em\043.gif" />
-    <Content Include="static\js\editor2\skin\em\044.gif" />
-    <Content Include="static\js\editor2\skin\em\045.gif" />
-    <Content Include="static\js\editor2\skin\em\046.gif" />
-    <Content Include="static\js\editor2\skin\em\047.gif" />
-    <Content Include="static\js\editor2\skin\em\048.gif" />
-    <Content Include="static\js\editor2\skin\em\049.gif" />
-    <Content Include="static\js\editor2\skin\em\050.gif" />
-    <Content Include="static\js\editor2\skin\em\051.gif" />
-    <Content Include="static\js\editor2\skin\em\052.gif" />
-    <Content Include="static\js\editor2\skin\em\053.gif" />
-    <Content Include="static\js\editor2\skin\em\054.gif" />
-    <Content Include="static\js\editor2\skin\em\055.gif" />
-    <Content Include="static\js\editor2\skin\em\056.gif" />
-    <Content Include="static\js\editor2\skin\em\057.gif" />
-    <Content Include="static\js\editor2\skin\em\058.gif" />
-    <Content Include="static\js\editor2\skin\em\059.gif" />
-    <Content Include="static\js\editor2\skin\em\060.gif" />
-    <Content Include="static\js\editor2\skin\em\061.gif" />
-    <Content Include="static\js\editor2\skin\em\062.gif" />
-    <Content Include="static\js\editor2\skin\em\063.gif" />
-    <Content Include="static\js\editor2\skin\em\064.gif" />
-    <Content Include="static\js\editor2\skin\em\065.gif" />
-    <Content Include="static\js\editor2\skin\em\066.gif" />
-    <Content Include="static\js\editor2\skin\em\067.gif" />
-    <Content Include="static\js\editor2\skin\em\068.gif" />
-    <Content Include="static\js\editor2\skin\em\069.gif" />
-    <Content Include="static\js\editor2\skin\em\1120.gif" />
-    <Content Include="static\js\editor2\skin\em\117.gif" />
-    <Content Include="static\js\editor2\skin\em\261.gif" />
-    <Content Include="static\js\editor2\skin\em\close.gif" />
-    <Content Include="static\js\editor2\skin\em\shocked.gif" />
-    <Content Include="static\js\editor2\skin\em\smile.gif" />
-    <Content Include="static\js\editor2\skin\em\tongue.gif" />
-    <Content Include="static\js\editor2\skin\em\z035.gif" />
-    <Content Include="static\js\editor2\skin\style.css" />
-    <Content Include="static\js\editor2\skin\toolbar\about.gif" />
-    <Content Include="static\js\editor2\skin\toolbar\align.gif" />
-    <Content Include="static\js\editor2\skin\toolbar\align1.gif" />
-    <Content Include="static\js\editor2\skin\toolbar\backcolor.gif" />
-    <Content Include="static\js\editor2\skin\toolbar\bg.gif" />
-    <Content Include="static\js\editor2\skin\toolbar\bold.gif" />
-    <Content Include="static\js\editor2\skin\toolbar\copy.gif" />
-    <Content Include="static\js\editor2\skin\toolbar\createlink.gif" />
-    <Content Include="static\js\editor2\skin\toolbar\cut.gif" />
-    <Content Include="static\js\editor2\skin\toolbar\date.gif" />
-    <Content Include="static\js\editor2\skin\toolbar\delete.gif" />
-    <Content Include="static\js\editor2\skin\toolbar\dent.gif" />
-    <Content Include="static\js\editor2\skin\toolbar\down.gif" />
-    <Content Include="static\js\editor2\skin\toolbar\em.gif" />
-    <Content Include="static\js\editor2\skin\toolbar\emotion.gif" />
-    <Content Include="static\js\editor2\skin\toolbar\flash.gif" />
-    <Content Include="static\js\editor2\skin\toolbar\fontFamily.gif" />
-    <Content Include="static\js\editor2\skin\toolbar\fontsize.gif" />
-    <Content Include="static\js\editor2\skin\toolbar\forecolor.gif" />
-    <Content Include="static\js\editor2\skin\toolbar\help.gif" />
-    <Content Include="static\js\editor2\skin\toolbar\hr.gif" />
-    <Content Include="static\js\editor2\skin\toolbar\indent.gif" />
-    <Content Include="static\js\editor2\skin\toolbar\inserthorizontalrule.gif" />
-    <Content Include="static\js\editor2\skin\toolbar\insertorderedlist.gif" />
-    <Content Include="static\js\editor2\skin\toolbar\insertunorderedlist.gif" />
-    <Content Include="static\js\editor2\skin\toolbar\italic.gif" />
-    <Content Include="static\js\editor2\skin\toolbar\justifycenter.gif" />
-    <Content Include="static\js\editor2\skin\toolbar\justifyfull.gif" />
-    <Content Include="static\js\editor2\skin\toolbar\justifyleft.gif" />
-    <Content Include="static\js\editor2\skin\toolbar\justifyright.gif" />
-    <Content Include="static\js\editor2\skin\toolbar\layer.gif" />
-    <Content Include="static\js\editor2\skin\toolbar\link.gif" />
-    <Content Include="static\js\editor2\skin\toolbar\list.gif" />
-    <Content Include="static\js\editor2\skin\toolbar\media.gif" />
-    <Content Include="static\js\editor2\skin\toolbar\numberedlist.gif" />
-    <Content Include="static\js\editor2\skin\toolbar\outdent.gif" />
-    <Content Include="static\js\editor2\skin\toolbar\paste.gif" />
-    <Content Include="static\js\editor2\skin\toolbar\pic.gif" />
-    <Content Include="static\js\editor2\skin\toolbar\preview.gif" />
-    <Content Include="static\js\editor2\skin\toolbar\print.gif" />
-    <Content Include="static\js\editor2\skin\toolbar\real.gif" />
-    <Content Include="static\js\editor2\skin\toolbar\redo.gif" />
-    <Content Include="static\js\editor2\skin\toolbar\removeformat.gif" />
-    <Content Include="static\js\editor2\skin\toolbar\replace.gif" />
-    <Content Include="static\js\editor2\skin\toolbar\right.gif" />
-    <Content Include="static\js\editor2\skin\toolbar\right2.gif" />
-    <Content Include="static\js\editor2\skin\toolbar\selectall.gif" />
-    <Content Include="static\js\editor2\skin\toolbar\separator.gif" />
-    <Content Include="static\js\editor2\skin\toolbar\source.gif" />
-    <Content Include="static\js\editor2\skin\toolbar\strikethrough.gif" />
-    <Content Include="static\js\editor2\skin\toolbar\subscript.gif" />
-    <Content Include="static\js\editor2\skin\toolbar\superscript.gif" />
-    <Content Include="static\js\editor2\skin\toolbar\symbol.gif" />
-    <Content Include="static\js\editor2\skin\toolbar\table.gif" />
-    <Content Include="static\js\editor2\skin\toolbar\time.gif" />
-    <Content Include="static\js\editor2\skin\toolbar\title.gif" />
-    <Content Include="static\js\editor2\skin\toolbar\toolbar.start.gif" />
-    <Content Include="static\js\editor2\skin\toolbar\underline.gif" />
-    <Content Include="static\js\editor2\skin\toolbar\undo.gif" />
-    <Content Include="static\js\editor2\skin\toolbar\unlink.gif" />
-    <Content Include="static\js\editor2\skin\toolbar\unorderedlist.gif" />
-    <Content Include="static\js\jquery.js" />
-    <Content Include="static\js\lang.zh-cn.js" />
+    <Content Include="static\css\wojilu._common.css" />
+    <Content Include="static\css\wojilu.core.group.css" />
+    <Content Include="static\css\wojilu.core.space.css" />
     <Content Include="static\js\wojilu.app.content.admin.js" />
-    <Content Include="static\js\wojilu.app.forum.js" />
-    <Content Include="static\js\wojilu.common.admin.js" />
-    <Content Include="static\js\wojilu.common.js" />
-    <Content Include="static\js\wojilu.frame.js" />
-    <Content Include="static\js\wojilu.group.js" />
-    <Content Include="static\js\wojilu.site.js" />
-    <Content Include="static\js\wojilu.space.js" />
-    <Content Include="static\js\wojilu.user.draft.js" />
+    <Content Include="static\js\wojilu.core.group.js" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="framework\views\Admin\Apps\Content\Layout\Layout.html" />
@@ -659,8 +661,6 @@
     <Content Include="framework\views\Admin\SiteSkin\script.html" />
     <Content Include="framework\views\Admin\SiteSkin\UploadForm.html" />
     <Content Include="framework\views\Admin\SiteSkin\CustomNav.html" />
-    <Content Include="framework\views\Admin\Sys\MenuSkin\AddMenu.html" />
-    <Content Include="framework\views\Admin\Sys\MenuSkin\List.html" />
     <Content Include="framework\views\Admin\Sys\Site\BeginRestart.html" />
     <Content Include="framework\views\Admin\Sys\SystemFile\Edit.html" />
     <Content Include="framework\views\Admin\Sys\SystemFile\Index.html" />
@@ -692,8 +692,6 @@
     <Content Include="framework\views\Content\Admin\TemplateCustom\EditBinder.html" />
     <Content Include="framework\views\Content\Admin\Template\List.html" />
     <Content Include="framework\views\Content\Admin\Template\Select.html" />
-    <Content Include="framework\views\Content\Admin\Uploader\SaveUpload.html" />
-    <Content Include="framework\views\Content\Admin\Uploader\UploadForm.html" />
     <Content Include="framework\views\Content\Binder\ListTime.html" />
     <Content Include="framework\views\Content\Binder\Rank.html" />
     <Content Include="framework\views\Content\Binder\MyFace.html" />
@@ -719,9 +717,7 @@
     <Content Include="framework\views\Forum\Admin\Setting\Index.html" />
     <Content Include="framework\views\Forum\Recent\ImgTopic.html" />
     <Content Include="framework\views\Forum\Search\Results.html" />
-    <Content Include="framework\views\Admin\Sys\MenuSkin\Index.html" />
-    <Content Include="framework\views\Forum\Top\List.html" />
-    <Content Include="framework\views\Forum\Top\SimpleList.html" />
+    <Content Include="framework\views\Forum\Forum\TopList.html" />
     <Content Include="framework\views\Forum\Users\Uploader\UploadForm.html" />
     <Content Include="framework\views\Groups\Admin\Skin\AddPicUrl.html" />
     <Content Include="framework\views\Groups\Admin\Skin\CustomBg.html" />
@@ -735,7 +731,6 @@
     <Content Include="framework\views\Groups\Admin\Skin\script.html" />
     <Content Include="framework\views\Groups\Admin\Skin\UploadForm.html" />
     <Content Include="framework\views\Invite\Info.html" />
-    <Content Include="framework\views\Layouts\TopNav\Header.html" />
     <Content Include="framework\views\Admin\Sys\ViewsFile\Search.html" />
     <Content Include="framework\views\Register\Invite.html" />
     <Content Include="framework\views\Register\RegisterFriend.html" />
@@ -774,7 +769,6 @@
     <Content Include="framework\views\Forum\Edits\Attachment\SetPermission.html" />
     <Content Include="framework\views\Forum\Edits\Attachment\Upload.html" />
     <Content Include="framework\views\Forum\Edits\Attachment\Add.html" />
-    <Content Include="framework\views\Forum\Moderators\Post\Buy.html" />
     <Content Include="framework\views\Forum\Recent\Layout.html" />
     <Content Include="framework\views\Forum\Users\Uploader\SaveUpload.html" />
     <Content Include="framework\views\Main\LoginScript.html" />
@@ -851,7 +845,6 @@
     <Content Include="framework\views\Common\Page\VersionShow.html" />
     <Content Include="framework\views\Common\Page\EditWarning.html" />
     <Content Include="framework\views\Content\Admin\Content\Index.html" />
-    <Content Include="framework\views\Content\Admin\Content\Menu.html" />
     <Content Include="framework\views\Content\Admin\Post\Add.html" />
     <Content Include="framework\views\Content\Admin\SectionSetting\Edit.html" />
     <Content Include="framework\views\Content\Binder\Focus.html" />
@@ -864,7 +857,6 @@
     <Content Include="framework\views\Forum\Moderators\Topic\GlobalSortSticky.html" />
     <Content Include="framework\views\Forum\Moderators\Topic\Highlight.html" />
     <Content Include="framework\views\Forum\Moderators\Topic\SortSticky.html" />
-    <Content Include="framework\views\Forum\Post\副本 Edit.html" />
     <Content Include="framework\views\Groups\Admin\Invite\Add.html" />
     <Content Include="framework\views\Groups\Admin\Invite\List.html" />
     <Content Include="framework\views\Groups\Admin\Invite\Layout.html" />
@@ -872,12 +864,10 @@
     <Content Include="framework\views\Groups\Join\Quit.html" />
     <Content Include="framework\views\Layouts\SpaceLayout\AdminSidebar.html" />
     <Content Include="framework\views\Layouts\SpaceLayout\Header.html" />
-    <Content Include="framework\views\Layouts\TopNav\Index.html" />
     <Content Include="framework\views\Demo\Box\NBox.html" />
     <Content Include="framework\views\Demo\Box\BoxA.html" />
     <Content Include="framework\views\Demo\Box\BoxB.html" />
     <Content Include="framework\views\Demo\Box\BoxC.html" />
-    <Content Include="framework\views\Main\tp.html" />
     <Content Include="framework\views\Main\PostArchive.html" />
     <Content Include="framework\views\Main\valid.html" />
     <Content Include="framework\views\Main\PostRecent.html" />
@@ -891,11 +881,8 @@
     <Content Include="framework\views\Microblogs\My\MbSave\SavePicIE.html" />
     <Content Include="framework\views\Microblogs\My\MicroblogComments\My.html" />
     <Content Include="framework\views\Microblogs\Main\List.html" />
-    <Content Include="framework\views\Microblogs\Main\副本 Index.html" />
     <Content Include="framework\views\Microblogs\My\Microblog\Publisher.html" />
     <Content Include="framework\views\Photo\Admin\My\Layout.html" />
-    <Content Include="framework\views\Photo\Admin\Post\副本 Add.html" />
-    <Content Include="framework\views\Photo\Admin\Post\副本 BatchAdd.html" />
     <Content Include="framework\views\Microblogs\My\Microblog\Atme.html" />
     <Content Include="framework\views\Microblogs\My\Microblog\Home.html" />
     <Content Include="framework\views\Microblogs\My\Microblog\Layout.html" />
@@ -951,7 +938,6 @@
     <Content Include="framework\views\Admin\SiteConfig\EditComponent.html" />
     <Content Include="framework\views\Content\Admin\Row\DeleteRow.html" />
     <Content Include="framework\views\Content\Admin\Post\Edit.html" />
-    <Content Include="framework\views\Content\Admin\Section\List\副本 EditImg.html" />
     <Content Include="framework\views\Content\Section\Poll\SectionShow.html" />
     <Content Include="framework\views\Demo\Box\BoxD.html" />
     <Content Include="framework\views\Demo\FrmLink\Base.html" />
@@ -1005,13 +991,14 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="framework\views\Admin\Members\EmailConfirm\" />
-    <Folder Include="framework\views\Forum\PostAdmin\" />
     <Folder Include="framework\views\Microblogs\My\Layout\" />
     <Folder Include="framework\views\Poll\Admin\Layout\" />
     <Folder Include="framework\views\Users\Admin\Microblogs\" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="framework\config\log.config" />
+    <Content Include="framework\config\log.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="framework\config\mvc.config" />
     <Content Include="framework\config\orm.config" />
     <Content Include="framework\config\route.config">
@@ -1061,11 +1048,12 @@
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>5111</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://zhangsan.mytest.com</IISUrl>
+          <IISUrl>http://localhost:5111/</IISUrl>
+          <OverrideIISAppRootUrl>True</OverrideIISAppRootUrl>
+          <IISAppRootUrl>http://localhost:5111/</IISAppRootUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
-          <CustomServerUrl>
-          </CustomServerUrl>
+          <CustomServerUrl>http://localhost:5111/</CustomServerUrl>
           <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
         </WebProjectProperties>
       </FlavorProperties>

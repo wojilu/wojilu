@@ -18,6 +18,8 @@ namespace wojilu.Web.Controller.Admin.Members {
             set( "userListLink", to( new UserController().Index ) );
             set( "siteMsgLink", to( new SiteMsgController().Index ) );
 
+            set( "importLink", to( new ImportController().Index ) );
+
         }
     }
 

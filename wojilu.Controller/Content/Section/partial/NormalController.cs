@@ -19,7 +19,7 @@ namespace wojilu.Web.Controller.Content.Section {
             IBlock block = getBlock( "list" );
             foreach (ContentPost post in posts) {
 
-                BinderUtils.bindPostSingle( block, post );
+                BinderUtils.bindPostSingle( block, post, ctx );
 
                 block.Next();
             }
@@ -48,7 +48,7 @@ namespace wojilu.Web.Controller.Content.Section {
                 imgBlock.Set( "ipost.Width", width );
                 imgBlock.Set( "ipost.Height", height );
 
-                imgBlock.Set( "ipost.Url", alink.ToAppData( img ) );
+                imgBlock.Set( "ipost.Url", alink.ToAppData( img, ctx ) );
 
                 imgBlock.Bind( "ipost", img );
 

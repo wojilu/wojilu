@@ -70,7 +70,7 @@ namespace wojilu.Web.Controller.Microblogs.My {
 
             User user = (User)ctx.owner.obj;
 
-            set( "user.Link", Link.ToMember( user ) );
+            set( "user.Link", toUser( user ) );
             set( "user.Face", user.PicSmall );
             set( "user.Name", user.Name );
 

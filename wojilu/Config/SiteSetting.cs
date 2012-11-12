@@ -340,6 +340,21 @@ namespace wojilu.Config {
             return logo;
         }
 
+        /// <summary>
+        /// 获取邮件发送服务器的域名，比如根据 abc@gmail.com，得到 gmail.com
+        /// </summary>
+        /// <returns></returns>
+        public String GetSmtpUserDomain() {
+            return GetSmtpUserDomain( this.SmtpUser );
+        }
+
+        public String GetSmtpUserDomain( string smtpUser ) {
+            if (strUtil.IsNullOrEmpty( smtpUser )) return string.Concat( 'w', 'o', 'j', 'i', 'l', 'u', '.', 'c', 'o', 'm' );
+            if (smtpUser.IndexOf( '@' ) <= 0) return string.Concat( 'w', 'o', 'j', 'i', 'l', 'u', '.', 'c', 'o', 'm' );
+            String[] arr = smtpUser.Split( '@' );
+            return arr[1].Trim();
+        }
+
         //----------------------------- user -----------------------------------
 
         public Boolean ShowSexyInfoInProfile { get; set; }

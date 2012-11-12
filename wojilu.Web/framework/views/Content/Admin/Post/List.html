@@ -1,6 +1,4 @@
-﻿<script src="~js/jquery-ui.custom.js?v=#{jsVersion}" type="text/javascript"></script>
-
-<div style="border:0px blue solid;">
+﻿<div>
 
 <table cellspacing="0" cellpadding="4" border="0" style="width:95%;margin:10px auto;" id="dataAdminList" data-action="#{OperationUrl}">
 
@@ -85,9 +83,8 @@
 
 <script>
 
-$(document).ready( function() {
+_run( function() {
 
-    $("#tagBox").draggable();
     $('.cmdTag').click( function() {
 	    var ps = $(this).position(); // 获取当前被点击的元素的位置
 	    $('#tagBox').css( 'top', ps.top+20 ).css( 'left', ps.left ).toggle('fast'); // 通过绝对定位来显示图层

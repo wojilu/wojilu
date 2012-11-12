@@ -1,4 +1,4 @@
-/*
+﻿/*
  * Copyright (c) 2010, www.wojilu.com. All rights reserved.
  */
 
@@ -9,6 +9,8 @@ using wojilu.ORM;
 using wojilu.Members.Users.Domain;
 using wojilu.Common.Tags;
 using wojilu.Common.AppBase.Interface;
+using System.Collections.Generic;
+using wojilu.Common.Polls.Service;
 
 namespace wojilu.Common.Polls.Domain {
 
@@ -24,6 +26,7 @@ namespace wojilu.Common.Polls.Domain {
         public User Creator { get; set; }
         public String CreatorUrl { get; set; }
 
+        // radio/checkbox
         public int Type { get; set; }
 
         [NotNull( Lang = "exTitle" )]
@@ -36,8 +39,8 @@ namespace wojilu.Common.Polls.Domain {
         public String Answer { get; set; }
 
         public int VoterRank { get; set; }
-        public int IsOpenVoter { get; set; }
-        public int IsVisible { get; set; }
+        public int IsOpenVoter { get; set; } // 1=投票人不公开，0=投票公开
+        public int IsVisible { get; set; } // 1=投票之后才能查看结果，0=不投票就可以查看
         public DateTime ExpiryDate { get; set; }
 
         public String AnonymousResult { get; set; }
@@ -52,7 +55,6 @@ namespace wojilu.Common.Polls.Domain {
 
         public DateTime Created { get; set; }
 
-
         [NotSave]
         public string[] OptionList {
             get {
@@ -64,32 +66,33 @@ namespace wojilu.Common.Polls.Domain {
         }
 
         [NotSave]
-        public int TotalVotes {
+        public Boolean IsOptionRepeat {
             get {
-                return (AnonymousVotes + MemberVotes);
+
+                if (this.OptionList == null || this.OptionList.Length <= 1) return false;
+
+                List<String> list = new List<string>();
+                for (int i = 0; i < this.OptionList.Length; i++) {
+                    if (list.Contains( this.OptionList[i] )) return true;
+                    list.Add( this.OptionList[i] );
+                }
+
+                return false;
             }
         }
 
-        private int _memberCount = -1;
-        [NotSave]
-        public int MemberVotes {
-            get {
-                if (_memberCount == -1) {
-                    _memberCount = getVoteCount( MemberResult );
-                }
-                return _memberCount;
-            }
+        //----------------------------------------------------------
+
+        public int GetTotalVotes() {
+            return (GetAnonymousVotes() + GetMemberVotes());
         }
 
-        private int _anonymousCount = -1;
-        [NotSave]
-        public int AnonymousVotes {
-            get {
-                if (_anonymousCount == -1) {
-                    _anonymousCount = getVoteCount( AnonymousResult );
-                }
-                return _anonymousCount;
-            }
+        public int GetMemberVotes() {
+            return getVoteCount( MemberResult );
+        }
+
+        public int GetAnonymousVotes() {
+            return getVoteCount( AnonymousResult );
         }
 
         private int getVoteCount( String target ) {
@@ -103,6 +106,15 @@ namespace wojilu.Common.Polls.Domain {
             }
             return num;
         }
+
+        public Boolean IsClosed() {
+            return PollHelper.IsClosed( this );
+        }
+
+        public String GetRealExpiryDate() {
+            return PollHelper.GetRealExpiryDate( this );
+        }
+
 
         public Boolean CheckHasVote( int userId ) {
 

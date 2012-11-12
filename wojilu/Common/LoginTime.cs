@@ -1,4 +1,4 @@
-/*
+ï»¿/*
  * Copyright 2010 www.wojilu.com
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -19,7 +19,7 @@ using System;
 namespace wojilu.Common {
 
     /// <summary>
-    /// ÓÃ»§µÇÂ¼×´Ì¬±£³ÖÊ±¼ä
+    /// ç”¨æˆ·ç™»å½•çŠ¶æ€ä¿æŒæ—¶é—´
     /// </summary>
     public enum LoginTime {
         Forever,

@@ -6,6 +6,9 @@ using wojilu.Web.Mvc.Attr;
 using wojilu.Serialization;
 using wojilu.Apps.Content.Domain;
 using wojilu.DI;
+using wojilu.Members.Sites.Domain;
+using wojilu.Web.Context;
+using wojilu.Web.Controller.Content.Caching;
 
 namespace wojilu.Web.Controller.Content.Admin {
 
@@ -34,12 +37,18 @@ namespace wojilu.Web.Controller.Content.Admin {
             s.AllowAnonymousComment = ctx.PostIsCheck( "contentSetting.AllowAnonymousComment" );
             s.EnableSubmit = ctx.PostIsCheck( "contentSetting.EnableSubmit" );
 
+            if (HtmlHelper.IsHtmlDirError( s.StaticDir, ctx.errors )) {
+                echoError();
+                return;
+            }
+
             ContentApp app = ctx.app.obj as ContentApp;
             app.Settings = JsonString.ConvertObject( s );
             app.update();
 
             echoRedirect( lang( "opok" ) );
         }
+
 
         public void bindSettings( ContentSetting s ) {
 
@@ -65,6 +74,8 @@ namespace wojilu.Web.Controller.Content.Admin {
             dic.Add( "摘要列表", ArticleListMode.Summary.ToString() );
 
             dropList( "contentSetting.ArticleListMode", dic, s.ArticleListMode.ToString() );
+
+            set( "s.StaticDir", s.StaticDir );
 
         }
 

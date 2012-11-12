@@ -17,7 +17,7 @@ namespace wojilu.Web.Controller.Groups.Caching {
 
         public override void UpdateCache( wojilu.Web.Context.MvcContext ctx ) {
 
-            String url = new Link( ctx ).T2( Site.Instance, new Groups.MainController().Index );
+            String url = Link.To( Site.Instance, new Groups.MainController().Index );
             base.updateAllUrl( url, ctx, Site.Instance );
         }
 

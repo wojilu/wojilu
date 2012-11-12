@@ -308,8 +308,33 @@ namespace wojilu.Web.Context {
         /// </summary>
         /// <param name="msg"></param>
         public void endMsgByView( String msg ) {
+            endMsgByView( msg, MvcConfig.Instance.GetMsgTemplatePath() );
+        }
 
-            ITemplate msgView = getMsgTemplate( msg, MvcConfig.Instance.GetMsgTemplatePath() );
+        /// <summary>
+        /// 使用 box 模板显示信息，然后结束下面的流程
+        /// </summary>
+        /// <param name="msg"></param>
+        public void endMsgBox( String msg ) {
+            endMsgByView( msg, MvcConfig.Instance.GetMsgBoxTemplatePath() );
+        }
+
+        /// <summary>
+        /// 使用 forward 模板显示信息，然后结束下面的流程
+        /// </summary>
+        /// <param name="msg"></param>
+        public void endMsgForward( String msg ) {
+            endMsgByView( msg, MvcConfig.Instance.GetForwardTemplatePath() );
+        }
+
+        /// <summary>
+        /// 根据指定模板显示信息，然后结束下面的流程
+        /// </summary>
+        /// <param name="msg"></param>
+        /// <param name="templatePath">模板路径</param>
+        public void endMsgByView( String msg, String templatePath ) {
+
+            ITemplate msgView = getMsgTemplate( msg, templatePath );
             this.setCurrentOutputString( msgView.ToString() );
             this.end();
         }

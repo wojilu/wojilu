@@ -52,7 +52,7 @@ namespace wojilu.Web.Controller.Users.Admin {
             set( "viewer.InterestUrl", to( Interest ) );
             set( "viewer.ContactLink", to( Contact ) );
             set( "viewer.TagUrl", to( Tag ) );
-                
+
 
             set( "viewer.FaceUrl", to( Face ) );
             set( "viewer.PwdUrl", to( Pwd ) );
@@ -82,18 +82,24 @@ namespace wojilu.Web.Controller.Users.Admin {
 
             User user = ctx.owner.obj as User;
 
-            Result result = AvatarUploader.Save( ctx.GetFileSingle(), user.Url );
-            if (result.IsValid) {
-                userService.UpdateAvatar( user, result.Info.ToString() );
-
-                if (ctx.utils.isFrame())
-                    echoToParent( lang( "uploadThanks" ) );
-                else
-                    echoRedirectPart( lang( "uploadThanks" ), to( Face ), 0 );
-            }
-            else {
+            Result result = AvatarUploader.Save( ctx.GetFileSingle(), user.Id );
+            if (result.HasErrors) {
                 errors.Join( result );
                 run( Face );
+                return;
+            }
+
+            if (user.Pic != UserFactory.Guest.Pic) {
+                AvatarUploader.Delete( user.Pic );
+            }
+
+            userService.UpdateAvatar( user, result.Info.ToString() );
+
+            if (ctx.utils.isFrame()) {
+                echoToParent( lang( "uploadThanks" ) );
+            }
+            else {
+                echoRedirectPart( lang( "uploadThanks" ), to( Face ), 0 );
             }
         }
 

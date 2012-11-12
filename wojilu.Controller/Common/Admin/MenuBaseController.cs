@@ -77,12 +77,12 @@ namespace wojilu.Web.Controller.Common.Admin {
             if (cmd == "up") {
 
                 new SortUtil<IMenu>( menu, list ).MoveUp();
-                echoRedirect( "ok" );
+                echoJsonOk();
             }
             else if (cmd == "down") {
 
                 new SortUtil<IMenu>( menu, list ).MoveDown();
-                echoRedirect( "ok" );
+                echoJsonOk();
             }
             else {
                 echoError( lang( "exUnknowCmd" ) );
@@ -221,6 +221,7 @@ namespace wojilu.Web.Controller.Common.Admin {
 
             log( SiteLogString.UpdateMenu(), menu );
 
+            ctx.SetItem( "currentMenu", menu );
 
             echoToParentPart( lang( "opok" ) );
         }

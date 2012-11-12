@@ -1,25 +1,17 @@
-﻿<div style="padding:10px;">
+﻿<h3 style="margin-bottom:10px; padding-left:5px;"><img src="~img/search2.gif" /> _{searchResult}:</h3>
 
-
-<div class="sectionPanel">
-	<div class="sectionTitle">_{searchResult}:</div>
-
-	<table style="width: 100%">
-		<tr>
-			<td>
-				<!-- BEGIN list -->
-    			<div style="float:left;margin:5px 5px 15px 5px;text-align:center; width:90px;height:100px; line-height:130%; background:#; padding-top:3px">
-    			<a href="#{g.Link}" ><img src="#{g.Logo}" style="width:60px" /></a><br/>
-    			<span><a href="#{g.Link}" class="font12">#{g.Name}</a><span class="note">(#{g.MemberCount})</span></span><br/>
-    			<span class="note" style="font-size:11px">#{g.Created}</span>
-    			</div>
-				<!-- END list -->
-			</td>
-		</tr>
-	</table>
-	
-	<div>#{page}</div>
-
+<div class="thumbnails">
+	<!-- BEGIN list -->
+	<li class="span2">
+        <div class="thumbnail">
+	        <a href="#{g.Link}" ><img src="#{g.Logo}" /></a>
+            <div class="caption">
+	    	    <h5><a href="#{g.Link}">#{g.Name}</a><span class="note">(#{g.MemberCount})</span></h5>
+	    	    <div class="note">#{g.Created}</div>
+            </div>
+        </div>
+	</li>
+	<!-- END list -->
 </div>
 
-</div>
+<div>#{page}</div>

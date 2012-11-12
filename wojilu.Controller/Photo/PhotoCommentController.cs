@@ -18,9 +18,9 @@ namespace wojilu.Web.Controller.Photo {
 
             String link;
             if (ctx.viewer.IsLogin && (ctx.viewer.Id == ctx.owner.Id))
-                link = ctx.GetLink().To( new PhotoCommentController().AdminList );
+                link = ctx.link.To( new PhotoCommentController().AdminList );
             else
-                link = ctx.GetLink().To( new PhotoCommentController().List );
+                link = ctx.link.To( new PhotoCommentController().List );
 
             return string.Format( "<a href='{0}'>" + wojilu.lang.get( "more" ) + "…</a>", link );
 

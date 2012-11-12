@@ -7,31 +7,37 @@ using System.Collections.Generic;
 
 using wojilu.Web;
 using wojilu.Web.Mvc;
+using wojilu.Serialization;
 
-using wojilu.Apps.Blog.Domain;
-using wojilu.Apps.Blog.Interface;
-using wojilu.Members.Users.Service;
-
+using wojilu.Common;
 using wojilu.Common.AppBase;
 using wojilu.Common.Feeds.Domain;
 using wojilu.Common.Feeds.Service;
 using wojilu.Common.Jobs;
-using wojilu.Members.Users.Interface;
-using wojilu.Members.Users.Domain;
 using wojilu.Common.MemberApp.Interface;
-using wojilu.Common;
-using wojilu.Serialization;
 using wojilu.Common.Tags;
 
-namespace wojilu.Apps.Blog.Service {
+using wojilu.Members.Users.Interface;
+using wojilu.Members.Users.Domain;
+using wojilu.Members.Users.Service;
 
+using wojilu.Common.Money.Domain;
+using wojilu.Common.Money.Service;
+using wojilu.Common.Money.Interface;
+
+using wojilu.Apps.Blog.Domain;
+using wojilu.Apps.Blog.Interface;
+
+namespace wojilu.Apps.Blog.Service {
 
     public class BlogPostService : IBlogPostService {
 
         public virtual IFriendService friendService { get; set; }
+        public virtual IUserIncomeService incomeService { get; set; }
 
         public BlogPostService() {
             friendService = new FriendService();
+            incomeService = new UserIncomeService();
         }
 
         public virtual void AddHits( BlogPost post ) {
@@ -189,10 +195,11 @@ namespace wojilu.Apps.Blog.Service {
 
             Result result = db.insert( post );
             if (result.IsValid) {
+                String msg = string.Format( "发布博客 <a href=\"{0}\">{1}</a>，得到奖励", alink.ToAppData( post ), post.Title );
+                incomeService.AddIncome( post.Creator, UserAction.Blog_CreatePost.Id, msg );
                 updateAppCount( post );
                 TagService.SaveDataTag( post, post.Tags );
                 addFeedInfo( post );
-
             }
 
             return result;

@@ -213,9 +213,9 @@ namespace wojilu.Web.Controller.Users.Admin.Friends {
             foreach (User user in friends) {
                 block.Set( "user.Name", user.Name );
                 block.Set( "user.Face", user.PicSmall );
-                block.Set( "user.Link", Link.ToMember( user ) );
-                block.Set( "user.AddLink", Link.T2( user, new Users.FriendController().AddFriend, user.Id ) );
-                block.Set( "user.FollowLink", Link.T2( user, new Users.FriendController().AddFollow, user.Id ) );
+                block.Set( "user.Link", toUser( user ) );
+                block.Set( "user.AddLink", Link.To( user, new Users.FriendController().AddFriend, user.Id ) );
+                block.Set( "user.FollowLink", Link.To( user, new Users.FriendController().AddFollow, user.Id ) );
                 block.Next();
             }
         }
@@ -262,7 +262,7 @@ namespace wojilu.Web.Controller.Users.Admin.Friends {
             foreach (User user in friends) {
                 block.Set( "m.Name", user.Name );
                 block.Set( "m.FaceFull", user.PicMedium );
-                block.Set( "m.UrlFull", Link.ToMember( user ) );
+                block.Set( "m.UrlFull", toUser( user ) );
                 block.Set( "m.DeleteUrl", to( Delete, user.RealId ) );
                 block.Set( "m.DeleteFollowingLink", to( DeleteFollowing, user.RealId ) );
 
@@ -308,7 +308,7 @@ namespace wojilu.Web.Controller.Users.Admin.Friends {
                 block.Set( "m.Name", friend.Name );
 
                 block.Set( "m.FaceFull", friend.PicMedium );
-                block.Set( "m.UrlFull", Link.ToMember( friend ) );
+                block.Set( "m.UrlFull", toUser( friend ) );
                 block.Set( "m.DeleteUrl", to( Delete, friend.RealId ) );
                 block.Set( "m.DeleteFollowingLink", to( DeleteFollowing, friend.RealId ) );
 

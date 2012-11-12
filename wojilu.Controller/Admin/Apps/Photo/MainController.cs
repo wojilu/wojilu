@@ -45,8 +45,6 @@ namespace wojilu.Web.Controller.Admin.Apps.Photo {
             bindList( "list", "photo", list.Results, bindLink );
             set( "page", list.PageBar );
 
-            //base.AdminSectionShow();
-
             setCategoryDropList();
 
             target( Admin );

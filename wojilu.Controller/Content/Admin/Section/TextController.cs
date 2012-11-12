@@ -14,6 +14,7 @@ using wojilu.Apps.Content.Service;
 using wojilu.Apps.Content.Enum;
 using wojilu.Common.AppBase.Interface;
 using wojilu.Common.AppBase;
+using wojilu.Web.Controller.Content.Caching;
 
 namespace wojilu.Web.Controller.Content.Admin.Section {
 
@@ -70,7 +71,14 @@ namespace wojilu.Web.Controller.Content.Admin.Section {
 
         [HttpPost, DbTransaction]
         public void Create( int sectionId ) {
-            ContentPost post = ContentValidator.Validate( sectionService.GetById( sectionId, ctx.app.Id ), ctx );
+
+            ContentSection section = sectionService.GetById( sectionId, ctx.app.Id );
+
+            ContentPost post = ContentValidator.SetValueBySection( sectionService.GetById( sectionId, ctx.app.Id ), ctx );
+            if (strUtil.IsNullOrEmpty( post.Title )) {
+                post.Title = section.Title + " " + DateTime.Now.ToShortDateString();
+            }
+
             if (strUtil.IsNullOrEmpty( post.Content )) {
                 errors.Add( lang( "exContent" ) );
                 run( Add, sectionId );
@@ -81,6 +89,7 @@ namespace wojilu.Web.Controller.Content.Admin.Section {
                 postService.Insert( post, null );
                
                 echoToParentPart( lang( "opok" ) );
+                HtmlHelper.SetCurrentPost( ctx, post );
             }
         }
 
@@ -93,8 +102,8 @@ namespace wojilu.Web.Controller.Content.Admin.Section {
             }
 
             postService.Delete( post );
-
             echoRedirect( lang( "opok" ) );
+            HtmlHelper.SetCurrentPost( ctx, post );
         }
 
         public void Edit( int postId ) {
@@ -117,7 +126,7 @@ namespace wojilu.Web.Controller.Content.Admin.Section {
                 return;
             }
 
-            ContentValidator.ValidateEdit( post, ctx );
+            ContentValidator.SetPostValue( post, ctx );
             if (strUtil.IsNullOrEmpty( post.Content )) {
                 errors.Add( lang( "exContent" ) );
                 run( Edit, postId );
@@ -126,6 +135,7 @@ namespace wojilu.Web.Controller.Content.Admin.Section {
                 postService.Update( post, null );
 
                 echoToParentPart( lang( "opok" ) );
+                HtmlHelper.SetCurrentPost( ctx, post );
             }
         }
 

@@ -62,7 +62,7 @@ namespace wojilu.Web.Controller.Content {
             }
             set( "page", posts.PageBar );
         }
-        
+
 
         public void Show( int id ) {
 
@@ -89,16 +89,28 @@ namespace wojilu.Web.Controller.Content {
             bindMetaInfo( post );
 
             // 1) location
-            String location = string.Format( "<a href='{0}'>{1}</a>", Link.To( new ContentController().Index ),
-    ((AppContext)ctx.app).Menu.Name );
-            location = location + string.Format( " &gt; <a href='{0}'>{1}</a> &gt; {2}", to( new SectionController().Show, post.PageSection.Id ), post.PageSection.Title, alang( "postDetail" ) );
+            String location = string.Format( "<a href='{0}'>{1}</a>", to( new ContentController().Index ),
+    ctx.app.Name );
+            location = location + string.Format( " &gt; <a href='{0}'>{1}</a> &gt; {2}", clink.toSection( post.PageSection.Id, ctx ), post.PageSection.Title, alang( "postDetail" ) );
             set( "location", location );
 
             // 2) detail
             set( "detailContent", loadHtml( post.PageSection.SectionType, "Show", post.Id ) );
 
             // 3) comment
-            loadComment( post );
+            //loadComment( post );
+            if (post.CommentCondition == wojilu.Common.AppBase.CommentCondition.Close) {
+                set( "thisUrl", "#" );
+            }
+            else {
+                String commentUrl = t2( new wojilu.Web.Controller.Open.CommentController().List )
+                    + "?url=" + clink.toPost( post, ctx )
+                    + "&dataType=" + typeof( ContentPost ).FullName
+                    + "&dataTitle=" + post.Title
+                    + "&dataUserId=" + post.Creator.Id
+                    + "&dataId=" + post.Id;
+                set( "thisUrl", commentUrl );
+            }
 
             // 4) related posts
             loadRelatedPosts( post );
@@ -115,11 +127,15 @@ namespace wojilu.Web.Controller.Content {
             set( "lnkDiggDown", to( DiggDown, post.Id ) );
 
             // 8) link
-            String postUrl = getFullUrl( alink.ToAppData( post ) );
+            String postUrl = getFullUrl( alink.ToAppData( post, ctx ) );
             set( "post.Url", postUrl );
             bind( "post", post );
 
         }
+
+        //private String getCommentTarget( ContentPost post ) {
+        //    return typeof( ContentPost ).FullName + "_" + post.Id;
+        //}
 
         private String getFullUrl( String url ) {
             if (url == null) return "";
@@ -218,8 +234,8 @@ namespace wojilu.Web.Controller.Content {
             ContentPost prev = postService.GetPrevPost( post );
             ContentPost next = postService.GetNextPost( post );
 
-            String lnkPrev = prev == null ? "(没了)" : string.Format( "<a href=\"{0}\">{1}</a>", alink.ToAppData( prev ), prev.Title );
-            String lnkNext = next == null ? "(没了)" : string.Format( "<a href=\"{0}\">{1}</a>", alink.ToAppData( next ), next.Title );
+            String lnkPrev = prev == null ? "(没了)" : string.Format( "<a href=\"{0}\">{1}</a>", alink.ToAppData( prev, ctx ), prev.Title );
+            String lnkNext = next == null ? "(没了)" : string.Format( "<a href=\"{0}\">{1}</a>", alink.ToAppData( next, ctx ), next.Title );
 
             set( "prevPost", lnkPrev );
             set( "nextPost", lnkNext );
@@ -239,7 +255,7 @@ namespace wojilu.Web.Controller.Content {
                 if (obj == null) continue;
 
                 block.Set( "p.Title", obj.Title );
-                block.Set( "p.Link", alink.ToAppData( obj ) );
+                block.Set( "p.Link", alink.ToAppData( obj, ctx ) );
                 block.Set( "p.Created", obj.Created );
 
                 block.Next();

@@ -1,8 +1,6 @@
 ﻿
 #{location}
 
-<script src="~js/wojilu.common.admin.js?v=#{jsVersion}" type="text/javascript"></script>
-
 <div style="padding:20px;">
 
 <style>
@@ -39,5 +37,11 @@
 
 
 </table>
+
+<script>
+    _run(function () {
+        require(['wojilu._admin']);
+    });
+</script>
 
 </div>

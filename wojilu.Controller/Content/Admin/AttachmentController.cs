@@ -138,12 +138,12 @@ namespace wojilu.Web.Controller.Content.Admin {
             if (cmd == "up") {
 
                 new SortUtil<ContentAttachment>( data, list ).MoveUp();
-                echoRedirect( "ok" );
+                echoJsonOk();
             }
             else if (cmd == "down") {
 
                 new SortUtil<ContentAttachment>( data, list ).MoveDown();
-                echoRedirect( "ok" );
+                echoJsonOk();
             }
             else {
                 echoError( lang( "exUnknowCmd" ) );

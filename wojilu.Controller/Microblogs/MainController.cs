@@ -70,8 +70,6 @@ namespace wojilu.Web.Controller.Microblogs {
 
         public void Index() {
 
-            load( "topNav", new wojilu.Web.Controller.Layouts.TopNavController().Index );
-
             List<Microblog> list = Microblog.find( "order by Id desc" ).list( 20 );
             ctx.SetItem( "_microblogList", list );
             load( "recentList", List );

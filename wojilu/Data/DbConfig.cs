@@ -48,6 +48,7 @@ namespace wojilu.Data {
             this.ConnectionStringTable = new Dictionary<String, object>();
             this.AssemblyList = new List<object>();
             this.DbType = new Dictionary<String, object>();
+            this.IdType = wojilu.Data.IdType.Auto;
             this.Interceptor = new List<object>();
             this.IsCheckDatabase = true;
             this.ContextCache = true;
@@ -87,6 +88,20 @@ namespace wojilu.Data {
         /// 直接解析json的结果：数据库类型
         /// </summary>
         public Dictionary<String, object> DbType { get; set; }
+
+        /// <summary>
+        /// 实体键值类型
+        /// </summary>
+        public String IdType { get; set; }
+
+        /// <summary>
+        /// 自动键值
+        /// </summary>
+        [NotSerialize]
+        public bool IsAutoId
+        {
+            get { return IdType.Equals(wojilu.Data.IdType.Auto, StringComparison.OrdinalIgnoreCase); }
+        }
 
         /// <summary>
         /// 直接解析json的结果：程序集列表

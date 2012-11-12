@@ -87,7 +87,7 @@ namespace wojilu.Web.Controller.Users.Admin {
             block.Set( "share.Id", share.Id );
             block.Set( "share.DataType", share.DataType );
             block.Set( "share.UserFace", share.Creator.PicSmall );
-            block.Set( "share.UserLink", Link.ToMember( share.Creator ) );
+            block.Set( "share.UserLink", toUser( share.Creator ) );
 
             String creatorInfo = getCreatorInfos( share.Creator );
             String feedTitle = feedService.GetHtmlValue( share.TitleTemplate, share.TitleData, creatorInfo );
@@ -110,7 +110,7 @@ namespace wojilu.Web.Controller.Users.Admin {
         }
 
         private String getCreatorInfos( User user ) {
-            return string.Format( "<a href='{0}'>{1}</a>", Link.ToMember( user ), user.Name );
+            return string.Format( "<a href='{0}'>{1}</a>", toUser( user ), user.Name );
         }
 
         // -----------------------------------------------------------------------------------------

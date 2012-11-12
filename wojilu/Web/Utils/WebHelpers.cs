@@ -18,10 +18,7 @@ namespace wojilu.Web.Utils {
         /// <returns>返回嵌入 flash 的 html 代码</returns>
         public static String GetFlash( String srcUrl, Object width, Object height ) {
 
-            // 简单形式
-            //return "<object data=\"" + srcUrl + "\" type=\"application/x-shockwave-flash\" width=\"" + width + "\" height=\"" + height + "\"><param name=\"movie\" value =\"" + srcUrl + "\" /></object>";
-
-            return string.Format( "<object classid=\"clsid:D27CDB6E-AE6D-11cf-96B8-444553540000\" codebase=\"http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=9,0,28,0\" width=\"{1}\" height=\"{2}\"><param name=\"wmode\" value=\"opaque\"/><param name=\"movie\" value=\"{0}\" /><param name=\"quality\" value=\"high\" /><embed src=\"{0}\" quality=\"high\" pluginspage=\"http://www.adobe.com/shockwave/download/download.cgi?P1_Prod_Version=ShockwaveFlash\" type=\"application/x-shockwave-flash\" width=\"{1}\" height=\"{2}\"></embed></object>", srcUrl, width, height );
+            return string.Format( "<embed src=\"{0}\" allowFullScreen=\"true\" quality=\"high\" width=\"{1}\" height=\"{2}\" align=\"middle\" allowScriptAccess=\"always\" type=\"application/x-shockwave-flash\"></embed>", srcUrl, width, height );
 
         }
 

@@ -1,7 +1,4 @@
-﻿<script src="~js/wojilu.common.admin.js?v=#{jsVersion}" type="text/javascript"></script>
-
-
-<style>
+﻿<style>
 table.tabHeader {margin-top:10px; margin-left:10px; }
 table.tabHeader td{padding:4px 10px; text-align:center; }
 	td.currentTab {background:#fff;border-left:1px #6699cc solid;border-top:1px #6699cc solid;border-right:1px #6699cc solid;border-bottom:0px; font-weight:bold;}
@@ -16,10 +13,10 @@ div.tabMain {background:#fff; border:1px #6699cc solid; border-top:0px;margin-le
 .submitSiderbar li:hover {background:#fefefe;}
 </style>
 
-<table style="width:100%; margin:0px auto; " border="0">
+<table style="width:98%; margin:0px auto; margin-left:10px; " border="0">
     <tr>
         <td style="width:150px; background:#eee; vertical-align:top;" class="submitSiderbar">
-        <ul>
+        <ul class="unstyled">
             <li><a href="#{submitLink}"><img src="~img/s/upload.png" /> <strong>我要投递</strong></a></li>
 
             <li><a href="#{mySubmitLink}"><img src="~img/list.gif" /> 我的投递<span class="note">(#{submitCount}/#{approvedCount})</span></a></li>
@@ -40,3 +37,8 @@ div.tabMain {background:#fff; border:1px #6699cc solid; border-top:0px;margin-le
 
 </table>
 
+<script>
+    _run(function () {
+        require(['wojilu._admin']);
+    });
+</script>

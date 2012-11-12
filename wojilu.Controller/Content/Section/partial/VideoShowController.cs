@@ -40,7 +40,7 @@ namespace wojilu.Web.Controller.Content.Section {
                 else
                     set( "video.Title", video.Title );
 
-                set( "video.Url", alink.ToAppData( video ) );
+                set( "video.Url", alink.ToAppData( video, ctx ) );
             }
         }
 
@@ -51,7 +51,7 @@ namespace wojilu.Web.Controller.Content.Section {
             foreach (ContentPost post in posts.Results) {
 
                 //block.Set( "img.Url", to( Show, post.Id ) );
-                block.Set( "img.Url", alink.ToAppData( post ) );
+                block.Set( "img.Url", alink.ToAppData( post, ctx ) );
 
                 block.Set( "img.Thumb", post.ImgLink );
                 block.Set( "img.Title", strUtil.CutString( post.Title, 8 ) );

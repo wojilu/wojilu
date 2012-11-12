@@ -34,10 +34,10 @@ namespace wojilu.Web.Controller.Content.Binder {
             foreach (Feed feed in serviceData) {
 
                 block.Set( "feed.UserFace", feed.Creator.PicSmall );
-                block.Set( "feed.UserLink", Link.ToMember(feed.Creator) );
+                block.Set( "feed.UserLink", toUser(feed.Creator) );
 
 
-                String creatorInfo = string.Format( "<a href='{0}'>{1}</a>", Link.ToMember( feed.Creator ), feed.Creator.Name );
+                String creatorInfo = string.Format( "<a href='{0}'>{1}</a>", toUser( feed.Creator ), feed.Creator.Name );
                 String feedTitle = feedService.GetHtmlValue( feed.TitleTemplate, feed.TitleData, creatorInfo );
                 block.Set( "feed.Title", feedTitle );
                 block.Set( "feed.DataType", feed.DataType );

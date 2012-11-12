@@ -1,0 +1,130 @@
+﻿<div id="commentWrap">
+
+<style>
+.commentItem {width:100%; margin: 8px; border-bottom: 1px #ccc solid;padding-bottom:10px;}
+.fL { float: left; }
+.commentItem img { border-radius:4px;}
+
+.cmUserFace {width:50px;padding-top:3px; padding-right:10px; vertical-align:top; text-align:right;}
+.cmUserFace img { border-radius:3px;}
+.cmItemMain {}
+
+.replySubList td.cmItemMain {color:#666;}
+</style>
+
+
+    <div style="margin:15px;">
+        <span style="font-size:16px;font-weight:bold;">评论列表</span> (共 <span id="replies"></span> 条)
+        <a href="#{deleteAllLink}" class="left10 ajaxDeleteCmd #{deleteAllHideClass}" removeId="commentListWrapInner"><img src="~img/delete.gif" /> 删除所有评论</a>    
+    </div>
+    <div id="commentFormWrap">
+        <div class="commentFormInner">
+        <!-- BEGIN loginForm -->
+        <table style="width: 88%;margin:10px;" class="commentPublishTable">
+            <tr>
+                <td class="cmUserFaceInfo cmUserFace"></td>
+                <td>
+                    <div><textarea name="commentBody" style="width: 100%;height:60px;"></textarea></div>
+                    <div style="margin-top:5px;"><input class="btnComment btn btns" type="button" value="_{submitComment}" /></div>
+                </td>
+            </tr>
+        </table>
+        <!-- END loginForm -->
+        <!-- BEGIN guestForm -->
+        <table style="width: 88%;margin:10px;" class="commentPublishTable">
+            <tr>
+                <td style="width: 80px; ">_{userName}<span class="red strong">*</span></td>
+                <td>
+                    <input style="width: 120px" name="UserName" class="UserName" type="text">
+                    _{emailOrWebsite}
+                    <input name="UserEmail" size="20" style="width: 210px;" type="text">
+                </td>
+            </tr>
+            <tr>
+                <td style="vertical-align: top;">_{commentBody}<span class="red strong">*</span></td>
+                <td><textarea name="commentBody" class="commentBody" style="width: 100%; height: 70px"></textarea></td>
+            </tr>
+            <tr style="display: none;" class="validationRow">
+                <td>_{validationCode}<span class="red">*</span></td>
+                <td> #{Captcha}</td></tr>
+            <tr>
+                <td>&nbsp;</td>
+                <td><div><input class="btnComment btn btns" type="button" value="_{submitComment}" /></div></td>
+            </tr>
+        </table>
+        <!-- END guestForm -->
+        </div>
+    </div>
+
+    <div id="commentListWrap">
+    <div id="commentListWrapInner">
+        <!-- BEGIN list -->
+        <table class="commentItem" id="commentItem#{c.Id}"><tr>
+            <td class="cmUserFace">#{c.UserFace}</td>
+            <td class="cmItemMain">
+                <div><span class="strong">#{c.UserName}</span></div>
+                <div>#{c.Content}</div>
+                <div style="color:#666;margin-top:2px;">
+                    (#{c.Created})  <span class="hide link left5">支持</span>
+                    <span class="hide link left5">收藏</span>
+                    <span class="link lnkReply left5" data-ParentId="#{c.Id}">回复</span>
+                    <a href="#{c.DeleteLink}" class="ajaxDeleteCmd #{hideClass}" removeId="commentItem#{c.Id}">删除</a>
+                    <span class="replyCount left5" data-ReplyCount="#{c.Replies}" data-MoreId="replyListMore#{c.Id}" data-ParentId="#{c.Id}" data-StartId="#{c.StartId}"></span>
+                </div>
+                <div class="replyFormWrap"></div>
+                <div class="replySubList" id="replyListLine#{c.Id}" style="width:95%;">
+
+                    <!-- BEGIN replyList -->
+                    <table class="commentItem" id="commentItem#{c.Id}"><tr>
+                        <td class="cmUserFace">#{c.UserFace}</td>
+                        <td class="cmItemMain">
+                            <div><span class="strong">#{c.UserName}</span></div>
+                            <div id="replySubContent#{c.Id}">#{c.Content}</div>
+                            <div style="color:#666;margin-top:2px;">(#{c.Created})  <span class="hide link left5">支持</span>
+                            <span class="hide link left5">收藏</span>
+                            <span class="link lnkSubReply left5" data-ParentId="#{c.ParentId}" data-AtId="#{c.Id}" data-Author="#{c.AuthorText}">回复</span>
+                            <a href="#{c.DeleteLink}" class="ajaxDeleteCmd #{hideClass}" removeId="commentItem#{c.Id}">删除</a>
+                            </div>
+                        </td></tr>
+                    </table>
+                    <!-- END replyList -->
+                    <div id="replyMoreWrap#{c.Id}"></div>
+                    <div id="replyListMore#{c.Id}" class="link left15 moreLink"></div>
+
+                </div>
+                
+            </td></tr>
+        </table>
+        <!-- END list -->
+        </div>
+    </div>
+    <div>#{page}</div>
+</div>
+<script>
+    _run(function () {
+
+        var commentInfo = {
+
+            createLink: '#{createLink}',
+            moreLink: '#{moreLink}',
+
+            userFace: "#{userFace}",
+            userName: "#{userName}",
+
+            replies: #{cmCount}, // 所有评论数量
+            subCacheSize: #{subCacheSize}, // 子回复最多呈现的数量            
+
+            thisUrl: '#{thisUrl}',
+            thisDataTitle: '#{thisDataTitle}',
+            thisDataType: '#{thisDataType}',
+            thisDataUserId: #{thisDataUserId},
+            thisDataId: #{thisDataId}
+
+        };
+
+        require(['wojilu.core.comment'], function (x) {
+            x.bindEvent(commentInfo);
+        });
+
+    });
+</script>

@@ -1,58 +1,59 @@
-﻿<style>
-td#firstPhoto img {width:520px;height:380px;}
-.pickedImg {cursor:pointer;}
-.hightlightImg {border:5px red solid;}
+﻿
+<div class="row" id="pick-row">
 
-span.imgNote {color:#666;}
+    <div class="span8">
+        <div style="margin-left:10px;">
+        <script> _run(function() {wojilu.ui.slider();}); </script>
+        <div id="slider" class="slideWrap" style="width:610px;height:280px;margin-bottom:20px;">
+            <!-- BEGIN picked -->
+               <a href="#{p.LinkShow}"><img alt="第一张图片" src="#{p.ImgUrl}"  /></a>
+            <!-- END picked -->
+        </div> 
+    </div>
+        <div style="clear:both;"></div>
+    </div>
 
-</style>
 
-<script type="text/javascript">
-<!--
-$(document).ready( function() {	
-
-	$('.pickedImg').click( function() {
+    <div class="span4">
+		<div class="user-rank">
 	
-		$('.pickedImg').removeClass( 'hightlightImg' );
-		$(this).addClass( 'hightlightImg' );
-	
-		var imgLink = $(this).attr( 'linkShow' );
-		var imgUrl = $(this).attr( 'imgUrl' );
+			<div class="user-rank-title"><i class="icon-user"></i> :{photoCountRank}</div>
+			<ul class="unstyled">
+			<!-- BEGIN users -->
+			<li>
+                <div><a href="#{user.Link}"><img src="#{user.Face}"/></a></div>
+                <div><a href="#{user.Link}">#{user.Name}</a></div>
+            </li>
+			<!-- END users -->
+			</ul>
+			<div class="clear"></div>
+		</div>
 		
-		var imgHtml = '<a href="'+imgLink +'"><img src="'+ imgUrl +'" /></a>';
-		$('#firstPhoto').html( imgHtml );
-	});
-	
-	$( $('.pickedImg')[0] ).click();
+    </div>
 
-});
-//-->
-</script>
-
-<table style="width:90%;margin:0px 0px 20px 0px;">
-	<tr>
-		<td id="firstPhoto"></td>
-		<td style="width:100px;height:300px;background:#efefef;text-align:center">
-		<!-- BEGIN picked -->
-		<img src="#{p.ImgThumbUrl}" class="pickedImg" style="width:80px;height:80px;margin:5px;" linkShow="#{p.LinkShow}" imgUrl="#{p.ImgUrl}" /><br/>
-		<!-- END picked -->
-		</td>
-	</tr>
-</table>
-
-
-<!-- BEGIN categories -->
-<div class="sectionPanel cpPanel photolist">
-	<div class="sectionTitle"><a href="#{category.LinkShow}">#{category.Name}</a></div>
-	<ul>
-	<!-- BEGIN photos -->
-	<li>
-		<table class="imgItem"><tr><td><a href="#{p.LinkShow}"><img src="#{p.ImgThumbUrl}" class="max90100" /></a></td></tr></table>
-		<div><span class="imgNote">_{from}:<a href="#{p.CreatorLink}">#{p.CreatorName}</a></span></div>
-	</li>
-	<!-- END photos -->
-	</ul>
-	<div class="clear"></div>
 </div>
-<!-- END categories -->
 
+<div class="row">
+    <div class="span12">
+        <!-- BEGIN categories -->
+        <div class="img-section">
+
+            <div class="section-title">
+                <div class="section-title-line"></div>
+                <div class="section-title-text"><a href="#{category.LinkShow}">#{category.Name}</a></div>
+            </div>
+
+            <div class="clear"></div>
+	        <ul class="unstyled">
+	        <!-- BEGIN photos -->
+	        <li>
+                <div class="img-item"><a href="#{p.LinkShow}"><img src="#{p.ImgThumbUrl}" /></a></div>
+		        <div class="img-note">_{from}:<a href="#{p.CreatorLink}">#{p.CreatorName}</a></div>
+	        </li>
+	        <!-- END photos -->
+	        </ul>
+	        <div class="clear"></div>
+        </div>
+        <!-- END categories -->
+    </div>
+</div>

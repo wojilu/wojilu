@@ -16,7 +16,7 @@ namespace wojilu.Web.Controller.Photo.Caching {
 
         public override void UpdateCache( wojilu.Web.Context.MvcContext ctx ) {
             
-            String url = new Link( ctx ).T2( Site.Instance, new Photo.MainController().Index );
+            String url = Link.To( Site.Instance, new Photo.MainController().Index );
             base.updateAllUrl( url, ctx, Site.Instance );
         }
 

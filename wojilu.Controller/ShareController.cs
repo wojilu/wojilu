@@ -15,7 +15,7 @@ namespace wojilu.Web.Controller {
         public void Add() {
 
             // 使用owner  避免二级域名跨域
-            set( "ActionLink", Link.T2( ctx.owner.obj, new Microblogs.MicroblogSaveController().Create ) );
+            set( "ActionLink", Link.To( ctx.owner.obj, new Microblogs.MicroblogSaveController().Create ) );
 
             set( "mbTotalCount", config.Instance.Site.MicroblogContentMax );
 

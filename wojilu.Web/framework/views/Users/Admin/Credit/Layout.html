@@ -12,8 +12,10 @@
 
         <ul class="tabList">
         <li class="firstTab"><a href="#{keyIncomeLink}" class="frmLink" loadTo="tabMain" nolayout=4>_{myIncome}</a><span></span></li>
+        <li><a href="#{incomeLink}" class="frmLink" loadTo="tabMain" nolayout=4>积分明细</a><span></span></li>
         <li><a href="#{ruleLink}" class="frmLink" loadTo="tabMain" nolayout=4>_{incomeRule}</a><span></span></li>
         <li><a href="#{rankLink}" class="frmLink" loadTo="tabMain" nolayout=4>_{userRank}</a><span></span></li>
+        
         <div class="clear"></div>
         </ul>
 
@@ -21,7 +23,7 @@
 </div>
 
 <script>
-$(document).ready( function() {
+_run( function() {
     wojilu.tool.makeTab( '.tabList', 'currentTab', '' );
 });
 </script>

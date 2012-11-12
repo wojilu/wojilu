@@ -17,6 +17,7 @@ using wojilu.Apps.Content.Service;
 
 using wojilu.Common.AppBase.Interface;
 using wojilu.Common.AppBase;
+using wojilu.Web.Controller.Content.Caching;
 
 namespace wojilu.Web.Controller.Content.Admin.Section {
 
@@ -66,96 +67,7 @@ namespace wojilu.Web.Controller.Content.Admin.Section {
 
             bindAdminList( section, posts );
         }
-
-        //public void Add( int sectionId ) {
-
-        //    ContentSection section = sectionService.GetById( sectionId, ctx.app.Id );
-        //    target( to( Create, sectionId ) + "?categoryId=" + ctx.GetInt( "categoryId" ) );
-
-        //    set( "width", ctx.GetInt( "width" ) );
-        //    set( "height", ctx.GetInt( "height" ) );
-
-        //    bindAddInfo( sectionId, section );
-        //}
-
-        //public void AddImg( int sectionId ) {
-        //    this.Add( sectionId );
-        //}
-
-        //[HttpPost, DbTransaction]
-        //public void Create( int sectionId ) {
-        //    ContentPost post = ContentValidator.Validate( sectionService.GetById( sectionId, ctx.app.Id ), ctx );
-        //    ContentValidator.ValidateArticle( post, ctx );
-        //    if (ctx.HasErrors) {
-        //        echoError();
-        //    }
-        //    else {
-        //        postService.Insert( post, ctx.Post( "TagList" ) );
-        //        saveUploadedAttachments( post );
-
-        //        echoToParentPart( lang( "opok" ) );
-        //    }
-        //}
-
-        //private void saveUploadedAttachments( ContentPost post ) {
-        //    String ids = ctx.PostIdList( "uploadFileIds" );
-        //    int[] arrIds = cvt.ToIntArray( ids );
-        //    attachService.CreateByTemp( ids, post );
-        //}
-
-        //public void Edit( int postId ) {
-
-        //    ContentPost post = postService.GetById( postId, ctx.owner.Id );
-        //    if (post == null) {
-        //        echo( lang( "exDataNotFound" ) );
-        //        return;
-        //    }
-
-        //    target( to( Update, postId ) + "?categoryId=" + ctx.GetInt( "categoryId" ) );
-
-        //    bindEditInfo( post );
-
-        //    List<ContentSection> sectionList = sectionService.GetInputSectionsByApp( ctx.app.Id );
-        //    String sectionIds = sectionService.GetSectionIdsByPost( postId );
-
-        //    checkboxList( "postSection", sectionList, "Title=Id", 0 );
-        //    set( "sectionIds", sectionIds );
-
-
-
-        //}
-
-        //public void EditImg( int postId ) {
-        //    this.Edit( postId );
-        //}
-
-        //[HttpPost, DbTransaction]
-        //public void Update( int postId ) {
-        //    ContentPost post = postService.GetById( postId, ctx.owner.Id );
-        //    if (post == null) {
-        //        echo( lang( "exDataNotFound" ) );
-        //        return;
-        //    }
-
-        //    String sectionIds = ctx.PostIdList( "postSection" );
-
-        //    ContentValidator.ValidateEdit( post, ctx );
-        //    ContentValidator.ValidateArticle( post, ctx );
-        //    if (errors.HasErrors) {
-        //        echoError();
-        //    }
-        //    else {
-
-        //        if (ctx.PostIsCheck( "saveContentPic" ) == 1) {
-        //            post.Content = wojilu.Net.PageLoader.ProcessPic( post.Content, null );
-        //        }
-
-        //        postService.Update( post, sectionIds, ctx.Post( "TagList" ) );
-
-        //        echoToParentPart( lang( "opok" ) );
-        //    }
-        //}
-
+        
         [HttpDelete, DbTransaction]
         public void Delete( int postId ) {
             ContentPost post = postService.GetById( postId, ctx.owner.Id );
@@ -166,46 +78,9 @@ namespace wojilu.Web.Controller.Content.Admin.Section {
 
             postService.Delete( post );
             echoRedirectPart( lang( "opok" ) );
+            HtmlHelper.SetCurrentPost( ctx, post );
 
         }
-
-        ////--------------------------------------- 图片上传处理 -------------------------------------------------------------
-
-        public void Upload( int sectionId ) {
-            target( SaveUpload, sectionId );
-
-            set( "width", ctx.GetInt( "width" ) );
-            set( "height", ctx.GetInt( "height" ) );
-
-        }
-
-        public void SaveUpload( int sectionId ) {
-
-            if (ctx.HasUploadFiles == false) {
-                echoRedirect( alang( "exUploadEmpty" ), to( Upload, sectionId ) );
-                return;
-            }
-
-            HttpFile file = ctx.GetFileSingle();
-            Result result = Uploader.SaveImg( file );
-            if (result.HasErrors)
-                errors.Join( result );
-            else {
-                String imgUrl = sys.Path.GetPhotoOriginal( result.Info.ToString() );
-                set( "imgUrl", imgUrl );
-                set( "width", ctx.PostInt( "width" ) );
-                set( "height", ctx.PostInt( "height" ) );
-            }
-
-        }
-
-        //public void DeleteUpload( int sectionId ) {
-        //    String imgUrl = ctx.Post( "imgUrl" );
-        //    wojilu.Drawing.Img.DeleteImgAndThumb( imgUrl );
-        //    echoAjaxOk();
-        //}
-
-
 
     }
 }

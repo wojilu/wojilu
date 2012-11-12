@@ -63,11 +63,9 @@ namespace wojilu.Web.Context.Initor {
         private void initEditorUploadPath( MvcContext ctx ) {
 
             if (ctx.viewer.IsLogin) {
-
-                Link lnk = new Link( ctx );
                 // 此处使用onwer，避免二级域名下的跨域问题
-                ctx.SetItem( "editorUploadUrl", lnk.To( ctx.owner.obj, "Users/UserUpload", "UploadForm", -1, -1 ) );
-                ctx.SetItem( "editorMyPicsUrl", lnk.To( ctx.owner.obj, "Users/UserUpload", "MyPics", -1, -1 ) );
+                ctx.SetItem( "editorUploadUrl", Link.To( ctx.owner.obj, "Users/UserUpload", "UploadForm", -1, -1 ) );
+                ctx.SetItem( "editorMyPicsUrl", Link.To( ctx.owner.obj, "Users/UserUpload", "MyPics", -1, -1 ) );
             }
         }
 
@@ -93,11 +91,8 @@ namespace wojilu.Web.Context.Initor {
             String cleanUrlWithoutOwner = ctx.route.getCleanUrlWithoutOwner( ctx );
             if (cleanUrlWithoutOwner == string.Empty || strUtil.EqualsIgnoreCase( cleanUrlWithoutOwner, "default" )) {
 
-                //if ((cleanUrlWithoutOwner == string.Empty) || (string.Compare( cleanUrlWithoutOwner, "default", true ) == 0)) {
                 updateRoute_Menu( ctx, list, "default" );
                 ctx.utils.setIsHome( true );
-
-
             }
             else {
                 updateRoute_Menu( ctx, list, cleanUrlWithoutOwner );
@@ -106,13 +101,15 @@ namespace wojilu.Web.Context.Initor {
 
         private void updateRoute_Menu( MvcContext ctx, List<IMenu> list, String cleanUrlWithoutOwner ) {
             foreach (IMenu menu in list) {
-                if (cleanUrlWithoutOwner.Equals( menu.Url )) { // 如果有好网址相同
+                if (cleanUrlWithoutOwner.Equals( menu.Url )) { // 如果友好网址相同
 
                     // 获取实际的网址
                     String fullUrl = UrlConverter.getMenuFullPath( ctx, menu );
                     Route.setRoutePath( fullUrl );
 
                     Route newRoute = RouteTool.Recognize( fullUrl, ctx.web.PathApplication );
+                    if (newRoute == null) break;
+
                     refreshRouteAndOwner( ctx, newRoute );
 
                     break;

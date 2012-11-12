@@ -1,45 +1,44 @@
-﻿
+﻿<div style="width:620px; height:260px; padding:10px;">
 
-<div style="width:620px; height:260px; padding:10px;">
-<script type="text/javascript" src="~js/colorpicker/js/colorpicker.js"></script>
-<link type="text/css" href="~js/colorpicker/css/colorpicker.css" rel="stylesheet" />
-<script type="text/javascript">
-<!--
-$(document).ready( function() {
+<link type="text/css" href="~js/lib/colorpicker/css/colorpicker.css" rel="stylesheet" />
+<script>
+    _run(function () {
 
-	if( $('#menuUrl' ).val() == 'default' ) $('#chkSetDefault').click();
-	
-	$( '#chkSetDefault' ).click( function() {	
-		var txtUrl = $('#menuUrl' );	
-		txtUrl.val() == 'default' ? txtUrl.val(''):txtUrl.val( 'default');
-	});
-	
-	
-function setColorPicker() {
-    $('#colorSelector').ColorPicker({
-        color: '#0000ff',
-        onShow: function (colpkr) {
-            $(colpkr).fadeIn(200);
-            return false;
-        },
-        onHide: function (colpkr) {
-            $(colpkr).fadeOut(200);
-            //postBgColor();
-            return false;
-        },
-        onChange: function (hsb, hex, rgb) {
-            var bg = '#' + hex;
-            //setBgColor( bg );
-            $('#menuColor').val( bg );
-        }
+        if ($('#menuUrl').val() == 'default') $('#chkSetDefault').click();
+
+        $('#chkSetDefault').click(function () {
+            var txtUrl = $('#menuUrl');
+            txtUrl.val() == 'default' ? txtUrl.val('') : txtUrl.val('default');
+        });
+
+        require(['lib/colorpicker/js/colorpicker'], function () {
+
+
+            function setColorPicker() {
+                $('#colorSelector').ColorPicker({
+                    color: '#0000ff',
+                    onShow: function (colpkr) {
+                        $(colpkr).fadeIn(200);
+                        return false;
+                    },
+                    onHide: function (colpkr) {
+                        $(colpkr).fadeOut(200);
+                        //postBgColor();
+                        return false;
+                    },
+                    onChange: function (hsb, hex, rgb) {
+                        var bg = '#' + hex;
+                        //setBgColor( bg );
+                        $('#menuColor').val(bg);
+                    }
+                });
+            };
+
+            setColorPicker();
+
+        });
+
     });
-};
-
-setColorPicker();
-
-
-
-});
 //-->
 </script>
 

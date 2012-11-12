@@ -1,13 +1,11 @@
-﻿
-
-<script type="text/javascript" src="~js/syntaxhighlighter/scripts/shCore.js"></script>
-<script type="text/javascript" src="~js/syntaxhighlighter/scripts/shBrushCommon.js"></script>
-<link type="text/css" rel="stylesheet" href="~js/syntaxhighlighter/styles/shCore.css"/>
-<link type="text/css" rel="stylesheet" href="~js/syntaxhighlighter/styles/shThemeDefault.css"/>
-
+﻿<link type="text/css" rel="stylesheet" href="~js/lib/syntaxhighlighter/styles/sh.css"/>
 <script type="text/javascript">
-	SyntaxHighlighter.config.clipboardSwf = "~js/syntaxhighlighter/scripts/clipboard.swf";
-	SyntaxHighlighter.all();
+    _run(function () {
+        require(['lib/syntaxhighlighter/scripts/sh'], function () {
+            SyntaxHighlighter.config.clipboardSwf = "~js/lib/syntaxhighlighter/scripts/clipboard.swf";
+            SyntaxHighlighter.all();
+        });
+    });
 </script>
 
 <div style="background:#e1f0fa; margin-top:10px;">
@@ -25,7 +23,7 @@
 
 </style>
 
-<ul class="demoSidebar">
+<ul class="demoSidebar unstyled">
 
     <li><a href="/Demo/Valid/Cookie.aspx" class="frmLink2" loadTo="validMain" nolayout=3>自定义cookie验证</a></li>
 
@@ -56,7 +54,8 @@
     <li style="margin-top:20px;"><a href="/Demo/Valid/Menu.aspx">简易菜单</a></li>
     <li><a href="/Demo/Valid/Tree.aspx">树状控件</a></li>
     <li><a href="/Demo/Valid/Calendar.aspx">日历控件</a></li>
-    <li><a href="/Demo/Valid/ProcessBar.aspx">flash进度条上传</a></li>
+    <li><a href="/Demo/Upload/FrameUpload.aspx">上传:简单异步上传</a></li>
+    <li><a href="/Demo/Upload/FlashUpload.aspx">上传:flash进度条</a></li>
     <li><a href="/Demo/Valid/Slider.aspx">简易幻灯</a></li>
     <li><a href="/Demo/Valid/Tab.aspx">tab选项卡</a></li>
     
@@ -91,7 +90,7 @@
 
 <script>
 
-$( document ).ready( function() {
+_run( function() {
     wojilu.ui.frmLink();
     wojilu.ui.valid();
     wojilu.ui.tip();

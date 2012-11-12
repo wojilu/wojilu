@@ -1,19 +1,20 @@
-﻿<div style="width:550px;margin:10px;" id="votesyy">
+﻿<div style="width:550px;margin:10px auto;" id="votesyy">
 
-
-<table border="1" style="width: 98%; margin:auto; border-collapse:collapse; border:1px #ccc solid;">
-	<tr>
-		<th>:{voter}</th>
-		<th>:{option}</th>
-		<th>:{voteTime}</th>
-	</tr>
-<!-- BEGIN list -->
-	<tr>
-		<td>#{user.Name}</td>
-		<td>#{user.Choice}</td>
-		<td>#{user.Created}</td>
-	</tr>
-	<!-- END list -->
-</table>
-<div>#{page}</div>
+<div style="width:96%;margin:15px auto;">
+    <table style="width: 100%; " class="table">
+	    <tr>
+		    <th>:{voter}</th>
+		    <th>:{option}</th>
+		    <th>:{voteTime}</th>
+	    </tr>
+    <!-- BEGIN list -->
+	    <tr>
+		    <td>#{user.Name}</td>
+		    <td>#{user.Choice}</td>
+		    <td>#{user.Created}</td>
+	    </tr>
+	    <!-- END list -->
+    </table>
+    <div>#{page}</div>
+</div>
 </div>

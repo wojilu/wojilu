@@ -189,19 +189,19 @@ namespace wojilu.Web.Controller.Forum {
             block.Set( "p.ReadPermission", permissionInfo );
             block.Set( "p.TitleStyle", topic.TitleStyle );
             block.Set( "p.Titile", strUtil.CutString( topic.Title, 30 ) );
-            block.Set( "p.Url", Link.To( new TopicController().Show, topic.Id ) );
+            block.Set( "p.Url", to( new TopicController().Show, topic.Id ) );
 
             block.Set( "p.BoardName", topic.ForumBoard.Name );
             block.Set( "p.BoardLink", alink.ToAppData(topic.ForumBoard) );
 
 
             block.Set( "p.MemberName", topic.Creator.Name );
-            block.Set( "p.MemberUrl", Link.ToMember( topic.Creator ) );
+            block.Set( "p.MemberUrl", toUser( topic.Creator ) );
             block.Set( "p.CreateTime", topic.Created );
             block.Set( "p.ReplyCount", topic.Replies );
             block.Set( "p.Hits", topic.Hits.ToString() );
             block.Set( "p.LastUpdate", topic.Replied.GetDateTimeFormats( 'g' )[0] );
-            block.Set( "p.LastReplyUrl", Link.ToUser( topic.RepliedUserFriendUrl ) );
+            block.Set( "p.LastReplyUrl", toUser( topic.RepliedUserFriendUrl ) );
             block.Set( "p.LastReplyName", topic.RepliedUserName );
 
             String attachments = topic.Attachments > 0 ? "<img src='" + sys.Path.Img + "attachment.gif'/>" : "";
@@ -245,7 +245,7 @@ namespace wojilu.Web.Controller.Forum {
             }
 
             block.Set( "p.Titile", strUtil.CutString( title, 38 ) );
-            block.Set( "p.Url", Link.To( new PostController().Show, post.Id ) );
+            block.Set( "p.Url", to( new PostController().Show, post.Id ) );
 
             ForumBoard board = getTree().GetById( post.ForumBoardId );
             if (board == null) return;
@@ -253,7 +253,7 @@ namespace wojilu.Web.Controller.Forum {
             block.Set( "p.BoardName", board.Name );
             block.Set( "p.BoardLink", alink.ToAppData( board ) );
             block.Set( "p.MemberName", post.Creator.Name );
-            block.Set( "p.MemberUrl", Link.ToMember( post.Creator ) );
+            block.Set( "p.MemberUrl", toUser( post.Creator ) );
             block.Set( "p.CreateTime", post.Created );
 
             block.Next();

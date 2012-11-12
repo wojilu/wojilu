@@ -1,4 +1,4 @@
-/*
+ï»¿/*
  * Copyright 2010 www.wojilu.com
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -19,7 +19,7 @@ using System;
 namespace wojilu.Common.Resource {
 
     /// <summary>
-    /// ÊôĞÔÊı¾İÏî£¬³£ÓÃÓÚÏÂÀ­ÁĞ±íÖĞ
+    /// å±æ€§æ•°æ®é¡¹ï¼Œå¸¸ç”¨äºä¸‹æ‹‰åˆ—è¡¨ä¸­
     /// </summary>
     public class PropertyItem {
 

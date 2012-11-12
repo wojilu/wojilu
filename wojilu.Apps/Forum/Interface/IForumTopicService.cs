@@ -50,20 +50,12 @@ namespace wojilu.Apps.Forum.Interface {
         int GetBoardPage( int topicId, int boardId, int pageSize );
         int GetPostPage( int postId, int topicId, int pageSize );
 
-        void Lock( ForumTopic topic, User user, String ip );
-        void UnLock( ForumTopic topic, User user, String ip );
-        void Move( int targetForumId, String idList );
-        void Restore( String choice );
-        void SetGlobalSticky( int appId, String ids );
-        void SetGloablStickyUndo( int appId, String ids );
-        void StickyMoveUp( int topicId );
-        void StickyMoveDown( int topicId );
-        void SubstractAuthorIncome( String condition, int actionId );
+
+        void AddAuthorIncome( String condition, int actionId, String actionName );
+        void SubstractAuthorIncome( String condition, int actionId, String actionName );
         void SubstractTopicReward( ForumTopic topic, int postValue );
 
-        void AddAuthorIncome( String condition, int actionId );
         void AddHits( ForumTopic topic );
-        void AdminUpdate( String action, String condition );
         int CountReply( int topicId );
 
         Result CreateTopic( ForumTopic topic, User user, IMember owner, IApp app );
@@ -91,7 +83,34 @@ namespace wojilu.Apps.Forum.Interface {
         DataPage<ForumTopic> Search( int appId, string key, int pageSize );
 
 
+        void Lock( ForumTopic topic, User user, String ip );
+        void UnLock( ForumTopic topic, User user, String ip );
+        void Restore( String choice );
+        void StickyMoveUp( int topicId );
+        void StickyMoveDown( int topicId );
 
+        void AdminUpdate( String action, String condition );
+
+        void MakeSticky( AdminValue av );
+        void MakeStickyUndo( AdminValue av );
+
+        void MakePick( AdminValue av );
+        void MakePickUndo( AdminValue av );
+
+        void MakeHighlight( string style, AdminValue av );
+        void MakeHighlightUndo( AdminValue av );
+
+        void MakeLock( AdminValue av );
+        void MakeLockUndo( AdminValue av );
+
+        void DeleteList( AdminValue av );
+
+        void MakeCategory( int categoryId, AdminValue av );
+
+        void MakeGlobalSticky( AdminValue adminValue );
+        void MakeGloablStickyUndo( AdminValue adminValue );
+
+        void MakeMove( int p, AdminValue adminValue );
     }
 
 }

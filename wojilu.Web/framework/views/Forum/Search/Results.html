@@ -1,38 +1,40 @@
 ﻿<style>
 
-.postList {margin:auto; margin-top:10px; width:95%; border-collapse:collapse; border:1px #ccc solid;}
+.postList {margin:auto; margin-top:10px; width:95%; }
 .dataRow td {padding-left:10px;}
 
-.lblSearch {margin:10px 0px 5px 20px; font-size:14px; }
+.lblSearch {margin:25px 0px 5px 30px; font-size:14px; }
 
 td.postTitle div {max-width:600px;_width:500px; text-overflow: ellipsis;white-space:nowrap;-o-text-overflow:ellipsis;-moz-text-overflow:ellipsis;overflow: hidden;}
 
 </style>
 
 <div class="lblSearch">
-<form method="get" action="#{searchAction}">
+<form method="get" action="#{searchAction}" class="form-inline form-search ">
 论坛搜索
-<input type="text" name="q" style="width:150px;" value="#{searchKey}" />
+<input type="text" name="q" style="width:150px;" value="#{searchKey}"  />
 <input type="submit" class="searchs" value="" />
 <span class="left20">搜索结果：</span>
 </form>
 </div>
 <div class="clear"></div>
 
-<table border="1" class="postList" cellpadding="5">
+<table class="postList table table-striped">
 	
-	<tr class="psHeader">
-		<td style="width:15%" align="center">_{created}</td>
-		<td style="width:15%" >_{author}</td>
-		<td style="width:55%;">_{title}</td>
-		<td style="width:15%" class="center">_{reply}/_{view}</td>
+    <thead>
+	<tr>
+		<th style="width:15%" align="center">_{created}</th>
+		<th style="width:15%" >_{author}</th>
+		<th style="width:55%;">_{title}</th>
+		<th style="width:15%" class="center">_{reply}/_{view}</th>
 	</tr>
+    </thead>
 	
 	<!-- BEGIN list -->
 	<tr class="dataRow">
 		<td>#{p.Created}</td>
 		<td>#{p.Author}</td>
-		<td style="" class="postTitle">
+		<td class="postTitle">
 		    <div>
 		    #{p.TypeImg} <a href="#{p.Url}" style="#{p.TitleStyle}">#{p.Titile}</a>
 		    <span style="vertical-align:middle">#{p.Attachments}</span>

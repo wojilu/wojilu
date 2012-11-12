@@ -30,6 +30,8 @@ namespace wojilu.Web.Controller.Photo.Admin {
     [App( typeof( PhotoApp ) )]
     public class PostController : ControllerBase {
 
+        private static readonly ILog logger = LogManager.GetLogger( typeof( PhotoController ) );
+
         public IFeedService feedService { get; set; }
         public IFriendService friendService { get; set; }
 
@@ -50,10 +52,6 @@ namespace wojilu.Web.Controller.Photo.Admin {
             categoryService = new PhotoSysCategoryService();
         }
 
-        //-----------------------------------------------------------------------------
-
-
-
         public void Add() {
 
             set( "authJson", AdminSecurityUtils.GetAuthCookieJson( ctx ) );
@@ -63,7 +61,7 @@ namespace wojilu.Web.Controller.Photo.Admin {
 
             IList albumList = albumService.GetListByApp( ctx.app.Id );
             if (albumList.Count == 0) {
-                echoRedirectPart( alang( "exAlbumRequire" ), Link.To( new AlbumController().Add ), 1 );
+                echoRedirectPart( alang( "exAlbumRequire" ), to( new AlbumController().Add ), 1 );
                 return;
             }
 
@@ -74,7 +72,7 @@ namespace wojilu.Web.Controller.Photo.Admin {
             dropList( "PhotoAlbumId", albumList, "Name=Id", 1 );
             dropList( "SystemCategoryId", categories, "Name=Id", null );
 
-            set( "PhotoAlbumAddUrl", Link.To( new AlbumController().Add ) );
+            set( "PhotoAlbumAddUrl", to( new AlbumController().Add ) );
             //set( "batchUploadLink", to( BatchAdd ) );
 
             // swf上传跨域问题
@@ -82,7 +80,6 @@ namespace wojilu.Web.Controller.Photo.Admin {
         }
 
         public void NewPost( int albumId ) {
-
 
             if (albumId <= 0) {
                 albumId = ctx.PostInt( "PhotoAlbumId" );
@@ -112,8 +109,7 @@ namespace wojilu.Web.Controller.Photo.Admin {
             }
         }
 
-        private static readonly ILog logger = LogManager.GetLogger( typeof( PhotoController ) );
-
+        // flash上传(逐个保存)
         public void SaveUpload() {
 
             int albumId = ctx.PostInt( "PhotoAlbumId" );
@@ -121,12 +117,10 @@ namespace wojilu.Web.Controller.Photo.Admin {
 
             if (ctx.HasUploadFiles == false) {
                 echoText( lang( "exPlsUpload" ) );
-                //echoRedirect( lang( "exPlsUpload" ), BatchAdd );
                 return;
             }
 
             HttpFile file = ctx.GetFileSingle();
-
 
             logger.Info( file.FileName + "=>" + file.ContentType );
 
@@ -140,6 +134,12 @@ namespace wojilu.Web.Controller.Photo.Admin {
                 PhotoApp app = ctx.app.obj as PhotoApp;
                 postService.CreatePost( post, app );
 
+                // 统计
+                User user = ctx.owner.obj as User;
+                user.Pins = PhotoPost.count( "OwnerId=" + user.Id );
+                user.update( "Pins" );
+
+                // feed
                 String photoHtml = string.Format( "<a href='{0}'><img src='{1}'/></a> ", alink.ToAppData( post ), post.ImgThumbUrl );
 
                 String templateData = string.Format( "photoCount: {0}, photos: \"{1}\" ", 1, photoHtml );
@@ -148,10 +148,9 @@ namespace wojilu.Web.Controller.Photo.Admin {
                 feedService.publishUserAction( (User)ctx.viewer.obj, typeof( PhotoPost ).FullName, tplBundle.Id, templateData, "" );
                 echoAjaxOk();
             }
-
         }
 
-
+        // 普通上传(批量)
         [HttpPost, DbTransaction]
         public void Create() {
 
@@ -181,45 +180,47 @@ namespace wojilu.Web.Controller.Photo.Admin {
 
                 HttpFile file = ctx.GetFiles()[i];
 
+                if (file.ContentLength < 10) continue;
+
+                // 发生任何错误，则返回
                 Result result = Uploader.SaveImg( file );
                 if (result.HasErrors) {
                     errors.Join( result );
                     run( NewPost, albumId );
                     return;
                 }
-                else {
 
-                    PhotoPost post = newPost( ctx.Post( "Text" + (i + 1) ), result.Info.ToString(), albumId, systemCategoryId );
-                    PhotoApp app = ctx.app.obj as PhotoApp;
-                    postService.CreatePost( post, app );
-                    imgs.Add( post );
-                }
+                PhotoPost post = newPost( ctx.Post( "Text" + (i + 1) ), result.Info.ToString(), albumId, systemCategoryId );
+                PhotoApp app = ctx.app.obj as PhotoApp;
+                postService.CreatePost( post, app );
+                imgs.Add( post );
             }
 
-            if (errors.Errors.Count >= ctx.GetFiles().Count) {
-                errors.Errors.Clear();
+            // 如果没有上传的图片
+            if (imgs.Count == 0) {
                 errors.Add( alang( "exUploadImg" ) );
-                echoError();
+                run( NewPost, albumId );
                 return;
             }
-            else {
-                // feed消息
 
-                int photoCount = imgs.Count;
-                String photoHtml = "";
-                foreach (PhotoPost post in imgs) {
-                    photoHtml += string.Format( "<a href='{0}'><img src='{1}'/></a> ", alink.ToAppData( post ), post.ImgThumbUrl );
-                }
+            // 统计
+            User user = ctx.owner.obj as User;
+            user.Pins = PhotoPost.count( "OwnerId=" + user.Id );
+            user.update( "Pins" );
 
-                String templateData = string.Format( "photoCount: {0}, photos: \"{1}\" ", photoCount, photoHtml );
-                templateData = "{" + templateData + "}";
-                TemplateBundle tplBundle = TemplateBundle.GetPhotoTemplateBundle();
-                feedService.publishUserAction( (User)ctx.viewer.obj, typeof( PhotoPost ).FullName, tplBundle.Id, templateData, "" );
-
-                echoRedirectPart( lang( "opok" ), to( new MyController().My ), 1 );
-
+            // feed消息
+            int photoCount = imgs.Count;
+            String photoHtml = "";
+            foreach (PhotoPost post in imgs) {
+                photoHtml += string.Format( "<a href='{0}'><img src='{1}'/></a> ", alink.ToAppData( post ), post.ImgThumbUrl );
             }
 
+            String templateData = string.Format( "photoCount: {0}, photos: \"{1}\" ", photoCount, photoHtml );
+            templateData = "{" + templateData + "}";
+            TemplateBundle tplBundle = TemplateBundle.GetPhotoTemplateBundle();
+            feedService.publishUserAction( (User)ctx.viewer.obj, typeof( PhotoPost ).FullName, tplBundle.Id, templateData, "" );
+
+            echoRedirectPart( lang( "opok" ), to( new MyController().My ), 1 );
         }
 
         private PhotoPost newPost( String photoName, String imgPath, int albumId, int systemCategoryId ) {
@@ -263,8 +264,6 @@ namespace wojilu.Web.Controller.Photo.Admin {
 
             set( "returnUrl", ctx.web.PathReferrer );
         }
-
-
 
         private void setCategoryDropList() {
             List<PhotoAlbum> albumList = albumService.GetListByApp( ctx.app.Id );

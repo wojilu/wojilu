@@ -19,6 +19,7 @@ using wojilu.Drawing;
 using wojilu.Common.Upload;
 using wojilu.Common.AppBase;
 using wojilu.Web.Controller.Admin;
+using wojilu.Web.Controller.Content.Caching;
 
 namespace wojilu.Web.Controller.Content.Admin {
 
@@ -111,8 +112,8 @@ namespace wojilu.Web.Controller.Content.Admin {
 
         public void Create() {
 
-            ContentPost post = ContentValidator.Validate( ctx );
-            ContentValidator.ValidateArticle( post, ctx );
+            ContentPost post = ContentValidator.SetValue( ctx );
+            ContentValidator.ValidateTitleBody( post, ctx );
 
             String sectionIds = ctx.PostIdList( "postSection" );
             if (strUtil.IsNullOrEmpty( sectionIds )) errors.Add( "请选择区块" );
@@ -149,7 +150,7 @@ namespace wojilu.Web.Controller.Content.Admin {
                 echoToParentPart( lang( "opok" ) );
             }
 
-
+            HtmlHelper.SetCurrentPost( ctx, post );
         }
 
         //--------------------------------------------------------------------------------------------------------
@@ -256,8 +257,8 @@ namespace wojilu.Web.Controller.Content.Admin {
 
             String sectionIds = ctx.PostIdList( "postSection" );
 
-            ContentValidator.ValidateEdit( post, ctx );
-            ContentValidator.ValidateArticle( post, ctx );
+            ContentValidator.SetPostValue( post, ctx );
+            ContentValidator.ValidateTitleBody( post, ctx );
             if (errors.HasErrors) {
                 run( Edit, postId );
             }
@@ -270,6 +271,7 @@ namespace wojilu.Web.Controller.Content.Admin {
                 postService.Update( post, sectionIds, ctx.Post( "TagList" ) );
 
                 echoToParentPart( lang( "opok" ) );
+                HtmlHelper.SetCurrentPost( ctx, post );
             }
         }
 
@@ -355,6 +357,7 @@ namespace wojilu.Web.Controller.Content.Admin {
             if (post == null) { echo( lang( "exDataNotFound" ) ); return; }
             postService.UpdateTitleStyle( post, titleStyle );
             echoToParentPart( lang( "opok" ) );
+            HtmlHelper.SetCurrentPost( ctx, post );
         }
 
         public void Trash() {
@@ -403,12 +406,12 @@ namespace wojilu.Web.Controller.Content.Admin {
 
             String cmd = ctx.Post( "action" );
 
-
             if ("category" == cmd) {
                 int sectionId = ctx.PostInt( "categoryId" );
                 postService.UpdateSection( ids, sectionId );
             }
             else if ("deletetrue" == cmd) {
+                makeHtml( ids );
                 postService.DeleteBatch( ids );
             }
             else if ("status_pick" == cmd) {
@@ -424,15 +427,23 @@ namespace wojilu.Web.Controller.Content.Admin {
             echoAjaxOk();
         }
 
+        private void makeHtml( String ids ) {
 
+            List<ContentPost> posts = postService.GetByIds( ids );
+            foreach (ContentPost post in posts) {
+
+                HtmlHelper.SetCurrentPost( ctx, post );
+
+                HtmlHelper.DeleteDetailHtml( ctx );
+                HtmlHelper.MakeListHtml( ctx );
+            }
+        }
 
         private void bindAdminList( DataPage<ContentPost> posts, bool isTrash ) {
 
             IBlock block = getBlock( "list" );
 
-
             foreach (ContentPost post in posts.Results) {
-
 
                 String typeIcon = BinderUtils.getTypeIcon( post );
                 String pickIcon = BinderUtils.getPickedIcon( post );
@@ -454,13 +465,11 @@ namespace wojilu.Web.Controller.Content.Admin {
                 block.Set( "post.PubDate", post.Created );
 
                 if (post.Creator != null) {
-                    block.Set( "post.Submitter", string.Format( "<a href=\"{0}\" target=\"_blank\">{1}</a>", Link.ToMember( post.Creator ), post.Creator.Name ) );
+                    block.Set( "post.Submitter", string.Format( "<a href=\"{0}\" target=\"_blank\">{1}</a>", toUser( post.Creator ), post.Creator.Name ) );
                 }
                 else {
                     block.Set( "post.Submitter", "无" );
                 }
-
-
 
                 block.Bind( "post", post );
 
@@ -487,12 +496,10 @@ namespace wojilu.Web.Controller.Content.Admin {
 
                 block.Set( "post.AttachmentLink", to( new AttachmentController().AdminList, post.Id ) );
 
-
                 block.Next();
             }
             set( "page", posts.PageBar );
         }
-
 
 
         [HttpDelete, DbTransaction]
@@ -506,6 +513,7 @@ namespace wojilu.Web.Controller.Content.Admin {
             postService.Delete( post );
 
             echoRedirectPart( lang( "opok" ) );
+            HtmlHelper.SetCurrentPost( ctx, post );
         }
 
         [HttpPut, DbTransaction]
@@ -515,6 +523,7 @@ namespace wojilu.Web.Controller.Content.Admin {
             ContentPost post = postService.GetById( id, ctx.owner.Id );
 
             echoRedirectPart( lang( "opok" ) );
+            HtmlHelper.SetCurrentPost( ctx, post );
         }
 
         [HttpDelete, DbTransaction]

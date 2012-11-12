@@ -65,8 +65,12 @@ namespace wojilu.Apps.Photo.Service {
         }
 
         public virtual DataPage<PhotoPost> GetAll() {
+            return this.GetAll( 20 ) ;
+        }
 
-            DataPage<PhotoPostPicked> list = db.findPage<PhotoPostPicked>( "" );
+        public virtual DataPage<PhotoPost> GetAll( int pageSize ) {
+
+            DataPage<PhotoPostPicked> list = db.findPage<PhotoPostPicked>( "", pageSize );
             DataPage<PhotoPost> r = new DataPage<PhotoPost>();
             r.Results = populatePosts( list.Results );
             r.PageCount = list.PageCount;
@@ -75,6 +79,20 @@ namespace wojilu.Apps.Photo.Service {
             r.Current = list.Current;
             r.PageBar = list.PageBar;
             return r;
+        }
+
+        public virtual DataPage<PhotoPost> GetShowAll( int pageSize ) {
+            DataPage<PhotoPost> list = this.GetAll( pageSize );
+            list.Results = filterBySysCategory( list.Results );
+            return list;
+        }
+
+        private List<PhotoPost> filterBySysCategory( List<PhotoPost> list ) {
+            List<PhotoPost> xlist = new List<PhotoPost>();
+            foreach (PhotoPost x in list) {
+                if (x.SysCategoryId > 0) xlist.Add( x );
+            }
+            return xlist;
         }
 
         public virtual List<PhotoPost> GetTop( int count ) {
