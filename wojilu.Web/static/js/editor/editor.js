@@ -270,11 +270,16 @@ wojilu.editor.prototype = {
         _x.doc.open();
         _x.doc.write( htmlContent );
         _x.doc.close();
-        $(_x.doc.body).attr('style','background:#fff;margin:5px;padding:0px;font-family:verdana;font-size:14px;cursor:text;');
+        _x.styleBody();
     },
     
     isHtmlChecked : function() {
         return $('#chksrc'+this.id).attr( 'checked' );
+    },
+
+    styleBody : function() {
+        var _x = this;
+        $(_x.doc.body).attr('style','background:#fff;margin:5px;padding:0px;font-family:verdana;font-size:14px;cursor:text;line-height:150%;');
     },
 
     clearFormat : function() {
@@ -312,6 +317,7 @@ wojilu.editor.prototype = {
         $(_x.doc.body).find('frame').remove();
         $(_x.doc.body).find('xml').remove();
         $('pre',_x.doc.body).removeAttr('style');
+        _x.styleBody();
     },
 
     checkXhtml : function (str) {
