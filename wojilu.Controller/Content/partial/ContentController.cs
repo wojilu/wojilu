@@ -62,6 +62,7 @@ namespace wojilu.Web.Controller.Content {
                 sectionBlock.Set( "section.Title", title );
                 sectionBlock.Set( "section.MoreLink", moreLink );
                 sectionBlock.Set( "section.CombineIds", section.CombineIds );
+                sectionBlock.Set( "section.StyleClass", section.CssClass );
 
                 String marquee = section.GetMarquee();
                 if (strUtil.HasText( marquee )) {
