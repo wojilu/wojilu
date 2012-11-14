@@ -5,12 +5,13 @@
 
 /*************************************************************************************/
 
-#portalContainer { margin: 0 auto; padding-top:15px; background:#;}
+#portalContainer { margin: 0 auto; padding-top:15px; }
+#portalContainer a {color:#333;}
 .rowContainer {margin: 0 auto;text-align: left;color: #2b2b2b; }
 
     .columnContainer {float: left;overflow:hidden;display:inline;}
     
-        .sectionPanel {margin-bottom:10px; clear:both; border-radius:5px; }
+        .sectionPanel {margin-bottom:10px; clear:both; }
 
             .sectionTitle { padding:0px 5px; font-size:14px;font-weight:bold;}
             .sectionMore {float:right;padding:6px 3px 0px 0px;font-weight:normal;font-size:12px;}
@@ -36,8 +37,8 @@
                 .ulRank li {font-size:12px;width:100%;margin-bottom:2px;white-space:nowrap;text-overflow:ellipsis; -o-text-overflow:ellipsis; -moz-text-overflow:ellipsis; overflow: hidden; }                
                 .ulRank li span {padding:0px 3px;margin-right:5px; text-align:center; background-color:#eee;display:inline-block;  font-size:9px;}
                 .ulRank li.rankItem1 span{background-color:orange; color:#fff; font-weight:bold;}
-                .ulRank li.rankItem2 span{background-color:orange; color:#fff;font-weight:bold;}}
-                .ulRank li.rankItem3 span{background-color:orange; color:#fff;font-weight:bold;}}
+                .ulRank li.rankItem2 span{background-color:orange; color:#fff;font-weight:bold;}
+                .ulRank li.rankItem3 span{background-color:orange; color:#fff;font-weight:bold;}
                 .ulRank li span {color:#555;}               
 
                 .sectionVideos li{float:left;margin:10px 10px 0px 0px; width:150px; height:120px; font-size:12px; text-align:center; padding:5px 3px;}
@@ -58,7 +59,7 @@ div.articleLocation {margin:0px 10px 10px 5px; color:#666;}
 #postContainer {width:100%;position:relative;}
 
 
-    #postMain {float:left;  padding:10px 10px 10px 0px; margin:10px 10px 10px 0px }
+    #postMain {float:left;  padding:10px 10px 10px 0px; margin:10px 10px 10px 10px }
     #postMain h4{font-size:18px; margin:5px;}
         #postMainContainer {padding:15px; background:#ebf4ff;border:1px #92b0dd solid; width:600px;}
         
@@ -78,7 +79,7 @@ div.articleLocation {margin:0px 10px 10px 5px; color:#666;}
         
         .postSummary {margin:10px 0px;padding:10px;border:1px #ccc solid; background:#fff; line-height:150%;}
         
-    #postSidebar { width:280px; float:left; padding:10px 0px 0px 0px; }
+    #postSidebar { width:260px; float:left; padding:10px 0px 0px 0px; }
     #postSidebarContainer {padding:10px 0px 0px 0px; }
         .postPanel {margin:0px 0px 10px 0px;padding-bottom:10px; border:1px #aaccee solid; line-height:150%; font-size:14px; display:block;}
         .postPanelTitle {padding:3px 0px 1px 10px; border-bottom:1px #aaccee solid; background:#e2eaf8; color:#004499; font-weight:bold; font-size:14px; line-height:25px;}
@@ -116,3 +117,21 @@ table.commentPublishTable {color:#004499; border:0px #aaa solid; margin-left:15p
         .attachmentForbidden span.afText {background:url("../../../../img/ajax/error.gif") no-repeat left center; padding-left:18px; font-size:12px;}
         .attachmentForbidden span.afInfo {background:url("../../../../img/attachment.gif") no-repeat; padding-left:15px}
 
+
+.sideSection .sectionTitle .sectionTitleText { background:url(side-title-line.png) no-repeat 0px 5px;}
+
+/**************************************/
+.adRow {border:0px !important;}
+.adRow .sectionContent {padding-left:1px !important;overflow:hidden;}
+.adRow .sectionTitle { display:none;}
+
+.focusSection { background:url(focus-new.jpg) no-repeat; border:0px !important;}
+.focusSection a{ color:#2A2A2A;}
+.focusSection .sectionTitle { display:none;}
+
+.login {font-size:12px !important;}
+.login td { padding:3px 1px;}
+.login .tdL {width:50px; padding-right:5px;}
+.login .uid, .login .pwd {width:120px !important;}
+.login .reglink { font-size:12px !important;}
+.login .alert { font-size:12px !important; padding-left:8px;padding-right:2px; margin-top:10px;}
