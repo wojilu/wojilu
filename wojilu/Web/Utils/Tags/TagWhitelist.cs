@@ -48,7 +48,7 @@ namespace wojilu.Web.Utils.Tags {
 
             dic.Add( "object", "data,type,width,height,classid,codebase,align" );
             dic.Add( "param", "name,value" );
-            dic.Add( "embed", "src,bgcolor,name,align,quality,pluginspage,type,width,height" );
+            dic.Add( "embed", "src,bgcolor,name,align,quality,pluginspage,type,width,height,allowFullScreen,allowScriptAccess" );
 
             dic.Add( "blockquote", "" );
             dic.Add( "pre", "" );

@@ -37,6 +37,33 @@ namespace wojilu.Test.Web.Utils {
             str = HtmlFilter.Filter( input );
             Assert.AreEqual( input, str );
 
+            String flash = WebHelper.GetFlash( "www.abc.com/x.swf", 480, 360 );
+            Console.WriteLine( flash );
+            str = HtmlFilter.Filter( flash );
+            Assert.AreEqual( flash, str );
+
+
+        }
+
+        [Test]
+        public void testTableTag() {
+
+            String input = "<table></table>";
+            String str = HtmlFilter.Filter( input );
+            Assert.AreEqual( input, str );
+
+            input = "<table><tr><td>abc</td></tr></table>";
+            str = HtmlFilter.Filter( input );
+            Assert.AreEqual( input, str );
+
+            input = "<table ><tr ><td > abc </td></tr></table>";
+            str = HtmlFilter.Filter( input );
+            Assert.AreEqual( input, str );
+
+            input = "<table border=5><tr ><td > abc </td></tr></table>";
+            str = HtmlFilter.Filter( input );
+            Assert.AreEqual( input, str );
+
         }
 
         [Test]
@@ -121,6 +148,19 @@ namespace wojilu.Test.Web.Utils {
             Assert.AreEqual( "350", dic["width"] );
             Assert.AreEqual( "_blank", dic["target"] );
             Assert.AreEqual( "240", dic["height"] );
+
+            attr = @"  WIDTH=88 height=""99"" data-link=""http://www.abc.com/x.html""";
+            dic = TagHelper.getAttributes( attr );
+            Assert.AreEqual( 3, dic.Count );
+            Assert.AreEqual( "88", dic["WIDTH"] );
+            Assert.AreEqual( "99", dic["height"] );
+            Assert.AreEqual( "http://www.abc.com/x.html", dic["data-link"] );
+
+            attr = @"  alt ='myalt' title =  ""xtitle""";
+            dic = TagHelper.getAttributes( attr );
+            Assert.AreEqual( 2, dic.Count );
+            Assert.AreEqual( "myalt", dic["alt"] );
+            Assert.AreEqual( "xtitle", dic["title"] );
 
         }
 

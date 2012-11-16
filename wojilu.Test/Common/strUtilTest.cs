@@ -8,6 +8,7 @@ using wojilu.Common.Tags;
 using NUnit.Framework;
 using NUnit.Framework.SyntaxHelpers;
 using wojilu.ORM;
+using wojilu.Web.Utils;
 
 namespace wojilu.Test.Common {
 
@@ -329,6 +330,10 @@ namespace wojilu.Test.Common {
             String flash = "<object data=\"http://player.youku.com/player.php/sid/XMTg0MTI0NjU2/v.swf\" type=\"application/x-shockwave-flash\" width=\"300\" height=\"255\"><param name=\"movie\" value =\"http://player.youku.com/player.php/sid/XMTg0MTI0NjU2/v.swf\" /></object>";
             str = strUtil.TrimHtml( flash );
             Assert.AreEqual( flash, str );
+
+            String flash2 = WebHelper.GetFlash( "www.abc.com/x.swf", 480, 360 );
+            str = strUtil.TrimHtml( flash2 );
+            Assert.AreEqual( flash2, str );
 
 
         }

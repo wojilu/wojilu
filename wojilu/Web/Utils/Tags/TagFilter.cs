@@ -230,7 +230,7 @@ namespace wojilu.Web.Utils.Tags {
         private static Boolean isContainsAttr( String[] allowedAttr, String attrName ) {
             if (strUtil.IsNullOrEmpty( attrName )) return false;
             foreach (String a in allowedAttr) {
-                if (a == attrName) return true;
+                if (strUtil.EqualsIgnoreCase( a, attrName )) return true;
             }
             return false;
         }
