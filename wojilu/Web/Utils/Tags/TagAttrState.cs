@@ -1,4 +1,4 @@
-/*
+﻿/*
  * Copyright 2010 www.wojilu.com
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -31,7 +31,7 @@ namespace wojilu.Web.Utils.Tags {
         public Boolean IsQuoteEnd = false;
 
         public String[] GetPair() {
-            String[] arr = this.OneStr.Split( '=' );
+            String[] arr = this.OneStr.Split( new char[] { '=' }, 2  );
             if (arr.Length != 2) return null;
 
             String key = arr[0].Trim();

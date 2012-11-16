@@ -1,4 +1,4 @@
-/*
+ï»¿/*
  * Copyright (c) 2010, www.wojilu.com. All rights reserved.
  */
 
@@ -142,7 +142,7 @@ namespace wojilu.Web.Controller.Users.Admin {
 
             String tagList = strUtil.SubString( ctx.Post( "tagList" ), 30 );
             if (strUtil.IsNullOrEmpty( tagList )) {
-                echoError( "ÇëÌîĞ´ÄÚÈİ" );
+                echoError( "è¯·å¡«å†™å†…å®¹" );
                 return;
             }
 
@@ -158,7 +158,7 @@ namespace wojilu.Web.Controller.Users.Admin {
                 echoAjaxOk();
             }
             else {
-                echoText( "±êÇ©²»´æÔÚ" );
+                echoText( "æ ‡ç­¾ä¸å­˜åœ¨" );
             }
         }
 
@@ -237,7 +237,7 @@ namespace wojilu.Web.Controller.Users.Admin {
 
             Boolean isUserPrivacyClose = Component.IsClose( typeof( UserPrivacy ) );
             if (isUserPrivacyClose) {
-                echo( "¶Ô²»Æğ£¬±¾¹¦ÄÜÒÑ¾­Í£ÓÃ" );
+                echo( "å¯¹ä¸èµ·ï¼Œæœ¬åŠŸèƒ½å·²ç»åœç”¨" );
                 return;
             }
 
@@ -272,7 +272,7 @@ namespace wojilu.Web.Controller.Users.Admin {
 
             Boolean isUserPrivacyClose = Component.IsClose( typeof( UserPrivacy ) );
             if (isUserPrivacyClose) {
-                echo( "¶Ô²»Æğ£¬±¾¹¦ÄÜÒÑ¾­Í£ÓÃ" );
+                echo( "å¯¹ä¸èµ·ï¼Œæœ¬åŠŸèƒ½å·²ç»åœç”¨" );
                 return;
             }
 
@@ -300,7 +300,7 @@ namespace wojilu.Web.Controller.Users.Admin {
 
             Boolean isUserPrivacyClose = Component.IsClose( typeof( UserPrivacy ) );
             if (isUserPrivacyClose) {
-                echo( "¶Ô²»Æğ£¬±¾¹¦ÄÜÒÑ¾­Í£ÓÃ" );
+                echo( "å¯¹ä¸èµ·ï¼Œæœ¬åŠŸèƒ½å·²ç»åœç”¨" );
                 return;
             }
 
@@ -325,7 +325,7 @@ namespace wojilu.Web.Controller.Users.Admin {
 
             Boolean isUserPrivacyClose = Component.IsClose( typeof( UserPrivacy ) );
             if (isUserPrivacyClose) {
-                echo( "¶Ô²»Æğ£¬±¾¹¦ÄÜÒÑ¾­Í£ÓÃ" );
+                echo( "å¯¹ä¸èµ·ï¼Œæœ¬åŠŸèƒ½å·²ç»åœç”¨" );
                 return;
             }
 
@@ -404,13 +404,18 @@ namespace wojilu.Web.Controller.Users.Admin {
                 m.Profile.OtherInfo = ctx.Post( "OtherInfo" );
             }
 
-            int descMaxLength = 5000; // ¼ò½é×î¶à5000×Ö
-            int sigMaxLength = 1000; // Ç©Ãû×î¶à1000×Ö
+            int descMaxLength = 5000; // ç®€ä»‹æœ€å¤š5000å­—
+            int sigMaxLength = 1000; // ç­¾åæœ€å¤š1000å­—
 
-            m.Profile.Description = ctx.PostHtml( "Description", "a,br,strong" );
+            Dictionary<String, String> tags = new Dictionary<String, String>();
+            tags.Add( "a", "href,target" );
+            tags.Add( "br", "" );
+            tags.Add( "strong", "" );
+
+            m.Profile.Description = ctx.PostHtml( "Description", tags );
             if (m.Profile.Description.Length > descMaxLength) m.Profile.Description = strUtil.ParseHtml( m.Profile.Description, descMaxLength );
 
-            m.Signature = ctx.PostHtml( "Signature", "a,br,strong" );
+            m.Signature = ctx.PostHtml( "Signature", tags );
             if (m.Signature.Length > sigMaxLength) m.Signature = strUtil.ParseHtml( m.Signature, sigMaxLength );
         }
 

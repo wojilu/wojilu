@@ -15,6 +15,7 @@
  */
 
 using System;
+using System.Collections.Generic;
 using System.Text;
 using System.Text.RegularExpressions;
 using wojilu.Web.Utils.Tags;
@@ -26,13 +27,8 @@ namespace wojilu.Web.Utils {
     /// </summary>
     public class HtmlFilter {
 
-        private static readonly Regex scriptReg = new Regex( @"<script[\s\S]+</script *>", RegexOptions.IgnoreCase );
-        private static readonly Regex iframeReg = new Regex( @"<iframe[\s\S]+</iframe *>", RegexOptions.IgnoreCase );
-        private static readonly Regex framesetReg = new Regex( @"<frameset[\s\S]+</frameset *>", RegexOptions.IgnoreCase );
-        private static readonly Regex styleReg = new Regex( @"<style[\s\S]+</style *>", RegexOptions.IgnoreCase );
-
         /// <summary>
-        /// 默认是不允许 script/iframe/frameset 标签的
+        /// 根据白名单，过滤掉不安全的字符
         /// </summary>
         /// <param name="srcString"></param>
         /// <returns></returns>
@@ -40,18 +36,13 @@ namespace wojilu.Web.Utils {
 
             if (srcString == null) return null;
 
-            String s = scriptReg.Replace( srcString, "" );
-            s = iframeReg.Replace( s, "" );
-            s = framesetReg.Replace( s, "" );
-            s = styleReg.Replace( s, "" );
-
-            s = TagFilter.Clear( s );
+            String s = TagFilter.Clear( srcString );
 
             return s;
         }
 
         /// <summary>
-        /// 前提：在不允许 script/iframe/frameset 标签的基础上，只有允许的标签才能出现
+        /// 只有允许的标签才能出现
         /// </summary>
         /// <param name="srcString"></param>
         /// <param name="allowedTags">用英文逗号或斜杠分隔;不区分大小写</param>
@@ -60,12 +51,21 @@ namespace wojilu.Web.Utils {
 
             if (srcString == null) return null;
 
-            String s = scriptReg.Replace( srcString, "" );
-            s = iframeReg.Replace( s, "" );
-            s = framesetReg.Replace( s, "" );
-            s = styleReg.Replace( s, "" );
+            String s = TagFilter.Clear( srcString, allowedTags );
+            return s;
+        }
 
-            s = TagFilter.Clear( s, allowedTags );
+        /// <summary>
+        /// 只有允许的标签才能出现
+        /// </summary>
+        /// <param name="srcString"></param>
+        /// <param name="allowedTags">允许的tag，包括属性列表</param>
+        /// <returns></returns>
+        public static String Filter( String srcString, Dictionary<String, String> allowedTags ) {
+
+            if (srcString == null) return null;
+
+            String s = TagFilter.Clear( srcString, allowedTags, false );
 
             return s;
         }
@@ -80,12 +80,7 @@ namespace wojilu.Web.Utils {
             
             if (srcString == null) return null;
 
-            String s = scriptReg.Replace( srcString, "" );
-            s = iframeReg.Replace( s, "" );
-            s = framesetReg.Replace( s, "" );
-            s = styleReg.Replace( s, "" );
-
-            s = TagFilter.ClearWithAllowedTags( s, allowedTags );
+            String s = TagFilter.ClearWithAllowedTags( srcString, allowedTags );
 
             return s;
         }

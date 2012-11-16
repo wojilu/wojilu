@@ -526,6 +526,21 @@ namespace wojilu.Web.Context {
         }
 
         /// <summary>
+        /// 获取客户端 post 的 html，结果已被过滤，只允许 allowedTags 中指定的 tag
+        /// </summary>
+        /// <param name="postItem"></param>
+        /// <param name="allowedTags">允许的tag，包括属性列表</param>
+        /// <returns></returns>
+        public String PostHtml( String postItem, Dictionary<String, String> allowedTags ) {
+            String val = _context.post( postItem );
+            if (val != null) {
+                val = strUtil.TrimHtml( val );
+                val = HtmlFilter.Filter( val, allowedTags );
+            }
+            return val;
+        }
+
+        /// <summary>
         /// 在默认白名单的基础上，允许 allowedTags 中指定的tag
         /// </summary>
         /// <param name="postItem"></param>

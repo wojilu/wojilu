@@ -69,7 +69,7 @@ namespace wojilu.Web.Utils.Tags {
             dic.Add( "th", "" );
             dic.Add( "td", "width,valign,align" );
 
-            dic.Add( "object", "data,type,width,height,classid,codebase,align" );
+            dic.Add( "object", "data,type,width,height,classid,codebase,align,pluginspage" );
             dic.Add( "param", "name,value" );
             dic.Add( "embed", "src,bgcolor,name,align,quality,pluginspage,type,width,height,allowFullScreen,allowScriptAccess" );
 
@@ -86,7 +86,6 @@ namespace wojilu.Web.Utils.Tags {
             dic.Add( "strike", "" );
             dic.Add( "sup", "" );
             dic.Add( "sub", "" );
-            dic.Add( "style", "" );
 
             return dic;
         }
@@ -137,14 +136,26 @@ namespace wojilu.Web.Utils.Tags {
 
                 if (dic.ContainsKey( tag )) continue;
 
-                foreach (KeyValuePair<String, String> kv in _cfgWhiteList) {
-                    if (tag.Equals( kv.Key )) {
-                        dic.Add( kv.Key, kv.Value );
-                    }
+                if (whiteListContais( tag, _cfgWhiteList )) {
+                    dic.Add( tag, _cfgWhiteList[tag] );
+                }
+                else {
+                    dic.Add( tag, "" );
                 }
             }
 
             return dic;
+        }
+
+        private static Boolean whiteListContais( String tag, Dictionary<String, String> _cfgWhiteList ) {
+
+            foreach (KeyValuePair<String, String> kv in _cfgWhiteList) {
+                if (tag.Equals( kv.Key )) {
+                    return true;
+                }
+            }
+
+            return false;
         }
 
     }
