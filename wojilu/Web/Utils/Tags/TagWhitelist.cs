@@ -1,4 +1,4 @@
-/*
+Ôªø/*
  * Copyright 2010 www.wojilu.com
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -17,15 +17,38 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using wojilu.Web.Mvc;
 
 namespace wojilu.Web.Utils.Tags {
 
     internal class TagWhitelist {
 
-        private static readonly Dictionary<String, String> whitelist = getAllowedTags();
+        private static readonly Dictionary<String, String> whitelist = getConfigWhiteList();
 
-        // ƒ¨»œ‘ –Ì Ù–‘id,class,style
-        private static Dictionary<String, String> getAllowedTags() {
+        private static Dictionary<String, String> getConfigWhiteList() {
+
+            Dictionary<String, String> defaultValues = getDefaultAllowedTags();
+
+            if (MvcConfig.Instance.TagWhitelist.Count == 0) return defaultValues;
+
+            Dictionary<String, String> dic = new Dictionary<String, String>();
+            foreach (String rTag in MvcConfig.Instance.TagWhitelist) {
+
+                if (strUtil.IsNullOrEmpty( rTag )) continue;
+
+                String key = rTag.ToLower();
+
+                if (defaultValues.ContainsKey( key ) == false) continue;
+
+                dic.Add( key, defaultValues[key] );
+
+            }
+
+            return dic;
+        }
+
+        // ÈªòËÆ§ÂÖÅËÆ∏Â±ûÊÄßid,class,style
+        private static Dictionary<String, String> getDefaultAllowedTags() {
 
             Dictionary<String, String> dic = new Dictionary<String, String>();
 
@@ -71,17 +94,22 @@ namespace wojilu.Web.Utils.Tags {
 
 
         public static Dictionary<String, String> GetInstance() {
+
             return whitelist;
+
+
         }
 
         public static Dictionary<String, String> AppendTags( String tags ) {
 
-            if (strUtil.IsNullOrEmpty( tags )) return whitelist;
+            Dictionary<String, String> _cfgWhiteList = GetInstance();
+
+            if (strUtil.IsNullOrEmpty( tags )) return _cfgWhiteList;
 
             String[] arrTags = tags.ToLower().Split( new char[] { ',', '/', '|' } );
 
             Dictionary<String, String> dic = new Dictionary<string, string>();
-            foreach (KeyValuePair<String, String> kv in whitelist) {
+            foreach (KeyValuePair<String, String> kv in _cfgWhiteList) {
                 dic.Add( kv.Key, kv.Value );
             }
 
@@ -99,6 +127,8 @@ namespace wojilu.Web.Utils.Tags {
 
             if (strUtil.IsNullOrEmpty( tags )) return new Dictionary<String, String>();
 
+            Dictionary<String, String> _cfgWhiteList = GetInstance();
+
             String[] arrTags = tags.ToLower().Split( new char[] { ',', '/', '|' } );
 
             Dictionary<String, String> dic = new Dictionary<string, string>();
@@ -107,8 +137,8 @@ namespace wojilu.Web.Utils.Tags {
 
                 if (dic.ContainsKey( tag )) continue;
 
-                foreach (KeyValuePair<String, String> kv in whitelist) {
-                    if (tag.Equals( kv.Key ) ) {
+                foreach (KeyValuePair<String, String> kv in _cfgWhiteList) {
+                    if (tag.Equals( kv.Key )) {
                         dic.Add( kv.Key, kv.Value );
                     }
                 }
@@ -116,17 +146,6 @@ namespace wojilu.Web.Utils.Tags {
 
             return dic;
         }
-
-
-        // ÷ª‘ –Ìªª––µƒª˘±æhtml
-        //private static Dictionary<String, String> getBaseTags() {
-        //    Dictionary<String, String> dic = new Dictionary<String, String>();
-        //    dic.Add( "p", "align" );
-        //    dic.Add( "br", "" );
-        //    dic.Add( "div", "" );
-        //    return dic;
-        //}
-
 
     }
 }

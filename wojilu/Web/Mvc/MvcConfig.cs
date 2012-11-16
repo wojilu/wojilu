@@ -126,6 +126,12 @@ namespace wojilu.Web.Mvc {
         /// </summary>
         public List<String> Filter { get { return _filterList; } }
 
+        /// <summary>
+        /// 允许客户端提交的 html tag 白名单
+        /// </summary>
+        public List<String> TagWhitelist { get { return _tagWhiteList; } }
+
+
         //------------------------------------------------------------------------------------------------------------------------------
 
         /// <summary>
@@ -180,6 +186,7 @@ namespace wojilu.Web.Mvc {
 
         private List<String> _rootNamespace;
         private List<String> _filterList;
+        private List<String> _tagWhiteList;
 
         private String _urlExt;
         private String _viewExt;
@@ -206,7 +213,7 @@ namespace wojilu.Web.Mvc {
 
             _routeConfigPath = PathHelper.Map( strUtil.Join( cfgHelper.ConfigRoot, "route.config" ) );
 
-            _rootNamespace = getRootNamespace( dic );
+            _rootNamespace = getValueList( dic, "rootNamespace" );
             _isParseAppId = getIsParseAppId( dic );
             _isCacheView = getIsCacheView( dic );
 
@@ -218,7 +225,8 @@ namespace wojilu.Web.Mvc {
             _urlExt = getUrlExt( dic );
             _viewExt = getViewExt( dic );
             _viewDir = getViewDir( dic );
-            _filterList = getFilterList( dic );
+            _filterList = getValueList( dic, "filter" );
+            _tagWhiteList = getValueList( dic, "tagWhiteList" );
 
             _urlSeparator = getUrlSeparator( dic );
             _isUrlToLower = getIsUrlToLower( dic );
@@ -233,37 +241,18 @@ namespace wojilu.Web.Mvc {
         }
 
 
-
-
-        private List<String> getFilterList( Dictionary<String, String> dic ) {
+        private List<String> getValueList( Dictionary<String, String> dic, String keyName ) {
 
             List<String> result = new List<String>();
 
-            String filter;
-            dic.TryGetValue( "filter", out filter );
-            if (strUtil.IsNullOrEmpty( filter )) return result;
+            String rawStr;
+            dic.TryGetValue( keyName, out rawStr );
+            if (strUtil.IsNullOrEmpty( rawStr )) return result;
 
-            String[] arrF = filter.Split( ',' );
-            foreach (String f in arrF) {
-                if (strUtil.IsNullOrEmpty( f )) continue;
-                result.Add( f.Trim() );
-            }
-
-            return result;
-        }
-
-        private List<String> getRootNamespace( Dictionary<String, String> dic ) {
-
-            List<String> result = new List<String>();
-
-            String strNs;
-            dic.TryGetValue( "rootNamespace", out strNs );
-            if (strUtil.IsNullOrEmpty( strNs )) return result;
-
-            String[] arrNs = strNs.Split( ',' );
-            foreach (String ns in arrNs) {
-                if (strUtil.IsNullOrEmpty( ns )) continue;
-                result.Add( ns.Trim() );
+            String[] arr = rawStr.Split( ',' );
+            foreach (String item in arr) {
+                if (strUtil.IsNullOrEmpty( item )) continue;
+                result.Add( item.Trim() );
             }
 
             return result;
