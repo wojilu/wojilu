@@ -416,7 +416,6 @@ namespace wojilu.Web.Controller.Admin {
             set( "needLoginChecked", config.Instance.Site.NeedLogin ? "checked=\"checked\"" : "" );
             set( "userNeedApproveChecked", config.Instance.Site.UserNeedApprove ? "checked=\"checked\"" : "" );
 
-
             set( "needAlertActivation", config.Instance.Site.AlertActivation ? "checked=\"checked\"" : "" );
             set( "needAlertUserPic", config.Instance.Site.AlertUserPic ? "checked=\"checked\"" : "" );
 
@@ -471,9 +470,13 @@ namespace wojilu.Web.Controller.Admin {
             int UserNameLengthMin = ctx.PostInt( "UserNameLengthMin" );
             int UserNameLengthMax = ctx.PostInt( "UserNameLengthMax" );
 
+            int UserDescriptionMin = ctx.PostInt( "UserDescriptionMin" );
+            int UserDescriptionMax = ctx.PostInt( "UserDescriptionMax" );
+            int UserSignatureMin = ctx.PostInt( "UserSignatureMin" );
+            int UserSignatureMax = ctx.PostInt( "UserSignatureMax" );
+
             String SystemMsgTitle = ctx.Post( "SystemMsgTitle" );
             String SystemMsgContent = ctx.PostHtml( "SystemMsgContent" );
-
 
             String ReservedUserNameStr = ctx.Post( "ReservedUserName" );
             String ReservedUserUrlStr = ctx.Post( "ReservedUserUrl" );
@@ -483,6 +486,11 @@ namespace wojilu.Web.Controller.Admin {
             if (UserNameLengthMax <= 0) errors.Add( lang( "exUserNameMaxGreater0" ) );
             if (strUtil.IsNullOrEmpty( SystemMsgTitle )) errors.Add( lang( "exMsgTitle" ) );
             if (strUtil.IsNullOrEmpty( SystemMsgContent )) errors.Add( lang( "exMsgContent" ) );
+
+            if (UserDescriptionMin < 0) UserDescriptionMin = 0;
+            if (UserDescriptionMax < 0) UserDescriptionMax = 0;
+            if (UserSignatureMin < 0) UserSignatureMin = 0;
+            if (UserSignatureMax < 0) UserSignatureMax = 0;
 
             if (ctx.HasErrors)
                 echoError();
@@ -501,8 +509,28 @@ namespace wojilu.Web.Controller.Admin {
                 config.Instance.Site.UserSendConfirmEmailInterval = confirmEmailInterval;
                 config.Instance.Site.Update( "UserSendConfirmEmailInterval", confirmEmailInterval );
 
-                config.Instance.Site.UserNameLengthMin = UserNameLengthMin; config.Instance.Site.Update( "UserNameLengthMin", UserNameLengthMin );
-                config.Instance.Site.UserNameLengthMax = UserNameLengthMax; config.Instance.Site.Update( "UserNameLengthMax", UserNameLengthMax );
+                //---------------------------------------------------------------------
+                config.Instance.Site.UserNameLengthMin = UserNameLengthMin;
+                config.Instance.Site.Update( "UserNameLengthMin", config.Instance.Site.UserNameLengthMin );
+
+                config.Instance.Site.UserNameLengthMax = UserNameLengthMax;
+                config.Instance.Site.Update( "UserNameLengthMax", config.Instance.Site.UserNameLengthMax );
+
+                //---------------------------------------------------------------------
+                config.Instance.Site.UserDescriptionMin = UserDescriptionMin; 
+                config.Instance.Site.Update( "UserDescriptionMin", config.Instance.Site.UserDescriptionMin );
+
+                config.Instance.Site.UserDescriptionMax = UserDescriptionMax; 
+                config.Instance.Site.Update( "UserDescriptionMax", config.Instance.Site.UserDescriptionMax );
+
+                config.Instance.Site.UserSignatureMin = UserSignatureMin; 
+                config.Instance.Site.Update( "UserSignatureMin", config.Instance.Site.UserSignatureMin );
+
+                config.Instance.Site.UserSignatureMax = UserSignatureMax; 
+                config.Instance.Site.Update( "UserSignatureMax", config.Instance.Site.UserSignatureMax );
+
+                //---------------------------------------------------------------------
+
                 config.Instance.Site.SystemMsgTitle = SystemMsgTitle; config.Instance.Site.Update( "SystemMsgTitle", SystemMsgTitle );
                 config.Instance.Site.SystemMsgContent = SystemMsgContent; config.Instance.Site.Update( "SystemMsgContent", SystemMsgContent );
 

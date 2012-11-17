@@ -404,20 +404,58 @@ namespace wojilu.Web.Controller.Users.Admin {
                 m.Profile.OtherInfo = ctx.Post( "OtherInfo" );
             }
 
-            int descMaxLength = 5000; // 简介最多5000字
-            int sigMaxLength = 1000; // 签名最多1000字
+            if (ctx.viewer != null && ctx.viewer.IsAdministrator()) {
+
+                m.Profile.Description = ctx.PostHtmlAll( "Description" );
+                m.Signature = ctx.PostHtmlAll( "Signature" );
+            }
+            else {
+
+                saveDescriptionAndSignature( m, ctx );
+            }
+        }
+
+        private static void saveDescriptionAndSignature( User m, MvcContext ctx ) {
 
             Dictionary<String, String> tags = new Dictionary<String, String>();
             tags.Add( "a", "href,target" );
             tags.Add( "br", "" );
             tags.Add( "strong", "" );
 
-            m.Profile.Description = ctx.PostHtml( "Description", tags );
-            if (m.Profile.Description.Length > descMaxLength) m.Profile.Description = strUtil.ParseHtml( m.Profile.Description, descMaxLength );
+            String desc = ctx.PostHtml( "Description", tags );
 
-            m.Signature = ctx.PostHtml( "Signature", tags );
-            if (m.Signature.Length > sigMaxLength) m.Signature = strUtil.ParseHtml( m.Signature, sigMaxLength );
+            if (strUtil.CountString( desc.ToLower(), "<br" ) <= 3) { // 超过3次换行无效，不保存
+
+                if (desc.Length >= config.Instance.Site.UserDescriptionMin) {
+                    if (desc.Length > config.Instance.Site.UserDescriptionMax) {
+                        m.Profile.Description = strUtil.ParseHtml( desc, config.Instance.Site.UserDescriptionMax );
+                    }
+                    else {
+                        m.Profile.Description = desc;
+                    }
+                }
+
+            }
+
+            String sign = ctx.PostHtml( "Signature", tags );
+
+            if (strUtil.CountString( sign.ToLower(), "<br" ) <= 3) { // 超过3次换行无效，不保存
+
+
+                if (sign.Length >= config.Instance.Site.UserSignatureMin) {
+                    if (sign.Length > config.Instance.Site.UserSignatureMax) {
+                        m.Signature = strUtil.ParseHtml( sign, config.Instance.Site.UserSignatureMax );
+                    }
+                    else {
+                        m.Signature = sign;
+                    }
+                }
+
+            }
+
         }
+
+
 
         private void saveContact( User m ) {
 

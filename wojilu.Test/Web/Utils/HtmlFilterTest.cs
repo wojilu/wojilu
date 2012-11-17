@@ -100,10 +100,8 @@ namespace wojilu.Test.Web.Utils {
             result = HtmlFilter.Filter( "这是多种内容1标签和<br />内容2风格", "br" );
             Assert.AreEqual( "这是多种内容1标签和<br />内容2风格", result );
 
-            // TODO 这个测试不能通过
-            //result = HtmlFilter.Filter( "这是多种内容1标签和<br/>内容2风格", "br" );
-            //Assert.AreEqual( "这是多种内容1标签和<br/>内容2风格", result );
-
+            result = HtmlFilter.Filter( "这是多种内容1标签和<br/>内容2风格", "br" );
+            Assert.AreEqual( "这是多种内容1标签和<br/>内容2风格", result );
 
             result = HtmlFilter.Filter( "这是<strong>多种</strong>内容1标签和<br>内容2风格", "strong" );
             Assert.AreEqual( "这是<strong>多种</strong>内容1标签和内容2风格", result );

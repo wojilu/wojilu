@@ -202,6 +202,7 @@ namespace wojilu.Web.Utils.Tags {
             if (nameEndIndex == -1) nameEndIndex = tag.Length - 1;
 
             String tagName = tag.Substring( 1, nameEndIndex - 1 );
+            tagName = tagName.TrimEnd( '/' );
 
             if (whitelist.ContainsKey( tagName.ToLower() ) == false) {
                 return new ErrorTagValid( tagName );
