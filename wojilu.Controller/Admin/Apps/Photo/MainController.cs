@@ -1,4 +1,4 @@
-/*
+﻿/*
  * Copyright (c) 2010, www.wojilu.com. All rights reserved.
  */
 
@@ -107,10 +107,13 @@ namespace wojilu.Web.Controller.Admin.Apps.Photo {
                 echoAjaxOk();
             }
             else if ("category".Equals( cmd )) {
-                if (categoryId <= 0) {
+                if (categoryId < 0) {
                     actionContent( lang( "exCategoryNotFound" ) );
                     return;
                 }
+
+                if (categoryId == zeroCatId) categoryId = 0;
+
                 PhotoPost.updateBatch( "set SysCategoryId=" + categoryId, condition );
                 log( SiteLogString.MovePhotoPost(), ids );
 
@@ -120,33 +123,6 @@ namespace wojilu.Web.Controller.Admin.Apps.Photo {
                 actionContent( lang( "exCmd" ) );
         }
 
-
-        //[HttpDelete, DbTransaction]
-        //public void Delete( int id ) {
-        //    PhotoPost post = postService.GetById( id );
-        //    if (post == null) {
-        //        echoTo( lang( "exDataNotFound" ) );
-        //        return;
-        //    }
-        //    photoService.SystemDelete( post );
-        //    log( SiteLogString.DeleteSysPhotoPost(), post );
-
-        //    redirect( Index, -1 );
-        //}
-
-        //[HttpPut, DbTransaction]
-        //public void UnDelete( int id ) {
-
-        //    PhotoPost post = postService.GetById_Admin( id );
-        //    if (post == null) {
-        //        echoRedirect( lang( "exDataNotFound" ) );
-        //        return;
-        //    }
-        //    photoService.SystemUnDelete( post );
-        //    log( SiteLogString.UnDeleteSysPhotoPost(), post );
-
-        //    redirect( Trash );
-        //}
 
     }
 

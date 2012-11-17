@@ -1,4 +1,4 @@
-/*
+﻿/*
  * Copyright (c) 2010, www.wojilu.com. All rights reserved.
  */
 
@@ -42,13 +42,20 @@ namespace wojilu.Web.Controller.Admin.Apps.Photo {
             dropList( "adminDropCategoryList", list, "Name=Id", null );
         }
 
+        private static readonly int zeroCatId = 99999999;
+
         private List<PhotoSysCategory> addSelectInfo( List<PhotoSysCategory> categories ) {
             PhotoSysCategory category = new PhotoSysCategory();
             category.Id = -1;
             category.Name = lang( "setCategory" );
 
+            PhotoSysCategory nullCat = new PhotoSysCategory();
+            nullCat.Id = zeroCatId;
+            nullCat.Name = "--无分类--";
+
             List<PhotoSysCategory> list = new List<PhotoSysCategory>();
             list.Add( category );
+            list.Add( nullCat );
             foreach (PhotoSysCategory cat in categories) {
                 list.Add( cat );
             }
