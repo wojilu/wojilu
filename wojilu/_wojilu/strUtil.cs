@@ -220,7 +220,7 @@ namespace wojilu {
         /// </summary>
         /// <param name="objList">对象必须是IEntity接口</param>
         /// <returns>比如 2,5,8 等</returns>
-        public static string GetIds( IList objList ) {
+        public static String GetIds( IList objList ) {
             if (objList == null || objList.Count == 0) return "";
             String ids = "";
             foreach (IEntity obj in objList) {
@@ -559,7 +559,7 @@ namespace wojilu {
         /// <returns></returns>
         public static List<String> SplitByNum( String str, int count ) {
 
-            List<String> list = new List<string>();
+            List<String> list = new List<String>();
 
             if (str == null) return list;
             if (str.Length == 0) {
@@ -590,6 +590,25 @@ namespace wojilu {
             if (sb.Length > 0) list.Add( sb.ToString() );
 
             return list;
+        }
+
+        /// <summary>
+        /// 统计字符出现的次数
+        /// </summary>
+        /// <param name="input">输入的字符</param>
+        /// <param name="pattern">需要统计的字符</param>
+        /// <returns></returns>
+        public static int CountString( String input, String pattern ) {
+
+            if (input == null) return 0;
+
+            int count = 0;
+            int i = 0;
+            while ((i = input.IndexOf( pattern, i )) != -1) {
+                i += pattern.Length;
+                count++;
+            }
+            return count;
         }
 
         /// <summary>

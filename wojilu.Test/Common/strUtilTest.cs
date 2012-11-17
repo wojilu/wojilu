@@ -618,5 +618,35 @@ namespace wojilu.Test.Common {
 
         }
 
+
+        [Test]
+        public void testCount() {
+
+            int count = strUtil.CountString( "dfakf33dlkafkef33eiefla33kdkd", "33" );
+            Assert.AreEqual( 3, count );
+
+            count = strUtil.CountString( "", "33" );
+            Assert.AreEqual( 0, count );
+
+            count = strUtil.CountString( null, "33" );
+            Assert.AreEqual( 0, count );
+
+            count = strUtil.CountString( "aaaaaaaaaaaaaaaaaaa<br><br><br><br><br><br><br>", "<br" );
+            Assert.AreEqual( 7, count );
+
+            count = strUtil.CountString( "aaaaaaaaaaaaaaaaaaa<br><br><br>", "<br" );
+            Assert.AreEqual( 3, count );
+
+            count = strUtil.CountString( "aaaaaaaa<br>xx<br>aaaaaaaaaaa", "<br" );
+            Assert.AreEqual( 2, count );
+
+            count = strUtil.CountString( "<br", "<br" );
+            Assert.AreEqual( 1, count );
+
+            count = strUtil.CountString( "br", "<br" );
+            Assert.AreEqual( 0, count );
+
+        }
+
     }
 }
