@@ -15,6 +15,7 @@ using wojilu.Web.Controller.Common;
 using wojilu.Web.Controller.Content.Caching;
 using wojilu.Web.Context;
 using wojilu.Members.Sites.Domain;
+using wojilu.Common.AppBase.Interface;
 
 namespace wojilu.Web.Controller.Content {
 
@@ -54,8 +55,8 @@ namespace wojilu.Web.Controller.Content {
 
             //1)location
             String location = string.Format( "<a href='{0}'>{1}</a> &gt; {2}",
-                to( new ContentController().Index ),
-                ctx.app.Name, 
+                alink.ToApp( ctx.app.obj as IApp, ctx ),
+                ctx.app.Name,
                 "分类查看"
             );
 

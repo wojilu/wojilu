@@ -209,6 +209,8 @@ namespace wojilu.Apps.Content.Service {
                 vo.Replies = post.Replies;
                 vo.Category = post.PageSection.Title;
 
+                vo.obj = post;
+
                 results.Add( vo );
             }
 

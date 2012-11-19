@@ -156,10 +156,13 @@ namespace wojilu.Web.Controller.Content.Utils {
         }
 
         public static void bindMashupData( IBlock block, IBinderValue item, int itemIndex ) {
+            bindMashupData( block, item, itemIndex, null );
+        }
+
+        public static void bindMashupData( IBlock block, IBinderValue item, int itemIndex, MvcContext ctx ) {
 
             block.Set( "post.ItemIndex", itemIndex );
             block.Set( "post.Title", item.Title );
-            block.Set( "post.Url", item.Link );
 
             block.Set( "post.Created", item.Created.Day );
             block.Set( "post.CreatedDay", item.Created.ToShortDateString() );
@@ -174,8 +177,23 @@ namespace wojilu.Web.Controller.Content.Utils {
             block.Set( "post.PicUrl", item.PicUrl );
             block.Set( "post.Replies", item.Replies );
 
-            block.Bind( "post", item );
+            String lnk = getDataLink( item, ctx );
+            block.Set( "post.Url", lnk );
 
+            block.Bind( "post", item );
+        }
+
+
+        private static string getDataLink( IBinderValue item, MvcContext ctx ) {
+            if (item == null) return "#";
+            if (ctx == null) return item.Link;
+
+            if (item.obj == null) return item.Link;
+
+            ContentPost post = item.obj as ContentPost;
+            if (post == null) return item.Link;
+
+            return alink.ToAppData( post, ctx );
         }
 
 

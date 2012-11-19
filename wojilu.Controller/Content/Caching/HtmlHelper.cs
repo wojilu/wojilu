@@ -113,7 +113,7 @@ namespace wojilu.Web.Controller.Content.Caching {
 
             HtmlHelper.CheckSidebarDir();
 
-            String addr = strUtil.Join( ctx.url.SiteAndAppPath, ctx.link.To( new SidebarController().Index ) ) + "?ajax=true";
+            String addr = strUtil.Join( ctx.url.SiteAndAppPath, ctx.link.To( new SidebarController().Index ) ) + "?frm=true";
 
             String html = makeHtml( addr );
             file.Write( HtmlHelper.GetSidebarPath( ctx.app.Id ), html );
@@ -134,7 +134,7 @@ namespace wojilu.Web.Controller.Content.Caching {
             String addr = strUtil.Join( ctx.url.SiteAndAppPath, ctx.link.To( new ContentController().Index ) );
 
             String html = makeHtml( addr );
-            file.Write( HtmlHelper.GetAppPath( appId ), html );
+            file.Write( HtmlHelper.GetAppStaticHomePageAbs( appId ), html );
         }
         //------------------------------------------------------------------------------------------
 
@@ -242,7 +242,7 @@ namespace wojilu.Web.Controller.Content.Caching {
 
         public static String CheckAppDir( int appId ) {
 
-            String dir = GetAppDirAbsolute( appId );
+            String dir = GetAppDirAbs( appId );
 
             if (dir == null) return null;
 
@@ -252,31 +252,24 @@ namespace wojilu.Web.Controller.Content.Caching {
             return dir;
         }
 
-        private static string GetAppDirAbsolute( int appId ) {
+        private static string GetAppDirAbs( int appId ) {
 
-            String staticDir = GetlAppStaticDir( appId );
+            String staticDir = GetlAppDirName( appId );
 
             return PathHelper.Map( "/" + staticDir + "/" );
         }
 
-        public static String GetlAppStaticDir( int appId ) {
+        public static String GetlAppDirName( int appId ) {
 
             ContentApp app = ContentApp.findById( appId );
             if (app == null) throw new Exception( "app not found: Content.AppId=" + appId );
 
-            String staticDir = app.GetSettingsObj().StaticDir;
-            if (strUtil.IsNullOrEmpty( staticDir )) {
-
-                logger.Error( "app(id=" + appId + ")尚未配置静态目录，使用默认目录：cms+" + app.Id );
-
-                staticDir = "cms" + app.Id;
-            }
-            return staticDir;
+            return HtmlLink.GetStaticDir( app );
         }
 
-        public static string GetAppPath( int appId ) {
+        public static string GetAppStaticHomePageAbs( int appId ) {
 
-            return Path.Combine( GetAppDirAbsolute( appId ), "default.html" );
+            return Path.Combine( GetAppDirAbs( appId ), "default.html" );
 
         }
 
@@ -323,9 +316,11 @@ namespace wojilu.Web.Controller.Content.Caching {
 
         private static bool isReservedKeyContains( string dirName ) {
 
+            if (dirName == null) return false;
+
             String[] arrKeys = new String[] { "framework", "bin", "html", "static" };
 
-            return new List<String>( arrKeys ).Contains( dirName );
+            return new List<String>( arrKeys ).Contains( dirName.ToLower() );
         }
 
         //----------------------------------------------------------------------------

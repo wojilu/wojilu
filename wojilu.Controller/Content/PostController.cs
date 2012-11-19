@@ -89,7 +89,7 @@ namespace wojilu.Web.Controller.Content {
             bindMetaInfo( post );
 
             // 1) location
-            String location = string.Format( "<a href='{0}'>{1}</a>", to( new ContentController().Index ),
+            String location = string.Format( "<a href='{0}'>{1}</a>", alink.ToApp( ctx.app.obj as IApp, ctx ),
     ctx.app.Name );
             location = location + string.Format( " &gt; <a href='{0}'>{1}</a> &gt; {2}", clink.toSection( post.PageSection.Id, ctx ), post.PageSection.Title, alang( "postDetail" ) );
             set( "location", location );
@@ -104,7 +104,7 @@ namespace wojilu.Web.Controller.Content {
             }
             else {
                 String commentUrl = t2( new wojilu.Web.Controller.Open.CommentController().List )
-                    + "?url=" + clink.toPost( post, ctx )
+                    + "?url=" + alink.ToAppData( post, ctx )
                     + "&dataType=" + typeof( ContentPost ).FullName
                     + "&dataTitle=" + post.Title
                     + "&dataUserId=" + post.Creator.Id

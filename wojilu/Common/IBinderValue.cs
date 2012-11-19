@@ -41,6 +41,8 @@ namespace wojilu.Common {
         DateTime Created { get; set; }
         int Replies { get; set; }
 
+        Object obj { get; set; }
+
     }
 
 

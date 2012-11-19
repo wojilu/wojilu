@@ -34,17 +34,6 @@ namespace wojilu.Web.Controller.Content.Utils {
             }
         }
 
-        public static String toPost( IAppData data, MvcContext ctx ) {
-
-            if (HtmlHelper.IsMakeHtml( ctx )) {
-                DateTime n = data.Created;
-                return string.Format( "/html/{0}/{1}/{2}/{3}.html", n.Year, n.Month, n.Day, data.Id );
-            }
-            else {
-                return alink.ToAppData( data );
-            }
-        }
-
         public static String toSidebar( MvcContext ctx ) {
 
             if (HtmlHelper.IsMakeHtml( ctx )) {

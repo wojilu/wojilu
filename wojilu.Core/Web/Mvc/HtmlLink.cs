@@ -5,15 +5,33 @@ using wojilu.Common.AppBase.Interface;
 
 namespace wojilu.Web.Mvc {
 
+    public interface IStaticApp {
+        String GetStaticDir();
+    }
+
     public class HtmlLink {
 
         public static String ToApp( IApp app ) {
 
-            IEntity entity = app as IEntity;
-            Object url = entity.get( "FriendlyUrl" );
-            if (url == null) return "content"+app.Id;
+            return string.Format( "/{0}/default.html", GetStaticDir( app ) );
+        }
 
-            return url.ToString();
+        public static String GetStaticDir( IApp app ) {
+
+            if (app == null) throw new ArgumentNullException( "app" );
+
+            IStaticApp entity = app as IStaticApp;
+            if (entity == null) return getDefaultStaticDir( app );
+
+            String staticDir = entity.GetStaticDir();
+            if (strUtil.IsNullOrEmpty( staticDir )) return getDefaultStaticDir( app );
+
+            return staticDir;
+
+        }
+
+        private static string getDefaultStaticDir( IApp app ) {
+            return "cms" + app.Id;
         }
 
 

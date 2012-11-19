@@ -56,7 +56,7 @@ namespace wojilu.Web.Controller.Content.Admin {
             ContentApp app = ctx.app.obj as ContentApp;
             ContentSetting s = app.GetSettingsObj();
 
-            String htmlDir = HtmlHelper.GetlAppStaticDir( app.Id );
+            String htmlDir = HtmlHelper.GetlAppDirName( app.Id );
             htmlDir = htmlDir.TrimStart( '/' ).TrimEnd( '/' );
 
             set( "htmlDir", htmlDir );
@@ -73,7 +73,7 @@ namespace wojilu.Web.Controller.Content.Admin {
             ContentApp app = ctx.app.obj as ContentApp;
             ContentSetting s = app.GetSettingsObj();
 
-            String htmlDir = HtmlHelper.GetlAppStaticDir( app.Id );
+            String htmlDir = HtmlHelper.GetlAppDirName( app.Id );
             htmlDir = htmlDir.TrimStart( '/' ).TrimEnd( '/' );
 
             set( "htmlDir", htmlDir );
