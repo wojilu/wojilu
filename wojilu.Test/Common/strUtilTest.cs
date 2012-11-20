@@ -339,7 +339,7 @@ namespace wojilu.Test.Common {
         }
 
         private static int getPage( string url ) {
-            return PageHelper.GetPageByUrl( url );
+            return PageHelper.GetPageNoByUrl( url );
         }
 
         [Test]

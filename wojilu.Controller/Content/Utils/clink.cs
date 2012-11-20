@@ -14,6 +14,28 @@ namespace wojilu.Web.Controller.Content.Utils {
     /// </summary>
     public class clink {
 
+        public static String toRecent( MvcContext ctx ) {
+
+            if (HtmlHelper.IsMakeHtml( ctx )) {
+                return string.Format( "/html/recent/{0}.html", ctx.app.Id );
+            }
+            else {
+                return ctx.link.To( new PostController().Recent );
+            }
+        }
+
+        public static String toRecentArchive( MvcContext ctx ) {
+
+            if (HtmlHelper.IsMakeHtml( ctx )) {
+                return string.Format( "/html/recent/{0}_a.html", ctx.app.Id );
+            }
+            else {
+                return ctx.link.To( new PostController().RecentArchive );
+            }
+        }
+
+        //------------------------------------------------------------------------------------------
+
         public static String toSection( int sectionId, MvcContext ctx ) {
 
             if (HtmlHelper.IsMakeHtml( ctx )) {
@@ -30,9 +52,11 @@ namespace wojilu.Web.Controller.Content.Utils {
                 return string.Format( "/html/list/{0}_a.html", sectionId );
             }
             else {
-                return ctx.link.To( new SectionController().Show, sectionId );
+                return ctx.link.To( new SectionController().Archive, sectionId );
             }
         }
+
+        //------------------------------------------------------------------------------------------
 
         public static String toSidebar( MvcContext ctx ) {
 

@@ -37,12 +37,14 @@ namespace wojilu.Web.Controller.Content {
         public override void Layout() {
         }
 
+        [Data( typeof( ContentSection ) )]
         public void Show( int sectionId ) {
             ContentSection section = showInfo( sectionId );
             set( "listContent", loadHtml( section.SectionType, "List", sectionId ) );
         }
 
 
+        [Data( typeof( ContentSection ) )]
         public void Archive( int sectionId ) {
             view( "Show" );
             ContentSection section = showInfo( sectionId );

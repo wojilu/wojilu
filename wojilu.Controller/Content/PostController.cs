@@ -42,15 +42,35 @@ namespace wojilu.Web.Controller.Content {
         public override void Layout() {
         }
 
+        public static readonly int pageSize = 20;
+
         public void Recent() {
 
-            DataPage<ContentPost> list = postService.GetByApp( ctx.app.Id, 50 );
+            DataPage<ContentPost> list = postService.GetByApp( ctx.app.Id, pageSize );
             bindPosts( list );
 
-            Page.Title = ctx.app.Name + "最新文章";
+            String cpLink = clink.toRecent( ctx );
+            String apLink = clink.toRecentArchive( ctx );
+            Boolean isMakeHtml = HtmlHelper.IsMakeHtml( ctx );
+
+            set( "page", list.GetRecentPage( cpLink, apLink, 3, isMakeHtml ) );
+        }
+
+        public void RecentArchive() {
+            view( "Recent" );
+
+            DataPage<ContentPost> list = postService.GetByAppArchive( ctx.app.Id, pageSize );
+            bindPosts( list );
+
+            String cpLink = clink.toRecent( ctx );
+            String apLink = clink.toRecentArchive( ctx );
+            Boolean isMakeHtml = HtmlHelper.IsMakeHtml( ctx );
+
+            set( "page", list.GetArchivePage( cpLink, apLink, 3, isMakeHtml ) );
         }
 
         private void bindPosts( DataPage<ContentPost> posts ) {
+            Page.Title = ctx.app.Name + "最新文章";
             IBlock block = getBlock( "list" );
             foreach (ContentPost post in posts.Results) {
 
@@ -60,7 +80,6 @@ namespace wojilu.Web.Controller.Content {
                 BinderUtils.bindListItem( block, post, ctx );
                 block.Next();
             }
-            set( "page", posts.PageBar );
         }
 
 

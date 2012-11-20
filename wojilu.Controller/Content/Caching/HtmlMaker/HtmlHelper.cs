@@ -18,6 +18,10 @@ namespace wojilu.Web.Controller.Content.Caching {
             ctx.SetItem( "_currentContentPost", post );
         }
 
+        public static ContentPost GetCurrentPost( MvcContext ctx ) {
+            return ctx.GetItem( "_currentContentPost" ) as ContentPost;
+        }
+
         public static Boolean IsMakeHtml( MvcContext ctx ) {
             if (ctx.GetItem( "_makeHtml" ) == null) return false;
             Boolean isMakeHtml = (Boolean)ctx.GetItem( "_makeHtml" );
@@ -54,57 +58,8 @@ namespace wojilu.Web.Controller.Content.Caching {
             foreach (String url in pagedUrls) {
                 String addrPaged = strUtil.Join( ctx.url.SiteAndAppPath, url );
                 String htmlPaged = makeHtml( addrPaged );
-                file.Write( HtmlHelper.GetPostPath( post, PageHelper.GetPageByUrl( url ) ), htmlPaged );
+                file.Write( HtmlHelper.GetPostPath( post, PageHelper.GetPageNoByUrl( url ) ), htmlPaged );
             }
-        }
-
-        //------------------------------------------------------------------------------------------
-
-        /// <summary>
-        /// 插入或删除文章后，根据此文章更新列表页
-        /// </summary>
-        /// <param name="ctx"></param>
-        public static int MakeListHtml( MvcContext ctx ) {
-
-            ContentPost post = ctx.GetItem( "_currentContentPost" ) as ContentPost;
-            if (post == null) return 0;
-
-            int sectionId = post.PageSection.Id;
-            ContentApp app = ctx.app.obj as ContentApp;
-            int recordCount = 0;
-
-            return MakeListHtml( ctx, app, sectionId, recordCount );
-        }
-
-        /// <summary>
-        /// 根据 sectionId 生成此区块的列表页
-        /// </summary>
-        /// <param name="ctx"></param>
-        /// <param name="sectionId"></param>
-        public static int MakeListHtml( MvcContext ctx, ContentApp app, int sectionId, int recordCount ) {
-
-            HtmlHelper.CheckListDir( app.Id );
-
-            ContentSetting s = app.GetSettingsObj();
-
-            String cpLink = ctx.link.To( new SectionController().Show, sectionId );
-            String caLink = ctx.link.To( new SectionController().Archive, sectionId );
-
-            List<String> lnks = PageHelper.GetPageLinks( cpLink, caLink, recordCount, 3, s.ListPostPerPage );
-
-            foreach (String url in lnks) {
-
-                int page = PageHelper.GetPageByUrl( url );
-
-                Boolean isArchive = url.IndexOf( "/Archive" ) > 0;
-
-                String addr = strUtil.Join( ctx.url.SiteAndAppPath, url );
-                String html = makeHtml( addr );
-                file.Write( HtmlHelper.GetListPath( app.Id, sectionId, page, isArchive ), html );
-
-            }
-
-            return lnks.Count;
         }
 
         //------------------------------------------------------------------------------------------
@@ -113,7 +68,7 @@ namespace wojilu.Web.Controller.Content.Caching {
 
             HtmlHelper.CheckSidebarDir();
 
-            String addr = strUtil.Join( ctx.url.SiteAndAppPath, ctx.link.To( new SidebarController().Index ) ) + "?frm=true";
+            String addr = strUtil.Join( ctx.url.SiteAndAppPath, ctx.link.To( new SidebarController().Index ) ) + "?ajax=true";
 
             String html = makeHtml( addr );
             file.Write( HtmlHelper.GetSidebarPath( ctx.app.Id ), html );
@@ -175,49 +130,6 @@ namespace wojilu.Web.Controller.Content.Caching {
         private static string GetPostPath( ContentPost post, int page ) {
             return Path.Combine( GetPostDir( post ), post.Id + "_" + page + ".html" );
         }
-
-        //----------------------------------------------------------------------------
-
-        public static String CheckListDir( int appId ) {
-
-            String dir = GetListDir();
-
-            if (Directory.Exists( dir )) return dir;
-            Directory.CreateDirectory( dir );
-
-            return dir;
-        }
-
-        public static String GetListDir() {
-            return PathHelper.Map( "/html/list/" );
-        }
-
-        // 如果是普通的 /list/38.html, /list/38_5.html
-        // 如果是存档的 /list/38_a_1.html, /list/38_a_5.html
-        public static String GetListPath( int appId, int sectionId, int page, Boolean isArchive ) {
-
-            if (isArchive) {
-
-                if (page == 1) {
-                    return Path.Combine( GetListDir(), sectionId + "_a.html" );
-                }
-                else {
-                    return Path.Combine( GetListDir(), sectionId + "_a_" + page + ".html" );
-                }
-            }
-            else {
-                if (page == 1) {
-                    return Path.Combine( GetListDir(), sectionId + ".html" );
-                }
-                else {
-                    return Path.Combine( GetListDir(), sectionId + "_" + page + ".html" );
-                }
-            }
-        }
-
-        //public static String GetListLink( int sectionId ) {
-        //    return string.Format( "/html/list/{0}.html", sectionId );
-        //}
 
         //----------------------------------------------------------------------------
 

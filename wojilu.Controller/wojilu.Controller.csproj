@@ -142,7 +142,10 @@
     <Compile Include="Content\Caching\Actions\PostAddCache.cs" />
     <Compile Include="Content\Caching\Actions\PostDeleteCache.cs" />
     <Compile Include="Content\Caching\ContentIndexPageCache.cs" />
-    <Compile Include="Content\Caching\HtmlHelper.cs" />
+    <Compile Include="Content\Caching\HtmlMaker\HtmlHelper.cs" />
+    <Compile Include="Content\Caching\HtmlMaker\HtmlListMaker.cs" />
+    <Compile Include="Content\Caching\HtmlMaker\HtmlMakerBase.cs" />
+    <Compile Include="Content\Caching\HtmlMaker\HtmlRecentMaker.cs" />
     <Compile Include="Content\SidebarController.cs" />
     <Compile Include="Content\Utils\clink.cs" />
     <Compile Include="Forum\Admin\ForumPickController.cs" />

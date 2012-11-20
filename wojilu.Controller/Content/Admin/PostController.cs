@@ -435,7 +435,11 @@ namespace wojilu.Web.Controller.Content.Admin {
                 HtmlHelper.SetCurrentPost( ctx, post );
 
                 HtmlHelper.DeleteDetailHtml( ctx );
-                HtmlHelper.MakeListHtml( ctx );
+
+                int sectionId = post.PageSection.Id;
+                int recordCount = postService.GetCountBySection( sectionId );
+                new HtmlListMaker().MakeHtml( ctx, sectionId, recordCount );
+
             }
         }
 

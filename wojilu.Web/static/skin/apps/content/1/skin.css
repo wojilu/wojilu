@@ -88,6 +88,20 @@ div.articleLocation {margin:0px 10px 10px 5px; color:#666;}
     #postSidebarContainer .postPanel .ulimg img {width:110px;height:80px;text-align:center;} 
     #postSidebarContainer .postPanel .ulimg div.postTitle {width:130px;text-align:center;font-size:12px;white-space:nowrap;text-overflow:ellipsis; -o-text-overflow:ellipsis; -moz-text-overflow:ellipsis; overflow: hidden;} 
 
+
+    #postSidebar { width:272px; float:left; padding:10px 0px 0px 0px; }
+    #postSidebarContainer {padding:10px 0px 0px 0px;width:270px; }
+        .postPanel {margin:0px 0px 10px 0px;padding-bottom:10px; border:1px #aaccee solid; line-height:150%; font-size:14px; display:block;}
+        .postPanelTitle {padding:3px 0px 1px 10px; border-bottom:1px #aaccee solid; background:#e2eaf8; color:#004499; font-weight:bold; font-size:14px; line-height:25px;}
+        .postPanel a {color:#004499}
+        .postPanel ul {list-style:none; margin:10px; padding:0px;}
+        
+        #postSidebarContainer li.textListTitle {width:220px;white-space:nowrap;text-overflow:clip; -o-text-overflow:clip; -moz-text-overflow:clip; overflow: hidden;}
+        
+    #postSidebarContainer .postPanel .ulimg li{ float:left;margin:5px 0px 5px 10px;width:100px;}
+    #postSidebarContainer .postPanel .ulimg img {width:90px;height:80px;text-align:center;} 
+    #postSidebarContainer .postPanel .postTitle {width:100px;text-align:center;font-size:12px;white-space:nowrap;text-overflow:clip; -o-text-overflow:clip; -moz-text-overflow:clip; overflow: hidden;} 
+
 .postPanel ul.textList li {width:100%;white-space:nowrap;text-overflow:ellipsis; -o-text-overflow:ellipsis; -moz-text-overflow:ellipsis; overflow: hidden;}
 
 #postComment {}

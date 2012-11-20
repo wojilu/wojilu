@@ -123,6 +123,10 @@ namespace wojilu.Apps.Content.Service {
             return ContentPost.count( condition );
         }
 
+        public virtual int CountByApp( int appId ) {
+            return ContentPost.count( "AppId=" + appId + " and SaveStatus=" + SaveStatus.Normal );
+        }
+
 
         public virtual List<IBinderValue> GetByAppIds( String ids, int count ) {
             String sids = checkIds( ids );
@@ -259,7 +263,9 @@ namespace wojilu.Apps.Content.Service {
             return ContentPost.find( "AppId=" + appId + " and SaveStatus=" + SaveStatus.Normal + " order by Id desc" ).list();
         }
 
-
+        public virtual DataPage<ContentPost> GetByAppArchive( int appId, int pageSize ) {
+            return ContentPost.findPageArchive( "AppId=" + appId + " and SaveStatus=" + SaveStatus.Normal + " order by Id desc", pageSize );
+        }
 
         public virtual DataPage<ContentPost> GetTrashByApp( int appId, int pageSize ) {
             return ContentPost.findPage( "AppId=" + appId + " and SaveStatus=" + SaveStatus.Delete + " order by Id desc", pageSize );

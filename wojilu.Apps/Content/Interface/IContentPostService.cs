@@ -38,13 +38,18 @@ namespace wojilu.Apps.Content.Interface {
         List<ContentPost> GetByApp( int appId );
 
         DataPage<ContentPost> GetByApp( int appId, int pageSize );
+        DataPage<ContentPost> GetByAppArchive( int appId, int pageSize );
+
         DataPage<ContentPost> GetBySearch( int appId, string key, int pageSize );
         DataPage<ContentPost> GetTrashByApp( int appId, int pageSize );
 
         ContentPost GetFirstPost( int appId, int sectionId );
 
         DataPage<ContentPost> GetByCreator( int creatorId, IMember owner, int appId );
+
         int CountByCreator( int creatorId, IMember owner, int appId );
+        int CountByApp( int appId );
+
 
         void AddHits( ContentPost post );
 
@@ -78,6 +83,8 @@ namespace wojilu.Apps.Content.Interface {
 
 
         DataPage<ContentPost> GetPageBySectionArchive( int sectionId, int pageSize );
+
+
 
 
 

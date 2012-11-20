@@ -327,7 +327,7 @@ namespace wojilu {
 
 
 
-        public static int GetPageByUrl( String url ) {
+        public static int GetPageNoByUrl( String url ) {
             if (strUtil.IsNullOrEmpty( url )) return 1;
 
             String[] arr = url.Split( '/' );
