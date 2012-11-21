@@ -1,4 +1,4 @@
-/*
+ï»¿/*
  * Copyright (c) 2010, www.wojilu.com. All rights reserved.
  */
 
@@ -70,7 +70,7 @@ namespace wojilu.Web.Controller.Content {
         }
 
         private void bindPosts( DataPage<ContentPost> posts ) {
-            Page.Title = ctx.app.Name + "×îĞÂÎÄÕÂ";
+            Page.Title = ctx.app.Name + "æœ€æ–°æ–‡ç« ";
             IBlock block = getBlock( "list" );
             foreach (ContentPost post in posts.Results) {
 
@@ -104,8 +104,6 @@ namespace wojilu.Web.Controller.Content {
 
             //----------------------------------------------------------------------------------------------------
 
-            // 0) page meta
-            bindMetaInfo( post );
 
             // 1) location
             String location = string.Format( "<a href='{0}'>{1}</a>", alink.ToApp( ctx.app.obj as IApp, ctx ),
@@ -150,11 +148,10 @@ namespace wojilu.Web.Controller.Content {
             set( "post.Url", postUrl );
             bind( "post", post );
 
-        }
+            // 9) page metaï¼Œæœ€åä¸€ä¸ªç»‘å®šï¼Œè¦†ç›–å„ Section è‡ªå·±çš„é…ç½®
+            bindMetaInfo( post );
 
-        //private String getCommentTarget( ContentPost post ) {
-        //    return typeof( ContentPost ).FullName + "_" + post.Id;
-        //}
+        }
 
         private String getFullUrl( String url ) {
             if (url == null) return "";
@@ -182,7 +179,7 @@ namespace wojilu.Web.Controller.Content {
         public void DiggUp( int id ) {
 
             if (ctx.viewer.IsLogin == false) {
-                echoText( "±ØĞëµÇÂ¼²ÅÄÜ²Ù×÷£¬ÇëÏÈµÇÂ¼" );
+                echoText( "å¿…é¡»ç™»å½•æ‰èƒ½æ“ä½œï¼Œè¯·å…ˆç™»å½•" );
                 return;
             }
 
@@ -195,7 +192,7 @@ namespace wojilu.Web.Controller.Content {
 
             ContentDigg digg = ContentDigg.find( "UserId=" + ctx.viewer.Id + " and PostId=" + post.Id ).first();
             if (digg != null) {
-                echoText( "ÄãÒÑ¾­²Ù×÷£¬ÇëÎğÖØ¸´" );
+                echoText( "ä½ å·²ç»æ“ä½œï¼Œè¯·å‹¿é‡å¤" );
                 return;
             }
 
@@ -217,7 +214,7 @@ namespace wojilu.Web.Controller.Content {
         public void DiggDown( int id ) {
 
             if (ctx.viewer.IsLogin == false) {
-                echoText( "±ØĞëµÇÂ¼²ÅÄÜ²Ù×÷£¬ÇëÏÈµÇÂ¼" );
+                echoText( "å¿…é¡»ç™»å½•æ‰èƒ½æ“ä½œï¼Œè¯·å…ˆç™»å½•" );
                 return;
             }
 
@@ -230,7 +227,7 @@ namespace wojilu.Web.Controller.Content {
 
             ContentDigg digg = ContentDigg.find( "UserId=" + ctx.viewer.Id + " and PostId=" + post.Id ).first();
             if (digg != null) {
-                echoText( "ÄãÒÑ¾­²Ù×÷£¬ÇëÎğÖØ¸´" );
+                echoText( "ä½ å·²ç»æ“ä½œï¼Œè¯·å‹¿é‡å¤" );
                 return;
             }
 
@@ -253,8 +250,8 @@ namespace wojilu.Web.Controller.Content {
             ContentPost prev = postService.GetPrevPost( post );
             ContentPost next = postService.GetNextPost( post );
 
-            String lnkPrev = prev == null ? "(Ã»ÁË)" : string.Format( "<a href=\"{0}\">{1}</a>", alink.ToAppData( prev, ctx ), prev.Title );
-            String lnkNext = next == null ? "(Ã»ÁË)" : string.Format( "<a href=\"{0}\">{1}</a>", alink.ToAppData( next, ctx ), next.Title );
+            String lnkPrev = prev == null ? "(æ²¡äº†)" : string.Format( "<a href=\"{0}\">{1}</a>", alink.ToAppData( prev, ctx ), prev.Title );
+            String lnkNext = next == null ? "(æ²¡äº†)" : string.Format( "<a href=\"{0}\">{1}</a>", alink.ToAppData( next, ctx ), next.Title );
 
             set( "prevPost", lnkPrev );
             set( "nextPost", lnkNext );

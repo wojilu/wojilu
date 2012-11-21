@@ -39,20 +39,22 @@ namespace wojilu.Web.Controller.Content {
 
         [Data( typeof( ContentSection ) )]
         public void Show( int sectionId ) {
-            ContentSection section = showInfo( sectionId );
+            ContentSection section = sectionService.GetById( sectionId, ctx.app.Id );
             set( "listContent", loadHtml( section.SectionType, "List", sectionId ) );
+            showInfo( section );
         }
 
 
         [Data( typeof( ContentSection ) )]
         public void Archive( int sectionId ) {
             view( "Show" );
-            ContentSection section = showInfo( sectionId );
+            ContentSection section = sectionService.GetById( sectionId, ctx.app.Id );
             set( "listContent", loadHtml( section.SectionType, "Archive", sectionId ) );
+            showInfo( section );
         }
 
-        private ContentSection showInfo( int sectionId ) {
-            ContentSection section = sectionService.GetById( sectionId, ctx.app.Id );
+        private ContentSection showInfo( ContentSection section ) {
+
             WebUtils.pageTitle( this, section.Title, ctx.app.Name );
 
             //1)location

@@ -46,7 +46,6 @@ namespace wojilu.Web.Controller.Content.Section {
 
         private void bindPosts( ContentSection section, DataPage<ContentPost> posts ) {
             set( "section.Name", section.Title );
-            ctx.SetItem( "PageTitle", Page.Title );
             IBlock block = getBlock( "list" );
             foreach (ContentPost post in posts.Results) {
 

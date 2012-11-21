@@ -812,13 +812,20 @@ namespace wojilu.Web.Mvc {
                 ctx.web.Redirect( url, false );
             }
             else {
-                ctx.utils.end();
-                ctx.utils.skipRender();
-                ctx.utils.clearResource();
-                ctx.web.Redirect( url, false );
+                redirectDirect( url );
             }
         }
 
+        /// <summary>
+        /// 直接跳转，不经过layout参数处理
+        /// </summary>
+        /// <param name="url"></param>
+        public void redirectDirect( String url ) {
+            ctx.utils.end();
+            ctx.utils.skipRender();
+            ctx.utils.clearResource();
+            ctx.web.Redirect( url, false );
+        }
 
         private Boolean hasNolayout() {
             return ctx.utils.getNoLayout() > 0 || referrerHasNolayout();

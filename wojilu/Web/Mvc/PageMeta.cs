@@ -1,4 +1,4 @@
-/*
+ï»¿/*
  * Copyright 2010 www.wojilu.com
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -19,7 +19,7 @@ using System;
 namespace wojilu.Web.Mvc {
 
     /// <summary>
-    /// Ò³ÃæµÄÔªĞÅÏ¢£¬°üÀ¨±êÌâ¡¢¹Ø¼ü´Ê¡¢ÃèÊöºÍrssÁ´½Ó£¬Ö÷ÒªÓÃÓÚ seo
+    /// é¡µé¢çš„å…ƒä¿¡æ¯ï¼ŒåŒ…æ‹¬æ ‡é¢˜ã€å…³é”®è¯ã€æè¿°å’Œrssé“¾æ¥ï¼Œä¸»è¦ç”¨äº seo
     /// </summary>
     public class PageMeta {
 
@@ -28,18 +28,8 @@ namespace wojilu.Web.Mvc {
         private String _description;
         private String _rssLink;
 
-        //public String getTitle() { return _title; }
-        //public String getKeywords() { return _keywords; }
-        //public String getDescription() { return _description; }
-        //public String getRssLink() { return _rssLink; }
-
-        //public void setTitle( String title ) { _title = title; }
-        //public void setKeywords( String keywords ) { _keywords = keywords; }
-        //public void setDescription( String description ) { _description = description; }
-        //public void setRssLink( String rssLink ) { _rssLink = rssLink; }
-
         /// <summary>
-        /// Ò³ÃæµÄ±êÌâ
+        /// é¡µé¢çš„æ ‡é¢˜
         /// </summary>
         public String Title {
             get { return _title; }
@@ -47,7 +37,7 @@ namespace wojilu.Web.Mvc {
         }
 
         /// <summary>
-        /// Ò³ÃæµÄ¹Ø¼ü´Ê
+        /// é¡µé¢çš„å…³é”®è¯
         /// </summary>
         public String Keywords {
             get { return _keywords; }
@@ -55,7 +45,7 @@ namespace wojilu.Web.Mvc {
         }
 
         /// <summary>
-        /// Ò³ÃæµÄÃèÊö
+        /// é¡µé¢çš„æè¿°
         /// </summary>
         public String Description {
             get { return _description; }
@@ -63,7 +53,7 @@ namespace wojilu.Web.Mvc {
         }
 
         /// <summary>
-        /// Ò³Ãæ¶ÔÓ¦µÄ rss Á´½Ó
+        /// é¡µé¢å¯¹åº”çš„ rss é“¾æ¥
         /// </summary>
         public String RssLink {
             get { return _rssLink; }

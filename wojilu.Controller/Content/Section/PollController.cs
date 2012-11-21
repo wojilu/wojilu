@@ -146,8 +146,6 @@ namespace wojilu.Web.Controller.Content.Section {
                 echoRedirect( lang( "exDataNotFound" ) );
                 return;
             }
-            Page.Title = section.Title;
-            ctx.SetItem( "PageTitle", Page.Title );
 
             DataPage<ContentPost> list = postService.GetPageBySection( sectionId, 10 );
 
@@ -163,8 +161,6 @@ namespace wojilu.Web.Controller.Content.Section {
             ContentPoll poll = pollService.GetByTopicId( id, typeof( ContentPost ).FullName );
 
             postService.AddHits( post );
-
-            Page.Title = post.Title;
 
             bindDetail( post, poll );
 
