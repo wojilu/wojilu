@@ -12,17 +12,42 @@ namespace wojilu.Web.Controller.Layouts {
 
     public class MenuHelper {
 
-        public static string getCurrentClass( IMenu menu, String currentModuleUrl, String currentClass ) {
+        public static string getCurrentClass( IMenu menu, Object currentModuleUrl, String currentClass ) {
             return getCurrentClass( menu.RawUrl, currentModuleUrl, currentClass );
         }
 
-        public static string getCurrentClass( String rawUrl, String currentModuleUrl, String currentClass ) {
+        public static string getCurrentClass( String rawUrl, Object currentModuleUrl, String currentClass ) {
 
             if (currentModuleUrl == null) return "";
 
-            currentModuleUrl = strUtil.TrimEnd( currentModuleUrl, MvcConfig.Instance.UrlExt ).TrimStart( '/' );
+            if (currentModuleUrl is String) {
 
-            return strUtil.EqualsIgnoreCase( currentModuleUrl, rawUrl ) ? currentClass : "";
+                return getCssClassByString( rawUrl, currentModuleUrl.ToString(), currentClass );
+
+            }
+            else if (currentModuleUrl is String[]) {
+
+                return getCssClassByArray( rawUrl, currentModuleUrl as String[], currentClass );
+            }
+            else {
+                return "";
+            }
+        }
+
+        private static String getCssClassByArray( String rawUrl, String[] arrUrl, String currentClass ) {
+
+            foreach (String cUrl in arrUrl) {
+                String cssClass = getCssClassByString( rawUrl, cUrl, currentClass );
+                if (strUtil.HasText( cssClass )) {
+                    return cssClass;
+                }
+            }
+            return "";
+        }
+
+        private static String getCssClassByString( String rawUrl, String currentModuleUrl, String currentClass ) {
+            String cUrl = strUtil.TrimEnd( currentModuleUrl, MvcConfig.Instance.UrlExt ).TrimStart( '/' );
+            return strUtil.EqualsIgnoreCase( cUrl, rawUrl ) ? currentClass : "";
         }
 
         public static void bindMenuSingle( IBlock block, IMenu menu, MvcContext ctx ) {

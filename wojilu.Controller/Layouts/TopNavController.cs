@@ -310,7 +310,7 @@ namespace wojilu.Web.Controller.Layouts {
                 IMenu menu = list[i];
 
                 block.Set( "menu.ItemId", itemId );
-                block.Set( "menu.CurrentClass", MenuHelper.getCurrentClass( menu, ctx.GetItemString( "_moduleUrl" ), "current-site-menu" ) );
+                block.Set( "menu.CurrentClass", MenuHelper.getCurrentClass( menu, ctx.GetItem( "_moduleUrl" ), "current-site-menu" ) );
 
                 IBlock subNavBlock = block.GetBlock( "subNav" );
                 IBlock rootBlock = block.GetBlock( "rootNav" );

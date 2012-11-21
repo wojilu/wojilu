@@ -18,7 +18,7 @@
 <script>
     _run(function () {
         var url = $('#cmsSidebarLoader').attr('url');
-        $.get(url, function (data) {
+        $.get(url+'?ajax=true', function (data) {
             $('#postSidebar').html(data);
         });
     });

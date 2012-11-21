@@ -42,7 +42,7 @@ namespace wojilu.Web.Controller.Content {
         public override void Layout() {
         }
 
-        public static readonly int pageSize = 20;
+        public static readonly int pageSize = 50;
 
         public void Recent() {
 

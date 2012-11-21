@@ -1,4 +1,4 @@
-/*
+ï»¿/*
  * Copyright (c) 2010, www.wojilu.com. All rights reserved.
  */
 
@@ -6,6 +6,7 @@ using System;
 using System.Text;
 using wojilu.Web.Mvc;
 using wojilu.Apps.Content.Domain;
+using wojilu.Web.Controller.Content.Caching;
 
 namespace wojilu.Web.Controller.Content {
 
@@ -22,8 +23,12 @@ namespace wojilu.Web.Controller.Content {
 
             set( "adminCheckUrl", t2( new SecurityController().CanAppAdmin, app.Id ) + "?appType=" + typeof( ContentApp ).FullName );
 
-            // µ±Ç°app/moduleËùÓĞÒ³Ãæ£¬ËùÊôµÄÊ×Ò³
-            ctx.SetItem( "_moduleUrl", to( new ContentController().Index ) );
+            // å½“å‰app/moduleæ‰€æœ‰é¡µé¢ï¼Œæ‰€å±çš„é¦–é¡µ
+            String[] moduleUrlList = new String[2];
+            moduleUrlList[0] = to( new ContentController().Index );
+            moduleUrlList[1] = HtmlLink.ToApp( app );
+
+            ctx.SetItem( "_moduleUrl", moduleUrlList );
 
         }
     }

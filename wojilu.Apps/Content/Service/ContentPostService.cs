@@ -22,9 +22,6 @@ using System.Collections;
 
 namespace wojilu.Apps.Content.Service {
 
-
-    //---------------------------------------- mashup service ----------------------------------------------------------------------
-
     public class ContentPostService : IContentPostService {
 
         private static readonly ILog logger = LogManager.GetLogger( typeof( ContentPostService ) );
@@ -255,16 +252,16 @@ namespace wojilu.Apps.Content.Service {
             return db.find<ContentPost>( "PageSection.Id=" + sectionId + " and SaveStatus=" + SaveStatus.Normal + " order by Id desc" ).list();
         }
 
-        public virtual DataPage<ContentPost> GetByApp( int appId, int pageSize ) {
-            return ContentPost.findPage( "AppId=" + appId + " and SaveStatus=" + SaveStatus.Normal + " order by Id desc", pageSize );
-        }
-
         public virtual List<ContentPost> GetByApp( int appId ) {
             return ContentPost.find( "AppId=" + appId + " and SaveStatus=" + SaveStatus.Normal + " order by Id desc" ).list();
         }
 
+        public virtual DataPage<ContentPost> GetByApp( int appId, int pageSize ) {
+            return ContentPost.findPage( "AppId=" + appId + " and SaveStatus=" + SaveStatus.Normal + " order by Id desc", pageSize );
+        }
+
         public virtual DataPage<ContentPost> GetByAppArchive( int appId, int pageSize ) {
-            return ContentPost.findPageArchive( "AppId=" + appId + " and SaveStatus=" + SaveStatus.Normal + " order by Id desc", pageSize );
+            return ContentPost.findPageArchive( "AppId=" + appId + " and SaveStatus=" + SaveStatus.Normal, pageSize );
         }
 
         public virtual DataPage<ContentPost> GetTrashByApp( int appId, int pageSize ) {
