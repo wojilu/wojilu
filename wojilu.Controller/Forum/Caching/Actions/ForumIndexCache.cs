@@ -84,7 +84,14 @@ namespace wojilu.Web.Controller.Forum.Caching {
             observe( ad.Start );
             observe( ad.Stop );
 
-
+            Admin.ForumPickController pick = new Admin.ForumPickController();
+            observe( pick.SavePinAd );
+            observe( pick.SavePinTopic );
+            observe( pick.UpdatePin );
+            observe( pick.UpdateTopic );
+            observe( pick.DeletePin );
+            observe( pick.DeleteTopic );
+            observe( pick.Restore );
         }
 
         public override void UpdateCache( MvcContext ctx ) {
@@ -95,7 +102,7 @@ namespace wojilu.Web.Controller.Forum.Caching {
             IMember owner = ctx.owner.obj;
             String key = GetCacheKey( ctx, null );
 
-            if (ctx.app == null || ctx.app.Id <= 0) {
+            if (ctx.app == null || ctx.app.Id <= 0) { // 比如新用户注册成功，那种情况下ctx.app是null
 
                 removeAllForumCache( owner );
 
@@ -119,15 +126,6 @@ namespace wojilu.Web.Controller.Forum.Caching {
                 CacheManager.GetApplicationCache().Remove( cacheKey );
             }
         }
-
-        //private static string getIndexCache( int appId, IMember owner ) {
-        //    MvcContext ctx = MockContext.GetOne( owner, typeof( ForumApp ), appId );
-        //    String content = ControllerRunner.Run( ctx, new wojilu.Web.Controller.Forum.ForumController().Index );
-
-        //    return content;
-        //}
-
-
 
     }
 
