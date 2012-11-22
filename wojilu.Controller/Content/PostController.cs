@@ -271,7 +271,16 @@ namespace wojilu.Web.Controller.Content {
                 if (obj == null) continue;
 
                 block.Set( "p.Title", obj.Title );
-                block.Set( "p.Link", alink.ToAppData( obj, ctx ) );
+
+                String lnkPost = "";
+                if (obj is ContentPost) {
+                    lnkPost = alink.ToAppData( obj, ctx ); // 暂时只有 ContentPost 支持 Html 静态页面生成
+                }
+                else {
+                    lnkPost = alink.ToAppData( obj );
+                }
+
+                block.Set( "p.Link", lnkPost );
                 block.Set( "p.Created", obj.Created );
 
                 block.Next();

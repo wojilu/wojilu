@@ -113,13 +113,13 @@ namespace wojilu.Web.Controller.Open {
             String authorText = "";
 
             if (user != null && user.Id > 0) {
-                userFace = string.Format( "<a href='{0}'><img src='{1}' style='width:48px;'/></a>", toUser( user ), user.PicSmall );
-                userName = string.Format( "<a href='{0}'>{1}</a>", toUser( user ), user.Name );
+                userFace = string.Format( "<a href=\"{0}\" target=\"_blank\"><img src=\"{1}\" style=\"width:48px;\"/></a>", toUser( user ), user.PicSmall );
+                userName = string.Format( "<a href=\"{0}\" target=\"_blank\">{1}</a>", toUser( user ), user.Name );
                 authorText = user.Name;
             }
             else {
 
-                userFace = "<img src='" + sys.Path.AvatarGuest + "' style='width:48px;'/></a>";
+                userFace = "<img src=\"" + sys.Path.AvatarGuest + "\" style=\"width:48px;\"/></a>";
                 userName = authorName;
                 authorText = authorName;
             }
@@ -193,7 +193,7 @@ namespace wojilu.Web.Controller.Open {
             //if (c.ParentId == 0) return c.Content;
             //IComment parent = commentService.GetById( c.ParentId, ctx.app.Id );
             //if (parent == null) return c.Content;
-            //String quote = "<div class='quote'><span class='qSpan'>{0} : {1}</span></div>";
+            //String quote = "<div class=\"quote\"><span class=\"qSpan\">{0} : {1}</span></div>";
             //return string.Format( quote, parent.Author, strUtil.CutString( parent.Content, 50 ) ) + "<div>" + c.Content + "</div>";
 
             return c.Content;
