@@ -21,8 +21,7 @@ namespace wojilu.Web.Controller.Users {
 
         public void Main() {
 
-            WebUtils.pageTitle( this, "about" );
-
+            ctx.Page.Title = "about";
 
             User user = ctx.owner.obj as User;
             load( "userMenu", UserMenu );

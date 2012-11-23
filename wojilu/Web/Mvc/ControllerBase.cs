@@ -57,7 +57,7 @@ namespace wojilu.Web.Mvc {
         /// 页面元信息(包括Title/Keywords/Description/RssLink)
         /// </summary>
         public PageMeta Page {
-            get { return this.ctx.GetPageMeta(); }
+            get { return this.ctx.Page; }
         }
 
         internal void setContext( MvcContext wctx ) {

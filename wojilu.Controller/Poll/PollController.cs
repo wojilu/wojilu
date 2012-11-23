@@ -38,7 +38,7 @@ namespace wojilu.Web.Controller.Poll {
 
         public void Index() {
 
-            WebUtils.pageTitle( this, lang( "poll" ) );
+            ctx.Page.Title = lang( "poll" );
 
             DataPage<PollData> polls = pollService.GetPageByApp( ctx.app.Id );
             bindPollList( polls );

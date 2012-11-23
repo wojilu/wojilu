@@ -20,7 +20,7 @@ namespace wojilu.Web.Controller.Download {
                 return;
             }
 
-            WebUtils.pageTitle( this, f.Title );
+            ctx.Page.Title = f.Title;
 
 
             bind( "f", f );

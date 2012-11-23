@@ -32,7 +32,7 @@ namespace wojilu.Web.Controller.Reader {
                 return;
             }
 
-            WebUtils.pageTitle( this, item.Title );
+            ctx.Page.Title = item.Title;
 
             entryService.AddHits( item );
             bindItem( item );

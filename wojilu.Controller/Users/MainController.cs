@@ -1,4 +1,4 @@
-/*
+ï»¿/*
  * Copyright (c) 2010, www.wojilu.com. All rights reserved.
  */
 
@@ -42,7 +42,7 @@ namespace wojilu.Web.Controller.Users {
             List<User> picked = userService.GetPickedList( 20 );
             bindUsers( picked, "picked" );
 
-            // µ±Ç°app/moduleËùÓĞÒ³Ãæ£¬ËùÊôµÄÊ×Ò³
+            // å½“å‰app/moduleæ‰€æœ‰é¡µé¢ï¼Œæ‰€å±çš„é¦–é¡µ
             ctx.SetItem( "_moduleUrl", to( Index ) );
 
         }
@@ -51,7 +51,7 @@ namespace wojilu.Web.Controller.Users {
         [CacheAction( typeof( UserMainIndexCache ) )]
         public void Index() {
 
-            WebUtils.pageTitle( this, lang( "user" ) );
+            ctx.Page.Title = lang( "user" );
 
             set( "lnkRank", to( Rank ) );
             set( "lnkOnlineAll", to( OnlineAll ) );
@@ -74,7 +74,7 @@ namespace wojilu.Web.Controller.Users {
 
         public void Rank() {
 
-            WebUtils.pageTitle( this, lang( "userCharts" ) );
+            ctx.Page.Title = lang( "userCharts" );
 
             int rankCount = 20;
 
@@ -99,7 +99,7 @@ namespace wojilu.Web.Controller.Users {
 
         public void OnlineUser() {
 
-            WebUtils.pageTitle( this, lang( "onlineUsers" ) );
+            ctx.Page.Title = lang( "onlineUsers" );
 
             DataPage<OnlineUser> users = DataPage<OnlineUser>.GetPage( OnlineService.GetLoggerUser(), 70 );
             bindOnlineInfos( users.Results );
@@ -129,21 +129,21 @@ namespace wojilu.Web.Controller.Users {
 
         public void OnlineAll() {
 
-            WebUtils.pageTitle( this, "ËùÓĞÔÚÏßÓÃ»§" );
+            ctx.Page.Title = "æ‰€æœ‰åœ¨çº¿ç”¨æˆ·";
 
-            //DataPage<OnlineUser> users = cdb.findPage<OnlineUser>( 70 ); // ´Ë´¦Î´ÅÅĞò
-            DataPage<OnlineUser> users = DataPage<OnlineUser>.GetPage( OnlineService.GetAll(), 70 ); // ÒÑÅÅĞò
+            //DataPage<OnlineUser> users = cdb.findPage<OnlineUser>( 70 ); // æ­¤å¤„æœªæ’åº
+            DataPage<OnlineUser> users = DataPage<OnlineUser>.GetPage( OnlineService.GetAll(), 70 ); // å·²æ’åº
 
             set( "onlineCount", users.RecordCount );
 
             IBlock block = getBlock( "onlines" );
             foreach (OnlineUser user in users.Results) {
 
-                String lblValue = "¡¾" + lang( "ipAddress" ) + "¡¿" + user.Ip +
-    "\n¡¾" + lang( "osInfo" ) + "¡¿" + user.Agent +
-    "\n¡¾" + lang( "startTime" ) + "¡¿" + user.StartTime.ToString() +
-    "\n¡¾" + lang( "lastActive" ) + "¡¿" + user.LastActive.ToString() +
-    "\n¡¾" + lang( "clocation" ) + "¡¿" + user.Location;
+                String lblValue = "ã€" + lang( "ipAddress" ) + "ã€‘" + user.Ip +
+    "\nã€" + lang( "osInfo" ) + "ã€‘" + user.Agent +
+    "\nã€" + lang( "startTime" ) + "ã€‘" + user.StartTime.ToString() +
+    "\nã€" + lang( "lastActive" ) + "ã€‘" + user.LastActive.ToString() +
+    "\nã€" + lang( "clocation" ) + "ã€‘" + user.Location;
 
 
                 if (user.UserId > 0) {
@@ -168,7 +168,7 @@ namespace wojilu.Web.Controller.Users {
 
         public void ListAll() {
 
-            WebUtils.pageTitle( this, lang( "allUser" ) );
+            ctx.Page.Title = lang( "allUser" );
 
             DataPage<User> list = userService.GetAllValid( 56 );
             bindUsers( list.Results, "list" );
@@ -178,7 +178,7 @@ namespace wojilu.Web.Controller.Users {
 
         public void Tag( int id ) {
 
-            Page.Title = "¸ù¾İtagËÑË÷ÓÃ»§";
+            Page.Title = "æ ¹æ®tagæœç´¢ç”¨æˆ·";
             target( Tag, 0 );
 
 
@@ -223,12 +223,12 @@ namespace wojilu.Web.Controller.Users {
 
             HideLayout( typeof( MainController ) );
 
-            // µ±Ç°app/moduleËùÓĞÒ³Ãæ£¬ËùÊôµÄÊ×Ò³
+            // å½“å‰app/moduleæ‰€æœ‰é¡µé¢ï¼Œæ‰€å±çš„é¦–é¡µ
             ctx.SetItem( "_moduleUrl", to( Index ) );
 
             set( "userMainLink", to( Index ) );
 
-            WebUtils.pageTitle( this, lang( "searchUser" ) );
+            ctx.Page.Title = lang( "searchUser" );
 
             set( "ActionLink", ctx.url.Path );
             bindDropList();

@@ -28,7 +28,7 @@ namespace wojilu.Web.Controller.Users {
                 return;
             }
 
-            WebUtils.pageTitle( this, lang( "recentVisitors" ) );
+            ctx.Page.Title = lang( "recentVisitors" );
 
             DataPage<User> list = visitorService.GetPage( ctx.owner.Id, 50 );
             bindUsers( list.Results, "list" );

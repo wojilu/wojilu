@@ -36,7 +36,7 @@ namespace wojilu.Web.Controller.Users {
                 return;
             }
 
-            WebUtils.pageTitle( this, "论坛主题" );
+            ctx.Page.Title = "论坛主题";
 
             DataPage<ForumTopic> plist = topicService.GetByUser( ctx.owner.Id, 50 );
             bintTopics( plist.Results, plist.PageBar );
@@ -50,7 +50,7 @@ namespace wojilu.Web.Controller.Users {
                 return;
             }
 
-            WebUtils.pageTitle( this, "论坛帖子" );
+            ctx.Page.Title = "论坛帖子";
 
             DataPage<ForumPost> results = postService.GetByUser( ctx.owner.Id, 50 );
             bindPosts( results );

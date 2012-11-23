@@ -1,4 +1,4 @@
-/*
+ï»¿/*
  * Copyright (c) 2010, www.wojilu.com. All rights reserved.
  */
 
@@ -41,7 +41,7 @@ namespace wojilu.Web.Controller.Groups {
         [CacheAction( typeof( GroupMainLayoutCache ) )]
         public override void Layout() {
 
-            // µ±Ç°app/moduleËùÓĞÒ³Ãæ£¬ËùÊôµÄÊ×Ò³
+            // å½“å‰app/moduleæ‰€æœ‰é¡µé¢ï¼Œæ‰€å±çš„é¦–é¡µ
             ctx.SetItem( "_moduleUrl", to( Index ) );
 
             List<GroupCategory> categories = GroupCategory.GetAll();
@@ -64,7 +64,7 @@ namespace wojilu.Web.Controller.Groups {
         [CacheAction( typeof( GroupMainActionCache ) )]
         public void Index() {
 
-            WebUtils.pageTitle( this, lang( "group" ) );
+            ctx.Page.Title = lang( "group" );
 
             List<ForumTopic> posts = postService.GetHotTopic( 10 );
             bindPosts( posts, "list" );
@@ -81,8 +81,7 @@ namespace wojilu.Web.Controller.Groups {
 
         public void List( int id ) {
 
-            WebUtils.pageTitle( this, "Èº×éÁĞ±í" );
-
+            ctx.Page.Title = "ç¾¤ç»„åˆ—è¡¨";
 
             GroupCategory category = db.findById<GroupCategory>( id );
             if (category != null) {

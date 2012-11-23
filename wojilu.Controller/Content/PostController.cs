@@ -161,7 +161,7 @@ namespace wojilu.Web.Controller.Content {
 
         private void bindMetaInfo( ContentPost post ) {
 
-            WebUtils.pageTitle( this, post.Title, ctx.app.Name );
+            ctx.Page.SetTitle( post.Title, ctx.app.Name );
 
             if (strUtil.HasText( post.MetaKeywords ))
                 this.Page.Keywords = post.MetaKeywords;

@@ -28,7 +28,7 @@ namespace wojilu.Web.Controller.Photo {
         }
 
         public void Index() {
-            WebUtils.pageTitle( this, ctx.app.Name );
+            ctx.Page.Title = ctx.app.Name;
             List<PhotoAlbum> albumList = albumService.GetListByApp( ctx.app.Id );
             bindAlbumList( albumList );
         }
@@ -81,7 +81,7 @@ namespace wojilu.Web.Controller.Photo {
 
         private void bindPhotoPosts( int id ) {
             PhotoAlbum album = albumService.GetByIdWithDefault( id, ctx.owner.Id );
-            WebUtils.pageTitle( this, album.Name );
+            ctx.Page.Title = album.Name;
             set( "appLink", to( Index ) );
             set( "album.Name", album.Name );
 

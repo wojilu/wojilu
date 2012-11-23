@@ -49,8 +49,8 @@ namespace wojilu.Web.Controller.Photo.Wf {
             PhotoPost x = ctx.Get<PhotoPost>();
             postService.AddtHits( x );
 
-            WebUtils.pageTitle( this, x.Title );
-            Page.Keywords = x.Tag.TextString;
+            ctx.Page.Title = x.Title;
+            ctx.Page.Keywords = x.Tag.TextString;
 
             User owner = x.Creator;
 

@@ -29,7 +29,7 @@ namespace wojilu.Web.Controller.Blog {
         [CacheAction( typeof( BlogIndexCache ) )]
         public void Index() {
 
-            WebUtils.pageTitle( this, lang( "blog" ) );
+            ctx.Page.Title = lang( "blog" );
 
             BlogApp app = ctx.app.obj as BlogApp;
             BlogSetting s = app.GetSettingsObj();

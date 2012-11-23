@@ -44,6 +44,8 @@ namespace wojilu.Web.Context {
             _thisUtils = new MvcContextUtils( this );
 
             if (context is IMockContext) _isMock = true;
+
+            _pageMeta = new PageMeta( this );
         }
 
         /// <summary>
@@ -98,14 +100,14 @@ namespace wojilu.Web.Context {
         /// </summary>
         public IAppContext app { get { return utils.getAppContext(); } }
 
-        private PageMeta _pageMeta = new PageMeta();
+        private PageMeta _pageMeta;
 
         /// <summary>
         /// 页面元信息(包括Title/Keywords/Description/RssLink)
         /// </summary>
         /// <returns></returns>
-        public PageMeta GetPageMeta() {
-            return _pageMeta;
+        public PageMeta Page {
+            get { return _pageMeta; }
         }
 
 

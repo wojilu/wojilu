@@ -26,7 +26,8 @@ namespace wojilu.Web.Controller {
         }
 
         public void Index() {
-            WebUtils.pageTitle( this, "tag" );
+
+            ctx.Page.Title = "tag";
 
             Tag maxTag = Tag.find( "order by DataCount desc" ).first();
             int count = maxTag == null ? 0 : maxTag.DataCount;
@@ -47,8 +48,8 @@ namespace wojilu.Web.Controller {
 
             set( "allLink", to( Index ) );
 
-            WebUtils.pageTitle( this, tagName, "tag" );
-            Page.Keywords = tagName;
+            ctx.Page.SetTitle( tagName, "tag" );
+            ctx.Page.Keywords = tagName;
 
             Tag tag = Tag.find( "Name=:name" ).set( "name", tagName ).first();
 

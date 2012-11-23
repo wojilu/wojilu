@@ -20,7 +20,7 @@ namespace wojilu.Web.Controller.Download {
                 return;
             }
 
-            WebUtils.pageTitle( this, c.Name );
+            ctx.Page.Title = c.Name;
 
 
             load( "sidebar", new DownloadController().sidebar );

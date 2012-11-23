@@ -69,7 +69,7 @@ namespace wojilu.Web.Controller.Blog {
         [CacheAction( typeof( BlogMainCache ) )]
         public void Index() {
 
-            WebUtils.pageTitle( this, lang( "blog" ) );
+            ctx.Page.Title = lang( "blog" );
 
             // TODO 博客排行
             List<User> userRanks = User.find( "order by Hits desc, id desc" ).list( 14 );
@@ -171,7 +171,7 @@ namespace wojilu.Web.Controller.Blog {
 
         public void Recent() {
 
-            WebUtils.pageTitle( this, alang( "allBlogPost" ) );
+            ctx.Page.Title = alang( "allBlogPost" );
 
             set( "blogLink", to( Index ) );
 

@@ -58,7 +58,7 @@ namespace wojilu.Web.Controller.Forum {
         [CacheAction( typeof( ForumRecentTopicCache ) )]
         public void Topic() {
 
-            WebUtils.pageTitle( this, alang( "newTopic" ) );
+            ctx.Page.Title = alang( "newTopic" );
 
             DataPage<ForumTopic> plist = topicService.GetPageByApp( ctx.app.Id, 50 );
             bintTopics( plist.Results, plist.PageBar );
@@ -68,7 +68,7 @@ namespace wojilu.Web.Controller.Forum {
         [CacheAction( typeof( ForumRecentPostCache ) )]
         public void Post() {
 
-            WebUtils.pageTitle( this, alang( "newPosts" ) );
+            ctx.Page.Title = alang( "newPosts" );
 
             DataPage<ForumPost> results = postService.GetPageByApp( ctx.app.Id, 50 );
             bindPosts( results );
@@ -102,7 +102,7 @@ namespace wojilu.Web.Controller.Forum {
             view( "Topic" );
 
 
-            WebUtils.pageTitle( this, alang( "picked" ) );
+            ctx.Page.Title = alang( "picked" );
 
             DataPage<ForumTopic> plist = topicService.GetPickedByApp( ctx.app.Id, 50 );
             bintTopics( plist.Results, plist.PageBar );
@@ -111,7 +111,7 @@ namespace wojilu.Web.Controller.Forum {
         public void Replies() {
             view( "Topic" );
 
-            WebUtils.pageTitle( this, alang( "rankByReplies" ) );
+            ctx.Page.Title = alang( "rankByReplies" );
 
             List<ForumTopic> list = topicService.GetByAppAndReplies( ctx.app.Id, 50 );
             bintTopics( list, "" );
@@ -120,7 +120,7 @@ namespace wojilu.Web.Controller.Forum {
         public void Views() {
             view( "Topic" );
 
-            WebUtils.pageTitle( this, alang( "rankByViews" ) );
+            ctx.Page.Title = alang( "rankByViews" );
 
             List<ForumTopic> list = topicService.GetByAppAndViews( ctx.app.Id, 50 );
             bintTopics( list, "" );

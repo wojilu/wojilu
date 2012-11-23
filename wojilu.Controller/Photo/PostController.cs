@@ -28,8 +28,8 @@ namespace wojilu.Web.Controller.Photo {
 
             postService.AddtHits( post );
 
-            WebUtils.pageTitle( this, post.Title );
-            Page.Keywords = post.Tag.TextString;
+            ctx.Page.Title = post.Title;
+            ctx.Page.Keywords = post.Tag.TextString;
 
 
             Post postshow = Post.Fill( post, ctx, postService );

@@ -121,7 +121,7 @@ namespace wojilu.Web.Mvc.Processors {
         //--------------------------------------------------------------------------
 
         private static void addPageMetaToCache( MvcContext ctx, String cacheKey ) {
-            CacheManager.GetApplicationCache().Put( cacheKey + "_pageMeta", ctx.GetPageMeta() );
+            CacheManager.GetApplicationCache().Put( cacheKey + "_pageMeta", ctx.Page );
         }
 
         private static void getPageMetaFromCache( MvcContext ctx, String cacheKey ) {

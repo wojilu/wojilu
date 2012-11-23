@@ -70,7 +70,7 @@ namespace wojilu.Web.Controller.Photo {
         [CacheAction( typeof( PhotoMainActionCache ) )]
         public void Index() {
 
-            WebUtils.pageTitle( this, lang( "photo" ) );
+            ctx.Page.Title = lang( "photo" );
 
             bindPicked();
 
@@ -123,7 +123,7 @@ namespace wojilu.Web.Controller.Photo {
             set( "appLink", to( Index ) );
 
             PhotoSysCategory category = categoryService.GetById( categoryId );
-            WebUtils.pageTitle( this, category.Name, lang( "photo" ) );
+            ctx.Page.SetTitle( category.Name, lang( "photo" ) );
 
             DataPage<PhotoPost> list = photoService.GetSysPostPage( categoryId, 20 );
             bindOneCategory( this.utils.getCurrentView(), category, list.Results );
@@ -153,7 +153,7 @@ namespace wojilu.Web.Controller.Photo {
 
             set( "page", list.PageBar );
 
-            WebUtils.pageTitle( this, "最新", lang( "photo" ) );
+            ctx.Page.SetTitle( "最新", lang( "photo" ) );
 
         }
 

@@ -107,7 +107,7 @@ namespace wojilu.Web.Controller.Forum {
 
             forwardPreNext( topic );
 
-            WebUtils.pageTitle( this, topic.Title, board.Name );
+            ctx.Page.SetTitle( topic.Title, board.Name );
             Page.Keywords = topic.Tag.TextString;
 
             List<ForumBoard> pathboards = getTree().GetPath( board.Id );

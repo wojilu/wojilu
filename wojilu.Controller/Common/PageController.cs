@@ -99,7 +99,7 @@ namespace wojilu.Web.Controller.Common {
                 return;
             }
 
-            WebUtils.pageTitle( this, data.Title );
+            ctx.Page.Title = data.Title;
 
             bindWikiStats( id, data );
 

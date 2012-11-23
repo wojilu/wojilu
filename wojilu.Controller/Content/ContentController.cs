@@ -62,10 +62,7 @@ namespace wojilu.Web.Controller.Content {
                 this.Page.Keywords = ctx.app.Name;
             }
 
-            if (strUtil.HasText( setting.MetaDescription )) {
-                this.Page.Description = setting.MetaDescription;
-            }
-
+            this.Page.Description = setting.MetaDescription;
         }
 
         private string getKey() {
@@ -81,7 +78,7 @@ namespace wojilu.Web.Controller.Content {
         [NonVisit]
         public void IndexPage() {
 
-            WebUtils.pageTitle( this, ctx.app.Name );
+            ctx.Page.Title = ctx.app.Name;
 
             ContentApp app = ctx.app.obj as ContentApp;
 

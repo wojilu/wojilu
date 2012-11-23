@@ -134,7 +134,7 @@ namespace wojilu.Web.Controller.Users {
 
             if (hasAdminPermission()) redirect( AdminList );
 
-            WebUtils.pageTitle( this, lang( "feedback" ) );
+            ctx.Page.Title = lang( "feedback" );
 
             set( "ActionLink", t2( Create ) );
             String pwTip = string.Format( lang( "pwTip" ), Feedback.ContentLength );

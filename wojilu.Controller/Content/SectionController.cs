@@ -69,18 +69,16 @@ namespace wojilu.Web.Controller.Content {
 
         private void bindMetaInfo( ContentSection section ) {
 
-            WebUtils.pageTitle( this, section.Title, ctx.app.Name );
+            ctx.Page.SetTitle( section.Title, ctx.app.Name );
 
             if (strUtil.HasText( section.MetaKeywords )) {
-                this.Page.Keywords = section.MetaKeywords;
+                ctx.Page.Keywords = section.MetaKeywords;
             }
             else {
-                this.Page.Keywords = section.Title;
+                ctx.Page.Keywords = section.Title;
             }
 
-            if (strUtil.HasText( section.MetaDescription )) {
-                this.Page.Description = section.MetaDescription;
-            }
+            ctx.Page.Description = section.MetaDescription;
         }
 
 

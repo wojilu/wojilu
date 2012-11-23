@@ -30,7 +30,7 @@ namespace wojilu.Web.Controller.Groups {
 
         public void List() {
 
-            WebUtils.pageTitle( this, lang( "memberList" ) );
+            ctx.Page.Title = lang( "memberList" );
 
             IBlock block = getBlock( "list" );
             DataPage<GroupUser> list = mgrService.GetMembersApproved( ctx.owner.Id );

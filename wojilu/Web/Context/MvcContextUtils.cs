@@ -269,10 +269,10 @@ namespace wojilu.Web.Context {
 
         public void setPageMeta( PageMeta p ) {
 
-            ctx.GetPageMeta().Title = p.Title;
-            ctx.GetPageMeta().Description = p.Description;
-            ctx.GetPageMeta().Keywords = p.Keywords;
-            ctx.GetPageMeta().RssLink = p.RssLink;
+            ctx.Page.Title = p.Title;
+            ctx.Page.Description = p.Description;
+            ctx.Page.Keywords = p.Keywords;
+            ctx.Page.RssLink = p.RssLink;
 
         }
 
