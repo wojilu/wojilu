@@ -84,6 +84,9 @@ namespace wojilu.Web.Controller.Content.Admin {
             set( "section.Title", section.Title );
             set( "section.MoreLink", section.MoreLink );
 
+            set( "section.MetaKeywords", section.MetaKeywords );
+            set( "section.MetaDescription", section.MetaDescription );
+
         }
 
         [HttpPost, DbTransaction]
@@ -96,6 +99,9 @@ namespace wojilu.Web.Controller.Content.Admin {
 
             s.Title = ctx.Post( "Title" );
             s.MoreLink = strUtil.CutString( ctx.PostHtml( "MoreLink" ), 250 );
+            s.MetaKeywords = ctx.Post( "MetaKeywords" );
+            s.MetaDescription = strUtil.CutString( ctx.Post( "MetaDescription" ), 250 );
+
             if (strUtil.IsNullOrEmpty( s.Title )) {
                 errors.Add( lang( "exName" ) );
                 run( EditCount, sectionId );
@@ -132,6 +138,10 @@ namespace wojilu.Web.Controller.Content.Admin {
 
             set( "section.Title", section.Title );
             set( "section.MoreLink", section.MoreLink );
+
+            set( "section.MetaKeywords", section.MetaKeywords );
+            set( "section.MetaDescription", section.MetaDescription );
+
         }
 
         private void bindSettingEdit( ContentSection section, Service service ) {
@@ -169,6 +179,9 @@ namespace wojilu.Web.Controller.Content.Admin {
             // 此处不修改模板
             section.TemplateId = tplId;
             section.CustomTemplateId = cTplId;
+
+            section.MetaKeywords = ctx.Post( "MetaKeywords" );
+            section.MetaDescription = strUtil.CutString( ctx.Post( "MetaDescription" ), 250 );
 
 
             if (section.ServiceId > 0) {

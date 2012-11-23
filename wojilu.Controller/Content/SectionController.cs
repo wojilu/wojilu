@@ -53,9 +53,7 @@ namespace wojilu.Web.Controller.Content {
             showInfo( section );
         }
 
-        private ContentSection showInfo( ContentSection section ) {
-
-            WebUtils.pageTitle( this, section.Title, ctx.app.Name );
+        private void showInfo( ContentSection section ) {
 
             //1)location
             String location = string.Format( "<a href='{0}'>{1}</a> &gt; {2}",
@@ -66,9 +64,24 @@ namespace wojilu.Web.Controller.Content {
 
             set( "location", location );
 
-            return section;
+            bindMetaInfo( section );
         }
 
+        private void bindMetaInfo( ContentSection section ) {
+
+            WebUtils.pageTitle( this, section.Title, ctx.app.Name );
+
+            if (strUtil.HasText( section.MetaKeywords )) {
+                this.Page.Keywords = section.MetaKeywords;
+            }
+            else {
+                this.Page.Keywords = section.Title;
+            }
+
+            if (strUtil.HasText( section.MetaDescription )) {
+                this.Page.Description = section.MetaDescription;
+            }
+        }
 
 
     }
