@@ -12,6 +12,15 @@ namespace wojilu.Apps.Content.Domain {
     [Serializable]
     public class ContentSetting {
 
+        public ContentSetting() {
+
+            AllowComment = 1;
+            AllowAnonymousComment = 1;
+            EnableSubmit = 0;
+
+            SetDefaultValue();
+        }
+
         public void SetDefaultValue() {
 
             if (this.ListPostPerPage == 0) this.ListPostPerPage = 15;
@@ -24,15 +33,6 @@ namespace wojilu.Apps.Content.Domain {
 
             if (this.SummaryLength == 0) this.SummaryLength = 150;
 
-        }
-
-        public ContentSetting() {
-
-            AllowComment = 1;
-            AllowAnonymousComment = 1;
-            EnableSubmit = 0;
-
-            SetDefaultValue();
         }
 
         public int AllowComment { get; set; }

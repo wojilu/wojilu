@@ -3,13 +3,13 @@
 <div class="">
 
 <style>
-.tblSetting { width:500px; margin:10px auto;}
+.tblSetting { width:700px; margin:10px auto;}
 .tblSetting td { border-bottom:1px #eee solid; padding:4px 5px;}
 
 .lblLeft { }
 </style>
 
-<form method="post" action="#{ActionLink}" class="ajaxPostForm" style="width:500px; margin:auto;">
+<form method="post" action="#{ActionLink}" class="ajaxPostForm" style="width:700px; margin:auto;">
 
     <table class="tblSetting" cellpadding="0" cellspacing="0">
         
@@ -36,6 +36,18 @@
             <td class="lblLeft">热帖天数</td>
             <td>#{s.HomeHotDays}</td>
         </tr>
+
+        <tr>
+            <td class="lblLeft">论坛首页</td>
+            <td class="lblLeft">SEO Keywords</td>
+            <td><input type="text" name="forumSetting.MetaKeywords" value="#{s.MetaKeywords}" style="width:450px;" /></td>
+        </tr>
+        <tr>
+            <td class="lblLeft">论坛首页</td>
+            <td class="lblLeft">SEO Description</td>
+            <td><textarea name="forumSetting.MetaDescription" style="width:450px; height:50px;">#{s.MetaDescription}</textarea></td>
+        </tr>
+
         <tr>
             <td class="lblLeft">论坛首页</td>
             <td class="lblLeft">隐藏统计信息</td>
@@ -74,7 +86,8 @@
             <td class="lblLeft">每页回复数量</td>
             <td>#{s.TopicPageSize}</td>
         </tr>
-        
+
+
     </table>
     
     <div style="padding:10px 0px 10px 150px; ">

@@ -104,6 +104,7 @@ namespace wojilu.Apps.Forum.Domain {
             return ForumTopic.find( "AppId=" + base.Id ).count();
         }
 
+        [LongText]
         public String Settings { get; set; }
 
         private ForumSetting _settings;

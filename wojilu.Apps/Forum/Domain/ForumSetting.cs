@@ -34,6 +34,10 @@ namespace wojilu.Apps.Forum.Domain {
         public int IsHideLink { get; set; } // 是否隐藏友情链接
         public int IsHideOnline { get; set; } // 是否隐藏在线统计信息
 
+        public String MetaKeywords { get; set; }
+        public String MetaDescription { get; set; }
+
+
     }
 
 }

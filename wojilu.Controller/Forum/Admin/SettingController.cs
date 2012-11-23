@@ -27,6 +27,8 @@ namespace wojilu.Web.Controller.Forum.Admin {
             s.IsHideOnline = ctx.PostIsCheck( "forumSetting.IsHideOnline" );
             s.IsHideLink = ctx.PostIsCheck( "forumSetting.IsHideLink" );
 
+            s.MetaDescription = strUtil.CutString( s.MetaDescription, 500 );
+
             ForumApp app = ctx.app.obj as ForumApp;
             app.Settings = JsonString.ConvertObject( s );
             app.update();
@@ -49,6 +51,8 @@ namespace wojilu.Web.Controller.Forum.Admin {
             set( "s.HomeImgCount", dropList( "HomeImgCount", 1, 10, s.HomeImgCount ) );
             set( "s.HomeListCount", dropList( "HomeListCount", 1, 20, s.HomeListCount ) );
 
+            set( "s.MetaKeywords", s.MetaKeywords );
+            set( "s.MetaDescription", s.MetaDescription );
         }
 
         private String dropList( String name, int istart, int iend, int val ) {

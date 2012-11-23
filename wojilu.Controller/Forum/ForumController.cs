@@ -44,12 +44,16 @@ namespace wojilu.Web.Controller.Forum {
         [CacheAction( typeof( ForumIndexCache ) )]
         public void Index() {
 
-            WebUtils.pageTitle( this, ctx.app.Name );
-
             List<ForumBoard> categories = getTree().GetRoots();
             List<ForumLink> linkList = linkService.GetByApp( ctx.app.Id, ctx.owner.Id );
 
             ForumApp forum = ctx.app.obj as ForumApp;
+            ForumSetting setting = forum.GetSettingsObj();
+
+            ctx.Page.Title = ctx.app.Name;
+            ctx.Page.Keywords = setting.MetaKeywords;
+            ctx.Page.Description = setting.MetaDescription;
+
             String notice = strUtil.HasText( forum.Notice ) ? "<div class=\"forumPanel\" id=\"forumNotice\">" + forum.Notice + "</div>" : "";
             set( "forumNotice", notice );
 
