@@ -384,7 +384,7 @@
     <Compile Include="Web\Mvc\HtmlLink.cs" />
     <Compile Include="Web\Mvc\LinkConverter.cs" />
     <Compile Include="Web\Mvc\MockContext.cs" />
-    <Compile Include="Web\Mvc\PageCache.cs" />
+    <Compile Include="Web\Mvc\CorePageCache.cs" />
     <Compile Include="Web\Url\UrlConverter.cs" />
     <Compile Include="Members\Users\Domain\User.cs" />
     <Compile Include="Web\Context\ViewerContext.cs">

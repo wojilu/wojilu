@@ -7,7 +7,7 @@ using wojilu.Members.Sites.Domain;
 
 namespace wojilu.Web.Controller.Photo.Caching {
 
-    public class PhotoMainPageCache : PageCache {
+    public class PhotoMainPageCache : CorePageCache {
 
         public override void ObserveActionCaches() {
             observe( typeof( SiteLayoutCache ) );

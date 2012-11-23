@@ -121,6 +121,7 @@
     <Compile Include="Web\Mvc\ControllerMeta.cs" />
     <Compile Include="Web\Mvc\IControllerFactory.cs" />
     <Compile Include="Web\Mvc\LinkHelper.cs" />
+    <Compile Include="Web\Mvc\PageCache.cs" />
     <Compile Include="Web\Mvc\Utils\ControllerRunner.cs" />
     <Compile Include="Web\Mvc\Link.cs" />
     <Compile Include="Web\Utils\AvatarCopySaver.cs" />

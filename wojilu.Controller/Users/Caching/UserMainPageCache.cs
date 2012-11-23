@@ -7,7 +7,7 @@ using wojilu.Members.Sites.Domain;
 
 namespace wojilu.Web.Controller.Users.Caching {
 
-    public class UserMainPageCache : PageCache {
+    public class UserMainPageCache : CorePageCache {
 
         public override void ObserveActionCaches() {
             observe( typeof( SiteLayoutCache ) );

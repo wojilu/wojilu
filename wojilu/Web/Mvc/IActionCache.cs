@@ -72,6 +72,10 @@ namespace wojilu.Web.Mvc {
         public virtual void ObserveActions() {
         }
 
+        /// <summary>
+        /// 监控其他 action
+        /// </summary>
+        /// <param name="action"></param>
         protected void observe( aAction action ) {
 
             Type t = action.Target.GetType();
@@ -82,6 +86,10 @@ namespace wojilu.Web.Mvc {
             dic[t] = strUtil.Join( actions, action.Method.Name );
         }
 
+        /// <summary>
+        /// 监控其他 action
+        /// </summary>
+        /// <param name="action"></param>
         protected void observe( aActionWithId action ) {
 
             Type t = action.Target.GetType();

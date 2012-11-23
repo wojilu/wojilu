@@ -28,16 +28,21 @@ namespace wojilu.Web.Mvc {
     /// </summary>
     public interface IPageCache {
 
+        /// <summary>
+        /// 是否缓存。页面可能运行在不同环境下(比如不同的owner)，本方法决定哪些环境需要缓存，哪些不需要缓存。
+        /// </summary>
+        /// <param name="ctx"></param>
+        /// <returns></returns>
         Boolean IsCache( MvcContext ctx );
 
         /// <summary>
-        /// 本页面所有关联的 IActionCache。一旦关联的 IActionCache 被操作，则页面缓存会失效
+        /// 获取所有相关的布局页面缓存。主要供框架调用
         /// </summary>
         /// <returns></returns>
         List<Type> GetRelatedActions();
 
         /// <summary>
-        /// 关联的 IActionCache 被刷新之后，需要重建本页面缓存的具体操作
+        /// 一旦其他局部页面的缓存发生变化，则 UpdateCache 方法被执行。本方法让缓存及时更新或失效
         /// </summary>
         /// <param name="ctx"></param>
         void UpdateCache( MvcContext ctx );

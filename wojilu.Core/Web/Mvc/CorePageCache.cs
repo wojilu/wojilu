@@ -8,37 +8,9 @@ using wojilu.Members.Interface;
 
 namespace wojilu.Web.Mvc {
 
-    public class PageCache : IPageCache {
+    public class CorePageCache : PageCache {
 
-        private static readonly ILog logger = LogManager.GetLogger( typeof( PageCache ) );
-
-        protected List<Type> list = new List<Type>();
-
-        public virtual Boolean IsCache( MvcContext ctx ) {
-            return true;
-        }
-
-        public virtual List<Type> GetRelatedActions() {
-
-            if (list.Count == 0) {
-                this.ObserveActionCaches();
-            }
-            return this.list;
-        }
-
-        public virtual void ObserveActionCaches() {
-
-        }
-
-        protected void observe( Type t ) {
-            if (list.Contains( t ) == false) list.Add( t );
-        }
-
-        public virtual void UpdateCache( MvcContext ctx ) {
-        }
-
-        public virtual void AfterCachePage( MvcContext ctx ) {
-        }
+        private static readonly ILog logger = LogManager.GetLogger( typeof( CorePageCache ) );
 
         /// <summary>
         /// 除了原始网址，还要更新相关的友好网址( friendly url )
