@@ -37,6 +37,8 @@ namespace wojilu.Web.Controller.Content.Admin {
             s.AllowAnonymousComment = ctx.PostIsCheck( "contentSetting.AllowAnonymousComment" );
             s.EnableSubmit = ctx.PostIsCheck( "contentSetting.EnableSubmit" );
 
+            s.MetaDescription = strUtil.CutString( s.MetaDescription, 500 );
+
             if (HtmlHelper.IsHtmlDirError( s.StaticDir, ctx.errors )) {
                 echoError();
                 return;
@@ -76,6 +78,8 @@ namespace wojilu.Web.Controller.Content.Admin {
             dropList( "contentSetting.ArticleListMode", dic, s.ArticleListMode.ToString() );
 
             set( "s.StaticDir", s.StaticDir );
+            set( "s.MetaKeywords", s.MetaKeywords );
+            set( "s.MetaDescription", s.MetaDescription );
 
         }
 

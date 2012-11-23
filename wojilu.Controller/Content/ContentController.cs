@@ -49,6 +49,23 @@ namespace wojilu.Web.Controller.Content {
             else {
                 run( IndexPage );
             }
+
+            bindMetaInfo( setting );
+        }
+
+        private void bindMetaInfo( ContentSetting setting ) {
+
+            if (strUtil.HasText( setting.MetaKeywords )) {
+                this.Page.Keywords = setting.MetaKeywords;
+            }
+            else {
+                this.Page.Keywords = ctx.app.Name;
+            }
+
+            if (strUtil.HasText( setting.MetaDescription )) {
+                this.Page.Description = setting.MetaDescription;
+            }
+
         }
 
         private string getKey() {

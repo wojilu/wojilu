@@ -59,6 +59,9 @@ namespace wojilu.Web.Controller.Content.Admin.Section {
             set( "post.Title", post.Title );
             set( "post.TitleHome", post.TitleHome );
 
+            set( "post.MetaKeywords", post.MetaKeywords );
+            set( "post.MetaDescription", post.MetaDescription );
+
             set( "post.SourceLink", post.SourceLink );
             set( "post.ImgLink", post.ImgLink );
             set( "post.Style", post.Style );

@@ -8,11 +8,11 @@ _run( function() {
 </script>
 
 
-<div style="margin:15px;height:250px;">
+<div style="margin:15px;height:300px;">
 <form method="post" action="#{ActionLink}">
 <table style="width: 98%">
 	<tr>
-		<td style="width:80px">:{itsSection}</td>
+		<td style="width:100px">:{itsSection}</td>
 		<td><strong>#{module.Name}</strong></td>
 	</tr>
 	<tr>
@@ -23,6 +23,9 @@ _run( function() {
 				    <td>_{titleHome}</td>
 				    <td><input name="TitleHome" style="width: 350px" type="text" value="#{post.TitleHome}" ></td>
 			    </tr>
+
+
+
 	<tr>
 		<td>:{videoLink}</td>
 		<td>
@@ -44,6 +47,17 @@ _run( function() {
 </table>
 
 <table class="morePanel" id="morePanel" style="width:98%;display:none;">
+
+
+	<tr>
+		<td style="width:100px">SEO Keywords</td>
+		<td><input name="MetaKeywords" type="text" style="width: 550px" value="#{post.MetaKeywords}" /></td>
+	</tr>
+	<tr>
+		<td style="width:100px;vertical-align:top">SEO Description</td>
+		<td style=""><textarea name="MetaDescription" style="width: 550px; height:30px;">#{post.MetaDescription}</textarea></td>
+	</tr>
+
 	<tr>
 		<td style="width:80px">_{orderId}</td>
 		<td><input name="OrderId" type="text" size="20" style="width: 30px" value="0" value="#{post.OrderId}">&nbsp;
@@ -54,7 +68,8 @@ _run( function() {
 		<td><textarea name="Style" style="width: 550px; height: 50px">#{post.Style}</textarea>
 		<span class="note">(:{cssRequired})</span>
 		</td>
-	</tr>			
+	</tr>
+
 </table>
 
 </form>
