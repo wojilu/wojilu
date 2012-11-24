@@ -11,6 +11,8 @@ namespace wojilu.Web.Controller.Content.Caching {
         public int MakeHtml( MvcContext ctx ) {
 
             ContentPost post = HtmlHelper.GetCurrentPost( ctx );
+            if (post == null) return 0;
+
             int recordCount = 0; // TODO
 
             return this.MakeHtml( ctx, post.PageSection.Id, recordCount );

@@ -1,41 +1,56 @@
 ﻿<div>
 
-<table cellspacing="0" cellpadding="4" border="0" style="width:95%;margin:10px auto;" id="dataAdminList" data-action="#{OperationUrl}">
+<table cellspacing="0" cellpadding="4" border="0" style="width:98%;margin:10px auto;" id="dataAdminList" data-action="#{OperationUrl}">
 
     <tr class="adminBar">
-        <td colspan="5">
+    <td colspan="7">
+
+        <div style="float:left;">
         
-            <a href="#{addUrl}" class="frmBox"><img src="~img/add.gif" /> 添加文章</a>
+                <a href="#{addUrl}" class="frmBox"><img src="~img/add.gif" /> 添加文章</a>
             
-            <span class="menuMore left20" list="batchAdmin">批量操作<img src="~img/downWhite.gif" />
-            <ul id="batchAdmin" class="menuItems" style="width:130px">
-                <li class="btnCmd" style="" cmd="status_pick"><img src="~img/star.gif" /> 设为要闻</li>
-                <li class="btnCmd" style="" cmd="status_normal"><img src="~img/doc.gif" /> 设为普通</li>
-                <li class="btnCmd" style="" cmd="status_focus"><img src="~img/sticky2.gif" /> 设为头条</li>
-                <li class="btnCmd" style="" cmd="deletetrue"><img src="~img/s/delete.png" /> 批量删除</li>
-            </ul></span>
+                <span class="menuMore left20" list="batchAdmin">批量操作<img src="~img/downWhite.gif" />
+                <ul id="batchAdmin" class="menuItems" style="width:130px">
+                    <li class="btnCmd" style="" cmd="status_pick"><img src="~img/star.gif" /> 设为要闻</li>
+                    <li class="btnCmd" style="" cmd="status_normal"><img src="~img/doc.gif" /> 设为普通</li>
+                    <li class="btnCmd" style="" cmd="status_focus"><img src="~img/sticky2.gif" /> 设为头条</li>
+                    <li class="btnCmd" style="" cmd="deletetrue"><img src="~img/s/delete.png" /> 批量删除</li>
+                </ul></span>
         
+            </div>
+            <div style="float:right; padding-right:10px;">
+                <form method="get" action="#{ActionLink}">:{searchTitle}: <input name="q" type="text" value="#{searchKey}" /><input id="Submit1" type="submit" value="_{submit}" class="btn btns" /></form>
+            </div>          
+
+
+
         </td>
-        <td colspan="2" style="text-align:right; padding-right:10px;"><form method="get" action="#{ActionLink}">:{searchTitle}: <input name="q" type="text" value="#{searchKey}" /><input id="Submit1" type="submit" value="_{submit}" class="btn btns" /></form></td>
     </tr>
 
 	<tr class="tableHeader">
 	    <td align="center" style="width:4%;"><input id="selectAll" class="selectAll" type="checkbox" title="_{checkAll}" /></td>
-		<td>投递人</td>
-		<td></td>
-		<td></td>
-		<td>_{title}</td>
-		<td>_{created}</td>
-		<td>_{admin}</td>
+		<td style="width:5%;">投递人</td>
+		<td style="width:3%;"></td>
+		<td style="width:3%;"></td>
+		<td style="">_{title}</td>
+		<td style="width:13%;">_{created}</td>
+		<td style="width:12%;">_{admin}</td>
 	</tr>
 	<!-- BEGIN list -->
 	<tr class="tableItems">
 	    <td align="center"><input name="selectThis" id="checkbox#{post.Id}" type="checkbox" class="selectSingle"> </td>
-		<td>#{post.Submitter}</td>
+		<td>
+        <div style="width:60px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; ">
+        #{post.Submitter}
+        </div>
+        </td>
 		<td>#{post.PickIcon}</td>
 		<td style="text-align:right">#{post.AttachmentIcon}#{post.ImgIcon}</td>
-		<td><a href="#{post.Link}" style="#{post.TitleCss}" target="_blank">#{post.Title}</a>
-		 <span id="tag#{post.Id}" postId="#{post.Id}" style="font-weight:bold;margin-left:10px; color:Blue">#{post.Tag.TextString}</span> <span class="cmdTag link"><img src="~img/s/tag_edit.png" /></span>
+		<td>
+        <div style="width:500px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; ">
+            <a href="#{post.Link}" style="#{post.TitleCss}" target="_blank">#{post.Title}</a>
+		     <span id="tag#{post.Id}" postId="#{post.Id}" style="font-weight:bold;margin-left:10px; color:Blue">#{post.Tag.TextString}</span> <span class="cmdTag link"><img src="~img/s/tag_edit.png" /></span>
+         </div>
 		</td>
 		<td>#{post.PubDate}</td>
 		<td>
@@ -53,14 +68,21 @@
 	</tr>
 	<!-- END list -->
 	<tr>
-	    <td colspan="5">#{page}</td>
-	    <td colspan="2" style="text-align:right;padding-right:10px;">图例说明：	        
-	        <img src="~img/star.gif" class="left10" /> 要闻
-	        <img src="~img/sticky2.gif" class="left10" /> 头条
-	        <img src="~img/img.gif" class="left10" /> 图片
-	        <img src="~img/attachment.gif" class="left10" /> 附件
-	        <img src="~img/s/tag_edit.png" class="left10" /> 修改tag
-	    </td>
+	    <td colspan="7">
+        <table style="width:100%;">
+            <tr>
+                <td>#{page}</td>
+	            <td style="text-align:right;padding-right:10px;">图例说明：	        
+	                <img src="~img/star.gif" class="left10" /> 要闻
+	                <img src="~img/sticky2.gif" class="left10" /> 头条
+	                <img src="~img/img.gif" class="left10" /> 图片
+	                <img src="~img/attachment.gif" class="left10" /> 附件
+	                <img src="~img/s/tag_edit.png" class="left10" /> 修改tag
+	            </td>
+            </tr>
+        </table>
+        
+
 	</tr>
 </table>
 

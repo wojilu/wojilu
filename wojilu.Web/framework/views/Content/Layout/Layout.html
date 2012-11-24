@@ -2,18 +2,36 @@
 <script>_run(function () { wojilu.ui.slider(); }); </script>
 
 <div id="adminTool" class="row appAdminTool" style=" display:none;">
-    <div class="span3 pull-right" style="text-align:right; padding:10px;">
-        <a href="#{adminUrl}" class="frmLink btn btn-primary" loadTo="contentPage" nolayout=1>
-            <i class="icon-wrench icon-white"></i> 管理当前程序
-        </a>
+    <div class="admin-menu-wrap clearfix alert alert-block">
+        <div class="admin-pointer">            
+            <span class="btn btn-primary">
+                内容管理 <i class="icon-hand-right icon-white"></i>
+            </span>
+        </div>
+
+        <ul class="admin-menu unstyled">	
+            <li><a href="#{defaultLink}" class="frmLink" loadTo="contentPage" nolayout=3>页面设计(可拖拽)</a></li>
+            <li><a href="#{allPostsLink}" class="frmLink" loadTo="contentPage" nolayout=3>所有数据一览</a></li>
+            #{submitterLink}
+            <li><a href="#{commentLink}" class="frmLink" loadTo="contentPage" nolayout=3>评论管理</a></li>
+            <li><a href="#{trashPostsLink}" class="frmLink" loadTo="contentPage" nolayout=3>_{trash}</a></li>
+            <li><a href="#{settingLink}" class="frmLink" loadTo="contentPage" nolayout=3>_{setting}</a></li>
+            <!-- BEGIN html -->
+            <li><a href="#{staticLink}" class="frmLink" loadTo="contentPage" nolayout=3>生成html</a></li><!-- END html -->
+        </ul>
+
     </div>
 </div>
 
-<div id="contentPage">#{layout_content}</div>    
-
+<div id="contentPage">#{layout_content}</div>
 
 <script>
-_run( function() {
+_run(function () {
+
+    $('.admin-menu li').click(function () {
+        $('.admin-menu li').removeClass('admin-menu-current');
+        $(this).addClass('admin-menu-current');
+    });
     
     var showAdminTool = function() {
         if( typeof(ctx) == 'undefined' ) return;
@@ -28,15 +46,11 @@ _run( function() {
                 $.post( '#{adminCheckUrl}'.toAjax(), function(data) {
                     if( 'ok'==data ) $('#adminTool').show();
                 });
-            }
-            
-            
+            }            
         }
         else if( ctx.viewerOwnerSame ) {
             $('#adminTool').show();
-        }
-    
-        
+        }        
     };
     
     wojilu.site.load( showAdminTool );

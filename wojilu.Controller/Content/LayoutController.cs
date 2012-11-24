@@ -7,6 +7,7 @@ using System.Text;
 using wojilu.Web.Mvc;
 using wojilu.Apps.Content.Domain;
 using wojilu.Web.Controller.Content.Caching;
+using wojilu.Members.Sites.Domain;
 
 namespace wojilu.Web.Controller.Content {
 
@@ -29,6 +30,31 @@ namespace wojilu.Web.Controller.Content {
             moduleUrlList[1] = HtmlLink.ToApp( app );
 
             ctx.SetItem( "_moduleUrl", moduleUrlList );
+
+            // admin link
+            set( "allPostsLink", to( new Admin.PostController().List ) );
+            set( "trashPostsLink", to( new Admin.PostController().Trash ) );
+            set( "settingLink", to( new Admin.SettingController().Index ) );
+            set( "defaultLink", to( new Admin.ContentController().Home ) );
+            set( "commentLink", to( new Admin.CommentController().AdminList ) );
+
+            IBlock htmlBlock = getBlock( "html" );
+            if (ctx.owner.obj is Site) {
+                htmlBlock.Set( "staticLink", to( new Admin.HtmlController().Index ) );
+                htmlBlock.Next();
+            }
+
+            if (app.GetSettingsObj().EnableSubmit == 1) {
+                String slnk = string.Format( "<li><a href=\"{0}\" class=\"frmLink\" loadTo=\"contentPage\" nolayout=3>{1}</a></li>",
+                    to( new Admin.SubmitSettingController().List ),
+                    "投递员管理" );
+                set( "submitterLink", slnk );
+            }
+            else {
+                set( "submitterLink", "" );
+            }
+
+
 
         }
     }
