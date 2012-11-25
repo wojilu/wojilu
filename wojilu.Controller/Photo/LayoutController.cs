@@ -46,8 +46,17 @@ namespace wojilu.Web.Controller.Photo {
                 block.Next();
             }
 
-
             bindComments( "comment" );
+
+            bindAdminLink();
+        }
+
+        private void bindAdminLink() {
+            set( "friendsPhotoLink", to( new Admin.PhotoController().Index, -1 ) );
+            set( "myLink", to( new Admin.MyController().My ) );
+            set( "categoryAdmin", to( new Admin.AlbumController().List ) );
+            set( "categoryAdd", to( new Admin.AlbumController().Add ) );
+            set( "uploadLink", to( new Admin.PostController().Add ) );
         }
 
         private void bindComments( String blockName ) {
