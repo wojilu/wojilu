@@ -45,6 +45,13 @@ namespace wojilu.Web.Controller.Users {
             // 当前app/module所有页面，所属的首页
             ctx.SetItem( "_moduleUrl", to( Index ) );
 
+            bindAdminLink();
+        }
+
+        private void bindAdminLink() {
+            set( "userListLink", to( new wojilu.Web.Controller.Admin.Members.UserController().Index ) );
+            set( "siteMsgLink", to( new wojilu.Web.Controller.Admin.Members.SiteMsgController().Index ) );
+            set( "importLink", to( new wojilu.Web.Controller.Admin.Members.ImportController().Index ) );
         }
 
         [CachePage( typeof( UserMainPageCache ) )]

@@ -28,7 +28,7 @@ namespace wojilu.Web.Controller.Admin.Members {
         }
 
         public void EditTemplate() {
-            redirectUrl( to( new ViewsFileController().Edit ) + "?file=" + confirmEmail.getTemplatePath() + MvcConfig.Instance.ViewExt );
+            redirectDirect( to( new ViewsFileController().Edit ) + "?file=" + confirmEmail.getTemplatePath() + MvcConfig.Instance.ViewExt );            
         }
 
         [HttpPost, DbTransaction]

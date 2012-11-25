@@ -55,8 +55,13 @@
 </div>
 
 <script>
-_run( function() {
-    
+_run(function () {
+
+    $('.admin-menu li').click(function () {
+        $('.admin-menu li').removeClass('admin-menu-current');
+        $(this).addClass('admin-menu-current');
+    });
+
     var showAdminTool = function() {
         if( typeof(ctx) == 'undefined' ) return;
         if( ctx.viewer.IsLogin && ctx.viewerOwnerSame  ) {

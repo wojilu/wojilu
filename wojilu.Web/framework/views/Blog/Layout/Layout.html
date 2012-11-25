@@ -1,5 +1,5 @@
 ﻿
-<div id="adminTool" class="appAdminTool" style="padding:0px; font-weight:bold; display:none;">
+<div id="adminTool" class="appAdminTool" style="padding:0px; display:none;">
 
     <div class="admin-menu-wrap clearfix alert">
         <div class="admin-pointer">            
@@ -88,7 +88,10 @@
 
 <script>
 _run( function() {
-    
+    $('.admin-menu li').click(function () {
+        $('.admin-menu li').removeClass('admin-menu-current');
+        $(this).addClass('admin-menu-current');
+    });
     var showAdminTool = function() {
         if( typeof(ctx) == 'undefined' ) return;
         if( ctx.viewer.IsLogin && ctx.viewerOwnerSame ) {

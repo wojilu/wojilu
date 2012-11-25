@@ -14,9 +14,25 @@
 
 </style>
 
+<div id="adminTool" class="row appAdminTool" style=" display:none;">
+    <div class="admin-menu-wrap clearfix alert">
+        <div class="admin-pointer">            
+            <span class="btn btn-primary">
+                用户管理 <i class="icon-hand-right icon-white"></i>
+            </span>
+        </div>
 
-<div class="row" style="padding-top:20px;">
-    <div class="span8">
+        <ul class="admin-menu unstyled">	
+            <li><a href="#{userListLink}" class="frmLink" loadTo="user-main-wrap" nolayout=3>用户管理</a></li>
+            <li><a href="#{siteMsgLink}" class="frmLink" loadTo="user-main-wrap" nolayout=3>_{msgToAll}</a></li>
+            <li><a href="#{importLink}" class="frmLink" loadTo="user-main-wrap" nolayout=3>用户导入</a></li>
+        </ul>
+
+    </div>
+</div>
+
+<div id="user-main-wrap">
+    <div class="span8" style="margin-left:0px;margin-top:20px;">
         <div style="padding-left:15px;">
 	    #{layout_content}
         </div>
@@ -24,7 +40,7 @@
 
 	
     <div class="span4">	
-	    <div style="padding-right:20px;">
+	    <div style="padding-right:20px;margin-top:20px;">
 		
 		    <h3 style="margin-bottom:10px;"><img src="~img/search2.gif" /> _{searchUser}</h3>
 		    <div class="userPanelMain">
@@ -76,3 +92,37 @@
     </div>
 
 </div>
+
+<script>
+    _run(function () {
+
+        $('.admin-menu li').click(function () {
+            $('.admin-menu li').removeClass('admin-menu-current');
+            $(this).addClass('admin-menu-current');
+        });
+
+        var showAdminTool = function () {
+            if (typeof (ctx) == 'undefined') return;
+            if (ctx.viewer.IsLogin == false) return;
+
+            if (ctx.owner.IsSite) {
+
+                if (ctx.viewer.IsAdministrator) {
+                    $('#adminTool').show();
+                }
+                else if (ctx.viewer.IsInAdminGroup) {
+                    $.post('#{adminCheckUrl}'.toAjax(), function (data) {
+                        if ('ok' == data) $('#adminTool').show();
+                    });
+                }
+            }
+            else if (ctx.viewerOwnerSame) {
+                $('#adminTool').show();
+            }
+        };
+
+        wojilu.site.load(showAdminTool);
+
+        wojilu.ui.frmLink();
+    });
+</script>
