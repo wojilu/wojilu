@@ -1,13 +1,30 @@
-﻿
-
-<style>
+﻿<style>
 .group-list .thumbnail h5 {margin-top:5px;width:105px; overflow: hidden; white-space:nowrap; text-overflow:clip; }</style>
 
-<div class="row" style="padding-top:20px;">
+<div id="adminTool" class="row appAdminTool" style=" display:none;">
+    <div class="admin-menu-wrap clearfix alert alert-block">
 
-	<div class="span8"><div style="padding-left:20px;">#{layout_content}</div></div>
+        <div class="admin-pointer">            
+            <span class="btn btn-primary">
+                群组管理 <i class="icon-hand-right icon-white"></i>
+            </span>
+        </div>
+
+	    <ul class="admin-menu unstyled">	
+	        <li><a href="#{groupAdminHome}" class="frmLink" loadTo="group-main-wrap" nolayout=3>_{adminGroup}</a></li>
+	        <li><a href="#{postLink}" class="frmLink" loadTo="group-main-wrap" nolayout=3>_{allPosts}</a></li>
+	        <li><a href="#{groupLink}" class="frmLink" loadTo="group-main-wrap" nolayout=3>_{allGroup}</a></li>
+	        <li><a href="#{groupCategoryLink}" class="frmLink" loadTo="group-main-wrap" nolayout=3>_{groupCategory}</a></li>
+	    </ul>
+
+    </div>
+</div>
+
+<div id="group-main-wrap">
+
+	<div class="span8" style="margin-left:0px;margin-top:20px;"><div style="padding-left:20px;">#{layout_content}</div></div>
 	
-	<div class="span4">
+	<div class="span4" style="margin-top:20px;">
         <div style="padding-right:20px;">
 
 		<div class="clearfix">
@@ -49,4 +66,43 @@
 _run(function () {
     $('#tempie6').html( '');    
 });
+</script>
+
+<script>
+    _run(function () {
+
+        $('.admin-menu li').click(function () {
+            $('.admin-menu li').removeClass('admin-menu-current');
+            $(this).addClass('admin-menu-current');
+        });
+
+        var showAdminTool = function () {
+
+            if (typeof (ctx) == 'undefined') return;
+            if (ctx.viewer.IsLogin == false) return;
+
+            if (ctx.owner.IsSite) {
+                if (ctx.viewer.IsAdministrator) {
+                    $('#adminTool').show();
+                }
+                else if (ctx.viewer.IsInAdminGroup) {
+                    $.post('#{adminCheckUrl}'.toAjax(), function (data) {
+                        if ('ok' == data) $('#adminTool').show();
+                    });
+                }
+            }
+            else {
+
+                $.post('#{adminCheckUrl}'.toAjax(), function (data) {
+                    if ('ok' == data) $('#adminTool').show();
+                });
+
+            }
+
+        };
+
+        wojilu.site.load(showAdminTool);
+
+        wojilu.ui.frmLink();
+    });
 </script>

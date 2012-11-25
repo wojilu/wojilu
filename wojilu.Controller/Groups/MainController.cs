@@ -58,6 +58,15 @@ namespace wojilu.Web.Controller.Groups {
             set( "SearchAction", to( Search ) );
 
             set( "allGroupLink", to( List, -1 ) );
+
+            bindAdminLink();
+        }
+
+        private void bindAdminLink() {
+            set( "groupAdminHome", to( new wojilu.Web.Controller.Admin.Groups.GroupController().Index ) );
+            set( "postLink", to( new wojilu.Web.Controller.Admin.Groups.GroupController().PostAdmin ) );
+            set( "groupLink", to( new wojilu.Web.Controller.Admin.Groups.GroupController().GroupAdmin, -1 ) );
+            set( "groupCategoryLink", to( new wojilu.Web.Controller.Admin.Groups.CategoryController().List ) );
         }
 
         [CachePage( typeof( GroupMainPageCache ) )]
