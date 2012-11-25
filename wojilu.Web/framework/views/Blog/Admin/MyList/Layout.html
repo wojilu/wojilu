@@ -11,15 +11,18 @@
 }
 </style>
 
-<ul style="margin:0px;padding:0px;" id="menuHorizontal">
-	<li>_{viewByCategory}:</li>	
-	<!-- BEGIN categories -->
-	<li><div><a href="#{c.LinkPostAdmin}" class="frmLink" loadTo="blogListPanel" nolayout=4><img src="~img/dot.gif" />#{c.Name}</a></div></li>
-	<!-- END categories -->
-	<li style="margin-left:100px;font-weight:bold;color:red;float:right;display:none"><a href="#{makeBookLink}"><img src="~img/app/s/#{appType}.gif"/> :{generateBook} &rsaquo;&rsaquo;</a></li>
-</ul>
+<div style="margin:10px;">
+    <ul style="margin:0px;padding:0px;" id="menuHorizontal">
+	    <li>_{viewByCategory}:</li>	
+	    <!-- BEGIN categories -->
+	    <li><div><a href="#{c.LinkPostAdmin}" class="frmLink" loadTo="blogListPanel" nolayout=4><img src="~img/dot.gif" />#{c.Name}</a></div></li>
+	    <!-- END categories -->
+	    <li style="margin-left:100px;font-weight:bold;color:red;float:right;display:none"><a href="#{makeBookLink}"><img src="~img/app/s/#{appType}.gif"/> :{generateBook} &rsaquo;&rsaquo;</a></li>
+    </ul>
 
-<div id="blogListPanel">
-#{layout_content}
+    <div id="blogListPanel">
+    #{layout_content}
+
+    </div>
 
 </div>

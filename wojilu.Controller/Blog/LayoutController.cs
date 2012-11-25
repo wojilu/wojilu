@@ -44,6 +44,7 @@ namespace wojilu.Web.Controller.Blog {
             blogService.AddHits( blog );
 
             set( "adminUrl", to( new Admin.MyListController().Index ) );
+            bindAdminLink();
 
 
             bindAppInfo( blog );
@@ -64,6 +65,21 @@ namespace wojilu.Web.Controller.Blog {
             bindCategories( categories );
             bindPostList( newBlogs );
             bindComments( newComments );
+        }
+
+        private void bindAdminLink() {
+
+            set( "friendsBlogLink", to( new Admin.BlogController().Index, -1 ) );
+            set( "myBlogLink", to( new Admin.MyListController().My ) );
+            set( "addBlogLink", to( new Admin.PostController().Add ) );
+            set( "categoryLink", to( new Admin.CategoryController().List ) );
+            set( "blogrollLink", to( new Admin.BlogrollController().AdminList ) );
+
+            set( "draftLink", to( new Admin.DraftController().Draft ) );
+            set( "trashLink", to( new Admin.TrashController().Trash ) );
+
+            set( "settingLink", to( new Admin.SettingController().Index ) );
+
         }
 
 
