@@ -73,8 +73,9 @@
     <Content Include="framework\data\初始化需要清空的数据.txt" />
     <Content Include="framework\views\Admin\Apps\Blog\Layout\Layout.html" />
     <Content Include="framework\views\Admin\Apps\Blog\Main\Index.html" />
+    <Content Include="framework\views\Admin\Apps\Blog\Main\Layout.html" />
     <Content Include="framework\views\Admin\Apps\Blog\Main\Picked.html" />
-    <Content Include="framework\views\Admin\Apps\Blog\Main\Trash.html" />
+    <Content Include="framework\views\Admin\Apps\Blog\Trash\Trash.html" />
     <Content Include="framework\views\Admin\Apps\Blog\PickedImg\Add.html" />
     <Content Include="framework\views\Admin\Apps\Blog\PickedImg\Edit.html" />
     <Content Include="framework\views\Admin\Apps\Blog\PickedImg\Index.html" />

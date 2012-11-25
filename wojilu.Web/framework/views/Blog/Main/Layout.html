@@ -1,5 +1,5 @@
 ﻿<style>
-#blog-main-row {padding-top:20px;}
+#blog-main-row {}
 
 .blog-search-wrap {height:230px; margin-bottom:20px; border-radius:5px; padding:20px 10px 10px 20px;background:url("~img/big/blog-search.gif");}
 
@@ -14,13 +14,35 @@
 .section-panel li i.idx3 {background:url("~img/rank.gif") no-repeat 2px 2px;}
 </style>
 
-<div id="blog-main-row" class="row">
+<div id="adminTool" class="row appAdminTool" style=" display:none;">
+    <div class="admin-menu-wrap clearfix alert alert-block">
 
-	<div class="span8"><div style="margin-left:15px;">
-		#{layout_content}	</div>
+        <div class="admin-pointer">            
+            <span class="btn btn-primary">
+                博客管理 <i class="icon-hand-right icon-white"></i>
+            </span>
+        </div>
+
+        <ul class="admin-menu unstyled">	
+	        <li><a href="#{listLink}" class="frmLink" loadTo="blog-main-row" nolayout=4> :{newBlog}</a></li>
+            <li><a href="#{pickedLink}" class="frmLink" loadTo="blog-main-row" nolayout=4> :{recommendBlog}</a></li>
+            <li><a href="#{commentLink}" class="frmLink" loadTo="blog-main-row" nolayout=4> _{comment}</a></li>
+            <li><a href="#{trashLink}" class="frmLink" loadTo="blog-main-row" nolayout=4> _{trash}</a></li>
+            <li><a href="#{categoryLink}" class="frmLink" loadTo="blog-main-row" nolayout=4> 系统分类管理</a></li>
+	    </ul>
+
+    </div>
+</div>
+
+<div id="blog-main-row">
+
+	<div class="span8" style="margin-left:0px; margin-top:20px;">
+        <div style="margin-left:15px;">
+		    #{layout_content}
+        </div>
 	</div>
 
-	<div class="span4">	
+	<div class="span4" style="margin-top:20px;">	
     <div style="margin-right:15px;">
         <div class="blog-search-wrap">
             <h2><img src="~img/m/search.png" /> :{blogSearch}</h2>
@@ -78,3 +100,42 @@
 
 </div>
 
+
+<script>
+    _run(function () {
+
+        $('.admin-menu li').click(function () {
+            $('.admin-menu li').removeClass('admin-menu-current');
+            $(this).addClass('admin-menu-current');
+        });
+
+        var showAdminTool = function () {
+
+            if (typeof (ctx) == 'undefined') return;
+            if (ctx.viewer.IsLogin == false) return;
+
+            if (ctx.owner.IsSite) {
+                if (ctx.viewer.IsAdministrator) {
+                    $('#adminTool').show();
+                }
+                else if (ctx.viewer.IsInAdminGroup) {
+                    $.post('#{adminCheckUrl}'.toAjax(), function (data) {
+                        if ('ok' == data) $('#adminTool').show();
+                    });
+                }
+            }
+            else {
+
+                $.post('#{adminCheckUrl}'.toAjax(), function (data) {
+                    if ('ok' == data) $('#adminTool').show();
+                });
+
+            }
+
+        };
+
+        wojilu.site.load(showAdminTool);
+
+        wojilu.ui.frmLink();
+    });
+</script>
