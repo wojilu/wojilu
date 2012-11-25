@@ -4,19 +4,19 @@
 
 using System;
 using System.Collections.Generic;
-using System.Text;
 
 using wojilu.Web.Mvc;
 using wojilu.Web.Mvc.Attr;
-using wojilu.Apps.Photo.Domain;
-using wojilu.Apps.Photo.Service;
-using wojilu.Common.AppBase;
-using wojilu.Apps.Photo.Interface;
-using wojilu.Members.Sites.Service;
-using wojilu.Members.Sites.Interface;
 using wojilu.Web.Controller.Security;
+using wojilu.Common.AppBase;
+
 using wojilu.Members.Interface;
 using wojilu.Members.Sites.Domain;
+using wojilu.Members.Sites.Service;
+
+using wojilu.Apps.Photo.Domain;
+using wojilu.Apps.Photo.Interface;
+using wojilu.Apps.Photo.Service;
 
 namespace wojilu.Web.Controller.Admin.Apps.Photo {
 
@@ -37,7 +37,17 @@ namespace wojilu.Web.Controller.Admin.Apps.Photo {
             logService = new SiteLogService();
         }
 
-        private static readonly int pageSize = 36;
+        public static readonly int pageSize = 40;
+
+        public override void Layout() {
+
+            List<PhotoSysCategory> categories = categoryService.GetAll();
+            bindList( "categories", "c", categories, bindCatLink );
+        }
+
+        private void bindCatLink( IBlock tpl, int id ) {
+            tpl.Set( "c.LinkCategory", to( new MainController().Index, id ) );
+        }
 
         public void Index( int id ) {
 
@@ -48,20 +58,6 @@ namespace wojilu.Web.Controller.Admin.Apps.Photo {
             setCategoryDropList();
 
             target( Admin );
-        }
-
-        public void Picked() {
-            target( Admin );
-            DataPage<PhotoPost> list = pickedService.GetAll();
-            bindList( "list", "photo", list.Results, bindLink );
-            set( "page", list.PageBar );
-        }
-
-        public void Trash() {
-            target( Admin );
-            DataPage<PhotoPost> list = photoService.GetSysPostTrashPage( pageSize );
-            bindList( "list", "photo", list.Results, bindLink );
-            set( "page", list.PageBar );
         }
 
 
@@ -85,27 +81,13 @@ namespace wojilu.Web.Controller.Admin.Apps.Photo {
 
                 echoAjaxOk();
             }
-            else if ("unpick".Equals( cmd )) {
-                pickedService.UnPickPost( ids );
-                log( SiteLogString.UnPickPhotoPost(), ids );
 
-                echoAjaxOk();
-            }
             else if ("delete".Equals( cmd )) {
                 PhotoPost.updateBatch( "set SaveStatus=" + SaveStatus.SysDelete, condition );
                 log( SiteLogString.DeleteSysPhotoPost(), ids );
                 echoAjaxOk();
             }
-            else if ("deleteTrue".Equals( cmd )) {
-                photoService.SystemDeleteListTrue( ids );
-                log( SiteLogString.DeleteSysPhotoPostTrue(), ids );
-                echoAjaxOk();
-            }
-            else if ("unDelete".Equals( cmd )) {
-                photoService.SystemUnDeleteList( ids );
-                log( SiteLogString.UnDeleteSysPhotoPost(), ids );
-                echoAjaxOk();
-            }
+
             else if ("category".Equals( cmd )) {
                 if (categoryId < 0) {
                     actionContent( lang( "exCategoryNotFound" ) );

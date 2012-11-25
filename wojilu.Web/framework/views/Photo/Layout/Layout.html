@@ -21,27 +21,22 @@
 <div>
 <div id="photo-main-wrap" style="margin:0px 10px 0px 30px;">
 
-
-	
-    <div class="appMain">
-	    <div class="appMainContainer" id="appMainContainer">
-		    #{layout_content}
-	    </div>
-    </div>
-
     <div class="sideBar" id="photoSidebar">
-	    <div class="sideBarContainer" style="margin:0px;border:0px red solid; padding:10px 10px 10px 0px;  margin-bottom:20px;">
+	    <div class="sideBarContainer" style="margin:0px;border:0px red solid; padding:10px 10px 10px 0px;  margin-bottom:20px; ">
 	
-		    <div class="sideBarPanel" style="display:none;">
-			    <div class="sideBarTitle" style=" margin-bottom:15px; font-size:20px; background1:#f2f2f2;">_{album}</div>
-			    <ul class="sideBarList" style="margin-right:20px;">
-				    <!-- BEGIN list --><li style="text-align:center;margin-bottom:10px;"><a href="#{category.Url}" style="color:#666;"><img src="#{category.Cover}" style="width:120px;" /><br />#{category.Title}</a></li><!-- END list -->
+		    <div class="sideBarPanel" style="margin-left:0px;margin-right:0px;">
+			    <div class="sideBarTitle" style=" text-align:left; margin-bottom:15px; font-size:20px;">最新图片</div>
+			    <ul class="sideBarList clearfix" style=" margin-left:0px; margin-right:0px; padding:0px; ">
+				    <!-- BEGIN list --><li style="text-align:center; float:left; margin-left:0px; margin-right:10px;margin-bottom:10px;">
+                    <a href="#{x.Link}"><img alt="#{x.Title}" src="#{x.Pic}" style="width:48px;border:1px solid #ccc; padding:3px;" /></a>
+                    </li><!-- END list -->
 			    </ul>
+                <div class="clear"></div>
 		    </div>
 		
-		    <div class="sideBarPanel">
-			    <div class="sideBarTitle" style=" background:#f2f2f2;margin-top:15px; padding:5px;">_{newComment}</div>
-			    <ul class="sideBarList">
+		    <div class="sideBarPanel" style="margin-left:0px; ">
+			    <div class="sideBarTitle" style=" text-align:left;  margin-top:15px; padding:5px;font-size:20px;">_{newComment}</div>
+			    <ul class="sideBarList" style=" margin-left:0px; margin-right:20px; padding:0px;">
 				    <!-- BEGIN comment --><li><a href="#{comment.Url}">#{comment.Title}</a></li><!-- END comment -->
 				    <li class="sideBarMore">#{commentMoreLink}</li>
 			    </ul>			
@@ -49,6 +44,13 @@
 	
 	    </div>
     </div>
+	
+    <div class="appMain">
+	    <div class="appMainContainer" id="appMainContainer">
+		    #{layout_content}
+	    </div>
+    </div>
+
     <div class="clear"></div>
 
 </div>

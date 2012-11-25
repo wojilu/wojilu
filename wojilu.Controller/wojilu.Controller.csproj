@@ -81,6 +81,7 @@
     <Compile Include="Admin\Apps\Content\CommentController.cs" />
     <Compile Include="Admin\Apps\Content\LayoutController.cs" />
     <Compile Include="Admin\Apps\Content\MainController.cs" />
+    <Compile Include="Admin\Apps\Photo\PostAdminController.cs" />
     <Compile Include="Admin\Apps\Poll\MainController.cs" />
     <Compile Include="Admin\Apps\Reader\LayoutController.cs" />
     <Compile Include="Admin\Apps\Reader\MainController.cs" />

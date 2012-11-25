@@ -84,8 +84,9 @@
     <Content Include="framework\views\Admin\Apps\Blog\SysCategory\List.html" />
     <Content Include="framework\views\Admin\Apps\Photo\Layout\Layout.html" />
     <Content Include="framework\views\Admin\Apps\Photo\Main\Index.html" />
-    <Content Include="framework\views\Admin\Apps\Photo\Main\Picked.html" />
-    <Content Include="framework\views\Admin\Apps\Photo\Main\Trash.html" />
+    <Content Include="framework\views\Admin\Apps\Photo\Main\Layout.html" />
+    <Content Include="framework\views\Admin\Apps\Photo\PostAdmin\Picked.html" />
+    <Content Include="framework\views\Admin\Apps\Photo\PostAdmin\Trash.html" />
     <Content Include="framework\views\Admin\Apps\Photo\SysCategory\Add.html" />
     <Content Include="framework\views\Admin\Apps\Photo\SysCategory\Edit.html" />
     <Content Include="framework\views\Admin\Apps\Photo\SysCategory\List.html" />
