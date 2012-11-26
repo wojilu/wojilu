@@ -26,6 +26,10 @@ namespace wojilu.Web.Controller.Microblogs {
 
         public override void Layout() {
 
+            set( "mbAdminLink", to( new wojilu.Web.Controller.Admin.MicroblogController().List ) );
+            set( "mbSettingsLink", to( new wojilu.Web.Controller.Admin.MicroblogController().Settings ) );
+
+
             set( "siteName", config.Instance.Site.SiteName );
 
             set( "microblogHomeLink", getFullUrl( alink.ToMicroblog() ) );

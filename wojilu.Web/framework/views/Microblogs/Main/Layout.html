@@ -26,7 +26,7 @@ a#regNow:active { background-position:0px -110px; }
 #btnLogin:active {background-position:0px -231px; }
 
 #loginUserInfo {margin:15px 0px 0px 25px;}
-#loginUserInfo a {float:left;margin:5px 5px 5px 5px;width:100px;}
+#loginUserInfo a {float:left;margin:5px 5px 5px 5px;width:75px;}
 
 .uItem img {
     padding:2px; border:1px #eee solid;
@@ -51,6 +51,23 @@ a#regNow:active { background-position:0px -110px; }
             <div class="mb-logo-url"><a href="#{microblogHomeLink}">#{microblogHomeLink}</a></div>        
         </div>
     </div>
+
+<div id="adminTool" class="appAdminTool" style=" display1:none; width:930px; margin:0px auto; margin-top:-10px; margin-bottom:10px;">
+    <div class="admin-menu-wrap clearfix alert alert-block">
+
+        <div class="admin-pointer">            
+            <span class="btn btn-primary">
+                微博管理 <i class="icon-hand-right icon-white"></i>
+            </span>
+        </div>
+
+        <ul class="admin-menu unstyled">	
+	        <li><a href="#{mbAdminLink}" class="frmLink" loadTo="mbMainWrap" nolayout=4>列表管理</a></li>
+	        <li><a href="#{mbSettingsLink}" class="frmLink" loadTo="mbMainWrap" nolayout=4>微博配置</a></li>
+	    </ul>
+
+    </div>
+</div>
     
     <div id="mbMainWrap">
         <table style="width:100%;" cellpadding="0" cellspacing="0">
@@ -92,15 +109,15 @@ a#regNow:active { background-position:0px -110px; }
                     </div>
                     
                     <div id="loginUserPanel" style="display:none;">
-                    <table style="width:120px; margin:20px auto;margin-top:35px;">
-                    <tr><td class="uItem" id="loginUserPic"></td><td><div style="color:#666;">欢迎您!</div><div id="loginUserName"></div></td></tr>
-                    </table>                    
-                    <div id="loginUserInfo">
-                    <a href="#" id="lnkPublish" class="btnBig">发布微博</a>
-                    <a href="#" id="lnkMyBlog" class="btnBig btnGreen">我的微博</a>
-                    <a href="#" id="lnkFavorite" class="btnBig">微博收藏</a>
-                    <a href="#" id="lnkComment" class="btnBig btnGreen">微博评论</a>
-                    </div>
+                        <table style="width:180px; margin:20px auto;margin-top:35px;">
+                        <tr><td class="uItem" id="loginUserPic"></td><td><div style="margin-bottom:5px;">欢迎您!</div><div id="loginUserName"></div></td></tr>
+                        </table>                    
+                        <div id="loginUserInfo">
+                            <a href="#" id="lnkPublish" class="btn btn-danger"><i class="icon-plus icon-white"></i> 发布微博</a>
+                            <a href="#" id="lnkMyBlog" class="btn btn-primary"><i class="icon-user icon-white"></i> 我的微博</a>
+                            <a href="#" id="lnkFavorite" class="btn btn-info"><i class="icon-star icon-white"></i> 微博收藏</a>
+                            <a href="#" id="lnkComment" class="btn btn-success"><i class="icon-pencil icon-white"></i> 微博评论</a>
+                        </div>
                     </div>
                     
                 </td>
@@ -134,7 +151,7 @@ _run( function() {
     
         if( ctx.viewer.IsLogin ) {
     
-            $('#loginUserPic').html( '<img src="'+ctx.viewer.obj.PicMedium+'" style="width:48px;" />' );
+            $('#loginUserPic').html( '<img src="'+ctx.viewer.obj.PicMedium+'" style="width:100px;" />' );
             $('#loginUserName').text( ctx.viewer.obj.Name );        
             
             var url = ctx.viewer.obj.FriendlyUrl;
@@ -155,4 +172,44 @@ _run( function() {
     wojilu.site.load( showLoginUser );
 
 });
+</script>
+
+
+<script>
+    _run(function () {
+
+        $('.admin-menu li').click(function () {
+            $('.admin-menu li').removeClass('admin-menu-current');
+            $(this).addClass('admin-menu-current');
+        });
+
+        var showAdminTool = function () {
+
+            if (typeof (ctx) == 'undefined') return;
+            if (ctx.viewer.IsLogin == false) return;
+
+            if (ctx.owner.IsSite) {
+                if (ctx.viewer.IsAdministrator) {
+                    $('#adminTool').show();
+                }
+                else if (ctx.viewer.IsInAdminGroup) {
+                    $.post('#{adminCheckUrl}'.toAjax(), function (data) {
+                        if ('ok' == data) $('#adminTool').show();
+                    });
+                }
+            }
+            else {
+
+                $.post('#{adminCheckUrl}'.toAjax(), function (data) {
+                    if ('ok' == data) $('#adminTool').show();
+                });
+
+            }
+
+        };
+
+        wojilu.site.load(showAdminTool);
+
+        wojilu.ui.frmLink();
+    });
 </script>

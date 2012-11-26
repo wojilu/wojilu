@@ -19,9 +19,8 @@ namespace wojilu.Web.Controller.Admin {
 
         public override void Layout() {
 
-            set( "microblogLink", to( List ) );
-
-            set( "microblogSettings", to( Settings ) );
+            set( "mbAdminLink", to( List ) );
+            set( "mbSettingsLink", to( Settings ) );
 
         }
 
