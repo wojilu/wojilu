@@ -23,6 +23,8 @@ namespace wojilu.Web.Controller {
         public override void Layout() {
             // 当前app/module所有页面，所属的首页
             ctx.SetItem( "_moduleUrl", to( Index ) );
+
+            set( "tagAdminLink", to( new wojilu.Web.Controller.Admin.TagAdminController().Index ) );
         }
 
         public void Index() {
