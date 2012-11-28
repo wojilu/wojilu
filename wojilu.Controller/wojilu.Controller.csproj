@@ -89,6 +89,8 @@
     <Compile Include="Admin\CacheController.cs" />
     <Compile Include="Admin\JobController.cs" />
     <Compile Include="Admin\Members\EmailConfirmController.cs" />
+    <Compile Include="Admin\Members\UserRegController.cs" />
+    <Compile Include="Admin\Members\UserSettingController.cs" />
     <Compile Include="Admin\MicroblogController.cs" />
     <Compile Include="Admin\Members\SiteMsgController.cs" />
     <Compile Include="Admin\MenuController.cs" />

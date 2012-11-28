@@ -109,6 +109,8 @@
     <Content Include="framework\views\Admin\Groups\Layout\Layout.html" />
     <Content Include="framework\views\Admin\Main\Login.html" />
     <Content Include="framework\views\Admin\Members\Layout\Layout.html" />
+    <Content Include="framework\views\Admin\Members\UserReg\Index.html" />
+    <Content Include="framework\views\Admin\Members\UserSetting\Index.html" />
     <Content Include="framework\views\Admin\Members\User\AddUser.html" />
     <Content Include="framework\views\Admin\Members\User\Index.html" />
     <Content Include="framework\views\Admin\Members\User\ResetPwd.html" />

@@ -52,6 +52,9 @@ namespace wojilu.Web.Controller.Users {
             set( "userListLink", to( new wojilu.Web.Controller.Admin.Members.UserController().Index ) );
             set( "siteMsgLink", to( new wojilu.Web.Controller.Admin.Members.SiteMsgController().Index ) );
             set( "importLink", to( new wojilu.Web.Controller.Admin.Members.ImportController().Index ) );
+            set( "settingLink", to( new wojilu.Web.Controller.Admin.Members.UserSettingController().Index ) );
+            set( "regLink", to( new wojilu.Web.Controller.Admin.Members.UserRegController().Index ) );
+            set( "templateLink", to( new wojilu.Web.Controller.Admin.Members.EmailConfirmController().EditTemplate ) );
         }
 
         [CachePage( typeof( UserMainPageCache ) )]

@@ -13,7 +13,7 @@ namespace wojilu.Open {
     public class OpenService {
 
         /// <summary>
-        /// 用户注册(不开启空间)
+        /// 用户注册(不开启空间，使用默认的友好网址)
         /// </summary>
         /// <param name="name">用户名</param>
         /// <param name="pwd">密码</param>
@@ -21,7 +21,7 @@ namespace wojilu.Open {
         public Result UserRegister( String name, String pwd, String email ) {
 
             if (strUtil.IsNullOrEmpty( name ) || strUtil.IsNullOrEmpty( pwd )) {
-                throw new NullReferenceException( "请设置用户名和密码" );
+                throw new ArgumentNullException( "请设置用户名和密码" );
             }
 
             User user = new User();
@@ -38,14 +38,18 @@ namespace wojilu.Open {
         }
 
         /// <summary>
-        /// 用户注册(开启空间，安装应用程序)
+        /// 用户注册(根据参数决定是否开启空间，是否安装应用程序)
         /// </summary>
         /// <param name="name">用户名</param>
         /// <param name="pwd">密码</param>
         /// <param name="email">电子邮件</param>
-        /// <param name="friendlyUrl">开启空间需要的友好网址</param>
-        /// <param name="apps">默认开启的应用程序(从 home,blog,photo,microblog,friend,visitor,forumpost,about,feedback,share 中选择)</param>
+        /// <param name="friendlyUrl">用户的友好网址，可以为空</param>
+        /// <param name="apps">默认开启的应用程序(从 home,blog,photo,microblog,friend,visitor,forumpost,about,feedback,share 中选择)。如果为空，则不安装程序</param>
         public Result UserRegister( String name, String pwd, String email, String friendlyUrl, String apps ) {
+
+            if (strUtil.IsNullOrEmpty( name ) || strUtil.IsNullOrEmpty( pwd )) {
+                throw new ArgumentNullException( "请设置用户名和密码" );
+            }
 
             User user = new User();
             user.Name = name;
@@ -56,10 +60,19 @@ namespace wojilu.Open {
 
             Result result = new Result();
             UserService userService = new UserService();
-            ISiteConfig sconfig = getSiteConfig( true );
-            userService.Register( user, result, sconfig );
 
-            new AppService().InstallAppAndMenu( user, apps );
+            if (strUtil.HasText( apps )) {
+
+                ISiteConfig sconfig = getSiteConfig( true );
+                userService.Register( user, result, sconfig );
+                new AppService().InstallAppAndMenu( user, apps );
+            }
+            else {
+                ISiteConfig sconfig = getSiteConfig( false );
+                userService.Register( user, result, sconfig );
+            }
+
+
             result.Info = user;
             return result;
 
