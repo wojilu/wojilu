@@ -105,13 +105,17 @@ namespace wojilu.Web.Controller.Forum.Users {
         private void bindViewLink( ForumPoll p ) {
             IBlock lnkView = getBlock( "lnkView" );
             IBlock lblView = getBlock( "lblView" );
-            if (p.IsVisible == 0) {
+            if (p.IsVisible == 0 || isAuthor( p ) || ctx.viewer.IsAdministrator() || ctx.viewer.IsOwnerAdministrator( ctx.owner.obj )) {
                 lnkView.Set( "topicId", p.TopicId );
                 lnkView.Next();
             }
             else {
                 lblView.Next();
             }
+        }
+
+        private bool isAuthor( ForumPoll p ) {
+            return ctx.viewer.Id == p.Creator.Id;
         }
 
         public void GetPollResultHtml( int pollId ) {

@@ -59,7 +59,7 @@ namespace wojilu.Common.Polls.Service {
             if (cvt.IsDayEqual( expiryDate, created )) return "";
 
             TimeSpan span = expiryDate.Date.Subtract( DateTime.Now.Date );
-            int leavingDays = span.Days + 1;
+            int leavingDays = span.Days;
 
             if (leavingDays <= 0) return lang.get( "pollEnd" );
             if (leavingDays == 1) return lang.get( "pollEndToday" );
