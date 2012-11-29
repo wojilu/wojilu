@@ -42,15 +42,10 @@
 </div>
 </div>
 
-
 <script>
-_run( function() {
-    var q = wojilu.tool.getQuery( 'skin' );
-    if( q== 'custom' ) {
-        $('#customSkin').click();
-        wojilu.ui.box.hideBg();
-    }
-});
+    _run(function () {
+        require(['wojilu.core.base'], function (x) { x.customSkin().backTop(); });
+    });
 </script>
 
 <script data-main="~js/main" src="~js/lib/require-jquery-wojilu.js?v=#{jsVersion}"></script>

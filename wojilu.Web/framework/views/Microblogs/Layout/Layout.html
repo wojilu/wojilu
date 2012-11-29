@@ -62,7 +62,10 @@
 <div id="myBoxFavX" class="ebox" style="width:120px;height:30px; text-align:center; padding-top:10px; "> <img src="~img/ok.gif" /> 取消收藏成功</div>
 
 <script data-main="~js/main" src="~js/lib/require-jquery-wojilu.js?v=#{jsVersion}"></script>
-<script>require(['wojilu.app.microblog.view']);</script>
+<script>
+    require(['wojilu.app.microblog.view']);
+    require(['wojilu.core.base'], function (x) { x.backTop(); });
+</script>
 
 </body>
 </html>

@@ -261,6 +261,9 @@ td.onePollResult {padding-left:2px;}
 #wojilu_banner{ width:100%;height:106px; background-image:url("../img/middle_banner.jpg");}
 textarea { border:1px solid #EEEEEE;}
 
+#backTop { display:none;position: fixed; bottom: 20px; right: 20px; z-index:1999 ; width: 71px;cursor:pointer;}
+#backTop span { display: block; width: 71px; height: 24px; padding-top: 48px; background: url("../img/m/backTop.gif") no-repeat; text-align: center; color: #777; }
+#backTop span:hover { background: url("../img/m/backTop.gif") no-repeat -88px 0px; }
 
 .alert {
   padding: 8px 35px 8px 14px;
