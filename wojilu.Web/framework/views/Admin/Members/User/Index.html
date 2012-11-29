@@ -31,7 +31,7 @@ _run( function() {
 	});
 
 	$('.lnkMsg').click( function() {
-		var choiceList = getChoiceList();
+		var choiceList = wojilu.ui.select();
 		if( choiceList.length == 0 ) {
 		    alert( "_{plsSelect}" );
 		    return false;
@@ -41,7 +41,6 @@ _run( function() {
 			$(this).attr( 'href', newUrl );
 		}
 	});
-	
 
 });
 

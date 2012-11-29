@@ -12863,6 +12863,14 @@ wojilu.ui.slider = function() {
     });
 };
 
+wojilu.ui.select = function() {
+    var choiceList = [];
+    $('input[name=selectThis]:checked').each( function(i){
+        choiceList.push(this.id.replace('checkbox',''));
+    });
+    return choiceList;
+};
+
 $(document).ready( function() {
     wojilu.ui.menu();
     wojilu.ui.clickMenu();
