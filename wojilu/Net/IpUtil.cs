@@ -111,6 +111,36 @@ namespace wojilu.Net {
             return IsAllowedIp( ip, list );
         }
 
+        /// <summary>
+        /// 将 ip 转化为通配符形式，隐藏后几位信息
+        /// </summary>
+        /// <param name="ip"></param>
+        /// <param name="trimEnd">需要隐藏的位数，从末尾往前倒数</param>
+        /// <returns></returns>
+        public static String GetIpWild( String ip, int hideLength ) {
+
+            if (isIpError( ip )) return "ip error";
+
+            String[] arrItem = ip.Split( '.' );
+
+            if (hideLength == 1) {
+                return arrItem[0] +"."+ arrItem[1]+"." + arrItem[2] + ".*";
+            }
+            else if (hideLength == 2) {
+                return arrItem[0] + "." + arrItem[1]  + ".*.*";
+            }
+            else if (hideLength == 3) {
+                return arrItem[0] + ".*.*.*";
+            }
+            else if (hideLength == 4) {
+                return "*.*.*.*";
+            }
+            else {
+                return ip;
+            }
+
+        }
+
         private static bool isAllowedSingle( String ip, String settingItem ) {
 
             if (settingItem.IndexOf( "-" ) > 0) return isAllowedScaleIp( settingItem, ip );

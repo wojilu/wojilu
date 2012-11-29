@@ -132,9 +132,7 @@ namespace wojilu.Web.Controller.Users {
         private void bindOnlineInfos( List<OnlineUser> users ) {
             IBlock block = getBlock( "onlines" );
             foreach (OnlineUser user in users) {
-                block.Set( "u.Name", user.UserName );
-                block.Set( "u.Face", user.UserPicUrl );
-                block.Set( "u.Link", user.UserUrl );
+                bindUserSingle( block, user );
                 block.Next();
             }
         }
@@ -143,7 +141,6 @@ namespace wojilu.Web.Controller.Users {
 
             ctx.Page.Title = "所有在线用户";
 
-            //DataPage<OnlineUser> users = cdb.findPage<OnlineUser>( 70 ); // 此处未排序
             DataPage<OnlineUser> users = DataPage<OnlineUser>.GetPage( OnlineService.GetAll(), 70 ); // 已排序
 
             set( "onlineCount", users.RecordCount );
@@ -151,31 +148,38 @@ namespace wojilu.Web.Controller.Users {
             IBlock block = getBlock( "onlines" );
             foreach (OnlineUser user in users.Results) {
 
-                String lblValue = "【" + lang( "ipAddress" ) + "】" + user.Ip +
-    "\n【" + lang( "osInfo" ) + "】" + user.Agent +
-    "\n【" + lang( "startTime" ) + "】" + user.StartTime.ToString() +
-    "\n【" + lang( "lastActive" ) + "】" + user.LastActive.ToString() +
-    "\n【" + lang( "clocation" ) + "】" + user.Location;
-
-
-                if (user.UserId > 0) {
-                    block.Set( "u.Name", user.UserName );
-                    block.Set( "u.Face", user.UserPicUrl );
-                    block.Set( "u.Link", user.UserUrl );
-                }
-                else {
-                    block.Set( "u.Name", UserFactory.Guest.Name );
-                    block.Set( "u.Face", UserFactory.Guest.PicSmall );
-                    block.Set( "u.Link", "javascript:;" );
-                }
-
-                block.Set( "u.Info", lblValue );
+                bindUserSingle( block, user );
 
                 block.Next();
             }
 
 
             set( "page", users.PageBar );
+        }
+
+        private void bindUserSingle( IBlock block, OnlineUser user ) {
+
+            String ip = ctx.viewer.IsAdministrator() ? user.Ip : user.GetIp( 1 );
+
+            String lblValue = "【" + lang( "ipAddress" ) + "】" + ip +
+"\n【" + lang( "osInfo" ) + "】" + user.Agent +
+"\n【" + lang( "startTime" ) + "】" + user.StartTime.ToString() +
+"\n【" + lang( "lastActive" ) + "】" + user.LastActive.ToString() +
+"\n【" + lang( "clocation" ) + "】" + user.Location;
+
+
+            if (user.UserId > 0) {
+                block.Set( "u.Name", user.UserName );
+                block.Set( "u.Face", user.UserPicUrl );
+                block.Set( "u.Link", user.UserUrl );
+            }
+            else {
+                block.Set( "u.Name", UserFactory.Guest.Name );
+                block.Set( "u.Face", UserFactory.Guest.PicSmall );
+                block.Set( "u.Link", "javascript:;" );
+            }
+
+            block.Set( "u.Info", lblValue );
         }
 
         public void ListAll() {

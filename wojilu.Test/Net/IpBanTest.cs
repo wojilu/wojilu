@@ -339,6 +339,17 @@ namespace wojilu.Test.Net {
 
         }
 
+        public void testIpWildResult() {
+
+            Assert.AreEqual( IpUtil.GetIpWild( "97.65.164.215", 0 ), "97.65.164.215" );
+            Assert.AreEqual( IpUtil.GetIpWild( "97.65.164.215", 5 ), "97.65.164.215" );
+            Assert.AreEqual( IpUtil.GetIpWild( "97.65.164.215", 1 ), "97.65.164.*" );
+            Assert.AreEqual( IpUtil.GetIpWild( "97.65.164.215", 2 ), "97.65.*.*" );
+            Assert.AreEqual( IpUtil.GetIpWild( "97.65.164.215", 3 ), "97.*.*.*" );
+            Assert.AreEqual( IpUtil.GetIpWild( "97.65.164.215", 4 ), "*.*.*.*" );
+
+        }
+
 
     }
 }

@@ -19,6 +19,7 @@ using System.Text;
 
 using wojilu.Data;
 using wojilu.ORM;
+using wojilu.Net;
 
 namespace wojilu.Common.Onlines {
 
@@ -49,6 +50,9 @@ namespace wojilu.Common.Onlines {
         public String Ip { get; set; }
         public String TrueIp { get; set; }
 
+        public String GetIp( int hideLength ) {
+            return IpUtil.GetIpWild( this.Ip, hideLength );
+        }
 
         public int CompareTo( Object obj ) {
             OnlineUser target = obj as OnlineUser;
