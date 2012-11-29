@@ -93,8 +93,14 @@ namespace wojilu {
             _siteSetting.Webmaster = getVal( dic, "Webmaster" );
             _siteSetting.Email = getVal( dic, "Email" );
             _siteSetting.Copyright = getVal( dic, "Copyright" );
+
             _siteSetting.Keywords = getVal( dic, "Keywords" );
             _siteSetting.Description = getVal( dic, "Description" );
+
+            _siteSetting.UserPageKeywords = getVal( dic, "UserPageKeywords" );
+            _siteSetting.UserPageDescription = getVal( dic, "UserPageDescription" );
+
+
             _siteSetting.PageDefaultTitle = getVal( dic, "PageDefaultTitle" );
             _siteSetting.IsClose = cvt.ToBool( getVal( dic, "IsClose" ) );
             _siteSetting.CloseReason = getVal( dic, "CloseReason" );

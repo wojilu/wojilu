@@ -973,16 +973,12 @@ namespace wojilu.Web.Mvc {
             }
             else {
 
-                // 如果继承
                 String actionName = action.Method.Name;
                 ControllerBase otherController = ControllerFactory.FindController( action.Method.DeclaringType, ctx );
                 otherController.view( actionName );
                 otherController.utils.runAction( actionName );
-                result = otherController.utils.getCurrentView().ToString();
-                //result = otherController.utils.getActionResult();
+                result = otherController.utils.getActionResult();
 
-                // 如果没有继承
-                //result = ControllerRunner.Run( action, ctx );
             }
 
             return result;

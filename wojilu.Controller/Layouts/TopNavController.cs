@@ -52,11 +52,18 @@ namespace wojilu.Web.Controller.Layouts {
         public void Index() {
 
             if (config.Instance.Site.TopNavDisplay == TopNavDisplay.Hide ||
-
-                (config.Instance.Site.RegisterType == RegisterType.Close && config.Instance.Site.TopNavDisplay == TopNavDisplay.NoRegHide)
-
+                (config.Instance.Site.RegisterType == RegisterType.Close && 
+                config.Instance.Site.TopNavDisplay == TopNavDisplay.NoRegHide)
                 ) {
-                utils.setCurrentView( new Template() );
+
+                actionContent( @"<script>
+_run( function() {
+    require( [""wojilu.core.sitetop""], function( topnav ) {
+        topnav.init( '" + t2( Nav ) + @"');
+    });
+});
+</script>" );
+
                 return;
             }
 
@@ -84,7 +91,7 @@ namespace wojilu.Web.Controller.Layouts {
         private string getEmailConfirmCredit( int actionId ) {
             // 获取当前操作action收入规则。
             // 这里获取的是中心货币，你也可以使用 GetRulesByAction(actionId) 获取其他所有货币的收入规则
-            KeyIncomeRule rule = currencyService.GetKeyIncomeRulesByAction( actionId );         
+            KeyIncomeRule rule = currencyService.GetKeyIncomeRulesByAction( actionId );
             return string.Format( "可奖励{0}{1}", rule.Income, rule.CurrencyUnit );
         }
 

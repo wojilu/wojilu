@@ -62,6 +62,8 @@ namespace wojilu.Web.Controller.Users {
         public void Index() {
 
             ctx.Page.Title = lang( "user" );
+            ctx.Page.Keywords = config.Instance.Site.UserPageKeywords;
+            ctx.Page.Description = config.Instance.Site.UserPageDescription;
 
             set( "lnkRank", to( Rank ) );
             set( "lnkOnlineAll", to( OnlineAll ) );

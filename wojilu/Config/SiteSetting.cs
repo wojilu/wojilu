@@ -132,6 +132,16 @@ namespace wojilu.Config {
         public String Description { get; set; }
 
         /// <summary>
+        /// 用户聚合首页的默认关键词
+        /// </summary>
+        public String UserPageKeywords { get; set; }
+
+        /// <summary>
+        /// 用户聚合首页的默认的描述
+        /// </summary>
+        public String UserPageDescription { get; set; }
+
+        /// <summary>
         /// 网页默认的标题
         /// </summary>
         public String PageDefaultTitle { get; set; }

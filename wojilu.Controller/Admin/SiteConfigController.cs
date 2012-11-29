@@ -315,8 +315,9 @@ namespace wojilu.Web.Controller.Admin {
             String Email = ctx.Post( "Email" );
 
             String Keywords = ctx.Post( "Keywords" );
-            String PageDefaultTitle = ctx.Post( "PageDefaultTitle" );
             String Description = ctx.Post( "Description" );
+
+            String PageDefaultTitle = ctx.Post( "PageDefaultTitle" );
             String ExceptionInfo = ctx.PostHtml( "ExceptionInfo" );
 
             String spiderString = ctx.Post( "SpiderString" );
@@ -345,9 +346,11 @@ namespace wojilu.Web.Controller.Admin {
                 config.Instance.Site.SiteUrl = SiteUrl; config.Instance.Site.Update( "SiteUrl", SiteUrl );
                 config.Instance.Site.Webmaster = Webmaster; config.Instance.Site.Update( "Webmaster", Webmaster );
                 config.Instance.Site.Email = Email; config.Instance.Site.Update( "Email", Email );
+
                 config.Instance.Site.Keywords = Keywords; config.Instance.Site.Update( "Keywords", Keywords );
-                config.Instance.Site.PageDefaultTitle = PageDefaultTitle; config.Instance.Site.Update( "PageDefaultTitle", PageDefaultTitle );
                 config.Instance.Site.Description = Description; config.Instance.Site.Update( "Description", Description );
+
+                config.Instance.Site.PageDefaultTitle = PageDefaultTitle; config.Instance.Site.Update( "PageDefaultTitle", PageDefaultTitle );
 
                 config.Instance.Site.Spider = SiteSetting.GetArrayValueByString( spiderString );
                 config.Instance.Site.Update( "Spider", spiderString );

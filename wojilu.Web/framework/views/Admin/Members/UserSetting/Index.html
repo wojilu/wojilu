@@ -9,6 +9,12 @@
 				<td><label><input name="NeedLogin" type="checkbox" #{needLoginChecked} /> 只有登录用户才可以访问网站内容</label></td>
 			</tr>
 			<tr>
+				<td class="ltd">登录限制</td>
+				<td>#{loginType}</td>
+			</tr>
+            <tr><td colspan="2">&nbsp;</td></tr>
+
+			<tr>
 				<td class="ltd">注册限制</td>
 				<td>#{registerType}</td>
 			</tr>
@@ -16,15 +22,20 @@
 				<td class="ltd">注册审核</td>
 				<td><label><input name="UserNeedApprove" type="checkbox" #{userNeedApproveChecked} /> 用户注册之后必须经过人工审核才能登录</label></td>
 			</tr>
+            <tr>
+                <td class="ltd">注册之后</td>
+                <td><input type="text" name="PublishTimeAfterReg" style="width:50px;" value="#{site.PublishTimeAfterReg}" /> 小时之内禁止发言
+                <span class="note">(0表示不限制)</span>
+                </td>
+            </tr>
+            <tr><td colspan="2">&nbsp;</td></tr>
+
 			<tr>
 				<td class="ltd">页顶用户栏</td>
 				<td>#{topNavDisplay}</td>
 			</tr>	
 			
-			<tr>
-				<td class="ltd">登录限制</td>
-				<td>#{loginType}</td>
-			</tr>
+
 			<tr>
 				<td style="width:120px">_{userNameLength}</td>
 				<td>
@@ -48,13 +59,22 @@
 			</tr>
 
             <tr><td colspan="2">&nbsp;</td></tr>
-
-            <tr>
-                <td class="ltd">注册之后</td>
-                <td><input type="text" name="PublishTimeAfterReg" style="width:50px;" value="#{site.PublishTimeAfterReg}" /> 小时之内禁止发言
-                <span class="note">(0表示不限制)</span>
+			<tr>
+				<td class="ltd" style=" vertical-align:top;">
+                    <div>用户聚合首页</div>
+                    <div class="note">(SEO Keywords)</div>
                 </td>
-            </tr>
+				<td><input name="UserPageKeywords" type="text" style="width: 600px" value="#{site.UserPageKeywords}">&nbsp;</td>
+			</tr>
+
+			<tr>
+				<td class="ltd" style=" vertical-align:top;">
+                    <div>用户聚合首页</div>
+                    <div class="note">(SEO Description)</div>
+                </td>
+				<td>
+				<textarea name="UserPageDescription" style="width: 600px; height: 50px">#{site.UserPageDescription}</textarea>&nbsp;</td>
+			</tr>
 			
 			<tr><td colspan="2">&nbsp;</td></tr>
 			<tr>

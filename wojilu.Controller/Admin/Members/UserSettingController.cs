@@ -66,6 +66,9 @@ namespace wojilu.Web.Controller.Admin.Members {
         [HttpPost, DbTransaction]
         public void UserSave() {
 
+            String UserPageKeywords = ctx.Post( "UserPageKeywords" );
+            String UserPageDescription = ctx.Post( "UserPageDescription" );
+
             Boolean needLogin = ctx.PostIsCheck( "NeedLogin" ) == 1 ? true : false;
             Boolean userNeedApprove = ctx.PostIsCheck( "UserNeedApprove" ) == 1 ? true : false;
 
@@ -111,6 +114,9 @@ namespace wojilu.Web.Controller.Admin.Members {
                 echoError();
             }
             else {
+
+                config.Instance.Site.UserPageKeywords = UserPageKeywords; config.Instance.Site.Update( "UserPageKeywords", UserPageKeywords );
+                config.Instance.Site.UserPageDescription = UserPageDescription; config.Instance.Site.Update( "UserPageDescription", UserPageDescription );
 
                 config.Instance.Site.NeedLogin = needLogin; config.Instance.Site.Update( "NeedLogin", needLogin );
                 config.Instance.Site.UserNeedApprove = userNeedApprove; config.Instance.Site.Update( "UserNeedApprove", userNeedApprove );
