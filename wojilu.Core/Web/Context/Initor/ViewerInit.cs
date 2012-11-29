@@ -25,7 +25,7 @@ namespace wojilu.Web.Context.Initor {
             loginService = new LoginService();
             userService = new UserService();
         }
-        
+
         public void Init( MvcContext ctx ) {
 
             if (ctx.utils.isEnd()) return;
@@ -50,7 +50,6 @@ namespace wojilu.Web.Context.Initor {
             context.obj = user;
             context.IsLogin = ctx.web.UserIsLogin;
             ctx.utils.setViewerContext( context );
-
 
 
         }

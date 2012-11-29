@@ -45,7 +45,16 @@
 				_{fromChar} <input name="UserSignatureMin" type="text" style="width: 50px" value="#{site.UserSignatureMin}"> 
 				_{toChar} <input name="UserSignatureMax" style="width: 50px" type="text" value="#{site.UserSignatureMax}"> 
                 </td>
-			</tr>	
+			</tr>
+
+            <tr><td colspan="2">&nbsp;</td></tr>
+
+            <tr>
+                <td class="ltd">注册之后</td>
+                <td><input type="text" name="PublishTimeAfterReg" style="width:50px;" value="#{site.PublishTimeAfterReg}" /> 小时之内禁止发言
+                <span class="note">(0表示不限制)</span>
+                </td>
+            </tr>
 			
 			<tr><td colspan="2">&nbsp;</td></tr>
 			<tr>

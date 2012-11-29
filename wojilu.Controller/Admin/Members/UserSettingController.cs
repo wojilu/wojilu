@@ -86,6 +86,8 @@ namespace wojilu.Web.Controller.Admin.Members {
             int UserSignatureMin = ctx.PostInt( "UserSignatureMin" );
             int UserSignatureMax = ctx.PostInt( "UserSignatureMax" );
 
+            int PublishTimeAfterReg = ctx.PostInt( "PublishTimeAfterReg" );
+
             String SystemMsgTitle = ctx.Post( "SystemMsgTitle" );
             String SystemMsgContent = ctx.PostHtml( "SystemMsgContent" );
 
@@ -103,8 +105,11 @@ namespace wojilu.Web.Controller.Admin.Members {
             if (UserSignatureMin < 0) UserSignatureMin = 0;
             if (UserSignatureMax < 0) UserSignatureMax = 0;
 
-            if (ctx.HasErrors)
+            if (PublishTimeAfterReg < 0) PublishTimeAfterReg = 0;
+
+            if (ctx.HasErrors) {
                 echoError();
+            }
             else {
 
                 config.Instance.Site.NeedLogin = needLogin; config.Instance.Site.Update( "NeedLogin", needLogin );
@@ -139,6 +144,11 @@ namespace wojilu.Web.Controller.Admin.Members {
 
                 config.Instance.Site.UserSignatureMax = UserSignatureMax;
                 config.Instance.Site.Update( "UserSignatureMax", config.Instance.Site.UserSignatureMax );
+
+                //---------------------------------------------------------------------
+
+                config.Instance.Site.PublishTimeAfterReg = PublishTimeAfterReg;
+                config.Instance.Site.Update( "PublishTimeAfterReg", config.Instance.Site.PublishTimeAfterReg );
 
                 //---------------------------------------------------------------------
 

@@ -111,7 +111,7 @@
             var replyWrap = $('#replyMoreWrap' + parentId);
             replyWrap.append('<div style="padding:10px 50px;" class="loadingInfoWrap">' + loadingInfo + '</div>');
 
-            $.post(moreLink, { 'parentId': parentId, 'startId': startId }, function (data) {
+            $.get(moreLink, { 'parentId': parentId, 'startId': startId }, function (data) {
 
                 var newStartId = appendMore(replyWrap, data, parentId);
                 var restCount = moreCount - data.length;

@@ -12,7 +12,7 @@
 
 <script>
     _run( function() {
-        $.post('#{onlineMemberLink}'.toAjax(), function (users) {
+        $.get('#{onlineMemberLink}'.toAjax(), function (users) {
 
             var html = '<ul class="thumbnails user-list" style="margin:0px;padding:0px;_margin-left:-20px;_margin-bottom:10px;">';
             for (var i = 0; i < users.length; i++) {

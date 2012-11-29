@@ -356,6 +356,11 @@ namespace wojilu.Config {
             }    
         }
 
+        /// <summary>
+        /// 注册之后禁止发言发言的时间限制(单位小时)
+        /// </summary>
+        public int PublishTimeAfterReg { get; set; }
+
         private int _TagLength;
 
         /// <summary>

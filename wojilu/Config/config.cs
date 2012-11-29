@@ -165,6 +165,12 @@ namespace wojilu {
             _siteSetting.UploadPicMaxMB = cvt.ToInt( getVal( dic, "UploadPicMaxMB" ) );
             _siteSetting.UploadFileMaxMB = cvt.ToInt( getVal( dic, "UploadFileMaxMB" ) );
 
+            _siteSetting.PublishTimeAfterReg = cvt.ToInt( getVal( dic, "PublishTimeAfterReg" ) );
+
+            _siteSetting.UserSignatureMin = cvt.ToInt( getVal( dic, "UserSignatureMin" ) );
+            _siteSetting.UserSignatureMax = cvt.ToInt( getVal( dic, "UserSignatureMax" ) );
+            _siteSetting.UserDescriptionMin = cvt.ToInt( getVal( dic, "UserDescriptionMin" ) );
+            _siteSetting.UserDescriptionMax = cvt.ToInt( getVal( dic, "UserDescriptionMax" ) );
 
             _siteSetting.IsSaveAvatarMedium = cvt.ToBool( getVal( dic, "IsSaveAvatarMedium" ) );
             _siteSetting.IsSaveAvatarBig = cvt.ToBool( getVal( dic, "IsSaveAvatarBig" ) );
