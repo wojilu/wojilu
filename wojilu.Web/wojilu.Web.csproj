@@ -100,6 +100,7 @@
     <Content Include="framework\views\Admin\Credits\Currency\EditKeyCurrency.html" />
     <Content Include="framework\views\Admin\Credits\Currency\Index.html" />
     <Content Include="framework\views\Admin\Credits\Layout\Layout.html" />
+    <Content Include="framework\views\Admin\FeedAdmin\Home.html" />
     <Content Include="framework\views\Admin\Groups\Group\GroupAdmin.html" />
     <Content Include="framework\views\Admin\Groups\Group\Hide.html" />
     <Content Include="framework\views\Admin\Groups\Group\Index.html" />

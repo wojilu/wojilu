@@ -253,7 +253,7 @@ namespace wojilu.Apps.Forum.Service {
             String templateData = JSON.DicToString( dic );
 
             TemplateBundle tplBundle = TemplateBundle.GetForumPostTemplateBundle();
-            feedService.publishUserAction( data.Creator, typeof( ForumPost ).FullName, tplBundle.Id, templateData, "" );
+            feedService.publishUserAction( data.Creator, typeof( ForumPost ).FullName, tplBundle.Id, templateData, "", data.Ip );
         }
 
         private void addNotification( ForumPost post ) {

@@ -65,6 +65,8 @@ namespace wojilu.Common.Polls.Service {
             //feed.TitleData = "{poll : '<a href=\"" + lnkpost + "\">" + JSON.Encode( poll.Title ) + "</a>'}";
             feed.TitleData = getTitleData( lnkpost, poll );
 
+            feed.Ip = pr.Ip;
+
             feedService.publishUserAction( feed );
         }
 
@@ -92,6 +94,9 @@ namespace wojilu.Common.Polls.Service {
             feed.TitleData = templateData;
             feed.Creator = poll.Creator;
             feed.DataType = typeof( TP ).FullName;
+
+            feed.Ip = poll.Ip;
+
             feedService.publishUserAction( feed );
         }
 

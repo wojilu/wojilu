@@ -32,7 +32,7 @@ namespace wojilu.Members.Groups.Service {
             Group g = populateGroup( creator, name, url, description, categoryId, accessStats );
             Result result = insertGroup( g );
             if (result.IsValid) {
-                mgrService.JoinCreateGroup( creator, g );
+                mgrService.JoinCreateGroup( creator, g, ctx.Ip );
             }
             return result;
         }

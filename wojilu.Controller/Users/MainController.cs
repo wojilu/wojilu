@@ -49,6 +49,8 @@ namespace wojilu.Web.Controller.Users {
         }
 
         private void bindAdminLink() {
+            set( "feedLink", to( new wojilu.Web.Controller.Admin.FeedAdminController().Index ) );
+
             set( "userListLink", to( new wojilu.Web.Controller.Admin.Members.UserController().Index ) );
             set( "siteMsgLink", to( new wojilu.Web.Controller.Admin.Members.SiteMsgController().Index ) );
             set( "importLink", to( new wojilu.Web.Controller.Admin.Members.ImportController().Index ) );

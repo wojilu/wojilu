@@ -36,18 +36,8 @@ namespace wojilu.Common.Feeds.Domain {
 
         public DateTime Created { get; set; }
 
-
-        //private List<User> creatorList = new List<User>();
-
-        //[NotSave]
-        //public List<User> CreatorList {
-        //    get {
-        //        if (creatorList.Count == 0) creatorList.Add( this.Creator );
-        //        return creatorList;
-        //    }
-        //    set { creatorList = value; }
-        //}
-
+        [Column( Length = 40 )]
+        public String Ip { get; set; }
 
     }
 

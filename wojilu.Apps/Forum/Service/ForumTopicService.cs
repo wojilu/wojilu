@@ -459,7 +459,7 @@ namespace wojilu.Apps.Forum.Service {
             String templateData = JSON.DicToString( dic );
 
             TemplateBundle tplBundle = TemplateBundle.GetForumTopicTemplateBundle();
-            new FeedService().publishUserAction( data.Creator, typeof( ForumTopic ).FullName, tplBundle.Id, templateData, "" );
+            new FeedService().publishUserAction( data.Creator, typeof( ForumTopic ).FullName, tplBundle.Id, templateData, "", data.Ip );
         }
 
         public virtual Result Update( ForumTopic topic, User user, IMember owner ) {

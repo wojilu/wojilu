@@ -103,7 +103,7 @@ namespace wojilu.Common.Feeds.Service {
             feed.BodyGeneral = data.BodyGeneral;
         }
 
-        public virtual void publishUserAction( User creator, String dataType, int templateBundleId, String templateData, String bodyGeneral ) {
+        public virtual void publishUserAction( User creator, String dataType, int templateBundleId, String templateData, String bodyGeneral, String ip ) {
 
             // 模板数据是 json 字符串类型；也就是 key-value 对
             // 除了自定义的键外，比如 {*gift*}, {*mood*}, {*score*}
@@ -295,6 +295,12 @@ namespace wojilu.Common.Feeds.Service {
 
         public virtual int GetTemplateBundleCount() {
             return db.count<TemplateBundle>();
+        }
+
+        public virtual void DeleteOne( int feedId ) {
+            Feed feed = Feed.findById( feedId );
+            if (feed == null) return;
+            feed.delete();
         }
 
         // 每日清除过期feed

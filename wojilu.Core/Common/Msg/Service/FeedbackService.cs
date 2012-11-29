@@ -91,6 +91,8 @@ namespace wojilu.Common.Msg.Service {
             feed.TitleData = "{user:\"<a href='" + Link.ToMember( f.Target ) + "'>" + f.Target.Name + "</a>\"}";
             feed.BodyGeneral = strUtil.CutString( f.Content, 100 );
 
+            feed.Ip = f.Ip;
+
             feedService.publishUserAction( feed );
         }
 

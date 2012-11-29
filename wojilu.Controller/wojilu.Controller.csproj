@@ -87,6 +87,7 @@
     <Compile Include="Admin\Apps\Reader\MainController.cs" />
     <Compile Include="Admin\Apps\Reader\SysCategoryController.cs" />
     <Compile Include="Admin\CacheController.cs" />
+    <Compile Include="Admin\FeedAdminController.cs" />
     <Compile Include="Admin\JobController.cs" />
     <Compile Include="Admin\Members\EmailConfirmController.cs" />
     <Compile Include="Admin\Members\UserRegController.cs" />
@@ -115,7 +116,6 @@
     <Compile Include="Admin\SiteSkinController.cs" />
     <Compile Include="Admin\Sys\DashboardController.cs" />
     <Compile Include="Admin\Sys\FooterMenuController.cs" />
-    <Compile Include="Admin\Sys\partial\DashboardController.cs" />
     <Compile Include="Admin\Sys\partial\PageController.cs" />
     <Compile Include="Admin\Sys\SiteController.cs" />
     <Compile Include="Admin\Security\PermissionFrontController.cs" />

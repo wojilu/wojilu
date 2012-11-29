@@ -41,6 +41,8 @@ namespace wojilu.Web.Controller.Common.Feeds {
             v.Replies = f.Replies;
             v.Created = f.Created;
 
+            v.Ip = f.Ip;
+
             return v;
         }
 

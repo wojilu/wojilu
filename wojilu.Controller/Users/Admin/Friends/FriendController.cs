@@ -235,7 +235,7 @@ namespace wojilu.Web.Controller.Users.Admin.Friends {
                 return;
             }
 
-            Result result = friendService.AddFriend( ctx.owner.Id, friend.Id, strUtil.CutString( ctx.Post( "Msg" ), 100 ) );
+            Result result = friendService.AddFriend( ctx.owner.Id, friend.Id, strUtil.CutString( ctx.Post( "Msg" ), 100 ), ctx.Ip );
             if (result.HasErrors) {
                 echoError( result );
             }

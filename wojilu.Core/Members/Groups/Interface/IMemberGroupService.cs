@@ -19,11 +19,10 @@ namespace wojilu.Members.Groups.Interface {
         IUserService userService { get; set; }
         IMessageService msgService { get; set; }
 
-        Result JoinGroup( User user, Group group );
-        Result JoinGroup( User user, Group group, String joinReason );
-        Result JoinGroupDone( User user, Group group, String joinReason );
-        void JoinCreateGroup( User user, Group group );
-        //Result QuitGroup( User user, Group group );
+        Result JoinGroup( User user, Group group, String joinReason, String ip );
+        Result JoinGroupDone( User user, Group group, String joinReason, String ip );
+        void JoinCreateGroup( User user, Group group, String ip );
+
         Result QuitGroup( User user, Group group, string quitReason );
 
         void AddOfficer( Group group, String userIds );

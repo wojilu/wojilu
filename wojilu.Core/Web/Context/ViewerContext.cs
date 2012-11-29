@@ -22,10 +22,11 @@ namespace wojilu.Web.Context {
         private FollowerService followService { get; set; }
         private MessageService msgService { get; set; }
 
-        public ViewerContext() {
+        public ViewerContext( MvcContext ctx ) {
             friendService = new FriendService();
             msgService = new MessageService();
             followService = new FollowerService();
+            this.ctx = ctx;
         }
 
         public int Id { get; set; }
@@ -33,9 +34,10 @@ namespace wojilu.Web.Context {
         public IList Menus { get; set; }
         public IUser obj { get; set; }
 
+        private MvcContext ctx { get; set; }
 
         public Result AddFriend( int ownerId, String msg ) {
-            return friendService.AddFriend( this.obj.Id, ownerId, msg );
+            return friendService.AddFriend( this.obj.Id, ownerId, msg, ctx.Ip );
         }
 
         public Boolean IsFriend( int ownerId ) {

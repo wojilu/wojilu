@@ -21,6 +21,8 @@ namespace wojilu.Common.Feeds.Domain {
         private String typeFullName;
         private User creator;
 
+        private String ip;
+
         public void AddData( String key, String value ) {
             dic.Add( key, value );
         }
@@ -41,8 +43,12 @@ namespace wojilu.Common.Feeds.Domain {
             creator = user;
         }
 
+        public void SetIp( String ip ) {
+            this.ip = ip;
+        }
+
         public void Publish() {
-            new FeedService().publishUserAction( creator, typeFullName, templateId, JSON.DicToString( dic ), commentContet );
+            new FeedService().publishUserAction( creator, typeFullName, templateId, JSON.DicToString( dic ), commentContet, ip );
         }
     }
 

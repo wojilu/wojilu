@@ -57,6 +57,9 @@ namespace wojilu.Apps.Content.Domain {
 
             myfeed.BodyGeneral = strUtil.ParseHtml( this.Content, 50 );
 
+            myfeed.Ip = this.Ip;
+
+
             new FeedService().publishUserAction( myfeed );
         }
 

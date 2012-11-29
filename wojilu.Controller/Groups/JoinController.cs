@@ -69,7 +69,7 @@ namespace wojilu.Web.Controller.Groups {
                 return;
             }
 
-            Result result = mgrService.JoinGroup( (User)ctx.viewer.obj, group, joinReason );
+            Result result = mgrService.JoinGroup( (User)ctx.viewer.obj, group, joinReason, ctx.Ip );
 
             if (result.IsValid) {
                 echoToParent( lang( "opok" ) );
@@ -119,7 +119,7 @@ namespace wojilu.Web.Controller.Groups {
 
             // 创建用户成员
             Group group = Group.findById( gi.OwnerId );
-            Result result = mgrService.JoinGroupDone( (User)ctx.viewer.obj, group, "接受" + gi.Inviter.Name + "邀请加入" );
+            Result result = mgrService.JoinGroupDone( (User)ctx.viewer.obj, group, "接受" + gi.Inviter.Name + "邀请加入" , ctx.Ip);
             if (result.IsValid) {
                 // 修改邀请码状态
                 gi.Status = 1;

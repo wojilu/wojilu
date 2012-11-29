@@ -32,11 +32,7 @@ namespace wojilu.Members.Groups.Service {
             feedService = new FeedService();
         }
 
-        public virtual Result JoinGroup( User user, Group group ) {
-            return JoinGroup( user, group, "" );
-        }
-
-        public virtual Result JoinGroup( User user, Group group, String joinReason ) {
+        public virtual Result JoinGroup( User user, Group group, String joinReason, String ip ) {
 
             GroupUser gu = db.find<GroupUser>( "Member.Id=" + user.Id + " and Group.Id=" + group.Id ).first();
 
@@ -46,6 +42,7 @@ namespace wojilu.Members.Groups.Service {
                 gu.Member = user;
                 gu.Group = group;
                 gu.Msg = joinReason;
+                gu.Ip = ip;
 
                 gu.Status = GroupRole.GetInitRoleByGroup( group );
 
@@ -78,7 +75,7 @@ namespace wojilu.Members.Groups.Service {
         }
 
         // 直接加为群组成功，不用审核
-        public virtual Result JoinGroupDone( User user, Group group, String joinReason ) {
+        public virtual Result JoinGroupDone( User user, Group group, String joinReason, String ip ) {
 
             GroupUser gu = db.find<GroupUser>( "Member.Id=" + user.Id + " and Group.Id=" + group.Id ).first();
 
@@ -90,6 +87,8 @@ namespace wojilu.Members.Groups.Service {
                 gu.Member = user;
                 gu.Group = group;
                 gu.Msg = joinReason;
+                gu.Ip = ip;
+
                 result = db.insert( gu );
             }
             else {
@@ -106,7 +105,7 @@ namespace wojilu.Members.Groups.Service {
 
         private void afterJoinDone( User user, Group group, String joinReason, GroupUser gu ) {
             recountMembers( group ); // 重新统计成员数量
-            addFeedInfo( gu ); // 将信息加入用户的新鲜事
+            addFeedInfo( gu, gu.Ip ); // 将信息加入用户的新鲜事
             sendOfficerMsg( gu, user, joinReason ); // 告知群组管理员
         }
 
@@ -151,13 +150,14 @@ namespace wojilu.Members.Groups.Service {
             return strUtil.Join( groupUrlWithoutExt, "/Groups/Admin/Main/Members" + MvcConfig.Instance.UrlExt );
         }
 
-        private void addFeedInfo( GroupUser relation ) {
+        private void addFeedInfo( GroupUser relation, String ip ) {
             Feed feed = new Feed();
             feed.Creator = relation.Member;
             feed.DataType = typeof( Group ).FullName;
 
             feed.TitleTemplate = "{*actor*} " + lang.get( "joinedGroup" ) + " {*group*}";
             feed.TitleData = getTitleData( relation.Group );
+            feed.Ip = ip;
             feedService.publishUserAction( feed );
         }
 
@@ -168,7 +168,7 @@ namespace wojilu.Members.Groups.Service {
             return JSON.DicToString( dic );
         }
 
-        public virtual void JoinCreateGroup( User user, Group group ) {
+        public virtual void JoinCreateGroup( User user, Group group, String ip ) {
 
             int users = db.find<GroupUser>( "Member.Id=" + user.Id + " and Group.Id=" + group.Id + " and IsFounder=1" ).count();
             if (users > 0) return;
@@ -179,6 +179,8 @@ namespace wojilu.Members.Groups.Service {
             gu.Group = group;
             gu.IsFounder = 1;
             gu.Status = GroupRole.Administrator.Id;
+            gu.Ip = ip;
+
             db.insert( gu );
 
             recountMembers( group );
@@ -206,7 +208,7 @@ namespace wojilu.Members.Groups.Service {
                 User receiver = userService.GetById( userId );
                 msgService.SiteSend( msg, body, receiver );
 
-                addFeedInfo( gu );
+                addFeedInfo( gu, gu.Ip );
             }
 
             recountMembers( group );

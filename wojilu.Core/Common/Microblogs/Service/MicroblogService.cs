@@ -226,6 +226,8 @@ namespace wojilu.Common.Microblogs.Service {
             feed.DataType = typeof( Microblog ).FullName;
             feed.DataId = log.Id;
 
+            feed.Ip = log.Ip;
+
             // 转发微博信息
             String pbody = "";
             if (log.ParentId > 0) {

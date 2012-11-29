@@ -221,7 +221,7 @@ namespace wojilu.Apps.Blog.Service {
             String templateData = JSON.DicToString( dic );
 
             TemplateBundle tplBundle = TemplateBundle.GetBlogTemplateBundle();
-            new FeedService().publishUserAction( data.Creator, typeof( BlogPost ).FullName, tplBundle.Id, templateData, "" );
+            new FeedService().publishUserAction( data.Creator, typeof( BlogPost ).FullName, tplBundle.Id, templateData, "", data.Ip );
         }
 
 

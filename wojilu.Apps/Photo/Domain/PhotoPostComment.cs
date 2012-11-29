@@ -71,6 +71,8 @@ namespace wojilu.Apps.Photo.Domain {
 
             myfeed.BodyGeneral = strUtil.ParseHtml( this.Content, 50 );
 
+            myfeed.Ip = this.Ip;
+
             new FeedService().publishUserAction( myfeed );
         }
 

@@ -145,7 +145,7 @@ namespace wojilu.Web.Controller.Photo.Admin {
                 String templateData = string.Format( "photoCount: {0}, photos: \"{1}\" ", 1, photoHtml );
                 templateData = "{" + templateData + "}";
                 TemplateBundle tplBundle = TemplateBundle.GetPhotoTemplateBundle();
-                feedService.publishUserAction( (User)ctx.viewer.obj, typeof( PhotoPost ).FullName, tplBundle.Id, templateData, "" );
+                feedService.publishUserAction( (User)ctx.viewer.obj, typeof( PhotoPost ).FullName, tplBundle.Id, templateData, "", ctx.Ip );
                 echoAjaxOk();
             }
         }
@@ -218,7 +218,7 @@ namespace wojilu.Web.Controller.Photo.Admin {
             String templateData = string.Format( "photoCount: {0}, photos: \"{1}\" ", photoCount, photoHtml );
             templateData = "{" + templateData + "}";
             TemplateBundle tplBundle = TemplateBundle.GetPhotoTemplateBundle();
-            feedService.publishUserAction( (User)ctx.viewer.obj, typeof( PhotoPost ).FullName, tplBundle.Id, templateData, "" );
+            feedService.publishUserAction( (User)ctx.viewer.obj, typeof( PhotoPost ).FullName, tplBundle.Id, templateData, "", ctx.Ip );
 
             echoRedirectPart( lang( "opok" ), to( new MyController().My ), 1 );
         }

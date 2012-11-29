@@ -19,7 +19,7 @@ namespace wojilu.Members.Users.Interface {
         IUserService userService { get; set; }
 
         Result CanAddFriend( int userId, int targetId );
-        Result AddFriend( int userId, int friendId, String msg );
+        Result AddFriend( int userId, int friendId, String msg, String ip );
         void AddInviteFriend( User user, int friendId );
 
         void Approve( int userId, int friendId );
