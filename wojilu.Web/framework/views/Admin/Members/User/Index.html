@@ -141,8 +141,8 @@ _run( function() {
 		<td align="center">_{id}</td>
 		<td align="center">_{status}</td>
 		<td>_{role}</td>
-		<td>_{nickName}</td>
-		<td>_{realName}</td>
+		<td>_{nickName}/_{realName}</td>
+		<td>来源</td>
 		<td></td>
 		<td>Email</td>
 		<td>_{regTime}</td>
@@ -157,9 +157,9 @@ _run( function() {
 		<td align="center">#{user.Id}</td>
 		<td align="center">#{statusIcon}</td>
 		<td>#{user.RoleName}</td>
-		<td><a href="#{user.Url}" target="_blank">#{user.Name}</a></td>
-		<td>#{user.RealName}</td>
-		<td style="width2:30px;">#{user.IsEmailConfirm}</td>
+		<td><a href="#{user.Url}" target="_blank">#{user.Name}</a>#{user.RealNameInfo}</td>
+		<td><div class="user-ip">#{user.Ip}</div></td>
+		<td>#{user.IsEmailConfirm}</td>
 		<td>#{user.Email}</td>
 		<td>#{user.CreateTime}</td>
 		<td>#{user.LastLoginTime}</td>
@@ -181,3 +181,30 @@ _run( function() {
 
 
 </div>
+
+<script>
+    _run(function () {
+        $('.user-ip').each(function () {
+            var _x = $(this);
+            var ip = $(this).text();
+            if (!ip) return;
+            var searchLink = 'http://int.dpool.sina.com.cn/iplookup/iplookup.php?format=js&ip=' + ip;
+            $.getScript(searchLink, function () {
+                var s = remote_ip_info;
+                var src = '';
+                if (s.province) src += s.province;
+                if (s.city) src += s.city;
+                if (s.district) src += s.district;
+                if (src.length > 0) {
+                    _x.text(src);
+                    _x.attr('title','ip='+ip);
+                }
+                else {
+                    _x.text(ip);
+                }
+
+            });
+        });
+
+    });
+</script>

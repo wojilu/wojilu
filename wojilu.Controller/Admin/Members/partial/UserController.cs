@@ -23,22 +23,27 @@ namespace wojilu.Web.Controller.Admin.Members {
 
         private void bindUserList( DataPage<User> list ) {
             IBlock block = getBlock( "list" );
-            foreach (User m in list.Results) {
-                block.Set( "user.Name", m.Name );
-                block.Set( "user.RoleName", m.Role.Name );
-                block.Set( "user.RealName", strUtil.SubString( m.RealName, 8 ) );
+            foreach (User u in list.Results) {
+                block.Set( "user.Name", u.Name );
+                block.Set( "user.RoleName", u.Role.Name );
+                block.Set( "user.RealName", strUtil.SubString( u.RealName, 8 ) );
 
-                //String isEmailConfirm = (m.IsEmailConfirmed == 1 ? "√" : "");
-                String isEmailConfirm = getEmailConfirmStatus( m );
+                String realNameInfo = strUtil.HasText( u.RealName ) ? "(" + strUtil.SubString( u.RealName, 8 ) + ")" : "";
+                block.Set( "user.RealNameInfo", realNameInfo );
+
+                String isEmailConfirm = getEmailConfirmStatus( u );
                 block.Set( "user.IsEmailConfirm", isEmailConfirm );
-                block.Set( "user.Email", m.Email );
+                block.Set( "user.Email", u.Email );
 
-                block.Set( "user.CreateTime", m.Created.GetDateTimeFormats( 'g' )[0] );
-                block.Set( "user.LastLoginTime", m.LastLoginTime );
-                block.Set( "user.Id", m.Id );
-                block.Set( "user.EditUrl", to( Edit, m.Id ) );
-                block.Set( "user.Url", toUser( m ) );
-                block.Set( "statusIcon", getStatusIcon( m ) );
+                block.Set( "user.CreateTime", u.Created.GetDateTimeFormats( 'g' )[0] );
+                block.Set( "user.LastLoginTime", u.LastLoginTime );
+                block.Set( "user.Id", u.Id );
+                block.Set( "user.EditUrl", to( Edit, u.Id ) );
+                block.Set( "user.Url", toUser( u ) );
+                block.Set( "statusIcon", getStatusIcon( u ) );
+
+                block.Set( "user.Ip", u.LastLoginIp );
+
                 block.Next();
             }
 
