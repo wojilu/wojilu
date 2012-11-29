@@ -156,7 +156,7 @@ namespace wojilu.Web.Controller.Admin.Members {
 
                 log( SiteLogString.EditSiteSettingUser() );
 
-                echoRedirect( lang( "opok" ) );
+                echoRedirectPart( lang( "opok" ) );
             }
         }
 

@@ -65,7 +65,7 @@ namespace wojilu.Web.Controller.Admin.Members {
             if( ctx.HasErrors )
                 echoError();
             else
-                echoRedirect( lang( "opok" ) );
+                echoRedirectPart( lang( "opok" ) );
 
         }
 

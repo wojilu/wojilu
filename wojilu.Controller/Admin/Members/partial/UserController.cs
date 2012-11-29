@@ -137,7 +137,7 @@ namespace wojilu.Web.Controller.Admin.Members {
                 set( "s.RealName", "" );
                 set( "s.Email", "" );
 
-                return condition+" ";
+                return condition + " ";
             }
 
             String name = ctx.Get( "name" );
@@ -184,7 +184,7 @@ namespace wojilu.Web.Controller.Admin.Members {
             userStr = userStr.Trim().TrimEnd( ',' );
 
             if (strUtil.IsNullOrEmpty( userStr )) {
-                echoRedirect( lang( "exUserEmailInvalid" ) );
+                echoRedirectPart( lang( "exUserEmailInvalid" ) );
                 return;
             }
 
@@ -203,7 +203,7 @@ namespace wojilu.Web.Controller.Admin.Members {
             return reg.IsMatch( user.Email );
         }
 
-        private MsgInfo validateMsg( ) {
+        private MsgInfo validateMsg() {
             return validateMsg( false );
         }
 

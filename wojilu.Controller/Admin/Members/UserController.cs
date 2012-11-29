@@ -136,7 +136,7 @@ namespace wojilu.Web.Controller.Admin.Members {
             UserProfileController.SaveProfile( m, ctx );
             db.update( m );
             db.update( m.Profile );
-            echoRedirect( lang( "opok" ) );
+            echoRedirectPart( lang( "opok" ) );
         }
 
 
@@ -159,7 +159,7 @@ namespace wojilu.Web.Controller.Admin.Members {
             String idsStr = ctx.PostIdList( "UserIds" );
             List<User> users = userService.GetByIds( idsStr );
             if (users.Count == 0) {
-                echoRedirect( lang( "exUserNotFound" ) );
+                echoRedirectPart( lang( "exUserNotFound" ) );
                 return;
             }
 
@@ -173,8 +173,9 @@ namespace wojilu.Web.Controller.Admin.Members {
             if (isSendMail) {
                 sendPwdToEmail( users, pwd );
             }
-            else
-                echoRedirect( lang( "pwdUpdated" ), Index );
+            else {
+                echoRedirectPart( lang( "pwdUpdated" ), to( Index ) );
+            }
 
         }
 
@@ -193,9 +194,9 @@ namespace wojilu.Web.Controller.Admin.Members {
             }
 
             if (sendCount > 0)
-                echoRedirect( lang( "pwdUpdatedAndSent" ), Index );
+                echoRedirectPart( lang( "pwdUpdatedAndSent" ), to( Index ) );
             else
-                echoRedirect( lang( "pwdUpdatedAndSentError" ), Index );
+                echoRedirectPart( lang( "pwdUpdatedAndSentError" ), to( Index ) );
         }
 
         //-----------------------------------------------------------------------------------------------------
@@ -220,7 +221,7 @@ namespace wojilu.Web.Controller.Admin.Members {
             }
 
             msgService.SiteSend( msgInfo.Title, msgInfo.Body, msgInfo.Users );
-            echoRedirect( lang( "sentok" ), Index );
+            echoRedirectPart( lang( "sentok" ), to( Index ) );
         }
 
         public void SendEmail() {
@@ -270,7 +271,6 @@ namespace wojilu.Web.Controller.Admin.Members {
 
             MsgInfo msgInfo = validateMsg( true );
 
-
             if (ctx.HasErrors) {
                 run( SendMsg );
                 return;
@@ -286,10 +286,12 @@ namespace wojilu.Web.Controller.Admin.Members {
                 }
             }
 
-            if (sendCount > 0)
-                echoRedirect( lang( "sentok" ), Index );
-            else
-                echoRedirect( lang( "exSentError" ), Index );
+            if (sendCount > 0) {
+                echoRedirectPart( lang( "sentok" ), to( Index ) );
+            }
+            else {
+                echoRedirectPart( lang( "exSentError" ), to( Index ) );
+            }
         }
 
 
