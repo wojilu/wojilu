@@ -158,7 +158,7 @@ _run( function() {
 		<td align="center">#{statusIcon}</td>
 		<td>#{user.RoleName}</td>
 		<td><a href="#{user.Url}" target="_blank">#{user.Name}</a>#{user.RealNameInfo}</td>
-		<td><div class="user-ip">#{user.Ip}</div></td>
+		<td><div class="user-ip hide">#{user.Ip}</div></td>
 		<td>#{user.IsEmailConfirm}</td>
 		<td>#{user.Email}</td>
 		<td>#{user.CreateTime}</td>
@@ -184,26 +184,42 @@ _run( function() {
 
 <script>
     _run(function () {
-        $('.user-ip').each(function () {
-            var _x = $(this);
-            var ip = $(this).text();
-            if (!ip) return;
-            var searchLink = 'http://int.dpool.sina.com.cn/iplookup/iplookup.php?format=js&ip=' + ip;
-            $.getScript(searchLink, function () {
-                var s = remote_ip_info;
-                var src = '';
-                if (s.province) src += s.province;
-                if (s.city) src += s.city;
-                if (s.district) src += s.district;
-                if (src.length > 0) {
-                    _x.text(src);
-                    _x.attr('title','ip='+ip);
-                }
-                else {
-                    _x.text(ip);
-                }
 
+        var getIps = function () {
+
+            var ips = '';
+            $('.user-ip').each(function () {
+                var _x = $(this);
+                var ip = $(this).text();
+                if (!ip) return;
+                if (ip == 'unknow') return;
+                ips += ip + ',';
             });
+
+            return ips;
+        };
+
+        var selectList = function (ip, ipList) {
+            if (!ip) return '--';
+            for (var i = 0; i < ipList.length; i++) {
+                if (ip == ipList[i].Ip) return ipList[i].Address + ipList[i].Info;
+            }
+            return ip;
+        };
+
+        var setIp = function (ipList) {
+            $('.user-ip').each(function () {
+                var ip = $(this).text();
+                $(this).text(selectList(ip, ipList)).attr('title', 'ip=' + ip).show();
+            });
+        };
+
+        var searchLink = 'http://www.lvhupo.com/?t=1&ip=' + getIps();
+        $.ajax({
+            dataType: 'jsonp',
+            url: searchLink,
+            jsonp: 'callback',
+            success: function (ipList) { setIp(ipList) }
         });
 
     });

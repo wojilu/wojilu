@@ -26,22 +26,13 @@ namespace wojilu {
     /// </summary>
     public class config {
 
-
         private SiteSetting _siteSetting;
-        private GroupSetting _groupSetting;
 
         /// <summary>
         /// 网站的配置信息
         /// </summary>
         public SiteSetting Site {
             get { return _siteSetting; }
-        }
-
-        /// <summary>
-        /// 群组的配置信息
-        /// </summary>
-        public GroupSetting Group {
-            get { return _groupSetting; }
         }
 
         //------------------------------------------------------------
@@ -68,12 +59,6 @@ namespace wojilu {
 
         private void loadAll() {
             initSiteSettings();
-            initGroupSettings();
-        }
-
-
-        private void initGroupSettings() {
-            _groupSetting = new GroupSetting();
         }
 
         // ------------------------- site settings -------------------------

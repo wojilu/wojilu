@@ -40,7 +40,7 @@ namespace wojilu.Members.Groups.Service {
         private Result insertGroup( Group g ) {
             Result result = this.isValid( g );
             if (result.IsValid) {
-                g.TemplateId = config.Instance.Group.TemplateId;
+                g.TemplateId = GroupSetting.Instance.TemplateId;
                 result = db.insert( g );
                 result.Info = g;
             }

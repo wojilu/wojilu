@@ -72,16 +72,6 @@ namespace wojilu.Web.Utils {
         }
 
         /// <summary>
-        /// 保存群组 logo
-        /// </summary>
-        /// <param name="postedFile"></param>
-        /// <param name="groupUrlName"></param>
-        /// <returns></returns>
-        public static Result SaveGroupLogo( HttpFile postedFile, String groupUrlName ) {
-            return SaveImg( sys.Path.DiskGroupLogo, postedFile, groupUrlName, config.Instance.Group.LogoWidth, config.Instance.Group.LogoHeight );
-        }
-
-        /// <summary>
         /// 保存网站 logo
         /// </summary>
         /// <param name="postedFile"></param>

@@ -637,7 +637,6 @@
     <Compile Include="Common\Security\Utils\RoleMerger.cs" />
     <Compile Include="Common\Security\Utils\SecurityString.cs" />
     <Compile Include="Config\config.cs" />
-    <Compile Include="Config\GroupSetting.cs" />
     <Compile Include="Config\Setting\ISetting.cs" />
     <Compile Include="Config\Setting\ISettingValue.cs" />
     <Compile Include="Config\Setting\SettingFormTool.cs" />
