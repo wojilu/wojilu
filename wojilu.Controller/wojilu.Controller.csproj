@@ -76,6 +76,7 @@
     <Compile Include="Admin\Apps\Blog\CommentController.cs" />
     <Compile Include="Admin\Apps\Blog\MainController.cs" />
     <Compile Include="Admin\Apps\Blog\PickedImgController.cs" />
+    <Compile Include="Admin\Apps\Blog\SettingController.cs" />
     <Compile Include="Admin\Apps\Blog\SysCategoryController.cs" />
     <Compile Include="Admin\Apps\Blog\TrashController.cs" />
     <Compile Include="Admin\Apps\Content\CommentController.cs" />

@@ -76,16 +76,9 @@ namespace wojilu.Web.Controller.Groups {
         [CacheAction( typeof( GroupMainActionCache ) )]
         public void Index() {
 
-            if (strUtil.HasText( GroupSetting.Instance.MetaTitle )) {
-                ctx.Page.Title = GroupSetting.Instance.MetaTitle;
-            }
-            else {
-                ctx.Page.Title = lang( "group" );
-            }
-
+            ctx.Page.Title = GroupSetting.Instance.MetaTitle;
             ctx.Page.Keywords = GroupSetting.Instance.MetaKeywords;
             ctx.Page.Description = GroupSetting.Instance.MetaDescription;
-
 
             List<ForumTopic> posts = postService.GetHotTopic( 10 );
             bindPosts( posts, "list" );

@@ -73,6 +73,7 @@
     <Compile Include="Blog\Domain\BlogSysCategory.cs" />
     <Compile Include="Blog\Domain\BlogPick.cs" />
     <Compile Include="Blog\Domain\BlogPickedImg.cs" />
+    <Compile Include="Blog\BlogAppSetting.cs" />
     <Compile Include="Blog\Interface\IBlogSysCategoryService.cs" />
     <Compile Include="Blog\Interface\IBlogPickService.cs" />
     <Compile Include="Blog\Service\BlogCommentService.cs" />

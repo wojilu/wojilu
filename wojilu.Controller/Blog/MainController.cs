@@ -3,25 +3,21 @@
  */
 
 using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.Text;
 
-using wojilu.ORM;
 using wojilu.Web.Mvc;
 using wojilu.Web.Mvc.Attr;
 
 using wojilu.Members.Users.Domain;
 using wojilu.Members.Users.Service;
 using wojilu.Members.Users.Interface;
-using wojilu.Common.Resource;
 
 using wojilu.Apps.Blog.Domain;
 using wojilu.Apps.Blog.Service;
 using wojilu.Apps.Blog.Interface;
-using wojilu.Web.Controller.Common;
 using wojilu.Web.Controller.Blog.Caching;
 using wojilu.Common.Picks;
+using wojilu.Apps.Blog;
 
 namespace wojilu.Web.Controller.Blog {
 
@@ -74,13 +70,16 @@ namespace wojilu.Web.Controller.Blog {
             set( "trashLink", to( new wojilu.Web.Controller.Admin.Apps.Blog.TrashController().Trash ) );
             set( "commentLink", to( new wojilu.Web.Controller.Admin.Apps.Blog.CommentController().List ) + "?type=" + typeof( BlogPostComment ).FullName );
             set( "categoryLink", to( new wojilu.Web.Controller.Admin.Apps.Blog.SysCategoryController().List ) );
+            set( "settingLink", to( new wojilu.Web.Controller.Admin.Apps.Blog.SettingController().Index ) );
         }
 
         [CachePage( typeof( BlogMainPageCache ) )]
         [CacheAction( typeof( BlogMainCache ) )]
         public void Index() {
 
-            ctx.Page.Title = lang( "blog" );
+            ctx.Page.Title = BlogAppSetting.Instance.MetaTitle;
+            ctx.Page.Keywords = BlogAppSetting.Instance.MetaKeywords;
+            ctx.Page.Description = BlogAppSetting.Instance.MetaDescription;
 
             // TODO 博客排行
             List<User> userRanks = User.find( "order by Hits desc, id desc" ).list( 14 );
@@ -128,12 +127,13 @@ namespace wojilu.Web.Controller.Blog {
         [NonVisit]
         public void TopList() {
 
-            int imgCount = 6;
+            int imgCount = BlogAppSetting.Instance.PickImgCount;
+            int dataCount = BlogAppSetting.Instance.PickDataCount;
 
             List<BlogPickedImg> pickedImg = db.find<BlogPickedImg>( "order by Id desc" ).list( imgCount );
             bindImgs( pickedImg );
 
-            List<BlogPost> newPosts = sysblogService.GetSysNew( 0, 6 );
+            List<BlogPost> newPosts = sysblogService.GetSysNew( 0, dataCount );
             List<MergedData> results = pickService.GetAll( newPosts, 0 );
 
             bindCustomList( results );
@@ -162,6 +162,8 @@ namespace wojilu.Web.Controller.Blog {
             if (list.Count == 1) return;
             for (int i = 1; i < list.Count; i++) {
                 bindPick( list[i], pBlock, i + 1 );
+
+                if (i > BlogAppSetting.Instance.PickDataCount - 1) break;
             }
         }
 

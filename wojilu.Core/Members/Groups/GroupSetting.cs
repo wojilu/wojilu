@@ -1,15 +1,29 @@
-/*
+Ôªø/*
  * Copyright (c) 2010, www.wojilu.com. All rights reserved.
  */
 
 using System;
+using wojilu.Config;
 
 namespace wojilu.Members.Groups {
 
     /// <summary>
-    /// »∫◊È≈‰÷√
+    /// Áæ§ÁªÑÈÖçÁΩÆ
     /// </summary>
-    public class GroupSetting {
+    public class GroupSetting : SettingBase<GroupSetting> {
+
+        private String _metaTitle;
+
+        public String MetaTitle {
+            get {
+                if (strUtil.IsNullOrEmpty( _metaTitle )) return lang.get( "group" );
+                return _metaTitle;
+            }
+            set { _metaTitle = value; }
+        }
+
+        public String MetaKeywords { get; set; }
+        public String MetaDescription { get; set; }
 
         private int _logoWidth;
         private int _logoHeight;
@@ -39,26 +53,6 @@ namespace wojilu.Members.Groups {
             set { _templateId = value; }
         }
 
-        public String MetaTitle { get; set; }
-        public String MetaKeywords { get; set; }
-        public String MetaDescription { get; set; }
-
-        //--------------------------------------------------------
-
-        public static GroupSetting Instance {
-            get { return _instance; }
-        }
-
-        private static GroupSetting _instance = loadSettings();
-
-        private static GroupSetting loadSettings() {
-            return cfgHelper.Read<GroupSetting>();
-        }
-
-        public static void Save( GroupSetting s ) {
-            _instance = s;
-            cfgHelper.Write( _instance );
-        }
 
     }
 }
