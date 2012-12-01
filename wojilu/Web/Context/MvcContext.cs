@@ -637,7 +637,30 @@ namespace wojilu.Web.Context {
             Type t = typeof( T );
             T obj = (T)rft.GetInstance( t );
 
-            setObjectProperties( entityInfo, t, obj );
+            setObjectProperties( null, entityInfo, t, obj );
+
+            IEntity entity = obj as IEntity;
+            if (entity != null) {
+                Result result = Validate( entity );
+                if (result.HasErrors) errors.Join( result );
+            }
+
+            return obj;
+        }
+
+        /// <summary>
+        /// 获取客户端post的数据，并自动赋值到对象各属性，最后进行验证
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="lblName">表单中对象名称。如果为空，则使用对象类型的camel格式</param>
+        /// <returns></returns>
+        public T PostValue<T>( String lblName ) {
+
+            EntityInfo entityInfo = Entity.GetInfo( typeof( T ) );
+            Type t = typeof( T );
+            T obj = (T)rft.GetInstance( t );
+
+            setObjectProperties( lblName, entityInfo, t, obj );
 
             IEntity entity = obj as IEntity;
             if (entity != null) {
@@ -657,7 +680,7 @@ namespace wojilu.Web.Context {
 
             EntityInfo entityInfo = Entity.GetInfo( obj );
             Type t = obj.GetType();
-            setObjectProperties( entityInfo, t, obj );
+            setObjectProperties( null, entityInfo, t, obj );
 
             IEntity entity = obj as IEntity;
             if (entity != null) {
@@ -668,9 +691,40 @@ namespace wojilu.Web.Context {
             return obj;
         }
 
-        private void setObjectProperties( EntityInfo entityInfo, Type t, Object obj ) {
-            String camelType = strUtil.GetCamelCase( t.Name );
-            String prefix = camelType + ".";
+        /// <summary>
+        /// 获取客户端post的数据，并自动赋值到对象各属性，最后进行验证
+        /// </summary>
+        /// <param name="obj"></param>
+        /// <param name="lblName">表单中对象名称。如果为空，则使用对象类型的camel格式</param>
+        /// <returns></returns>
+        public Object PostValue( Object obj, String lblName ) {
+
+            EntityInfo entityInfo = Entity.GetInfo( obj );
+            Type t = obj.GetType();
+            setObjectProperties( lblName, entityInfo, t, obj );
+
+            IEntity entity = obj as IEntity;
+            if (entity != null) {
+                Result result = Validate( entity );
+                if (result.HasErrors) errors.Join( result );
+            }
+
+            return obj;
+        }
+
+
+        private void setObjectProperties( String lblName, EntityInfo entityInfo, Type t, Object obj ) {
+
+            String prefix;
+
+            if (strUtil.HasText( lblName )) {
+                prefix = lblName;
+            }
+            else {
+                prefix = strUtil.GetCamelCase( t.Name );
+            }
+
+            prefix += ".";
 
             NameValueCollection posts = _context.postValueAll();
             foreach (String key in posts.Keys) {
