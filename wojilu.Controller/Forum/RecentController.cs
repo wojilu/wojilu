@@ -74,9 +74,9 @@ namespace wojilu.Web.Controller.Forum {
             bindPosts( results );
         }
 
-        public void ImgTopic() {            
+        public void ImgTopic() {
 
-            DataPage<ForumPickedImg> list = ForumPickedImg.findPage( "AppId=" + ctx.app.Id );
+            DataPage<ForumPickedImg> list = db.findPage<ForumPickedImg>( "AppId=" + ctx.app.Id );
 
             IBlock block = getBlock( "list" );
             foreach (ForumPickedImg f in list.Results) {

@@ -1,6 +1,10 @@
-﻿using System;
+﻿/*
+ * Copyright (c) 2010, www.wojilu.com. All rights reserved.
+ */
 
-namespace wojilu.Apps.Forum.Interface {
+using System;
+
+namespace wojilu.Common.Picks {
 
     public interface IPickPost {
 

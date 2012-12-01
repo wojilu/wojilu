@@ -16,6 +16,7 @@ using wojilu.Members.Users.Service;
 using wojilu.Members.Users.Interface;
 using wojilu.Web.Controller.Common;
 using wojilu.Web.Controller.Forum.Caching;
+using wojilu.Common.Picks;
 
 namespace wojilu.Web.Controller.Forum {
 
@@ -73,7 +74,7 @@ namespace wojilu.Web.Controller.Forum {
 
             ForumSetting s = app.GetSettingsObj();
 
-            List<ForumPickedImg> pickedImg = ForumPickedImg.find( "AppId=" + ctx.app.Id ).list( s.HomeImgCount );
+            List<ForumPickedImg> pickedImg = db.find<ForumPickedImg>( "AppId=" + ctx.app.Id ).list( s.HomeImgCount );
             bindImgs( pickedImg );
 
             //List<ForumTopic> newPosts = topicService.GetByApp( ctx.app.Id, s.HomeListCount );
@@ -86,13 +87,13 @@ namespace wojilu.Web.Controller.Forum {
             //bindPosts( posts, "post" );
 
             List<ForumTopic> newPosts = topicService.GetByApp( ctx.app.Id, 30 );
-            List<MergedPost> results = pickService.GetAll( newPosts, ctx.app.Id );
+            List<MergedData> results = pickService.GetAll( newPosts, ctx.app.Id );
 
             bindCustomList( results );
         }
 
 
-        private void bindCustomList( List<MergedPost> list ) {
+        private void bindCustomList( List<MergedData> list ) {
 
             IBlock hBlock = getBlock( "hotPick" );
             IBlock pBlock = getBlock( "pickList" );
@@ -108,7 +109,7 @@ namespace wojilu.Web.Controller.Forum {
             }
         }
 
-        private void bindPick( MergedPost x, IBlock block, int index ) {
+        private void bindPick( MergedData x, IBlock block, int index ) {
 
             block.Set( "x.Title", x.Title );
             block.Set( "x.Summary", x.Summary );

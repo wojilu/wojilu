@@ -303,18 +303,18 @@
     <Content Include="framework\views\Demo\Upload\FrameUpload.html" />
     <Content Include="framework\views\Demo\Upload\FlashUpload.html" />
     <Content Include="framework\views\error.html" />
-    <Content Include="framework\views\Forum\Admin\ForumPick\RestoreList.html" />
+    <Content Include="framework\views\Common\PickDataBase\RestoreList.html" />
     <Content Include="framework\views\Forum\Admin\Forum\AddBoard.html" />
     <Content Include="framework\views\Forum\Admin\Forum\AddCategory.html" />
     <Content Include="framework\views\Forum\Admin\Forum\DataCombine.html" />
-    <Content Include="framework\views\Forum\Admin\ForumPick\DeletePinConfirm.html" />
-    <Content Include="framework\views\Forum\Admin\ForumPick\DeleteTopicConfirm.html" />
+    <Content Include="framework\views\Common\PickDataBase\DeletePinConfirm.html" />
+    <Content Include="framework\views\Common\PickDataBase\DeleteTopicConfirm.html" />
     <Content Include="framework\views\Forum\Admin\Forum\ListBoard.html" />
-    <Content Include="framework\views\Forum\Admin\ForumPick\Index.html" />
-    <Content Include="framework\views\Forum\Admin\ForumPick\EditPin.html" />
-    <Content Include="framework\views\Forum\Admin\ForumPick\EditTopic.html" />
-    <Content Include="framework\views\Forum\Admin\ForumPick\PinAd.html" />
-    <Content Include="framework\views\Forum\Admin\ForumPick\PinTopic.html" />
+    <Content Include="framework\views\Common\PickDataBase\Index.html" />
+    <Content Include="framework\views\Common\PickDataBase\EditPin.html" />
+    <Content Include="framework\views\Common\PickDataBase\EditTopic.html" />
+    <Content Include="framework\views\Common\PickDataBase\PinAd.html" />
+    <Content Include="framework\views\Common\PickDataBase\PinTopic.html" />
     <Content Include="framework\views\Forum\Admin\Forum\PostTrash.html" />
     <Content Include="framework\views\Forum\Admin\Forum\TopicTrash.html" />
     <Content Include="framework\views\Forum\Admin\Forum\ViewDeletedPost.html" />
@@ -716,9 +716,9 @@
     <Content Include="framework\views\Content\Submit\Post\SubmitPost.html" />
     <Content Include="framework\views\Content\Submit\Post\SubmitVideo.html" />
     <Content Include="framework\views\Content\Submit\Post\WarningTip.html" />
-    <Content Include="framework\views\Forum\Admin\PickedImg\Index.html" />
-    <Content Include="framework\views\Forum\Admin\PickedImg\Add.html" />
-    <Content Include="framework\views\Forum\Admin\PickedImg\Edit.html" />
+    <Content Include="framework\views\Common\PickImgBase\Index.html" />
+    <Content Include="framework\views\Common\PickImgBase\Add.html" />
+    <Content Include="framework\views\Common\PickImgBase\Edit.html" />
     <Content Include="framework\views\Forum\Admin\Setting\Index.html" />
     <Content Include="framework\views\Forum\Recent\ImgTopic.html" />
     <Content Include="framework\views\Forum\Search\Results.html" />
@@ -996,6 +996,8 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="framework\views\Admin\Members\EmailConfirm\" />
+    <Folder Include="framework\views\Forum\Admin\ForumPick\" />
+    <Folder Include="framework\views\Forum\Admin\PickedImg\" />
     <Folder Include="framework\views\Microblogs\My\Layout\" />
     <Folder Include="framework\views\Poll\Admin\Layout\" />
     <Folder Include="framework\views\Users\Admin\Microblogs\" />

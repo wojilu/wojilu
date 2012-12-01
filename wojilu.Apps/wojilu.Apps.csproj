@@ -213,7 +213,6 @@
     <Compile Include="Forum\Domain\ForumPoll.cs" />
     <Compile Include="Forum\Domain\ForumPollResult.cs" />
     <Compile Include="Forum\Domain\ForumSetting.cs" />
-    <Compile Include="Forum\Interface\IPickPost.cs" />
     <Compile Include="Forum\Domain\LastUpdateInfo.cs" />
     <Compile Include="Forum\Domain\ForumBuyLog.cs" />
     <Compile Include="Forum\Domain\ForumRateLog.cs" />

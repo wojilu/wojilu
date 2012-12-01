@@ -1,52 +1,57 @@
-﻿/*
- * Copyright (c) 2010, www.wojilu.com. All rights reserved.
- */
-
-using System;
+﻿using System;
 using System.Collections.Generic;
+using System.Text;
 using wojilu.Web.Mvc;
 using wojilu.Web.Mvc.Attr;
-using wojilu.Apps.Blog.Domain;
-using wojilu.Apps.Blog.Interface;
-using wojilu.Apps.Blog.Service;
+using wojilu.Apps.Forum.Domain;
+using wojilu.Apps.Forum.Interface;
+using wojilu.Apps.Forum.Service;
+using wojilu.Common.AppBase.Interface;
+using System.Collections;
+using wojilu.Web;
+using wojilu.Common.Picks;
 
-namespace wojilu.Web.Controller.Admin.Apps.Blog {
+namespace wojilu.Web.Controller.Common {
 
-    [App( typeof( BlogApp ) )]
-    public class BlogPickController : ControllerBase {
+    public abstract class PickDataBaseController<TData, TPick> : ControllerBase
+        where TData : IAppData, IEntity
+        where TPick : DataPickBase, new() {
 
-        public IBlogPickService pickService { get; set; }
-        public ISysBlogService postService { get; set; }
+        //public ITDataService topicService { get; set; }
+        public DataPickService<TData, TPick> pickService { get; set; }
 
-        public BlogPickController() {
-            pickService = new BlogPickService();
-            postService = new SysBlogService();
+        public PickDataBaseController() {
+            //topicService = new TDataService();
+            pickService = new DataPickService<TData, TPick>();
         }
+
+        public abstract List<TData> GetNewPosts();
+        public abstract String GetImgAddLink();
+        public abstract String GetImgListLink();
 
         public void Index() {
 
-            set( "lnkPicAdd", to( new PickedImgController().Add ) );
-            set( "lnkPicAdmin", to( new PickedImgController().Index ) );
+            set( "lnkPicAdd", GetImgAddLink() );
+            set( "lnkPicAdmin", GetImgListLink() );
 
             set( "lnkAddPin", to( PinAd ) );
             set( "lnkRestore", to( RestoreList ) );
 
-            //BlogApp app = ctx.app.obj as BlogApp;
-            //BlogSetting s = app.GetSettingsObj();
-            int imgCount = 6;
+            ForumApp app = ctx.app.obj as ForumApp;
+            ForumSetting s = app.GetSettingsObj();
 
-            List<BlogPickedImg> pickedImg = BlogPickedImg.find( "" ).list( imgCount );
+            IList pickedImg = ndb.find( new TPick().GetImgType(), "AppId=" + ctx.app.Id ).list( s.HomeImgCount );
             bindImgs( pickedImg );
 
-            List<BlogPost> newPosts = postService.GetSysNew( 0, 21 );
-            List<MergedPost> results = pickService.GetAll( newPosts );
+            List<TData> newPosts = this.GetNewPosts(); //topicService.GetByApp( ctx.app.Id, 21 );
+            List<MergedData> results = pickService.GetAll( newPosts, ctx.app.Id );
 
             bindCustomList( results );
         }
 
-        private void bindImgs( List<BlogPickedImg> list ) {
+        private void bindImgs( IList list ) {
             IBlock block = getBlock( "pickedImg" );
-            foreach (BlogPickedImg f in list) {
+            foreach (ImgPickBase f in list) {
                 block.Set( "f.Title", f.Title );
                 block.Set( "f.Url", f.Url );
                 block.Set( "f.ImgUrl", f.ImgUrl );
@@ -54,7 +59,7 @@ namespace wojilu.Web.Controller.Admin.Apps.Blog {
             }
         }
 
-        private void bindCustomList( List<MergedPost> list ) {
+        private void bindCustomList( List<MergedData> list ) {
 
             IBlock hBlock = getBlock( "hotPick" );
             IBlock pBlock = getBlock( "pickList" );
@@ -70,7 +75,7 @@ namespace wojilu.Web.Controller.Admin.Apps.Blog {
             }
         }
 
-        private void bindPick( MergedPost x, IBlock block, int index ) {
+        private void bindPick( MergedData x, IBlock block, int index ) {
             if (x.Topic != null) {
                 bindPickTopic( x, block, index );
             }
@@ -79,7 +84,7 @@ namespace wojilu.Web.Controller.Admin.Apps.Blog {
             }
         }
 
-        private void bindPickCustom( MergedPost x, IBlock block, int index ) {
+        private void bindPickCustom( MergedData x, IBlock block, int index ) {
 
             block.Set( "x.Id", index );
             block.Set( "x.Title", x.Title );
@@ -96,7 +101,7 @@ namespace wojilu.Web.Controller.Admin.Apps.Blog {
             block.Next();
         }
 
-        private void bindPickTopic( MergedPost x, IBlock block, int index ) {
+        private void bindPickTopic( MergedData x, IBlock block, int index ) {
 
             block.Set( "x.Id", index );
             block.Set( "x.Title", x.Title );
@@ -125,10 +130,10 @@ namespace wojilu.Web.Controller.Admin.Apps.Blog {
 
             target( UpdatePin, index );
 
-            set( "indexIds", pickService.GetIndexIds( index ) );
+            set( "indexIds", pickService.GetIndexIds( ctx.app.Id, index ) );
 
-            BlogPick customPost = pickService.GetPinPostByIndex( index );
-            if (customPost == null) throw new NullReferenceException( "bind BlogCustomPick edit form" );
+            TPick customPost = pickService.GetPinPostByIndex( ctx.app.Id, index );
+            if (customPost == null) throw new NullReferenceException( "bind ForumCustomPick edit form" );
 
             set( "x.Title", strUtil.EncodeTextarea( customPost.Title ) );
             set( "x.Link", customPost.Link );
@@ -141,16 +146,19 @@ namespace wojilu.Web.Controller.Admin.Apps.Blog {
 
             target( UpdateTopic, topicId );
 
-            BlogPost topic = getTopic( topicId );
-            if (topic == null) throw new NullReferenceException( "bind BlogPost edit form" );
+            TData topic = getTopic( topicId );
+            if (topic == null) throw new NullReferenceException( "bind TData edit form" );
 
-            BlogPick customPost = pickService.GetEditTopic( topicId );
+            TPick customPost = pickService.GetEditTopic( ctx.app.Id, topicId );
 
             if (customPost == null) {
 
                 set( "x.Title", topic.Title );
                 set( "x.Link", strUtil.Join( ctx.url.SiteAndAppPath, alink.ToAppData( topic ) ) );
-                set( "x.Summary", strUtil.ParseHtml( topic.Content, 300 ) );
+
+                String summary = pickService.getSummary( topic );
+
+                set( "x.Summary", strUtil.ParseHtml( summary, 300 ) );
             }
             else {
                 set( "x.Title", strUtil.EncodeTextarea( customPost.Title ) );
@@ -162,8 +170,8 @@ namespace wojilu.Web.Controller.Admin.Apps.Blog {
         [HttpPost]
         public void UpdatePin( int index ) {
 
-            BlogPick customPost = pickService.GetPinPostByIndex( index );
-            if (customPost == null) throw new NullReferenceException( "bind BlogCustomPick edit form" );
+            TPick customPost = pickService.GetPinPostByIndex( ctx.app.Id, index );
+            if (customPost == null) throw new NullReferenceException( "bind ForumCustomPick edit form" );
 
             pickService.EditPinPost( customPost, ctx.PostInt( "Index" ),
                 ctx.PostHtml( "Title" ),
@@ -177,7 +185,7 @@ namespace wojilu.Web.Controller.Admin.Apps.Blog {
         [HttpPost]
         public void UpdateTopic( int topicId ) {
 
-            pickService.EditTopic( topicId,
+            pickService.EditTopic( ctx.app.Id, topicId,
                 ctx.PostHtml( "Title" ),
                 ctx.Post( "Link" ),
                 ctx.PostHtml( "Summary" )
@@ -191,13 +199,13 @@ namespace wojilu.Web.Controller.Admin.Apps.Blog {
         public void PinAd() { // 普通广告pin
             target( SavePinAd );
 
-            set( "indexIds", pickService.GetIndexIds() );
+            set( "indexIds", pickService.GetIndexIds( ctx.app.Id ) );
         }
 
         [HttpPost]
         public void SavePinAd() { // 保存普通广告pin
 
-            pickService.AddPinPost( ctx.PostInt( "Index" ),
+            pickService.AddPinPost( ctx.app.Id, ctx.PostInt( "Index" ),
                 ctx.PostHtml( "Title" ),
                 ctx.Post( "Link" ),
                 ctx.PostHtml( "Summary" )
@@ -210,9 +218,9 @@ namespace wojilu.Web.Controller.Admin.Apps.Blog {
 
             target( SavePinTopic, topicId );
 
-            set( "indexIds", pickService.GetIndexIds() );
+            set( "indexIds", pickService.GetIndexIds( ctx.app.Id ) );
 
-            BlogPost topic = getTopic( topicId );
+            TData topic = getTopic( topicId );
             if (topic == null) throw new NullReferenceException( "PinTopic" );
 
             set( "x.Title", topic.Title );
@@ -222,7 +230,7 @@ namespace wojilu.Web.Controller.Admin.Apps.Blog {
         [HttpPost]
         public void SavePinTopic( int topicId ) {
 
-            BlogPost topic = getTopic( topicId );
+            TData topic = getTopic( topicId );
             if (topic == null) throw new NullReferenceException( "PinTopic" );
 
             pickService.AddPinTopic( topic, ctx.PostInt( "Index" ) );
@@ -237,7 +245,7 @@ namespace wojilu.Web.Controller.Admin.Apps.Blog {
 
         [HttpPost]
         public void DeletePin( int index ) {
-            pickService.DeletePinPost( index );
+            pickService.DeletePinPost( ctx.app.Id, index );
             echoToParentPart( lang( "opok" ) );
         }
 
@@ -248,22 +256,22 @@ namespace wojilu.Web.Controller.Admin.Apps.Blog {
         [HttpPost]
         public void DeleteTopic( int topicId ) {
 
-            pickService.DeleteTopic( topicId );
+            pickService.DeleteTopic( ctx.app.Id, topicId );
 
             echoToParentPart( lang( "opok" ) );
         }
 
         public void RestoreList() {
 
-            DataPage<BlogPick> list = pickService.GetDeleteList();
+            DataPage<TPick> list = pickService.GetDeleteList( ctx.app.Id );
 
             IBlock block = getBlock( "list" );
-            foreach (BlogPick x in list.Results) {
+            foreach (TPick x in list.Results) {
                 block.Set( "x.Title", x.Title );
                 block.Set( "x.Link", x.Link );
                 block.Set( "x.Id", x.DeleteId );
 
-                BlogPost topic = getTopic( x.DeleteId );
+                TData topic = getTopic( x.DeleteId );
                 block.Set( "x.User", topic.Creator.Name );
                 block.Set( "x.UserLink", toUser( topic.Creator ) );
 
@@ -280,16 +288,20 @@ namespace wojilu.Web.Controller.Admin.Apps.Blog {
 
         public void Restore( int id ) {
 
-            pickService.RestoreTopic( id );
+            pickService.RestoreTopic( ctx.app.Id, id );
 
             echoToParentPart( lang( "opok" ) );
 
         }
 
-        private BlogPost getTopic( int topicId ) {
-            if (topicId <= 0) return null;
-            return BlogPost.findById( topicId );
+        private TData getTopic( int topicId ) {
+            if (topicId <= 0) return default( TData );
+            //return topicService.GetById_ForAdmin( topicId );
+
+            return (TData)db.findById<TData>( topicId );
         }
+
+
 
     }
 
