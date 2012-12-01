@@ -11,26 +11,53 @@ namespace wojilu.Members.Groups {
     /// </summary>
     public class GroupSetting {
 
-        public int LogoHeight {
-            get { return 200; }
-        }
+        private int _logoWidth;
+        private int _logoHeight;
+        private int _templateId;
 
         public int LogoWidth {
-            get { return 200; }
+            get {
+                if (_logoWidth <= 0) return 200;
+                return _logoWidth;
+            }
+            set { _logoWidth = value; }
+        }
+
+        public int LogoHeight {
+            get {
+                if (_logoHeight <= 0) return 200;
+                return _logoHeight;
+            }
+            set { _logoHeight = value; }
         }
 
         public int TemplateId {
-            get { return 1; }
+            get {
+                if (_templateId <= 0) return 1;
+                return _templateId;
+            }
+            set { _templateId = value; }
         }
 
-        public static readonly GroupSetting Instance = loadSettings();
+        public String MetaTitle { get; set; }
+        public String MetaKeywords { get; set; }
+        public String MetaDescription { get; set; }
+
+        //--------------------------------------------------------
+
+        public static GroupSetting Instance {
+            get { return _instance; }
+        }
+
+        private static GroupSetting _instance = loadSettings();
 
         private static GroupSetting loadSettings() {
             return cfgHelper.Read<GroupSetting>();
         }
 
-        public static void Save() {
-            cfgHelper.Write( GroupSetting.Instance );
+        public static void Save( GroupSetting s ) {
+            _instance = s;
+            cfgHelper.Write( _instance );
         }
 
     }

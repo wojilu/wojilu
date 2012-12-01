@@ -21,6 +21,7 @@ using wojilu.Members.Users.Service;
 using wojilu.Web.Controller.Common;
 using wojilu.Web.Mvc.Attr;
 using wojilu.Web.Controller.Groups.Caching;
+using wojilu.Members.Groups;
 
 namespace wojilu.Web.Controller.Groups {
 
@@ -40,6 +41,7 @@ namespace wojilu.Web.Controller.Groups {
 
         [CacheAction( typeof( GroupMainLayoutCache ) )]
         public override void Layout() {
+
 
             // 当前app/module所有页面，所属的首页
             ctx.SetItem( "_moduleUrl", to( Index ) );
@@ -67,13 +69,23 @@ namespace wojilu.Web.Controller.Groups {
             set( "postLink", to( new wojilu.Web.Controller.Admin.Groups.GroupController().PostAdmin ) );
             set( "groupLink", to( new wojilu.Web.Controller.Admin.Groups.GroupController().GroupAdmin, -1 ) );
             set( "groupCategoryLink", to( new wojilu.Web.Controller.Admin.Groups.CategoryController().List ) );
+            set( "settingLink", to( new wojilu.Web.Controller.Admin.Groups.SettingController().Index ) );
         }
 
         [CachePage( typeof( GroupMainPageCache ) )]
         [CacheAction( typeof( GroupMainActionCache ) )]
         public void Index() {
 
-            ctx.Page.Title = lang( "group" );
+            if (strUtil.HasText( GroupSetting.Instance.MetaTitle )) {
+                ctx.Page.Title = GroupSetting.Instance.MetaTitle;
+            }
+            else {
+                ctx.Page.Title = lang( "group" );
+            }
+
+            ctx.Page.Keywords = GroupSetting.Instance.MetaKeywords;
+            ctx.Page.Description = GroupSetting.Instance.MetaDescription;
+
 
             List<ForumTopic> posts = postService.GetHotTopic( 10 );
             bindPosts( posts, "list" );

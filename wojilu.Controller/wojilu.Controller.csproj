@@ -88,6 +88,7 @@
     <Compile Include="Admin\Apps\Reader\SysCategoryController.cs" />
     <Compile Include="Admin\CacheController.cs" />
     <Compile Include="Admin\FeedAdminController.cs" />
+    <Compile Include="Admin\Groups\SettingController.cs" />
     <Compile Include="Admin\JobController.cs" />
     <Compile Include="Admin\Members\EmailConfirmController.cs" />
     <Compile Include="Admin\Members\UserRegController.cs" />

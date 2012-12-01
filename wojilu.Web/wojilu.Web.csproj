@@ -108,6 +108,7 @@
     <Content Include="framework\views\Admin\Groups\Group\PostAdmin.html" />
     <Content Include="framework\views\Admin\Groups\Group\SendMsg.html" />
     <Content Include="framework\views\Admin\Groups\Layout\Layout.html" />
+    <Content Include="framework\views\Admin\Groups\Setting\Index.html" />
     <Content Include="framework\views\Admin\Main\Login.html" />
     <Content Include="framework\views\Admin\Members\Layout\Layout.html" />
     <Content Include="framework\views\Admin\Members\UserReg\Index.html" />
