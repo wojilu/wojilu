@@ -1,14 +1,13 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Text;
+
+using wojilu.Web;
 using wojilu.Web.Mvc;
 using wojilu.Web.Mvc.Attr;
-using wojilu.Apps.Forum.Domain;
-using wojilu.Apps.Forum.Interface;
-using wojilu.Apps.Forum.Service;
+
 using wojilu.Common.AppBase.Interface;
-using System.Collections;
-using wojilu.Web;
 using wojilu.Common.Picks;
 
 namespace wojilu.Web.Controller.Common {
@@ -17,17 +16,16 @@ namespace wojilu.Web.Controller.Common {
         where TData : IAppData, IEntity
         where TPick : DataPickBase, new() {
 
-        //public ITDataService topicService { get; set; }
         public DataPickService<TData, TPick> pickService { get; set; }
 
         public PickDataBaseController() {
-            //topicService = new TDataService();
             pickService = new DataPickService<TData, TPick>();
         }
 
         public abstract List<TData> GetNewPosts();
         public abstract String GetImgAddLink();
         public abstract String GetImgListLink();
+        public abstract int GetImgCount();
 
         public void Index() {
 
@@ -37,13 +35,11 @@ namespace wojilu.Web.Controller.Common {
             set( "lnkAddPin", to( PinAd ) );
             set( "lnkRestore", to( RestoreList ) );
 
-            ForumApp app = ctx.app.obj as ForumApp;
-            ForumSetting s = app.GetSettingsObj();
 
-            IList pickedImg = ndb.find( new TPick().GetImgType(), "AppId=" + ctx.app.Id ).list( s.HomeImgCount );
+            IList pickedImg = ndb.find( new TPick().GetImgType(), "AppId=" + ctx.app.Id ).list( this.GetImgCount() );
             bindImgs( pickedImg );
 
-            List<TData> newPosts = this.GetNewPosts(); //topicService.GetByApp( ctx.app.Id, 21 );
+            List<TData> newPosts = this.GetNewPosts();
             List<MergedData> results = pickService.GetAll( newPosts, ctx.app.Id );
 
             bindCustomList( results );
@@ -133,7 +129,7 @@ namespace wojilu.Web.Controller.Common {
             set( "indexIds", pickService.GetIndexIds( ctx.app.Id, index ) );
 
             TPick customPost = pickService.GetPinPostByIndex( ctx.app.Id, index );
-            if (customPost == null) throw new NullReferenceException( "bind ForumCustomPick edit form" );
+            if (customPost == null) throw new NullReferenceException( "EditPin" );
 
             set( "x.Title", strUtil.EncodeTextarea( customPost.Title ) );
             set( "x.Link", customPost.Link );
@@ -147,7 +143,7 @@ namespace wojilu.Web.Controller.Common {
             target( UpdateTopic, topicId );
 
             TData topic = getTopic( topicId );
-            if (topic == null) throw new NullReferenceException( "bind TData edit form" );
+            if (topic == null) throw new NullReferenceException( "bind edit form" );
 
             TPick customPost = pickService.GetEditTopic( ctx.app.Id, topicId );
 
@@ -171,7 +167,7 @@ namespace wojilu.Web.Controller.Common {
         public void UpdatePin( int index ) {
 
             TPick customPost = pickService.GetPinPostByIndex( ctx.app.Id, index );
-            if (customPost == null) throw new NullReferenceException( "bind ForumCustomPick edit form" );
+            if (customPost == null) throw new NullReferenceException( "UpdatePin " );
 
             pickService.EditPinPost( customPost, ctx.PostInt( "Index" ),
                 ctx.PostHtml( "Title" ),
@@ -296,8 +292,6 @@ namespace wojilu.Web.Controller.Common {
 
         private TData getTopic( int topicId ) {
             if (topicId <= 0) return default( TData );
-            //return topicService.GetById_ForAdmin( topicId );
-
             return (TData)db.findById<TData>( topicId );
         }
 

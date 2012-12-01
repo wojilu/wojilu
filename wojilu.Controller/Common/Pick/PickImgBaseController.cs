@@ -42,7 +42,7 @@ namespace wojilu.Web.Controller.Common {
 
         public void Create() {
 
-            T f = ctx.PostValue<T>();
+            T f = ctx.PostValue<T>( "x" );
             f.AppId = ctx.app.Id;
             f.Creator = ctx.viewer.obj as User;
 
@@ -76,7 +76,7 @@ namespace wojilu.Web.Controller.Common {
                 return;
             }
 
-            f = ctx.PostValue( f ) as T;
+            f = ctx.PostValue( f, "x" ) as T;
             Result result = f.update();
             if (result.HasErrors)
                 run( Add );

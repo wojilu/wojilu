@@ -26,6 +26,12 @@ namespace wojilu.Web.Controller.Forum.Admin {
             return to( new PickedImgController().Index );
         }
 
+        public override int GetImgCount() {
+            ForumApp app = ctx.app.obj as ForumApp;
+            ForumSetting s = app.GetSettingsObj();
+            return s.HomeImgCount;
+        }
+
     }
 
 

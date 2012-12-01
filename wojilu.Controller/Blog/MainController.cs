@@ -21,6 +21,7 @@ using wojilu.Apps.Blog.Service;
 using wojilu.Apps.Blog.Interface;
 using wojilu.Web.Controller.Common;
 using wojilu.Web.Controller.Blog.Caching;
+using wojilu.Common.Picks;
 
 namespace wojilu.Web.Controller.Blog {
 
@@ -32,7 +33,7 @@ namespace wojilu.Web.Controller.Blog {
         public IPickedService pickedService { get; set; }
         public ISysBlogService sysblogService { get; set; }
         public IBlogSysCategoryService categoryService { get; set; }
-        public IBlogPickService pickService { get; set; }
+        public BlogPickService pickService { get; set; }
 
         public MainController() {
             postService = new BlogPostService();
@@ -90,7 +91,6 @@ namespace wojilu.Web.Controller.Blog {
 
             load( "blogPickedList", TopList );
 
-
             List<BlogSysCategory> categories = categoryService.GetAll();
             IBlock block = getBlock( "categories" );
             int i = 0;
@@ -130,11 +130,11 @@ namespace wojilu.Web.Controller.Blog {
 
             int imgCount = 6;
 
-            List<BlogPickedImg> pickedImg = BlogPickedImg.find( "" ).list( imgCount );
+            List<BlogPickedImg> pickedImg = db.find<BlogPickedImg>( "order by Id desc" ).list( imgCount );
             bindImgs( pickedImg );
 
-            List<BlogPost> newPosts = sysblogService.GetSysNew( 0, 5 );
-            List<MergedPost> results = pickService.GetAll( newPosts );
+            List<BlogPost> newPosts = sysblogService.GetSysNew( 0, 6 );
+            List<MergedData> results = pickService.GetAll( newPosts, 0 );
 
             bindCustomList( results );
         }
@@ -149,7 +149,7 @@ namespace wojilu.Web.Controller.Blog {
             }
         }
 
-        private void bindCustomList( List<MergedPost> list ) {
+        private void bindCustomList( List<MergedData> list ) {
 
             IBlock hBlock = getBlock( "hotPick" );
             IBlock pBlock = getBlock( "pickList" );
@@ -165,7 +165,7 @@ namespace wojilu.Web.Controller.Blog {
             }
         }
 
-        private void bindPick( MergedPost x, IBlock block, int index ) {
+        private void bindPick( MergedData x, IBlock block, int index ) {
 
             block.Set( "x.Title", x.Title );
             block.Set( "x.Summary", x.Summary );
