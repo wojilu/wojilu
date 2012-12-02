@@ -69,6 +69,8 @@ namespace wojilu.Apps.Blog.Domain {
 
         public DateTime Created { get; set; }
 
+        public int AttachmentCount { get; set; }
+
         private TagTool tag;
         [NotSave]
         public TagTool Tag {

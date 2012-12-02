@@ -176,6 +176,7 @@
     <Content Include="framework\views\Admin\Apps\Blog\BlogPick\PinAd.html" />
     <Content Include="framework\views\Admin\Apps\Blog\BlogPick\PinTopic.html" />
     <Content Include="framework\views\Admin\Apps\Blog\BlogPick\RestoreList.html" />
+    <Content Include="framework\views\Admin\Apps\Blog\BlogPicPick\Index.html" />
     <Content Include="framework\views\Blog\Admin\Blogroll\Add.html" />
     <Content Include="framework\views\Blog\Admin\Blogroll\AdminList.html" />
     <Content Include="framework\views\Blog\Admin\Blogroll\Edit.html" />
@@ -333,6 +334,7 @@
     <Content Include="framework\views\Forum\Admin\Security\SetPermissionForum.html" />
     <Content Include="framework\views\Forum\Admin\Security\Setting.html" />
     <Content Include="framework\views\Forum\Admin\Security\SettingSingle.html" />
+    <Content Include="framework\views\Forum\Admin\Stats\Index.html" />
     <Content Include="framework\views\Forum\Board\List.html" />
     <Content Include="framework\views\Forum\Board\List1.html" />
     <Content Include="framework\views\Forum\Board\Show.html" />

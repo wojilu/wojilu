@@ -30,6 +30,7 @@ namespace wojilu.Web.Controller.Blog {
         public ISysBlogService sysblogService { get; set; }
         public IBlogSysCategoryService categoryService { get; set; }
         public BlogPickService pickService { get; set; }
+        public BlogPicService picService { get; set; }
 
         public MainController() {
             postService = new BlogPostService();
@@ -38,6 +39,8 @@ namespace wojilu.Web.Controller.Blog {
             sysblogService = new SysBlogService();
             categoryService = new BlogSysCategoryService();
             pickService = new BlogPickService();
+
+            picService = new BlogPicService();
 
             HideLayout( typeof( LayoutController ) );
         }
@@ -53,6 +56,9 @@ namespace wojilu.Web.Controller.Blog {
             List<BlogPost> replies = sysblogService.GetSysReply( 15 );
 
             bindSidebar( tops, hits, replies );
+
+            // 博客之星
+            bindBlogStar();
 
             String qword = ctx.Get( "qword" );
             int qtype = ctx.GetInt( "qtype" );
@@ -71,6 +77,7 @@ namespace wojilu.Web.Controller.Blog {
             set( "commentLink", to( new wojilu.Web.Controller.Admin.Apps.Blog.CommentController().List ) + "?type=" + typeof( BlogPostComment ).FullName );
             set( "categoryLink", to( new wojilu.Web.Controller.Admin.Apps.Blog.SysCategoryController().List ) );
             set( "settingLink", to( new wojilu.Web.Controller.Admin.Apps.Blog.SettingController().Index ) );
+            set( "fileLink", to( new wojilu.Web.Controller.Admin.Apps.Blog.BlogPicPickController().Index, 0 ) );
         }
 
         [CachePage( typeof( BlogMainPageCache ) )]
@@ -88,7 +95,11 @@ namespace wojilu.Web.Controller.Blog {
             set( "recentLink", to( Recent ) );
             set( "recentLink2", PageHelper.AppendNo( to( Recent ), 2 ) );
 
+            // 头条
             load( "blogPickedList", TopList );
+
+            // 图片博客
+            bindPicBlog();
 
             List<BlogSysCategory> categories = categoryService.GetAll();
             IBlock block = getBlock( "categories" );
@@ -105,6 +116,31 @@ namespace wojilu.Web.Controller.Blog {
                 i++;
             }
 
+        }
+
+        private void bindBlogStar() {
+
+            IBlock sblock = getBlock( "blockStar" );
+
+            BlogAppSetting s = BlogAppSetting.Instance;
+            sblock.Set( "BlogStarColumnName", s.BlogStarColumnName );
+
+            User user = User.findById( s.BlogStarUserId );
+            if (user != null) {
+                sblock.Set( "x.UserTitle", s.BlogStarUserTitle );
+                sblock.Set( "x.Pic", user.PicMedium );
+                sblock.Set( "x.Link", Link.ToMember( user ) );
+                sblock.Set( "x.Description", s.BlogStarUserDescription );
+                sblock.Next();
+            }
+
+
+        }
+
+        private void bindPicBlog() {
+            List<BlogPicPick> pics = picService.GetSysNew( 5 );
+            pics.ForEach( x => x.data.show = alink.ToAppData( x.BlogPost ) );
+            bindList( "picList", "x", pics );
         }
 
         private void bindOneCategory( IBlock cblock, List<BlogPost> list ) {

@@ -3,9 +3,11 @@
  */
 
 using System;
+using System.Collections.Generic;
 
 using wojilu.Web.Mvc;
 using wojilu.Web.Mvc.Attr;
+using wojilu.Common.Upload;
 
 using wojilu.Apps.Blog.Domain;
 using wojilu.Apps.Blog.Service;
@@ -17,9 +19,11 @@ namespace wojilu.Web.Controller.Blog {
     public partial class PostController : ControllerBase {
 
         public IBlogPostService postService { get; set; }
+        public UserFileService fileService { get; set; }
 
         public PostController() {
             postService = new BlogPostService();
+            fileService = new UserFileService();
         }
 
         public void Show( int id ) {
@@ -44,6 +48,52 @@ namespace wojilu.Web.Controller.Blog {
             bindBlogPost( post, saveStatusInfo );
             bindComment( post );
             bindVisitor( post );
+            bindAttachmentPanel( post );
+        }
+
+
+        private void bindAttachmentPanel( BlogPost post ) {
+            IBlock attachmentPanel = getBlock( "attachmentPanel" );
+            if (post.AttachmentCount > 0) {
+                bindAttachments( attachmentPanel, post );
+            }
+        }
+
+        private void bindAttachments( IBlock attachmentPanel, BlogPost post ) {
+
+            List<UserFile> list = fileService.GetByData( post );
+
+            IBlock block = attachmentPanel.GetBlock( "attachments" );
+            foreach (UserFile obj in list) {
+
+                if (obj.IsPic == 1) {
+                    block.Set( "obj.PicLink", string.Format( "<div class=\"linePic\"><a href=\"{0}\" target=\"_blank\"><img src=\"{1}\"/></a></div>", obj.PicO, obj.PicM ) );
+                    block.Set( "obj.DownloadLink", string.Format( "<a href=\"{0}\" class=\"left10 lnkDown\">查看原图</a>", obj.PicO ) );
+                }
+                else {
+                    block.Set( "obj.PicLink", "" );
+                    block.Set( "obj.DownloadLink", string.Format( "<a href=\"{0}\" class=\"left10 lnkDown\">下载附件</a>", to( DownloadAttachment, obj.Id ) ) );
+                }
+
+                block.Set( "obj.FileName", obj.FileName );
+                block.Set( "obj.FileSizeKB", obj.FileSizeKB );
+                block.Set( "obj.DownloadUrl", to( DownloadAttachment, obj.Id ) );
+                block.Next();
+            }
+
+            attachmentPanel.Next();
+        }
+
+
+        public void DownloadAttachment( int id ) {
+
+            UserFile att = fileService.GetById( id );
+            if (att == null) {
+                echoRedirect( lang( "exDataNotFound" ) );
+                return;
+            }
+
+            redirectUrl( att.PathFull );
         }
 
 

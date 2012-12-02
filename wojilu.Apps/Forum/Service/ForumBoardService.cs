@@ -25,7 +25,7 @@ namespace wojilu.Apps.Forum.Service {
             this.forumService = new ForumService();
         }
 
-        //----------------------------------------------------------------------------------------------------------------------------------------------------------------
+        //--------------------------------------------------------------------------------------------------
 
 
         public virtual List<ForumBoard> GetBoardAll( int forumId, Boolean isLogin ) {
@@ -114,6 +114,30 @@ namespace wojilu.Apps.Forum.Service {
             foreach (ForumBoard bd in boards) {
                 UpdateSecurity( bd, str );
             }
+        }
+
+        public virtual void UpdateLastInfo( ForumBoard fb ) {
+
+            ForumTopic topic = ForumTopic
+                .find( "ForumBoardId=" + fb.Id + " and " + TopicStatus.GetShowCondition() + " order by Id desc" )
+                .first();
+
+            LastUpdateInfo info = new LastUpdateInfo();
+            info.PostId = topic.Id;
+            info.PostType = typeof( ForumTopic ).Name;
+            info.PostTitle = topic.Title;
+
+            User user = topic.Creator;
+
+            info.CreatorName = user.Name;
+            info.CreatorUrl = user.Url;
+            info.UpdateTime = topic.Created;
+
+            fb.LastUpdateInfo = info;
+            fb.Updated = info.UpdateTime;
+
+            db.update( fb );
+
         }
 
         //------------------------------------------------------------------------------------

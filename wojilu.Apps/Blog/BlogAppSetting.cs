@@ -45,6 +45,21 @@ namespace wojilu.Apps.Blog {
         }
 
 
+        private String _blogStarColumnName;
+
+        public String BlogStarColumnName {
+            get {
+                if (strUtil.IsNullOrEmpty( _blogStarColumnName )) return "²©¿ÍÖ®ÐÇ";
+                return _blogStarColumnName;
+            }
+            set { _blogStarColumnName = value; }
+        }
+
+        public int BlogStarUserId { get; set; }
+        public String BlogStarUserTitle{ get; set; }
+        public String BlogStarUserDescription { get; set; }
+
+
     }
 }
 

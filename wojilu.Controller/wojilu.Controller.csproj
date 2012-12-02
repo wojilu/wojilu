@@ -73,6 +73,7 @@
   <ItemGroup>
     <Compile Include="Admin\AdController.cs" />
     <Compile Include="Admin\AppController.cs" />
+    <Compile Include="Admin\Apps\Blog\BlogPicPickController.cs" />
     <Compile Include="Admin\Apps\Blog\CommentController.cs" />
     <Compile Include="Admin\Apps\Blog\MainController.cs" />
     <Compile Include="Admin\Apps\Blog\PickedImgController.cs" />
@@ -157,6 +158,7 @@
     <Compile Include="Content\Utils\clink.cs" />
     <Compile Include="Forum\Admin\ForumPickController.cs" />
     <Compile Include="Common\Pick\PickDataBaseController.cs" />
+    <Compile Include="Forum\Admin\StatsController.cs" />
     <Compile Include="Forum\AttachmentController.cs" />
     <Compile Include="Forum\Caching\Pages\ForumIndexPageCache.cs" />
     <Compile Include="Forum\Edits\PostController.cs" />

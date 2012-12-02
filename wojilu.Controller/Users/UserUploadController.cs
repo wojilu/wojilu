@@ -19,6 +19,7 @@ using wojilu.Common.Msg.Domain;
 using wojilu.Common.Msg.Service;
 using wojilu.Common.Msg.Interface;
 using wojilu.Web.Controller.Admin;
+using wojilu.Common.Upload;
 
 namespace wojilu.Web.Controller.Users {
 
@@ -31,10 +32,12 @@ namespace wojilu.Web.Controller.Users {
 
         public IPhotoPostService postService { get; set; }
         public IMessageAttachmentService attachmentService { get; set; }
+        public UserFileService fileService { get; set; }
 
         public UserUploadController() {
             postService = new PhotoPostService();
             attachmentService = new MessageAttachmentService();
+            fileService = new UserFileService();
         }
 
         public override void CheckPermission() {
@@ -43,6 +46,7 @@ namespace wojilu.Web.Controller.Users {
             }
         }
 
+        [Login]
         public void MyPics() {
 
             String editorName = ctx.Get( "editor" );
@@ -59,7 +63,7 @@ namespace wojilu.Web.Controller.Users {
             set( "page", list.PageBar );
         }
 
-
+        [Login]
         public void UploadForm() {
 
             Boolean isFlash = ("normal".Equals( ctx.Get( "type" ) ) == false);
@@ -92,6 +96,7 @@ namespace wojilu.Web.Controller.Users {
 
         }
 
+        [Login]
         public void SaveFlash() {
 
             PhotoPost post = savePicPrivate();
@@ -111,6 +116,7 @@ namespace wojilu.Web.Controller.Users {
 
         }
 
+        [Login]
         public void SavePic() {
 
             String editorName = ctx.Post( "editor" );
@@ -132,7 +138,6 @@ namespace wojilu.Web.Controller.Users {
         }
 
         private PhotoPost savePicPrivate() {
-
 
             HttpFile postedFile = ctx.GetFileSingle();
 
@@ -161,11 +166,88 @@ namespace wojilu.Web.Controller.Users {
 
         }
 
+        //---------------------------------------------------------------------
+
+
+        [Login, DbTransaction]
+        public void SaveUserFile() {
+
+            Result result = fileService.SaveFile( ctx.GetFileSingle(), ctx.Ip );
+
+            Dictionary<String, String> dic = new Dictionary<String, String>();
+
+            if (result.HasErrors) {
+
+                dic.Add( "FileName", "" );
+                dic.Add( "DeleteLink", "" );
+                dic.Add( "Msg", result.ErrorsText );
+
+                echoText( JsonString.ConvertDictionary( dic ) );
+            }
+            else {
+
+                UserFile att = result.Info as UserFile;
+
+                updateDataInfo( att );
+
+                String deleteLink = to( DeleteUserFile, att.Id );
+
+                dic.Add( "FileName", att.Name );
+                dic.Add( "DeleteLink", deleteLink );
+                dic.Add( "Id", att.Id.ToString() );
+
+                echoText( JsonString.ConvertDictionary( dic ) );
+            }
+        }
+
+        private void updateDataInfo( UserFile uFile ) {
+
+            int dataId = ctx.PostInt( "dataId" );
+            String dataType = ctx.Post( "dataType" );
+
+            if (dataId <= 0 || strUtil.IsNullOrEmpty( dataType )) return;
+
+            uFile.DataId = dataId;
+            uFile.DataType = dataType;
+
+            int viewerId = ctx.PostInt( "viewerId" );
+            String viewerUrl = ctx.Post( "viewerUrl" );
+            int ownerId = ctx.PostInt( "ownerId" );
+            String ownerType = ctx.Post( "ownerType" );
+            String ownerUrl = ctx.Post( "ownerUrl" );
+
+            if (viewerId > 0) uFile.Creator = new User( viewerId );
+            if (strUtil.HasText( viewerUrl )) uFile.CreatorUrl = viewerUrl;
+
+            if (ownerId > 0) uFile.OwnerId = ownerId;
+            if (strUtil.HasText( ownerType )) uFile.OwnerType = ownerType;
+            if (strUtil.HasText( ownerUrl )) uFile.OwnerUrl = ownerUrl;
+
+            uFile.update();
+            fileService.UpdateDataInfo( uFile );
+        }
+
+        [Login, DbTransaction]
+        public void DeleteUserFile( int id ) {
+
+            Result result = fileService.Delete( id );
+
+            if (result.HasErrors) {
+                echoText( result.ErrorsText );
+            }
+            else {
+                echoAjaxOk();
+            }
+        }
+
+        //----------------------------------------------------------------------------------------
+
+        [Login]
         public void SaveMsgAttachment() {
 
             Result result = attachmentService.SaveFile( ctx.GetFileSingle() );
-            
-            Dictionary<String, String> dic = new Dictionary<String, String>();            
+
+            Dictionary<String, String> dic = new Dictionary<String, String>();
 
             if (result.HasErrors) {
 
@@ -188,7 +270,7 @@ namespace wojilu.Web.Controller.Users {
             }
         }
 
-        [HttpPost, DbTransaction]
+        [Login, HttpPost, DbTransaction]
         public void DeleteMsgAttachment( int id ) {
 
             Result result = attachmentService.Delete( id );

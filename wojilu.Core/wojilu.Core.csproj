@@ -118,6 +118,8 @@
     <Compile Include="Common\Polls\Service\PollHelper.cs" />
     <Compile Include="Common\Upload\TempUploadFileService.cs" />
     <Compile Include="Common\Upload\TempUploadFile.cs" />
+    <Compile Include="Common\Upload\UserFile.cs" />
+    <Compile Include="Common\Upload\UserFileService.cs" />
     <Compile Include="Members\Groups\GroupHelper.cs" />
     <Compile Include="Members\Groups\GroupSetting.cs" />
     <Compile Include="Members\Users\Domain\Invites\UserInviteApp.cs" />

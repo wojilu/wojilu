@@ -38,7 +38,9 @@ namespace wojilu.Web.Controller.Blog {
             String status = string.Empty;
             if (post.IsTop == 1) status = "<span class=\"lblTop\">[" + lang( "sticky" ) + "]</span>";
             if (post.IsPick == 1) status = status + "<span class=\"lblTop\">[" + lang( "picked" ) + "]</span>";
-
+            if (post.AttachmentCount > 0) {
+                status = status + string.Format( "<span><img src=\"{0}\"/></span>", strUtil.Join( sys.Path.Img, "attachment.gif" ) );
+            }
 
             listBlock.Set( "blogpost.Status", status );
             listBlock.Set( "blogpost.Title", post.Title );
