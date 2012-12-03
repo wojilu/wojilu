@@ -26,7 +26,7 @@ using wojilu.Web.Mvc;
 namespace wojilu {
 
     /// <summary>
-    /// 系统路径
+    /// 系统路径(路径末尾有斜杠"/")
     /// </summary>
     /// <remarks>所有的路径末尾都有斜杠"/"，以区别于没有斜杠作后缀的文件名</remarks>
     public class SysPath {

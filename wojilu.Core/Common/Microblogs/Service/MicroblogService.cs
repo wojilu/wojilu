@@ -106,47 +106,9 @@ namespace wojilu.Common.Microblogs.Service {
             return ids;
         }
 
-        //--------------------------------------
-
-        //public virtual void InsertBig( Microblog blog ) {
-
-        //    List<String> arrContent = strUtil.SplitByNum( blog.Content, config.Instance.Site.MicroblogContentMax );
-
-        //    for (int i = 0; i < arrContent.Count; i++) {
-
-        //        saveMicroblogOther( blog, arrContent, i );
-        //    }
-        //}
-
-        //private void saveMicroblogOther( Microblog ob, List<String> arrContent, int i ) {
-
-        //    Microblog blog = new Microblog();
-
-        //    if (arrContent.Count > 1) {
-        //        blog.Content = "(" + (i + 1) + ")" + arrContent[i];
-        //    }
-        //    else {
-        //        blog.Content = arrContent[i];
-        //    }
-        //    if (i == 0) {
-        //        blog.Pic = ob.Pic;
-        //        blog.FlashUrl = ob.FlashUrl;
-        //        blog.PageUrl = ob.PageUrl;
-        //        blog.PicUrl = ob.PicUrl;
-        //    }
-
-        //    blog.Ip = ob.Ip;
-        //    blog.User = ob.User;
-
-
-
-
-        //    Insert( blog, i );
-        //}
-
         public virtual void Insert( Microblog blog ) {
 
-            blog.Content = strUtil.SubString( blog.Content, config.Instance.Site.MicroblogContentMax );
+            blog.Content = strUtil.SubString( blog.Content, MicroblogAppSetting.Instance.MicroblogContentMax );
 
             Insert( blog, 0 );
         }

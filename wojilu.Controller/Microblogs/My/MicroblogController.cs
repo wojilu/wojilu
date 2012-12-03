@@ -18,6 +18,7 @@ using wojilu.Common.Microblogs.Domain;
 using wojilu.Common.Microblogs.Interface;
 using wojilu.Web.Controller.Admin;
 using wojilu.Common;
+using wojilu.Common.Microblogs;
 
 namespace wojilu.Web.Controller.Microblogs.My {
 
@@ -74,7 +75,7 @@ namespace wojilu.Web.Controller.Microblogs.My {
             set( "user.Face", user.PicSmall );
             set( "user.Name", user.Name );
 
-            DataPage<Microblog> list = microblogService.GetFollowingPage( ctx.owner.obj.Id, config.Instance.Site.MicroblogPageSize );
+            DataPage<Microblog> list = microblogService.GetFollowingPage( ctx.owner.obj.Id, MicroblogAppSetting.Instance.MicroblogPageSize );
             List<MicroblogVo> volist = mfService.CheckFavorite( list.Results, ctx.viewer.Id );
 
             ctx.SetItem( "_microblogVoList", volist );
@@ -108,11 +109,9 @@ namespace wojilu.Web.Controller.Microblogs.My {
 
         public void Publisher() {
 
-
-
             target( new Microblogs.MicroblogSaveController().Create );
 
-            set( "mbTotalCount", config.Instance.Site.MicroblogContentMax );
+            set( "mbTotalCount", MicroblogAppSetting.Instance.MicroblogContentMax );
 
             set( "uploadLink", to( new Microblogs.My.MbSaveController().UploadForm ) );
             set( "getVideoUrl", to( GetVideoInfo ) );

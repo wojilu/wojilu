@@ -15,6 +15,7 @@ using wojilu.Members.Users.Service;
 using wojilu.Members.Users.Domain;
 using wojilu.Web.Controller.Common;
 using wojilu.Web.Controller.Users;
+using wojilu.Common.Microblogs;
 
 namespace wojilu.Web.Controller.Microblogs {
 
@@ -72,7 +73,7 @@ namespace wojilu.Web.Controller.Microblogs {
 
             set( "user.Name", ctx.owner.obj.Name );
 
-            DataPage<Microblog> list = microblogService.GetPageList( ctx.owner.obj.Id, config.Instance.Site.MicroblogPageSize );
+            DataPage<Microblog> list = microblogService.GetPageList( ctx.owner.obj.Id, MicroblogAppSetting.Instance.MicroblogPageSize );
             List<MicroblogVo> volist = mfService.CheckFavorite( list.Results, ctx.viewer.Id );
 
             ctx.SetItem( "_microblogVoList", volist );

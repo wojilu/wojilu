@@ -113,13 +113,8 @@ namespace wojilu {
             _siteSetting.ValidationLength = cvt.ToInt( getVal( dic, "ValidationLength" ) );
             _siteSetting.ValidationChineseLength = cvt.ToInt( getVal( dic, "ValidationChineseLength" ) );
 
-
             _siteSetting.StatsEnabled = cvt.ToBool( getVal( dic, "StatsEnabled" ) );
             _siteSetting.StatsJs = getVal( dic, "StatsJs" );
-
-            _siteSetting.MicroblogContentMax = cvt.ToInt( getVal( dic, "MicroblogContentMax" ) );
-            _siteSetting.MicroblogPageSize = cvt.ToInt( getVal( dic, "MicroblogPageSize" ) );
-
 
             _siteSetting.SkinId = cvt.ToInt( getVal( dic, "SkinId" ) );
             _siteSetting.Md5Is16 = cvt.ToBool( getVal( dic, "Md5Is16" ) );

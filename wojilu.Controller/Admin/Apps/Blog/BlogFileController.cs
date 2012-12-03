@@ -10,7 +10,7 @@ using wojilu.Apps.Blog.Service;
 namespace wojilu.Web.Controller.Admin.Apps.Blog {
 
     [App( typeof( BlogApp ) )]
-    public class BlogPicPickController : ControllerBase {
+    public class BlogFileController : ControllerBase {
 
         private static readonly int picType = 1;
         private static readonly int fileType = 2;
@@ -18,7 +18,7 @@ namespace wojilu.Web.Controller.Admin.Apps.Blog {
         public UserFileService fileService { get; set; }
         public BlogPicService pickService { get; set; }
 
-        public BlogPicPickController() {
+        public BlogFileController() {
             fileService = new UserFileService();
             pickService = new BlogPicService();
         }
@@ -48,7 +48,7 @@ namespace wojilu.Web.Controller.Admin.Apps.Blog {
         private string getPickIcon( List<BlogPost> blogPosts, UserFile x ) {
             Boolean isPick = pickService.IsPick( x );
             if (isPick) {
-                return "★";
+                return string.Format( "<img src=\"{0}star.gif\" />", sys.Path.Img );
             }
             else {
                 return "";

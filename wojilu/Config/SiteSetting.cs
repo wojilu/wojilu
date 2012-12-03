@@ -546,37 +546,7 @@ namespace wojilu.Config {
             set { _bannedIpInfo = value; }
         }
 
-
         //public Boolean IsWatermark { get; set; }
-
-
-        private int _microblogContentMax;
-        /// <summary>
-        /// 微博内容字数最高限制
-        /// </summary>
-        public int MicroblogContentMax {
-            get {
-                if (_microblogContentMax <= 0) return 140;
-                return _microblogContentMax;
-            }
-            set {
-                _microblogContentMax = value;
-            }
-        }
-
-        private int _microblogPageSize;
-        /// <summary>
-        /// 微博内容字数最高限制
-        /// </summary>
-        public int MicroblogPageSize {
-            get {
-                if (_microblogPageSize <= 0) return 20;
-                return _microblogPageSize;
-            }
-            set {
-                _microblogPageSize = value;
-            }
-        }
 
         //----------------------------------------------------------------
 

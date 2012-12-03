@@ -77,7 +77,7 @@ namespace wojilu.Web.Controller.Blog {
             set( "commentLink", to( new wojilu.Web.Controller.Admin.Apps.Blog.CommentController().List ) + "?type=" + typeof( BlogPostComment ).FullName );
             set( "categoryLink", to( new wojilu.Web.Controller.Admin.Apps.Blog.SysCategoryController().List ) );
             set( "settingLink", to( new wojilu.Web.Controller.Admin.Apps.Blog.SettingController().Index ) );
-            set( "fileLink", to( new wojilu.Web.Controller.Admin.Apps.Blog.BlogPicPickController().Index, 0 ) );
+            set( "fileLink", to( new wojilu.Web.Controller.Admin.Apps.Blog.BlogFileController().Index, 0 ) );
         }
 
         [CachePage( typeof( BlogMainPageCache ) )]
