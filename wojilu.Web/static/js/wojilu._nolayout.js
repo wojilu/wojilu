@@ -8,6 +8,7 @@
     var parentIframeClass = $('#'+parentIframeId, parent.document).attr( 'class' );
 
     var hideParentLoading = function() {
+        window.parent.wojilu.ui.__removeFrameLinkPrev( parentIframeId );
         $('#'+parentIframeId + 'Loading', window.parent.document ).hide();
         $('#'+parentIframeId, window.parent.document ).show();
     }

@@ -12672,11 +12672,15 @@ wojilu.ui.frmLink = function() {
         var rUrl = $(this).attr( 'href' ); 
         if( !rUrl || rUrl=='' || rUrl=='#' ) return false;
         var nolayout=$(this).attr('nolayout');
-        if( !nolayout ) alert( '请设置nolayout' );
+        if( !nolayout ) {alert( '请设置nolayout' );return false}
         var frmUrl = wojilu.tool.appendQuery( rUrl, 'nolayout='+nolayout );
-        var loadTo = $(this).attr( 'loadTo' );var scrolling = $(this).attr( 'scrolling' ); scrolling = scrolling? scrolling:'no'; var divLoad = $( '#' + loadTo ); if(divLoad.length==0){return;};divLoad.empty();var win=window; while( !(win === win.parent) ) {win = win.parent;};if(win.history.pushState&&wojilu.ctx.changeUrl){win.history.pushState('', '', rUrl)}; var frmId = 'frmLinkPage'+cno; var loadingId = frmId+'Loading'; var frmLinkLoading = '<div id="'+loadingId+'" style="padding:30px 50px;display2:none;"><img src="'+wojilu.path.img+'/ajax/big.gif"/></div>'; divLoad.append( frmLinkLoading ); 
-        var frmHtml = '<iframe id="'+frmId+'" class="frmLinkPage" frmPath="'+frmPath+'" nolayout='+nolayout+' src="'+frmUrl+'" frameborder="0" width="100%" scrolling="'+scrolling+'" style="display:none;padding:0px;margin:0px;border:0px red solid;height:300px;"></iframe>'; divLoad.append( frmHtml ); return false;    
+        var loadTo = $(this).attr( 'loadTo' );var scrolling = $(this).attr( 'scrolling' ); scrolling = scrolling? scrolling:'no'; var divLoad = $( '#' + loadTo ); if(divLoad.length==0){return;};
+        var frmId = 'frmLinkPage'+cno;var win=window; while( !(win === win.parent) ) {win = win.parent;};if(win.history.pushState&&wojilu.ctx.changeUrl){win.history.pushState('', '', rUrl)}; var loadingId = frmId+'Loading'; var frmLinkLoading = '<div style="position:relative;z-index:999999;" id="'+loadingId+'"><div style="position:absolute;top:0px;left:0px;text-align:center;width:'+divLoad.width()+'px;height:'+divLoad.height()+'px;"><div style="width:200px;height:50px;background:#fff;margin:20px auto;padding-bottom:0px;padding-top:15px;border-radius:3px;border:5px solid #ccc;"><img src="'+wojilu.path.img+'/ajax/big.gif" /></div></div></div>';divLoad.prepend( frmLinkLoading );var frmHtml = '<iframe id="'+frmId+'" class="frmLinkPage" frmPath="'+frmPath+'" nolayout='+nolayout+' src="'+frmUrl+'" frameborder="0" width="100%" scrolling="'+scrolling+'" style="display:none;padding:0px;margin:0px;border:0px red solid;height:300px;"></iframe>'; divLoad.append('<div id="frmLinkWrap'+frmId+'"></div>').append( frmHtml ); return false;    
     });
+};
+
+wojilu.ui.__removeFrameLinkPrev = function(frmId) {
+    var line = $('#frmLinkWrap'+frmId ); line.prevAll().remove(); line.remove();
 };
 
 wojilu.ui.frmLoader = function() {
