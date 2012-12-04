@@ -42,6 +42,8 @@ namespace wojilu.Common.Microblogs.Interface {
 
 
         void DeleteBatch( string ids );
+
+        DataPage<Microblog> GetPicPageListAll( int pageSize );
     }
 
 }

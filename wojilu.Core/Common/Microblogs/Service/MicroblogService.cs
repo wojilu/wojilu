@@ -78,6 +78,12 @@ namespace wojilu.Common.Microblogs.Service {
             return list;
         }
 
+        public virtual DataPage<Microblog> GetPicPageListAll( int pageSize ) {
+
+            DataPage<Microblog> list = Microblog.findPage( "Pic <>'' ", pageSize );
+            return list;
+        }
+
         public virtual DataPage<Microblog> GetFollowingPage( int ownerId, int pageSize ) {
 
             String followingIds = getFriendAndFollowingIds( ownerId );

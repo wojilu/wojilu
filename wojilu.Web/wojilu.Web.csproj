@@ -111,6 +111,7 @@
     <Content Include="framework\views\Admin\Groups\Layout\Layout.html" />
     <Content Include="framework\views\Admin\Groups\Setting\Index.html" />
     <Content Include="framework\views\Admin\Main\Login.html" />
+    <Content Include="framework\views\Admin\Mb\Users\Index.html" />
     <Content Include="framework\views\Admin\Members\Layout\Layout.html" />
     <Content Include="framework\views\Admin\Members\UserReg\Index.html" />
     <Content Include="framework\views\Admin\Members\UserSetting\Index.html" />
@@ -119,6 +120,7 @@
     <Content Include="framework\views\Admin\Members\User\ResetPwd.html" />
     <Content Include="framework\views\Admin\Members\User\SendEmail.html" />
     <Content Include="framework\views\Admin\Members\User\SendMsg.html" />
+    <Content Include="framework\views\Admin\Mb\Microblog\Settings.html" />
     <Content Include="framework\views\Admin\Security\AppRole\Index.html" />
     <Content Include="framework\views\Admin\Security\Layout\Layout.html" />
     <Content Include="framework\views\Admin\Security\PermissionBack\AdminIndex.html" />
@@ -176,7 +178,7 @@
     <Content Include="framework\views\Admin\Apps\Blog\BlogPick\PinAd.html" />
     <Content Include="framework\views\Admin\Apps\Blog\BlogPick\PinTopic.html" />
     <Content Include="framework\views\Admin\Apps\Blog\BlogPick\RestoreList.html" />
-    <Content Include="framework\views\Admin\Apps\Blog\BlogPicPick\Index.html" />
+    <Content Include="framework\views\Admin\Apps\Blog\BlogFile\Index.html" />
     <Content Include="framework\views\Blog\Admin\Blogroll\Add.html" />
     <Content Include="framework\views\Blog\Admin\Blogroll\AdminList.html" />
     <Content Include="framework\views\Blog\Admin\Blogroll\Edit.html" />
@@ -651,7 +653,7 @@
     <Content Include="framework\views\Admin\Apps\Reader\Main\Index.html" />
     <Content Include="framework\views\Admin\Job\Edit.html" />
     <Content Include="framework\views\Admin\Job\List.html" />
-    <Content Include="framework\views\Admin\Microblog\List.html" />
+    <Content Include="framework\views\Admin\Mb\Microblog\List.html" />
     <Content Include="framework\views\Admin\Members\SiteMsg\Add.html" />
     <Content Include="framework\views\Admin\Members\SiteMsg\Index.html" />
     <Content Include="framework\views\Admin\Members\SiteMsg\Edit.html" />
@@ -831,8 +833,7 @@
     <Content Include="framework\views\Admin\Cache\Index.html" />
     <Content Include="framework\views\Admin\Cache\Read.html" />
     <Content Include="framework\views\Admin\Cache\ViewCache.html" />
-    <Content Include="framework\views\Admin\Microblog\Layout.html" />
-    <Content Include="framework\views\Admin\Microblog\Settings.html" />
+    <Content Include="framework\views\Admin\Mb\Microblog\Layout.html" />
     <Content Include="framework\views\Admin\SiteConfig\BanIp.html" />
     <Content Include="framework\views\Admin\SiteConfig\App.html" />
     <Content Include="framework\views\Admin\SiteConfig\Drawing.html" />

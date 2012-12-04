@@ -98,6 +98,11 @@ namespace wojilu.Common.Microblogs.Domain {
             return this.Pic.IndexOf( "face/" ) > 0;
         }
 
+        [NotSave]
+        public Boolean IsPic {
+            get { return strUtil.HasText( this.Pic ); }
+        }
+
 
         //-------------------------------------------------------------------------
 

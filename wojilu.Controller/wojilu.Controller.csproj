@@ -73,7 +73,7 @@
   <ItemGroup>
     <Compile Include="Admin\AdController.cs" />
     <Compile Include="Admin\AppController.cs" />
-    <Compile Include="Admin\Apps\Blog\BlogPicPickController.cs" />
+    <Compile Include="Admin\Apps\Blog\BlogFileController.cs" />
     <Compile Include="Admin\Apps\Blog\CommentController.cs" />
     <Compile Include="Admin\Apps\Blog\MainController.cs" />
     <Compile Include="Admin\Apps\Blog\PickedImgController.cs" />
@@ -92,10 +92,11 @@
     <Compile Include="Admin\FeedAdminController.cs" />
     <Compile Include="Admin\Groups\SettingController.cs" />
     <Compile Include="Admin\JobController.cs" />
+    <Compile Include="Admin\Mb\MbCommentController.cs" />
     <Compile Include="Admin\Members\EmailConfirmController.cs" />
     <Compile Include="Admin\Members\UserRegController.cs" />
     <Compile Include="Admin\Members\UserSettingController.cs" />
-    <Compile Include="Admin\MicroblogController.cs" />
+    <Compile Include="Admin\Mb\MicroblogController.cs" />
     <Compile Include="Admin\Members\SiteMsgController.cs" />
     <Compile Include="Admin\MenuController.cs" />
     <Compile Include="Admin\Apps\Photo\CommentController.cs" />
