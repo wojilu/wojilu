@@ -67,20 +67,20 @@
             <td style="width:4%"></td>
 			<td>_{content}</td>
             <td style="width:13%;">访问</td>
-			<td style="width:14%;">_{created}</td>
+			<td style="width:15%;">_{created}</td>
 		</tr>
 		<!-- BEGIN list -->
-		<tr class="tableItems" id="mblog#{data.Id}">
+		<tr class="tableItems" id="mblog#{x.Id}">
 		    <td align="center">
-			    <input name="selectThis" id="checkbox#{data.Id}" type="checkbox" class="selectSingle">
+			    <input name="selectThis" id="checkbox#{x.Id}" type="checkbox" class="selectSingle">
 		    </td>
 
-			<td><a href="#{data.CreatorLink}" target="_blank">#{data.Creator}</a></td>
-            <td style="text-align:center;">#{data.Reposts}/#{data.Replies}</td>
-            <td style=" text-align:right;">#{data.PicIcon}</td>
-			<td class="blogContent">#{data.Content}</td>
-            <td><a href="#{data.ShowLink}" target="_blank">&raquo;访问本条微博</a></td>
-			<td>#{data.Created}</td>
+			<td><a href="#{x.data.CreatorLink}" target="_blank">#{x.User.Name}</a></td>
+            <td style="text-align:center;">#{x.Reposts}/#{x.Replies}</td>
+            <td style=" text-align:right;">#{x.data.PicIcon}</td>
+			<td class="blogContent">#{x.Content}</td>
+            <td><a href="#{x.data.show}" target="_blank">&raquo;访问本条微博</a></td>
+			<td>#{x.Created}</td>
 		</tr>
 		<!-- END list -->
 		<tr>

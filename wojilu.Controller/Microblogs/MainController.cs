@@ -30,6 +30,8 @@ namespace wojilu.Web.Controller.Microblogs {
             set( "mbAdminLink", to( new wojilu.Web.Controller.Admin.Mb.MicroblogController().List ) );
             set( "mbSettingsLink", to( new wojilu.Web.Controller.Admin.Mb.MicroblogController().Settings ) );
 
+            set( "commentLink", to( new wojilu.Web.Controller.Admin.Mb.MbCommentController().Index ) );
+            set( "trashLink", to( new wojilu.Web.Controller.Admin.Mb.TrashController().Index ) );
 
             set( "siteName", config.Instance.Site.SiteName );
 

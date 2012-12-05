@@ -93,6 +93,7 @@
     <Compile Include="Admin\Groups\SettingController.cs" />
     <Compile Include="Admin\JobController.cs" />
     <Compile Include="Admin\Mb\MbCommentController.cs" />
+    <Compile Include="Admin\Mb\TrashController.cs" />
     <Compile Include="Admin\Members\EmailConfirmController.cs" />
     <Compile Include="Admin\Members\UserRegController.cs" />
     <Compile Include="Admin\Members\UserSettingController.cs" />

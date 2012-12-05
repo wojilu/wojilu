@@ -1,4 +1,4 @@
-/*
+ï»¿/*
  * Copyright (c) 2010, www.wojilu.com. All rights reserved.
  */
 
@@ -19,7 +19,7 @@ namespace wojilu.Common.Microblogs.Domain {
 
         public User User { get; set; }
 
-        public int ParentId { get; set; } // ×ª·¢Î¢²©
+        public int ParentId { get; set; } // è½¬å‘å¾®åš
 
         [LongText]
         public String Content { get; set; }
@@ -28,20 +28,22 @@ namespace wojilu.Common.Microblogs.Domain {
         public String Ip { get; set; }
 
         public int Replies { get; set; }
-        public int Reposts { get; set; } // ×ª·¢ÊıÁ¿
+        public int Reposts { get; set; } // è½¬å‘æ•°é‡
 
         public DateTime Created { get; set; }
 
+        public int SaveStatus { get; set; }
+
         //-------------------------------------------------------------------
 
-        public String PageUrl { get; set; } // Êı¾İµÄÀ´Ô´ÍøÖ·£¬±ÈÈçÊÓÆµµÄ²¥·ÅÒ³Ãæ
+        public String PageUrl { get; set; } // æ•°æ®çš„æ¥æºç½‘å€ï¼Œæ¯”å¦‚è§†é¢‘çš„æ’­æ”¾é¡µé¢
         public String FlashUrl { get; set; }
-        public String PicUrl { get; set; } // ÍâÕ¾µÄÍ¼Æ¬£¬±ÈÈçÊÓÆµ½ØÍ¼
+        public String PicUrl { get; set; } // å¤–ç«™çš„å›¾ç‰‡ï¼Œæ¯”å¦‚è§†é¢‘æˆªå›¾
 
 
         //-------------------------------------------------------------------
 
-        public String Pic { get; set; } // ´æ´¢ÔÚ·şÎñÆ÷ÉÏµÄÉÏ´«µÄÍ¼Æ¬
+        public String Pic { get; set; } // å­˜å‚¨åœ¨æœåŠ¡å™¨ä¸Šçš„ä¸Šä¼ çš„å›¾ç‰‡
 
 
         [NotSave]
@@ -106,7 +108,7 @@ namespace wojilu.Common.Microblogs.Domain {
 
         //-------------------------------------------------------------------------
 
-        #region IAppData ³ÉÔ±
+        #region IAppData æˆå‘˜
 
         [NotSave]
         public int AppId { get { return 0; } set { } }
@@ -127,7 +129,7 @@ namespace wojilu.Common.Microblogs.Domain {
         public string OwnerUrl { get { return this.User.Url; } set { } }
 
         [NotSave]
-        public string Title { get { return "Î¢²©: " + strUtil.ParseHtml( this.Content, 50 ); } set { } }
+        public string Title { get { return "å¾®åš: " + strUtil.ParseHtml( this.Content, 50 ); } set { } }
 
         [NotSave]
         public int AccessStatus { get { return 0; } set { } }

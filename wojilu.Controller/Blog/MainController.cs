@@ -133,8 +133,6 @@ namespace wojilu.Web.Controller.Blog {
                 sblock.Set( "x.Description", s.BlogStarUserDescription );
                 sblock.Next();
             }
-
-
         }
 
         private void bindPicBlog() {

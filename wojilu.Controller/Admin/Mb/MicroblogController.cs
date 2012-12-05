@@ -15,9 +15,11 @@ namespace wojilu.Web.Controller.Admin.Mb {
     public class MicroblogController : ControllerBase {
 
         public IMicroblogService microblogService { get; set; }
+        public SysMicroblogService sysMicroblogService { get; set; }
 
         public MicroblogController() {
             microblogService = new MicroblogService();
+            sysMicroblogService = new SysMicroblogService();
         }
 
         public override void Layout() {
@@ -41,20 +43,20 @@ namespace wojilu.Web.Controller.Admin.Mb {
 
 
         public void List() {
-            DataPage<Microblog> list = microblogService.GetPageListAll( 30 );
+            DataPage<Microblog> list = sysMicroblogService.GetPageAll( 30 );
             bindMbList( list );
         }
 
         public void PicList() {
             view( "List" );
-            DataPage<Microblog> list = microblogService.GetPicPageListAll( 30 );
+            DataPage<Microblog> list = sysMicroblogService.GetPicPageAll( 30 );
             bindMbList( list );
         }
 
         public void ListFilter() {
             view( "List" );
             String condition = getCondition();
-            DataPage<Microblog> list = getByCondition( condition );
+            DataPage<Microblog> list = sysMicroblogService.GetPageByCondition( condition );
             bindMbList( list );
         }
 
@@ -63,23 +65,12 @@ namespace wojilu.Web.Controller.Admin.Mb {
             String searchType = ctx.Get( "t" );
             String key = getSearchKey();
             String condition = getSearchCondition( searchType, key );
-            DataPage<Microblog> list = getByCondition( condition );
+            DataPage<Microblog> list = sysMicroblogService.GetPageByCondition( condition );
             bindMbList( list );
         }
 
         private String getSearchKey() {
             return strUtil.SqlClean( ctx.Get( "q" ), 15 );
-        }
-
-        private static DataPage<Microblog> getByCondition( String condition ) {
-            DataPage<Microblog> list;
-            if (strUtil.HasText( condition )) {
-                list = db.findPage<Microblog>( condition );
-            }
-            else {
-                list = DataPage<Microblog>.GetEmpty();
-            }
-            return list;
         }
 
         private String getSearchCondition( String searchType, String key ) {
@@ -129,27 +120,13 @@ namespace wojilu.Web.Controller.Admin.Mb {
             set( "picLink", to( PicList ) );
             set( "filterLink", to( ListFilter ) );
 
-            IBlock block = getBlock( "list" );
-            foreach (Microblog blog in list.Results) {
+            list.Results.ForEach( x => {
+                x.data["CreatorLink"] = alink.ToUserMicroblog( x.User );
+                x.data.show = alink.ToAppData( x );
+                x.data["PicIcon"] = x.IsPic ? string.Format( "<a href=\"{0}\" target=\"_blank\" title=\"点击查看原始图片\"><img src=\"{1}img.gif\" /></a>", x.PicOriginal, sys.Path.Img ) : "";
+            } );
 
-                block.Set( "data.Id", blog.Id );
-                block.Set( "data.Creator", blog.User.Name );
-
-                block.Set( "data.CreatorLink", alink.ToUserMicroblog( blog.User ) );
-
-                block.Set( "data.Content", blog.Content );
-                block.Set( "data.Replies", blog.Replies );
-                block.Set( "data.Reposts", blog.Reposts );
-
-                block.Set( "data.Created", blog.Created );
-                block.Set( "data.DeleteLink", to( Delete, blog.Id ) );
-
-                block.Set( "data.ShowLink", alink.ToAppData( blog ) );
-
-                block.Set( "data.PicIcon", blog.IsPic ? string.Format( "<img src=\"{0}img.gif\" />", sys.Path.Img ) : "" );
-
-                block.Next();
-            }
+            bindList( "list", "x", list.Results );
 
             set( "page", list.PageBar );
         }
@@ -209,25 +186,12 @@ namespace wojilu.Web.Controller.Admin.Mb {
             String cmd = ctx.Post( "action" );
 
             if ("delete".Equals( cmd )) {
-                microblogService.DeleteBatch( ids );
+                sysMicroblogService.DeleteSysBatch( ids );
                 echoAjaxOk();
             }
             else {
                 echoError( "errorCmd" );
             }
-        }
-
-
-        [HttpDelete, DbTransaction]
-        public void Delete( int id ) {
-
-            Microblog blog = microblogService.GetById( id );
-            if (blog == null) {
-                throw new NullReferenceException( lang( "exDataNotFound" ) );
-            }
-
-            microblogService.Delete( blog );
-            echoAjaxOk();
         }
 
     }

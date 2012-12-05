@@ -111,6 +111,7 @@
     <Content Include="framework\views\Admin\Groups\Layout\Layout.html" />
     <Content Include="framework\views\Admin\Groups\Setting\Index.html" />
     <Content Include="framework\views\Admin\Main\Login.html" />
+    <Content Include="framework\views\Admin\Mb\Trash\Index.html" />
     <Content Include="framework\views\Admin\Mb\Users\Index.html" />
     <Content Include="framework\views\Admin\Members\Layout\Layout.html" />
     <Content Include="framework\views\Admin\Members\UserReg\Index.html" />
@@ -999,6 +1000,7 @@
     <Content Include="framework\views\Users\Admin\MyGroup\MyPost.html" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="framework\views\Admin\Mb\MbComment\" />
     <Folder Include="framework\views\Admin\Members\EmailConfirm\" />
     <Folder Include="framework\views\Forum\Admin\ForumPick\" />
     <Folder Include="framework\views\Forum\Admin\PickedImg\" />

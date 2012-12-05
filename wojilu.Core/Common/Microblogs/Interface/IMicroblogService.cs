@@ -14,36 +14,22 @@ namespace wojilu.Common.Microblogs.Interface {
     public interface IMicroblogService {
 
         IFeedService feedService { get; set; }
-        //INotificationService nfService { get; set; }
 
         Microblog GetById( int id );
-
-        List<Microblog> GetCurrent( int count, int userId );
         Microblog GetFirst( int userId );
+        List<Microblog> GetCurrent( int count, int userId );
 
         DataPage<Microblog> GetPageList( int userId, int pageSize );
+        DataPage<Microblog> GetFollowingPage( int ownerId, int pageSize );
+        DataPage<Microblog> GetFollowingPage( int ownerId, string searchKey );
 
-        void Insert( Microblog log );
-        //void InsertBig( Microblog blog );
-
-
-        void Delete( Microblog blog );
-
-        DataPage<Microblog> GetPageListAll( int pageSize );
+        void Insert( Microblog blog );
 
         int CountByUser( int userId );
 
-
-        DataPage<Microblog> GetFollowingPage( int ownerId, int pageSize );
-
-        DataPage<Microblog> GetFollowingPage( int p, string searchKey );
-
-        //DataPage<Microblog> GetPageList( int p, int pageSize );
-
-
+        void Delete( Microblog blog );
         void DeleteBatch( string ids );
 
-        DataPage<Microblog> GetPicPageListAll( int pageSize );
     }
 
 }

@@ -11,6 +11,7 @@ _run( function() {
     
     var hideLoading = function() {
         if( parentIframeId==null ) return;
+        window.parent.wojilu.ui.__removeFrameLinkPrev( parentIframeId );
         $('#'+parentIframeId + 'Loading', window.parent.document ).hide();
         $('#'+parentIframeId, window.parent.document ).show();
     };
