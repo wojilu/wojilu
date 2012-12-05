@@ -94,7 +94,15 @@ namespace wojilu.Web {
         /// </summary>
         /// <param name="userId"></param>
         /// <param name="userName"></param>
-        /// <param name="expiration"></param>
+        /// <param name="expiration">过期的时间，比如10分钟过期： DateTime.Now.AddMinutes( 10 )</param>
+        void UserLogin( int userId, String userName, DateTime expiration );
+
+        /// <summary>
+        /// 使用默认的cookie登录
+        /// </summary>
+        /// <param name="userId"></param>
+        /// <param name="userName"></param>
+        /// <param name="expiration">使用 LoginTime 枚举确定过期时间</param>
         void UserLogin( int userId, String userName, LoginTime expiration );
 
         /// <summary>
@@ -103,7 +111,16 @@ namespace wojilu.Web {
         /// <param name="cookieName"></param>
         /// <param name="userId"></param>
         /// <param name="userName"></param>
-        /// <param name="expiration"></param>
+        /// <param name="expiration">过期的时间，比如10分钟过期： DateTime.Now.AddMinutes( 10 )</param>
+        void UserLogin( String cookieName, int userId, String userName, DateTime expiration );
+
+        /// <summary>
+        /// 使用自定义的cookie名称登录，允许多个验证授权，互不影响
+        /// </summary>
+        /// <param name="cookieName"></param>
+        /// <param name="userId"></param>
+        /// <param name="userName"></param>
+        /// <param name="expiration">使用 LoginTime 枚举确定过期时间</param>
         void UserLogin( String cookieName, int userId, String userName, LoginTime expiration );
 
         /// <summary>

@@ -150,6 +150,8 @@ namespace wojilu.Web {
 
         public void UserLogin( int userId, String userName, LoginTime expiration ) { }
         public void UserLogin( String cookieName, int userId, String userName, LoginTime expiration ) { }
+        public void UserLogin( int userId, String userName, DateTime expiration ) { }
+        public void UserLogin( String cookieName, int userId, String userName, DateTime expiration ) { }
 
         public void setUserId( int userId ) {
             _userId = userId;
