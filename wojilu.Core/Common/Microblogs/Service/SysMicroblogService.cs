@@ -54,7 +54,7 @@ namespace wojilu.Common.Microblogs.Service {
         public virtual DataPage<Microblog> GetPageByCondition( String condition, int pageSize ) {
             DataPage<Microblog> list;
             if (strUtil.HasText( condition )) {
-                list = db.findPage<Microblog>( condition + " and " + showCondition() );
+                list = db.findPage<Microblog>( condition + " and " + showCondition(), pageSize );
             }
             else {
                 list = DataPage<Microblog>.GetEmpty();
@@ -66,7 +66,7 @@ namespace wojilu.Common.Microblogs.Service {
 
         public virtual DataPage<Microblog> GetSysTrashPage( int pageSize ) {
 
-            return Microblog.findPage( "SaveStatus=" + SaveStatus.SysDelete );
+            return Microblog.findPage( "SaveStatus=" + SaveStatus.SysDelete, pageSize );
 
         }
 

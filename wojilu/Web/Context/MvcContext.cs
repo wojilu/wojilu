@@ -35,6 +35,8 @@ namespace wojilu.Web.Context {
     /// </summary>
     public class MvcContext {
 
+        private static readonly ILog logger = LogManager.GetLogger( typeof( MvcContext ) );
+
         private IWebContext _context;
         private MvcContextUtils _thisUtils;
         private Boolean _isMock = false;
@@ -370,10 +372,18 @@ namespace wojilu.Web.Context {
             return 0;
         }
 
+        private String _ip;
+
         /// <summary>
         /// 获取客户端 ip 地址
         /// </summary>
-        public String Ip { get { return getIp(); } }
+        public String Ip {
+            get {
+                if (_ip != null) return _ip;
+                _ip = getIp();
+                return _ip;
+            }
+        }
 
         private String getIp() {
 
@@ -382,6 +392,10 @@ namespace wojilu.Web.Context {
                 ip = _context.ClientVar( "HTTP_X_FORWARDED_FOR" );
             else
                 ip = _context.ClientVar( "REMOTE_ADDR" );
+
+            logger.Info( "HTTP_VIA=" + _context.ClientVar( "HTTP_VIA" ) );
+            logger.Info( "HTTP_X_FORWARDED_FOR=" + _context.ClientVar( "HTTP_X_FORWARDED_FOR" ) );
+            logger.Info( "REMOTE_ADDR=" + _context.ClientVar( "REMOTE_ADDR" ) );
 
             return checkIp( ip );
         }
