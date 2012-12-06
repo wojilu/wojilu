@@ -88,6 +88,7 @@
     <Content Include="framework\views\Admin\Apps\Photo\Main\Layout.html" />
     <Content Include="framework\views\Admin\Apps\Photo\PostAdmin\Picked.html" />
     <Content Include="framework\views\Admin\Apps\Photo\PostAdmin\Trash.html" />
+    <Content Include="framework\views\Admin\Apps\Photo\Setting\Index.html" />
     <Content Include="framework\views\Admin\Apps\Photo\SysCategory\Add.html" />
     <Content Include="framework\views\Admin\Apps\Photo\SysCategory\Edit.html" />
     <Content Include="framework\views\Admin\Apps\Photo\SysCategory\List.html" />

@@ -38,6 +38,7 @@ namespace wojilu.Web.Controller.Photo.Wf {
             set( "trashLink", to( new wojilu.Web.Controller.Admin.Apps.Photo.PostAdminController().Trash ) );
             set( "commentLink", to( new wojilu.Web.Controller.Admin.Apps.Photo.CommentController().List ) + "?type=" + typeof( PhotoPostComment ).FullName );
             set( "categoryLink", to( new wojilu.Web.Controller.Admin.Apps.Photo.SysCategoryController().List ) );
+            set( "settingLink", to( new wojilu.Web.Controller.Admin.Apps.Photo.SettingController().Index ) );
         }
 
         private void bindCategories() {
