@@ -11,6 +11,7 @@ using wojilu.Web.Mvc;
 using wojilu.Common.AppBase.Interface;
 using wojilu.Members.Sites.Domain;
 using System.IO;
+using wojilu.Web.Controller.Content.Section;
 
 namespace wojilu.Web.Controller.Content.Caching {
 
@@ -124,7 +125,7 @@ namespace wojilu.Web.Controller.Content.Caching {
             observe( img.Delete );
             observe( img.DeleteImg );
 
-            Admin.Section.PollController poll = new wojilu.Web.Controller.Content.Admin.Section.PollController();
+            CmsPollController poll = new CmsPollController();
             observe( poll.Create );
             observe( poll.Delete );
         }

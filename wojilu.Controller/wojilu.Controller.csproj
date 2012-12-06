@@ -157,6 +157,7 @@
     <Compile Include="Content\Caching\HtmlMaker\HtmlListMaker.cs" />
     <Compile Include="Content\Caching\HtmlMaker\HtmlMakerBase.cs" />
     <Compile Include="Content\Caching\HtmlMaker\HtmlRecentMaker.cs" />
+    <Compile Include="Content\Section\CmsPollController.cs" />
     <Compile Include="Content\SidebarController.cs" />
     <Compile Include="Content\Utils\clink.cs" />
     <Compile Include="Forum\Admin\ForumPickController.cs" />
@@ -333,7 +334,6 @@
     <Compile Include="Content\Submit\PostController.cs" />
     <Compile Include="Content\Submit\AdminController.cs" />
     <Compile Include="Content\Utils\TemplateUtil.cs" />
-    <Compile Include="Content\Views\ContentPollExtViewService.cs" />
     <Compile Include="Forum\Admin\partial\BoardController.cs" />
     <Compile Include="Forum\Admin\PickedImgController.cs" />
     <Compile Include="Forum\Admin\SettingController.cs" />

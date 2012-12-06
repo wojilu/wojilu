@@ -39,105 +39,115 @@ namespace wojilu.Web.Controller.Content.Section {
 
         public void SectionShow( int sectionId ) {
 
-            set( "pollSectionLink", to( SectionDetail, sectionId ) );
-
-            //ContentPoll c = pollService.GetRecentPoll( ctx.app.Id, sectionId );
-            //if (c == null) {
-            //    actionContent( "" );
-            //    return;
-            //}
-
-            //bindPollDetail( sectionId, c );
-        }
-
-
-        public void SectionDetail( int sectionId ) {
 
             ContentPoll c = pollService.GetRecentPoll( ctx.app.Id, sectionId );
             if (c == null) {
                 actionContent( "" );
-                return;
+            }
+            else {
+                ctx.SetItem( "poll", c );
+                load( "pollHtml", new CmsPollController().Detail );
             }
 
-            bindPollDetail( sectionId, c );
+            //set( "pollSectionLink", to( SectionDetail, sectionId ) );
 
+            ////ContentPoll c = pollService.GetRecentPoll( ctx.app.Id, sectionId );
+            ////if (c == null) {
+            ////    actionContent( "" );
+            ////    return;
+            ////}
 
+            ////bindPollDetail( sectionId, c );
         }
 
-        public void Vote( int pollId ) {
 
-            int sectionId = ctx.GetInt( "sectionId" );
+        //public void SectionDetail( int sectionId ) {
 
-            ContentPoll poll = pollService.GetById( pollId );
-            if (poll == null) {
-                actionContent( lang( "exPollNotFound" ) );
-                return;
-            }
+        //    ContentPoll c = pollService.GetRecentPoll( ctx.app.Id, sectionId );
+        //    if (c == null) {
+        //        actionContent( "" );
+        //        return;
+        //    }
 
-            ContentPost post = postService.GetById( poll.TopicId, ctx.owner.Id );
-            if (post == null || post.PageSection.Id != sectionId) {
-                actionContent( lang( "exPollNotFound" ) );
-                return;
-            }
+        //    bindPollDetail( sectionId, c );
 
-            if (poll.CheckHasVote( ctx.viewer.Id )) {
-                actionContent( alang( "exVoted" ) );
-                return;
-            }
 
-            String choice = ctx.Get( "pollOption" );
-            ContentPollResult pr = new ContentPollResult();
-            pr.User = (User)ctx.viewer.obj;
-            pr.PollId = poll.Id;
-            pr.Answer = choice;
-            pr.Ip = ctx.Ip;
+        //}
 
-            //String lnkPoll = to( Show, poll.TopicId );
-            String lnkPoll = alink.ToAppData( post, ctx );
+        //public void Vote( int pollId ) {
 
-            pollService.CreateResult( pr, lnkPoll );
+        //    int sectionId = ctx.GetInt( "sectionId" );
 
-            String url = to( VoteResult, poll.Id ) + "?sectionId=" + sectionId;
+        //    ContentPoll poll = pollService.GetById( pollId );
+        //    if (poll == null) {
+        //        actionContent( lang( "exPollNotFound" ) );
+        //        return;
+        //    }
 
-            echoRedirect( alang( "pollDone" ), url );
-        }
+        //    ContentPost post = postService.GetById( poll.TopicId, ctx.owner.Id );
+        //    if (post == null || post.PageSection.Id != sectionId) {
+        //        actionContent( lang( "exPollNotFound" ) );
+        //        return;
+        //    }
 
-        public void VoteResult( int pollId ) {
+        //    if (poll.CheckHasVote( ctx.viewer.Id )) {
+        //        actionContent( lang( "exVoted" ) );
+        //        return;
+        //    }
 
-            int sectionId = ctx.GetInt( "sectionId" );
+        //    String choice = ctx.Get( "pollOption" );
+        //    ContentPollResult pr = new ContentPollResult();
+        //    pr.User = (User)ctx.viewer.obj;
+        //    pr.PollId = poll.Id;
+        //    pr.Answer = choice;
+        //    pr.Ip = ctx.Ip;
 
-            ContentPoll poll = pollService.GetById( pollId );
-            if (poll == null) {
-                actionContent( lang( "exPollNotFound" ) );
-                return;
-            }
+        //    //String lnkPoll = to( Show, poll.TopicId );
+        //    String lnkPoll = alink.ToAppData( post, ctx );
 
-            ctx.SetItem( "poll", poll );
-            ctx.SetItem( "sectionId", sectionId );
+        //    pollService.CreateResult( pr, lnkPoll );
 
-            load( "voteResult", sectionPollResult );
+        //    String url = to( VoteResult, poll.Id ) + "?sectionId=" + sectionId;
 
-        }
+        //    echoRedirect( lang( "pollDone" ), url );
+        //}
 
-        public void Voter( int pollId ) {
+        //public void VoteResult( int pollId ) {
 
-            int sectionId = ctx.GetInt( "sectionId" );
+        //    int sectionId = ctx.GetInt( "sectionId" );
 
-            ContentPoll poll = pollService.GetById( pollId );
-            if (poll == null) {
-                actionContent( lang( "exPollNotFound" ) );
-                return;
-            }
+        //    ContentPoll poll = pollService.GetById( pollId );
+        //    if (poll == null) {
+        //        actionContent( lang( "exPollNotFound" ) );
+        //        return;
+        //    }
 
-            ContentPost post = postService.GetById( poll.TopicId, ctx.owner.Id );
-            if( post == null ) {
-            //if (post == null || post.PageSection.Id != sectionId) {
-                actionContent( lang( "exPollNotFound" ) );
-                return;
-            }
+        //    ctx.SetItem( "poll", poll );
+        //    ctx.SetItem( "sectionId", sectionId );
 
-            bindVoterList( poll, sectionId );
-        }
+        //    load( "voteResult", sectionPollResult );
+
+        //}
+
+        //public void Voter( int pollId ) {
+
+        //    int sectionId = ctx.GetInt( "sectionId" );
+
+        //    ContentPoll poll = pollService.GetById( pollId );
+        //    if (poll == null) {
+        //        actionContent( lang( "exPollNotFound" ) );
+        //        return;
+        //    }
+
+        //    ContentPost post = postService.GetById( poll.TopicId, ctx.owner.Id );
+        //    if( post == null ) {
+        //    //if (post == null || post.PageSection.Id != sectionId) {
+        //        actionContent( lang( "exPollNotFound" ) );
+        //        return;
+        //    }
+
+        //    bindVoterList( poll, sectionId );
+        //}
 
         public void List( int sectionId ) {
 
@@ -152,7 +162,8 @@ namespace wojilu.Web.Controller.Content.Section {
             List<ContentPoll> polls = pollService.GetByTopicList( list.Results );
             ctx.SetItem( "sectionId", sectionId );
 
-            bindList( section, list, polls );
+            // TODO
+            //bindList( section, list, polls );
         }
 
         public void Show( int id ) {
@@ -162,7 +173,8 @@ namespace wojilu.Web.Controller.Content.Section {
 
             postService.AddHits( post );
 
-            bindDetail( post, poll );
+            // TODO
+            //bindDetail( post, poll );
 
         }
 

@@ -15,7 +15,7 @@ namespace wojilu.Web.Controller.Content.Admin.Section {
     public partial class PollController : ControllerBase, IPageSection {
 
         private void bindPollSection( int sectionId, ContentPoll c ) {
-            set( "addLink", to( Add, sectionId ) );
+            //set( "addLink", to( Add, sectionId ) );
             set( "listLink", to( List, sectionId ) );
             set( "section.Id", sectionId );
 

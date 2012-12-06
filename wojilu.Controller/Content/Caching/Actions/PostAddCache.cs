@@ -5,6 +5,7 @@ using wojilu.Web.Mvc;
 using System.IO;
 using wojilu.Web.Context;
 using wojilu.Apps.Content.Domain;
+using wojilu.Web.Controller.Content.Section;
 
 namespace wojilu.Web.Controller.Content.Caching.Actions {
 
@@ -47,8 +48,9 @@ namespace wojilu.Web.Controller.Content.Caching.Actions {
             observe( img.UpdateListInfo );
             observe( img.DeleteImg );
 
-            Admin.Section.PollController poll = new wojilu.Web.Controller.Content.Admin.Section.PollController();
+            CmsPollController poll = new CmsPollController();
             observe( poll.Create );
+            observe( poll.Delete );
         }
 
         public override void UpdateCache( Context.MvcContext ctx ) {

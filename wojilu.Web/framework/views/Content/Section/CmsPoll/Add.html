@@ -1,0 +1,146 @@
+﻿<style>
+input.width300 {width:450px;}
+.tdL { text-align:right;}
+</style>
+
+<script>
+    _run(function () {
+
+        wojilu.ui.valid();
+        wojilu.ui.ajaxPostForm();
+
+        $('#pollOptionAdd').click(function () {
+            var optionCount = parseInt($('#optionCount').text()) + 1;
+            if (optionCount > 20) { alert('_{exPollMaxTwoOptions}'); return; }
+
+            $(this).parent().parent().before(' <tr><td class="tdL">_{option}' + optionCount + '</td><td><input name="Answer" type="text" class="width300" maxlength="50" /></td></tr>');
+            $('#optionCount').text(optionCount);
+        });
+
+        $('#pollOptionRemove').click(function () {
+            var optionCount = parseInt($('#optionCount').text());
+            if (optionCount <= 2) { alert('_{exPollMinTwoOptions}'); return; }
+
+            $(this).parent().parent().prev().remove();
+
+            optionCount -= 1;
+            $('#optionCount').text(optionCount);
+        });
+
+        $('#btnMore').click(function () {
+            $('#moreOption').toggle();
+        });
+
+
+    });	
+
+</script>
+
+<div style="padding-top:10px;width:620px; height:450px;">
+
+	<form action="#{ActionLink}" method="post" id="pollPollForm" class="form-horizontal">
+    <table style="width:98%;">
+
+        <tr>
+            <td class="tdL">_{pollTitle}</td>
+            <td><input name="Title" style="width: 450px" type="text" ><span class="valid" mode="border" to="Title"></span></td>    
+        </tr>
+
+        <tr>
+            <td class="tdL">_{pollType}</td>
+            <td><label class="radio inline">
+                <input id="ptype1" name="PollType" type="radio" value="0" #{singleCheck} /> _{singleChoice}</label>
+                <label class="radio inline">
+                <input id="ptype2" name="PollType" type="radio" value="1" #{multiCheck} /> _{multiChoice}</label>
+            </td>
+        </tr>
+
+        <tr>
+            <td class="tdL" style=" vertical-align:top;">_{pollNote}<br /><span class="label label-info note">(_{optional})</span></td>
+            <td><div  style="width:100%;">#{Editor}</div></td>
+        </tr>
+
+        <tr>
+            <td class="tdL">_{option}1</td>
+            <td><input name="Answer" type="text" class="width300" maxlength="50" /></td>
+        </tr>
+
+        <tr>
+            <td class="tdL">_{option}2</td>
+            <td><input name="Answer" type="text" class="width300" maxlength="50" /></td>
+        </tr>
+
+        <tr>
+            <td class="tdL">_{option}3</td>
+            <td><input name="Answer" type="text" class="width300" maxlength="50" /></td>
+        </tr>
+
+        <tr>
+            <td class="tdL">_{option}4</td>
+            <td><input name="Answer" type="text" class="width300" maxlength="50" /></td>
+        </tr>
+
+        <tr>
+            <td></td>
+            <td style="padding-left:5px;">
+                    <span class="btn btn-mini" id="pollOptionAdd">+ _{addOneOption}</span>
+                    <span class="btn btn-mini left10" id="pollOptionRemove">- _{deleteOneOption}</span>
+            </td>
+        </tr>
+
+        <tr>
+            <td></td>
+            <td style="padding-top:5px;">
+            
+                <button name="btnSubmit" type="submit" class="btn btn-primary">
+                    <img src="~skin/apps/forum/wojilu.Apps.Forum.Domain.ForumPoll.gif">
+                    _{pubPoll}
+                </button>
+
+                <span id="btnMore" class="btn btn-mini left20"><i class="icon-hand-right"></i> 其他设置...</span>
+
+                <input name="appId" type="hidden" value="#{appId}" />
+
+            </td>
+        </tr>
+
+        <tr>
+            <td></td>
+            <td>
+                <div class="hide" id="optionCount">4</div>
+
+
+                <table id="moreOption" style="display:none;">
+
+                    <tr>
+                        <td>_{effectiveDay}</td>
+                        <td>
+                            <input name="Days" type="text" value="0" style="width:30px;" />
+                            <span class="help-inline note">_{dayTip}</span>
+                        </td>
+                    </tr>
+
+                    <tr">
+                        <td>_{otherRequirements}</td>
+                        <td>
+                            <label class="checkbox inline">
+                                <input name="IsVisible" id="pIsVisible" type="checkbox" /> _{isVisible}
+                            </label>
+                            <label class="checkbox inline">
+                                <input name="OpenVoter" id="pOpenVoter" type="checkbox" />_{isVoterOpen}
+                            </label>
+                        </td>
+                    </tr>
+
+                </table>
+
+            </td>
+        </tr>
+
+
+        </table>
+
+	</form>
+
+</div>
+

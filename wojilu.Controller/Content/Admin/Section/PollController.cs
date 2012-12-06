@@ -15,6 +15,7 @@ using wojilu.Apps.Content.Service;
 using wojilu.Web.Controller.Poll.Utils;
 using wojilu.Common.AppBase;
 using wojilu.Web.Controller.Content.Caching;
+using wojilu.Web.Controller.Content.Section;
 
 namespace wojilu.Web.Controller.Content.Admin.Section {
 
@@ -46,8 +47,23 @@ namespace wojilu.Web.Controller.Content.Admin.Section {
 
         public void AdminSectionShow( int sectionId ) {
 
+            set( "section.Id", sectionId );
+            set( "addLink", to( new CmsPollController().Add, sectionId ) );
+            set( "listLink", to( new CmsPollController().List, sectionId ) );
+
             ContentPoll c = pollService.GetRecentPoll( ctx.app.Id, sectionId );
-            bindPollSection( sectionId, c );
+
+            if (c == null) {
+                set( "pollHtml", "" );
+            }
+            else {
+
+
+                ctx.SetItem( "poll", c );
+                load( "pollHtml", new CmsPollController().Detail );
+            }
+
+            //bindPollSection( sectionId, c );
         }
 
         public void List( int sectionId ) {
@@ -57,11 +73,11 @@ namespace wojilu.Web.Controller.Content.Admin.Section {
         }
 
 
-        public void Add( int sectionId ) {
-            target( Create, sectionId );
-            set( "optionCount", 5 );
-            editor( "Question", "", "80px" );
-        }
+        //public void Add( int sectionId ) {
+        //    target( Create, sectionId );
+        //    set( "optionCount", 5 );
+        //    editor( "Question", "", "80px" );
+        //}
 
         [HttpDelete, DbTransaction]
         public void Delete( int id ) {
@@ -74,26 +90,26 @@ namespace wojilu.Web.Controller.Content.Admin.Section {
             HtmlHelper.SetCurrentPost( ctx, post );
         }
 
-        [HttpPost, DbTransaction]
-        public void Create( int sectionId ) {
+        //[HttpPost, DbTransaction]
+        //public void Create( int sectionId ) {
 
-            ContentPoll poll = new PollValidator<ContentPoll>().Validate( ctx );
-            if (errors.HasErrors) {
-                run( Add, sectionId );
-                return;
-            }
+        //    ContentPoll poll = new PollValidator<ContentPoll>().Validate( ctx );
+        //    if (errors.HasErrors) {
+        //        run( Add, sectionId );
+        //        return;
+        //    }
 
-            Result result = pollService.CreatePoll( sectionId, poll );
-            if (result.HasErrors) {
-                echo( result.ErrorsHtml );
-                return;
-            }
+        //    Result result = pollService.CreatePoll( sectionId, poll );
+        //    if (result.HasErrors) {
+        //        echo( result.ErrorsHtml );
+        //        return;
+        //    }
 
-            ContentPost post = postService.GetById( poll.TopicId, ctx.owner.Id );
+        //    ContentPost post = postService.GetById( poll.TopicId, ctx.owner.Id );
 
-            echoToParentPart( lang( "opok" ) );
-            HtmlHelper.SetCurrentPost( ctx, post );
-        }
+        //    echoToParentPart( lang( "opok" ) );
+        //    HtmlHelper.SetCurrentPost( ctx, post );
+        //}
 
     }
 }

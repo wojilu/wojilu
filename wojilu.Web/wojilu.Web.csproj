@@ -291,6 +291,11 @@
     <Content Include="framework\views\Content\Binder\Video.html" />
     <Content Include="framework\views\Content\Content\IndexPage.html" />
     <Content Include="framework\views\Content\Layout\Layout.html" />
+    <Content Include="framework\views\Content\Section\CmsPoll\Add.html" />
+    <Content Include="framework\views\Content\Section\CmsPoll\Detail.html" />
+    <Content Include="framework\views\Content\Section\CmsPoll\pollForm.html" />
+    <Content Include="framework\views\Content\Section\CmsPoll\pollResult.html" />
+    <Content Include="framework\views\Content\Section\CmsPoll\Voter.html" />
     <Content Include="framework\views\Content\Section\Img\List.html" />
     <Content Include="framework\views\Content\Section\Img\SectionShow.html" />
     <Content Include="framework\views\Content\Section\Img\Show.html" />
