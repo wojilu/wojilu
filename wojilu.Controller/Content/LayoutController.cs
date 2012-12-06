@@ -32,7 +32,7 @@ namespace wojilu.Web.Controller.Content {
             ctx.SetItem( "_moduleUrl", moduleUrlList );
 
             // admin link
-            set( "allPostsLink", to( new Admin.PostController().List ) );
+            set( "allPostsLink", to( new Admin.PostController().List, 0 ) );
             set( "trashPostsLink", to( new Admin.PostController().Trash ) );
             set( "settingLink", to( new Admin.SettingController().Index ) );
             set( "defaultLink", to( new Admin.ContentController().Home ) );

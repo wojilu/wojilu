@@ -298,7 +298,7 @@ namespace wojilu.Apps.Content.Service {
         }
 
         public virtual DataPage<ContentPost> GetPageBySection( int sectionId ) {
-            return db.findPage<ContentPost>( "PageSection.Id=" + sectionId + " and SaveStatus=" + SaveStatus.Normal );
+            return GetPageBySection( sectionId, 20 );
         }
 
         public virtual DataPage<ContentPost> GetPageBySection( int sectionId, int pageSize ) {

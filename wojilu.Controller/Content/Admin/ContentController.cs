@@ -35,7 +35,7 @@ namespace wojilu.Web.Controller.Content.Admin {
 
 
         public void Index() {
-            set( "indexLink", to( new PostController().List ) );
+            set( "indexLink", to( new PostController().List, 0 ) );
         }
 
         public void Home() {

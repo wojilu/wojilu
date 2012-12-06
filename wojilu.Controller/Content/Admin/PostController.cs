@@ -146,7 +146,7 @@ namespace wojilu.Web.Controller.Content.Admin {
             attachService.UpdateAtachments( arrAttachmentIds, post );
 
             if (ctx.GetInt( "fromList" ) > 0) {
-                echoRedirectPart( lang( "opok" ), to( List ), 1 );
+                echoRedirectPart( lang( "opok" ), to( List, 0 ), 1 );
             }
             else {
                 echoToParentPart( lang( "opok" ) );
@@ -280,7 +280,7 @@ namespace wojilu.Web.Controller.Content.Admin {
 
         //--------------------------------------------------------------------------------------------------------
 
-        public void List() {
+        public void List( int sectionId ) {
 
             set( "addUrl", to( Add, 0 ) );
 
@@ -292,20 +292,27 @@ namespace wojilu.Web.Controller.Content.Admin {
 
             set( "tagAction", to( SaveTag ) );
 
-            DataPage<ContentPost> posts = postService.GetByApp( ctx.app.Id, 50 );
+            DataPage<ContentPost> posts;
+            if (sectionId <= 0) {
+                posts = postService.GetByApp( ctx.app.Id, 50 );
+            }
+            else {
+                posts = postService.GetPageBySection( sectionId, 50 );
+            }
 
             bool isTrash = false;
             bindAdminList( posts, isTrash );
 
-            //bindCategories(app);
+            bindCategories( app );
 
             target( Search );
         }
 
-        //private void bindCategories( ContentApp app ) {
-        //    List<ContentSection> sections = sectionService.GetInputSectionsByApp( app.Id );
-        //    bindList( "cats", "category", sections );
-        //}
+        private void bindCategories( ContentApp app ) {
+            List<ContentSection> sections = sectionService.GetInputSectionsByApp( app.Id );
+            sections.ForEach( x => x.data["SectionLink"] = to( List, x.Id ) );
+            bindList( "cats", "x", sections );
+        }
 
         public void SaveTag() {
 
@@ -402,7 +409,7 @@ namespace wojilu.Web.Controller.Content.Admin {
             String ids = ctx.PostIdList( "choice" );
 
             if (strUtil.IsNullOrEmpty( ids )) {
-                redirect( List );
+                redirect( List, 0 );
                 return;
             }
 
