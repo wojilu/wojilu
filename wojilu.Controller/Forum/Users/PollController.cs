@@ -222,12 +222,12 @@ namespace wojilu.Web.Controller.Forum.Users {
 
             ForumPoll poll = pollService.GetById( id );
             if (poll == null) {
-                echoError( alang( "exPollItemNotFound" ) );
+                echoError( lang( "exPollItemNotFound" ) );
                 return;
             }
 
             if (poll.CheckHasVote( ctx.viewer.Id )) {
-                echoError( alang( "exVoted" ) );
+                echoError( lang( "exVoted" ) );
                 return;
             }
 
@@ -254,7 +254,7 @@ namespace wojilu.Web.Controller.Forum.Users {
             ForumPoll poll = pollService.GetById( id );
 
             if (poll == null) {
-                echoText( alang( "exPollItemNotFound" ) );
+                echoText( lang( "exPollItemNotFound" ) );
                 return;
             }
 
