@@ -4,11 +4,10 @@
 
 using System;
 using System.Collections.Generic;
-using System.Text;
 
-using wojilu.Serialization;
-using wojilu.Members.Users.Domain;
 using wojilu.Common.Feeds.Service;
+
+using wojilu.Members.Users.Domain;
 
 namespace wojilu.Common.Feeds.Domain {
 
@@ -48,7 +47,7 @@ namespace wojilu.Common.Feeds.Domain {
         }
 
         public void Publish() {
-            new FeedService().publishUserAction( creator, typeFullName, templateId, JSON.DicToString( dic ), commentContet, ip );
+            new FeedService().publishUserAction( creator, typeFullName, templateId, Json.SerializeDic( dic ), commentContet, ip );
         }
     }
 

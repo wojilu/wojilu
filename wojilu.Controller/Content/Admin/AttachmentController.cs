@@ -1,20 +1,20 @@
-﻿using System;
+﻿/*
+ * Copyright (c) 2010, www.wojilu.com. All rights reserved.
+ */
+
+using System;
 using System.Collections.Generic;
-using System.Text;
 
 using wojilu.Web.Mvc;
 using wojilu.Web.Mvc.Attr;
 using wojilu.Web.Utils;
 
 using wojilu.Members.Users.Domain;
-using wojilu.Common.AppBase.Interface;
 
 using wojilu.Apps.Content.Interface;
 using wojilu.Apps.Content.Domain;
 using wojilu.Apps.Content.Service;
 using wojilu.Common.AppBase;
-using wojilu.DI;
-using wojilu.Serialization;
 
 namespace wojilu.Web.Controller.Content.Admin {
 
@@ -200,7 +200,7 @@ namespace wojilu.Web.Controller.Content.Admin {
                 dic.Add( "DeleteLink", "" );
                 dic.Add( "Msg", result.ErrorsText );
 
-                echoText( JsonString.ConvertDictionary( dic ) );
+                echoText( Json.SerializeDic( dic ) );
             }
             else {
 
@@ -211,7 +211,7 @@ namespace wojilu.Web.Controller.Content.Admin {
                 dic.Add( "DeleteLink", deleteLink );
                 dic.Add( "Id", att.Id.ToString() );
 
-                echoText( JsonString.ConvertDictionary( dic ) );
+                echoText( Json.SerializeDic( dic ) );
             }
 
         }

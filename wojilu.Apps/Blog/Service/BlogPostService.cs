@@ -7,7 +7,6 @@ using System.Collections.Generic;
 
 using wojilu.Web;
 using wojilu.Web.Mvc;
-using wojilu.Serialization;
 
 using wojilu.Common;
 using wojilu.Common.AppBase;
@@ -271,7 +270,7 @@ namespace wojilu.Apps.Blog.Service {
 
             Dictionary<string, object> dic = new Dictionary<string, object>();
             dic.Add( "blog", blog );
-            String templateData = JSON.DicToString( dic );
+            String templateData = Json.SerializeDic( dic );
 
             TemplateBundle tplBundle = TemplateBundle.GetBlogTemplateBundle();
             new FeedService().publishUserAction( data.Creator, typeof( BlogPost ).FullName, tplBundle.Id, templateData, "", data.Ip );

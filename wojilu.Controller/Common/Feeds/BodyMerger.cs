@@ -4,7 +4,6 @@
 
 using System;
 using System.Collections.Generic;
-using wojilu.Serialization;
 
 namespace wojilu.Web.Controller.Common.Feeds {
 
@@ -28,21 +27,21 @@ namespace wojilu.Web.Controller.Common.Feeds {
 
         private void mergeBodyData( ) {
 
-            Dictionary<string, object> dic = JSON.ToDictionary( feed.BodyData );
-            Dictionary<string, object> dicTarget = JSON.ToDictionary( target.BodyData );
+            Dictionary<string, object> dic = Json.DeserializeDic( feed.BodyData );
+            Dictionary<string, object> dicTarget = Json.DeserializeDic( target.BodyData );
 
             String mergeKey = getMergeKey( dic, dicTarget );
 
             if( strUtil.HasText( mergeKey) )
                 dicTarget[mergeKey] = dicTarget[mergeKey] + " " + dic[mergeKey];
 
-            target.BodyData = JSON.DicToString( dicTarget );
+            target.BodyData = Json.SerializeDic( dicTarget );
         }
 
         private void mergeNumberInTitle() {
 
-            Dictionary<string, object> dic = JSON.ToDictionary( feed.TitleData );
-            Dictionary<string, object> dicTarget = JSON.ToDictionary( target.TitleData );
+            Dictionary<string, object> dic = Json.DeserializeDic( feed.TitleData );
+            Dictionary<string, object> dicTarget = Json.DeserializeDic( target.TitleData );
 
             foreach (KeyValuePair<string, object> kv in dic) {
 
@@ -56,7 +55,7 @@ namespace wojilu.Web.Controller.Common.Feeds {
 
                     dicTarget[kv.Key] = val + valNumber;
 
-                    target.TitleData = JSON.DicToString( dicTarget );
+                    target.TitleData = Json.SerializeDic( dicTarget );
 
                 }
 

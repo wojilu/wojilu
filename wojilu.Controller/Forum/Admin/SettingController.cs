@@ -1,11 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿/*
+ * Copyright (c) 2010, www.wojilu.com. All rights reserved.
+ */
+
+using System;
 
 using wojilu.Web.Mvc;
 using wojilu.Web.Mvc.Attr;
 using wojilu.Apps.Forum.Domain;
-using wojilu.Serialization;
 
 namespace wojilu.Web.Controller.Forum.Admin {
 
@@ -30,7 +31,7 @@ namespace wojilu.Web.Controller.Forum.Admin {
             s.MetaDescription = strUtil.CutString( s.MetaDescription, 500 );
 
             ForumApp app = ctx.app.obj as ForumApp;
-            app.Settings = JsonString.ConvertObject( s );
+            app.Settings = Json.Serialize( s );
             app.update();
 
             echoRedirect( lang( "opok" ) );

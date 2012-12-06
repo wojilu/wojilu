@@ -3,17 +3,18 @@
  */
 
 using System;
+using System.Collections.Generic;
 
 using wojilu.ORM;
-using wojilu.Web.Mvc;
+
 using wojilu.Common.Comments;
-using wojilu.Members.Users.Domain;
 using wojilu.Common.Feeds.Domain;
 using wojilu.Common.Feeds.Service;
-using wojilu.Common.Msg.Service;
 using wojilu.Common.Msg.Enum;
-using wojilu.Serialization;
-using System.Collections.Generic;
+using wojilu.Common.Msg.Service;
+
+using wojilu.Members.Users.Domain;
+
 
 namespace wojilu.Apps.Blog.Domain {
 
@@ -79,7 +80,7 @@ namespace wojilu.Apps.Blog.Domain {
             dic.Add( "target", target );
             dic.Add( "blog", blog );
 
-            return JSON.DicToString( dic );
+            return Json.SerializeDic( dic );
         }
 
         public void AddNotification( String lnkTarget ) {

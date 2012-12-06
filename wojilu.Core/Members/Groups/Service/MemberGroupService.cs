@@ -6,17 +6,18 @@ using System;
 using System.Collections.Generic;
 
 using wojilu.Web.Mvc;
-using wojilu.Members.Groups.Domain;
-using wojilu.Members.Users.Domain;
-using wojilu.Members.Users.Service;
-using wojilu.Common.Msg.Service;
-using wojilu.Common.Feeds.Service;
+
 using wojilu.Common.Feeds.Domain;
-using wojilu.Common.Msg.Interface;
-using wojilu.Members.Users.Interface;
 using wojilu.Common.Feeds.Interface;
+using wojilu.Common.Feeds.Service;
+using wojilu.Common.Msg.Interface;
+using wojilu.Common.Msg.Service;
+
+using wojilu.Members.Groups.Domain;
 using wojilu.Members.Groups.Interface;
-using wojilu.Serialization;
+using wojilu.Members.Users.Domain;
+using wojilu.Members.Users.Interface;
+using wojilu.Members.Users.Service;
 
 namespace wojilu.Members.Groups.Service {
 
@@ -165,7 +166,7 @@ namespace wojilu.Members.Groups.Service {
             String lnk = string.Format( "<a href=\"{0}\">{1}</a>", Link.ToMember( g ), g.Name );
             Dictionary<string, object> dic = new Dictionary<string, object>();
             dic.Add( "group", lnk );
-            return JSON.DicToString( dic );
+            return Json.SerializeDic( dic );
         }
 
         public virtual void JoinCreateGroup( User user, Group group, String ip ) {

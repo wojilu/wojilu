@@ -4,9 +4,7 @@
 
 using System;
 using System.Collections.Generic;
-using System.Text;
-using wojilu.Serialization;
-using wojilu.Common.AppBase.Interface;
+
 using wojilu.Common.AppBase;
 
 namespace wojilu.Apps.Forum.Domain {
@@ -44,7 +42,7 @@ namespace wojilu.Apps.Forum.Domain {
             List<StickyTopic> stickyList = GetTopics( json );
             List<StickyTopic> results = mergeData( stickyList, newTopics );
 
-            return SimpleJsonString.ConvertList( results );
+            return Json.SerializeListSimple( results );
         }
 
         private static List<StickyTopic> mergeData( List<StickyTopic> stickyList, List<ForumTopic> newTopics ) {
@@ -83,7 +81,7 @@ namespace wojilu.Apps.Forum.Domain {
             List<StickyTopic> stickyList = GetTopics( json );
             List<StickyTopic> results = subtractData( stickyList, newStickTopics );
 
-            return SimpleJsonString.ConvertList( results );
+            return Json.SerializeListSimple( results );
         }
 
         private static List<StickyTopic> subtractData( List<StickyTopic> stickyList, List<ForumTopic> newStickTopics ) {
@@ -168,7 +166,7 @@ namespace wojilu.Apps.Forum.Domain {
 
         private static List<StickyTopic> GetTopics( String json ) {
 
-            List<StickyTopic> results = JSON.ToList<StickyTopic>( json );
+            List<StickyTopic> results = Json.DeserializeList<StickyTopic>( json );
             results.Sort();
 
             return results;
@@ -185,7 +183,7 @@ namespace wojilu.Apps.Forum.Domain {
             StickyTopic t = getById( topics, topicId );
             SortUtil<StickyTopic> s = new SortUtil<StickyTopic>( t, topics );
             s.MoveUp();
-            return SimpleJsonString.ConvertList( s.GetOrderedList() );
+            return Json.SerializeListSimple( s.GetOrderedList() );
 
         }
 
@@ -194,7 +192,7 @@ namespace wojilu.Apps.Forum.Domain {
             StickyTopic t = getById( topics, topicId );
             SortUtil<StickyTopic> s = new SortUtil<StickyTopic>( t, topics );
             s.MoveDown();
-            return SimpleJsonString.ConvertList( s.GetOrderedList() );
+            return Json.SerializeListSimple( s.GetOrderedList() );
         }
 
         private static StickyTopic getById( List<StickyTopic> topics, int topicId ) {

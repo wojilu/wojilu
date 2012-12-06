@@ -3,22 +3,20 @@
  */
 
 using System;
-using System.IO;
+using System.Collections.Generic;
+
+using wojilu.Apps.Photo.Interface;
+using wojilu.Apps.Photo.Service;
+
+using wojilu.Common;
+using wojilu.Common.Microblogs.Domain;
+using wojilu.Common.Microblogs.Interface;
+using wojilu.Common.Microblogs.Service;
+
+using wojilu.Members.Users.Domain;
 
 using wojilu.Web.Mvc;
 using wojilu.Web.Mvc.Attr;
-using wojilu.Web.Utils;
-using wojilu.Members.Users.Domain;
-using wojilu.Common.Microblogs.Service;
-using wojilu.Common.Microblogs.Domain;
-using wojilu.Common.Microblogs.Interface;
-using wojilu.Apps.Photo.Domain;
-using wojilu.Apps.Photo.Interface;
-using wojilu.Apps.Photo.Service;
-using wojilu.Web.Controller.Users.Admin;
-using System.Collections.Generic;
-using wojilu.Serialization;
-using wojilu.Common;
 
 namespace wojilu.Web.Controller.Microblogs {
 
@@ -81,7 +79,7 @@ namespace wojilu.Web.Controller.Microblogs {
             dic.Add( "SrcType", "shareBox" );
             dic.Add( "ForwardUrl", "" );
 
-            echoJson( JsonString.Convert( dic ) );
+            echoJson( Json.Serialize( dic ) );
         }
 
         private void returnOneBlogHtml( Microblog blog ) {
@@ -96,7 +94,7 @@ namespace wojilu.Web.Controller.Microblogs {
             String html = getOneBlogHtml( blog );
             dic.Add( "Info", html );
 
-            echoJson( JsonString.Convert( dic ) );
+            echoJson( Json.Serialize( dic ) );
         }
 
 

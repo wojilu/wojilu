@@ -1,11 +1,14 @@
-﻿using System;
+﻿/*
+ * Copyright (c) 2010, www.wojilu.com. All rights reserved.
+ */
+
+using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Threading;
 
 using wojilu.Web.Mvc;
 using wojilu.Web.Mvc.Attr;
-using wojilu.Serialization;
 using wojilu.Common.AppBase;
 using wojilu.Common.Spider.Domain;
 using wojilu.Common.Spider.Interface;
@@ -137,7 +140,7 @@ namespace wojilu.Web.Controller.Users.Admin.Spiders {
             if (id > 0) {
                 SpiderTemplate s = templateService.GetById( id );
                 // 感谢 sgzwiz (http://www.wojilu.com/sgzwiz) 贡献此处代码
-                set( "objTemplate", JsonString.ConvertObject( s ).Replace( "<", "&lt;" ).Replace( ">", "&gt;" ) );
+                set( "objTemplate", Json.Serialize( s ).Replace( "<", "&lt;" ).Replace( ">", "&gt;" ) );
             }
             else {
                 set( "objTemplate", "{Id:0}" );
@@ -184,7 +187,7 @@ namespace wojilu.Web.Controller.Users.Admin.Spiders {
                 dic.Add( "patternBody", s.ListBodyPattern );
                 dic.Add( "patternLinks", s.ListPattern );
 
-                echoJson( JsonString.Convert( dic ) );
+                echoJson( Json.Serialize( dic ) );
             }
             else {
                 renderJson( list );
@@ -205,7 +208,7 @@ namespace wojilu.Web.Controller.Users.Admin.Spiders {
             result.Add( "IsValid", true );
             result.Add( "List", ls );
 
-            echoJson( JsonString.Convert( result ) );
+            echoJson( Json.Serialize( result ) );
         }
 
         private static readonly ILog logger = LogManager.GetLogger( typeof( TemplateController ) );

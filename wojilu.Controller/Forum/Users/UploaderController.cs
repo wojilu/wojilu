@@ -3,12 +3,7 @@
  */
 
 using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Text;
-using System.Web;
 
-using wojilu.Serialization;
 using wojilu.Web.Mvc;
 using wojilu.Web.Utils;
 using wojilu.Web.Mvc.Attr;
@@ -57,7 +52,7 @@ namespace wojilu.Web.Controller.Forum.Users {
             AttachmentTemp uploadFile = savePostData( postedFile, result );
 
             // 返回数据给主页面
-            set( "objFile", SimpleJsonString.ConvertObject( uploadFile.GetJsonObject() ) );
+            set( "objFile", Json.SerializeObjectSimple( uploadFile.GetJsonObject() ) );
             set( "deleteLink", to( DeleteTempAttachment ) + "?boardId=" + boardId );
 
         }
@@ -94,7 +89,7 @@ namespace wojilu.Web.Controller.Forum.Users {
             AttachmentTemp uploadFile = savePostData( postedFile, result );
 
             // 返回json给主页面
-            String photoJson = SimpleJsonString.ConvertObject( uploadFile.GetJsonObject() );
+            String photoJson = Json.SerializeObjectSimple( uploadFile.GetJsonObject() );
             String json = "{\"deleteLink\":\"" + to( DeleteTempAttachment ) + "?boardId=" + boardId + "\", \"photo\":" + photoJson + "}";
             echoText( json );
 

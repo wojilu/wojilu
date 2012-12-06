@@ -5,11 +5,10 @@
 using System;
 
 using wojilu.ORM;
-using wojilu.Common.AppBase;
-using wojilu.Common.Jobs;
-using wojilu.Common.AppBase.Interface;
-using wojilu.Serialization;
 using wojilu.Common;
+using wojilu.Common.AppBase;
+using wojilu.Common.AppBase.Interface;
+
 
 namespace wojilu.Apps.Blog.Domain {
 
@@ -33,7 +32,7 @@ namespace wojilu.Apps.Blog.Domain {
 
         public BlogSetting GetSettingsObj() {
             if (strUtil.IsNullOrEmpty( this.Settings )) return new BlogSetting();
-            BlogSetting s = JSON.ToObject<BlogSetting>( this.Settings );
+            BlogSetting s = Json.DeserializeObject<BlogSetting>( this.Settings );
             s.SetDefaultValue();
             return s;
         }

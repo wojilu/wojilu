@@ -1,25 +1,27 @@
-﻿using System;
+﻿/*
+ * Copyright (c) 2010, www.wojilu.com. All rights reserved.
+ */
+
+using System;
 using System.Collections.Generic;
-using System.Text;
+
 using wojilu.Web.Mvc;
 using wojilu.Web.Mvc.Attr;
+
 using wojilu.Apps.Content.Domain;
 using wojilu.Apps.Content.Interface;
 using wojilu.Apps.Content.Service;
-using wojilu.Web.Controller.Content.Admin.Section;
+
 using wojilu.Web.Controller.Common;
 using wojilu.Web.Controller.Content.Utils;
-using wojilu.DI;
-using wojilu.Apps.Content.Enum;
-using System.Web;
-using wojilu.Web.Controller.Users.Admin;
-using wojilu.Web.Utils;
-using wojilu.Serialization;
-using wojilu.Drawing;
-using wojilu.Common.Upload;
-using wojilu.Common.AppBase;
 using wojilu.Web.Controller.Admin;
 using wojilu.Web.Controller.Content.Caching;
+
+using wojilu.Apps.Content.Enum;
+
+using wojilu.Common.Upload;
+using wojilu.Common.AppBase;
+
 
 namespace wojilu.Web.Controller.Content.Admin {
 
@@ -77,7 +79,7 @@ namespace wojilu.Web.Controller.Content.Admin {
 
                 dic.Add( "PicUrl", "" );
                 dic.Add( "Msg", result.ErrorsText );
-                echoText( JsonString.ConvertDictionary( dic ) );
+                echoText( Json.SerializeDic( dic ) );
             }
             else {
 
@@ -87,7 +89,7 @@ namespace wojilu.Web.Controller.Content.Admin {
                 dic.Add( "PicThumbUrl", tfile.FileThumbUrl );
                 dic.Add( "DeleteLink", to( DeleteTempPic, tfile.Id ) );
 
-                echoText( JsonString.ConvertDictionary( dic ) );
+                echoText( Json.SerializeDic( dic ) );
             }
 
         }

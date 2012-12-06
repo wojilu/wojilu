@@ -3,16 +3,17 @@
  */
 
 using System;
+using System.Collections.Generic;
 
 using wojilu.ORM;
+
 using wojilu.Common.Comments;
-using wojilu.Members.Users.Domain;
-using wojilu.Common.Msg.Service;
-using wojilu.Common.Msg.Enum;
 using wojilu.Common.Feeds.Domain;
 using wojilu.Common.Feeds.Service;
-using System.Collections.Generic;
-using wojilu.Serialization;
+using wojilu.Common.Msg.Enum;
+using wojilu.Common.Msg.Service;
+
+using wojilu.Members.Users.Domain;
 
 namespace wojilu.Apps.Content.Domain {
 
@@ -71,7 +72,7 @@ namespace wojilu.Apps.Content.Domain {
 
             Dictionary<string, object> dic = new Dictionary<string, object>();
             dic.Add( "target", target );
-            return JSON.DicToString( dic );
+            return Json.SerializeDic( dic );
         }
 
 

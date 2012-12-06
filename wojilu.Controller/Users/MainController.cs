@@ -6,17 +6,17 @@ using System;
 using System.Collections.Generic;
 
 using wojilu.Web.Mvc;
+using wojilu.Web.Mvc.Attr;
 
-using wojilu.Members.Users.Service;
-using wojilu.Members.Users.Domain;
-using wojilu.Members.Sites.Service;
 using wojilu.Common.Onlines;
 using wojilu.Common.Resource;
+
+using wojilu.Members.Sites.Service;
+using wojilu.Members.Users.Domain;
 using wojilu.Members.Users.Interface;
-using wojilu.Web.Controller.Common;
-using wojilu.Web.Mvc.Attr;
+using wojilu.Members.Users.Service;
+
 using wojilu.Web.Controller.Users.Caching;
-using wojilu.Serialization;
 
 namespace wojilu.Web.Controller.Users {
 
@@ -83,7 +83,7 @@ namespace wojilu.Web.Controller.Users {
         public void OnlineUserData() {
 
             List<OnlineUser> users = OnlineService.GetRecent( 20 );
-            echoJson( JsonString.ConvertList( users ) );
+            echoJson( Json.SerializeList( users ) );
         }
 
         public void Rank() {

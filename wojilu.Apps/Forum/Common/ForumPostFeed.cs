@@ -4,14 +4,13 @@
 
 using System;
 using System.Collections.Generic;
-using System.Text;
 
-using wojilu.Serialization;
 using wojilu.Web.Mvc;
-using wojilu.Common.Feeds.Interface;
+
+using wojilu.Common;
 using wojilu.Common.Msg.Service;
 using wojilu.Common.Msg.Enum;
-using wojilu.Common;
+
 
 namespace wojilu.Apps.Forum.Domain {
 
@@ -54,7 +53,7 @@ namespace wojilu.Apps.Forum.Domain {
             dic["userLink"] = Link.ToMember( post.Creator );
             dic["body"] = strUtil.ParseHtml( post.Content, 100 );
 
-            _shareData = JSON.DicToString( dic );
+            _shareData = Json.SerializeDic( dic );
 
             return _shareData;
         }

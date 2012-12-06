@@ -3,25 +3,28 @@
  */
 
 using System;
-using System.Text;
 using System.Collections.Generic;
 
-using wojilu.Common.Feeds.Service;
-using wojilu.Common.Microblogs.Domain;
+using wojilu.Web.Utils;
+
+using wojilu.Common.AppBase;
+
 using wojilu.Common.Feeds.Domain;
-using wojilu.Common.Msg.Service;
-using wojilu.Common.Msg.Enum;
 using wojilu.Common.Feeds.Interface;
-using wojilu.Common.Msg.Interface;
+using wojilu.Common.Feeds.Service;
+
+using wojilu.Common.Microblogs.Domain;
 using wojilu.Common.Microblogs.Interface;
-using wojilu.Members.Users.Domain;
-using wojilu.Serialization;
 using wojilu.Common.Microblogs.Parser;
+
+using wojilu.Common.Msg.Interface;
+using wojilu.Common.Msg.Service;
+
 using wojilu.Common.Tags;
+
+using wojilu.Members.Users.Domain;
 using wojilu.Members.Users.Interface;
 using wojilu.Members.Users.Service;
-using wojilu.Web.Utils;
-using wojilu.Common.AppBase;
 
 namespace wojilu.Common.Microblogs.Service {
 
@@ -207,7 +210,7 @@ namespace wojilu.Common.Microblogs.Service {
                 data.Add( "pic", "<img src=\"" + log.PicSmall + "\" />" );
 
                 feed.BodyTemplate = "{*pic*}";
-                feed.BodyData = JsonString.ConvertDictionary( data );
+                feed.BodyData = Json.SerializeDic( data );
             }
 
             feedService.publishUserAction( feed );

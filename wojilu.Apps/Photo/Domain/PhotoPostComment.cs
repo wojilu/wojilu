@@ -3,17 +3,18 @@
  */
 
 using System;
+using System.Collections.Generic;
 
 using wojilu.ORM;
 using wojilu.Web.Mvc;
-using wojilu.Common.Comments;
+
 using wojilu.Members.Users.Domain;
+
+using wojilu.Common.Comments;
 using wojilu.Common.Feeds.Domain;
 using wojilu.Common.Feeds.Service;
-using wojilu.Common.Msg.Service;
 using wojilu.Common.Msg.Enum;
-using System.Collections.Generic;
-using wojilu.Serialization;
+using wojilu.Common.Msg.Service;
 
 namespace wojilu.Apps.Photo.Domain {
 
@@ -83,7 +84,7 @@ namespace wojilu.Apps.Photo.Domain {
 
             Dictionary<string, object> dic = new Dictionary<string, object>();
             dic.Add( "target", target );
-            return JSON.DicToString( dic );
+            return Json.SerializeDic( dic );
         }
 
         private String getBodyData( PhotoPost data ) {
@@ -92,7 +93,7 @@ namespace wojilu.Apps.Photo.Domain {
 
             Dictionary<string, object> dic = new Dictionary<string, object>();
             dic.Add( "photo", photoHtml );
-            return JSON.DicToString( dic );
+            return Json.SerializeDic( dic );
         }
 
         public void AddNotification( String lnkTarget ) {

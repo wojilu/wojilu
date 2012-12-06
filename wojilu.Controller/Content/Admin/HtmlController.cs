@@ -1,13 +1,18 @@
-﻿using System;
+﻿/*
+ * Copyright (c) 2010, www.wojilu.com. All rights reserved.
+ */
+
+using System;
 using System.Collections.Generic;
-using System.Text;
+
 using wojilu.Web.Mvc;
 using wojilu.Web.Mvc.Attr;
+
 using wojilu.Apps.Content.Domain;
 using wojilu.Apps.Content.Interface;
 using wojilu.Apps.Content.Service;
 using wojilu.Web.Controller.Content.Caching;
-using wojilu.Serialization;
+
 using wojilu.Members.Sites.Domain;
 
 namespace wojilu.Web.Controller.Content.Admin {
@@ -99,7 +104,7 @@ namespace wojilu.Web.Controller.Content.Admin {
             ContentSetting s = app.GetSettingsObj();
             s.StaticDir = htmlDir;
 
-            app.Settings = JsonString.ConvertObject( s );
+            app.Settings = Json.Serialize( s );
             app.update();
 
             echoToParentPart( lang( "opok" ) );

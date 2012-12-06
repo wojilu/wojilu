@@ -4,16 +4,16 @@
 
 using System;
 using System.Collections.Generic;
-using System.Text;
+
+using wojilu.ORM;
+
 using wojilu.Common.Comments;
 using wojilu.Common.Feeds.Domain;
 using wojilu.Common.Feeds.Service;
-using wojilu.ORM;
-using wojilu.Web.Mvc;
 using wojilu.Common.Msg.Service;
 using wojilu.Common.Msg.Enum;
+
 using wojilu.Members.Users.Domain;
-using wojilu.Serialization;
 
 namespace wojilu.Apps.Poll.Domain {
 
@@ -78,7 +78,7 @@ namespace wojilu.Apps.Poll.Domain {
             dic.Add( "target", target );
             dic.Add( "blog", blog );
 
-            return JSON.DicToString( dic );
+            return Json.SerializeDic( dic );
 
         }
 

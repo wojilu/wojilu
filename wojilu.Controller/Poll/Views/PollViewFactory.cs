@@ -6,7 +6,6 @@ using System;
 using System.Collections.Generic;
 
 using wojilu.Web.Mvc;
-using wojilu.Serialization;
 using wojilu.Members.Users.Domain;
 using wojilu.Common.Polls.Domain;
 
@@ -194,7 +193,7 @@ _run( function() {
 
 
                 OptionResult opr = new OptionResult( poll, optionList.Length, i );
-                json += JsonString.ConvertObject( opr, false, true );
+                json += Json.Serialize( opr );
                 if (i != optionList.Length - 1) json += ", ";
 
             }

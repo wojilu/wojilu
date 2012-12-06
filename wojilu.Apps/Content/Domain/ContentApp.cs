@@ -3,15 +3,12 @@
  */
 
 using System;
-using System.Collections.Generic;
 
 using wojilu.ORM;
-using wojilu.Web;
-using wojilu.Serialization;
-using wojilu.Common.Resource;
-using wojilu.Common.AppBase.Interface;
-using wojilu.Common.AppBase;
 using wojilu.Web.Mvc;
+
+using wojilu.Common.AppBase;
+using wojilu.Common.AppBase.Interface;
 
 namespace wojilu.Apps.Content.Domain {
 
@@ -67,7 +64,7 @@ namespace wojilu.Apps.Content.Domain {
 
         public ContentSubmitterRole GetSubmitterRoleObj() {
             if (strUtil.IsNullOrEmpty( this.SubmitterRole )) return new ContentSubmitterRole();
-            ContentSubmitterRole s = JSON.ToObject<ContentSubmitterRole>( this.SubmitterRole );
+            ContentSubmitterRole s = Json.DeserializeObject<ContentSubmitterRole>( this.SubmitterRole );
             return s;
         }
 
@@ -76,7 +73,7 @@ namespace wojilu.Apps.Content.Domain {
 
         public ContentSetting GetSettingsObj() {
             if (strUtil.IsNullOrEmpty( this.Settings )) return new ContentSetting();
-            ContentSetting s = JSON.ToObject<ContentSetting>( this.Settings );
+            ContentSetting s = Json.DeserializeObject<ContentSetting>( this.Settings );
             s.SetDefaultValue();
             return s;
         }

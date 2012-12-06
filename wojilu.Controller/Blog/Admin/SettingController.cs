@@ -1,10 +1,12 @@
-﻿using System;
+﻿/*
+ * Copyright (c) 2010, www.wojilu.com. All rights reserved.
+ */
+
+using System;
 using System.Collections.Generic;
-using System.Text;
 using wojilu.Web.Mvc;
 using wojilu.Web.Mvc.Attr;
 using wojilu.Apps.Blog.Domain;
-using wojilu.Serialization;
 
 namespace wojilu.Web.Controller.Blog.Admin {
 
@@ -27,7 +29,7 @@ namespace wojilu.Web.Controller.Blog.Admin {
             s.IsShowStats = ctx.PostIsCheck( "blogSetting.IsShowStats" );
 
             BlogApp app = ctx.app.obj as BlogApp;
-            app.Settings = JsonString.ConvertObject( s );
+            app.Settings = Json.Serialize( s );
             app.update();
 
             echoRedirect( lang( "opok" ) );

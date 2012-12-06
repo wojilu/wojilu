@@ -4,13 +4,13 @@
 
 using System;
 using System.Collections.Generic;
-using System.Text;
 
 using wojilu.Web.Mvc;
-using wojilu.Serialization;
+
+using wojilu.Common;
 using wojilu.Common.Msg.Service;
 using wojilu.Common.Msg.Enum;
-using wojilu.Common;
+
 
 namespace wojilu.Apps.Photo.Domain {
 
@@ -62,7 +62,7 @@ namespace wojilu.Apps.Photo.Domain {
             dic["userLink"] = Link.ToMember( post.Creator );
             dic["imgName"] = post.Title;
 
-            _shareData = JSON.DicToString( dic );
+            _shareData = Json.SerializeDic( dic );
 
             return _shareData;
         }

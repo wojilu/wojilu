@@ -1,9 +1,10 @@
-﻿using System;
+﻿/*
+ * Copyright (c) 2010, www.wojilu.com. All rights reserved.
+ */
+
+using System;
 using System.Collections.Generic;
-using System.Text;
-using wojilu.Common.Feeds.Interface;
-using wojilu.Web.Mvc;
-using wojilu.Serialization;
+
 using wojilu.Common;
 
 namespace wojilu.Apps.Content.Domain {
@@ -44,7 +45,7 @@ namespace wojilu.Apps.Content.Domain {
             dic["postLink"] = dataLink;
             dic["body"] = strUtil.ParseHtml( post.Content, 100 );
 
-            _shareData = JSON.DicToString( dic );
+            _shareData = Json.SerializeDic( dic );
             return _shareData;
         }
 

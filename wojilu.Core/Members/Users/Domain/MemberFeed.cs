@@ -5,11 +5,13 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
-using wojilu.Serialization;
+
 using wojilu.Web.Mvc;
+
+using wojilu.Common;
 using wojilu.Common.Msg.Service;
 using wojilu.Common.Msg.Enum;
-using wojilu.Common;
+
 
 namespace wojilu.Members.Users.Domain {
 
@@ -36,7 +38,7 @@ namespace wojilu.Members.Users.Domain {
             Dictionary<string, object> dic = new Dictionary<string, object>();
             dic["title"] = user.Name;
             dic["titlelink"] = Link.ToMember( user );
-            return JSON.DicToString( dic );
+            return Json.SerializeDic( dic );
         }
 
         public String GetShareBodyTemplate() {
@@ -55,7 +57,7 @@ namespace wojilu.Members.Users.Domain {
             dic["user"] = user.Name;
             dic["userLink"] = Link.ToMember( user );
 
-            _shareData = JSON.DicToString( dic );
+            _shareData = Json.SerializeDic( dic );
 
             return _shareData;
         }

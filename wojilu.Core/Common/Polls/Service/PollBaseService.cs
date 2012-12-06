@@ -16,7 +16,6 @@ using wojilu.Common.Money.Service;
 using wojilu.Common.Polls.Domain;
 
 using wojilu.Members.Users.Domain;
-using wojilu.Serialization;
 
 namespace wojilu.Common.Polls.Service {
 
@@ -74,7 +73,7 @@ namespace wojilu.Common.Polls.Service {
             Dictionary<string, object> dic = new Dictionary<string, object>();
             String lnkPoll = string.Format( "<a href=\"{0}\">{1}</a>", lnkpost, poll.Title );
             dic.Add( "poll", lnkPoll );
-            return JSON.DicToString( dic );
+            return Json.SerializeDic( dic );
         }
 
         public void PubCreatedFeed( TP poll, String lnkPoll ) {

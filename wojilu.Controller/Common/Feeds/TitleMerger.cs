@@ -4,7 +4,6 @@
 
 using System;
 using System.Collections.Generic;
-using wojilu.Serialization;
 
 namespace wojilu.Web.Controller.Common.Feeds {
 
@@ -16,8 +15,8 @@ namespace wojilu.Web.Controller.Common.Feeds {
 
         public override Boolean Merge() {
 
-            Dictionary<string, object> dic = JSON.ToDictionary( feed.TitleData );
-            Dictionary<string, object> dicTarget = JSON.ToDictionary( target.TitleData );
+            Dictionary<string, object> dic = Json.DeserializeDic( feed.TitleData );
+            Dictionary<string, object> dicTarget = Json.DeserializeDic( target.TitleData );
 
             if (dic.Count != dicTarget.Count) return false;
 
@@ -25,7 +24,7 @@ namespace wojilu.Web.Controller.Common.Feeds {
             if (feed.Creator.Id == target.Creator.Id && mergeKey != null) {
 
                 dicTarget[mergeKey] = dicTarget[mergeKey] + mergeSeperator + dic[mergeKey];
-                target.TitleData = JSON.DicToString( dicTarget );
+                target.TitleData = Json.SerializeDic( dicTarget );
                 target.IsMerged = true;
 
 

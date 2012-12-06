@@ -3,21 +3,19 @@
  */
 
 using System;
-using System.Text;
 using System.Collections.Generic;
 
-using wojilu.Web;
 using wojilu.Web.Mvc;
-using wojilu.ORM;
-using wojilu.Members.Users.Domain;
-using wojilu.Members.Users.Enum;
-using wojilu.Common.Msg.Service;
+
 using wojilu.Common.Feeds.Domain;
 using wojilu.Common.Feeds.Service;
-using wojilu.Members.Users.Interface;
-using wojilu.Common.Msg.Interface;
-using wojilu.Serialization;
 using wojilu.Common.Msg.Enum;
+using wojilu.Common.Msg.Interface;
+using wojilu.Common.Msg.Service;
+
+using wojilu.Members.Users.Domain;
+using wojilu.Members.Users.Enum;
+using wojilu.Members.Users.Interface;
 
 namespace wojilu.Members.Users.Service {
 
@@ -183,7 +181,7 @@ namespace wojilu.Members.Users.Service {
             Dictionary<string, object> dic = new Dictionary<string, object>();
             dic.Add( "friend", lnkInfo );
             dic.Add( "friendId", friend.Id );
-            String templateData = JSON.DicToString( dic );
+            String templateData = Json.SerializeDic( dic );
 
             TemplateBundle tplBundle = TemplateBundle.GetFriendsTemplateBundle();
             new FeedService().publishUserAction( user, typeof( FriendShip ).FullName, tplBundle.Id, templateData, "", ip );

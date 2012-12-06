@@ -1,9 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿/*
+ * Copyright (c) 2010, www.wojilu.com. All rights reserved.
+ */
+
+using System;
 using wojilu.Web.Mvc;
 using wojilu.Net.Video;
-using wojilu.Serialization;
 using wojilu.Web.Mvc.Attr;
 
 namespace wojilu.Web.Controller.Common.Service {
@@ -22,7 +23,7 @@ namespace wojilu.Web.Controller.Common.Service {
             WojiluVideoSpider s = new WojiluVideoSpider();
             VideoInfo vi = s.GetInfo( playUrl );
 
-            echoJson( JsonString.Convert( vi ) );
+            echoJson( Json.Serialize( vi ) );
 
         }
 

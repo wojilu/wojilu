@@ -1,14 +1,18 @@
-﻿using System;
+﻿/*
+ * Copyright (c) 2010, www.wojilu.com. All rights reserved.
+ */
+
+using System;
 using System.Collections.Generic;
-using System.Text;
-using wojilu.Web.Mvc;
-using wojilu.Members.Users.Domain;
-using wojilu.Common;
-using wojilu.Web.Mvc.Attr;
-using wojilu.Common.Comments;
-using wojilu.Serialization;
+
 using wojilu.ORM;
+using wojilu.Web.Mvc;
+using wojilu.Web.Mvc.Attr;
+
+using wojilu.Common.Comments;
 using wojilu.Members.Interface;
+using wojilu.Members.Users.Domain;
+
 
 namespace wojilu.Web.Controller.Open {
 
@@ -80,7 +84,7 @@ namespace wojilu.Web.Controller.Open {
 
             List<OpenComment> moreList = commentService.GetMore( parentId, startId, OpenComment.subCacheSize, "desc" );
             List<CommentDto> dtoList = getCommentDto( moreList );
-            echoJson( JsonString.ConvertList( dtoList ) );
+            echoJson( Json.SerializeList( dtoList ) );
         }
 
         private List<CommentDto> getCommentDto( List<OpenComment> moreList ) {

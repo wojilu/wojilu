@@ -4,11 +4,9 @@
 
 using System;
 using System.Collections.Generic;
-using System.Text;
 
 using wojilu.Web.Mvc;
 using wojilu.Web.Mvc.Attr;
-using wojilu.Web.Mvc.Utils;
 
 using wojilu.Members.Users.Domain;
 using wojilu.Members.Users.Interface;
@@ -17,8 +15,6 @@ using wojilu.Members.Users.Service;
 using wojilu.Common.Msg.Service;
 using wojilu.Common.Msg.Domain;
 using wojilu.Common.Msg.Interface;
-using wojilu.Web.Controller.Common;
-using wojilu.Serialization;
 
 namespace wojilu.Web.Controller.Users {
 
@@ -75,7 +71,7 @@ namespace wojilu.Web.Controller.Users {
                 dic.Add( "Info", "formResult" );
                 dic.Add( "Msg", postContent );
 
-                echoJson( JsonString.Convert( dic ) );
+                echoJson( Json.Serialize( dic ) );
 
             }
         }

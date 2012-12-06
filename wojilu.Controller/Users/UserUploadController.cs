@@ -5,7 +5,6 @@
 using System;
 using System.IO;
 using System.Collections.Generic;
-using System.Text;
 
 using wojilu.Web.Mvc;
 using wojilu.Web.Utils;
@@ -14,7 +13,6 @@ using wojilu.Apps.Photo.Service;
 using wojilu.Apps.Photo.Interface;
 using wojilu.Members.Users.Domain;
 using wojilu.Web.Mvc.Attr;
-using wojilu.Serialization;
 using wojilu.Common.Msg.Domain;
 using wojilu.Common.Msg.Service;
 using wojilu.Common.Msg.Interface;
@@ -182,7 +180,7 @@ namespace wojilu.Web.Controller.Users {
                 dic.Add( "DeleteLink", "" );
                 dic.Add( "Msg", result.ErrorsText );
 
-                echoText( JsonString.ConvertDictionary( dic ) );
+                echoText( Json.SerializeDic( dic ) );
             }
             else {
 
@@ -196,7 +194,7 @@ namespace wojilu.Web.Controller.Users {
                 dic.Add( "DeleteLink", deleteLink );
                 dic.Add( "Id", att.Id.ToString() );
 
-                echoText( JsonString.ConvertDictionary( dic ) );
+                echoText( Json.SerializeDic( dic ) );
             }
         }
 
@@ -255,7 +253,7 @@ namespace wojilu.Web.Controller.Users {
                 dic.Add( "DeleteLink", "" );
                 dic.Add( "Msg", result.ErrorsText );
 
-                echoText( JsonString.ConvertDictionary( dic ) );
+                echoText( Json.SerializeDic( dic ) );
             }
             else {
 
@@ -266,7 +264,7 @@ namespace wojilu.Web.Controller.Users {
                 dic.Add( "DeleteLink", deleteLink );
                 dic.Add( "Id", att.Id.ToString() );
 
-                echoText( JsonString.ConvertDictionary( dic ) );
+                echoText( Json.SerializeDic( dic ) );
             }
         }
 

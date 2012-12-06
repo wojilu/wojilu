@@ -8,7 +8,6 @@ using System.Collections.Generic;
 
 using wojilu.Web.Mvc;
 using wojilu.Web.Controller.Users.Admin;
-using wojilu.Serialization;
 
 using wojilu.Members.Sites.Domain;
 using wojilu.Members.Sites.Service;
@@ -27,7 +26,6 @@ using wojilu.Common.Microblogs.Domain;
 using wojilu.Common.Msg.Domain;
 using wojilu.Common.Feeds.Domain;
 using wojilu.Config;
-using wojilu.Web.Controller.Security;
 
 namespace wojilu.Web.Controller.Layouts {
 
@@ -142,7 +140,7 @@ _run( function() {
             dic.Add( "navInfo", loginNavInfo() );
             dic.Add( "online", getOnlineDic() );
 
-            return JsonString.Convert( dic );
+            return Json.Serialize( dic );
         }
 
         public Dictionary<String, Object> loginNavInfo() {

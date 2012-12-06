@@ -11,7 +11,6 @@ using wojilu.Members.Users.Service;
 using wojilu.Members.Users.Domain;
 using wojilu.Common.Onlines;
 using wojilu.Members.Users.Interface;
-using wojilu.Serialization;
 
 namespace wojilu.Web.Controller.Users.Admin.Friends {
 
@@ -160,7 +159,7 @@ namespace wojilu.Web.Controller.Users.Admin.Friends {
             dic.Add( "Description", friendDescription );
             dic.Add( "IsValid", true );
 
-            echoJson( JsonString.Convert( dic ) );
+            echoJson( Json.Serialize( dic ) );
         }
 
         public void Add() {
