@@ -185,7 +185,7 @@ namespace wojilu.Web.Mvc.Utils {
                 controller.utils.switchViewToLayout();
             }
 
-            controller.actionContent( "" ); // 清理当前内容，否则下面的utils.getActionResult()得不到正确结果
+            controller.content( "" ); // 清理当前内容，否则下面的utils.getActionResult()得不到正确结果
             controller.Layout();
 
             return controller.utils.getActionResult();

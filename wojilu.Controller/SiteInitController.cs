@@ -47,15 +47,15 @@ namespace wojilu.Web.Controller {
 
             if (isInit() == false) {
                 String view = loadHtml( view1InitData );
-                actionContent( view );
+                content( view );
             }
             else if (hasMember() == false) {
                 String view = loadHtml( view2Register );
-                actionContent( view );
+                content( view );
             }
             else {
                 String view = loadHtml( view3Initok );
-                actionContent( view );
+                content( view );
             }
         }
 

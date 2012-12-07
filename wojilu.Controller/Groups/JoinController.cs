@@ -153,7 +153,7 @@ namespace wojilu.Web.Controller.Groups {
 
         private void showError( String msg ) {
 
-            actionContent( string.Format( "<div style=\"text-align:center;margin:30px 10px;color:red;font-size:16px;font-weight:bold;\">{0}</div>", msg ) );
+            content( string.Format( "<div style=\"text-align:center;margin:30px 10px;color:red;font-size:16px;font-weight:bold;\">{0}</div>", msg ) );
         }
 
     }

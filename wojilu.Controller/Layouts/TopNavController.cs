@@ -54,7 +54,7 @@ namespace wojilu.Web.Controller.Layouts {
                 config.Instance.Site.TopNavDisplay == TopNavDisplay.NoRegHide)
                 ) {
 
-                actionContent( @"<script>
+                content( @"<script>
 _run( function() {
     require( [""wojilu.core.sitetop""], function( topnav ) {
         topnav.init( '" + t2( Nav ) + @"');

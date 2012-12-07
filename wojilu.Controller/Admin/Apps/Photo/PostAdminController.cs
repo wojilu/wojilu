@@ -78,7 +78,7 @@ namespace wojilu.Web.Controller.Admin.Apps.Photo {
             int categoryId = ctx.PostInt( "categoryId" );
 
             if (strUtil.IsNullOrEmpty( cmd ) || cvt.IsIdListValid( ids ) == false) {
-                actionContent( lang( "exCmd" ) );
+                content( lang( "exCmd" ) );
                 return;
             }
 
@@ -104,7 +104,7 @@ namespace wojilu.Web.Controller.Admin.Apps.Photo {
             }
 
             else
-                actionContent( lang( "exCmd" ) );
+                content( lang( "exCmd" ) );
         }
 
 

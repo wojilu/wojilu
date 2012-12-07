@@ -31,7 +31,7 @@ namespace wojilu.Web.Controller.Content.Binder {
             User user = ctx.owner.obj as User;
 
             if (user == null) {
-                actionContent( "" );
+                content( "" );
                 return;
             }
 

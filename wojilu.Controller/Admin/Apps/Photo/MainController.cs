@@ -69,7 +69,7 @@ namespace wojilu.Web.Controller.Admin.Apps.Photo {
             int categoryId = ctx.PostInt( "categoryId" );
 
             if (strUtil.IsNullOrEmpty( cmd ) || cvt.IsIdListValid( ids ) == false) {
-                actionContent( lang( "exCmd" ) );
+                content( lang( "exCmd" ) );
                 return;
             }
 
@@ -90,7 +90,7 @@ namespace wojilu.Web.Controller.Admin.Apps.Photo {
 
             else if ("category".Equals( cmd )) {
                 if (categoryId < 0) {
-                    actionContent( lang( "exCategoryNotFound" ) );
+                    content( lang( "exCategoryNotFound" ) );
                     return;
                 }
 
@@ -102,7 +102,7 @@ namespace wojilu.Web.Controller.Admin.Apps.Photo {
                 echoAjaxOk();
             }
             else
-                actionContent( lang( "exCmd" ) );
+                content( lang( "exCmd" ) );
         }
 
 

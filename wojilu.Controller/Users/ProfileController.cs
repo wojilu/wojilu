@@ -72,7 +72,7 @@ namespace wojilu.Web.Controller.Users {
             }
 
             if (user == null) {
-                actionContent( "" );
+                content( "" );
                 return;
             }
 

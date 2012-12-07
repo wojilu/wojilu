@@ -36,7 +36,7 @@ namespace wojilu.Web.Controller.Reader {
             String feedIds = subscriptionService.GetFeedIdsByCategoryId( id );
 
             if (strUtil.IsNullOrEmpty( feedIds )) {
-                actionContent( "<div style=\"margin:30px;\" class=\"warning\">no items</div>" );
+                content( "<div style=\"margin:30px;\" class=\"warning\">no items</div>" );
                 return;
             }
 

@@ -1,4 +1,4 @@
-/*
+ï»¿/*
  * Copyright (c) 2010, www.wojilu.com. All rights reserved.
  */
 
@@ -35,13 +35,13 @@ namespace wojilu.Web.Controller.Microblogs {
         public void Create() {
 
             if (Component.IsClose( typeof( MicroblogApp ) )) {
-                actionContent( "¶Ô²»Æğ£¬Î¢²©¹¦ÄÜÔİÍ£ÔËĞĞ" );
+                content( "å¯¹ä¸èµ·ï¼Œå¾®åšåŠŸèƒ½æš‚åœè¿è¡Œ" );
                 return;
             }
 
-            String content = ctx.Post( "Content" );
-            if (strUtil.IsNullOrEmpty( content )) {
-                actionContent( lang( "exContent" ) );
+            String blogContent = ctx.Post( "Content" );
+            if (strUtil.IsNullOrEmpty( blogContent )) {
+                content( lang( "exContent" ) );
                 return;
             }
 
@@ -50,7 +50,7 @@ namespace wojilu.Web.Controller.Microblogs {
             User user = ctx.viewer.obj as User;
 
             Microblog blog = new Microblog();
-            blog.Content = content;
+            blog.Content = blogContent;
             blog.Ip = ctx.Ip;
             blog.User = user;
             blog.Pic = picUrl;
@@ -84,7 +84,7 @@ namespace wojilu.Web.Controller.Microblogs {
 
         private void returnOneBlogHtml( Microblog blog ) {
 
-            // ¼ÓÔØ×îĞÂÎ¢²©htmlÆ¬¶Î
+            // åŠ è½½æœ€æ–°å¾®åšhtmlç‰‡æ®µ
             Dictionary<String, Object> dic = new Dictionary<String, Object>();
             dic.Add( "IsValid", true );
             dic.Add( "SrcType", "mbHome" );

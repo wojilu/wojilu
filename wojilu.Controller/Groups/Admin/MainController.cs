@@ -166,7 +166,7 @@ namespace wojilu.Web.Controller.Groups.Admin {
                 echoAjaxOk();
             }
             else {
-                actionContent( "error" );
+                content( "error" );
             }
         }
 

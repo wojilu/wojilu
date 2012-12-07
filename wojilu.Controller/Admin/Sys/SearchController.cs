@@ -11,7 +11,7 @@ namespace wojilu.Web.Controller.Admin.Sys {
     public class SearchController : ControllerBase {
 
         public void Index() {
-            actionContent( "" );
+            content( "" );
         }
 
     }

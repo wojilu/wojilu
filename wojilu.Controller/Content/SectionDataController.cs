@@ -42,7 +42,7 @@ namespace wojilu.Web.Controller.Content {
 
             ContentSection section = sectionService.GetById( sectionId, ctx.app.Id );
 
-            actionContent( getSectionContent( section ) );
+            content( getSectionContent( section ) );
 
         }
 

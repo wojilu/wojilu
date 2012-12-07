@@ -1062,7 +1062,7 @@ namespace wojilu.Web.Mvc {
                 //action.Method.Invoke( mycontroller, null );
                 //actionContent( mycontroller.utils.getActionResult() );
 
-                actionContent( ControllerRunner.Run( ctx, action ) );
+                content( ControllerRunner.Run( ctx, action ) );
             }
         }
 
@@ -1092,7 +1092,7 @@ namespace wojilu.Web.Mvc {
                 //action.Method.Invoke( mycontroller, new object[] { id } );
                 //actionContent( mycontroller.utils.getActionResult() );
 
-                actionContent( ControllerRunner.Run( ctx, action, id ) );
+                content( ControllerRunner.Run( ctx, action, id ) );
             }
         }
 
@@ -1122,7 +1122,7 @@ namespace wojilu.Web.Mvc {
 
             }
             else {
-                actionContent( ControllerRunner.Run( ctx, controllerFullTypeName, actionName, args ) );
+                content( ControllerRunner.Run( ctx, controllerFullTypeName, actionName, args ) );
             }
         }
 

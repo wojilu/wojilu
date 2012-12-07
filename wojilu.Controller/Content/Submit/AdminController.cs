@@ -75,7 +75,7 @@ namespace wojilu.Web.Controller.Content.Submit {
                 nopassPosts( ids );
             }
 
-            actionContent( "ok" );
+            content( "ok" );
 
         }
 

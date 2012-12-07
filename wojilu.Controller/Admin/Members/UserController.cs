@@ -117,7 +117,7 @@ namespace wojilu.Web.Controller.Admin.Members {
 
             User.updateBatch( action, condition );
             logUser( SiteLogString.AdminUser( cmd ), userIds );
-            actionContent( "ok" );
+            content( "ok" );
         }
 
         //-----------------------------------------------------------------------------------------------------

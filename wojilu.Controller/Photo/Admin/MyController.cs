@@ -124,24 +124,24 @@ namespace wojilu.Web.Controller.Photo.Admin {
             int categoryId = ctx.PostInt( "categoryId" );
 
             if (strUtil.IsNullOrEmpty( cmd )) {
-                actionContent( lang( "exCmd" ) );
+                content( lang( "exCmd" ) );
                 return;
             }
             if (cvt.IsIdListValid( ids ) == false) {
-                actionContent( lang( "exId" ) );
+                content( lang( "exId" ) );
                 return;
             }
 
             if (cmd.Equals( "category" )) {
                 postService.UpdateAlbum( categoryId, ids, ctx.owner.Id, ctx.app.Id );
-                actionContent( "ok" );
+                content( "ok" );
             }
             else if (cmd.Equals( "deletetrue" )) {
                 postService.DeleteTrue( ids, ctx.owner.Id );
-                actionContent( "ok" );
+                content( "ok" );
             }
             else {
-                actionContent( lang( "exUnknowCmd" ) );
+                content( lang( "exUnknowCmd" ) );
             }
 
         }

@@ -130,7 +130,7 @@ namespace wojilu.Web.Controller.Admin.Apps.Blog {
             }
             else if ("category".Equals( cmd )) {
                 if (categoryId < 0) {
-                    actionContent( lang( "exCategoryNotFound" ) );
+                    content( lang( "exCategoryNotFound" ) );
                     return;
                 }
 
