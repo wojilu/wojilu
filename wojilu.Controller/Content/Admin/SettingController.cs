@@ -69,7 +69,6 @@ namespace wojilu.Web.Controller.Content.Admin {
             set( "s.RankPics", dropList( "RankPics", 1, 20, s.RankPics ) );
             set( "s.RankVideos", dropList( "RssCount", 1, 20, s.RankVideos ) );
 
-            set( "s.CacheSeconds", dropList( "CacheSeconds", 0, 600, s.CacheSeconds ) );
             set( "s.SummaryLength", dropList( "SummaryLength", 50, 600, s.SummaryLength ) );
 
             Dictionary<string, string> dic = new Dictionary<string, string>();

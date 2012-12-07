@@ -163,6 +163,10 @@ input.searchs {background:url('../img/search2.gif') no-repeat;width:20px;height:
 body { background:url(../skin/site/new/body-bg.jpg);}
 .container { background:#fff; box-shadow:0px 5px 30px #aaa;}
 
+blockquote {font-size:14px; color:#3e3e3e;}
+blockquote p{font-size:14px; color:#3e3e3e;}
+blockquote div{font-size:14px; color:#3e3e3e;}
+
 .navbar{
     background:url(../skin/site/new/top-nav-bg.png); 
     background-color: #F6F6F6;
