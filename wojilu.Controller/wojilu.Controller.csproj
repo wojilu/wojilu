@@ -149,6 +149,7 @@
     <Compile Include="Common\Service\VideoController.cs" />
     <Compile Include="Content\Admin\HtmlController.cs" />
     <Compile Include="Content\Admin\RowSettingController.cs" />
+    <Compile Include="Content\Admin\Section\CmsPollController.cs" />
     <Compile Include="Content\Binder\FocusBinderController.cs" />
     <Compile Include="Content\Caching\Actions\PostAddCache.cs" />
     <Compile Include="Content\Caching\Actions\PostDeleteCache.cs" />
@@ -271,7 +272,6 @@
     <Compile Include="Content\Admin\Section\partial\ListImgController.cs" />
     <Compile Include="Content\Admin\Section\partial\ListTwoController.cs" />
     <Compile Include="Content\Admin\Section\partial\NormalController.cs" />
-    <Compile Include="Content\Admin\Section\partial\PollController.cs" />
     <Compile Include="Content\Admin\Section\partial\SlideController.cs" />
     <Compile Include="Content\Admin\Section\partial\TalkController.cs" />
     <Compile Include="Content\Admin\Section\partial\TextController.cs" />
@@ -313,7 +313,6 @@
     <Compile Include="Content\Section\partial\ListImgController.cs" />
     <Compile Include="Content\Section\partial\ListTwoController.cs" />
     <Compile Include="Content\Section\partial\NormalController.cs" />
-    <Compile Include="Content\Section\partial\PollController.cs" />
     <Compile Include="Content\Section\partial\SlideController.cs" />
     <Compile Include="Content\Section\partial\TalkController.cs" />
     <Compile Include="Content\Section\partial\ThumbSlideController.cs" />

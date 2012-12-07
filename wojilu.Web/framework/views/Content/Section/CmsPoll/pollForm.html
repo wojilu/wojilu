@@ -2,7 +2,7 @@
     .pollOptionWrap td { padding: 3px 3px 3px 8px;}
 </style>
 
-<div class="poll-wrap" style="width:90%;">
+<div class="poll-wrap" style="width:95%;">
 
     <div class="poll-container">
         <div class="poll-container-inner">
@@ -24,8 +24,8 @@
 
                 <!-- BEGIN cmdVote -->             
 
-                <button id="btnPoll#{poll.Id}" type="button" class="btn btn-primary right10" cid="poll_#{poll.Id}">
-                    <img src="~static/skin/apps/forum/wojilu.Apps.Forum.Domain.ForumPoll.gif" />
+                <button type="button" class="btn btn-primary right10 btnPoll">
+                    <img src="~img/poll.gif" />
                     _{pollVote}
                 </button>
                 <!-- END cmdVote -->
@@ -47,54 +47,3 @@
         </div>
     </div>
 </div>
-
-
-<script>
-
-    _run(function () {
-
-        function bindViewForm() {
-            $('.cmdViewForm').click(function () {
-                var topicId = $(this).attr('topicId');
-                $('#pollFormWrap' + topicId).show();
-                $('#pollResultWrap' + topicId).hide();
-            });
-        }
-
-        function refreshResult() {
-            var getResultHtmlLink = '#{getResultHtmlLink}'.toAjax();
-            $.post(getResultHtmlLink, function (data) {
-                $('#pollResultWrap#{topicId}').html(data);
-                bindViewForm();
-            });
-        }
-
-        $('#btnPoll#{poll.Id}').click(function () {
-            var ctx = $('#pollOption#{topicId}');
-
-            var selectedControl = $('input[name=pollOption]:checked', ctx);
-            var pValue = selectedControl.serialize();
-            if (wojilu.str.hasText(pValue) == false) {
-                alert('_{pollSelectRequire}');
-                return false;
-            }
-
-            $(this).attr('disabled', 'disabled');
-            $(this).val('你已经投过票');
-            var voteLink = '#{poll.VoteLink}'.toAjax();
-
-            $.post(voteLink, pValue, function (data) {
-
-                if ('ok' == data) {
-                    refreshResult();
-                    $('.cmdViewResult').click();
-                } else {
-                    //var msg = eval('(' + data + ')');
-                    alert(data.Msg);
-                }
-            });
-        });
-
-    });
-
-</script>

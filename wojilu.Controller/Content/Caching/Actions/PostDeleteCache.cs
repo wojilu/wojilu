@@ -41,7 +41,7 @@ namespace wojilu.Web.Controller.Content.Caching.Actions {
             Admin.Section.ImgController img = new wojilu.Web.Controller.Content.Admin.Section.ImgController();
             observe( img.Delete );
 
-            Admin.Section.PollController poll = new wojilu.Web.Controller.Content.Admin.Section.PollController();
+            Admin.Section.CmsPollController poll = new wojilu.Web.Controller.Content.Admin.Section.CmsPollController();
             observe( poll.Delete );
         }
 

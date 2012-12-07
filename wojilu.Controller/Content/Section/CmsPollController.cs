@@ -3,6 +3,7 @@
  */
 
 using System;
+using System.Collections.Generic;
 
 using wojilu.Web.Mvc;
 using wojilu.Web.Mvc.Attr;
@@ -12,17 +13,17 @@ using wojilu.Common.Polls.Service;
 using wojilu.Members.Users.Domain;
 
 using wojilu.Web.Controller.Poll.Utils;
+using wojilu.Web.Controller.Content.Caching;
 
 using wojilu.Apps.Content.Domain;
 using wojilu.Apps.Content.Service;
 using wojilu.Apps.Content.Interface;
-using wojilu.Web.Controller.Content.Caching;
 
 
 namespace wojilu.Web.Controller.Content.Section {
 
     [App( typeof( ContentApp ) )]
-    public partial class CmsPollController : ControllerBase {
+    public class CmsPollController : ControllerBase {
 
         public virtual ContentPollService pollService { get; set; }
         public virtual IContentPostService topicService { get; set; }
@@ -31,6 +32,51 @@ namespace wojilu.Web.Controller.Content.Section {
             topicService = new ContentPostService();
             pollService = new ContentPollService();
         }
+
+        public void List( int sectionId ) {
+
+            DataPage<ContentPost> list = topicService.GetPageBySection( sectionId );
+            List<ContentPoll> polls = pollService.GetByTopicList( list.Results );
+            populatePoll( list.Results, polls );
+
+            list.Results.ForEach( x => {
+                x.data.show = alink.ToAppData( x );
+                x.data["Replies"] = x.Replies > 0 ? string.Format( "<span class=\"spVote\">|</span>{0}评论", x.Replies ) : "";
+            } );
+
+            bindList( "list", "x", list.Results );
+            set( "page", list.PageBar );
+        }
+
+        private void populatePoll( List<ContentPost> list, List<ContentPoll> polls ) {
+            foreach (ContentPost x in list) {
+                ContentPoll poll = getPollByPost( polls, x );
+                if (poll == null) {
+                    x.data["VoteCount"] = "0";
+                    x.data["Option1"] = "";
+                    x.data["Option2"] = "";
+                }
+                else {
+                    x.data["VoteCount"] = poll.VoteCount.ToString();
+                    x.data["Option1"] = getOption( poll.OptionList[0], poll.Type );
+                    x.data["Option2"] = getOption( poll.OptionList[1], poll.Type );
+                }
+            }
+        }
+
+        private string getOption( String option, int pollType ) {
+            String inputType = (pollType == 0 ? "radio" : "checkbox");
+            return string.Format( "<input type=\"{0}\" /> <span class=\"help-inline\">{1}</span>", inputType, option );
+        }
+
+        private ContentPoll getPollByPost( List<ContentPoll> polls, ContentPost x ) {
+            foreach (ContentPoll poll in polls) {
+                if (poll.TopicId == x.Id) return poll;
+            }
+            return null;
+        }
+
+        //---------------------------------------------------------------------------------
 
         public void Detail() {
 
@@ -43,6 +89,9 @@ namespace wojilu.Web.Controller.Content.Section {
             }
 
             set( "topicId", p.TopicId );
+            set( "poll.Id", p.Id );
+            set( "poll.VoteLink", to( Vote, p.Id ) );
+            set( "resultLink", to( GetPollResultHtml, p.Id ) );
 
             String hideCss = "display:none;";
             if (p.CheckHasVote( ctx.viewer.Id ) || (p.IsClosed() && p.IsVisible == 0)) {
@@ -64,7 +113,7 @@ namespace wojilu.Web.Controller.Content.Section {
 
             set( "topicId", p.TopicId );
 
-            set( "getResultHtmlLink", to( GetPollResultHtml, p.Id ) );
+            set( "resultLink", to( GetPollResultHtml, p.Id ) );
 
             set( "poll.Id", p.Id );
             set( "poll.Title", p.Title );
@@ -186,28 +235,6 @@ namespace wojilu.Web.Controller.Content.Section {
 
         //----------------------------------------------------------------------------
 
-        [Login]
-        public void Add( int sectionId ) {
-
-            set( "ActionLink", to( Create, sectionId ) );
-            bindAddForm( sectionId );
-        }
-
-        [Login, HttpPost, DbTransaction]
-        public void Create( int sectionId ) {
-
-            ContentPoll poll = new PollValidator<ContentPoll>().Validate( ctx );
-            if (errors.HasErrors) {
-                echoError();
-                return;
-            }
-
-            pollService.CreatePoll( sectionId, poll );
-
-
-            echoToParentPart( lang( "opok" ) );
-        }
-
         [Login, HttpPost, DbTransaction]
         public void Vote( int id ) {
 
@@ -254,23 +281,6 @@ namespace wojilu.Web.Controller.Content.Section {
             bindVoter( poll, voterList );
         }
 
-        //----------------------------------------------------------------------------------------
-        private void bindAddForm( int sectionId ) {
-
-            set( "optionCount", 5 );
-            set( "appId", ctx.app.Id );
-            editor( "Question", "", "80px" );
-
-            if ((ctx.Post( "PollType" ) == null) || (ctx.Post( "PollType" ) == "0")) {
-                set( "singleCheck", " checked=\"checked\"" );
-                set( "multiCheck", "" );
-            }
-            else if (ctx.Post( "PollType" ) == "1") {
-                set( "singleCheck", "" );
-                set( "multiCheck", " checked=\"checked\"" );
-            }
-        }
-
         private void bindVoter( ContentPoll poll, DataPage<ContentPollResult> voterList ) {
 
             IBlock block = getBlock( "list" );
@@ -284,28 +294,6 @@ namespace wojilu.Web.Controller.Content.Section {
             set( "page", voterList.PageBar );
         }
 
-
-        //------------------------------------------------------------------
-
-        public void List( int sectionId ) {
-
-            DataPage<ContentPost> list = topicService.GetPageBySection( sectionId );
-
-            // TODO
-            //bindPostList( list );
-        }
-
-
-        [Login, HttpDelete, DbTransaction]
-        public void Delete( int id ) {
-            ContentPost post = topicService.GetById( id, ctx.owner.Id );
-            if (post != null) {
-                topicService.Delete( post );
-            }
-
-            echoRedirect( lang( "opok" ) );
-            HtmlHelper.SetCurrentPost( ctx, post );
-        }
 
     }
 }

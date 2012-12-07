@@ -125,7 +125,7 @@ namespace wojilu.Web.Controller.Content.Caching {
             observe( img.Delete );
             observe( img.DeleteImg );
 
-            CmsPollController poll = new CmsPollController();
+            Admin.Section.CmsPollController poll = new wojilu.Web.Controller.Content.Admin.Section.CmsPollController();
             observe( poll.Create );
             observe( poll.Delete );
         }
