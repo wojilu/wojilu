@@ -46,7 +46,11 @@ namespace wojilu.Web.Controller.Forum.Users {
                 return;
             }
 
+            ForumBoard board = setCurrentBoard( p );
+
             set( "topicId", p.TopicId );
+            set( "resultLink", to( GetPollResultHtml, p.Id ) + "?boardId=" + board.Id );
+            set( "poll.VoteLink", to( Vote, p.Id ) + "?boardId=" + board.Id );
 
             String hideCss = "display:none;";
             if (p.CheckHasVote( ctx.viewer.Id ) || (p.IsClosed() && p.IsVisible == 0)) {
@@ -69,7 +73,7 @@ namespace wojilu.Web.Controller.Forum.Users {
 
             set( "topicId", p.TopicId );
 
-            set( "getResultHtmlLink", to( GetPollResultHtml, p.Id ) + "?boardId=" + board.Id );
+            set( "resultLink", to( GetPollResultHtml, p.Id ) + "?boardId=" + board.Id );
 
             set( "poll.Id", p.Id );
             set( "poll.Title", p.Title );
