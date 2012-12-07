@@ -318,14 +318,8 @@ namespace wojilu {
         }
 
         private static String getExt( String url ) {
-            int dotIndex = url.LastIndexOf( "." );
-            int slashIndex = url.LastIndexOf( MvcConfig.Instance.UrlSeparator );
-            if (dotIndex < 0) return "";
-            if (dotIndex < slashIndex) return "";
-            return url.Substring( dotIndex, (url.Length - dotIndex) );
+            return MvcConfig.Instance.UrlExt;
         }
-
-
 
         public static int GetPageNoByUrl( String url ) {
             if (strUtil.IsNullOrEmpty( url )) return 1;
