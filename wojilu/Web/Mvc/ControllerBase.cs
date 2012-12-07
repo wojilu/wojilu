@@ -461,6 +461,13 @@ namespace wojilu.Web.Mvc {
             return Link.ToUser( friendlyUrl );
         }
 
+        /// <summary>
+        /// 设置当前 action 返回的内容（一旦设置，先前绑定的模板内容将被覆盖）
+        /// </summary>
+        /// <param name="content"></param>
+        public void content( String content ) {
+            utils.setActionContent( content );
+        }
 
         /// <summary>
         /// 设置当前 action 返回的内容（一旦设置，先前绑定的模板内容将被覆盖）
@@ -926,6 +933,15 @@ namespace wojilu.Web.Mvc {
         /// <param name="action">被加载的 action</param>
         protected void load( String sectionName, aAction action ) {
             set( sectionName, loadHtml( action ) );
+        }
+
+        /// <summary>
+        /// 将某 action 的内容加载到指定位置
+        /// </summary>
+        /// <param name="sectionName">需要加载内容的位置</param>
+        /// <param name="action">被加载的 action</param>
+        protected void load( String sectionName, aActionWithId action, int id ) {
+            set( sectionName, loadHtml( action, id ) );
         }
 
         /// <summary>
