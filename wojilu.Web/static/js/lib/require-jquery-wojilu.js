@@ -12407,7 +12407,7 @@ wojilu.ui.ajaxFormCallback = function(thisForm,validFunc) {
         
     var actionUrl = $(thisForm).attr( 'action' ).toAjax();
     var loadingInfo = $(thisForm).attr( 'loading' );
-    loadingInfo = loadingInfo ? loadingInfo : "loading...";
+    loadingInfo = loadingInfo ? loadingInfo : "";
     
     var formValues = $(thisForm).serializeArray();
     
