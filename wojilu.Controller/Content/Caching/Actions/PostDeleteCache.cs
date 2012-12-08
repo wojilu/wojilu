@@ -17,7 +17,7 @@ namespace wojilu.Web.Controller.Content.Caching.Actions {
 
         public override void ObserveActions() {
 
-            Admin.PostController post = new wojilu.Web.Controller.Content.Admin.PostController();
+            Admin.Common.PostController post = new wojilu.Web.Controller.Content.Admin.Common.PostController();
             observe( post.Delete );
             observe( post.DeleteTrue );
 
@@ -41,7 +41,7 @@ namespace wojilu.Web.Controller.Content.Caching.Actions {
             Admin.Section.ImgController img = new wojilu.Web.Controller.Content.Admin.Section.ImgController();
             observe( img.Delete );
 
-            Admin.Section.CmsPollController poll = new wojilu.Web.Controller.Content.Admin.Section.CmsPollController();
+            Admin.Common.PollController poll = new wojilu.Web.Controller.Content.Admin.Common.PollController();
             observe( poll.Delete );
         }
 

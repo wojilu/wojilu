@@ -27,7 +27,6 @@ namespace wojilu.Web.Controller.Content.Caching {
             return makeHtmlLoop( ctx, recordCount, appId, cpLink, caLink, pageSize );
         }
 
-
         protected override string GetDir() {
             return PathHelper.Map( "/html/recent/" );
         }

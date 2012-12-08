@@ -32,11 +32,10 @@ namespace wojilu.Web.Controller.Content {
             ctx.SetItem( "_moduleUrl", moduleUrlList );
 
             // admin link
-            set( "allPostsLink", to( new Admin.PostController().List, 0 ) );
-            set( "trashPostsLink", to( new Admin.PostController().Trash ) );
+            set( "allPostsLink", to( new Admin.Common.PostController().List, 0 ) );
+            set( "trashPostsLink", to( new Admin.Common.PostController().Trash ) );
             set( "settingLink", to( new Admin.SettingController().Index ) );
             set( "defaultLink", to( new Admin.ContentController().Home ) );
-            set( "commentLink", to( new Admin.CommentController().AdminList ) );
 
             IBlock htmlBlock = getBlock( "html" );
             if (ctx.owner.obj is Site) {

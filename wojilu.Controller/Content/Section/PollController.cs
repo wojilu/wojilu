@@ -44,7 +44,7 @@ namespace wojilu.Web.Controller.Content.Section {
             }
             else {
                 ctx.SetItem( "poll", c );
-                load( "pollHtml", new CmsPollController().Detail );
+                load( "pollHtml", new wojilu.Web.Controller.Content.Common.PollController().Detail );
             }
         }
 
@@ -57,7 +57,7 @@ namespace wojilu.Web.Controller.Content.Section {
             }
 
             set( "section.Name", section.Title );
-            set( "pollList", loadHtml( new CmsPollController().List, sectionId ) );
+            set( "pollList", loadHtml( new wojilu.Web.Controller.Content.Common.PollController().List, sectionId ) );
         }
 
         public void Show( int id ) {
@@ -73,7 +73,7 @@ namespace wojilu.Web.Controller.Content.Section {
             ctx.SetItem( "poll", poll );
             ctx.SetItem( "sectionId", post.PageSection.Id );
 
-            set( "x.Content", loadHtml( new CmsPollController().Detail ) );
+            set( "x.Content", loadHtml( new wojilu.Web.Controller.Content.Common.PollController().Detail ) );
         }
 
     }

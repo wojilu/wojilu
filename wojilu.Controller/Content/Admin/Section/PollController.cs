@@ -12,6 +12,7 @@ using wojilu.Common.AppBase;
 using wojilu.Apps.Content.Domain;
 using wojilu.Apps.Content.Interface;
 using wojilu.Apps.Content.Service;
+using wojilu.Web.Controller.Content.Admin.Common;
 
 
 namespace wojilu.Web.Controller.Content.Admin.Section {
@@ -42,8 +43,8 @@ namespace wojilu.Web.Controller.Content.Admin.Section {
         public void AdminSectionShow( int sectionId ) {
 
             set( "section.Id", sectionId );
-            set( "addLink", to( new CmsPollController().Add, sectionId ) );
-            set( "listLink", to( new CmsPollController().AdminList, sectionId ) );
+            set( "addLink", to( new Admin.Common.PollController().Add, sectionId ) );
+            set( "listLink", to( new Admin.Common.PollController().AdminList, sectionId ) );
 
             ContentPoll c = pollService.GetRecentPoll( ctx.app.Id, sectionId );
 
@@ -52,7 +53,7 @@ namespace wojilu.Web.Controller.Content.Admin.Section {
             }
             else {
                 ctx.SetItem( "poll", c );
-                load( "pollHtml", new wojilu.Web.Controller.Content.Section.CmsPollController().Detail );
+                load( "pollHtml", new wojilu.Web.Controller.Content.Common.PollController().Detail );
             }
         }
 

@@ -16,7 +16,7 @@ using wojilu.Apps.Content.Domain;
 using wojilu.Apps.Content.Service;
 using wojilu.Common.AppBase;
 
-namespace wojilu.Web.Controller.Content.Admin {
+namespace wojilu.Web.Controller.Content.Admin.Common {
 
     [App( typeof( ContentApp ) )]
     public class AttachmentController : ControllerBase {

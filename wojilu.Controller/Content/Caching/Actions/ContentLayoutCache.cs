@@ -42,7 +42,7 @@ namespace wojilu.Web.Controller.Content.Caching {
 
             //---------------------------------------------------------
 
-            Admin.PostController post = new wojilu.Web.Controller.Content.Admin.PostController();
+            Admin.Common.PostController post = new wojilu.Web.Controller.Content.Admin.Common.PostController();
             observe( post.Delete );
             observe( post.DeleteTrue );
             observe( post.SaveAdmin );
@@ -83,7 +83,7 @@ namespace wojilu.Web.Controller.Content.Caching {
             observe( img.Delete );
             observe( img.DeleteImg );
 
-            Admin.Section.CmsPollController poll = new wojilu.Web.Controller.Content.Admin.Section.CmsPollController();
+            Admin.Common.PollController poll = new wojilu.Web.Controller.Content.Admin.Common.PollController();
             observe( poll.Create );
             observe( poll.Delete );
 

@@ -7,14 +7,14 @@ using wojilu.Apps.Content.Domain;
 using wojilu.Apps.Content.Interface;
 using wojilu.Apps.Content.Service;
 
-namespace wojilu.Web.Controller.Content {
+namespace wojilu.Web.Controller.Content.Common {
 
     [App( typeof( ContentApp ) )]
-    public class ContentAttachmentController : ControllerBase {
+    public class AttachmentController : ControllerBase {
         public IContentPostService postService { get; set; }
         public IAttachmentService attachmentService { get; set; }
 
-        public ContentAttachmentController() {
+        public AttachmentController() {
             postService = new ContentPostService();
             attachmentService = new AttachmentService();
         }

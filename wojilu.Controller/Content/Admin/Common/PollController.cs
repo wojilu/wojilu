@@ -19,16 +19,15 @@ using wojilu.Apps.Content.Domain;
 using wojilu.Apps.Content.Service;
 using wojilu.Apps.Content.Interface;
 
-
-namespace wojilu.Web.Controller.Content.Admin.Section {
+namespace wojilu.Web.Controller.Content.Admin.Common {
 
     [App( typeof( ContentApp ) )]
-    public class CmsPollController : ControllerBase {
+    public class PollController : ControllerBase {
 
         public virtual ContentPollService pollService { get; set; }
         public virtual IContentPostService topicService { get; set; }
 
-        public CmsPollController() {
+        public PollController() {
             topicService = new ContentPostService();
             pollService = new ContentPollService();
         }

@@ -22,8 +22,7 @@ using wojilu.Apps.Content.Enum;
 using wojilu.Common.Upload;
 using wojilu.Common.AppBase;
 
-
-namespace wojilu.Web.Controller.Content.Admin {
+namespace wojilu.Web.Controller.Content.Admin.Common {
 
     [App( typeof( ContentApp ) )]
     public class PostController : ControllerBase {

@@ -18,10 +18,10 @@ namespace wojilu.Web.Controller.Content.Admin.Section {
 
         private void bindSectionShow( int sectionId, int postcat, int imgcat, List<ContentPost> posts, List<ContentPost> imgs ) {
 
-            set( "postAddUrl", to( new PostController().Add, sectionId ) + "?categoryId=" + postcat );
+            set( "postAddUrl", to( new Common.PostController().Add, sectionId ) + "?categoryId=" + postcat );
             set( "postListUrl", to( new ListController().AdminList, sectionId ) + "?categoryId=" + postcat );
 
-            set( "imgAddUrl", to( new PostController().Add, sectionId ) + "?categoryId=" + imgcat );
+            set( "imgAddUrl", to( new Common.PostController().Add, sectionId ) + "?categoryId=" + imgcat );
             set( "imgListUrl", to( new ListController().AdminList, sectionId ) + "?categoryId=" + imgcat );
 
 
@@ -35,7 +35,7 @@ namespace wojilu.Web.Controller.Content.Admin.Section {
                 else
                     block.Set( "post.Title", post.Title );
 
-                block.Set( "post.Url", to( new PostController().Edit, post.Id ) );
+                block.Set( "post.Url", to( new Common.PostController().Edit, post.Id ) );
                 block.Set( "post.Created", post.Created.ToShortTimeString() );
                 block.Next();
             }
@@ -52,7 +52,7 @@ namespace wojilu.Web.Controller.Content.Admin.Section {
 
 
                 imgBlock.Set( "img.Thumb", img.GetImgThumb() );
-                imgBlock.Set( "img.Url", to( new PostController().EditImg, img.Id ) );
+                imgBlock.Set( "img.Url", to( new Common.PostController().EditImg, img.Id ) );
                 imgBlock.Bind( "img", img );
 
                 imgBlock.Next();

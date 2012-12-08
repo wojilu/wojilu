@@ -16,11 +16,10 @@ namespace wojilu.Web.Controller.Content.Admin {
 
             ContentApp app = ctx.app.obj as ContentApp;
 
-            set( "allPostsLink", to( new PostController().List, 0 ) );
-            set( "trashPostsLink", to( new PostController().Trash ) );
+            set( "allPostsLink", to( new Common.PostController().List, 0 ) );
+            set( "trashPostsLink", to( new Common.PostController().Trash ) );
             set( "settingLink", to( new SettingController().Index ) );
             set( "defaultLink", to( new ContentController().Home ) );
-            set( "commentLink", to( new CommentController().AdminList ) );
 
             IBlock htmlBlock = getBlock( "html" );
             if (ctx.owner.obj is Site) {

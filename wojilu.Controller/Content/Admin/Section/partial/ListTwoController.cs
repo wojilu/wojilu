@@ -17,7 +17,7 @@ namespace wojilu.Web.Controller.Content.Admin.Section {
 
 
         private void bindSectionShow( int sectionId, List<ContentPost> posts ) {
-            set( "addUrl", to( new PostController().Add, sectionId ) );
+            set( "addUrl", to( new Common.PostController().Add, sectionId ) );
             set( "listUrl", to( new ListController().AdminList, sectionId ) );
             IBlock block = getBlock( "list" );
             foreach (ContentPost post in posts) {
@@ -30,7 +30,7 @@ namespace wojilu.Web.Controller.Content.Admin.Section {
                     block.Set( "post.Title", post.Title );
 
 
-                block.Set( "post.Url", to( new PostController().Edit, post.Id ) );
+                block.Set( "post.Url", to( new Common.PostController().Edit, post.Id ) );
                 block.Next();
             }
         }

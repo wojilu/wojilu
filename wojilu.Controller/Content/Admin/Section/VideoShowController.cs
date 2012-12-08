@@ -65,7 +65,7 @@ namespace wojilu.Web.Controller.Content.Admin.Section {
             ContentSection section = sectionService.GetById( sectionId, ctx.app.Id );
             target( to( Create, sectionId ) + "?categoryId=" + ctx.GetInt( "categoryId" ) );
             bindAddInfo( section );
-            set( "videoServiceUrl", to( new Common.Service.VideoController().PlayUrl ) );
+            set( "videoServiceUrl", to( new wojilu.Web.Controller.Open.VideoController().PlayUrl ) );
         }
         
         [HttpPost, DbTransaction]

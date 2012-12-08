@@ -7,7 +7,7 @@ using wojilu.Web.Mvc;
 using wojilu.Net.Video;
 using wojilu.Web.Mvc.Attr;
 
-namespace wojilu.Web.Controller.Common.Service {
+namespace wojilu.Web.Controller.Open {
 
     public class VideoController : ControllerBase {
 
@@ -23,7 +23,7 @@ namespace wojilu.Web.Controller.Common.Service {
             WojiluVideoSpider s = new WojiluVideoSpider();
             VideoInfo vi = s.GetInfo( playUrl );
 
-            echoJson( Json.Serialize( vi ) );
+            echoJson( vi );
 
         }
 

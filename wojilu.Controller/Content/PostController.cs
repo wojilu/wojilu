@@ -4,24 +4,21 @@
 
 using System;
 using System.Collections.Generic;
-using System.Text;
 
-using wojilu.DI;
+using wojilu.ORM;
 using wojilu.Web.Mvc;
 using wojilu.Web.Mvc.Attr;
+
+using wojilu.Common.AppBase.Interface;
+using wojilu.Common.Tags;
+
+using wojilu.Web.Controller.Content.Caching;
+using wojilu.Web.Controller.Content.Section;
+using wojilu.Web.Controller.Content.Utils;
+
 using wojilu.Apps.Content.Domain;
 using wojilu.Apps.Content.Interface;
 using wojilu.Apps.Content.Service;
-using wojilu.Web.Controller.Content.Section;
-using wojilu.Web.Context;
-using wojilu.Web.Controller.Common;
-using wojilu.Web.Controller.Content.Utils;
-using wojilu.Web.Controller.Content.Caching;
-using wojilu.Common.AppBase;
-using wojilu.Members.Sites.Domain;
-using wojilu.Common.Tags;
-using wojilu.ORM;
-using wojilu.Common.AppBase.Interface;
 
 namespace wojilu.Web.Controller.Content {
 
@@ -287,23 +284,7 @@ namespace wojilu.Web.Controller.Content {
 
             }
 
-
         }
-
-        private void loadComment( ContentPost post ) {
-
-            ContentApp app = ctx.app.obj as ContentApp;
-
-            if (post.CommentCondition == CommentCondition.Close || app.GetSettingsObj().AllowComment == 0) {
-                set( "commentSection", "" );
-                return;
-            }
-
-            ctx.SetItem( "createAction", to( new ContentCommentController().Create, post.Id ) );
-            ctx.SetItem( "commentTarget", post );
-            load( "commentSection", new ContentCommentController().ListAndForm );
-        }
-
 
 
     }

@@ -16,7 +16,7 @@ namespace wojilu.Web.Controller.Content.Admin.Section {
         private void bindSectionShow( int sectionId, int imgcat, List<ContentPost> posts, ContentPost first ) {
 
             set( "sectionId", sectionId );
-            set( "addUrl", to( new PostController().Add, sectionId ) + "?categoryId=" + imgcat );
+            set( "addUrl", to( new Common.PostController().Add, sectionId ) + "?categoryId=" + imgcat );
             set( "listUrl", to( new ListController().AdminList, sectionId ) + "?categoryId=" + imgcat );
 
             IBlock block = getBlock( "nav" );
@@ -32,7 +32,7 @@ namespace wojilu.Web.Controller.Content.Admin.Section {
 
                 block.Set( "photo.ImgUrl", photo.GetImgUrl() );
                 block.Set( "photo.ThumbUrl", photo.GetImgThumb() );
-                block.Set( "photo.Link", to( new PostController().EditImg, photo.Id ) );
+                block.Set( "photo.Link", to( new Common.PostController().EditImg, photo.Id ) );
                 block.Next();
                 i++;
             }
@@ -42,7 +42,7 @@ namespace wojilu.Web.Controller.Content.Admin.Section {
 
                 fblock.Set( "first.Title", strUtil.SubString( first.Title, 20 ) );
                 fblock.Set( "first.ImgUrl", first.GetImgUrl() );
-                fblock.Set( "first.Link", to( new PostController().EditImg, first.Id ) );
+                fblock.Set( "first.Link", to( new Common.PostController().EditImg, first.Id ) );
 
                 fblock.Set( "first.Width", first.Width );
                 fblock.Set( "first.Height", first.Height );

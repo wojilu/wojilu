@@ -18,7 +18,7 @@ namespace wojilu.Web.Controller.Content.Admin.Section {
 
         private void bindSectionShow( int sectionId, IList posts ) {
 
-            set( "addUrl", to( new PostController().Add , sectionId ) );
+            set( "addUrl", to( new Common.PostController().Add, sectionId ) );
             set( "listUrl", to( AdminList, sectionId ) );
 
             IBlock block = getBlock( "list" );
@@ -32,7 +32,7 @@ namespace wojilu.Web.Controller.Content.Admin.Section {
                 else
                     block.Set( "post.Title", post.Title );
 
-                block.Set( "post.Url", to( new PostController().Edit, post.Id ) );
+                block.Set( "post.Url", to( new Common.PostController().Edit, post.Id ) );
                 block.Next();
             }
         }
@@ -63,73 +63,15 @@ namespace wojilu.Web.Controller.Content.Admin.Section {
                 block.Set( "post.Attachments", attachments );
 
                 if (post.HasImg())
-                    block.Set( "post.EditUrl", to( new PostController().EditImg, post.Id ) );
+                    block.Set( "post.EditUrl", to( new Common.PostController().EditImg, post.Id ) );
                 else
-                    block.Set( "post.EditUrl", to( new PostController().Edit, post.Id ) );
+                    block.Set( "post.EditUrl", to( new Common.PostController().Edit, post.Id ) );
 
                 block.Set( "post.DeleteUrl", to( Delete, post.Id ) );
                 block.Next();
             }
             set( "page", posts.PageBar );
         }
-
-        //private void bindAddInfo( int sectionId, ContentSection section ) {
-        //    set( "section.Title", section.Title );
-        //    set( "module.Id", section.Id );
-        //    editor( "Content", "", "300px" );
-
-        //    bindUploadLink( sectionId );
-        //}
-
-
-        //private void bindEditInfo( ContentPost post ) {
-
-        //    if (post.PageSection == null) return;
-
-        //    set( "post.DeleteUrl", to( Delete, post.Id ) );
-
-        //    set( "post.Author", post.Author );
-        //    set( "post.Title", post.Title );
-        //    set( "post.TitleHome", strUtil.EncodeTextarea( post.TitleHome ) );
-
-        //    set( "post.Width", post.Width );
-        //    set( "post.Height", post.Height );
-
-        //    editor( "Content", strUtil.Edit( post.Content ), "250px" );
-
-        //    set( "post.Created", post.Created );
-        //    set( "post.Hits", post.Hits );
-        //    set( "post.OrderId", post.OrderId );
-
-        //    set( "post.RedirectUrl", post.RedirectUrl );
-        //    set( "post.MetaKeywords", post.MetaKeywords );
-        //    set( "post.MetaDescription", post.MetaDescription );
-
-
-        //    set( "post.Summary", post.Summary );
-        //    set( "post.SourceLink", post.SourceLink );
-        //    set( "post.Style", post.Style );
-
-        //    set( "post.ImgLink", post.GetImgUrl() );
-        //    set( "post.TagList", post.Tag.TextString );
-        //    String val = AccessStatusUtil.GetRadioList( post.AccessStatus );
-        //    set( "post.AccessStatus", val );
-        //    set( "post.IsCloseComment", Html.CheckBox( "IsCloseComment", lang( "closeComment" ), "1", cvt.ToBool( post.CommentCondition ) ) );
-
-        //    radioList( "PickStatus", PickStatus.GetPickStatus(), post.PickStatus.ToString() );
-
-
-        //    bindUploadLink( post.PageSection.Id );
-
-        //    set( "attachmentAdminLink", to( new AttachmentController().AdminList, post.Id ) );
-        //}
-
-
-        //private void bindUploadLink( int sectionId ) {
-        //    set( "uploadLink", to( Upload, sectionId ) );
-        //    set( "deleteUploadLink", to( DeleteUpload, sectionId ) );
-        //}
-
 
     }
 }

@@ -17,7 +17,6 @@ namespace wojilu.Web.Controller.Content.Admin {
     public class SettingController : ControllerBase {
 
         public SettingController() {
-            base.LayoutControllerType = typeof( PostController );
             HideLayout( typeof( wojilu.Web.Controller.Content.LayoutController ) );
         }
 
