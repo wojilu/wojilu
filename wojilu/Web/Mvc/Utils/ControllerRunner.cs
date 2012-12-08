@@ -185,7 +185,9 @@ namespace wojilu.Web.Mvc.Utils {
                 controller.utils.switchViewToLayout();
             }
 
-            controller.content( "" ); // 清理当前内容，否则下面的utils.getActionResult()得不到正确结果
+            // 清理当前内容，否则下面的utils.getActionResult()得不到正确结果
+            // 因为当前 controller 被其他 action 使用过，所以在运行 Layout() 之前，必须重新 Init 初始化
+            controller.utils.initActionResult();            
             controller.Layout();
 
             return controller.utils.getActionResult();

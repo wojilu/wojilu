@@ -85,6 +85,14 @@ namespace wojilu.Web.Mvc {
             _isSetContent = true;
         }
 
+        /// <summary>
+        /// 请当前 action 内容清空，保持初始状态
+        /// </summary>
+        internal void initActionResult() {
+            _actionContent = null;
+            _isSetContent = false;
+        }
+
         private Boolean _isappLangLoaded = false;
         private LanguageSetting _langSetting;
 
