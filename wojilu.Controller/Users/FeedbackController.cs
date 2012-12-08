@@ -71,7 +71,7 @@ namespace wojilu.Web.Controller.Users {
                 dic.Add( "Info", "formResult" );
                 dic.Add( "Msg", postContent );
 
-                echoJson( Json.Serialize( dic ) );
+                echoJson( dic );
 
             }
         }

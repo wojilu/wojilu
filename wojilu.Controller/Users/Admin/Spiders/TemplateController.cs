@@ -187,7 +187,7 @@ namespace wojilu.Web.Controller.Users.Admin.Spiders {
                 dic.Add( "patternBody", s.ListBodyPattern );
                 dic.Add( "patternLinks", s.ListPattern );
 
-                echoJson( Json.Serialize( dic ) );
+                echoJson( dic );
             }
             else {
                 renderJson( list );
@@ -208,7 +208,7 @@ namespace wojilu.Web.Controller.Users.Admin.Spiders {
             result.Add( "IsValid", true );
             result.Add( "List", ls );
 
-            echoJson( Json.Serialize( result ) );
+            echoJson( result );
         }
 
         private static readonly ILog logger = LogManager.GetLogger( typeof( TemplateController ) );

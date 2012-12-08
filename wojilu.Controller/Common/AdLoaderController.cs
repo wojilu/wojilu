@@ -26,7 +26,7 @@ namespace wojilu.Web.Controller.Common {
                 map[item] = AdItem.GetAdByName( item );
             }
 
-            echoJson( Json.SerializeDic( map ) );
+            echoJson( map );
 
         }
 

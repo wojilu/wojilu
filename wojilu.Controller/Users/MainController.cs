@@ -83,7 +83,7 @@ namespace wojilu.Web.Controller.Users {
         public void OnlineUserData() {
 
             List<OnlineUser> users = OnlineService.GetRecent( 20 );
-            echoJson( Json.SerializeList( users ) );
+            echoJson( users );
         }
 
         public void Rank() {

@@ -84,7 +84,7 @@ namespace wojilu.Web.Controller.Open {
 
             List<OpenComment> moreList = commentService.GetMore( parentId, startId, OpenComment.subCacheSize, "desc" );
             List<CommentDto> dtoList = getCommentDto( moreList );
-            echoJson( Json.SerializeList( dtoList ) );
+            echoJson( dtoList );
         }
 
         private List<CommentDto> getCommentDto( List<OpenComment> moreList ) {

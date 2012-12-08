@@ -159,7 +159,7 @@ namespace wojilu.Web.Controller.Users.Admin.Friends {
             dic.Add( "Description", friendDescription );
             dic.Add( "IsValid", true );
 
-            echoJson( Json.Serialize( dic ) );
+            echoJson( dic );
         }
 
         public void Add() {

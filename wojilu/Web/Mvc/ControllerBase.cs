@@ -504,6 +504,15 @@ namespace wojilu.Web.Mvc {
         }
 
         /// <summary>
+        /// 将对象序列化，然后输出到客户端(ContentType="application/json")，不再输出布局页面
+        /// </summary>
+        /// <param name="msg"></param>
+        protected void echoJson( Object obj ) {
+            setJsonContentType();
+            echoText( Json.Serialize( obj ) );
+        }
+
+        /// <summary>
         /// 将json字符串直接输出到客户端(ContentType="application/json")，不再输出布局页面
         /// </summary>
         /// <param name="msg"></param>

@@ -79,7 +79,7 @@ namespace wojilu.Web.Controller.Microblogs {
             dic.Add( "SrcType", "shareBox" );
             dic.Add( "ForwardUrl", "" );
 
-            echoJson( Json.Serialize( dic ) );
+            echoJson( dic );
         }
 
         private void returnOneBlogHtml( Microblog blog ) {
@@ -94,7 +94,7 @@ namespace wojilu.Web.Controller.Microblogs {
             String html = getOneBlogHtml( blog );
             dic.Add( "Info", html );
 
-            echoJson( Json.Serialize( dic ) );
+            echoJson( dic );
         }
 
 
