@@ -27,9 +27,9 @@ namespace wojilu.Web.Controller.Content.Admin.Common {
     [App( typeof( ContentApp ) )]
     public class PostController : ControllerBase {
 
-        public IContentPostService postService { get; set; }
-        public IContentSectionService sectionService { get; set; }
-        public IAttachmentService attachService { get; set; }
+        public virtual IContentPostService postService { get; set; }
+        public virtual IContentSectionService sectionService { get; set; }
+        public virtual IAttachmentService attachService { get; set; }
 
         public PostController() {
             postService = new ContentPostService();
@@ -191,8 +191,6 @@ namespace wojilu.Web.Controller.Content.Admin.Common {
         }
 
         private void bindEditInfo( ContentPost post ) {
-
-            if (post.PageSection == null) return;
 
             set( "post.DeleteUrl", to( Delete, post.Id ) );
 

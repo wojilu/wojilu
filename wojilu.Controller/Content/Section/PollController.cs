@@ -69,11 +69,21 @@ namespace wojilu.Web.Controller.Content.Section {
 
             bind( "x", post );
 
+            bindSummary( post );
+
             ctx.SetItem( "ContentPost", post );
             ctx.SetItem( "poll", poll );
             ctx.SetItem( "sectionId", post.PageSection.Id );
 
             set( "x.Content", loadHtml( new wojilu.Web.Controller.Content.Common.PollController().Detail ) );
+        }
+
+        private void bindSummary( ContentPost post ) {
+            IBlock summaryBlock = getBlock( "summary" );
+            if (strUtil.HasText( post.Summary )) {
+                summaryBlock.Set( "post.Summary", post.Summary );
+                summaryBlock.Next();
+            }
         }
 
     }

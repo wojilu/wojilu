@@ -237,6 +237,7 @@
     <Content Include="framework\views\Common\SkinBase\List.html" />
     <Content Include="framework\views\Common\SkinBase\My.html" />
     <Content Include="framework\views\Common\Visitor\List.html" />
+    <Content Include="framework\views\Content\Admin\Common\Poll\Edit.html" />
     <Content Include="framework\views\Content\Admin\ContentSection\Add.html" />
     <Content Include="framework\views\Content\Admin\ContentSection\AddAuto.html" />
     <Content Include="framework\views\Content\Admin\ContentSection\AddAutoThree.html" />

@@ -1,4 +1,4 @@
-﻿<div style="width:780px; height:600px;">
+﻿<div style="width:780px; ">
 
 <style>
 .postTitleTd {width:480px;}
@@ -111,7 +111,8 @@ _run( function() {
 	<ul class="tabList clearfix">
 	<li id="tab1" class="firstTab currentTab" style="margin-left:30px; width:130px;"><a href="#">:{general}</a><span></span></li>
 	<li id="tab2" style="width:130px;"><a href="#">:{advanced}</a><span></span></li>
-	<li id="tab3" style="width:130px;"><a href="#{attachmentLink}?nolayout=4" target="_blank">附件管理 <img src="~img/s/external-link.png" /></a><span></span></li>
+    <li id="tab3" style="width:130px;"><a href="#">SEO</a><span></span></li>
+	<li id="tab4" style="width:130px;"><a href="#{attachmentLink}?nolayout=4" target="_blank">附件管理 <img src="~img/s/external-link.png" /></a><span></span></li>
 	</ul>
 	
 	<div id="content1" class="tabMain" style="width:98%;">
@@ -123,10 +124,7 @@ _run( function() {
 			</td>
 			<td rowspan="6" id="uploadImgPanel"></td>
 		</tr>				
-	    <tr>
-		    <td class="pubLeft">_{titleHome}</td>
-		    <td> <input name="TitleHome" class="postTitle" type="text" value="#{post.TitleHome}" ></td>
-	    </tr>
+
 		<tr>
 		    <td style="vertical-align:top;" class="pubLeft">所属区块</td>
 		    <td id="postSection">#{postSection}</td>
@@ -164,7 +162,7 @@ _run( function() {
 		    <td class="pubLeft">时间</td>
 		    <td>
 		        <input name="Created" type="text" class="right20" value="#{post.Created}" />
-		        查看<input name="Hits" type="text" style="width:30px" value="#{post.Hits}" />
+		        
 		        <span class="left20 note">文章属性</span>
 		        #{PickStatus}
 		    </td>
@@ -189,22 +187,60 @@ _run( function() {
 	<table style="width: 99%;margin:auto;">
 		<tr>
 		    <td class="pubLeft">跳转网址</td>
-		    <td><input name="RedirectUrl" type="text" style="width:600px;" value="#{post.RedirectUrl}" /></td>
+		    <td style="padding-bottom:5px;"><input name="RedirectUrl" type="text" style="width:480px;" value="#{post.RedirectUrl}" /><br />
+            <span class="note">(如果设置，则文章被点击之后，不再显示内容，而是直接跳转到此网址)</span></td>
 		</tr>
+	    <tr>
+		    <td class="pubLeft">_{titleHome}</td>
+		    <td style="padding-bottom:5px;"> <input name="TitleHome" type="text" style="width:480px;" type="text" value="#{post.TitleHome}" ><br />
+            <span class="note">(为了美化首页排版，你可以稍作编辑，比如精简字数、修饰标题等)</span>
+            </td>
+	    </tr>
+        <tr>
+            <td class="pubLeft">首页排序</td>
+            <td><input name="OrderId" type="text" size="20" style="width: 30px" value="#{post.OrderId}">
+            <span class="note">(可以调整文章在首页的顺序。数字越大越靠前)</span>
+            </td>
+        </tr>
+
+        <tr><td></td><td>&nbsp;</td></tr>
+	    <tr><td class="pubLeft">_{closeComment}</td><td>#{post.IsCloseComment}	    	    
+	    </td></tr>
+        <tr>
+            <td class="pubLeft">查看次数</td>
+            <td><input name="Hits" type="text" style="width:30px" value="#{post.Hits}" /></td>
+        </tr>
 		<tr>
 		    <td class="pubLeft">图片大小</td>
 		    <td>:{width}<input id="width" name="Width" type="text" value="#{post.Width}" style="width:40px;" />px 
             <span class="left20">:{height}</span><input id="height" name="Height" type="text" value="#{post.Height}" style="width:40px;" />px</td>
 		</tr>
-	    <tr><td class="pubLeft">_{closeComment}</td><td>#{post.IsCloseComment}	    
-	    <span class="left20 strong">_{orderId}</span>
-	    <input name="OrderId" type="text" size="20" style="width: 30px" value="#{post.OrderId}">
-	    </td></tr>
+
+
+
+        <tr><td></td><td>&nbsp;</td></tr>
+
+
 	    <tr><td class="pubLeft">_{tag}</td><td><input name="TagList" type="text" id="tagList" style="width:300px;" value="#{post.TagList}"> <span class="note left5" title="">_{tagTip}</span></td></tr>
 		<tr>
 			<td class="pubLeft">_{summary}</td>
 			<td><textarea name="Summary" style="width: 600px; height: 80px">#{post.Summary}</textarea></td>
 		</tr>
+
+
+		<tr>
+			<td class="pubLeft">:{titleStyle}</td>
+			<td><textarea name="Style" style="width: 600px; height: 50px">#{post.Style}</textarea><br />
+			<span class="note">(:{cssRequired})</span>
+			</td>
+		</tr>
+
+		
+	</table>
+	</div>
+
+	<div id="content3" class="tabMain" style="display:none;width:98%;">
+	<table style="width: 99%;margin:auto;">
 	    <tr>
 	        <td class="pubLeft">SEO<br />keywords</td>
 	        <td><input name="MetaKeywords" type="text" style="width:600px;" value="#{post.MetaKeywords}"><br />
@@ -218,18 +254,8 @@ _run( function() {
 			<span class="note">如果不填写，则使用摘要</span>
 			</td>
 		</tr>
+    </table>
+    </div>
 
-		<tr>
-			<td class="pubLeft">:{titleStyle}</td>
-			<td><textarea name="Style" style="width: 600px; height: 50px">#{post.Style}</textarea><br />
-			<span class="note">(:{cssRequired})</span>
-			</td>
-		</tr>
-
-		
-	</table>
-	</div>
-
-	
 </form>
 </div>

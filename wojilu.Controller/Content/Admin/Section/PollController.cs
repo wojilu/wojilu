@@ -49,9 +49,16 @@ namespace wojilu.Web.Controller.Content.Admin.Section {
             ContentPoll c = pollService.GetRecentPoll( ctx.app.Id, sectionId );
 
             if (c == null) {
+                set( "editLink", "" );
                 set( "pollHtml", "" );
             }
             else {
+                String editLink = string.Format( "<a href=\"{0}\" class=\"frmBox\"><img src=\"{1}edit.gif\" />{2}</a>",
+                    to( new Admin.Common.PollController().Edit, c.Id ),
+                    sys.Path.Img,
+                    lang( "edit" )
+                    );
+                set( "editLink", editLink );
                 ctx.SetItem( "poll", c );
                 load( "pollHtml", new wojilu.Web.Controller.Content.Common.PollController().Detail );
             }

@@ -13,10 +13,55 @@ namespace wojilu.Apps.Content.Service {
 
     public class ContentPollService : PollBaseService<ContentPoll, ContentPollResult> {
 
-
+        /// <summary>
+        /// 快速创建投票，没有其他SEO等高级数据
+        /// </summary>
+        /// <param name="sectionId"></param>
+        /// <param name="poll"></param>
+        /// <returns></returns>
         public Result CreatePoll( int sectionId, ContentPoll poll ) {
 
+            // 1) insert post
             ContentPost post = new ContentPost();
+            Result result = insertPostByPoll( poll, post );
+            if (result.HasErrors) return result;
+
+            // 2) insert post_section
+            // 新的多对多关系
+            insertPostSectionShip( sectionId, post );
+
+            // 3) insert poll
+            insertPollPrivate( poll, post );
+
+            return result;
+        }
+
+        /// <summary>
+        /// 完整创建投票，包括客户端提供的SEO等表单数据
+        /// </summary>
+        /// <param name="sectionId"></param>
+        /// <param name="poll"></param>
+        /// <param name="post"></param>
+        /// <returns></returns>
+        public Result CreatePoll( int sectionId, ContentPoll poll, ContentPost post ) {
+
+            // 1) insert post
+            post.TypeName = typeof( ContentPoll ).FullName;
+            Result result = post.insert();
+            if (result.HasErrors) return result;
+
+            // 2) insert post_section
+            // 新的多对多关系
+            insertPostSectionShip( sectionId, post );
+
+            // 3) insert poll
+            insertPollPrivate( poll, post );
+
+            return result;
+        }
+
+
+        private static Result insertPostByPoll( ContentPoll poll, ContentPost post ) {
             post.OwnerId = poll.OwnerId;
             post.OwnerType = poll.OwnerType;
             post.OwnerUrl = poll.OwnerUrl;
@@ -27,13 +72,31 @@ namespace wojilu.Apps.Content.Service {
             post.TypeName = typeof( ContentPoll ).FullName;
 
             post.AppId = poll.AppId;
-            post.PageSection = new ContentSection { Id = sectionId };
-            post.Ip = post.Ip;
+            post.Ip = poll.Ip;
 
             post.Title = poll.Title;
 
-            Result result = post.insert();
-            if (result.HasErrors) return result;
+            return post.insert();
+        }
+
+        private static void insertPostSectionShip( int sectionId, ContentPost post ) {
+
+            // page section
+            ContentSection section = new ContentSection();
+            section.Id = sectionId;
+
+            // 保留原始一对多关系
+            post.PageSection = section;
+            post.update();
+
+            // 多对多关系
+            ContentPostSection ps = new ContentPostSection();
+            ps.Post = post;
+            ps.Section = section;
+            ps.insert();
+        }
+
+        private void insertPollPrivate( ContentPoll poll, ContentPost post ) {
 
             // 双向引用1
             poll.TopicId = post.Id;
@@ -43,8 +106,6 @@ namespace wojilu.Apps.Content.Service {
             // 双向引用2
             post.Content = poll.Id.ToString();
             post.update( "Content" );
-
-            return result;
         }
 
         public ContentPoll GetRecentPoll( int appId, int sectionId ) {
