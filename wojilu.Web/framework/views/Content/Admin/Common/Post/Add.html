@@ -173,6 +173,7 @@ _run( function() {
 	<li id="tab1" class="firstTab currentTab" style="margin-left:30px; width:130px;"><a href="#">:{general}</a><span></span></li>
 	<li id="tab2" style="width:130px;"><a href="#">:{advanced}</a><span></span></li>
     <li id="tab3" style="width:130px;"><a href="#">SEO</a><span></span></li>
+    <li id="tab4" style="width:130px;"><a href="#">:{attachment}</a><span></span></li>
 	</ul>
 	
 	
@@ -293,19 +294,7 @@ _run( function() {
 
 
 
-        <tr><td></td><td>&nbsp;</td></tr>
 
-
-
-		<tr>
-		    <td class="pubLeft">附件</td>
-		    <td>
-		        <div><input id="file_upload" name="file_upload" type="file" /><span id="status"></span></div>
-                <div id="myqueue"></div>
-                <div id="attachmentList" style="padding-left:5px;margin-bottom:5px;"></div>
-                <input id="attachmentIds" name="attachmentIds" type="hidden" />
-		    </td>
-		</tr>
 
 		
 	</table>
@@ -332,6 +321,21 @@ _run( function() {
     </div>
 	
 
+    <div id="content4" class="tabMain" style="display:none;width:98%;">
+	<table style="margin:auto;width:90%;" class="pubTable">
+
+		<tr>
+		    <td class="pubLeft">:{attachment}</td>
+		    <td>
+		        <div><input id="file_upload" name="file_upload" type="file" /><span id="status"></span></div>
+                <div id="myqueue"></div>
+                <div id="attachmentList" style="padding-left:5px;margin-bottom:5px;"></div>
+                <input id="attachmentIds" name="attachmentIds" type="hidden" />
+		    </td>
+		</tr>
+
+        </table>
+    </div>
 
 </form>
 

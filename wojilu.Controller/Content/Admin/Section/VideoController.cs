@@ -79,9 +79,9 @@ namespace wojilu.Web.Controller.Content.Admin.Section {
                 run( Add, sectionId );
             }
             else {
-                
-                postService.Insert( post, null );
-                
+
+                postService.Insert( post, ctx.Post( "TagList" ) );
+
                 echoToParentPart( lang( "opok" ) );
                 HtmlHelper.SetCurrentPost( ctx, post );
 

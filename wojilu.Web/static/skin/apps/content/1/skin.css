@@ -71,19 +71,21 @@ div.articleLocation {margin:0px 10px 10px 5px; color:#666;}
         .ulimgMiddle li {float:left;width:115px;list-style:none; height:125px;margin:10px; padding-top:10px; background:#fff;text-align:center}
         .ulimgMiddle li div {margin:5px; }
     
-        .h1title {font-size:26px;font-weight:bold; color:#004499; margin:25px 0px 5px 0px; text-align:center; border-bottom:1px #aaa solid; padding-bottom:5px;}
+        .post-detail-title{font-size:26px;font-weight:bold; color:#004499; margin:25px 0px 5px 0px; text-align:center; border-bottom:1px #aaa solid; padding-bottom:5px;}
         .h4title {font-size:16px; font-weight:bold; margin:20px 0px 0px 5px;}
         .ulposts {font-size:14px; line-height:150%; padding:15px 10px 10px 5px;}
         .ulposts .note {font-size:12px;}
         
-        .postInfo {color:#333;text-align:center;margin:5px 5px 10px 5px; }
-        .postInfo a{color:#cc0000;}
-        .postSource {text-align:; color:#666; padding:0px 0px 10px 10px;}
+        .post-detail-info {color:#333;text-align:center;margin:5px 5px 10px 5px; }
+        .post-detail-info a{color:#cc0000;}
         #postContent {margin:5px 5px 5px 5px; font-size:14px; line-height:150%}   
         #postContent img {max-width:560px;}
         
-        .postSummary {margin:10px 0px;padding:10px;border:1px #ccc solid; background:#fff; line-height:150%;}
-        
+        .post-detail-summary {margin:10px 0px;padding:10px;border:1px #ccc solid; background:#fff; line-height:150%;}
+        .post-detail-attachment {margin:0px 20px;}
+        .post-detail-tag {text-align:; color:#666; padding:0px 0px 10px 10px;}
+        .post-detail-submitter { margin-left:10px;}
+
     #postSidebar { width:260px; float:left; padding:10px 0px 0px 0px; }
     #postSidebarContainer {padding:10px 0px 0px 0px; }
         .postPanel {margin:0px 0px 10px 0px;padding-bottom:10px; border:1px #aaccee solid; line-height:150%; font-size:14px; display:block;}
@@ -154,3 +156,25 @@ table.commentPublishTable {color:#004499; border:0px #aaa solid; margin-left:15p
 .login .uid, .login .pwd {width:120px !important;}
 .login .reglink { font-size:12px !important;}
 .login .alert { font-size:12px !important; padding-left:8px;padding-right:2px; margin-top:10px;}
+
+
+/**************************************/
+
+.diggUp {background: url("../../../../img/big/diggBg.png") left top no-repeat;}
+.diggDown {background: url("../../../../img/big/diggBg.png") right top no-repeat;}
+
+.btnDigg {width: 195px;height: 51px;float: left;margin-right: 8px;overflow: hidden;cursor: pointer;}
+.btnDigg .diggText {font-size: 14px;float: left;line-height: 31px;text-indent: 32px;height: 29px;overflow: hidden;font-weight: bold;}
+.btnDigg .diggNum {float: left;line-height: 29px;text-indent: 5px;}
+.btnDigg .diggPer {width: 180px;clear: both;padding-left: 10px;overflow: hidden;}
+.btnDigg .diggPer .diggPerBar {width: 100px;height: 7px;background: #E8E8E8;border-right: 1px solid #CCC;float: left;overflow: hidden;margin-top: 3px;}
+.btnDigg .diggPer .diggPerBar span {display: block;height: 5px;overflow: hidden;background: black;}
+.btnDigg .diggPer .diggPerNum {font-size: 10px;float: left;padding-left: 10px;}
+
+.diggUp .diggText {color: #C30;}
+.diggUp .diggNum {color: #C63;}
+.diggUp .diggPer .diggPerBar span {border: 1px solid #E37F24;background: #FFC535;}
+
+.diggDown .diggText {color: #36C;}
+.diggDown .diggNum {color: #39C;}
+.diggDown .diggPer .diggPerBar span {border: 1px solid #689ACC;background: #94C0E4;}

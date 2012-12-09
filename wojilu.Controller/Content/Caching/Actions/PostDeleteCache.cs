@@ -35,9 +35,6 @@ namespace wojilu.Web.Controller.Content.Caching.Actions {
             Admin.Section.VideoController video = new wojilu.Web.Controller.Content.Admin.Section.VideoController();
             observe( video.Delete );
 
-            Admin.Section.VideoShowController vshow = new wojilu.Web.Controller.Content.Admin.Section.VideoShowController();
-            observe( vshow.Delete );
-
             Admin.Section.ImgController img = new wojilu.Web.Controller.Content.Admin.Section.ImgController();
             observe( img.Delete );
 

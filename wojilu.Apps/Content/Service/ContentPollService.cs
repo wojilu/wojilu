@@ -43,12 +43,14 @@ namespace wojilu.Apps.Content.Service {
         /// <param name="poll"></param>
         /// <param name="post"></param>
         /// <returns></returns>
-        public Result CreatePoll( int sectionId, ContentPoll poll, ContentPost post ) {
+        public Result CreatePoll( int sectionId, ContentPoll poll, ContentPost post, String tagList ) {
 
             // 1) insert post
             post.TypeName = typeof( ContentPoll ).FullName;
             Result result = post.insert();
             if (result.HasErrors) return result;
+
+            post.Tag.Save( tagList );
 
             // 2) insert post_section
             // 新的多对多关系

@@ -89,7 +89,7 @@ label.clickLabel { background:#ffe45c; }
 
         <tr>
             <td class="tdL" style=" vertical-align:top;">_{pollNote}<br /><span class="label label-info note">(_{optional})</span></td>
-            <td><div  style="width:100%;">#{Editor}</div></td>
+            <td><div  style="width:520px;">#{Editor}</div></td>
         </tr>
 
         <tr>
@@ -129,52 +129,40 @@ label.clickLabel { background:#ffe45c; }
                     _{pubPoll}
                 </button>
 
-                <span id="btnMore" class="btn btn-mini left20"><i class="icon-hand-right"></i> 其他设置...</span>
-
                 <input name="appId" type="hidden" value="#{appId}" />
-
-            </td>
-        </tr>
-
-        <tr>
-            <td></td>
-            <td>
                 <div class="hide" id="optionCount">4</div>
 
-                <table id="moreOption" style="display:none;">
-
-                    <tr>
-                        <td>_{effectiveDay}</td>
-                        <td>
-                            <input name="Days" type="text" value="0" style="width:30px;" />
-                            <span class="help-inline note">_{dayTip}</span>
-                        </td>
-                    </tr>
-
-                    <tr">
-                        <td>_{otherRequirements}</td>
-                        <td>
-                            <label class="checkbox inline">
-                                <input name="IsVisible" id="pIsVisible" type="checkbox" /> _{isVisible}
-                            </label>
-                            <label class="checkbox inline">
-                                <input name="OpenVoter" id="pOpenVoter" type="checkbox" />_{isVoterOpen}
-                            </label>
-                        </td>
-                    </tr>
-
-                </table>
-
             </td>
         </tr>
+
         </table>
-        </div>
+    </div>
 
 
 	<div id="content2" class="tabMain" style="display:none;width:98%;">
 	<table style="margin:auto;" class="pubTable">
 
+        <tr>
+            <td class="pubLeft">_{effectiveDay}</td>
+            <td>
+                <input name="Days" type="text" value="0" style="width:30px;" />
+                <span class="help-inline note">_{dayTip}</span>
+            </td>
+        </tr>
 
+        <tr">
+            <td class="pubLeft">_{otherRequirements}</td>
+            <td>
+                <label class="checkbox inline">
+                    <input name="IsVisible" id="pIsVisible" type="checkbox" /> _{isVisible}
+                </label>
+                <label class="checkbox inline">
+                    <input name="OpenVoter" id="pOpenVoter" type="checkbox" />_{isVoterOpen}
+                </label>
+            </td>
+        </tr>
+
+        <tr><td></td><td>&nbsp;</td></tr>
         <tr>
             <td class="pubLeft">查看次数</td>
             <td><input name="Hits" type="text" style="width:30px" value="0" /></td>

@@ -65,14 +65,14 @@ namespace wojilu.Web.Controller.Content.Admin.Common {
         public void Create( int sectionId ) {
 
             ContentPost post = ContentValidator.SetValue( ctx );
+
             ContentPoll poll = new PollValidator<ContentPoll>().Validate( ctx );
             if (errors.HasErrors) {
                 echoError();
                 return;
             }
 
-            pollService.CreatePoll( sectionId, poll, post );
-
+            pollService.CreatePoll( sectionId, poll, post, ctx.Post( "TagList" ) );
 
             echoToParentPart( lang( "opok" ) );
         }

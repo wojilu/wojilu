@@ -1,22 +1,3 @@
-﻿
-<h1 class="h1title">#{x.Title}</h1>	
-<div class="postInfo">
-	<span>#{x.Created}</span>
-	<span class="left10">_{view}:#{x.Hits}</span> 
-	<span class="left10">_{comment}:#{x.Replies} <a href="#comments">_{viewByHit}</a></span>
-	<span class="left10 fontBig" fontTarget="postContent">_{fontBig}</span>
-	<span class="fontSmall" fontTarget="postContent">_{fontSmall}</span>
-	<span class="left5 print" onclick="window.print();">_{print}</span>
+﻿<div class="postContent" id="postContent">
+    <div class="post-detail-content-inner">#{x.Content}</div>
 </div>
-
-<!-- BEGIN summary -->
-<div class="postSummary">_{summary}: #{post.Summary}</div>
-<!-- END summary -->
-
-<div class="postContent" id="postContent">#{x.Content}</div>
-
-<script>
-_run( function() {
-    wojilu.ui.editFontSize();
-});
-</script>

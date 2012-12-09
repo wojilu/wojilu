@@ -772,10 +772,7 @@
     <Content Include="framework\views\Content\Admin\ContentSection\EditSectionContentUI.html" />
     <Content Include="framework\views\Content\Admin\Common\Post\List.html" />
     <Content Include="framework\views\Content\Admin\SectionSetting\EditCount.html" />
-    <Content Include="framework\views\Content\Admin\Section\VideoShow\Add.html" />
-    <Content Include="framework\views\Content\Admin\Section\VideoShow\AdminList.html" />
     <Content Include="framework\views\Content\Admin\Section\VideoShow\AdminSectionShow.html" />
-    <Content Include="framework\views\Content\Admin\Section\VideoShow\Edit.html" />
     <Content Include="framework\views\Content\Section\Poll\Show.html" />
     <Content Include="framework\views\Content\Section\VideoShow\SectionShow.html" />
     <Content Include="framework\views\Forum\Admin\Forum\Notice.html" />

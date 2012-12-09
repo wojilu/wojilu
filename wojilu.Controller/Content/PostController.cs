@@ -19,6 +19,9 @@ using wojilu.Web.Controller.Content.Utils;
 using wojilu.Apps.Content.Domain;
 using wojilu.Apps.Content.Interface;
 using wojilu.Apps.Content.Service;
+using System.Text;
+using wojilu.Web.Utils;
+using wojilu.Common.AppBase;
 
 namespace wojilu.Web.Controller.Content {
 
@@ -27,12 +30,14 @@ namespace wojilu.Web.Controller.Content {
 
         public IContentPostService postService { get; set; }
         public IContentSectionService sectionService { get; set; }
+        public IAttachmentService attachmentService { get; set; }
 
         public PostController() {
             LayoutControllerType = typeof( Section.LayoutController );
 
             postService = new ContentPostService();
             sectionService = new ContentSectionService();
+            attachmentService = new AttachmentService();
         }
 
         [CacheAction( typeof( ContentLayoutCache ) )]
@@ -101,30 +106,14 @@ namespace wojilu.Web.Controller.Content {
 
             //----------------------------------------------------------------------------------------------------
 
-
             // 1) location
-            String location = string.Format( "<a href='{0}'>{1}</a>", alink.ToApp( ctx.app.obj as IApp, ctx ),
-    ctx.app.Name );
-            location = location + string.Format( " &gt; <a href='{0}'>{1}</a> &gt; {2}", clink.toSection( post.PageSection.Id, ctx ), post.PageSection.Title, alang( "postDetail" ) );
-            set( "location", location );
+            set( "location", getLocation( post ) );
 
             // 2) detail
             set( "detailContent", loadHtml( post.PageSection.SectionType, "Show", post.Id ) );
 
             // 3) comment
-            //loadComment( post );
-            if (post.CommentCondition == wojilu.Common.AppBase.CommentCondition.Close) {
-                set( "thisUrl", "#" );
-            }
-            else {
-                String commentUrl = t2( new wojilu.Web.Controller.Open.CommentController().List )
-                    + "?url=" + alink.ToAppData( post, ctx )
-                    + "&dataType=" + typeof( ContentPost ).FullName
-                    + "&dataTitle=" + post.Title
-                    + "&dataUserId=" + post.Creator.Id
-                    + "&dataId=" + post.Id;
-                set( "thisUrl", commentUrl );
-            }
+            set( "commentUrl", getCommentUrl( post ) );
 
             // 4) related posts
             loadRelatedPosts( post );
@@ -132,33 +121,142 @@ namespace wojilu.Web.Controller.Content {
             // 5) prev/next
             bindPrevNext( post );
 
-            // 6) tag
-            String tag = post.Tag.List.Count > 0 ? post.Tag.HtmlString : "";
-            set( "post.Tag", tag );
+            // 6) other info, tag, src, summary
+            String tag = post.Tag.List.Count > 0 ? tag = "tag: " + post.Tag.HtmlString : "";
+            set( "post.Tag", (post.Tag.List.Count > 0 ? tag = "tag: " + post.Tag.HtmlString : "") );
+            set( "post.Source", getSrc( post ) );
+            set( "post.Title", post.GetTitle() );
+            set( "post.Replies", getReplies( post ) );
+            set( "post.Submitter", getSubmitter( post ) );
+            bindSummary( post );
 
             // 7) digg
             set( "lnkDiggUp", to( DiggUp, post.Id ) );
             set( "lnkDiggDown", to( DiggDown, post.Id ) );
 
-            // 8) link
-            String postUrl = getFullUrl( alink.ToAppData( post, ctx ) );
-            set( "post.Url", postUrl );
-            bind( "post", post );
+            // 9) 附件
+            set( "attachmentList", getAttachmentList( post ) );
 
-            // 9) page meta，最后一个绑定，覆盖各 Section 自己的配置
+            // 10) page meta，最后一个绑定，覆盖各 Section 自己的配置
             bindMetaInfo( post );
 
+            bind( "post", post );
         }
 
-        private String getFullUrl( String url ) {
-            if (url == null) return "";
-            if (url.StartsWith( "http" )) return url;
-            return strUtil.Join( ctx.url.SiteAndAppPath, url );
+        private string getCommentUrl( ContentPost post ) {
+
+            if (post.CommentCondition == CommentCondition.Close) {
+                return "#";
+            }
+
+            return t2( new wojilu.Web.Controller.Open.CommentController().List )
+                + "?url=" + alink.ToAppData( post, ctx )
+                + "&dataType=" + typeof( ContentPost ).FullName
+                + "&dataTitle=" + post.Title
+                + "&dataUserId=" + post.Creator.Id
+                + "&dataId=" + post.Id;
+        }
+
+        private String getLocation( ContentPost post ) {
+            String location = string.Format( "<a href='{0}'>{1}</a>", alink.ToApp( ctx.app.obj as IApp, ctx ),
+    ctx.app.Name );
+            location = location + string.Format( " &gt; <a href='{0}'>{1}</a> &gt; {2}", clink.toSection( post.PageSection.Id, ctx ), post.PageSection.Title, alang( "postDetail" ) );
+            return location;
+        }
+
+        private string getSubmitter( ContentPost post ) {
+            if (post.Creator != null) {
+                return string.Format( "<a href=\"{0}\" target=\"_blank\">{1}</a>", toUser( post.Creator ), post.Creator.Name );
+            }
+            else {
+                return "无";
+            }
+        }
+
+        private String getReplies( ContentPost post ) {
+
+            String replies = lang( "commentClosed" );
+
+            if (post.CommentCondition != CommentCondition.AllowAll) return replies;
+
+            if (post.Replies == 0) {
+                replies = string.Format( "{0}:0", lang( "comment" ) );
+            }
+            else {
+                replies = string.Format( "{0}:{1} <a href=\"#comments\">{2}</a>", lang( "comment" ), post.Replies, lang( "viewByHit" ) );
+            }
+            return replies;
+        }
+
+        private void bindSummary( ContentPost post ) {
+            IBlock block = getBlock( "summary" );
+            if (strUtil.HasText( post.Summary )) {
+                block.Set( "post.Summary", post.Summary );
+                block.Next();
+            }
+        }
+
+        private String getSrc( ContentPost post ) {
+            String src = null;
+            if (strUtil.HasText( post.SourceLink )) {
+                if (post.SourceLink.ToLower().StartsWith( "http:" )) {
+                    src = lang( "src" ) + string.Format( ": <a href=\"{0}\" target=\"_blank\">{0}</a>", post.SourceLink );
+                }
+                else {
+                    src = lang( "src" ) + ": " + post.SourceLink;
+                }
+            }
+            return src;
+        }
+
+
+        private String getAttachmentList( ContentPost data ) {
+
+            if (data.Attachments <= 0) return "";
+
+            if (data.IsAttachmentLogin == 1 && ctx.viewer.IsLogin == false) {
+                return "<div class=\"downloadWarning\"><div>" + alang( "downloadNeedLogin" ) + "</div></div>";
+            }
+
+            List<ContentAttachment> attachList = attachmentService.GetAttachmentsByPost( data.Id );
+
+            StringBuilder sb = new StringBuilder();
+            String created = attachList[0].Created.ToString();
+            sb.Append( "<div class=\"hr\"></div><div class=\"attachmentTitleWrap\"><div class=\"attachmentTitle\">" + alang( "attachment" ) + " <span class=\"note\">(" + created + ")</span> " );
+            sb.Append( "</div></div><ul class=\"attachmentList unstyled\">" );
+
+            foreach (ContentAttachment attachment in attachList) {
+
+                string fileName = attachment.GetFileShowName();
+
+                if (isImage( attachment )) {
+
+                    sb.AppendFormat( "<li><div>{0} <span class=\"note\">({1}KB)</span></div>", fileName, attachment.FileSizeKB );
+                    sb.AppendFormat( "<div><a href=\"{0}\" target=\"_blank\"><img src=\"{1}\" /></a></div>",
+                        attachment.FileUrl, attachment.FileMediuUrl );
+                    sb.Append( "</li>" );
+
+                }
+                else {
+
+
+                    sb.AppendFormat( "<li><div>{0} <span class=\"note right10\">({1}KB)</span>", fileName, attachment.FileSizeKB );
+                    sb.AppendFormat( "<img src=\"{1}\" /><a href=\"{0}\" target=\"_blank\">" + alang( "hitDownload" ) + "</a></div>", to( new Common.AttachmentController().Show, attachment.Id ) + "?id=" + attachment.Guid, strUtil.Join( sys.Path.Img, "/s/download.png" ) );
+                    sb.Append( "</li>" );
+                }
+            }
+            sb.Append( "</ul>" );
+
+            return string.Format( "<div id=\"attachmentPanel\">{0}</div>", sb.ToString() );
+        }
+
+        private Boolean isImage( ContentAttachment attachment ) {
+            return Uploader.IsImage( attachment.Type );
         }
 
         private void bindMetaInfo( ContentPost post ) {
 
-            ctx.Page.SetTitle( post.Title, ctx.app.Name );
+            ctx.Page.SetTitle( post.GetTitle(), ctx.app.Name );
 
             if (strUtil.HasText( post.MetaKeywords ))
                 this.Page.Keywords = post.MetaKeywords;

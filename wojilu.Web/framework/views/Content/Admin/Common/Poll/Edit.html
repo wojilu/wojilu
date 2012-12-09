@@ -68,10 +68,8 @@ _run( function() {
 	<table style="width: 99%;margin:auto;">
 
         <tr>
-            <td colspan="2" style="padding-bottom:20px;">
-            
-                <div class="warning">说明：一旦发布，投票选项不可修改。但其他内容可以编辑。</div>
-            
+            <td colspan="2" style="padding-bottom:20px;">            
+                <div class="warning">说明：一旦发布，<strong>投票选项</strong>不可修改。但其他内容可以编辑。</div>            
             </td>
         </tr>
 
@@ -80,14 +78,12 @@ _run( function() {
 			<td class="postTitleTd"><input name="Title" id="title" type="text" value="#{post.Title}" class="tipInput postTitle" tip="_{exTitle}"><span class="valid" mode="border"></span>
 			</td>
 			<td rowspan="6" id="uploadImgPanel"></td>
-		</tr>				
-
+		</tr>
 
 		<tr>
-		    <td class="pubLeft">时间</td>
+		    <td class="pubLeft">发布时间</td>
 		    <td>
 		        <input name="Created" type="text" class="right20" value="#{post.Created}" />
-
 		    </td>
 		</tr>
 	
@@ -96,7 +92,6 @@ _run( function() {
 			<td colspan="2">
 			    <input name="Submit1" type="submit" value=":{editData}" class="btn">
 			    <input type="button" value="_{cancel}" class="btnCancel right10" />
-
 			</td>
 		</tr>
 	</table>
@@ -105,6 +100,25 @@ _run( function() {
 	<div id="content2" class="tabMain" style="display:none;width:98%;">
 	<table style="width: 99%;margin:auto;">
 
+        <tr>
+            <td class="pubLeft">_{effectiveDay}</td>
+            <td>
+                <input name="Days" type="text" value="0" style="width:30px;" />
+                <span class="help-inline note">_{dayTip}</span>
+            </td>
+        </tr>
+
+        <tr">
+            <td class="pubLeft">_{otherRequirements}</td>
+            <td>
+                <label class="checkbox inline">
+                    <input name="IsVisible" id="pIsVisible" type="checkbox" /> _{isVisible}
+                </label>
+                <label class="checkbox inline">
+                    <input name="OpenVoter" id="pOpenVoter" type="checkbox" />_{isVoterOpen}
+                </label>
+            </td>
+        </tr>
 
         <tr><td></td><td>&nbsp;</td></tr>
 	    <tr><td class="pubLeft">_{closeComment}</td><td>#{post.IsCloseComment}	    	    
@@ -113,7 +127,6 @@ _run( function() {
             <td class="pubLeft">查看次数</td>
             <td><input name="Hits" type="text" style="width:30px" value="#{post.Hits}" /></td>
         </tr>
-
 
         <tr><td></td><td>&nbsp;</td></tr>
 

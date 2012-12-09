@@ -46,13 +46,12 @@ namespace wojilu.Apps.Content.Domain {
         private int _height;
 
         public int Width {
-            //get { if (_width <= 0) return 300; return _width; }
             get { return _width; }
             set { _width = value; }
 
         }
+
         public int Height {
-            //get { if (_height <= 0) return 255; return _height; }
             get { return _height; }
             set { _height = value; }
         }

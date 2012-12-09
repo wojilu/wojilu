@@ -45,20 +45,8 @@ namespace wojilu.Web.Controller.Content.Section {
 
         private void bindShow( ContentPost post, DataPage<ContentImg> imgPage ) {
             ctx.SetItem( "ContentPost", post );
-            set( "post.Title", post.Title );
-            set( "post.Content", post.Content );
-            set( "post.CreateTime", post.Created );
-            set( "post.ReplyCount", post.Replies );
-            set( "post.Hits", post.Hits );
 
-            set( "post.Source", post.SourceLink );
-
-            if (post.Creator != null) {
-                set( "post.Submitter", string.Format( "<a href=\"{0}\" target=\"_blank\">{1}</a>", toUser( post.Creator ), post.Creator.Name ) );
-            }
-            else {
-                set( "post.Submitter", "нч" );
-            }
+            bind( "post", post );
 
             IBlock block = getBlock( "list" );
             foreach (ContentImg img in imgPage.Results) {
@@ -72,7 +60,6 @@ namespace wojilu.Web.Controller.Content.Section {
             String pageBar = PageHelper.GetSimplePageBar( postLink, imgPage.Current, imgPage.PageCount, isMakeHtml );
 
             set( "page", pageBar );
-
         }
 
         private void bindPosts( ContentSection section, DataPage<ContentPost> posts ) {

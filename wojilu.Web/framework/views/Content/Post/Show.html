@@ -1,27 +1,30 @@
 ﻿<div class="articleLocation">_{location}: #{location}</div>
-<table style="width:100%"><tr><td>#{detailContent}</td></tr></table>
-<style>
 
-.diggUp {background: url("~img/big/diggBg.png") left top no-repeat;}
-.diggDown {background: url("~img/big/diggBg.png") right top no-repeat;}
+<table style="width:100%" class="post-detail-wrap"><tr><td>
 
-.btnDigg {width: 195px;height: 51px;float: left;margin-right: 8px;overflow: hidden;cursor: pointer;}
-.btnDigg .diggText {font-size: 14px;float: left;line-height: 31px;text-indent: 32px;height: 29px;overflow: hidden;font-weight: bold;}
-.btnDigg .diggNum {float: left;line-height: 29px;text-indent: 5px;}
-.btnDigg .diggPer {width: 180px;clear: both;padding-left: 10px;overflow: hidden;}
-.btnDigg .diggPer .diggPerBar {width: 100px;height: 7px;background: #E8E8E8;border-right: 1px solid #CCC;float: left;overflow: hidden;margin-top: 3px;}
-.btnDigg .diggPer .diggPerBar span {display: block;height: 5px;overflow: hidden;background: black;}
-.btnDigg .diggPer .diggPerNum {font-size: 10px;float: left;padding-left: 10px;}
+    <h1 class="post-detail-title">#{post.Title}</h1>	
 
-.diggUp .diggText {color: #C30;}
-.diggUp .diggNum {color: #C63;}
-.diggUp .diggPer .diggPerBar span {border: 1px solid #E37F24;background: #FFC535;}
+    <div class="post-detail-info postInfo">
+	    <span>#{post.Created}</span>
+	    <span class="left10">_{view}:#{post.Hits}</span> 
+	    <span class="left10">#{post.Author}</span>
+	    <span class="left10">_{comment}:<span id="contentReplies">0</span></span>
+	    <span class="left10 fontBig" fontTarget="postContent">_{fontBig}</span>
+	    <span class="fontSmall" fontTarget="postContent">_{fontSmall}</span>
+	    <span class="left5 print" onclick="window.print();">_{print}</span>
+    </div>
 
-.diggDown .diggText {color: #36C;}
-.diggDown .diggNum {color: #39C;}
-.diggDown .diggPer .diggPerBar span {border: 1px solid #689ACC;background: #94C0E4;}
+    <!-- BEGIN summary -->
+    <div class="post-detail-summary">_{summary}: #{post.Summary}</div>
+    <!-- END summary -->
 
-</style>
+    <div class="post-detail-body">#{detailContent}</div>
+
+    <div class="post-detail-attachment">#{attachmentList}</div>
+    <div class="post-detail-tag">#{post.Tag}<br />#{post.Source}</div>
+    <div class="post-detail-submitter">投递人：#{post.Submitter}</div>
+    
+</td></tr></table>
 
 <div class="diggPanel" id="diggPanel" style="width:410px; margin:20px auto; "><a name="digg"></a>
 
@@ -62,8 +65,6 @@
     <div style="margin:5px;">下一篇：#{nextPost}</div>
 </div>
 
-
-
 <div>
     <div style="margin:10px 5px 10px 5px; font-weight:bold;font-size:14px;">相关阅读: <span style="margin-left:5px; font-weight:normal;">#{post.Tag}</span></div>
     
@@ -75,12 +76,14 @@
 </div>
 
 <div>
-    <div><a href="#{thisUrl}" id="comentLink" class="frmLink" loadTo="commentMain" nolayout=999></a></div>
+    <div><a href="#{commentUrl}" id="comentLink" class="frmLink" loadTo="commentMain" nolayout=999></a></div>
     <div id="commentMain"></div>
 </div>
 
 <script>
     _run(function () {
+
+        wojilu.ui.editFontSize();
         wojilu.tool.shareFull();
 
         wojilu.ctx.changeUrl = false;

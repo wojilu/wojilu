@@ -16,7 +16,11 @@ namespace wojilu.Web.Controller.Content.Admin.Section {
     public partial class VideoController : ControllerBase, IPageSection {
 
         private void bindSectionShow( int sectionId, List<ContentPost> posts ) {
-            set( "addUrl", to( Add, sectionId ) );
+
+            int vWidth = 320;
+            int vHeight = 240;
+
+            set( "addUrl", to( Add, sectionId ) + "?width=" + vWidth + "&height=" + vHeight );
             set( "listUrl", to( AdminList, sectionId ) );
             IBlock block = getBlock( "list" );
             foreach (ContentPost post in posts) {
@@ -52,6 +56,9 @@ namespace wojilu.Web.Controller.Content.Admin.Section {
             set( "section.Name", section.Title );
             set( "section.Id", section.Id );
             set( "created", DateTime.Now );
+
+            set( "width", ctx.GetInt( "width" ) );
+            set( "height", ctx.GetInt( "height" ) );
         }
 
         private void bindEditInfo( int postId, ContentPost post ) {

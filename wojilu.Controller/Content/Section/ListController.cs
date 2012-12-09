@@ -30,13 +30,11 @@ namespace wojilu.Web.Controller.Content.Section {
 
         public IContentPostService postService { get; set; }
         public IContentSectionService sectionService { get; set; }
-        public IAttachmentService attachmentService { get; set; }
         public IContentCustomTemplateService ctService { get; set; }
 
         public ListController() {
             postService = new ContentPostService();
             sectionService = new ContentSectionService();
-            attachmentService = new AttachmentService();
             ctService = new ContentCustomTemplateService();
         }
 

@@ -37,10 +37,6 @@ namespace wojilu.Web.Controller.Content.Caching.Actions {
             observe( video.Create );
             observe( video.Update );
 
-            Admin.Section.VideoShowController vshow = new wojilu.Web.Controller.Content.Admin.Section.VideoShowController();
-            observe( vshow.Create );
-            observe( vshow.Update );
-
             Admin.Section.ImgController img = new wojilu.Web.Controller.Content.Admin.Section.ImgController();
             observe( img.CreateListInfo );
             observe( img.CreateImgList );

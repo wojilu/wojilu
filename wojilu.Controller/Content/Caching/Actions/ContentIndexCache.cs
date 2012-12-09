@@ -93,8 +93,6 @@ namespace wojilu.Web.Controller.Content.Caching {
             //---------------------------------------------------------
 
             Admin.Section.ListController list = new wojilu.Web.Controller.Content.Admin.Section.ListController();
-            //observe( list.Create );
-            //observe( list.Update );
             observe( list.Delete );
 
             Admin.Section.TalkController talk = new wojilu.Web.Controller.Content.Admin.Section.TalkController();
@@ -111,11 +109,6 @@ namespace wojilu.Web.Controller.Content.Caching {
             observe( video.Create );
             observe( video.Update );
             observe( video.Delete );
-
-            Admin.Section.VideoShowController vshow = new wojilu.Web.Controller.Content.Admin.Section.VideoShowController();
-            observe( vshow.Create );
-            observe( vshow.Update );
-            observe( vshow.Delete );
 
             Admin.Section.ImgController img = new wojilu.Web.Controller.Content.Admin.Section.ImgController();
             observe( img.CreateListInfo );
