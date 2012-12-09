@@ -59,21 +59,22 @@ namespace wojilu.Web.Controller.Content.Admin.Section {
 
         public void Add( int sectionId ) {
             ContentSection section = sectionService.GetById( sectionId, ctx.app.Id );
-            target( Create, sectionId  );
+            target( Create, sectionId );
             bindAddInfo( section );
         }
 
         [HttpPost, DbTransaction]
         public void Create( int sectionId ) {
             ContentPost post = ContentValidator.SetValueBySection( sectionService.GetById( sectionId, ctx.app.Id ), ctx );
-            ContentValidator.ValidateTalk( post , ctx);
+            ContentValidator.ValidateTalk( post, ctx );
             if (errors.HasErrors) {
                 run( Add, sectionId );
             }
             else {
                 post.CategoryId = PostCategory.Talk;
+                post.Title = strUtil.SubString( post.Content, 20 );
 
-                postService.Insert( post, null );
+                postService.Insert( post, ctx.Post( "TagList" ) );
 
                 echoToParentPart( lang( "opok" ) );
                 HtmlHelper.SetCurrentPost( ctx, post );
@@ -106,7 +107,8 @@ namespace wojilu.Web.Controller.Content.Admin.Section {
                 Edit( postId );
             }
             else {
-                postService.Update( post, null );
+                post.Title = strUtil.SubString( post.Content, 20 );
+                postService.Update( post, ctx.Post( "TagList" ) );
 
                 echoToParentPart( lang( "opok" ) );
                 HtmlHelper.SetCurrentPost( ctx, post );
@@ -126,7 +128,7 @@ namespace wojilu.Web.Controller.Content.Admin.Section {
             echoToParentPart( lang( "opok" ) );
             HtmlHelper.SetCurrentPost( ctx, post );
         }
-        
+
 
         public void SectionShow( int sectionId ) {
         }

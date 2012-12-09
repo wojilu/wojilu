@@ -19,9 +19,10 @@ namespace wojilu.Web.Controller.Content.Admin.Section {
             set( "listUrl", to( AdminList, sectionId ) );
             IBlock block = getBlock( "list" );
             foreach (ContentPost post in posts) {
+                block.Set( "post.Author", post.Author );
                 block.Set( "post.Title", post.Title );
                 block.Set( "post.Url", post.SourceLink );
-                block.Set( "post.Description", strUtil.ParseHtml( post.Content, 50 ) );
+                block.Set( "post.Content", post.Content );
                 block.Set( "post.EditUrl", to( Edit, post.Id ) );
                 block.Next();
             }
@@ -32,10 +33,11 @@ namespace wojilu.Web.Controller.Content.Admin.Section {
             set( "section.Title", section.Title );
             IBlock block = getBlock( "list" );
             foreach (ContentPost post in posts.Results) {
+                block.Set( "post.Author", post.Author );
                 block.Set( "post.Title", post.Title );
                 block.Set( "post.OrderId", post.OrderId );
-                block.Set( "post.Description", strUtil.ParseHtml( post.Content, 40 ) );
-                block.Set( "post.PubDate", post.Created );
+                block.Set( "post.Content", strUtil.ParseHtml( post.Content, 40 ) );
+                block.Set( "post.Created", post.Created );
                 block.Set( "post.EditUrl", to( Edit, post.Id ) );
                 block.Set( "post.DeleteUrl", to( Delete, post.Id ) );
                 block.Next();
@@ -44,19 +46,40 @@ namespace wojilu.Web.Controller.Content.Admin.Section {
         }
 
         private void bindAddInfo( ContentSection section ) {
-            set( "module.Name", section.Title );
-            set( "module.Id", section.Id.ToString() );
+            set( "section.Name", section.Title );
+            set( "section.Id", section.Id.ToString() );
         }
 
         private void bindEditInfo( int postId, ContentPost post ) {
             set( "post.DeleteUrl", to( new ListController().Delete, postId ) );
-            set( "module.Name", post.PageSection.Title );
-            set( "module.Id", post.PageSection.Id );
-            set( "post.Title", post.Title );
+            set( "section.Name", post.PageSection.Title );
+            set( "section.Id", post.PageSection.Id );
+            set( "post.Author", post.Author );
             set( "post.SourceLink", post.SourceLink );
             set( "post.Style", post.Style );
             set( "post.OrderId", post.OrderId );
             set( "post.Content", post.Content );
+
+
+            set( "post.Created", post.Created );
+            set( "post.Hits", post.Hits );
+            set( "post.OrderId", post.OrderId );
+
+            set( "post.RedirectUrl", post.RedirectUrl );
+            set( "post.MetaKeywords", post.MetaKeywords );
+            set( "post.MetaDescription", post.MetaDescription );
+
+
+            set( "post.Summary", post.Summary );
+            set( "post.SourceLink", post.SourceLink );
+            set( "post.Style", post.Style );
+
+
+            set( "post.TagList", post.Tag.TextString );
+            String val = AccessStatusUtil.GetRadioList( post.AccessStatus );
+            set( "post.AccessStatus", val );
+            set( "post.IsCloseComment", Html.CheckBox( "IsCloseComment", lang( "closeComment" ), "1", cvt.ToBool( post.CommentCondition ) ) );
+
         }
 
 

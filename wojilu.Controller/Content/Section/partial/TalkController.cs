@@ -18,9 +18,10 @@ namespace wojilu.Web.Controller.Content.Section {
             set( "m.Title", section.Title );
             IBlock block = getBlock( "list" );
             foreach (ContentPost post in posts) {
+                block.Set( "post.Author", post.Author );
                 block.Set( "post.Title", post.Title );
-                block.Set( "post.Url", post.SourceLink );
-                block.Set( "post.Description", post.Content );
+                block.Set( "post.Url", alink.ToAppData( post ) );
+                block.Set( "post.Content", post.Content );
 
                 block.Bind( "post", post );
                 block.Next();
@@ -31,9 +32,9 @@ namespace wojilu.Web.Controller.Content.Section {
         private void bindPosts( DataPage<ContentPost> posts ) {
             IBlock block = getBlock( "list" );
             foreach (ContentPost post in posts.Results) {
-                block.Set( "post.Title", post.Title );
-                block.Set( "post.Url", post.SourceLink );
-                block.Set( "post.Description", post.Content );
+                block.Set( "post.Author", post.Author );
+                block.Set( "post.Url", alink.ToAppData( post ) );
+                block.Set( "post.Content", post.Content );
                 block.Set( "post.Created", post.Created );
 
                 block.Next();

@@ -163,7 +163,7 @@ namespace wojilu.Web.Controller.Content {
 
         public static ContentPost ValidateTalk( ContentPost post, MvcContext ctx ) {
 
-            if (strUtil.IsNullOrEmpty( post.Title ))
+            if (strUtil.IsNullOrEmpty( post.Author ))
                 ctx.errors.Add( ctx.controller.alang( "exTalker" ) );
 
             if (strUtil.IsNullOrEmpty( post.Content ))

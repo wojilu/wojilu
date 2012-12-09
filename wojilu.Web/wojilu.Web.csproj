@@ -310,6 +310,7 @@
     <Content Include="framework\views\Content\Section\List\Show.html" />
     <Content Include="framework\views\Content\Section\Talk\List.html" />
     <Content Include="framework\views\Content\Section\Talk\SectionShow.html" />
+    <Content Include="framework\views\Content\Section\Talk\Show.html" />
     <Content Include="framework\views\Content\Section\Text\SectionShow.html" />
     <Content Include="framework\views\Content\Section\Video\List.html" />
     <Content Include="framework\views\Content\Section\Video\SectionShow.html" />
