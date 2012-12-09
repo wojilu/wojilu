@@ -185,6 +185,28 @@ _run( function() {
 	
 	<div id="content2" class="tabMain" style="display:none;width:98%;">
 	<table style="width: 99%;margin:auto;">
+
+	    <tr><td class="pubLeft">_{tag}</td><td><input name="TagList" type="text" id="tagList" style="width:300px;" value="#{post.TagList}"> <span class="note left5" title="">_{tagTip}</span></td></tr>
+		<tr>
+			<td class="pubLeft">_{summary}</td>
+			<td><textarea name="Summary" style="width: 600px; height: 80px">#{post.Summary}</textarea></td>
+		</tr>
+        <tr><td></td><td>&nbsp;</td></tr>
+	    <tr><td class="pubLeft">_{closeComment}</td><td>#{post.IsCloseComment}	    	    
+	    </td></tr>
+        <tr>
+            <td class="pubLeft">查看次数</td>
+            <td><input name="Hits" type="text" style="width:30px" value="#{post.Hits}" /></td>
+        </tr>
+
+		<tr>
+		    <td class="pubLeft">图片大小</td>
+		    <td>:{width}<input id="width" name="Width" type="text" value="#{post.Width}" style="width:40px;" />px 
+            <span class="left20">:{height}</span><input id="height" name="Height" type="text" value="#{post.Height}" style="width:40px;" />px</td>
+		</tr>
+
+
+        <tr><td></td><td>&nbsp;</td></tr>
 		<tr>
 		    <td class="pubLeft">跳转网址</td>
 		    <td style="padding-bottom:5px;"><input name="RedirectUrl" type="text" style="width:480px;" value="#{post.RedirectUrl}" /><br />
@@ -202,40 +224,13 @@ _run( function() {
             <span class="note">(可以调整文章在首页的顺序。数字越大越靠前)</span>
             </td>
         </tr>
-
-        <tr><td></td><td>&nbsp;</td></tr>
-	    <tr><td class="pubLeft">_{closeComment}</td><td>#{post.IsCloseComment}	    	    
-	    </td></tr>
-        <tr>
-            <td class="pubLeft">查看次数</td>
-            <td><input name="Hits" type="text" style="width:30px" value="#{post.Hits}" /></td>
-        </tr>
-		<tr>
-		    <td class="pubLeft">图片大小</td>
-		    <td>:{width}<input id="width" name="Width" type="text" value="#{post.Width}" style="width:40px;" />px 
-            <span class="left20">:{height}</span><input id="height" name="Height" type="text" value="#{post.Height}" style="width:40px;" />px</td>
-		</tr>
-
-
-
-        <tr><td></td><td>&nbsp;</td></tr>
-
-
-	    <tr><td class="pubLeft">_{tag}</td><td><input name="TagList" type="text" id="tagList" style="width:300px;" value="#{post.TagList}"> <span class="note left5" title="">_{tagTip}</span></td></tr>
-		<tr>
-			<td class="pubLeft">_{summary}</td>
-			<td><textarea name="Summary" style="width: 600px; height: 80px">#{post.Summary}</textarea></td>
-		</tr>
-
-
 		<tr>
 			<td class="pubLeft">:{titleStyle}</td>
 			<td><textarea name="Style" style="width: 600px; height: 50px">#{post.Style}</textarea><br />
 			<span class="note">(:{cssRequired})</span>
 			</td>
 		</tr>
-
-		
+	
 	</table>
 	</div>
 

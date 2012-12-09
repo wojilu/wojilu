@@ -243,29 +243,6 @@ _run( function() {
 	
 	<div id="content2" class="tabMain" style="display:none;width:98%;">
 	<table style="margin:auto;" class="pubTable">
-		<tr>
-		    <td class="pubLeft">跳转网址</td>
-		    <td><input name="RedirectUrl" type="text" style="width:480px;" /><br />
-            <span class="note">(如果设置，则文章被点击之后，不再显示内容，而是直接跳转到此网址)</span>
-            </td>
-		</tr>
-		<tr>
-		    <td class="pubLeft">图片大小</td>
-		    <td>:{width}<input id="width" name="Width" type="text" value="#{width}" style="width:40px;" />px 
-            <span class="left20">:{height}</span><input id="height" name="Height" type="text" value="#{height}" style="width:40px;" />px</td>
-		</tr>
-
-        <tr>
-            <td class="pubLeft">查看次数</td>
-            <td><input name="Hits" type="text" style="width:30px" value="0" /></td>
-        </tr>
-        <tr><td></td><td>&nbsp;</td></tr>
-	    <tr><td class="pubLeft">_{closeComment}</td><td>
-        
-        <label class="checkbox"><input type="checkbox" name="IsCloseComment" value="1"> 关闭评论</label>   	    
-	    </td></tr>
-
-        <tr><td></td><td>&nbsp;</td></tr>
 	    <tr>
 	        <td class="pubLeft">_{tag}</td>
 	        <td><input name="TagList" id="tagList" type="text" style="width:300px;"><span class="note left5" title="">_{tagTip}</span></td>
@@ -276,6 +253,48 @@ _run( function() {
 			<td>
 			<textarea name="Summary" style="width: 600px; height: 90px"></textarea></td>
 		</tr>
+	    <tr>
+            <td class="pubLeft">_{closeComment}</td>
+            <td>        
+                <label class="checkbox"><input type="checkbox" name="IsCloseComment" value="1"> 关闭评论</label>   	    
+	        </td>
+        </tr>
+        <tr>
+            <td class="pubLeft">查看次数</td>
+            <td><input name="Hits" type="text" style="width:30px" value="0" /></td>
+        </tr>
+		<tr>
+		    <td class="pubLeft">图片大小</td>
+		    <td>:{width}<input id="width" name="Width" type="text" value="#{width}" style="width:40px;" />px 
+            <span class="left20">:{height}</span><input id="height" name="Height" type="text" value="#{height}" style="width:40px;" />px</td>
+		</tr>
+
+
+        <tr><td></td><td>&nbsp;</td></tr>
+
+		<tr>
+		    <td class="pubLeft">跳转网址</td>
+		    <td><input name="RedirectUrl" type="text" style="width:480px;" /><br />
+            <span class="note">(如果设置，则文章被点击之后，不再显示内容，而是直接跳转到此网址)</span>
+            </td>
+		</tr>
+	    <tr>
+		    <td class="pubLeft">_{titleHome}</td>
+		    <td style="padding-bottom:5px;"> <input name="TitleHome" type="text" style="width:480px;" type="text" value="" ><br />
+            <span class="note">(为了美化首页排版，你可以稍作编辑，比如精简字数、修饰标题等)</span>
+            </td>
+	    </tr>
+	    <tr>
+		    <td class="pubLeft">:{titleStyle}</td>
+		    <td><textarea name="Style" style="width: 550px; height: 50px"></textarea><br />
+		    <span class="note">(:{cssRequired})</span>
+		    </td>
+	    </tr>
+
+
+
+        <tr><td></td><td>&nbsp;</td></tr>
+
 
 
 		<tr>

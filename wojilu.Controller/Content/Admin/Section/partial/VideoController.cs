@@ -49,15 +49,14 @@ namespace wojilu.Web.Controller.Content.Admin.Section {
         }
 
         private void bindAddInfo( ContentSection section ) {
-            set( "module.Name", section.Title );
-            set( "module.Id", section.Id );
+            set( "section.Name", section.Title );
+            set( "section.Id", section.Id );
+            set( "created", DateTime.Now );
         }
 
         private void bindEditInfo( int postId, ContentPost post ) {
-            set( "module.Id", post.PageSection.Id );
-            set( "module.Name", post.PageSection.Title );
-            set( "post.Title", post.Title );
-            set( "post.TitleHome", post.TitleHome );
+            set( "section.Id", post.PageSection.Id );
+            set( "section.Name", post.PageSection.Title );
 
             set( "post.MetaKeywords", post.MetaKeywords );
             set( "post.MetaDescription", post.MetaDescription );
@@ -65,8 +64,30 @@ namespace wojilu.Web.Controller.Content.Admin.Section {
             set( "post.SourceLink", post.SourceLink );
             set( "post.ImgLink", post.ImgLink );
             set( "post.Style", post.Style );
+
+            set( "post.Author", post.Author );
+            set( "post.Title", post.Title );
+            set( "post.TitleHome", strUtil.EncodeTextarea( post.TitleHome ) );
+
+            set( "post.Width", post.Width );
+            set( "post.Height", post.Height );
+
+            set( "post.Created", post.Created );
+            set( "post.Hits", post.Hits );
             set( "post.OrderId", post.OrderId );
-            set( "post.DeleteUrl", to( Delete, postId ) + "?categoryId=" + ctx.GetInt( "categoryId" ) );
+
+            set( "post.RedirectUrl", post.RedirectUrl );
+            set( "post.MetaKeywords", post.MetaKeywords );
+            set( "post.MetaDescription", post.MetaDescription );
+
+            set( "post.Summary", post.Summary );
+            set( "post.Style", post.Style );
+
+            set( "post.TagList", post.Tag.TextString );
+            String val = AccessStatusUtil.GetRadioList( post.AccessStatus );
+            set( "post.AccessStatus", val );
+            set( "post.IsCloseComment", Html.CheckBox( "IsCloseComment", lang( "closeComment" ), "1", cvt.ToBool( post.CommentCondition ) ) );
+
         }
 
     }

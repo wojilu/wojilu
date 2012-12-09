@@ -113,7 +113,7 @@ namespace wojilu.Web.Controller.Content.Admin.Section {
                 run( Edit, postId );
             }
             else {
-                postService.Update( post, null );
+                postService.Update( post, ctx.Post( "TagList" ) );
 
                 echoToParentPart( lang( "opok" ) );
                 HtmlHelper.SetCurrentPost( ctx, post );
