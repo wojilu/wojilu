@@ -1,4 +1,4 @@
-/*
+ï»¿/*
  * Copyright 2010 www.wojilu.com
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -21,12 +21,16 @@ using System.Data.Common;
 namespace wojilu.Data {
 
     /// <summary>
-    /// Êı¾İ¹¤³§£¬¿ÉÒÔ²»ÓÃ¿¼ÂÇÊı¾İ¿â²îÒì¶ø»ñÈ¡ Connection, Command, DataAdapter
+    /// æ•°æ®å·¥å‚ï¼Œå¯ä»¥ä¸ç”¨è€ƒè™‘æ•°æ®åº“å·®å¼‚è€Œè·å– Connection, Command, DataAdapter
     /// </summary>
     public class DataFactory {
 
         public static IDbConnection GetConnection( String connectionString, DatabaseType dbtype ) {
             return DbFactoryBase.Instance( dbtype ).GetConnection( connectionString );
+        }
+
+        public static IDbCommand GetCommand( IDbConnection cn ) {
+            return DbFactoryBase.Instance( cn ).GetCommand();
         }
 
         public static IDbCommand GetCommand( String CommandText, IDbConnection cn ) {

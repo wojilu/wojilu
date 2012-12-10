@@ -1,4 +1,4 @@
-/*
+ï»¿/*
  * Copyright 2010 www.wojilu.com
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -27,21 +27,21 @@ using System.Collections.Generic;
 namespace wojilu {
 
     /// <summary>
-    /// ·â×°ÁË web ³¡ºÏÏÂ³£ÓÃÂ·¾¶ºÍ url µÄ²Ù×÷
+    /// å°è£…äº† web åœºåˆä¸‹å¸¸ç”¨è·¯å¾„å’Œ url çš„æ“ä½œ
     /// </summary>
     public class PathHelper {
 
         /// <summary>
-        /// ½«Ïà¶ÔÂ·¾¶×ª»»Îª¾ø¶ÔÂ·¾¶
+        /// å°†ç›¸å¯¹è·¯å¾„è½¬æ¢ä¸ºç»å¯¹è·¯å¾„
         /// </summary>
-        /// <param name="path">±ØĞëÊÇÏà¶ÔÂ·¾¶</param>
-        /// <returns>·µ»Ø¾ø¶ÔÂ·¾¶</returns>
+        /// <param name="path">å¿…é¡»æ˜¯ç›¸å¯¹è·¯å¾„</param>
+        /// <returns>è¿”å›ç»å¯¹è·¯å¾„</returns>
         public static String Map( String relativePath ) {
             return PathTool.getInstance().Map( relativePath );
         }
 
         /// <summary>
-        /// ½«¼¸¸öÂ·¾¶Æ´½ÓÎª¾ø¶ÔÂ·¾¶(µÚÒ»¸öÂ·¾¶±ØĞëÊÇ¾ø¶ÔÂ·¾¶)
+        /// å°†å‡ ä¸ªè·¯å¾„æ‹¼æ¥ä¸ºç»å¯¹è·¯å¾„(ç¬¬ä¸€ä¸ªè·¯å¾„å¿…é¡»æ˜¯ç»å¯¹è·¯å¾„)
         /// </summary>
         /// <param name="arrPath"></param>
         /// <returns></returns>
@@ -56,11 +56,11 @@ namespace wojilu {
         }
 
         /// <summary>
-        /// ´ÓÖ¸¶¨µÄpathÖĞÈ¥³ıµôrootPath²¿·Ö£¬
+        /// ä»æŒ‡å®šçš„pathä¸­å»é™¤æ‰rootPathéƒ¨åˆ†ï¼Œ
         /// </summary>
-        /// <param name="rootPath">ĞèÒªÌŞ³ıµÄ¸ùÂ·¾¶</param>
-        /// <param name="pathFull">±»´¦ÀíµÄpath</param>
-        /// <returns>·µ»Ø¶à¸öÂ·¾¶ÁĞ±í(´Ó×ÓÃüÃû¿Õ¼äÒÀ´Îµ½¸úÃüÃû¿Õ¼ä)</returns>
+        /// <param name="rootPath">éœ€è¦å‰”é™¤çš„æ ¹è·¯å¾„</param>
+        /// <param name="pathFull">è¢«å¤„ç†çš„path</param>
+        /// <returns>è¿”å›å¤šä¸ªè·¯å¾„åˆ—è¡¨(ä»å­å‘½åç©ºé—´ä¾æ¬¡åˆ°è·Ÿå‘½åç©ºé—´)</returns>
         public static IList GetPathList( String rootPath, String pathFull ) {
 
             String mypath = strUtil.TrimStart( pathFull, rootPath );
@@ -94,7 +94,7 @@ namespace wojilu {
         // ------------------------------ Url ---------------------------------------
 
         /// <summary>
-        /// ¼ì²éurlÊÇ·ñÍêÕû(ÊÇ·ñÒÔhttp¿ªÍ·»òÕßÒÔÓòÃû¿ªÍ·)
+        /// æ£€æŸ¥urlæ˜¯å¦å®Œæ•´(æ˜¯å¦ä»¥httpå¼€å¤´æˆ–è€…ä»¥åŸŸåå¼€å¤´)
         /// </summary>
         /// <param name="url"></param>
         /// <returns></returns>
@@ -130,7 +130,7 @@ namespace wojilu {
         }
 
         /// <summary>
-        /// ÅĞ¶ÏÍøÖ·ÊÇ·ñ°üº¬³£¼ûºó×ºÃû£¬±ÈÈç .htm/.html/.aspx/.jpg/.doc/.avi µÈ
+        /// åˆ¤æ–­ç½‘å€æ˜¯å¦åŒ…å«å¸¸è§åç¼€åï¼Œæ¯”å¦‚ .htm/.html/.aspx/.jpg/.doc/.avi ç­‰
         /// </summary>
         /// <param name="str"></param>
         /// <returns></returns>
@@ -142,7 +142,7 @@ namespace wojilu {
         }
 
         /// <summary>
-        /// ÅĞ¶ÏÍøÖ·ÊÇ·ñ°üº¬ºó×ºÃû£¬±ÈÈç xyzz/ab.htm °üº¬£¬my/xyz/dfae3 Ôò²»°üº¬
+        /// åˆ¤æ–­ç½‘å€æ˜¯å¦åŒ…å«åç¼€åï¼Œæ¯”å¦‚ xyzz/ab.htm åŒ…å«ï¼Œmy/xyz/dfae3 åˆ™ä¸åŒ…å«
         /// </summary>
         /// <param name="url"></param>
         /// <returns></returns>
@@ -158,7 +158,7 @@ namespace wojilu {
         }
 
         /// <summary>
-        /// ÊÇ·ñÊÇÍâ²¿Á´½Ó
+        /// æ˜¯å¦æ˜¯å¤–éƒ¨é“¾æ¥
         /// </summary>
         /// <param name="url"></param>
         /// <returns></returns>
@@ -181,10 +181,10 @@ namespace wojilu {
         }
 
         /// <summary>
-        /// ÌŞ³ıµô url µÄºó×ºÃû
+        /// å‰”é™¤æ‰ url çš„åç¼€å
         /// </summary>
-        /// <param name="rawUrl">Ô­Ê¼url</param>
-        /// <returns>·µ»Ø±»ÌŞ³ıµôºó×ºÃûµÄ url</returns>
+        /// <param name="rawUrl">åŸå§‹url</param>
+        /// <returns>è¿”å›è¢«å‰”é™¤æ‰åç¼€åçš„ url</returns>
         public static String TrimUrlExt( String rawUrl ) {
             if (strUtil.IsNullOrEmpty( rawUrl )) return rawUrl;
             int dotIndex = rawUrl.IndexOf( "." );
@@ -197,7 +197,7 @@ namespace wojilu {
         }
 
         /// <summary>
-        /// ÔÚ²»¿¼ÂÇºó×ºÃûµÄÇé¿öÏÂ£¬±È½ÏÁ½¸öÍøÖ·ÊÇ·ñÏàÍ¬
+        /// åœ¨ä¸è€ƒè™‘åç¼€åçš„æƒ…å†µä¸‹ï¼Œæ¯”è¾ƒä¸¤ä¸ªç½‘å€æ˜¯å¦ç›¸åŒ
         /// </summary>
         /// <param name="url1"></param>
         /// <param name="url2"></param>

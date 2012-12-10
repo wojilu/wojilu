@@ -1,4 +1,4 @@
-/*
+ï»¿/*
  * Copyright 2010 www.wojilu.com
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -19,7 +19,7 @@ using System;
 namespace wojilu.Data {
 
     /// <summary>
-    /// wojilu ORM Ö§³ÖµÄÊı¾İ¿âÀàĞÍ
+    /// wojilu ORM æ”¯æŒçš„æ•°æ®åº“ç±»å‹
     /// </summary>
     public enum DatabaseType {
         Access,

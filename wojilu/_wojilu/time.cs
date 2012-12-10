@@ -1,4 +1,4 @@
-/*
+ï»¿/*
  * Copyright 2010 www.wojilu.com
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -19,12 +19,12 @@ using System;
 namespace wojilu {
 
     /// <summary>
-    /// Ê±¼äµÄ¹¤¾ßÀà
+    /// æ—¶é—´çš„å·¥å…·ç±»
     /// </summary>
     public class time {
 
         /// <summary>
-        /// ¼ì²é t ÊÇ·ñÊÇÃ÷Ìì
+        /// æ£€æŸ¥ t æ˜¯å¦æ˜¯æ˜å¤©
         /// </summary>
         /// <param name="t"></param>
         /// <returns></returns>

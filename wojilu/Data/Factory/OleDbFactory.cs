@@ -1,4 +1,4 @@
-/*
+Ôªø/*
  * Copyright 2010 www.wojilu.com
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -24,7 +24,7 @@ using System.Data.Common;
 namespace wojilu.Data {
 
     /// <summary>
-    /// access  ˝æ›π§≥ß£¨ªÒ»° Connection, Command, DataAdapter
+    /// access Êï∞ÊçÆÂ∑•ÂéÇÔºåËé∑Âèñ Connection, Command, DataAdapter
     /// </summary>
     public class AccessFactory : DbFactoryBase {
 
@@ -34,6 +34,7 @@ namespace wojilu.Data {
         }
 
         public override IDbCommand GetCommand( String CommandText ) {
+            base.checkOpen();
             IDbCommand cmd = new OleDbCommand();
             cmd.Connection = cn;
             cmd.CommandText = CommandText;

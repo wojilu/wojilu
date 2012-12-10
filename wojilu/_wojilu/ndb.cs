@@ -1,4 +1,4 @@
-/*
+ï»¿/*
  * Copyright 2010 www.wojilu.com
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -23,15 +23,15 @@ using wojilu.ORM.Caching;
 namespace wojilu {
 
     /// <summary>
-    /// ¼¯ÖĞÁË¶ÔÏóµÄ³£ÓÃ CRUD (¶ÁÈ¡/²åÈë/¸üĞÂ/É¾³ı) ²Ù×÷·½·¨£¬·Ç·ºĞÍÊµÏÖ¡£Ö÷ÒªÓÃÓÚÄ³Ğ©²»ÄÜÊ¹ÓÃ·ºĞÍµÄ³¡ºÏ£¬²»Ì«³£ÓÃ¡£
+    /// é›†ä¸­äº†å¯¹è±¡çš„å¸¸ç”¨ CRUD (è¯»å–/æ’å…¥/æ›´æ–°/åˆ é™¤) æ“ä½œæ–¹æ³•ï¼Œéæ³›å‹å®ç°ã€‚ä¸»è¦ç”¨äºæŸäº›ä¸èƒ½ä½¿ç”¨æ³›å‹çš„åœºåˆï¼Œä¸å¤ªå¸¸ç”¨ã€‚
     /// </summary>
     public class ndb {
 
         /// <summary>
-        /// ¸ù¾İ id ²éÑ¯¶ÔÏó
+        /// æ ¹æ® id æŸ¥è¯¢å¯¹è±¡
         /// </summary>
-        /// <param name="t">¶ÔÏóµÄÀàĞÍ</param>
-        /// <param name="id">¶ÔÏóµÄ id</param>
+        /// <param name="t">å¯¹è±¡çš„ç±»å‹</param>
+        /// <param name="id">å¯¹è±¡çš„ id</param>
         /// <returns></returns>
         public static IEntity findById( Type t, int id ) {
 
@@ -47,7 +47,7 @@ namespace wojilu {
         }
 
         /// <summary>
-        /// ²éÑ¯ t ÀàĞÍ¶ÔÏóµÄËùÓĞÊı¾İ
+        /// æŸ¥è¯¢ t ç±»å‹å¯¹è±¡çš„æ‰€æœ‰æ•°æ®
         /// </summary>
         /// <param name="t"></param>
         /// <returns></returns>
@@ -63,33 +63,33 @@ namespace wojilu {
         }
 
         /// <summary>
-        /// ¸ù¾İÌõ¼ş²éÑ¯
+        /// æ ¹æ®æ¡ä»¶æŸ¥è¯¢
         /// </summary>
         /// <param name="t"></param>
-        /// <param name="condition">²éÑ¯¶ÔÏó</param>
-        /// <returns>·µ»Ø²éÑ¯¶ÔÏóQuery£¬¿ÉÒÔ½øÒ»²½²ÎÊı»¯¸³Öµ£¬²¢µÃµ½½á¹û</returns>
+        /// <param name="condition">æŸ¥è¯¢å¯¹è±¡</param>
+        /// <returns>è¿”å›æŸ¥è¯¢å¯¹è±¡Queryï¼Œå¯ä»¥è¿›ä¸€æ­¥å‚æ•°åŒ–èµ‹å€¼ï¼Œå¹¶å¾—åˆ°ç»“æœ</returns>
         public static Query find( Type t, String condition ) {
             ObjectInfo state = new ObjectInfo( t );
             return ObjectDB.Find( state, condition );
         }
 
         /// <summary>
-        /// ¸ù¾İ²éÑ¯Ìõ¼ş£¬·µ»Ø·ÖÒ³Êı¾İ¼¯ºÏ
+        /// æ ¹æ®æŸ¥è¯¢æ¡ä»¶ï¼Œè¿”å›åˆ†é¡µæ•°æ®é›†åˆ
         /// </summary>
         /// <param name="t"></param>
-        /// <param name="condition">²éÑ¯Ìõ¼ş</param>
-        /// <returns>·ÖÒ³Êı¾İÁĞ±í£¬°üÀ¨µ±Ç°Ò³¡¢×Ü¼ÇÂ¼Êı¡¢·ÖÒ³ÌõµÈ</returns>
+        /// <param name="condition">æŸ¥è¯¢æ¡ä»¶</param>
+        /// <returns>åˆ†é¡µæ•°æ®åˆ—è¡¨ï¼ŒåŒ…æ‹¬å½“å‰é¡µã€æ€»è®°å½•æ•°ã€åˆ†é¡µæ¡ç­‰</returns>
         public static IPageList findPage( Type t, String condition ) {
             return findPage( t, condition, -1 );
         }
 
         /// <summary>
-        /// ¸ù¾İ²éÑ¯Ìõ¼ş£¬·µ»Ø·ÖÒ³Êı¾İ¼¯ºÏ
+        /// æ ¹æ®æŸ¥è¯¢æ¡ä»¶ï¼Œè¿”å›åˆ†é¡µæ•°æ®é›†åˆ
         /// </summary>
         /// <param name="t"></param>
-        /// <param name="condition">²éÑ¯Ìõ¼ş</param>
-        /// <param name="pageSize">Ã¿Ò³ÊıÁ¿</param>
-        /// <returns>·ÖÒ³Êı¾İÁĞ±í£¬°üÀ¨µ±Ç°Ò³¡¢×Ü¼ÇÂ¼Êı¡¢·ÖÒ³ÌõµÈ</returns>
+        /// <param name="condition">æŸ¥è¯¢æ¡ä»¶</param>
+        /// <param name="pageSize">æ¯é¡µæ•°é‡</param>
+        /// <returns>åˆ†é¡µæ•°æ®åˆ—è¡¨ï¼ŒåŒ…æ‹¬å½“å‰é¡µã€æ€»è®°å½•æ•°ã€åˆ†é¡µæ¡ç­‰</returns>
         public static IPageList findPage( Type t, String condition, int pageSize ) {
 
             ObjectInfo state = new ObjectInfo( t );
@@ -108,11 +108,11 @@ namespace wojilu {
         }
 
         /// <summary>
-        /// ¸ù¾İ sql Óï¾ä£¬²éÑ¯¶ÔÏó
+        /// æ ¹æ® sql è¯­å¥ï¼ŒæŸ¥è¯¢å¯¹è±¡
         /// </summary>
         /// <param name="t"></param>
         /// <param name="sql"></param>
-        /// <returns>·µ»Ø¶ÔÏóÁĞ±í</returns>
+        /// <returns>è¿”å›å¯¹è±¡åˆ—è¡¨</returns>
         public static Object findBySql( Type t, String sql ) {
 
             IList objList = ObjectPool.FindBySql( sql, t );
@@ -124,7 +124,7 @@ namespace wojilu {
         }
 
         /// <summary>
-        /// Í³¼Æ t ÀàĞÍ¶ÔÏóµÄËùÓĞÊı¾İÁ¿
+        /// ç»Ÿè®¡ t ç±»å‹å¯¹è±¡çš„æ‰€æœ‰æ•°æ®é‡
         /// </summary>
         /// <param name="t"></param>
         /// <returns></returns>
@@ -133,21 +133,21 @@ namespace wojilu {
         }
 
         /// <summary>
-        /// ¸ù¾İÌõ¼şÍ³¼ÆÊı¾İÁ¿
+        /// æ ¹æ®æ¡ä»¶ç»Ÿè®¡æ•°æ®é‡
         /// </summary>
         /// <param name="t"></param>
-        /// <param name="condition">Í³¼ÆÌõ¼ş</param>
+        /// <param name="condition">ç»Ÿè®¡æ¡ä»¶</param>
         /// <returns></returns>
         public static int count( Type t, String condition ) {
             return ObjectDB.Count( t, condition );
         }
 
         /// <summary>
-        /// ¸ù¾İ id É¾³ı¶ÔÏó
+        /// æ ¹æ® id åˆ é™¤å¯¹è±¡
         /// </summary>
         /// <param name="t"></param>
-        /// <param name="objId">¶ÔÏó id</param>
-        /// <returns>·µ»ØÊÜÓ°ÏìµÄĞĞÊı</returns>
+        /// <param name="objId">å¯¹è±¡ id</param>
+        /// <returns>è¿”å›å—å½±å“çš„è¡Œæ•°</returns>
         public static int delete( Type t, int objId ) {
             int num = ObjectDB.Delete( t, objId );
             ObjectPool.Delete( t, objId );

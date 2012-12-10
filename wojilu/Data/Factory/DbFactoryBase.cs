@@ -1,4 +1,4 @@
-/*
+ï»¿/*
  * Copyright 2010 www.wojilu.com
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -21,13 +21,20 @@ using System.Data.Common;
 namespace wojilu.Data {
 
     /// <summary>
-    /// Êı¾İ¹¤³§³éÏó»ùÀà£¬¿ÉÒÔ²»ÓÃ¿¼ÂÇÊı¾İ¿â²îÒì¶ø»ñÈ¡ Connection, Command, DataAdapter
+    /// æ•°æ®å·¥å‚æŠ½è±¡åŸºç±»ï¼Œå¯ä»¥ä¸ç”¨è€ƒè™‘æ•°æ®åº“å·®å¼‚è€Œè·å– Connection, Command, DataAdapter
     /// </summary>
     public abstract class DbFactoryBase {
 
+        protected void checkOpen() {
+            if (this.cn.State != ConnectionState.Open) {
+                this.cn.Open();
+            }
+        }
+
         public static DbFactoryBase Instance( String connectionString ) {
             DbFactoryBase result = Instance( DbTypeChecker.GetDatabaseType( connectionString ) );
-            result.cn = result.GetConnection( connectionString );
+            IDbConnection cn = result.GetConnection( connectionString );
+            result.cn = cn;
             return result;
         }
 
@@ -36,6 +43,7 @@ namespace wojilu.Data {
             result.cn = cn;
             return result;
         }
+
 
         public static DbFactoryBase Instance( IDbCommand cmd ) {
             DbFactoryBase result = Instance( DbTypeChecker.GetDatabaseType( cmd ) );
@@ -57,6 +65,7 @@ namespace wojilu.Data {
 
         public abstract IDbConnection GetConnection( String connectionString );
         public abstract IDbCommand GetCommand( String CommandText );
+        public IDbCommand GetCommand() { return this.GetCommand( null ); }
         internal abstract IDatabaseChecker GetDatabaseChecker();
         public abstract IDatabaseDialect GetDialect();
         public abstract Object SetParameter( IDbCommand cmd, String parameterName, Object parameterValue );

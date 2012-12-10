@@ -1,4 +1,4 @@
-/*
+ï»¿/*
  * Copyright 2010 www.wojilu.com
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -19,18 +19,18 @@ using System;
 namespace wojilu {
 
     /// <summary>
-    /// ²»´ø²ÎÊıµÄÎ¯ÍĞ£¬Ö÷ÒªÓÃÓÚmvcÖĞµÄÁ´½Ó¡£
+    /// ä¸å¸¦å‚æ•°çš„å§”æ‰˜ï¼Œä¸»è¦ç”¨äºmvcä¸­çš„é“¾æ¥ã€‚
     /// </summary>
     public delegate void aAction();
 
     /// <summary>
-    /// ´øÕûĞÍ²ÎÊıµÄÎ¯ÍĞ£¬Ö÷ÒªÓÃÓÚmvcÖĞµÄÁ´½Ó¡£
+    /// å¸¦æ•´å‹å‚æ•°çš„å§”æ‰˜ï¼Œä¸»è¦ç”¨äºmvcä¸­çš„é“¾æ¥ã€‚
     /// </summary>
     /// <param name="id"></param>
     public delegate void aActionWithId( int id );
 
     /// <summary>
-    /// ´ø×Ö·û´®²ÎÊıµÄÎ¯ÍĞ£¬Ö÷ÒªÓÃÓÚmvcÖĞµÄÁ´½Ó£¬±¾Î¯ÍĞ²»³£ÓÃ¡£
+    /// å¸¦å­—ç¬¦ä¸²å‚æ•°çš„å§”æ‰˜ï¼Œä¸»è¦ç”¨äºmvcä¸­çš„é“¾æ¥ï¼Œæœ¬å§”æ‰˜ä¸å¸¸ç”¨ã€‚
     /// </summary>
     /// <param name="param"></param>
     public delegate void aActionWithQuery( String param );

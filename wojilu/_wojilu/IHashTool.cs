@@ -1,4 +1,4 @@
-/*
+ï»¿/*
  * Copyright 2010 www.wojilu.com
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -18,48 +18,48 @@ using System;
 namespace wojilu {
 
     /// <summary>
-    /// ·â×°ÁË³£ÓÃ hash Ëã·¨
+    /// å°è£…äº†å¸¸ç”¨ hash ç®—æ³•
     /// </summary>
     public interface IHashTool {
 
         /// <summary>
-        /// ¸ù¾İÖ¸¶¨µÄ hash Ëã·¨£¬¼ÓÃÜ×Ö·û´®(±ÈÈçÃÜÂë)
+        /// æ ¹æ®æŒ‡å®šçš„ hash ç®—æ³•ï¼ŒåŠ å¯†å­—ç¬¦ä¸²(æ¯”å¦‚å¯†ç )
         /// </summary>
-        /// <param name="pwd">ĞèÒª hash µÄ×Ö·û´®</param>
-        /// <param name="ht">hash Ëã·¨ÀàĞÍ</param>
+        /// <param name="pwd">éœ€è¦ hash çš„å­—ç¬¦ä¸²</param>
+        /// <param name="ht">hash ç®—æ³•ç±»å‹</param>
         /// <returns></returns>
         String Get( String pwd, HashType ht );
 
 
         /// <summary>
-        /// ¸ù¾İ hash Ëã·¨ºÍÖ¸¶¨µÄ salt£¬¼ÓÃÜ×Ö·û´®
+        /// æ ¹æ® hash ç®—æ³•å’ŒæŒ‡å®šçš„ saltï¼ŒåŠ å¯†å­—ç¬¦ä¸²
         /// </summary>
         /// <param name="pwd"></param>
-        /// <param name="salt">Ö¸¶¨µÄ salt</param>
-        /// <param name="ht">hash Ëã·¨ÀàĞÍ</param>
+        /// <param name="salt">æŒ‡å®šçš„ salt</param>
+        /// <param name="ht">hash ç®—æ³•ç±»å‹</param>
         /// <returns></returns>
         String GetBySalt( String pwd, String salt, HashType ht );
 
         /// <summary>
-        /// »ñÈ¡Ëæ»úÃÜÂë(ÓÉÓ¢ÎÄ×ÖÄ¸ºÍÊı×Ö¹¹³É)
+        /// è·å–éšæœºå¯†ç (ç”±è‹±æ–‡å­—æ¯å’Œæ•°å­—æ„æˆ)
         /// </summary>
-        /// <param name="passwordLength">ÃÜÂë³¤¶È</param>
+        /// <param name="passwordLength">å¯†ç é•¿åº¦</param>
         /// <returns></returns>
         String GetRandomPassword( int passwordLength );
 
 
         /// <summary>
-        /// »ñÈ¡Ëæ»úÃÜÂë(ÓÉÓ¢ÎÄ×ÖÄ¸ºÍÊı×Ö¹¹³É)
+        /// è·å–éšæœºå¯†ç (ç”±è‹±æ–‡å­—æ¯å’Œæ•°å­—æ„æˆ)
         /// </summary>
-        /// <param name="passwordLength">ÃÜÂë³¤¶È</param>
-        /// <param name="isLower">½á¹ûÊÇ·ñĞ¡Ğ´</param>
+        /// <param name="passwordLength">å¯†ç é•¿åº¦</param>
+        /// <param name="isLower">ç»“æœæ˜¯å¦å°å†™</param>
         /// <returns></returns>
         String GetRandomPassword( int passwordLength, Boolean isLower );
 
         /// <summary>
-        /// ¸ù¾İÖ¸¶¨³¤¶È»ñÈ¡salt
+        /// æ ¹æ®æŒ‡å®šé•¿åº¦è·å–salt
         /// </summary>
-        /// <param name="size">saltµÄ³¤¶È</param>
+        /// <param name="size">saltçš„é•¿åº¦</param>
         /// <returns></returns>
         String GetSalt( int size );
 

@@ -1,4 +1,4 @@
-/*
+ï»¿/*
  * Copyright 2010 www.wojilu.com
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -74,7 +74,7 @@ namespace wojilu.Data {
             DataTable oleDbSchemaTable = connection.GetOleDbSchemaTable( OleDbSchemaGuid.Tables, restrictions );
             foreach (DataRow row in oleDbSchemaTable.Rows) {
                 existTables.Add( row["TABLE_NAME"].ToString() );
-                logger.Info( "table found£º" + row["TABLE_NAME"].ToString() );
+                logger.Info( "table foundï¼š" + row["TABLE_NAME"].ToString() );
             }
             existTables = new AccessTableBuilder().CheckMappingTableIsExist( cmd, db, existTables, mapping );
             connection.Close();

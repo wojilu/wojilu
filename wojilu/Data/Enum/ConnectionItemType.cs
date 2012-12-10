@@ -1,4 +1,4 @@
-/*
+ï»¿/*
  * Copyright 2010 www.wojilu.com
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -19,7 +19,7 @@ using System;
 namespace wojilu.Data {
 
     /// <summary>
-    /// Êı¾İ¿âÁ¬½ÓÏîµÄÀàĞÍ
+    /// æ•°æ®åº“è¿æ¥é¡¹çš„ç±»å‹
     /// </summary>
     public enum ConnectionItemType {
         Server,

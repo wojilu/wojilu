@@ -1,4 +1,4 @@
-/*
+ï»¿/*
  * Copyright 2010 www.wojilu.com
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -20,37 +20,37 @@ using System.Collections;
 namespace wojilu {
 
     /// <summary>
-    /// ·ÖÒ³ºóµÄ½á¹û¼¯
+    /// åˆ†é¡µåçš„ç»“æœé›†
     /// </summary>
     public interface IPageList {
 
         /// <summary>
-        /// µ±Ç°Ò³µÄÊı¾İÁĞ±í
+        /// å½“å‰é¡µçš„æ•°æ®åˆ—è¡¨
         /// </summary>
         IList Results { get; set; }
 
         /// <summary>
-        /// ËùÓĞ¼ÇÂ¼Êı
+        /// æ‰€æœ‰è®°å½•æ•°
         /// </summary>
         int RecordCount { get; set; }
 
         /// <summary>
-        /// ×ÜÒ³Êı
+        /// æ€»é¡µæ•°
         /// </summary>
         int PageCount { get; set; }
 
         /// <summary>
-        /// Ã¿Ò³Êı
+        /// æ¯é¡µæ•°
         /// </summary>
         int Size { get; set; }
 
         /// <summary>
-        /// µ±Ç°Ò³Âë
+        /// å½“å‰é¡µç 
         /// </summary>
         int Current { get; set; }
 
         /// <summary>
-        /// ÒÑ¾­·â×°ºÃµÄhtml·ÖÒ³À¸
+        /// å·²ç»å°è£…å¥½çš„htmlåˆ†é¡µæ 
         /// </summary>
         String PageBar { get; set; }
 

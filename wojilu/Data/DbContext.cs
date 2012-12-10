@@ -1,4 +1,4 @@
-/*
+ï»¿/*
  * Copyright 2010 www.wojilu.com
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -27,23 +27,23 @@ using wojilu.ORM.Caching;
 namespace wojilu.Data {
 
     /// <summary>
-    /// Êı¾İ¿âÉÏÏÂÎÄ£¬Ö÷ÒªÓÃÓÚ»ñÈ¡Êı¾İ¿âÁ¬½Ó
+    /// æ•°æ®åº“ä¸Šä¸‹æ–‡ï¼Œä¸»è¦ç”¨äºè·å–æ•°æ®åº“è¿æ¥
     /// </summary>
     public class DbContext {
 
         /// <summary>
-        /// »ñÈ¡Êı¾İ¿âÁ¬½Ó£¬·µ»ØµÄÁ¬½ÓÒÑ¾­´ò¿ª(open)£»ÔÚ mvc ¿ò¼ÜÖĞ²»ÓÃ¹Ø±Õ£¬¿ò¼Ü»á×Ô¶¯¹Ø±ÕÁ¬½Ó¡£
-        /// Ö®ËùÒÔÒª´«Èë Type£¬ÒòÎª ORM Ö§³Ö¶à¸öÊı¾İ¿â£¬²»Í¬µÄÀàĞÍÓĞ¿ÉÄÜÓ³Éäµ½²»Í¬µÄÊı¾İ¿â¡£
+        /// è·å–æ•°æ®åº“è¿æ¥ï¼Œè¿”å›çš„è¿æ¥å·²ç»æ‰“å¼€(open)ï¼›åœ¨ mvc æ¡†æ¶ä¸­ä¸ç”¨å…³é—­ï¼Œæ¡†æ¶ä¼šè‡ªåŠ¨å…³é—­è¿æ¥ã€‚
+        /// ä¹‹æ‰€ä»¥è¦ä¼ å…¥ Typeï¼Œå› ä¸º ORM æ”¯æŒå¤šä¸ªæ•°æ®åº“ï¼Œä¸åŒçš„ç±»å‹æœ‰å¯èƒ½æ˜ å°„åˆ°ä¸åŒçš„æ•°æ®åº“ã€‚
         /// </summary>
-        /// <param name="t">ÊµÌåµÄÀàĞÍ</param>
+        /// <param name="t">å®ä½“çš„ç±»å‹</param>
         /// <returns></returns>
         public static IDbConnection getConnection( Type t ) {
             return getConnection( Entity.GetInfo( t ) );
         }
 
         /// <summary>
-        /// »ñÈ¡Êı¾İ¿âÁ¬½Ó£¬·µ»ØµÄÁ¬½ÓÒÑ¾­´ò¿ª(open)£»ÔÚ mvc ¿ò¼ÜÖĞ²»ÓÃ¹Ø±Õ£¬¿ò¼Ü»á×Ô¶¯¹Ø±ÕÁ¬½Ó¡£
-        /// Ö®ËùÒÔÒª´«Èë EntityInfo£¬ÒòÎª ORM Ö§³Ö¶à¸öÊı¾İ¿â£¬²»Í¬µÄÀàĞÍÓĞ¿ÉÄÜÓ³Éäµ½²»Í¬µÄÊı¾İ¿â¡£
+        /// è·å–æ•°æ®åº“è¿æ¥ï¼Œè¿”å›çš„è¿æ¥å·²ç»æ‰“å¼€(open)ï¼›åœ¨ mvc æ¡†æ¶ä¸­ä¸ç”¨å…³é—­ï¼Œæ¡†æ¶ä¼šè‡ªåŠ¨å…³é—­è¿æ¥ã€‚
+        /// ä¹‹æ‰€ä»¥è¦ä¼ å…¥ EntityInfoï¼Œå› ä¸º ORM æ”¯æŒå¤šä¸ªæ•°æ®åº“ï¼Œä¸åŒçš„ç±»å‹æœ‰å¯èƒ½æ˜ å°„åˆ°ä¸åŒçš„æ•°æ®åº“ã€‚
         /// </summary>
         /// <param name="et"></param>
         /// <returns></returns>
@@ -76,7 +76,7 @@ namespace wojilu.Data {
         }
 
         /// <summary>
-        /// ¹Ø±ÕÊı¾İ¿âÁ¬½Ó¡£ÒòÎªORMÖ§³Ö¶à¸öÊı¾İ¿â£¬ËùÒÔËùÓĞ¿ÉÄÜµÄÊı¾İ¿âÁ¬½Ó¶¼»áÒ»Æğ¹Ø±Õ¡£
+        /// å…³é—­æ•°æ®åº“è¿æ¥ã€‚å› ä¸ºORMæ”¯æŒå¤šä¸ªæ•°æ®åº“ï¼Œæ‰€ä»¥æ‰€æœ‰å¯èƒ½çš„æ•°æ®åº“è¿æ¥éƒ½ä¼šä¸€èµ·å…³é—­ã€‚
         /// </summary>
         public static void closeConnectionAll() {
 
@@ -98,7 +98,7 @@ namespace wojilu.Data {
         //------------------------------------------------------------------------------
 
         /// <summary>
-        /// »ñÈ¡ËùÓĞµÄÊı¾İ¿âÁ¬½Ó
+        /// è·å–æ‰€æœ‰çš„æ•°æ®åº“è¿æ¥
         /// </summary>
         /// <returns></returns>
         public static Dictionary<String, IDbConnection> getConnectionAll() {
@@ -135,7 +135,7 @@ namespace wojilu.Data {
         //------------------------------------------------------------------------------
 
         public static void beginAndMarkTransactionAll() {
-            CurrentRequest.setItem( _beginTransactionAll, true ); // Èç¹ûµ±Ç°Ã»ÓĞ´ò¿ªµÄÊı¾İ¿âÁ¬½Ó£¬Ôò´òÉÏ±ê¼Ç£¬µÈÕæÕı´ò¿ªµÄÊ±ºòÆôÓÃÊÂÎñ
+            CurrentRequest.setItem( _beginTransactionAll, true ); // å¦‚æœå½“å‰æ²¡æœ‰æ‰“å¼€çš„æ•°æ®åº“è¿æ¥ï¼Œåˆ™æ‰“ä¸Šæ ‡è®°ï¼Œç­‰çœŸæ­£æ‰“å¼€çš„æ—¶å€™å¯ç”¨äº‹åŠ¡
             beginTransactionAll();
         }
 
@@ -147,7 +147,7 @@ namespace wojilu.Data {
         }
 
         /// <summary>
-        /// Õë¶ÔËùÓĞÊı¾İ¿âÁ¬½Ó£¬¿ªÆôÊı¾İ¿âÊÂÎñ
+        /// é’ˆå¯¹æ‰€æœ‰æ•°æ®åº“è¿æ¥ï¼Œå¼€å¯æ•°æ®åº“äº‹åŠ¡
         /// </summary>
         public static void beginTransactionAll() {
             Dictionary<String, IDbConnection> list = getConnectionAll();
@@ -177,7 +177,7 @@ namespace wojilu.Data {
         }
 
         /// <summary>
-        /// Ìá½»È«²¿µÄÊı¾İ¿âÊÂÎñ
+        /// æäº¤å…¨éƒ¨çš„æ•°æ®åº“äº‹åŠ¡
         /// </summary>
         public static void commitAll() {
             Dictionary<String, IDbTransaction> transTable = getTransactionAll();
@@ -189,7 +189,7 @@ namespace wojilu.Data {
         }
 
         /// <summary>
-        /// »Ø¹öËùÓĞÊı¾İ¿âÊÂÎñ
+        /// å›æ»šæ‰€æœ‰æ•°æ®åº“äº‹åŠ¡
         /// </summary>
         public static void rollbackAll() {
             Dictionary<String, IDbTransaction> transTable = getTransactionAll();
@@ -220,7 +220,7 @@ namespace wojilu.Data {
         }
 
         /// <summary>
-        /// »ñÈ¡´æ´¢ÔÚÉÏÏÂÎÄÖĞµÄ sql Ö´ĞĞ´ÎÊı
+        /// è·å–å­˜å‚¨åœ¨ä¸Šä¸‹æ–‡ä¸­çš„ sql æ‰§è¡Œæ¬¡æ•°
         /// </summary>
         /// <returns></returns>
         public static int getSqlCount() {

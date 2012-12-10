@@ -1,4 +1,4 @@
-/*
+ï»¿/*
  * Copyright 2010 www.wojilu.com
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -21,14 +21,14 @@ using System.Text.RegularExpressions;
 namespace wojilu {
 
     /// <summary>
-    /// ·â×°ÁË¼¸¸ö³£ÓÃµÄÕıÔò±í´ïÊ½
+    /// å°è£…äº†å‡ ä¸ªå¸¸ç”¨çš„æ­£åˆ™è¡¨è¾¾å¼
     /// </summary>
     public class RegPattern {
 
         //public static readonly String Email = @"\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*";
 
         /// <summary>
-        /// ÍøÖ·µÄÕıÔò±í´ïÊ½
+        /// ç½‘å€çš„æ­£åˆ™è¡¨è¾¾å¼
         /// </summary>
         //public static readonly String Url = @"^http\://[a-zA-Z0-9\-\.]+\.[a-zA-Z]{2,3}(/\S*)?$";
         public static readonly string Url = @"^(ht|f)tp(s?)\:\/\/[0-9a-zA-Z]([-.\w]*[0-9a-zA-Z])*(:(0-9)*)*(\/?)([a-zA-Z0-9\-\.\?\,\'\/\\\+&amp;%\$#_]*)?$";
@@ -36,32 +36,32 @@ namespace wojilu {
         // http://msdn.microsoft.com/en-us/library/ms998267.aspx
 
         /// <summary>
-        /// email ÕıÔò±í´ïÊ½
+        /// email æ­£åˆ™è¡¨è¾¾å¼
         /// </summary>
         public static readonly String Email = @"^(?("")("".+?""@)|(([0-9a-zA-Z]((\.(?!\.))|[-!#\$%&'\*\+/=\?\^`\{\}\|~\w])*)(?<=[0-9a-zA-Z])@))(?(\[)(\[(\d{1,3}\.){3}\d{1,3}\])|(([0-9a-zA-Z][-\w]*[0-9a-zA-Z]\.)+[a-zA-Z]{2,6}))$";
 
         //public static readonly String Url = @"^(ht|f)tp(s?)\:\/\/[0-9a-zA-Z]([-.\w]*[0-9a-zA-Z])*(:(0-9)*)*(\/?)([a-zA-Z0-9\-\.\?\,\'\/\\\+&amp;%\$#_]*)?$";
 
         /// <summary>
-        /// »õ±ÒÖµ(Ğ¡Êı)µÄÕıÔò±í´ïÊ½
+        /// è´§å¸å€¼(å°æ•°)çš„æ­£åˆ™è¡¨è¾¾å¼
         /// </summary>
         public static readonly String Currency = @"^\d+(\.\d\d)?$"; //1.00
 
         /// <summary>
-        /// (¸ºÊı)»õ±ÒÖµ(Ğ¡Êı)µÄÕıÔò±í´ïÊ½
+        /// (è´Ÿæ•°)è´§å¸å€¼(å°æ•°)çš„æ­£åˆ™è¡¨è¾¾å¼
         /// </summary>
         public static readonly String NegativeCurrency = @"^(-)?\d+(\.\d\d)?$"; //-1.20
 
         /// <summary>
-        /// html Ò³ÃæÖĞÍ¼Æ¬µÄÕıÔò±í´ïÊ½£¬»ñÈ¡&lt;img src="" /&gt; µÄsrc²¿·Ö
+        /// html é¡µé¢ä¸­å›¾ç‰‡çš„æ­£åˆ™è¡¨è¾¾å¼ï¼Œè·å–&lt;img src="" /&gt; çš„srcéƒ¨åˆ†
         /// </summary>
         public static readonly String Img = "(?<=<img.+?src\\s*?=\\s*?\"?)([^\\s\"]+?)(?=[\\s\"])";
 
         /// <summary>
-        /// ¼ì²é input ×Ö·û´®ÊÇ·ñºÍÖ¸¶¨µÄÕıÔò±í´ïÊ½Æ¥Åä
+        /// æ£€æŸ¥ input å­—ç¬¦ä¸²æ˜¯å¦å’ŒæŒ‡å®šçš„æ­£åˆ™è¡¨è¾¾å¼åŒ¹é…
         /// </summary>
-        /// <param name="input">ĞèÒª¼ì²éµÄ×Ö·û´®</param>
-        /// <param name="pattern">ÕıÔò±í´ïÊ½</param>
+        /// <param name="input">éœ€è¦æ£€æŸ¥çš„å­—ç¬¦ä¸²</param>
+        /// <param name="pattern">æ­£åˆ™è¡¨è¾¾å¼</param>
         /// <returns></returns>
         public static Boolean IsMatch( String input, String pattern ) {
             return Regex.IsMatch( input, pattern);

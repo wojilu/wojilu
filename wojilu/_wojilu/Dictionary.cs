@@ -1,4 +1,4 @@
-/*
+ï»¿/*
  * Copyright 2010 www.wojilu.com
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -21,7 +21,7 @@ using System.Text;
 namespace wojilu {
 
     /// <summary>
-    /// ¸ù¾İ²åÈëÏÈºó´ÎĞòÅÅĞòµÄ Hashtable
+    /// æ ¹æ®æ’å…¥å…ˆåæ¬¡åºæ’åºçš„ Hashtable
     /// </summary>
     public class Dictionary : Hashtable {
 
@@ -31,7 +31,7 @@ namespace wojilu {
         }
 
         /// <summary>
-        /// ½«¼üÖµ²åÈë×Öµä
+        /// å°†é”®å€¼æ’å…¥å­—å…¸
         /// </summary>
         /// <param name="key"></param>
         /// <param name="value"></param>
@@ -41,7 +41,7 @@ namespace wojilu {
         }
 
         /// <summary>
-        /// ÉèÖÃ×ÖµäµÄ¼üÖµ
+        /// è®¾ç½®å­—å…¸çš„é”®å€¼
         /// </summary>
         /// <param name="key"></param>
         /// <param name="value"></param>
@@ -51,7 +51,7 @@ namespace wojilu {
         }
 
         /// <summary>
-        /// Çå³şËùÓĞÊı¾İ
+        /// æ¸…æ¥šæ‰€æœ‰æ•°æ®
         /// </summary>
         public override void Clear() {
             base.Clear();
@@ -59,14 +59,14 @@ namespace wojilu {
         }
 
         /// <summary>
-        /// »ñÈ¡ËùÓĞµÄ key£¨°´ÕÕ²åÈë´ÎĞòÅÅĞò£©
+        /// è·å–æ‰€æœ‰çš„ keyï¼ˆæŒ‰ç…§æ’å…¥æ¬¡åºæ’åºï¼‰
         /// </summary>
         public override ICollection Keys {
             get { return _keys; }
         }
 
         /// <summary>
-        /// É¾³ıÄ³Ïî
+        /// åˆ é™¤æŸé¡¹
         /// </summary>
         /// <param name="key"></param>
         public override void Remove( Object key ) {
@@ -75,7 +75,7 @@ namespace wojilu {
         }
 
         /// <summary>
-        /// ¸ù¾İ index »ñÈ¡Ä³ÏîÊı¾İ
+        /// æ ¹æ® index è·å–æŸé¡¹æ•°æ®
         /// </summary>
         /// <param name="index"></param>
         /// <returns></returns>

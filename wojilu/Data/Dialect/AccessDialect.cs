@@ -1,4 +1,4 @@
-/*
+ï»¿/*
  * Copyright 2010 www.wojilu.com
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -22,7 +22,7 @@ using wojilu.Web.Mvc;
 namespace wojilu.Data {
 
     /// <summary>
-    /// access ÌØÊâÓï·¨´¦ÀíÆ÷
+    /// access ç‰¹æ®Šè¯­æ³•å¤„ç†å™¨
     /// </summary>
     [Serializable]
     public class AccessDialect : IDatabaseDialect {

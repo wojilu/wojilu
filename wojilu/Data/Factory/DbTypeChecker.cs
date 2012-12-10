@@ -1,4 +1,4 @@
-/*
+ï»¿/*
  * Copyright 2010 www.wojilu.com
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -26,7 +26,7 @@ using System.Reflection;
 namespace wojilu.Data {
 
     /// <summary>
-    /// ¼ì²éÊı¾İ¿âÀàĞÍµÄ¹¤¾ß
+    /// æ£€æŸ¥æ•°æ®åº“ç±»å‹çš„å·¥å…·
     /// </summary>
     public class DbTypeChecker {
 
@@ -89,7 +89,7 @@ namespace wojilu.Data {
 
             }
             catch (Exception ex) {
-                throw new Exception( "Êı¾İ¿âÀàĞÍÉèÖÃ´íÎó£º" + ex.Message );
+                throw new Exception( "æ•°æ®åº“ç±»å‹è®¾ç½®é”™è¯¯ï¼š" + ex.Message );
             }
 
         }

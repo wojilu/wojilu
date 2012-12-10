@@ -1,4 +1,4 @@
-/*
+ï»¿/*
  * Copyright 2010 www.wojilu.com
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -29,12 +29,12 @@ using wojilu.ORM.Caching;
 namespace wojilu {
 
     /// <summary>
-    /// wojilu ORM ×îÖ÷ÒªµÄ¹¤¾ß£¬¼¯ÖĞÁË¶ÔÏóµÄ³£ÓÃ CRUD (¶ÁÈ¡/²åÈë/¸üĞÂ/É¾³ı) ²Ù×÷¡£Ö÷Òª·½·¨¶¼ÊÇ·ºĞÍ·½·¨¡£
+    /// wojilu ORM æœ€ä¸»è¦çš„å·¥å…·ï¼Œé›†ä¸­äº†å¯¹è±¡çš„å¸¸ç”¨ CRUD (è¯»å–/æ’å…¥/æ›´æ–°/åˆ é™¤) æ“ä½œã€‚ä¸»è¦æ–¹æ³•éƒ½æ˜¯æ³›å‹æ–¹æ³•ã€‚
     /// </summary>
     public class db {
 
         /// <summary>
-        /// ²éÑ¯ T ÀàĞÍ¶ÔÏóµÄËùÓĞÊı¾İ
+        /// æŸ¥è¯¢ T ç±»å‹å¯¹è±¡çš„æ‰€æœ‰æ•°æ®
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <returns></returns>
@@ -52,7 +52,7 @@ namespace wojilu {
         }
 
         /// <summary>
-        /// ¸ù¾İ id ²éÑ¯¶ÔÏó
+        /// æ ¹æ® id æŸ¥è¯¢å¯¹è±¡
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="id"></param>
@@ -72,11 +72,11 @@ namespace wojilu {
         }
 
         /// <summary>
-        /// ¸ù¾İ²éÑ¯Ìõ¼ş£¬·µ»ØÒ»¸ö²éÑ¯¶ÔÏó¡£Ò»°ãÓÃÓÚ²ÎÊı»¯²éÑ¯¡£
+        /// æ ¹æ®æŸ¥è¯¢æ¡ä»¶ï¼Œè¿”å›ä¸€ä¸ªæŸ¥è¯¢å¯¹è±¡ã€‚ä¸€èˆ¬ç”¨äºå‚æ•°åŒ–æŸ¥è¯¢ã€‚
         /// </summary>
         /// <typeparam name="T"></typeparam>
-        /// <param name="condition">²éÑ¯Ìõ¼ş</param>
-        /// <returns>·µ»Ø²éÑ¯¶ÔÏóxQuery£¬¿ÉÒÔ½øÒ»²½²ÎÊı»¯¸³Öµ£¬²¢µÃµ½½á¹û</returns>
+        /// <param name="condition">æŸ¥è¯¢æ¡ä»¶</param>
+        /// <returns>è¿”å›æŸ¥è¯¢å¯¹è±¡xQueryï¼Œå¯ä»¥è¿›ä¸€æ­¥å‚æ•°åŒ–èµ‹å€¼ï¼Œå¹¶å¾—åˆ°ç»“æœ</returns>
         public static xQuery<T> find<T>( String condition ) where T : IEntity {
 
             ObjectInfo state = new ObjectInfo( typeof( T ) );
@@ -85,32 +85,32 @@ namespace wojilu {
         }
 
         /// <summary>
-        /// ¸ù¾İ²éÑ¯Ìõ¼ş£¬·µ»Ø·ÖÒ³Êı¾İ¼¯ºÏ(Ä¬ÈÏÃ¿Ò³·µ»Ø20Ìõ¼ÇÂ¼)
+        /// æ ¹æ®æŸ¥è¯¢æ¡ä»¶ï¼Œè¿”å›åˆ†é¡µæ•°æ®é›†åˆ(é»˜è®¤æ¯é¡µè¿”å›20æ¡è®°å½•)
         /// </summary>
         /// <typeparam name="T"></typeparam>
-        /// <param name="condition">²éÑ¯Ìõ¼ş</param>
-        /// <returns>·ÖÒ³Êı¾İÁĞ±í£¬°üÀ¨µ±Ç°Ò³¡¢×Ü¼ÇÂ¼Êı¡¢·ÖÒ³ÌõµÈ</returns>
+        /// <param name="condition">æŸ¥è¯¢æ¡ä»¶</param>
+        /// <returns>åˆ†é¡µæ•°æ®åˆ—è¡¨ï¼ŒåŒ…æ‹¬å½“å‰é¡µã€æ€»è®°å½•æ•°ã€åˆ†é¡µæ¡ç­‰</returns>
         public static DataPage<T> findPage<T>( String condition ) where T : IEntity {
 
             return findPage<T>( condition, 20 );
         }
         /// <summary>
-        /// ´æµµÄ£Ê½·­Ò³(Ä¬ÈÏ°´ÕÕ order by Id asc ÅÅĞò)
+        /// å­˜æ¡£æ¨¡å¼ç¿»é¡µ(é»˜è®¤æŒ‰ç…§ order by Id asc æ’åº)
         /// </summary>
         /// <typeparam name="T"></typeparam>
-        /// <param name="condition">²éÑ¯Ìõ¼ş</param>
-        /// <returns>·ÖÒ³Êı¾İÁĞ±í£¬°üÀ¨µ±Ç°Ò³¡¢×Ü¼ÇÂ¼Êı¡¢·ÖÒ³ÌõµÈ</returns>
+        /// <param name="condition">æŸ¥è¯¢æ¡ä»¶</param>
+        /// <returns>åˆ†é¡µæ•°æ®åˆ—è¡¨ï¼ŒåŒ…æ‹¬å½“å‰é¡µã€æ€»è®°å½•æ•°ã€åˆ†é¡µæ¡ç­‰</returns>
         public static DataPage<T> findPageArchive<T>( String condition ) where T : IEntity {
             return findPageArchive<T>( condition, 20 );
         }
 
         /// <summary>
-        /// ´æµµÄ£Ê½·­Ò³(Ä¬ÈÏ°´ÕÕ order by Id asc ÅÅĞò)
+        /// å­˜æ¡£æ¨¡å¼ç¿»é¡µ(é»˜è®¤æŒ‰ç…§ order by Id asc æ’åº)
         /// </summary>
         /// <typeparam name="T"></typeparam>
-        /// <param name="condition">²éÑ¯Ìõ¼ş</param>
-        /// <param name="pageSize">Ã¿Ò³ĞèÒªÏÔÊ¾µÄÊı¾İÁ¿</param>
-        /// <returns>·ÖÒ³Êı¾İÁĞ±í£¬°üÀ¨µ±Ç°Ò³¡¢×Ü¼ÇÂ¼Êı¡¢·ÖÒ³ÌõµÈ</returns>
+        /// <param name="condition">æŸ¥è¯¢æ¡ä»¶</param>
+        /// <param name="pageSize">æ¯é¡µéœ€è¦æ˜¾ç¤ºçš„æ•°æ®é‡</param>
+        /// <returns>åˆ†é¡µæ•°æ®åˆ—è¡¨ï¼ŒåŒ…æ‹¬å½“å‰é¡µã€æ€»è®°å½•æ•°ã€åˆ†é¡µæ¡ç­‰</returns>
         public static DataPage<T> findPageArchive<T>( String condition, int pageSize ) where T : IEntity {
 
             if (strUtil.IsNullOrEmpty( condition )) condition = "order by Id asc";
@@ -127,12 +127,12 @@ namespace wojilu {
         }
 
         /// <summary>
-        /// ¸ù¾İ²éÑ¯Ìõ¼ş¡¢Ã¿Ò³ÊıÁ¿£¬·µ»Ø·ÖÒ³Êı¾İ¼¯ºÏ
+        /// æ ¹æ®æŸ¥è¯¢æ¡ä»¶ã€æ¯é¡µæ•°é‡ï¼Œè¿”å›åˆ†é¡µæ•°æ®é›†åˆ
         /// </summary>
         /// <typeparam name="T"></typeparam>
-        /// <param name="condition">²éÑ¯Ìõ¼ş</param>
-        /// <param name="pageSize">Ã¿Ò³ĞèÒªÏÔÊ¾µÄÊı¾İÁ¿</param>
-        /// <returns>·ÖÒ³Êı¾İÁĞ±í£¬°üÀ¨µ±Ç°Ò³¡¢×Ü¼ÇÂ¼Êı¡¢·ÖÒ³ÌõµÈ</returns>
+        /// <param name="condition">æŸ¥è¯¢æ¡ä»¶</param>
+        /// <param name="pageSize">æ¯é¡µéœ€è¦æ˜¾ç¤ºçš„æ•°æ®é‡</param>
+        /// <returns>åˆ†é¡µæ•°æ®åˆ—è¡¨ï¼ŒåŒ…æ‹¬å½“å‰é¡µã€æ€»è®°å½•æ•°ã€åˆ†é¡µæ¡ç­‰</returns>
         public static DataPage<T> findPage<T>( String condition, int pageSize ) where T : IEntity {
 
             if (pageSize <= 0) pageSize = 20;
@@ -164,13 +164,13 @@ namespace wojilu {
         }
 
         /// <summary>
-        /// ¸ù¾İ²éÑ¯Ìõ¼ş¡¢µ±Ç°Ò³ÂëºÍÃ¿Ò³ÊıÁ¿£¬·µ»Ø·ÖÒ³Êı¾İ¼¯ºÏ
+        /// æ ¹æ®æŸ¥è¯¢æ¡ä»¶ã€å½“å‰é¡µç å’Œæ¯é¡µæ•°é‡ï¼Œè¿”å›åˆ†é¡µæ•°æ®é›†åˆ
         /// </summary>
         /// <typeparam name="T"></typeparam>
-        /// <param name="condition">²éÑ¯Ìõ¼ş</param>
-        /// <param name="current">µ±Ç°Ò³Âë</param>
-        /// <param name="pageSize">Ã¿Ò³ĞèÒªÏÔÊ¾µÄÊı¾İÁ¿</param>
-        /// <returns>·ÖÒ³Êı¾İÁĞ±í£¬°üÀ¨µ±Ç°Ò³¡¢×Ü¼ÇÂ¼Êı¡¢·ÖÒ³ÌõµÈ</returns>
+        /// <param name="condition">æŸ¥è¯¢æ¡ä»¶</param>
+        /// <param name="current">å½“å‰é¡µç </param>
+        /// <param name="pageSize">æ¯é¡µéœ€è¦æ˜¾ç¤ºçš„æ•°æ®é‡</param>
+        /// <returns>åˆ†é¡µæ•°æ®åˆ—è¡¨ï¼ŒåŒ…æ‹¬å½“å‰é¡µã€æ€»è®°å½•æ•°ã€åˆ†é¡µæ¡ç­‰</returns>
         public static DataPage<T> findPage<T>( String condition, int current, int pageSize ) where T : IEntity {
 
             ObjectInfo state = new ObjectInfo( typeof( T ) );
@@ -191,7 +191,7 @@ namespace wojilu {
         }
 
         /// <summary>
-        /// ¸ù¾İ sql Óï¾ä£¬·µ»Ø¶ÔÏóÁĞ±í
+        /// æ ¹æ® sql è¯­å¥ï¼Œè¿”å›å¯¹è±¡åˆ—è¡¨
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="sql"></param>
@@ -237,7 +237,7 @@ namespace wojilu {
 
 
         /// <summary>
-        /// ·µ»ØÒ»¸ö²»¾­¹ı»º´æµÄ²éÑ¯¹¤¾ß£¬ÓÃÓÚÖ±½Ó´ÓÊı¾İ¿â¼ìË÷Êı¾İ
+        /// è¿”å›ä¸€ä¸ªä¸ç»è¿‡ç¼“å­˜çš„æŸ¥è¯¢å·¥å…·ï¼Œç”¨äºç›´æ¥ä»æ•°æ®åº“æ£€ç´¢æ•°æ®
         /// </summary>
         public static NoCacheDbFinder nocache {
             get { return new NoCacheDbFinder(); }
@@ -246,10 +246,10 @@ namespace wojilu {
         //-------------------------------------------------------------------------
 
         /// <summary>
-        /// ½«¶ÔÏó²åÈëÊı¾İ¿â
+        /// å°†å¯¹è±¡æ’å…¥æ•°æ®åº“
         /// </summary>
         /// <param name="obj"></param>
-        /// <returns>·µ»ØÒ»¸ö½á¹û¶ÔÏó Result¡£Èç¹û·¢Éú´íÎó£¬Ôò Result ÖĞ°üº¬´íÎóĞÅÏ¢£»Èç¹ûÃ»ÓĞ´íÎó£¬result.Info¼´ÊÇobj</returns>
+        /// <returns>è¿”å›ä¸€ä¸ªç»“æœå¯¹è±¡ Resultã€‚å¦‚æœå‘ç”Ÿé”™è¯¯ï¼Œåˆ™ Result ä¸­åŒ…å«é”™è¯¯ä¿¡æ¯ï¼›å¦‚æœæ²¡æœ‰é”™è¯¯ï¼Œresult.Infoå³æ˜¯obj</returns>
         public static Result insert( Object obj ) {
 
             if (obj == null) throw new ArgumentNullException();
@@ -259,10 +259,10 @@ namespace wojilu {
         }
 
         /// <summary>
-        /// ¸üĞÂ¶ÔÏó£¬²¢´æÈëÊı¾İ¿â
+        /// æ›´æ–°å¯¹è±¡ï¼Œå¹¶å­˜å…¥æ•°æ®åº“
         /// </summary>
         /// <param name="obj"></param>
-        /// <returns>·µ»ØÒ»¸ö½á¹û¶ÔÏó Result¡£Èç¹û·¢Éú´íÎó£¬Ôò Result ÖĞ°üº¬´íÎóĞÅÏ¢</returns>
+        /// <returns>è¿”å›ä¸€ä¸ªç»“æœå¯¹è±¡ Resultã€‚å¦‚æœå‘ç”Ÿé”™è¯¯ï¼Œåˆ™ Result ä¸­åŒ…å«é”™è¯¯ä¿¡æ¯</returns>
         public static Result update( Object obj ) {
 
             if (obj == null) throw new ArgumentNullException();
@@ -273,10 +273,10 @@ namespace wojilu {
         }
 
         /// <summary>
-        /// Ö»ĞŞ¸Ä¶ÔÏóµÄÄ³¸öÌØ¶¨ÊôĞÔ
+        /// åªä¿®æ”¹å¯¹è±¡çš„æŸä¸ªç‰¹å®šå±æ€§
         /// </summary>
         /// <param name="obj"></param>
-        /// <param name="propertyName">ĞèÒªĞŞ¸ÄµÄÊôĞÔÃû³Æ</param>
+        /// <param name="propertyName">éœ€è¦ä¿®æ”¹çš„å±æ€§åç§°</param>
         public static void update( Object obj, String propertyName ) {
 
             if (obj == null) throw new ArgumentNullException();
@@ -286,10 +286,10 @@ namespace wojilu {
         }
 
         /// <summary>
-        /// Ö»ĞŞ¸Ä¶ÔÏóµÄÌØ¶¨ÊôĞÔ
+        /// åªä¿®æ”¹å¯¹è±¡çš„ç‰¹å®šå±æ€§
         /// </summary>
         /// <param name="obj"></param>
-        /// <param name="arrPropertyName">ĞèÒªĞŞ¸ÄµÄÊôĞÔµÄÊı×é</param>
+        /// <param name="arrPropertyName">éœ€è¦ä¿®æ”¹çš„å±æ€§çš„æ•°ç»„</param>
         public static void update( Object obj, String[] arrPropertyName ) {
 
             if (obj == null) throw new ArgumentNullException();
@@ -299,21 +299,21 @@ namespace wojilu {
         }
 
         /// <summary>
-        /// ¸ù¾İÌõ¼şÅúÁ¿¸üĞÂ¶ÔÏó
+        /// æ ¹æ®æ¡ä»¶æ‰¹é‡æ›´æ–°å¯¹è±¡
         /// </summary>
         /// <typeparam name="T"></typeparam>
-        /// <param name="action">¸üĞÂµÄ²Ù×÷</param>
-        /// <param name="condition">¸üĞÂµÄÌõ¼ş</param>
+        /// <param name="action">æ›´æ–°çš„æ“ä½œ</param>
+        /// <param name="condition">æ›´æ–°çš„æ¡ä»¶</param>
         public static void updateBatch<T>( String action, String condition ) where T : IEntity {
             IEntity obj = Entity.New( typeof( T ).FullName );
             ObjectDB.UpdateBatch( obj, action, condition );
         }
 
         /// <summary>
-        /// É¾³ıÊı¾İ
+        /// åˆ é™¤æ•°æ®
         /// </summary>
         /// <param name="obj"></param>
-        /// <returns>·µ»ØÊÜÓ°ÏìµÄĞĞÊı</returns>
+        /// <returns>è¿”å›å—å½±å“çš„è¡Œæ•°</returns>
         public static int delete( Object obj ) {
 
             if (obj == null) throw new ArgumentNullException();
@@ -324,11 +324,11 @@ namespace wojilu {
         }
 
         /// <summary>
-        /// ¸ù¾İ id É¾³ıÊı¾İ
+        /// æ ¹æ® id åˆ é™¤æ•°æ®
         /// </summary>
         /// <typeparam name="T"></typeparam>
-        /// <param name="id">¶ÔÏóµÄ id</param>
-        /// <returns>·µ»ØÊÜÓ°ÏìµÄĞĞÊı</returns>
+        /// <param name="id">å¯¹è±¡çš„ id</param>
+        /// <returns>è¿”å›å—å½±å“çš„è¡Œæ•°</returns>
         public static int delete<T>( int id ) where T : IEntity {
             int num = ObjectDB.Delete( typeof( T ), id );
             ObjectPool.Delete( typeof( T ), id );
@@ -336,11 +336,11 @@ namespace wojilu {
         }
 
         /// <summary>
-        /// ¸ù¾İÌõ¼şÅúÁ¿É¾³ıÊı¾İ
+        /// æ ¹æ®æ¡ä»¶æ‰¹é‡åˆ é™¤æ•°æ®
         /// </summary>
         /// <typeparam name="T"></typeparam>
-        /// <param name="condition">É¾³ıÌõ¼ş</param>
-        /// <returns>·µ»ØÊÜÓ°ÏìµÄĞĞÊı</returns>
+        /// <param name="condition">åˆ é™¤æ¡ä»¶</param>
+        /// <returns>è¿”å›å—å½±å“çš„è¡Œæ•°</returns>
         public static int deleteBatch<T>( String condition ) where T : IEntity {
             return ObjectDB.DeleteBatch( typeof( T ), condition );
         }
@@ -348,10 +348,10 @@ namespace wojilu {
         //-------------------------------------------------------------------------
 
         /// <summary>
-        /// Í³¼Æ¶ÔÏóµÄËùÓĞÊıÄ¿
+        /// ç»Ÿè®¡å¯¹è±¡çš„æ‰€æœ‰æ•°ç›®
         /// </summary>
         /// <typeparam name="T"></typeparam>
-        /// <returns>¶ÔÏóÊıÁ¿</returns>
+        /// <returns>å¯¹è±¡æ•°é‡</returns>
         public static int count<T>() where T : IEntity {
 
             int countResult = ObjectPool.FindCount( typeof( T ) );
@@ -364,11 +364,11 @@ namespace wojilu {
         }
 
         /// <summary>
-        /// ¸ù¾İÌõ¼şÍ³¼Æ¶ÔÏóµÄËùÓĞÊıÄ¿
+        /// æ ¹æ®æ¡ä»¶ç»Ÿè®¡å¯¹è±¡çš„æ‰€æœ‰æ•°ç›®
         /// </summary>
         /// <typeparam name="T"></typeparam>
-        /// <param name="condition">Í³¼ÆÌõ¼ş</param>
-        /// <returns>¶ÔÏóÊıÁ¿</returns>
+        /// <param name="condition">ç»Ÿè®¡æ¡ä»¶</param>
+        /// <returns>å¯¹è±¡æ•°é‡</returns>
         public static int count<T>( String condition ) where T : IEntity {
 
             int countResult = ObjectPool.FindCount( typeof( T ), condition );
@@ -393,27 +393,27 @@ namespace wojilu {
         //-------------------------------------------------------------------------
 
         /// <summary>
-        /// ¸ù¾İ sql Óï¾ä²éÑ¯£¬·µ»ØÒ»¸ö IDataReader
+        /// æ ¹æ® sql è¯­å¥æŸ¥è¯¢ï¼Œè¿”å›ä¸€ä¸ª IDataReader
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="sql"></param>
-        /// <returns>·µ»ØÒ»¸ö IDataReader</returns>
+        /// <returns>è¿”å›ä¸€ä¸ª IDataReader</returns>
         public static IDataReader RunReader<T>( String sql ) {
             return DataFactory.GetCommand( sql, DbContext.getConnection( typeof( T ) ) ).ExecuteReader( CommandBehavior.CloseConnection );
         }
 
         /// <summary>
-        /// ¸ù¾İ sql Óï¾ä²éÑ¯£¬·µ»Øµ¥ĞĞµ¥ÁĞÊı¾İ
+        /// æ ¹æ® sql è¯­å¥æŸ¥è¯¢ï¼Œè¿”å›å•è¡Œå•åˆ—æ•°æ®
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="sql"></param>
-        /// <returns>·µ»Øµ¥ĞĞµ¥ÁĞÊı¾İ</returns>
+        /// <returns>è¿”å›å•è¡Œå•åˆ—æ•°æ®</returns>
         public static Object RunScalar<T>( String sql ) {
             return DataFactory.GetCommand( sql, DbContext.getConnection( typeof( T ) ) ).ExecuteScalar();
         }
 
         /// <summary>
-        /// Ö´ĞĞ sql Óï¾ä
+        /// æ‰§è¡Œ sql è¯­å¥
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="sql"></param>
@@ -424,7 +424,7 @@ namespace wojilu {
         }
 
         /// <summary>
-        /// ¸ù¾İ sql Óï¾ä²éÑ¯£¬·µ»ØÒ»¸ö DataTable
+        /// æ ¹æ® sql è¯­å¥æŸ¥è¯¢ï¼Œè¿”å›ä¸€ä¸ª DataTable
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="sql"></param>
@@ -435,7 +435,76 @@ namespace wojilu {
             return dataTable;
         }
 
+        //--------------------------------------------------------------------------------
 
+        /// <summary>
+        /// è·å–é»˜è®¤çš„æ•°æ®åº“è¿æ¥(default)ï¼Œéœ€è¦è‡ªå·±ç®¡ç†Openå’ŒClose
+        /// </summary>
+        /// <returns></returns>
+        public static IDbConnection getConnection() {
+            return getConnection( "default" );
+        }
+
+        /// <summary>
+        /// è·å–æ•°æ®åº“è¿æ¥ï¼Œéœ€è¦è‡ªå·±ç®¡ç†Openå’ŒClose
+        /// </summary>
+        /// <param name="dbName"></param>
+        /// <returns></returns>
+        public static IDbConnection getConnection( String dbName ) {
+            ConnectionString cs = DbConfig.Instance.GetConnectionStringMap()[dbName] as ConnectionString;
+            return DataFactory.GetConnection( cs.StringContent, cs.DbType );
+        }
+
+        /// <summary>
+        /// è·å–æ•°æ®åº“è¿æ¥ï¼Œéœ€è¦è‡ªå·±ç®¡ç†Openå’ŒClose
+        /// </summary>
+        /// <param name="dataType">å®ä½“çš„ç±»å‹</param>
+        /// <returns></returns>
+        public static IDbConnection getConnection( Type dataType ) {
+            EntityInfo et = Entity.GetInfo( dataType );
+            return getConnection( et.Database );
+        }
+
+        /// <summary>
+        /// è·å–ä¸€ä¸ªæ•°æ®åº“ Command
+        /// </summary>
+        /// <param name="CommandText"></param>
+        /// <param name="cn"></param>
+        /// <returns></returns>
+        public static IDbCommand getCommand( String commandText ) {
+            IDbConnection cn = getConnection();
+            return DataFactory.GetCommand( commandText, cn );
+        }
+
+        /// <summary>
+        /// è·å–ä¸€ä¸ªæ•°æ®åº“ Command
+        /// </summary>
+        /// <returns></returns>
+        public static IDbCommand getCommand( String dbName, String commandText ) {
+            IDbConnection cn = getConnection( dbName );
+            return DataFactory.GetCommand( commandText, cn );
+        }
+
+        /// <summary>
+        /// è·å–ä¸€ä¸ªæ•°æ®åº“ Command
+        /// </summary>
+        /// <param name="cn"></param>
+        /// <param name="commandText"></param>
+        /// <returns></returns>
+        public static IDbCommand getCommand( IDbConnection cn, String commandText ) {
+            return DataFactory.GetCommand( commandText, cn );
+        }
+
+        /// <summary>
+        /// è·å–ä¸€ä¸ªæ•°æ®åº“ Command
+        /// </summary>
+        /// <param name="dataType"></param>
+        /// <param name="commandText"></param>
+        /// <returns></returns>
+        public static IDbCommand getCommand( Type dataType, String commandText ) {
+            IDbConnection cn = getConnection( dataType );
+            return DataFactory.GetCommand( commandText, cn );
+        }
 
     }
 }

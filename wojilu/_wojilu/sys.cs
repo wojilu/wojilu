@@ -1,4 +1,4 @@
-/*
+ï»¿/*
  * Copyright 2010 www.wojilu.com
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -21,12 +21,12 @@ using System.Text;
 namespace wojilu {
 
     /// <summary>
-    /// ÏµÍ³³£ÓÃ¶ÔÏóµÄ¿ì½İ·½Ê½£¬±ÈÈç SysPath(ÏµÍ³Â·¾¶)
+    /// ç³»ç»Ÿå¸¸ç”¨å¯¹è±¡çš„å¿«æ·æ–¹å¼ï¼Œæ¯”å¦‚ SysPath(ç³»ç»Ÿè·¯å¾„)
     /// </summary>
     public class sys {
 
         /// <summary>
-        /// ÏµÍ³Â·¾¶
+        /// ç³»ç»Ÿè·¯å¾„
         /// </summary>
         public static SysPath Path {
             get { return SysPath.Instance; }

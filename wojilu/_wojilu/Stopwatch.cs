@@ -1,4 +1,4 @@
-/*
+ï»¿/*
  * Copyright 2010 www.wojilu.com
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -21,7 +21,7 @@ using System.Runtime.InteropServices;
 namespace wojilu {
 
     /// <summary>
-    /// Ãë±í£¬ÓÃÓÚ²âÊÔ³ÌĞòºÄÊ±
+    /// ç§’è¡¨ï¼Œç”¨äºæµ‹è¯•ç¨‹åºè€—æ—¶
     /// </summary>
     public class Stopwatch {
 
@@ -44,7 +44,7 @@ namespace wojilu {
         }
 
         /// <summary>
-        /// ¿ªÊ¼Æô¶¯
+        /// å¼€å§‹å¯åŠ¨
         /// </summary>
         public void Start() {
             this._IsStop = false;
@@ -52,7 +52,7 @@ namespace wojilu {
         }
 
         /// <summary>
-        /// Í£Ö¹
+        /// åœæ­¢
         /// </summary>
         public void Stop() {
             if (!this._IsStop) {
@@ -62,7 +62,7 @@ namespace wojilu {
         }
 
         /// <summary>
-        /// ×Ü¹²ºÄÊ±(ºÁÃë)
+        /// æ€»å…±è€—æ—¶(æ¯«ç§’)
         /// </summary>
         public double ElapsedMilliseconds {
             get {
@@ -73,7 +73,7 @@ namespace wojilu {
         }
 
         /// <summary>
-        /// ×Ü¹²ºÄÊ±(Ãë)
+        /// æ€»å…±è€—æ—¶(ç§’)
         /// </summary>
         public double ElapsedSeconds {
             get {

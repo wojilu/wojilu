@@ -1,4 +1,4 @@
-/*
+ï»¿/*
  * Copyright 2010 www.wojilu.com
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -19,7 +19,7 @@ using System;
 namespace wojilu.Data {
 
     /// <summary>
-    /// mysql ÌØÊâÓï·¨´¦ÀíÆ÷
+    /// mysql ç‰¹æ®Šè¯­æ³•å¤„ç†å™¨
     /// </summary>
     public class MysqlDialect : IDatabaseDialect {
 
