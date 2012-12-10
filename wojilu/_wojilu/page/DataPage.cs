@@ -119,6 +119,12 @@ namespace wojilu {
             return p;
         }
 
+        public DataPage<T> Convert<T>( List<T> list ) {
+            DataPage<T> p = new DataPage<T>();
+            p.CopyStats( this );
+            p.Results = list;
+            return p;
+        }
 
         System.Collections.IList IPageList.Results {
             get { return new System.Collections.ArrayList(); }

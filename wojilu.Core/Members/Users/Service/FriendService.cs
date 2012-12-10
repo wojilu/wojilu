@@ -243,12 +243,7 @@ namespace wojilu.Members.Users.Service {
         private DataPage<User> populateUsers( int userId, int pageSize, String condition ) {
             DataPage<FriendShip> list = db.findPage<FriendShip>( condition, pageSize );
 
-            DataPage<User> d = new DataPage<User>();
-            List<User> friends = populateUser( list.Results, userId );
-            d.Results = friends;
-            d.CopyStats( list );
-
-            return d;
+            return list.Convert<User>( populateUser( list.Results, userId ) );
         }
 
         public virtual void DeleteFriendByBlacklist( int userId, int fid ) {

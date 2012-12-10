@@ -21,13 +21,8 @@ namespace wojilu.Common.Microblogs.Service {
                 mlist.Add( mf.Microblog );
             }
 
-            DataPage<Microblog> results = new DataPage<Microblog>();
-            results.CopyStats( list );
-            results.Results = mlist;
-
-            return results;
+            return list.Convert<Microblog>( mlist );
         }
-
 
         public void SaveFavorite( int userId, Microblog blog ) {
 

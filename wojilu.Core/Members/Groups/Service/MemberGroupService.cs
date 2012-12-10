@@ -373,10 +373,7 @@ namespace wojilu.Members.Groups.Service {
             DataPage<GroupUser> lists = db.findPage<GroupUser>( myGroupCondition( userId ) + " order by LastUpdateTime desc" );
             List<Group> groups = populate( lists.Results );
 
-            DataPage<Group> results = new DataPage<Group>();
-            results.CopyStats( lists );
-            results.Results = groups;
-            return results;
+            return lists.Convert<Group>( groups );
         }
 
         private List<Group> populate( List<GroupUser> lists ) {

@@ -147,18 +147,12 @@ namespace wojilu.Members.Users.Service {
 
         public virtual DataPage<User> GetFollowingPage( int userId, int pageSize ) {
             DataPage<Follower> followers = db.findPage<Follower>( "User.Id=" + userId, pageSize );
-            DataPage<User> list = new DataPage<User>();
-            list.Results = populateTarget( followers.Results );
-            list.CopyStats( followers );
-            return list;
+            return followers.Convert<User>( populateTarget( followers.Results ) );
         }
 
         public virtual DataPage<User> GetFollowersPage( int targetId ) {
             DataPage<Follower> followers = db.findPage<Follower>( "Target.Id=" + targetId );
-            DataPage<User> list = new DataPage<User>();
-            list.Results = populateUser( followers.Results );
-            list.CopyStats( followers );
-            return list;
+            return followers.Convert<User>( populateUser( followers.Results ) );
         }
 
         private List<User> populateTarget( List<Follower> followers ) {

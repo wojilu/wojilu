@@ -69,12 +69,7 @@ namespace wojilu.Members.Users.Service {
 
         public DataPage<User> GetPageByTag( int tagId ) {
             DataPage<UserTagShip> list = UserTagShip.findPage( "TagId=" + tagId );
-            DataPage<User> results = new DataPage<User>();
-            results.CopyStats( list );
-
-            results.Results = populateUsers( list.Results );
-            return results;
-
+            return list.Convert<User>( populateUsers( list.Results ) );
         }
 
         private List<User> populateUsers( List<UserTagShip> list ) {
