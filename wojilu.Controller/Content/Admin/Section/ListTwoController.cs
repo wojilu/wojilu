@@ -48,7 +48,7 @@ namespace wojilu.Web.Controller.Content.Admin.Section {
         }
 
         public void AdminSectionShow( int sectionId ) {
-            List<ContentPost> posts = this.postService.GetBySection( ctx.app.Id, sectionId );
+            List<ContentPost> posts = this.postService.GetBySection( sectionId );
             bindSectionShow( sectionId, posts );
         }
 

@@ -49,7 +49,7 @@ namespace wojilu.Web.Controller.Content.Admin.Section {
         public void AdminSectionShow( int sectionId ) {
 
             int imgcat = PostCategory.Img;
-            List<ContentPost> posts = this.postService.GetBySection( ctx.app.Id, sectionId, 3 );
+            List<ContentPost> posts = this.postService.GetBySection( sectionId, 3 );
             ContentPost first = posts.Count > 0 ? posts[0] : null;
 
             bindSectionShow( sectionId, imgcat, posts, first );

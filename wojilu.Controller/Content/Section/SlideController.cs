@@ -47,7 +47,7 @@ namespace wojilu.Web.Controller.Content.Section {
 
             TemplateUtil.loadTemplate( this, s, ctService );
 
-            List<ContentPost> posts = this.postService.GetBySection( ctx.app.Id, sectionId, 3 );
+            List<ContentPost> posts = this.postService.GetBySection( sectionId, 3 );
             ContentPost first = posts.Count > 0 ? posts[0] : null;
 
             if (first == null) {

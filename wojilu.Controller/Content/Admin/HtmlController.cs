@@ -153,7 +153,7 @@ namespace wojilu.Web.Controller.Content.Admin {
             List<ContentSection> sections = sectionService.GetByApp( ctx.app.Id );
             foreach (ContentSection section in sections) {
 
-                int recordCount = postService.GetCountBySection( section.Id );
+                int recordCount = postService.CountBySection( section.Id );
 
                 count += new HtmlListMaker().MakeHtml( ctx, section.Id, recordCount );
                 logger.Info( "make section html, sectionId=" + section.Id );
@@ -180,7 +180,7 @@ namespace wojilu.Web.Controller.Content.Admin {
             view( "MakeDone" );
 
             ContentApp app = ctx.app.obj as ContentApp;
-            int recordCount = postService.GetCountBySection( sectionId );
+            int recordCount = postService.CountBySection( sectionId );
 
             int listCount = new HtmlListMaker().MakeHtml( ctx, sectionId, recordCount );
             echo( "生成列表页成功，共 " + listCount + " 篇" );
@@ -191,7 +191,7 @@ namespace wojilu.Web.Controller.Content.Admin {
 
             view( "MakeDone" );
 
-            List<ContentPost> list = postService.GetBySection( sectionId );
+            List<ContentPost> list = postService.GetAllBySection( sectionId );
             echo( "生成详细页成功，共 " + list.Count + " 篇" );
         }
 

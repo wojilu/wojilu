@@ -35,8 +35,6 @@ namespace wojilu.Apps.Content.Domain {
 
         public String CssClass { get; set; } // 区块css类型class
 
-        public String CachePostIds { get; set; }
-
         private int _listCount;
 
         public int ListCount {

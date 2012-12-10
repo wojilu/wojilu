@@ -1,30 +1,118 @@
-/*
+Ôªø/*
  * Copyright (c) 2010, www.wojilu.com. All rights reserved.
  */
 
 using System;
+using System.Collections;
 using System.Collections.Generic;
 
-//using wojilu.ORM;
-using wojilu.Drawing;
+using wojilu.Web.Mvc;
 
 using wojilu.Apps.Content.Domain;
-using wojilu.Apps.Content.Interface;
 using wojilu.Apps.Content.Enum;
-using wojilu.Common.Jobs;
-using wojilu.Log;
-using wojilu.Common.AppBase;
+using wojilu.Apps.Content.Interface;
+
 using wojilu.Common;
-using wojilu.Web.Mvc;
-using wojilu.Members.Interface;
+using wojilu.Common.AppBase;
+using wojilu.Common.Jobs;
 using wojilu.Common.Tags;
-using System.Collections;
+
+using wojilu.Members.Interface;
+
 
 namespace wojilu.Apps.Content.Service {
 
     public class ContentPostService : IContentPostService {
 
         private static readonly ILog logger = LogManager.GetLogger( typeof( ContentPostService ) );
+
+        //--------------------- service ------------------------------------------------------------------------
+
+        public virtual List<IBinderValue> GetByAppIds( String ids, int count ) {
+            String sids = checkIds( ids );
+            if (strUtil.IsNullOrEmpty( sids )) return new List<IBinderValue>();
+
+            if (count <= 0) count = 10;
+
+            List<ContentPost> list = ContentPost.find( "AppId in (" + sids + ") and SaveStatus=" + SaveStatus.Normal ).list( count );
+
+            return populateBinder( list );
+        }
+
+        public virtual List<IBinderValue> GetByTags( String tags, int count ) {
+
+            if (count <= 0) count = 10;
+
+            IList list = TagService.FindByTags( tags, typeof( ContentPost ), count );
+
+            return populateBinder( list );
+        }
+
+        public virtual List<IBinderValue> GetHitsRankByAppIds( String ids, int count ) {
+            String sids = checkIds( ids );
+            if (strUtil.IsNullOrEmpty( sids )) return new List<IBinderValue>();
+
+            if (count <= 0) count = 10;
+
+            String strSort = " order by Hits desc, Id desc";
+            List<ContentPost> list = ContentPost.find( "AppId in (" + sids + ")  and SaveStatus=" + SaveStatus.Normal + strSort ).list( count );
+
+            return populateBinder( list );
+        }
+
+        public virtual List<IBinderValue> GetRepliesRankByAppIds( String ids, int count ) {
+            String sids = checkIds( ids );
+            if (strUtil.IsNullOrEmpty( sids )) return new List<IBinderValue>();
+
+            if (count <= 0) count = 10;
+
+            String strSort = " order by Replies desc, Id desc";
+            List<ContentPost> list = ContentPost.find( "AppId in (" + sids + ")  and SaveStatus=" + SaveStatus.Normal + strSort ).list( count );
+
+            return populateBinder( list );
+        }
+
+        public virtual List<IBinderValue> GetBySectionIds( String ids, int count ) {
+
+            String sids = checkIds( ids );
+            if (strUtil.IsNullOrEmpty( sids )) return new List<IBinderValue>();
+
+            if (count <= 0) count = 10;
+
+            List<ContentPostSection> psList = ContentPostSection
+                .find( "SectionId in (" + sids + ") and SaveStatus=" + SaveStatus.Normal )
+                .list( count );
+
+            List<ContentPost> list = populatePost( psList );
+
+            return populateBinder( list );
+        }
+
+        //---------------------------------------------------------------------------------------------
+
+        private ContentPost GetById( int postId ) {
+            ContentPost post = db.findById<ContentPost>( postId );
+            if (post == null) return null;
+            if (post.SaveStatus != SaveStatus.Normal) return null;
+            return post;
+        }
+
+        public virtual ContentPost GetById( int id, int ownerId ) {
+            ContentPost post = GetById( id );
+            if (post == null) return null;
+            if (post.OwnerId != ownerId) return null;
+            if (post.SaveStatus != SaveStatus.Normal) return null;
+            return post;
+        }
+
+        public virtual List<ContentPost> GetByIds( string ids ) {
+            if (strUtil.IsNullOrEmpty( ids )) return new List<ContentPost>();
+            List<ContentPost> posts = ContentPost.find( "Id in (" + ids + ") and SaveStatus=" + SaveStatus.Normal ).list();
+
+            return posts;
+        }
+
+        //---------------------------------------------------------------------------------------------
 
         public virtual ContentPost GetPrevPost( ContentPost post ) {
             return ContentPost.find( "Id<" + post.Id + " and AppId=" + post.AppId + " and SaveStatus=" + SaveStatus.Normal + " order by Id desc" ).first();
@@ -33,6 +121,8 @@ namespace wojilu.Apps.Content.Service {
         public virtual ContentPost GetNextPost( ContentPost post ) {
             return ContentPost.find( "Id>" + post.Id + " and AppId=" + post.AppId + " and SaveStatus=" + SaveStatus.Normal + " order by Id asc" ).first();
         }
+
+
 
         public virtual List<DataTagShip> GetRelatedDatas( ContentPost post ) {
 
@@ -49,25 +139,16 @@ namespace wojilu.Apps.Content.Service {
         }
 
         private void mergeTagDatas( List<DataTagShip> results, List<DataTagShip> list, ContentPost post ) {
-
             foreach (DataTagShip dt in list) {
-
                 if (dt.DataId == post.Id && dt.TypeFullName.Equals( typeof( ContentPost ).FullName )) continue;
-
                 if (containsDataTag( results, dt ) == false) results.Add( dt );
-
             }
-
         }
 
         private bool containsDataTag( List<DataTagShip> results, DataTagShip dt ) {
-
             foreach (DataTagShip d in results) {
-
                 if (d.DataId == dt.DataId && d.TypeFullName.Equals( dt.TypeFullName )) return true;
-
             }
-
             return false;
         }
 
@@ -103,14 +184,79 @@ namespace wojilu.Apps.Content.Service {
             }
         }
 
-        public virtual List<ContentPost> GetByIds( string ids ) {
-            if (strUtil.IsNullOrEmpty( ids )) return new List<ContentPost>();
-            List<ContentPost> posts = ContentPost.find( "Id in (" + ids + ") and SaveStatus=" + SaveStatus.Normal ).list();
+        //---------------------------------------------------------------------------------------------
 
-            return posts;
+
+        public virtual List<ContentPost> GetBySection( int sectionId ) {
+            ContentSection s = ContentSection.findById( sectionId );
+            return this.GetBySection( sectionId, s.ListCount );
         }
 
-        public virtual DataPage<ContentPost> GetByCreator( int creatorId, IMember owner, int appId ) {
+        public virtual List<ContentPost> GetBySection( int sectionId, int count ) {
+
+            List<ContentPostSection> psList = ContentPostSection
+                .find( "SectionId=" + sectionId + " and SaveStatus=" + SaveStatus.Normal + " order by PostId desc" )
+                .list( count );
+
+            return populatePost( psList );
+        }
+
+
+        public virtual List<ContentPost> GetTopBySectionAndCategory( int sectionId, int categoryId, int count ) {
+
+            List<ContentPost> xlist = GetBySection( sectionId, count );
+
+            List<ContentPost> list = new List<ContentPost>();
+            foreach (ContentPost x in xlist) {
+                if (x.CategoryId == categoryId) {
+                    list.Add( x );
+                }
+            }
+
+            return list;
+        }
+
+        public virtual int CountBySection( int sectionId ) {
+            return ContentPostSection.count( "SectionId=" + sectionId + " and SaveStatus=" + SaveStatus.Normal );
+        }
+
+        public virtual List<ContentPost> GetAllBySection( int sectionId ) {
+            return ContentPostSection
+                .find( "SectionId=" + sectionId + " and SaveStatus=" + SaveStatus.Normal + " order by PostId desc" )
+                .listChildren<ContentPost>( "Post" );
+        }
+
+        public virtual List<ContentPost> GetBySection( List<ContentPost> dataAll, int sectionId ) {
+            List<ContentPost> result = new List<ContentPost>();
+            foreach (ContentPost post in dataAll) {
+                if (post.PageSection.Id == sectionId) {
+                    result.Add( post );
+                }
+            }
+
+            result.Sort();
+            return result;
+        }
+
+        public virtual ContentPost GetFirstPost( int appId, int sectionId ) {
+            ContentPostSection xResult = ContentPostSection
+                .find( "SectionId=" + sectionId + " and SaveStatus=" + SaveStatus.Normal + " order by PostId desc" )
+                .first();
+
+            if (xResult == null) return null;
+            if (xResult.Post.AppId != appId) return null;
+            return xResult.Post;
+        }
+
+        public virtual List<ContentPost> GetTopBySectionAndCategory( int sectionId, int categoryId ) {
+            ContentSection s = ContentSection.findById( sectionId );
+
+            return GetTopBySectionAndCategory( sectionId, categoryId, s.ListCount );
+        }
+
+        //--------------------------------------------------------------------------------------------------------------
+
+        public virtual DataPage<ContentPost> GetPageByCreator( int creatorId, IMember owner, int appId ) {
             String condition = string.Format( "CreatorId={0} and OwnerId={1} and OwnerType='{2}' and AppId={3} and SaveStatus={4}", creatorId, owner.Id, owner.GetType().FullName, appId, SaveStatus.Normal );
             return ContentPost.findPage( condition );
         }
@@ -124,133 +270,14 @@ namespace wojilu.Apps.Content.Service {
             return ContentPost.count( "AppId=" + appId + " and SaveStatus=" + SaveStatus.Normal );
         }
 
-
-        public virtual List<IBinderValue> GetByAppIds( String ids, int count ) {
-            String sids = checkIds( ids );
-            if (strUtil.IsNullOrEmpty( sids )) return new List<IBinderValue>();
-
-            if (count <= 0) count = 10;
-
-            List<ContentPost> list = ContentPost.find( "AppId in (" + sids + ") and SaveStatus=" + SaveStatus.Normal ).list( count );
-
-            return populatePosts( list );
-        }
-
-        public virtual List<IBinderValue> GetByTags( String tags, int count ) {
-
-            if (count <= 0) count = 10;
-
-            IList list = TagService.FindByTags( tags, typeof( ContentPost ), count );
-
-            return populatePosts( list );
-        }
-
-        public virtual List<IBinderValue> GetHitsRankByAppIds( String ids, int count ) {
-            String sids = checkIds( ids );
-            if (strUtil.IsNullOrEmpty( sids )) return new List<IBinderValue>();
-
-            if (count <= 0) count = 10;
-
-            String strSort = " order by Hits desc, Id desc";
-            List<ContentPost> list = ContentPost.find( "AppId in (" + sids + ")  and SaveStatus=" + SaveStatus.Normal + strSort ).list( count );
-
-            return populatePosts( list );
-        }
-
-        public virtual List<IBinderValue> GetRepliesRankByAppIds( String ids, int count ) {
-            String sids = checkIds( ids );
-            if (strUtil.IsNullOrEmpty( sids )) return new List<IBinderValue>();
-
-            if (count <= 0) count = 10;
-
-            String strSort = " order by Replies desc, Id desc";
-            List<ContentPost> list = ContentPost.find( "AppId in (" + sids + ")  and SaveStatus=" + SaveStatus.Normal + strSort ).list( count );
-
-            return populatePosts( list );
-        }
-
-        public virtual List<IBinderValue> GetBySectionIds( String ids, int count ) {
-
-            String sids = checkIds( ids );
-            if (strUtil.IsNullOrEmpty( sids )) return new List<IBinderValue>();
-
-            if (count <= 0) count = 10;
-
-            List<ContentPost> list = ContentPost.find( "SectionId in (" + sids + ")  and SaveStatus=" + SaveStatus.Normal ).list( count );
-
-            return populatePosts( list );
-        }
-
-        private String checkIds( String ids ) {
-
-            int[] arrIds = cvt.ToIntArray( ids );
-            if (arrIds.Length == 0) return null;
-
-            String sids = "";
-            for (int i = 0; i < arrIds.Length; i++) {
-                if (arrIds[i] == 0) continue;
-                sids += arrIds[i];
-                if (i < arrIds.Length - 1) sids += ",";
-            }
-
-            return sids;
-        }
-
-        private static List<IBinderValue> populatePosts( IList list ) {
-
-            List<IBinderValue> results = new List<IBinderValue>();
-            foreach (ContentPost post in list) {
-                IBinderValue vo = new ItemValue();
-
-                vo.Title = post.Title;
-                vo.Created = post.Created;
-                vo.CreatorName = post.Creator.Name;
-                vo.Link = alink.ToAppData( post );
-                vo.Content = post.Content;
-                vo.Replies = post.Replies;
-                vo.Category = post.PageSection.Title;
-
-                vo.obj = post;
-
-                results.Add( vo );
-            }
-
-            return results;
-        }
-
-        //--------------------------------------------------------------------------------------------------------------
-
-
         public virtual List<ContentPost> GetRecentPost( int appId, int count, int typeId ) {
-            return db.find<ContentPost>( "AppId=" + appId + " and CategoryId=" + typeId + " and SaveStatus=" + SaveStatus.Normal ).list( count );
+            return ContentPost.find( "AppId=" + appId + " and CategoryId=" + typeId + " and SaveStatus=" + SaveStatus.Normal ).list( count );
         }
 
         public virtual List<ContentPost> GetRankPost( int appId, int count, int typeId ) {
-            return db.find<ContentPost>( "AppId=" + appId + " and CategoryId=" + typeId + " and SaveStatus=" + SaveStatus.Normal + " order by Hits desc, Replies desc, Id desc" ).list( count );
+            return ContentPost.find( "AppId=" + appId + " and CategoryId=" + typeId + " and SaveStatus=" + SaveStatus.Normal + " order by Hits desc, Replies desc, Id desc" ).list( count );
         }
 
-        private ContentPost GetById( int postId ) {
-            ContentPost post = db.findById<ContentPost>( postId );
-            if (post == null) return null;
-            if (post.SaveStatus != SaveStatus.Normal) return null;
-            return post;
-        }
-
-        public virtual ContentPost GetById( int id, int ownerId ) {
-            ContentPost post = GetById( id );
-            if (post == null) return null;
-            if (post.OwnerId != ownerId) return null;
-            if (post.SaveStatus != SaveStatus.Normal) return null;
-            return post;
-        }
-
-        public virtual int GetCountBySection( int sectionId ) {
-            return db.count<ContentPost>( "PageSection.Id=" + sectionId + " and SaveStatus=" + SaveStatus.Normal );
-        }
-
-        public virtual List<ContentPost> GetBySection( int sectionId ) {
-            return db.find<ContentPost>( "PageSection.Id=" + sectionId + " and SaveStatus=" + SaveStatus.Normal + " order by Id desc" ).list();
-        }
 
         public virtual List<ContentPost> GetByApp( int appId ) {
             return ContentPost.find( "AppId=" + appId + " and SaveStatus=" + SaveStatus.Normal + " order by Id desc" ).list();
@@ -268,113 +295,39 @@ namespace wojilu.Apps.Content.Service {
             return ContentPost.findPage( "AppId=" + appId + " and SaveStatus=" + SaveStatus.Delete + " order by Id desc", pageSize );
         }
 
+
         public virtual DataPage<ContentPost> GetBySearch( int appId, String key, int pageSize ) {
             return ContentPost.findPage( "AppId=" + appId + " and Title like '%" + key + "%' and SaveStatus=" + SaveStatus.Normal + " order by Id desc", pageSize );
         }
 
-        public virtual List<ContentPost> GetBySection( List<ContentPost> dataAll, int sectionId ) {
-            List<ContentPost> result = new List<ContentPost>();
-            foreach (ContentPost post in dataAll) {
-                if (post.PageSection.Id == sectionId) {
-                    result.Add( post );
-                }
-            }
-
-            result.Sort();
-            return result;
-        }
-
-
-
-        public virtual DataPage<ContentPost> GetBySectionAndCategory( int sectionId, int categoryId ) {
-            return GetBySectionAndCategory( sectionId, categoryId, 20 );
-        }
-
-        public virtual DataPage<ContentPost> GetBySectionAndCategory( int sectionId, int categoryId, int pageSize ) {
-            if (categoryId > 0) {
-                return db.findPage<ContentPost>( "PageSection.Id=" + sectionId + " and CategoryId=" + categoryId + " and SaveStatus=" + SaveStatus.Normal, pageSize );
-            }
-            return db.findPage<ContentPost>( "PageSection.Id=" + sectionId + " and SaveStatus=" + SaveStatus.Normal, pageSize );
-        }
+        //--------------------------------------------------------------------------------------------------
 
         public virtual DataPage<ContentPost> GetPageBySection( int sectionId ) {
             return GetPageBySection( sectionId, 20 );
         }
 
         public virtual DataPage<ContentPost> GetPageBySection( int sectionId, int pageSize ) {
-            return db.findPage<ContentPost>( "PageSection.Id=" + sectionId + " and SaveStatus=" + SaveStatus.Normal, pageSize );
+            DataPage<ContentPostSection> list = ContentPostSection.findPage( "SectionId=" + sectionId + " and SaveStatus=" + SaveStatus.Normal, pageSize );
+            return list.Convert<ContentPost>( populatePost( list.Results ) );
         }
 
         public virtual DataPage<ContentPost> GetPageBySectionArchive( int sectionId, int pageSize ) {
-            return db.findPageArchive<ContentPost>( "PageSection.Id=" + sectionId + " and SaveStatus=" + SaveStatus.Normal, pageSize );
+            DataPage<ContentPostSection> list = ContentPostSection.findPageArchive( "SectionId=" + sectionId + " and SaveStatus=" + SaveStatus.Normal, pageSize );
+            return list.Convert<ContentPost>( populatePost( list.Results ) );
         }
 
+        // Áî®Âú® AdminList ‰∏≠
         public virtual DataPage<ContentPost> GetPageBySectionAndCategory( int sectionId, int categoryId ) {
-            return db.findPage<ContentPost>( "PageSection.Id=" + sectionId + " and CategoryId=" + categoryId + " and SaveStatus=" + SaveStatus.Normal );
+            return GetPageBySectionAndCategory( sectionId, categoryId, 20 );
         }
 
-        public virtual ContentPost GetFirstPost( int appId, int sectionId ) {
-            ContentPost result = db.find<ContentPost>( "PageSection.Id=" + sectionId + " and SaveStatus=" + SaveStatus.Normal + " order by Id desc" ).first();
-            if (result == null) return null;
-            if (result.AppId != appId) return null;
-            return result;
-        }
-
-        public virtual List<ContentPost> GetTopBySectionAndCategory( int sectionId, int categoryId, int appId ) {
-            ContentSection s = ContentSection.findById( sectionId );
-
-            return GetTopBySectionAndCategory( sectionId, categoryId, appId, s.ListCount );
-        }
-
-        public virtual List<ContentPost> GetBySection( int appId, int sectionId ) {
-            ContentSection s = ContentSection.findById( sectionId );
-            return this.GetBySection( appId, sectionId, s.ListCount );
-        }
-
-        public virtual List<ContentPost> GetBySection( int appId, int sectionId, int count ) {
-
-            List<ContentPost> list;
-
-            // ºÊ»›æ…∞Ê
-            ContentSection s = ContentSection.findById( sectionId );
-            if (strUtil.IsNullOrEmpty( s.CachePostIds )) {
-
-                list = ContentPost.find( "AppId=" + appId + " and PageSection.Id=" + sectionId + " and SaveStatus=" + SaveStatus.Normal + " order by Id desc" ).list( count );
-            }
-            else {
-                list = ContentPost.find( "Id in (" + s.CachePostIds + ") and SaveStatus=" + SaveStatus.Normal ).list( count );
-            }
-
-            list.Sort();
-            return list;
-        }
-
-        public virtual List<ContentPost> GetTopBySectionAndCategory( int sectionId, int categoryId, int appId, int count ) {
-
-            List<ContentPost> list;
-
-            // ºÊ»›æ…∞Ê
-            ContentSection s = ContentSection.findById( sectionId );
-            if (strUtil.IsNullOrEmpty( s.CachePostIds )) {
-
-                list = ContentPost.find( "AppId=" + appId + " and PageSection.Id=" + sectionId + " and CategoryId=" + categoryId + " and SaveStatus=" + SaveStatus.Normal + " order by Id desc" ).list( count );
-
-            }
-            else {
-
-                //list = ContentPost.findBySql( "select top " + count + " from ContentPost a, ContentSection b where a.AppId=" + appId + " and a.SectionId=" + sectionId + " and a.CategoryId=" + categoryId + " and a.SaveStatus=" + SaveStatus.Normal + " and b.SectionId=" + sectionId );
-
-                list = new List<ContentPost>();
-                List<ContentPost> posts = ContentPost.find( "Id in (" + s.CachePostIds + ") and SaveStatus=" + SaveStatus.Normal ).list();
-                foreach (ContentPost p in posts) {
-                    if (p.CategoryId == categoryId) list.Add( p );
-                }
-
-            }
-
-            list.Sort();
-
-            return list;
+        // Áî®Âú® AdminList ‰∏≠
+        public virtual DataPage<ContentPost> GetPageBySectionAndCategory( int sectionId, int categoryId, int pageSize ) {
+            // TODO
+            //if (categoryId > 0) {
+            //    return db.findPage<ContentPost>( "PageSection.Id=" + sectionId + " and CategoryId=" + categoryId + " and SaveStatus=" + SaveStatus.Normal, pageSize );
+            //}
+            return GetPageBySection( sectionId, pageSize );
         }
 
         //--------------------------------------------------------------------------------------------------
@@ -397,78 +350,22 @@ namespace wojilu.Apps.Content.Service {
 
         public virtual void Insert( ContentPost post, string sectionIds, string tagList ) {
 
-            int[] ids = cvt.ToIntArray( sectionIds );
-
-            post.PageSection = new ContentSection(); // ≤ª‘Ÿ π”√æ…∞Ê“ª∂‘∂‡πÿœµ
-            post.PageSection.Id = ids[0];
+            // ‰øùÂ≠ò
             post.insert();
 
-
-            // ∂‡∂‘∂‡¥¶¿Ì
+            // Â§öÂØπÂ§öÂ§ÑÁêÜ
+            int[] ids = cvt.ToIntArray( sectionIds );
             ContentPostSection ps = new ContentPostSection();
             foreach (int sectionId in ids) {
-
                 ContentSection section = new ContentSection();
                 section.Id = sectionId;
-
                 ps.Post = post;
                 ps.Section = section;
                 ps.insert();
             }
 
-            // æ…∞Ê“ª∂‘∂‡ºÊ»›¥¶¿Ì
-            foreach (int sectionId in ids) {
-                updateCachePostIds( sectionId );
-            }
-
+            // tag
             post.Tag.Save( tagList );
-        }
-
-        private void updateCachePostIds( int sectionId ) {
-
-            ContentSection section = ContentSection.findById( sectionId );
-            if (section == null) throw new NullReferenceException();
-
-            // Œ™¡ÀºÊ»›æ…∞Ê£¨section∫Õpost“ª∂‘∂‡πÿœµœ¬µƒ ˝æ›“≤“™◊•»°
-            List<ContentPostSection> list = ContentPostSection.find( "SectionId=" + sectionId ).list( section.ListCount );
-            List<ContentPost> posts = ContentPost.find( "SectionId=" + sectionId ).list( section.ListCount );
-            List<int> idList = getRecentIds( list, posts );
-
-            section.CachePostIds = getCacheIds( idList, section.ListCount );
-            section.update();
-        }
-
-        private static String getCacheIds( List<int> idList, int listCount ) {
-            String ids = "";
-            int icount = 0;
-            foreach (int id in idList) {
-                ids += id + ",";
-                icount++;
-
-                if (icount > listCount) break;
-            }
-            ids = ids.TrimEnd( ',' );
-            return ids;
-        }
-
-        private List<int> getRecentIds( List<ContentPostSection> list, List<ContentPost> posts ) {
-
-            List<int> idList = new List<int>();
-            foreach (ContentPostSection ps in list) {
-                if (ps.Post == null) continue;
-                if (idList.Contains( ps.Post.Id )) continue;
-                idList.Add( ps.Post.Id );
-            }
-
-            foreach (ContentPost post in posts) {
-                if (idList.Contains( post.Id )) continue;
-                idList.Add( post.Id );
-            }
-
-            idList.Sort();
-            idList.Reverse();
-
-            return idList;
         }
 
         //----------------------------------------------------------------------------------------------------------
@@ -481,53 +378,22 @@ namespace wojilu.Apps.Content.Service {
 
         public virtual void Update( ContentPost post, String sectionIds, String tagList ) {
 
+            // ‰øùÂ≠ò
             if (db.update( post ).IsValid) {
                 post.Tag.Save( tagList );
             }
 
-            List<ContentPostSection> oldPsList = ContentPostSection.find( "PostId=" + post.Id ).list();
-
-            // ∂‡∂‘∂‡¥¶¿Ì
+            // Â§öÂØπÂ§öÂ§ÑÁêÜ
             ContentPostSection.deleteBatch( "PostId=" + post.Id );
-
             ContentPostSection ps = new ContentPostSection();
             int[] ids = cvt.ToIntArray( sectionIds );
             foreach (int sectionId in ids) {
-
                 ContentSection section = new ContentSection();
                 section.Id = sectionId;
-
                 ps.Post = post;
                 ps.Section = section;
                 ps.insert();
             }
-
-            post.PageSection = new ContentSection(); // ≤ª‘Ÿ π”√æ…∞Ê“ª∂‘∂‡πÿœµ
-            post.PageSection.Id = ids[0];
-            post.update();
-
-
-            // ∏¸–¬æ…µƒsectionπÿœµ
-            foreach (ContentPostSection p in oldPsList) {
-                updateCachePostIds( p.Section.Id );
-            }
-            // ∏¸–¬–¬µƒsectionπÿœµ
-            foreach (int sectionId in ids) {
-                updateCachePostIds( sectionId );
-            }
-
-        }
-
-        public virtual void UpdateSection( ContentPost post, int sectionId ) {
-            ContentSection section = new ContentSection();
-            section.Id = sectionId;
-            post.PageSection = section;
-            post.update();
-        }
-
-        public virtual void UpdateSection( String ids, int sectionId ) {
-
-            ContentPost.updateBatch( "set SectionId=" + sectionId, "Id in (" + ids + ")" );
         }
 
         public virtual void UpdateTitleStyle( ContentPost post, string titleStyle ) {
@@ -538,6 +404,8 @@ namespace wojilu.Apps.Content.Service {
         public virtual void Delete( ContentPost post ) {
             post.SaveStatus = SaveStatus.Delete;
             post.update();
+
+            ContentPostSection.updateBatch( "SaveStatus=" + SaveStatus.Delete, "PostId=" + post.Id );
         }
 
         public virtual void Restore( int id ) {
@@ -545,12 +413,16 @@ namespace wojilu.Apps.Content.Service {
             if (post == null) return;
             post.SaveStatus = SaveStatus.Normal;
             post.update();
+
+            ContentPostSection.updateBatch( "SaveStatus=" + SaveStatus.Normal, "PostId=" + post.Id );
         }
-        public virtual void DeleteTrue( int postId ) {
+
+        public virtual void DeleteSys( int postId ) {
             ContentPost post = ContentPost.findById( postId );
             if (post == null) return;
             post.SaveStatus = SaveStatus.SysDelete;
             post.update();
+            ContentPostSection.updateBatch( "SaveStatus=" + SaveStatus.SysDelete, "PostId=" + post.Id );
         }
 
         public virtual void AddHits( ContentPost post ) {
@@ -562,8 +434,9 @@ namespace wojilu.Apps.Content.Service {
             post.update( "IsAttachmentLogin" );
         }
 
-        public virtual void DeleteBatch( string ids ) {
+        public virtual void DeleteTrueBatch( string ids ) {
             ContentPost.deleteBatch( "Id in (" + ids + ")" );
+            ContentPostSection.deleteBatch( "PostId in  in (" + ids + ")" );
         }
 
         public virtual void SetStatus_Pick( string ids ) {
@@ -576,6 +449,57 @@ namespace wojilu.Apps.Content.Service {
             ContentPost.updateBatch( "set PickStatus=" + PickStatus.Focus, "Id in (" + ids + ")" );
         }
 
+
+        //-----------------------------------------------------------------------------------------
+
+        private String checkIds( String ids ) {
+
+            int[] arrIds = cvt.ToIntArray( ids );
+            if (arrIds.Length == 0) return null;
+
+            String sids = "";
+            for (int i = 0; i < arrIds.Length; i++) {
+                if (arrIds[i] == 0) continue;
+                sids += arrIds[i];
+                if (i < arrIds.Length - 1) sids += ",";
+            }
+
+            return sids;
+        }
+
+        private static List<IBinderValue> populateBinder( IList list ) {
+
+            List<IBinderValue> results = new List<IBinderValue>();
+            foreach (ContentPost post in list) {
+                IBinderValue vo = new ItemValue();
+
+                vo.Title = post.Title;
+                vo.Created = post.Created;
+                vo.CreatorName = post.Creator.Name;
+                vo.Link = alink.ToAppData( post );
+                vo.Content = post.Content;
+                vo.Replies = post.Replies;
+                vo.Category = post.PageSection.Title;
+
+                vo.obj = post;
+
+                results.Add( vo );
+            }
+
+            return results;
+        }
+
+        private List<ContentPost> populatePost( List<ContentPostSection> psList ) {
+
+            List<ContentPost> list = new List<ContentPost>();
+            foreach (ContentPostSection x in psList) {
+                list.Add( x.Post );
+            }
+
+            list.Sort();
+
+            return list;
+        }
 
     }
 

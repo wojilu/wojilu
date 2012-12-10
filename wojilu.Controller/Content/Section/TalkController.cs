@@ -45,7 +45,7 @@ namespace wojilu.Web.Controller.Content.Section {
             }
 
             TemplateUtil.loadTemplate( this, s, ctService );
-            List<ContentPost> posts = this.postService.GetBySection( ctx.app.Id, sectionId );
+            List<ContentPost> posts = this.postService.GetBySection( sectionId );
             bindSectionShow( s, posts );
         }
 
@@ -58,7 +58,7 @@ namespace wojilu.Web.Controller.Content.Section {
 
             set( "section.Title", section.Title );
             Page.Title = section.Title;
-            DataPage<ContentPost> posts = this.postService.GetBySectionAndCategory( section.Id, ctx.GetInt( "categoryId" ) );
+            DataPage<ContentPost> posts = this.postService.GetPageBySectionAndCategory( section.Id, ctx.GetInt( "categoryId" ) );
 
             bindPosts( posts );
         }

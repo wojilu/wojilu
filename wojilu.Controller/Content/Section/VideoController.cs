@@ -45,7 +45,7 @@ namespace wojilu.Web.Controller.Content.Section {
 
             TemplateUtil.loadTemplate( this, s, ctService );
 
-            List<ContentPost> posts = this.postService.GetBySection( ctx.app.Id, sectionId );
+            List<ContentPost> posts = this.postService.GetBySection( sectionId );
 
             bindSectionShow( s, posts );
         }
@@ -61,7 +61,7 @@ namespace wojilu.Web.Controller.Content.Section {
             ContentApp app = ctx.app.obj as ContentApp;
             ContentSetting s = app.GetSettingsObj();
 
-            DataPage<ContentPost> posts = postService.GetBySectionAndCategory( section.Id, ctx.GetInt( "categoryId" ), s.ListVideoPerPage );
+            DataPage<ContentPost> posts = postService.GetPageBySectionAndCategory( section.Id, ctx.GetInt( "categoryId" ), s.ListVideoPerPage );
 
             bindPosts( section, posts );
         }

@@ -42,10 +42,6 @@ namespace wojilu.Web.Controller.Content.Admin.Common {
         public void Add( int sectionId ) {
 
             set( "ActionLink", to( Create, sectionId ) );
-            bindAddForm( sectionId );
-        }
-
-        private void bindAddForm( int sectionId ) {
 
             set( "optionCount", 5 );
             set( "appId", ctx.app.Id );
@@ -75,6 +71,7 @@ namespace wojilu.Web.Controller.Content.Admin.Common {
             pollService.CreatePoll( sectionId, poll, post, ctx.Post( "TagList" ) );
 
             echoToParentPart( lang( "opok" ) );
+            HtmlHelper.SetCurrentPost( ctx, post );
         }
 
         [Login]
@@ -84,6 +81,7 @@ namespace wojilu.Web.Controller.Content.Admin.Common {
             list.Results.ForEach( x => {
                 x.data.delete = to( Delete, x.Id );
                 x.data.show = alink.ToAppData( x );
+                x.data.edit = to( Edit, x.Id );
             } );
 
             bindList( "list", "x", list.Results );
@@ -97,20 +95,19 @@ namespace wojilu.Web.Controller.Content.Admin.Common {
                 topicService.Delete( post );
             }
 
-            // TODO
-            // delete poll
+            pollService.DeleteByTopicId( id );
 
             echoRedirect( lang( "opok" ) );
             HtmlHelper.SetCurrentPost( ctx, post );
         }
 
-        public void Edit( int pollId ) {
+        public void Edit( int postId ) {
 
-            ContentPoll poll = pollService.GetById( pollId );
-            if (poll == null) throw new NullReferenceException( "Edit Poll, ContentPoll" );
-
-            ContentPost post = topicService.GetById( poll.TopicId, ctx.owner.Id );
+            ContentPost post = topicService.GetById( postId, ctx.owner.Id );
             if (post == null) throw new NullReferenceException( "Edit Poll, ContentPost" );
+
+            ContentPoll poll = pollService.GetByTopicId( postId );
+            if (poll == null) throw new NullReferenceException( "Edit Poll, ContentPoll" );
 
             target( Update, post.Id );
 
@@ -123,7 +120,7 @@ namespace wojilu.Web.Controller.Content.Admin.Common {
             set( "sectionIds", sectionIds );
         }
 
-        [HttpPost, DbTransaction]
+        [Login, HttpPost, DbTransaction]
         public void Update( int postId ) {
 
             ContentPost post = topicService.GetById( postId, ctx.owner.Id );
@@ -132,24 +129,21 @@ namespace wojilu.Web.Controller.Content.Admin.Common {
                 return;
             }
 
-            post.Title = strUtil.CutString( ctx.Post( "Title" ), 100 );
-            post.Summary = ctx.Post( "Summary" );
-            post.CommentCondition = cvt.ToInt( ctx.Post( "IsCloseComment" ) );
-            post.Hits = ctx.PostInt( "Hits" );
-            post.Created = ctx.PostTime( "Created" );
-
-            post.MetaKeywords = strUtil.CutString( ctx.Post( "MetaKeywords" ), 250 );
-            post.MetaDescription = strUtil.CutString( ctx.Post( "MetaDescription" ), 250 );
-
-            post.Ip = ctx.Ip;
+            post = ContentValidator.SetPostValue( post, ctx );
 
             String sectionIds = sectionService.GetSectionIdsByPost( post.Id );
             topicService.Update( post, sectionIds, ctx.Post( "TagList" ) );
 
+            // update Poll
+            ContentPoll poll = pollService.GetByTopicId( postId );
+            poll.Title = post.Title;
+            poll.Created = post.Created;
+            poll.Hits = post.Hits;
+            pollService.Update( poll );
+
             echoToParentPart( lang( "opok" ) );
             HtmlHelper.SetCurrentPost( ctx, post );
         }
-
 
         private void bindEditInfo( ContentPost post ) {
 

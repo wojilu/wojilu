@@ -16,25 +16,30 @@ namespace wojilu.Apps.Content.Interface {
 
         ContentPost GetById( int postId, int ownerId );
 
+        List<ContentPost> GetRelatedPosts( ContentPost post );
+        List<DataTagShip> GetRelatedDatas( ContentPost post );
+
+        ContentPost GetPrevPost( ContentPost post );
+        ContentPost GetNextPost( ContentPost post );
+
         List<ContentPost> GetRecentPost( int appId, int count, int typeId );
         List<ContentPost> GetRankPost( int appId, int count, int typeId );
 
-        int GetCountBySection( int sectionId );
-        List<ContentPost> GetBySection( int sectionId );
+        int CountBySection( int sectionId );
+        List<ContentPost> GetAllBySection( int sectionId );
         List<ContentPost> GetBySection( List<ContentPost> dataAll, int sectionId );
-        List<ContentPost> GetBySection( int appId, int sectionId );
-        List<ContentPost> GetBySection( int appId, int sectionId, int count );
+        List<ContentPost> GetBySection( int sectionId );
+        List<ContentPost> GetBySection( int sectionId, int count );
+        List<ContentPost> GetTopBySectionAndCategory( int sectionId, int categoryId );
 
-        DataPage<ContentPost> GetBySectionAndCategory( int sectionId, int categoryId );
-        DataPage<ContentPost> GetBySectionAndCategory( int sectionId, int categoryId, int pageSize );
+        DataPage<ContentPost> GetPageBySectionAndCategory( int sectionId, int categoryId );
+        DataPage<ContentPost> GetPageBySectionAndCategory( int sectionId, int categoryId, int pageSize );
 
         DataPage<ContentPost> GetPageBySection( int sectionId );
         DataPage<ContentPost> GetPageBySection( int sectionId, int pageSize );
-        DataPage<ContentPost> GetPageBySectionAndCategory( int sectionId, int categoryId );
+        DataPage<ContentPost> GetPageBySectionArchive( int sectionId, int pageSize );
 
-        List<ContentPost> GetTopBySectionAndCategory( int sectionId, int categoryId, int appId );
         List<ContentPost> GetByIds( string ids );
-
         List<ContentPost> GetByApp( int appId );
 
         DataPage<ContentPost> GetByApp( int appId, int pageSize );
@@ -45,7 +50,7 @@ namespace wojilu.Apps.Content.Interface {
 
         ContentPost GetFirstPost( int appId, int sectionId );
 
-        DataPage<ContentPost> GetByCreator( int creatorId, IMember owner, int appId );
+        DataPage<ContentPost> GetPageByCreator( int creatorId, IMember owner, int appId );
 
         int CountByCreator( int creatorId, IMember owner, int appId );
         int CountByApp( int appId );
@@ -61,28 +66,17 @@ namespace wojilu.Apps.Content.Interface {
 
         void Delete( ContentPost post );
         void Restore( int id );
-        void DeleteTrue( int postId );
-        
+        void DeleteSys( int postId );
+        void DeleteTrueBatch( string ids );
+
         void UpdateAttachmentPermission( ContentPost post, int ischeck );
-        void UpdateSection( ContentPost post, int sectionId );
         void UpdateTitleStyle( ContentPost post, string titleStyle );
-        void UpdateSection( string ids, int sectionId );
 
-
-        List<ContentPost> GetRelatedPosts( ContentPost post );
-        List<DataTagShip> GetRelatedDatas( ContentPost post );
-
-        ContentPost GetPrevPost( ContentPost post );
-        ContentPost GetNextPost( ContentPost post );
-
-
-        void DeleteBatch( string ids );
         void SetStatus_Pick( string ids );
         void SetStatus_Normal( string ids );
         void SetStatus_Focus( string ids );
 
 
-        DataPage<ContentPost> GetPageBySectionArchive( int sectionId, int pageSize );
 
 
 

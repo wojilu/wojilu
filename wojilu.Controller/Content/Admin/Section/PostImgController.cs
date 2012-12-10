@@ -32,7 +32,7 @@ namespace wojilu.Web.Controller.Content.Admin.Section {
 
             bindCmds( sectionId, postcat, imgcat, imgPostCat );
 
-            List<ContentPost> posts = postService.GetTopBySectionAndCategory( sectionId, postcat, ctx.app.Id );
+            List<ContentPost> posts = postService.GetTopBySectionAndCategory( sectionId, postcat );
             ContentPost img = imgService.GetTopImg( sectionId, imgPostCat, ctx.app.Id );
             List<ContentPost> imgs = this.imgService.GetByCategory( sectionId, imgcat, ctx.app.Id, 4 );
 

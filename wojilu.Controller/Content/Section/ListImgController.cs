@@ -54,7 +54,7 @@ namespace wojilu.Web.Controller.Content.Section {
             int postcat = PostCategory.Post;
             int imgcat = PostCategory.Img;
 
-            List<ContentPost> posts = postService.GetTopBySectionAndCategory( sectionId, postcat, appId );
+            List<ContentPost> posts = postService.GetTopBySectionAndCategory( sectionId, postcat );
             List<ContentPost> imgs = imgService.GetByCategory( sectionId, imgcat, appId );
 
             bindSectionShow( posts, imgs );

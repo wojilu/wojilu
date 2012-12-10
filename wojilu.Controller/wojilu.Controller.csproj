@@ -146,6 +146,7 @@
     <Compile Include="Common\AdLoaderController.cs" />
     <Compile Include="Common\Installers\SimpleInstaller.cs" />
     <Compile Include="Common\Pick\PickImgBaseController.cs" />
+    <Compile Include="Content\Admin\UpdateController.cs" />
     <Compile Include="Open\VideoController.cs" />
     <Compile Include="Content\Admin\HtmlController.cs" />
     <Compile Include="Content\Admin\RowSettingController.cs" />

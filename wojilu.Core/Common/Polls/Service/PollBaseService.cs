@@ -123,10 +123,23 @@ namespace wojilu.Common.Polls.Service {
              .list();
         }
 
-        public virtual TP GetByTopicId( int id, String typeFullName ) {
+        public virtual TP GetByTopicId( int id ) {
             return db.find<TP>( "TopicId=:id" )
                 .set( "id", id )
                 .first();
+        }
+
+        public virtual TP GetByTopicId( List<TP> polls, int topicId ) {
+            foreach (TP p in polls) {
+                if (p.TopicId == topicId) return p;
+            }
+            return null;
+        }
+
+        public void DeleteByTopicId( int id ) {
+
+            TP poll = this.GetByTopicId( id );
+            if (poll != null) poll.delete();
         }
 
         private String getEmptyResult( int optionCount ) {
@@ -204,6 +217,12 @@ namespace wojilu.Common.Polls.Service {
             db.update( poll );
 
         }
+
+        public void Update( TP poll ) {
+            if (poll == null) throw new ArgumentNullException( "poll" );
+            poll.update();
+        }
+
     }
 }
 

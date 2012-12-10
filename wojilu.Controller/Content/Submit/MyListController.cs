@@ -72,7 +72,7 @@ namespace wojilu.Web.Controller.Content.Submit {
 
         public void Approved() {
 
-            DataPage<ContentPost> list = postService.GetByCreator( ctx.viewer.Id, ctx.owner.obj, ctx.app.Id );
+            DataPage<ContentPost> list = postService.GetPageByCreator( ctx.viewer.Id, ctx.owner.obj, ctx.app.Id );
 
             IBlock block = getBlock( "list" );
             foreach (ContentPost p in list.Results) {

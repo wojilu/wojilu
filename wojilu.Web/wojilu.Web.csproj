@@ -275,6 +275,7 @@
     <Content Include="framework\views\Content\Admin\Section\Video\AdminList.html" />
     <Content Include="framework\views\Content\Admin\Section\Video\AdminSectionShow.html" />
     <Content Include="framework\views\Content\Admin\Section\Video\Edit.html" />
+    <Content Include="framework\views\Content\Admin\Update\Index.html" />
     <Content Include="framework\views\Content\Binder\Excerpt.html" />
     <Content Include="framework\views\Content\Binder\Img.html" />
     <Content Include="framework\views\Content\Binder\List.html" />
@@ -696,7 +697,6 @@
     <Content Include="framework\views\Content\Admin\Common\Attachment\SetPermission.html" />
     <Content Include="framework\views\Content\Admin\Common\Attachment\Upload.html" />
     <Content Include="framework\views\Content\Admin\ContentSection\EditEffect.html" />
-    <Content Include="framework\views\Content\Admin\Common\Post\EditSection.html" />
     <Content Include="framework\views\Content\Admin\Common\Post\EditTitleStyle.html" />
     <Content Include="framework\views\Content\Admin\Common\Post\Trash.html" />
     <Content Include="framework\views\Content\Admin\SectionSetting\副本 Edit.html" />

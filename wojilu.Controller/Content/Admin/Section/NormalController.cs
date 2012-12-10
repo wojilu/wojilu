@@ -52,7 +52,7 @@ namespace wojilu.Web.Controller.Content.Admin.Section {
 
             int postcat = PostCategory.Post;
             int imgcat = PostCategory.Img;
-            List<ContentPost> posts = postService.GetTopBySectionAndCategory( sectionId, postcat, ctx.app.Id );
+            List<ContentPost> posts = postService.GetTopBySectionAndCategory( sectionId, postcat );
             ContentPost img = imgService.GetTopImg( sectionId, imgcat, ctx.app.Id );
 
             bindSectionShow( sectionId, postcat, imgcat, posts, img );

@@ -31,37 +31,11 @@ namespace wojilu.Apps.Content.Service {
             insertPostSectionShip( sectionId, post );
 
             // 3) insert poll
-            insertPollPrivate( poll, post );
+            poll.TopicId = post.Id;
+            poll.insert();
 
             return result;
         }
-
-        /// <summary>
-        /// 完整创建投票，包括客户端提供的SEO等表单数据
-        /// </summary>
-        /// <param name="sectionId"></param>
-        /// <param name="poll"></param>
-        /// <param name="post"></param>
-        /// <returns></returns>
-        public Result CreatePoll( int sectionId, ContentPoll poll, ContentPost post, String tagList ) {
-
-            // 1) insert post
-            post.TypeName = typeof( ContentPoll ).FullName;
-            Result result = post.insert();
-            if (result.HasErrors) return result;
-
-            post.Tag.Save( tagList );
-
-            // 2) insert post_section
-            // 新的多对多关系
-            insertPostSectionShip( sectionId, post );
-
-            // 3) insert poll
-            insertPollPrivate( poll, post );
-
-            return result;
-        }
-
 
         private static Result insertPostByPoll( ContentPoll poll, ContentPost post ) {
             post.OwnerId = poll.OwnerId;
@@ -77,9 +51,41 @@ namespace wojilu.Apps.Content.Service {
             post.Ip = poll.Ip;
 
             post.Title = poll.Title;
+            post.Content = poll.Question;
 
             return post.insert();
         }
+
+        //-------------------------------------------------------------------------------------------------------
+
+        /// <summary>
+        /// 完整创建投票，包括客户端提供的SEO等表单数据
+        /// </summary>
+        /// <param name="sectionId"></param>
+        /// <param name="poll"></param>
+        /// <param name="post"></param>
+        /// <returns></returns>
+        public Result CreatePoll( int sectionId, ContentPoll poll, ContentPost post, String tagList ) {
+
+            // 1) insert post
+            post.TypeName = typeof( ContentPoll ).FullName;
+            post.Content = poll.Question;
+            Result result = post.insert();
+            if (result.HasErrors) return result;
+
+            post.Tag.Save( tagList );
+
+            // 2) insert post_section
+            // 新的多对多关系
+            insertPostSectionShip( sectionId, post );
+
+            // 3) insert poll
+            poll.TopicId = post.Id;
+            poll.insert();
+
+            return result;
+        }
+
 
         private static void insertPostSectionShip( int sectionId, ContentPost post ) {
 
@@ -98,28 +104,6 @@ namespace wojilu.Apps.Content.Service {
             ps.insert();
         }
 
-        private void insertPollPrivate( ContentPoll poll, ContentPost post ) {
-
-            // 双向引用1
-            poll.TopicId = post.Id;
-
-            poll.insert();
-
-            // 双向引用2
-            post.Content = poll.Id.ToString();
-            post.update( "Content" );
-        }
-
-        public ContentPoll GetRecentPoll( int appId, int sectionId ) {
-
-            List<ContentPost> list = ContentPost.find( "AppId=" + appId + " and PageSection.Id=" + sectionId + " and SaveStatus=" + SaveStatus.Normal + " order by Id desc" ).list();
-
-            if (list.Count == 0) return null;
-
-            return db.find<ContentPoll>( "TopicId=" + list[0].Id ).first();
-
-
-        }
 
     }
 }

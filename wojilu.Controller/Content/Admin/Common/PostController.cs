@@ -227,7 +227,7 @@ namespace wojilu.Web.Controller.Content.Admin.Common {
             set( "post.IsCloseComment", Html.CheckBox( "IsCloseComment", lang( "closeComment" ), "1", cvt.ToBool( post.CommentCondition ) ) );
 
             radioList( "PickStatus", PickStatus.GetPickStatus(), post.PickStatus.ToString() );
-            
+
 
             set( "attachmentAdminLink", to( new AttachmentController().AdminList, post.Id ) );
         }
@@ -329,27 +329,6 @@ namespace wojilu.Web.Controller.Content.Admin.Common {
             echoAjaxOk();
         }
 
-        public void EditSection( int id ) {
-            target( UpdateSection, id );
-
-            ContentPost post = postService.GetById( id, ctx.owner.Id );
-            if (post == null) { echo( lang( "exDataNotFound" ) ); return; }
-            if (post.PageSection == null) { echo( lang( "exDataNotFound" ) + ":post property PageSection" ); return; }
-            List<ContentSection> sections = sectionService.GetInputSectionsByApp( ctx.app.Id );
-
-            dropList( "SectionId", sections, "Title=Id", post.PageSection.Id );
-        }
-
-        public void UpdateSection( int id ) {
-
-            int sectionId = ctx.PostInt( "SectionId" );
-            ContentPost post = postService.GetById( id, ctx.owner.Id );
-            if (post == null) { echo( lang( "exDataNotFound" ) ); return; }
-            postService.UpdateSection( post, sectionId );
-
-            echoToParentPart( lang( "opok" ) );
-        }
-
         public void EditTitleStyle( int id ) {
             target( UpdateTitleStyle, id );
             load( "TextStyle", new FormController().TextStyle );
@@ -412,13 +391,9 @@ namespace wojilu.Web.Controller.Content.Admin.Common {
 
             String cmd = ctx.Post( "action" );
 
-            if ("category" == cmd) {
-                int sectionId = ctx.PostInt( "categoryId" );
-                postService.UpdateSection( ids, sectionId );
-            }
-            else if ("deletetrue" == cmd) {
+            if ("deletetrue" == cmd) {
                 makeHtml( ids );
-                postService.DeleteBatch( ids );
+                postService.DeleteTrueBatch( ids );
             }
             else if ("status_pick" == cmd) {
                 postService.SetStatus_Pick( ids );
@@ -443,7 +418,7 @@ namespace wojilu.Web.Controller.Content.Admin.Common {
                 HtmlHelper.DeleteDetailHtml( ctx );
 
                 int sectionId = post.PageSection.Id;
-                int recordCount = postService.GetCountBySection( sectionId );
+                int recordCount = postService.CountBySection( sectionId );
                 new HtmlListMaker().MakeHtml( ctx, sectionId, recordCount );
 
             }
@@ -495,13 +470,12 @@ namespace wojilu.Web.Controller.Content.Admin.Common {
                 }
 
                 String lnkDelete = to( Delete, post.Id );
-                if (isTrash) lnkDelete = to( DeleteTrue, post.Id );
+                if (isTrash) lnkDelete = to( DeleteSys, post.Id );
 
                 block.Set( "post.EditUrl", lnkEdit );
                 block.Set( "post.DeleteUrl", lnkDelete );
 
                 block.Set( "post.RestoreUrl", to( Restore, post.Id ) );
-                block.Set( "post.EditSectionUrl", to( EditSection, post.Id ) );
                 block.Set( "post.EditTitleStyleUrl", to( EditTitleStyle, post.Id ) );
 
                 block.Set( "post.AttachmentLink", to( new AttachmentController().AdminList, post.Id ) );
@@ -537,8 +511,8 @@ namespace wojilu.Web.Controller.Content.Admin.Common {
         }
 
         [HttpDelete, DbTransaction]
-        public void DeleteTrue( int postId ) {
-            postService.DeleteTrue( postId );
+        public void DeleteSys( int postId ) {
+            postService.DeleteSys( postId );
 
 
             echoRedirectPart( lang( "opok" ) );

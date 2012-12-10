@@ -58,7 +58,7 @@ namespace wojilu.Web.Controller.Content.Admin.Section {
 
         public void AdminList( int sectionId ) {
             ContentSection section = sectionService.GetById( sectionId, ctx.app.Id );
-            DataPage<ContentPost> posts = postService.GetBySectionAndCategory( section.Id, ctx.GetInt( "categoryId" ) );
+            DataPage<ContentPost> posts = postService.GetPageBySectionAndCategory( section.Id, ctx.GetInt( "categoryId" ) );
             bindAdminList( section, posts );
         }
 

@@ -204,7 +204,7 @@ namespace wojilu.Web.Controller.Content.Admin {
                     TemplateId = section.TemplateId
                 };
 
-                ps.Posts = populatePost( postService.GetBySection( ctx.app.Id, section.Id, 20 ) );
+                ps.Posts = populatePost( postService.GetBySection( section.Id, 20 ) );
                 s.Sections.Add( ps );
             }
 

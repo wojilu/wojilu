@@ -20,12 +20,14 @@ namespace wojilu.Web.Controller.Content.Admin.Section {
     [App( typeof( ContentApp ) )]
     public partial class PollController : ControllerBase, IPageSection {
 
-        public IContentPostService postService { get; set; }
-        public ContentPollService pollService { get; set; }
+        public virtual IContentPostService postService { get; set; }
+        public virtual ContentPollService pollService { get; set; }
+        public virtual IContentSectionService sectionService { get; set; }
 
         public PollController() {
             postService = new ContentPostService();
             pollService = new ContentPollService();
+            sectionService = new ContentSectionService();
         }
 
         public List<IPageSettingLink> GetSettingLink( int sectionId ) {
@@ -34,7 +36,7 @@ namespace wojilu.Web.Controller.Content.Admin.Section {
 
             PageSettingLink lnk = new PageSettingLink();
             lnk.Name = lang( "editSetting" );
-            lnk.Url = to( new SectionSettingController().Edit, sectionId );
+            lnk.Url = to( new SectionSettingController().EditCount, sectionId );
             links.Add( lnk );
 
             return links;
@@ -46,23 +48,28 @@ namespace wojilu.Web.Controller.Content.Admin.Section {
             set( "addLink", to( new Admin.Common.PollController().Add, sectionId ) );
             set( "listLink", to( new Admin.Common.PollController().AdminList, sectionId ) );
 
-            ContentPoll c = pollService.GetRecentPoll( ctx.app.Id, sectionId );
+            ContentSection section = sectionService.GetById( sectionId, ctx.app.Id );
+            List<ContentPost> posts = postService.GetBySection( sectionId, section.ListCount );
+            List<ContentPoll> polls = pollService.GetByTopicList( posts );
 
-            if (c == null) {
-                set( "editLink", "" );
-                set( "pollHtml", "" );
-            }
-            else {
+            IBlock block = getBlock( "list" );
+
+            foreach (ContentPost x in posts) {
+
+                ContentPoll p = pollService.GetByTopicId( polls, x.Id );
+
                 String editLink = string.Format( "<a href=\"{0}\" class=\"frmBox\"><img src=\"{1}edit.gif\" />{2}</a>",
-                    to( new Admin.Common.PollController().Edit, c.Id ),
+                    to( new Admin.Common.PollController().Edit, x.Id ),
                     sys.Path.Img,
-                    lang( "edit" )
-                    );
-                set( "editLink", editLink );
-                ctx.SetItem( "poll", c );
-                load( "pollHtml", new wojilu.Web.Controller.Content.Common.PollController().Detail );
+                    lang( "edit" ) );
+                block.Set( "editLink", editLink );
+                ctx.SetItem( "poll", p );
+                block.Set( "pollHtml", loadHtml( new wojilu.Web.Controller.Content.Common.PollController().Detail ) );
+                block.Next();
             }
+
         }
+
 
         public void SectionShow( int sectionId ) {
         }

@@ -47,13 +47,13 @@ namespace wojilu.Web.Controller.Content.Admin.Section {
 
 
         public void AdminSectionShow( int sectionId ) {
-            List<ContentPost> posts = postService.GetBySection( ctx.app.Id, sectionId );
+            List<ContentPost> posts = postService.GetBySection( sectionId );
             bindSectionShow( sectionId, posts );
         }
 
         public void AdminList( int sectionId ) {
             ContentSection section = sectionService.GetById( sectionId, ctx.app.Id );
-            DataPage<ContentPost> posts = postService.GetBySectionAndCategory( section.Id, 0 );
+            DataPage<ContentPost> posts = postService.GetPageBySectionAndCategory( section.Id, 0 );
             bindAdminList( section, posts );
         }
 

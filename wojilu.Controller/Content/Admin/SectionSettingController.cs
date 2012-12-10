@@ -40,6 +40,8 @@ namespace wojilu.Web.Controller.Content.Admin {
             set( "section.Title", section.Title );
             set( "section.MoreLink", section.MoreLink );
 
+            set( "section.MetaKeywords", section.MetaKeywords );
+            set( "section.MetaDescription", section.MetaDescription );
         }
 
         [HttpPost, DbTransaction]
@@ -60,6 +62,10 @@ namespace wojilu.Web.Controller.Content.Admin {
             else {
                 section.Title = strUtil.SubString( section.Title, 50 );
             }
+
+            section.MetaKeywords = ctx.Post( "MetaKeywords" );
+            section.MetaDescription = strUtil.CutString( ctx.Post( "MetaDescription" ), 250 );
+
 
             sectionService.Update( section );
 

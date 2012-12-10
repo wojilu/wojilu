@@ -19,7 +19,7 @@ namespace wojilu.Web.Controller.Content.Caching.Actions {
 
             Admin.Common.PostController post = new wojilu.Web.Controller.Content.Admin.Common.PostController();
             observe( post.Delete );
-            observe( post.DeleteTrue );
+            observe( post.DeleteSys );
 
             //---------------------------------------------------------
 

@@ -48,7 +48,7 @@ namespace wojilu.Web.Controller.Content.Section {
             }
 
             TemplateUtil.loadTemplate( this, s, ctService );
-            List<ContentPost> posts = postService.GetBySection( ctx.app.Id, sectionId );
+            List<ContentPost> posts = postService.GetBySection( sectionId );
             bindSectionShow( s, posts );
         }
 

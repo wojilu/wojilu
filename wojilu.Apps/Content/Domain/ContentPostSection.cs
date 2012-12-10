@@ -14,6 +14,7 @@ namespace wojilu.Apps.Content.Domain {
         [Column( Name = "SectionId" )]
         public ContentSection Section { get; set; }
 
+        public int SaveStatus { get; set; }
 
     }
 

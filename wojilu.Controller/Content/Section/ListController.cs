@@ -13,13 +13,15 @@ using wojilu.Web.Mvc.Attr;
 using wojilu.Apps;
 using wojilu.ORM;
 
+using wojilu.Common;
+using wojilu.Common.AppBase;
+using wojilu.Common.AppBase.Interface;
+
 using wojilu.Apps.Content.Domain;
 using wojilu.Apps.Content.Interface;
 using wojilu.Apps.Content.Service;
-using wojilu.Common.AppBase;
-using wojilu.Common.AppBase.Interface;
+
 using wojilu.Web.Controller.Content.Utils;
-using wojilu.Common;
 using wojilu.Web.Controller.Content.Caching;
 
 namespace wojilu.Web.Controller.Content.Section {
@@ -95,7 +97,7 @@ namespace wojilu.Web.Controller.Content.Section {
 
             TemplateUtil.loadTemplate( this, s, ctService );
 
-            IList posts = postService.GetBySection( ctx.app.Id, sectionId );
+            IList posts = postService.GetBySection( sectionId );
             bindSectionPosts( posts );
         }
 

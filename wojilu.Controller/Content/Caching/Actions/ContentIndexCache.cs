@@ -84,7 +84,7 @@ namespace wojilu.Web.Controller.Content.Caching {
             Admin.Common.PostController post = new wojilu.Web.Controller.Content.Admin.Common.PostController();
             observe( post.Create );
             observe( post.Delete );
-            observe( post.DeleteTrue );
+            observe( post.DeleteSys );
             observe( post.SaveAdmin );
             observe( post.Restore );
             observe( post.Update );

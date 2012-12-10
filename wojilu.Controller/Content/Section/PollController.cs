@@ -38,13 +38,19 @@ namespace wojilu.Web.Controller.Content.Section {
 
         public void SectionShow( int sectionId ) {
 
-            ContentPoll c = pollService.GetRecentPoll( ctx.app.Id, sectionId );
-            if (c == null) {
-                content( "" );
-            }
-            else {
-                ctx.SetItem( "poll", c );
-                load( "pollHtml", new wojilu.Web.Controller.Content.Common.PollController().Detail );
+            ContentSection section = sectionService.GetById( sectionId, ctx.app.Id );
+            List<ContentPost> posts = postService.GetBySection( sectionId, section.ListCount );
+            List<ContentPoll> polls = pollService.GetByTopicList( posts );
+
+            IBlock block = getBlock( "list" );
+
+            foreach (ContentPost x in posts) {
+
+                ContentPoll p = pollService.GetByTopicId( polls, x.Id );
+
+                ctx.SetItem( "poll", p );
+                block.Set( "pollHtml", loadHtml( new wojilu.Web.Controller.Content.Common.PollController().Detail ) );
+                block.Next();
             }
         }
 
@@ -63,7 +69,7 @@ namespace wojilu.Web.Controller.Content.Section {
         public void Show( int id ) {
 
             ContentPost post = postService.GetById( id, ctx.owner.Id );
-            ContentPoll poll = pollService.GetByTopicId( id, typeof( ContentPost ).FullName );
+            ContentPoll poll = pollService.GetByTopicId( id );
 
             postService.AddHits( post );
 
