@@ -86,16 +86,6 @@ namespace wojilu.Apps.Content.Service {
             db.insert( img );
         }
 
-        public virtual void DeleteImg( ContentPost post ) {
-
-            ContentPostSection.deleteBatch( "PostId=" + post.Id );
-
-            db.delete( post );
-
-
-        }
-
-
         public virtual void DeleteImgOne( ContentImg articleImg ) {
             db.delete( articleImg );
             Img.DeleteImgAndThumb( strUtil.Join( sys.Path.DiskPhoto, articleImg.ImgUrl ) );

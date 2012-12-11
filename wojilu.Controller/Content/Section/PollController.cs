@@ -77,7 +77,7 @@ namespace wojilu.Web.Controller.Content.Section {
 
             ctx.SetItem( "ContentPost", post );
             ctx.SetItem( "poll", poll );
-            ctx.SetItem( "sectionId", post.PageSection.Id );
+            ctx.SetItem( "sectionId", post.SectionId );
 
             set( "x.Content", loadHtml( new wojilu.Web.Controller.Content.Common.PollController().Detail ) );
         }

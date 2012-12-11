@@ -226,17 +226,17 @@ namespace wojilu.Apps.Content.Service {
                 .listChildren<ContentPost>( "Post" );
         }
 
-        public virtual List<ContentPost> GetBySection( List<ContentPost> dataAll, int sectionId ) {
-            List<ContentPost> result = new List<ContentPost>();
-            foreach (ContentPost post in dataAll) {
-                if (post.PageSection.Id == sectionId) {
-                    result.Add( post );
-                }
-            }
+        //public virtual List<ContentPost> GetBySection( List<ContentPost> dataAll, int sectionId ) {
+        //    List<ContentPost> result = new List<ContentPost>();
+        //    foreach (ContentPost post in dataAll) {
+        //        if (post.PageSection.Id == sectionId) {
+        //            result.Add( post );
+        //        }
+        //    }
 
-            result.Sort();
-            return result;
-        }
+        //    result.Sort();
+        //    return result;
+        //}
 
         public virtual ContentPost GetFirstPost( int appId, int sectionId ) {
             ContentPostSection xResult = ContentPostSection
@@ -350,11 +350,14 @@ namespace wojilu.Apps.Content.Service {
 
         public virtual void Insert( ContentPost post, string sectionIds, string tagList ) {
 
+            int[] ids = cvt.ToIntArray( sectionIds );
+            if (ids.Length == 0) throw new ArgumentException( "sectionIds" );
+
             // 保存
+            post.PageSection = new ContentSection { Id = ids[0] }; // 缓存Section
             post.insert();
 
             // 多对多处理
-            int[] ids = cvt.ToIntArray( sectionIds );
             ContentPostSection ps = new ContentPostSection();
             foreach (int sectionId in ids) {
                 ContentSection section = new ContentSection();
@@ -404,7 +407,6 @@ namespace wojilu.Apps.Content.Service {
         public virtual void Delete( ContentPost post ) {
             post.SaveStatus = SaveStatus.Delete;
             post.update();
-
             ContentPostSection.updateBatch( "SaveStatus=" + SaveStatus.Delete, "PostId=" + post.Id );
         }
 
@@ -437,6 +439,11 @@ namespace wojilu.Apps.Content.Service {
         public virtual void DeleteTrueBatch( string ids ) {
             ContentPost.deleteBatch( "Id in (" + ids + ")" );
             ContentPostSection.deleteBatch( "PostId in  in (" + ids + ")" );
+        }
+
+        public virtual void DeleteBatch( string ids ) {
+            ContentPost.updateBatch( "set SaveStatus=" + SaveStatus.Delete, "Id in (" + ids + ")" );
+            ContentPostSection.updateBatch( "SaveStatus=" + SaveStatus.Delete, "PostId in(" + ids + ")" );
         }
 
         public virtual void SetStatus_Pick( string ids ) {
@@ -479,7 +486,7 @@ namespace wojilu.Apps.Content.Service {
                 vo.Link = alink.ToAppData( post );
                 vo.Content = post.Content;
                 vo.Replies = post.Replies;
-                vo.Category = post.PageSection.Title;
+                vo.Category = post.SectionName;
 
                 vo.obj = post;
 

@@ -31,6 +31,8 @@ namespace wojilu.Apps.Content.Domain {
         public int AppId { get; set; }
         public int CategoryId { get; set; } // wojilu.Apps.Content.Enum.PostCategory
         public int OrderId { get; set; }
+
+        // 缓存第一个section信息
         [Column( Name = "SectionId" )]
         public ContentSection PageSection { get; set; }
 
@@ -110,6 +112,14 @@ namespace wojilu.Apps.Content.Domain {
         //---------------------------------------------------------------------------------------------------------
 
         [NotSave]
+        public int SectionId {
+            get {
+                if (this.PageSection == null) return 0;
+                return this.PageSection.Id;
+            }
+        }
+
+        [NotSave]
         public String SectionName {
             get {
                 if (this.PageSection == null) return "";
@@ -167,9 +177,7 @@ namespace wojilu.Apps.Content.Domain {
 
         public String GetTitle() {
             if (strUtil.HasText( this.Title )) return this.Title;
-            if (this.PageSection == null) return alang.get( typeof( ContentApp ), "noTitle" );
-
-            return this.PageSection.Title + " " + this.Created.ToShortDateString();
+            return "Post-"+ this.Id + "-"+this.Created.ToShortDateString();
         }
 
         public String GetSummary( int length ) {

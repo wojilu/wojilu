@@ -49,7 +49,7 @@ namespace wojilu.Web.Controller.Content.Admin.Section {
         }
 
         private void bindEditInfo( ContentPost post ) {
-            set( "section.Title", post.PageSection.Title );
+            set( "section.Title", post.SectionName );
             editor( "Content", post.Content, "300px" );
         }
 

@@ -11939,39 +11939,6 @@ wojilu.position = {
 
 wojilu.ui = new Object();
 
-var shouldHide = function( e, menuList, menuMore, isMore ) {    
-    var pi = wojilu.position.getMouse(e);
-    var piMenu = wojilu.position.getTarget( menuList[0] );
-    var piMore = wojilu.position.getTarget( menuMore[0] );
-    
-    var minX = piMenu.x;
-    var minY = piMore.y;        
-    var maxX = piMenu.y+menuList.height();
-    if( isMore ) maxX = piMore.x + menuMore.width();        
-    var maxY = piMenu.y+menuList.height();
-    
-    if( pi.x< minX ) return true;
-    if( pi.y< minY ) return true;
-    if( pi.x> maxX ) return true;
-    if( pi.y> maxY ) return true;
-    return false;
-};
-
-wojilu.ui.clickMenu = function(eleId) {
-    var ele = eleId ? $( eleId + ' .clickMenu' ) : $( '.clickMenu' );
-    ele.click( function() {
-        var tp = wojilu.position.getTarget(this);
-        var item = $( '#'+$(this).attr('list') ).appendTo( 'body' );
-        item.css( 'position', 'absolute' ).css( 'zIndex', 999 ).css( 'left' , tp.x ).css( 'top', tp.y + this.offsetHeight );
-        item.show().mouseout(function(){ $(this).hide(); }).mouseover( function() {$(this).show();});
-    }).mouseout( function(e) {
-        var menuList = $( '#'+$(this).attr('list') );
-        if( shouldHide( e, menuList, $(this), true ) ) {
-            menuList.hide();
-        }
-    });  
-};
-
 wojilu.ui.menu = function(eleId) {
     var ele = eleId ? $( eleId + ' .menuMore' ) : $( '.menuMore' );
     ele.hover(
@@ -12877,7 +12844,6 @@ wojilu.ui.select = function() {
 
 $(document).ready( function() {
     wojilu.ui.menu();
-    wojilu.ui.clickMenu();
     wojilu.ui.tab();
     wojilu.ui.httpMethod();
     wojilu.ui.frmBox();

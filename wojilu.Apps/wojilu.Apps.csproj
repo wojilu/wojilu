@@ -149,6 +149,7 @@
     <Compile Include="Content\Service\ContentImgService.cs" />
     <Compile Include="Content\Service\ContentPollService.cs" />
     <Compile Include="Content\Service\ContentPostHomeService.cs" />
+    <Compile Include="Content\Service\ContentPostSectionService.cs" />
     <Compile Include="Content\Service\ContentPostService.cs">
       <SubType>Code</SubType>
     </Compile>

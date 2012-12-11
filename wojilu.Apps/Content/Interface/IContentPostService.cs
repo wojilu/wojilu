@@ -27,7 +27,7 @@ namespace wojilu.Apps.Content.Interface {
 
         int CountBySection( int sectionId );
         List<ContentPost> GetAllBySection( int sectionId );
-        List<ContentPost> GetBySection( List<ContentPost> dataAll, int sectionId );
+        //List<ContentPost> GetBySection( List<ContentPost> dataAll, int sectionId );
         List<ContentPost> GetBySection( int sectionId );
         List<ContentPost> GetBySection( int sectionId, int count );
         List<ContentPost> GetTopBySectionAndCategory( int sectionId, int categoryId );
@@ -65,6 +65,7 @@ namespace wojilu.Apps.Content.Interface {
         void Update( ContentPost post, String sectionIds, String tagList );
 
         void Delete( ContentPost post );
+        void DeleteBatch( string ids );
         void Restore( int id );
         void DeleteSys( int postId );
         void DeleteTrueBatch( string ids );

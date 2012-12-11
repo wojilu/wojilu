@@ -391,8 +391,11 @@ namespace wojilu.Web.Controller.Content.Admin.Common {
 
             String cmd = ctx.Post( "action" );
 
-            if ("deletetrue" == cmd) {
-                makeHtml( ids );
+            if ("delete" == cmd) {
+                //makeHtml( ids );
+                postService.DeleteBatch( ids );
+            }
+            else if ("deletetrue" == cmd) {
                 postService.DeleteTrueBatch( ids );
             }
             else if ("status_pick" == cmd) {
@@ -408,21 +411,22 @@ namespace wojilu.Web.Controller.Content.Admin.Common {
             echoAjaxOk();
         }
 
-        private void makeHtml( String ids ) {
+        // TODO
+        //private void makeHtml( String ids ) {
 
-            List<ContentPost> posts = postService.GetByIds( ids );
-            foreach (ContentPost post in posts) {
+        //    List<ContentPost> posts = postService.GetByIds( ids );
+        //    foreach (ContentPost post in posts) {
 
-                HtmlHelper.SetCurrentPost( ctx, post );
+        //        HtmlHelper.SetCurrentPost( ctx, post );
 
-                HtmlHelper.DeleteDetailHtml( ctx );
+        //        HtmlHelper.DeleteDetailHtml( ctx );
 
-                int sectionId = post.PageSection.Id;
-                int recordCount = postService.CountBySection( sectionId );
-                new HtmlListMaker().MakeHtml( ctx, sectionId, recordCount );
+        //        int sectionId = post.PageSection.Id;
+        //        int recordCount = postService.CountBySection( sectionId );
+        //        new HtmlListMaker().MakeHtml( ctx, sectionId, recordCount );
 
-            }
-        }
+        //    }
+        //}
 
         private void bindAdminList( DataPage<ContentPost> posts, bool isTrash ) {
 

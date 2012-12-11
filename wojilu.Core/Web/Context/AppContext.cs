@@ -57,7 +57,7 @@ namespace wojilu.Web.Context {
             get {
                 if (this.Menu != null) return this.Menu.Name;
                 if (this.UserApp != null) return this.UserApp.Name;
-                return null;
+                return "";
             }
         }
         private Type _appType;

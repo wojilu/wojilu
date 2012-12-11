@@ -30,6 +30,7 @@ namespace wojilu.Web.Controller.Content {
 
         public IContentPostService postService { get; set; }
         public IContentSectionService sectionService { get; set; }
+        public ContentPostSectionService psService { get; set; }
         public IAttachmentService attachmentService { get; set; }
 
         public PostController() {
@@ -38,6 +39,7 @@ namespace wojilu.Web.Controller.Content {
             postService = new ContentPostService();
             sectionService = new ContentSectionService();
             attachmentService = new AttachmentService();
+            psService = new ContentPostSectionService();
         }
 
         [CacheAction( typeof( ContentLayoutCache ) )]
@@ -90,11 +92,13 @@ namespace wojilu.Web.Controller.Content {
             ContentPost post = postService.GetById( id, ctx.owner.Id );
 
             if (post == null) {
-                echo( lang( "exDataNotFound" ) );
+                echo( lang( "exDataNotFound" ) + "=ContentPost" );
                 return;
             }
-            else if (post.PageSection == null) {
-                echo( lang( "exDataNotFound" ) + ":PageSection is null" );
+
+            ContentSection section = psService.GetFirstSectionByPost( post.Id );
+            if (section == null) {
+                echo( lang( "exDataNotFound" ) + "=ContentSection" );
                 return;
             }
 
@@ -104,13 +108,14 @@ namespace wojilu.Web.Controller.Content {
                 return;
             }
 
+
             //----------------------------------------------------------------------------------------------------
 
             // 1) location
-            set( "location", getLocation( post ) );
+            set( "location", getLocation( post, section ) );
 
             // 2) detail
-            set( "detailContent", loadHtml( post.PageSection.SectionType, "Show", post.Id ) );
+            set( "detailContent", loadHtml( section.SectionType, "Show", post.Id ) );
 
             // 3) comment
             set( "commentUrl", getCommentUrl( post ) );
@@ -157,10 +162,11 @@ namespace wojilu.Web.Controller.Content {
                 + "&dataId=" + post.Id;
         }
 
-        private String getLocation( ContentPost post ) {
+        private String getLocation( ContentPost post, ContentSection section ) {
             String location = string.Format( "<a href='{0}'>{1}</a>", alink.ToApp( ctx.app.obj as IApp, ctx ),
     ctx.app.Name );
-            location = location + string.Format( " &gt; <a href='{0}'>{1}</a> &gt; {2}", clink.toSection( post.PageSection.Id, ctx ), post.PageSection.Title, alang( "postDetail" ) );
+
+            location = location + string.Format( " &gt; <a href='{0}'>{1}</a> &gt; {2}", clink.toSection( section.Id, ctx ), section.Title, alang( "postDetail" ) );
             return location;
         }
 

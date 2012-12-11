@@ -49,8 +49,13 @@ namespace wojilu.Web.Controller.Content.Utils {
         }
 
         public static void bindListItem( IBlock block, ContentPost post, MvcContext ctx ) {
-            block.Set( "post.SectionName", post.PageSection.Title );
-            block.Set( "post.SectionUrl", clink.toSection( post.PageSection.Id, ctx ) );
+
+            if (post.PageSection != null) {
+
+                block.Set( "post.SectionName", post.PageSection.Title );
+                block.Set( "post.SectionUrl", clink.toSection( post.PageSection.Id, ctx ) );
+
+            }
 
             String typeIcon = BinderUtils.getTypeIcon( post );
             block.Set( "post.ImgIcon", typeIcon );

@@ -62,8 +62,8 @@ namespace wojilu.Web.Controller.Content.Admin.Section {
         }
 
         private void bindEditInfo( int postId, ContentPost post ) {
-            set( "section.Id", post.PageSection.Id );
-            set( "section.Name", post.PageSection.Title );
+            set( "section.Id", post.SectionId );
+            set( "section.Name", post.SectionName );
 
             set( "post.MetaKeywords", post.MetaKeywords );
             set( "post.MetaDescription", post.MetaDescription );

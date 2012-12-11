@@ -15,7 +15,13 @@ namespace wojilu.Web.Controller.Content.Caching {
 
             int recordCount = 0; // TODO
 
-            return this.MakeHtml( ctx, post.PageSection.Id, recordCount );
+
+            List<ContentPostSection> psList = ContentPostSection.find( "PostId="+post.Id ).list();
+            foreach (ContentPostSection x in psList) {
+                recordCount += this.MakeHtml( ctx, x.Section.Id, recordCount );
+            }
+
+            return recordCount;
         }
 
         public int MakeHtml( MvcContext ctx, int sectionId, int recordCount ) {

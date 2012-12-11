@@ -49,7 +49,9 @@ namespace wojilu.Apps.Content.Service {
 
             if (list.Count == 0) {
                 ContentPost post = ContentPost.findById( postId );
-                return post == null ? "" : post.PageSection.Id.ToString();
+                if (post == null) return "";
+                if (post.PageSection == null) return "";
+                return post.PageSection.Id.ToString();
             }
 
             String ids = "";

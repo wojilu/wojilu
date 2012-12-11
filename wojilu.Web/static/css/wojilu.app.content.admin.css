@@ -17,7 +17,7 @@
                 .sectionTitleText { }
                 .sectionDragger {cursor: move;}
 
-                .sectionTitleText div {float:left; margin-left:6px; margin-top:0px; padding:3px 5px;cursor:default;width:90px;}
+                .sectionTitleText div {float:left; margin-left:6px; margin-top:0px; padding:3px 5px;cursor:default;width1:90px;}
                 .sectionTitleCurrentTab { background:#fff; border-top:1px #aaa solid;border-left:1px #aaa solid;border-right:1px #aaa solid;}
                 .sectionTitleTab { text-overflow:ellipsis; }
 

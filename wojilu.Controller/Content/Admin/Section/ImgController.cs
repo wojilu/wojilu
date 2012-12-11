@@ -229,12 +229,7 @@ namespace wojilu.Web.Controller.Content.Admin.Section {
                 return;
             }
 
-            int imgCount = imgService.GetImgCount( postId );
-            if (imgCount > 0) {
-                echoRedirect( alang( "exDeleteImg" ) );
-                return;
-            }
-            imgService.DeleteImg( post );
+            postService.Delete( post ); // …æ≥˝ªÿ ’’æ
             echoRedirect( lang( "opok" ) );
             HtmlHelper.SetCurrentPost( ctx, post );
         }

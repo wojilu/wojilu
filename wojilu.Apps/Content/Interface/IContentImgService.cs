@@ -23,7 +23,6 @@ namespace wojilu.Apps.Content.Interface {
         int GetImgCount( int postId );
 
         void CreateImg( ContentImg img );
-        void DeleteImg( ContentPost post );
         void DeleteImgOne( ContentImg articleImg );
         void UpdateImgLogo( ContentPost post );
 

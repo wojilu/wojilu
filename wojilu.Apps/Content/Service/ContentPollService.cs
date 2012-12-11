@@ -93,7 +93,7 @@ namespace wojilu.Apps.Content.Service {
             ContentSection section = new ContentSection();
             section.Id = sectionId;
 
-            // 保留原始一对多关系
+            // 缓存原始section
             post.PageSection = section;
             post.update();
 

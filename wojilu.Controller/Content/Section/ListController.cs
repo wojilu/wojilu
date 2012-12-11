@@ -104,7 +104,7 @@ namespace wojilu.Web.Controller.Content.Section {
         public void Show( int id ) {
 
             ContentPost post = this.postService.GetById( id, ctx.owner.Id );
-            if (post == null || post.PageSection == null) {
+            if (post == null) {
                 echoRedirect( lang( "exDataNotFound" ) );
                 return;
             }

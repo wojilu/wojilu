@@ -28,7 +28,7 @@
                     <li class="btnCmd" style="" cmd="status_pick"><img src="~img/star.gif" /> 设为要闻</li>
                     <li class="btnCmd" style="" cmd="status_normal"><img src="~img/doc.gif" /> 设为普通</li>
                     <li class="btnCmd" style="" cmd="status_focus"><img src="~img/sticky2.gif" /> 设为头条</li>
-                    <li class="btnCmd" style="" cmd="deletetrue"><img src="~img/s/delete.png" /> 批量删除</li>
+                    <li class="btnCmd" style="" cmd="delete"><img src="~img/s/delete.png" /> 批量删除</li>
                 </ul></span>
         
             </div>
@@ -69,14 +69,14 @@
 		<td>#{post.PubDate}</td>
 		<td>
 		<a href="#{post.EditUrl}" class="frmBox"><img src="~img/edit.gif" /> _{edit}</a>
-		<span class="clickMenu left5" list="adminPostMenus#{post.Id}">更多<img src="~img/down.gif" /></span>
+		<span class="menuMore left5" list="adminPostMenus#{post.Id}">更多<img src="~img/down.gif" />
 		<ul class="menuItems" id="adminPostMenus#{post.Id}" style="width:120px;">
 		    <li></li>
 		    <li><a href="#{post.AttachmentLink}" class="frmBox link" title="[附件]_#{post.Title}" xwidth="750"><img src="~img/attachment.gif" /> 附件(<a href="#{post.Link}">#{post.Attachments})</a></a></li>
 		    <li><a href="#{post.DeleteUrl}" class="deleteCmd"><img src="~img/s/delete.png" /> _{delete}</a></li>
 		    <li><a href="#{post.EditTitleStyleUrl}" class="frmBox" xwidth="700" title="[标题样式]_#{post.Title}"><img src="~img/edit.gif" /> 标题样式</a></li>
 		    <li></li>
-		</ul>
+		</ul></span>
 		
 		</td>
 	</tr>

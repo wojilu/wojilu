@@ -68,7 +68,7 @@ namespace wojilu.Web.Controller.Content.Admin.Section {
 
 
         private void bindAddList( int postId, ContentPost post, List<ContentImg> imgList ) {
-            set( "section.Name", post.PageSection.Title );
+            set( "section.Name", post.SectionName );
             set( "post.EditListInfo", to( EditListInfo, postId ) );
             IBlock block = getBlock( "list" );
             foreach (ContentImg img in imgList) {
@@ -97,7 +97,7 @@ namespace wojilu.Web.Controller.Content.Admin.Section {
 
         private void bindListEdit( int postId, ContentPost post ) {
 
-            set( "section.Name", post.PageSection.Title );
+            set( "section.Name", post.SectionName );
             set( "post.Title", post.Title );
             set( "post.TitleHome", post.TitleHome );
 
