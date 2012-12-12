@@ -12661,16 +12661,16 @@ wojilu.ui.frmLoader = function() {
         
 		var divLoad = $(this );        
         divLoad.empty();
+
+        var thisId = this.id?this.id:wojilu.tool.getRandomInt();
         
-        var frmId = 'frmLoaderPage';
+        var frmId = 'frmLoaderPage'+thisId;
         var loadingId = frmId+'Loading';
         var frmLinkLoading = '<div id="'+loadingId+'" style="padding:30px 50px;"><img src="'+wojilu.path.img+'/ajax/loading.gif"/></div>';
         divLoad.append( frmLinkLoading );
         
         var frmHtml = '<iframe id="'+frmId+'" src="'+frmUrl+'" frameborder="0" width="100%" scrolling="'+scrolling+'" style="display:none;padding:0px;margin:0px;"></iframe>';
         divLoad.append( frmHtml );
-       
-        return false;
     };
 };
 
