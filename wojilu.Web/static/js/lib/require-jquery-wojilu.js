@@ -12585,6 +12585,9 @@ wojilu.ui.frmBox = function(ele) {
             var frmPath = $('#'+srcFrmId, parent.document).attr( 'frmPath' );
             actionUrl = actionUrl + '&frmPath='+frmPath;
         };
+
+        var scrolling = $(this).attr( 'data-scrolling' );
+        scrolling = scrolling? scrolling:'no';
         
         var boxWidth = $(this).attr( 'xwidth' );
         var boxHeight = $(this).attr( 'xheight' );
@@ -12598,7 +12601,7 @@ wojilu.ui.frmBox = function(ele) {
         var frmClass = 'boxFrm';
         var loadingId = frmId+'Loading';
         var loadingDiv = '<div id="'+loadingId+'" style="width:'+boxWidth+'px;height:'+contentHeight+'px;text-align:center;"><img src="'+wojilu.path.img+'/ajax/big.gif" style="margin-top:30px;"/></div>';        
-        var frmHtml = '<iframe id="'+frmId+'" class="'+frmClass+'" src="'+actionUrl+'" frameborder="0" width="'+boxWidth+'" scrolling="no" style="display:none;padding:0px;margin:0px;border:0px red solid;height:'+contentHeight+'px;"></iframe>';
+        var frmHtml = '<iframe id="'+frmId+'" class="'+frmClass+'" src="'+actionUrl+'" frameborder="0" width="'+boxWidth+'" scrolling="'+scrolling +'" style="display:none;padding:0px;margin:0px;border:0px red solid;height:'+contentHeight+'px;"></iframe>';
         wojilu.ui.box.showBoxString( frmHtml, boxWidth, boxHeight, boxTitle, loadingDiv );
        
         return false;
