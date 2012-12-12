@@ -13,7 +13,7 @@ using wojilu.Apps.Content.Enum;
 
 namespace wojilu.Web.Controller.Content.Admin.Section {
 
-    public partial class ListController : ControllerBase, IPageSection {
+    public partial class ListController : ControllerBase, IPageAdminSection {
 
 
         private void bindSectionShow( int sectionId, IList posts ) {

@@ -15,6 +15,7 @@ using wojilu.Apps.Content.Enum;
 using wojilu.Common.AppBase.Interface;
 using wojilu.Common.AppBase;
 using wojilu.Web.Controller.Content.Caching;
+using wojilu.Web.Controller.Content.Utils;
 
 namespace wojilu.Web.Controller.Content.Admin.Section {
 
@@ -46,9 +47,6 @@ namespace wojilu.Web.Controller.Content.Admin.Section {
             return links;
         }
 
-        public void SectionShow( int sectionId ) {
-        }
-
         public void AdminSectionShow( int sectionId ) {
             ContentSection section = sectionService.GetById( sectionId, ctx.app.Id );
             ContentPost textPost = postService.GetFirstPost( ctx.app.Id, sectionId );
@@ -64,6 +62,10 @@ namespace wojilu.Web.Controller.Content.Admin.Section {
 
         public String GetEditLink( int postId ) {
             return to( Edit, postId );
+        }
+
+        public String GetSectionIcon( int sectionId ) {
+            return BinderUtils.iconText;
         }
 
         public void Add( int sectionId ) {

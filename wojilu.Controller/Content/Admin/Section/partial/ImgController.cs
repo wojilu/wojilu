@@ -19,7 +19,7 @@ using wojilu.Common.AppBase;
 namespace wojilu.Web.Controller.Content.Admin.Section {
 
 
-    public partial class ImgController : ControllerBase, IPageSection {
+    public partial class ImgController : ControllerBase, IPageAdminSection {
 
         private void bindSectionShow( int sectionId, List<ContentPost> posts ) {
             set( "addUrl", to( AddListInfo, sectionId ) );

@@ -13,7 +13,7 @@ using wojilu.Common.AppBase;
 namespace wojilu.Web.Controller.Content.Admin.Section {
 
 
-    public partial class VideoController : ControllerBase, IPageSection {
+    public partial class VideoController : ControllerBase, IPageAdminSection {
 
         private void bindSectionShow( int sectionId, List<ContentPost> posts ) {
 

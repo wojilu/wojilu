@@ -13,6 +13,7 @@ using wojilu.Apps.Content.Domain;
 using wojilu.Apps.Content.Interface;
 using wojilu.Apps.Content.Service;
 using wojilu.Web.Controller.Content.Admin.Common;
+using wojilu.Web.Controller.Content.Utils;
 
 
 namespace wojilu.Web.Controller.Content.Admin.Section {
@@ -46,6 +47,10 @@ namespace wojilu.Web.Controller.Content.Admin.Section {
             return to( new Common.PollController().Edit, postId );
         }
 
+        public String GetSectionIcon( int sectionId ) {
+            return BinderUtils.iconPoll;
+        }
+
         public void AdminSectionShow( int sectionId ) {
 
             set( "section.Id", sectionId );
@@ -74,8 +79,5 @@ namespace wojilu.Web.Controller.Content.Admin.Section {
 
         }
 
-
-        public void SectionShow( int sectionId ) {
-        }
     }
 }

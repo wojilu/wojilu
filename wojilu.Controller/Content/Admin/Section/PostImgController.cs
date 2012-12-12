@@ -38,11 +38,14 @@ namespace wojilu.Web.Controller.Content.Admin.Section {
             bindPosts( posts );
             bindTopImg( img );
             bindImgs( imgs );
-
         }
 
         public String GetEditLink( int postId ) {
             return to( new Common.PostController().Edit, postId );
+        }
+
+        public String GetSectionIcon( int sectionId ) {
+            return "";
         }
 
         private void bindCmds( int sectionId, int postcat, int imgcat, int imgPostCat ) {
@@ -119,9 +122,6 @@ namespace wojilu.Web.Controller.Content.Admin.Section {
                 imgBlock.Next();
             }
 
-        }
-
-        public void SectionShow( int sectionId ) {
         }
 
         public List<IPageSettingLink> GetSettingLink( int sectionId ) {

@@ -12,7 +12,7 @@ using wojilu.Common.AppBase;
 
 namespace wojilu.Web.Controller.Content.Admin.Section {
 
-    public partial class SlideController : ControllerBase, IPageSection {
+    public partial class SlideController : ControllerBase, IPageAdminSection {
 
         private void bindSectionShow( int sectionId, int imgcat, List<ContentPost> posts, ContentPost first ) {
 

@@ -49,7 +49,8 @@ namespace wojilu.Web.Controller.Content.Admin.Section {
             return to( new Common.PostController().Edit, postId );
         }
 
-        public void SectionShow( int sectionId ) {
+        public String GetSectionIcon( int sectionId ) {
+            return "";
         }
 
         public void AdminSectionShow( int sectionId ) {

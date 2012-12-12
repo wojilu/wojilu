@@ -13,7 +13,7 @@ using wojilu.Common.AppBase;
 namespace wojilu.Web.Controller.Content.Admin.Section {
 
 
-    public partial class ListImgController : ControllerBase, IPageSection {
+    public partial class ListImgController : ControllerBase, IPageAdminSection {
 
 
         private void bindSectionShow( int sectionId, int postcat, int imgcat, List<ContentPost> posts, List<ContentPost> imgs ) {

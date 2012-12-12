@@ -12,7 +12,7 @@ using wojilu.Common.AppBase;
 
 namespace wojilu.Web.Controller.Content.Admin.Section {
 
-    public partial class TalkController : ControllerBase, IPageSection {
+    public partial class TalkController : ControllerBase, IPageAdminSection {
         
         private void bindSectionShow( int sectionId, List<ContentPost> posts ) {
             set( "addUrl", to( Add, sectionId ) );

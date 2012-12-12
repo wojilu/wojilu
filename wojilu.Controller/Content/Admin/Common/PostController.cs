@@ -250,11 +250,15 @@ namespace wojilu.Web.Controller.Content.Admin.Common {
         public void Update( int postId ) {
             ContentPost post = postService.GetById( postId, ctx.owner.Id );
             if (post == null) {
-                echo( lang( "exDataNotFound" ) );
+                echoError( lang( "exDataNotFound" ) );
                 return;
             }
 
             String sectionIds = ctx.PostIdList( "postSection" );
+            if (strUtil.IsNullOrEmpty( sectionIds )) {
+                echoError( "请选择区块" );
+                return;
+            }
 
             ContentValidator.SetPostValue( post, ctx );
             ContentValidator.ValidateTitleBody( post, ctx );
@@ -434,7 +438,9 @@ namespace wojilu.Web.Controller.Content.Admin.Common {
 
             foreach (ContentPost post in posts.Results) {
 
-                String typeIcon = BinderUtils.getTypeIcon( post );
+                IPageAdminSection sectionController = BinderUtils.GetPageSectionAdmin( post, ctx, "AdminSectionShow" );
+
+                String typeIcon = BinderUtils.getTypeIcon( sectionController, post );
                 String pickIcon = BinderUtils.getPickedIcon( post );
                 String attIcon = post.Attachments > 0 ? BinderUtils.iconAttachment : "";
 
@@ -446,8 +452,7 @@ namespace wojilu.Web.Controller.Content.Admin.Common {
                 block.Set( "post.TitleCss", post.Style );
                 block.Set( "post.TitleFull", post.Title );
 
-                //String sectionName = post.PageSection == null ? "" : post.PageSection.Title;
-                //block.Set( "post.SectionName", sectionName );
+                block.Set( "post.SectionName", post.SectionName );
 
                 block.Set( "post.Url", post.SourceLink );
                 block.Set( "post.Link", alink.ToAppData( post ) );
@@ -462,16 +467,7 @@ namespace wojilu.Web.Controller.Content.Admin.Common {
 
                 block.Bind( "post", post );
 
-                String lnkEdit = "";
-                if (isTrash) {
-                    lnkEdit = "#";
-                }
-                else if (post.HasImg()) {
-                    lnkEdit = to( new PostController().EditImg, post.Id );
-                }
-                else {
-                    lnkEdit = to( new PostController().Edit, post.Id );
-                }
+                String lnkEdit = isTrash ? "#" : sectionController.GetEditLink( post.Id );
 
                 String lnkDelete = to( Delete, post.Id );
                 if (isTrash) lnkDelete = to( DeleteSys, post.Id );
@@ -488,7 +484,6 @@ namespace wojilu.Web.Controller.Content.Admin.Common {
             }
             set( "page", posts.PageBar );
         }
-
 
         [HttpDelete, DbTransaction]
         public void Delete( int postId ) {

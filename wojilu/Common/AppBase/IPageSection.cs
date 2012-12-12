@@ -27,6 +27,7 @@ namespace wojilu.Common.AppBase {
         void AdminSectionShow( int sectionId );
         List<IPageSettingLink> GetSettingLink( int sectionId );
         String GetEditLink( int postId );
+        String GetSectionIcon( int sectionId );
 
     }
 

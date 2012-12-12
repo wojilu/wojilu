@@ -13,7 +13,7 @@ using wojilu.Common.AppBase;
 namespace wojilu.Web.Controller.Content.Admin.Section {
 
 
-    public partial class ListTwoController : ControllerBase, IPageSection {
+    public partial class ListTwoController : ControllerBase, IPageAdminSection {
 
 
         private void bindSectionShow( int sectionId, List<ContentPost> posts ) {

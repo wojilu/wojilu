@@ -14,6 +14,7 @@ using wojilu.Apps.Content.Service;
 using wojilu.Common.AppBase.Interface;
 using wojilu.Common.AppBase;
 using wojilu.Web.Controller.Content.Caching;
+using wojilu.Web.Controller.Content.Utils;
 
 namespace wojilu.Web.Controller.Content.Admin.Section {
 
@@ -50,7 +51,8 @@ namespace wojilu.Web.Controller.Content.Admin.Section {
             return to( Edit, postId );
         }
 
-        public void SectionShow( int sectionId ) {
+        public String GetSectionIcon( int sectionId ) {
+            return BinderUtils.iconVideo;
         }
 
         public void AdminSectionShow( int sectionId ) {

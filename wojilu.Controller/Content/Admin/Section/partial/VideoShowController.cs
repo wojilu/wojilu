@@ -14,7 +14,7 @@ using wojilu.Common.AppBase;
 namespace wojilu.Web.Controller.Content.Admin.Section {
 
 
-    public partial class VideoShowController : ControllerBase, IPageSection {
+    public partial class VideoShowController : ControllerBase, IPageAdminSection {
 
 
         private void bindSectionShow( int sectionId, ContentPost video ) {

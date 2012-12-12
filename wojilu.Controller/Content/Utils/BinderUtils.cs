@@ -17,6 +17,8 @@ using wojilu.DI;
 using System.Collections.Generic;
 using wojilu.Members.Sites.Domain;
 using wojilu.Apps.Content.Enum;
+using wojilu.Web.Controller.Content.Admin.Section;
+using wojilu.Web.Controller.Content.Section;
 
 namespace wojilu.Web.Controller.Content.Utils {
 
@@ -26,15 +28,23 @@ namespace wojilu.Web.Controller.Content.Utils {
 
         public static readonly String iconPic = string.Format( "<img src=\"{0}\"/> ", strUtil.Join( sys.Path.Img, "img.gif" ) );
         public static readonly String iconVideo = string.Format( "<img src=\"{0}\"/> ", strUtil.Join( sys.Path.Img, "video.gif" ) );
+        public static readonly String iconPoll = string.Format( "<img src=\"{0}\"/> ", strUtil.Join( sys.Path.Img, "poll.gif" ) );
+        public static readonly String iconTalk = string.Format( "<img src=\"{0}\"/> ", strUtil.Join( sys.Path.Img, "s/comment.png" ) );
+        public static readonly String iconText = string.Format( "<img src=\"{0}\"/> ", strUtil.Join( sys.Path.Img, "doc.gif" ) );
+
         public static readonly String iconAttachment = string.Format( "<img src=\"{0}\"/>", strUtil.Join( sys.Path.Img, "attachment.gif" ) );
 
         public static readonly String iconPicked = string.Format( "<img src=\"{0}star.gif\" />", sys.Path.Img );
         public static readonly String iconFocus = string.Format( "<img src=\"{0}sticky2.gif\" />", sys.Path.Img );
 
-        public static String getTypeIcon( ContentPost post ) {
+        public static String getTypeIcon( IPageAdminSection sectionController, ContentPost post ) {
+
+            String typeIcon = sectionController.GetSectionIcon( post.SectionId );
+            if (strUtil.HasText( typeIcon )) return typeIcon;
 
             if (post.TypeName == typeof( ContentVideo ).FullName) return iconVideo;
             if (post.TypeName == typeof( ContentImg ).FullName) return iconPic;
+            if (post.TypeName == typeof( ContentPoll ).FullName) return iconPoll;
             if (post.HasImg()) return iconPic;
 
             return "";
@@ -57,7 +67,10 @@ namespace wojilu.Web.Controller.Content.Utils {
 
             }
 
-            String typeIcon = BinderUtils.getTypeIcon( post );
+            IPageAdminSection sectionController = BinderUtils.GetPageSectionAdmin( post, ctx, "AdminSectionShow" );
+
+            String typeIcon = sectionController.GetSectionIcon( post.SectionId );
+
             block.Set( "post.ImgIcon", typeIcon );
 
             String att = post.Attachments > 0 ? "<img src=\"" + strUtil.Join( sys.Path.Img, "attachment.gif" ) + "\"/>" : "";
@@ -91,14 +104,27 @@ namespace wojilu.Web.Controller.Content.Utils {
 
         public static IPageSection GetPageSection( ContentSection articleSection, MvcContext ctx, String currentView ) {
 
+            if (articleSection == null) return new NullSectionController();
+
             ControllerBase controller = ControllerFactory.FindController( articleSection.SectionType, ctx ) as ControllerBase;
+            if (controller == null) return new NullSectionController();
             controller.view( currentView );
             return controller as IPageSection;
         }
 
+        public static IPageAdminSection GetPageSectionAdmin( ContentPost post, MvcContext ctx, String currentView ) {
+
+            if (post == null) return new NullSectionAdmin();
+            if (post.PageSection == null) return new NullSectionAdmin();
+
+            return GetPageSectionAdmin( post.PageSection, ctx, currentView );
+        }
+
         public static IPageAdminSection GetPageSectionAdmin( ContentSection articleSection, MvcContext ctx, String currentView ) {
+            if (articleSection == null) return new NullSectionAdmin();
             String adminSectionControllerName = getAdminControllerName( articleSection );
             ControllerBase controller = ControllerFactory.FindController( adminSectionControllerName, ctx ) as ControllerBase;
+            if (controller == null) return new NullSectionAdmin();
             controller.view( currentView );
             return controller as IPageAdminSection;
         }

@@ -16,9 +16,9 @@ using wojilu.Apps.Content.Enum;
 using wojilu.Common.AppBase.Interface;
 using wojilu.Common.AppBase;
 using wojilu.Web.Controller.Content.Caching;
+using wojilu.Web.Controller.Content.Utils;
 
 namespace wojilu.Web.Controller.Content.Admin.Section {
-
 
     [App( typeof( ContentApp ) )]
     public partial class ImgController : ControllerBase, IPageAdminSection {
@@ -50,10 +50,11 @@ namespace wojilu.Web.Controller.Content.Admin.Section {
         }
 
         public String GetEditLink( int postId ) {
-            return to( new Common.PostController().Edit, postId );
+            return to( AddImgList, postId );
         }
 
-        public void SectionShow( int sectionId ) {
+        public String GetSectionIcon( int sectionId ) {
+            return BinderUtils.iconPic;
         }
 
         public void AdminSectionShow( int sectionId ) {

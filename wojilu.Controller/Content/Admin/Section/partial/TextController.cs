@@ -11,7 +11,7 @@ using wojilu.Common.AppBase;
 
 namespace wojilu.Web.Controller.Content.Admin.Section {
 
-    public partial class TextController : ControllerBase, IPageSection {
+    public partial class TextController : ControllerBase, IPageAdminSection {
 
 
         private void bindSectionShow( int sectionId, ContentPost textPost ) {

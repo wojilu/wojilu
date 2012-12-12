@@ -11,7 +11,7 @@ using wojilu.Common.AppBase;
 
 namespace wojilu.Web.Controller.Content.Admin.Section {
 
-    public partial class ThumbSlideController : ControllerBase, IPageSection {
+    public partial class ThumbSlideController : ControllerBase, IPageAdminSection {
 
         private void bindSectionShow( int sectionId, int imgcat, List<ContentPost> posts, ContentPost first ) {
 
