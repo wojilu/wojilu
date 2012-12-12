@@ -29,13 +29,6 @@ namespace wojilu.Web.Controller.Content.Section {
             pollService = new ContentPollService();
         }
 
-        public List<IPageSettingLink> GetSettingLink( int sectionId ) {
-            return new List<IPageSettingLink>();
-        }
-
-        public void AdminSectionShow( int sectionId ) {
-        }
-
         public void SectionShow( int sectionId ) {
 
             ContentSection section = sectionService.GetById( sectionId, ctx.app.Id );

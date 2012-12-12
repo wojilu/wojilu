@@ -23,7 +23,7 @@ namespace wojilu.Web.Controller.Content.Admin.Section {
 
 
     [App( typeof( ContentApp ) )]
-    public partial class ListController : ControllerBase, IPageSection {
+    public partial class ListController : ControllerBase, IPageAdminSection {
 
         public IContentPostService postService { get; set; }
         public IContentSectionService sectionService { get; set; }
@@ -50,6 +50,10 @@ namespace wojilu.Web.Controller.Content.Admin.Section {
 
 
             return links;
+        }
+
+        public String GetEditLink( int postId ) {
+            return to( new Common.PostController().Edit, postId );
         }
 
         public void SectionShow( int sectionId ) {

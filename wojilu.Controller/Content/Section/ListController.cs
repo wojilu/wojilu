@@ -40,13 +40,6 @@ namespace wojilu.Web.Controller.Content.Section {
             ctService = new ContentCustomTemplateService();
         }
 
-        public void AdminSectionShow( int sectionId ) {
-        }
-
-        public List<IPageSettingLink> GetSettingLink( int sectionId ) {
-            return new List<IPageSettingLink>();
-        }
-
         [Data( typeof( ContentSection ) )]
         public void List( int sectionId ) {
 

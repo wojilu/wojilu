@@ -20,7 +20,7 @@ namespace wojilu.Web.Controller.Content.Admin.Section {
 
 
     [App( typeof( ContentApp ) )]
-    public partial class TextController : ControllerBase, IPageSection {
+    public partial class TextController : ControllerBase, IPageAdminSection {
 
         public IContentPostService postService { get; set; }
         public IContentSectionService sectionService { get; set; }
@@ -60,6 +60,10 @@ namespace wojilu.Web.Controller.Content.Admin.Section {
             ContentSection section = sectionService.GetById( sectionId, ctx.app.Id );
             DataPage<ContentPost> posts = postService.GetPageBySectionAndCategory( section.Id, ctx.GetInt( "categoryId" ) );
             bindAdminList( section, posts );
+        }
+
+        public String GetEditLink( int postId ) {
+            return to( Edit, postId );
         }
 
         public void Add( int sectionId ) {

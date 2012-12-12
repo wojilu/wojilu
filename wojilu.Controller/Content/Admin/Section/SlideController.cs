@@ -17,7 +17,7 @@ using wojilu.Common.AppBase;
 namespace wojilu.Web.Controller.Content.Admin.Section {
 
     [App( typeof( ContentApp ) )]
-    public partial class SlideController : ControllerBase, IPageSection {
+    public partial class SlideController : ControllerBase, IPageAdminSection {
 
         public IContentPostService postService { get; set; }
         public IContentSectionService sectionService { get; set; }
@@ -41,6 +41,10 @@ namespace wojilu.Web.Controller.Content.Admin.Section {
             links.Add( lnktmp );
 
             return links;
+        }
+
+        public String GetEditLink( int postId ) {
+            return to( new Common.PostController().Edit, postId );
         }
 
         public void SectionShow( int sectionId ) {

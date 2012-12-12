@@ -228,7 +228,7 @@ namespace wojilu.Web.Controller.Content.Admin {
         }
 
         private String bindData( IBlock sectionBlock, ContentSection articleSection ) {
-            IPageSection section = BinderUtils.GetPageSectionAdmin( articleSection, ctx, "AdminSectionShow" );
+            IPageAdminSection section = BinderUtils.GetPageSectionAdmin( articleSection, ctx, "AdminSectionShow" );
             ControllerBase controller = section as ControllerBase;
             bindSettingLink( sectionBlock, section.GetSettingLink( articleSection.Id ) );
             section.AdminSectionShow( articleSection.Id );

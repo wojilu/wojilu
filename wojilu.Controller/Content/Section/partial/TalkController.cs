@@ -14,6 +14,10 @@ namespace wojilu.Web.Controller.Content.Section {
 
     public partial class TalkController : ControllerBase, IPageSection {
 
+        public String GetEditLink( int postId ) {
+            return null;
+        }
+
         private void bindSectionShow( ContentSection section, IList posts ) {
             set( "m.Title", section.Title );
             IBlock block = getBlock( "list" );

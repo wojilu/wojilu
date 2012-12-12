@@ -13,7 +13,7 @@ using wojilu.Apps.Content.Service;
 namespace wojilu.Web.Controller.Content.Admin.Section {
 
     [App( typeof( ContentApp ) )]
-    public class PostImgController : ControllerBase, IPageSection {
+    public class PostImgController : ControllerBase, IPageAdminSection {
 
         public IContentPostService postService { get; set; }
         public IContentImgService imgService { get; set; }
@@ -22,7 +22,6 @@ namespace wojilu.Web.Controller.Content.Admin.Section {
             postService = new ContentPostService();
             imgService = new ContentImgService();
         }
-
 
         public void AdminSectionShow( int sectionId ) {
 
@@ -40,6 +39,10 @@ namespace wojilu.Web.Controller.Content.Admin.Section {
             bindTopImg( img );
             bindImgs( imgs );
 
+        }
+
+        public String GetEditLink( int postId ) {
+            return to( new Common.PostController().Edit, postId );
         }
 
         private void bindCmds( int sectionId, int postcat, int imgcat, int imgPostCat ) {

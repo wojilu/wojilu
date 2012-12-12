@@ -18,10 +18,8 @@ using wojilu.Web.Controller.Content.Utils;
 
 namespace wojilu.Web.Controller.Content.Section {
 
-
     [App( typeof( ContentApp ) )]
     public class TextController : ControllerBase, IPageSection {
-
 
         public IContentPostService postService { get; set; }
         public IContentSectionService sectionService { get; set; }
@@ -31,13 +29,6 @@ namespace wojilu.Web.Controller.Content.Section {
             postService = new ContentPostService();
             sectionService = new ContentSectionService();
             ctService = new ContentCustomTemplateService();
-        }
-
-        public void AdminSectionShow( int sectionId ) {
-        }
-
-        public List<IPageSettingLink> GetSettingLink( int sectionId ) {
-            return new List<IPageSettingLink>();
         }
 
         public void SectionShow( int sectionId ) {

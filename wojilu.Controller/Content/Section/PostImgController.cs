@@ -127,13 +127,6 @@ namespace wojilu.Web.Controller.Content.Section {
             run( new ListController().Show, id );
         }
 
-        public List<IPageSettingLink> GetSettingLink( int sectionId ) {
-            return new List<IPageSettingLink>();
-        }
-
-        public void AdminSectionShow( int sectionId ) {
-        }
-
     }
 
 }

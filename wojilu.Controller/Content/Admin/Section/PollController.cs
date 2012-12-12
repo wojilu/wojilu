@@ -18,7 +18,7 @@ using wojilu.Web.Controller.Content.Admin.Common;
 namespace wojilu.Web.Controller.Content.Admin.Section {
 
     [App( typeof( ContentApp ) )]
-    public partial class PollController : ControllerBase, IPageSection {
+    public partial class PollController : ControllerBase, IPageAdminSection {
 
         public virtual IContentPostService postService { get; set; }
         public virtual ContentPollService pollService { get; set; }
@@ -40,6 +40,10 @@ namespace wojilu.Web.Controller.Content.Admin.Section {
             links.Add( lnk );
 
             return links;
+        }
+
+        public String GetEditLink( int postId ) {
+            return to( new Common.PollController().Edit, postId );
         }
 
         public void AdminSectionShow( int sectionId ) {

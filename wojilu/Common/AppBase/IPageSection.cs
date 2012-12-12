@@ -1,4 +1,4 @@
-/*
+﻿/*
  * Copyright 2010 www.wojilu.com
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -20,16 +20,22 @@ using System.Collections.Generic;
 namespace wojilu.Common.AppBase {
 
     /// <summary>
-    /// ҳ������ӿ�(�����Ż���)
+    /// 门户app中，后台管理界面，页面区块接口
+    /// </summary>
+    public interface IPageAdminSection {
+
+        void AdminSectionShow( int sectionId );
+        List<IPageSettingLink> GetSettingLink( int sectionId );
+        String GetEditLink( int postId );
+
+    }
+
+    /// <summary>
+    /// 门户app中的页面区块接口
     /// </summary>
     public interface IPageSection {
 
-
-        void AdminSectionShow( int sectionId );
         void SectionShow( int sectionId );
-
-        List<IPageSettingLink> GetSettingLink( int sectionId );
-
 
     }
 

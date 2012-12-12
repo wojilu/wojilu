@@ -96,11 +96,11 @@ namespace wojilu.Web.Controller.Content.Utils {
             return controller as IPageSection;
         }
 
-        public static IPageSection GetPageSectionAdmin( ContentSection articleSection, MvcContext ctx, String currentView ) {
+        public static IPageAdminSection GetPageSectionAdmin( ContentSection articleSection, MvcContext ctx, String currentView ) {
             String adminSectionControllerName = getAdminControllerName( articleSection );
             ControllerBase controller = ControllerFactory.FindController( adminSectionControllerName, ctx ) as ControllerBase;
             controller.view( currentView );
-            return controller as IPageSection;
+            return controller as IPageAdminSection;
         }
 
         private static String getAdminControllerName( ContentSection articleSection ) {
