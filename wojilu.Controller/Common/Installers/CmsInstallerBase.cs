@@ -35,6 +35,7 @@ namespace wojilu.Web.Controller.Common.Installers {
         public IMemberAppService appService { get; set; }
         public IMenuService menuService { get; set; }
         public IContentSectionService sectionService { get; set; }
+        public IContentPostService postService { get; set; }
         public IContentCustomTemplateService tplService { get; set; }
 
         protected User user;
@@ -49,6 +50,7 @@ namespace wojilu.Web.Controller.Common.Installers {
             menuService = new UserMenuService();
             sectionService = new ContentSectionService();
             tplService = new ContentCustomTemplateService();
+            postService = new ContentPostService();
         }
 
         /// <summary>
@@ -282,7 +284,7 @@ namespace wojilu.Web.Controller.Common.Installers {
                 p.Height = height;
             }
 
-            p.insert();
+            postService.Insert( p, "" );
         }
 
         //---------------------------------

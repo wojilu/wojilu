@@ -39,10 +39,13 @@ namespace wojilu.Web.Controller.Content.Section {
 
             foreach (ContentPost x in posts) {
 
-                ContentPoll p = pollService.GetByTopicId( polls, x.Id );
+                block.Set( "postId", x.Id );
+                block.Set( "lnkPoll", to( new wojilu.Web.Controller.Content.Common.PollController().Show, x.Id ) );
 
-                ctx.SetItem( "poll", p );
-                block.Set( "pollHtml", loadHtml( new wojilu.Web.Controller.Content.Common.PollController().Detail ) );
+                //ContentPoll p = pollService.GetByTopicId( polls, x.Id );
+
+                //ctx.SetItem( "poll", p );
+                //block.Set( "pollHtml", loadHtml( new wojilu.Web.Controller.Content.Common.PollController().Detail ) );
                 block.Next();
             }
         }

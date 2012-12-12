@@ -198,9 +198,13 @@ namespace wojilu.Apps.Content.Service {
                 .find( "SectionId=" + sectionId + " and SaveStatus=" + SaveStatus.Normal + " order by PostId desc" )
                 .list( count );
 
+            if (psList.Count == 0) {
+                // 兼容旧版
+                return ContentPost.find( "SectionId=" + sectionId + " and SaveStatus=" + SaveStatus.Normal ).list( count );
+            }
+
             return populatePost( psList );
         }
-
 
         public virtual List<ContentPost> GetTopBySectionAndCategory( int sectionId, int categoryId, int count ) {
 
@@ -217,7 +221,13 @@ namespace wojilu.Apps.Content.Service {
         }
 
         public virtual int CountBySection( int sectionId ) {
-            return ContentPostSection.count( "SectionId=" + sectionId + " and SaveStatus=" + SaveStatus.Normal );
+            int count= ContentPostSection.count( "SectionId=" + sectionId + " and SaveStatus=" + SaveStatus.Normal );
+            if (count == 0) {
+                return ContentPost.count( "SectionId=" + sectionId + " and SaveStatus=" + SaveStatus.Normal );
+            }
+            else {
+                return count;
+            }
         }
 
         public virtual List<ContentPost> GetAllBySection( int sectionId ) {
@@ -243,7 +253,10 @@ namespace wojilu.Apps.Content.Service {
                 .find( "SectionId=" + sectionId + " and SaveStatus=" + SaveStatus.Normal + " order by PostId desc" )
                 .first();
 
-            if (xResult == null) return null;
+            if (xResult == null) {
+                // 兼容旧版
+                return ContentPost.find( "SectionId=" + sectionId + " and SaveStatus=" + SaveStatus.Normal ).first();
+            }
             if (xResult.Post.AppId != appId) return null;
             return xResult.Post;
         }

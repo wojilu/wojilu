@@ -78,6 +78,13 @@ namespace wojilu.Web.Controller.Content.Common {
 
         //---------------------------------------------------------------------------------
 
+        public void Show( int id ) {
+
+            ContentPoll p = pollService.GetByTopicId( id );
+            ctx.SetItem( "poll", p );
+            actionContent( loadHtml( Detail ) );
+        }
+
         public void Detail() {
 
             ContentPoll p = ctx.GetItem( "poll" ) as ContentPoll;
