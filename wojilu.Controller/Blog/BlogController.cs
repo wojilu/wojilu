@@ -1,4 +1,4 @@
-/*
+﻿/*
  * Copyright (c) 2010, www.wojilu.com. All rights reserved.
  */
 
@@ -32,8 +32,12 @@ namespace wojilu.Web.Controller.Blog {
             ctx.Page.Title = lang( "blog" );
 
             BlogApp app = ctx.app.obj as BlogApp;
-            BlogSetting s = app.GetSettingsObj();
+            if (app == null) {
+                echoError( "app不存在" );
+                return;
+            }
 
+            BlogSetting s = app.GetSettingsObj();
 
             DataPage<BlogPost> results = postService.GetPage( ctx.app.Id, s.PerPageBlogs );
 

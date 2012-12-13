@@ -14,6 +14,7 @@ using wojilu.Apps.Content.Service;
 using wojilu.Web.Controller.Content.Caching;
 
 using wojilu.Members.Sites.Domain;
+using wojilu.Web.Controller.Content.Utils;
 
 namespace wojilu.Web.Controller.Content.Admin {
 
@@ -33,7 +34,7 @@ namespace wojilu.Web.Controller.Content.Admin {
         public override void CheckPermission() {
             if (ctx.owner.obj is Site == false) {
                 echoError( "没有权限，目前只支持网站生成html页面" );
-            }                
+            }
         }
 
         public void Index() {
@@ -44,20 +45,23 @@ namespace wojilu.Web.Controller.Content.Admin {
             set( "lnkMakeDetailAll", to( MakeDetailAll ) );
             set( "lnkMakeSectionAll", to( MakeSectionAll ) );
             set( "lnkMakeHome", to( MakeHomePage ) );
-            set( "lnkMakeSidebar", to( MakeSidebar ) );
 
             IBlock sectionBlock = getBlock( "sections" );
             List<ContentSection> sections = sectionService.GetByApp( ctx.app.Id );
             foreach (ContentSection section in sections) {
+
+                if (section.ServiceId > 0) continue;
+
                 sectionBlock.Set( "section.Name", section.Title );
                 sectionBlock.Set( "lnkMakeSection", to( MakeSection, section.Id ) );
                 sectionBlock.Set( "lnkMakeDetail", to( MakeDetailBySection, section.Id ) );
+                sectionBlock.Set( "lnkStaticList", clink.toSection( section.Id ) );
                 sectionBlock.Next();
             }
-
         }
 
         private void bindHtmlDir() {
+
             ContentApp app = ctx.app.obj as ContentApp;
             ContentSetting s = app.GetSettingsObj();
 
@@ -69,6 +73,9 @@ namespace wojilu.Web.Controller.Content.Admin {
             set( "host", ctx.url.SiteAndAppPath );
             set( "editHtmlDirLink", to( EditHtmlDir ) );
 
+            String lnkHtmlHome = strUtil.Join( ctx.url.SiteAndAppPath, htmlDir ) + "/default.html";
+
+            set( "lnkHtmlHome", lnkHtmlHome );
         }
 
         public void EditHtmlDir() {
@@ -124,11 +131,8 @@ namespace wojilu.Web.Controller.Content.Admin {
             echo( "生成所有静态页面成功，共 " + htmlCount + " 篇" );
         }
 
-        public void MakeSidebar() {
-            view( "MakeDone" );
+        private void MakeSidebar() {
             HtmlHelper.MakeSidebarHtml( ctx );
-            echo( "生成侧栏页成功" );
-
             htmlCount += 1;
         }
 
@@ -142,6 +146,8 @@ namespace wojilu.Web.Controller.Content.Admin {
             view( "MakeDone" );
 
             ContentApp app = ctx.app.obj as ContentApp;
+
+            MakeSidebar();
 
             // 最近列表页
             int recentCount = postService.CountByApp( app.Id );
@@ -167,6 +173,7 @@ namespace wojilu.Web.Controller.Content.Admin {
 
             view( "MakeDone" );
 
+            MakeSidebar();
 
             List<ContentPost> list = postService.GetByApp( ctx.app.Id );
             makeDetail( list );
@@ -178,6 +185,8 @@ namespace wojilu.Web.Controller.Content.Admin {
         public void MakeSection( int sectionId ) {
 
             view( "MakeDone" );
+
+            MakeSidebar();
 
             ContentApp app = ctx.app.obj as ContentApp;
             int recordCount = postService.CountBySection( sectionId );
@@ -191,7 +200,10 @@ namespace wojilu.Web.Controller.Content.Admin {
 
             view( "MakeDone" );
 
+            MakeSidebar();
+
             List<ContentPost> list = postService.GetAllBySection( sectionId );
+            makeDetail( list );
             echo( "生成详细页成功，共 " + list.Count + " 篇" );
         }
 

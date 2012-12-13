@@ -484,6 +484,7 @@
     <Content Include="framework\views\Users\Admin\Notification\List.html" />
     <Content Include="framework\views\Users\Admin\Notification\NewList.html" />
     <Content Include="framework\views\Users\Admin\UserProfile\Contact.html" />
+    <Content Include="framework\views\Users\Admin\UserProfile\Email.html" />
     <Content Include="framework\views\Users\Admin\UserProfile\Face.html" />
     <Content Include="framework\views\Users\Admin\UserProfile\Interest.html" />
     <Content Include="framework\views\Users\Admin\UserProfile\Layout.html" />

@@ -221,7 +221,8 @@ namespace wojilu.Apps.Content.Service {
         }
 
         public virtual int CountBySection( int sectionId ) {
-            int count= ContentPostSection.count( "SectionId=" + sectionId + " and SaveStatus=" + SaveStatus.Normal );
+            int count = ContentPostSection.count( "SectionId=" + sectionId + " and SaveStatus=" + SaveStatus.Normal );
+            // 兼容旧版
             if (count == 0) {
                 return ContentPost.count( "SectionId=" + sectionId + " and SaveStatus=" + SaveStatus.Normal );
             }
@@ -231,22 +232,18 @@ namespace wojilu.Apps.Content.Service {
         }
 
         public virtual List<ContentPost> GetAllBySection( int sectionId ) {
-            return ContentPostSection
+            List<ContentPost> xResult = ContentPostSection
                 .find( "SectionId=" + sectionId + " and SaveStatus=" + SaveStatus.Normal + " order by PostId desc" )
                 .listChildren<ContentPost>( "Post" );
+
+            if (xResult.Count == 0) {
+                // 兼容旧版
+                return ContentPost.find( "SectionId=" + sectionId + " and SaveStatus=" + SaveStatus.Normal ).list();
+            }
+            else {
+                return xResult;
+            }
         }
-
-        //public virtual List<ContentPost> GetBySection( List<ContentPost> dataAll, int sectionId ) {
-        //    List<ContentPost> result = new List<ContentPost>();
-        //    foreach (ContentPost post in dataAll) {
-        //        if (post.PageSection.Id == sectionId) {
-        //            result.Add( post );
-        //        }
-        //    }
-
-        //    result.Sort();
-        //    return result;
-        //}
 
         public virtual ContentPost GetFirstPost( int appId, int sectionId ) {
             ContentPostSection xResult = ContentPostSection
@@ -321,12 +318,28 @@ namespace wojilu.Apps.Content.Service {
 
         public virtual DataPage<ContentPost> GetPageBySection( int sectionId, int pageSize ) {
             DataPage<ContentPostSection> list = ContentPostSection.findPage( "SectionId=" + sectionId + " and SaveStatus=" + SaveStatus.Normal, pageSize );
-            return list.Convert<ContentPost>( populatePost( list.Results ) );
+            DataPage<ContentPost> xResult = list.Convert<ContentPost>( populatePost( list.Results ) );
+
+            // 兼容旧版
+            if (xResult.RecordCount == 0) {
+                return ContentPost.findPage( "SectionId=" + sectionId + " and SaveStatus=" + SaveStatus.Normal, pageSize );
+            }
+            else {
+                return xResult;
+            }
         }
 
         public virtual DataPage<ContentPost> GetPageBySectionArchive( int sectionId, int pageSize ) {
             DataPage<ContentPostSection> list = ContentPostSection.findPageArchive( "SectionId=" + sectionId + " and SaveStatus=" + SaveStatus.Normal, pageSize );
-            return list.Convert<ContentPost>( populatePost( list.Results ) );
+
+            DataPage<ContentPost> xResult = list.Convert<ContentPost>( populatePost( list.Results ) );
+            // 兼容旧版
+            if (xResult.RecordCount == 0) {
+                return ContentPost.findPageArchive( "SectionId=" + sectionId + " and SaveStatus=" + SaveStatus.Normal, pageSize );
+            }
+            else {
+                return xResult;
+            }
         }
 
         // 用在 AdminList 中

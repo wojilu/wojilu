@@ -48,11 +48,11 @@ namespace wojilu.Web.Controller.Users.Admin {
         }
 
         public override void Layout() {
+
             set( "viewer.ProfileUrl", to( Profile ) );
             set( "viewer.InterestUrl", to( Interest ) );
             set( "viewer.ContactLink", to( Contact ) );
             set( "viewer.TagUrl", to( Tag ) );
-
 
             set( "viewer.FaceUrl", to( Face ) );
             set( "viewer.PwdUrl", to( Pwd ) );
@@ -66,7 +66,6 @@ namespace wojilu.Web.Controller.Users.Admin {
                 set( "viewer.PrivacyLink", to( Privacy ) );
                 set( "privacyLinkStyle", "" );
             }
-
         }
         //----------------------------------------------------------------------------------------------------------
 
@@ -183,6 +182,9 @@ namespace wojilu.Web.Controller.Users.Admin {
             target( ContactSave );
             User user = ctx.owner.obj as User;
             bindContact( user );
+
+            set( "lnkEmail", to( Email ) );
+
         }
 
         public void ContactSave() {
@@ -194,6 +196,42 @@ namespace wojilu.Web.Controller.Users.Admin {
         }
 
         //----------------------------------------------------------------------------------------------------------
+
+        public void Email() {
+            target( SaveEmail );
+            User user = ctx.owner.obj as User;
+            set( "userEmail", user.Email );
+        }
+
+        public void SaveEmail() {
+
+            String pwd = ctx.Post( "Pwd" );
+            String email = strUtil.CutString( ctx.Post( "Email" ), 30 );
+
+            User user = ctx.owner.obj as User;
+
+            if (strUtil.IsNullOrEmpty( pwd )) {
+                errors.Add( "请填写密码" );
+            }
+            else if (strUtil.IsNullOrEmpty( email )) {
+                errors.Add( lang( "exEmail" ) );
+            }
+            else if (RegPattern.IsMatch( email, RegPattern.Email ) == false) {
+                errors.Add( lang( "exUserMail" ) );
+            }
+            else if (userService.IsPwdCorrect( user, pwd ) == false) {
+                errors.Add( lang( "exPwdError" ) );
+            }
+            else if (userService.IsEmailExist( email )) {
+                errors.Add( lang( "exEmailFound" ) );
+            }
+
+            if (ctx.HasErrors) { echoError(); return; }
+
+            userService.UpdateEmail( user, email );
+
+            echoToParentPart( lang( "opok" ) );
+        }
 
         public void Pwd() {
             view( "Pwd" );
@@ -224,11 +262,11 @@ namespace wojilu.Web.Controller.Users.Admin {
             User user = ctx.owner.obj as User;
             if (userService.IsPwdCorrect( user, opwd ) == false) errors.Add( lang( "exPwdError" ) );
 
-            if (errors.HasErrors) { echoError(); return; }
+            if (ctx.HasErrors) { echoError(); return; }
 
             userService.UpdatePwd( user, pwd1 );
 
-            echoRedirect( lang( "opok" ), Pwd );
+            echoRedirect( lang( "opok" ) );
         }
 
         //----------------------------------------------------------------------------------------------------------
@@ -458,13 +496,6 @@ namespace wojilu.Web.Controller.Users.Admin {
 
 
         private void saveContact( User m ) {
-
-
-            String email = ctx.Post( "Email" );
-            if (m.Email.Equals( email ) == false) {
-                m.Email = email;
-                m.IsEmailConfirmed = 0;
-            }
 
 
             m.Profile.EmailNotify = ctx.PostInt( "EmailNotify" );

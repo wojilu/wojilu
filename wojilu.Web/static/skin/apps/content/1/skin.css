@@ -1,6 +1,6 @@
-.sectionPanel {} /*“≥√Ê«¯øÈ*/
-.sectionTitle {} /*«¯øÈ±ÍÃ‚µƒ±≥æ∞…´ ∫Õ…œ√Êµƒ±ﬂœﬂ*/ 
-.sectionTitle,  .sectionTitle a {} /*«¯øÈ±ÍÃ‚—’…´*/
+Ôªø.sectionPanel {} /*È°µÈù¢Âå∫Âùó*/
+.sectionTitle {} /*Âå∫ÂùóÊ†áÈ¢òÁöÑËÉåÊôØËâ≤ Âíå‰∏äÈù¢ÁöÑËæπÁ∫ø*/ 
+.sectionTitle,  .sectionTitle a {} /*Âå∫ÂùóÊ†áÈ¢òÈ¢úËâ≤*/
 .clear { clear:both;}
 
 /*************************************************************************************/
@@ -61,12 +61,12 @@ div.articleLocation {margin:0px 10px 10px 5px; color:#666;}
       
 /************** detail ***************/
 
-#postContainer {width:100%;position:relative;}
+#postContainer {width:100%;position:relative;border-top:1px dotted #d8d8d8;margin-top:20px;background:url(post-sp-bg.png) repeat-y;}
 
 
-    #postMain {float:left;  padding:10px 10px 10px 0px; margin:10px 10px 10px 10px }
-    #postMain h4{font-size:18px; margin:5px;}
-        #postMainContainer {padding:15px; background:#ebf4ff;border:1px #92b0dd solid; width:600px;}
+    #postMain {float:left;  padding:0px 10px 10px 0px; margin:0px 0px 10px 10px;}
+        #postMain h4{font-size:20px;font-family:ÂæÆËΩØÈõÖÈªë; margin:10px;margin-top:20px;}
+        #postMainContainer {padding:15px;  width:600px;margin-top:10px; }
         
         .ulimgMiddle li {float:left;width:115px;list-style:none; height:125px;margin:10px; padding-top:10px; background:#fff;text-align:center}
         .ulimgMiddle li div {margin:5px; }
@@ -81,35 +81,29 @@ div.articleLocation {margin:0px 10px 10px 5px; color:#666;}
         #postContent {margin:5px 5px 5px 5px; font-size:14px; line-height:150%}   
         #postContent img {max-width:560px;}
         
-        .post-detail-summary {margin:10px 0px;padding:10px;border:1px #ccc solid; background:#fff; line-height:150%;}
+        .post-detail-summary {margin:10px 0px;padding:10px;border:1px #ccc solid; background:#f2f2f2; line-height:150%;}
         .post-detail-attachment {margin:0px 20px;}
         .post-detail-tag {text-align:; color:#666; padding:0px 0px 10px 10px;}
         .post-detail-submitter { margin-left:10px;}
 
-    #postSidebar { width:260px; float:left; padding:10px 0px 0px 0px; }
+    #postSidebar { width:265px; float:right; padding:10px 0px 0px 10px;margin-right:5px;}
     #postSidebarContainer {padding:10px 0px 0px 0px; }
-        .postPanel {margin:0px 0px 10px 0px;padding-bottom:10px; border:1px #aaccee solid; line-height:150%; font-size:14px; display:block;}
-        .postPanelTitle {padding:3px 0px 1px 10px; border-bottom:1px #aaccee solid; background:#e2eaf8; color:#004499; font-weight:bold; font-size:14px; line-height:25px;}
-        .postPanel a {color:#004499}
+        .postPanel {margin:0px 0px 10px 0px;padding-bottom:10px; line-height:150%; font-size:14px; display:block;}
+        .postPanelTitle {border-bottom:1px #ccc solid; line-height:25px; font-family:ÂæÆËΩØÈõÖÈªë;}
+        .postPanelTitle h2 {width:83px;padding:0px 0px 0px 1px;font-weight:normal; font-size:20px; border-bottom:1px solid #666;margin-bottom:-1px; }
+        .postPanel a {color:#333;}
         .postPanel ul {list-style:none; margin:10px; padding:0px;}
-    #postSidebarContainer .postPanel .ulimg img {width:110px;height:80px;text-align:center;} 
-    #postSidebarContainer .postPanel .ulimg div.postTitle {text-align:center;font-size:12px;white-space:nowrap;text-overflow:ellipsis; -o-text-overflow:ellipsis; -moz-text-overflow:ellipsis; overflow: hidden;} 
 
-
-    #postSidebar { width:272px; float:left; padding:10px 0px 0px 0px; }
-    #postSidebarContainer {padding:10px 0px 0px 0px;width:270px; }
-        .postPanel {margin:0px 0px 10px 0px;padding-bottom:10px; border:1px #aaccee solid; line-height:150%; font-size:14px; display:block;}
-        .postPanelTitle {padding:3px 0px 1px 10px; border-bottom:1px #aaccee solid; background:#e2eaf8; color:#004499; font-weight:bold; font-size:14px; line-height:25px;}
-        .postPanel a {color:#004499}
-        .postPanel ul {list-style:none; margin:10px; padding:0px;}
+        #postSidebarContainer li.textListTitle {width:220px; margin:3px 0px 3px 0px;white-space:nowrap;text-overflow:clip; -o-text-overflow:clip; -moz-text-overflow:clip; overflow: hidden;}
         
-        #postSidebarContainer li.textListTitle {width:220px;white-space:nowrap;text-overflow:clip; -o-text-overflow:clip; -moz-text-overflow:clip; overflow: hidden;}
-        
-    #postSidebarContainer .postPanel .ulimg li{ float:left;margin:5px 0px 5px 10px;width:100px;}
-    #postSidebarContainer .postPanel .ulimg img {width:90px;height:80px;text-align:center;} 
-    #postSidebarContainer .postPanel .postTitle {width:100px;text-align:center;font-size:12px;white-space:nowrap;text-overflow:clip; -o-text-overflow:clip; -moz-text-overflow:clip; overflow: hidden;} 
+    #postSidebarContainer .postPanel .ulimg { margin-left:0px;}
+    #postSidebarContainer .postPanel .ulimg li{ float:left;margin:5px 10px 5px 0px;width:115px;}
+    #postSidebarContainer .postPanel .ulimg img {width:105px;height:80px;text-align:center;} 
+    #postSidebarContainer .postPanel .postTitle {width:105px;} 
+    #postSidebarContainer .postPanel .postTitle {text-align:center;font-size:12px;white-space:nowrap;text-overflow:clip; -o-text-overflow:clip; -moz-text-overflow:clip; overflow: hidden;} 
 
-.postPanel ul.textList li {list-style:none; width:100%;white-space:nowrap;text-overflow:ellipsis; -o-text-overflow:ellipsis; -moz-text-overflow:ellipsis; overflow: hidden;}
+        .postPanel ul.textList {margin-left:5px;}
+        .postPanel ul.textList li {list-style:none; width:100%;white-space:nowrap;text-overflow:clip; -o-text-overflow:clip; -moz-text-overflow:clip; overflow: hidden;}
 
 #postComment {}
 .postCommentOne {margin:0px 0px 10px 0px; }
@@ -120,7 +114,7 @@ table.commentPublishTable {color:#004499; border:0px #aaa solid; margin-left:15p
 .commentPublishTable input {border:1px #aaa solid;}
 .commentPublishTable textarea {border:1px #aaa solid;}
 
-    /*∏Ωº˛*/
+    /*ÈôÑ‰ª∂*/
     
     .downloadWarning {margin-top:15px;border:1px #fed22f solid;background:#ffe45c;width:80%;}
     .downloadWarning div {background:url('../../../../img/lock.gif') no-repeat 10px center;padding:5px 5px 5px 25px;font-size:12px;}

@@ -72,10 +72,12 @@ namespace wojilu.Members.Users.Interface {
 
         void SendConfirmEmail( User user );
         void UpdatePwd( User user, String pwd );
+        void UpdateEmail( User user, string email );
         void UpdateAvatar( User user, String newPic );
 
 
         List<User> SearchByName( String name );
+
 
 
 

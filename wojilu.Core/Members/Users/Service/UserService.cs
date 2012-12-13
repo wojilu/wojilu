@@ -103,6 +103,11 @@ namespace wojilu.Members.Users.Service {
             db.update( user, "Pwd" );
         }
 
+        public virtual void UpdateEmail( User user, String email ) {
+            user.Email = email;
+            db.update( user, "Email" );
+        }
+
         public virtual String GetLastUserName() {
             List<User> users = GetNewList( 1 );
             return users.Count > 0 ? users[0].Name : "";

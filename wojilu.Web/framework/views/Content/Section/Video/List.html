@@ -2,8 +2,8 @@
 
 <ul class="sectionVideos unstyled">
 	<!-- BEGIN list -->
-	<li style="width:140px; border-radius:3px; margin:10px 20px 10px 10px; background:#fff; padding:10px 5px; box-shadow:3px 3px 10px #aaa;">
-		<div><a href="#{img.Url}"><img src="#{img.Thumb}"  class="thumbItem"  style="max-width:130px; max-height:130px;" /></a></div>
+	<li style="width:148px; border-radius:3px; margin:10px 20px 10px 10px; background:#fff; padding:10px 5px; box-shadow:3px 3px 10px #ccc;">
+		<div><a href="#{img.Url}"><img src="#{img.Thumb}"  class="thumbItem"/></a></div>
 		<div style="width:135px;  overflow:hidden;text-overflow:clip;  white-space:nowrap; margin-top:10px;">
         <a href="#{img.Url}">#{img.Title}</a>
         </div>	
@@ -18,8 +18,8 @@
 <script>
     _run(function () {
 
-        var twidth = 120;
-        var theight = 120;
+        var twidth = 128;
+        var theight = 96;
 
         $('.thumbItem').each(function () {
             if ($(this).width() > twidth) $(this).width(twidth);

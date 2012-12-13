@@ -22,7 +22,9 @@
 					<td class="tdLeft" >Email</td>
 					<td>
 					<div>
-					<input name="Email" type="text" value="#{m.Email}" style="width:320px;"> <span class="left10 note">
+                        <span style=" font-weight:bold;">#{m.Email}</span>
+                        <a href="#{lnkEmail}" class="frmBox" title="修改 Email"><img src="~img/mail/mail.gif" /> _{edit}</a>
+					 <span class="left20 note">
 					_{emailNotification}</span>#{m.EmailNotify}</div>
 					
 					<div class="note">#{confirmTip}</div>

@@ -37,7 +37,7 @@ namespace wojilu.Web.Controller.Content.Section {
             IBlock block = getBlock( "list" );
             foreach (ContentPost post in posts.Results) {
                 block.Set( "post.Author", post.Author );
-                block.Set( "post.Url", alink.ToAppData( post ) );
+                block.Set( "post.Url", alink.ToAppData( post, ctx ) );
                 block.Set( "post.Content", post.Content );
                 block.Set( "post.Created", post.Created );
 

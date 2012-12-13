@@ -39,11 +39,16 @@ namespace wojilu.Web.Controller.Content.Utils {
         public static String toSection( int sectionId, MvcContext ctx ) {
 
             if (HtmlHelper.IsMakeHtml( ctx )) {
-                return string.Format( "/html/list/{0}.html", sectionId );
+                return toSection( sectionId );
             }
             else {
                 return ctx.link.To( new SectionController().Show, sectionId );
             }
+        }
+
+
+        public static String toSection( int sectionId ) {
+            return string.Format( "/html/list/{0}.html", sectionId );
         }
 
         public static String toArchive( int sectionId, MvcContext ctx ) {

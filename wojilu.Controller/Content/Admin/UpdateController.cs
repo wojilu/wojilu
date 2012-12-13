@@ -52,7 +52,7 @@ namespace wojilu.Web.Controller.Content.Admin {
                 newPs.Section = x.PageSection;
                 newPs.SaveStatus = x.SaveStatus;
 
-                ps.insert();
+                newPs.insert();
 
                 logger.Info( "transSectionOne=> postId=" + x.Id + ", sectionId=" + x.PageSection.Id );
             }

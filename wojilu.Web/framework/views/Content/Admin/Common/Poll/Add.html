@@ -56,7 +56,7 @@ label.clickLabel { background:#ffe45c; }
 
 </script>
 
-<div style="padding-top:10px;width:650px; height:450px;">
+<div style="padding-top:10px;height:450px;width:650px;">
 
 	<form action="#{ActionLink}" method="post" id="pollPollForm" class="form-horizontal">
 
@@ -122,12 +122,13 @@ label.clickLabel { background:#ffe45c; }
 
         <tr>
             <td></td>
-            <td style="padding-top:5px;">
+            <td style="padding-top:10px;">
             
                 <button name="btnSubmit" type="submit" class="btn btn-primary">
                     <img src="~img/poll.gif">
                     _{pubPoll}
                 </button>
+
 
                 <input name="appId" type="hidden" value="#{appId}" />
                 <div class="hide" id="optionCount">4</div>

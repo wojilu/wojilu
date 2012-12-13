@@ -40,7 +40,7 @@ namespace wojilu.Web.Controller.Content.Common {
             populatePoll( list.Results, polls );
 
             list.Results.ForEach( x => {
-                x.data.show = alink.ToAppData( x );
+                x.data.show = alink.ToAppData( x, ctx );
                 x.data["Replies"] = x.Replies > 0 ? string.Format( "<span class=\"spVote\">|</span>{0}评论", x.Replies ) : "";
             } );
 

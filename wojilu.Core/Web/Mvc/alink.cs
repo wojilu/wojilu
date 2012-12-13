@@ -32,6 +32,8 @@ namespace wojilu.Web.Mvc {
 
         public static String ToAppData( IAppData data, MvcContext ctx ) {
 
+            if (data == null) return "";
+
             if (ctx != null && ctx.IsMock && ctx.GetItem( "_makeHtml" ) != null) return HtmlLink.ToAppData( data );
 
             String controllerPath = getAppDataController( data.GetType().FullName, data.AppId );

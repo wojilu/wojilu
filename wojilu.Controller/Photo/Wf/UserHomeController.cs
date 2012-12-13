@@ -1,20 +1,25 @@
-﻿using System;
+﻿/*
+ * Copyright (c) 2010, www.wojilu.com. All rights reserved.
+ */
+
+using System;
 using System.Collections.Generic;
-using System.Text;
+
 using wojilu.Web.Mvc;
-using wojilu.Members.Users.Interface;
-using wojilu.Apps.Photo.Interface;
-using wojilu.Members.Users.Service;
-using wojilu.Apps.Photo.Service;
-using wojilu.Members.Users.Domain;
-using wojilu.Apps.Photo.Domain;
-using wojilu.Common.AppBase;
+using wojilu.Web.Mvc.Attr;
 using wojilu.Web.Controller.Common;
+
+using wojilu.Members.Users.Domain;
+using wojilu.Members.Users.Interface;
+using wojilu.Members.Users.Service;
+
+using wojilu.Apps.Photo.Domain;
+using wojilu.Apps.Photo.Interface;
+using wojilu.Apps.Photo.Service;
 
 namespace wojilu.Web.Controller.Photo.Wf {
 
-
-
+    [App( typeof( PhotoApp ) )]
     public class UserHomeController : ControllerBase {
 
         public IUserService userService { get; set; }
