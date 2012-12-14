@@ -22,6 +22,8 @@ namespace wojilu.Web.Controller.Content.Section {
 
         public override void Layout() {
             set( "lnkSidebar", clink.toSidebar( ctx ) );
+            set( "adSidebarTop", AdItem.GetAdById( AdCategory.ArticleSidebarTop ) );
+            set( "adSidebarBottom", AdItem.GetAdById( AdCategory.ArticleSidebarBottom ) );
         }
 
     }

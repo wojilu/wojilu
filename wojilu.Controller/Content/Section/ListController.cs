@@ -4,18 +4,12 @@
 
 using System;
 using System.Collections;
-using System.Collections.Generic;
-using System.Text;
 
 using wojilu.Web.Mvc;
 using wojilu.Web.Mvc.Attr;
 
-using wojilu.Apps;
-using wojilu.ORM;
-
 using wojilu.Common;
 using wojilu.Common.AppBase;
-using wojilu.Common.AppBase.Interface;
 
 using wojilu.Apps.Content.Domain;
 using wojilu.Apps.Content.Interface;

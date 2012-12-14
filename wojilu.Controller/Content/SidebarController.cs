@@ -35,8 +35,6 @@ namespace wojilu.Web.Controller.Content {
             List<ContentPost> videos = postService.GetRankPost( ctx.app.Id, s.RankVideos, PostCategory.Video );
             bindVideos( videos, "video" );
 
-            set( "adSidebarTop", AdItem.GetAdById( AdCategory.ArticleSidebarTop ) );
-            set( "adSidebarBottom", AdItem.GetAdById( AdCategory.ArticleSidebarBottom ) );
         }
 
 

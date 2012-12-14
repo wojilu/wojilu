@@ -9,20 +9,20 @@
     
 <script type="text/javascript">
 <!--
-_run( function() {    
+    _run(function () {
 
-	$('.tabItem').click( function() {
-	
-	    $('.tabItem').removeClass( 'currentTab' ).removeClass( 'otherTab' ).addClass( 'otherTab' );	    
-	    $(this).removeClass( 'otherTab' ).addClass( 'currentTab' );
-	    
-	    var tabId = wojilu.str.trimStart( $(this).attr( 'id' ), 'tab' );
-	    
-	    $('.tabMain').hide();
-	    $('#content'+tabId).show();	
-	});
+        $('.tabList li').click(function () {
 
-});
+            $('.tabList li').removeClass('currentTab');
+            $(this).addClass('currentTab');
+
+            var tabId = $(this).attr('data-id');
+
+            $('.tabBody').hide();
+            $('#' + tabId).show();
+        });
+
+    });
 //-->
 </script>
 
@@ -31,24 +31,22 @@ _run( function() {
 #tagList {width:200px}
 #srcLink {width:350px;}
 
-.tabItem { cursor:pointer;}
-.tabMain {padding:10px 0px;}
+.tabList  {margin-left:20px;}
+.tabList li {width:120px; }
+.tabBody {width:95%; padding:10px 0px 10px 20px;}
 </style>
 
 	
 <form method="post" action="#{ActionLink}" style="margin-bottom:30px;" class="ajaxPostForm">
 
-	<table style="width:96%;background:#eee;" class="tabHeader" cellpadding="0" cellspacing="0">
-		<tr>
-			<td id="tab1" class="tabItem currentTab" style="width:20%;">:{general}</td>
-			<td id="tab2" class="tabItem otherTab" style="width:20%;">:{advanced}</td>
-			<td id="tab3" class="tabItem otherTab" style="width:20%;">&nbsp;</td>
-			<td class="otherTab" style="width:40%;">&nbsp;</td>
-		</tr>
-	</table>
+
+    <ul class="tabList">
+        <li class="firstTab currentTab" data-id="content1"><a href="javascript:void(0);">:{general}</a><span></span></li>
+        <li data-id="content2"><a href="javascript:void(0);">:{advanced}</a><span></span></li>
+    </ul>    
 	
-	<div id="content1" class="tabMain" style="width:96%;">
-	<table style="width: 96%;margin:auto;">
+	<div id="content1" class="tabBody">
+	<table style="width: 100%;margin:auto;">
 		<tr class="hide">
 			<td style="width: 80px;">:{itsSection}</td>
 			<td style="width: 670px;"><strong>#{section.Title}</strong></td>
@@ -69,9 +67,12 @@ _run( function() {
 			<td>#{Editor}</td>
 		</tr>	
 		<tr>
-			<td>&nbsp;<input type="hidden" name="ModuleId" value="#{module.Id}" /></td>
-			<td>
-			    <input name="Submit1" type="submit" value=":{submitData}" class="btn btn-primary"> 
+			<td>&nbsp;</td>
+			<td style="padding-top:10px;">
+                <button class="btn btn-primary" type="submit">
+                    <i class="icon-plus icon-white"></i>
+                    :{submitData}
+                </button>
 			    <input type="button" value="_{return}" class="btn btnReturn left20" />
 			</td>
 		</tr>		
@@ -79,8 +80,8 @@ _run( function() {
 	</table>
 	</div>
 	
-	<div id="content2" class="tabMain" style="display:none;width:95%;">
-	<table style="width: 95%;margin:auto;">
+	<div id="content2" class="tabBody" style="display:none;">
+	<table style="width: 100%;margin:auto;">
 	    <tr>
 	        <td>_{tag}</td>
 	        <td><input name="TagList" id="tagList" type="text">

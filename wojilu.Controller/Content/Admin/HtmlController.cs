@@ -76,6 +76,7 @@ namespace wojilu.Web.Controller.Content.Admin {
             String lnkHtmlHome = strUtil.Join( ctx.url.SiteAndAppPath, htmlDir ) + "/default.html";
 
             set( "lnkHtmlHome", lnkHtmlHome );
+            set( "lnkOriginalHome", alink.ToApp( app ) );
         }
 
         public void EditHtmlDir() {

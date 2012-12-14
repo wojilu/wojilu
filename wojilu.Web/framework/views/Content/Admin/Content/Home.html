@@ -60,8 +60,7 @@
 			<td colspan="#{row.ColumnCount}" class="adminRowTitle" style="border-bottom:0px;">
 			<table style="width:100%; "><tr><td>
 			    <span  class="rowNumber" style="color:#aaa;">
-			        <img src="~img/dot.gif"/> #{row.No} 
-			        <a href="#{row.EditUILink}" class="frmBox"  xwidth="680" title=":{setRowStyle}"><img src="~img/image.gif"/></a>
+			        <a href="#{row.EditUILink}" class="frmBox"  xwidth="680" title=":{setRowStyle}"><img src="~img/image.gif"/> #{row.No} </a>
 			    </span>
 			</td>
 			<td style="text-align:right; color:#aaa;">
@@ -76,10 +75,10 @@
 			<!-- BEGIN columnList -->
 			<td id="#{column.Id}" class="adminColumn" style="padding:2px;">
 				<ul class="columnTitle" style="border-radius:4px; border:0px; ">
-					<li style="float:left; color:#aaa;">
-					    #{column.Name}
+					<li style="float:left; color:#aaa; vertical-align:middle;">					    
 					    <a href="#{column.EditUILink}" class="frmBox" xwidth="680" title=":{setColumnStyle}">
 					        <img class="dropArrow" src="~img/image.gif"/>
+                            #{column.Name}
 					    </a>
 					</li>
 					<li style="float:left;" class="menuMore left10" id="colAdmin#{column.Id}" list="sectionAdder#{column.Id}"><img src="~img/add.gif"/> <span style="color:#aaa;">:{addSection}</span>

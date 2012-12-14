@@ -1,4 +1,4 @@
-/*
+﻿/*
  * Copyright (c) 2010, www.wojilu.com. All rights reserved.
  */
 
@@ -73,14 +73,23 @@ namespace wojilu.Web.Mvc {
         }
 
         /// <summary>
-        /// ����Ч��������׺�������� /Forum1/Forum/Index.aspx
+        /// 获取App的网址。最后的效果包括后缀名，比如 /Forum1/Forum/Index.aspx
+        /// </summary>
+        /// <param name="app"></param>
+        /// <returns></returns>
+        public static String ToApp( IApp app ) {
+            return ToApp( app, null );
+        }
+
+        /// <summary>
+        /// 获取App的网址。最后的效果包括后缀名，比如 /Forum1/Forum/Index.aspx
         /// </summary>
         /// <param name="app"></param>
         /// <param name="ctx"></param>
         /// <returns></returns>
         public static String ToApp( IApp app, MvcContext ctx ) {
 
-            if (ctx.IsMock && ctx.GetItem( "_makeHtml" ) != null) return HtmlLink.ToApp( app );
+            if (ctx != null && ctx.IsMock && ctx.GetItem( "_makeHtml" ) != null) return HtmlLink.ToApp( app );
 
             String appName = strUtil.TrimEnd( app.GetType().Name, "App" );
             return getAppLink( app.OwnerType, app.OwnerUrl, appName, app.Id );

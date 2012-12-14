@@ -17,26 +17,33 @@
     </div>
 
 
-    <div style=" margin-left:50px; margin-top:30px;">
+    <div style=" margin-left:50px; margin-top:10px;">
 
         <div class="htmlTitle">1. 配置</div>
 
         <div style="margin:0px 0px 30px 30px; font-size:14px;">
             <strong>修改html文件所在目录：</strong><span style="color:#666;">#{host}<span style="color:blue;font-weight:bold;font-size:16px;">#{htmlDir}</span>/</span>
             <a href="#{editHtmlDirLink}" style="margin-left:10px;" class="frmBox"><img src="~img/edit.gif" /> 修改</a>
-            <a href="#{lnkHtmlHome}" target="_blank" style=" margin:10px;">&raquo; 查看</a>
+            <a href="#{lnkHtmlHome}" target="_blank" style=" margin-left:5px;">&raquo; 查看</a>
         </div>
 
         <div class="htmlTitle">2. 批量生成</div>
         <div style="margin:10px 0px 0px 30px;">
 
-            <div class="clearfix top10"><div style=" float:left;"><a href="#{lnkMakeHome}" class="frmBox btnBig" style="font-size:14px; width:100px; font-weight:bold;" title="生成首页">生成首页</a></div></div>
+            <div class="clearfix top10">
+                <div style=" float:left;"><a href="#{lnkMakeHome}" class="frmBox btnBig" style="font-size:14px; font-weight:bold;" title="生成首页">生成首页</a></div>
+                <div style="float:left; margin:5px;">
+                    <span style="margin-left:5px;font-size:12px; color:#666;">&raquo; 查看：</span>
+                    <a href="#{lnkHtmlHome}" target="_blank" style=" margin-left:0px;font-size:12px;">静态首页</a>
+                    <a href="#{lnkOriginalHome}" target="_blank" style=" margin-left:5px;font-size:12px;">动态首页</a>
+                </div>
+            </div>
 
-            <div class="clearfix top10"><div style=" float:left;"><a href="#{lnkMakeSectionAll}" class="frmBox btnBig" style="font-size:14px; font-weight:bold;" title="生成所有列表页">生成所有列表页</a></div><div style=" float:left; margin:5px;"><span class="note font12">(耗时较长，请耐心等待)</span></div></div>
+            <div class="clearfix top10"><div style=" float:left;"><a href="#{lnkMakeSectionAll}" class="frmBox btnBig" style="font-size:14px; font-weight:bold;" title="生成所有列表页">生成所有列表页</a></div><div style=" float:left; margin:10px;"><span class="note font12">(耗时较长，请耐心等待)</span></div></div>
 
-            <div class="clearfix top10"><div style=" float:left;"><a href="#{lnkMakeDetailAll}" class="frmBox btnBig" style="font-size:14px; font-weight:bold;" title="生成所有详细页">生成所有详细页</a></div><div style=" float:left; margin:5px;"><span class="note font12">(耗时较长，请耐心等待)</span></div></div>
+            <div class="clearfix top10"><div style=" float:left;"><a href="#{lnkMakeDetailAll}" class="frmBox btnBig" style="font-size:14px; font-weight:bold;" title="生成所有详细页">生成所有详细页</a></div><div style=" float:left; margin:10px;"><span class="note font12">(耗时较长，请耐心等待)</span></div></div>
 
-            <div class="clearfix top10"><div style=" float:left;"><a href="#{lnkMakeAll}" class="frmBox btnBig" style="font-size:14px; font-weight:bold;" title="生成所有页面">生成所有页面</a></div><div style=" float:left; margin:5px;"><span class="note font12">(耗时较长，请耐心等待)</span></div></div>
+            <div class="clearfix top10"><div style=" float:left;"><a href="#{lnkMakeAll}" class="frmBox btnBig" style="font-size:14px; font-weight:bold;" title="生成所有页面">生成所有页面</a></div><div style=" float:left; margin:10px;"><span class="note font12">(耗时较长，请耐心等待)</span></div></div>
         </div>
 
         <table style="margin:-10px 0px 0px 30px;">
