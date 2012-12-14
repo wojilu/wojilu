@@ -40,8 +40,6 @@ namespace wojilu.Web.Controller.Admin {
             siteAppService = new SiteAppService();
         }
 
-
-
         public void Index() {
             Home( -1 );
         }
@@ -102,8 +100,7 @@ namespace wojilu.Web.Controller.Admin {
             foreach (Feed feed in feeds) {
                 if (cvt.IsDayEqual( feed.Created, day )) results.Add( feed );
             }
-            //return results;
-            return FeedUtils.mergeFeed( results );
+            return FeedUtils.convertView( results );
         }
 
         private List<DateTime> getDayList( List<Feed> feeds ) {

@@ -10,7 +10,28 @@ namespace wojilu.Web.Controller.Common.Feeds {
 
     public class FeedUtils {
 
+        /// <summary>
+        /// 只是转换，不合并。方便后台逐条删除
+        /// </summary>
+        /// <param name="onedayFeeds"></param>
+        /// <returns></returns>
+        public static List<FeedView> convertView( List<Feed> onedayFeeds ) {
+            List<FeedView> results = new List<FeedView>();
 
+            foreach (Feed feed in onedayFeeds) {
+
+                results.Add( getView( feed ) );
+
+            }
+
+            return results;
+        }
+
+        /// <summary>
+        /// 合并 feed
+        /// </summary>
+        /// <param name="onedayFeeds"></param>
+        /// <returns></returns>
         public static List<FeedView> mergeFeed( List<Feed> onedayFeeds ) {
 
             List<FeedView> results = new List<FeedView>();
