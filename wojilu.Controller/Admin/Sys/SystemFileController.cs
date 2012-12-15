@@ -48,6 +48,9 @@ namespace wojilu.Web.Controller.Admin.Sys {
             return lang( "editFileTip" );
         }
 
+        public virtual void afterUpdate() {
+        }
+
         public void Index() {
 
             String absRootDir = PathHelper.Map( getRootPath() );
@@ -305,8 +308,9 @@ namespace wojilu.Web.Controller.Admin.Sys {
 
             file.Write( filePath, TemplateContent );
 
-            echoRedirect( lang( "opok" ) );
+            afterUpdate();
 
+            echoRedirect( lang( "opok" ) );
         }
 
         private string getBackupFilePath( string absFilePath ) {

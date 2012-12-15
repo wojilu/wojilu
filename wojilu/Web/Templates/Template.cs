@@ -1,4 +1,4 @@
-/*
+﻿/*
  * Copyright 2010 www.wojilu.com
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -24,7 +24,7 @@ using wojilu.Web.Templates.Tokens;
 namespace wojilu.Web {
 
     /// <summary>
-    /// ģ������
+    /// 模板引擎
     /// </summary>
     public class Template : ContentBlock, ITemplate {
 
@@ -163,6 +163,14 @@ namespace wojilu.Web {
 
         public String getTemplateString() {
             return _templateContent;
+        }
+
+        /// <summary>
+        /// 清空所有缓存
+        /// </summary>
+        public static void Reset() {
+            templates.Clear();
+            TemplateParser.Reset();
         }
 
     }

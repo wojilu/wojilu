@@ -21,7 +21,7 @@ using System.Text;
 
 namespace wojilu.ORM.Operation {
 
-    internal class ConditionInfo {
+    public class ConditionInfo {
 
         public Type Type { get; set; }
 

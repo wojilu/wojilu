@@ -17,6 +17,13 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using wojilu.Log;
+using wojilu.Web.Mvc.Routes;
+using wojilu.Web.Mvc;
+using wojilu.Caching;
+using wojilu.Web;
+using wojilu.ORM.Caching;
+using wojilu.Data;
 
 namespace wojilu {
 
@@ -30,6 +37,70 @@ namespace wojilu {
         /// </summary>
         public static SysPath Path {
             get { return SysPath.Instance; }
+        }
+
+        public static CacheClear Clear {
+            get { return CacheClear.Instance; }
+        }
+
+    }
+
+    public class CacheClear {
+
+        public static readonly CacheClear Instance = new CacheClear();
+
+        public void ClearAll() {
+
+            // 单行配置
+            this.ClearLogConfig();
+            this.ClearMvcConfig();
+            this.ClearDbConfig();
+            this.ClearRouteConfig();
+            this.ClearSiteConfig();
+
+            // 内存数据库
+            this.ClearMemoryDB();
+
+            // 模板配置
+            this.ClearTemplateCache();
+
+            // ORM数据缓存，和其他系统缓存
+            this.ClearOrmCache();
+        }
+        
+
+        //--------------------------------------------------------
+
+        public void ClearLogConfig() {
+            LogConfig.Reset();
+        }
+
+        public void ClearRouteConfig() {
+            RouteTable.Reset();
+        }
+
+        public void ClearMvcConfig() {
+            MvcConfig.Reset();
+        }
+
+        public void ClearDbConfig() {
+            DbConfig.Reset();
+        }
+
+        public void ClearSiteConfig() {
+            config.Reset();
+        }
+
+        public void ClearMemoryDB() {
+            MemoryDB.Clear();
+        }
+
+        public void ClearOrmCache() {
+            ApplicationPool.Instance.Clear();
+        }
+
+        public void ClearTemplateCache() {
+            Template.Reset();
         }
 
     }

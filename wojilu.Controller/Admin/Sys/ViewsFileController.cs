@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Text;
 using wojilu.Web.Mvc;
+using wojilu.Caching;
 
 namespace wojilu.Web.Controller.Admin.Sys {
 
@@ -63,6 +64,12 @@ namespace wojilu.Web.Controller.Admin.Sys {
 
             set( "dirAndFiles", sb.ToString() );
         }
+
+        public override void afterUpdate() {
+            sys.Clear.ClearTemplateCache();
+            sys.Clear.ClearOrmCache();
+        }
+
     }
 
 

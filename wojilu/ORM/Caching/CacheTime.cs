@@ -141,7 +141,9 @@ namespace wojilu.ORM.Caching {
             return (DateTime)tblUpdated >= (DateTime)countUpdated;
         }
 
-
+        public static void Clear() {
+            map.Clear();
+        }
 
     }
 

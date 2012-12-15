@@ -109,6 +109,10 @@ namespace wojilu.Web.Mvc.Routes {
 
         private RouteTable() { }
 
+        public static void Reset() {
+            routeTable = loadRouteTable();
+        }
+
     }
 }
 

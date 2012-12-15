@@ -14,12 +14,20 @@ namespace wojilu.Web.Controller.Admin.Sys {
         }
 
         public void BeginRestart() {
-            target( Restart );
+
+            set( "ActionLink", to( Restart ) );
+            set( "ActionLinkFull", to( RestartFull ) );
+        }
+
+        [HttpPost]
+        public void RestartFull() {
+            HttpRuntime.UnloadAppDomain();
+            echoRedirect( lang( "restartDone" ), ctx.url.SiteAndAppPath );
         }
 
         [HttpPost]
         public void Restart() {
-            HttpRuntime.UnloadAppDomain();
+            sys.Clear.ClearAll();
             echoRedirect( lang( "restartDone" ), ctx.url.SiteAndAppPath );
         }
 

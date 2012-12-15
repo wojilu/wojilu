@@ -16,15 +16,13 @@
 
 using System;
 using System.Collections.Generic;
-using System.Text;
+using System.IO;
 
+using wojilu.IO;
 using wojilu.ORM;
 using wojilu.Reflection;
 using wojilu.Serialization;
 using wojilu.Web;
-using System.IO;
-using System.Web;
-using wojilu.IO;
 
 namespace wojilu.Data {
 
@@ -44,6 +42,8 @@ namespace wojilu.Data {
 
         private static readonly ILog logger = LogManager.GetLogger( typeof( DbConfig ) );
 
+        private static DbConfig _instance = loadConfig( getConfigPath() );
+
         public DbConfig() {
             this.ConnectionStringTable = new Dictionary<String, object>();
             this.AssemblyList = new List<object>();
@@ -52,7 +52,7 @@ namespace wojilu.Data {
             this.Interceptor = new List<object>();
             this.IsCheckDatabase = true;
             this.ContextCache = true;
-            this.Mapping = new List<object>();
+            this.Mapping = new List<object>();            
         }
 
         /// <summary>
@@ -63,7 +63,9 @@ namespace wojilu.Data {
         /// <summary>
         /// 配置的缓存内容(单例模式缓存)
         /// </summary>
-        public static DbConfig Instance = loadConfig( getConfigPath() );
+        public static DbConfig Instance {
+            get { return _instance; }
+        }
 
         /// <summary>
         /// 直接解析json的结果：多个数据库连接字符串(connectionString)的键值对
@@ -317,6 +319,11 @@ namespace wojilu.Data {
             String str = JsonString.ConvertObject( DbConfig.Instance, true );
 
             file.Write( cfgPath, str );
+        }
+
+
+        public static void Reset() {
+            _instance = loadConfig( getConfigPath() );
         }
 
     }

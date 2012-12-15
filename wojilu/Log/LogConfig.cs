@@ -28,6 +28,8 @@ namespace wojilu.Log {
     /// </summary>
     public class LogConfig {
 
+        private static LogConfig _instance = new LogConfig();
+
         /// <summary>
         /// 日志配置信息(全局缓存)
         /// <remarks>
@@ -43,7 +45,9 @@ namespace wojilu.Log {
         /// </code>
         /// </example>
         /// </summary>
-        public static readonly LogConfig Instance = new LogConfig();
+        public static LogConfig Instance {
+            get { return _instance; }
+        }
 
         private LogConfig() {
 
@@ -60,6 +64,10 @@ namespace wojilu.Log {
             this.Level = getLevel( dic );
             this.LoggerImpl = getLoggerImpl( dic );
 
+        }
+
+        public static void Reset() {
+            _instance = new LogConfig();
         }
 
         //--------------------------------------------------------------------------------------

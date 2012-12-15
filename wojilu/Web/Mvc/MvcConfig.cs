@@ -27,7 +27,11 @@ namespace wojilu.Web.Mvc {
     /// </summary>
     public class MvcConfig {
 
-        public static readonly MvcConfig Instance = new MvcConfig();
+        private static MvcConfig _instance = new MvcConfig();
+
+        public static MvcConfig Instance {
+            get { return _instance; }
+        }
 
         /// <summary>
         /// 路由文件的路径。默认是 /framework/config/route.config
@@ -340,6 +344,10 @@ namespace wojilu.Web.Mvc {
             dic.TryGetValue( "isUrlToLower", out isLower );
             if (strUtil.IsNullOrEmpty( isLower )) return false;
             return cvt.ToBool( isLower );
+        }
+
+        public static void Reset() {
+            _instance = new MvcConfig();
         }
 
     }

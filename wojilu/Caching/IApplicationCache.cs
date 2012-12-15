@@ -15,10 +15,11 @@
  */
 
 using System;
+using System.Collections;
 
 namespace wojilu.Caching {
 
-    public interface IApplicationCache {
+    public interface IApplicationCache : IEnumerable {
 
         object Get( string key );
 
@@ -27,6 +28,11 @@ namespace wojilu.Caching {
 
         void Remove( string key );
 
+        void Clear();
+
+        int Count { get; }
+
+        IDictionaryEnumerator GetEnumerator();
     }
 
 }

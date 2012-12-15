@@ -18,10 +18,8 @@ using System;
 using System.Collections;
 using System.Collections.Specialized;
 using System.Collections.Generic;
-using System.IO;
 using System.Reflection;
 using System.Text;
-using System.Web;
 
 using wojilu.ORM;
 using wojilu.Serialization;
@@ -490,6 +488,13 @@ namespace wojilu.Data {
         }
 
         private static readonly String fileExt = ".config";
+
+
+        internal static void Clear() {
+            _hasCheckedFileDB = new Hashtable();
+            objectList = Hashtable.Synchronized( new Hashtable() );
+            indexList = Hashtable.Synchronized( new Hashtable() );
+        }
 
     }
 }

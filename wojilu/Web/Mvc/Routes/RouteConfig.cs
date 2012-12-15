@@ -25,7 +25,6 @@ namespace wojilu.Web.Mvc.Routes {
     /// </summary>
     public abstract class RouteConfig {
 
-        //public abstract String getRootNamespace();
         public abstract Boolean isParseAppId();
         public abstract String urlExt();
         public abstract String getConfigPath();
@@ -42,10 +41,6 @@ namespace wojilu.Web.Mvc.Routes {
     /// 用户测试的路由配置
     /// </summary>
     public class RouteConfigTest : RouteConfig {
-
-        //public override String getRootNamespace() {
-        //    return "wojilu.Web.Controller";
-        //}
 
         public override Boolean isParseAppId() {
             return true;
@@ -65,10 +60,6 @@ namespace wojilu.Web.Mvc.Routes {
     /// 路由配置
     /// </summary>
     public class RouteConfigFile : RouteConfig {
-
-        //public override String getRootNamespace() {
-        //    return MvcConfig.Instance.RootNamespace;
-        //}
 
         public override Boolean isParseAppId() {
             return MvcConfig.Instance.IsParseAppId;

@@ -52,13 +52,13 @@ namespace wojilu {
             }
         }
 
-        private void Reload() {
-            loadAll();
-        }
-
 
         private void loadAll() {
             initSiteSettings();
+        }
+
+        public static void Reset() {
+            _instance = null;
         }
 
         // ------------------------- site settings -------------------------

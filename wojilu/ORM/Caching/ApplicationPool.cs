@@ -28,12 +28,12 @@ namespace wojilu.ORM.Caching {
     /// <summary>
     /// 二级缓存(application级)的缓存池
     /// </summary>
-    internal class ApplicationPool : IObjectPool {
+    public class ApplicationPool : IObjectPool {
 
         private static readonly ILog logger = LogManager.GetLogger( typeof( ApplicationPool ) );
         private static IApplicationCache appCache = CacheManager.GetApplicationCache();
 
-        public static ApplicationPool Instance = new ApplicationPool();
+        public static readonly ApplicationPool Instance = new ApplicationPool();
 
         private ApplicationPool() { }
 
@@ -206,7 +206,7 @@ namespace wojilu.ORM.Caching {
 
         //-----------------------------------------------------------
 
-        public IList getListFromCache( String queryKey, Type t ) {
+        internal IList getListFromCache( String queryKey, Type t ) {
 
             if (CacheTime.isListUpdate( queryKey, t )) return null;
 
@@ -246,7 +246,7 @@ namespace wojilu.ORM.Caching {
             }
         }
 
-        public static Object getFromApplication( String key ) {
+        internal static Object getFromApplication( String key ) {
             return appCache.Get( key );
         }
 
@@ -255,6 +255,11 @@ namespace wojilu.ORM.Caching {
             logger.Debug( "Delete=>" + t.FullName + id );
             CacheTime.updateTable( t );
 
+        }
+
+        public void Clear() {
+            appCache.Clear();
+            CacheTime.Clear();
         }
 
     }

@@ -1,4 +1,4 @@
-/*
+ï»¿/*
  * Copyright 2010 www.wojilu.com
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -25,12 +25,12 @@ namespace wojilu.Caching {
 
 
     /// <summary>
-    /// Ó¦ÓÃ³ÌĞò·¶Î§µÄ»º´æ(ORMµÄ¶ş¼¶»º´æ)
+    /// åº”ç”¨ç¨‹åºèŒƒå›´çš„ç¼“å­˜(ORMçš„äºŒçº§ç¼“å­˜)
     /// </summary>
     public class ApplicationCache : IApplicationCache {
 
         /// <summary>
-        /// ´Ó¶ş¼¶»º´æÖĞ»ñÈ¡Öµ
+        /// ä»äºŒçº§ç¼“å­˜ä¸­è·å–å€¼
         /// </summary>
         /// <param name="key"></param>
         /// <returns></returns>
@@ -39,7 +39,7 @@ namespace wojilu.Caching {
         }
 
         /// <summary>
-        /// ½«¶ÔÏó·ÅÈë¶ş¼¶»º´æ£¬Èç¹û»º´æÖĞÒÑÓĞ´ËÏî£¬ÔòÌæ»»
+        /// å°†å¯¹è±¡æ”¾å…¥äºŒçº§ç¼“å­˜ï¼Œå¦‚æœç¼“å­˜ä¸­å·²æœ‰æ­¤é¡¹ï¼Œåˆ™æ›¿æ¢
         /// </summary>
         /// <param name="key"></param>
         /// <param name="val"></param>
@@ -48,7 +48,7 @@ namespace wojilu.Caching {
         }
 
         /// <summary>
-        /// ½«¶ÔÏó·ÅÈë»º´æ£¬×îºóÒ»´Î·ÃÎÊÖ®ºóµÄ minutes ·ÖÖÓÄÚ£¬Èç¹û»¹Ã»ÓĞ·ÃÎÊ£¬Ôò»á¹ıÆÚ£¨µ¯ĞÔ¹ıÆÚ£©
+        /// å°†å¯¹è±¡æ”¾å…¥ç¼“å­˜ï¼Œæœ€åä¸€æ¬¡è®¿é—®ä¹‹åçš„ minutes åˆ†é’Ÿå†…ï¼Œå¦‚æœè¿˜æ²¡æœ‰è®¿é—®ï¼Œåˆ™ä¼šè¿‡æœŸï¼ˆå¼¹æ€§è¿‡æœŸï¼‰
         /// </summary>
         /// <param name="key"></param>
         /// <param name="val"></param>
@@ -58,11 +58,30 @@ namespace wojilu.Caching {
         }
 
         /// <summary>
-        /// ´Ó»º´æÖĞÒÆ³ıÄ³Ïî
+        /// ä»ç¼“å­˜ä¸­ç§»é™¤æŸé¡¹
         /// </summary>
         /// <param name="key"></param>
         public void Remove( String key ) {
             SysCache.Remove( key );
+        }
+
+        /// <summary>
+        /// ä»ç¼“å­˜ä¸­ç§»é™¤æ‰€æœ‰é¡¹
+        /// </summary>
+        public void Clear() {
+            SysCache.Clear();
+        }
+
+        public IDictionaryEnumerator GetEnumerator() {
+            return SysCache.GetEnumerator();
+        }
+
+        public int Count {
+            get { return SysCache.Count; }
+        }
+
+        IEnumerator IEnumerable.GetEnumerator() {
+            return SysCache.GetEnumerator();
         }
 
     }

@@ -1,4 +1,4 @@
-/*
+ï»¿/*
  * Copyright 2010 www.wojilu.com
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -19,16 +19,17 @@ using System.Collections.Generic;
 using System.Text;
 using System.Web;
 using System.Web.Caching;
+using System.Collections;
 
 namespace wojilu.Caching {
 
     /// <summary>
-    /// .net ×Ô´øµÄ InMemory »º´æ
+    /// .net è‡ªå¸¦çš„ InMemory ç¼“å­˜
     /// </summary>
     public class SysCache {
 
         /// <summary>
-        /// ´Ó»º´æÖĞ»ñÈ¡Öµ
+        /// ä»ç¼“å­˜ä¸­è·å–å€¼
         /// </summary>
         /// <param name="key"></param>
         /// <returns></returns>
@@ -37,7 +38,7 @@ namespace wojilu.Caching {
         }
 
         /// <summary>
-        /// ½«¶ÔÏó·ÅÈë»º´æ£¬Èç¹û»º´æÖĞÒÑÓĞ´ËÏî£¬ÔòÌæ»»¡£a)ÓÀ²»¹ıÆÚ£¬b)ÓÅÏÈ¼¶Îª Normal£¬c)Ã»ÓĞ»º´æÒÀÀµÏî
+        /// å°†å¯¹è±¡æ”¾å…¥ç¼“å­˜ï¼Œå¦‚æœç¼“å­˜ä¸­å·²æœ‰æ­¤é¡¹ï¼Œåˆ™æ›¿æ¢ã€‚a)æ°¸ä¸è¿‡æœŸï¼Œb)ä¼˜å…ˆçº§ä¸º Normalï¼Œc)æ²¡æœ‰ç¼“å­˜ä¾èµ–é¡¹
         /// </summary>
         /// <param name="key"></param>
         /// <param name="val"></param>
@@ -46,7 +47,7 @@ namespace wojilu.Caching {
         }
 
         /// <summary>
-        /// ½«¶ÔÏó·ÅÈë»º´æ£¬ÔÚ²ÎÊı seconds Ö¸¶¨µÄÃëÊıÖ®ºó¹ıÆÚ
+        /// å°†å¯¹è±¡æ”¾å…¥ç¼“å­˜ï¼Œåœ¨å‚æ•° seconds æŒ‡å®šçš„ç§’æ•°ä¹‹åè¿‡æœŸ
         /// </summary>
         /// <param name="key"></param>
         /// <param name="val"></param>
@@ -56,7 +57,7 @@ namespace wojilu.Caching {
         }
 
         /// <summary>
-        /// ½«¶ÔÏó·ÅÈë»º´æ£¬ÔÚ×îºóÒ»´Î·ÃÎÊÖ®ºóµÄ seconds ÃëÊıÖ®ºó¹ıÆÚ£¨µ¯ĞÔ¹ıÆÚ£©
+        /// å°†å¯¹è±¡æ”¾å…¥ç¼“å­˜ï¼Œåœ¨æœ€åä¸€æ¬¡è®¿é—®ä¹‹åçš„ seconds ç§’æ•°ä¹‹åè¿‡æœŸï¼ˆå¼¹æ€§è¿‡æœŸï¼‰
         /// </summary>
         /// <param name="key"></param>
         /// <param name="val"></param>
@@ -66,7 +67,7 @@ namespace wojilu.Caching {
         }
 
         /// <summary>
-        /// ´Ó»º´æÖĞÒÆ³ıÄ³Ïî
+        /// ä»ç¼“å­˜ä¸­ç§»é™¤æŸé¡¹
         /// </summary>
         /// <param name="key"></param>
         public static void Remove( String key ) {
@@ -75,6 +76,24 @@ namespace wojilu.Caching {
             }
         }
 
+        /// <summary>
+        /// ä»ç¼“å­˜ä¸­ç§»é™¤æ‰€æœ‰é¡¹
+        /// </summary>
+        public static void Clear() {
+            foreach (DictionaryEntry entry in HttpRuntime.Cache) {
+                HttpRuntime.Cache.Remove( entry.Key.ToString() );
+            }
+        }
+
+        public static IDictionaryEnumerator GetEnumerator() {
+            return HttpRuntime.Cache.GetEnumerator();
+        }
+
+        public static int Count {
+            get {
+                return HttpRuntime.Cache.Count;
+            }
+        }
 
     }
 }

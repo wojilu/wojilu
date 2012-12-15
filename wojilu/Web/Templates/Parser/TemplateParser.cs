@@ -1,4 +1,4 @@
-/*
+﻿/*
  * Copyright 2010 www.wojilu.com
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -62,6 +62,11 @@ namespace wojilu.Web.Templates.Parser {
             if (charSrc.charList == null || charSrc.charList.Length == 0) return;
 
             base.beginParse();
+        }
+
+
+        internal static void Reset() {
+            parserCache.Clear();
         }
 
     }
