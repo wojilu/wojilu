@@ -46,6 +46,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Aop\AopTest.cs" />
+    <Compile Include="Aop\MyAopService.cs" />
+    <Compile Include="Aop\MyMethodObserver1.cs" />
+    <Compile Include="Aop\MyMethodObserver2.cs" />
     <Compile Include="main.cs" />
     <Compile Include="Platform\MailTest.cs" />
     <Compile Include="Orm\CRUD.IdTest.cs">

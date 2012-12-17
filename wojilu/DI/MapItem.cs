@@ -1,4 +1,4 @@
-/*
+ï»¿/*
  * Copyright 2010 www.wojilu.com
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -23,7 +23,7 @@ using wojilu.ORM;
 namespace wojilu.DI {
 
     /// <summary>
-    /// ÒÀÀµ×¢ÈëÖĞµÄÅäÖÃÏî
+    /// ä¾èµ–æ³¨å…¥ä¸­çš„é…ç½®é¡¹
     /// </summary>
     public class MapItem : CacheObject {
 
@@ -31,7 +31,7 @@ namespace wojilu.DI {
         private Dictionary<String, object> _maps = new Dictionary<String, object>();
         
         /// <summary>
-        /// ÈİÆ÷´´½¨¶ÔÏóµÄÊ±ºò£¬ÊÇ·ñÒÔµ¥ÀıÄ£Ê½·µ»Ø
+        /// å®¹å™¨åˆ›å»ºå¯¹è±¡çš„æ—¶å€™ï¼Œæ˜¯å¦ä»¥å•ä¾‹æ¨¡å¼è¿”å›
         /// </summary>
         public Boolean Singleton {
             get { return _singleton; }
@@ -39,7 +39,7 @@ namespace wojilu.DI {
         }
         
         /// <summary>
-        /// ¶ÔÏóÒÀÀµ×¢Èë¹ØÏµµÄ map
+        /// å¯¹è±¡ä¾èµ–æ³¨å…¥å…³ç³»çš„ map
         /// </summary>
         public Dictionary<String, object> Map {
             get { return _maps; }
@@ -47,7 +47,7 @@ namespace wojilu.DI {
         }
 
         /// <summary>
-        /// ¶ÔÏóµÄ typeFullName
+        /// å¯¹è±¡çš„ typeFullName
         /// </summary>
         public String Type { get; set; }
 
