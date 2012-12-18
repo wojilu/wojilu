@@ -28,9 +28,10 @@ namespace wojilu.Aop {
     public class AopContext {
 
         private static readonly ILog logger = LogManager.GetLogger( typeof( AopContext ) );
-        private static readonly Assembly _aopAssembly = loadCompiledAssembly();
 
         private static Dictionary<Type, ObservedType> _oTypes = loadObservers();
+
+        private static readonly Assembly _aopAssembly = loadCompiledAssembly();
 
         /// <summary>
         /// 获取所有被监控的类型
@@ -89,7 +90,22 @@ namespace wojilu.Aop {
         }
 
         /// <summary>
-        /// 根据类型创建它的代理类
+        /// 根据类型创建对象。如果被监控，则创建代理类。否则返回自身的实例
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <returns></returns>
+        public static T CreateObject<T>() {
+            T result = (T)CreateProxy( typeof( T ) );
+            if (result == null) {
+                return ObjectContext.Create<T>();
+            }
+            else {
+                return result;
+            }
+        }
+
+        /// <summary>
+        /// 根据类型创建它的代理类。如果代理不存在，返回 null
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <returns></returns>
@@ -98,7 +114,7 @@ namespace wojilu.Aop {
         }
 
         /// <summary>
-        /// 根据类型创建它的代理类
+        /// 根据类型创建它的代理类。如果代理不存在，返回 null
         /// </summary>
         /// <param name="t"></param>
         /// <returns></returns>
@@ -114,6 +130,8 @@ namespace wojilu.Aop {
             Dictionary<Type, ObservedType> observers = loadObservers();
 
             String proxyCode = AopCoder.GetProxyClassCode( observers );
+
+            logger.Info( proxyCode );
 
             return AopCoder.CompileCode( proxyCode, ObjectContext.Instance.AssemblyList );
         }

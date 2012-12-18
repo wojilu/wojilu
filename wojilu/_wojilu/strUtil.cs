@@ -267,6 +267,8 @@ namespace wojilu {
         /// <returns></returns>
         public static String GetGenericTypeWithArgs( Type t ) {
 
+            if (t.IsGenericType == false) return t.FullName;
+
             //System.Collections.Generic.Dictionary`2[System.Int32,System.String]
             String[] arr = t.ToString().Split( '`' );
 

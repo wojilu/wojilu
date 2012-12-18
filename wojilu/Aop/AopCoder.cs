@@ -108,28 +108,36 @@ namespace wojilu.Aop {
 
         //----------------------------------------------------------------------------------------
 
+        private static List<MethodObserver> getMethodObserver( Type t, String methodName ) {
+            return AopContext.GetMethodObservers( t, methodName );
+        }
+
+        private static void append_method_before( StringBuilder sb, ObservedMethod x ) {
+
+            sb.AppendFormat( "\t\t\tMethodInfo m = this.GetType().GetMethod( \"{0}\" );", x.Method.Name );
+            sb.AppendLine();
+
+            sb.AppendFormat( "\t\t\tObject[] args = {0};", getArgArray( x.Method ) );
+            sb.AppendLine();
+
+            List<MethodObserver> osList = getMethodObserver( x.ObservedType.Type, x.Method.Name );
+            int i = 1;
+            foreach (MethodObserver os in osList) {
+                sb.AppendFormat( "\t\t\t{0} observer{1} = new {0}();", os.GetType().FullName, i );
+                sb.AppendLine();
+                sb.AppendFormat( "\t\t\tobserver{0}.Before( m, args, this );", i );
+                sb.AppendLine();
+                i++;
+            }
+        }
+
         private static void append_method_invoke( StringBuilder sb, ObservedMethod x ) {
 
             sb.Append( "\t\t\tObject returnValue = null;" );
             sb.AppendLine();
 
-            sb.AppendFormat( "\t\t\tMethodObserver invokeObserver = AopContext.GetInvokeObserver( typeof( {0} ), \"{1}\" );", x.ObservedType.Type.FullName, x.Method.Name );
-            sb.AppendLine();
+            List<MethodObserver> osList = getMethodObserver( x.ObservedType.Type, x.Method.Name );
 
-            sb.Append( "\t\t\tif (invokeObserver != null) {" );
-            sb.AppendLine();
-
-            String strInvokeArgs = getInovkeArgs( x.Method );
-            sb.AppendFormat( "\t\t\t\treturnValue = invokeObserver.Invoke( {0} );", strInvokeArgs );
-            sb.AppendLine();
-
-            sb.Append( "\t\t\t}" );
-            sb.AppendLine();
-
-            sb.Append( "\t\t\telse {" );
-            sb.AppendLine();
-
-            String strArgBody = getArgBody( x.Method );
             String strReturn = getReturnString( x.Method );
             if (strReturn == "void") {
                 strReturn = "";
@@ -138,68 +146,67 @@ namespace wojilu.Aop {
                 strReturn = "returnValue = ";
             }
 
-            sb.AppendFormat( "\t\t\t\t{0}base.{1}({2});", strReturn, x.Method.Name, strArgBody );
-            sb.AppendLine();
+            int invokeObserverIndex = getInovkeObserverIndex( osList );
 
-            sb.Append( "\t\t\t}" );
-            sb.AppendLine();
-
+            if (invokeObserverIndex > -1) {
+                append_invoke_object( sb, x );
+                sb.AppendFormat( "\t\t\t{0}observer{1}.Invoke( invocation );", strReturn, invokeObserverIndex );
+                sb.AppendLine();
+            }
+            else {
+                sb.AppendFormat( "\t\t\t{0}base.{1}({2});", strReturn, x.Method.Name, getArgBodyFromArray( x.Method ) );
+                sb.AppendLine();
+            }
         }
 
+        private static int getInovkeObserverIndex( List<MethodObserver> osList ) {
+            int i = 1;
+            foreach (MethodObserver os in osList) {
 
-        private static void append_method_before( StringBuilder sb, ObservedMethod x ) {
+                MethodInfo m = os.GetType().GetMethod( "Invoke" );
 
-            sb.AppendFormat( "\t\t\tMethodInfo m = this.GetType().GetMethod( \"{0}\" );", x.Method.Name );
-            sb.AppendLine();
+                if (m.DeclaringType != typeof( MethodObserver )) {
+                    return i;
+                }
 
-            sb.AppendFormat( "\t\t\tList<MethodObserver> mlist= getMethodObserver( \"{0}\" );", x.Method.Name );
-            sb.AppendLine();
+                i++;
+            }
 
-            sb.Append( "\t\t\tforeach( MethodObserver x in mlist ) {" );
-            sb.AppendLine();
-
-            String strInvokeArgs = getInovkeArgs( x.Method );
-
-            sb.AppendFormat( "\t\t\t\tx.Before( {0} );", strInvokeArgs );
-            sb.AppendLine();
-
-            sb.Append( "\t\t\t}" );
-            sb.AppendLine();
-
+            return -1;
         }
-
-        private static String getInovkeArgs( MethodInfo x ) {
-
-            String strArgBody = getArgBody( x );
-
-            StringBuilder sb = new StringBuilder();
-            sb.Append( " m,  new Object[] {" );
-            sb.Append( strArgBody );
-            sb.Append( "}, this " );
-
-            return sb.ToString();
-        }
-
 
         private static void append_method_after( StringBuilder sb, ObservedMethod x ) {
 
-            sb.Append( "\t\t\tforeach( MethodObserver x in mlist ) {" );
+            List<MethodObserver> osList = getMethodObserver( x.ObservedType.Type, x.Method.Name );
+            int i = 1;
+            foreach (MethodObserver os in osList) {
+                sb.AppendFormat( "\t\t\tobserver{0}.After( returnValue, m, args, this );", i );
+                sb.AppendLine();
+                i++;
+            }
+        }
+
+        private static void append_invoke_object( StringBuilder sb, ObservedMethod x ) {
+            sb.Append( "\t\t\tIMethodInvocation invocation = new MethodInvocation();" );
             sb.AppendLine();
 
-            String strInvokeArgs = getInovkeArgs( x.Method );
-
-            sb.AppendFormat( "\t\t\t\tx.After( returnValue, {0} );", strInvokeArgs );
+            sb.Append( "\t\t\tinvocation.Method = m;" );
             sb.AppendLine();
 
-            sb.Append( "\t\t\t}" );
+            sb.AppendFormat( "\t\t\tinvocation.Args = args;" );
+            sb.AppendLine();
+
+            sb.Append( "\t\t\tinvocation.Target = this;" );
             sb.AppendLine();
         }
+
 
         //----------------------------------------------------------------------------------------
 
         private static void append_ns_begin( StringBuilder sb, Type type ) {
             sb.AppendFormat( "namespace {0} ", type.Namespace );
             sb.Append( "{" );
+            sb.AppendLine();
             sb.AppendLine();
         }
 
@@ -214,18 +221,6 @@ namespace wojilu.Aop {
             sb.AppendFormat( "\tpublic class {0}{1} : {1} ", proxyClassPrefix, type.Name );
             sb.Append( "{" );
             sb.AppendLine();
-
-            append_helper( sb, type );
-        }
-
-        private static void append_helper( StringBuilder sb, Type type ) {
-            sb.Append( "\t\tprivate List<MethodObserver> getMethodObserver( String methodName ) {" );
-            sb.AppendLine();
-
-            sb.AppendFormat( "\t\t\treturn AopContext.GetMethodObservers( typeof({0}), methodName );", type.FullName );
-            sb.AppendLine();
-
-            sb.Append( "\t\t}" );
             sb.AppendLine();
         }
 
@@ -246,11 +241,24 @@ namespace wojilu.Aop {
 
             String strReturn = getReturnString( x.Method );
             if (strReturn != "void") {
-                sb.AppendFormat( "\t\t\treturn ({0})returnValue;", strReturn );
-                sb.AppendLine();
+
+                if (x.Method.ReturnType.IsValueType) {
+                    sb.AppendFormat( "\t\t\tif( returnValue==null ||(returnValue is ValueType ==false )) return default({0});", getReturnType( x.Method.ReturnType ) );
+                    sb.AppendLine();
+                    sb.AppendFormat( "\t\t\treturn ({0})returnValue;", strReturn );
+                    sb.AppendLine();
+                }
+                else {
+                    sb.Append( "\t\t\tif( returnValue==null ) return null;" );
+                    sb.AppendLine();
+                    sb.AppendFormat( "\t\t\treturn returnValue as {0};", strReturn );
+                    sb.AppendLine();
+                }
+
             }
 
             sb.Append( "\t\t}" );
+            sb.AppendLine();
             sb.AppendLine();
         }
 
@@ -261,7 +269,7 @@ namespace wojilu.Aop {
 
             if (methodInfo.ReturnType == typeof( void )) return "void";
 
-            return methodInfo.ReturnType.FullName;
+            return getReturnType( methodInfo.ReturnType );
         }
 
         // 获取参数签名等，比如 BlogPost x1, String x2, int x3
@@ -287,6 +295,25 @@ namespace wojilu.Aop {
                 i++;
             }
             return str.Trim().TrimEnd( ',' );
+        }
+
+        private static String getArgBodyFromArray( MethodInfo methodInfo ) {
+            String str = "";
+            ParameterInfo[] args = methodInfo.GetParameters();
+            int i = 0;
+            foreach (ParameterInfo x in args) {
+                str += "(" + x.ParameterType.FullName + ")args[" + i + "],";
+                i++;
+            }
+            return str.Trim().TrimEnd( ',' );
+        }
+
+        private static String getArgArray( MethodInfo methodInfo ) {
+            return "new Object[] {" + getArgBody( methodInfo ) + "}";
+        }
+
+        private static String getReturnType( Type t ) {
+            return strUtil.GetGenericTypeWithArgs( t );
         }
 
         public static Assembly CompileCode( String code, IDictionary asmList ) {

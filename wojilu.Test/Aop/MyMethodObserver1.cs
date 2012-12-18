@@ -8,7 +8,8 @@ using wojilu.Aop;
 namespace wojilu.Test.Aop {
 
 
-    // 监控器是单例存在，下面的变量 version 在多次调用的时候，值会递增
+    // 监控器生命周期：当方法开始，监控器被创建；当方法结束，监控器也结束。
+    // 可以在 Before / Invoke / After 之间共享数据。下面的 runCount 在 after 之后为3。
     public class MyMethodObserver1 : MethodObserver {
 
         private int runCount = 1;
@@ -18,9 +19,14 @@ namespace wojilu.Test.Aop {
             observe( typeof( MyAopService ), "Save" );
             observe( typeof( MyAopService ), "Update" );
             observe( typeof( MyAopService ), "GetBy" );
+            observe( typeof( MyAopService ), "GetCat" );
+            observe( typeof( MyAopService ), "GetDog" );
+
+            observe( typeof( MyAopService ), "NoMethod" );
 
         }
 
+        // 前置 advice
         public override void Before( MethodInfo method, Object[] args, Object target ) {
             Console.Write( runCount + "test before...type=" + this.GetType().Name + "...arg=" );
             String str = "";
@@ -31,23 +37,26 @@ namespace wojilu.Test.Aop {
             runCount++;
         }
 
+        // 后置 advice
         public override void After( Object returnValue, MethodInfo method, Object[] args, Object target ) {
-            Console.WriteLine( runCount + "test after..." );
+            Console.WriteLine( runCount + "test after...return value=" + returnValue );
             runCount++;
         }
 
-        public override Object Invoke( MethodInfo method, Object[] args, Object target ) {
+        // 环绕 advice
+        public override Object Invoke( IMethodInvocation invocation ) {
 
-            Object ressult;
+            Object result = null;
 
-            Console.WriteLine( "test invoke before..." );
+            Console.WriteLine( runCount + "test invoke before..." );
 
-            // 调用基类的方法运行，而不是代理类。因为本方法就是代理类传递过来的
-            ressult = base.Invoke( method, args, target );
+            // 运行原始方法
+            result = invocation.Proceed();
 
-            Console.WriteLine( "test invoke after..." );
+            Console.WriteLine( runCount + "test invoke after..." );
+            runCount++;
 
-            return ressult;
+            return result;
         }
 
     }

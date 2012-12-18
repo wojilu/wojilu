@@ -19,6 +19,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Reflection;
 using System.Reflection.Emit;
+using wojilu.DI;
 
 namespace wojilu.Aop {
 
@@ -58,12 +59,10 @@ namespace wojilu.Aop {
         /// <summary>
         /// 将代码和被拦截对象的方法混合一起，并直接运行
         /// </summary>
-        /// <param name="method">被运行的方法</param>
-        /// <param name="args">方法的参数</param>
-        /// <param name="target">被拦截的对象</param>
+        /// <param name="invocation"></param>
         /// <returns></returns>
-        public virtual Object Invoke( MethodInfo method, Object[] args, Object target ) {
-            return rft.CallMethod( target, AopCoder.baseMethodPrefix + method.Name, args );
+        public virtual Object Invoke( IMethodInvocation invocation ) {
+            return invocation.Proceed();
         }
 
         /// <summary>
@@ -74,14 +73,30 @@ namespace wojilu.Aop {
         /// <summary>
         /// 监控其他 method
         /// </summary>
-        /// <param name="type"></param>
-        /// <param name="name"></param>
+        /// <param name="type">类型</param>
+        /// <param name="name">方法名称</param>
         protected void observe( Type t, String methodName ) {
 
             String methods;
             dic.TryGetValue( t, out methods );
 
             dic[t] = strUtil.Join( methods, methodName );
+        }
+
+        /// <summary>
+        /// 监控其他 method
+        /// </summary>
+        /// <param name="typeFullName">类型的完整名称</param>
+        /// <param name="methodName">方法名称</param>
+        protected void observe( String typeFullName, String methodName ) {
+            Type t;
+
+            ObjectContext.Instance.TypeList.TryGetValue( typeFullName, out t );
+
+            if (t == null) throw new TypeNotFoundException( typeFullName );
+
+
+            observe( t, methodName );
         }
 
     }

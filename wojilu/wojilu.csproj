@@ -88,8 +88,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Aop\AopContext.cs" />
+    <Compile Include="Aop\IMethodInvocation.cs" />
+    <Compile Include="Aop\MethodInvocation.cs" />
     <Compile Include="Aop\ObservedMethod.cs" />
     <Compile Include="Aop\ObservedType.cs" />
+    <Compile Include="DI\TypeNotFoundException.cs" />
     <Compile Include="AssemblyInfo.cs" />
     <Compile Include="Common\IBinderValue.cs" />
     <Compile Include="Common\ItemValue.cs" />
