@@ -16,17 +16,25 @@ namespace wojilu.Test.Aop {
 
         public override void ObserveMethods() {
 
+            // 可以重复添加，但相同的监控器，最后只保留一份
             observe( typeof( MyAopService ), "Save" );
             observe( typeof( MyAopService ), "Update" );
             observe( typeof( MyAopService ), "GetBy" );
             observe( typeof( MyAopService ), "GetCat" );
             observe( typeof( MyAopService ), "GetDog" );
 
-            observe( typeof( MyAopService ), "NoMethod" );
+            // 因为上面被监控的类型相同，方法不同，所以可以合并为下面的方式。
+            observe( typeof( MyAopService ), "Save/Update/GetBy/GetCat/GetDog" );
+
+            // 但单独添加的好处是，可以添加第三个参数，用于区别名称相同、但参数不同的方法(重载/override)
+            // TODO
+
+            // 如果添加不存在的方法，框架会抛出异常
+            //observe( typeof( MyAopService ), "NoMethod" );
 
         }
 
-        // 前置 advice
+        // 1）先运行 "前置 advice"
         public override void Before( MethodInfo method, Object[] args, Object target ) {
             Console.Write( runCount + "test before...type=" + this.GetType().Name + "...arg=" );
             String str = "";
@@ -37,13 +45,7 @@ namespace wojilu.Test.Aop {
             runCount++;
         }
 
-        // 后置 advice
-        public override void After( Object returnValue, MethodInfo method, Object[] args, Object target ) {
-            Console.WriteLine( runCount + "test after...return value=" + returnValue );
-            runCount++;
-        }
-
-        // 环绕 advice
+        // 2）然后运行 "环绕 advice"
         public override Object Invoke( IMethodInvocation invocation ) {
 
             Object result = null;
@@ -57,6 +59,11 @@ namespace wojilu.Test.Aop {
             runCount++;
 
             return result;
+        }
+
+        // 3）最后运行 "后置 advice"
+        public override void After( Object returnValue, MethodInfo method, Object[] args, Object target ) {
+            Console.WriteLine( runCount + "test after...return value=" + returnValue );
         }
 
     }

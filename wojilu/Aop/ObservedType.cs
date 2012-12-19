@@ -17,6 +17,7 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Reflection;
 
 namespace wojilu.Aop {
 
@@ -35,6 +36,110 @@ namespace wojilu.Aop {
         /// </summary>
         public List<ObservedMethod> MethodList;
 
+        /// <summary>
+        /// 是否可以创建子代理
+        /// </summary>
+        public Boolean CanCreateSubProxy() {
+            return this.GetNotVirtualMethodList().Count == 0;
+        }
+
+        public String GetNotVirtualMethodString() {
+            String str = "";
+            foreach (ObservedMethod x in this.GetNotVirtualMethodList()) {
+                str += x.Method.Name + ",";
+            }
+            return str.Trim().TrimEnd( ',' );
+        }
+
+        private List<ObservedMethod> _notVirtualMethodList;
+
+        public List<ObservedMethod> GetNotVirtualMethodList() {
+
+            if (_notVirtualMethodList == null) {
+
+                _notVirtualMethodList = new List<ObservedMethod>();
+                foreach (ObservedMethod x in this.MethodList) {
+                    if (x.Method.IsVirtual == false) _notVirtualMethodList.Add( x );
+                }
+
+            }
+            return _notVirtualMethodList;
+        }
+
+        /// <summary>
+        /// 是否可以根据接口创建代理类
+        /// </summary>
+        /// <param name="interfaceType"></param>
+        /// <returns></returns>
+        public Boolean CanCreateInterfaceProxy( Type interfaceType ) {
+            foreach (Type t in this.GetInterfaceType()) {
+                if (t == interfaceType) return true;
+            }
+            return false;
+        }
+
+        private List<Type> _interfaceTypeList;
+
+        /// <summary>
+        /// 被监控的所有方法隶属的接口
+        /// </summary>
+        /// <returns></returns>
+        public List<Type> GetInterfaceType() {
+
+            if (_interfaceTypeList == null) {
+                _interfaceTypeList = loadInterfaceType();
+            }
+
+            return _interfaceTypeList;
+        }
+
+
+        public String GetInterfaceTypeString() {
+            String str = "";
+            for (int i = 0; i < this._interfaceTypeList.Count; i++) {
+
+                str += _interfaceTypeList[i].FullName;
+                if (i < _interfaceTypeList.Count - 1) str += ",";
+
+            }
+            return str;
+        }
+
+        private List<Type> loadInterfaceType() {
+
+            List<Type> results = new List<Type>();
+
+            // 检索所有的接口
+            Type[] interfaceList = this.Type.GetInterfaces();
+
+            foreach (Type interfaceOne in interfaceList) {
+                if (isObservedInferface( interfaceOne, this.MethodList )) {
+                    results.Add( interfaceOne );
+                }
+            }
+
+            return results;
+        }
+
+        // 检查此 interface 是否匹配所有的被监控方法
+        private Boolean isObservedInferface( System.Type interfaceOne, List<ObservedMethod> list ) {
+
+            foreach (ObservedMethod x in list) {
+
+                if (methodMatchInterface( x, interfaceOne ) == false) return false;
+
+            }
+
+            return true;
+        }
+
+        private Boolean methodMatchInterface( ObservedMethod x, System.Type interfaceOne ) {
+            return rft.IsMethodInInterface( x.Method, x.ObservedType.Type, interfaceOne );
+        }
+
+
     }
+
+
 
 }

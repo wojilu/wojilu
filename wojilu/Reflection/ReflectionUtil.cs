@@ -217,12 +217,24 @@ namespace wojilu.Reflection {
         /// <param name="interfaceType">是否实现的接口</param>
         /// <returns></returns>
         public static Boolean IsInterface( Type t, Type interfaceType ) {
-            Type[] interfaces = t.GetInterfaces();
-            foreach (Type type in interfaces) {
-                if (interfaceType.FullName.Equals( type.FullName )) {
-                    return true;
-                }
+            return interfaceType.IsAssignableFrom( t );
+        }
+
+        /// <summary>
+        /// 判断某个方法是否是接口的实现
+        /// </summary>
+        /// <param name="method"></param>
+        /// <param name="objType"></param>
+        /// <param name="interfaceType"></param>
+        /// <returns></returns>
+        public static Boolean IsMethodInInterface( MethodInfo method, Type objType, Type interfaceType ) {
+
+            InterfaceMapping map = objType.GetInterfaceMap( interfaceType );
+
+            foreach (MethodInfo x in map.TargetMethods) {
+                if (x == method) return true;
             }
+
             return false;
         }
 

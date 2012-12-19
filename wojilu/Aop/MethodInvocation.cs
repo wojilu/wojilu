@@ -11,9 +11,20 @@ namespace wojilu.Aop {
         public Object[] Args { get; set; }
         public Object Target { get; set; }
 
+        public Boolean IsSubClass { get; set; }
+
         public Object Proceed() {
-            return rft.CallMethod( Target, AopCoder.baseMethodPrefix + Method.Name, Args );
+
+            if (this.IsSubClass) {
+                return rft.CallMethod( Target, AopCoderState.GetBasePrefixOne() + Method.Name, Args );
+            }
+            else {
+                return rft.CallMethod( Target, Method.Name, Args );
+            }
+
         }
+
+
     }
 
 }

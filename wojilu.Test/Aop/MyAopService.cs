@@ -10,7 +10,8 @@ namespace wojilu.Test.Aop {
         public String Name { get; set; }
     }
 
-    public class MyAopService {
+
+    public class MyAopService : IMyAopService {
 
         public static readonly int UpdateResult = 98;
 
@@ -49,6 +50,14 @@ namespace wojilu.Test.Aop {
             return cats;
         }
 
+
+        public void NormalMethod() {
+            Console.WriteLine( "--------NormalMethod--------" );
+        }
+
+        public virtual void NormalVirtualMethod() {
+            Console.WriteLine( "--------NormalVirtualMethod--------" );
+        }
     }
 
 }

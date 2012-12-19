@@ -87,12 +87,14 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Aop\AopCoderState.cs" />
+    <Compile Include="Aop\AopCoderStateInerface.cs" />
+    <Compile Include="Aop\AopCoderStateSub.cs" />
     <Compile Include="Aop\AopContext.cs" />
     <Compile Include="Aop\IMethodInvocation.cs" />
     <Compile Include="Aop\MethodInvocation.cs" />
     <Compile Include="Aop\ObservedMethod.cs" />
     <Compile Include="Aop\ObservedType.cs" />
-    <Compile Include="DI\TypeNotFoundException.cs" />
     <Compile Include="AssemblyInfo.cs" />
     <Compile Include="Common\IBinderValue.cs" />
     <Compile Include="Common\ItemValue.cs" />
@@ -101,6 +103,7 @@
     <Compile Include="Common\Onlines\OnlineManager.cs" />
     <Compile Include="Aop\AopCoder.cs" />
     <Compile Include="Aop\MethodObserver.cs" />
+    <Compile Include="DI\Exception.cs" />
     <Compile Include="_wojilu\Json.cs" />
     <Compile Include="_wojilu\SettingBase.cs" />
     <Compile Include="Data\Enum\IdType.cs" />

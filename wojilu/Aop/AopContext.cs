@@ -41,6 +41,12 @@ namespace wojilu.Aop {
             return _oTypes;
         }
 
+        public static ObservedType GetObservedType( Type t ) {
+            ObservedType x;
+            _oTypes.TryGetValue( t, out x );
+            return x;
+        }
+
         /// <summary>
         /// 获取某方法的监控器
         /// </summary>
@@ -49,7 +55,10 @@ namespace wojilu.Aop {
         /// <returns></returns>
         public static List<MethodObserver> GetMethodObservers( Type t, String methodName ) {
 
-            List<ObservedMethod> list = _oTypes[t].MethodList;
+            ObservedType oType = GetObservedType( t );
+            if (oType == null) return new List<MethodObserver>();
+
+            List<ObservedMethod> list = oType.MethodList;
             foreach (ObservedMethod x in list) {
                 if (x.Method.Name == methodName) return x.Observer;
             }
@@ -114,15 +123,64 @@ namespace wojilu.Aop {
         }
 
         /// <summary>
-        /// 根据类型创建它的代理类。如果代理不存在，返回 null
+        /// 根据类型创建它的代理类。如果代理不存在，返回 null。
+        /// 如果方法非虚，不可以创建，那么抛出异常。
         /// </summary>
         /// <param name="t"></param>
         /// <returns></returns>
         public static Object CreateProxy( Type t ) {
 
-            String name = strUtil.Join( t.Namespace, AopCoder.proxyClassPrefix + t.Name, "." );
+            ObservedType oType = GetObservedType( t );
+            if (oType == null) return null;
+            if (oType.CanCreateSubProxy() == false) {
+                String exMsg = "method not virtual. type=" + t.FullName + ", method=" + oType.GetNotVirtualMethodString();
+                logger.Error( exMsg );
+                throw new MethodNotVirtualException( exMsg );
+            }
+
+            AopCoderState _state = new AopCoderStateSub();
+
+            String name = strUtil.Join( t.Namespace, _state.GetClassFullName( t, "" ), "." );
 
             return _aopAssembly.CreateInstance( name );
+        }
+
+        /// <summary>
+        /// 根据接口创建代理类
+        /// </summary>
+        /// <typeparam name="T">接口的类型</typeparam>
+        /// <param name="targetType">被代理的类型</param>
+        /// <returns></returns>
+        public static T CreateProxy<T>( Type targetType ) {
+            return (T)CreateProxy( targetType, typeof( T ) );
+        }
+
+        /// <summary>
+        /// 根据接口创建代理类
+        /// </summary>
+        /// <param name="t"></param>
+        /// <param name="interfaceType"></param>
+        /// <returns></returns>
+        public static Object CreateProxy( Type t, Type interfaceType ) {
+
+            ObservedType oType = GetObservedType( t );
+            if (oType == null) return null;
+            if (oType.CanCreateInterfaceProxy( interfaceType ) == false) {
+                String exMsg = "cannot create interface proxy. type=" + t.FullName + ", interface type=" + interfaceType;
+                logger.Error( exMsg );
+                throw new Exception( exMsg );
+            }
+
+            AopCoderState _state = new AopCoderStateInerface();
+
+            String name = strUtil.Join( t.Namespace, _state.GetClassFullName( t, interfaceType.FullName ), "." );
+
+            Object obj = _aopAssembly.CreateInstance( name );
+            if (obj == null) return null;
+
+            rft.SetPropertyValue( obj, "m_objTarget", rft.GetInstance( t ) );
+
+            return obj;
         }
 
         private static Assembly loadCompiledAssembly() {
@@ -176,7 +234,9 @@ namespace wojilu.Aop {
 
             ObservedType oType;
             results.TryGetValue( t, out oType );
-            if (oType == null) oType = new ObservedType();
+            if (oType == null) {
+                oType = new ObservedType();
+            }
 
             oType.Type = t;
             populateMethodList( oType, obj, method );
@@ -250,9 +310,11 @@ namespace wojilu.Aop {
 
                 MethodInfo x = getMethodInfo( existMethods, item, t );
                 if (x == null) {
-                    logger.Error( "method not exist. type=" + t.FullName + ", method=" + item );
-                    continue;
+                    String exMsg = "method not exist. type=" + t.FullName + ", method=" + item;
+                    logger.Error( exMsg );
+                    throw new MethodNotFoundException( exMsg );
                 }
+
 
                 if (list.Contains( x )) continue;
 
@@ -266,17 +328,8 @@ namespace wojilu.Aop {
 
             foreach (MethodInfo x in existMethods) {
                 if (x.Name == item) {
-
-                    if (x.IsVirtual == false) {
-                        logger.Error( "method is not virtual. type=" + t.FullName + ", method=" + item );
-                        return null;
-                    }
-                    else {
-                        return x;
-                    }
-
+                    return x;
                 }
-
             }
             return null;
         }

@@ -12,6 +12,8 @@ namespace wojilu.Aop {
         Object Target { get; set; }
 
         Object Proceed();
+
+        Boolean IsSubClass { get; set; }
     }
 
 }
