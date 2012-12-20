@@ -13,7 +13,10 @@
 			<td align="center">#{post.OrderId}</td>
 			<td><a href="#{post.EditUrl}">#{post.Content}</a></td>
 			<td align="center">#{post.PubDate}</td>
-			<td align="center"><a href="#{post.DeleteUrl}" class="deleteCmd">_{delete}</a></td>
+			<td align="center">
+                <a href="#{post.EditUrl}" class="">_{edit}</a>
+                <a href="#{post.DeleteUrl}" class="deleteCmd">_{delete}</a>
+            </td>
 		</tr>
 		<!-- END list -->
 		<tr><td colspan="4">#{page}</td></tr>

@@ -119,8 +119,8 @@ namespace wojilu {
             return p;
         }
 
-        public DataPage<T> Convert<T>( List<T> list ) {
-            DataPage<T> p = new DataPage<T>();
+        public DataPage<TData> Convert<TData>( List<TData> list ) {
+            DataPage<TData> p = new DataPage<TData>();
             p.CopyStats( this );
             p.Results = list;
             return p;

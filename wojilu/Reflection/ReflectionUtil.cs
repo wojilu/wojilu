@@ -217,6 +217,7 @@ namespace wojilu.Reflection {
         /// <param name="interfaceType">是否实现的接口</param>
         /// <returns></returns>
         public static Boolean IsInterface( Type t, Type interfaceType ) {
+            if (t.IsInterface) return false;
             return interfaceType.IsAssignableFrom( t );
         }
 

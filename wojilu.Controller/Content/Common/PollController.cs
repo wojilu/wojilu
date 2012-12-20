@@ -204,7 +204,7 @@ namespace wojilu.Web.Controller.Content.Common {
                 opblock.Next();
 
                 iColor++;
-                if (iColor > 6) iColor = 1;
+                if (iColor > colorCount) iColor = 1;
             }
 
             set( "poll.ExpiryInfo", p.GetRealExpiryDate() );
@@ -268,7 +268,7 @@ namespace wojilu.Web.Controller.Content.Common {
             pollResult.Answer = choice;
             pollResult.Ip = ctx.Ip;
 
-            String lnkPost = to( new Forum.TopicController().Show, poll.TopicId );
+            String lnkPost = to( new Content.PostController().Show, poll.TopicId );
             pollService.CreateResult( pollResult, lnkPost );
 
             echoAjaxOk();

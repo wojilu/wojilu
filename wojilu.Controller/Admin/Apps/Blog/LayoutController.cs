@@ -1,10 +1,7 @@
 /*
  * Copyright (c) 2010, www.wojilu.com. All rights reserved.
  */
-
 using System;
-using System.Collections;
-using System.Text;
 
 using wojilu.Web.Mvc;
 using wojilu.Web.Mvc.Attr;
@@ -12,8 +9,6 @@ using wojilu.Web.Mvc.Attr;
 using wojilu.Apps.Blog.Service;
 using wojilu.Apps.Blog.Domain;
 using wojilu.Apps.Blog.Interface;
-using wojilu.Apps.Blog.Interface;
-using wojilu.Apps.Blog.Service;
 
 namespace wojilu.Web.Controller.Admin.Apps.Blog {
 

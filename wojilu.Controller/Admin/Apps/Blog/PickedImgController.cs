@@ -14,7 +14,7 @@ namespace wojilu.Web.Controller.Admin.Apps.Blog {
 
         public override IPageList GetPage() {
             int imgCount = 6;
-            return ndb.findPage( typeof( BlogPickedImg ), "", 6 );
+            return ndb.findPage( typeof( BlogPickedImg ), "", imgCount );
         }
 
     }

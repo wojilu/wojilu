@@ -12,7 +12,7 @@ namespace wojilu.Common.Menus.Interface {
 
     public interface IMenu : ISort, INode {
 
-        int Id { get; set; }
+        new int Id { get; set; }
 
         String Style { get; set; }
         int OpenNewWindow { get; set; }

@@ -32,8 +32,7 @@ namespace wojilu.Web.Controller.Content.Admin.Section {
             set( "section.Title", section.Title );
             IBlock block = getBlock( "list" );
             foreach (ContentPost post in posts.Results) {
-                //block.Set( "post.Content", strUtil.CutString( post.Content, 100 ) );
-                block.Set( "post.Content", strUtil.ParseHtml( post.Content, 100 ) );
+                block.Set( "post.Content", getContent( post ) );
                 block.Set( "post.OrderId", post.OrderId );
                 block.Set( "post.PubDate", post.Created );
                 block.Set( "post.EditUrl", to( Edit, post.Id ) );
@@ -41,6 +40,13 @@ namespace wojilu.Web.Controller.Content.Admin.Section {
                 block.Next();
             }
             set( "page", posts.PageBar );
+        }
+
+        private String getContent( ContentPost post ) {
+
+            String result = strUtil.ParseHtml( post.Content, 100 );
+            if (strUtil.HasText( result )) return result;
+            return post.Created.ToShortDateString();
         }
 
         private void bindAddInfo( ContentSection section ) {

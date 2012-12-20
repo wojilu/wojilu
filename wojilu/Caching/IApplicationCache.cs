@@ -32,7 +32,7 @@ namespace wojilu.Caching {
 
         int Count { get; }
 
-        IDictionaryEnumerator GetEnumerator();
+        new IDictionaryEnumerator GetEnumerator();
     }
 
 }

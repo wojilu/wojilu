@@ -158,7 +158,7 @@ namespace wojilu.Web.Controller.Forum.Users {
                 opblock.Next();
 
                 iColor++;
-                if (iColor > 6) iColor = 1;
+                if (iColor > colorCount) iColor = 1;
             }
 
             set( "poll.ExpiryInfo", p.GetRealExpiryDate() );

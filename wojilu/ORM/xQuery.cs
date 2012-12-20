@@ -94,9 +94,9 @@ namespace wojilu.ORM {
         /// </summary>
         /// <param name="propertyName"></param>
         /// <returns></returns>
-        public List<T> listChildren<T>( String propertyName ) {
+        public List<TData> listChildren<TData>( String propertyName ) {
             IList list = _q.listChildren( propertyName );
-            return db.getResults<T>( list );
+            return db.getResults<TData>( list );
         }
 
         /// <summary>

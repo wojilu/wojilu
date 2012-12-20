@@ -22,17 +22,18 @@ namespace wojilu.Web.Utils {
 
     public class AvatarSaver {
 
-        private AvatarSaver _saver;
+        protected AvatarSaver() { }
+
+        private static readonly ILog logger = LogManager.GetLogger( typeof( AvatarSaver ) );
 
         public virtual String GetExt() {
-            return _saver.GetExt();
+            logger.Error( "base method 'GetExt' not implemented" );
+            return "";
         }
 
         public virtual void Save( String absPath ) {
-            _saver.Save( absPath );
+            logger.Error( "base method 'Save' not implemented" );
         }
-
-        protected AvatarSaver() { }
 
         public static AvatarSaver New( String oPicAbsPath ) {
             return new AvatarCopySaver( oPicAbsPath );

@@ -18,16 +18,16 @@
                 <td style="width:60px; "><b>_{bgColor}</b></td>
                 <td style="vertical-align:top;">
                     <div style="float:left;">
-                    <img src="~js/lib/colorpicker/images/select2.png" class="colorSelector" eleSelector="#headerWrap" cssKey="background"/></div>
+                    <img src="~js/lib/colorpicker/images/select2.png" class="colorSelector" eleSelector="#site-header-inner" cssKey="background"/></div>
                     <div style="float:left">
                     <span class="left20 strong">文字颜色</span>
-                    <img src="~js/lib/colorpicker/images/select2.png" class="colorSelector" cssKey="color" eleSelector="#header a" />
+                    <img src="~js/lib/colorpicker/images/select2.png" class="colorSelector" cssKey="color" eleSelector="#site-header-inner a" />
                     </div>
 
                     
                     <div style="float:left; font-weight:bold; padding-top:5px;margin-left:50px;margin-right:5px;">页头高度</div>
-                    <div class="cmdHeight" id="cmdUp" eleSelector="#header"><img src="~img/up.gif" /></div>
-                    <div class="cmdHeight" id="cmdDown" eleSelector="#header"><img src="~img/dn.gif" /></div>
+                    <div class="cmdHeight" id="cmdUp" eleSelector="#site-header-inner"><img src="~img/up.gif" /></div>
+                    <div class="cmdHeight" id="cmdDown" eleSelector="#site-header-inner"><img src="~img/dn.gif" /></div>
                     <div id="lblHeight" class="note">请点击箭头调整高度</div>           
                 </td>
             </tr>
@@ -84,7 +84,7 @@
 </div>
 
 <script>
-var eleTag = '#header';
+var eleTag = '#site-header-inner';
 var saveUrl = '#{saveUrl}';
 </script>
 #{autoSaveScript}

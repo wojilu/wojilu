@@ -8,7 +8,7 @@
 <meta content="#{pageDescription}" name="Description" />
 <link href="~css/bootstrap/css/bootstrap.css?v=#{cssVersion}" rel="stylesheet" />
 <link href="~css/wojilu._base.css?v=#{cssVersion}" rel="stylesheet" />
-
+#{siteSkinContent}
 <script>var __funcList = []; var _run = function (aFunc) { __funcList.push(aFunc); }; var require = { urlArgs: 'v=#{jsVersion}' };</script>
 
 <!--[if IE 6]>
@@ -22,10 +22,12 @@
 #{topNav}
 <div class="container page-container" id="page-container">
     #{header}
+    <div id="page-main-wrap">
     #{layout_content}
+    </div>
     <div id="footerTopAd" class="adItem" data-ad="Footer">#{adFooter}</div>
     <div class="row" id="footer-row">       
-        <div class="span12 footer">        
+        <div class="span12 footer" id="footer">        
             <div class="footer-inner">
 	            <div>#{footerMenus}</div>
 	            <div>Powered by <a href="http://www.wojilu.com" target="_blank">我记录1.9</a></div>
