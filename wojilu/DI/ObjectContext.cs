@@ -21,6 +21,7 @@ using System.Reflection;
 using wojilu.Reflection;
 using wojilu.Web.Mvc;
 using wojilu.Web.Mvc.Interface;
+using wojilu.Aop;
 
 namespace wojilu.DI {
 
@@ -201,7 +202,7 @@ namespace wojilu.DI {
                 Instance.ObjectsByType[t.FullName] = result;
 
             }
-            
+
             return result;
         }
 
@@ -263,6 +264,53 @@ namespace wojilu.DI {
                 }
             }
             return currentObject;
+        }
+
+        /// <summary>
+        /// 创建经过注入的对象；然后对属性进行拦截。
+        /// 如果属性有接口，按照接口拦截；否则按照子类拦截
+        /// </summary>
+        /// <param name="targetType"></param>
+        /// <returns></returns>
+        public static Object CreateAndObserveProperty( Type targetType ) {
+
+            Object objTarget = CreateObject( targetType );
+
+            return checkPropertyObserver( objTarget );
+        }
+
+        /// <summary>
+        /// 检查所有子属性：是否需要拦截
+        /// </summary>
+        /// <param name="objTarget"></param>
+        private static Object checkPropertyObserver( Object objTarget ) {
+
+            Type targetType = objTarget.GetType();                
+
+            PropertyInfo[] properties = targetType.GetProperties( BindingFlags.Public | BindingFlags.Instance );
+
+            foreach (PropertyInfo p in properties) {
+                if (!p.CanRead) continue;
+                if (!p.CanWrite) continue;
+
+                Object oValue = p.GetValue( objTarget, null );
+                if (oValue == null) {
+                    logger.Info( "property value is null. type = " + targetType.FullName + ", property = " + p.Name );
+                    continue;
+                }
+
+                Object propertyValue;
+                if (p.PropertyType.IsInterface) {
+                    propertyValue = AopContext.CreateProxyByInterface( oValue, p.PropertyType );
+                }
+                else {
+                    propertyValue = AopContext.CreateProxy( oValue );
+                }
+
+                p.SetValue( objTarget, propertyValue, null );
+            }
+
+            return objTarget;
         }
 
 

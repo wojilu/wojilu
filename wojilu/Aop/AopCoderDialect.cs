@@ -20,16 +20,17 @@ using System.Text;
 
 namespace wojilu.Aop {
 
-    internal abstract class AopCoderState {
-        public abstract String GetClassPrefix();
-        public abstract String InvokeTarget();
-        public abstract String GetBasePrefix();
+    internal abstract class AopCoderDialect {
 
+        public abstract String GetClassPrefix();
+
+        public abstract String GetMethodBasePrefix();
         public abstract String GetMethodOverride();
 
+        public abstract String GetInvokeTargetBase();
         public abstract String GetInvokeTargetThis();
 
-        public static String GetBasePrefixOne() { return new AopCoderStateSub().GetBasePrefix(); }
+        public static String GetBasePrefixOne() { return new AopCoderDialectSub().GetMethodBasePrefix(); }
 
 
         public abstract string IsSubClassStr();

@@ -15,6 +15,9 @@ namespace wojilu.Test.Aop {
 
         public static readonly int UpdateResult = 98;
 
+        public String ServiceName { get; set; }
+
+
         public virtual void Save() {
             Console.WriteLine( "--------Save--------" );
         }
@@ -57,6 +60,15 @@ namespace wojilu.Test.Aop {
 
         public virtual void NormalVirtualMethod() {
             Console.WriteLine( "--------NormalVirtualMethod--------" );
+        }
+
+
+        public int NormalReturnMethod() {
+            return 99;
+        }
+
+        public List<string> NormalReturnMethod2() {
+            return new List<string>();
         }
     }
 

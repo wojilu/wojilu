@@ -16,7 +16,7 @@ namespace wojilu.Aop {
         public Object Proceed() {
 
             if (this.IsSubClass) {
-                return rft.CallMethod( Target, AopCoderState.GetBasePrefixOne() + Method.Name, Args );
+                return rft.CallMethod( Target, AopCoderDialect.GetBasePrefixOne() + Method.Name, Args );
             }
             else {
                 return rft.CallMethod( Target, Method.Name, Args );

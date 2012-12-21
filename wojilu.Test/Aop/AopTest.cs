@@ -5,6 +5,7 @@ using System.Text;
 using NUnit.Framework;
 using wojilu.Aop;
 using System.Reflection;
+using wojilu.DI;
 
 namespace wojilu.Test.Aop {
 
@@ -98,13 +99,20 @@ namespace wojilu.Test.Aop {
 
         }
 
+        [Test]
+        public void testIocAndAop() {
+
+            TComplexObject obj = ObjectContext.CreateAndObserveProperty( typeof( TComplexObject ) ) as TComplexObject;
+            obj.Save();
+
+        }
 
 
         [Test]
         public void testInterfaceClassProxy() {
 
             // 代理类是接口
-            IMyAopService s1 = AopContext.CreateProxy<IMyAopService>( typeof( MyAopService ) );
+            IMyAopService s1 = AopContext.CreateProxyByInterface<IMyAopService>( typeof( MyAopService ) );
 
             Assert.AreNotEqual( typeof( MyAopService ), s1.GetType() );
 

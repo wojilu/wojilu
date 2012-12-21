@@ -239,6 +239,15 @@ namespace wojilu.Reflection {
             return false;
         }
 
+        /// <summary>
+        /// 判断此 method 是否是属性 property
+        /// </summary>
+        /// <param name="m"></param>
+        /// <returns></returns>
+        public static Boolean IsMethodProperty( MethodInfo m ) {
+            return m.IsSpecialName && (m.Name.StartsWith( "set_" ) || m.Name.StartsWith( "get_" ));
+        }
+
 
     }
 }

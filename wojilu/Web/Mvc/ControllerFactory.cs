@@ -85,14 +85,6 @@ namespace wojilu.Web.Mvc {
             else {
                 return null;
             }
-
-
-            //if (ObjectContext.Instance.TypeList.ContainsKey( typeName ) == false) return null;
-
-            //Type controllerType = ObjectContext.Instance.TypeList[typeName] as Type;
-            //return FindController( controllerType, ctx );
-
-
         }
 
         /// <summary>
@@ -104,7 +96,7 @@ namespace wojilu.Web.Mvc {
         public static ControllerBase FindController( Type controllerType, MvcContext ctx ) {
             if (controllerType == null) return null;
 
-            ControllerBase result = ObjectContext.CreateObject( controllerType ) as ControllerBase;
+            ControllerBase result = ObjectContext.CreateAndObserveProperty( controllerType ) as ControllerBase;
             if (result == null) return null;
             result.setContext( ctx );
             setControllerAppInfo( controllerType, result );

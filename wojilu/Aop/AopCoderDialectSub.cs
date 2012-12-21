@@ -20,16 +20,16 @@ using System.Text;
 
 namespace wojilu.Aop {
 
-    internal class AopCoderStateSub : AopCoderState {
+    internal class AopCoderDialectSub : AopCoderDialect {
 
         public override String GetClassPrefix() {
             return "__";
         }
 
-        public override String InvokeTarget() {
+        public override String GetInvokeTargetBase() {
             return "base";
         }
-        public override String GetBasePrefix() {
+        public override String GetMethodBasePrefix() {
             return "__base_";
         }
         public override String GetMethodOverride() {

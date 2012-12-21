@@ -87,9 +87,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Aop\AopCoderState.cs" />
-    <Compile Include="Aop\AopCoderStateInerface.cs" />
-    <Compile Include="Aop\AopCoderStateSub.cs" />
+    <Compile Include="Aop\AopCoderDialect.cs" />
+    <Compile Include="Aop\AopCoderDialectInerface.cs" />
+    <Compile Include="Aop\AopCoderDialectSub.cs" />
     <Compile Include="Aop\AopContext.cs" />
     <Compile Include="Aop\IMethodInvocation.cs" />
     <Compile Include="Aop\MethodInvocation.cs" />

@@ -60,31 +60,49 @@ namespace wojilu.Aop {
         private static void createInterfaceProxy( StringBuilder sb, KeyValuePair<Type, ObservedType> kv, Type interfaceType ) {
             Type type = kv.Key;
 
-            AopCoderState state = new AopCoderStateInerface();
+            AopCoderDialect dialect = new AopCoderDialectInerface();
 
             append_ns_begin( sb, type );
-            append_interface_class_begin( sb, type, state, interfaceType.FullName );
+            append_interface_class_begin( sb, type, dialect, interfaceType.FullName );
 
-            append_methods( sb, kv, state );
-            append_interface_methods_other( sb, kv, state, interfaceType );
+            append_methods( sb, kv, dialect );
+            append_interface_methods_other( sb, kv, dialect, interfaceType );
 
             append_class_end( sb );
             append_ns_end( sb );
         }
 
         // 不在监控中的、接口必须包含的方法
-        private static void append_interface_methods_other( StringBuilder sb, KeyValuePair<Type, ObservedType> kv, AopCoderState state, Type interfaceType ) {
+        private static void append_interface_methods_other( StringBuilder sb, KeyValuePair<Type, ObservedType> kv, AopCoderDialect dialect, Type interfaceType ) {
 
             MethodInfo[] methods = interfaceType.GetMethods();
             foreach (MethodInfo m in methods) {
 
                 if (isMethodCoded( m, kv.Value.MethodList )) continue;
 
-                append_interface_methods_other_single( sb, m, state );
+                if (rft.IsMethodProperty( m )) {
+                    continue;
+                }
+
+                append_interface_methods_other_single( sb, m, dialect );
+            }
+
+            PropertyInfo[] properties = interfaceType.GetProperties();
+            foreach (PropertyInfo p in properties) {
+                append_interface_properties_other_single( sb, p, dialect );
             }
         }
 
-        private static void append_interface_methods_other_single( StringBuilder sb, MethodInfo m, AopCoderState state ) {
+        private static void append_interface_properties_other_single( StringBuilder sb, PropertyInfo p, AopCoderDialect dialect ) {
+
+            sb.AppendLine( "\t\tpublic " + p.PropertyType.FullName + " " + p.Name + " {" );
+            sb.AppendLine( "\t\t\tget { return " + dialect.GetInvokeTargetThis() + "." + p.Name + ";}" );
+            sb.AppendLine( "\t\t\tset { " + dialect.GetInvokeTargetThis() + "." + p.Name + " = value;}" );
+            sb.AppendLine( "\t\t}" );
+            sb.AppendLine();
+        }
+
+        private static void append_interface_methods_other_single( StringBuilder sb, MethodInfo m, AopCoderDialect dialect ) {
 
             String strReturn = getReturnString( m );
             String strArgs = getArgString( m );
@@ -94,7 +112,10 @@ namespace wojilu.Aop {
             sb.Append( "{" );
             sb.AppendLine();
 
-            sb.AppendFormat( "\t\t\t{0}.{1}({2});", state.GetInvokeTargetThis(), m.Name, strArgBody );
+            String strReturnLabel = getReturnString( m );
+            strReturnLabel = (strReturnLabel == "void" ? "" : "return ");
+
+            sb.AppendFormat( "\t\t\t{3}{0}.{1}({2});", dialect.GetInvokeTargetThis(), m.Name, strArgBody, strReturnLabel );
             sb.AppendLine();
 
             sb.Append( "\t\t}" );
@@ -126,13 +147,13 @@ namespace wojilu.Aop {
         private static void createSubClassProxy( StringBuilder sb, KeyValuePair<Type, ObservedType> kv ) {
 
             Type type = kv.Key;
-            AopCoderState state = new AopCoderStateSub();
+            AopCoderDialect dialect = new AopCoderDialectSub();
 
             append_ns_begin( sb, type );
-            append_class_begin( sb, type, state );
+            append_class_begin( sb, type, dialect );
 
-            append_methods( sb, kv, state );
-            append_methods_base( sb, kv, state );
+            append_methods( sb, kv, dialect );
+            append_methods_base( sb, kv, dialect );
 
             append_class_end( sb );
             append_ns_end( sb );
@@ -148,55 +169,55 @@ namespace wojilu.Aop {
             sb.AppendLine();
         }
 
-        private static void append_methods( StringBuilder sb, KeyValuePair<Type, ObservedType> kv, AopCoderState _state ) {
+        private static void append_methods( StringBuilder sb, KeyValuePair<Type, ObservedType> kv, AopCoderDialect dialect ) {
             foreach (ObservedMethod x in kv.Value.MethodList) {
 
                 if (x.Method.IsVirtual == false) continue;
 
-                append_method_single( sb, x, _state );
+                append_method_single( sb, x, dialect );
             }
         }
 
-        private static void append_method_single( StringBuilder sb, ObservedMethod x, AopCoderState _state ) {
+        private static void append_method_single( StringBuilder sb, ObservedMethod x, AopCoderDialect dialect ) {
             String strArgs = getArgString( x.Method );
             String strReturn = getReturnString( x.Method );
 
-            append_method_begin( sb, x, strArgs, strReturn, _state );
-            append_method_before( sb, x, _state );
+            append_method_begin( sb, x, strArgs, strReturn, dialect );
+            append_method_before( sb, x, dialect );
 
-            append_method_invoke( sb, x, _state );
+            append_method_invoke( sb, x, dialect );
 
-            append_method_after( sb, x, _state );
+            append_method_after( sb, x, dialect );
             append_method_end( sb, x );
         }
 
-        private static void append_methods_base( StringBuilder sb, KeyValuePair<Type, ObservedType> kv, AopCoderState _state ) {
+        private static void append_methods_base( StringBuilder sb, KeyValuePair<Type, ObservedType> kv, AopCoderDialect dialect ) {
             foreach (ObservedMethod x in kv.Value.MethodList) {
 
                 if (x.Method.IsVirtual == false) continue;
 
-                append_method_base_single( sb, x, _state );
+                append_method_base_single( sb, x, dialect );
             }
         }
 
-        private static void append_interface_methods_base( StringBuilder sb, KeyValuePair<Type, ObservedType> kv, AopCoderState _state ) {
+        private static void append_interface_methods_base( StringBuilder sb, KeyValuePair<Type, ObservedType> kv, AopCoderDialect dialect ) {
             foreach (ObservedMethod x in kv.Value.MethodList) {
-                append_method_base_single( sb, x, _state );
+                append_method_base_single( sb, x, dialect );
             }
         }
 
-        private static void append_method_base_single( StringBuilder sb, ObservedMethod x, AopCoderState _state ) {
+        private static void append_method_base_single( StringBuilder sb, ObservedMethod x, AopCoderDialect dialect ) {
             String strReturn = getReturnString( x.Method );
             String strArg = getArgString( x.Method );
             String strArgBody = getArgBody( x.Method );
 
-            sb.AppendFormat( "\t\tpublic {0} {1}{2}({3}) ", strReturn, _state.GetBasePrefix(), x.Method.Name, strArg );
+            sb.AppendFormat( "\t\tpublic {0} {1}{2}({3}) ", strReturn, dialect.GetMethodBasePrefix(), x.Method.Name, strArg );
             sb.Append( "{" );
             sb.AppendLine();
 
             String strReturnLable = strReturn == "void" ? "" : "return ";
 
-            sb.AppendFormat( "\t\t\t{0}{1}.{2}( {3} );", strReturnLable, _state.InvokeTarget(), x.Method.Name, strArgBody );
+            sb.AppendFormat( "\t\t\t{0}{1}.{2}( {3} );", strReturnLable, dialect.GetInvokeTargetBase(), x.Method.Name, strArgBody );
             sb.AppendLine();
 
             sb.Append( "\t\t}" );
@@ -210,9 +231,9 @@ namespace wojilu.Aop {
             return AopContext.GetMethodObservers( t, methodName );
         }
 
-        private static void append_method_before( StringBuilder sb, ObservedMethod x, AopCoderState _state ) {
+        private static void append_method_before( StringBuilder sb, ObservedMethod x, AopCoderDialect dialect ) {
 
-            sb.AppendFormat( "\t\t\tMethodInfo m = {0}.GetType().GetMethod( \"{1}\" );", _state.GetInvokeTargetThis(), x.Method.Name );
+            sb.AppendFormat( "\t\t\tMethodInfo m = {0}.GetType().GetMethod( \"{1}\" );", dialect.GetInvokeTargetThis(), x.Method.Name );
             sb.AppendLine();
 
             sb.AppendFormat( "\t\t\tObject[] args = {0};", getArgArray( x.Method ) );
@@ -223,13 +244,13 @@ namespace wojilu.Aop {
             foreach (MethodObserver os in osList) {
                 sb.AppendFormat( "\t\t\t{0} observer{1} = new {0}();", os.GetType().FullName, i );
                 sb.AppendLine();
-                sb.AppendFormat( "\t\t\tobserver{0}.Before( m, args, {1} );", i, _state.GetInvokeTargetThis() );
+                sb.AppendFormat( "\t\t\tobserver{0}.Before( m, args, {1} );", i, dialect.GetInvokeTargetThis() );
                 sb.AppendLine();
                 i++;
             }
         }
 
-        private static void append_method_invoke( StringBuilder sb, ObservedMethod x, AopCoderState _state ) {
+        private static void append_method_invoke( StringBuilder sb, ObservedMethod x, AopCoderDialect dialect ) {
 
             sb.Append( "\t\t\tObject returnValue = null;" );
             sb.AppendLine();
@@ -247,12 +268,12 @@ namespace wojilu.Aop {
             int invokeObserverIndex = getInovkeObserverIndex( osList );
 
             if (invokeObserverIndex > -1) {
-                append_invoke_object( sb, x, _state );
+                append_invoke_object( sb, x, dialect );
                 sb.AppendFormat( "\t\t\t{0}observer{1}.Invoke( invocation );", strReturn, invokeObserverIndex );
                 sb.AppendLine();
             }
             else {
-                sb.AppendFormat( "\t\t\t{0}{1}.{2}({3});", strReturn, _state.InvokeTarget(), x.Method.Name, getArgBodyFromArray( x.Method ) );
+                sb.AppendFormat( "\t\t\t{0}{1}.{2}({3});", strReturn, dialect.GetInvokeTargetBase(), x.Method.Name, getArgBodyFromArray( x.Method ) );
                 sb.AppendLine();
             }
         }
@@ -273,18 +294,18 @@ namespace wojilu.Aop {
             return -1;
         }
 
-        private static void append_method_after( StringBuilder sb, ObservedMethod x, AopCoderState _state ) {
+        private static void append_method_after( StringBuilder sb, ObservedMethod x, AopCoderDialect dialect ) {
 
             List<MethodObserver> osList = getMethodObserver( x.ObservedType.Type, x.Method.Name );
             int i = 1;
             foreach (MethodObserver os in osList) {
-                sb.AppendFormat( "\t\t\tobserver{0}.After( returnValue, m, args, {1} );", i, _state.GetInvokeTargetThis() );
+                sb.AppendFormat( "\t\t\tobserver{0}.After( returnValue, m, args, {1} );", i, dialect.GetInvokeTargetThis() );
                 sb.AppendLine();
                 i++;
             }
         }
 
-        private static void append_invoke_object( StringBuilder sb, ObservedMethod x, AopCoderState _state ) {
+        private static void append_invoke_object( StringBuilder sb, ObservedMethod x, AopCoderDialect dialect ) {
             sb.Append( "\t\t\tIMethodInvocation invocation = new MethodInvocation();" );
             sb.AppendLine();
 
@@ -294,10 +315,10 @@ namespace wojilu.Aop {
             sb.AppendFormat( "\t\t\tinvocation.Args = args;" );
             sb.AppendLine();
 
-            sb.AppendFormat( "\t\t\tinvocation.Target = {0};", _state.GetInvokeTargetThis() );
+            sb.AppendFormat( "\t\t\tinvocation.Target = {0};", dialect.GetInvokeTargetThis() );
             sb.AppendLine();
 
-            sb.AppendFormat( "\t\t\tinvocation.IsSubClass = {0};", _state.IsSubClassStr() );
+            sb.AppendFormat( "\t\t\tinvocation.IsSubClass = {0};", dialect.IsSubClassStr() );
             sb.AppendLine();
         }
 
@@ -318,32 +339,32 @@ namespace wojilu.Aop {
 
         //----------------------------------------------------------------------------------------
 
-        private static void append_class_begin( StringBuilder sb, Type type, AopCoderState _state ) {
-            sb.AppendFormat( "\tpublic class {0} : {1} ", _state.GetClassFullName( type, "" ), type.Name );
+        private static void append_class_begin( StringBuilder sb, Type type, AopCoderDialect dialect ) {
+            sb.AppendFormat( "\tpublic class {0} : {1} ", dialect.GetClassFullName( type, "" ), type.Name );
             sb.Append( "{" );
             sb.AppendLine();
             sb.AppendLine();
         }
 
-        private static void append_interface_class_begin( StringBuilder sb, Type type, AopCoderState _state, String interfaceFullName ) {
+        private static void append_interface_class_begin( StringBuilder sb, Type type, AopCoderDialect dialect, String interfaceFullName ) {
 
 
-            sb.AppendFormat( "\tpublic class {0} : {1} ", _state.GetClassFullName( type, interfaceFullName ), interfaceFullName );
+            sb.AppendFormat( "\tpublic class {0} : {1} ", dialect.GetClassFullName( type, interfaceFullName ), interfaceFullName );
             sb.Append( "{" );
             sb.AppendLine();
             sb.AppendLine();
 
-            sb.AppendFormat( "\t\tprivate {0} _{1};", interfaceFullName, _state.InvokeTarget() );
+            sb.AppendFormat( "\t\tprivate {0} _{1};", interfaceFullName, dialect.GetInvokeTargetBase() );
             sb.AppendLine();
 
-            sb.AppendFormat( "\t\tpublic {0} {1} ", interfaceFullName, _state.InvokeTarget() );
+            sb.AppendFormat( "\t\tpublic {0} {1} ", interfaceFullName, dialect.GetInvokeTargetBase() );
             sb.Append( "{" );
             sb.AppendLine();
 
-            sb.Append( "\t\t\tget { return _" + _state.InvokeTarget() + "; }" );
+            sb.Append( "\t\t\tget { return _" + dialect.GetInvokeTargetBase() + "; }" );
             sb.AppendLine();
 
-            sb.Append( "\t\t\tset { _" + _state.InvokeTarget() + " = value; }" );
+            sb.Append( "\t\t\tset { _" + dialect.GetInvokeTargetBase() + " = value; }" );
             sb.AppendLine();
 
             sb.Append( "\t\t}" );
@@ -359,8 +380,8 @@ namespace wojilu.Aop {
 
         //----------------------------------------------------------------------------------------
 
-        private static void append_method_begin( StringBuilder sb, ObservedMethod x, String strArgs, String strReturn, AopCoderState _state ) {
-            sb.AppendFormat( "\t\tpublic {0} {1} {2}( {3} ) ", _state.GetMethodOverride(), strReturn, x.Method.Name, strArgs );
+        private static void append_method_begin( StringBuilder sb, ObservedMethod x, String strArgs, String strReturn, AopCoderDialect dialect ) {
+            sb.AppendFormat( "\t\tpublic {0} {1} {2}( {3} ) ", dialect.GetMethodOverride(), strReturn, x.Method.Name, strArgs );
             sb.Append( "{" );
             sb.AppendLine();
         }

@@ -16,7 +16,6 @@
 
 using System;
 using System.Collections.Generic;
-using System.Text;
 using System.Reflection;
 using wojilu.DI;
 
@@ -126,23 +125,51 @@ namespace wojilu.Aop {
         /// 根据类型创建它的代理类。如果代理不存在，返回 null。
         /// 如果方法非虚，不可以创建，那么抛出异常。
         /// </summary>
-        /// <param name="t"></param>
+        /// <param name="targetType"></param>
         /// <returns></returns>
-        public static Object CreateProxy( Type t ) {
+        public static Object CreateProxy( Type targetType ) {
 
-            ObservedType oType = GetObservedType( t );
+            if (targetType == null) throw new NullReferenceException( "targetType" );
+
+            ObservedType oType = GetObservedType( targetType );
             if (oType == null) return null;
             if (oType.CanCreateSubProxy() == false) {
-                String exMsg = "method not virtual. type=" + t.FullName + ", method=" + oType.GetNotVirtualMethodString();
+                String exMsg = "method not virtual. type=" + targetType.FullName + ", method=" + oType.GetNotVirtualMethodString();
                 logger.Error( exMsg );
                 throw new MethodNotVirtualException( exMsg );
             }
 
-            AopCoderState _state = new AopCoderStateSub();
+            AopCoderDialect dialect = new AopCoderDialectSub();
 
-            String name = strUtil.Join( t.Namespace, _state.GetClassFullName( t, "" ), "." );
+            String name = strUtil.Join( targetType.Namespace, dialect.GetClassFullName( targetType, "" ), "." );
 
             return _aopAssembly.CreateInstance( name );
+        }
+
+        /// <summary>
+        /// 创建对象的代理类
+        /// </summary>
+        /// <param name="objTarget"></param>
+        /// <returns></returns>
+        public static Object CreateProxy( Object objTarget ) {
+
+            if (objTarget == null) throw new NullReferenceException( "objTarget" );
+
+            Type targetType = objTarget.GetType();
+
+            ObservedType oType = GetObservedType( targetType );
+            if (oType == null) return objTarget;
+            if (oType.CanCreateSubProxy() == false) {
+                String exMsg = "method not virtual. type=" + targetType.FullName + ", method=" + oType.GetNotVirtualMethodString();
+                logger.Error( exMsg );
+                return objTarget;
+            }
+
+            AopCoderDialect dialect = new AopCoderDialectSub();
+
+            String proxyName = strUtil.Join( targetType.Namespace, dialect.GetClassFullName( targetType, "" ), "." );
+
+            return _aopAssembly.CreateInstance( proxyName );
         }
 
         /// <summary>
@@ -151,8 +178,18 @@ namespace wojilu.Aop {
         /// <typeparam name="T">接口的类型</typeparam>
         /// <param name="targetType">被代理的类型</param>
         /// <returns></returns>
-        public static T CreateProxy<T>( Type targetType ) {
-            return (T)CreateProxy( targetType, typeof( T ) );
+        public static T CreateProxyByInterface<T>( Type targetType ) {
+            return (T)CreateProxyByInterface( targetType, typeof( T ) );
+        }
+
+        /// <summary>
+        /// 根据接口创建代理类
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="objTarget"></param>
+        /// <returns></returns>
+        public static T CreateProxyByInterface<T>( Object objTarget ) {
+            return (T)CreateProxyByInterface( objTarget, typeof( T ) );
         }
 
         /// <summary>
@@ -161,26 +198,41 @@ namespace wojilu.Aop {
         /// <param name="t"></param>
         /// <param name="interfaceType"></param>
         /// <returns></returns>
-        public static Object CreateProxy( Type t, Type interfaceType ) {
+        public static Object CreateProxyByInterface( Type t, Type interfaceType ) {
+            return CreateProxyByInterface( rft.GetInstance( t ), interfaceType );
+        }
 
-            ObservedType oType = GetObservedType( t );
-            if (oType == null) return null;
+        /// <summary>
+        /// 根据接口创建代理类
+        /// </summary>
+        /// <param name="objTarget"></param>
+        /// <param name="interfaceType"></param>
+        /// <returns></returns>
+        public static Object CreateProxyByInterface( Object objTarget, Type interfaceType ) {
+
+            if (objTarget == null) throw new NullReferenceException( "objTarget" );
+            if (interfaceType == null) throw new NullReferenceException( "interfaceType" );
+
+            Type targetType = objTarget.GetType();
+
+            ObservedType oType = GetObservedType( targetType );
+            if (oType == null) return objTarget;
             if (oType.CanCreateInterfaceProxy( interfaceType ) == false) {
-                String exMsg = "cannot create interface proxy. type=" + t.FullName + ", interface type=" + interfaceType;
+                String exMsg = "cannot create interface proxy. target type=" + targetType.FullName + ", interface type=" + interfaceType;
                 logger.Error( exMsg );
-                throw new Exception( exMsg );
+                return objTarget;
             }
 
-            AopCoderState _state = new AopCoderStateInerface();
+            AopCoderDialect dialect = new AopCoderDialectInerface();
 
-            String name = strUtil.Join( t.Namespace, _state.GetClassFullName( t, interfaceType.FullName ), "." );
+            String proxyName = strUtil.Join( targetType.Namespace, dialect.GetClassFullName( targetType, interfaceType.FullName ), "." );
 
-            Object obj = _aopAssembly.CreateInstance( name );
-            if (obj == null) return null;
+            Object interfaceProxy = _aopAssembly.CreateInstance( proxyName );
+            if (interfaceProxy == null) return objTarget;
 
-            rft.SetPropertyValue( obj, "m_objTarget", rft.GetInstance( t ) );
+            rft.SetPropertyValue( interfaceProxy, dialect.GetInvokeTargetBase(), objTarget );
 
-            return obj;
+            return interfaceProxy;
         }
 
         private static Assembly loadCompiledAssembly() {
