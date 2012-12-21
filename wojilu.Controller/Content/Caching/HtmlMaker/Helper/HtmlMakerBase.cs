@@ -10,6 +10,8 @@ namespace wojilu.Web.Controller.Content.Caching {
 
     public abstract class HtmlMakerBase {
 
+        protected abstract String GetDir();
+
         protected String makeHtml( String addr ) {
             return makeHtml( addr, new List<String>() );
         }
@@ -30,7 +32,6 @@ namespace wojilu.Web.Controller.Content.Caching {
             return sw.ToString();
         }
 
-        protected abstract String GetDir();
 
         protected String CheckDir( int appId ) {
 

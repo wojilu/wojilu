@@ -11,6 +11,8 @@ using wojilu.Web.Mvc;
 using wojilu.Web.Mvc.Utils;
 using wojilu.Apps.Forum.Domain;
 using wojilu.Web.Controller.Admin;
+using wojilu.Aop;
+using wojilu.Apps.Forum.Service;
 
 namespace wojilu.Web.Controller.Forum.Caching {
 
@@ -94,7 +96,7 @@ namespace wojilu.Web.Controller.Forum.Caching {
             observe( pick.Restore );
         }
 
-        public override void UpdateCache( MvcContext ctx ) {
+        public override void AfterAction( MvcContext ctx ) {
 
             if ((ctx.owner.obj is Site) == false) return;
 

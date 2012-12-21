@@ -51,7 +51,7 @@ namespace wojilu.Web.Controller.Blog.Caching {
             observe( s.Save );
         }
 
-        public override void UpdateCache( MvcContext ctx ) {
+        public override void AfterAction( MvcContext ctx ) {
 
             User owner = ctx.owner.obj as User;
             int appId = ctx.app.Id;

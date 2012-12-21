@@ -66,7 +66,7 @@ namespace wojilu.Web.Controller.Common.Caching {
 
         }
 
-        public override void UpdateCache( MvcContext ctx ) {
+        public override void AfterAction( MvcContext ctx ) {
 
             if ((ctx.owner.obj is Site) == false) return; // 空间菜单、群组菜单如有更新，不刷新网站缓存
 

@@ -106,7 +106,7 @@ namespace wojilu.Web.Controller.Forum.Caching {
 
         }
 
-        public override void UpdateCache( MvcContext ctx ) {
+        public override void AfterAction( MvcContext ctx ) {
 
             if ((ctx.owner.obj is Site) == false) return;
 

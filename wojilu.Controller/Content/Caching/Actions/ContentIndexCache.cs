@@ -123,7 +123,7 @@ namespace wojilu.Web.Controller.Content.Caching {
             observe( poll.Delete );
         }
 
-        public override void UpdateCache( MvcContext ctx ) {
+        public override void AfterAction( MvcContext ctx ) {
 
 
             IMember owner = ctx.owner.obj;

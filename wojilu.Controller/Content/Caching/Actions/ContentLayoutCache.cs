@@ -89,7 +89,7 @@ namespace wojilu.Web.Controller.Content.Caching {
 
         }
 
-        public override void UpdateCache( MvcContext ctx ) {
+        public override void AfterAction( MvcContext ctx ) {
             IMember owner = ctx.owner.obj;
 
             if ((owner is Site) == false) return;

@@ -20,42 +20,18 @@ using System.Text;
 using wojilu.Web.Context;
 
 namespace wojilu.Web.Mvc {
-    
+
     /// <summary>
-    /// action 缓存对象的接口，包括缓存key，更新操作等
+    /// action 监控器：监控action，并提供action前置和后置事件
     /// </summary>
-    public interface IActionCache {
-
-        /// <summary>
-        /// action缓存的key
-        /// </summary>
-        /// <param name="actionName">action名称(有时候并不是ctx.route.action)</param>
-        /// <returns></returns>
-        String GetCacheKey( MvcContext ctx, String actionName );
-
-        /// <summary>
-        /// 关联action。一旦关联action被操作，则缓存会失效
-        /// </summary>
-        /// <returns></returns>
-        Dictionary<Type, String> GetRelatedActions();
-
-        /// <summary>
-        /// 关联action操作之后，需要清除缓存或者重建缓存的具体操作
-        /// </summary>
-        /// <param name="ctx"></param>
-        void UpdateCache( MvcContext ctx );
-
-
-    }
-
-    public class ActionCache : IActionCache {
+    public class ActionObserver {
 
         protected Dictionary<Type, String> dic = new Dictionary<Type, String>();
 
-        public virtual string GetCacheKey( MvcContext ctx, String actionName ) {
-            return null;
-        }
-
+        /// <summary>
+        /// 被监控的关联 action
+        /// </summary>
+        /// <returns></returns>
         public virtual Dictionary<Type, String> GetRelatedActions() {
             if (dic.Count == 0) {
                 this.ObserveActions();
@@ -63,7 +39,20 @@ namespace wojilu.Web.Mvc {
             return this.dic;
         }
 
-        public virtual void UpdateCache( MvcContext ctx ) {
+        /// <summary>
+        /// action 前置动作
+        /// </summary>
+        /// <param name="ctx"></param>
+        /// <returns>是否继续执行，默认是 true 继续执行</returns>
+        public virtual Boolean BeforeAction( MvcContext ctx ) {
+            return true;
+        }
+
+        /// <summary>
+        /// action 后置动作
+        /// </summary>
+        /// <param name="ctx"></param>
+        public virtual void AfterAction( MvcContext ctx ) {
         }
 
         /// <summary>
@@ -102,5 +91,6 @@ namespace wojilu.Web.Mvc {
 
 
     }
+
 
 }

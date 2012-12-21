@@ -7,15 +7,15 @@ namespace wojilu.Web.Mvc.Attr {
     [Serializable, AttributeUsage( AttributeTargets.Method )]
     public class CacheActionAttribute : Attribute {
 
-        private Type _cacheInfoType;
+        private Type _actionCacheType;
 
-        public Type Type {
-            get { return _cacheInfoType; }
-            set { _cacheInfoType = value; }
+        public Type ActionCacheType {
+            get { return _actionCacheType; }
+            set { _actionCacheType = value; }
         }
 
         public CacheActionAttribute( Type t ) {
-            this.Type = t;
+            this.ActionCacheType = t;
         }
     }
 

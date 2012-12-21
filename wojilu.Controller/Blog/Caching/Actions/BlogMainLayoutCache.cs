@@ -40,7 +40,7 @@ namespace wojilu.Web.Controller.Blog.Caching {
 
         }
 
-        public override void UpdateCache( MvcContext ctx ) {
+        public override void AfterAction( MvcContext ctx ) {
             CacheManager.GetApplicationCache().Remove( getCacheKey() );
         }
 

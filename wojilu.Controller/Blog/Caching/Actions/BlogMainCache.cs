@@ -45,7 +45,7 @@ namespace wojilu.Web.Controller.Blog.Caching {
         }
 
         // 当被监控(observe)的action执行之后，这个 UpdateCache 也会被执行
-        public override void UpdateCache( MvcContext ctx ) {
+        public override void AfterAction( MvcContext ctx ) {
             CacheManager.GetApplicationCache().Remove( GetCacheKey( null, null ) );
         }
 

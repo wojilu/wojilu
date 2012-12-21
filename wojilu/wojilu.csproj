@@ -104,6 +104,7 @@
     <Compile Include="Aop\AopCoder.cs" />
     <Compile Include="Aop\MethodObserver.cs" />
     <Compile Include="DI\Exception.cs" />
+    <Compile Include="Web\Mvc\ActionCache.cs" />
     <Compile Include="_wojilu\Json.cs" />
     <Compile Include="_wojilu\SettingBase.cs" />
     <Compile Include="Data\Enum\IdType.cs" />
@@ -113,8 +114,8 @@
     <Compile Include="Web\Mock\IMockContext.cs" />
     <Compile Include="Web\Mvc\Attr\DataAttribute.cs" />
     <Compile Include="Web\Mvc\Attr\MvcLinkAttribute.cs" />
-    <Compile Include="Web\Mvc\CacheInfo.cs" />
-    <Compile Include="Web\Mvc\IActionCache.cs" />
+    <Compile Include="Web\Mvc\ActionCacheChecker.cs" />
+    <Compile Include="Web\Mvc\ActionObserver.cs" />
     <Compile Include="Web\Mvc\IPageCache.cs" />
     <Compile Include="Web\Mvc\Attr\CacheActionAttribute.cs" />
     <Compile Include="Web\Mvc\Attr\CachePageAttribute.cs" />

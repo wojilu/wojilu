@@ -208,6 +208,17 @@ namespace wojilu {
             return TrimUrlExt( url1 ) == TrimUrlExt( url2 );
         }
 
+        /// <summary>
+        /// bin 的绝对路径
+        /// </summary>
+        /// <returns></returns>
+        public static String GetBinDirectory() {
+            if (SystemInfo.IsWeb) {
+                return HttpRuntime.BinDirectory;
+            }
+
+            return AppDomain.CurrentDomain.BaseDirectory;
+        }
 
 
     }

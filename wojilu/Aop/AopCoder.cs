@@ -96,8 +96,12 @@ namespace wojilu.Aop {
         private static void append_interface_properties_other_single( StringBuilder sb, PropertyInfo p, AopCoderDialect dialect ) {
 
             sb.AppendLine( "\t\tpublic " + p.PropertyType.FullName + " " + p.Name + " {" );
-            sb.AppendLine( "\t\t\tget { return " + dialect.GetInvokeTargetThis() + "." + p.Name + ";}" );
-            sb.AppendLine( "\t\t\tset { " + dialect.GetInvokeTargetThis() + "." + p.Name + " = value;}" );
+            if (p.CanRead) {
+                sb.AppendLine( "\t\t\tget { return " + dialect.GetInvokeTargetThis() + "." + p.Name + ";}" );
+            }
+            if (p.CanWrite) {
+                sb.AppendLine( "\t\t\tset { " + dialect.GetInvokeTargetThis() + "." + p.Name + " = value;}" );
+            }
             sb.AppendLine( "\t\t}" );
             sb.AppendLine();
         }

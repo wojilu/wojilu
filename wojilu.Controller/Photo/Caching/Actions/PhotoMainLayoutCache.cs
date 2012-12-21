@@ -19,7 +19,7 @@ namespace wojilu.Web.Controller.Photo.Caching {
             observe( p.Update );
         }
 
-        public override void UpdateCache( wojilu.Web.Context.MvcContext ctx ) {
+        public override void AfterAction( wojilu.Web.Context.MvcContext ctx ) {
 
             CacheManager.GetApplicationCache().Remove( this.GetCacheKey( null, null ) );
 

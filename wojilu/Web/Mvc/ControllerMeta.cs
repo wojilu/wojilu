@@ -30,10 +30,12 @@ namespace wojilu.Web.Mvc {
     public class ControllerMeta {
 
         private static readonly Dictionary<String, ControllerMeta> _metas = loadControllerMeta();
-        private static readonly Dictionary<String, IActionCache> _actionCacheInfos = loadIActionCaches();
+
+        private static readonly Dictionary<String, ActionCache> _actionCacheAttrs = loadActionCacheAttrs();
+        private static readonly Dictionary<String, List<ActionObserver>> _actionObserverMaps = loadObserverMaps();
+
         private static readonly Dictionary<String, IPageCache> _pageCacheInfos = loadIPageCaches();
-        private static readonly Dictionary<String, List<IActionCache>> _cacheInfoByUpdate = loadCachesByUpdate();
-        private static readonly Dictionary<String, List<IPageCache>> _pageCacheInfoByUpdate = loadPageCacheInfoByUpdate();
+        private static readonly Dictionary<String, List<IPageCache>> _pageCacheMaps = loadPageCacheMaps();
 
         public static Dictionary<String, ControllerMeta> GetMetaDB() {
             return _metas;
@@ -45,9 +47,9 @@ namespace wojilu.Web.Mvc {
             return cm;
         }
 
-        public static IActionCache GetActionCache( Type controllerType, String action ) {
-            IActionCache obj;
-            _actionCacheInfos.TryGetValue( controllerType.FullName + "_" + action, out obj );
+        public static ActionCache GetActionCacheAttr( Type controllerType, String action ) {
+            ActionCache obj;
+            _actionCacheAttrs.TryGetValue( controllerType.FullName + "_" + action, out obj );
             return obj;
         }
 
@@ -57,19 +59,19 @@ namespace wojilu.Web.Mvc {
             return obj;
         }
 
-        public static List<IActionCache> GetActionCacheByUpdate( Type controllerType, String action ) {
+        public static List<ActionObserver> GetActionObservers( Type controllerType, String action ) {
 
-            List<IActionCache> relatedCaches;
+            List<ActionObserver> relatedCaches;
             String key = controllerType.FullName + "_" + action;
-            _cacheInfoByUpdate.TryGetValue( key, out relatedCaches );
+            _actionObserverMaps.TryGetValue( key, out relatedCaches );
             return relatedCaches;
         }
 
-        public static List<IPageCache> GetPageCacheByUpdate( Type actionCacheType ) {
+        public static List<IPageCache> GetRelatedPageCache( Type actionCacheType ) {
 
             List<IPageCache> relatedCaches;
             String key = actionCacheType.FullName;
-            _pageCacheInfoByUpdate.TryGetValue( key, out relatedCaches );
+            _pageCacheMaps.TryGetValue( key, out relatedCaches );
             return relatedCaches;
         }
 
@@ -79,7 +81,7 @@ namespace wojilu.Web.Mvc {
         public List<Attribute> AttributeList { get; set; }
         public Dictionary<String, ControllerAction> ActionMaps { get; set; }
 
-        //-----------------------------------------------------------------------------------------------------------
+        //------------------------------ ControllerMeta -----------------------------------------------------------------------------
 
         private static Dictionary<String, ControllerMeta> loadControllerMeta() {
 
@@ -145,9 +147,9 @@ namespace wojilu.Web.Mvc {
         //---------------------------------------------------------------------------------------------------------
 
 
-        private static Dictionary<String, IActionCache> loadIActionCaches() {
+        private static Dictionary<String, ActionCache> loadActionCacheAttrs() {
 
-            Dictionary<String, IActionCache> results = new Dictionary<String, IActionCache>();
+            Dictionary<String, ActionCache> results = new Dictionary<String, ActionCache>();
 
             Dictionary<String, ControllerMeta> metas = ControllerMeta.GetMetaDB();
 
@@ -161,10 +163,10 @@ namespace wojilu.Web.Mvc {
 
                     foreach (Attribute a in action.AttributeList) {
 
-                        CacheActionAttribute cachedInfo = a as CacheActionAttribute;
-                        if (cachedInfo == null) continue;
+                        CacheActionAttribute attrCache = a as CacheActionAttribute;
+                        if (attrCache == null) continue;
 
-                        IActionCache obj = (IActionCache)ObjectContext.GetByType( cachedInfo.Type );
+                        ActionCache obj = (ActionCache)ObjectContext.GetByType( attrCache.ActionCacheType );
 
                         results.Add( controller.ControllerType.FullName + "_" + action.ActionName, obj );
 
@@ -177,10 +179,11 @@ namespace wojilu.Web.Mvc {
             return results;
         }
 
+        //---------------------------------------------------------------------------------------------------------
 
-        private static Dictionary<String, List<IActionCache>> loadCachesByUpdate() {
+        private static Dictionary<String, List<ActionObserver>> loadObserverMaps() {
 
-            Dictionary<String, List<IActionCache>> dicResults = new Dictionary<String, List<IActionCache>>();
+            Dictionary<String, List<ActionObserver>> dicResults = new Dictionary<String, List<ActionObserver>>();
 
             List<Type> subControllers = new List<Type>();
 
@@ -190,10 +193,10 @@ namespace wojilu.Web.Mvc {
 
                 if (kv.Value.IsSubclassOf( typeof( ControllerBase ) ) && kv.Value.BaseType != typeof( ControllerBase )) subControllers.Add( kv.Value );
 
-                if (rft.IsInterface( kv.Value, typeof( IActionCache ) )) {
+                if (rft.IsInterface( kv.Value, typeof( ActionObserver ) )) {
 
-                    IActionCache obj = (IActionCache)ObjectContext.GetByType( kv.Value );
-                    addActions( dicResults, obj );
+                    ActionObserver obj = (ActionObserver)ObjectContext.GetByType( kv.Value );
+                    loadActionObserver( dicResults, obj );
                 }
 
             }
@@ -201,7 +204,7 @@ namespace wojilu.Web.Mvc {
             return processSubControllers( subControllers, dicResults );
         }
 
-        private static void addActions( Dictionary<String, List<IActionCache>> dic, IActionCache obj ) {
+        private static void loadActionObserver( Dictionary<String, List<ActionObserver>> dic, ActionObserver obj ) {
 
             Dictionary<Type, String> actions = obj.GetRelatedActions();
 
@@ -213,9 +216,10 @@ namespace wojilu.Web.Mvc {
 
                     String key = kv.Key.FullName + "_" + action;
 
-                    List<IActionCache> clist = dic.ContainsKey( key ) ? dic[key] : new List<IActionCache>();
-                    if( clist.Contains( obj)==false )
+                    List<ActionObserver> clist = dic.ContainsKey( key ) ? dic[key] : new List<ActionObserver>();
+                    if (clist.Contains( obj ) == false) {
                         clist.Add( obj );
+                    }
 
                     dic[key] = clist;
                 }
@@ -224,13 +228,13 @@ namespace wojilu.Web.Mvc {
 
         }
 
-        private static Dictionary<String, List<IActionCache>> processSubControllers( List<Type> subControllers, Dictionary<String, List<IActionCache>> dic ) {
+        private static Dictionary<String, List<ActionObserver>> processSubControllers( List<Type> subControllers, Dictionary<String, List<ActionObserver>> dic ) {
 
 
-            Dictionary<String, List<IActionCache>> newDic = new Dictionary<String, List<IActionCache>>( dic );
+            Dictionary<String, List<ActionObserver>> newDic = new Dictionary<String, List<ActionObserver>>( dic );
 
             foreach (Type t in subControllers) {
-                
+
                 addBaseTypeActions( dic, newDic, t.BaseType, t );
 
             }
@@ -239,11 +243,11 @@ namespace wojilu.Web.Mvc {
 
         }
 
-        private static void addBaseTypeActions( Dictionary<String, List<IActionCache>> dic, Dictionary<String, List<IActionCache>> newDic, Type baseType, Type subType ) {
-            
+        private static void addBaseTypeActions( Dictionary<String, List<ActionObserver>> dic, Dictionary<String, List<ActionObserver>> newDic, Type baseType, Type subType ) {
 
-            foreach (KeyValuePair<String, List<IActionCache>> kv in dic) {
-                
+
+            foreach (KeyValuePair<String, List<ActionObserver>> kv in dic) {
+
                 String controller_action = kv.Key;
 
                 String baseControllerInfo = baseType.FullName + "_";
@@ -259,7 +263,7 @@ namespace wojilu.Web.Mvc {
                         newDic[subController_action] = kv.Value; // 将 controller 父类的相关信息拷贝过来
                     }
                     else {
-                        newDic[subController_action] = getMergeActionCaches( kv.Value, dic[subController_action] );
+                        newDic[subController_action] = getMergeActionObserver( kv.Value, dic[subController_action] );
                     }
 
                 }
@@ -268,22 +272,22 @@ namespace wojilu.Web.Mvc {
 
         }
 
-        private static List<IActionCache> getMergeActionCaches( List<IActionCache> parentActionCaches, List<IActionCache> subActionCaches ) {
+        private static List<ActionObserver> getMergeActionObserver( List<ActionObserver> parentActionObserver, List<ActionObserver> subActionObserver ) {
 
-            List<IActionCache> results = new List<IActionCache>( subActionCaches );
+            List<ActionObserver> results = new List<ActionObserver>( subActionObserver );
 
-            foreach (IActionCache ac in parentActionCaches) {
-                if (subContains( subActionCaches, ac ) == false) results.Add( ac );
+            foreach (ActionObserver ac in parentActionObserver) {
+                if (subContains( subActionObserver, ac ) == false) results.Add( ac );
             }
 
             return results;
         }
 
-        private static bool subContains( List<IActionCache> subActionCaches, IActionCache ac ) {
+        private static bool subContains( List<ActionObserver> subActionObserver, ActionObserver ob ) {
 
-            foreach (IActionCache subAc in subActionCaches) {
+            foreach (ActionObserver x in subActionObserver) {
 
-                if (subAc.GetType() == ac.GetType()) return true;
+                if (x.GetType() == ob.GetType()) return true;
 
             }
 
@@ -329,7 +333,7 @@ namespace wojilu.Web.Mvc {
         }
 
 
-        private static Dictionary<String, List<IPageCache>> loadPageCacheInfoByUpdate() {
+        private static Dictionary<String, List<IPageCache>> loadPageCacheMaps() {
 
             Dictionary<String, List<IPageCache>> dic = new Dictionary<String, List<IPageCache>>();
 

@@ -76,8 +76,8 @@ namespace wojilu.Web.Mvc.Processors {
             if (ctx.controller.utils.isHided( controller.GetType() )) return actionContent;
 
             // ¼ì²é»º´æ
-            CacheInfo ci = CacheInfo.InitLayout( ctx, controller );
-            Object cacheContent = ci.CheckCache();
+            ActionCacheChecker ci = ActionCacheChecker.InitLayout( ctx, controller );
+            Object cacheContent = ci.GetCache();
             if (cacheContent != null) {
                 logger.Info( "load from nsLayoutCache=" + ci.CacheKey );
                 return HtmlCombiner.combinePage( cacheContent.ToString(), actionContent );
@@ -93,7 +93,7 @@ namespace wojilu.Web.Mvc.Processors {
 
             String actionResult = controller.utils.getActionResult();
             if (ci.IsActionCache) {
-                ci.AddContentToCache( actionResult );
+                ci.AddCache( actionResult );
             }
 
             return HtmlCombiner.combinePage( actionResult, actionContent );

@@ -39,7 +39,7 @@ namespace wojilu.Web.Controller.Groups.Caching {
             observe( gm.SaveInfo );
         }
 
-        public override void UpdateCache( wojilu.Web.Context.MvcContext ctx ) {
+        public override void AfterAction( wojilu.Web.Context.MvcContext ctx ) {
             CacheManager.GetApplicationCache().Remove( GetCacheKey( null, null ) );
         }
 

@@ -8,6 +8,10 @@ namespace wojilu.Web.Controller.Content.Caching {
 
     public class HtmlListMaker : HtmlMakerBase {
 
+        protected override string GetDir() {
+            return PathHelper.Map( "/html/list/" );
+        }
+
         public int MakeHtml( MvcContext ctx ) {
 
             ContentPost post = HtmlHelper.GetCurrentPost( ctx );
@@ -37,9 +41,6 @@ namespace wojilu.Web.Controller.Content.Caching {
         }
 
 
-        protected override string GetDir() {
-            return PathHelper.Map( "/html/list/" );
-        }
 
     }
 

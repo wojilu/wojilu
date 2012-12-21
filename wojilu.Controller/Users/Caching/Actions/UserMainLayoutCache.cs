@@ -21,7 +21,7 @@ namespace wojilu.Web.Controller.Users.Caching {
         }
 
 
-        public override void UpdateCache( wojilu.Web.Context.MvcContext ctx ) {
+        public override void AfterAction( wojilu.Web.Context.MvcContext ctx ) {
             CacheManager.GetApplicationCache().Remove( GetCacheKey( null, null ) );
         }
 

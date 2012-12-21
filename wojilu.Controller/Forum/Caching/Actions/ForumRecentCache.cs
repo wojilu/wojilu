@@ -87,7 +87,7 @@ namespace wojilu.Web.Controller.Forum.Caching {
             return "__action_" + owner.GetType().FullName + "_" + owner.Url.Replace( "/", "" ) + "_" + typeof( wojilu.Web.Controller.Forum.RecentController ).FullName + "_" + getActionName() + "_app" + appId;
         }
 
-        public override void UpdateCache( MvcContext ctx ) {
+        public override void AfterAction( MvcContext ctx ) {
 
             if ((ctx.owner.obj is Site) == false) return;
 

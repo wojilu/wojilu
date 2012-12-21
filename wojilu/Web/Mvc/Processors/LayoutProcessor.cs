@@ -49,8 +49,8 @@ namespace wojilu.Web.Mvc.Processors {
 
 
             //检查缓存
-            CacheInfo ci = CacheInfo.InitLayout( ctx );
-            Object cacheContent = ci.CheckCache();
+            ActionCacheChecker ci = ActionCacheChecker.InitLayout( ctx );
+            Object cacheContent = ci.GetCache();
             if (cacheContent != null) {
                 logger.Info( "load from layoutCache=" + ci.CacheKey );
                 context.setContent( HtmlCombiner.combinePage( cacheContent.ToString(), actionContent ) );
@@ -61,7 +61,7 @@ namespace wojilu.Web.Mvc.Processors {
 
             // 加入缓存
             if (ci.IsActionCache) {
-                ci.AddContentToCache( layoutContent );
+                ci.AddCache( layoutContent );
             }
 
             if (ctx.utils.isEnd()) return;
