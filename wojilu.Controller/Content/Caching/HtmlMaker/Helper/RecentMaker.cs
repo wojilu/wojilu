@@ -8,17 +8,17 @@ using wojilu.Web.Mvc;
 
 namespace wojilu.Web.Controller.Content.Caching {
 
-    public class HtmlRecentMaker : HtmlMakerBase {
+    public class RecentMaker : HtmlMakerBase {
 
         /// <summary>
         /// 生成某app的最近文章列表
         /// </summary>
         /// <param name="ctx"></param>
         /// <returns></returns>
-        public int MakeHtml( MvcContext ctx, int appId, int recordCount ) {
+        public int Process( MvcContext ctx, int appId, int recordCount ) {
 
             CheckDir( appId );
-            
+
             String cpLink = ctx.link.To( new PostController().Recent );
             String caLink = ctx.link.To( new PostController().RecentArchive );
 

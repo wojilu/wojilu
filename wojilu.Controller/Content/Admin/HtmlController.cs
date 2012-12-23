@@ -65,7 +65,7 @@ namespace wojilu.Web.Controller.Content.Admin {
             ContentApp app = ctx.app.obj as ContentApp;
             ContentSetting s = app.GetSettingsObj();
 
-            String htmlDir = HtmlHelper.GetlAppDirName( app.Id );
+            String htmlDir = HomeMaker.GetlAppDirName( app.Id );
             htmlDir = htmlDir.TrimStart( '/' ).TrimEnd( '/' );
 
             set( "htmlDir", htmlDir );
@@ -86,7 +86,7 @@ namespace wojilu.Web.Controller.Content.Admin {
             ContentApp app = ctx.app.obj as ContentApp;
             ContentSetting s = app.GetSettingsObj();
 
-            String htmlDir = HtmlHelper.GetlAppDirName( app.Id );
+            String htmlDir = HomeMaker.GetlAppDirName( app.Id );
             htmlDir = htmlDir.TrimStart( '/' ).TrimEnd( '/' );
 
             set( "htmlDir", htmlDir );
@@ -133,12 +133,12 @@ namespace wojilu.Web.Controller.Content.Admin {
         }
 
         private void MakeSidebar() {
-            HtmlHelper.MakeSidebarHtml( ctx );
+            new SidebarMaker().Process( ctx );
             htmlCount += 1;
         }
 
         public void MakeHomePage() {
-            HtmlHelper.MakeAppHtml( ctx );
+            new HomeMaker().Process( ctx );
             echo( "生成首页成功" );
         }
 
@@ -152,7 +152,7 @@ namespace wojilu.Web.Controller.Content.Admin {
 
             // 最近列表页
             int recentCount = postService.CountByApp( app.Id );
-            new HtmlRecentMaker().MakeHtml( ctx, app.Id, recentCount );
+            new RecentMaker().Process( ctx, app.Id, recentCount );
             logger.Info( "make recent html" );
 
             // 区块列表页
@@ -162,7 +162,7 @@ namespace wojilu.Web.Controller.Content.Admin {
 
                 int recordCount = postService.CountBySection( section.Id );
 
-                count += new HtmlListMaker().MakeHtml( ctx, section.Id, recordCount );
+                count += new ListMaker().Process( ctx, section.Id, recordCount );
                 logger.Info( "make section html, sectionId=" + section.Id );
             }
 
@@ -192,7 +192,7 @@ namespace wojilu.Web.Controller.Content.Admin {
             ContentApp app = ctx.app.obj as ContentApp;
             int recordCount = postService.CountBySection( sectionId );
 
-            int listCount = new HtmlListMaker().MakeHtml( ctx, sectionId, recordCount );
+            int listCount = new ListMaker().Process( ctx, sectionId, recordCount );
             echo( "生成列表页成功，共 " + listCount + " 篇" );
 
         }
@@ -214,7 +214,7 @@ namespace wojilu.Web.Controller.Content.Admin {
         private void makeDetail( List<ContentPost> list ) {
             foreach (ContentPost post in list) {
                 ctx.SetItem( "_currentContentPost", post );
-                HtmlHelper.MakeDetailHtml( ctx );
+                new DetailMaker().Process( ctx );
                 logger.Info( "make detail html, postId=" + post.Id );
             }
 

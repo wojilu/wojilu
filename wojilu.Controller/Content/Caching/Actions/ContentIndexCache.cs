@@ -134,7 +134,7 @@ namespace wojilu.Web.Controller.Content.Caching {
             else {
                 CacheManager.GetApplicationCache().Remove( getCacheKey( owner, ctx.app.Id ) );
 
-                HtmlHelper.MakeAppHtml( ctx );
+                new HomeMaker().Process( ctx );
 
             }
 

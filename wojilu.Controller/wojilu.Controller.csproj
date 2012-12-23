@@ -149,6 +149,10 @@
     <Compile Include="Content\Admin\Common\NullSectionAdmin.cs" />
     <Compile Include="Content\Admin\Common\NullSectionController.cs" />
     <Compile Include="Content\Admin\UpdateController.cs" />
+    <Compile Include="Content\Caching\HtmlMaker\Helper\DetailMaker.cs" />
+    <Compile Include="Content\Caching\HtmlMaker\Helper\HomeMaker.cs" />
+    <Compile Include="Content\Caching\HtmlMaker\Helper\SidebarMaker.cs" />
+    <Compile Include="Content\Caching\HtmlMaker\PostUpdateObserver.cs" />
     <Compile Include="Open\VideoController.cs" />
     <Compile Include="Content\Admin\HtmlController.cs" />
     <Compile Include="Content\Admin\RowSettingController.cs" />
@@ -157,10 +161,10 @@
     <Compile Include="Content\Caching\HtmlMaker\PostAddObserver.cs" />
     <Compile Include="Content\Caching\HtmlMaker\PostDeleteObserver.cs" />
     <Compile Include="Content\Caching\ContentIndexPageCache.cs" />
-    <Compile Include="Content\Caching\HtmlMaker\Helper\HtmlHelper.cs" />
-    <Compile Include="Content\Caching\HtmlMaker\Helper\HtmlListMaker.cs" />
-    <Compile Include="Content\Caching\HtmlMaker\Helper\HtmlMakerBase.cs" />
-    <Compile Include="Content\Caching\HtmlMaker\Helper\HtmlRecentMaker.cs" />
+    <Compile Include="Content\Caching\HtmlMaker\Helper\_base\HtmlHelper.cs" />
+    <Compile Include="Content\Caching\HtmlMaker\Helper\ListMaker.cs" />
+    <Compile Include="Content\Caching\HtmlMaker\Helper\_base\HtmlMakerBase.cs" />
+    <Compile Include="Content\Caching\HtmlMaker\Helper\RecentMaker.cs" />
     <Compile Include="Content\Common\PollController.cs" />
     <Compile Include="Content\SidebarController.cs" />
     <Compile Include="Content\Utils\clink.cs" />

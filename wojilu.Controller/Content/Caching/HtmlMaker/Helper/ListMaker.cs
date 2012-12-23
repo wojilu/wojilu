@@ -6,29 +6,28 @@ using wojilu.Apps.Content.Domain;
 
 namespace wojilu.Web.Controller.Content.Caching {
 
-    public class HtmlListMaker : HtmlMakerBase {
+    public class ListMaker : HtmlMakerBase {
 
         protected override string GetDir() {
             return PathHelper.Map( "/html/list/" );
         }
 
-        public int MakeHtml( MvcContext ctx ) {
+        public int Process( MvcContext ctx ) {
 
             ContentPost post = HtmlHelper.GetCurrentPost( ctx );
             if (post == null) return 0;
 
             int recordCount = 0; // TODO
 
-
-            List<ContentPostSection> psList = ContentPostSection.find( "PostId="+post.Id ).list();
+            List<ContentPostSection> psList = ContentPostSection.find( "PostId=" + post.Id ).list();
             foreach (ContentPostSection x in psList) {
-                recordCount += this.MakeHtml( ctx, x.Section.Id, recordCount );
+                recordCount += this.Process( ctx, x.Section.Id, recordCount );
             }
 
             return recordCount;
         }
 
-        public int MakeHtml( MvcContext ctx, int sectionId, int recordCount ) {
+        public int Process( MvcContext ctx, int sectionId, int recordCount ) {
 
             CheckDir( sectionId );
 
