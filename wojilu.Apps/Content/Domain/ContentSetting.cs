@@ -18,6 +18,8 @@ namespace wojilu.Apps.Content.Domain {
             AllowAnonymousComment = 1;
             EnableSubmit = 0;
 
+            IsAutoHtml = 0;
+
             SetDefaultValue();
         }
 
@@ -39,6 +41,9 @@ namespace wojilu.Apps.Content.Domain {
         public int AllowAnonymousComment { get; set; }
 
         public int EnableSubmit { get; set; } // 开放投递功能
+
+        public int IsAutoHtml { get; set; } // 是否自动生成静态页面
+
 
         public int ListPostPerPage { get; set; }
         public int ListPicPerPage { get; set; }

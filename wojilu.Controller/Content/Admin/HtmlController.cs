@@ -39,7 +39,7 @@ namespace wojilu.Web.Controller.Content.Admin {
 
         public void Index() {
 
-            bindHtmlDir();
+            bindHtmlSetting();
 
             set( "lnkMakeAll", to( MakeAll ) );
             set( "lnkMakeDetailAll", to( MakeDetailAll ) );
@@ -60,7 +60,7 @@ namespace wojilu.Web.Controller.Content.Admin {
             }
         }
 
-        private void bindHtmlDir() {
+        private void bindHtmlSetting() {
 
             ContentApp app = ctx.app.obj as ContentApp;
             ContentSetting s = app.GetSettingsObj();
@@ -77,6 +77,31 @@ namespace wojilu.Web.Controller.Content.Admin {
 
             set( "lnkHtmlHome", lnkHtmlHome );
             set( "lnkOriginalHome", alink.ToApp( app ) );
+
+            String chkAutoHtml = s.IsAutoHtml == 1 ? "checked=\"checked\"" : "";
+            set( "chkAutoHtml", chkAutoHtml );
+            set( "lnkEditAutoHtml", to( EditAutoHtml ) );
+        }
+
+        public void EditAutoHtml() {
+            target( SaveAutoHtml );
+            ContentApp app = ctx.app.obj as ContentApp;
+            ContentSetting s = app.GetSettingsObj();
+            String chkAutoHtml = s.IsAutoHtml == 1 ? "checked=\"checked\"" : "";
+            set( "chkAutoHtml", chkAutoHtml );
+        }
+
+        [HttpPost]
+        public void SaveAutoHtml() {
+  
+            ContentApp app = ctx.app.obj as ContentApp;
+            ContentSetting s = app.GetSettingsObj();
+            s.IsAutoHtml = ctx.PostIsCheck( "IsAutoHtml" );
+
+            app.Settings = Json.Serialize( s );
+            app.update();
+
+            echoToParentPart( lang( "opok" ) );
         }
 
         public void EditHtmlDir() {
@@ -95,6 +120,7 @@ namespace wojilu.Web.Controller.Content.Admin {
 
         }
 
+        [HttpPost]
         public void SaveHtmlDir() {
 
             String htmlDir = strUtil.SubString( ctx.Post( "htmlDir" ), 30 );

@@ -21,10 +21,16 @@
 
         <div class="htmlTitle">1. 配置</div>
 
-        <div style="margin:0px 0px 30px 30px; font-size:14px;">
+        <div style="margin:0px 0px 10px 30px; font-size:14px;">
             <strong>修改html文件所在目录：</strong><span style="color:#666;">#{host}<span style="color:blue;font-weight:bold;font-size:16px;">#{htmlDir}</span>/</span>
             <a href="#{editHtmlDirLink}" style="margin-left:10px;" class="frmBox"><img src="~img/edit.gif" /> 修改</a>
             <a href="#{lnkHtmlHome}" target="_blank" style=" margin-left:5px;">&raquo; 查看</a>
+        </div>
+
+        <div style="margin:0px 0px 30px 30px; font-size:14px;">
+            <strong>是否自动生成静态页面：</strong>
+            <label><input type="checkbox" name="IsAutoHtml" #{chkAutoHtml}  /> 自动生成</label>      
+            <a href="#{lnkEditAutoHtml}" style="margin-left:10px;" class="frmBox"><img src="~img/edit.gif" /> 修改</a>      
         </div>
 
         <div class="htmlTitle">2. 批量生成</div>
