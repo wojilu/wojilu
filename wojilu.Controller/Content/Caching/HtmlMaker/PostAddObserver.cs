@@ -18,7 +18,6 @@ namespace wojilu.Web.Controller.Content.Caching.Actions {
 
             Admin.Common.PostController post = new wojilu.Web.Controller.Content.Admin.Common.PostController();
             observe( post.Create );
-            observe( post.SaveAdmin );
 
             Admin.Section.TalkController talk = new wojilu.Web.Controller.Content.Admin.Section.TalkController();
             observe( talk.Create );
@@ -31,23 +30,25 @@ namespace wojilu.Web.Controller.Content.Caching.Actions {
 
             Admin.Section.ImgController img = new wojilu.Web.Controller.Content.Admin.Section.ImgController();
             observe( img.CreateListInfo );
-            observe( img.CreateImgList );
-            observe( img.SetLogo );
-            observe( img.UpdateListInfo );
-            observe( img.DeleteImg );
 
             Admin.Common.PollController poll = new wojilu.Web.Controller.Content.Admin.Common.PollController();
             observe( poll.Create );
         }
 
-        public override void AfterAction( Context.MvcContext ctx ) {
+        public override void AfterAction( MvcContext ctx ) {
 
-            new HomeMaker().Process( ctx );
-            logger.Info( "----------------make home done-----------------" );
+            // 1）文章添加之后，app首页和侧边栏都要更新
+            new HomeMaker( ctx ).Process( ctx.app.Id );
+            new SidebarMaker( ctx ).Process( ctx.app.Id );
 
-            new DetailMaker().Process( ctx );
+            // 2）新创建的文章，需要通过 ctx 传递
+            ContentPost post = HtmlHelper.GetPostFromContext( ctx );
+            if (post != null) {
+                new DetailMaker( ctx ).Process( post );
+            }
 
-            new ListMaker().Process( ctx );
+            // 3）TODO 相关列表页也要更新
+            new ListMaker( ctx ).Process( post );
 
         }
 

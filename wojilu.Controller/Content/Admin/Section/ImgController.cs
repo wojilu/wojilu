@@ -71,21 +71,6 @@ namespace wojilu.Web.Controller.Content.Admin.Section {
 
         //--------------------------------------------------------------------------------------------------------------------------
 
-        public void AddImgList( int postId ) {
-
-            ContentPost post = postService.GetById( postId, ctx.owner.Id );
-            if (post == null) {
-                echoRedirect( lang( "exDataNotFound" ) );
-                return;
-            }
-
-            target( CreateImgList, postId  );
-            List<ContentImg> imgList = imgService.GetImgList( postId );
-
-            bindAddList( postId, post, imgList );
-        }
-
-
         public void AddListInfo( int sectionId ) {
             ContentSection section = sectionService.GetById( sectionId, ctx.app.Id );
             target( to( CreateListInfo, sectionId ) + "?categoryId=" + ctx.GetInt( "categoryId" ) );
@@ -110,11 +95,26 @@ namespace wojilu.Web.Controller.Content.Admin.Section {
                 postService.Insert( post, null );
 
                 redirect( AddImgList, post.Id );
-                HtmlHelper.SetCurrentPost( ctx, post );
+                HtmlHelper.SetPostToContext( ctx, post );
             }
         }
 
         //-------------------------------------------------------------
+
+        public void AddImgList( int postId ) {
+
+            ContentPost post = postService.GetById( postId, ctx.owner.Id );
+            if (post == null) {
+                echoRedirect( lang( "exDataNotFound" ) );
+                return;
+            }
+
+            target( CreateImgList, postId );
+            List<ContentImg> imgList = imgService.GetImgList( postId );
+
+            bindAddList( postId, post, imgList );
+        }
+
 
         [HttpPost, DbTransaction]
         public void CreateImgList( int postId ) {
@@ -156,7 +156,6 @@ namespace wojilu.Web.Controller.Content.Admin.Section {
             }
             else {
                 redirect( AddImgList, postId );
-                HtmlHelper.SetCurrentPost( ctx, post );
             }
         }
 
@@ -175,7 +174,6 @@ namespace wojilu.Web.Controller.Content.Admin.Section {
             imgService.UpdateImgLogo( post );
 
             echoRedirect( lang( "opok" ) );
-            HtmlHelper.SetCurrentPost( ctx, post );
         }
 
         //--------------------------------------------------------------------------------------------------------------------------
@@ -220,7 +218,6 @@ namespace wojilu.Web.Controller.Content.Admin.Section {
                 postService.Update( post, null );
 
                 echoRedirect( lang( "opok" ), to( EditListInfo, post.Id ) );
-                HtmlHelper.SetCurrentPost( ctx, post );
             }
         }
 
@@ -236,7 +233,7 @@ namespace wojilu.Web.Controller.Content.Admin.Section {
 
             postService.Delete( post ); // …æ≥˝ªÿ ’’æ
             echoRedirect( lang( "opok" ) );
-            HtmlHelper.SetCurrentPost( ctx, post );
+            HtmlHelper.SetPostToContext( ctx, post );
         }
 
         [HttpDelete, DbTransaction]
@@ -250,8 +247,7 @@ namespace wojilu.Web.Controller.Content.Admin.Section {
             imgService.DeleteImgOne( img );
             
             echoRedirect( lang( "opok" ) );
-            HtmlHelper.SetCurrentPost( ctx, img.Post );
-
+            HtmlHelper.SetPostToContext( ctx, img.Post );
         }
 
 

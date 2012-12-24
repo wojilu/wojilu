@@ -85,7 +85,7 @@ namespace wojilu.Web.Controller.Content.Admin.Section {
                 postService.Insert( post, ctx.Post( "TagList" ) );
 
                 echoToParentPart( lang( "opok" ) );
-                HtmlHelper.SetCurrentPost( ctx, post );
+                HtmlHelper.SetPostToContext( ctx, post );
             }
         }
 
@@ -119,7 +119,7 @@ namespace wojilu.Web.Controller.Content.Admin.Section {
                 postService.Update( post, ctx.Post( "TagList" ) );
 
                 echoToParentPart( lang( "opok" ) );
-                HtmlHelper.SetCurrentPost( ctx, post );
+                HtmlHelper.SetPostToContext( ctx, post );
             }
         }
 
@@ -134,7 +134,7 @@ namespace wojilu.Web.Controller.Content.Admin.Section {
             postService.Delete( post );
 
             echoToParentPart( lang( "opok" ) );
-            HtmlHelper.SetCurrentPost( ctx, post );
+            HtmlHelper.SetPostToContext( ctx, post );
         }
 
     }

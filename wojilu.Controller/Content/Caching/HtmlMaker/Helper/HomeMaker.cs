@@ -10,6 +10,10 @@ namespace wojilu.Web.Controller.Content.Caching {
 
     public class HomeMaker : HtmlMakerBase {
 
+        public HomeMaker( MvcContext ctx )
+            : base( ctx ) {
+        }
+
         private int appId;
 
         protected override string GetDir() {
@@ -17,11 +21,11 @@ namespace wojilu.Web.Controller.Content.Caching {
             return PathHelper.Map( "/" + staticDir + "/" );
         }
 
-        public void Process( MvcContext ctx ) {
+        public void Process( int appId ) {
 
-            this.appId = ctx.app.Id;
-            base.CheckDir( appId );
-            String addr = strUtil.Join( ctx.url.SiteAndAppPath, ctx.link.To( new ContentController().Index ) );
+            this.appId = appId;
+            base.CheckDir();
+            String addr = strUtil.Join( siteUrl, _ctx.link.To( new ContentController().Index ) );
 
             String html = makeHtml( addr );
             file.Write( getHomePageAbs(), html );

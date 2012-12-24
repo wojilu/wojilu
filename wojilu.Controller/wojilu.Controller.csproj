@@ -152,6 +152,7 @@
     <Compile Include="Content\Caching\HtmlMaker\Helper\DetailMaker.cs" />
     <Compile Include="Content\Caching\HtmlMaker\Helper\HomeMaker.cs" />
     <Compile Include="Content\Caching\HtmlMaker\Helper\SidebarMaker.cs" />
+    <Compile Include="Content\Caching\HtmlMaker\HomeObserver.cs" />
     <Compile Include="Content\Caching\HtmlMaker\PostUpdateObserver.cs" />
     <Compile Include="Open\VideoController.cs" />
     <Compile Include="Content\Admin\HtmlController.cs" />

@@ -10,6 +10,14 @@ namespace wojilu.Web.Controller.Content.Caching {
 
     public abstract class HtmlMakerBase {
 
+        protected String siteUrl;
+        protected MvcContext _ctx;
+
+        public HtmlMakerBase( MvcContext ctx ) {
+            this._ctx = ctx;
+            this.siteUrl = ctx.url.SiteAndAppPath;
+        }
+
         protected abstract String GetDir();
 
         protected String makeHtml( String addr ) {
@@ -33,7 +41,7 @@ namespace wojilu.Web.Controller.Content.Caching {
         }
 
 
-        protected String CheckDir( int appId ) {
+        protected String CheckDir() {
 
             String dir = GetDir();
 
@@ -54,7 +62,7 @@ namespace wojilu.Web.Controller.Content.Caching {
         /// <param name="caLink">存档页</param>
         /// <param name="pageSize">每页数量</param>
         /// <returns></returns>
-        protected int makeHtmlLoop( MvcContext ctx, int recordCount, int appId,
+        protected int makeHtmlLoop( int recordCount, int appId,
             String cpLink, String caLink, int pageSize ) {
 
             // 获得所有分页的url(aspx动态页面)
@@ -66,7 +74,7 @@ namespace wojilu.Web.Controller.Content.Caching {
 
                 Boolean isArchive = url.IndexOf( "Archive" ) > 0;
 
-                String addr = strUtil.Join( ctx.url.SiteAndAppPath, url );
+                String addr = strUtil.Join( siteUrl, url );
                 String html = makeHtml( addr );
                 file.Write( GetListPath( appId, pageNo, isArchive ), html );
 

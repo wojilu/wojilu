@@ -50,9 +50,6 @@ namespace wojilu.Web.Controller.Content.Caching {
 
             //---------------------------------------------------------
 
-            Admin.Section.ListController list = new wojilu.Web.Controller.Content.Admin.Section.ListController();
-            observe( list.Delete );
-
             Admin.Section.TalkController talk = new wojilu.Web.Controller.Content.Admin.Section.TalkController();
             observe( talk.Create );
             observe( talk.Update );

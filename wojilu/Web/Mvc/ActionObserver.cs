@@ -89,6 +89,19 @@ namespace wojilu.Web.Mvc {
             dic[t] = strUtil.Join( actions, action.Method.Name );
         }
 
+        /// <summary>
+        /// 监控其他 action
+        /// </summary>
+        /// <param name="t"></param>
+        /// <param name="actions"></param>
+        protected void observe( Type t, String actions ) {
+
+            String exitActions;
+            dic.TryGetValue( t, out exitActions );
+
+            dic[t] = strUtil.Join( exitActions, actions );
+        }
+
 
     }
 

@@ -71,7 +71,7 @@ namespace wojilu.Web.Controller.Content.Admin.Common {
             pollService.CreatePoll( sectionId, poll, post, ctx.Post( "TagList" ) );
 
             echoToParentPart( lang( "opok" ) );
-            HtmlHelper.SetCurrentPost( ctx, post );
+            HtmlHelper.SetPostToContext( ctx, post );
         }
 
         [Login]
@@ -98,7 +98,7 @@ namespace wojilu.Web.Controller.Content.Admin.Common {
             pollService.DeleteByTopicId( id );
 
             echoRedirect( lang( "opok" ) );
-            HtmlHelper.SetCurrentPost( ctx, post );
+            HtmlHelper.SetPostToContext( ctx, post );
         }
 
         public void Edit( int postId ) {
@@ -142,7 +142,7 @@ namespace wojilu.Web.Controller.Content.Admin.Common {
             pollService.Update( poll );
 
             echoToParentPart( lang( "opok" ) );
-            HtmlHelper.SetCurrentPost( ctx, post );
+            HtmlHelper.SetPostToContext( ctx, post );
         }
 
         private void bindEditInfo( ContentPost post ) {

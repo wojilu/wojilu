@@ -14,11 +14,11 @@ namespace wojilu.Web.Controller.Content.Caching {
 
         private static readonly ILog logger = LogManager.GetLogger( typeof( HtmlHelper ) );
 
-        public static void SetCurrentPost( MvcContext ctx, ContentPost post ) {
+        public static void SetPostToContext( MvcContext ctx, ContentPost post ) {
             ctx.SetItem( "_currentContentPost", post );
         }
 
-        public static ContentPost GetCurrentPost( MvcContext ctx ) {
+        public static ContentPost GetPostFromContext( MvcContext ctx ) {
             return ctx.GetItem( "_currentContentPost" ) as ContentPost;
         }
 

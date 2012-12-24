@@ -51,7 +51,6 @@ namespace wojilu.Web.Controller.Content.Admin.Section {
         }
 
         private void bindEditInfo( int postId, ContentPost post ) {
-            set( "post.DeleteUrl", to( new ListController().Delete, postId ) );
             set( "section.Name", post.SectionName );
             set( "section.Id", post.SectionId );
             set( "post.Author", post.Author );

@@ -151,7 +151,7 @@ namespace wojilu.Web.Controller.Content.Admin.Common {
                 echoToParentPart( lang( "opok" ) );
             }
 
-            HtmlHelper.SetCurrentPost( ctx, post );
+            HtmlHelper.SetPostToContext( ctx, post );
         }
 
         //--------------------------------------------------------------------------------------------------------
@@ -274,7 +274,6 @@ namespace wojilu.Web.Controller.Content.Admin.Common {
                 postService.Update( post, sectionIds, ctx.Post( "TagList" ) );
 
                 echoToParentPart( lang( "opok" ) );
-                HtmlHelper.SetCurrentPost( ctx, post );
             }
         }
 
@@ -346,7 +345,7 @@ namespace wojilu.Web.Controller.Content.Admin.Common {
             if (post == null) { echo( lang( "exDataNotFound" ) ); return; }
             postService.UpdateTitleStyle( post, titleStyle );
             echoToParentPart( lang( "opok" ) );
-            HtmlHelper.SetCurrentPost( ctx, post );
+            HtmlHelper.SetPostToContext( ctx, post );
         }
 
         public void Trash() {
@@ -496,7 +495,7 @@ namespace wojilu.Web.Controller.Content.Admin.Common {
             postService.Delete( post );
 
             echoRedirectPart( lang( "opok" ) );
-            HtmlHelper.SetCurrentPost( ctx, post );
+            HtmlHelper.SetPostToContext( ctx, post );
         }
 
         [HttpPut, DbTransaction]
@@ -506,7 +505,6 @@ namespace wojilu.Web.Controller.Content.Admin.Common {
             ContentPost post = postService.GetById( id, ctx.owner.Id );
 
             echoRedirectPart( lang( "opok" ) );
-            HtmlHelper.SetCurrentPost( ctx, post );
         }
 
         [HttpDelete, DbTransaction]

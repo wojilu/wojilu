@@ -3,23 +3,28 @@ using System.Collections.Generic;
 using System.Text;
 using wojilu.Web.Context;
 using System.IO;
+using wojilu.Web.Mvc;
 
 namespace wojilu.Web.Controller.Content.Caching {
 
     public class SidebarMaker : HtmlMakerBase {
 
+        public SidebarMaker( MvcContext ctx )
+            : base( ctx ) {
+        }
+
         protected override string GetDir() {
             return PathHelper.Map( "/html/sidebar/" );
         }
 
-        public void Process( MvcContext ctx ) {
+        public void Process( int appId ) {
 
-            base.CheckDir( ctx.app.Id );
+            base.CheckDir();
 
-            String addr = strUtil.Join( ctx.url.SiteAndAppPath, ctx.link.To( new SidebarController().Index ) ) + "?ajax=true";
+            String addr = strUtil.Join( siteUrl, _ctx.link.To( new SidebarController().Index ) ) + "?ajax=true";
 
             String html = makeHtml( addr );
-            file.Write( getPath( ctx.app.Id ), html );
+            file.Write( getPath( appId ), html );
         }
 
         private string getPath( int appId ) {

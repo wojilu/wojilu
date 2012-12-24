@@ -92,9 +92,6 @@ namespace wojilu.Web.Controller.Content.Caching {
 
             //---------------------------------------------------------
 
-            Admin.Section.ListController list = new wojilu.Web.Controller.Content.Admin.Section.ListController();
-            observe( list.Delete );
-
             Admin.Section.TalkController talk = new wojilu.Web.Controller.Content.Admin.Section.TalkController();
             observe( talk.Create );
             observe( talk.Update );
@@ -133,25 +130,10 @@ namespace wojilu.Web.Controller.Content.Caching {
             }
             else {
                 CacheManager.GetApplicationCache().Remove( getCacheKey( owner, ctx.app.Id ) );
-
-                new HomeMaker().Process( ctx );
-
             }
 
-            //int appId = ctx.app.Id;
-            //String key = GetCacheKey( ctx, null );
-            //String content = getIndexCache( appId, owner );
-            //CacheManager.GetApplicationCache().Put( key, content );
         }
 
-        //private static String getIndexCache( int appId, IMember owner ) {
-        //    MvcContext ctx = MockContext.GetOne( owner, typeof( ContentApp ), appId );
-        //    String content = ControllerRunner.Run( ctx, new wojilu.Web.Controller.Content.ContentController().Index );
-        //    return content;
-        //}
-
     }
-
-
 
 }

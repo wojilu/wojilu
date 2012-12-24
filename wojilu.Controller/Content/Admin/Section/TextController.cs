@@ -95,7 +95,7 @@ namespace wojilu.Web.Controller.Content.Admin.Section {
                 postService.Insert( post, null );
                
                 echoToParentPart( lang( "opok" ) );
-                HtmlHelper.SetCurrentPost( ctx, post );
+                HtmlHelper.SetPostToContext( ctx, post );
             }
         }
 
@@ -109,7 +109,7 @@ namespace wojilu.Web.Controller.Content.Admin.Section {
 
             postService.Delete( post );
             echoRedirectPart( lang( "opok" ) );
-            HtmlHelper.SetCurrentPost( ctx, post );
+            HtmlHelper.SetPostToContext( ctx, post );
         }
 
         public void Edit( int postId ) {
@@ -141,7 +141,7 @@ namespace wojilu.Web.Controller.Content.Admin.Section {
                 postService.Update( post, null );
 
                 echoToParentPart( lang( "opok" ) );
-                HtmlHelper.SetCurrentPost( ctx, post );
+                HtmlHelper.SetPostToContext( ctx, post );
             }
         }
 

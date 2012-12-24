@@ -65,26 +65,11 @@ namespace wojilu.Web.Controller.Content.Admin.Section {
             bindSectionShow( sectionId, posts );
         }
 
-
         public void AdminList( int sectionId ) {
             ContentSection section = sectionService.GetById( sectionId, ctx.app.Id );
             DataPage<ContentPost> posts = postService.GetPageBySectionAndCategory( section.Id, ctx.GetInt( "categoryId" ) );
 
             bindAdminList( section, posts );
-        }
-        
-        [HttpDelete, DbTransaction]
-        public void Delete( int postId ) {
-            ContentPost post = postService.GetById( postId, ctx.owner.Id );
-            if (post == null) {
-                echo( lang( "exDataNotFound" ) );
-                return;
-            }
-
-            postService.Delete( post );
-            echoRedirectPart( lang( "opok" ) );
-            HtmlHelper.SetCurrentPost( ctx, post );
-
         }
 
     }

@@ -67,7 +67,7 @@ namespace wojilu.Web.Controller.Content.Admin.Section {
                 else
                     block.Set( "post.EditUrl", to( new Common.PostController().Edit, post.Id ) );
 
-                block.Set( "post.DeleteUrl", to( Delete, post.Id ) );
+                block.Set( "post.DeleteUrl", to( new Common.PostController().Delete, post.Id ) );
                 block.Next();
             }
             set( "page", posts.PageBar );
