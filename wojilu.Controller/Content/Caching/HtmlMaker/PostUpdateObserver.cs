@@ -85,8 +85,11 @@ namespace wojilu.Web.Controller.Content.Caching.Actions {
                 new DetailMaker( ctx ).Process( post );
             }
 
-            // 3）TODO 列表页处理
+            // 3) 列表页处理
             new ListMaker( ctx ).Process( post );
+
+            // 4) 最近列表页处理
+            new RecentMaker( ctx ).ProcessCache( ctx.app.Id );
 
         }
 

@@ -62,5 +62,9 @@ namespace wojilu.Apps.Content.Domain {
 
         public String StaticDir { get; set; }
 
+
+        public static int ListPageWidth = 3;
+        public static int ListRecentPageSize = 50;
+
     }
 }

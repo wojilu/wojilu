@@ -4,13 +4,20 @@ using System.Text;
 using wojilu.Web.Context;
 using wojilu.Apps.Content.Domain;
 using wojilu.Web.Mvc;
+using wojilu.Apps.Content.Interface;
+using wojilu.Apps.Content.Service;
 
 namespace wojilu.Web.Controller.Content.Caching {
 
     public class ListMaker : HtmlMakerBase {
 
+        private static readonly ILog logger = LogManager.GetLogger( typeof( ListMaker ) );
+
+        public IContentPostService postService { get; set; }
+
         public ListMaker( MvcContext ctx )
             : base( ctx ) {
+            postService = new ContentPostService();
         }
 
         protected override string GetDir() {
@@ -26,26 +33,47 @@ namespace wojilu.Web.Controller.Content.Caching {
             List<ContentPostSection> psList = ContentPostSection.find( "PostId=" + post.Id ).list();
             foreach (ContentPostSection x in psList) {
 
-                // TODO 只生成前两页
-                int recordCount = 2;
+                int recordCount = postService.CountBySection( x.Section.Id );
 
-                totalCount += this.Process( x.Section.Id, recordCount );
+                totalCount += this.ProcessCache( x.Section.Id, recordCount );
             }
 
             return totalCount;
         }
 
-        public int Process( int sectionId, int recordCount ) {
+        public int ProcessCache( int sectionId, int recordCount ) {
 
             CheckDir();
 
-            String cpLink = _ctx.link.To( new SectionController().Show, sectionId );
-            String caLink = _ctx.link.To( new SectionController().Archive, sectionId );
+            String lnkNormal = _ctx.link.To( new SectionController().Show, sectionId );
+            String lnkArchive = _ctx.link.To( new SectionController().Archive, sectionId );
 
 
-            int pageSize = 20;
+            int pageSize = getPageSize();
 
-            return makeHtmlLoop( recordCount, sectionId, cpLink, caLink, pageSize );
+            return makeHtmlLoopCache( recordCount, sectionId, lnkNormal, lnkArchive, pageSize );
+        }
+
+        public int ProcessAll( int sectionId, int recordCount ) {
+
+            CheckDir();
+
+            String lnkNormal = _ctx.link.To( new SectionController().Show, sectionId );
+            String lnkArchive = _ctx.link.To( new SectionController().Archive, sectionId );
+
+
+            int pageSize = getPageSize();
+
+            return makeHtmlLoopAll( recordCount, sectionId, lnkNormal, lnkArchive, pageSize );
+        }
+
+        private int getPageSize() {
+
+            ContentApp app = _ctx.app.obj as ContentApp;
+            ContentSetting s = app.GetSettingsObj();
+
+            return s.ListPostPerPage;
+
         }
 
 

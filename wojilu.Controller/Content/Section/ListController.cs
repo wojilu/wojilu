@@ -46,7 +46,7 @@ namespace wojilu.Web.Controller.Content.Section {
             bindListCommon( sectionId, section, s, posts );
 
             Boolean isMakeHtml = HtmlHelper.IsMakeHtml( ctx );
-            set( "page", posts.GetRecentPage( clink.toSection( sectionId, ctx ), clink.toArchive( sectionId, ctx ), 3, isMakeHtml ) );
+            set( "page", posts.GetRecentPage( clink.toSection( sectionId, ctx ), clink.toArchive( sectionId, ctx ), ContentSetting.ListPageWidth, isMakeHtml ) );
 
         }
 

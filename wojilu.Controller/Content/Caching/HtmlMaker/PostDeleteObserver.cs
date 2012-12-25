@@ -12,6 +12,8 @@ namespace wojilu.Web.Controller.Content.Caching.Actions {
 
     public class PostDeleteObserver : ActionObserver {
 
+        private static readonly ILog logger = LogManager.GetLogger( typeof( PostDeleteObserver ) );
+
         public IContentPostService postService { get; set; }
 
         public PostDeleteObserver() {
@@ -62,6 +64,9 @@ namespace wojilu.Web.Controller.Content.Caching.Actions {
 
             // 3）更新列表页
             new ListMaker( ctx ).Process( _contentPost );
+
+            // 4) 最近列表页处理
+            new RecentMaker( ctx ).ProcessCache( ctx.app.Id );
 
         }
 

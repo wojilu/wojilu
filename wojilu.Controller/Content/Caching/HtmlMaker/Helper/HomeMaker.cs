@@ -10,6 +10,9 @@ namespace wojilu.Web.Controller.Content.Caching {
 
     public class HomeMaker : HtmlMakerBase {
 
+        private static readonly ILog logger = LogManager.GetLogger( typeof( HomeMaker ) );
+
+
         public HomeMaker( MvcContext ctx )
             : base( ctx ) {
         }
@@ -28,7 +31,9 @@ namespace wojilu.Web.Controller.Content.Caching {
             String addr = strUtil.Join( siteUrl, _ctx.link.To( new ContentController().Index ) );
 
             String html = makeHtml( addr );
-            file.Write( getHomePageAbs(), html );
+            String htmlPath = getHomePageAbs();
+            file.Write( htmlPath, html );
+            logger.Info( "make ContentApp html done =>" + htmlPath );
         }
 
 

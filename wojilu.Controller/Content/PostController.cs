@@ -46,31 +46,31 @@ namespace wojilu.Web.Controller.Content {
         public override void Layout() {
         }
 
-        public static readonly int pageSize = 50;
-
         public void Recent() {
 
-            DataPage<ContentPost> list = postService.GetByApp( ctx.app.Id, pageSize );
+            DataPage<ContentPost> list = postService.GetByApp( ctx.app.Id, ContentSetting.ListRecentPageSize );
             bindPosts( list );
 
             String cpLink = clink.toRecent( ctx );
             String apLink = clink.toRecentArchive( ctx );
             Boolean isMakeHtml = HtmlHelper.IsMakeHtml( ctx );
 
-            set( "page", list.GetRecentPage( cpLink, apLink, 3, isMakeHtml ) );
+            int pageWidth = ContentSetting.ListPageWidth;
+            set( "page", list.GetRecentPage( cpLink, apLink, pageWidth, isMakeHtml ) );
         }
 
         public void RecentArchive() {
             view( "Recent" );
 
-            DataPage<ContentPost> list = postService.GetByAppArchive( ctx.app.Id, pageSize );
+            DataPage<ContentPost> list = postService.GetByAppArchive( ctx.app.Id, ContentSetting.ListRecentPageSize );
             bindPosts( list );
 
             String cpLink = clink.toRecent( ctx );
             String apLink = clink.toRecentArchive( ctx );
             Boolean isMakeHtml = HtmlHelper.IsMakeHtml( ctx );
 
-            set( "page", list.GetArchivePage( cpLink, apLink, 3, isMakeHtml ) );
+            int pageWidth = ContentSetting.ListPageWidth;
+            set( "page", list.GetArchivePage( cpLink, apLink, pageWidth, isMakeHtml ) );
         }
 
         private void bindPosts( DataPage<ContentPost> posts ) {

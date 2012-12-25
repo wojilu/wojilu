@@ -10,6 +10,8 @@ namespace wojilu.Web.Controller.Content.Caching {
 
     public class DetailMaker : HtmlMakerBase {
 
+        private static readonly ILog logger = LogManager.GetLogger( typeof( DetailMaker ) );
+
         public DetailMaker( MvcContext ctx )
             : base( ctx ) {
         }
@@ -42,7 +44,9 @@ namespace wojilu.Web.Controller.Content.Caching {
             foreach (String url in pagedUrls) {
                 String addrPaged = strUtil.Join( siteUrl, url );
                 String htmlPaged = makeHtml( addrPaged );
-                file.Write( getPath( post, PageHelper.GetPageNoByUrl( url ) ), htmlPaged );
+                String htmlPath = getPath( post, PageHelper.GetPageNoByUrl( url ) );
+                file.Write( htmlPath, htmlPaged );
+                logger.Info( "make html done=>" + htmlPath );
             }
         }
 
@@ -50,8 +54,11 @@ namespace wojilu.Web.Controller.Content.Caching {
 
             _post = post;
 
-            String filePath = getPath( post );
-            if (file.Exists( filePath )) file.Delete( filePath );
+            String htmlPath = getPath( post );
+            if (file.Exists( htmlPath )) {
+                file.Delete( htmlPath );
+                logger.Info( "delete html done=>" + htmlPath );
+            }
         }
 
         //------------------------------------------------------------------------------

@@ -475,14 +475,14 @@ namespace wojilu {
             return sb.ToString();
         }
 
-
         /// <summary>
         /// 获取所有分页的链接，包括 "缓存页 + 存档页"
         /// </summary>
         /// <param name="recentLink">缓存页链接</param>
         /// <param name="archiveLink">存档页链接</param>
         /// <param name="recordCount">记录总数</param>
-        /// <param name="recentPageCount">每页数量</param>
+        /// <param name="pageWidth">缓存页数</param>
+        /// <param name="pageSize">每页数量</param>
         /// <returns></returns>
         public static List<String> GetPageLinks( String recentLink, String archiveLink, int recordCount, int pageWidth, int pageSize ) {
 

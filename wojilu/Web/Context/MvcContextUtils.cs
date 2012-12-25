@@ -258,10 +258,14 @@ namespace wojilu.Web.Context {
 
             DbContext.closeConnectionAll();
 
-            if (ctx.utils.isAjax)
-                logger.Info( "------------------ ajax end(" + ctx.web.PathAbsolute + ") ------------------" );
-            else
-                logger.Info( "------------------- output end(" + ctx.web.PathAbsolute + ") ---------------------" );
+            String strMock = ctx.IsMock ? " [mocked]" : "";
+
+            if (ctx.utils.isAjax) {
+                logger.Info( "------------------ ajax end" + strMock + "(" + ctx.web.PathAbsolute + ") ------------------" );
+            }
+            else {
+                logger.Info( "------------------- output end" + strMock + "(" + ctx.web.PathAbsolute + ")  ---------------------" );
+            }
 
             LogManager.Flush();
         }

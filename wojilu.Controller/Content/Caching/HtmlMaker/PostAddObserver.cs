@@ -39,6 +39,8 @@ namespace wojilu.Web.Controller.Content.Caching.Actions {
 
             // 1）文章添加之后，app首页和侧边栏都要更新
             new HomeMaker( ctx ).Process( ctx.app.Id );
+            logger.Info( "PostAddObserver make app home" );
+
             new SidebarMaker( ctx ).Process( ctx.app.Id );
 
             // 2）新创建的文章，需要通过 ctx 传递
@@ -47,9 +49,11 @@ namespace wojilu.Web.Controller.Content.Caching.Actions {
                 new DetailMaker( ctx ).Process( post );
             }
 
-            // 3）TODO 相关列表页也要更新
+            // 3）相关列表页也要更新
             new ListMaker( ctx ).Process( post );
 
+            // 4) 最近列表页处理
+            new RecentMaker( ctx ).ProcessCache( ctx.app.Id );
         }
 
 

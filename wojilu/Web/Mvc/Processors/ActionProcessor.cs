@@ -53,7 +53,8 @@ namespace wojilu.Web.Mvc.Processors {
             // 2) 运行 before action (获取所有的 ActionObserver)
             List<ActionObserver> actionObservers = ControllerMeta.GetActionObservers( controller.GetType(), ctx.route.action );
             if (actionObservers != null) {
-                foreach (ActionObserver ob in actionObservers) {
+                foreach (ActionObserver x in actionObservers) {
+                    ActionObserver ob = (ActionObserver)ObjectContext.CreateAndObserveProperty( x.GetType() );
                     Boolean isContinue = ob.BeforeAction( ctx );
                     if (!isContinue) return;
                 }
@@ -129,14 +130,16 @@ namespace wojilu.Web.Mvc.Processors {
 
         private void runAfterAction( MvcContext ctx ) {
 
-
             List<String> pages = new List<String>();
 
             List<ActionObserver> actionObservers = ControllerMeta.GetActionObservers( ctx.controller.GetType(), ctx.route.action );
             if (actionObservers == null) return;
 
             List<IPageCache> observedPages = new List<IPageCache>();
-            foreach (ActionObserver ob in actionObservers) {
+            foreach (ActionObserver x in actionObservers) {
+
+                logger.Info( "run after ActionObserver=>" + x.GetType() );
+                ActionObserver ob = (ActionObserver)ObjectContext.CreateAndObserveProperty( x.GetType() );
                 ob.AfterAction( ctx );
 
                 if (ob.GetType().IsSubclassOf( typeof( ActionCache ) )) {

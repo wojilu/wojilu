@@ -7,6 +7,8 @@ namespace wojilu.Web.Controller.Content.Caching.Actions {
 
     public class HomeObserver : ActionObserver {
 
+        private static readonly ILog logger = LogManager.GetLogger( typeof( HomeObserver ) );
+
         public override void ObserveActions() {
 
             Dictionary<Type, String> dic = new ContentIndexCache().GetRelatedActions();
@@ -18,7 +20,7 @@ namespace wojilu.Web.Controller.Content.Caching.Actions {
 
         public override void AfterAction( Context.MvcContext ctx ) {
             new HomeMaker( ctx ).Process( ctx.app.Id );
-
+            logger.Info( "HomeObserver make app home" );
         }
 
 
