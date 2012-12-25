@@ -18,6 +18,12 @@ namespace wojilu.Common.Jobs {
         private static readonly ILog logger = LogManager.GetLogger( typeof( RefreshServerJob ) );
 
         public void Execute() {
+
+            if (DateTime.Now.Hour == 0 && DateTime.Now.Minute > 0 && DateTime.Now.Minute <= 20) {
+                logger.Info( "clear all cache" );
+                sys.Clear.ClearAll();
+            }
+
             String url = "http://" + SystemInfo.Authority;
             url = strUtil.Join( url, "refresh.aspx" );
             try {
@@ -29,6 +35,7 @@ namespace wojilu.Common.Jobs {
             catch (Exception ex) {
                 logger.Error( "RefreshServer=>" + url + Environment.NewLine + ex.ToString() );
             }
+
         }
 
         public void End() {
