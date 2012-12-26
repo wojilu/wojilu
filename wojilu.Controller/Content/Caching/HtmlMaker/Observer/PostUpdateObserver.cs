@@ -1,6 +1,11 @@
-﻿using System;
+﻿/*
+ * Copyright (c) 2010, www.wojilu.com. All rights reserved.
+ */
+
+using System;
 using System.Collections.Generic;
 using System.Text;
+
 using wojilu.Web.Mvc;
 using wojilu.Web.Context;
 using wojilu.Apps.Content.Interface;

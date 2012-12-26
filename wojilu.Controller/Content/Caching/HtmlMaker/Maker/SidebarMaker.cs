@@ -1,9 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using wojilu.Web.Context;
+﻿/*
+ * Copyright (c) 2010, www.wojilu.com. All rights reserved.
+ */
+
+using System;
 using System.IO;
-using wojilu.Web.Mvc;
+
+using wojilu.Web.Context;
 
 namespace wojilu.Web.Controller.Content.Caching {
 
