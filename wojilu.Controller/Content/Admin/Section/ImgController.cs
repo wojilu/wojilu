@@ -161,7 +161,15 @@ namespace wojilu.Web.Controller.Content.Admin.Section {
 
 
         [HttpPut, DbTransaction]
-        public void SetLogo( int imgId ) {
+        public void SetLogo( int postId ) {
+
+            ContentPost post = postService.GetById( postId, ctx.owner.Id );
+            if (post == null) {
+                echoRedirect( lang( "exDataNotFound" ) );
+                return;
+            }
+
+            int imgId = ctx.GetInt( "imgId" );
 
             ContentImg img = imgService.GetImgById( imgId );
             if (img == null) {
@@ -169,7 +177,6 @@ namespace wojilu.Web.Controller.Content.Admin.Section {
                 return;
             }
 
-            ContentPost post = img.Post;
             post.ImgLink = img.ImgUrl;
             imgService.UpdateImgLogo( post );
 
@@ -237,7 +244,15 @@ namespace wojilu.Web.Controller.Content.Admin.Section {
         }
 
         [HttpDelete, DbTransaction]
-        public void DeleteImg( int imgId ) {
+        public void DeleteImg( int postId ) {
+
+            ContentPost post = postService.GetById( postId, ctx.owner.Id );
+            if (post == null) {
+                echoRedirect( lang( "exDataNotFound" ) );
+                return;
+            }
+
+            int imgId = ctx.GetInt( "imgId" );
             ContentImg img = imgService.GetImgById( imgId );
             if (img == null) {
                 echoRedirect( alang( "exImgFound" ) );
@@ -247,7 +262,7 @@ namespace wojilu.Web.Controller.Content.Admin.Section {
             imgService.DeleteImgOne( img );
             
             echoRedirect( lang( "opok" ) );
-            HtmlHelper.SetPostToContext( ctx, img.Post );
+            HtmlHelper.SetPostToContext( ctx, post );
         }
 
 

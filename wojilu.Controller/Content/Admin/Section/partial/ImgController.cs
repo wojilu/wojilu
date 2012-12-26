@@ -75,14 +75,8 @@ namespace wojilu.Web.Controller.Content.Admin.Section {
                 block.Set( "img.Url", img.GetImgUrl() );
                 block.Set( "img.Thumb", img.GetThumb() );
                 block.Set( "img.Description", strUtil.CutString( img.Description, 8 ) );
-                block.Set( "img.DeleteUrl", to( DeleteImg, img.Id ) );
-                String setLogoCmd = string.Empty;
-                if (img.ImgUrl.Equals( post.ImgLink )) {
-                    setLogoCmd = "<span style='font-weight:bold;color:red;'>" + alang( "currentCover" ) + "</span>";
-                }
-                else {
-                    setLogoCmd = string.Format( "<a href='{0}' class=\"putCmd cmd\">" + alang( "setCover" ) + "</a>", to( SetLogo, img.Id ) );
-                }
+                block.Set( "img.DeleteUrl", to( DeleteImg, post.Id ) + "?imgId=" + img.Id );
+                String setLogoCmd = getSetLogoCmd( post, img );
                 block.Set( "img.SetLogo", setLogoCmd );
                 block.Next();
             }
@@ -93,6 +87,16 @@ namespace wojilu.Web.Controller.Content.Admin.Section {
                 upblock.Set( "photoIndex", i );
                 upblock.Next();
             }
+        }
+
+        private String getSetLogoCmd( ContentPost post, ContentImg img ) {
+
+            if (img.ImgUrl.Equals( post.ImgLink )) {
+                return "<span style='font-weight:bold;color:red;'>" + alang( "currentCover" ) + "</span>";
+            }
+
+            return string.Format( "<a href='{0}' class=\"putCmd cmd\">" + alang( "setCover" ) + "</a>", to( SetLogo, post.Id ) + "?imgId=" + img.Id );
+
         }
 
         private void bindListEdit( int postId, ContentPost post ) {
