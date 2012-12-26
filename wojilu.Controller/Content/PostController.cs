@@ -145,6 +145,9 @@ namespace wojilu.Web.Controller.Content {
             // 10) page meta，最后一个绑定，覆盖各 Section 自己的配置
             bindMetaInfo( post );
 
+            // 11) 统计信息
+            set( "lnkStats", to( Stats, id ) );
+
             bind( "post", post );
         }
 
@@ -385,9 +388,35 @@ namespace wojilu.Web.Controller.Content {
                 block.Set( "p.Created", obj.Created );
 
                 block.Next();
+            }
+        }
 
+        public void Stats( int id ) {
+
+            Dictionary<String, String> dic = new Dictionary<String, String>();
+            dic["hits"] = "0";
+            dic["diggUp"] = "0";
+            dic["diggDown"] = "0";
+            dic["diggUpPercent"] = "";
+            dic["diggDownPercent"] = "";
+
+            ContentPost post = postService.GetById( id, ctx.owner.Id );
+
+            if (post == null) {
+                echoJson( dic );
+                return;
             }
 
+            postService.AddHits( post );
+
+
+            dic["hits"] = post.Hits.ToString();
+            dic["diggUp"] = post.DiggUp.ToString();
+            dic["diggDown"] = post.DiggDown.ToString();
+            dic["diggUpPercent"] = post.DiggUpPercent;
+            dic["diggDownPercent"] = post.DiggDownPercent;
+
+            echoJson( dic );
         }
 
 

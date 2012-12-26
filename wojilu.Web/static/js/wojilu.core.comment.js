@@ -235,6 +235,7 @@
             if ('ok' == data) {
                 appendComment(cmContent, parentId, objX);
                 txtCommentBody.val('');
+                addReplyCount();
             }
             else {
                 alert(data.Msg);
@@ -259,6 +260,11 @@
     function bindReplyCount( replies ) {
         $('#replies').text( replies );
         $('#contentReplies', window.parent.document ).text( replies );
+    }
+
+    function addReplyCount() {
+        var replies = parseInt( $('#replies').text() ); 
+        bindReplyCount( replies + 1 );
     }
 
     function bindUserInfo( objX ) {

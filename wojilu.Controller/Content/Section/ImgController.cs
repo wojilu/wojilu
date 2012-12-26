@@ -52,8 +52,6 @@ namespace wojilu.Web.Controller.Content.Section {
                 return;
             }
 
-            postService.AddHits( post );
-
             int currentPage = ctx.route.page;
             DataPage<ContentImg> imgPage = imgService.GetImgPage( postId, currentPage );
 

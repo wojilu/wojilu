@@ -17,7 +17,7 @@
 
     <div style="margin:15px;">
         <span style="font-size:16px;font-weight:bold;">评论列表</span> (共 <span id="replies"></span> 条)
-        <a href="#{deleteAllLink}" class="left10 ajaxDeleteCmd #{deleteAllHideClass}" removeId="commentListWrapInner"><img src="~img/delete.gif" /> 删除所有评论</a>    
+        <a href="#{deleteAllLink}" class="left10 ajaxDeleteCmd #{deleteAllHideClass}" removeId="commentListWrapInner" data-callback="clearReplyCount"><img src="~img/delete.gif" /> 删除所有评论</a>    
     </div>
     <div id="commentFormWrap">
         <div class="commentFormInner">
@@ -109,6 +109,13 @@
     <div>#{page}</div>
 </div>
 <script>
+
+    function clearReplyCount() {
+        $('#replies').text( 0 );
+        $('#contentReplies', window.parent.document ).text( 0 );
+    }
+
+
     _run(function () {
 
         var commentInfo = {

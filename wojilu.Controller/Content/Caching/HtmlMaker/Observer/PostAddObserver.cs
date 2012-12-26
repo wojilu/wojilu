@@ -6,13 +6,23 @@ using System;
 
 using wojilu.Web.Mvc;
 using wojilu.Web.Context;
+
 using wojilu.Apps.Content.Domain;
+using wojilu.Apps.Content.Interface;
+using wojilu.Apps.Content.Service;
 
 namespace wojilu.Web.Controller.Content.Caching.Actions {
 
     public class PostAddObserver : ActionObserver {
 
         private static readonly ILog logger = LogManager.GetLogger( typeof( PostAddObserver ) );
+
+        public IContentPostService postService { get; set; }
+
+        public PostAddObserver() {
+            postService = new ContentPostService();
+        }
+
 
         public override void ObserveActions() {
 
@@ -47,6 +57,9 @@ namespace wojilu.Web.Controller.Content.Caching.Actions {
             ContentPost post = HtmlHelper.GetPostFromContext( ctx );
             if (post != null) {
                 new DetailMaker( ctx ).Process( post );
+                ContentPost prev = postService.GetPrevPost( post );
+                new DetailMaker( ctx ).Process( prev );
+
             }
 
             // 3）相关列表页也要更新

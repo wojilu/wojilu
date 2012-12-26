@@ -44,6 +44,18 @@ define( [], function() {
         setEle( result, 'up' );
         setEle( result, 'down' );
     };
+
+
+    var setValue = function( obj ) {
+       $('#btnDiggUp .diggNum').text( obj.diggUp ); 
+       $('#btnDiggDown .diggNum').text( obj.diggDown ); 
+
+       $('#btnDiggUp .diggPerNum').text( obj.diggUpPercent+'%' );
+       $('#btnDiggUp .diggPerBar span').css( 'width', obj.diggUpPercent+'%' );
+
+       $('#btnDiggDown .diggPerNum').text( obj.diggDownPercent+'%' );
+       $('#btnDiggDown .diggPerBar span').css( 'width', obj.diggDownPercent+'%' );
+    };
     
     //--------------------------------------------------------------------------
 
@@ -62,6 +74,6 @@ define( [], function() {
         });
     }
 
-    return { init : initDigg }
+    return { init : initDigg, setValue : setValue }
 
 });

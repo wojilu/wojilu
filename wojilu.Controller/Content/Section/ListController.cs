@@ -96,8 +96,6 @@ namespace wojilu.Web.Controller.Content.Section {
                 return;
             }
 
-            postService.AddHits( post );
-
             ctx.SetItem( "ContentPost", post );
 
             bindDetail( id, post );

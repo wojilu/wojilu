@@ -6,7 +6,7 @@
 
     <div class="post-detail-info postInfo">
 	    <span>#{post.Created}</span>
-	    <span class="left10">_{view}:#{post.Hits}</span> 
+	    <span class="left10">_{view}:<span id="post-detail-hits">0</span></span> 
 	    <span class="left10">#{post.Author}</span>
 	    <span class="left10">_{comment}:<span id="contentReplies">0</span></span>
 	    <span class="left10 fontBig" fontTarget="postContent">_{fontBig}</span>
@@ -30,19 +30,19 @@
 
     <div id="btnDiggUp" class="btnDigg diggUp" onmousemove="this.style.backgroundPosition='left bottom';" onmouseout="this.style.backgroundPosition='left top';" style="background-position: 0% 100%; ">
 		<div class="diggText">顶一下</div>
-		<div class="diggNum">(#{post.DiggUp})</div>
+		<div class="diggNum">(0)</div>
 		<div class="diggPer">
-			<div class="diggPerBar"><span style="width:#{post.DiggUpPercent}%"></span></div>
-			<div class="diggPerNum">#{post.DiggUpPercent}%</div>
+			<div class="diggPerBar"><span style="width:0"></span></div>
+			<div class="diggPerNum">0%</div>
 		</div>
 	</div>
 	
 	<div id="btnDiggDown" class="btnDigg diggDown" onmousemove="this.style.backgroundPosition='right bottom';" onmouseout="this.style.backgroundPosition='right top';" style="background-position: 100% 0%; ">
 		<div class="diggText">踩一下</div>
-		<div class="diggNum">(#{post.DiggDown})</div>
+		<div class="diggNum">(0)</div>
 		<div class="diggPer">
-			<div class="diggPerBar"><span style="width:#{post.DiggDownPercent}%"></span></div>
-			<div class="diggPerNum">#{post.DiggDownPercent}%</div>
+			<div class="diggPerBar"><span style="width:0"></span></div>
+			<div class="diggPerNum">0%</div>
 		</div>
 	</div>
 	
@@ -51,10 +51,22 @@
 
 <script>
     _run(function () {
-        require(['wojilu.app.content.digg'], function (digg) {
-            digg.init('btnDiggUp', '#{lnkDiggUp}');
-            digg.init('btnDiggDown', '#{lnkDiggDown}');
+
+        var lnkStats = '#{lnkStats}'.toAjax();
+        $.post(lnkStats, function (data) {
+            $('#post-detail-hits').text(data.hits);
+
+            require(['wojilu.app.content.digg'], function (digg) {
+
+                digg.setValue(data);
+
+                digg.init('btnDiggUp', '#{lnkDiggUp}');
+                digg.init('btnDiggDown', '#{lnkDiggDown}');
+
+            });
+
         });
+
     });
 </script>
 
@@ -76,8 +88,7 @@
 </div>
 
 <div>
-    <div><a href="#{commentUrl}" id="comentLink" class="frmLink" loadTo="commentMain" nolayout=999></a></div>
-    <div id="commentMain"></div>
+    <div class="frmLoader" url="#{commentUrl}"></div>
 </div>
 
 <script>
@@ -87,8 +98,7 @@
         wojilu.tool.shareFull();
 
         wojilu.ctx.changeUrl = false;
-        wojilu.ui.frmLink();
+        wojilu.ui.frmLoader();
 
-        $('#comentLink').click();
     });
 </script>

@@ -68,8 +68,6 @@ namespace wojilu.Web.Controller.Content.Section {
                 return;
             }
 
-            postService.AddHits( post );
-
             bindShow( post );
         }
 

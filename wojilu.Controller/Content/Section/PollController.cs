@@ -67,10 +67,7 @@ namespace wojilu.Web.Controller.Content.Section {
             ContentPost post = postService.GetById( id, ctx.owner.Id );
             ContentPoll poll = pollService.GetByTopicId( id );
 
-            postService.AddHits( post );
-
             set( "lnkPoll", to( new wojilu.Web.Controller.Content.Common.PollController().Show, post.Id ) );
-
         }
 
 
