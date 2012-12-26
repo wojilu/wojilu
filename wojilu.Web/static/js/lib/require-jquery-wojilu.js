@@ -12027,6 +12027,7 @@ wojilu.ui.httpMethod = function(eleId) {
     eleAjaxDelete.unbind('click').click( function() {
         var cmd = $(this); 
         var ps = cmd.position();	    
+        var cmdCallback = cmd.attr( 'data-callback' );
         var boxHtml ='<div id="deleteMsgBox" class="ebox" style="width:190px; padding:10px 5px; text-align:center;">'+
             '<div style="margin-bottom:10px;">确实删除吗？</div>'+
             '<div>'+
@@ -12067,6 +12068,7 @@ wojilu.ui.httpMethod = function(eleId) {
                     };
                     $('#deleteMsgBox').hide();
                     isDeleteClick = false;
+                    if( cmdCallback ) eval( cmdCallback+'()' );
                 }
                 else {
                     alert( data );
@@ -12658,7 +12660,11 @@ wojilu.ui.frmLoader = function() {
 
     function frmLoaderCallback() {
     
-		var frmUrl = $(this).attr( 'url' ).toAjaxFrame()+'&linkTarget=blank'; // 链接在新窗口中打开，而不是在当前iframe中展开页面
+        var rUrl = $(this).attr( 'url' ); 
+        if( !rUrl || rUrl=='' || rUrl=='#' ) return false;
+        var nolayout=$(this).attr('nolayout');
+        if( !nolayout ) { nolayout=999;}
+        var frmUrl = wojilu.tool.appendQuery( rUrl, 'nolayout='+nolayout )+'&linkTarget=blank';
         var scrolling = $(this).attr( 'scrolling' );
         scrolling = scrolling? scrolling:'no';
         
