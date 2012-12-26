@@ -1,4 +1,4 @@
-/*
+ï»¿/*
  * Copyright 2010 www.wojilu.com
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -22,7 +22,7 @@ using wojilu;
 namespace wojilu.Log {
 
     /// <summary>
-    /// ÎÄ¼şÈÕÖ¾¹¤¾ß£¬ËùÓĞÈÕÖ¾»á±»Ğ´Èë´ÅÅÌ
+    /// æ–‡ä»¶æ—¥å¿—å·¥å…·ï¼Œæ‰€æœ‰æ—¥å¿—ä¼šè¢«å†™å…¥ç£ç›˜
     /// </summary>
     internal class FileLogger : ILog {
 

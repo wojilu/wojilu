@@ -1,4 +1,4 @@
-/*
+ï»¿/*
  * Copyright 2010 www.wojilu.com
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -21,7 +21,7 @@ using wojilu;
 namespace wojilu.Log {
 
     /// <summary>
-    /// ´æ´¢µ½Êı¾İ¿âµÄÈÕÖ¾(ÉĞÎ´ÊµÏÖ£¬ÇëÎğÊ¹ÓÃ)
+    /// å­˜å‚¨åˆ°æ•°æ®åº“çš„æ—¥å¿—(å°šæœªå®ç°ï¼Œè¯·å‹¿ä½¿ç”¨)
     /// </summary>
     internal class LoggerForDB : ILog {
 

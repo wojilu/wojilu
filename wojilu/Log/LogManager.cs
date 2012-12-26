@@ -1,4 +1,4 @@
-/*
+ï»¿/*
  * Copyright 2010 www.wojilu.com
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -25,14 +25,14 @@ using wojilu.Web;
 namespace wojilu {
 
     /// <summary>
-    /// ÈÕÖ¾¹ÜÀí¶ÔÏó£¬Í¨³£ÓÃÓÚ»ñÈ¡ÈÕÖ¾¹¤¾ß
+    /// æ—¥å¿—ç®¡ç†å¯¹è±¡ï¼Œé€šå¸¸ç”¨äºè·å–æ—¥å¿—å·¥å…·
     /// </summary>
     /// <example>
-    /// Ò»°ãÔÚÀàµÄµÚÒ»ĞĞ¶¨Òå
+    /// ä¸€èˆ¬åœ¨ç±»çš„ç¬¬ä¸€è¡Œå®šä¹‰
     /// <code>
     /// private static readonly ILog logger = LogManager.GetLogger( typeof( ObjectBase ) );
     /// </code>
-    /// È»ºó¿ÉÒÔÔÚÆäËû·½·¨ÖĞÊ¹ÓÃ
+    /// ç„¶åå¯ä»¥åœ¨å…¶ä»–æ–¹æ³•ä¸­ä½¿ç”¨
     /// <code>
     /// logger.Info( "your message" );
     /// </code>
@@ -43,19 +43,19 @@ namespace wojilu {
         }
 
         /// <summary>
-        /// »ñÈ¡Ò»¸öÈÕÖ¾¹¤¾ß
+        /// è·å–ä¸€ä¸ªæ—¥å¿—å·¥å…·
         /// </summary>
-        /// <param name="type">¶ÔÏóÀàĞÍ</param>
-        /// <returns>·µ»ØÈÕÖ¾¹¤¾ß</returns>
+        /// <param name="type">å¯¹è±¡ç±»å‹</param>
+        /// <returns>è¿”å›æ—¥å¿—å·¥å…·</returns>
         public static ILog GetLogger( Type type ) {
             return GetLogger( type.FullName );
         }
 
         /// <summary>
-        /// »ñÈ¡Ò»¸öÈÕÖ¾¹¤¾ß
+        /// è·å–ä¸€ä¸ªæ—¥å¿—å·¥å…·
         /// </summary>
-        /// <param name="typeName">¶ÔÏóÀàĞÍ</param>
-        /// <returns>·µ»ØÈÕÖ¾¹¤¾ß</returns>
+        /// <param name="typeName">å¯¹è±¡ç±»å‹</param>
+        /// <returns>è¿”å›æ—¥å¿—å·¥å…·</returns>
         public static ILog GetLogger( String typeName ) {
             ILog log = getLogger();
             log.TypeName = typeName;
@@ -89,7 +89,7 @@ namespace wojilu {
         }
 
         /// <summary>
-        /// Á¢¼´½«ÈÕÖ¾ÄÚÈİĞ´Èë´ÅÅÌ(ÔÚ web ÖĞ£¬ÈÕÖ¾ÊÇÔÚÒ³ÃæÇëÇó½áÊøµÄÊ±ºò²ÅÒ»ÆğĞ´Èëµ½´ÅÅÌµÄ)
+        /// ç«‹å³å°†æ—¥å¿—å†…å®¹å†™å…¥ç£ç›˜(åœ¨ web ä¸­ï¼Œæ—¥å¿—æ˜¯åœ¨é¡µé¢è¯·æ±‚ç»“æŸçš„æ—¶å€™æ‰ä¸€èµ·å†™å…¥åˆ°ç£ç›˜çš„)
         /// </summary>
         public static void Flush() {
 

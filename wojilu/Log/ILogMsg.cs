@@ -1,4 +1,4 @@
-/*
+О╩©/*
  * Copyright 2010 www.wojilu.com
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -19,7 +19,7 @@ using System;
 namespace wojilu.Log {
 
     /// <summary>
-    /// хуж╬пео╒╫с©з
+    /// Ф≈╔Е©≈Д©║Ф│╞Ф▌╔Е▐ё
     /// </summary>
     public interface ILogMsg {
 

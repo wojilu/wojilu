@@ -225,7 +225,7 @@ namespace wojilu.Data {
         /// <returns></returns>
         public static int getSqlCount() {
 
-            Object count = CurrentRequest.getItem( "sqlcount" );
+            Object count = CurrentRequest.getItem( SqlCountLabel );
             if (count == null) return 0;
             return cvt.ToInt( count );
         }
@@ -235,6 +235,7 @@ namespace wojilu.Data {
         private static readonly String _transactionKey = "__wojiluDbTransaction";
         private static readonly String _contextCacheKey = "__contextCacheDictionary";
 
+        internal static readonly String SqlCountLabel = "sqlcount";
 
     }
 }

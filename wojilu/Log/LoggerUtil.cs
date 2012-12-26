@@ -1,4 +1,4 @@
-/*
+ï»¿/*
  * Copyright 2010 www.wojilu.com
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -24,36 +24,42 @@ using wojilu;
 using wojilu.IO;
 using wojilu.ORM;
 using wojilu.Web;
+using wojilu.Data;
 
 namespace wojilu.Log {
 
     /// <summary>
-    /// ÈÕÖ¾´¦Àí¹¤¾ß
+    /// æ—¥å¿—å¤„ç†å·¥å…·
     /// </summary>
     public class LoggerUtil {
 
         private static Object objLock = new object();
 
         /// <summary>
-        /// sql ÈÕÖ¾µÄÇ°×º
+        /// sql æ—¥å¿—çš„å‰ç¼€
         /// </summary>
         public static readonly String SqlPrefix = "sql=";
 
+        private static readonly String _contextLogItem = "currentLogList";
+        private static String getSqlCountLabel() {
+            return DbContext.SqlCountLabel;
+        }
+
         /// <summary>
-        /// ÔÚ web ÏµÍ³ÖĞ£¬¼ÇÂ¼ sql Ö´ĞĞµÄ´ÎÊı
+        /// åœ¨ web ç³»ç»Ÿä¸­ï¼Œè®°å½• sql æ‰§è¡Œçš„æ¬¡æ•°
         /// </summary>
         public static void LogSqlCount() {
 
-            if (CurrentRequest.getItem( "sqlcount" ) == null) {
-                CurrentRequest.setItem( "sqlcount", 1 );
+            if (CurrentRequest.getItem( getSqlCountLabel() ) == null) {
+                CurrentRequest.setItem( getSqlCountLabel(), 1 );
             }
             else {
-                CurrentRequest.setItem( "sqlcount", ((int)CurrentRequest.getItem( "sqlcount" )) + 1 );
+                CurrentRequest.setItem( getSqlCountLabel(), ((int)CurrentRequest.getItem( getSqlCountLabel() )) + 1 );
             }
         }
 
         /// <summary>
-        /// ½«ÈÕÖ¾Ğ´Èë´ÅÅÌ
+        /// å°†æ—¥å¿—å†™å…¥ç£ç›˜
         /// </summary>
         /// <param name="msg"></param>
         public static void WriteFile( ILogMsg msg ) {
@@ -63,10 +69,10 @@ namespace wojilu.Log {
                 return;
             }
 
-            StringBuilder sb = CurrentRequest.getItem( "currentLogList" ) as StringBuilder;
+            StringBuilder sb = CurrentRequest.getItem( _contextLogItem ) as StringBuilder;
             if (sb == null) {
                 sb = new StringBuilder();
-                CurrentRequest.setItem( "currentLogList", sb );
+                CurrentRequest.setItem( _contextLogItem, sb );
             }
 
             sb.AppendFormat( "{0} {1} {2} - {3} \r\n", msg.LogTime, msg.LogLevel, msg.TypeName, msg.Message );
@@ -118,14 +124,17 @@ namespace wojilu.Log {
         }
 
         /// <summary>
-        /// ½«ËùÓĞÈÕÖ¾¼´¿ÉĞ´Èë´ÅÅÌ
+        /// å°†æ‰€æœ‰æ—¥å¿—å³å¯å†™å…¥ç£ç›˜
         /// </summary>
         internal static void Flush() {
 
-            StringBuilder sb = CurrentRequest.getItem( "currentLogList" ) as StringBuilder;
+            StringBuilder sb = CurrentRequest.getItem( _contextLogItem ) as StringBuilder;
 
-            if (sb != null)
+            if (sb != null) {
                 writeContentToFile( sb.ToString() );
+                CurrentRequest.setItem( _contextLogItem, null );
+            }
+
         }
 
 

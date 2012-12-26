@@ -1,4 +1,4 @@
-/*
+ï»¿/*
  * Copyright 2010 www.wojilu.com
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -20,7 +20,7 @@ using wojilu;
 namespace wojilu.Log {
 
     /// <summary>
-    /// Ê¹ÓÃ null Ä£Ê½µÄÈÕÖ¾¹¤¾ß
+    /// ä½¿ç”¨ null æ¨¡å¼çš„æ—¥å¿—å·¥å…·
     /// </summary>
     internal class NullLogger : ILog {
 
