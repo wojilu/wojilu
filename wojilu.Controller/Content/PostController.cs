@@ -22,6 +22,7 @@ using wojilu.Apps.Content.Service;
 using System.Text;
 using wojilu.Web.Utils;
 using wojilu.Common.AppBase;
+using wojilu.Web.Controller.Content.Htmls;
 
 namespace wojilu.Web.Controller.Content {
 

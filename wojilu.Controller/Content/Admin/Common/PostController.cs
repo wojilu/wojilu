@@ -21,6 +21,7 @@ using wojilu.Apps.Content.Enum;
 
 using wojilu.Common.Upload;
 using wojilu.Common.AppBase;
+using wojilu.Web.Controller.Content.Htmls;
 
 namespace wojilu.Web.Controller.Content.Admin.Common {
 

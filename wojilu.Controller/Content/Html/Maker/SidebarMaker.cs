@@ -9,7 +9,7 @@ using wojilu.Web.Context;
 using wojilu.Members.Sites.Domain;
 using wojilu.Web.Mvc;
 
-namespace wojilu.Web.Controller.Content.Caching {
+namespace wojilu.Web.Controller.Content.Htmls {
 
     public class SidebarMaker : HtmlMaker {
 

@@ -10,7 +10,7 @@ using wojilu.Web.Mvc;
 using wojilu.Web.Context;
 using wojilu.Apps.Content.Domain;
 
-namespace wojilu.Web.Controller.Content.Caching {
+namespace wojilu.Web.Controller.Content.Htmls {
 
     public class DetailMaker : HtmlMaker {
 

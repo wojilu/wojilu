@@ -1,9 +1,13 @@
-﻿using System;
+﻿/*
+ * Copyright (c) 2010, www.wojilu.com. All rights reserved.
+ */
+
+using System;
 using System.Collections.Generic;
 using System.Text;
 using wojilu.Apps.Content.Domain;
 
-namespace wojilu.Web.Controller.Content.Caching {
+namespace wojilu.Web.Controller.Content.Htmls {
 
     public class JobProcessor {
 
@@ -21,9 +25,6 @@ namespace wojilu.Web.Controller.Content.Caching {
             HtmlMaker.GetRecent().ProcessCache( post.AppId );
             logger.Info( "[AfterPostAdd] make html recent done. postId=" + postId );
 
-            // 5) 侧边栏
-            HtmlMaker.GetSidebar().Process( post.AppId );
-            logger.Info( "[AfterPostAdd] make html sidebar done. postId=" + postId );
         }
 
         public virtual void AfterPostDelete( int postId ) {

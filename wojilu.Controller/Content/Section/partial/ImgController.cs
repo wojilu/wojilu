@@ -14,6 +14,7 @@ using wojilu.Web.Controller.Content.Utils;
 using wojilu.Common.AppBase;
 using wojilu.ORM;
 using wojilu.Web.Controller.Content.Caching;
+using wojilu.Web.Controller.Content.Htmls;
 
 namespace wojilu.Web.Controller.Content.Section {
 

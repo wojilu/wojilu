@@ -7,7 +7,7 @@ using System.Collections.Generic;
 using System.Text;
 using wojilu.Web.Mvc;
 
-namespace wojilu.Web.Controller.Content.Caching.Actions {
+namespace wojilu.Web.Controller.Content.Htmls {
 
     public class HomeObserver : ActionObserver {
 

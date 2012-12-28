@@ -5,74 +5,70 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
-using System.IO;
 
 using wojilu.Web.Mvc;
-
 using wojilu.Web.Context;
-using wojilu.Apps.Content.Domain;
 using wojilu.Apps.Content.Interface;
+using wojilu.Apps.Content.Domain;
 using wojilu.Apps.Content.Service;
 
-namespace wojilu.Web.Controller.Content.Caching.Actions {
+namespace wojilu.Web.Controller.Content.Htmls {
 
-    public class PostDeleteObserver : ActionObserver {
+    public class PostUpdateObserver : ActionObserver {
 
-        private static readonly ILog logger = LogManager.GetLogger( typeof( PostDeleteObserver ) );
-
+        public IContentImgService imgService { get; set; }
         public IContentPostService postService { get; set; }
 
-        public PostDeleteObserver() {
+        public PostUpdateObserver() {
             postService = new ContentPostService();
+            imgService = new ContentImgService();
         }
+
+
+        private static readonly ILog logger = LogManager.GetLogger( typeof( PostUpdateObserver ) );
 
         public override void ObserveActions() {
 
             Admin.Common.PostController post = new wojilu.Web.Controller.Content.Admin.Common.PostController();
-            observe( post.Delete );
-            observe( post.DeleteSys );
+
+            observe( post.Restore );
+            observe( post.Update );
+            observe( post.UpdateTitleStyle );
 
             Admin.Section.TalkController talk = new wojilu.Web.Controller.Content.Admin.Section.TalkController();
-            observe( talk.Delete );
+            observe( talk.Update );
 
             Admin.Section.TextController txt = new wojilu.Web.Controller.Content.Admin.Section.TextController();
-            observe( txt.Delete );
+            observe( txt.Update );
 
             Admin.Section.VideoController video = new wojilu.Web.Controller.Content.Admin.Section.VideoController();
-            observe( video.Delete );
+            observe( video.Update );
 
             Admin.Section.ImgController img = new wojilu.Web.Controller.Content.Admin.Section.ImgController();
-            observe( img.Delete );
+            observe( img.CreateImgList );
+            observe( img.UpdateListInfo );
+            observe( img.SetLogo );
+            observe( img.DeleteImg );
 
             Admin.Common.PollController poll = new wojilu.Web.Controller.Content.Admin.Common.PollController();
-            observe( poll.Delete );
+            observe( poll.Update );
         }
 
-        private ContentPost _contentPost;
+        public override void AfterAction( MvcContext ctx ) {
 
-
-        public override bool BeforeAction( MvcContext ctx ) {
-
-            ContentPost post = postService.GetById( ctx.route.id, ctx.owner.Id );
-            _contentPost = post;
-
-            return base.BeforeAction( ctx );
-        }
-
-        public override void AfterAction( Context.MvcContext ctx ) {
-
-            // 1）文章删除之后，app首页更新
+            // 1）文章更新之后，比如标题被修改，那么app首页要更新
             HtmlMaker.GetHome().Process( ctx.app.Id );
 
-            // 2）删除文章详细页
-            HtmlMaker.GetDetail().Delete( _contentPost );
+            // 2）详细页设置
+            ContentPost post = postService.GetById( ctx.route.id, ctx.owner.Id );
+            HtmlMaker.GetDetail().Process( post );
 
             // 3) 其他生成工作放到队列中
-            JobManager.PostDelete( _contentPost );
+            JobManager.PostUpdate( post );
+
 
 
         }
-
 
     }
 

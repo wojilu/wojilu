@@ -15,7 +15,7 @@ using wojilu.Apps.Content.Service;
 using wojilu.Apps.Content.Domain;
 using wojilu.Members.Sites.Domain;
 
-namespace wojilu.Web.Controller.Content.Caching {
+namespace wojilu.Web.Controller.Content.Htmls {
 
     public class RecentMaker : HtmlMaker {
 

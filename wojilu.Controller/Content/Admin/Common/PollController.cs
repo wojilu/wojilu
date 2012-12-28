@@ -20,6 +20,7 @@ using wojilu.Apps.Content.Service;
 using wojilu.Apps.Content.Interface;
 using wojilu.Apps.Content.Enum;
 using wojilu.Common.AppBase;
+using wojilu.Web.Controller.Content.Htmls;
 
 namespace wojilu.Web.Controller.Content.Admin.Common {
 

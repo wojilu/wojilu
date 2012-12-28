@@ -11,7 +11,7 @@ using wojilu.Apps.Content.Domain;
 using wojilu.Apps.Content.Interface;
 using wojilu.Apps.Content.Service;
 
-namespace wojilu.Web.Controller.Content.Caching.Actions {
+namespace wojilu.Web.Controller.Content.Htmls {
 
     public class PostAddObserver : ActionObserver {
 
@@ -63,7 +63,10 @@ namespace wojilu.Web.Controller.Content.Caching.Actions {
                 }
             }
 
-            // 3) 其他生成工作放到队列中
+            // 3) 侧边栏
+            HtmlMaker.GetSidebar().Process( post.AppId );
+
+            // 4) 其他生成工作放到队列中
             JobManager.PostAdd( post );
         }
 

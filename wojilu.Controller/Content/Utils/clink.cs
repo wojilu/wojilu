@@ -1,11 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿/*
+ * Copyright (c) 2010, www.wojilu.com. All rights reserved.
+ */
+
+using System;
+
 using wojilu.Web.Context;
-using wojilu.Apps.Content.Domain;
-using wojilu.Web.Mvc;
-using wojilu.Web.Controller.Content.Caching;
-using wojilu.Common.AppBase.Interface;
+using wojilu.Web.Controller.Content.Htmls;
 
 namespace wojilu.Web.Controller.Content.Utils {
 

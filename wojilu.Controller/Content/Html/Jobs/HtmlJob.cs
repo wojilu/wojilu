@@ -1,10 +1,14 @@
-﻿using System;
+﻿/*
+ * Copyright (c) 2010, www.wojilu.com. All rights reserved.
+ */
+
+using System;
 using System.Collections.Generic;
 using System.Text;
 using wojilu.Web.Jobs;
 using wojilu.DI;
 
-namespace wojilu.Web.Controller.Content.Caching {
+namespace wojilu.Web.Controller.Content.Htmls {
 
     public class HtmlJob : IWebJobItem {
 
@@ -22,9 +26,7 @@ namespace wojilu.Web.Controller.Content.Caching {
 
             try {
 
-                Type t = ObjectContext.GetType( x.Name );
-
-                Object p = ObjectContext.CreateObject( t );
+                Object p = ObjectContext.CreateObject( x.Name );
                 rft.CallMethod( p, x.Method, new object[] { x.PostId } );
 
                 cdb.delete( x );
