@@ -34,6 +34,7 @@ namespace wojilu.Members.Users.Interface {
         DataPage<User> GetFriendsPage( int userId, int pageSize );
 
         DataPage<FriendShip> GetPageByCategory( int userId, int categoryId, int pageSize );
+        DataPage<FriendShip> GetPageBySearch( int ownerId, string friendName, int pageSize );
 
         List<User> GetRecentActive( int count, int userId );
 
@@ -49,6 +50,7 @@ namespace wojilu.Members.Users.Interface {
 
 
         void UpdateCategory( int ownerId, int friendId, int categoryId, string friendDescription );
+
     }
 
 }

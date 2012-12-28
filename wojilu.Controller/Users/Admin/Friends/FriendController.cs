@@ -30,6 +30,11 @@ namespace wojilu.Web.Controller.Users.Admin.Friends {
 
         public override void Layout() {
 
+            set( "searchAction", to( Query ) );
+            String friendName = getSearchName();
+            set( "qValue", friendName );
+
+
             set( "f.AddLink", to( Add ) );
             set( "categoryLink", to( new FriendCategoryController().List ) );
             set( "allLink", to( List, 0 ) );
@@ -113,8 +118,23 @@ namespace wojilu.Web.Controller.Users.Admin.Friends {
             run( new Users.MainController().Search );
         }
 
+        public void Query() {
+            view( "List" );
+            String friendName = getSearchName();
+            DataPage<FriendShip> list = friendService.GetPageBySearch( ctx.owner.Id, friendName, 20 );
+            bindFriends( list );
+        }
+
+        private String getSearchName() {
+            return strUtil.SqlClean( ctx.Get( "q" ), 20 );
+        }
+
         public void List( int categoryId ) {
             DataPage<FriendShip> list = friendService.GetPageByCategory( ctx.owner.Id, categoryId, 20 );
+            bindFriends( list );
+        }
+
+        private void bindFriends( DataPage<FriendShip> list ) {
             bindFriendList( list, ctx.owner.Id );
 
             // ÐÞ¸ÄÀà±ð
@@ -122,7 +142,6 @@ namespace wojilu.Web.Controller.Users.Admin.Friends {
             dropList( "FriendCategory", categories, "Name=Id", 0 );
             set( "saveCategoryLink", to( SaveCategory ) );
             set( "categoryLink", to( new FriendCategoryController().List ) );
-
         }
 
         private void bindCategories( List<FriendCategory> categories ) {

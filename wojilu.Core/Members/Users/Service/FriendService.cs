@@ -240,6 +240,23 @@ namespace wojilu.Members.Users.Service {
             return db.findPage<FriendShip>( condition, pageSize );
         }
 
+        public virtual DataPage<FriendShip> GetPageBySearch( int userId, String friendName, int pageSize ) {
+
+            String condition = getConditionByCategory( userId, 0 );
+            List<FriendShip> xlist = db.find<FriendShip>( condition ).list();
+            List<FriendShip> list = new List<FriendShip>();
+            foreach (FriendShip x in xlist) {
+                if (x.User.Id == userId) {
+                    if (x.Friend.Name.StartsWith( friendName )) list.Add( x );
+                }
+                else if (x.Friend.Id == userId) {
+                    if (x.User.Name.StartsWith( friendName )) list.Add( x );
+                }
+            }
+
+            return DataPage<FriendShip>.GetPage( list, pageSize );
+        }
+
         private DataPage<User> populateUsers( int userId, int pageSize, String condition ) {
             DataPage<FriendShip> list = db.findPage<FriendShip>( condition, pageSize );
 
@@ -397,6 +414,10 @@ namespace wojilu.Members.Users.Service {
             if (categoryId <= 0) return "( User.Id=" + userId + " or Friend.Id=" + userId + ") and Status=" + FriendStatus.Approved;
             return "(( User.Id=" + userId + " and CategoryId=" + categoryId + " ) or (Friend.Id=" + userId + " and CategoryIdFriend=" + categoryId + " )) and Status=" + FriendStatus.Approved;
         }
+
+        //private String getConditionBySearch( int userId, String friendName ) {
+        //    if (categoryId <= 0) return "( User.Id=" + userId + " or Friend.Id=" + userId + ") and Status=" + FriendStatus.Approved;
+        //}
 
         private List<User> populateUser( List<FriendShip> list, int userId ) {
             List<User> results = new List<User>();

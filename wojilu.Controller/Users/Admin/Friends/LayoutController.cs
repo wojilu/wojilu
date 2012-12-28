@@ -10,6 +10,7 @@ namespace wojilu.Web.Controller.Users.Admin.Friends {
     public class LayoutController : ControllerBase{
 
         public override void Layout() {
+
             set( "f.ListLink", to( new FriendController().List, 0 ) );
             set( "f.FollowingLink", to( new FriendController().FollowingList ) );
             set( "f.MoreLink", to( new FriendController().More ) );

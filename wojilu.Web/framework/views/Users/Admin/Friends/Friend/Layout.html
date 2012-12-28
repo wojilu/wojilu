@@ -17,7 +17,14 @@
     			#{layout_content}
     			<div>&nbsp;</div>
 	    </td>
-        <td style=" width:115px; vertical-align:top; padding:0px; padding-top1:15px;  ">
+        <td style=" width:125px; vertical-align:top; padding:0px; ">
+            <div>
+            <form method="get" action="#{searchAction}" style="margin-left:5px;">
+                <div style=" float:left;margin:1px 2px 0px 0px;"><input type="text" name="q" style="width:75px;" value="#{qValue}" placeholder="请输用户名" /></div>
+                <div style=" float:left;"><input type="submit" value="搜" class="btn btns" /></div>
+                <div style=" clear:both;"></div>
+            </form>
+            </div>
             <ul id="categoryNav">
                 <li><a href="#{f.AddLink}" class="frmLink" loadTo="friendMain" nolayout=5><img src="~img/add.gif" /> _{addFriend}</a></li>
                 <li style=" border-top:1px #ddd solid; border-bottom:1px #fff solid;margin:0px 0px;"></li>
