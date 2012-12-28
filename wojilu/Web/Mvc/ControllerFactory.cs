@@ -96,7 +96,7 @@ namespace wojilu.Web.Mvc {
         public static ControllerBase FindController( Type controllerType, MvcContext ctx ) {
             if (controllerType == null) return null;
 
-            ControllerBase result = ObjectContext.CreateAndObserveProperty( controllerType ) as ControllerBase;
+            ControllerBase result = ObjectContext.CreateObject( controllerType ) as ControllerBase;
             if (result == null) return null;
             result.setContext( ctx );
             setControllerAppInfo( controllerType, result );

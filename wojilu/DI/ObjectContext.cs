@@ -131,7 +131,7 @@ namespace wojilu.DI {
         }
 
         /// <summary>
-        /// 根据类型罗列的对象表
+        /// 根据类型罗列的对象表，用于存储单例对象
         /// </summary>
         public Hashtable ObjectsByType {
             get { return _objectsContainerByType; }
@@ -150,7 +150,18 @@ namespace wojilu.DI {
         //----------------------------------------------------------------------------------------------------
 
         /// <summary>
-        /// 根据依赖注入的配置文件中的 name 获取对象
+        /// 根据名称获取类型 t
+        /// </summary>
+        /// <param name="typeFullName"></param>
+        /// <returns></returns>
+        public static Type GetType( String typeFullName ) {
+            Type t;
+            Instance.TypeList.TryGetValue( typeFullName, out t );
+            return t;
+        }
+
+        /// <summary>
+        /// 根据依赖注入的配置文件中的 name 获取对象。根据配置属性Singleton决定是否单例。
         /// </summary>
         /// <param name="objectName"></param>
         /// <returns></returns>
@@ -168,7 +179,7 @@ namespace wojilu.DI {
         }
 
         /// <summary>
-        /// 从缓存中取对象(有注入的就注入，没有注入的直接生成)，结果是单例
+        /// 从缓存中取对象(经过Aop和Ioc处理)，结果是单例
         /// </summary>
         /// <param name="typeFullName"></param>
         /// <returns></returns>
@@ -179,7 +190,7 @@ namespace wojilu.DI {
         }
 
         /// <summary>
-        /// 从缓存中取对象(有注入的就注入，没有注入的直接生成)，结果是单例
+        /// 从缓存中取对象(经过Aop和Ioc处理)，结果是单例
         /// </summary>
         /// <param name="t"></param>
         /// <returns></returns>
@@ -191,13 +202,7 @@ namespace wojilu.DI {
 
             if (result == null) {
 
-                MapItem mapItem = getMapItemByType( t );
-                if (mapItem != null) {
-                    result = createInstanceAndInject( mapItem );
-                }
-                else {
-                    result = rft.GetInstance( t );
-                }
+                result = CreateObject( t );
 
                 Instance.ObjectsByType[t.FullName] = result;
 
@@ -207,11 +212,36 @@ namespace wojilu.DI {
         }
 
         /// <summary>
+        /// 创建经对象(有注入的就注入，没有注入的直接生成)，不是单例；然后对属性进行拦截。
+        /// 如果属性有接口，按照接口拦截；否则按照子类拦截
+        /// </summary>
+        /// <param name="typeFullName"></param>
+        /// <returns></returns>
+        public static Object CreateObject( String typeFullName ) {
+            Type t = GetType( typeFullName );
+            if (t == null) return null;
+            return CreateObject( t );
+        }
+
+        /// <summary>
+        /// 创建经对象(有注入的就注入，没有注入的直接生成)，不是单例；然后对属性进行拦截。
+        /// 如果属性有接口，按照接口拦截；否则按照子类拦截
+        /// </summary>
+        /// <param name="targetType"></param>
+        /// <returns></returns>
+        public static Object CreateObject( Type targetType ) {
+
+            Object objTarget = CreateObjectByIoc( targetType );
+
+            return checkPropertyObserver( objTarget );
+        }
+
+        /// <summary>
         /// 根据type，不从缓存(pool)中取，而是全新创建实例(有注入的就注入，没有注入的直接生成)，肯定不是单例
         /// </summary>
         /// <param name="t"></param>
         /// <returns></returns>
-        public static Object CreateObject( Type t ) {
+        public static Object CreateObjectByIoc( Type t ) {
             if (t == null) return null;
 
             MapItem mapItem = getMapItemByType( t );
@@ -226,12 +256,11 @@ namespace wojilu.DI {
         /// </summary>
         /// <param name="typeFullName"></param>
         /// <returns></returns>
-        public static Object CreateObject( String typeFullName ) {
-            if (Instance.TypeList.ContainsKey( typeFullName ) == false) return null;
-            Type t = Instance.TypeList[typeFullName];
-            return CreateObject( t );
+        public static Object CreateObjectByIoc( String typeFullName ) {
+            Type t = GetType( typeFullName );
+            if (t == null) return null;
+            return CreateObjectByIoc( t );
         }
-
 
         /// <summary>
         /// 根据type，不从缓存(pool)中取，而是全新创建实例(有注入的就注入，没有注入的直接生成)，肯定不是单例
@@ -266,18 +295,6 @@ namespace wojilu.DI {
             return currentObject;
         }
 
-        /// <summary>
-        /// 创建经过注入的对象；然后对属性进行拦截。
-        /// 如果属性有接口，按照接口拦截；否则按照子类拦截
-        /// </summary>
-        /// <param name="targetType"></param>
-        /// <returns></returns>
-        public static Object CreateAndObserveProperty( Type targetType ) {
-
-            Object objTarget = CreateObject( targetType );
-
-            return checkPropertyObserver( objTarget );
-        }
 
         /// <summary>
         /// 检查所有子属性：是否需要拦截
