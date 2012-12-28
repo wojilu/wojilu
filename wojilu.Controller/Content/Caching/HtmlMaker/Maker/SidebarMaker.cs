@@ -6,16 +6,14 @@ using System;
 using System.IO;
 
 using wojilu.Web.Context;
+using wojilu.Members.Sites.Domain;
+using wojilu.Web.Mvc;
 
 namespace wojilu.Web.Controller.Content.Caching {
 
-    public class SidebarMaker : HtmlMakerBase {
+    public class SidebarMaker : HtmlMaker {
 
         private static readonly ILog logger = LogManager.GetLogger( typeof( SidebarMaker ) );
-
-        public SidebarMaker( MvcContext ctx )
-            : base( ctx ) {
-        }
 
         protected override string GetDir() {
             return PathHelper.Map( "/html/sidebar/" );
@@ -25,7 +23,7 @@ namespace wojilu.Web.Controller.Content.Caching {
 
             base.CheckDir();
 
-            String addr = strUtil.Join( siteUrl, _ctx.link.To( new SidebarController().Index ) ) + "?ajax=true";
+            String addr = Link.To( Site.Instance, new SidebarController().Index, appId ) + "?ajax=true";
 
             String html = makeHtml( addr );
             String htmlPath = getPath( appId );

@@ -76,7 +76,7 @@
                     (#{c.Created})  <span class="hide link left5">支持</span>
                     <span class="hide link left5">收藏</span>
                     <span class="link lnkReply left5" data-ParentId="#{c.Id}">回复</span>
-                    <a href="#{c.DeleteLink}" class="ajaxDeleteCmd #{hideClass}" removeId="commentItem#{c.Id}">删除</a>
+                    <a href="#{c.DeleteLink}" class="ajaxDeleteCmd #{hideClass}" removeId="commentItem#{c.Id}" data-callback="substractReplyCount">删除</a>
                     <span class="replyCount left5" data-ReplyCount="#{c.Replies}" data-MoreId="replyListMore#{c.Id}" data-ParentId="#{c.Id}" data-StartId="#{c.StartId}"></span>
                 </div>
                 <div class="replyFormWrap"></div>
@@ -91,7 +91,7 @@
                             <div style="color:#666;margin-top:2px;">(#{c.Created})  <span class="hide link left5">支持</span>
                             <span class="hide link left5">收藏</span>
                             <span class="link lnkSubReply left5" data-ParentId="#{c.ParentId}" data-AtId="#{c.Id}" data-Author="#{c.AuthorText}">回复</span>
-                            <a href="#{c.DeleteLink}" class="ajaxDeleteCmd #{hideClass}" removeId="commentItem#{c.Id}">删除</a>
+                            <a href="#{c.DeleteLink}" class="ajaxDeleteCmd #{hideClass}" removeId="commentItem#{c.Id}" data-callback="substractReplyCount">删除</a>
                             </div>
                         </td></tr>
                     </table>
@@ -115,6 +115,12 @@
         $('#contentReplies', window.parent.document ).text( 0 );
     }
 
+    function substractReplyCount() {
+        var replies = parseInt( $('#replies').text() );
+        if( replies>0 ) replies = replies-1; 
+        $('#replies').text( replies );
+        $('#contentReplies', window.parent.document ).text( replies );
+    }
 
     _run(function () {
 

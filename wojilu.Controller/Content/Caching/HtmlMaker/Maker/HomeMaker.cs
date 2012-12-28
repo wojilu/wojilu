@@ -10,17 +10,13 @@ using System.IO;
 using wojilu.Web.Mvc;
 using wojilu.Web.Context;
 using wojilu.Apps.Content.Domain;
+using wojilu.Members.Sites.Domain;
 
 namespace wojilu.Web.Controller.Content.Caching {
 
-    public class HomeMaker : HtmlMakerBase {
+    public class HomeMaker : HtmlMaker {
 
         private static readonly ILog logger = LogManager.GetLogger( typeof( HomeMaker ) );
-
-
-        public HomeMaker( MvcContext ctx )
-            : base( ctx ) {
-        }
 
         private int appId;
 
@@ -33,7 +29,7 @@ namespace wojilu.Web.Controller.Content.Caching {
 
             this.appId = appId;
             base.CheckDir();
-            String addr = strUtil.Join( siteUrl, _ctx.link.To( new ContentController().Index ) );
+            String addr = Link.To( Site.Instance, new ContentController().Index, appId );
 
             String html = makeHtml( addr );
             String htmlPath = getHomePageAbs();

@@ -48,25 +48,23 @@ namespace wojilu.Web.Controller.Content.Caching.Actions {
         public override void AfterAction( MvcContext ctx ) {
 
             // 1）文章添加之后，app首页和侧边栏都要更新
-            new HomeMaker( ctx ).Process( ctx.app.Id );
+            HtmlMaker.GetHome().Process( ctx.app.Id );
             logger.Info( "PostAddObserver make app home" );
 
-            new SidebarMaker( ctx ).Process( ctx.app.Id );
 
             // 2）新创建的文章，需要通过 ctx 传递
             ContentPost post = HtmlHelper.GetPostFromContext( ctx );
             if (post != null) {
-                new DetailMaker( ctx ).Process( post );
+                DetailMaker mk = HtmlMaker.GetDetail();
+                mk.Process( post );
                 ContentPost prev = postService.GetPrevPost( post );
-                new DetailMaker( ctx ).Process( prev );
-
+                if (prev != null) {
+                    mk.Process( prev );
+                }
             }
 
-            // 3）相关列表页也要更新
-            new ListMaker( ctx ).Process( post );
-
-            // 4) 最近列表页处理
-            new RecentMaker( ctx ).ProcessCache( ctx.app.Id );
+            // 3) 其他生成工作放到队列中
+            JobManager.PostAdd( post );
         }
 
 

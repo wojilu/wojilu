@@ -13,15 +13,15 @@ using wojilu.Web.Mvc;
 using wojilu.Apps.Content.Interface;
 using wojilu.Apps.Content.Service;
 using wojilu.Apps.Content.Domain;
+using wojilu.Members.Sites.Domain;
 
 namespace wojilu.Web.Controller.Content.Caching {
 
-    public class RecentMaker : HtmlMakerBase {
+    public class RecentMaker : HtmlMaker {
 
         public IContentPostService postService { get; set; }
 
-        public RecentMaker( MvcContext ctx )
-            : base( ctx ) {
+        public RecentMaker( ){
             postService = new ContentPostService();
         }
 
@@ -34,8 +34,9 @@ namespace wojilu.Web.Controller.Content.Caching {
 
             CheckDir();
 
-            String cpLink = _ctx.link.To( new PostController().Recent );
-            String caLink = _ctx.link.To( new PostController().RecentArchive );
+            String cpLink = Link.To( Site.Instance, new PostController().Recent, appId );
+            String caLink = Link.To( Site.Instance, new PostController().RecentArchive, appId );
+
 
             int pageSize = ContentSetting.ListRecentPageSize;
 
@@ -51,8 +52,8 @@ namespace wojilu.Web.Controller.Content.Caching {
 
             CheckDir();
 
-            String cpLink = _ctx.link.To( new PostController().Recent );
-            String caLink = _ctx.link.To( new PostController().RecentArchive );
+            String cpLink = Link.To( Site.Instance, new PostController().Recent, appId );
+            String caLink = Link.To( Site.Instance, new PostController().RecentArchive, appId );
 
             int pageSize = ContentSetting.ListRecentPageSize;
 

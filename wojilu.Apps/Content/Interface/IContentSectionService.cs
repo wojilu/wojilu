@@ -10,6 +10,7 @@ namespace wojilu.Apps.Content.Interface {
 
     public interface IContentSectionService {
 
+        ContentSection GetById( int sectionId );
         ContentSection GetById( int id, int appId );
 
         List<ContentSection> GetByApp( int appId );
@@ -28,6 +29,7 @@ namespace wojilu.Apps.Content.Interface {
 
 
         String GetSectionIdsByPost( int postId );
+
     }
 
 }

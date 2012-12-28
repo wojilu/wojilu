@@ -11,20 +11,33 @@ using wojilu.Web.Mvc;
 using wojilu.Web.Context;
 
 using wojilu.Apps.Content.Domain;
+using wojilu.DI;
 
 namespace wojilu.Web.Controller.Content.Caching {
 
 
-    public abstract class HtmlMakerBase {
+    public abstract class HtmlMaker {
 
-        private static readonly ILog logger = LogManager.GetLogger( typeof( HtmlMakerBase ) );
+        private static readonly ILog logger = LogManager.GetLogger( typeof( HtmlMaker ) );
 
-        protected String siteUrl;
-        protected MvcContext _ctx;
+        public static DetailMaker GetDetail() {
+            return (DetailMaker)ObjectContext.CreateObject( typeof( DetailMaker ) );
+        }
 
-        public HtmlMakerBase( MvcContext ctx ) {
-            this._ctx = ctx;
-            this.siteUrl = ctx.url.SiteAndAppPath;
+        public static HomeMaker GetHome() {
+            return (HomeMaker)ObjectContext.CreateObject( typeof( HomeMaker ) );
+        }
+
+        public static ListMaker GetList() {
+            return (ListMaker)ObjectContext.CreateObject( typeof( ListMaker ) );
+        }
+
+        public static RecentMaker GetRecent() {
+            return (RecentMaker)ObjectContext.CreateObject( typeof( RecentMaker ) );
+        }
+
+        public static SidebarMaker GetSidebar() {
+            return (SidebarMaker)ObjectContext.CreateObject( typeof( SidebarMaker ) );
         }
 
         protected abstract String GetDir();
@@ -124,7 +137,7 @@ namespace wojilu.Web.Controller.Content.Caching {
 
             Boolean isArchive = url.IndexOf( "Archive" ) > 0;
 
-            String addr = strUtil.Join( siteUrl, url );
+            String addr = url;
             String html = makeHtml( addr );
             String htmlPath = GetListPath( appId, pageNo, isArchive );
             file.Write( htmlPath, html );

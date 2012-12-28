@@ -61,18 +61,15 @@ namespace wojilu.Web.Controller.Content.Caching.Actions {
 
         public override void AfterAction( Context.MvcContext ctx ) {
 
-            // 1）文章删除之后，app首页和侧边栏都要更新
-            new HomeMaker( ctx ).Process( ctx.app.Id );
-            new SidebarMaker( ctx ).Process( ctx.app.Id );
+            // 1）文章删除之后，app首页更新
+            HtmlMaker.GetHome().Process( ctx.app.Id );
 
             // 2）删除文章详细页
-            new DetailMaker( ctx ).Delete( _contentPost );
+            HtmlMaker.GetDetail().Delete( _contentPost );
 
-            // 3）更新列表页
-            new ListMaker( ctx ).Process( _contentPost );
+            // 3) 其他生成工作放到队列中
+            JobManager.PostDelete( _contentPost );
 
-            // 4) 最近列表页处理
-            new RecentMaker( ctx ).ProcessCache( ctx.app.Id );
 
         }
 

@@ -56,19 +56,17 @@ namespace wojilu.Web.Controller.Content.Caching.Actions {
 
         public override void AfterAction( MvcContext ctx ) {
 
-            // 1）文章更新之后，比如标题被修改，那么app首页和侧边栏都要更新
-            new HomeMaker( ctx ).Process( ctx.app.Id );
-            new SidebarMaker( ctx ).Process( ctx.app.Id );
+            // 1）文章更新之后，比如标题被修改，那么app首页要更新
+            HtmlMaker.GetHome().Process( ctx.app.Id );
 
             // 2）详细页设置
             ContentPost post = postService.GetById( ctx.route.id, ctx.owner.Id );
-            new DetailMaker( ctx ).Process( post );
+            HtmlMaker.GetDetail().Process( post );
 
-            // 3) 列表页处理
-            new ListMaker( ctx ).Process( post );
+            // 3) 其他生成工作放到队列中
+            JobManager.PostUpdate( post );
 
-            // 4) 最近列表页处理
-            new RecentMaker( ctx ).ProcessCache( ctx.app.Id );
+
 
         }
 

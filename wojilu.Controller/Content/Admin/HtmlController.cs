@@ -93,7 +93,7 @@ namespace wojilu.Web.Controller.Content.Admin {
 
         [HttpPost]
         public void SaveAutoHtml() {
-  
+
             ContentApp app = ctx.app.obj as ContentApp;
             ContentSetting s = app.GetSettingsObj();
             s.IsAutoHtml = ctx.PostIsCheck( "IsAutoHtml" );
@@ -159,12 +159,12 @@ namespace wojilu.Web.Controller.Content.Admin {
         }
 
         private void MakeSidebar() {
-            new SidebarMaker( ctx ).Process( ctx.app.Id );
+            HtmlMaker.GetSidebar().Process( ctx.app.Id );
             htmlCount += 1;
         }
 
         public void MakeHomePage() {
-            new HomeMaker( ctx ).Process( ctx.app.Id );
+            HtmlMaker.GetHome().Process( ctx.app.Id );
             echo( "生成首页成功" );
         }
 
@@ -178,7 +178,7 @@ namespace wojilu.Web.Controller.Content.Admin {
 
             // 最近列表页
             int recentCount = postService.CountByApp( app.Id );
-            new RecentMaker( ctx ).ProcessAll( app.Id, recentCount );
+            HtmlMaker.GetRecent().ProcessAll( app.Id, recentCount );
             logger.Info( "make recent html" );
 
             // 区块列表页
@@ -188,7 +188,7 @@ namespace wojilu.Web.Controller.Content.Admin {
 
                 int recordCount = postService.CountBySection( section.Id );
 
-                count += new ListMaker( ctx ).ProcessAll( section.Id, recordCount );
+                count += HtmlMaker.GetList().ProcessAll( section.Id, recordCount );
                 logger.Info( "make section html, sectionId=" + section.Id );
             }
 
@@ -218,7 +218,7 @@ namespace wojilu.Web.Controller.Content.Admin {
             ContentApp app = ctx.app.obj as ContentApp;
             int recordCount = postService.CountBySection( sectionId );
 
-            int listCount = new ListMaker( ctx ).ProcessAll( sectionId, recordCount );
+            int listCount = HtmlMaker.GetList().ProcessAll( sectionId, recordCount );
             echo( "生成列表页成功，共 " + listCount + " 篇" );
 
         }
@@ -239,7 +239,7 @@ namespace wojilu.Web.Controller.Content.Admin {
 
         private void makeDetail( List<ContentPost> list ) {
             foreach (ContentPost post in list) {
-                new DetailMaker( ctx ).Process( post );
+                HtmlMaker.GetDetail().Process( post );
                 logger.Info( "make detail html, postId=" + post.Id );
             }
 

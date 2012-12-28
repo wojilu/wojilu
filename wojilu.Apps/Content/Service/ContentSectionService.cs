@@ -23,7 +23,7 @@ namespace wojilu.Apps.Content.Service {
         }
 
 
-        private ContentSection GetById( int id ) {
+        public virtual ContentSection GetById( int id ) {
             return db.findById<ContentSection>( id );
         }
 

@@ -12,13 +12,9 @@ using wojilu.Apps.Content.Domain;
 
 namespace wojilu.Web.Controller.Content.Caching {
 
-    public class DetailMaker : HtmlMakerBase {
+    public class DetailMaker : HtmlMaker {
 
         private static readonly ILog logger = LogManager.GetLogger( typeof( DetailMaker ) );
-
-        public DetailMaker( MvcContext ctx )
-            : base( ctx ) {
-        }
 
         private ContentPost _post;
 
@@ -33,7 +29,7 @@ namespace wojilu.Web.Controller.Content.Caching {
             base.CheckDir();
 
             List<String> pagedUrls = new List<String>(); // 翻页的链接
-            String addr = strUtil.Join( siteUrl, alink.ToAppData( post ) );
+            String addr = alink.ToAppData( post );
             String html = makeHtml( addr, pagedUrls );
             file.Write( getPath( post ), html );
 
@@ -46,7 +42,7 @@ namespace wojilu.Web.Controller.Content.Caching {
         private void makeDetailPages( ContentPost post, List<String> pagedUrls ) {
             _post = post;
             foreach (String url in pagedUrls) {
-                String addrPaged = strUtil.Join( siteUrl, url );
+                String addrPaged = url;
                 String htmlPaged = makeHtml( addrPaged );
                 String htmlPath = getPath( post, PageHelper.GetPageNoByUrl( url ) );
                 file.Write( htmlPath, htmlPaged );
