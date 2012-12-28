@@ -42,7 +42,7 @@ namespace wojilu.Web {
         public static String ApplicationPath { get { return SystemInfo.Instance.applicationPath; } }
 
         /// <summary>
-        /// 主机名 www.abc.com 或 localhost 或 127.0.0.1
+        /// 主机名 www.wojilu.com 或 localhost 或 127.0.0.1
         /// </summary>
         public static String Host { get { return SystemInfo.Instance.host; } }
 
@@ -84,6 +84,13 @@ namespace wojilu.Web {
         private Boolean hostIsLocalhost;
         private String hostNoSubdomain;
         private String siteRoot;
+
+        public String Scheme { get; set; }
+
+        /// <summary>
+        /// 比如 http://www.wojilu.com/app
+        /// </summary>
+        public String SiteUrl { get; set; }
 
         //-------------------------------------------------------------------------------------------------
 
@@ -130,6 +137,9 @@ namespace wojilu.Web {
                 obj.hostIsIp = cvt.IsInt( obj.host.Split( '.' )[0] );
                 obj.hostNoSubdomain = getHostNoSubdomain( obj );
 
+                obj.Scheme = HttpContext.Current.Request.Url.Scheme;
+
+                obj.SiteUrl = obj.Scheme + "://" + strUtil.Join( obj.authority, obj.applicationPath );
             }
             else {
                 obj.applicationPath = "/";

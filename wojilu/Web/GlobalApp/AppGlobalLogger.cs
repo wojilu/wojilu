@@ -28,7 +28,7 @@ namespace wojilu.Web.GlobalApp {
     /// </summary>
     public class AppGlobalLogger : AppGlobalHelper {
 
-        
+
         public AppGlobalLogger() {
         }
 
@@ -37,15 +37,18 @@ namespace wojilu.Web.GlobalApp {
         }
 
         public override void LogError( Boolean responseError ) {
-            
+
             StringBuilder sb = getErrorInfo( app );
 
-            logException( sb );
-
-            addHttpStatus();
-
-            String output = getOutput( getExInfo( sb, responseError ) );
-            app.Response.Write( output );
+            try {
+                logException( sb );
+                addHttpStatus();
+                String output = getOutput( getExInfo( sb, responseError ) );
+                app.Response.Write( output );
+            }
+            catch {
+                throw new Exception( sb.ToString() );
+            }
         }
 
         private void logException( StringBuilder sb ) {

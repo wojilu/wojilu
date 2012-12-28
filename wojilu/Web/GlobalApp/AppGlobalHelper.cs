@@ -50,21 +50,33 @@ namespace wojilu.Web.GlobalApp {
             ex = app.Server.GetLastError().GetBaseException();
             ex = wrapStaticFileException( ex );
 
-            String rurl = null;
+            HttpRequest req = getRequest( app );
+
+            if (req == null) {
+                StringBuilder sb = new StringBuilder();
+                sb.AppendLine( "ex.Message=" + ex.Message );
+                sb.AppendLine( "ex.Source=" + getExSource() );
+                sb.AppendLine( "ex.StackTrace=" + getExStackTrace() );
+                return sb;
+            }
+            else {
+                StringBuilder sb = new StringBuilder();
+                sb.AppendLine( "url=" + req.Url.ToString() );
+                sb.AppendLine( "ex.Message=" + ex.Message );
+                appendPostValues( "ex.PostedValue=", req.Form, sb );
+                sb.AppendLine( "ex.Source=" + getExSource() );
+                sb.AppendLine( "ex.StackTrace=" + getExStackTrace() );
+                return sb;
+            }
+        }
+
+        private static HttpRequest getRequest( HttpApplication app ) {
             try {
-                rurl = app.Request.Url.ToString();
+                return app.Request;
             }
             catch {
-                throw ex;
+                return null;
             }
-
-            StringBuilder sb = new StringBuilder();
-            sb.AppendLine( "url=" + rurl );
-            sb.AppendLine( "ex.Message=" + ex.Message );
-            appendPostValues( "ex.PostedValue=", app.Request.Form, sb );
-            sb.AppendLine( "ex.Source=" + getExSource() );
-            sb.AppendLine( "ex.StackTrace=" + getExStackTrace() );
-            return sb;
         }
 
         private static Exception wrapStaticFileException( Exception ex ) {

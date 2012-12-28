@@ -33,6 +33,10 @@ namespace wojilu.Web.Mock {
         }
 
         public MvcRequest( String url ) {
+
+            if (url == null) throw new ArgumentNullException( "MvcRequest" );
+            if (url.StartsWith( "http" ) == false) url = strUtil.Join( sys.Url.SiteUrl, url );
+
             this.Url = new Uri( url );
             this.QueryString = getQueryString( this.Url );
             init();
