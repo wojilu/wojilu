@@ -14,7 +14,7 @@ using wojilu.Common.Spider.Domain;
 using wojilu.Common.Spider.Interface;
 using wojilu.Common.Spider.Service;
 
-namespace wojilu.Web.Controller.Users.Admin.Spiders {
+namespace wojilu.Web.Controller.Admin.Spiders {
 
     public class TemplateController : ControllerBase {
 
@@ -112,7 +112,17 @@ namespace wojilu.Web.Controller.Users.Admin.Spiders {
         [HttpPost]
         public void Process( int id ) {
             StringBuilder sb = LogCacher.GetSpiderLog( "log" + ctx.viewer.Id );
-            echoText( sb.ToString() );
+            echoText( reverseText( sb.ToString() ) );
+        }
+
+        private string reverseText( string log ) {
+            StringBuilder sb = new StringBuilder();
+            String[] arr = log.Split( '\n' );
+
+            for (int i = arr.Length - 1; i >= 0; i--) {
+                sb.AppendLine( arr[i].Trim() );
+            }
+            return sb.ToString();
         }
 
         [HttpDelete, DbTransaction]
@@ -261,12 +271,12 @@ namespace wojilu.Web.Controller.Users.Admin.Spiders {
 
             //String beginCode = ctx.PostHtmlAll( "listBeginCode" );
             //String endCode = ctx.PostHtmlAll( "listEndCode" );
-            String listBodyPattern = ctx.PostHtmlAll("ListBodyPattern");
-            String ListPattern = ctx.PostHtmlAll("ListPattern");
+            String listBodyPattern = ctx.PostHtmlAll( "ListBodyPattern" );
+            String ListPattern = ctx.PostHtmlAll( "ListPattern" );
 
             //String detailBeginCode = ctx.PostHtmlAll( "detailBeginCode" );
             //String detailEndCode = ctx.PostHtmlAll( "detailEndCode" );
-            String DetailPattern = ctx.PostHtmlAll("DetailPattern");
+            String DetailPattern = ctx.PostHtmlAll( "DetailPattern" );
 
             if (strUtil.IsNullOrEmpty( listUrl )) errors.Add( "请填写列表页的网址" );
             //if (strUtil.IsNullOrEmpty( beginCode )) errors.Add( "请填写列表页开始代码" );

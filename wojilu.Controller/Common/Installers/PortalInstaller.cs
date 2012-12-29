@@ -109,7 +109,7 @@ namespace wojilu.Web.Controller.Common.Installers {
             ContentCustomTemplate cs = new ContentCustomTemplate();
             cs.Content = @"<table style=""width:100%;table-layout: fixed;"" cellspacing=""0"" cellpadding=""0"">
 <!-- BEGIN list -->
-<tr><td style=""width:310px;""><div style=""font-size:14px;text-overflow:ellipsis;overflow: hidden;white-space:nowrap;""><a href=""#{post.Url}"" style=""color:#f54100"">[#{post.Author}]</a>
+<tr><td style=""width:310px;""><div style=""font-size:14px;text-overflow:ellipsis;overflow: hidden;white-space:nowrap;"">
 <a href=""#{post.Url}"" style=""#{post.TitleCss}"" title=""#{post.TitleFull}"" style=""#{post.TitleCss}"">#{post.Title}</a></div>
 </td><td style=""text-align:right; color:#666;"">#{post.CreatedDay}</td></tr>
 <!-- END list -->

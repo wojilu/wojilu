@@ -1,11 +1,15 @@
-﻿using System;
+﻿/*
+ * Copyright (c) 2010, www.wojilu.com. All rights reserved.
+ */
+
+using System;
 using System.Collections.Generic;
 using System.Text;
 using wojilu.Web.Mvc;
 using wojilu.Common.Spider.Domain;
 using wojilu.Common.Spider.Service;
 
-namespace wojilu.Web.Controller.Users.Admin.Spiders {
+namespace wojilu.Web.Controller.Admin.Spiders {
 
     public class LayoutController : ControllerBase{
 

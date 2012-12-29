@@ -15,32 +15,29 @@ namespace wojilu.Common.Spider.Service {
     // 还要负责分页的部分
     public class PagedDetailSpider : DetailSpider {
 
-        public override String GetContent(String url, SpiderTemplate s, StringBuilder sb)
-        {
+        public override String GetContent( String url, SpiderTemplate s, StringBuilder sb ) {
             this._template = s;
             this._url = url;
             this._log = sb;
             return this.getPageContentEx();
         }
 
-        private string getPageContentEx()
-        {
+        private string getPageContentEx() {
             // 1) 抓取网页内容
-            HtmlDocument htmlDoc = getDetailPageBodyHtmlDocument(this._url, this._template, this._log);
+            HtmlDocument htmlDoc = getDetailPageBodyHtmlDocument( this._url, this._template, this._log );
             if (htmlDoc == null)
                 return null;
             // 2) 获取匹配的部分
-            string matchedPage = getMatchedBody(htmlDoc, this._template, this._log);
-            if (string.IsNullOrEmpty(matchedPage)) return null;
+            string matchedPage = getMatchedBody( htmlDoc, this._template, this._log );
+            if (string.IsNullOrEmpty( matchedPage )) return null;
 
             // 3) 图片处理
-            if (this._template.IsSavePic == 1)
-            {
-                matchedPage = processPic(matchedPage, this._template.SiteUrl);
+            if (this._template.IsSavePic == 1) {
+                matchedPage = processPic( matchedPage, this._template.SiteUrl );
             }
 
             // 4) 处理分页
-            matchedPage += getPagedContent(matchedPage, _url, _template, _log);
+            matchedPage += getPagedContent( matchedPage, _url, _template, _log );
 
             return matchedPage;
         }

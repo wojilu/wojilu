@@ -44,6 +44,9 @@ namespace wojilu.Common.Spider.Service {
 
             // 一、先抓取列表页面内容
             string page = downloadListPage( s, sb );
+            if (strUtil.IsNullOrEmpty( page )) {
+                logger.Error( "list page is empty, url=" + s.SiteUrl );
+            }
 
             // 二、得到所有文章的title和url
             List<DetailLink> list = getListItem( s, page, sb );
@@ -54,10 +57,13 @@ namespace wojilu.Common.Spider.Service {
 
             List<DetailLink> list = new List<DetailLink>();
             if (strUtil.IsNullOrEmpty( page )) return list;
-            
+
             //获取全部url
-            MatchCollection matchs = Regex.Matches(page, SpiderConfig.ListLinkPattern, RegexOptions.Singleline);
-            
+            MatchCollection matchs = Regex.Matches( page, SpiderConfig.ListLinkPattern, RegexOptions.Singleline );
+            if (matchs.Count == 0) {
+                logger.Error( "list link match count=0" );
+            }
+
             for (int i = matchs.Count - 1; i >= 0; i--) {
                 DetailLink dlink = getDetailLink( matchs[i], s );
 
@@ -66,7 +72,7 @@ namespace wojilu.Common.Spider.Service {
                 if (dlink.Url.Length > 100) continue;
                 list.Add( dlink );
             }
-            sb.AppendLine("共抓取到链接：" + list.Count);
+            sb.AppendLine( "共抓取到链接：" + list.Count );
             return list;
         }
 
@@ -114,11 +120,10 @@ namespace wojilu.Common.Spider.Service {
         //解析用户输入的通配符方式的目标网页模式
         //将/www.cnblogs.com/*/archive/*/*/*/*.html
         //转换为www\.cnblogs\.com/(.*?)/archive/(.*?)/(.*?)/(.*?)/(.*?).html
-        private static string ParseUrl(string strUrlSrc)
-        {
-            string strRet = strUrlSrc.Replace(".", @"\.");
-            strRet = strRet.Replace("?", @"\?");
-            strRet = strRet.Replace("*", "(.*?)");
+        private static string ParseUrl( string strUrlSrc ) {
+            string strRet = strUrlSrc.Replace( ".", @"\." );
+            strRet = strRet.Replace( "?", @"\?" );
+            strRet = strRet.Replace( "*", "(.*?)" );
             return strRet;
         }
 
@@ -127,9 +132,8 @@ namespace wojilu.Common.Spider.Service {
             string url = match.Groups[1].Value;
             string title = match.Groups[2].Value;
             //判断输入的url是否满足用户定义的通配符方式的模式
-            MatchCollection matchs = Regex.Matches(url, ParseUrl(s.ListPattern), RegexOptions.Singleline);
-            if (matchs.Count == 0)
-            {
+            MatchCollection matchs = Regex.Matches( url, ParseUrl( s.ListPattern ), RegexOptions.Singleline );
+            if (matchs.Count == 0) {
                 return null;
             }
             if (url.IndexOf( "javascript:" ) >= 0) return null;
@@ -189,25 +193,21 @@ namespace wojilu.Common.Spider.Service {
                 return target;
             }
 
-            if (!strUtil.IsNullOrEmpty(s.GetListBodyPattern()))
-            {
-                HtmlDocument htmlDoc = new HtmlDocument
-                {
+            if (!strUtil.IsNullOrEmpty( s.GetListBodyPattern() )) {
+                HtmlDocument htmlDoc = new HtmlDocument {
                     OptionAddDebuggingAttributes = false,
                     OptionAutoCloseOnEnd = true,
                     OptionFixNestedTags = true,
                     OptionReadEncoding = true
                 };
-                htmlDoc.LoadHtml(target);
-                IEnumerable<HtmlNode> Nodes = htmlDoc.DocumentNode.QuerySelectorAll(s.GetListBodyPattern());
-                if (Nodes.Count() > 0)
-                {
+                htmlDoc.LoadHtml( target );
+                IEnumerable<HtmlNode> Nodes = htmlDoc.DocumentNode.QuerySelectorAll( s.GetListBodyPattern() );
+                if (Nodes.Count() > 0) {
                     target = Nodes.ToArray()[0].OuterHtml;
                     return target.Trim();
                 }
-                else
-                {
-                    logInfo("error=没有匹配的页面内容:" + s.ListUrl, s, sb);
+                else {
+                    logInfo( "error=没有匹配的页面内容:" + s.ListUrl, s, sb );
                     return null;
                 }
             }

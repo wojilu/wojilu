@@ -25,9 +25,9 @@ fieldset {border:0px #ccc solid;}
         <td class="otherTab" style="width:28%">第三步：保存模板</td>
         <td class="otherTab" style="width:10%"></td>
     </table>    
-    <div class="tabMain" style="width:100%">
+    <div class="tabMain" style="width:100%; padding-top:15px; padding-bottom:20px;">
     
-    <table style="width:98%;margin:10px; " cellpadding="5" cellspacing="0">
+    <table style="width:98%;margin:10px; margin-top:0px; " cellpadding="5" cellspacing="0">
 
         <tr>
             <td class="formLeft">
@@ -82,8 +82,8 @@ fieldset {border:0px #ccc solid;}
             <td class="otherTab" style="width:28%">第三步：保存模板</td>
             <td class="otherTab" style="width:10%"></td>
         </table>    
-        <div class="tabMain" style="width:100%">
-        <table id="" style="width:100%;  margin:10px;">
+        <div class="tabMain" style="width:100%;padding-top:15px; padding-bottom:20px;">
+        <table id="" style="width:100%;  margin:10px; margin-top:0px;">
         <tr id="outputPanel" style="display:none"><td class="formLeft">抓取列表结果</td><td ><textarea id="txtOutput" style="width:98%; height:200px;"></textarea></td></tr>
         
         
@@ -133,9 +133,9 @@ fieldset {border:0px #ccc solid;}
             <td class="currentTab" style="width:28%">第三步：保存模板</td>
             <td class="otherTab" style="width:10%"></td>
         </table>    
-        <div class="tabMain" style="width:100%">
+        <div class="tabMain" style="width:100%;padding-top:15px; padding-bottom:20px;">
         
-        <table id="Table1" style="width:100%;  margin:10px;">
+        <table id="Table1" style="width:100%;  margin:10px; margin-top:0px;">
             <tr id="doutPanel" style="display:none"><td class="formLeft">抓取详细页结果</td><td ><textarea id="dout" style="width:98%; height:280px;"></textarea></td></tr>
             <tr><td class="formLeft3">采集名称</td><td><input id="siteName" type="text" /></td></tr>
             <tr><td class="formLeft3">图片选项</td><td>
@@ -193,7 +193,7 @@ _run( function() {
             
             if( data.IsValid==false ) {
                 $('#outputPanel').show();
-                $('#txtOutput').val( data.listUrl + '\npatternBody=' + data.patternBody+ '\npatternLinks=' + data.patternLinks );
+                $('#txtOutput').val( "采集数据失败，具体原因，请查看 /framework/log/ 下的日志。\n采集网址："+data.listUrl + '\npatternBody=' + data.patternBody+ '\npatternLinks=' + data.patternLinks );
             }
             else {
                 var strData = "";

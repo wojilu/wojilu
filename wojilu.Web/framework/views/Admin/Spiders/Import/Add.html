@@ -1,9 +1,10 @@
 ﻿<style>
+.stepPanel {margin-bottom:30px; padding-bottom:30px;}
 #step2, #step3 { display:none;}
 .formLeft {width:90px; vertical-align:top;}
 </style>
 
-<div style="width:98%;">
+<div style="width:98%; ">
 <div id="step1" class="stepPanel" action="">
     <table class="tabHeader" style="width:100%; " cellpadding="0" cellspacing="0">
         <tr>
@@ -14,8 +15,8 @@
             <td class="otherTab" style="width:5%"></td>
         </tr>
     </table>    
-    <div class="tabMain" style="width:100%">
-    <table style="width:98%;margin:10px; margin-top:20px;">
+    <div class="tabMain" style="width:100%; padding-top:20px;padding-bottom:30px;">
+    <table style="width:98%;margin:10px; margin-top:0px;">
         <tr>
             <td class="formLeft">数据来源：</td>
             <td id="step1Data">#{dataSrc}</td>
@@ -43,8 +44,8 @@
             <td class="otherTab" style="width:5%"></td>
          </tr>
    </table>    
-    <div class="tabMain" style="width:100%">
-    <table style="width:98%;margin:10px;">
+    <div class="tabMain" style="width:100%; padding-top:20px;padding-bottom:30px;">
+    <table style="width:98%;margin:10px; margin-top:0px;">
         <tr>
             <td class="formLeft">导入到：</td>
             <td id="step2Data">
@@ -80,8 +81,8 @@
             <td class="otherTab" style="width:5%"></td>
         </tr>
     </table>    
-    <div class="tabMain" style="width:100%">
-    <table style="width:98%;margin:10px;">
+    <div class="tabMain" style="width:100%; padding-top:20px;padding-bottom:30px;">
+    <table style="width:98%;margin:10px; margin-top:0px;">
         <tr>
             <td class="formLeft">计划的名称</td>
             <td><input id="importName" name="Name" type="text" /></td>
@@ -104,6 +105,7 @@
     </table>
     </div>
 </div>
+<div>&nbsp;</div>
 </div>
 
 <script>
@@ -120,20 +122,20 @@ _run( function() {
 
     $('#chkStep1').click( function() {
         if( $(this).attr( 'checked' ) ) {
-            $('input[type=checkbox]', $('#step1Data') ).attr( 'checked', 'checked' );
+            $('input[type=checkbox]', $('#step1Data') ).check('on');
         }
         else {
-            $('input[type=checkbox]', $('#step1Data') ).attr( 'checked', '' );
+            $('input[type=checkbox]', $('#step1Data') ).check('off');
         }
     });
     
     $('.chkApp').click( function() {
         var nextPanel = $(this).parent().parent().parent().next();
         if( $(this).attr( 'checked' ) ) {
-            $('input[type=checkbox]', nextPanel ).attr( 'checked', 'checked' );
+            $('input[type=checkbox]', nextPanel ).check('on');
         }
         else {
-            $('input[type=checkbox]', nextPanel ).attr( 'checked', '' );
+            $('input[type=checkbox]', nextPanel ).check('off');
         }
     });
 

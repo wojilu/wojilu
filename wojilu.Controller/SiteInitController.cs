@@ -82,7 +82,7 @@ namespace wojilu.Web.Controller {
             return User.count() > 0;
         }
 
-        [HttpPut, DbTransaction]
+        [HttpPost, DbTransaction]
         public void Init() {
 
             Boolean isInit = false;

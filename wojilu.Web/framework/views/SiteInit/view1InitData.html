@@ -12,7 +12,7 @@ div.tabMain {margin:0px auto;background:#fff; border:1px #6699cc solid; border-t
 .dbtip {margin-left:40px;padding-top:40px;}
 .tabMain #cmdPanel {padding:10px 40px 40px 40px;font-size:18px; font-family:微软雅黑; font-weight:bold;}
 
-span.init-cmd {color:Red;}
+a.init-cmd {color:Red; cursor:pointer;}
 </style>
 
 <div style="font-size:20px;font-weight:bold; text-align:center;">_{siteInit}</div>
@@ -30,8 +30,10 @@ span.init-cmd {color:Red;}
     
 
     <div id="cmdPanel">
-    _{siteInit1Tip}: <span href="#{link}" class="putCmd init-cmd">_{clickHere}</span> 。
-    <div class="warning" style="font-size:14px;">提醒：本系统支持sqlserver(2005/2008/2000)/access/mysql 三种数据库，如果您要使用sqlserver或mysql，请先按照 <a href="http://www.wojilu.com/Common/Page/64" target="_blank">此处教程</a> 配置数据库连接。您当前正在access数据库。</div>
+    <div><form method="post" action="#{link}">
+    _{siteInit1Tip}: <button class="btn btn-primary" type="submit"><i class="icon-wrench icon-white"></i> _{clickHere}</button></form>
+    </div>
+    <div class="warning" style="font-size:14px; margin-top:10px;">提醒：本系统支持sqlserver(2005/2008/2000)/access/mysql 三种数据库，如果您要使用sqlserver或mysql，请先按照 <a href="http://www.wojilu.com/Common/Page/64" target="_blank">此处教程</a> 配置数据库连接。您当前正在access数据库。</div>
     </div>
 </div>
 

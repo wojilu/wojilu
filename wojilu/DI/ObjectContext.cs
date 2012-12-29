@@ -215,6 +215,16 @@ namespace wojilu.DI {
         /// 创建经对象(有注入的就注入，没有注入的直接生成)，不是单例；然后对属性进行拦截。
         /// 如果属性有接口，按照接口拦截；否则按照子类拦截
         /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <returns></returns>
+        public static T Create<T>() {
+            return (T)CreateObject( typeof( T ) );
+        }
+
+        /// <summary>
+        /// 创建经对象(有注入的就注入，没有注入的直接生成)，不是单例；然后对属性进行拦截。
+        /// 如果属性有接口，按照接口拦截；否则按照子类拦截
+        /// </summary>
         /// <param name="typeFullName"></param>
         /// <returns></returns>
         public static Object CreateObject( String typeFullName ) {
@@ -262,14 +272,6 @@ namespace wojilu.DI {
             return CreateObjectByIoc( t );
         }
 
-        /// <summary>
-        /// 根据type，不从缓存(pool)中取，而是全新创建实例(有注入的就注入，没有注入的直接生成)，肯定不是单例
-        /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <returns></returns>
-        public static T Create<T>() {
-            return (T)CreateObject( typeof( T ) );
-        }
 
         private static MapItem getMapItemByType( Type t ) {
 

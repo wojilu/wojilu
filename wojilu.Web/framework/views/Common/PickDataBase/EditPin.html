@@ -36,7 +36,7 @@
             }
 
             _run( function() {
-                $('#idx'+#{x.PinIndex}).attr( 'checked', 'checked' );
+                $('#idx'+#{x.PinIndex}).check('on');
 
                 var ids = [#{indexIds}];
                 for (var i = 0; i < ids.length; i++) {

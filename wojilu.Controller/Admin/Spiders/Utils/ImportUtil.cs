@@ -1,12 +1,18 @@
-﻿using System;
+﻿/*
+ * Copyright (c) 2010, www.wojilu.com. All rights reserved.
+ */
+
+using System;
 using System.Collections.Generic;
 using System.Text;
 using wojilu.Common.Spider.Domain;
 using wojilu.Apps.Content.Domain;
 using wojilu.Apps.Content.Enum;
 using wojilu.Data;
+using wojilu.Apps.Content.Service;
+using wojilu.DI;
 
-namespace wojilu.Web.Controller.Users.Admin.Spiders {
+namespace wojilu.Web.Controller.Admin.Spiders {
 
 
     public class ImportUtil {
@@ -101,6 +107,9 @@ namespace wojilu.Web.Controller.Users.Admin.Spiders {
         }
 
         private static int importDirect( SpiderArticle art, SpiderImport item, ContentSection section, ContentApp app ) {
+
+            ContentPostService postService = ObjectContext.Create<ContentPostService>();
+
             ContentPost post = new ContentPost();
             post.Title = art.Title;
             post.Content = art.Body;
@@ -120,7 +129,8 @@ namespace wojilu.Web.Controller.Users.Admin.Spiders {
             post.OwnerUrl = app.OwnerUrl;
             post.AppId = app.Id;
 
-            post.insert();
+            postService.Insert( post, "" );
+
             return post.Id;
         }
 

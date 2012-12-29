@@ -21,7 +21,7 @@ using wojilu.Members.Users.Domain;
 using wojilu.Members.Users.Interface;
 using wojilu.Members.Users.Service;
 
-namespace wojilu.Web.Controller.Users.Admin.Spiders {
+namespace wojilu.Web.Controller.Admin.Spiders {
 
     public class ImportController : ControllerBase {
 
@@ -226,7 +226,11 @@ namespace wojilu.Web.Controller.Users.Admin.Spiders {
             IBlock block = getBlock( "apps" );
             foreach (ContentApp app in apps) {
                 block.Set( "appId", app.Id );
-                block.Set( "appName", appService.GetByApp( app ).Name );
+
+                IMemberApp ma = appService.GetByApp( app );
+                if (ma == null) continue;
+
+                block.Set( "appName", ma.Name );
                 List<ContentSection> sections = ContentSection.find( "AppId=" + app.Id ).list();
                 block.Set( "dataTarget", Html.CheckBoxList( sections, "dataTarget", "Title", "Id", null ) );
                 block.Next();

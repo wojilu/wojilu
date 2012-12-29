@@ -17,6 +17,7 @@ using wojilu.Web.Controller.Admin;
 using wojilu.Common.MemberApp;
 using wojilu.Common.MemberApp.Interface;
 using wojilu.Web.Controller.Admin.Mb;
+using wojilu.Web.Controller.Admin.Spiders;
 
 namespace wojilu.Web.Controller.Security {
 
@@ -80,7 +81,9 @@ namespace wojilu.Web.Controller.Security {
             results.Add( new SiteDataAdminMenu( 6, "microblog", "微博管理", new MicroblogController().List, rootNamespace ) );
             results.Add( new SiteDataAdminMenu( 7, "tag", "tag 管理", new TagAdminController().Index, rootNamespace ) );
             results.Add( new SiteDataAdminMenu( 8, "cache", "缓存管理", new CacheController().Index, rootNamespace ) );
-            results.Add( new SiteDataAdminMenu( 9, "cache", "广告设置", new AdController().Index, rootNamespace ) );
+            results.Add( new SiteDataAdminMenu( 9, "ad", "广告设置", new AdController().Index, rootNamespace ) );
+
+            results.Add( new SiteDataAdminMenu( 10, "spider", "采集管理", new TemplateController().List, rootNamespace ) );
 
             this.SiteDataAdminMenus = results;
         }
@@ -117,6 +120,7 @@ namespace wojilu.Web.Controller.Security {
             results.Add( new SiteAdminOperation( 18, "tag 管理", 1, typeof( TagAdminController ) ) );
             results.Add( new SiteAdminOperation( 19, "缓存管理", 1, typeof( CacheController ) ) );
             results.Add( new SiteAdminOperation( 20, "广告管理", 1, typeof( AdController ) ) );
+            results.Add( new SiteAdminOperation( 21, "采集管理", 1, typeof( TemplateController ) ) );
 
             this.SiteAdminOperations = results;
         }
