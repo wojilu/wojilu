@@ -29,6 +29,8 @@ namespace wojilu.Web.Mvc.Routes {
     /// </summary>
     public class RouteTool {
 
+        private static readonly ILog logger = LogManager.GetLogger( typeof( RouteTool ) );
+
         public static readonly char[] Separator = getSeparator();
 
         private static char[] getSeparator() {
@@ -55,6 +57,8 @@ namespace wojilu.Web.Mvc.Routes {
             if (strUtil.IsNullOrEmpty( cleanUrl ) || cleanUrl.ToLower().Equals( "default" )) {
                 cleanUrl = "default";
             }
+
+            logger.Info( "RecognizePath begin, clearnUrl=" + cleanUrl );
 
             if (cleanUrl.StartsWith( "/" )) cleanUrl = strUtil.TrimStart( cleanUrl, "/" );
 

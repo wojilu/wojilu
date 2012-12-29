@@ -526,7 +526,9 @@ namespace wojilu.Apps.Content.Service {
 
             List<ContentPost> list = new List<ContentPost>();
             foreach (ContentPostSection x in psList) {
-                list.Add( x.Post );
+                if (x.Post != null) {
+                    list.Add( x.Post );
+                }
             }
 
             list.Sort();

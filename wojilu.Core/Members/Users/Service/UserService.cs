@@ -6,7 +6,6 @@ using System;
 using System.Collections.Generic;
 
 using wojilu.Web.Mvc;
-using wojilu.Web.Url;
 using wojilu.Web.Context;
 
 using wojilu.Members.Users.Interface;
@@ -20,8 +19,6 @@ using wojilu.Common.Money.Service;
 using wojilu.Common.Msg.Interface;
 using wojilu.Common.Msg.Service;
 using wojilu.Common.AppBase;
-using wojilu.Common.Menus.Interface;
-using wojilu.Common.MemberApp.Interface;
 using wojilu.Common.Money.Interface;
 using wojilu.Common.Money.Domain;
 
@@ -33,7 +30,6 @@ namespace wojilu.Members.Users.Service {
             currencyService = new CurrencyService();
             roleService = new SiteRoleService();
             userIncomeService = new UserIncomeService();
-            //msgService = new MessageService();
 
             hashTool = new HashTool();
         }
@@ -42,7 +38,6 @@ namespace wojilu.Members.Users.Service {
         public virtual ISiteRoleService roleService { get; set; }
         public virtual IUserIncomeService userIncomeService { get; set; }
         public virtual IHashTool hashTool { get; set; }
-        //public IMessageService msgService { get; set; } 
 
         //----------------------------------------------------------------------
 
@@ -312,6 +307,7 @@ namespace wojilu.Members.Users.Service {
         }
 
         public virtual List<User> SearchByName( String name ) {
+            if (strUtil.IsNullOrEmpty( name )) return new List<User>();
             name = strUtil.SqlClean( name, 20 );
             return db.find<User>( "Name like  '%" + name + "%' " ).list();
         }
@@ -345,7 +341,7 @@ namespace wojilu.Members.Users.Service {
 
         public virtual void UpdateAvatar( User user, String newPic ) {
 
-            Boolean isFirst = (user.HasUploadPic()==false);
+            Boolean isFirst = (user.HasUploadPic() == false);
 
             user.Pic = newPic;
             db.update( user, "Pic" );
@@ -382,14 +378,17 @@ namespace wojilu.Members.Users.Service {
         }
 
         public virtual User GetByName( String name ) {
+            if (strUtil.IsNullOrEmpty( name )) return null;
             return User.find( "Name=:name" ).set( "name", name ).first();
         }
 
         public virtual User GetByUrl( String friendUrl ) {
+            if (strUtil.IsNullOrEmpty( friendUrl )) return null;
             return User.find( "Url=:furl" ).set( "furl", friendUrl ).first();
         }
 
         public virtual User GetByMail( String email ) {
+            if (strUtil.IsNullOrEmpty( email )) return null;
             return db.find<User>( "Email=:email" ).set( "email", email ).first();
         }
 
@@ -415,20 +414,24 @@ namespace wojilu.Members.Users.Service {
         }
 
         public virtual User IsExist( String name ) {
+            if (strUtil.IsNullOrEmpty( name )) return null;
             return User.find( "Name=:name" ).set( "name", name ).first();
         }
 
         public virtual User IsExistUrl( String url ) {
+            if (strUtil.IsNullOrEmpty( url )) return null;
             return User.find( "Url=:url" ).set( "url", url ).first();
         }
 
         public virtual Boolean IsEmailExist( String email ) {
+            if (strUtil.IsNullOrEmpty( email )) throw new ArgumentNullException( "email" );
             User user = User.find( "Email=:email and IsEmailConfirmed=" + EmailConfirm.Confirmed ).set( "email", email ).first();
             return user != null;
         }
 
         public virtual Boolean IsEmailExist( int userId, String email ) {
-            User user = User.find( "Email=:email and IsEmailConfirmed=" + EmailConfirm.Confirmed + " and Id<>"+userId ).set( "email", email ).first();
+            if (strUtil.IsNullOrEmpty( email )) throw new ArgumentNullException( "email" );
+            User user = User.find( "Email=:email and IsEmailConfirmed=" + EmailConfirm.Confirmed + " and Id<>" + userId ).set( "email", email ).first();
             return user != null;
         }
 

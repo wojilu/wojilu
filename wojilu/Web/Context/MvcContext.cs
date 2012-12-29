@@ -393,11 +393,14 @@ namespace wojilu.Web.Context {
             else
                 ip = _context.ClientVar( "REMOTE_ADDR" );
 
-            logger.Info( "HTTP_VIA=" + _context.ClientVar( "HTTP_VIA" ) );
-            logger.Info( "HTTP_X_FORWARDED_FOR=" + _context.ClientVar( "HTTP_X_FORWARDED_FOR" ) );
-            logger.Info( "REMOTE_ADDR=" + _context.ClientVar( "REMOTE_ADDR" ) );
-
-            return checkIp( ip );
+            String result = checkIp( ip );
+            if (result == "unknow") {
+                logger.Error( "ip unknow" );
+                logger.Error( "HTTP_VIA=" + _context.ClientVar( "HTTP_VIA" ) );
+                logger.Error( "HTTP_X_FORWARDED_FOR=" + _context.ClientVar( "HTTP_X_FORWARDED_FOR" ) );
+                logger.Error( "REMOTE_ADDR=" + _context.ClientVar( "REMOTE_ADDR" ) );
+            }
+            return result;
         }
 
         private String checkIp( String ip ) {
