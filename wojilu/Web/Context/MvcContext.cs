@@ -388,10 +388,18 @@ namespace wojilu.Web.Context {
         private String getIp() {
 
             String ip;
-            if (_context.ClientVar( "HTTP_VIA" ) != null)
+            if (_context.ClientVar( "HTTP_VIA" ) != null) {
                 ip = _context.ClientVar( "HTTP_X_FORWARDED_FOR" );
-            else
+                if (strUtil.IsNullOrEmpty( ip ) || checkIp( ip ) == "unknow") {
+                    ip = _context.ClientVar( "REMOTE_ADDR" );
+                }
+            }
+            else {
                 ip = _context.ClientVar( "REMOTE_ADDR" );
+                if (strUtil.IsNullOrEmpty( ip ) || checkIp( ip ) == "unknow") {
+                    ip = _context.ClientVar( "HTTP_X_FORWARDED_FOR" );
+                }
+            }
 
             String result = checkIp( ip );
             if (result == "unknow") {
@@ -407,6 +415,8 @@ namespace wojilu.Web.Context {
 
             int maxLength = 3 * 15 + 2;
             String unknow = "unknow";
+
+            if (ip == "::1") return "127.0.0.1";
 
             if (strUtil.IsNullOrEmpty( ip ) || ip.Length > maxLength || ip.Length < 7) return unknow;
 
