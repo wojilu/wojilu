@@ -47,11 +47,6 @@
             $(this).parent().hide();
         });
 
-        $('#logoutLink').click( function() {
-            $('#topLogoutForm').submit();
-        });
-
-        
         $.get( navUrl, function(data) {
 
             ctx = data; 

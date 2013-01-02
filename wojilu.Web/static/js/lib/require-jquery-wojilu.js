@@ -12008,9 +12008,9 @@ wojilu.ui.postBack = function(control, httpMethod) {
         postForm +='<input name="frm" type="hidden" value="true" />';
     }
     postForm +='<input name="_httpmethod" type="hidden" value="'+httpMethod+'" /></form>';
-    
-    $(control).append( postForm );		
+    $('body').append( postForm );		
     $( '#' +formId ).submit();    
+    return false;
 };
 
 wojilu.ui.httpMethod = function(eleId) {
