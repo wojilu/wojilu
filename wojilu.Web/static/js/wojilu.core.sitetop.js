@@ -24,14 +24,13 @@
             
             var btn = $( ':submit', tform );
             btn.attr( 'disabled', 'disabled' );
-            var loading = $('.loadingInfo');
-            loading.html( ' <img src="'+wojilu.path.img+'/ajax/loading.gif"/>loading...' );
+            var loading = $('.loadingInfo', tform);
+            loading.html( ' <img src="'+wojilu.path.img+'/ajax/loading.gif"/>' );
             
             $.post( $(tform).attr( 'action' ).toAjax(), $(tform).serializeArray(), function( data ) {
                 var result = data; 
                 
                 if(result.IsValid){
-                    loading.html(' 登录成功...');
                     wojilu.tool.forward( result.ForwardUrl, 0 );
                 }else{
                     loading.html('');
@@ -53,7 +52,7 @@
             var nav = ctx.navInfo;
             if( nav.topNavDisplay == 1 ) {$('#topNav').hide(); return; }
             if( ctx.viewer.IsLogin ==false ) {
-                $('#loginForm').show();
+                $('#loginSection').show();
                 if( ctx.owner.LoginValidImg ==false ) {
                     $('#loginValidBox').remove(); 
                 } 

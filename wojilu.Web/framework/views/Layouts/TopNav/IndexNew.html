@@ -39,15 +39,79 @@
             
             <div id="top-nav-right">
                 <!---------------login form---------------->
-                <form id="loginForm" class="navbar-form form-inline" action="#{LoginAction}" method="post" style="display:none; ">
-                    <span class="help-inline"><a href="#{RegLink}" class="right10">_{register}</a></span>
-                    <input type="text" name="txtUid" class="input-small" placeholder="用户名" style="height:14px;margin:0px;">
-                    <input type="password" name="txtPwd" class="input-small" placeholder="密码" style="height:14px;margin:0px;">
-                    <label id="top-nav-login-form-remember" class="checkbox"><input name="RememberMe" type="checkbox" id="chkRemember" checked="checked" style="margin:0px;margin-top:2px;" > 记住我</label>
-                    <input type="submit" class="btn btn-primary btn-mini" value="登录" style="font-size:12px;line-height:14px;padding:1px 6px;margin:0px;">
-                    <input type="hidden" name="returnUrl" id="Hidden1" value="" />
-                    <div id="loginValidBox" class="ebox" style="width:380px;padding:10px 5px; ">_{validationCode} #{ValidationCode}</div>
-                </form>
+                <div style="display:none;">
+                <form id="loginForm" class="navbar-form form-inline" action="#{LoginAction}" method="post">
+                    <table style="width:480px; margin:20px 0px; float:left;" cellpadding="5">
+                        <tr><td colspan="2" style="padding:0px 0px 0px 20px;">
+                            <div class="alert alert-success" style=" padding:5px 15px; ">还没有帐号？<a href="#{RegLink}">点击此处注册</a></div>
+                        </td></tr>
+                        <tr>
+                            <td style="width:100px; font-size:14px; text-align:right;">用户名</td>
+                            <td><input type="text" name="txtUid" placeholder="用户名" style="height:24px;margin:0px;font-size:14px;"></td>
+                        </tr>
+                        <tr>
+                            <td style="width:100px; font-size:14px; text-align:right;">密　码</td>
+                            <td><input type="password" name="txtPwd" placeholder="密码" style="height:24px;margin:0px; font-size:14px;"></td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td><div id="loginValidBox" class="ebox" style="width:380px;padding:10px 5px; ">_{validationCode} #{ValidationCode}</div></td>
+                        </tr>
+                        <tr><td></td>
+                            <td>
+                                <span class="help-inline"><label id="top-nav-login-form-remember" class="checkbox"><input name="RememberMe" type="checkbox" id="chkRemember" checked="checked"  > 记住我</label>  
+                                    <a href="#{resetPwdLink}" class="left10 help-inline">忘记密码</a>                          
+                                </span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><input type="hidden" name="returnUrl" id="Hidden1" value="" /></td>
+                            <td>
+                                <div class="controls">
+                                    <button type="submit" class="btn btn-primary" style="font-size:14px;">
+                                        <i class="icon-user icon-white"></i>
+                                        登录
+                                    </button>
+                                    <span class="loadingInfo"></span>
+                                </div>
+                            </td>
+                        </tr>
+                      </table>
+
+                      <div style="float:left; margin-top:15px; margin-left:35px; border-left:1px solid #eee; padding-left:35px; height:220px;" class="hide">
+                    
+                        <div style="margin-top:10px; font-size:16px; ">使用其他帐号登录</div>
+                        <ul style="margin-top:20px; font-size:14px;" class="hide">
+                            <li><a href="#">腾讯QQ登录</a></li>
+                            <li><a href="#">腾讯微博登录</a></li>
+                            <li><a href="#">新浪微博登录</a></li>
+                            <li><a href="#">豆瓣登录</a></li>
+                            <li><a href="#">人人网登录</a></li>
+                        </ul>
+                      </div>
+
+                </form>                
+                </div>
+
+                <div id="loginSection" style=" vertical-align:middle; display:block; padding-top:5px; display:none; margin-right:8px;">
+                    <span class="help-inline"><a href="" id="loginLink" class="btn btn-primary btn-mini" style="font-size:12px;line-height:14px;padding:3px 6px 3px 6px;margin:0px;"><i class="icon-user icon-white"></i> 登录</a></span>
+                    <span class="help-inline"><a href="#{RegLink}" class="btn btn-primary btn-mini right10" style="font-size:12px;line-height:14px;padding:3px 6px 3px 6px;margin:0px;"><i class="icon-play-circle icon-white"></i> _{register}</a></span>
+                    <span class="left5"><a href="#{resetPwdLink}">忘记密码</a></span>
+                    <span class="left5 hide"><a href="#">微博登录</a></span>
+                    <span class="hide"><a href="#">QQ登录</a></span>
+                    <span class="hide">更多</span>
+                </div>
+
+<script>
+    _run(function () {
+
+        $('#loginLink').click(function () {
+            wojilu.box.title('用户登录').width(500).height(320).id('loginForm').show();
+            return false;
+        });
+
+    });
+</script>
                 
                 
                 <!---------------user account---------------->

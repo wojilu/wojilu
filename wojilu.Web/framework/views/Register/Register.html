@@ -1,13 +1,9 @@
-﻿
-
-<div style="padding:10px 0px 30px 30px;height:500px">
-
-<style>
+﻿<style>
 
 
-#register{ border:0px #ccc solid; border-collapse:collapse;  width:680px}
+#register{ border:0px red solid; border-collapse:collapse;  width:580px; margin-top:20px;}
 #register td{font-size:12px; padding:3px;height:20px;}
-#register .right {width:120px; padding-right:5px}
+#register .right {width:80px; padding-right:5px}
 #register .lgTitle{padding:15px 10px 10px 0px; font-size:28px;font-weight:bold;}
 #register .lgsubmit {padding:15px 10px 10px 0px}
 #register .lgInput {width:180px;height:20px;font-size:16px; padding:3px}
@@ -17,18 +13,12 @@
 
 </style>
 
+<div style="padding:10px 0px 30px 30px; border:0px solid blue;">
 
+
+
+<div style="float:left;width:580px;">
 <form method="post" action="#{ActionLink}" class="registerForm">
-
-	<div class="alert alert-warning" style="margin:20px;width:80%;">
-	<ul style="padding-left:70px;">
-	    <li style="list-style-type:disc;">#{loginTip}</li>
-	    <!-- BEGIN sendConfirmEmail -->
-	    <li style="list-style-type:disc;  margin-top:10px;">已注册，但尚未收到激活邮件，请 <a href="#{resendLink}" style="">点击此处</a> 重发激活邮件</li>
-	    <!-- END sendConfirmEmail -->
-	</ul>
-	</div>
-
 	<table id="register">
 	<tr><td></td>
 		<td class="lgTitle">_{userReg}</td>
@@ -85,6 +75,27 @@
 	</table>
 	
 </form>
+</div>
+
+<div style="float:left;width:250px; height:350px; margin-top:30px;" class="alert alert-warning hide">
+
+	<div class="" style="margin:0px 0px;width:100%; margin-top:20px;">
+	<ul style="padding-left:0px; margin-left:0px;">
+	    <li style="font-size:18px; font-weight:bold; font-family:微软雅黑; list-style:none; margin-left:0px; padding-left:0px;">#{loginTip}</li>
+	    <!-- BEGIN sendConfirmEmail -->
+	    <li style="list-style-type:disc;  margin-top:10px;">已注册，但尚未收到激活邮件，请 <a href="#{resendLink}" style="">点击此处</a> 重发激活邮件</li>
+	    <!-- END sendConfirmEmail -->
+	</ul>
+    <div style=" margin-top:30px; font-size:18px; font-weight:bold; font-family:微软雅黑;">使用其他帐号登录：</div>
+    <ul style="margin-top:20px; font-size:14px;" class="hide1">
+        <li><a href="#">腾讯QQ登录</a></li>
+        <li><a href="#">腾讯微博登录</a></li>
+        <li><a href="#">新浪微博登录</a></li>
+        <li><a href="#">豆瓣登录</a></li>
+        <li><a href="#">人人网登录</a></li>
+    </ul>
+	</div>
+</div>
 
 <script type="text/javascript">
 
@@ -97,5 +108,7 @@ _run( function() {
 });
 
 </script>
+
+<div style="clear:both;"></div>
 
 </div>
