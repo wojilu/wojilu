@@ -12514,8 +12514,22 @@ wojilu.ui.box = {
 		boxWrap.css( 'left', box_x + 'px' );
 		boxWrap.css( 'top', box_y + 'px' );    
     },
+
+    showBoxById : function(eleId, boxWidth, boxHeight, boxTitle ) {
+        var showCallback = function(bid,loadingDiv, content) {
+            $('#boxContents'+bid).append( $('#'+eleId ) );
+        };
+        this.showBoxString_private( showCallback, '', boxWidth, boxHeight, boxTitle, '');
+    },
+
+	showBoxString : function(content, boxWidth, boxHeight, boxTitle, loadingDiv){
+        var showCallback = function(bid, loadingDiv, content) {
+            $('#boxContents'+bid).append( loadingDiv ).append( content );
+        };
+        this.showBoxString_private( showCallback, content, boxWidth, boxHeight, boxTitle, loadingDiv );
+    }, 
     
-	showBoxString : function(content, boxWidth, boxHeight, btitle, loadingDiv){
+	showBoxString_private : function(showCallback, content, boxWidth, boxHeight, btitle, loadingDiv){
     
         if( !(top===self) ) { window.parent.wojilu.ui.box.showBoxString(content,boxWidth,boxHeight,btitle,loadingDiv);return;}
     
@@ -12559,15 +12573,16 @@ wojilu.ui.box = {
 		var box_y = ( $(window).height() - bHeight ) / 2 + $(document).scrollTop() -60;
 		boxWrap.css( 'left', box_x + 'px' ).css( 'top', box_y + 'px' ).show();
         
-        $('#boxContents'+bid).append( loadingDiv ).append( content );
+        //$('#boxContents'+bid).append( loadingDiv ).append( content );
+        showCallback(bid, loadingDiv, content);
         $('#boxTitleText'+bid).html( btitle );
 	},
     
 	hideBox : function(bid){
         if( !(top===self) ) { window.parent.wojilu.ui.box.hideBox();return;}
         if( !bid ) bid = wojilu.ui.box.id;
-        $('#boxWrap'+bid).remove(); $('#overlay'+bid).remove();
-        wojilu.ui.box.id--; return false;
+        $('#boxWrap'+bid).hide(); $('#overlay'+bid).remove();
+        return false;
 	}
 }
 
@@ -12608,6 +12623,46 @@ wojilu.ui.frmBox = function(ele) {
        
         return false;
     };
+};
+
+wojilu.box = {
+    _title: null, _width: 500, _height: 280, _id: null, _html: null, _idp: null,
+    title: function (x) { this._title = x; return this; },
+    width: function (x) { this._width = x; return this; },
+    height: function (x) { this._height = x; return this; },
+    id: function (x) { this._id = x; this._idp = $('#' + x).parent(); return this; },
+    html: function (x) { this._html = x; return this; },
+    show: function () {
+        if (this._html) {
+            wojilu.ui.box.showBoxString(this._html, this._width, this._height, this._title);
+        }
+        else if (this._id) {
+            wojilu.ui.box.showBoxById(this._id, this._width, this._height, this._title);
+        };
+        return this;
+    },
+    close: function (closeTime) {
+        var _this = this;
+        var closeBox = function () {
+            if (_this._id) {
+                var ele = $('#' + _this._id);
+                _this._idp.append(ele);
+                wojilu.ui.box.hideBox();
+            }
+            else {
+                wojilu.ui.box.hideBox();
+            }
+        };
+
+        if (closeTime) {
+            setTimeout(function () {
+                closeBox();
+            }, closeTime);
+        } else {
+            closeBox();
+        };
+        return this;
+    }
 };
 
 wojilu.ui.frmLink = function() {
