@@ -70,7 +70,7 @@
   <ItemGroup>
     <Content Include="agreement.html" />
     <Content Include="crossdomain.xml" />
-    <Content Include="framework\data\初始化需要清空的数据.txt" />
+    <Content Include="彻底初始化方法.txt" />
     <Content Include="framework\views\Admin\Apps\Blog\Layout\Layout.html" />
     <Content Include="framework\views\Admin\Apps\Blog\Main\Index.html" />
     <Content Include="framework\views\Admin\Apps\Blog\Main\Layout.html" />

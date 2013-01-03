@@ -1,0 +1,30 @@
+警告：数据丢失，后果自负。初始化之前 **请记得备份数据**。
+
+----------------------------------------------------------
+
+如果要让网站彻底清空，重新初始化，请完成如下**两个步骤**：
+
+(1) 删掉数据库内容
+=======================================
+
+如果是 access 数据，请直接删除 access 文件。
+
+
+
+(2) 删掉 /framework/data/ 目录下如下文件
+=======================================
+
+wojilu.Common.Menus.FooterMenu.config  
+wojilu.Members.Sites.Domain.SiteApp.config  
+wojilu.Members.Sites.Domain.SiteMenu.config  
+wojilu.Web.Controller.Security.AppAdminRole.config  
+wojilu.Web.Controller.Security.AppRole.config  
+
+
+
+(3) 然后重启网站
+=======================================
+
+
+如需其他帮助，请查看在线教程：<http://www.wojilu.com/help>  
+或者访问 “我记录” 官网论坛：<http://www.wojilu.com> 
