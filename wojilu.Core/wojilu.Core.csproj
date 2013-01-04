@@ -74,6 +74,9 @@
     <Reference Include="LinqBridge">
       <HintPath>..\Lib\LinqBridge.dll</HintPath>
     </Reference>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>..\Lib\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="System">
       <Name>System</Name>
     </Reference>
@@ -371,6 +374,109 @@
     <Compile Include="Members\Sites\Domain\Setting\SettingList.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="OpenAccount\Common\AsyncCallback.cs" />
+    <Compile Include="OpenAccount\Common\AsyncCallResult.cs" />
+    <Compile Include="OpenAccount\Common\HttpMethod.cs" />
+    <Compile Include="OpenAccount\Common\IResponseErrorHandler.cs" />
+    <Compile Include="OpenAccount\Common\JsonSerializationHelper.cs" />
+    <Compile Include="OpenAccount\Common\LocalErrorCode.cs" />
+    <Compile Include="OpenAccount\Common\OAuthHelper.cs" />
+    <Compile Include="OpenAccount\Common\ParamCollection.cs" />
+    <Compile Include="OpenAccount\Common\ParamPair.cs" />
+    <Compile Include="OpenAccount\Common\ResponseErrorData.cs" />
+    <Compile Include="OpenAccount\Common\ResponseErrorEventArgs.cs" />
+    <Compile Include="OpenAccount\Common\RFC3986Encoder.cs" />
+    <Compile Include="OpenAccount\Common\SinaAPIUri.cs" />
+    <Compile Include="OpenAccount\Common\SinaConstants.cs" />
+    <Compile Include="OpenAccount\Common\SinaOAuthTokens.cs" />
+    <Compile Include="OpenAccount\Common\SinaWeiboException.cs" />
+    <Compile Include="OpenAccount\Common\XmlSerializationHelper.cs" />
+    <Compile Include="OpenAccount\Controller\LayoutController.cs" />
+    <Compile Include="OpenAccount\Controller\MainController.cs" />
+    <Compile Include="OpenAccount\Controller\WeiboController.cs" />
+    <Compile Include="OpenAccount\Controller\WeiboRegisterController.cs" />
+    <Compile Include="OpenAccount\Core\IOAuthRequestStrategy.cs" />
+    <Compile Include="OpenAccount\Core\OAuthRequestFactory.cs" />
+    <Compile Include="OpenAccount\Core\QQOauthRequestStagtegy.cs" />
+    <Compile Include="OpenAccount\Core\QQWeiboSync.cs" />
+    <Compile Include="OpenAccount\Core\QQWeibo\ApiType.cs" />
+    <Compile Include="OpenAccount\Core\QQWeibo\AsyncHttp.cs" />
+    <Compile Include="OpenAccount\Core\QQWeibo\fav.cs" />
+    <Compile Include="OpenAccount\Core\QQWeibo\friends.cs" />
+    <Compile Include="OpenAccount\Core\QQWeibo\ht.cs" />
+    <Compile Include="OpenAccount\Core\QQWeibo\HttpUtil.cs" />
+    <Compile Include="OpenAccount\Core\QQWeibo\info.cs" />
+    <Compile Include="OpenAccount\Core\QQWeibo\Oauth.cs" />
+    <Compile Include="OpenAccount\Core\QQWeibo\OauthKey.cs" />
+    <Compile Include="OpenAccount\Core\QQWeibo\other.cs" />
+    <Compile Include="OpenAccount\Core\QQWeibo\Parameter.cs" />
+    <Compile Include="OpenAccount\Core\QQWeibo\private.cs" />
+    <Compile Include="OpenAccount\Core\QQWeibo\QWeiboApiBase.cs" />
+    <Compile Include="OpenAccount\Core\QQWeibo\QWeiboRequest.cs" />
+    <Compile Include="OpenAccount\Core\QQWeibo\search.cs" />
+    <Compile Include="OpenAccount\Core\QQWeibo\statuses.cs" />
+    <Compile Include="OpenAccount\Core\QQWeibo\SyncHttp.cs" />
+    <Compile Include="OpenAccount\Core\QQWeibo\t.cs" />
+    <Compile Include="OpenAccount\Core\QQWeibo\tag.cs" />
+    <Compile Include="OpenAccount\Core\QQWeibo\trends.cs" />
+    <Compile Include="OpenAccount\Core\QQWeibo\user.cs" />
+    <Compile Include="OpenAccount\Core\SinaOAuthRequestStrategy.cs" />
+    <Compile Include="OpenAccount\Core\SinaWeiboSync.cs" />
+    <Compile Include="OpenAccount\Core\Sina\HttpPost.cs" />
+    <Compile Include="OpenAccount\Core\Sina\IHttpRequest.cs" />
+    <Compile Include="OpenAccount\Core\Sina\MultiPartField.cs" />
+    <Compile Include="OpenAccount\Core\Sina\MultiPartHttpPost.cs" />
+    <Compile Include="OpenAccount\Core\Sina\OAuthHttpDelete.cs" />
+    <Compile Include="OpenAccount\Core\Sina\OAuthHttpGet.cs" />
+    <Compile Include="OpenAccount\Core\Sina\OAuthHttpPost.cs" />
+    <Compile Include="OpenAccount\Core\Sina\OAuthMultiPartHttpPost.cs" />
+    <Compile Include="OpenAccount\Core\Sina\ObtainTokenPost.cs" />
+    <Compile Include="OpenAccount\Core\Sina\SinaHttpGet.cs" />
+    <Compile Include="OpenAccount\Core\Sina\SinaHttpRequest.cs" />
+    <Compile Include="OpenAccount\Core\SupportWeiboType.cs" />
+    <Compile Include="OpenAccount\Core\WeiboSession.cs" />
+    <Compile Include="OpenAccount\Data\ErrorResponse.cs" />
+    <Compile Include="OpenAccount\Data\Sina\Account\PrivacyInfo.cs" />
+    <Compile Include="OpenAccount\Data\Sina\Account\RateLimitStatus.cs" />
+    <Compile Include="OpenAccount\Data\Sina\Account\UpdateProfileInfo.cs" />
+    <Compile Include="OpenAccount\Data\Sina\Comment\CommentInfo.cs" />
+    <Compile Include="OpenAccount\Data\Sina\Comment\Comments.cs" />
+    <Compile Include="OpenAccount\Data\Sina\Common\BooleanResultInfo.cs" />
+    <Compile Include="OpenAccount\Data\Sina\Common\Geo.cs" />
+    <Compile Include="OpenAccount\Data\Sina\Common\GeoPoint.cs" />
+    <Compile Include="OpenAccount\Data\Sina\Common\HpyerLink.cs" />
+    <Compile Include="OpenAccount\Data\Sina\Common\Source.cs" />
+    <Compile Include="OpenAccount\Data\Sina\Common\UnreadInfo.cs" />
+    <Compile Include="OpenAccount\Data\Sina\Counter\CounterInfo.cs" />
+    <Compile Include="OpenAccount\Data\Sina\Counter\Counters.cs" />
+    <Compile Include="OpenAccount\Data\Sina\Counter\CounterType.cs" />
+    <Compile Include="OpenAccount\Data\Sina\DirectMessage\DirectMessageInfo.cs" />
+    <Compile Include="OpenAccount\Data\Sina\DirectMessage\DirectMessages.cs" />
+    <Compile Include="OpenAccount\Data\Sina\Emotion\EmotionInfo.cs" />
+    <Compile Include="OpenAccount\Data\Sina\Emotion\Emotions.cs" />
+    <Compile Include="OpenAccount\Data\Sina\Emotion\EmotionType.cs" />
+    <Compile Include="OpenAccount\Data\Sina\Relationship\RelationshipInfo.cs" />
+    <Compile Include="OpenAccount\Data\Sina\Relationship\RelationshipPart.cs" />
+    <Compile Include="OpenAccount\Data\Sina\SinaWeibo.cs" />
+    <Compile Include="OpenAccount\Data\Sina\Status\Statuses.cs" />
+    <Compile Include="OpenAccount\Data\Sina\Status\StatusInfo.cs" />
+    <Compile Include="OpenAccount\Data\Sina\Status\StatusType.cs" />
+    <Compile Include="OpenAccount\Data\Sina\Status\UpdateStatusInfo.cs" />
+    <Compile Include="OpenAccount\Data\Sina\Status\UpdateStatusWithPicInfo.cs" />
+    <Compile Include="OpenAccount\Data\Sina\Tag\TagID.cs" />
+    <Compile Include="OpenAccount\Data\Sina\Tag\TagInfo.cs" />
+    <Compile Include="OpenAccount\Data\Sina\Trend\PeriodTrends.cs" />
+    <Compile Include="OpenAccount\Data\Sina\Trend\TrendInfo.cs" />
+    <Compile Include="OpenAccount\Data\Sina\Trend\Trends.cs" />
+    <Compile Include="OpenAccount\Data\Sina\Url\UrlInfo.cs" />
+    <Compile Include="OpenAccount\Data\Sina\User\UserIDs.cs" />
+    <Compile Include="OpenAccount\Data\Sina\User\UserInfo.cs" />
+    <Compile Include="OpenAccount\Data\Sina\User\Users.cs" />
+    <Compile Include="OpenAccount\Data\Sina\User\UserSuggestionInfo.cs" />
+    <Compile Include="OpenAccount\Domain\UserWeiboSetting.cs" />
+    <Compile Include="OpenAccount\Domain\WeiboType.cs" />
+    <Compile Include="OpenAccount\Interface\IUserWeiboSettingService.cs" />
+    <Compile Include="OpenAccount\Service\UserWeiboSettingService.cs" />
     <Compile Include="Web\Context\ContextInit.cs" />
     <Compile Include="Web\Context\Helper\IInitHelper.cs" />
     <Compile Include="Web\Context\Helper\InitHelperFactory.cs" />
@@ -543,6 +649,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Members\Sites\Security\" />
+    <Folder Include="OpenAccount\Controller\Admin\" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

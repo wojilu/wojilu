@@ -61,6 +61,10 @@
     <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Newtonsoft.Json, Version=4.5.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Lib\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="System">
       <Name>System</Name>
     </Reference>
@@ -111,6 +115,8 @@
     <Compile Include="Admin\Groups\LayoutController.cs" />
     <Compile Include="Admin\Groups\partial\GroupController.cs" />
     <Compile Include="Admin\Members\partial\UserController.cs" />
+    <Compile Include="Admin\OpenAccount\UserWeiboSettingController.cs" />
+    <Compile Include="Admin\OpenAccount\WeiboTypeController.cs" />
     <Compile Include="Admin\SecurityController.cs" />
     <Compile Include="Admin\MainController.cs" />
     <Compile Include="Admin\Security\partial\PermissionBackController.cs" />
@@ -216,6 +222,7 @@
     <Compile Include="Users\Admin\Friends\SecurityController.cs" />
     <Compile Include="Users\Admin\partial\MsgController.cs" />
     <Compile Include="Admin\Spiders\SecurityController.cs" />
+    <Compile Include="Users\Admin\AccountBindController.cs" />
     <Compile Include="Users\Caching\Actions\UserMainIndexCache.cs" />
     <Compile Include="Users\Caching\Actions\UserMainLayoutCache.cs" />
     <Compile Include="Users\Caching\UserMainPageCache.cs" />

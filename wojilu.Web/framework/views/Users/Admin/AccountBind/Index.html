@@ -1,0 +1,130 @@
+﻿<div class="sync_list">
+<ul>
+     <!-- BEGIN list -->
+      <li class="">
+           <!-- BEGIN unSync -->
+           <a class="sync_title" href="javascript:;"><strong class="text">同步到</strong>
+              <img width="116" height="35" src="#{w.Logo}" alt="#{w.Name}" title="#{w.Name}">
+          </a>
+           <p class="sync_bind_acts">
+              <em></em><a href="#{w.ConnectUrl}">点击绑定#{w.Name}帐号</a>
+           </p>
+            <!-- END unSync -->
+             <!-- BEGIN sync -->
+           <div class="sync_bind">
+              <img width="16" height="16" src="~img/app/Weibo/ok.gif" alt="绑定成功">
+              <b>已绑定#{w.Name}</b>
+              <img width="16" height="16" src="http://www.xiami.com/favicon.ico" alt="#{w.WebSite}" title="#{w.WebSite}">
+              <em></em>
+              <img width="16" height="16" src="#{w.Logo}" alt="#{w.Name}" title="#{w.Logo}">
+          </div>
+          <div class="sync_detail">
+              <p class="sync_unbind_acts">
+                  <a href="#{w.UnbindLink}" class="unbind deleteCmd" title="解除绑定">解除绑定</a>
+                  <label>
+                      <input class="checkbind" type="checkbox" #{w.isSync} rel="#{w.SyncLink}">
+                      同步分享</label>
+              </p>
+            
+         </div>
+          <!-- END sync -->
+        <i></i>
+      </li>
+     <!-- END list -->
+ </ul>
+</div>
+ <style>
+
+  .sync_list ul li i {
+    background: url("http://www.xiami.com/res/img/common/fold.png") no-repeat scroll 0 0 transparent;
+    display: block;
+    height: 10px;
+    position: absolute;
+    right: 25px;
+    top: 32px;
+    width: 10px;
+}
+.sync_list ul li  a.sync_title {
+  color: #000000;
+  display: block;
+  padding: 20px 0 20px 15px;
+  position: relative;
+  text-decoration: none;
+}
+.sync_list ul li * {
+  vertical-align: middle;
+}
+.sync_list ul li  em {
+  background: url("http://www.xiami.com/res/img/default/arrow.png") no-repeat scroll 0 0 transparent;
+  display: inline-block;
+  height: 11px;
+  margin: 0 5px;
+  width: 17px;
+}
+.sync_list ul li.unfold {
+  background: none repeat scroll 0 0 #F6F6F6;
+}
+
+.sync_list ul li {
+  border-bottom: 1px dotted #CCCCCC;
+  display: block;
+  position: relative;
+  cursor:pointer; 
+}
+
+.sync_list ul li .sync_bind {
+  color: #666666;
+  cursor: pointer;
+  height: 75px;
+  line-height: 75px;
+  padding: 0 0 0 15px;
+  position: relative;
+}
+
+ .sync_detail{ display:none;}
+ .sync_bind_acts{ display:none;}
+.sync_list ul li.unfold i {
+  background: url("http://www.xiami.com/res/img/common/unfold.png") no-repeat scroll 0 0 transparent;
+  height: 2px;
+  right: 25px;
+  top: 36px;
+  width: 10px;
+}
+
+.sync_list ul li.unfold .sync_bind_acts,.sync_list ul li.unfold .sync_detail{
+ display:block;
+}
+
+ </style>
+
+ <script>
+
+   
+     _run(function () {
+         $('.checkbind').change(function (event) {
+             var isSync = $(this).attr("checked") == "checked" ? 1 : 0;
+             var cb = $(this);
+             cb.attr("disabled", "disabled");
+             $.post($(this).attr('rel'), { 'isSync': isSync }, function (data) {
+                 cb.removeAttr("disabled");
+             });
+
+         });
+     });
+
+     _run(function () {
+         $(".sync_list ul li").click(function () {
+
+             var j = $(this);
+             if (j.attr("class") == "unfold") {
+                 j.attr("class", "");
+             }
+             else {
+                 j.attr("class", "unfold");
+             }
+
+         });
+
+     })
+  
+ </script>

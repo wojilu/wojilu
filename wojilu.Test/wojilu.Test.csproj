@@ -35,6 +35,9 @@
     <Reference Include="mysql.data">
       <HintPath>..\Lib\mysql.data.dll</HintPath>
     </Reference>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>..\Lib\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="nunit.framework">
       <HintPath>..\Lib\nunit.framework.dll</HintPath>
     </Reference>
@@ -69,6 +72,7 @@
     <Compile Include="Common\Jsons\ObjectToJsonString.cs" />
     <Compile Include="Common\PageTest.cs" />
     <Compile Include="Common\PathUtilTest.cs" />
+    <Compile Include="Platform\QQWeiboTest.cs" />
     <Compile Include="Platform\TagTest.cs" />
     <Compile Include="Web\Mvc\RouteTestNew.cs" />
     <Compile Include="Web\Utils\PlatformTemplateTest.cs" />
