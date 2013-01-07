@@ -43,7 +43,7 @@ namespace wojilu.IO {
             if (strUtil.IsNullOrEmpty( path )) return "";
 
             if (SystemInfo.IsWeb == false) {
-
+                // 在web 中也可以用，BaseDirectory=D:\wojilu1.8\src\wojilu.Web\
                 return strUtil.Join( AppDomain.CurrentDomain.BaseDirectory, path.Replace( "/", "\\" ), "\\" );
             }
             else {

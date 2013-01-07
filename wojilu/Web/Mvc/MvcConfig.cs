@@ -34,7 +34,7 @@ namespace wojilu.Web.Mvc {
         }
 
         /// <summary>
-        /// 路由文件的路径。默认是 /framework/config/route.config
+        /// 路由文件的绝对路径。默认是根目录绝对路径加上 /framework/config/route.config
         /// </summary>
         public String RouteConfigPath { get { return _routeConfigPath; } }
 

@@ -1,4 +1,4 @@
-/*
+ï»¿/*
  * Copyright 2010 www.wojilu.com
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -21,12 +21,17 @@ using System.Text;
 namespace wojilu.Web.Mvc.Routes {
 
     /// <summary>
-    /// Â·ÓÉÅäÖÃ³éÏó»ùÀà
+    /// è·¯ç”±é…ç½®æŠ½è±¡åŸºç±»
     /// </summary>
     public abstract class RouteConfig {
 
         public abstract Boolean isParseAppId();
         public abstract String urlExt();
+
+        /// <summary>
+        /// è¿”å›ç»å¯¹è·¯å¾„
+        /// </summary>
+        /// <returns></returns>
         public abstract String getConfigPath();
 
         public static RouteConfig Instance = getConfig();
@@ -38,7 +43,7 @@ namespace wojilu.Web.Mvc.Routes {
     }
 
     /// <summary>
-    /// ÓÃ»§²âÊÔµÄÂ·ÓÉÅäÖÃ
+    /// ç”¨æˆ·æµ‹è¯•çš„è·¯ç”±é…ç½®
     /// </summary>
     public class RouteConfigTest : RouteConfig {
 
@@ -57,7 +62,7 @@ namespace wojilu.Web.Mvc.Routes {
     }
 
     /// <summary>
-    /// Â·ÓÉÅäÖÃ
+    /// è·¯ç”±é…ç½®
     /// </summary>
     public class RouteConfigFile : RouteConfig {
 
