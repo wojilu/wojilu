@@ -47,7 +47,8 @@ namespace wojilu.Web.GlobalApp {
 
         protected StringBuilder getErrorInfo( HttpApplication app ) {
 
-            ex = app.Server.GetLastError().GetBaseException();
+            Exception exLast = app.Server.GetLastError();
+            ex = exLast.GetBaseException();
             ex = wrapStaticFileException( ex );
 
             HttpRequest req = getRequest( app );
@@ -55,8 +56,8 @@ namespace wojilu.Web.GlobalApp {
             if (req == null) {
                 StringBuilder sb = new StringBuilder();
                 sb.AppendLine( "ex.Message=" + ex.Message );
-                sb.AppendLine( "ex.Source=" + getExSource() );
-                sb.AppendLine( "ex.StackTrace=" + getExStackTrace() );
+                sb.AppendLine( "ex.Source=" + getExSource( ex ) );
+                sb.AppendLine( "ex.StackTrace=" + getExStackTrace( ex, exLast ) );
                 return sb;
             }
             else {
@@ -64,8 +65,8 @@ namespace wojilu.Web.GlobalApp {
                 sb.AppendLine( "url=" + req.Url.ToString() );
                 sb.AppendLine( "ex.Message=" + ex.Message );
                 appendPostValues( "ex.PostedValue=", req.Form, sb );
-                sb.AppendLine( "ex.Source=" + getExSource() );
-                sb.AppendLine( "ex.StackTrace=" + getExStackTrace() );
+                sb.AppendLine( "ex.Source=" + getExSource( ex ) );
+                sb.AppendLine( "ex.StackTrace=" + getExStackTrace( ex, exLast ) );
                 return sb;
             }
         }
@@ -102,12 +103,38 @@ namespace wojilu.Web.GlobalApp {
             sb.AppendLine();
         }
 
-        private String getExSource() {
-            return strUtil.HasText( ex.Source ) ? ex.Source : ex.InnerException.Source;
+        private static String getExSource( Exception ex ) {
+
+            if (strUtil.HasText( ex.Source )) return ex.Source;
+
+            if (ex.InnerException != null) return ex.InnerException.Source;
+
+            return "";
         }
 
-        private String getExStackTrace() {
-            return strUtil.HasText( ex.StackTrace ) ? ex.StackTrace : ex.InnerException.StackTrace;
+        private static String getExStackTrace_Private( Exception ex, Exception added ) {
+            if (ex == null) return "";
+            StringBuilder sb = new StringBuilder();
+
+            if (ex.InnerException != null && ex.InnerException != added) {
+                sb.Append( ex.InnerException.StackTrace );
+                sb.AppendLine();
+                sb.AppendLine();
+            }
+
+            if (strUtil.HasText( ex.StackTrace )) {
+                sb.Append( ex.StackTrace );
+                sb.AppendLine();
+                sb.AppendLine();
+            }
+
+            return sb.ToString();
+        }
+
+        private static String getExStackTrace( Exception ex, Exception exLast ) {
+
+            return getExStackTrace_Private( ex, null )
+                + getExStackTrace_Private( exLast, ex );
         }
 
         protected String getXHtmlTemplate() {
