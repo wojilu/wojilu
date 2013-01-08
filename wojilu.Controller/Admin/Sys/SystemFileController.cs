@@ -185,6 +185,7 @@ namespace wojilu.Web.Controller.Admin.Sys {
             }
 
             String templateContent = strUtil.EncodeTextarea( file.Read( filePath ) );
+            templateContent = templateContent.Replace( "#{", "&#35;{" );
             set( "templateContent", templateContent );
             set( "editTip", this.getEditTip() );
         }
@@ -372,12 +373,9 @@ namespace wojilu.Web.Controller.Admin.Sys {
                 return;
             }
 
-
-
-            String cmdBackup = "<div style=\"padding:5px 0px;\"><label><input name=\"IsBackupLast\" type=\"checkbox\" /> " + lang( "editBackupLast" ) + "</label></div>";
+            String cmdBackup = "<div style=\"padding:5px 0px;\"><label><input name=\"IsBackupLast\" type=\"checkbox\" checked=\"checked\" /> " + lang( "editBackupLast" ) + "</label></div>";
             set( "backupCmd", cmdBackup );
             set( "disabled", "" );
-
 
             String lnkRestore = to( Restore ) + "?file=" + fileName;
             String imgBackup = strUtil.Join( sys.Path.Img, "back.gif" );
