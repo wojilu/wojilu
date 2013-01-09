@@ -112,9 +112,6 @@
     <Compile Include="Common\Comments\OpenComment.cs" />
     <Compile Include="Common\Microblogs\MicroblogAppSetting.cs" />
     <Compile Include="Common\Microblogs\Service\SysMicroblogCommentService.cs" />
-    <Compile Include="Common\MicroblogSync\IMicroblogSync.cs" />
-    <Compile Include="Common\MicroblogSync\MicroblogSyncConfig.cs" />
-    <Compile Include="Common\MicroblogSync\MicroblogSyncManager.cs" />
     <Compile Include="Common\Picks\Domain\DataPickBase.cs" />
     <Compile Include="Common\Picks\Domain\ImgPickBase.cs" />
     <Compile Include="Common\Picks\Service\DataPickService.cs" />

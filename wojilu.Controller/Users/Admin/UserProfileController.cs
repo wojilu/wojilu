@@ -53,7 +53,7 @@ namespace wojilu.Web.Controller.Users.Admin {
             set( "viewer.InterestUrl", to( Interest ) );
             set( "viewer.ContactLink", to( Contact ) );
             set( "viewer.TagUrl", to( Tag ) );
-            set( "viewer.AccountBind", to( AccountBind ) );                
+
             set( "viewer.FaceUrl", to( Face ) );
             set( "viewer.PwdUrl", to( Pwd ) );
 
@@ -68,13 +68,6 @@ namespace wojilu.Web.Controller.Users.Admin {
             }
         }
         //----------------------------------------------------------------------------------------------------------
-
-        public void AccountBind() {
-            set( "accountBindInfo", to( AccountBindInfo ) );
-        }
-
-        public void AccountBindInfo() {
-        }
 
         public void Face() {
 

@@ -151,19 +151,7 @@ namespace wojilu.Common.Microblogs.Service {
                 }
             }
 
-            if (result.IsValid)
-            {
-                addFeedInfo(blog);
-                //如果不是转发的微博那就同步
-                if (blog.ParentId == 0)
-                {
-                    string picUrl = string.IsNullOrEmpty(blog.PicOriginal) ? null : PathHelper.Map(blog.PicOriginal);
-                    if (string.IsNullOrEmpty(picUrl))
-                        MicroblogSyncManager.Instance.Sync(blog.User, rcontent);
-                    else
-                        MicroblogSyncManager.Instance.SyncWithPic(blog.User, rcontent, picUrl);
-                }
-            }
+            if (result.IsValid) addFeedInfo( blog );
 
         }
 
