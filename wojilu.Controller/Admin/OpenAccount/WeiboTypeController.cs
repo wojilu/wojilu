@@ -22,7 +22,7 @@ namespace wojilu.Web.Controller.Admin.OpenAccount {
             foreach (WeiboType a in types) {
                 string callbackUrl = string.Empty;
                 if (a.Name.ToLower() == "sina") {
-                    callbackUrl = ctx.url.SiteUrl.TrimEnd( '/' ) + to( new wojilu.Web.Controller.Users.Admin.AccountBindController().SinaWeiboCallback );
+                    callbackUrl = ctx.url.SiteUrl.TrimEnd( '/' ) + to( new ConnectController().SinaWeiboCallback );
                 }
                 block.Set( "w.Name", a.Name );
                 block.Set( "w.FriendName", a.FriendName );

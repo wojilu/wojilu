@@ -11,6 +11,8 @@ using wojilu.weibo.Service;
 
 using wojilu.Members.Users.Interface;
 using wojilu.Members.Users.Service;
+using wojilu.weibo.Core.QQWeibo;
+using wojilu.Members.Sites.Domain;
 
 namespace wojilu.Web.Controller.Users.Admin {
 
@@ -26,10 +28,18 @@ namespace wojilu.Web.Controller.Users.Admin {
             userService = new UserService();
             loginService = new LoginService();
             _weiboService = new UserWeiboSettingService();
+
+            LayoutControllerType = typeof( UserProfileController );
         }
 
         [Login]
         public void Index() {
+
+            UserWeiboSetting x = db.find<UserWeiboSetting>( "WeiboType=:id and AccessToken=:token and AccessSecret=:secret" )
+         .set( "id", 2 )
+         .set( "token", "" )
+         .set( "secret", "" ).first();
+
             //set( "sinaLink", to( new WeiboRegisterController().Connect ) + "?type=sina" );
             //set( "qqweiboLink", to( new WeiboRegisterController().Connect ) + "?type=qqweibo" );
             IBlock block = getBlock( "list" );
@@ -95,6 +105,7 @@ namespace wojilu.Web.Controller.Users.Admin {
             }
         }
 
+        [Login]
         public void Connect( int id ) {
             WeiboType type = WeiboType.GetById( id );
             if (type == null) {
@@ -102,42 +113,38 @@ namespace wojilu.Web.Controller.Users.Admin {
                 return;
             }
 
-            String lnkBindHome = to( Index );
-
-            String lnkCallback = "";
-            if (type.Name == "qqweibo") {
-                lnkCallback = to( QQWeiboCallback );
-            }
-            else if (type.Name == "sina") {
-                lnkCallback = to( SinaWeiboCallback );
-            }
+            String callbackUrl = getCallbackUrl( type );
 
             IOAuthRequestStrategy strategy = OAuthRequestFactory.GetStrategy( type.Name );
             if (strategy != null) {
-                strategy.RedirectToAuthorizationUri( ctx, lnkBindHome, lnkCallback );
+                String url = strategy.GetAuthorizationUri( callbackUrl );
+                if (url == null) {
+                    echoError( "对不起，绑定失败。请稍后重试。" );
+                }
+                else {
+                    ctx.web.SessionSet( type.Name, getOauthKey( type ) );
+                    redirectUrl( url );
+                }
             }
         }
 
-        public void QQWeiboCallback() {
-
-            String lnkBindHome = to( Index );
-            String lnkCallback = to( QQWeiboCallback );
-
-            IOAuthRequestStrategy strategy = OAuthRequestFactory.GetQQWeiboStrategy();
-            if (strategy != null) {
-                strategy.ProcessCallback( ctx, lnkBindHome, lnkCallback );
-            }
+        private OauthKey getOauthKey( WeiboType type ) {
+            return new OauthKey( type.AppKey, type.AppSecret );
         }
 
-        public void SinaWeiboCallback() {
-
-            String lnkBindHome = to( Index );
-            String lnkCallback = to( SinaWeiboCallback );
-
-            IOAuthRequestStrategy strategy = OAuthRequestFactory.GetSinaStrategy();
-            if (strategy != null) {
-                strategy.ProcessCallback( ctx, lnkBindHome, lnkCallback );
+        private String getCallbackUrl( WeiboType type ) {
+            String callbackUrl = "";
+            if (type.Name == "qqweibo") {
+                callbackUrl = Link.To( Site.Instance, new ConnectController().QQWeiboCallback );
             }
+            else if (type.Name == "sina") {
+                callbackUrl = Link.To( Site.Instance, new ConnectController().SinaWeiboCallback );
+            }
+
+            callbackUrl = strUtil.Join( ctx.url.SiteUrl, callbackUrl );
+            return callbackUrl;
         }
+
+
     }
 }

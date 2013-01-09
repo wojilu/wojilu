@@ -27,27 +27,23 @@ namespace wojilu.weibo.Core
 
             if (string.IsNullOrEmpty(setting.AccessToken) || string.IsNullOrEmpty(setting.AccessSecret))
                 return;
-             QQWeibo.OauthKey oauthKey = new QQWeibo.OauthKey(type.AppKey,type.AppSecret,setting.AccessToken,setting.AccessSecret);
+             OauthKey oauthKey = new OauthKey(type.AppKey,type.AppSecret,setting.AccessToken,setting.AccessSecret);
 
-             T twit = new T(oauthKey, "json");
-            //暂时用127.0.0.1处理，因为这里得没办法得到ip值
+             T twit = new T( oauthKey, "json" );
+             //暂时用127.0.0.1处理，因为这里得没办法得到ip值
              string ip = "127.0.0.1";
              string result;
-             try
-             {
-             
-                 if (string.IsNullOrEmpty(picUrl))
-                 {
-                    result= twit.add(text, ip, "", "");
+             try {
+
+                 if (string.IsNullOrEmpty( picUrl )) {
+                     result = twit.add( text, ip, "", "" );
                  }
-                 else
-                 {
-                     result =  twit.add_pic(text, ip, "", "", picUrl);
+                 else {
+                     result = twit.add_pic( text, ip, "", "", picUrl );
                  }
              }
-             catch (Exception ex)
-             {
-                 log.Error(ex.Message);
+             catch (Exception ex) {
+                 log.Error( ex.Message );
              }
              log.Info("同步成功");
         }
