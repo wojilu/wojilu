@@ -6,14 +6,15 @@ using System.Web;
 using System.Security.Cryptography;
 
 
-namespace wojilu.weibo.Core.QQWeibo {
+namespace wojilu.weibo.Core.QQWeibo
+{
     /// <summary>
     /// 
     /// </summary>
     /// <remarks></remarks>
-    public class OauthKey {
+    public class OauthKey
+    {
 
-        private static readonly ILog logger = LogManager.GetLogger( typeof( OauthKey ) );
 
         /// <summary>
         /// 
@@ -29,11 +30,12 @@ namespace wojilu.weibo.Core.QQWeibo {
         public const string urlAccessToken = "https://open.t.qq.com/cgi-bin/access_token";
 
 
-        public string WeiboName {
+        public string WeiboName
+        {
             get;
             private set;
         }
-
+       
         /// <summary>
         /// Gets or sets the custom key.
         /// </summary>
@@ -58,19 +60,19 @@ namespace wojilu.weibo.Core.QQWeibo {
         /// <value>The token secret.</value>
         /// <remarks></remarks>
         public string tokenSecret { get; set; }
-
+       
         /// <summary>
         /// Gets or sets the verify.
         /// </summary>
         /// <value>The verify.</value>
         /// <remarks></remarks>
-        public string verify { get; set; }
+        public string verify    { get; set;}
         /// <summary>
         /// Gets or sets the callback URL.
         /// </summary>
         /// <value>The callback URL.</value>
         /// <remarks></remarks>
-        public string callbackUrl { get; set; }
+        public string callbackUrl   { get; set;}
 
 
         /// <summary>
@@ -81,7 +83,8 @@ namespace wojilu.weibo.Core.QQWeibo {
         public Encoding Charset { get; set; }
 
         public OauthKey()
-            : this( null, null ) {
+            : this(null, null)
+        {
         }
 
         /// <summary>
@@ -90,12 +93,13 @@ namespace wojilu.weibo.Core.QQWeibo {
         /// <param name="consumerKey">The pcustomkey.</param>
         /// <param name="consumerSecret">The pcustomsecret.</param>
         /// <remarks></remarks>
-        public OauthKey( string consumerKey, string consumerSecret )
-            : this( consumerKey, consumerSecret, null, null ) {
-
+        public OauthKey(string consumerKey, string consumerSecret) : this(consumerKey,consumerSecret,null,null)
+        {
+        
         }
 
-        public OauthKey( string consumerKey, string consumerSecret, string accessToken, string accessSecret ) {
+        public OauthKey(string consumerKey, string consumerSecret,string accessToken,string accessSecret)
+        {
             this.consumerKey = consumerKey;
             this.consumerSecret = consumerSecret;
             this.tokenKey = accessToken;
@@ -105,11 +109,12 @@ namespace wojilu.weibo.Core.QQWeibo {
             callbackUrl = null;
         }
 
-        public string GetOAuthUrl() {
+        public string GetOAuthUrl()
+        {
             return urlUserAuthrize + "?oauth_token=" + tokenKey;
         }
 
-
+      
 
         /// <summary> 获取request token
         /// Gets the request token.
@@ -117,8 +122,9 @@ namespace wojilu.weibo.Core.QQWeibo {
         /// <param name="callback">The callback.</param>
         /// <returns></returns>
         /// <remarks></remarks>
-        public bool GetRequestToken( string callback ) {
-            return GetRequestToken( OauthKey.urlRequesToken, callback );
+        public bool GetRequestToken(string callback)
+        {
+            return GetRequestToken(OauthKey.urlRequesToken,callback);
         }
 
         /// <summary>获取request token 重载
@@ -128,16 +134,18 @@ namespace wojilu.weibo.Core.QQWeibo {
         /// <param name="callback">The callback.</param>
         /// <returns></returns>
         /// <remarks></remarks>
-        public bool GetRequestToken( string requesturl, string callback ) {
+        public bool GetRequestToken(string requesturl, string callback)
+        {
             List<Parameter> parameters = new List<Parameter>();
-            if (string.IsNullOrEmpty( callback )) {
+            if (string.IsNullOrEmpty(callback))
+            {
                 this.callbackUrl = "http://www.qq.com";
             }
             else
                 this.callbackUrl = callback;
 
-            QWeiboRequest request = new QWeiboRequest();
-            return ParseToken( request.SyncRequest( urlRequesToken, "GET", this, parameters, null ) );
+             QWeiboRequest request = new QWeiboRequest();
+             return ParseToken(request.SyncRequest(urlRequesToken, "GET", this, parameters, null));
 
         }
 
@@ -147,9 +155,10 @@ namespace wojilu.weibo.Core.QQWeibo {
         /// <param name="verifier">The verifier.</param>
         /// <returns></returns>
         /// <remarks></remarks>
-        //public bool GetAccessToken( string verifier ) {
-        //    return this.GetAccessToken( OauthKey.urlAccessToken, verifier );
-        //}
+        public bool GetAccessToken(string verifier)
+        {
+            return this.GetAccessToken(OauthKey.urlAccessToken,verifier);
+        }
 
 
         /// <summary>获取access token 重载
@@ -159,34 +168,15 @@ namespace wojilu.weibo.Core.QQWeibo {
         /// <param name="verifier">The verifier.</param>
         /// <returns></returns>
         /// <remarks></remarks>
-        public bool GetAccessToken( string callbackUrl, string verifier ) {
-            List<Parameter> parameters = new List<Parameter>();
-            this.verify = verifier;
+        public bool GetAccessToken(string url, string verifier)
+        {
+              List<Parameter> parameters = new List<Parameter>();
+              this.verify = verifier;
 
-            QWeiboRequest request = new QWeiboRequest();
-
+              QWeiboRequest request = new QWeiboRequest();
             //很重要
-            //this.callbackUrl = RFC3986_UrlEncode( callbackUrl );
-            this.callbackUrl = null;
-
-            return ParseToken( request.SyncRequest( urlAccessToken, "GET", this, parameters, null ) ); ;
-        }
-
-        public static string RFC3986_UrlEncode( string input ) {
-            string unreservedChars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-_.~";
-            StringBuilder result = new StringBuilder();
-            byte[] byStr = System.Text.Encoding.UTF8.GetBytes( input );
-
-            foreach (byte symbol in byStr) {
-                if (unreservedChars.IndexOf( (char)symbol ) != -1) {
-                    result.Append( (char)symbol );
-                }
-                else {
-                    result.Append( '%' + Convert.ToString( (char)symbol, 16 ).ToUpper() );
-                }
-            }
-
-            return result.ToString();
+              this.callbackUrl = null;
+              return ParseToken(request.SyncRequest(url, "GET", this, parameters, null));;
         }
 
         /// <summary> 解析返回结果
@@ -195,45 +185,48 @@ namespace wojilu.weibo.Core.QQWeibo {
         /// <param name="response">The response.</param>
         /// <returns></returns>
         /// <remarks></remarks>
-        private bool ParseToken( string response ) {
-
-            logger.Info( "response=" + response );
-
-            if (string.IsNullOrEmpty( response )) {
+        private bool ParseToken(string response)
+        {
+            if (string.IsNullOrEmpty(response))
+            {
                 return false;
             }
 
-            string[] tokenArray = response.Split( '&' );
+            string[] tokenArray = response.Split('&');
 
-            if (tokenArray.Length < 2) {
+            if (tokenArray.Length < 2)
+            {
                 return false;
             }
 
             string strTokenKey = tokenArray[0];
             string strTokenSecrect = tokenArray[1];
+          
 
-
-            string[] token1 = strTokenKey.Split( '=' );
-            if (token1.Length < 2) {
+            string[] token1 = strTokenKey.Split('=');
+            if (token1.Length < 2)
+            {
                 return false;
             }
             tokenKey = token1[1];
 
-            string[] token2 = strTokenSecrect.Split( '=' );
-            if (token2.Length < 2) {
+            string[] token2 = strTokenSecrect.Split('=');
+            if (token2.Length < 2)
+            {
                 return false;
             }
             tokenSecret = token2[1];
 
-            if (tokenArray.Length > 2) {
-                WeiboName = tokenArray[2].Split( '=' )[1];
+            if (tokenArray.Length>2)
+            {
+                WeiboName = tokenArray[2].Split('=')[1];
             }
-
+           
 
             return true;
         }
 
 
-
+        
     }
 }

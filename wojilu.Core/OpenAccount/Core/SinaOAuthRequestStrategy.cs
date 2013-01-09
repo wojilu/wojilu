@@ -15,9 +15,7 @@ using wojilu.Members.Users.Service;
 using wojilu.Common;
 
 namespace wojilu.weibo.Core {
-
     public class SinaOAuthRequestStrategy : IOAuthRequestStrategy {
-
         private static ILog log = LogManager.GetLogger( typeof( SinaOAuthRequestStrategy ) );
 
         IUserWeiboSettingService _weiboService;
@@ -37,38 +35,53 @@ namespace wojilu.weibo.Core {
             loginService = new LoginService();
         }
 
-        public string GetAuthorizationUri( String callbackUrl ) {
+        public void RedirectToAuthorizationUri( MvcContext ctx, String indexUrl, String callbackUrl ) {
             SinaWeibo w = new SinaWeibo( type.AppKey, type.AppSecret );
-            return w.GetAuthorizationUri( callbackUrl );
+            //controller.redirectUrl( w.GetAuthorizationUri( getCallbackUrl( ctx, callbackUrl ) ) );
         }
 
-        public Result ProcessCallback( int userId, String code, String callbackUrl ) {
-
-            Result result = new Result();
-
+        public void ProcessCallback( MvcContext ctx, String indexUrl, String callbackUrl ) {
+            string code = ctx.Get( "code" );
+            if (string.IsNullOrEmpty( code )) {
+                //controller.echoRedirect( "请不要直接进入此页面" );
+                return;
+            }
             SinaWeibo w = new SinaWeibo( type.AppKey, type.AppSecret );
 
-            SinaOAuthAccessToken token = w.GetAccessTokenByAuthorizationCode( code, callbackUrl );
+            SinaOAuthAccessToken token = w.GetAccessTokenByAuthorizationCode( code, getCallbackUrl( ctx, callbackUrl ) );
 
             UserWeiboSetting setting = _weiboService.Find( type.Id, token.Token, string.Empty );
 
             //如果用户已经微博绑定此帐户
             if (setting != null) {
-                result.Add( "对不起，已经绑定" );
-                return result;
+                //这里做用户登陆处理
+                User user = userService.GetById( setting.UserId );
+                if (user != null) {
+                    loginService.Login( user, LoginTime.OneMonth, ctx.Ip, ctx );
+                    //controller.redirectUrl( "/" );
+                    return;
+                }
+                else {
+                    //controller.echoRedirect( "发生未知错误，请重试" );
+                    return;
+                }
             }
 
             w.SetToken( token.Token );
 
             Data.Sina.User.UserInfo weiboUser = w.GetUserInfo( long.Parse( token.UserID ) );
             if (weiboUser == null) {
-                result.Add( "很抱歉，获取失败，请重试" );
-                return result;
+                //controller.echoRedirect( "很抱歉，获取失败，请重试", indexUrl );
+                return;
             }
-
+            //用户是未登陆，那就是用户通过微博注册或是通过此微博直接登陆
+            if (!ctx.viewer.IsLogin) {
+                redirectSinaWeiboRegister( ctx, token, weiboUser.ScreenName, weiboUser.ProfileImageUrl );
+                return;
+            }
             //判断用户是否已经绑定了微博，没有绑定则添加，否则更新token
-            setting = _weiboService.Find( userId, type.Id );
-
+            setting = _weiboService.Find( ctx.viewer.Id, type.Id );
+            Result result;
             if (setting == null) {
                 setting = new UserWeiboSetting();
             }
@@ -82,7 +95,7 @@ namespace wojilu.weibo.Core {
             setting.RefreshToken = token.RefreshToken;
             setting.ExpireIn = token.ExpiresIn;
             setting.BindTime = DateTime.Now;
-            setting.UserId = userId;
+            setting.UserId = ctx.viewer.Id;
 
             if (setting.Id == default( int ))
                 result = _weiboService.Bind( setting );
@@ -90,11 +103,37 @@ namespace wojilu.weibo.Core {
                 result = _weiboService.Update( setting );
 
             if (result.HasErrors) {
-                log.Error( result.ErrorsText );
+                string error = string.Empty;
+                result.Errors.ForEach( c => error = error + c + System.Environment.NewLine );
+                log.Error( error );
+                //controller.echoRedirect( "很抱歉，绑定失败，请重试", indexUrl );
             }
-
-            return result;
+            else {
+                //controller.echoRedirect( "绑定成功" );
+            }
         }
 
+        private string getCallbackUrl( MvcContext ctx, String callbackUrl ) {
+
+
+            return strUtil.Join( ctx.url.SiteUrl, callbackUrl );
+        }
+
+        private void redirectSinaWeiboRegister( MvcContext ctx, SinaOAuthAccessToken token, string screenName, string profileImg ) {
+            UserWeiboSetting setting = new UserWeiboSetting {
+                AccessToken = token.Token,
+                ExpireIn = token.ExpiresIn,
+                IsSync = 1,
+                WeiboUid = token.UserID,
+                RefreshToken = token.RefreshToken,
+                WeiboType = type.Id,
+                AppId = ctx.owner.Id,
+                BindTime = DateTime.Now,
+                WeiboName = type.Name
+            };
+            WeiboSession session = new WeiboSession( setting, screenName, type.FriendName, profileImg );
+            ctx.web.SessionSet( WeiboSession.SessionName, session );
+            //ctx.web.Redirect(c.to(new WeiboRegisterController().Bind) + "?type=" + setting.WeiboName);
+        }
     }
 }

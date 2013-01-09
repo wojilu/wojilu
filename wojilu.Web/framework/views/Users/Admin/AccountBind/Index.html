@@ -1,68 +1,105 @@
-﻿<div style="padding:30px;">
-
-    <div style="margin:0px 10px 30px 10px;">
-        <div><span style="font-size:14px;">绑定帐号可以把您的信息同步给其他网站的更多好友。</span><a href="#" id="tipLink">绑定帐号有什么用？安全吗？</a></div>
-        <div style="display:none; " id="tipInfo">
-            <div style="padding:10px 5px; border:1px solid #ccc; margin-top:10px; background:#f2f2f2;">
-
-                <div style="margin:10px;">
-                    <div style="margin:5px; font-weight:bold;font-size:14px;">绑定帐号有什么用？</div>
-                    <div style="margin-left:5px;">将自己在本站的帐号和其他网站关联起来，比如新浪微博、腾讯微博等大型SNS网站。<strong style="color:Blue;">您在本站发布的微博等信息，可以自动同步到其他网站，再也不用您手动拷贝粘贴</strong>，方便及时分享给其他网站的好友。</div>
-                </div>
-
-                <div style="margin:20px 10px 10px 10px;">
-                    <div style="margin:5px; font-weight:bold;font-size:14px;">安全吗？</div>
-                    <div style="margin-left:5px;">放心，在绑定过程中，只有明确经过您的授权，帐号绑定才可以成功。绑定成功之后（比如新浪微博）如果您自己没有设定，也没有主动发布，本站不会向您的帐号推送任何广告或不良信息。</div>
-                </div>
-
-            </div>
-        </div>
-    </div>
-
-
-
-
-    <style>
-    .bindItem {width:90%; margin:10px 10px 30px 0px;}
-    .bindLogo { vertical-align:top; width:70px; text-align:right; padding-right:5px;}
-    .bindInfo div{ margin-bottom:5px;}
-    </style>
-
-<table class="bindItem">
-    <!-- BEGIN list -->
-
-    <!-- BEGIN unSync -->
-    <tr>
-        <td class="bindLogo"><img src="#{w.Logo}" alt="#{w.Name}" title="#{w.Name}" /></td>
-        <td class="bindInfo">      
-            <div>你还未绑定#{w.Name}</div>
-            <div><a href="#{w.ConnectUrl}" target="_blank">去#{w.Name}绑定 <img src="~img/s/external-link.png" /></a></div>
-        </td>        
-    </tr>
-    <!-- END unSync -->
-
-    <!-- BEGIN sync -->
-    <tr>
-        <td class="bindLogo"><img src="#{w.Logo}" alt="#{w.Name}" title="#{w.Name}" /></td>
-        <td class="bindInfo">      
-            <div>已绑定#{w.Name}</div>
-            <div><a href="#{w.UnbindLink}" class="deleteCmd">解除绑定</a></div>
-            <div><label>
+﻿<div class="sync_list">
+<ul>
+     <!-- BEGIN list -->
+      <li class="">
+           <!-- BEGIN unSync -->
+           <a class="sync_title" href="javascript:;"><strong class="text">同步到</strong>
+              <img width="116" height="35" src="#{w.Logo}" alt="#{w.Name}" title="#{w.Name}">
+          </a>
+           <p class="sync_bind_acts">
+              <em></em><a href="#{w.ConnectUrl}">点击绑定#{w.Name}帐号</a>
+           </p>
+            <!-- END unSync -->
+             <!-- BEGIN sync -->
+           <div class="sync_bind">
+              <img width="16" height="16" src="~img/app/Weibo/ok.gif" alt="绑定成功">
+              <b>已绑定#{w.Name}</b>
+              <img width="16" height="16" src="http://www.xiami.com/favicon.ico" alt="#{w.WebSite}" title="#{w.WebSite}">
+              <em></em>
+              <img width="16" height="16" src="#{w.Logo}" alt="#{w.Name}" title="#{w.Logo}">
+          </div>
+          <div class="sync_detail">
+              <p class="sync_unbind_acts">
+                  <a href="#{w.UnbindLink}" class="unbind deleteCmd" title="解除绑定">解除绑定</a>
+                  <label>
                       <input class="checkbind" type="checkbox" #{w.isSync} rel="#{w.SyncLink}">
-                      同步分享</label></div>
-        </td>        
-    </tr>
-    <!-- END sync -->
-
-    <!-- END list -->
-    
-</table>
-
-
+                      同步分享</label>
+              </p>
+            
+         </div>
+          <!-- END sync -->
+        <i></i>
+      </li>
+     <!-- END list -->
+ </ul>
 </div>
+ <style>
 
+  .sync_list ul li i {
+    background: url("http://www.xiami.com/res/img/common/fold.png") no-repeat scroll 0 0 transparent;
+    display: block;
+    height: 10px;
+    position: absolute;
+    right: 25px;
+    top: 32px;
+    width: 10px;
+}
+.sync_list ul li  a.sync_title {
+  color: #000000;
+  display: block;
+  padding: 20px 0 20px 15px;
+  position: relative;
+  text-decoration: none;
+}
+.sync_list ul li * {
+  vertical-align: middle;
+}
+.sync_list ul li  em {
+  background: url("http://www.xiami.com/res/img/default/arrow.png") no-repeat scroll 0 0 transparent;
+  display: inline-block;
+  height: 11px;
+  margin: 0 5px;
+  width: 17px;
+}
+.sync_list ul li.unfold {
+  background: none repeat scroll 0 0 #F6F6F6;
+}
 
- <script>   
+.sync_list ul li {
+  border-bottom: 1px dotted #CCCCCC;
+  display: block;
+  position: relative;
+  cursor:pointer; 
+}
+
+.sync_list ul li .sync_bind {
+  color: #666666;
+  cursor: pointer;
+  height: 75px;
+  line-height: 75px;
+  padding: 0 0 0 15px;
+  position: relative;
+}
+
+ .sync_detail{ display:none;}
+ .sync_bind_acts{ display:none;}
+.sync_list ul li.unfold i {
+  background: url("http://www.xiami.com/res/img/common/unfold.png") no-repeat scroll 0 0 transparent;
+  height: 2px;
+  right: 25px;
+  top: 36px;
+  width: 10px;
+}
+
+.sync_list ul li.unfold .sync_bind_acts,.sync_list ul li.unfold .sync_detail{
+ display:block;
+}
+
+ </style>
+
+ <script>
+
+   
      _run(function () {
          $('.checkbind').change(function (event) {
              var isSync = $(this).attr("checked") == "checked" ? 1 : 0;
@@ -73,10 +110,21 @@
              });
 
          });
-
-         $('#tipLink').click(function () {
-             $('#tipInfo').slideToggle('fast');
-             return false;
-         });
      });
-</script>
+
+     _run(function () {
+         $(".sync_list ul li").click(function () {
+
+             var j = $(this);
+             if (j.attr("class") == "unfold") {
+                 j.attr("class", "");
+             }
+             else {
+                 j.attr("class", "unfold");
+             }
+
+         });
+
+     })
+  
+ </script>

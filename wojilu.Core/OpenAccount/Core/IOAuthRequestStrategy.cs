@@ -16,17 +16,13 @@ namespace wojilu.weibo.Core
         /// 将用户导向用户授权页面
         /// </summary>
         /// <param name="ctx"></param>
-        //void RedirectToAuthorizationUri( MvcContext ctx, String indexUrl, String callbackUrl );
+        void RedirectToAuthorizationUri( MvcContext ctx, String indexUrl, String callbackUrl );
 
-        ///// <summary>
-        ///// 处理微博服务商的回调
-        ///// </summary>
-        ///// <param name="ctx"></param>
-        ///// <returns></returns>
-        //void ProcessCallback( MvcContext ctx, String indexUrl, String callbackUrl );
-
-        String GetAuthorizationUri( String callbackUrl );
-
-        Result ProcessCallback( int userId, String code, String callbackUrl );
+        /// <summary>
+        /// 处理微博服务商的回调
+        /// </summary>
+        /// <param name="ctx"></param>
+        /// <returns></returns>
+        void ProcessCallback( MvcContext ctx, String indexUrl, String callbackUrl );
     }
 }

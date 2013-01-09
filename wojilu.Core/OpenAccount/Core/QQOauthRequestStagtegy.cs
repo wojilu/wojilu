@@ -7,13 +7,12 @@ using wojilu.weibo.Domain;
 using wojilu.weibo.Service;
 using wojilu.Members.Users.Service;
 using wojilu.Web.Mvc;
-
+using wojilu.weibo.Core.QQWeibo;
 using wojilu.weibo.Controller.Weibo;
 using wojilu.Members.Users.Domain;
 using wojilu.Common;
 using Newtonsoft.Json.Linq;
 using wojilu.Web.Context;
-using wojilu.weibo.Core.QQWeibo;
 
 namespace wojilu.weibo.Core {
 
@@ -38,68 +37,79 @@ namespace wojilu.weibo.Core {
             loginService = new LoginService();
         }
 
-        public string GetAuthorizationUri( String callbackUrl ) {
+        public void RedirectToAuthorizationUri( MvcContext ctx, String indexUrl, String callbackUrl ) {
             OauthKey key = new OauthKey( type.AppKey, type.AppSecret );
             bool success = false;
             try {
-                success = key.GetRequestToken( callbackUrl );
+                success = key.GetRequestToken( getCallbackUrl( ctx, callbackUrl ) );
             }
             catch (Exception ex) {
                 log.Error( ex.Message );
             }
             if (success) {
-
-                return key.GetOAuthUrl();
-
+                ctx.web.SessionSet( "qqweibo", key );
+                ctx.web.Redirect( key.GetOAuthUrl() );
             }
             else {
-                return null;
+                //c.echoRedirect( "操作失败，请重试" );
             }
         }
 
-        public Result ProcessCallback( int userId, String verifier, String callbackUrl ) {
-
-            Result result = new Result();
-
-            OauthKey key = new OauthKey( type.AppKey, type.AppSecret );
-
-            Boolean success = false;
+        public void ProcessCallback( MvcContext ctx, String indexUrl, String callbackUrl ) {
+            OauthKey key = ctx.web.SessionGet( "qqweibo" ) as OauthKey;
+            string verifier = ctx.Get( "oauth_verifier" );
+            if (key == null || string.IsNullOrEmpty( verifier )) {
+                //c.echoRedirect( "请不要直接访问此页面", "/" );
+                return;
+            }
+            bool success = false;
             try {
-                success = key.GetAccessToken( callbackUrl, verifier );
+                success = key.GetAccessToken( verifier );
             }
             catch (Exception ex) {
                 log.Error( ex.Message );
-                result.Add( ex.Message );
-                return result;
             }
 
             if (!success) {
-                result.Add( "绑定错误" );
-                return result;
+                //c.echoRedirect( "绑定失败，请重试！", indexUrl );
+                return;
             }
-
             UserWeiboSetting setting = _weiboService.Find( type.Id, key.tokenKey, key.tokenSecret );
 
             //如果用户已经微博绑定此帐户
             if (setting != null) {
-                result.Add( "对不起，已经绑定" );
-                return result;
+                //这里做用户登陆处理
+                User user = userService.GetById( setting.UserId );
+                if (user != null) {
+                    loginService.Login( user, LoginTime.OneMonth, ctx.Ip, ctx );
+                    ctx.web.Redirect( "/" );
+                    return;
+                }
+                else {
+                    //c.echoRedirect( "发生未知错误，请重试", indexUrl );
+                    return;
+                }
             }
 
-            user qqUser = new user( key, "json" );
+            wojilu.weibo.Core.QQWeibo.user qqUser = new user( key, "json" );
 
             JToken weiboInfo = qqUser.info();
 
-            setting = _weiboService.Find( userId, type.Id );
+            if (!ctx.viewer.IsLogin) {
+                //redirectToRegister( c, key, weiboInfo["data"]["name"].ToString(), weiboInfo["data"]["head"].ToString() );
+                return;
+            }
 
+            setting = _weiboService.Find( ctx.viewer.Id, type.Id );
+            Result result;
             if (setting == null) {
                 result = _weiboService.Bind( new UserWeiboSetting {
                     AccessToken = key.tokenKey,
                     AccessSecret = key.tokenSecret,
                     IsSync = 1,
-                    UserId = userId,
+                    UserId = ctx.viewer.Id,
                     WeiboType = type.Id,
-                    AppId = 0,
+                    AppId = ctx.owner.Id,
                     BindTime = DateTime.Now,
                     WeiboName = type.Name,
                     WeiboUid = key.WeiboName
@@ -114,12 +124,36 @@ namespace wojilu.weibo.Core {
                 setting.BindTime = DateTime.Now;
                 result = _weiboService.Update( setting );
             }
-
             if (result.HasErrors) {
-                log.Error( result.ErrorsText );
+                string error = string.Empty;
+                result.Errors.ForEach( e => error = error + e + System.Environment.NewLine );
+                log.Error( error );
+                //c.echoRedirect( "很抱歉，绑定失败，请重试", indexUrl );
             }
+            else {
+                ctx.web.SessionSet( "qqweibo", null );
+                //c.echoRedirect( "绑定成功", indexUrl );
+            }
+        }
 
-            return result;
+        private string getCallbackUrl( MvcContext ctx, String lnkCallback ) {
+            return strUtil.Join( sys.Url.SiteUrl, lnkCallback );
+        }
+
+        private void redirectToRegister( MvcContext ctx, OauthKey key, string screenName, string profileImg ) {
+            UserWeiboSetting setting = new UserWeiboSetting {
+                AccessToken = key.tokenKey,
+                AccessSecret = key.tokenSecret,
+                IsSync = 1,
+                WeiboType = type.Id,
+                AppId = ctx.owner.Id,
+                BindTime = DateTime.Now,
+                WeiboName = type.Name,
+                WeiboUid = key.WeiboName
+            };
+            WeiboSession session = new WeiboSession( setting, screenName, type.FriendName, profileImg );
+            ctx.web.SessionSet( WeiboSession.SessionName, session );
+            //ctx.web.Redirect( c.to( new WeiboRegisterController().Bind ) + "?type=" + setting.WeiboName );
         }
     }
 }

@@ -1,26 +1,29 @@
-﻿using System;
-
+﻿using wojilu.Members.Users.Domain;
 using wojilu.ORM;
-using wojilu.Members.Users.Domain;
+using System;
 
-namespace wojilu.weibo.Domain {
-
-    [Table( "UsersWeiboSettings" )]
-    public class UserWeiboSetting : ObjectBase<UserWeiboSetting> {
-
+namespace wojilu.weibo.Domain
+{
+    [Table("UsersWeiboSettings")]
+    public class UserWeiboSetting : ObjectBase<UserWeiboSetting>
+    {
         public int AppId { get; set; }
 
         private User _user;
 
         [NotSave]
-        public User User {
-            get {
-                if (_user == null) {
-                    _user = User.findById( UserId );
+        public User User
+        {
+            get
+            {
+                if (_user==null)
+                {
+                    _user = User.findById(UserId);
                 }
                 return _user;
             }
-            set {
+            set
+            {
                 _user = value;
             }
         }
@@ -66,12 +69,12 @@ namespace wojilu.weibo.Domain {
         /// 是否token过期,采用oauth 2.0认证方式需判断此参数，过期需要refresh token
         /// </summary>
         [NotSave]
-        public bool IsExpire {
-            get {
-                return (DateTime.Now - BindTime).TotalSeconds > ExpireIn;
+        public bool IsExpire
+        {
+            get
+            {
+              return  (DateTime.Now - BindTime).TotalSeconds > ExpireIn;
             }
         }
-
     }
-
 }
