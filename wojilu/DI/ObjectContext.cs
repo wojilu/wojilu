@@ -398,14 +398,7 @@ namespace wojilu.DI {
                 types = LoadAssembly( asmName ).GetTypes();
                 Instance.AssemblyTypes.Add( asmName, types );
                 foreach (Type type in types) {
-                    try {
-                        Instance.TypeList.Add( type.FullName, type );
-                    }
-                    catch (Exception ex) {
-                        String msg = "type exist: " + type.FullName;
-                        logger.Error( msg );
-                        throw new Exception( msg );
-                    }
+                    Instance.TypeList.Add( type.FullName, type );
                 }
             }
             return types;

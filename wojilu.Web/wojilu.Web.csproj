@@ -62,6 +62,10 @@
       <Project>{24541506-9672-4B44-8718-2C6B5B5C34EF}</Project>
       <Name>wojilu.Installer</Name>
     </ProjectReference>
+    <ProjectReference Include="..\wojilu.weibo\wojilu.weibo.csproj">
+      <Project>{270FA694-21D9-4CF1-979F-2220ED563836}</Project>
+      <Name>wojilu.weibo</Name>
+    </ProjectReference>
     <ProjectReference Include="..\wojilu\wojilu.csproj">
       <Project>{5912B6E1-6099-4392-9A67-AFD3A8AA4343}</Project>
       <Name>wojilu</Name>
@@ -70,12 +74,6 @@
   <ItemGroup>
     <Content Include="agreement.html" />
     <Content Include="crossdomain.xml" />
-    <Content Include="framework\views\Admin\OpenAccount\UserWeiboSetting\Index.html" />
-    <Content Include="framework\views\Admin\OpenAccount\WeiboType\Add.html" />
-    <Content Include="framework\views\Admin\OpenAccount\WeiboType\Edit.html" />
-    <Content Include="framework\views\Admin\OpenAccount\WeiboType\List.html" />
-    <Content Include="framework\views\Users\Admin\AccountBind\Register.html" />
-    <Content Include="framework\views\Users\Admin\AccountBind\Index.html" />
     <Content Include="彻底初始化方法.txt" />
     <Content Include="framework\views\Admin\Apps\Blog\Layout\Layout.html" />
     <Content Include="framework\views\Admin\Apps\Blog\Main\Index.html" />
@@ -490,6 +488,7 @@
     <Content Include="framework\views\Users\Admin\Notification\List.html" />
     <Content Include="framework\views\Users\Admin\Notification\NewList.html" />
     <Content Include="framework\views\Users\Admin\UserProfile\AccountBind.html" />
+    <Content Include="framework\views\Users\Admin\UserProfile\AccountBindInfo.html" />
     <Content Include="framework\views\Users\Admin\UserProfile\Contact.html" />
     <Content Include="framework\views\Users\Admin\UserProfile\Email.html" />
     <Content Include="framework\views\Users\Admin\UserProfile\Face.html" />

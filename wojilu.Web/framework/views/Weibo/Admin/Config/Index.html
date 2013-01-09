@@ -1,0 +1,26 @@
+﻿<div>
+    <div class="adminMainTitle"><div class="adminSidebarTitleInternal">修改配置信息</div></div>
+
+    <div class="adminMainPanel">
+    
+    <div class="formPanel">
+    
+<form method="post" action="#{ActionLink}" class="ajaxPostForm">
+
+<table>
+<tr><td>每页文章数</td><td><input name="PageSize" type="text" style="width:50px" value="#{systemConfig.PageSize}" /></td></tr>
+
+<tr><td>联系人</td><td><input name="Contact" type="text" style="width:250px" value="#{systemConfig.Contact}" /></td></tr>
+<tr><td>电话</td><td><input name="Tel" type="text" style="width:250px" value="#{systemConfig.Tel}" /></td></tr>
+<tr><td>Email</td><td><input name="Email" type="text" style="width:250px" value="#{systemConfig.Email}" /></td></tr>
+<tr><td>地址</td><td><input name="Address" type="text" style="width:450px" value="#{systemConfig.Address}" /></td></tr>
+
+<tr><td></td><td><input type="submit" value="修改配置信息" class="btn" /></td></tr>
+</table>
+
+</form>
+    
+    </div>
+    </div>
+
+</div>

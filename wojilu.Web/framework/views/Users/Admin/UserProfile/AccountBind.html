@@ -1,6 +1,6 @@
 ﻿<div style="padding:30px;">
 
-    <div style="margin:0px 10px 30px 10px;"><span style="font-size:14px;">绑定帐号可以把您的信息同步给其他网站的更多好友。</span><a href="#" id="tipLink">什么是绑定帐号，绑定帐号有什么用？</a> </div>
+    <div style="margin:0px 10px 30px 10px;"><span style="font-size:14px;">绑定帐号可以把您的信息同步给其他网站的更多好友。</span><a href="#{accountBindInfo}" class="frmBox">什么是绑定帐号，绑定帐号有什么用？</a> </div>
 
 
     <style>
@@ -12,10 +12,10 @@
     <table class="bindItem">
 
         <tr>
-            <td class="bindLogo"><img src="~img/out/bind_sina.png" /></td>
+            <td class="bindLogo"><img src="http://www.mogujie.com/img/bind_sina.png" /></td>
             <td class="bindInfo">      
                 <div>你还未绑定新浪微博</div>
-                <div><a href="#{bindLink}?type=sina" target="_blank">去新浪微博绑定 <img src="~img/s/external-link.png" /></a></div>
+                <div>绑定并关注 wojilu 官方微博</div>
             </td>        
         </tr>
     
@@ -24,42 +24,13 @@
     <table class="bindItem">
 
         <tr>
-            <td class="bindLogo"><img src="~img/out/bind_qq.png" /></td>
+            <td class="bindLogo"><img src="http://www.mogujie.com/img/bind_qq.png" /></td>
             <td class="bindInfo">        
                 <div>你还未绑定腾讯微博</div>
-                <div><a href="#{bindLink}?type=sina" target="_blank">去腾讯微博绑定 <img src="~img/s/external-link.png" /></a></div>
+                <div>绑定并关注 wojilu 官方微博</div>
             </td>        
         </tr>
     
     </table>
 
-</div>
-
-<script>
-    _run(function () {
-        $('#tipLink').click(function () {
-            wojilu.box.title("什么叫绑定帐号？").id("tipInfo").show();
-            return false;
-        });
-    });
-</script>
-
-<div style="display:none; ">
-    <div style="padding:20px;" id="tipInfo">
-
-        <div style="margin:10px;">
-
-            <div style="margin:5px; font-weight:bold;font-size:14px;">什么叫绑定帐号？</div>
-            <div style="margin-left:5px;">绑定帐号是指将自己在本站的帐号和其他网站关联起来（比如新浪微博、腾讯微博等大型SNS网站），方便在本站发布的信息能够及时的分享给其他网站的好友。</div>
-
-        </div>
-
-
-        <div style="margin:30px 10px 10px 10px;">
-            <div style="margin:5px; font-weight:bold;font-size:14px;">绑定帐号可以做什么？</div>
-            <div style="margin-left:5px;">放心，在绑定过程中，只有明确经过您的授权，帐号绑定才可以成功。绑定成功之后（比如新浪微博），您在本站发布的微博等信息，就可以同步到其他网站（比如新浪微博），再也不用您手动拷贝粘贴。如果您自己没有设定，也没有主动发布，本站不会向您的帐号推送任何广告或不良信息。</div>
-
-        </div>
-
-    </div>
 </div>
