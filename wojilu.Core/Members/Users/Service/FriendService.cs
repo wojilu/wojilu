@@ -3,21 +3,19 @@
  */
 
 using System;
-using System.Text;
 using System.Collections.Generic;
 
-using wojilu.Web;
 using wojilu.Web.Mvc;
-using wojilu.ORM;
-using wojilu.Members.Users.Domain;
-using wojilu.Members.Users.Enum;
-using wojilu.Common.Msg.Service;
+
 using wojilu.Common.Feeds.Domain;
 using wojilu.Common.Feeds.Service;
-using wojilu.Members.Users.Interface;
-using wojilu.Common.Msg.Interface;
-using wojilu.Serialization;
 using wojilu.Common.Msg.Enum;
+using wojilu.Common.Msg.Interface;
+using wojilu.Common.Msg.Service;
+
+using wojilu.Members.Users.Domain;
+using wojilu.Members.Users.Enum;
+using wojilu.Members.Users.Interface;
 
 namespace wojilu.Members.Users.Service {
 
@@ -44,7 +42,7 @@ namespace wojilu.Members.Users.Service {
             recountFriends( newRegUser.Id );
             recountFriends( friendId );
 
-            addFeedInfo( ship );
+            addFeedInfo( ship, ship.Ip );
 
             addNotificationWhenApproved( newRegUser, friendId );
         }
@@ -54,7 +52,7 @@ namespace wojilu.Members.Users.Service {
             notificationService.send( receiverId, msg, NotificationType.FriendApprove );
         }
 
-        public virtual Result AddFriend( int userId, int friendId, String msg ) {
+        public virtual Result AddFriend( int userId, int friendId, String msg, String ip ) {
 
             Result result = CanAddFriend( userId, friendId );
             if (result.HasErrors) return result;
@@ -69,6 +67,7 @@ namespace wojilu.Members.Users.Service {
             fs.Msg = msg;
 
             fs.Status = FriendStatus.Waiting;
+            fs.Ip = ip;
 
             result = db.insert( fs );
             if (result.IsValid) {
@@ -160,7 +159,7 @@ namespace wojilu.Members.Users.Service {
             new FollowerService().DeleteFollow( userId, friendId );
             new FollowerService().DeleteFollow( friendId, userId );
 
-            addFeedInfo( ship );
+            addFeedInfo( ship, ship.Ip );
 
             User user = userService.GetById( userId );
 
@@ -168,13 +167,13 @@ namespace wojilu.Members.Users.Service {
         }
 
 
-        private void addFeedInfo( FriendShip ship ) {
+        private void addFeedInfo( FriendShip ship, String ip ) {
 
-            addFrinedFeedInfo( ship.User, ship.Friend );
-            addFrinedFeedInfo( ship.Friend, ship.User );
+            addFrinedFeedInfo( ship.User, ship.Friend, ip );
+            addFrinedFeedInfo( ship.Friend, ship.User, ip );
         }
 
-        private static void addFrinedFeedInfo( User user, User friend ) {
+        private static void addFrinedFeedInfo( User user, User friend, String ip ) {
             String userLink = Link.ToMember( friend );
 
             String lnkInfo = string.Format( "<a href=\"{0}\">{1}</a>", userLink, friend.Name );
@@ -182,10 +181,10 @@ namespace wojilu.Members.Users.Service {
             Dictionary<string, object> dic = new Dictionary<string, object>();
             dic.Add( "friend", lnkInfo );
             dic.Add( "friendId", friend.Id );
-            String templateData = JSON.DicToString( dic );
+            String templateData = Json.SerializeDic( dic );
 
             TemplateBundle tplBundle = TemplateBundle.GetFriendsTemplateBundle();
-            new FeedService().publishUserAction( user, typeof( FriendShip ).FullName, tplBundle.Id, templateData, "" );
+            new FeedService().publishUserAction( user, typeof( FriendShip ).FullName, tplBundle.Id, templateData, "", ip );
         }
 
         public virtual void Refuse( int userId, int friendId ) {

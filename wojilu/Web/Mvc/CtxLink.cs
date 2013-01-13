@@ -22,6 +22,7 @@ using wojilu.Web.Context;
 
 using wojilu.Members.Interface;
 using wojilu.Common;
+using wojilu.Web.Mvc.Attr;
 
 namespace wojilu.Web.Mvc {
 
@@ -29,6 +30,7 @@ namespace wojilu.Web.Mvc {
     /// <summary>
     /// 带上下文(context=ctx)的链接生成工具
     /// </summary>
+    [MvcLink]
     public class CtxLink {
 
         private int _appId;
@@ -68,7 +70,7 @@ namespace wojilu.Web.Mvc {
         private static String getController( Type controllerType ) {
             return trimRootNamespace( strUtil.GetTypeFullName( controllerType ) )
                 .TrimStart( '.' )
-                .Replace( ".", "/" );
+                .Replace( ".", MvcConfig.Instance.UrlSeparator );
         }
 
         private static String trimRootNamespace( String typeFullName ) {

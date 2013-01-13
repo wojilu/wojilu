@@ -2,7 +2,7 @@
 var groupAdmin = function(btnID, actionName) {
 	$("#"+btnID).click( function() {
 		var actionUrl = $( '#ActionUrl' ).val() + '?' + wojilu.tool.getRandom();
-		var choiceList = getChoiceList();
+		var choiceList = wojilu.ui.select();
 		if( choiceList.length == 0 ) { alert( lang.exSelect ); return; }
 		if( actionName == "deletetrue" && confirm( lang.deleteTrueTip )==false  ) return;
 		$.post( actionUrl, {"choice":choiceList, "action":actionName}, function(data){

@@ -27,6 +27,9 @@ namespace wojilu.Members.Users.Domain {
         public int Status { get; set; }
         public DateTime Created { get; set; }
 
+        [Column( Length = 40 )]
+        public String Ip { get; set; }
+
     }
 }
 

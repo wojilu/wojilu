@@ -1,4 +1,4 @@
-/*
+﻿/*
  * Copyright 2010 www.wojilu.com
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -82,7 +82,7 @@ namespace wojilu.Web.Utils.Tags {
 
                     String[] kvPair = st.GetPair();
                     if (kvPair != null) {
-                        dic[kvPair[0]] = kvPair[1];
+                        dic[kvPair[0]] = trimSingleQuote( kvPair[1] );
                     }
 
                     st = new TagAttrState();
@@ -91,6 +91,12 @@ namespace wojilu.Web.Utils.Tags {
             }
             return dic;
         }
+
+        private static String trimSingleQuote( String str ) {
+            if (str == null) return null;
+            return str.Trim().TrimStart( '\'' ).TrimEnd( '\'' ).Trim();
+        }
+
     }
 
 

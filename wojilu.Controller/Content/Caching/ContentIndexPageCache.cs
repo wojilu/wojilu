@@ -11,7 +11,7 @@ using wojilu.Members.Interface;
 
 namespace wojilu.Web.Controller.Content.Caching {
 
-    public class ContentIndexPageCache : PageCache {
+    public class ContentIndexPageCache : CorePageCache {
 
         public override bool IsCache( MvcContext ctx ) {
 

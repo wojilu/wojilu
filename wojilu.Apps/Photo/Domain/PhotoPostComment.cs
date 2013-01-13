@@ -3,17 +3,18 @@
  */
 
 using System;
+using System.Collections.Generic;
 
 using wojilu.ORM;
 using wojilu.Web.Mvc;
-using wojilu.Common.Comments;
+
 using wojilu.Members.Users.Domain;
+
+using wojilu.Common.Comments;
 using wojilu.Common.Feeds.Domain;
 using wojilu.Common.Feeds.Service;
-using wojilu.Common.Msg.Service;
 using wojilu.Common.Msg.Enum;
-using System.Collections.Generic;
-using wojilu.Serialization;
+using wojilu.Common.Msg.Service;
 
 namespace wojilu.Apps.Photo.Domain {
 
@@ -71,17 +72,19 @@ namespace wojilu.Apps.Photo.Domain {
 
             myfeed.BodyGeneral = strUtil.ParseHtml( this.Content, 50 );
 
+            myfeed.Ip = this.Ip;
+
             new FeedService().publishUserAction( myfeed );
         }
 
         private String getTitleData( PhotoPost data ) {
 
-            String lnkUser = Link.ToMember( data.Creator );
+            String lnkUser = wojilu.Web.Mvc.Link.ToMember( data.Creator );
             String target = string.Format( "<a href=\"{0}\">{1}</a>", lnkUser, data.Creator.Name );
 
             Dictionary<string, object> dic = new Dictionary<string, object>();
             dic.Add( "target", target );
-            return JSON.DicToString( dic );
+            return Json.SerializeDic( dic );
         }
 
         private String getBodyData( PhotoPost data ) {
@@ -90,7 +93,7 @@ namespace wojilu.Apps.Photo.Domain {
 
             Dictionary<string, object> dic = new Dictionary<string, object>();
             dic.Add( "photo", photoHtml );
-            return JSON.DicToString( dic );
+            return Json.SerializeDic( dic );
         }
 
         public void AddNotification( String lnkTarget ) {

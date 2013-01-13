@@ -11,7 +11,7 @@ using wojilu.Web.Controller.Common.Caching;
 
 namespace wojilu.Web.Controller.Forum.Caching {
 
-    public class ForumIndexPageCache : PageCache {
+    public class ForumIndexPageCache : CorePageCache {
 
         public override bool IsCache( MvcContext ctx ) {
 

@@ -1,24 +1,22 @@
-/*
+Ôªø/*
  * Copyright (c) 2010, www.wojilu.com. All rights reserved.
  */
 
 using System;
-using System.IO;
+using System.Collections.Generic;
+
+using wojilu.Apps.Photo.Interface;
+using wojilu.Apps.Photo.Service;
+
+using wojilu.Common;
+using wojilu.Common.Microblogs.Domain;
+using wojilu.Common.Microblogs.Interface;
+using wojilu.Common.Microblogs.Service;
+
+using wojilu.Members.Users.Domain;
 
 using wojilu.Web.Mvc;
 using wojilu.Web.Mvc.Attr;
-using wojilu.Web.Utils;
-using wojilu.Members.Users.Domain;
-using wojilu.Common.Microblogs.Service;
-using wojilu.Common.Microblogs.Domain;
-using wojilu.Common.Microblogs.Interface;
-using wojilu.Apps.Photo.Domain;
-using wojilu.Apps.Photo.Interface;
-using wojilu.Apps.Photo.Service;
-using wojilu.Web.Controller.Users.Admin;
-using System.Collections.Generic;
-using wojilu.Serialization;
-using wojilu.Common;
 
 namespace wojilu.Web.Controller.Microblogs {
 
@@ -37,13 +35,13 @@ namespace wojilu.Web.Controller.Microblogs {
         public void Create() {
 
             if (Component.IsClose( typeof( MicroblogApp ) )) {
-                actionContent( "∂‘≤ª∆£¨Œ¢≤©π¶ƒ‹‘›Õ£‘À––" );
+                content( "ÂØπ‰∏çËµ∑ÔºåÂæÆÂçöÂäüËÉΩÊöÇÂÅúËøêË°å" );
                 return;
             }
 
-            String content = ctx.Post( "Content" );
-            if (strUtil.IsNullOrEmpty( content )) {
-                actionContent( lang( "exContent" ) );
+            String blogContent = ctx.Post( "Content" );
+            if (strUtil.IsNullOrEmpty( blogContent )) {
+                content( lang( "exContent" ) );
                 return;
             }
 
@@ -52,7 +50,7 @@ namespace wojilu.Web.Controller.Microblogs {
             User user = ctx.viewer.obj as User;
 
             Microblog blog = new Microblog();
-            blog.Content = content;
+            blog.Content = blogContent;
             blog.Ip = ctx.Ip;
             blog.User = user;
             blog.Pic = picUrl;
@@ -81,12 +79,12 @@ namespace wojilu.Web.Controller.Microblogs {
             dic.Add( "SrcType", "shareBox" );
             dic.Add( "ForwardUrl", "" );
 
-            echoJson( JsonString.Convert( dic ) );
+            echoJson( dic );
         }
 
         private void returnOneBlogHtml( Microblog blog ) {
 
-            // º”‘ÿ◊Ó–¬Œ¢≤©html∆¨∂Œ
+            // Âä†ËΩΩÊúÄÊñ∞ÂæÆÂçöhtmlÁâáÊÆµ
             Dictionary<String, Object> dic = new Dictionary<String, Object>();
             dic.Add( "IsValid", true );
             dic.Add( "SrcType", "mbHome" );
@@ -96,7 +94,7 @@ namespace wojilu.Web.Controller.Microblogs {
             String html = getOneBlogHtml( blog );
             dic.Add( "Info", html );
 
-            echoJson( JsonString.Convert( dic ) );
+            echoJson( dic );
         }
 
 

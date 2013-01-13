@@ -33,7 +33,7 @@ namespace wojilu.Web.Mvc {
             ctx.utils.setRoute( route );
 
             // viewer: 某些地方需要判断viewer
-            ViewerContext viewer = new ViewerContext();
+            ViewerContext viewer = new ViewerContext( ctx );
             viewer.obj = new User();
             ctx.utils.setViewerContext( viewer );
 
@@ -68,7 +68,7 @@ namespace wojilu.Web.Mvc {
             ctx.utils.setRoute( route );
 
             // viewer: 某些地方需要判断viewer
-            ViewerContext viewer = new ViewerContext();
+            ViewerContext viewer = new ViewerContext( ctx );
             viewer.obj = new User();
             ctx.utils.setViewerContext( viewer );
 

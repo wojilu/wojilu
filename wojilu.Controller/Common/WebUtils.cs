@@ -1,4 +1,4 @@
-/*
+﻿/*
  * Copyright (c) 2010, www.wojilu.com. All rights reserved.
  */
 
@@ -17,22 +17,25 @@ namespace wojilu.Web.Controller.Common {
 
     public class WebUtils {
 
-        private static String pageTitleSeparator = "_";
-
+        /// <summary>
+        /// 1.8以前的旧方法，暂时保留。新版请直接使用 ctx.Page.Title = title 设值
+        /// </summary>
+        /// <param name="controller"></param>
+        /// <param name="title"></param>
         public static void pageTitle( ControllerBase controller, String title ) {
-            controller.Page.Title = title + pageTitleSeparator + pageTitlePostfix( controller.ctx );
+            controller.ctx.Page.Title = title;
         }
 
+        /// <summary>
+        /// 1.8以前的旧方法，暂时保留。新版请直接使用 ctx.Page.SetTitle( item1, item2 ) 设值
+        /// </summary>
+        /// <param name="controller"></param>
+        /// <param name="item1"></param>
+        /// <param name="item2"></param>
         public static void pageTitle( ControllerBase controller, String item1, String item2 ) {
-            controller.Page.Title = item1 + pageTitleSeparator + item2 + pageTitleSeparator + pageTitlePostfix( controller.ctx );
+            controller.ctx.Page.SetTitle( item1, item2 );
         }
 
-        private static String pageTitlePostfix( MvcContext ctx ) {
-            if (ctx.owner.obj.GetType() != typeof( Site ))
-                return ctx.owner.obj.Name + pageTitleSeparator + config.Instance.Site.SiteName;
-            else
-                return config.Instance.Site.SiteName;
-        }
 
         //--------------------------------------------------------------------------------------------------------
 

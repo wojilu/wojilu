@@ -20,6 +20,9 @@ namespace wojilu.Web.Controller.Admin.Members {
 
             set( "importLink", to( new ImportController().Index ) );
 
+            set( "regLink", to( new UserRegController().Index ) );
+            set( "settingLink", to( new UserSettingController().Index ) );
+
         }
     }
 

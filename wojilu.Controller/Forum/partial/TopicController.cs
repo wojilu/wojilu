@@ -176,7 +176,7 @@ namespace wojilu.Web.Controller.Forum {
 
         private String getAdminActions( ForumPost data ) {
             StringBuilder sb = new StringBuilder();
-            sb.AppendFormat( "<span class=\"dropdown postAdmin\"><a href=\"#\" class=\"dropdown-toggle postAdmin\" id=\"postAdmin{0}\" data-toggle=\"dropdown\"><i class=\"icon-cog\"></i> {1} <span class=\"caret\"></span></a>", data.Id, alang( "admin" ) );
+            sb.AppendFormat( "<span class=\"dropdown postAdmin\"><a href=\"#\" class=\"dropdown-toggle\" id=\"postAdmin{0}\" data-toggle=\"dropdown\" data-hover=\"dropdown\"><i class=\"icon-cog\"></i> {1} <span class=\"caret\"></span></a>", data.Id, alang( "admin" ) );
             sb.AppendFormat( "<ul class=\"dropdown-menu post-admin-items\" id=\"menuItems_postAdmin{0}\">", data.Id );
             setEditActionItem( data, sb );
             setCreditAction( data, sb );
@@ -452,7 +452,7 @@ namespace wojilu.Web.Controller.Forum {
         }
 
         private String addContentInfo( ForumTopic data, String content ) {
-            return content + "<div class=\"extDataPanel\">" + ExtData.GetExtView( data.Id, typeof( ForumTopic ).FullName, data.TypeName, ctx ) + "</div>";
+            return content + "<div class=\"extDataPanel\">" + wojilu.Common.AppBase.ExtObject.GetExtView( data.Id, typeof( ForumTopic ).FullName, data.TypeName, ctx ) + "</div>";
         }
 
         private String addRateLog( ForumPost data, String content ) {

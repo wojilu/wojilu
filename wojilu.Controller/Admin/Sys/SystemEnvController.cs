@@ -60,7 +60,7 @@ namespace wojilu.Web.Controller.Admin.Sys {
             //builder.Append( "当前系统用户名：" );
             //builder.Append( Environment.UserName + "<br />" );
             //builder.Append( "</div>" );
-            base.actionContent( builder.ToString() );
+            base.content( builder.ToString() );
         }
     }
 }

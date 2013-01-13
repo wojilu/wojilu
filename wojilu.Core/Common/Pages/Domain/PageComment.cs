@@ -3,18 +3,17 @@
  */
 
 using System;
-using System.Collections;
-using System.Text;
+using System.Collections.Generic;
+
 using wojilu.ORM;
-using wojilu.Members.Users.Domain;
+
 using wojilu.Common.Comments;
 using wojilu.Common.Feeds.Domain;
 using wojilu.Common.Feeds.Service;
-using wojilu.Web.Mvc;
-using wojilu.Serialization;
-using System.Collections.Generic;
-using wojilu.Common.Msg.Service;
 using wojilu.Common.Msg.Enum;
+using wojilu.Common.Msg.Service;
+
+using wojilu.Members.Users.Domain;
 
 namespace wojilu.Common.Pages.Domain {
 
@@ -60,6 +59,8 @@ namespace wojilu.Common.Pages.Domain {
 
             myfeed.BodyGeneral = strUtil.ParseHtml( this.Content, 50 );
 
+            myfeed.Ip = this.Ip;
+
             new FeedService().publishUserAction( myfeed );
 
         }
@@ -72,7 +73,7 @@ namespace wojilu.Common.Pages.Domain {
 
             Dictionary<string, object> dic = new Dictionary<string, object>();
             dic.Add( "target", target );
-            return JSON.DicToString( dic );
+            return Json.SerializeDic( dic );
         }
 
         public void AddNotification( String lnkTarget ) {

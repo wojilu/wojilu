@@ -12,15 +12,28 @@
 
 	    <div class="tabMain" style="width:95%; " >
 	    <div style="padding:10px">
-		    <table style="width: 630px"  cellpadding="3" cellspacing="0">
+		    <table style="width: 680px"  cellpadding="3" cellspacing="0">
 			    <tr>
 				    <td>_{title}</td>
-				    <td><input name="Title" style="width: 350px" type="text" value="#{post.Title}" class="tipInput" tip="_{exTitle}"><span class="valid" mode="border"></span></td>
+				    <td><input name="Title" style="width: 350px" type="text" value="#{post.Title}" class="tipInput" tip="_{exTitle}"><span class="valid" mode="border"></span>
+                    <span class="left10"></span>
+                    #{post.IsCloseComment}
+                    
+                    </td>
 			    </tr>
 			    <tr>
 				    <td>_{titleHome}</td>
 				    <td><input name="TitleHome" style="width: 350px" type="text" value="#{post.TitleHome}" ></td>
 			    </tr>
+
+	<tr>
+		<td style="width:100px">SEO Keywords</td>
+		<td><input name="MetaKeywords" type="text" style="width: 99%" value="#{post.MetaKeywords}" /></td>
+	</tr>
+	<tr>
+		<td style="width:100px;vertical-align:top">SEO Description</td>
+		<td style=""><textarea name="MetaDescription" style="width: 99%; height:30px;">#{post.MetaDescription}</textarea></td>
+	</tr>
 			    <tr>
 				    <td style="vertical-align:top">_{description}</td>
 				    <td>#{Editor}</td>
@@ -30,7 +43,6 @@
 				    <td>
 				    <input name="OrderId" size="20" style="width: 30px" type="text" value="#{post.OrderId}"></td>
 			    </tr>
-	            <tr><td>_{closeComment}</td><td>#{post.IsCloseComment}</td></tr>
 
 
 			    <tr>

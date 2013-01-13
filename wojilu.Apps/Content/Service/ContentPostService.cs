@@ -22,9 +22,6 @@ using System.Collections;
 
 namespace wojilu.Apps.Content.Service {
 
-
-    //---------------------------------------- mashup service ----------------------------------------------------------------------
-
     public class ContentPostService : IContentPostService {
 
         private static readonly ILog logger = LogManager.GetLogger( typeof( ContentPostService ) );
@@ -123,6 +120,10 @@ namespace wojilu.Apps.Content.Service {
             return ContentPost.count( condition );
         }
 
+        public virtual int CountByApp( int appId ) {
+            return ContentPost.count( "AppId=" + appId + " and SaveStatus=" + SaveStatus.Normal );
+        }
+
 
         public virtual List<IBinderValue> GetByAppIds( String ids, int count ) {
             String sids = checkIds( ids );
@@ -209,6 +210,8 @@ namespace wojilu.Apps.Content.Service {
                 vo.Replies = post.Replies;
                 vo.Category = post.PageSection.Title;
 
+                vo.obj = post;
+
                 results.Add( vo );
             }
 
@@ -249,15 +252,17 @@ namespace wojilu.Apps.Content.Service {
             return db.find<ContentPost>( "PageSection.Id=" + sectionId + " and SaveStatus=" + SaveStatus.Normal + " order by Id desc" ).list();
         }
 
-        public virtual DataPage<ContentPost> GetByApp( int appId, int pageSize ) {
-            return ContentPost.findPage( "AppId=" + appId + " and SaveStatus=" + SaveStatus.Normal + " order by Id desc", pageSize );
-        }
-
         public virtual List<ContentPost> GetByApp( int appId ) {
             return ContentPost.find( "AppId=" + appId + " and SaveStatus=" + SaveStatus.Normal + " order by Id desc" ).list();
         }
 
+        public virtual DataPage<ContentPost> GetByApp( int appId, int pageSize ) {
+            return ContentPost.findPage( "AppId=" + appId + " and SaveStatus=" + SaveStatus.Normal + " order by Id desc", pageSize );
+        }
 
+        public virtual DataPage<ContentPost> GetByAppArchive( int appId, int pageSize ) {
+            return ContentPost.findPageArchive( "AppId=" + appId + " and SaveStatus=" + SaveStatus.Normal, pageSize );
+        }
 
         public virtual DataPage<ContentPost> GetTrashByApp( int appId, int pageSize ) {
             return ContentPost.findPage( "AppId=" + appId + " and SaveStatus=" + SaveStatus.Delete + " order by Id desc", pageSize );
@@ -293,7 +298,7 @@ namespace wojilu.Apps.Content.Service {
         }
 
         public virtual DataPage<ContentPost> GetPageBySection( int sectionId ) {
-            return db.findPage<ContentPost>( "PageSection.Id=" + sectionId + " and SaveStatus=" + SaveStatus.Normal );
+            return GetPageBySection( sectionId, 20 );
         }
 
         public virtual DataPage<ContentPost> GetPageBySection( int sectionId, int pageSize ) {

@@ -6,6 +6,7 @@ using wojilu.Web.Mvc.Attr;
 using wojilu.Common;
 using wojilu.Members.Users.Domain;
 using wojilu.Drawing;
+using wojilu.Common.Microblogs;
 
 namespace wojilu.Web.Controller {
 
@@ -17,7 +18,7 @@ namespace wojilu.Web.Controller {
             // 使用owner  避免二级域名跨域
             set( "ActionLink", Link.To( ctx.owner.obj, new Microblogs.MicroblogSaveController().Create ) );
 
-            set( "mbTotalCount", config.Instance.Site.MicroblogContentMax );
+            set( "mbTotalCount", MicroblogAppSetting.Instance.MicroblogContentMax );
 
             String title = strUtil.CutString( ctx.Get( "title" ), 150 );
             String url = strUtil.CutString( ctx.Get( "url" ), 150 );

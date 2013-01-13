@@ -14,6 +14,7 @@ using wojilu.Members.Groups.Interface;
 using wojilu.Members.Interface;
 using wojilu.Members.Users.Domain;
 using wojilu.Web.Controller.Security;
+using wojilu.Members.Groups;
 
 namespace wojilu.Web.Controller.Groups.Admin {
 
@@ -85,7 +86,7 @@ namespace wojilu.Web.Controller.Groups.Admin {
         public void SaveLogo() {
             Group group = ctx.owner.obj as Group;
 
-            Result result = Uploader.SaveGroupLogo( ctx.GetFileSingle(), group.Url );
+            Result result = GroupHelper.SaveGroupLogo( ctx.GetFileSingle(), group.Url );
             if (result.HasErrors) {
                 errors.Join( result );
                 run( Logo );
@@ -165,7 +166,7 @@ namespace wojilu.Web.Controller.Groups.Admin {
                 echoAjaxOk();
             }
             else {
-                actionContent( "error" );
+                content( "error" );
             }
         }
 

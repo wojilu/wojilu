@@ -35,7 +35,7 @@ namespace wojilu.Web.Controller.Content.Admin {
 
 
         public void Index() {
-            set( "indexLink", to( new PostController().List ) );
+            set( "indexLink", to( new Common.PostController().List, 0 ) );
         }
 
         public void Home() {
@@ -208,7 +208,7 @@ namespace wojilu.Web.Controller.Content.Admin {
                 s.Sections.Add( ps );
             }
 
-            String json = JsonString.ConvertObject( s, true );
+            String json = Json.Serialize( s, true );
             file.Write( PathHelper.Map( "/content.json" ), json );
 
 

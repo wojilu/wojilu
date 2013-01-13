@@ -1,17 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
+
 using wojilu.Web.Mvc;
+using wojilu.Web.Mvc.Attr;
+
+using wojilu.Members.Users.Domain;
 using wojilu.Members.Users.Interface;
 using wojilu.Members.Users.Service;
+
 using wojilu.Apps.Photo.Interface;
 using wojilu.Apps.Photo.Service;
 using wojilu.Apps.Photo.Domain;
-using wojilu.Members.Users.Domain;
-using wojilu.Common.AppBase;
-using wojilu.Web.Mvc.Attr;
-using wojilu.Web.Controller.Common;
-using wojilu.Web.Context;
+using wojilu.Apps.Photo;
+
 
 namespace wojilu.Web.Controller.Photo.Wf {
 
@@ -42,138 +43,11 @@ namespace wojilu.Web.Controller.Photo.Wf {
         public override void Layout() {
         }
 
-        [Data( typeof( PhotoPost ) )]
-        public void Post( int id ) {
-
-
-            PhotoPost x = ctx.Get<PhotoPost>();
-            postService.AddtHits( x );
-
-            WebUtils.pageTitle( this, x.Title );
-            Page.Keywords = x.Tag.TextString;
-
-            User owner = x.Creator;
-
-            if (ctx.viewer.IsFollowing( owner.Id )) {
-                set( "lblFollow", "已经关注" );
-                set( "clsFollow", "btnUnFollow" );
-            }
-            else {
-                set( "lblFollow", "关注" );
-                set( "clsFollow", "btnFollow" );
-            }
-
-            Boolean isLiked = likeService.IsLiked( ctx.viewer.Id, id );
-
-            List<int> ids = new List<int>();
-            if (isLiked) {
-                ids.Add( id );
-            }
-
-            PhotoBinder.BindPostSingleFull( ctx, base.utils.getCurrentView(), x, ids );
-            set( "lnkPrevNext", getPreNextHtml( x ) );
-
-            bindAlbumPosts( x );
-            bindOtherPosts();
-
-            String commentUrl = t2( new wojilu.Web.Controller.Open.CommentController().List )
-                + "?url=" + PhotoLink.ToPost( x.Id )
-                + "&dataType=" + typeof( PhotoPost ).FullName
-                + "&dataTitle=" + x.Title
-                + "&dataUserId=" + x.Creator.Id
-                + "&dataId=" + x.Id;
-            set( "thisUrl", commentUrl );
-        }
-
-        public String getPreNextHtml( PhotoPost post ) {
-
-            PhotoPost prev = postService.GetPre( post );
-            PhotoPost next = postService.GetNext( post );
-
-            String prenext;
-            if (prev == null && next == null)
-                prenext = "";
-            else if (prev == null)
-                prenext = "<a href=\"" + PhotoLink.ToPost( next.Id ) + "\">" + alang( "nextPhoto" ) + "</a> ";
-            else if (next == null)
-                prenext = "<a href=\"" + PhotoLink.ToPost( prev.Id ) + "\">" + alang( "prevPhoto" ) + "</a> ";
-            else
-                prenext = "<a href=\"" + PhotoLink.ToPost( prev.Id ) + "\">" + alang( "prevPhoto" ) + "</a> | <a href=\"" + PhotoLink.ToPost( next.Id ) + "\">" + alang( "nextPhoto" ) + "</a>";
-            return prenext;
-        }
-
-        private void bindAlbumPosts( PhotoPost post ) {
-
-            IBlock block = getBlock( "cposts" );
-            if (post.PhotoAlbum == null) return;
-
-            List<PhotoPost> list = postService.GetByAlbum( post.PhotoAlbum.Id, 9 );
-            foreach (PhotoPost x in list) {
-                PhotoBinder.BindPostSingle( ctx, block, x, new List<int>() );
-                block.Next();
-            }
-
-        }
-
-        private void bindOtherPosts() {
-            List<PhotoPost> list = postService.GetNew( 15 );
-            IBlock block = getBlock( "xposts" );
-            foreach (PhotoPost x in list) {
-                PhotoBinder.BindPostSingle( ctx, block, x, new List<int>() );
-                block.Next();
-            }
-        }
-
-        //-------------------------------------------------------------------------------------------
-
-        [Login]
-        public void Add() {
-
-            User u = ctx.viewer.obj as User;
-
-            PhotoApp app = photoService.GetByUser( u.Id );
-            if (app == null) {
-                echoError( "请先添加PhotoApp" );
-                return;
-            }
-
-            redirectUrl( Link.To( u, new Photo.Admin.PostController().Add, app.Id ) );
-        }
-
-
-        [Login]
-        public void Following() {
-
-            view( "Index" );
-
-            // 从第二页开始，是ajax获取，所以不需要多余的layout内容
-            if (CurrentRequest.getCurrentPage() > 1) {
-                HideLayout( typeof( wojilu.Web.Controller.LayoutController ) );
-                HideLayout( typeof( wojilu.Web.Controller.Photo.LayoutController ) );
-                HideLayout( typeof( wojilu.Web.Controller.Photo.Wf.LayoutController ) );
-            }
-
-            // 1) 超过最大滚页数，则不再自动翻页
-            int maxPage = 10;
-            if (CurrentRequest.getCurrentPage() > maxPage) {
-                echoText( "." );
-                return;
-            }
-
-            // 关注的图片
-            DataPage<PhotoPost> list = postService.GetFollowing( ctx.viewer.Id, 20 );
-
-            // 2) 或者超过实际页数，也不再自动翻页
-            if (CurrentRequest.getCurrentPage() > list.PageCount && list.PageCount > 0) {
-                echoText( "." );
-                return;
-            }
-
-            PhotoBinder.BindPhotoList( this, list, ctx.viewer.Id );
-        }
-
-
         public void Index() {
+
+            ctx.Page.Title = PhotoAppSetting.Instance.MetaTitle;
+            ctx.Page.Keywords = PhotoAppSetting.Instance.MetaKeywords;
+            ctx.Page.Description = PhotoAppSetting.Instance.MetaDescription;
 
             // 从第二页开始，是ajax获取，所以不需要多余的layout内容
             if (CurrentRequest.getCurrentPage() > 1) {
@@ -288,6 +162,140 @@ namespace wojilu.Web.Controller.Photo.Wf {
 
             PhotoBinder.BindPhotoList( this, list, ctx.viewer.Id );
         }
+
+        //------------------------------------------------------------------------------------------
+
+
+        [Login]
+        public void Add() {
+
+            User u = ctx.viewer.obj as User;
+
+            PhotoApp app = photoService.GetByUser( u.Id );
+            if (app == null) {
+                echoError( "请先添加PhotoApp" );
+                return;
+            }
+
+            redirectUrl( Link.To( u, new Photo.Admin.PostController().Add, app.Id ) );
+        }
+
+
+        [Login]
+        public void Following() {
+
+            view( "Index" );
+
+            // 从第二页开始，是ajax获取，所以不需要多余的layout内容
+            if (CurrentRequest.getCurrentPage() > 1) {
+                HideLayout( typeof( wojilu.Web.Controller.LayoutController ) );
+                HideLayout( typeof( wojilu.Web.Controller.Photo.LayoutController ) );
+                HideLayout( typeof( wojilu.Web.Controller.Photo.Wf.LayoutController ) );
+            }
+
+            // 1) 超过最大滚页数，则不再自动翻页
+            int maxPage = 10;
+            if (CurrentRequest.getCurrentPage() > maxPage) {
+                echoText( "." );
+                return;
+            }
+
+            // 关注的图片
+            DataPage<PhotoPost> list = postService.GetFollowing( ctx.viewer.Id, 20 );
+
+            // 2) 或者超过实际页数，也不再自动翻页
+            if (CurrentRequest.getCurrentPage() > list.PageCount && list.PageCount > 0) {
+                echoText( "." );
+                return;
+            }
+
+            PhotoBinder.BindPhotoList( this, list, ctx.viewer.Id );
+        }
+
+        //------------------------------------------------------------------------------------------
+
+        [Data( typeof( PhotoPost ) )]
+        public void Post( int id ) {
+
+
+            PhotoPost x = ctx.Get<PhotoPost>();
+            postService.AddtHits( x );
+
+            ctx.Page.Title = x.Title;
+            ctx.Page.Keywords = x.Tag.TextString;
+
+            User owner = x.Creator;
+
+            if (ctx.viewer.IsFollowing( owner.Id )) {
+                set( "lblFollow", "已经关注" );
+                set( "clsFollow", "btnUnFollow" );
+            }
+            else {
+                set( "lblFollow", "关注" );
+                set( "clsFollow", "btnFollow" );
+            }
+
+            Boolean isLiked = likeService.IsLiked( ctx.viewer.Id, id );
+
+            List<int> ids = new List<int>();
+            if (isLiked) {
+                ids.Add( id );
+            }
+
+            PhotoBinder.BindPostSingleFull( ctx, base.utils.getCurrentView(), x, ids );
+            set( "lnkPrevNext", getPreNextHtml( x ) );
+
+            bindAlbumPosts( x );
+            bindOtherPosts();
+
+            String commentUrl = t2( new wojilu.Web.Controller.Open.CommentController().List )
+                + "?url=" + PhotoLink.ToPost( x.Id )
+                + "&dataType=" + typeof( PhotoPost ).FullName
+                + "&dataTitle=" + x.Title
+                + "&dataUserId=" + x.Creator.Id
+                + "&dataId=" + x.Id;
+            set( "thisUrl", commentUrl );
+        }
+
+        public String getPreNextHtml( PhotoPost post ) {
+
+            PhotoPost prev = postService.GetPre( post );
+            PhotoPost next = postService.GetNext( post );
+
+            String prenext;
+            if (prev == null && next == null)
+                prenext = "";
+            else if (prev == null)
+                prenext = "<a href=\"" + PhotoLink.ToPost( next.Id ) + "\">" + alang( "nextPhoto" ) + "</a> ";
+            else if (next == null)
+                prenext = "<a href=\"" + PhotoLink.ToPost( prev.Id ) + "\">" + alang( "prevPhoto" ) + "</a> ";
+            else
+                prenext = "<a href=\"" + PhotoLink.ToPost( prev.Id ) + "\">" + alang( "prevPhoto" ) + "</a> | <a href=\"" + PhotoLink.ToPost( next.Id ) + "\">" + alang( "nextPhoto" ) + "</a>";
+            return prenext;
+        }
+
+        private void bindAlbumPosts( PhotoPost post ) {
+
+            IBlock block = getBlock( "cposts" );
+            if (post.PhotoAlbum == null) return;
+
+            List<PhotoPost> list = postService.GetByAlbum( post.PhotoAlbum.Id, 9 );
+            foreach (PhotoPost x in list) {
+                PhotoBinder.BindPostSingle( ctx, block, x, new List<int>() );
+                block.Next();
+            }
+
+        }
+
+        private void bindOtherPosts() {
+            List<PhotoPost> list = postService.GetNew( 15 );
+            IBlock block = getBlock( "xposts" );
+            foreach (PhotoPost x in list) {
+                PhotoBinder.BindPostSingle( ctx, block, x, new List<int>() );
+                block.Next();
+            }
+        }
+
 
         //------------------------------------------------------------------------------------------
 

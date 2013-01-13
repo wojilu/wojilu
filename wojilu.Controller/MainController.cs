@@ -100,7 +100,7 @@ namespace wojilu.Web.Controller {
             }
 
             if (userService.IsUserDeleted( member )) {
-                errors.Add( lang( "exUsere" ) );
+                errors.Add( lang( "exUser" ) );
                 run( Login );
                 return;
             }
@@ -143,7 +143,7 @@ namespace wojilu.Web.Controller {
                 echoRedirect( lang( "confirmok" ), sys.Path.Root );
             }
             else {
-                actionContent( "<div style=\"width:300px;margin:auto;padding:50px;font-size:28px;font-weight:bold;color:red;\">" + lang( "exConfirm" ) + "</div>" );
+                content( "<div style=\"width:300px;margin:auto;padding:50px;font-size:28px;font-weight:bold;color:red;\">" + lang( "exConfirm" ) + "</div>" );
             }
         }
 
@@ -178,7 +178,7 @@ namespace wojilu.Web.Controller {
 
         public void lost() {
             HideLayout( typeof( LayoutController ) );
-            actionContent( "wojilu.lostPage" );
+            content( "wojilu.lostPage" );
         }
 
         public void LoginScript() {

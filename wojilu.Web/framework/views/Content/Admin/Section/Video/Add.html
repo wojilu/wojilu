@@ -1,9 +1,30 @@
 ﻿<style>
 .tdL { text-align:right; color:#666; padding-right:8px;}
+.pubLeft { text-align:right;padding-right:8px;vertical-align:top;}
 </style>
 
-<div style="margin:15px;height:250px;">
+<script>
+    _run(function () {
+        $('.tabList li a').click(function () {
+            var tabId = wojilu.str.trimStart($(this).parent().attr('id'), 'tab');
+            $('.tabMain').hide();
+            $('#content' + tabId).show();
+        });
+    });
+</script>
+
+<div style="margin:15px;height:380px;">
 <form method="post" action="#{ActionLink}" id="vform">
+
+	<ul class="tabList">
+	<li id="tab1" class="firstTab currentTab" style="margin-left:30px; width:130px;"><a href="#">:{general}</a><span></span></li>
+	<li id="tab2" style="width:130px;"><a href="#">:{advanced}</a><span></span></li>
+    <li id="tab3" style="width:130px;"><a href="#">SEO</a><span></span></li>
+	</ul>
+
+    <div style="margin-top:10px;">
+	
+	<div id="content1" class="tabMain" style="width:98%;">
     <table style="width: 98%;" border="0" cellpadding="0">
 
 	    <tr class="videoPlay">
@@ -14,6 +35,8 @@
 	            <input id="btnGet" type="button" value="自动获取视频信息" class="btn btns" /><span id="loadingInfo"></span></div>
 	        </td>
 	    </tr>
+
+
 	    <tr><td><strong>或 直接填写：</strong></td><td></td></tr>
 	    <tr class="videoDetail">
 		    <td class="tdL">_{title}</td>
@@ -28,31 +51,94 @@
 		    <td><input name="ImgLink" id="vImgLink" type="text" size="20" style="width: 550px" class="tipInput" tip=":{addVideoPicValid}"><span class="valid" mode="border"></span></td>
 	    </tr>
 	    <tr>
-		    <td>&nbsp;<input type="hidden" name="ModuleId" value="#{module.Id}" /></td>
+		    <td>&nbsp;</td>
 		    <td>
 		        <input name="Submit1" type="submit" value=":{addVideo}" class="btn">
 		        <input type="button" value="_{cancel}" class="btnCancel" />
-		        
-		        <span style="display:none;">
-	            <input name="Checkbox1" type="checkbox" id="chkMore" class="left10" /><label id="Label1" for="chkMore"> _{more}...</label></span>
 		    </td>
 	    </tr>
     </table>
 
-    <table class="morePanel" id="morePanel" style="width:98%; display:none;">
+    </div>
+
+	<div id="content2" class="tabMain" style="display:none;width:98%;">
+	<table style="margin:auto;" class="pubTable">
 	    <tr>
-		    <td style="width:80px">_{orderId}</td>
-		    <td><input name="OrderId" type="text" size="20" style="width: 30px" value="0">&nbsp;
-		    </td>
+	        <td class="pubLeft">_{tag}</td>
+	        <td><input name="TagList" id="tagList" type="text" style="width:300px;"><span class="note left5" title="">_{tagTip}</span></td>
 	    </tr>
+		<tr>
+			<td class="pubLeft">_{summary}</td>
+			<td>
+			<textarea name="Summary" style="width: 550px; height: 50px"></textarea></td>
+		</tr>
 	    <tr>
-		    <td>:{titleStyle}</td>
+            <td class="pubLeft">_{closeComment}</td><td>        
+                <label class="checkbox"><input type="checkbox" name="IsCloseComment" value="1"> 关闭评论</label>   	    
+	        </td>
+        </tr>
+        <tr>
+            <td class="pubLeft">查看次数</td>
+            <td><input name="Hits" type="text" style="width:30px" value="0" /></td>
+        </tr>
+		<tr>
+		    <td class="pubLeft">发布时间</td>
+		    <td>
+		        <input name="Created" type="text" class="right20" value="#{created}" />
+		    </td>
+		</tr>
+		<tr>
+		    <td class="pubLeft">视频大小</td>
+		    <td>:{width}<input id="width" name="Width" type="text" value="#{width}" style="width:40px;" />px 
+            <span class="left20">:{height}</span><input id="height" name="Height" type="text" value="#{height}" style="width:40px;" />px</td>
+		</tr>
+
+        <tr><td></td><td>&nbsp;</td></tr>
+
+		<tr>
+		    <td class="pubLeft">跳转网址</td>
+		    <td style="padding-bottom:5px;"><input name="RedirectUrl" type="text" style="width:480px;" value="" /><br />
+            <span class="note">(如果设置，则文章被点击之后，不再显示内容，而是直接跳转到此网址)</span></td>
+		</tr>
+
+        <tr>
+            <td class="pubLeft">首页排序</td>
+            <td><input name="OrderId" type="text" size="20" style="width: 30px" value="">
+            <span class="note">(可以调整文章在首页的顺序。数字越大越靠前)</span>
+            </td>
+        </tr>
+	    <tr>
+		    <td class="pubLeft">_{titleHome}</td>
+		    <td style="padding-bottom:5px;"> <input name="TitleHome" type="text" style="width:480px;" type="text" value="" ><br />
+            <span class="note">(为了美化首页排版，你可以稍作编辑，比如精简字数、修饰标题等)</span>
+            </td>
+	    </tr>
+
+
+	    <tr>
+		    <td class="pubLeft">:{titleStyle}</td>
 		    <td><textarea name="Style" style="width: 550px; height: 50px"></textarea><br />
 		    <span class="note">(:{cssRequired})</span>
 		    </td>
-	    </tr>			
+	    </tr>
     </table>
+    </div>
 
+	<div id="content3" class="tabMain" style="display:none;width:98%;">
+	<table style="margin:auto;" class="pubTable">
+
+	<tr>
+		<td style="width:100px">SEO Keywords</td>
+		<td><input name="MetaKeywords" type="text" style="width: 550px" /></td>
+	</tr>
+	<tr>
+		<td style="width:100px;vertical-align:top">SEO Description</td>
+		<td style=""><textarea name="MetaDescription" style="width: 550px; height:30px;"></textarea></td>
+	</tr>
+    </table>
+    </div>
+
+    </div>
 </form>
 </div>
 

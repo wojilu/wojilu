@@ -5,14 +5,15 @@
 using System;
 using System.Collections.Generic;
 
-using wojilu.Web.Mvc;
-using wojilu.Serialization;
 using wojilu.ORM;
 using wojilu.Common;
+using wojilu.Web.Mvc;
 
 using wojilu.Apps.Forum.Domain;
 using wojilu.Apps.Forum.Interface;
 using wojilu.Common.AppBase.Interface;
+
+using wojilu.Common.Jobs;
 
 using wojilu.Common.Feeds.Domain;
 using wojilu.Common.Feeds.Interface;
@@ -31,7 +32,7 @@ using wojilu.Members.Sites.Domain;
 using wojilu.Members.Users.Domain;
 using wojilu.Members.Users.Interface;
 using wojilu.Members.Users.Service;
-using wojilu.Common.Jobs;
+
 
 namespace wojilu.Apps.Forum.Service {
 
@@ -250,10 +251,10 @@ namespace wojilu.Apps.Forum.Service {
 
             Dictionary<string, object> dic = new Dictionary<string, object>();
             dic.Add( "post", post );
-            String templateData = JSON.DicToString( dic );
+            String templateData = Json.SerializeDic( dic );
 
             TemplateBundle tplBundle = TemplateBundle.GetForumPostTemplateBundle();
-            feedService.publishUserAction( data.Creator, typeof( ForumPost ).FullName, tplBundle.Id, templateData, "" );
+            feedService.publishUserAction( data.Creator, typeof( ForumPost ).FullName, tplBundle.Id, templateData, "", data.Ip );
         }
 
         private void addNotification( ForumPost post ) {

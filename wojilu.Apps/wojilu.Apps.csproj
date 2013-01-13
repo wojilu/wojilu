@@ -69,10 +69,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Blog\Domain\BlogPicPick.cs" />
     <Compile Include="Blog\Domain\BlogSetting.cs" />
     <Compile Include="Blog\Domain\BlogSysCategory.cs" />
     <Compile Include="Blog\Domain\BlogPick.cs" />
     <Compile Include="Blog\Domain\BlogPickedImg.cs" />
+    <Compile Include="Blog\BlogAppSetting.cs" />
     <Compile Include="Blog\Interface\IBlogSysCategoryService.cs" />
     <Compile Include="Blog\Interface\IBlogPickService.cs" />
     <Compile Include="Blog\Service\BlogCommentService.cs" />
@@ -81,6 +83,7 @@
     <Compile Include="Blog\Interface\IBlogService.cs" />
     <Compile Include="Blog\Interface\IPickedService.cs" />
     <Compile Include="Blog\Interface\ISysBlogService.cs" />
+    <Compile Include="Blog\Service\BlogPicService.cs" />
     <Compile Include="Blog\Service\BlogSysCategoryService.cs" />
     <Compile Include="Blog\Service\BlogPickService.cs" />
     <Compile Include="Content\Domain\ContentDigg.cs" />
@@ -213,7 +216,6 @@
     <Compile Include="Forum\Domain\ForumPoll.cs" />
     <Compile Include="Forum\Domain\ForumPollResult.cs" />
     <Compile Include="Forum\Domain\ForumSetting.cs" />
-    <Compile Include="Forum\Interface\IPickPost.cs" />
     <Compile Include="Forum\Domain\LastUpdateInfo.cs" />
     <Compile Include="Forum\Domain\ForumBuyLog.cs" />
     <Compile Include="Forum\Domain\ForumRateLog.cs" />
@@ -222,6 +224,7 @@
     <Compile Include="Forum\Service\ForumPollService.cs" />
     <Compile Include="Forum\Interface\IForumPickService.cs" />
     <Compile Include="Forum\Service\SysForumTopicService.cs" />
+    <Compile Include="Photo\PhotoAppSetting.cs" />
     <Compile Include="Photo\Domain\PhotoLike.cs" />
     <Compile Include="Photo\Interface\IPhotoService.cs" />
     <Compile Include="Photo\Interface\IPhotoLikeService.cs" />

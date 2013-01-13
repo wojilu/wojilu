@@ -14,9 +14,9 @@ namespace wojilu.Web.Controller.Blog {
         
         private void bindBlogPost( BlogPost post, String saveStatusInfo ) {
 
-            WebUtils.pageTitle( this, post.Title );
-            Page.Keywords = post.Tag.TextString;
-            Page.Description = strUtil.ParseHtml( post.Content, 100 );
+            ctx.Page.Title = post.Title;
+            ctx.Page.Keywords = post.Tag.TextString;
+            ctx.Page.Description = strUtil.ParseHtml( post.Content, 100 );
 
             set( "blog.SaveStatus", saveStatusInfo );
             set( "blog.Title", post.Title );

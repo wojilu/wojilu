@@ -34,6 +34,8 @@ namespace wojilu.Web.Controller.Admin.Members {
         public String Name { get; set; }
         public String Pwd { get; set; }
         public String Email { get; set; }
+
+        public String FriendlyUrl { get; set; }
     }
 
     public partial class UserController : ControllerBase {
@@ -57,7 +59,6 @@ namespace wojilu.Web.Controller.Admin.Members {
         public void Index() {
 
             set( "userListLink", to( Index ) );
-            set( "addUserLink", to( AddUser ) );
 
             set( "SearchAction", to( Index ) );
             set( "OperationUrl", to( Operation ) );
@@ -80,95 +81,6 @@ namespace wojilu.Web.Controller.Admin.Members {
 
             bindUserList( list );
         }
-
-        public void AddUser() {
-            target( CreateUser );
-        }
-
-        [HttpPost, DbTransaction]
-        public void CreateUser() {
-
-            List<UserVo> users = getUserInfoList();
-            if (users.Count == 0) {
-                echoError( "请填写用户信息" );
-                return;
-            }
-
-            logger.Info( "user count=" + users.Count );
-
-            try {
-                int okCount = 0;
-                foreach (UserVo u in users) {
-                    Result result = registerUser( u ); // 逐个导入用户(导入的过程就是注册的过程)
-                    if (result.IsValid) {
-                        logger.Info( "register user=" + u.Name );
-                        okCount += 1;
-                    }
-                    else {
-                        logger.Error( "register user error=" + result.ErrorsText );
-                        errors.Join( result );
-                    }
-                }
-
-                if (okCount > 0) {
-                    logger.Info( "register done" );
-                    echoToParentPart( "注册成功" );
-                }
-                else {
-                    echoError();
-                }
-            }
-            catch (Exception ex) {
-                logger.Info( "" + ex.Message );
-                logger.Info( "" + ex.StackTrace );
-
-                echoError( "对不起，注册出错，请查看日志" );
-            }
-        }
-
-        private Result registerUser( UserVo user ) {
-            // 调用 OpenService 进行 wojilu 注册
-            return new wojilu.Open.OpenService().UserRegister( user.Name, user.Pwd, user.Email );
-        }
-
-
-        private List<UserVo> getUserInfoList() {
-
-            String txtUsers = ctx.Post( "txtUsers" );
-
-            if (strUtil.IsNullOrEmpty( txtUsers )) return new List<UserVo>();
-
-            List<UserVo> users = new List<UserVo>();
-
-            String[] arrLines = txtUsers.Trim().Split( new char[] { '\n', '\r' } );
-
-            foreach (String line in arrLines) {
-
-                if (strUtil.IsNullOrEmpty( line )) continue;
-
-                String[] arrItems = line.Split( '/' );
-                if (arrItems.Length != 3) continue;
-
-                UserVo user = new UserVo();
-                user.Name = arrItems[0];
-                user.Pwd = arrItems[1];
-                user.Email = arrItems[2];
-
-                if (hasError( user )) continue;
-
-                users.Add( user );
-            }
-
-            return users;
-        }
-
-        private bool hasError( UserVo user ) {
-            return string.IsNullOrEmpty( user.Name ) ||
-                string.IsNullOrEmpty( user.Pwd ) ||
-                string.IsNullOrEmpty( user.Email );
-        }
-
-
 
         [HttpPost, DbTransaction]
         public void Operation() {
@@ -205,7 +117,7 @@ namespace wojilu.Web.Controller.Admin.Members {
 
             User.updateBatch( action, condition );
             logUser( SiteLogString.AdminUser( cmd ), userIds );
-            actionContent( "ok" );
+            content( "ok" );
         }
 
         //-----------------------------------------------------------------------------------------------------
@@ -224,7 +136,7 @@ namespace wojilu.Web.Controller.Admin.Members {
             UserProfileController.SaveProfile( m, ctx );
             db.update( m );
             db.update( m.Profile );
-            echoRedirect( lang( "opok" ) );
+            echoRedirectPart( lang( "opok" ) );
         }
 
 
@@ -247,7 +159,7 @@ namespace wojilu.Web.Controller.Admin.Members {
             String idsStr = ctx.PostIdList( "UserIds" );
             List<User> users = userService.GetByIds( idsStr );
             if (users.Count == 0) {
-                echoRedirect( lang( "exUserNotFound" ) );
+                echoRedirectPart( lang( "exUserNotFound" ) );
                 return;
             }
 
@@ -261,8 +173,9 @@ namespace wojilu.Web.Controller.Admin.Members {
             if (isSendMail) {
                 sendPwdToEmail( users, pwd );
             }
-            else
-                echoRedirect( lang( "pwdUpdated" ), Index );
+            else {
+                echoRedirectPart( lang( "pwdUpdated" ), to( Index ) );
+            }
 
         }
 
@@ -281,9 +194,9 @@ namespace wojilu.Web.Controller.Admin.Members {
             }
 
             if (sendCount > 0)
-                echoRedirect( lang( "pwdUpdatedAndSent" ), Index );
+                echoRedirectPart( lang( "pwdUpdatedAndSent" ), to( Index ) );
             else
-                echoRedirect( lang( "pwdUpdatedAndSentError" ), Index );
+                echoRedirectPart( lang( "pwdUpdatedAndSentError" ), to( Index ) );
         }
 
         //-----------------------------------------------------------------------------------------------------
@@ -308,7 +221,7 @@ namespace wojilu.Web.Controller.Admin.Members {
             }
 
             msgService.SiteSend( msgInfo.Title, msgInfo.Body, msgInfo.Users );
-            echoRedirect( lang( "sentok" ), Index );
+            echoRedirectPart( lang( "sentok" ), to( Index ) );
         }
 
         public void SendEmail() {
@@ -358,7 +271,6 @@ namespace wojilu.Web.Controller.Admin.Members {
 
             MsgInfo msgInfo = validateMsg( true );
 
-
             if (ctx.HasErrors) {
                 run( SendMsg );
                 return;
@@ -374,10 +286,12 @@ namespace wojilu.Web.Controller.Admin.Members {
                 }
             }
 
-            if (sendCount > 0)
-                echoRedirect( lang( "sentok" ), Index );
-            else
-                echoRedirect( lang( "exSentError" ), Index );
+            if (sendCount > 0) {
+                echoRedirectPart( lang( "sentok" ), to( Index ) );
+            }
+            else {
+                echoRedirectPart( lang( "exSentError" ), to( Index ) );
+            }
         }
 
 

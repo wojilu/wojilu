@@ -6,18 +6,21 @@ using System;
 using System.Collections.Generic;
 
 using wojilu.Web;
-using wojilu.Data;
-using wojilu.Serialization;
+
 using wojilu.DI;
-using wojilu.Members.Users.Service;
-using wojilu.Members.Users.Domain;
+using wojilu.Data;
+
+using wojilu.ORM;
+using wojilu.ORM.Caching;
+
 using wojilu.Common.Feeds.Domain;
 using wojilu.Common.Feeds.Interface;
-using wojilu.Members.Users.Interface;
 using wojilu.Common.Msg.Interface;
 using wojilu.Common.Msg.Service;
-using wojilu.ORM.Caching;
-using wojilu.ORM;
+
+using wojilu.Members.Users.Service;
+using wojilu.Members.Users.Domain;
+using wojilu.Members.Users.Interface;
 
 namespace wojilu.Common.Feeds.Service {
 
@@ -46,21 +49,14 @@ namespace wojilu.Common.Feeds.Service {
             return result;
         }
 
-        //public Feed GetByIdWithComments( int id ) {
-        //    Feed feed = GetById( id );
-        //    List<FeedComment> comments = FeedComment.find( "RootId="+id + " order by Id" ).list();
-        //    feed.setComments( comments );
-        //    return feed;
-        //}
-
         //----------------------------------------------- 开放方法 --------------------------------------------------------------------
 
         public virtual TemplateBundle registerTemplateBundle( List<OneLineStoryTemplate> oneLineStoryTemplates, List<ShortStoryTemplate> shortStoryTemplates, List<ActionLink> actionLinks ) {
 
             TemplateBundle t = new TemplateBundle();
-            t.OneLineStoryTemplatesStr = SimpleJsonString.ConvertList( oneLineStoryTemplates );
-            t.ShortStoryTemplatesStr = SimpleJsonString.ConvertList( shortStoryTemplates );
-            t.ActionLinksStr = SimpleJsonString.ConvertList( actionLinks );
+            t.OneLineStoryTemplatesStr = Json.SerializeListSimple( oneLineStoryTemplates );
+            t.ShortStoryTemplatesStr = Json.SerializeListSimple( shortStoryTemplates );
+            t.ActionLinksStr = Json.SerializeListSimple( actionLinks );
             db.insert( t );
 
             return t;
@@ -103,7 +99,7 @@ namespace wojilu.Common.Feeds.Service {
             feed.BodyGeneral = data.BodyGeneral;
         }
 
-        public virtual void publishUserAction( User creator, String dataType, int templateBundleId, String templateData, String bodyGeneral ) {
+        public virtual void publishUserAction( User creator, String dataType, int templateBundleId, String templateData, String bodyGeneral, String ip ) {
 
             // 模板数据是 json 字符串类型；也就是 key-value 对
             // 除了自定义的键外，比如 {*gift*}, {*mood*}, {*score*}
@@ -278,7 +274,7 @@ namespace wojilu.Common.Feeds.Service {
 
             templateData = templateData.Trim().Replace( "\r", "" ).Replace( "\n", "" );
 
-            Dictionary<string, object> data = JSON.ToDictionary( templateData );
+            Dictionary<string, object> data = Json.DeserializeDic( templateData );
 
             String result = template;
             String creatorKey = "{*actor*}";
@@ -295,6 +291,12 @@ namespace wojilu.Common.Feeds.Service {
 
         public virtual int GetTemplateBundleCount() {
             return db.count<TemplateBundle>();
+        }
+
+        public virtual void DeleteOne( int feedId ) {
+            Feed feed = Feed.findById( feedId );
+            if (feed == null) return;
+            feed.delete();
         }
 
         // 每日清除过期feed

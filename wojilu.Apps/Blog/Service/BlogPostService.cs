@@ -7,7 +7,6 @@ using System.Collections.Generic;
 
 using wojilu.Web;
 using wojilu.Web.Mvc;
-using wojilu.Serialization;
 
 using wojilu.Common;
 using wojilu.Common.AppBase;
@@ -16,6 +15,7 @@ using wojilu.Common.Feeds.Service;
 using wojilu.Common.Jobs;
 using wojilu.Common.MemberApp.Interface;
 using wojilu.Common.Tags;
+using wojilu.Common.Upload;
 
 using wojilu.Members.Users.Interface;
 using wojilu.Members.Users.Domain;
@@ -123,7 +123,7 @@ namespace wojilu.Apps.Blog.Service {
             IMemberApp uapp = new UserAppService().GetByApp( app );
 
             RssChannel channel = new RssChannel();
-            channel.Title = uapp.Name + " -- " +  user.Name+"'s blog";
+            channel.Title = uapp.Name + " -- " + user.Name + "'s blog";
             channel.Link = Link.ToMember( user );
 
             foreach (BlogPost post in newListAll) {
@@ -191,6 +191,58 @@ namespace wojilu.Apps.Blog.Service {
 
         //------------------------------------------ 插入与更新 --------------------------------------------------
 
+
+        public virtual Result Insert( BlogPost post, int[] attachmentIds ) {
+
+            Result result = db.insert( post );
+            if (result.IsValid) {
+
+                saveAttachments( post, attachmentIds );
+
+                updateAppCount( post );
+                TagService.SaveDataTag( post, post.Tags );
+                addFeedInfo( post );
+
+            }
+
+            return result;
+        }
+
+
+
+
+        private void saveAttachments( BlogPost post, int[] attachmentIds ) {
+
+            if (attachmentIds == null || attachmentIds.Length == 0) return;
+
+            int count = 0;
+            foreach (int id in attachmentIds) {
+
+                UserFile att = UserFile.findById( id );
+                if (att == null) continue;
+
+                att.DataId = post.Id;
+                att.DataType = typeof( BlogPost ).FullName;
+
+                att.Creator = post.Creator;
+                att.CreatorUrl = post.CreatorUrl;
+
+                att.OwnerId = post.OwnerId;
+                att.OwnerType = post.OwnerType;
+                att.OwnerUrl = post.OwnerUrl;
+
+                att.update();
+
+                count++;
+            }
+
+            if (count > 0) {
+                post.AttachmentCount = count;
+                post.update();
+            }
+
+        }
+
         public virtual Result Insert( BlogPost post ) {
 
             Result result = db.insert( post );
@@ -218,10 +270,10 @@ namespace wojilu.Apps.Blog.Service {
 
             Dictionary<string, object> dic = new Dictionary<string, object>();
             dic.Add( "blog", blog );
-            String templateData = JSON.DicToString( dic );
+            String templateData = Json.SerializeDic( dic );
 
             TemplateBundle tplBundle = TemplateBundle.GetBlogTemplateBundle();
-            new FeedService().publishUserAction( data.Creator, typeof( BlogPost ).FullName, tplBundle.Id, templateData, "" );
+            new FeedService().publishUserAction( data.Creator, typeof( BlogPost ).FullName, tplBundle.Id, templateData, "", data.Ip );
         }
 
 

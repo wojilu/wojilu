@@ -4,11 +4,10 @@
 
 using System;
 using System.Collections.Generic;
-using System.Text;
 
-using wojilu.Serialization;
-using wojilu.Members.Users.Domain;
 using wojilu.Common.Feeds.Service;
+
+using wojilu.Members.Users.Domain;
 
 namespace wojilu.Common.Feeds.Domain {
 
@@ -20,6 +19,8 @@ namespace wojilu.Common.Feeds.Domain {
         private String commentContet;
         private String typeFullName;
         private User creator;
+
+        private String ip;
 
         public void AddData( String key, String value ) {
             dic.Add( key, value );
@@ -41,8 +42,12 @@ namespace wojilu.Common.Feeds.Domain {
             creator = user;
         }
 
+        public void SetIp( String ip ) {
+            this.ip = ip;
+        }
+
         public void Publish() {
-            new FeedService().publishUserAction( creator, typeFullName, templateId, JSON.DicToString( dic ), commentContet );
+            new FeedService().publishUserAction( creator, typeFullName, templateId, Json.SerializeDic( dic ), commentContet, ip );
         }
     }
 

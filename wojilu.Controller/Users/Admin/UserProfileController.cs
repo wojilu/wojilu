@@ -1,4 +1,4 @@
-/*
+ï»¿/*
  * Copyright (c) 2010, www.wojilu.com. All rights reserved.
  */
 
@@ -142,7 +142,7 @@ namespace wojilu.Web.Controller.Users.Admin {
 
             String tagList = strUtil.SubString( ctx.Post( "tagList" ), 30 );
             if (strUtil.IsNullOrEmpty( tagList )) {
-                echoError( "ÇëÌîÐ´ÄÚÈÝ" );
+                echoError( "è¯·å¡«å†™å†…å®¹" );
                 return;
             }
 
@@ -158,7 +158,7 @@ namespace wojilu.Web.Controller.Users.Admin {
                 echoAjaxOk();
             }
             else {
-                echoText( "±êÇ©²»´æÔÚ" );
+                echoText( "æ ‡ç­¾ä¸å­˜åœ¨" );
             }
         }
 
@@ -237,7 +237,7 @@ namespace wojilu.Web.Controller.Users.Admin {
 
             Boolean isUserPrivacyClose = Component.IsClose( typeof( UserPrivacy ) );
             if (isUserPrivacyClose) {
-                echo( "¶Ô²»Æð£¬±¾¹¦ÄÜÒÑ¾­Í£ÓÃ" );
+                echo( "å¯¹ä¸èµ·ï¼Œæœ¬åŠŸèƒ½å·²ç»åœç”¨" );
                 return;
             }
 
@@ -272,7 +272,7 @@ namespace wojilu.Web.Controller.Users.Admin {
 
             Boolean isUserPrivacyClose = Component.IsClose( typeof( UserPrivacy ) );
             if (isUserPrivacyClose) {
-                echo( "¶Ô²»Æð£¬±¾¹¦ÄÜÒÑ¾­Í£ÓÃ" );
+                echo( "å¯¹ä¸èµ·ï¼Œæœ¬åŠŸèƒ½å·²ç»åœç”¨" );
                 return;
             }
 
@@ -300,7 +300,7 @@ namespace wojilu.Web.Controller.Users.Admin {
 
             Boolean isUserPrivacyClose = Component.IsClose( typeof( UserPrivacy ) );
             if (isUserPrivacyClose) {
-                echo( "¶Ô²»Æð£¬±¾¹¦ÄÜÒÑ¾­Í£ÓÃ" );
+                echo( "å¯¹ä¸èµ·ï¼Œæœ¬åŠŸèƒ½å·²ç»åœç”¨" );
                 return;
             }
 
@@ -325,7 +325,7 @@ namespace wojilu.Web.Controller.Users.Admin {
 
             Boolean isUserPrivacyClose = Component.IsClose( typeof( UserPrivacy ) );
             if (isUserPrivacyClose) {
-                echo( "¶Ô²»Æð£¬±¾¹¦ÄÜÒÑ¾­Í£ÓÃ" );
+                echo( "å¯¹ä¸èµ·ï¼Œæœ¬åŠŸèƒ½å·²ç»åœç”¨" );
                 return;
             }
 
@@ -404,15 +404,58 @@ namespace wojilu.Web.Controller.Users.Admin {
                 m.Profile.OtherInfo = ctx.Post( "OtherInfo" );
             }
 
-            int descMaxLength = 5000; // ¼ò½é×î¶à5000×Ö
-            int sigMaxLength = 1000; // Ç©Ãû×î¶à1000×Ö
+            if (ctx.viewer != null && ctx.viewer.IsAdministrator()) {
 
-            m.Profile.Description = ctx.PostHtml( "Description", "a,br,strong" );
-            if (m.Profile.Description.Length > descMaxLength) m.Profile.Description = strUtil.ParseHtml( m.Profile.Description, descMaxLength );
+                m.Profile.Description = ctx.PostHtmlAll( "Description" );
+                m.Signature = ctx.PostHtmlAll( "Signature" );
+            }
+            else {
 
-            m.Signature = ctx.PostHtml( "Signature", "a,br,strong" );
-            if (m.Signature.Length > sigMaxLength) m.Signature = strUtil.ParseHtml( m.Signature, sigMaxLength );
+                saveDescriptionAndSignature( m, ctx );
+            }
         }
+
+        private static void saveDescriptionAndSignature( User m, MvcContext ctx ) {
+
+            Dictionary<String, String> tags = new Dictionary<String, String>();
+            tags.Add( "a", "href,target" );
+            tags.Add( "br", "" );
+            tags.Add( "strong", "" );
+
+            String desc = ctx.PostHtml( "Description", tags );
+
+            if (strUtil.CountString( desc.ToLower(), "<br" ) <= 3) { // è¶…è¿‡3æ¬¡æ¢è¡Œæ— æ•ˆï¼Œä¸ä¿å­˜
+
+                if (desc.Length >= config.Instance.Site.UserDescriptionMin) {
+                    if (desc.Length > config.Instance.Site.UserDescriptionMax) {
+                        m.Profile.Description = strUtil.ParseHtml( desc, config.Instance.Site.UserDescriptionMax );
+                    }
+                    else {
+                        m.Profile.Description = desc;
+                    }
+                }
+
+            }
+
+            String sign = ctx.PostHtml( "Signature", tags );
+
+            if (strUtil.CountString( sign.ToLower(), "<br" ) <= 3) { // è¶…è¿‡3æ¬¡æ¢è¡Œæ— æ•ˆï¼Œä¸ä¿å­˜
+
+
+                if (sign.Length >= config.Instance.Site.UserSignatureMin) {
+                    if (sign.Length > config.Instance.Site.UserSignatureMax) {
+                        m.Signature = strUtil.ParseHtml( sign, config.Instance.Site.UserSignatureMax );
+                    }
+                    else {
+                        m.Signature = sign;
+                    }
+                }
+
+            }
+
+        }
+
+
 
         private void saveContact( User m ) {
 

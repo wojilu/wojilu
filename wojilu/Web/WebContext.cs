@@ -139,19 +139,26 @@ namespace wojilu.Web {
             return cvt.ToInt( ticket.UserData );
         }
 
+        public void UserLogin( int userId, String userName, DateTime expiration ) {
+            UserLogin( FormsAuthentication.FormsCookieName, userId, userName, expiration );
+        }
         public void UserLogin( int userId, String userName, LoginTime expiration ) {
             UserLogin( FormsAuthentication.FormsCookieName, userId, userName, expiration );
         }
 
         public void UserLogin( String cookieName, int userId, String userName, LoginTime expiration ) {
+            UserLogin( cookieName, userId, userName, getExpiration( expiration ) );
+        }
 
-            Boolean isPersistent = (expiration == LoginTime.Never ? false : true);
+        public void UserLogin( String cookieName, int userId, String userName, DateTime expiration ) {
+
+            Boolean isPersistent = (expiration.Subtract( DateTime.Now ).Days >= 1) ? true : false;
 
             FormsAuthenticationTicket ticket = new FormsAuthenticationTicket(
                 2,
                 userName,
                 DateTime.Now,
-                getExpiration( expiration ),
+                expiration,
                 isPersistent,
                 userId.ToString(),
                 FormsAuthentication.FormsCookiePath

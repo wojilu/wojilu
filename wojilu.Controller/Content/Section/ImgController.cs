@@ -61,9 +61,6 @@ namespace wojilu.Web.Controller.Content.Section {
 
             postService.AddHits( post );
 
-            Page.Title = post.Title;
-            Page.Keywords = post.Tag.TextString;
-
             int currentPage = ctx.route.page;
             DataPage<ContentImg> imgPage = imgService.GetImgPage( postId, currentPage );
 

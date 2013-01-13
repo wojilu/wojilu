@@ -46,7 +46,11 @@ namespace wojilu.Web.Controller.Forum.Users {
                 return;
             }
 
+            ForumBoard board = setCurrentBoard( p );
+
             set( "topicId", p.TopicId );
+            set( "resultLink", to( GetPollResultHtml, p.Id ) + "?boardId=" + board.Id );
+            set( "poll.VoteLink", to( Vote, p.Id ) + "?boardId=" + board.Id );
 
             String hideCss = "display:none;";
             if (p.CheckHasVote( ctx.viewer.Id ) || (p.IsClosed() && p.IsVisible == 0)) {
@@ -69,7 +73,7 @@ namespace wojilu.Web.Controller.Forum.Users {
 
             set( "topicId", p.TopicId );
 
-            set( "getResultHtmlLink", to( GetPollResultHtml, p.Id ) + "?boardId=" + board.Id );
+            set( "resultLink", to( GetPollResultHtml, p.Id ) + "?boardId=" + board.Id );
 
             set( "poll.Id", p.Id );
             set( "poll.Title", p.Title );
@@ -105,13 +109,17 @@ namespace wojilu.Web.Controller.Forum.Users {
         private void bindViewLink( ForumPoll p ) {
             IBlock lnkView = getBlock( "lnkView" );
             IBlock lblView = getBlock( "lblView" );
-            if (p.IsVisible == 0) {
+            if (p.IsVisible == 0 || isAuthor( p ) || ctx.viewer.IsAdministrator() || ctx.viewer.IsOwnerAdministrator( ctx.owner.obj )) {
                 lnkView.Set( "topicId", p.TopicId );
                 lnkView.Next();
             }
             else {
                 lblView.Next();
             }
+        }
+
+        private bool isAuthor( ForumPoll p ) {
+            return ctx.viewer.Id == p.Creator.Id;
         }
 
         public void GetPollResultHtml( int pollId ) {
@@ -218,12 +226,12 @@ namespace wojilu.Web.Controller.Forum.Users {
 
             ForumPoll poll = pollService.GetById( id );
             if (poll == null) {
-                echoError( alang( "exPollItemNotFound" ) );
+                echoError( lang( "exPollItemNotFound" ) );
                 return;
             }
 
             if (poll.CheckHasVote( ctx.viewer.Id )) {
-                echoError( alang( "exVoted" ) );
+                echoError( lang( "exVoted" ) );
                 return;
             }
 
@@ -250,7 +258,7 @@ namespace wojilu.Web.Controller.Forum.Users {
             ForumPoll poll = pollService.GetById( id );
 
             if (poll == null) {
-                echoText( alang( "exPollItemNotFound" ) );
+                echoText( lang( "exPollItemNotFound" ) );
                 return;
             }
 

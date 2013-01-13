@@ -3,17 +3,18 @@
  */
 
 using System;
+using System.Collections.Generic;
 
 using wojilu.ORM;
-using wojilu.Web.Mvc;
+
 using wojilu.Common.Comments;
-using wojilu.Members.Users.Domain;
 using wojilu.Common.Feeds.Domain;
 using wojilu.Common.Feeds.Service;
-using wojilu.Common.Msg.Service;
 using wojilu.Common.Msg.Enum;
-using wojilu.Serialization;
-using System.Collections.Generic;
+using wojilu.Common.Msg.Service;
+
+using wojilu.Members.Users.Domain;
+
 
 namespace wojilu.Apps.Blog.Domain {
 
@@ -62,6 +63,8 @@ namespace wojilu.Apps.Blog.Domain {
 
             myfeed.BodyGeneral = strUtil.ParseHtml( this.Content, 50 );
 
+            myfeed.Ip = this.Ip;
+
             new FeedService().publishUserAction( myfeed );
         }
 
@@ -69,7 +72,7 @@ namespace wojilu.Apps.Blog.Domain {
 
             BlogPost data = db.findById<BlogPost>( this.RootId );
 
-            String lnkUser = Link.ToMember( data.Creator );
+            String lnkUser = wojilu.Web.Mvc.Link.ToMember( data.Creator );
             String target = string.Format( "<a href=\"{0}\">{1}</a>", lnkUser, data.Creator.Name );
             String blog = string.Format( "<a href=\"{0}\">{1}</a>", lnkPost, data.Title );
 
@@ -77,7 +80,7 @@ namespace wojilu.Apps.Blog.Domain {
             dic.Add( "target", target );
             dic.Add( "blog", blog );
 
-            return JSON.DicToString( dic );
+            return Json.SerializeDic( dic );
         }
 
         public void AddNotification( String lnkTarget ) {

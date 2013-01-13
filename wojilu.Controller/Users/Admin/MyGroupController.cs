@@ -25,6 +25,7 @@ using wojilu.Members.Interface;
 using wojilu.DI;
 using wojilu.Apps.Forum.Interface;
 using wojilu.Apps.Forum.Service;
+using wojilu.Members.Groups;
 
 namespace wojilu.Web.Controller.Users.Admin {
 
@@ -273,7 +274,7 @@ namespace wojilu.Web.Controller.Users.Admin {
             if (group == null) { errors.Add( lang( "exGroupNull" ) ); run( New ); return; }
 
             HttpFile postedFile = ctx.GetFileSingle();
-            Result result = Uploader.SaveGroupLogo( postedFile, group.Url );
+            Result result = GroupHelper.SaveGroupLogo( postedFile, group.Url );
             if (result.HasErrors) { errors.Join( result ); run( showStepTwo, group.Id ); return; }
 
             group.Logo = result.Info.ToString();

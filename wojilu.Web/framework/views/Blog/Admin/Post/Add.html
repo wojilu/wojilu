@@ -54,9 +54,9 @@
 //-->
 </script>
 
-<form method="post" action="#{ActionLink}" class="ajaxPostForm">
+<form method="post" action="#{ActionLink}" class="ajaxPostForm" style="width:98%;margin:auto;">
 
-	<table cellspacing="1" cellpadding="4" width="95%" >
+	<table cellspacing="1" cellpadding="4" width="100%" >
 		<tr>
 			<td><strong>_{title}</strong> </td>
 			<td>
@@ -68,6 +68,27 @@
 			<strong class="left10">_{tag}</strong> 
 			<input name="TagList" id="tagList" type="text" style="width: 221px;height:20px;"> <img src="~img/help.gif" title=":{tagTip}"/></td>
 		</tr>
+
+	    <!--附件部分-->
+	    <tr>
+	        <td>
+                <strong>附件</strong>
+	        </td>
+	        <td>
+				<table>
+				    <tr>
+				        <td><img src="~img/attachment.gif" />上传附件</td>
+				        <td><input id="file_upload" name="file_upload" type="file" /></td>
+				        <td><span id="status"></span></td>
+				    </tr>
+				</table>
+				<div id="myqueue"></div>
+	            <div id="attachmentList" style="padding-left:5px;margin-bottom:5px;"></div>
+                <div><input type="hidden" name="attachmentIds" id="attachmentIds" /></div>
+	        </td>
+	    </tr><!--附件部分-->
+        
+
 		<tr>
 			<td style="vertical-align:top;"><strong>_{content}</strong>
 			<span to="Content" class="valid" mode="border"></span>
@@ -133,5 +154,90 @@ _run( function() {
     if( #{showCategoryBox} ) $('#categoryBox').click();
 });
 
+
+
+// 以下是上传附件的js
+function getRemovedIds( txtValue, deleteId ) {
+    var ids = txtValue.split( ',' );
+    var result = '';
+    for( var i=0;i<ids.length;i++ ) {
+        if( ids[i] == deleteId ) continue;
+        result += ids[i];
+        if( i<ids.length-1 ) result += ',';
+    }
+    return result;
+}
+
+function removeId( eleId, deleteId ) {
+    var newIds = getRemovedIds( $('#'+eleId).val(), deleteId );
+    $('#'+eleId).val( newIds );
+}
+
+function addId( eleId, objId ) {
+    var ele = $('#'+eleId);
+    var txtValue = ele.val();
+    if( txtValue=='' ) {
+        ele.val( objId );
+    }
+    else {
+        ele.val( txtValue + ','+objId );
+    }
+}
+
+
+_run(function() {
+
+    $('.delAttachment').live( 'click', function() {
+        
+        var deleteLink = $(this).attr( 'deleteLink' );
+        var deleteId = $(this).attr( 'deleteId' );
+        var ele = $(this).parent();
+        
+        $.post( deleteLink, function(data) {
+            if( 'ok'!=data ) alert( data );
+            ele.remove();
+            
+            // 从hidden字段中移除id
+            removeId( 'attachmentIds', deleteId );
+            
+        });
+        
+    });
+
+    // 总共两个步骤——
+
+    // 1) 上传的配置信息
+    var cfg = wojilu.upload.getSettings();
+
+    cfg.uploader = '#{uploadLink}'.toAjax(); // 接受上传的网址
+    cfg.postData = #{authJson}; // 客户端验证信息(cookie等)
+    cfg.fileTypeExts = '*.jpg;*.gif;*.png;*.zip;*.rar;*.7z;'; // 允许上传的文件类型
+    cfg.fileTypeDesc = 'All Files (.jpg, .png, .gif, .zip, .rar, .7z)'; // 选择框中文件类型描述
+    cfg.queueID = 'myqueue'; // 显示进度条的容器
+
+    // 每个文件上传成功之后在这里处理。data是服务端返回的数据。
+    cfg.onUploadSuccess = function (file, data, response) { 
+
+	    var obj = eval( '('+data+')' );
+	    if( obj.FileName=='' ) {
+	        alert( obj.Msg );
+	        return;
+	    }
+	        
+	    // 生成附件一行
+	    $('#attachmentList').append( '<div style="background:#f2f2f2;padding:0px 5px;margin:2px 0px;"><img src="~img/arrowRight.gif"/> '+obj.FileName+' <span class="link left5 delAttachment" style="text-decoration:underline;" deleteLink="'+obj.DeleteLink+'" deleteId="'+obj.Id+'">删除</span></div>' );
+	        
+	    // 将附件的Id加入hidden字段
+	    addId( 'attachmentIds', obj.Id );
+    };
+
+    cfg.onQueueComplete = function (data) {
+        $("#status").text(data.successful_uploads + " 个文件上传成功, " + data.upload_errors + " 个错误.");
+    };
+
+    // 2) 将普通上传控件转化为 flash 上传控件
+    wojilu.upload.initFlash( '#file_upload', cfg );
+
+});
 
 </script>

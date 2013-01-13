@@ -11,7 +11,7 @@ namespace wojilu.Web.Controller.Admin.Apps.Poll {
     public class MainController : ControllerBase {
 
         public void Index() {
-            actionContent( "TODO...建设中" );
+            content( "TODO...建设中" );
         }
 
     }

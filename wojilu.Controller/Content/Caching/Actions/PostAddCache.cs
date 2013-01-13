@@ -5,6 +5,7 @@ using wojilu.Web.Mvc;
 using System.IO;
 using wojilu.Web.Context;
 using wojilu.Apps.Content.Domain;
+using wojilu.Web.Controller.Content.Section;
 
 namespace wojilu.Web.Controller.Content.Caching.Actions {
 
@@ -17,7 +18,7 @@ namespace wojilu.Web.Controller.Content.Caching.Actions {
 
         public override void ObserveActions() {
 
-            Admin.PostController post = new wojilu.Web.Controller.Content.Admin.PostController();
+            Admin.Common.PostController post = new wojilu.Web.Controller.Content.Admin.Common.PostController();
             observe( post.Create );
             observe( post.SaveAdmin );
             observe( post.Restore );
@@ -36,10 +37,6 @@ namespace wojilu.Web.Controller.Content.Caching.Actions {
             observe( video.Create );
             observe( video.Update );
 
-            Admin.Section.VideoShowController vshow = new wojilu.Web.Controller.Content.Admin.Section.VideoShowController();
-            observe( vshow.Create );
-            observe( vshow.Update );
-
             Admin.Section.ImgController img = new wojilu.Web.Controller.Content.Admin.Section.ImgController();
             observe( img.CreateListInfo );
             observe( img.CreateImgList );
@@ -47,14 +44,18 @@ namespace wojilu.Web.Controller.Content.Caching.Actions {
             observe( img.UpdateListInfo );
             observe( img.DeleteImg );
 
-            Admin.Section.PollController poll = new wojilu.Web.Controller.Content.Admin.Section.PollController();
+            Admin.Common.PollController poll = new wojilu.Web.Controller.Content.Admin.Common.PollController();
             observe( poll.Create );
+            observe( poll.Delete );
         }
 
         public override void UpdateCache( Context.MvcContext ctx ) {
 
             HtmlHelper.MakeDetailHtml( ctx );
-            HtmlHelper.MakeListHtml( ctx );
+
+
+            new HtmlListMaker().MakeHtml( ctx );
+
 
             // 频道首页生成在 ContentIndexCache 中监控
 

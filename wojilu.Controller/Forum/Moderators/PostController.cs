@@ -63,18 +63,18 @@ namespace wojilu.Web.Controller.Forum.Moderators {
             String msg = "<div style=\"font-size:22px;color:red;font-weight:bold;margin-top:30px; text-align:center;\">{0}</div>";
 
             if (rateService.HasRate( ctx.viewer.Id, id )) {
-                actionContent( string.Format( msg, alang( "exRewarded" ) ) );
+                content( string.Format( msg, alang( "exRewarded" ) ) );
                 return;
             }
 
             ForumPost post = postService.GetById( id, ctx.owner.obj );
             if (post == null) {
-                actionContent( string.Format( msg, alang( "exPostNotFound" ) ) );
+                content( string.Format( msg, alang( "exPostNotFound" ) ) );
                 return;
             }
 
             if (post.Creator.Id == ctx.viewer.Id) {
-                actionContent( string.Format( msg, alang( "exNotAllowSelfCredit" ) ) );
+                content( string.Format( msg, alang( "exNotAllowSelfCredit" ) ) );
                 return;
             }
 

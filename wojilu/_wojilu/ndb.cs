@@ -97,7 +97,7 @@ namespace wojilu {
             if (pageSize > 0) state.Pager.setSize( pageSize );
 
             IList list = ObjectDB.FindPage( state, condition );
-            IPageList result = new PageList();
+            IPageList result = new DataPageInfo();
             result.Results = list;
             result.PageCount = state.Pager.PageCount;
             result.RecordCount = state.Pager.RecordCount;

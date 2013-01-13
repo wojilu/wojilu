@@ -44,6 +44,7 @@ namespace wojilu.Apps.Blog.Interface {
         Result Insert( BlogPost post );
         Result InsertDraft( BlogPost blogPost );
         Result PublishDraft( BlogPost post );
+        Result Insert( BlogPost data, int[] ids );
 
         void SetPick( String ids, int appId );
         void SetTop( String ids, int appId );

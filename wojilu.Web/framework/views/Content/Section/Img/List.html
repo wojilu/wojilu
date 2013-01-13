@@ -3,29 +3,15 @@
 <ul class="ulimgMiddle unstyled">
 
 	<!-- BEGIN list -->
-	<li style="width:135px; height:150px; border-radius:3px; box-shadow:3px 3px 10px #aaa;">
-		<a href="#{img.Url}"><img src="#{img.Thumb}" class="thumbItem"  style="max-width:120px; max-height:120px;" /></a>
-		<div class="img_title">#{img.Title}</div>	
+	<li style="width:175px; height:190px; border-radius:3px; box-shadow:3px 3px 10px #aaa;">
+		<a href="#{img.Url}"><img src="#{img.Thumb}" class="thumbItem"  style="width:150px; height:150px;" /></a>
+		<div style="width:158px;  overflow:hidden;text-overflow:clip;  white-space:nowrap;">
+        <a href="#{img.Url}">#{img.Title}</a>
+        </div>	
 	</li>
 	<!-- END list -->
 </ul>
 
 <div class="clear"></div>
 
-<div>#{page}</div>
-
-<script>
-_run( function() {
-    
-    var twidth = 120;
-    var theight = 120;
-        
-    $('.thumbItem').each( function() {
-        if( $(this).width()>twidth ) $(this).width( twidth );
-        if( $(this).height()>theight ) $(this).height( theight );
-    });
-    
-
-});
-</script>
-
+<div style="margin:20px 10px;">#{page}</div>

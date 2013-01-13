@@ -61,11 +61,15 @@
 		<!-- END sexyInfo -->
 		<tr><td colspan="2">&nbsp;</td></tr>
 		<tr>
-			<td valign="top" class="profile_panel" colspan="2">
-			_{selfIntroductionTip}<br>
+			<td valign="top" class="profile_panel" colspan="2">            
+			_{selfIntroductionTip} 
+            <span class="note">(长度：_{fromChar} #{m.UserDescriptionMin} _{toChar} #{m.UserDescriptionMax})</span>
+            <br>
 			<textarea name="Description" style="width: 90%; height: 96px">#{m.Description}</textarea>
 			<br /><br/>
-			_{signatureTip}<br>
+			_{signatureTip} 
+            <span class="note">(长度：长度：_{fromChar} #{m.UserSignatureMin} _{toChar} #{m.UserSignatureMax})</span>
+            <br>
 			<textarea name="Signature" style="width: 90%; height: 106px">#{m.Signature}</textarea>
 			</td>
 		</tr>

@@ -86,7 +86,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Common\AD.cs" />
-    <Compile Include="Common\AppBase\ExtData.cs" />
+    <Compile Include="Common\AppBase\ExtObject.cs" />
     <Compile Include="Common\AppBase\Interface\IApp.cs" />
     <Compile Include="Common\AppBase\Interface\IAppData.cs" />
     <Compile Include="Common\AppBase\Interface\IAppInstaller.cs" />
@@ -110,9 +110,20 @@
     <Compile Include="Common\Feeds\Interface\IFeedService.cs" />
     <Compile Include="Common\Feeds\Interface\IShareService.cs" />
     <Compile Include="Common\Comments\OpenComment.cs" />
+    <Compile Include="Common\Microblogs\MicroblogAppSetting.cs" />
+    <Compile Include="Common\Microblogs\Service\SysMicroblogCommentService.cs" />
+    <Compile Include="Common\Picks\Domain\DataPickBase.cs" />
+    <Compile Include="Common\Picks\Domain\ImgPickBase.cs" />
+    <Compile Include="Common\Picks\Service\DataPickService.cs" />
+    <Compile Include="Common\Picks\Interface\IPickPost.cs" />
+    <Compile Include="Common\Picks\Domain\MergedData.cs" />
     <Compile Include="Common\Polls\Service\PollHelper.cs" />
     <Compile Include="Common\Upload\TempUploadFileService.cs" />
     <Compile Include="Common\Upload\TempUploadFile.cs" />
+    <Compile Include="Common\Upload\UserFile.cs" />
+    <Compile Include="Common\Upload\UserFileService.cs" />
+    <Compile Include="Members\Groups\GroupHelper.cs" />
+    <Compile Include="Members\Groups\GroupSetting.cs" />
     <Compile Include="Members\Users\Domain\Invites\UserInviteApp.cs" />
     <Compile Include="Common\Jobs\HitsItem.cs" />
     <Compile Include="Common\Jobs\HitsJob.cs" />
@@ -384,7 +395,7 @@
     <Compile Include="Web\Mvc\HtmlLink.cs" />
     <Compile Include="Web\Mvc\LinkConverter.cs" />
     <Compile Include="Web\Mvc\MockContext.cs" />
-    <Compile Include="Web\Mvc\PageCache.cs" />
+    <Compile Include="Web\Mvc\CorePageCache.cs" />
     <Compile Include="Web\Url\UrlConverter.cs" />
     <Compile Include="Members\Users\Domain\User.cs" />
     <Compile Include="Web\Context\ViewerContext.cs">

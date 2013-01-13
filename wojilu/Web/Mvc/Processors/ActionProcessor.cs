@@ -37,7 +37,7 @@ namespace wojilu.Web.Mvc.Processors {
 
             MvcContext ctx = context.ctx;
 
-            ControllerBase controller = context.getController();
+            ControllerBase controller = ctx.controller;
 
             // 检查缓存
             CacheInfo ci = CacheInfo.Init( ctx );
@@ -57,6 +57,7 @@ namespace wojilu.Web.Mvc.Processors {
             // 运行并处理post值
             ActionRunner.runAction( ctx, controller, actionMethod, controller.utils.runAction );
             if (ctx.utils.isEnd()) {
+                afterAction( ctx );
                 return;
             }
 
@@ -93,10 +94,14 @@ namespace wojilu.Web.Mvc.Processors {
                 context.setContent( actionContent );
             }
 
+            afterAction( ctx );
+        }
+
+        private void afterAction(  MvcContext ctx ) {
+
             updateActionCache( ctx );
 
-            MvcEventPublisher.Instance.EndProcessAction( context.ctx );
-
+            MvcEventPublisher.Instance.EndProcessAction( ctx );
         }
 
         //------------------------------------------------------------------------
@@ -116,7 +121,7 @@ namespace wojilu.Web.Mvc.Processors {
         //--------------------------------------------------------------------------
 
         private static void addPageMetaToCache( MvcContext ctx, String cacheKey ) {
-            CacheManager.GetApplicationCache().Put( cacheKey + "_pageMeta", ctx.GetPageMeta() );
+            CacheManager.GetApplicationCache().Put( cacheKey + "_pageMeta", ctx.Page );
         }
 
         private static void getPageMetaFromCache( MvcContext ctx, String cacheKey ) {

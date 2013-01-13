@@ -6,10 +6,11 @@ using System;
 using System.Collections.Generic;
 
 using wojilu.Web.Mvc;
-using wojilu.Serialization;
+
+using wojilu.Common;
 using wojilu.Common.Msg.Service;
 using wojilu.Common.Msg.Enum;
-using wojilu.Common;
+
 
 namespace wojilu.Apps.Blog.Domain {
 
@@ -52,7 +53,7 @@ namespace wojilu.Apps.Blog.Domain {
             dic["userLink"] = Link.ToMember( post.Creator );
             dic["body"] = strUtil.ParseHtml( post.Content, 100 );
 
-            _shareData = JSON.DicToString( dic );
+            _shareData = Json.SerializeDic( dic );
 
             return _shareData;
         }

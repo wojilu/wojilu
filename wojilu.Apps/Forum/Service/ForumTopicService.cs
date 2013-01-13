@@ -8,7 +8,6 @@ using System.Collections.Generic;
 using wojilu.Web.Mvc;
 
 using wojilu.ORM;
-using wojilu.Serialization;
 
 using wojilu.Common;
 using wojilu.Common.Tags;
@@ -21,6 +20,8 @@ using wojilu.Common.Money.Service;
 using wojilu.Common.Money.Interface;
 using wojilu.Common.Feeds.Domain;
 using wojilu.Common.Feeds.Service;
+using wojilu.Common.Msg.Interface;
+using wojilu.Common.Msg.Service;
 
 using wojilu.Members.Interface;
 using wojilu.Members.Users.Service;
@@ -31,8 +32,6 @@ using wojilu.Members.Groups.Domain;
 
 using wojilu.Apps.Forum.Domain;
 using wojilu.Apps.Forum.Interface;
-using wojilu.Common.Msg.Interface;
-using wojilu.Common.Msg.Service;
 
 namespace wojilu.Apps.Forum.Service {
 
@@ -456,10 +455,10 @@ namespace wojilu.Apps.Forum.Service {
 
             Dictionary<string, object> dic = new Dictionary<string, object>();
             dic.Add( "topic", post );
-            String templateData = JSON.DicToString( dic );
+            String templateData = Json.SerializeDic( dic );
 
             TemplateBundle tplBundle = TemplateBundle.GetForumTopicTemplateBundle();
-            new FeedService().publishUserAction( data.Creator, typeof( ForumTopic ).FullName, tplBundle.Id, templateData, "" );
+            new FeedService().publishUserAction( data.Creator, typeof( ForumTopic ).FullName, tplBundle.Id, templateData, "", data.Ip );
         }
 
         public virtual Result Update( ForumTopic topic, User user, IMember owner ) {

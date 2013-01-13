@@ -204,6 +204,8 @@ namespace wojilu.Web.Controller.Content.Admin.Section {
             post.CommentCondition = cvt.ToInt( ctx.Post( "IsCloseComment" ) );
             post.HasImgList = 1;
 
+            post.MetaKeywords = ctx.Post( "MetaKeywords" );
+            post.MetaDescription = strUtil.SubString( ctx.Post( "MetaDescription" ), 250 );
 
             if (strUtil.IsNullOrEmpty( post.Title )) {
                 errors.Add( lang( "exTitle" ) );

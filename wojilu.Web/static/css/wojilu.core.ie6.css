@@ -15,8 +15,8 @@
 .site-header{margin-left:0px;}
 .site-header-inner {padding-left:10px;}
 
-.site-menu-nav .nav li {float:left; margin-right:15px;margin-bottom:-5px;}
-.site-menu-nav .nav li a{display:block; padding-top:8px;float:left; }
+.site-nav-wrap .nav li {float:left; margin-right:15px;margin-bottom:-5px;}
+.site-nav-wrap .nav li a{display:block; padding-top:8px;float:left; }
 
 #top-nav-left { width1:550px;}
 #top-nav-right { width1:380px; text-align:right;}

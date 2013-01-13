@@ -60,6 +60,7 @@
     <Compile Include="Common\PageTest.cs" />
     <Compile Include="Common\PathUtilTest.cs" />
     <Compile Include="Platform\TagTest.cs" />
+    <Compile Include="Web\Mvc\RouteTestNew.cs" />
     <Compile Include="Web\Utils\PlatformTemplateTest.cs" />
     <Compile Include="Platform\RankTest.cs" />
     <Compile Include="Common\HashTest.cs" />

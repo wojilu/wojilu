@@ -32,9 +32,9 @@ namespace wojilu.ORM.Operation {
         public int CurrentPage { get; set; }
         public int Size { get; set; }
         public String OrderStr { get; set; }
-        public ObjectPage Pager { get; set; }
+        public PageHelper Pager { get; set; }
 
-        public int beginCount( String countSql, ObjectPage pager, EntityInfo entityInfo ) {
+        public int beginCount( String countSql, PageHelper pager, EntityInfo entityInfo ) {
 
             String commandText = countSql;
             logger.Info( "[Page Record Count] " + commandText );

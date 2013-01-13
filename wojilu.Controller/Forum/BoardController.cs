@@ -118,8 +118,8 @@ namespace wojilu.Web.Controller.Forum {
 
             if (fb == null) return;
 
-            WebUtils.pageTitle( this, this.fb.Name );
-            Page.Description = this.fb.Description;
+            ctx.Page.Title = this.fb.Name;
+            ctx.Page.Description = this.fb.Description;
 
             // 1、当前路径
             set( "location", ForumLocationUtil.GetBoard( this.boardsPath, ctx ) );

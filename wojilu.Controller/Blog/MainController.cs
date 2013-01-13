@@ -3,25 +3,21 @@
  */
 
 using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.Text;
 
-using wojilu.ORM;
 using wojilu.Web.Mvc;
 using wojilu.Web.Mvc.Attr;
-
 
 using wojilu.Members.Users.Domain;
 using wojilu.Members.Users.Service;
 using wojilu.Members.Users.Interface;
-using wojilu.Common.Resource;
 
 using wojilu.Apps.Blog.Domain;
 using wojilu.Apps.Blog.Service;
 using wojilu.Apps.Blog.Interface;
-using wojilu.Web.Controller.Common;
 using wojilu.Web.Controller.Blog.Caching;
+using wojilu.Common.Picks;
+using wojilu.Apps.Blog;
 
 namespace wojilu.Web.Controller.Blog {
 
@@ -33,7 +29,8 @@ namespace wojilu.Web.Controller.Blog {
         public IPickedService pickedService { get; set; }
         public ISysBlogService sysblogService { get; set; }
         public IBlogSysCategoryService categoryService { get; set; }
-        public IBlogPickService pickService { get; set; }
+        public BlogPickService pickService { get; set; }
+        public BlogPicService picService { get; set; }
 
         public MainController() {
             postService = new BlogPostService();
@@ -43,11 +40,16 @@ namespace wojilu.Web.Controller.Blog {
             categoryService = new BlogSysCategoryService();
             pickService = new BlogPickService();
 
+            picService = new BlogPicService();
+
             HideLayout( typeof( LayoutController ) );
         }
 
         [CacheAction( typeof( BlogMainLayoutCache ) )]
         public override void Layout() {
+
+            // 当前app/module所有页面，所属的首页
+            ctx.SetItem( "_moduleUrl", to( Index ) );
 
             List<BlogPost> tops = pickedService.GetTop( 10 );
             List<BlogPost> hits = sysblogService.GetSysHit( 15 );
@@ -55,19 +57,36 @@ namespace wojilu.Web.Controller.Blog {
 
             bindSidebar( tops, hits, replies );
 
+            // 博客之星
+            bindBlogStar();
+
             String qword = ctx.Get( "qword" );
             int qtype = ctx.GetInt( "qtype" );
             set( "qword", qword );
             set( "qtype", qtype );
 
             set( "recentLink", to( Recent ) );
+
+            bindAdminLink();
+        }
+
+        private void bindAdminLink() {
+            set( "listLink", to( new wojilu.Web.Controller.Admin.Apps.Blog.MainController().Index, 0 ) );
+            set( "pickedLink", to( new wojilu.Web.Controller.Admin.Apps.Blog.BlogPickController().Index ) );
+            set( "trashLink", to( new wojilu.Web.Controller.Admin.Apps.Blog.TrashController().Trash ) );
+            set( "commentLink", to( new wojilu.Web.Controller.Admin.Apps.Blog.CommentController().List ) + "?type=" + typeof( BlogPostComment ).FullName );
+            set( "categoryLink", to( new wojilu.Web.Controller.Admin.Apps.Blog.SysCategoryController().List ) );
+            set( "settingLink", to( new wojilu.Web.Controller.Admin.Apps.Blog.SettingController().Index ) );
+            set( "fileLink", to( new wojilu.Web.Controller.Admin.Apps.Blog.BlogFileController().Index, 0 ) );
         }
 
         [CachePage( typeof( BlogMainPageCache ) )]
         [CacheAction( typeof( BlogMainCache ) )]
         public void Index() {
 
-            WebUtils.pageTitle( this, lang( "blog" ) );
+            ctx.Page.Title = BlogAppSetting.Instance.MetaTitle;
+            ctx.Page.Keywords = BlogAppSetting.Instance.MetaKeywords;
+            ctx.Page.Description = BlogAppSetting.Instance.MetaDescription;
 
             // TODO 博客排行
             List<User> userRanks = User.find( "order by Hits desc, id desc" ).list( 14 );
@@ -76,8 +95,11 @@ namespace wojilu.Web.Controller.Blog {
             set( "recentLink", to( Recent ) );
             set( "recentLink2", PageHelper.AppendNo( to( Recent ), 2 ) );
 
+            // 头条
             load( "blogPickedList", TopList );
 
+            // 图片博客
+            bindPicBlog();
 
             List<BlogSysCategory> categories = categoryService.GetAll();
             IBlock block = getBlock( "categories" );
@@ -94,6 +116,29 @@ namespace wojilu.Web.Controller.Blog {
                 i++;
             }
 
+        }
+
+        private void bindBlogStar() {
+
+            IBlock sblock = getBlock( "blockStar" );
+
+            BlogAppSetting s = BlogAppSetting.Instance;
+            sblock.Set( "BlogStarColumnName", s.BlogStarColumnName );
+
+            User user = User.findById( s.BlogStarUserId );
+            if (user != null) {
+                sblock.Set( "x.UserTitle", s.BlogStarUserTitle );
+                sblock.Set( "x.Pic", user.PicMedium );
+                sblock.Set( "x.Link", Link.ToMember( user ) );
+                sblock.Set( "x.Description", s.BlogStarUserDescription );
+                sblock.Next();
+            }
+        }
+
+        private void bindPicBlog() {
+            List<BlogPicPick> pics = picService.GetSysNew( 5 );
+            pics.ForEach( x => x.data.show = alink.ToAppData( x.BlogPost ) );
+            bindList( "picList", "x", pics );
         }
 
         private void bindOneCategory( IBlock cblock, List<BlogPost> list ) {
@@ -116,13 +161,14 @@ namespace wojilu.Web.Controller.Blog {
         [NonVisit]
         public void TopList() {
 
-            int imgCount = 6;
+            int imgCount = BlogAppSetting.Instance.PickImgCount;
+            int dataCount = BlogAppSetting.Instance.PickDataCount;
 
-            List<BlogPickedImg> pickedImg = BlogPickedImg.find( "" ).list( imgCount );
+            List<BlogPickedImg> pickedImg = db.find<BlogPickedImg>( "order by Id desc" ).list( imgCount );
             bindImgs( pickedImg );
 
-            List<BlogPost> newPosts = sysblogService.GetSysNew( 0, 5 );
-            List<MergedPost> results = pickService.GetAll( newPosts );
+            List<BlogPost> newPosts = sysblogService.GetSysNew( 0, dataCount );
+            List<MergedData> results = pickService.GetAll( newPosts, 0 );
 
             bindCustomList( results );
         }
@@ -137,7 +183,7 @@ namespace wojilu.Web.Controller.Blog {
             }
         }
 
-        private void bindCustomList( List<MergedPost> list ) {
+        private void bindCustomList( List<MergedData> list ) {
 
             IBlock hBlock = getBlock( "hotPick" );
             IBlock pBlock = getBlock( "pickList" );
@@ -150,10 +196,12 @@ namespace wojilu.Web.Controller.Blog {
             if (list.Count == 1) return;
             for (int i = 1; i < list.Count; i++) {
                 bindPick( list[i], pBlock, i + 1 );
+
+                if (i > BlogAppSetting.Instance.PickDataCount - 1) break;
             }
         }
 
-        private void bindPick( MergedPost x, IBlock block, int index ) {
+        private void bindPick( MergedData x, IBlock block, int index ) {
 
             block.Set( "x.Title", x.Title );
             block.Set( "x.Summary", x.Summary );
@@ -169,7 +217,7 @@ namespace wojilu.Web.Controller.Blog {
 
         public void Recent() {
 
-            WebUtils.pageTitle( this, alang( "allBlogPost" ) );
+            ctx.Page.Title = alang( "allBlogPost" );
 
             set( "blogLink", to( Index ) );
 

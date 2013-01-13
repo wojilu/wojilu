@@ -30,22 +30,13 @@ namespace wojilu.Web.Controller.Admin.Apps.Blog {
 
         public override void Layout() {
             set( "listLink", to( new MainController().Index, 0 ) );
-            //set( "pickedLink", to( new MainController().Picked ) );
             set( "pickedLink", to( new BlogPickController().Index ) );
-            set( "trashLink", to( new MainController().Trash ) );
+            set( "trashLink", to( new TrashController().Trash ) );
             set( "commentLink", to( new CommentController().List )+"?type=" + typeof(BlogPostComment).FullName );
 
             int trashCount = sysblogService.GetSystemDeleteCount();
             set( "trashCount", trashCount );
             set( "categoryLink", to( new SysCategoryController().List ) );
-
-            IList categories = categoryService.GetAll();
-            bindList( "categories", "c", categories, bindLink );
-
-        }
-
-        private void bindLink( IBlock tpl, int id ) {
-            tpl.Set( "c.LinkCategory", to( new MainController().Index, id ) );
         }
 
 

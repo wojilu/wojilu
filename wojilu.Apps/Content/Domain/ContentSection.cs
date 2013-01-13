@@ -24,9 +24,16 @@ namespace wojilu.Apps.Content.Domain {
         public String Title { get; set; }
         public int HideTitle { get; set; }
 
+        // SEO
+        public String MetaKeywords { get; set; }
+        public String MetaDescription { get; set; }
+
+
         public String CombineIds { get; set; }
 
         public String MoreLink { get; set; }
+
+        public String CssClass { get; set; } // 区块css类型class
 
         public String CachePostIds { get; set; }
 

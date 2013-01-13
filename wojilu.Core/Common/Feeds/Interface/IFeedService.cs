@@ -42,7 +42,7 @@ namespace wojilu.Common.Feeds.Interface {
 
         void publishUserAction( Feed data );
         void publishUserAction( IFeed data );
-        void publishUserAction( User creator, String dataType, int templateBundleId, String templateData, String bodyGeneral );
+        void publishUserAction( User creator, String dataType, int templateBundleId, String templateData, String bodyGeneral, String ip );
 
         TemplateBundle registerTemplateBundle( List<OneLineStoryTemplate> oneLineStoryTemplates, List<ShortStoryTemplate> shortStoryTemplates, List<ActionLink> actionLinks );
 
@@ -53,6 +53,8 @@ namespace wojilu.Common.Feeds.Interface {
 
 
         void SetCommentCount( IEntity target );
+
+        void DeleteOne( int feedId );
     }
 
 }

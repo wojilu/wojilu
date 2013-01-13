@@ -13,7 +13,7 @@ namespace wojilu.Web.Controller.Download {
 
         public void Index() {
 
-            WebUtils.pageTitle( this, "资源下载" );
+            ctx.Page.Title = "资源下载";
 
             load( "sidebar", sidebar );
 

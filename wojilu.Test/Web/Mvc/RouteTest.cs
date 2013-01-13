@@ -218,33 +218,6 @@ book/{author};default:{controller=_.Book,action=List}
             Assert.AreEqual( result.getItem( "typeid" ), "12" );
             Assert.AreEqual( 1, result.id );
 
-
-
-
-
-
-        }
-
-        [Test]
-        public void testStringParam() {
-
-            // 以下测试暂不支持
-
-            //            string routecfg = @"
-            //~/{controller}/{id};default:{action=Show};requirements:{id=int}
-            //~/{controller}/{action};requirements:{controller=letter,action=letter}
-            //~/{controller}/{id}/{action};
-            //~/{controller}/{action}/{query};requirements:{controller=letter,action=letter}
-            //";
-
-            //            RouteTable.GetRoutes().Clear();
-            //            RouteTable.Init( routecfg );
-
-            //            Route result = RouteTool.RecognizePath( "blog/show/电影" );
-
-            //            Assert.AreEqual( "blog", result.controller );
-            //            Assert.AreEqual( "show", result.action );
-            //            Assert.AreEqual( "电影", result.query );
         }
 
         [Test]
@@ -255,10 +228,6 @@ book/{author};default:{controller=_.Book,action=List}
 ~/{controller}/{action};requirements:{controller=letter}
 ~/{controller}/{id}/{action};
 ";
-            //            routecfg = @"
-            //~/{controller}/{id}/{action};requirements:{controller=letter,id=int,action=letter}
-            //~/{controller}/{id}/{action}/{page};requirements:{controller=letter,id=int,action=letter,page=page}";
-
 
             RouteTable.GetRoutes().Clear();
             RouteTable.Init( routecfg );
@@ -334,10 +303,6 @@ book/{author};default:{controller=_.Book,action=List}
 ~/{controller}/{id}/{action};
 ";
 
-            //            routecfg = @"
-            //~/{controller}/{id}/{action};requirements:{controller=letter,id=int,action=letter}
-            //~/{controller}/{id}/{action}/{page};requirements:{controller=letter,id=int,action=letter,page=page}";
-
             RouteTable.GetRoutes().Clear();
             RouteTable.Init( routecfg );
 
@@ -361,6 +326,14 @@ book/{author};default:{controller=_.Book,action=List}
 
             Assert.AreEqual( "myapp.newdata", rt3.ns );
             Assert.AreEqual( 38, rt3.appId );
+
+            Route x4 = RouteTool.RecognizePath( "/Forum11/Board/21" );
+            Assert.AreEqual( "Board", x4.controller );
+            Assert.AreEqual( "Show", x4.action );
+            Assert.AreEqual( 11, x4.appId );
+            Assert.AreEqual( 21, x4.id );
+            Assert.AreEqual( 1, x4.page );
+
         }
 
         [Test]

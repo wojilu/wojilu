@@ -1,100 +1,53 @@
-﻿<style type="text/css">
-.feedItemBody img {float:left;margin:5px;max-width:100px; max-height:100px;width:expression(width>100?"100px":width+"px");height:expression(height>100?"100px":height+"px");}
-.feedTypes {float:right; margin-right:20px;}
-.feedTypes li{float:left; list-style:none; margin-left:5px;}
-</style>
+﻿<div class="mainBody" style="padding-bottom:3px;">
+    <div class="adminMainTitle"><div class="adminSidebarTitleInternal">_{welcomeAdmin}</div></div>
 
-<div class="mainBody" style="padding-bottom:3px;">
-<div class="adminMainTitle"><div class="adminSidebarTitleInternal">后台首页</div></div>
+    <div class="adminMainPanel">
 
-<div class="adminMainPanel">
+    <div class="formPanel">
 
-<div class="formPanel">
+			    <div style="clear:both"></div>			
 
-			<div style="clear:both"></div>			
-
-			<table style="width: 100%">
-				<tr>
-					<td style="width:68%;vertical-align:top;padding-right:10px;">
-			
-						<table style="width:100%;">
-							<tr>
-								<td style="font-size:16px;font-weight:bold;width:80px"><a href="#{feedHomeLink}">_{siteFeed}</a></td>
-								<td style="width:390px;">
-									<ul class="feedTypes">
-										<li><a href="#{feedListLink}"><img src="~img/list.gif" /> _{all}</a></li>
-										<li><a href="#{blogFeedsLink}"><img src="~img/app/s/wojilu.Apps.Blog.Domain.BlogPost.gif" /> _{blog}</a></li>
-										<li><a href="#{photoFeedsLink}"><img src="~img/app/s/wojilu.Apps.Photo.Domain.PhotoPost.gif" /> _{photo}</a></li>
-										<li><a href="#{forumFeedsLink}"><img src="~img/app/s/wojilu.Apps.Forum.Domain.ForumTopic.gif" /> _{forumPost}</a></li>
-										<li><a href="#{shareFeedsLink}"><img src="~img/app/s/wojilu.Common.Feeds.Domain.Share.gif" /> _{share}</a></li>
-										<li><a href="#{friendsFeedsLink}"><img src="~img/app/s/wojilu.Members.Users.Domain.FriendShip.gif" /> _{friends}</a></li>
-									</ul>					
-								</td>
-								<td style="text-align:right"><form action="#{searchTarget}" method="post"><input name="UserName" style="width:100px" type="text" class="tipInput" tip="_{exUserName}" /> <input name="Submit1" type="submit" value="_{searchFeed}" class="btn btns" style="padding:2px 5px" /></form></td>
-							</tr>
-						</table>
-			
-                        <div id="homeFeedList">
-						<!-- BEGIN days -->
-						<div style=" margin:10px; font-size:14px;font-weight:bold;color:#666; border-bottom:1px #ccc solid;">#{feedDay}</div>
-						<!-- BEGIN list -->
-						<table style="width: 90%; border-top:0px #fff solid; margin:5px 0px 5px 20px;">
-							<tr>
-								<td rowspan="2" style="width:70px;vertical-align:top;padding-top:5px;"><a href="#{feed.UserLink}"><img src="#{feed.UserFace}" /></a></td>
-								<td style="height:30px;vertical-align:top"><img src="~img/app/s/#{feed.DataType}.gif"/> #{feed.Title}</td>
-							</tr>
-							<tr>
-								<td style="vertical-align:top" class="feedItemBody">#{feed.Body}#{feed.BodyGeneral}</td>
-							</tr>
-						</table>
-						<div style="border-top:1px #ccc solid; margin-left:20px;"></div>
-						<!-- END list -->
-						<div style="margin-bottom:20px;">&nbsp;</div>
-						<!-- END days -->
-						<div style="margin:10px 20px;">#{page}</div>
-                        </div>
+			    <table style="width: 100%">
+				    <tr>
+					    <td style="width:68%;vertical-align:top;padding-right:10px;">
+			    #{feedList}
 					
 					
-					</td>
-					<td style="vertical-align:top;width:32%">
+					    </td>
+					    <td style="vertical-align:top;width:32%">
 					
-						<h4>_{newRegUser}</h4>
-						<ul class="userAvatar">						
-							<!-- BEGIN newUsers -->
-							<li style="width:80px;margin:5px 3px 15px 3px;">
-							<span class="note">#{user.Created}</span><br />
-							<a href="#{user.Link}" target="_blank"><img src="#{user.Face}"/></a>
-							<div><a href="#{user.Link}" target="_blank">#{user.Name}</a></div>
-							</li>
-							<!-- END newUsers -->						
-						</ul>						
-						<div class="clear"></div>
+						    <h4>_{newRegUser}</h4>
+						    <ul class="userAvatar">						
+							    <!-- BEGIN newUsers -->
+							    <li style="width:80px;margin:5px 3px 15px 3px;">
+							    <span class="note">#{user.Created}</span><br />
+							    <a href="#{user.Link}" target="_blank"><img src="#{user.Face}"/></a>
+							    <div><a href="#{user.Link}" target="_blank">#{user.Name}</a></div>
+							    </li>
+							    <!-- END newUsers -->						
+						    </ul>						
+						    <div class="clear"></div>
 						
-						<h4 style="margin-top:20px">_{newLoginUser}</h4>
-						<ul class="userAvatar">						
-							<!-- BEGIN visitors -->
-							<li style="width:80px;margin:5px 3px 15px 3px;">
-							<span class="note">#{user.LastLoginTime}</span><br />
-							<a href="#{user.Link}" target="_blank"><img src="#{user.Face}"/></a>
-							<div><a href="#{user.Link}" target="_blank">#{user.Name}</a></div>
-							</li>
-							<!-- END visitors -->						
-						</ul>						
-						<div class="clear"></div>					
+						    <h4 style="margin-top:20px">_{newLoginUser}</h4>
+						    <ul class="userAvatar">						
+							    <!-- BEGIN visitors -->
+							    <li style="width:80px;margin:5px 3px 15px 3px;">
+							    <span class="note">#{user.LastLoginTime}</span><br />
+							    <a href="#{user.Link}" target="_blank"><img src="#{user.Face}"/></a>
+							    <div><a href="#{user.Link}" target="_blank">#{user.Name}</a></div>
+							    </li>
+							    <!-- END visitors -->						
+						    </ul>						
+						    <div class="clear"></div>					
 					
-					</td>
-				</tr>
-			</table>
+					    </td>
+				    </tr>
+			    </table>
 			
-</div>
-</div>
+    </div>
+    </div>
 </div>
 
-<script>
-    _run( function() {
-        $('#homeFeedList a').click(function () {
-            $(this).attr('href', wojilu.str.trimEnd($(this).attr('href'), '?nolayout=1'));
-            $(this).attr('target', '_blank');
-        });
-    });
-</script>
+<style>
+.feed-line-wrap:hover { background:#fafafa;}
+</style>

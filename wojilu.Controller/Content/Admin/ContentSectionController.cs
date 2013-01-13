@@ -156,7 +156,7 @@ namespace wojilu.Web.Controller.Content.Admin {
             section.ServiceId = 18;
 
             // 仅使用单列列表模板
-            section.TemplateId = 2; 
+            section.TemplateId = 2;
             sectionService.Insert( section );
 
 
@@ -172,14 +172,14 @@ namespace wojilu.Web.Controller.Content.Admin {
 
         public void EditRowUI( int iRow ) {
             target( SaveRowUI, iRow );
-            String name = "#row"+iRow;
+            String name = "#row" + iRow;
             bindCssForm( name );
         }
 
         [HttpPost, DbTransaction]
         public void SaveRowUI( int iRow ) {
             String name = "#row" + iRow;
-            Dictionary<string, string> result = CssFormUtil.getPostValues(ctx);
+            Dictionary<string, string> result = CssFormUtil.getPostValues( ctx );
             updateValues( name, result );
         }
 
@@ -213,8 +213,23 @@ namespace wojilu.Web.Controller.Content.Admin {
         public void EditSectionUI( int sectionId ) {
 
             target( SaveSectionUI, sectionId );
-            String name = "#section"+sectionId;
+            String name = "#section" + sectionId;
             bindCssForm( name );
+
+            ContentSection section = sectionService.GetById( sectionId, ctx.app.Id );
+
+            set( "x.CssClass", section.CssClass );
+            set( "cssClassSaveLink", to( SaveCssClass, sectionId ) );
+        }
+
+        public void SaveCssClass( int sectionId ) {
+            String cssClass = strUtil.CutString( ctx.Post( "cssClass" ), 50 );
+
+            ContentSection section = sectionService.GetById( sectionId, ctx.app.Id );
+            section.CssClass = cssClass;
+            sectionService.Update( section );
+
+            echoRedirect( lang( "opok" ) );
         }
 
         [HttpPost, DbTransaction]
@@ -335,7 +350,7 @@ namespace wojilu.Web.Controller.Content.Admin {
             section.SetMarquee( marquee );
             echoToParentPart( lang( "opok" ) );
         }
-        
+
         //-------------------------------------------------------------------------
 
 

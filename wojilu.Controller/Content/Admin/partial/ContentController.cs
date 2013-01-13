@@ -12,8 +12,6 @@ using wojilu.Web.Mvc;
 using wojilu.Apps.Content.Domain;
 using wojilu.Apps.Content.Interface;
 using wojilu.Common.AppBase;
-using wojilu.Common.AppBase.Interface;
-using wojilu.Serialization;
 using wojilu.Web.Controller.Content.Utils;
 
 namespace wojilu.Web.Controller.Content.Admin {
@@ -185,7 +183,7 @@ namespace wojilu.Web.Controller.Content.Admin {
 
         private String getJsonResult( ContentSection section, IList data ) {
 
-            String jsonStr = JsonString.ConvertList( data );
+            String jsonStr = Json.SerializeList( data );
             String scriptData = string.Format( "	<script>var sectionData{0} = {1};</script>", section.Id, jsonStr );
             if (section.CustomTemplateId <= 0)
                 return scriptData;

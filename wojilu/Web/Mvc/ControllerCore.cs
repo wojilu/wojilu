@@ -61,6 +61,7 @@ namespace wojilu.Web.Mvc {
             return _currentView;
         }
 
+        private Boolean _isSetContent = false;
         private String _actionContent;
 
         /// <summary>
@@ -69,11 +70,11 @@ namespace wojilu.Web.Mvc {
         /// <returns></returns>
         public String getActionResult() {
 
-            if (strUtil.HasText( _actionContent )) return _actionContent;
+            if (_isSetContent) return _actionContent;
+
             Template t = this.getCurrentView();
             return t == null ? null : t.ToString();
         }
-
 
         /// <summary>
         /// 设置当前 action 的运行结果
@@ -81,6 +82,15 @@ namespace wojilu.Web.Mvc {
         /// <param name="content"></param>
         public void setActionContent( String content ) {
             _actionContent = content;
+            _isSetContent = true;
+        }
+
+        /// <summary>
+        /// 请当前 action 内容清空，保持初始状态
+        /// </summary>
+        internal void initActionResult() {
+            _actionContent = null;
+            _isSetContent = false;
         }
 
         private Boolean _isappLangLoaded = false;
@@ -223,7 +233,7 @@ namespace wojilu.Web.Mvc {
 
             return pathRaw;
         }
-	
+
 
         /// <summary>
         /// 根据文件名称获取模板对象，文件名必须从视图 view 的根目录算起
@@ -268,27 +278,6 @@ namespace wojilu.Web.Mvc {
         public void runAction( String actionName ) {
 
             ControllerRunner.runAction( controller, actionName );
-
-            //MethodInfo method = getMethod( actionName );
-            //if (method == null) {
-            //    throw new Exception( "action " + wojilu.lang.get( "exNotFound" ) );
-            //}
-
-            //ParameterInfo[] parameters = getParameters( method );
-            //if (parameters.Length == 1) {
-            //    if (parameters[0].ParameterType == typeof( String )) {
-            //        method.Invoke( controller, new object[] { HttpUtility.UrlDecode( ctx.route.query ) } );
-            //    }
-            //    else {
-            //        method.Invoke( controller, new object[] { ctx.route.id } );
-            //    }
-            //}
-            //else if (parameters.Length == 0) {
-            //    method.Invoke( controller, null );
-            //}
-            //else {
-            //    throw new Exception( "action " + wojilu.lang.get( "exNotFound" ) );
-            //}
         }
 
         /// <summary>
@@ -298,7 +287,7 @@ namespace wojilu.Web.Mvc {
         /// <returns></returns>
         public MethodInfo getMethod( String actionName ) {
 
-            return controller.GetType().GetMethod( actionName );
+            return ActionRunner.getActionMethod( controller, actionName );
         }
 
         /// <summary>

@@ -1,14 +1,18 @@
-﻿using System;
+﻿/*
+ * Copyright (c) 2010, www.wojilu.com. All rights reserved.
+ */
+
+using System;
 using System.Collections.Generic;
-using System.Text;
-using wojilu.Web.Mvc;
-using wojilu.Members.Users.Domain;
-using wojilu.Common;
-using wojilu.Web.Mvc.Attr;
-using wojilu.Common.Comments;
-using wojilu.Serialization;
+
 using wojilu.ORM;
+using wojilu.Web.Mvc;
+using wojilu.Web.Mvc.Attr;
+
+using wojilu.Common.Comments;
 using wojilu.Members.Interface;
+using wojilu.Members.Users.Domain;
+
 
 namespace wojilu.Web.Controller.Open {
 
@@ -62,7 +66,7 @@ namespace wojilu.Web.Controller.Open {
 
             String pageBar = "";
             if (datas.PageCount > 1) {
-                pageBar = new ObjectPage( datas.RecordCount, datas.Size, datas.Current ).GetSimplePageBar();
+                pageBar = new PageHelper( datas.RecordCount, datas.Size, datas.Current ).GetSimplePageBar();
             }
             set( "page", pageBar );
         }
@@ -80,7 +84,7 @@ namespace wojilu.Web.Controller.Open {
 
             List<OpenComment> moreList = commentService.GetMore( parentId, startId, OpenComment.subCacheSize, "desc" );
             List<CommentDto> dtoList = getCommentDto( moreList );
-            echoJson( JsonString.ConvertList( dtoList ) );
+            echoJson( dtoList );
         }
 
         private List<CommentDto> getCommentDto( List<OpenComment> moreList ) {
@@ -113,13 +117,13 @@ namespace wojilu.Web.Controller.Open {
             String authorText = "";
 
             if (user != null && user.Id > 0) {
-                userFace = string.Format( "<a href='{0}'><img src='{1}' style='width:48px;'/></a>", toUser( user ), user.PicSmall );
-                userName = string.Format( "<a href='{0}'>{1}</a>", toUser( user ), user.Name );
+                userFace = string.Format( "<a href=\"{0}\" target=\"_blank\"><img src=\"{1}\" style=\"width:48px;\"/></a>", toUser( user ), user.PicSmall );
+                userName = string.Format( "<a href=\"{0}\" target=\"_blank\">{1}</a>", toUser( user ), user.Name );
                 authorText = user.Name;
             }
             else {
 
-                userFace = "<img src='" + sys.Path.AvatarGuest + "' style='width:48px;'/></a>";
+                userFace = "<img src=\"" + sys.Path.AvatarGuest + "\" style=\"width:48px;\"/></a>";
                 userName = authorName;
                 authorText = authorName;
             }
@@ -193,7 +197,7 @@ namespace wojilu.Web.Controller.Open {
             //if (c.ParentId == 0) return c.Content;
             //IComment parent = commentService.GetById( c.ParentId, ctx.app.Id );
             //if (parent == null) return c.Content;
-            //String quote = "<div class='quote'><span class='qSpan'>{0} : {1}</span></div>";
+            //String quote = "<div class=\"quote\"><span class=\"qSpan\">{0} : {1}</span></div>";
             //return string.Format( quote, parent.Author, strUtil.CutString( parent.Content, 50 ) ) + "<div>" + c.Content + "</div>";
 
             return c.Content;

@@ -275,7 +275,7 @@ namespace wojilu.Web.Controller.Users.Admin {
                 echoAjaxOk();
             }
             else {
-                actionContent( lang( "exUnknowCmd" ) );
+                content( lang( "exUnknowCmd" ) );
             }
         }
 

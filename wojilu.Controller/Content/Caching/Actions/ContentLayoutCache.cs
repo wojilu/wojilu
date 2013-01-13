@@ -10,6 +10,7 @@ using wojilu.Web.Mvc.Utils;
 using wojilu.Members.Sites.Domain;
 using wojilu.Web.Mvc;
 using wojilu.Web.Controller.Admin;
+using wojilu.Web.Controller.Content.Section;
 
 namespace wojilu.Web.Controller.Content.Caching {
 
@@ -41,7 +42,7 @@ namespace wojilu.Web.Controller.Content.Caching {
 
             //---------------------------------------------------------
 
-            Admin.PostController post = new wojilu.Web.Controller.Content.Admin.PostController();
+            Admin.Common.PostController post = new wojilu.Web.Controller.Content.Admin.Common.PostController();
             observe( post.Delete );
             observe( post.DeleteTrue );
             observe( post.SaveAdmin );
@@ -50,8 +51,6 @@ namespace wojilu.Web.Controller.Content.Caching {
             //---------------------------------------------------------
 
             Admin.Section.ListController list = new wojilu.Web.Controller.Content.Admin.Section.ListController();
-            //observe( list.Create );
-            //observe( list.Update );
             observe( list.Delete );
 
             Admin.Section.TalkController talk = new wojilu.Web.Controller.Content.Admin.Section.TalkController();
@@ -69,11 +68,6 @@ namespace wojilu.Web.Controller.Content.Caching {
             observe( video.Update );
             observe( video.Delete );
 
-            Admin.Section.VideoShowController vshow = new wojilu.Web.Controller.Content.Admin.Section.VideoShowController();
-            observe( vshow.Create );
-            observe( vshow.Update );
-            observe( vshow.Delete );
-
             Admin.Section.ImgController img = new wojilu.Web.Controller.Content.Admin.Section.ImgController();
             observe( img.CreateListInfo );
             observe( img.CreateImgList );
@@ -82,7 +76,7 @@ namespace wojilu.Web.Controller.Content.Caching {
             observe( img.Delete );
             observe( img.DeleteImg );
 
-            Admin.Section.PollController poll = new wojilu.Web.Controller.Content.Admin.Section.PollController();
+            Admin.Common.PollController poll = new wojilu.Web.Controller.Content.Admin.Common.PollController();
             observe( poll.Create );
             observe( poll.Delete );
 

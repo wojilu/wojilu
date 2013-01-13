@@ -69,6 +69,11 @@ namespace wojilu.Web.Controller {
                 return;
             }
 
+            if (ctx.viewer.IsOwnerAdministrator( ctx.owner.obj )) {
+                echoAjaxOk();
+                return;
+            }
+
             String appType = ctx.Get( "appType" );
 
             if (ObjectContext.Instance.TypeList.ContainsKey( appType ) == false) {
@@ -78,7 +83,7 @@ namespace wojilu.Web.Controller {
 
             Type t = ObjectContext.Instance.TypeList[appType];
 
-            if (AppAdminRole.CanAppAdmin( ctx.viewer.obj, t, appId )) {
+            if (AppAdminRole.CanAppAdmin( ctx.viewer.obj, ctx.owner.obj, t, appId )) {
                 echoAjaxOk();
             }
             else {

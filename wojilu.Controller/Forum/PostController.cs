@@ -78,7 +78,7 @@ namespace wojilu.Web.Controller.Forum {
 
             topicService.AddHits( topic );
 
-            WebUtils.pageTitle( this, post.Title, board.Name );
+            ctx.Page.SetTitle( post.Title, board.Name );
 
             List<ForumBoard> pathboards = getTree().GetPath( post.ForumBoardId );
             set( "location", ForumLocationUtil.GetPost( pathboards, post, ctx ) );

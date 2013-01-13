@@ -30,13 +30,11 @@ namespace wojilu.Web.Controller.Content.Section {
 
         public IContentPostService postService { get; set; }
         public IContentSectionService sectionService { get; set; }
-        public IAttachmentService attachmentService { get; set; }
         public IContentCustomTemplateService ctService { get; set; }
 
         public ListController() {
             postService = new ContentPostService();
             sectionService = new ContentSectionService();
-            attachmentService = new AttachmentService();
             ctService = new ContentCustomTemplateService();
         }
 
@@ -47,44 +45,46 @@ namespace wojilu.Web.Controller.Content.Section {
             return new List<IPageSettingLink>();
         }
 
+        [Data( typeof( ContentSection ) )]
         public void List( int sectionId ) {
-            bindPostsInfo( sectionId, false );
-        }
 
-        public void Archive( int sectionId ) {
-            view( "List" );
-            bindPostsInfo( sectionId, true );
-        }
-
-        private void bindPostsInfo( int sectionId, Boolean isArchive ) {
-            ContentSection section = sectionService.GetById( sectionId, ctx.app.Id );
-            if (section == null) {
-                echoRedirect( lang( "exDataNotFound" ) );
-                return;
-            }
-            Page.Title = section.Title;
-
+            ContentSection section = ctx.Get<ContentSection>();
             ContentApp app = ctx.app.obj as ContentApp;
             ContentSetting s = app.GetSettingsObj();
 
-            if (s.ArticleListMode == ArticleListMode.Summary) view( "ListSummary" );
+            DataPage<ContentPost> posts = postService.GetPageBySection( sectionId, s.ListPostPerPage );
 
-            String cpLink = clink.toSection( sectionId, ctx );
-            String apLink = clink.toArchive( sectionId, ctx );
+            bindListCommon( sectionId, section, s, posts );
 
             Boolean isMakeHtml = HtmlHelper.IsMakeHtml( ctx );
-            DataPage<ContentPost> posts;
-            if (isArchive) {
-                posts = postService.GetPageBySectionArchive( section.Id, s.ListPostPerPage );
-                set( "page", posts.GetArchivePage( cpLink, apLink, 3, isMakeHtml ) );
-            }
-            else {
-                posts = postService.GetPageBySection( sectionId, s.ListPostPerPage );
-                set( "page", posts.GetRecentPage( cpLink, apLink, 3, isMakeHtml ) );
-            }
+            set( "page", posts.GetRecentPage( clink.toSection( sectionId, ctx ), clink.toArchive( sectionId, ctx ), 3, isMakeHtml ) );
 
+        }
+
+
+        [Data( typeof( ContentSection ) )]
+        public void Archive( int sectionId ) {
+            view( "List" );
+
+            ContentSection section = ctx.Get<ContentSection>();
+            ContentApp app = ctx.app.obj as ContentApp;
+            ContentSetting s = app.GetSettingsObj();
+
+            DataPage<ContentPost> posts = postService.GetPageBySectionArchive( sectionId, s.ListPostPerPage );
+
+            bindListCommon( sectionId, section, s, posts );
+
+            Boolean isMakeHtml = HtmlHelper.IsMakeHtml( ctx );
+            set( "page", posts.GetArchivePage( clink.toSection( sectionId, ctx ), clink.toArchive( sectionId, ctx ), 3, isMakeHtml ) );
+        }
+
+        private void bindListCommon( int sectionId, ContentSection section, ContentSetting s,
+            DataPage<ContentPost> posts ) {
+            Page.Title = section.Title;
+            if (s.ArticleListMode == ArticleListMode.Summary) view( "ListSummary" );
             bindPostList( section, posts, s );
         }
+
 
         public void SectionShow( int sectionId ) {
 

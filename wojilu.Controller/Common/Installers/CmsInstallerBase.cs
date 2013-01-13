@@ -160,8 +160,6 @@ namespace wojilu.Web.Controller.Common.Installers {
 
             p.AppId = s.AppId;
 
-
-
             new ContentPollService().CreatePoll( s.Id, p );
 
         }

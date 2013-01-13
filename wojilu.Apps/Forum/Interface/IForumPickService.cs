@@ -1,11 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using wojilu.Apps.Forum.Domain;
+using System.Collections;
+using wojilu.Common.Picks;
+
 namespace wojilu.Apps.Forum.Interface {
 
     public interface IForumPickService {
 
-        List<MergedPost> GetAll( List<ForumTopic> allTopics, int appId );
+        List<MergedData> GetAll( IList allTopics, int appId );
         ForumPick GetEditTopic( int appId, int topicId );
         ForumPick GetPinPostByIndex( int appId, int index );
 

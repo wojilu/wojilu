@@ -29,6 +29,9 @@ namespace wojilu.Members.Groups.Domain {
         public DateTime CreateTime { get; set; }
         public DateTime LastUpdateTime { get; set; }
 
+        [Column( Length = 40 )]
+        public String Ip { get; set; }
+
         [NotSave]
         public String RoleString {
             get {

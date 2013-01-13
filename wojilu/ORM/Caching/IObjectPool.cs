@@ -27,7 +27,7 @@ namespace wojilu.ORM.Caching {
          void Add( IEntity obj );
          void AddAll( Type t, IList objList );
          void AddQueryList( Type t, String sql, Dictionary<String, Object> parameters, IList objList );
-         void AddPage( Type t, String condition, ObjectPage pager, IList list );
+         void AddPage( Type t, String condition, PageHelper pager, IList list );
          void AddCount( Type t, int count );
          void AddCount( Type t, String condition, int count );
          void AddSqlList( String sql, IList objList );
@@ -36,7 +36,7 @@ namespace wojilu.ORM.Caching {
          IList FindAll( Type t );
          IList FindByQuery( ConditionInfo condition );
          IList FindByQuery( Type type, String _queryString, Dictionary<String, Object> _namedParameters );
-         IPageList FindPage( Type t, String condition, ObjectPage pager );
+         IPageList FindPage( Type t, String condition, PageHelper pager );
          IList FindBySql( String sql, Type t );
          int FindCount( Type t );
          int FindCount( Type t, String condition );

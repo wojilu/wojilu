@@ -6,7 +6,6 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-using wojilu.Serialization;
 using wojilu.ORM;
 
 namespace wojilu.Common.Feeds.Domain {
@@ -43,15 +42,15 @@ namespace wojilu.Common.Feeds.Domain {
 
 
         public  List<OneLineStoryTemplate> GetOneLineStoryTemplates(   ) {
-            return JSON.ToList<OneLineStoryTemplate>( OneLineStoryTemplatesStr );
+            return Json.DeserializeList<OneLineStoryTemplate>( OneLineStoryTemplatesStr );
         }
 
         public  List<ShortStoryTemplate> GetShortStoryTemplates(  ) {
-            return JSON.ToList<ShortStoryTemplate>( ShortStoryTemplatesStr );
+            return Json.DeserializeList<ShortStoryTemplate>( ShortStoryTemplatesStr );
         }
 
         public List<ActionLink> GetActionLinks(  ) {
-            return JSON.ToList<ActionLink>( ActionLinksStr );
+            return Json.DeserializeList<ActionLink>( ActionLinksStr );
         }
 
         public static TemplateBundle GetBlogTemplateBundle() {

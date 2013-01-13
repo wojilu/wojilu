@@ -13,6 +13,29 @@
     <a id="pAdd" href="#{lnkAdd}" target="_blank" class="frmLink1" loadTo="wfAddWrap" nolayout=999 style="margin-left:50px;"><img src="~img/s/upload.png" /> 上传</a>
     #{adminCmd}
 </div>
+
+<div id="adminTool" class="row appAdminTool" style=" display:none;">
+    <div class="admin-menu-wrap clearfix alert alert-block">
+
+        <div class="admin-pointer">            
+            <span class="btn btn-primary">
+                全站图片管理 <i class="icon-hand-right icon-white"></i>
+            </span>
+        </div>
+
+        <ul class="admin-menu unstyled">	
+	        <li><a href="#{listLink}" class="frmLink" loadTo="wfMain" nolayout=4><i class="icon-list-alt"></i> :{newPhoto}</a></li>
+            <li><a href="#{pickedLink}" class="frmLink" loadTo="wfMain" nolayout=4><i class="icon-star"></i> :{recommendedPhoto}</a></li>
+            <li><a href="#{commentLink}" class="frmLink" loadTo="wfMain" nolayout=4><i class="icon-comment"></i> _{comment}</a></li>
+            <li><a href="#{trashLink}" class="frmLink" loadTo="wfMain" nolayout=4><i class="icon-trash"></i> _{trash}</a></li>
+            <li><a href="#{categoryLink}" class="frmLink" loadTo="wfMain" nolayout=4><i class="icon-th-large"></i> :{sysCategoryAdmin}</a></li>
+            <li><a href="#{settingLink}" class="frmLink" loadTo="wfMain" nolayout=4><i class="icon-wrench"></i> 图片配置</a></li>
+	        
+	    </ul>
+
+    </div>
+</div>
+
 <style>
 .wfnav {padding:0px 10px;}
 .wfnav a { display:block;margin:0px; padding:10px 10px; float:left; text-decoration:none;}
@@ -80,6 +103,39 @@
 
 <script type="text/javascript">
     _run(function () {
+
+
+        $('.admin-menu li').click(function () {
+            $('.admin-menu li').removeClass('admin-menu-current');
+            $(this).addClass('admin-menu-current');
+        });
+
+        var showAdminTool = function () {
+
+            if (typeof (ctx) == 'undefined') return;
+            if (ctx.viewer.IsLogin == false) return;
+
+            if (ctx.owner.IsSite) {
+                if (ctx.viewer.IsAdministrator) {
+                    $('#adminTool').show();
+                }
+                else if (ctx.viewer.IsInAdminGroup) {
+                    $.post('#{adminCheckUrl}'.toAjax(), function (data) {
+                        if ('ok' == data) $('#adminTool').show();
+                    });
+                }
+            }
+            else {
+
+                $.post('#{adminCheckUrl}'.toAjax(), function (data) {
+                    if ('ok' == data) $('#adminTool').show();
+                });
+
+            }
+
+        };
+
+        wojilu.site.load(showAdminTool);
 
         require(['lib/jquery.infinitescroll.min', 'lib/jquery.masonry.min'], function () {
 

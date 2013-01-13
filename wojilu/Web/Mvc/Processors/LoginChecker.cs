@@ -30,11 +30,13 @@ namespace wojilu.Web.Mvc.Processors {
             MvcEventPublisher.Instance.BeginCheckLoginAction( context.ctx );
             if (context.ctx.utils.isSkipCurrentProcessor()) return;
 
-            MethodInfo actionMethod = context.ctx.ActionMethodInfo; //  context.getActionMethod();
-            Attribute loginAttr = context.getController().utils.getAttribute( actionMethod, typeof( LoginAttribute ) );
+            ControllerBase controller = context.ctx.controller;
+
+            MethodInfo actionMethod = context.ctx.ActionMethodInfo;
+            Attribute loginAttr = controller.utils.getAttribute( actionMethod, typeof( LoginAttribute ) );
 
             if (loginAttr != null && context.IsUserLogin() == false) {
-                context.ctx.controller.redirectLogin();
+                controller.redirectLogin();
             }
 
         }

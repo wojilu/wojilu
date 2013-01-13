@@ -208,9 +208,23 @@ namespace wojilu.Web.Mvc.Routes {
                 String ns = this.getNamespace();
 
                 if (strUtil.IsNullOrEmpty( ns )) return false;
-                if (ns.Equals( "Admin" ) || ns.StartsWith( "Admin." ) || ns.EndsWith( ".Admin" )) return true;
+                return isAdminPrivate( ns );
+            }
+        }
 
+        private static bool isAdminPrivate( String ns ) {
+
+            if (MvcConfig.Instance.IsUrlToLower) {
+                if (ns.ToLower().Equals( "admin" )
+                    || ns.ToLower().StartsWith( "admin." )
+                    || ns.ToLower().EndsWith( ".admin" )) return true;
+                return ns.ToLower().IndexOf( ".admin." ) >= 0;
+            }
+            else {
+
+                if (ns.Equals( "Admin" ) || ns.StartsWith( "Admin." ) || ns.EndsWith( ".Admin" )) return true;
                 return ns.IndexOf( ".Admin." ) >= 0;
+
             }
         }
 
@@ -231,7 +245,7 @@ namespace wojilu.Web.Mvc.Routes {
         //--------------------------------------------------------------------------------------------------------------
 
         /// <summary>
-        /// 将实际映射到的目标path存入 httpContext，方便ObjectPage生成翻页链接
+        /// 将实际映射到的目标path存入 httpContext，方便 PageHelper 生成翻页链接
         /// </summary>
         /// <param name="path"></param>
         public static void setRoutePath( String path ) {

@@ -48,7 +48,6 @@ namespace wojilu.Web.Context {
             set { this._Id = value; }
         }
 
-
         public object obj {
             get { return this._obj; }
             set { this._obj = value; }
@@ -56,7 +55,9 @@ namespace wojilu.Web.Context {
 
         public String Name {
             get {
-                return this.Menu == null ? null : this.Menu.Name;
+                if (this.Menu != null) return this.Menu.Name;
+                if (this.UserApp != null) return this.UserApp.Name;
+                return null;
             }
         }
         private Type _appType;

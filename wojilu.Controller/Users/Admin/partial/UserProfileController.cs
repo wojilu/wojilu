@@ -76,6 +76,12 @@ namespace wojilu.Web.Controller.Users.Admin {
             }
             set( "m.Description", m.Profile.Description );
             set( "m.Signature", m.Signature );
+
+            set( "m.UserDescriptionMin", config.Instance.Site.UserDescriptionMin );
+            set( "m.UserDescriptionMax", config.Instance.Site.UserDescriptionMax );
+            set( "m.UserSignatureMin", config.Instance.Site.UserSignatureMin );
+            set( "m.UserSignatureMax", config.Instance.Site.UserSignatureMax );
+
         }
 
 

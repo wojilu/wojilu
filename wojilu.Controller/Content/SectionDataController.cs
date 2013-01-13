@@ -3,20 +3,21 @@
  */
 
 using System;
+using System.Collections;
 using System.Collections.Generic;
-using System.Text;
-using wojilu.DI;
+
 using wojilu.Web.Mvc;
 using wojilu.Web.Mvc.Attr;
+
+using wojilu.SOA;
+
 using wojilu.Apps.Content.Domain;
 using wojilu.Apps.Content.Interface;
 using wojilu.Apps.Content.Service;
-using wojilu.Web.Controller.Common;
-using wojilu.SOA;
 using wojilu.Common.AppBase;
+
 using wojilu.Web.Controller.Content.Utils;
-using System.Collections;
-using wojilu.Serialization;
+
 
 namespace wojilu.Web.Controller.Content {
 
@@ -41,7 +42,7 @@ namespace wojilu.Web.Controller.Content {
 
             ContentSection section = sectionService.GetById( sectionId, ctx.app.Id );
 
-            actionContent( getSectionContent( section ) );
+            content( getSectionContent( section ) );
 
         }
 
@@ -83,7 +84,7 @@ namespace wojilu.Web.Controller.Content {
 
         private String getJsonResult( ContentSection section, IList data ) {
 
-            String jsonStr = JsonString.ConvertList( data );
+            String jsonStr = Json.SerializeList( data );
             String scriptData = string.Format( "	<script>var sectionData{0} = {1};</script>", section.Id, jsonStr );
             if (section.CustomTemplateId <= 0)
                 return scriptData;

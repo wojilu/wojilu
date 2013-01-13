@@ -1,4 +1,4 @@
-/*
+ï»¿/*
  * Copyright (c) 2010, www.wojilu.com. All rights reserved.
  */
 
@@ -33,7 +33,7 @@ namespace wojilu.Web.Controller.Reader {
 
         public void Index() {
 
-            WebUtils.pageTitle( this, "feed ¶©ÔÄ" );
+            ctx.Page.Title = "feed è®¢é˜…";
 
 
             String feedIds = subscriptionService.GetFeedIdsByAppId( ctx.app.Id );

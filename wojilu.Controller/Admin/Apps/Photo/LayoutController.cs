@@ -1,4 +1,4 @@
-/*
+﻿/*
  * Copyright (c) 2010, www.wojilu.com. All rights reserved.
  */
 
@@ -27,25 +27,15 @@ namespace wojilu.Web.Controller.Admin.Apps.Photo {
 
         public override void Layout() {
 
-
             set( "listLink", to( new MainController().Index, -1 ) );
-            set( "pickedLink", to( new MainController().Picked ) );
-            set( "trashLink", to( new MainController().Trash ) );
+            set( "pickedLink", to( new PostAdminController().Picked ) );
+            set( "trashLink", to( new PostAdminController().Trash ) );
             set( "commentLink", to( new CommentController().List ) + "?type=" + typeof( PhotoPostComment ).FullName );
 
             int trashCount = photoService.GetSystemDeleteCount();
             set( "trashCount", trashCount );
 
             set( "categoryLink", to( new SysCategoryController().List ) );
-
-
-            IList categories = categoryService.GetAll();
-            bindList( "categories", "c", categories, bindLink );
-
-        }
-
-        private void bindLink( IBlock tpl, int id ) {
-            tpl.Set( "c.LinkCategory", to( new MainController().Index, id ) );
         }
 
 

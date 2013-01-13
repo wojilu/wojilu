@@ -4,10 +4,6 @@
 
 using System;
 using System.Collections.Generic;
-using System.Text;
-using wojilu.Common.Feeds.Interface;
-using wojilu.Serialization;
-using wojilu.Web.Mvc;
 using wojilu.Common;
 
 namespace wojilu.Apps.Reader.Domain {
@@ -45,7 +41,7 @@ namespace wojilu.Apps.Reader.Domain {
             dic["postLink"] = dataLink;
             dic["user"] = post.Author;
             dic["body"] = strUtil.ParseHtml( post.Abstract, 100 );
-            _shareData = JSON.DicToString( dic );
+            _shareData = Json.SerializeDic( dic );
             return _shareData;
         }
 

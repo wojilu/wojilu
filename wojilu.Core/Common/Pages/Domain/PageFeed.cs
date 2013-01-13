@@ -1,12 +1,16 @@
-﻿using System;
+﻿/*
+ * Copyright (c) 2010, www.wojilu.com. All rights reserved.
+ */
+
+using System;
 using System.Collections.Generic;
-using System.Text;
-using wojilu.Common.Feeds.Interface;
+
 using wojilu.Web.Mvc;
-using wojilu.Serialization;
-using wojilu.Members.Sites.Domain;
+
 using wojilu.Common.Msg.Service;
 using wojilu.Common.Msg.Enum;
+
+using wojilu.Members.Sites.Domain;
 
 namespace wojilu.Common.Pages.Domain {
 
@@ -47,7 +51,7 @@ namespace wojilu.Common.Pages.Domain {
             dic["userLink"] = Link.ToMember( post.Creator );
             dic["body"] = strUtil.ParseHtml( post.Content, 100 );
 
-            _shareData = JSON.DicToString( dic );
+            _shareData = Json.SerializeDic( dic );
 
             return _shareData;
         }

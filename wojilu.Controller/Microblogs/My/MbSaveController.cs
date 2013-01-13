@@ -6,7 +6,6 @@ using System;
 using System.IO;
 
 using wojilu.Web.Mvc;
-using wojilu.Web.Mvc.Attr;
 using wojilu.Web.Utils;
 using wojilu.Members.Users.Domain;
 using wojilu.Common.Microblogs.Service;
@@ -17,7 +16,6 @@ using wojilu.Apps.Photo.Interface;
 using wojilu.Apps.Photo.Service;
 using wojilu.Web.Controller.Users.Admin;
 using System.Collections.Generic;
-using wojilu.Serialization;
 using wojilu.Common;
 
 namespace wojilu.Web.Controller.Microblogs.My {
@@ -35,7 +33,7 @@ namespace wojilu.Web.Controller.Microblogs.My {
         public void Publish() {
 
             if (Component.IsClose( typeof( MicroblogApp ) )) {
-                actionContent( "" );
+                content( "" );
                 return;
             }
 
@@ -96,7 +94,7 @@ namespace wojilu.Web.Controller.Microblogs.My {
             dic["picThumbUrl"] = post.ImgThumbUrl;
             dic["picUrl"] = post.DataUrl;
 
-            String json = JsonString.ConvertDictionary( dic );
+            String json = Json.SerializeDic( dic );
 
             echoText( json );
 

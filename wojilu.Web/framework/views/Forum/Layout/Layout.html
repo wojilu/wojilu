@@ -1,11 +1,25 @@
-﻿
-<link href="~css/wojilu.app.forum.css?v=#{cssVersion}" rel="stylesheet" />
+﻿<link href="~css/wojilu.app.forum.css?v=#{cssVersion}" rel="stylesheet" />
 
 <div id="adminTool" class="row appAdminTool" style=" display:none;">
-    <div class="span3 pull-right" style="text-align:right; padding:10px;">
-        <a href="#{adminUrl}" class="frmLink btn btn-primary" loadTo="forumContainer" nolayout=1>
-            <i class="icon-wrench icon-white"></i> 管理当前程序            
-        </a>
+    <div class="admin-menu-wrap clearfix alert alert-block">
+
+        <div class="admin-pointer">            
+            <span class="btn btn-primary">
+                论坛管理 <i class="icon-hand-right icon-white"></i>
+            </span>
+        </div>
+
+        <ul class="admin-menu unstyled">	
+	        <li><a href="#{noticeLink}" class="frmLink" loadTo="forumContainer" nolayout=4><i class="icon-volume-up"></i> :{forumNotice}</a></li>
+	        <li><a href="#{forumBoardList}" class="frmLink" loadTo="forumContainer" nolayout=4><i class="icon-list-alt"></i> :{boardAndModerator}</a></li>
+	        <li><a href="#{friendList}" class="frmLink" loadTo="forumContainer" nolayout=4><i class="icon-retweet"></i> :{friendForum}</a></li>
+	        <li><a href="#{recyclebin}" class="frmLink" loadTo="forumContainer" nolayout=4><i class="icon-trash"></i> _{trash}</a></li>
+	        <li><a href="#{security}" class="frmLink" loadTo="forumContainer" nolayout=4><i class="icon-remove-circle"></i> :{defaultPermission}</a></li>
+	        <li><a href="#{forumLog}" class="frmLink" loadTo="forumContainer" nolayout=4><i class="icon-edit"></i> :{adminLog}</a></li>
+	        <li><a href="#{dataCombine}" class="frmLink" loadTo="forumContainer" nolayout=4><i class="icon-resize-small"></i> :{dataCombine}</a></li>
+	        <li><a href="#{settings}" class="frmLink" loadTo="forumContainer" nolayout=4><i class="icon-wrench"></i> _{setting}</a></li>
+	    </ul>
+
     </div>
 </div>
 
@@ -14,31 +28,40 @@
 </div>
 
 <script>
-_run( function() {
-    
-    var showAdminTool = function() {
-    
-        if( typeof(ctx) == 'undefined' ) return;
-        if( ctx.viewer.IsLogin==false  ) return;
-        
-        if( ctx.owner.IsSite) {
-            if( ctx.viewer.IsAdministrator ) {
-                $('#adminTool').show();
-            }
-            else if( ctx.viewer.IsInAdminGroup )  {
-                $.post( '#{adminCheckUrl}'.toAjax(), function(data) {
-                    if( 'ok'==data ) $('#adminTool').show();
-                });
-            }
-        }
-        else {
-            $('#adminTool').show();
-        }            
-        
-    };
-    
-    wojilu.site.load( showAdminTool );
+    _run(function () {
 
-    wojilu.ui.frmLink();
-});
+        $('.admin-menu li').click(function () {
+            $('.admin-menu li').removeClass('admin-menu-current');
+            $(this).addClass('admin-menu-current');
+        });
+
+        var showAdminTool = function () {
+
+            if (typeof (ctx) == 'undefined') return;
+            if (ctx.viewer.IsLogin == false) return;
+
+            if (ctx.owner.IsSite) {
+                if (ctx.viewer.IsAdministrator) {
+                    $('#adminTool').show();
+                }
+                else if (ctx.viewer.IsInAdminGroup) {
+                    $.post('#{adminCheckUrl}'.toAjax(), function (data) {
+                        if ('ok' == data) $('#adminTool').show();
+                    });
+                }
+            }
+            else {
+
+                $.post('#{adminCheckUrl}'.toAjax(), function (data) {
+                    if ('ok' == data) $('#adminTool').show();
+                });
+
+            }
+
+        };
+
+        wojilu.site.load(showAdminTool);
+
+        wojilu.ui.frmLink();
+    });
 </script>

@@ -1,9 +1,12 @@
-﻿using System;
+﻿/*
+ * Copyright (c) 2010, www.wojilu.com. All rights reserved.
+ */
+
+using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Threading;
 
-using wojilu.Serialization;
 using wojilu.Web.Mvc;
 using wojilu.Web.Mvc.Attr;
 using wojilu.Apps.Content.Domain;
@@ -206,7 +209,7 @@ namespace wojilu.Web.Controller.Users.Admin.Spiders {
                     echoRedirect( lang( "exDataNotFound" ) );
                     return;
                 }
-                set( "itemJson", JsonString.Convert( new ImportJson( item ) ) );
+                set( "itemJson", Json.Serialize( new ImportJson( item ) ) );
             }
             else {
                 set( "itemJson", "{Id:0}" );

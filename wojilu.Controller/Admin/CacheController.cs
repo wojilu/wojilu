@@ -1,11 +1,9 @@
 ﻿using System;
 using System.Collections;
-using System.Collections.Generic;
-using System.Text;
 using System.Web;
+
 using wojilu.Web.Mvc;
 using wojilu.Web.Mvc.Attr;
-using wojilu.Serialization;
 
 namespace wojilu.Web.Controller.Admin {
 
@@ -92,7 +90,7 @@ namespace wojilu.Web.Controller.Admin {
             String cacheValue = val == null ? "" : val.ToString();
 
             if (key.StartsWith( "__object_" )) {
-                cacheValue = JsonString.ConvertEntity( val as IEntity );
+                cacheValue = Json.SerializeEntity( val as IEntity );
             }
 
             set( "cacheValue", strUtil.EncodeTextarea( cacheValue ) );

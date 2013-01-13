@@ -25,7 +25,7 @@ namespace wojilu.Web.Context.Initor {
             loginService = new LoginService();
             userService = new UserService();
         }
-        
+
         public void Init( MvcContext ctx ) {
 
             if (ctx.utils.isEnd()) return;
@@ -45,12 +45,11 @@ namespace wojilu.Web.Context.Initor {
 
             if (ctx.web.UserIsLogin) loginService.UpdateLastLogin( user, ctx.Ip );
 
-            ViewerContext context = new ViewerContext();
+            ViewerContext context = new ViewerContext( ctx );
             context.Id = user.Id;
             context.obj = user;
             context.IsLogin = ctx.web.UserIsLogin;
             ctx.utils.setViewerContext( context );
-
 
 
         }

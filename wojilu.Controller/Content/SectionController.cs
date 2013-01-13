@@ -15,6 +15,7 @@ using wojilu.Web.Controller.Common;
 using wojilu.Web.Controller.Content.Caching;
 using wojilu.Web.Context;
 using wojilu.Members.Sites.Domain;
+using wojilu.Common.AppBase.Interface;
 
 namespace wojilu.Web.Controller.Content {
 
@@ -36,34 +37,49 @@ namespace wojilu.Web.Controller.Content {
         public override void Layout() {
         }
 
+        [Data( typeof( ContentSection ) )]
         public void Show( int sectionId ) {
-            ContentSection section = showInfo( sectionId );
+            ContentSection section = sectionService.GetById( sectionId, ctx.app.Id );
             set( "listContent", loadHtml( section.SectionType, "List", sectionId ) );
+            showInfo( section );
         }
 
 
+        [Data( typeof( ContentSection ) )]
         public void Archive( int sectionId ) {
             view( "Show" );
-            ContentSection section = showInfo( sectionId );
+            ContentSection section = sectionService.GetById( sectionId, ctx.app.Id );
             set( "listContent", loadHtml( section.SectionType, "Archive", sectionId ) );
+            showInfo( section );
         }
 
-        private ContentSection showInfo( int sectionId ) {
-            ContentSection section = sectionService.GetById( sectionId, ctx.app.Id );
-            WebUtils.pageTitle( this, section.Title, ctx.app.Name );
+        private void showInfo( ContentSection section ) {
 
             //1)location
             String location = string.Format( "<a href='{0}'>{1}</a> &gt; {2}",
-                to( new ContentController().Index ),
-                ctx.app.Name, 
+                alink.ToApp( ctx.app.obj as IApp, ctx ),
+                ctx.app.Name,
                 "分类查看"
             );
 
             set( "location", location );
 
-            return section;
+            bindMetaInfo( section );
         }
 
+        private void bindMetaInfo( ContentSection section ) {
+
+            ctx.Page.SetTitle( section.Title, ctx.app.Name );
+
+            if (strUtil.HasText( section.MetaKeywords )) {
+                ctx.Page.Keywords = section.MetaKeywords;
+            }
+            else {
+                ctx.Page.Keywords = section.Title;
+            }
+
+            ctx.Page.Description = section.MetaDescription;
+        }
 
 
     }

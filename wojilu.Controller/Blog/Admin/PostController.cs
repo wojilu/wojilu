@@ -1,4 +1,4 @@
-/*
+﻿/*
  * Copyright (c) 2010, www.wojilu.com. All rights reserved.
  */
 
@@ -16,10 +16,13 @@ using wojilu.Common.Feeds.Service;
 using wojilu.Common.Feeds.Interface;
 using wojilu.Common.AppBase;
 using wojilu.Common.Tags;
+using wojilu.Common.Upload;
 
 using wojilu.Apps.Blog.Domain;
 using wojilu.Apps.Blog.Service;
 using wojilu.Apps.Blog.Interface;
+using wojilu.Web.Controller.Users;
+using wojilu.Web.Controller.Admin;
 
 namespace wojilu.Web.Controller.Blog.Admin {
 
@@ -32,6 +35,7 @@ namespace wojilu.Web.Controller.Blog.Admin {
 
         public IFeedService feedService { get; set; }
         public IFriendService friendService { get; set; }
+        public UserFileService fileService { get; set; }
 
         public PostController() {
 
@@ -40,6 +44,7 @@ namespace wojilu.Web.Controller.Blog.Admin {
             categoryService = new BlogCategoryService();
             feedService = new FeedService();
             friendService = new FriendService();
+            fileService = new UserFileService();
         }
 
 
@@ -52,9 +57,15 @@ namespace wojilu.Web.Controller.Blog.Admin {
 
             target( Create );
             bindAdd( categories );
-
+            bindUploadInfo();
         }
 
+        private void bindUploadInfo() {
+            //附件
+            set( "uploadLink", to( new UserUploadController().SaveUserFile ) ); // 接受上传的网址
+            set( "authJson", ctx.web.GetAuthJson() );
+            set( "jsPath", sys.Path.DiskJs );
+        }
 
         [HttpPost, DbTransaction]
         public void Create() {
@@ -90,7 +101,10 @@ namespace wojilu.Web.Controller.Blog.Admin {
             data.Tags = TagService.ResetRawTagString( tagStr );
             populatePost( data );
 
-            Result result = postService.Insert( data );
+            // 附件处理
+            int[] ids = cvt.ToIntArray( ctx.Post( "attachmentIds" ) );
+
+            Result result = postService.Insert( data, ids );
             if (result.IsValid) {
 
                 echoRedirectPart( lang( "opok" ), to( new MyListController().Index ), 1 );
@@ -98,6 +112,7 @@ namespace wojilu.Web.Controller.Blog.Admin {
             else {
                 echoError( result );
             }
+
         }
 
 
@@ -116,6 +131,62 @@ namespace wojilu.Web.Controller.Blog.Admin {
 
             List<BlogCategory> categories = categoryService.GetByApp( ctx.app.Id );
             bindEdit( data, categories );
+
+            bindAttachmentPanel( data );
+        }
+
+        private void bindAttachmentPanel( BlogPost post ) {
+
+            //附件
+            String dataInfo = string.Format( "?dataId={0}&dataType={1}&viewerId={2}&viewerUrl={3}&ownerId={4}&ownerType={5}&ownerUrl={6}",
+                post.Id,
+                typeof( BlogPost ).FullName,
+                ctx.viewer.Id,
+                ctx.viewer.obj.Url,
+                ctx.owner.Id,
+                ctx.owner.obj.GetType().FullName,
+                ctx.owner.obj.Url );
+
+            set( "uploadLink", to( new UserUploadController().SaveUserFile ) ); // 接受上传的网址
+            set( "authJson", AdminSecurityUtils.GetAuthCookieJson( ctx ) );
+            set( "jsPath", sys.Path.DiskJs );
+
+            set( "dataId", post.Id );
+            set( "dataType", typeof( BlogPost ).FullName );
+
+            set( "viewerId", ctx.viewer.Id );
+            set( "viewerUrl", ctx.viewer.obj.Url );
+
+            set( "ownerId", ctx.owner.Id );
+            set( "ownerType", ctx.owner.obj.GetType().FullName );
+            set( "ownerUrl", ctx.owner.obj.Url );
+
+
+            bindAttachments( post );
+
+        }
+
+        private void bindAttachments( BlogPost post ) {
+
+            List<UserFile> list = fileService.GetByData( post );
+
+            IBlock block = getBlock( "attachments" );
+            foreach (UserFile obj in list) {
+
+                if (obj.IsPic == 1) {
+                    block.Set( "obj.PicLink", string.Format( "<a href=\"{0}\" target=\"_blank\" class=\"lnkPreview\">查看图片</a>", obj.PicO ) );
+                }
+                else {
+                    block.Set( "obj.PicLink", "" );
+                }
+
+                block.Set( "obj.Id", obj.Id );
+                block.Set( "obj.FileName", obj.FileName );
+                block.Set( "obj.FileSizeKB", obj.FileSizeKB );
+                block.Set( "obj.DeleteLink", to( new UserUploadController().DeleteUserFile, obj.Id ) );
+                block.Next();
+            }
+
         }
 
         [HttpPost, DbTransaction]

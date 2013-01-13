@@ -58,7 +58,7 @@ namespace wojilu.ORM.Caching {
             addList( key, objList );
         }
 
-        public void AddPage( Type t, String condition, ObjectPage pager, IList list ) {
+        public void AddPage( Type t, String condition, PageHelper pager, IList list ) {
             String key = CacheKey.getPageList( t, condition, pager.getSize(), pager.getCurrent() );
             addList( key, list );
             addToApplication( CacheKey.getPagerInfoKey( key ), pager ); // 添加分页统计数据
@@ -160,15 +160,15 @@ namespace wojilu.ORM.Caching {
             return getListFromCache( CacheKey.getQuery( type, _queryString, _namedParameters ), type );
         }
 
-        public IPageList FindPage( Type t, String condition, ObjectPage pager ) {
+        public IPageList FindPage( Type t, String condition, PageHelper pager ) {
             String key = CacheKey.getPageList( t, condition, pager.getSize(), pager.getCurrent() );
             logger.Debug( "FindPage=>" + t.FullName );
             IList list = getListFromCache( key, t );
             if (list == null) return null;
 
-            IPageList result = new PageList();
+            IPageList result = new DataPageInfo();
 
-            ObjectPage pageInfo = getPagerInfo( key );
+            PageHelper pageInfo = getPagerInfo( key );
             if (pageInfo == null) return null;
 
             result.Results = list;
@@ -181,8 +181,8 @@ namespace wojilu.ORM.Caching {
             return result;
         }
 
-        private static ObjectPage getPagerInfo( String pageKey ) {
-            return getFromApplication( CacheKey.getPagerInfoKey( pageKey ) ) as ObjectPage;
+        private static PageHelper getPagerInfo( String pageKey ) {
+            return getFromApplication( CacheKey.getPagerInfoKey( pageKey ) ) as PageHelper;
         }
 
         public IList FindBySql( String sql, Type t ) {

@@ -12,15 +12,17 @@ using wojilu.Members.Sites.Domain;
 using wojilu.Common.MemberApp.Interface;
 using wojilu.Common.AppBase.Interface;
 using wojilu.Members.Users.Domain;
+using wojilu.Web.Mvc.Attr;
 
 namespace wojilu.Web.Mvc {
 
+    [MvcLink]
     public class alink {
 
         public static String ToAppAdmin( IMember user, IMemberApp app ) {
             String ownerPath = LinkHelper.GetMemberPathPrefix( user );
             String appName = strUtil.TrimEnd( app.AppInfo.TypeName, "App" );
-            String controller = appName + "/Admin/" + appName;
+            String controller = appName + MvcConfig.Instance.UrlSeparator + "Admin" + MvcConfig.Instance.UrlSeparator + appName;
             return LinkHelper.AppendApp( app.AppOid, controller, "Index", -1, ownerPath );
         }
 
@@ -48,7 +50,7 @@ namespace wojilu.Web.Mvc {
             String appName = strUtil.TrimEnd( appNamespace, "App" );
             String controllerName = strUtil.TrimStart( typeName, appName ) + "Controller";
 
-            return appName + "/" + controllerName;
+            return appName + MvcConfig.Instance.UrlSeparator + controllerName;
         }
 
         private static String To( IAppData data, String controller, String action, int id ) {
@@ -86,11 +88,11 @@ namespace wojilu.Web.Mvc {
 
             String result = LinkHelper.GetMemberPathPrefix( ownerTypeFull, ownerUrl );
 
-            result = strUtil.Join( result, appName );
+            result = LinkHelper.Join( result, appName );
             if (appId > 0) result = result + appId;
 
-            result = strUtil.Join( result, appName );
-            return strUtil.Join( result, "Index" ) + MvcConfig.Instance.UrlExt;
+            result = LinkHelper.Join( result, appName );
+            return LinkHelper.Join( result, "Index" ) + MvcConfig.Instance.UrlExt;
         }
 
         //private static String getOwnerUrl( String ownerTypeFull, String ownerUrl ) {
@@ -99,7 +101,7 @@ namespace wojilu.Web.Mvc {
 
         //    String result = strUtil.GetTypeName( ownerTypeFull ).ToLower();
         //    result = MemberPath.GetPath( result );
-        //    return strUtil.Join( result, ownerUrl );
+        //    return LinkHelper.Join( result, ownerUrl );
         //}
 
         //----------------------------------------------------------------------------------------------------------------
@@ -107,22 +109,19 @@ namespace wojilu.Web.Mvc {
         public static String ToUserMicroblog( IMember user ) {
 
             if (LinkHelper.IsMemberSubdomain( typeof( User ).FullName )) {
-                return "http://" + user.Url + "." + SystemInfo.HostNoSubdomain + "/t" + MvcConfig.Instance.UrlExt;
+                return "http://" + user.Url + "." + SystemInfo.HostNoSubdomain + MvcConfig.Instance.UrlSeparator + "t" + MvcConfig.Instance.UrlExt;
             }
             else {
-                return strUtil.Join( _app, "t/" ) + user.Url + MvcConfig.Instance.UrlExt;
+                return LinkHelper.Join( _app, "t" ) + MvcConfig.Instance.UrlSeparator + user.Url + MvcConfig.Instance.UrlExt;
             }
         }
 
-
-
-
         public static string ToMicroblog() {
-            return strUtil.Join( _app, "t" ) + MvcConfig.Instance.UrlExt;
+            return LinkHelper.Join( _app, "t" ) + MvcConfig.Instance.UrlExt;
         }
 
         public static String ToTag( String tagName ) {
-            return strUtil.Join( _app, "tag/" ) + tagName + MvcConfig.Instance.UrlExt;
+            return LinkHelper.Join( _app, "tag" ) + MvcConfig.Instance.UrlSeparator + tagName + MvcConfig.Instance.UrlExt;
         }
 
 

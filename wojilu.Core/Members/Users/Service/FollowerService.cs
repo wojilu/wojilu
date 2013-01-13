@@ -4,16 +4,16 @@
 
 using System;
 using System.Collections.Generic;
-using System.Text;
 
 using wojilu.Web.Mvc;
-using wojilu.Members.Users.Domain;
+
+using wojilu.Common.Msg.Enum;
+using wojilu.Common.Msg.Service;
 using wojilu.Common.Feeds.Domain;
 using wojilu.Common.Feeds.Service;
-using wojilu.Common.Msg.Service;
-using wojilu.Common.Msg.Enum;
+
+using wojilu.Members.Users.Domain;
 using wojilu.Members.Users.Interface;
-using wojilu.Serialization;
 
 namespace wojilu.Members.Users.Service {
 
@@ -85,7 +85,7 @@ namespace wojilu.Members.Users.Service {
             String flnk = string.Format( "<a href=\"{0}\">{1}</a>", userLink, f.Target.Name );
             dic.Add( "friend", flnk );
             dic.Add( "friendId", f.Target.Id );
-            String templateData = JSON.DicToString( dic );
+            String templateData = Json.SerializeDic( dic );
 
             feed.TitleData = templateData;
 

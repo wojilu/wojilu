@@ -1,13 +1,14 @@
-﻿using System;
+﻿/*
+ * Copyright (c) 2010, www.wojilu.com. All rights reserved.
+ */
+
+using System;
 using System.Collections.Generic;
-using System.Text;
+
 using wojilu.Web.Mvc;
 using wojilu.Web.Mvc.Attr;
-using wojilu.Serialization;
+
 using wojilu.Apps.Content.Domain;
-using wojilu.DI;
-using wojilu.Members.Sites.Domain;
-using wojilu.Web.Context;
 using wojilu.Web.Controller.Content.Caching;
 
 namespace wojilu.Web.Controller.Content.Admin {
@@ -16,7 +17,6 @@ namespace wojilu.Web.Controller.Content.Admin {
     public class SettingController : ControllerBase {
 
         public SettingController() {
-            base.LayoutControllerType = typeof( PostController );
             HideLayout( typeof( wojilu.Web.Controller.Content.LayoutController ) );
         }
 
@@ -37,13 +37,15 @@ namespace wojilu.Web.Controller.Content.Admin {
             s.AllowAnonymousComment = ctx.PostIsCheck( "contentSetting.AllowAnonymousComment" );
             s.EnableSubmit = ctx.PostIsCheck( "contentSetting.EnableSubmit" );
 
+            s.MetaDescription = strUtil.CutString( s.MetaDescription, 500 );
+
             if (HtmlHelper.IsHtmlDirError( s.StaticDir, ctx.errors )) {
                 echoError();
                 return;
             }
 
             ContentApp app = ctx.app.obj as ContentApp;
-            app.Settings = JsonString.ConvertObject( s );
+            app.Settings = Json.Serialize( s );
             app.update();
 
             echoRedirect( lang( "opok" ) );
@@ -66,7 +68,6 @@ namespace wojilu.Web.Controller.Content.Admin {
             set( "s.RankPics", dropList( "RankPics", 1, 20, s.RankPics ) );
             set( "s.RankVideos", dropList( "RssCount", 1, 20, s.RankVideos ) );
 
-            set( "s.CacheSeconds", dropList( "CacheSeconds", 0, 600, s.CacheSeconds ) );
             set( "s.SummaryLength", dropList( "SummaryLength", 50, 600, s.SummaryLength ) );
 
             Dictionary<string, string> dic = new Dictionary<string, string>();
@@ -76,6 +77,8 @@ namespace wojilu.Web.Controller.Content.Admin {
             dropList( "contentSetting.ArticleListMode", dic, s.ArticleListMode.ToString() );
 
             set( "s.StaticDir", s.StaticDir );
+            set( "s.MetaKeywords", s.MetaKeywords );
+            set( "s.MetaDescription", s.MetaDescription );
 
         }
 

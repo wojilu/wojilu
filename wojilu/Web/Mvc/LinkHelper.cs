@@ -19,20 +19,28 @@ using System.Collections.Generic;
 using System.Text;
 using wojilu.Members.Interface;
 using wojilu.Common;
+using wojilu.Web.Mvc.Routes;
 
 namespace wojilu.Web.Mvc {
 
     public class LinkHelper {
+
+        public static String Join( String strA, String strB ) {
+            if (strA.EndsWith( "/" )) return strA + strB; // 路径以/开头
+            return strUtil.Join( strA, strB, MvcConfig.Instance.UrlSeparator );
+        }
 
         public static String AppendApp( int appId, String controller, String action, int id, String result ) {
 
             if (controller.EndsWith( "Controller" )) controller = strUtil.TrimEnd( controller, "Controller" );
 
             controller = addAppId( controller, appId );
-            result = strUtil.Join( result, controller );
+            controller = processController( controller );
 
-            if (id > 0) result = strUtil.Join( result, id.ToString() );
-            if (!action.Equals( "Show" )) result = strUtil.Join( result, action );
+            result = Join( result, controller );
+
+            if (id > 0) result = Join( result, id.ToString() );
+            result = joinAction( action, result );
 
             result = result + MvcConfig.Instance.UrlExt;
             return result;
@@ -43,15 +51,28 @@ namespace wojilu.Web.Mvc {
             if (controller.EndsWith( "Controller" )) controller = strUtil.TrimEnd( controller, "Controller" );
 
             controller = addAppId( controller, appId );
-            result = strUtil.Join( result, controller );
+            controller = processController( controller );
 
-            result = strUtil.Join( result, param );
-            if (!action.Equals( "Show" )) result = strUtil.Join( result, action );
+            result = Join( result, controller );
+
+            result = Join( result, param );
+
+            result = joinAction( action, result );
 
             result = result + MvcConfig.Instance.UrlExt;
             return result;
         }
 
+        private static String processController( String controller ) {
+            if (MvcConfig.Instance.IsUrlToLower) return controller.ToLower();
+            return controller;
+        }
+
+        private static String joinAction( String action, String result ) {
+            if (action.Equals( "Show" )) return result;
+            if (MvcConfig.Instance.IsUrlToLower) return Join( result, action.ToLower() );
+            return Join( result, action );
+        }
 
         /// <summary>
         /// 获取成员根路径，比如 /space/zhangsan, /group/moon 等；如果是二级域名，返回 http://zhangsan.abc.com
@@ -95,7 +116,8 @@ namespace wojilu.Web.Mvc {
         internal static String GetController( Type controllerType ) {
             return trimRootNamespace( strUtil.GetTypeFullName( controllerType ) )
                 .TrimStart( '.' )
-                .Replace( ".", "/" );
+                .Replace( ".", MvcConfig.Instance.UrlSeparator );
+            //return MvcConfig.Instance.IsUrlToLower ? str.ToLower() : str;
         }
 
         internal static String GetMemberUrl( String memberTypeFullName, String memberUrl ) {
@@ -107,7 +129,7 @@ namespace wojilu.Web.Mvc {
                 return "http://" + memberUrl + "." + SystemInfo.HostNoSubdomain;
             }
             else {
-                return "http://" + strUtil.Join( SystemInfo.Host, GetMemberUrl( memberType, memberUrl ) ) + MvcConfig.Instance.UrlExt;
+                return "http://" + Join( SystemInfo.Host, GetMemberUrl( memberType, memberUrl ) ) + MvcConfig.Instance.UrlExt;
             }
         }
 
@@ -120,21 +142,21 @@ namespace wojilu.Web.Mvc {
 
         private static String addAppId( String controller, int appId ) {
 
-            String[] arrItem = controller.Split( '/' );
+            String[] arrItem = controller.Split( RouteTool.Separator );
             StringBuilder builder = new StringBuilder();
             for (int i = 0; i < arrItem.Length; i++) {
 
                 if (i == 0 && appId > 0) {
                     builder.Append( arrItem[i] );
                     builder.Append( appId );
-                    builder.Append( "/" );
+                    builder.Append( MvcConfig.Instance.UrlSeparator );
                 }
                 else {
                     builder.Append( arrItem[i] );
-                    builder.Append( "/" );
+                    builder.Append( MvcConfig.Instance.UrlSeparator );
                 }
             }
-            return builder.ToString().TrimEnd( '/' );
+            return builder.ToString().TrimEnd( MvcConfig.Instance.UrlSeparator[0] );
         }
 
         private static String trimRootNamespace( String typeFullName ) {
@@ -154,20 +176,20 @@ namespace wojilu.Web.Mvc {
                     return "http://" + memberUrl + "." + SystemInfo.HostNoSubdomain;
                 }
                 else {
-                    return "http://" + strUtil.Join( SystemInfo.Host, GetMemberUrl( memberType, memberUrl ) );
+                    return "http://" + Join( SystemInfo.Host, GetMemberUrl( memberType, memberUrl ) );
                 }
             }
             else {
 
                 if (memberType.Equals( ConstString.SiteTypeFullName )) return GetRootPath();
 
-                return strUtil.Join( AppPath, GetMemberUrl( memberType, memberUrl ) );
+                return Join( AppPath, GetMemberUrl( memberType, memberUrl ) );
             }
         }
 
         private static String getMemberPathUrl( String ownerTypeName, String ownerUrl ) {
             if (strUtil.GetTypeName( ConstString.SiteTypeFullName ).Equals( ownerTypeName )) return "";
-            return strUtil.Join( MemberPath.GetPath( ownerTypeName ), ownerUrl );
+            return Join( MemberPath.GetPath( ownerTypeName ), ownerUrl );
         }
 
 

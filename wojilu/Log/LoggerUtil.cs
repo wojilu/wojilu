@@ -92,7 +92,9 @@ namespace wojilu.Log {
                     }
                     else {
                         String destFileName = getDestFileName( logFilePath );
-                        wojilu.IO.File.Move( logFilePath, destFileName );
+                        if (file.Exists( destFileName ) == false) {
+                            wojilu.IO.File.Move( logFilePath, destFileName );
+                        }
                         wojilu.IO.File.Write( logFilePath, formatMsg );
                     }
                 }

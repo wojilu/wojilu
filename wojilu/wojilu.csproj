@@ -93,12 +93,15 @@
     <Compile Include="Common\Onlines\OnlineService.cs" />
     <Compile Include="Common\Onlines\OnlineStats.cs" />
     <Compile Include="Common\Onlines\OnlineManager.cs" />
+    <Compile Include="_wojilu\Json.cs" />
+    <Compile Include="_wojilu\SettingBase.cs" />
     <Compile Include="Data\Enum\IdType.cs" />
     <Compile Include="Net\Video\IFengSpider.cs" />
     <Compile Include="Net\Video\SinaVideo.cs" />
     <Compile Include="Net\Video\VideoHelper.cs" />
     <Compile Include="Web\Mock\IMockContext.cs" />
     <Compile Include="Web\Mvc\Attr\DataAttribute.cs" />
+    <Compile Include="Web\Mvc\Attr\MvcLinkAttribute.cs" />
     <Compile Include="Web\Mvc\CacheInfo.cs" />
     <Compile Include="Web\Mvc\IActionCache.cs" />
     <Compile Include="Web\Mvc\IPageCache.cs" />
@@ -120,6 +123,7 @@
     <Compile Include="Web\Mvc\ControllerMeta.cs" />
     <Compile Include="Web\Mvc\IControllerFactory.cs" />
     <Compile Include="Web\Mvc\LinkHelper.cs" />
+    <Compile Include="Web\Mvc\PageCache.cs" />
     <Compile Include="Web\Mvc\Utils\ControllerRunner.cs" />
     <Compile Include="Web\Mvc\Link.cs" />
     <Compile Include="Web\Utils\AvatarCopySaver.cs" />
@@ -128,7 +132,6 @@
     <Compile Include="Web\Utils\Emotions.cs" />
     <Compile Include="Web\Utils\WebHelpers.cs" />
     <Compile Include="_wojilu\IDto.cs" />
-    <Compile Include="_wojilu\PageHelper.cs" />
     <Compile Include="_wojilu\sys.cs" />
     <Compile Include="Data\TableBuilder\AccessTableBuilder.cs" />
     <Compile Include="Data\DbConfig.cs" />
@@ -310,7 +313,7 @@
     <Compile Include="IO\File.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="_wojilu\IPageList.cs">
+    <Compile Include="_wojilu\page\IPageList.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Common\LoginTime.cs">
@@ -359,7 +362,7 @@
     <Compile Include="ORM\Operation\FinderBase.cs" />
     <Compile Include="ORM\MetaList.cs" />
     <Compile Include="ORM\NoCacheDbFinder.cs" />
-    <Compile Include="_wojilu\DataPage.cs" />
+    <Compile Include="_wojilu\page\DataPage.cs" />
     <Compile Include="ORM\Utils\CacheUtil.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -435,7 +438,7 @@
     <Compile Include="ORM\ObjectInfo.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="ORM\ObjectPage.cs">
+    <Compile Include="_wojilu\page\PageHelper.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="ORM\Caching\ObjectPool.cs">
@@ -471,7 +474,7 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="ORM\xQuery.cs" />
-    <Compile Include="_wojilu\PageList.cs">
+    <Compile Include="_wojilu\page\DataPageInfo.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="_wojilu\PathHelper.cs" />
@@ -636,7 +639,6 @@
     <Compile Include="Common\Security\Utils\RoleMerger.cs" />
     <Compile Include="Common\Security\Utils\SecurityString.cs" />
     <Compile Include="Config\config.cs" />
-    <Compile Include="Config\GroupSetting.cs" />
     <Compile Include="Config\Setting\ISetting.cs" />
     <Compile Include="Config\Setting\ISettingValue.cs" />
     <Compile Include="Config\Setting\SettingFormTool.cs" />

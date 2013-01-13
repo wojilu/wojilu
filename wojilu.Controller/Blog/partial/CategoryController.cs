@@ -14,7 +14,8 @@ namespace wojilu.Web.Controller.Blog {
 
         private void bindCategory( BlogCategory category ) {
 
-            WebUtils.pageTitle( this, category.Name );
+            ctx.Page.Title = category.Name;
+
             set( "categoryName", category.Name );
             set( "categoryDescription", category.Description );
         }

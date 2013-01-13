@@ -1,9 +1,11 @@
-﻿using System;
+﻿/*
+ * Copyright (c) 2010, www.wojilu.com. All rights reserved.
+ */
+
+using System;
 using System.Collections.Generic;
-using System.Text;
 using wojilu.Web.Mvc;
 using wojilu.Common;
-using wojilu.Serialization;
 
 namespace wojilu.Web.Controller.Common {
 
@@ -24,7 +26,7 @@ namespace wojilu.Web.Controller.Common {
                 map[item] = AdItem.GetAdByName( item );
             }
 
-            echoJson( JsonString.ConvertDictionary( map ) );
+            echoJson( map );
 
         }
 

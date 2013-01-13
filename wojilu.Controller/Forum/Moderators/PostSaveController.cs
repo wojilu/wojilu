@@ -79,7 +79,7 @@ namespace wojilu.Web.Controller.Forum.Moderators {
 
             ForumPost post = postService.GetById( id, ctx.owner.obj );
             if (post == null) {
-                actionContent( alang( "exPostNotFound" ) );
+                content( alang( "exPostNotFound" ) );
                 return;
             }
             if (boardError( post )) return;
@@ -95,7 +95,7 @@ namespace wojilu.Web.Controller.Forum.Moderators {
 
             ForumPost post = postService.GetById( id, ctx.owner.obj );
             if (post == null) {
-                actionContent( alang( "exPostNotFound" ) );
+                content( alang( "exPostNotFound" ) );
                 return;
             }
             if (boardError( post )) return;

@@ -1,34 +1,12 @@
-﻿<script>
-
-var opimgResize = 0.7;
-
-var resizePoll = function() {
-    var ctx = $('#poll#{section.Id}');
-    $('.onePollResult img', ctx).each( function() {
-        var width = $(this).width();
-        $(this).width( width*opimgResize );
-    });
-    $('.pollOptions', ctx).width( '99%' ).css( 'margin-left', '0px' );
-};
-
-_run( function() {
-    resizePoll();
-});
-
-</script>
-
-<table  class="sectionToolbar">
+﻿<table  class="sectionToolbar">
     <tr><td class="cmdAdmin">
-        <a href="#{addLink}"  class="frmBox" xwidth="600" title=":{addPoll}">+:{addPoll}</a> 
-        <a href="#{listLink}" class="frmBox" xwidth="800">_{all}</a>
+        <a href="#{addLink}"  class="frmBox" xwidth="600" title="_{addPoll}">+_{addPoll}</a> 
+        <a href="#{listLink}" class="frmBox" xwidth="800" title="投票管理">_{all}</a>
     </td></tr>
 </table>
 
 <div style="margin:5px;" id="poll#{section.Id}">
-
-    <div class="strong">#{poll.Title}</div>
-    <div>#{poll.Question}</div>
-    <div>#{poll.Html}</div>
-
+    <div>#{pollHtml}</div>
+    <div style=" float:right; margin:0px 20px 10px 10px; clear:both;">#{editLink}</div>
 </div>
 

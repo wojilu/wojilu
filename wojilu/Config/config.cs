@@ -26,22 +26,13 @@ namespace wojilu {
     /// </summary>
     public class config {
 
-
         private SiteSetting _siteSetting;
-        private GroupSetting _groupSetting;
 
         /// <summary>
         /// 网站的配置信息
         /// </summary>
         public SiteSetting Site {
             get { return _siteSetting; }
-        }
-
-        /// <summary>
-        /// 群组的配置信息
-        /// </summary>
-        public GroupSetting Group {
-            get { return _groupSetting; }
         }
 
         //------------------------------------------------------------
@@ -68,12 +59,6 @@ namespace wojilu {
 
         private void loadAll() {
             initSiteSettings();
-            initGroupSettings();
-        }
-
-
-        private void initGroupSettings() {
-            _groupSetting = new GroupSetting();
         }
 
         // ------------------------- site settings -------------------------
@@ -93,8 +78,14 @@ namespace wojilu {
             _siteSetting.Webmaster = getVal( dic, "Webmaster" );
             _siteSetting.Email = getVal( dic, "Email" );
             _siteSetting.Copyright = getVal( dic, "Copyright" );
+
             _siteSetting.Keywords = getVal( dic, "Keywords" );
             _siteSetting.Description = getVal( dic, "Description" );
+
+            _siteSetting.UserPageKeywords = getVal( dic, "UserPageKeywords" );
+            _siteSetting.UserPageDescription = getVal( dic, "UserPageDescription" );
+
+
             _siteSetting.PageDefaultTitle = getVal( dic, "PageDefaultTitle" );
             _siteSetting.IsClose = cvt.ToBool( getVal( dic, "IsClose" ) );
             _siteSetting.CloseReason = getVal( dic, "CloseReason" );
@@ -122,13 +113,8 @@ namespace wojilu {
             _siteSetting.ValidationLength = cvt.ToInt( getVal( dic, "ValidationLength" ) );
             _siteSetting.ValidationChineseLength = cvt.ToInt( getVal( dic, "ValidationChineseLength" ) );
 
-
             _siteSetting.StatsEnabled = cvt.ToBool( getVal( dic, "StatsEnabled" ) );
             _siteSetting.StatsJs = getVal( dic, "StatsJs" );
-
-            _siteSetting.MicroblogContentMax = cvt.ToInt( getVal( dic, "MicroblogContentMax" ) );
-            _siteSetting.MicroblogPageSize = cvt.ToInt( getVal( dic, "MicroblogPageSize" ) );
-
 
             _siteSetting.SkinId = cvt.ToInt( getVal( dic, "SkinId" ) );
             _siteSetting.Md5Is16 = cvt.ToBool( getVal( dic, "Md5Is16" ) );
@@ -165,6 +151,12 @@ namespace wojilu {
             _siteSetting.UploadPicMaxMB = cvt.ToInt( getVal( dic, "UploadPicMaxMB" ) );
             _siteSetting.UploadFileMaxMB = cvt.ToInt( getVal( dic, "UploadFileMaxMB" ) );
 
+            _siteSetting.PublishTimeAfterReg = cvt.ToInt( getVal( dic, "PublishTimeAfterReg" ) );
+
+            _siteSetting.UserSignatureMin = cvt.ToInt( getVal( dic, "UserSignatureMin" ) );
+            _siteSetting.UserSignatureMax = cvt.ToInt( getVal( dic, "UserSignatureMax" ) );
+            _siteSetting.UserDescriptionMin = cvt.ToInt( getVal( dic, "UserDescriptionMin" ) );
+            _siteSetting.UserDescriptionMax = cvt.ToInt( getVal( dic, "UserDescriptionMax" ) );
 
             _siteSetting.IsSaveAvatarMedium = cvt.ToBool( getVal( dic, "IsSaveAvatarMedium" ) );
             _siteSetting.IsSaveAvatarBig = cvt.ToBool( getVal( dic, "IsSaveAvatarBig" ) );

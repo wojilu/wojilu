@@ -117,6 +117,9 @@ namespace wojilu.Web.Controller.Blog.Admin {
             String strStatus = string.Empty;
             if (post.IsTop == 1) strStatus = "<span class=\"lblTop\">[" + lang( "sticky" ) + "]</span>";
             if (post.IsPick == 1) strStatus = strStatus + "<span class=\"lblTop\">[" + lang( "picked" ) + "]</span>";
+            if (post.AttachmentCount > 0) {
+                strStatus = strStatus + string.Format( "<span><img src=\"{0}\"/></span>", strUtil.Join( sys.Path.Img, "attachment.gif" ) );
+            }
             return strStatus;
         }
 
@@ -141,57 +144,60 @@ namespace wojilu.Web.Controller.Blog.Admin {
         [HttpPost, DbTransaction]
         public void Admin() {
 
-            if (adminList()) {
-                echoAjaxOk();
-            }
-            else {
-                echoText( lang( "exUnknowCmd" ) );
-            }
-        }
-
-
-        private Boolean adminList() {
-
             String ids = ctx.PostIdList( "choice" );
             String cmd = ctx.Post( "action" );
             int categoryId = ctx.PostInt( "categoryId" );
 
-            if (strUtil.IsNullOrEmpty( cmd )) return false;
+            if (strUtil.IsNullOrEmpty( cmd )) {
+                echoErrorCmd();
+                return;
+            }
 
             int appId = ctx.app.Id;
+
+            Boolean cmdValid = true;
+
             if (cmd.Equals( "top" )) {
                 postService.SetTop( ids, appId );
-                return true;
             }
-            if (cmd.Equals( "untop" )) {
+            else if (cmd.Equals( "untop" )) {
                 postService.SetUntop( ids, appId );
-                return true;
             }
-            if (cmd.Equals( "pick" )) {
+            else if (cmd.Equals( "pick" )) {
                 postService.SetPick( ids, appId );
-                return true;
             }
-            if (cmd.Equals( "unpick" )) {
+            else if (cmd.Equals( "unpick" )) {
                 postService.SetUnpick( ids, appId );
-                return true;
             }
-            if (cmd.Equals( "category" )) {
+            else if (cmd.Equals( "category" )) {
                 postService.ChangeCategory( categoryId, ids, appId );
-                return true;
             }
-            if (cmd.Equals( "delete" )) {
+            else if (cmd.Equals( "delete" )) {
                 postService.Delete( ids, appId );
-                return true;
             }
-
-            if (cmd.Equals( "deletetrue" )) {
+            else if (cmd.Equals( "deletetrue" )) {
                 postService.DeleteTrue( ids, appId );
-                return true;
+            }
+            else {
+                cmdValid = false;
             }
 
-            return false;
+            // echo
+            if (cmdValid == false) {
+                echoErrorCmd();
+            }
+            else {
+                logAdmin( cmd, ids );
+                echoAjaxOk();
+            }
         }
 
+        private void logAdmin( string cmd, string ids ) {
+        }
+
+        private void echoErrorCmd() {
+            echoText( lang( "exUnknowCmd" ) );
+        }
 
         private void bindLink( IBlock tpl, String lbl, object obj ) {
             BlogCategory category = obj as BlogCategory;

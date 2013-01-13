@@ -21,13 +21,13 @@ namespace wojilu.cms.Controller.Admin {
 
         public void Show( int id ) {
             Category c = Category.findById( id );
-            string jsonString = JsonString.Convert( c );
+            string jsonString = Json.Serialize( c );
             ctx.RenderJson( jsonString );
         }
 
         public void ListAll() {
             List<Category> list = Category.findAll();
-            string jsonString = JsonString.ConvertList( list );
+            string jsonString = Json.Serialize( list );
             ctx.RenderJson( jsonString );
         }
 

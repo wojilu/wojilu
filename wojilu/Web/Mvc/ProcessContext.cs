@@ -28,33 +28,10 @@ namespace wojilu.Web.Mvc {
 
         public MvcContext ctx { get; set; }
 
-        public ControllerBase getController() { return ctx.controller; }
         public Boolean IsUserLogin() { return ctx.viewer.IsLogin; }
 
         public ProcessContext( MvcContext ctx ) {
             this.ctx = ctx;
-        }
-
-        public Boolean isEnd() {
-            return ctx.utils.isEnd();
-        }
-
-        public void endMsg( String msg ) {
-            endMsg( msg, null );
-        }
-
-        public void endMsg( String msg, String httpStatusCode ) {
-            ctx.utils.endMsg( msg, httpStatusCode );
-        }
-
-        // 不带模板显示
-        public void endMsgByText( String msg ) {
-            ctx.utils.endMsgByText( msg );
-        }
-
-        // 带模板显示
-        public void endMsgByView( String msg ) {
-            ctx.utils.endMsgByView( msg );
         }
 
         public void showEnd( String content ) {
@@ -97,12 +74,12 @@ namespace wojilu.Web.Mvc {
             ProcessContext context = new ProcessContext( ctx );
             foreach (ProcessorBase p in processorList) {
 
-                if (context.isEnd()) break; // showEnd 会跳过下面所有处理器，除了 RenderProcessor
+                if (ctx.utils.isEnd()) break; // showEnd 会跳过下面所有处理器，除了 RenderProcessor
 
-                if (context.ctx.utils.GetCancelMvcProcessor().Contains( p.GetType() )) continue; // cancelProcessor 会跳过指定处理器
+                if (ctx.utils.GetCancelMvcProcessor().Contains( p.GetType() )) continue; // cancelProcessor 会跳过指定处理器
 
                 p.Process( context );
-                context.ctx.utils.skipCurrentProcessor( false ); // 重置状态 // skipCurrentProcessor 会跳过当前处理器的剩余部分
+                ctx.utils.skipCurrentProcessor( false ); // 重置状态 // skipCurrentProcessor 会跳过当前处理器的剩余部分
             }
 
             // 呈现页面内容

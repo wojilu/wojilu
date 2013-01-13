@@ -42,8 +42,7 @@ namespace wojilu.Web.Controller.Reader {
                 return;                    
             }
 
-            WebUtils.pageTitle( this, s.Name );
-
+            ctx.Page.Title = s.Name;
 
             DataPage<FeedEntry> list = entryService.GetPage( s.FeedSource.Id );
             bindFeedInfo( s.FeedSource );

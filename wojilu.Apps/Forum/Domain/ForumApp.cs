@@ -4,17 +4,13 @@
 
 using System;
 using System.Collections;
-using System.Text;
 
 using wojilu.ORM;
+
 using wojilu.Common.Security;
-using wojilu.Members.Sites.Domain;
-using wojilu.Members.Interface;
-using wojilu.Apps.Forum.Domain.Security;
-using wojilu.Common.Onlines;
-using System.Collections.Generic;
 using wojilu.Common.AppBase.Interface;
-using wojilu.Serialization;
+
+using wojilu.Apps.Forum.Domain.Security;
 
 namespace wojilu.Apps.Forum.Domain {
 
@@ -104,6 +100,7 @@ namespace wojilu.Apps.Forum.Domain {
             return ForumTopic.find( "AppId=" + base.Id ).count();
         }
 
+        [LongText]
         public String Settings { get; set; }
 
         private ForumSetting _settings;
@@ -112,7 +109,7 @@ namespace wojilu.Apps.Forum.Domain {
 
             if (_settings != null) return _settings;
 
-            ForumSetting s = JSON.ToObject<ForumSetting>( this.Settings );
+            ForumSetting s = Json.DeserializeObject<ForumSetting>( this.Settings );
             s.SetDefaultValue();
             _settings = s;
 

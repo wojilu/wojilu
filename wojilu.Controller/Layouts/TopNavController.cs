@@ -8,7 +8,6 @@ using System.Collections.Generic;
 
 using wojilu.Web.Mvc;
 using wojilu.Web.Controller.Users.Admin;
-using wojilu.Serialization;
 
 using wojilu.Members.Sites.Domain;
 using wojilu.Members.Sites.Service;
@@ -27,7 +26,6 @@ using wojilu.Common.Microblogs.Domain;
 using wojilu.Common.Msg.Domain;
 using wojilu.Common.Feeds.Domain;
 using wojilu.Config;
-using wojilu.Web.Controller.Security;
 
 namespace wojilu.Web.Controller.Layouts {
 
@@ -52,11 +50,18 @@ namespace wojilu.Web.Controller.Layouts {
         public void Index() {
 
             if (config.Instance.Site.TopNavDisplay == TopNavDisplay.Hide ||
-
-                (config.Instance.Site.RegisterType == RegisterType.Close && config.Instance.Site.TopNavDisplay == TopNavDisplay.NoRegHide)
-
+                (config.Instance.Site.RegisterType == RegisterType.Close && 
+                config.Instance.Site.TopNavDisplay == TopNavDisplay.NoRegHide)
                 ) {
-                utils.setCurrentView( new Template() );
+
+                content( @"<script>
+_run( function() {
+    require( [""wojilu.core.sitetop""], function( topnav ) {
+        topnav.init( '" + t2( Nav ) + @"');
+    });
+});
+</script>" );
+
                 return;
             }
 
@@ -84,7 +89,7 @@ namespace wojilu.Web.Controller.Layouts {
         private string getEmailConfirmCredit( int actionId ) {
             // 获取当前操作action收入规则。
             // 这里获取的是中心货币，你也可以使用 GetRulesByAction(actionId) 获取其他所有货币的收入规则
-            KeyIncomeRule rule = currencyService.GetKeyIncomeRulesByAction( actionId );         
+            KeyIncomeRule rule = currencyService.GetKeyIncomeRulesByAction( actionId );
             return string.Format( "可奖励{0}{1}", rule.Income, rule.CurrencyUnit );
         }
 
@@ -135,7 +140,7 @@ namespace wojilu.Web.Controller.Layouts {
             dic.Add( "navInfo", loginNavInfo() );
             dic.Add( "online", getOnlineDic() );
 
-            return JsonString.Convert( dic );
+            return Json.Serialize( dic );
         }
 
         public Dictionary<String, Object> loginNavInfo() {
@@ -307,16 +312,14 @@ namespace wojilu.Web.Controller.Layouts {
             for (int i = 0; i < list.Count; i++) {
 
                 String itemId = (i == list.Count - 1 ? "menuItemLast" : "menuItem" + i);
-                block.Set( "menu.ItemId", itemId );
-
                 IMenu menu = list[i];
 
-                String currentClass = "";
-                if (currentRootMenu != null && menu.Id == currentRootMenu.Id) currentClass = " class=\"currentRootMenu\" ";
-                block.Set( "menu.CurrentClass", currentClass );
+                block.Set( "menu.ItemId", itemId );
+                block.Set( "menu.CurrentClass", MenuHelper.getCurrentClass( menu, ctx.GetItem( "_moduleUrl" ), "current-site-menu" ) );
 
                 IBlock subNavBlock = block.GetBlock( "subNav" );
                 IBlock rootBlock = block.GetBlock( "rootNav" );
+
                 List<IMenu> subMenus = MenuHelper.getSubMenus( menus, menu );
 
                 if (subMenus.Count == 0) {
@@ -332,6 +335,7 @@ namespace wojilu.Web.Controller.Layouts {
 
             }
         }
+
 
 
         private IMenu bindSubMenus( List<IMenu> list ) {

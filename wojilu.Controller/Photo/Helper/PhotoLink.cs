@@ -5,9 +5,11 @@ using wojilu.Members.Users.Domain;
 using wojilu.Web.Mvc;
 using wojilu.Apps.Photo.Domain;
 using wojilu.Web.Context;
+using wojilu.Web.Mvc.Attr;
 
 namespace wojilu.Web.Controller.Photo {
 
+    [MvcLink]
     public class PhotoLink {
 
         private static String ext {

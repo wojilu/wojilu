@@ -96,9 +96,13 @@ namespace wojilu.Web.Controller.Content.Admin.Section {
         }
 
         private void bindListEdit( int postId, ContentPost post ) {
+
             set( "section.Name", post.PageSection.Title );
             set( "post.Title", post.Title );
             set( "post.TitleHome", post.TitleHome );
+
+            set( "post.MetaKeywords", post.MetaKeywords );
+            set( "post.MetaDescription", post.MetaDescription );
 
             set( "post.Content", post.Content );
             set( "post.OrderId", post.OrderId );

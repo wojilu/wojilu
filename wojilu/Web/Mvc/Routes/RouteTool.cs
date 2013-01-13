@@ -29,7 +29,12 @@ namespace wojilu.Web.Mvc.Routes {
     /// </summary>
     public class RouteTool {
 
-        internal static readonly char[] Separator = new char[] { '/' };
+        public static readonly char[] Separator = getSeparator();
+
+        private static char[] getSeparator() {
+            if (MvcConfig.Instance.UrlSeparator == "/") return new char[] { '/' };
+            return new char[] { '/', MvcConfig.Instance.UrlSeparator[0] };
+        }
 
         public static Route Recognize( MvcContext context ) {
             String url = context.url.ToString();
@@ -195,7 +200,7 @@ namespace wojilu.Web.Mvc.Routes {
                 if (strUtil.IsNullOrEmpty( val )) continue;
 
                 // 如果条件不符合，跳过此条route
-                if (setting.getRequirements().match( item.getName(), val ) == false) return null; 
+                if (setting.getRequirements().match( item.getName(), val ) == false) return null;
 
                 result.setItem( item.getName(), val );
             }

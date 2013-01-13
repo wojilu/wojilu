@@ -1,13 +1,18 @@
-﻿using System;
+﻿/*
+ * Copyright (c) 2010, www.wojilu.com. All rights reserved.
+ */
+
+using System;
 using System.Collections.Generic;
-using System.Text;
+
 using wojilu.Web.Mvc;
 using wojilu.Web.Mvc.Attr;
+
 using wojilu.Apps.Content.Domain;
 using wojilu.Apps.Content.Interface;
 using wojilu.Apps.Content.Service;
 using wojilu.Web.Controller.Content.Caching;
-using wojilu.Serialization;
+
 using wojilu.Members.Sites.Domain;
 
 namespace wojilu.Web.Controller.Content.Admin {
@@ -56,7 +61,7 @@ namespace wojilu.Web.Controller.Content.Admin {
             ContentApp app = ctx.app.obj as ContentApp;
             ContentSetting s = app.GetSettingsObj();
 
-            String htmlDir = HtmlHelper.GetlAppStaticDir( app.Id );
+            String htmlDir = HtmlHelper.GetlAppDirName( app.Id );
             htmlDir = htmlDir.TrimStart( '/' ).TrimEnd( '/' );
 
             set( "htmlDir", htmlDir );
@@ -73,7 +78,7 @@ namespace wojilu.Web.Controller.Content.Admin {
             ContentApp app = ctx.app.obj as ContentApp;
             ContentSetting s = app.GetSettingsObj();
 
-            String htmlDir = HtmlHelper.GetlAppStaticDir( app.Id );
+            String htmlDir = HtmlHelper.GetlAppDirName( app.Id );
             htmlDir = htmlDir.TrimStart( '/' ).TrimEnd( '/' );
 
             set( "htmlDir", htmlDir );
@@ -99,7 +104,7 @@ namespace wojilu.Web.Controller.Content.Admin {
             ContentSetting s = app.GetSettingsObj();
             s.StaticDir = htmlDir;
 
-            app.Settings = JsonString.ConvertObject( s );
+            app.Settings = Json.Serialize( s );
             app.update();
 
             echoToParentPart( lang( "opok" ) );
@@ -138,13 +143,19 @@ namespace wojilu.Web.Controller.Content.Admin {
 
             ContentApp app = ctx.app.obj as ContentApp;
 
+            // 最近列表页
+            int recentCount = postService.CountByApp( app.Id );
+            new HtmlRecentMaker().MakeHtml( ctx, app.Id, recentCount );
+            logger.Info( "make recent html" );
+
+            // 区块列表页
             int count = 0;
             List<ContentSection> sections = sectionService.GetByApp( ctx.app.Id );
             foreach (ContentSection section in sections) {
 
                 int recordCount = postService.GetCountBySection( section.Id );
 
-                count += HtmlHelper.MakeListHtml( ctx, app, section.Id, recordCount );
+                count += new HtmlListMaker().MakeHtml( ctx, section.Id, recordCount );
                 logger.Info( "make section html, sectionId=" + section.Id );
             }
 
@@ -171,7 +182,7 @@ namespace wojilu.Web.Controller.Content.Admin {
             ContentApp app = ctx.app.obj as ContentApp;
             int recordCount = postService.GetCountBySection( sectionId );
 
-            int listCount = HtmlHelper.MakeListHtml( ctx, app, sectionId, recordCount );
+            int listCount = new HtmlListMaker().MakeHtml( ctx, sectionId, recordCount );
             echo( "生成列表页成功，共 " + listCount + " 篇" );
 
         }

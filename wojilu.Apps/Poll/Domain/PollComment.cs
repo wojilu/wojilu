@@ -4,16 +4,16 @@
 
 using System;
 using System.Collections.Generic;
-using System.Text;
+
+using wojilu.ORM;
+
 using wojilu.Common.Comments;
 using wojilu.Common.Feeds.Domain;
 using wojilu.Common.Feeds.Service;
-using wojilu.ORM;
-using wojilu.Web.Mvc;
 using wojilu.Common.Msg.Service;
 using wojilu.Common.Msg.Enum;
+
 using wojilu.Members.Users.Domain;
-using wojilu.Serialization;
 
 namespace wojilu.Apps.Poll.Domain {
 
@@ -70,7 +70,7 @@ namespace wojilu.Apps.Poll.Domain {
 
             PollData data = db.findById<PollData>( this.RootId );
 
-            String lnkUser = Link.ToMember( data.Creator );
+            String lnkUser = wojilu.Web.Mvc.Link.ToMember( data.Creator );
             String target = string.Format( "<a href=\"{0}\">{1}</a>", lnkUser, data.Creator.Name );
             String blog = string.Format( "<a href=\"{0}\">{1}</a>", lnkPost, data.Title );
 
@@ -78,7 +78,7 @@ namespace wojilu.Apps.Poll.Domain {
             dic.Add( "target", target );
             dic.Add( "blog", blog );
 
-            return JSON.DicToString( dic );
+            return Json.SerializeDic( dic );
 
         }
 

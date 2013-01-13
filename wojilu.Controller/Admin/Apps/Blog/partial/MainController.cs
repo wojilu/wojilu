@@ -45,7 +45,7 @@ namespace wojilu.Web.Controller.Admin.Apps.Blog {
                 block.Set( "post.Status", status );
 
                 block.Set( "post.DeleteLink", to( Delete, post.Id ) );
-                block.Set( "post.UnDeleteLink", to( UnDelete, post.Id ) );
+                //block.Set( "post.UnDeleteLink", to( UnDelete, post.Id ) );
 
                 block.Next();
             }

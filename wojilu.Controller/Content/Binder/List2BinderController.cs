@@ -33,7 +33,7 @@ namespace wojilu.Web.Controller.Content.Binder {
             int i = 1;
             foreach (IBinderValue item in serviceData) {
 
-                BinderUtils.bindMashupData( block, item, i );
+                BinderUtils.bindMashupData( block, item, i, ctx );
 
                 block.Next();
                 i++;

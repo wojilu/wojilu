@@ -4,11 +4,9 @@
 
 using System;
 using System.Collections.Generic;
-using System.Text;
 
 using wojilu.Apps.Blog.Domain;
 using wojilu.Apps.Blog.Interface;
-using wojilu.ORM;
 
 namespace wojilu.Apps.Blog.Service {
 

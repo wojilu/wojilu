@@ -1,11 +1,14 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using wojilu.Apps.Blog.Domain;
+using wojilu.Common.Picks;
+
 namespace wojilu.Apps.Blog.Interface {
 
     public interface IBlogPickService {
 
-        List<MergedPost> GetAll( List<BlogPost> allTopics );
+        List<MergedData> GetAll( IList allTopics );
         BlogPick GetEditTopic( int topicId );
         BlogPick GetPinPostByIndex( int index );
 

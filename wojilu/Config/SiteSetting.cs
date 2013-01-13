@@ -84,8 +84,7 @@ namespace wojilu.Config {
     /// <summary>
     /// 显示名称：Name 用户名，RealName 真实姓名，默认为RealName
     /// </summary>
-    public class UserDisplayNameType
-    {
+    public class UserDisplayNameType {
         public static readonly int RealName = 1;
         public static readonly int Name = 2;
     }
@@ -131,6 +130,16 @@ namespace wojilu.Config {
         /// 网页默认的描述
         /// </summary>
         public String Description { get; set; }
+
+        /// <summary>
+        /// 用户聚合首页的默认关键词
+        /// </summary>
+        public String UserPageKeywords { get; set; }
+
+        /// <summary>
+        /// 用户聚合首页的默认的描述
+        /// </summary>
+        public String UserPageDescription { get; set; }
 
         /// <summary>
         /// 网页默认的标题
@@ -290,6 +299,77 @@ namespace wojilu.Config {
         /// 评论内容的长度
         /// </summary>
         public int CommentLength { get { return 500; } }
+
+        private int _UserDescriptionMin;
+
+        /// <summary>
+        /// 用户简介的最少字数
+        /// </summary>
+        public int UserDescriptionMin {
+            get {
+                if (_UserDescriptionMin < 0) return 0;
+                return _UserDescriptionMin;
+            }
+            set {
+                if (value < 0) value = 0;
+                _UserDescriptionMin = value;
+            }
+        }
+
+        private int _UserDescriptionMax;
+
+        /// <summary>
+        /// 用户简介的最大字数
+        /// </summary>
+        public int UserDescriptionMax {
+
+            get {
+                if (_UserDescriptionMax <= 0) return 500;
+                return _UserDescriptionMax;
+            }
+            set {
+                if (value <= 0) value = 500;
+                _UserDescriptionMax = value;
+            }        
+        }
+
+        private int _UserSignatureMin;
+
+        /// <summary>
+        /// 用户论坛签名的最少字数
+        /// </summary>
+        public int UserSignatureMin {
+            get {
+                if (_UserSignatureMin < 0) return 0;
+                return _UserSignatureMin;
+            }
+            set {
+                if (value < 0) value = 0;
+                _UserSignatureMin = value;
+            }
+        }
+
+        private int _UserSignatureMax;
+
+        /// <summary>
+        /// 用户论坛签名的最大字数
+        /// </summary>
+        public int UserSignatureMax {
+
+            get {
+                if (_UserSignatureMax <= 0) return 200;
+                return _UserSignatureMax;
+            }
+            set {
+                if (value <= 0) value = 200;
+                _UserSignatureMax = value;
+            }    
+        }
+
+        /// <summary>
+        /// 注册之后禁止发言发言的时间限制(单位小时)
+        /// </summary>
+        public int PublishTimeAfterReg { get; set; }
 
         private int _TagLength;
 
@@ -466,37 +546,7 @@ namespace wojilu.Config {
             set { _bannedIpInfo = value; }
         }
 
-
         //public Boolean IsWatermark { get; set; }
-
-
-        private int _microblogContentMax;
-        /// <summary>
-        /// 微博内容字数最高限制
-        /// </summary>
-        public int MicroblogContentMax {
-            get {
-                if (_microblogContentMax <= 0) return 140;
-                return _microblogContentMax;
-            }
-            set {
-                _microblogContentMax = value;
-            }
-        }
-
-        private int _microblogPageSize;
-        /// <summary>
-        /// 微博内容字数最高限制
-        /// </summary>
-        public int MicroblogPageSize {
-            get {
-                if (_microblogPageSize <= 0) return 20;
-                return _microblogPageSize;
-            }
-            set {
-                _microblogPageSize = value;
-            }
-        }
 
         //----------------------------------------------------------------
 

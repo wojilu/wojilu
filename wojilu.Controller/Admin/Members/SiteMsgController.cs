@@ -28,7 +28,7 @@ namespace wojilu.Web.Controller.Admin.Members {
 
         public void Index() {
 
-            set( "addLink", to(Add) );
+            set( "addLink", to( Add ) );
             DataPage<MessageSite> list = msgService.GetPage( 50 );
             bindList( "list", "msg", list.Results, editCmd );
             set( "page", list.PageBar );
@@ -61,7 +61,6 @@ namespace wojilu.Web.Controller.Admin.Members {
         [HttpPost, DbTransaction]
         public void Create() {
 
-
             MessageSite msg = new MessageSite();
             msg.Title = ctx.Post( "Title" );
             msg.Body = ctx.PostHtml( "Body" );
@@ -70,8 +69,8 @@ namespace wojilu.Web.Controller.Admin.Members {
 
             Result result = msgService.Insert( msg );
             if (result.IsValid)
-                echoRedirect( lang( "opok" ), Index );
-            else 
+                echoRedirectPart( lang( "opok" ), to( Index ) );
+            else
                 echoError( result );
         }
 
@@ -96,7 +95,7 @@ namespace wojilu.Web.Controller.Admin.Members {
 
             Result result = msgService.Update( msg );
             if (result.IsValid)
-                echoRedirect( lang( "opok" ) );
+                echoRedirectPart( lang( "opok" ) );
             else
                 echoError( result );
         }

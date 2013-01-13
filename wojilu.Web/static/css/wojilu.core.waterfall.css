@@ -1,6 +1,6 @@
 body {background:url("../img/m/waterfall-bg.gif");}
 .container {padding-top:20px; background-color:transparent !important; box-shadow:0px 0px 0px #fff;}
-.site-header, .site-menu-nav { display:none;}
+.site-header, .site-nav-wrap { display:none;}
     
 #footer-row{ margin:20px auto;width:960px;}
 .footer{ background-image:none;}

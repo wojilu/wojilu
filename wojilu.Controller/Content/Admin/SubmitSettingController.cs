@@ -1,13 +1,18 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿/*
+ * Copyright (c) 2010, www.wojilu.com. All rights reserved.
+ */
+
+using System;
+
 using wojilu.Web.Mvc;
 using wojilu.Web.Mvc.Attr;
+
 using wojilu.Apps.Content.Domain;
-using wojilu.Serialization;
+
 using wojilu.Members.Users.Interface;
 using wojilu.Members.Users.Service;
 using wojilu.Members.Users.Domain;
+
 using wojilu.Common.Msg.Interface;
 using wojilu.Common.Msg.Service;
 
@@ -127,7 +132,7 @@ namespace wojilu.Web.Controller.Content.Admin {
             ContentApp app = ctx.app.obj as ContentApp;
             ContentSubmitterRole roles = ctx.PostValue( app.GetSubmitterRoleObj() ) as ContentSubmitterRole;
 
-            app.SubmitterRole = JsonString.ConvertObject( roles );
+            app.SubmitterRole = Json.Serialize( roles );
 
             app.update( "SubmitterRole" );
 

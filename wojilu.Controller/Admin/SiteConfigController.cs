@@ -22,6 +22,7 @@ using wojilu.Web.Controller.Admin.Sys;
 using wojilu.Web.Handler;
 using wojilu.Common.AppInstall;
 using wojilu.Common;
+using wojilu.Web.Controller.Admin.Members;
 
 namespace wojilu.Web.Controller.Admin {
 
@@ -39,7 +40,7 @@ namespace wojilu.Web.Controller.Admin {
 
             set( "lnkBase", to( Base ) );
             set( "lnkLogo", to( Logo ) );
-            set( "lnkUser", to( User ) );
+            set( "lnkUser", to( new UserSettingController().Index ) );
             set( "lnkEmail", to( Email ) );
             set( "lnkFilter", to( Filter ) );
             set( "lnkBanIp", to( BanIp ) );
@@ -314,8 +315,9 @@ namespace wojilu.Web.Controller.Admin {
             String Email = ctx.Post( "Email" );
 
             String Keywords = ctx.Post( "Keywords" );
-            String PageDefaultTitle = ctx.Post( "PageDefaultTitle" );
             String Description = ctx.Post( "Description" );
+
+            String PageDefaultTitle = ctx.Post( "PageDefaultTitle" );
             String ExceptionInfo = ctx.PostHtml( "ExceptionInfo" );
 
             String spiderString = ctx.Post( "SpiderString" );
@@ -344,9 +346,11 @@ namespace wojilu.Web.Controller.Admin {
                 config.Instance.Site.SiteUrl = SiteUrl; config.Instance.Site.Update( "SiteUrl", SiteUrl );
                 config.Instance.Site.Webmaster = Webmaster; config.Instance.Site.Update( "Webmaster", Webmaster );
                 config.Instance.Site.Email = Email; config.Instance.Site.Update( "Email", Email );
+
                 config.Instance.Site.Keywords = Keywords; config.Instance.Site.Update( "Keywords", Keywords );
-                config.Instance.Site.PageDefaultTitle = PageDefaultTitle; config.Instance.Site.Update( "PageDefaultTitle", PageDefaultTitle );
                 config.Instance.Site.Description = Description; config.Instance.Site.Update( "Description", Description );
+
+                config.Instance.Site.PageDefaultTitle = PageDefaultTitle; config.Instance.Site.Update( "PageDefaultTitle", PageDefaultTitle );
 
                 config.Instance.Site.Spider = SiteSetting.GetArrayValueByString( spiderString );
                 config.Instance.Site.Update( "Spider", spiderString );
@@ -405,120 +409,6 @@ namespace wojilu.Web.Controller.Admin {
 
             echoRedirect( lang( "opok" ) );
 
-        }
-
-        //--------------------------------------------------------------------------------------------------------------
-
-        public void User() {
-
-            target( UserSave );
-
-            set( "needLoginChecked", config.Instance.Site.NeedLogin ? "checked=\"checked\"" : "" );
-            set( "userNeedApproveChecked", config.Instance.Site.UserNeedApprove ? "checked=\"checked\"" : "" );
-
-
-            set( "needAlertActivation", config.Instance.Site.AlertActivation ? "checked=\"checked\"" : "" );
-            set( "needAlertUserPic", config.Instance.Site.AlertUserPic ? "checked=\"checked\"" : "" );
-
-            set( "site.UserSendConfirmEmailInterval", config.Instance.Site.UserSendConfirmEmailInterval );
-            set( "confirmEmailEditLink", to( new Admin.Sys.ViewsFileController().Edit ) + "?file=Common/emailConfirmMsg.html" );
-
-            Dictionary<string, string> dic = new Dictionary<string, string>();
-            dic.Add( "开放注册", RegisterType.Open.ToString() );
-            dic.Add( "关闭注册", RegisterType.Close.ToString() );
-            dic.Add( "只有受邀请用户才可以注册", RegisterType.CloseUnlessInvite.ToString() );
-            radioList( "registerType", dic, config.Instance.Site.RegisterType.ToString() );
-
-            Dictionary<string, string> dicLogin = new Dictionary<string, string>();
-            dicLogin.Add( "注册成功即可登录", LoginType.Open.ToString() );
-            dicLogin.Add( "必须激活之后才可以登录", LoginType.ActivationEmail.ToString() );
-            radioList( "loginType", dicLogin, config.Instance.Site.LoginType.ToString() );
-
-            Dictionary<string, string> dicNav = new Dictionary<string, string>();
-            dicNav.Add( "显示", TopNavDisplay.Show.ToString() );
-            dicNav.Add( "隐藏", TopNavDisplay.Hide.ToString() );
-            dicNav.Add( "在关闭注册之后隐藏", TopNavDisplay.NoRegHide.ToString() );
-            radioList( "topNavDisplay", dicNav, config.Instance.Site.TopNavDisplay.ToString() );
-
-            //--------------------------------------
-
-            bind( "site", config.Instance.Site );
-
-            editor( "SystemMsgContent", config.Instance.Site.SystemMsgContent, "100px" );
-
-            set( "site.ReservedUserNameStr", config.Instance.Site.GetValue( "ReservedUserName" ) );
-            set( "site.ReservedUserUrlStr", config.Instance.Site.GetValue( "ReservedUserUrl" ) );
-            set( "site.ReservedKeyString", config.Instance.Site.GetValue( "ReservedKey" ) );
-
-
-        }
-
-        [HttpPost, DbTransaction]
-        public void UserSave() {
-
-            Boolean needLogin = ctx.PostIsCheck( "NeedLogin" ) == 1 ? true : false;
-            Boolean userNeedApprove = ctx.PostIsCheck( "UserNeedApprove" ) == 1 ? true : false;
-
-            Boolean alertActivation = ctx.PostIsCheck( "AlertActivation" ) == 1 ? true : false;
-            Boolean alertUserPic = ctx.PostIsCheck( "AlertUserPic" ) == 1 ? true : false;
-
-            int confirmEmailInterval = ctx.PostInt( "confirmEmailInterval" );
-
-            int registerType = ctx.PostInt( "registerType" );
-            int loginType = ctx.PostInt( "loginType" );
-            int topNavDisplay = ctx.PostInt( "topNavDisplay" );
-
-            int UserNameLengthMin = ctx.PostInt( "UserNameLengthMin" );
-            int UserNameLengthMax = ctx.PostInt( "UserNameLengthMax" );
-
-            String SystemMsgTitle = ctx.Post( "SystemMsgTitle" );
-            String SystemMsgContent = ctx.PostHtml( "SystemMsgContent" );
-
-
-            String ReservedUserNameStr = ctx.Post( "ReservedUserName" );
-            String ReservedUserUrlStr = ctx.Post( "ReservedUserUrl" );
-            String ReservedKeyString = ctx.Post( "ReservedKeyString" );
-
-            if (UserNameLengthMin <= 0) errors.Add( lang( "exUserNameMinGreater0" ) );
-            if (UserNameLengthMax <= 0) errors.Add( lang( "exUserNameMaxGreater0" ) );
-            if (strUtil.IsNullOrEmpty( SystemMsgTitle )) errors.Add( lang( "exMsgTitle" ) );
-            if (strUtil.IsNullOrEmpty( SystemMsgContent )) errors.Add( lang( "exMsgContent" ) );
-
-            if (ctx.HasErrors)
-                echoError();
-            else {
-
-                config.Instance.Site.NeedLogin = needLogin; config.Instance.Site.Update( "NeedLogin", needLogin );
-                config.Instance.Site.UserNeedApprove = userNeedApprove; config.Instance.Site.Update( "UserNeedApprove", userNeedApprove );
-
-                config.Instance.Site.AlertActivation = alertActivation; config.Instance.Site.Update( "AlertActivation", alertActivation );
-                config.Instance.Site.AlertUserPic = alertUserPic; config.Instance.Site.Update( "AlertUserPic", alertUserPic );
-
-                config.Instance.Site.RegisterType = registerType; config.Instance.Site.Update( "RegisterType", registerType );
-                config.Instance.Site.LoginType = loginType; config.Instance.Site.Update( "LoginType", loginType );
-                config.Instance.Site.TopNavDisplay = topNavDisplay; config.Instance.Site.Update( "TopNavDisplay", topNavDisplay );
-
-                config.Instance.Site.UserSendConfirmEmailInterval = confirmEmailInterval;
-                config.Instance.Site.Update( "UserSendConfirmEmailInterval", confirmEmailInterval );
-
-                config.Instance.Site.UserNameLengthMin = UserNameLengthMin; config.Instance.Site.Update( "UserNameLengthMin", UserNameLengthMin );
-                config.Instance.Site.UserNameLengthMax = UserNameLengthMax; config.Instance.Site.Update( "UserNameLengthMax", UserNameLengthMax );
-                config.Instance.Site.SystemMsgTitle = SystemMsgTitle; config.Instance.Site.Update( "SystemMsgTitle", SystemMsgTitle );
-                config.Instance.Site.SystemMsgContent = SystemMsgContent; config.Instance.Site.Update( "SystemMsgContent", SystemMsgContent );
-
-                config.Instance.Site.ReservedUserName = SiteSetting.GetArrayValueByString( ReservedUserNameStr );
-                config.Instance.Site.Update( "ReservedUserName", ReservedUserNameStr );
-
-                config.Instance.Site.ReservedUserUrl = SiteSetting.GetArrayValueByString( ReservedUserUrlStr );
-                config.Instance.Site.Update( "ReservedUserUrl", ReservedUserUrlStr );
-
-                config.Instance.Site.ReservedKey = SiteSetting.GetArrayValueByString( ReservedKeyString );
-                config.Instance.Site.Update( "ReservedKey", ReservedKeyString );
-
-                log( SiteLogString.EditSiteSettingUser() );
-
-                echoRedirect( lang( "opok" ) );
-            }
         }
 
         //--------------------------------------------------------------------------------------------------------------

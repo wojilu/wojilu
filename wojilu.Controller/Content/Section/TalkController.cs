@@ -63,6 +63,17 @@ namespace wojilu.Web.Controller.Content.Section {
             bindPosts( posts );
         }
 
+        public void Show( int postId ) {
+
+            ContentPost post = postService.GetById( postId, ctx.owner.Id );
+            if (post == null) {
+                echo( lang( "exDataNotFound" ) );
+                return;
+            }
+
+            bind( "x", post );
+        }
+
     }
 }
 

@@ -9,7 +9,7 @@ using wojilu.Members.Sites.Domain;
 
 namespace wojilu.Web.Controller.Blog.Caching {
 
-    public class BlogMainPageCache : PageCache {
+    public class BlogMainPageCache : CorePageCache {
 
         private static readonly ILog logger = LogManager.GetLogger( typeof( BlogMainPageCache ) );
 

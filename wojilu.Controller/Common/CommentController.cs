@@ -330,7 +330,7 @@ namespace wojilu.Web.Controller.Common {
         public void List() {
             bindList();
 
-            WebUtils.pageTitle( this, "评论列表" );
+            ctx.Page.Title = "评论列表";
         }
 
         private void bindList() {

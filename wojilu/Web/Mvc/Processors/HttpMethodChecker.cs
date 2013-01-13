@@ -19,6 +19,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Reflection;
 using wojilu.Web.Mvc.Attr;
+using wojilu.Web.Context;
 
 namespace wojilu.Web.Mvc.Processors {
 
@@ -26,14 +27,16 @@ namespace wojilu.Web.Mvc.Processors {
 
         public override void Process( ProcessContext context ) {
 
-            MvcEventPublisher.Instance.BeginCheckHttpMethod( context.ctx );
-            if (context.ctx.utils.isSkipCurrentProcessor()) return;
+            MvcContext ctx = context.ctx;
 
-            MethodInfo actionMethod = context.ctx.ActionMethodInfo; // context.getActionMethod();
-            String httpMethod = context.ctx.HttpMethod;
-            Boolean isMethodError = isHttpMethodError( context.getController().utils.getHttpMethodAttributes( actionMethod ), httpMethod );
+            MvcEventPublisher.Instance.BeginCheckHttpMethod( ctx );
+            if (ctx.utils.isSkipCurrentProcessor()) return;
+
+            MethodInfo actionMethod = ctx.ActionMethodInfo;
+            String httpMethod = ctx.HttpMethod;
+            Boolean isMethodError = isHttpMethodError( ctx.controller.utils.getHttpMethodAttributes( actionMethod ), httpMethod );
             if (isMethodError) {
-                context.endMsg( lang.get( "exHttpMethodError" ), HttpStatus.MethodNotAllowed_405 );
+                ctx.utils.endMsg( lang.get( "exHttpMethodError" ), HttpStatus.MethodNotAllowed_405 );
             }
 
         }

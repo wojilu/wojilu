@@ -5,18 +5,21 @@
 
 /*************************************************************************************/
 
-#portalContainer { margin: 0 auto; padding-top:15px; background:#;}
+#portalContainer { margin: 0 auto; padding-top:15px; }
+#portalContainer a {color:#333;}
 .rowContainer {margin: 0 auto;text-align: left;color: #2b2b2b; }
 
     .columnContainer {float: left;overflow:hidden;display:inline;}
     
-        .sectionPanel {margin-bottom:10px; clear:both; border-radius:5px; }
+        .sectionPanel {margin-bottom:10px; clear:both; }
 
             .sectionTitle { padding:0px 5px; font-size:14px;font-weight:bold;}
             .sectionMore {float:right;padding:6px 3px 0px 0px;font-weight:normal;font-size:12px;}
             .sectionMore a {font-size:12px;color:#555;font-weight:normal;}
             .sectionContent {line-height:150%; font-size:14px;padding:10px 6px;}
-            .sectionContent li {margin:2px 0px 3px 0px;}
+            .sectionContent li {list-style:none; margin:2px 0px 3px 0px;}
+
+                .item-pic-title {width:158px;  overflow:hidden;text-overflow:clip;  white-space:nowrap;}
             
                 .sectionTitleText {float:left; }
                 .sectionTitleText div {float:left; margin-right:8px; margin-top:0px; padding:5px 8px;cursor:default;}
@@ -24,25 +27,27 @@
                 .sectionTitleTab { }
                 
                 .ul1 {margin:5px;}
-                .ul1 li {width:100%;white-space:nowrap;text-overflow:ellipsis; -o-text-overflow:ellipsis; -moz-text-overflow:ellipsis; overflow: hidden; }
-                .ul2 li {width:45%;white-space:nowrap;text-overflow:ellipsis; -o-text-overflow:ellipsis; -moz-text-overflow:ellipsis; overflow: hidden; float:left; margin-right:5px;  }
+                .ul1 li {list-style:none; width:100%;white-space:nowrap;text-overflow:ellipsis; -o-text-overflow:ellipsis; -moz-text-overflow:ellipsis; overflow: hidden; }
+                .ul2 li {list-style:none; width:45%;white-space:nowrap;text-overflow:ellipsis; -o-text-overflow:ellipsis; -moz-text-overflow:ellipsis; overflow: hidden; float:left; margin-right:5px;  }
                 .ulimg {margin:0px;}
-                .ulimg li {float:left;}
+                .ulimg li {float:left;list-style:none; }
                 .ulimg img {width:60px;height:60px;margin:5px}
                 .ulLR li .leftTitle{width:270px;float:left;white-space:nowrap;text-overflow:ellipsis; -o-text-overflow:ellipsis; -moz-text-overflow:ellipsis; overflow: hidden;}
                 .ulLR li .rightInfo{float:right;}
                 
                 .ulRank {margin:5px;}
-                .ulRank li {font-size:12px;width:100%;margin-bottom:2px;white-space:nowrap;text-overflow:ellipsis; -o-text-overflow:ellipsis; -moz-text-overflow:ellipsis; overflow: hidden; }                
+                .ulRank li {list-style:none; font-size:12px;width:100%;margin-bottom:2px;white-space:nowrap;text-overflow:ellipsis; -o-text-overflow:ellipsis; -moz-text-overflow:ellipsis; overflow: hidden; }                
                 .ulRank li span {padding:0px 3px;margin-right:5px; text-align:center; background-color:#eee;display:inline-block;  font-size:9px;}
                 .ulRank li.rankItem1 span{background-color:orange; color:#fff; font-weight:bold;}
-                .ulRank li.rankItem2 span{background-color:orange; color:#fff;font-weight:bold;}}
-                .ulRank li.rankItem3 span{background-color:orange; color:#fff;font-weight:bold;}}
+                .ulRank li.rankItem2 span{background-color:orange; color:#fff;font-weight:bold;}
+                .ulRank li.rankItem3 span{background-color:orange; color:#fff;font-weight:bold;}
                 .ulRank li span {color:#555;}               
 
-                .sectionVideos li{float:left;margin:10px 10px 0px 0px; width:150px; height:120px; font-size:12px; text-align:center; padding:5px 3px;}
+                .sectionVideos li{list-style:none; float:left;margin:10px 10px 0px 0px; width:150px; height:120px; font-size:12px; text-align:center; padding:5px 3px;}
+                .sectionVideos li:hover { background:#f2f2f2;}
+                .sectionVideos li .item-pic-title {width:130px;margin-left:10px;}
                 
-                .excerpt li {margin-bottom:10px; display:block; clear:both; background:#fff; padding:5px 10px 10px 5px;}
+                .excerpt li {list-style:none; margin-bottom:10px; display:block; clear:both; background:#fff; padding:5px 10px 10px 5px;}
                 .epFace {float:left; width:60px; text-align:center; font-size:12px;}
                 .epTitle, .epContent {margin-left:80px;}
                 .epTitle a {font-weight:bold;}
@@ -50,6 +55,7 @@
                 
                 .ulL {float:left;}
                 .ulR {float:right; text-align:center; font-size:12px;}
+
                 
 div.articleLocation {margin:0px 10px 10px 5px; color:#666;}
       
@@ -58,36 +64,52 @@ div.articleLocation {margin:0px 10px 10px 5px; color:#666;}
 #postContainer {width:100%;position:relative;}
 
 
-    #postMain {float:left;  padding:10px 10px 10px 0px; margin:10px 10px 10px 0px }
+    #postMain {float:left;  padding:10px 10px 10px 0px; margin:10px 10px 10px 10px }
     #postMain h4{font-size:18px; margin:5px;}
         #postMainContainer {padding:15px; background:#ebf4ff;border:1px #92b0dd solid; width:600px;}
         
-        .ulimgMiddle li {float:left;width:115px;height:125px;margin:10px; padding-top:10px; background:#fff;text-align:center}
+        .ulimgMiddle li {float:left;width:115px;list-style:none; height:125px;margin:10px; padding-top:10px; background:#fff;text-align:center}
         .ulimgMiddle li div {margin:5px; }
     
-        .h1title {font-size:26px;font-weight:bold; color:#004499; margin:25px 0px 5px 0px; text-align:center; border-bottom:1px #aaa solid; padding-bottom:5px;}
+        .post-detail-title{font-size:26px;font-weight:bold; color:#004499; margin:25px 0px 5px 0px; text-align:center; border-bottom:1px #aaa solid; padding-bottom:5px;}
         .h4title {font-size:16px; font-weight:bold; margin:20px 0px 0px 5px;}
         .ulposts {font-size:14px; line-height:150%; padding:15px 10px 10px 5px;}
         .ulposts .note {font-size:12px;}
         
-        .postInfo {color:#333;text-align:center;margin:5px 5px 10px 5px; }
-        .postInfo a{color:#cc0000;}
-        .postSource {text-align:; color:#666; padding:0px 0px 10px 10px;}
+        .post-detail-info {color:#333;text-align:center;margin:5px 5px 10px 5px; }
+        .post-detail-info a{color:#cc0000;}
         #postContent {margin:5px 5px 5px 5px; font-size:14px; line-height:150%}   
         #postContent img {max-width:560px;}
         
-        .postSummary {margin:10px 0px;padding:10px;border:1px #ccc solid; background:#fff; line-height:150%;}
-        
-    #postSidebar { width:280px; float:left; padding:10px 0px 0px 0px; }
+        .post-detail-summary {margin:10px 0px;padding:10px;border:1px #ccc solid; background:#fff; line-height:150%;}
+        .post-detail-attachment {margin:0px 20px;}
+        .post-detail-tag {text-align:; color:#666; padding:0px 0px 10px 10px;}
+        .post-detail-submitter { margin-left:10px;}
+
+    #postSidebar { width:260px; float:left; padding:10px 0px 0px 0px; }
     #postSidebarContainer {padding:10px 0px 0px 0px; }
         .postPanel {margin:0px 0px 10px 0px;padding-bottom:10px; border:1px #aaccee solid; line-height:150%; font-size:14px; display:block;}
         .postPanelTitle {padding:3px 0px 1px 10px; border-bottom:1px #aaccee solid; background:#e2eaf8; color:#004499; font-weight:bold; font-size:14px; line-height:25px;}
         .postPanel a {color:#004499}
         .postPanel ul {list-style:none; margin:10px; padding:0px;}
     #postSidebarContainer .postPanel .ulimg img {width:110px;height:80px;text-align:center;} 
-    #postSidebarContainer .postPanel .ulimg div.postTitle {width:130px;text-align:center;font-size:12px;white-space:nowrap;text-overflow:ellipsis; -o-text-overflow:ellipsis; -moz-text-overflow:ellipsis; overflow: hidden;} 
+    #postSidebarContainer .postPanel .ulimg div.postTitle {text-align:center;font-size:12px;white-space:nowrap;text-overflow:ellipsis; -o-text-overflow:ellipsis; -moz-text-overflow:ellipsis; overflow: hidden;} 
 
-.postPanel ul.textList li {width:100%;white-space:nowrap;text-overflow:ellipsis; -o-text-overflow:ellipsis; -moz-text-overflow:ellipsis; overflow: hidden;}
+
+    #postSidebar { width:272px; float:left; padding:10px 0px 0px 0px; }
+    #postSidebarContainer {padding:10px 0px 0px 0px;width:270px; }
+        .postPanel {margin:0px 0px 10px 0px;padding-bottom:10px; border:1px #aaccee solid; line-height:150%; font-size:14px; display:block;}
+        .postPanelTitle {padding:3px 0px 1px 10px; border-bottom:1px #aaccee solid; background:#e2eaf8; color:#004499; font-weight:bold; font-size:14px; line-height:25px;}
+        .postPanel a {color:#004499}
+        .postPanel ul {list-style:none; margin:10px; padding:0px;}
+        
+        #postSidebarContainer li.textListTitle {width:220px;white-space:nowrap;text-overflow:clip; -o-text-overflow:clip; -moz-text-overflow:clip; overflow: hidden;}
+        
+    #postSidebarContainer .postPanel .ulimg li{ float:left;margin:5px 0px 5px 10px;width:100px;}
+    #postSidebarContainer .postPanel .ulimg img {width:90px;height:80px;text-align:center;} 
+    #postSidebarContainer .postPanel .postTitle {width:100px;text-align:center;font-size:12px;white-space:nowrap;text-overflow:clip; -o-text-overflow:clip; -moz-text-overflow:clip; overflow: hidden;} 
+
+.postPanel ul.textList li {list-style:none; width:100%;white-space:nowrap;text-overflow:ellipsis; -o-text-overflow:ellipsis; -moz-text-overflow:ellipsis; overflow: hidden;}
 
 #postComment {}
 .postCommentOne {margin:0px 0px 10px 0px; }
@@ -116,3 +138,43 @@ table.commentPublishTable {color:#004499; border:0px #aaa solid; margin-left:15p
         .attachmentForbidden span.afText {background:url("../../../../img/ajax/error.gif") no-repeat left center; padding-left:18px; font-size:12px;}
         .attachmentForbidden span.afInfo {background:url("../../../../img/attachment.gif") no-repeat; padding-left:15px}
 
+
+.sideSection .sectionTitle .sectionTitleText { background:url(side-title-line.png) no-repeat 0px 5px;}
+
+/**************************************/
+.adRow {border:0px !important;}
+.adRow .sectionContent {padding-left:1px !important;overflow:hidden;}
+.adRow .sectionTitle { display:none;}
+
+.focusSection { background:url(focus-new.jpg) no-repeat; border:0px !important;}
+.focusSection a{ color:#2A2A2A;}
+.focusSection .sectionTitle { display:none;}
+
+.login {font-size:12px !important;}
+.login td { padding:3px 1px;}
+.login .tdL {width:50px; padding-right:5px;}
+.login .uid, .login .pwd {width:120px !important;}
+.login .reglink { font-size:12px !important;}
+.login .alert { font-size:12px !important; padding-left:8px;padding-right:2px; margin-top:10px;}
+
+
+/**************************************/
+
+.diggUp {background: url("../../../../img/big/diggBg.png") left top no-repeat;}
+.diggDown {background: url("../../../../img/big/diggBg.png") right top no-repeat;}
+
+.btnDigg {width: 195px;height: 51px;float: left;margin-right: 8px;overflow: hidden;cursor: pointer;}
+.btnDigg .diggText {font-size: 14px;float: left;line-height: 31px;text-indent: 32px;height: 29px;overflow: hidden;font-weight: bold;}
+.btnDigg .diggNum {float: left;line-height: 29px;text-indent: 5px;}
+.btnDigg .diggPer {width: 180px;clear: both;padding-left: 10px;overflow: hidden;}
+.btnDigg .diggPer .diggPerBar {width: 100px;height: 7px;background: #E8E8E8;border-right: 1px solid #CCC;float: left;overflow: hidden;margin-top: 3px;}
+.btnDigg .diggPer .diggPerBar span {display: block;height: 5px;overflow: hidden;background: black;}
+.btnDigg .diggPer .diggPerNum {font-size: 10px;float: left;padding-left: 10px;}
+
+.diggUp .diggText {color: #C30;}
+.diggUp .diggNum {color: #C63;}
+.diggUp .diggPer .diggPerBar span {border: 1px solid #E37F24;background: #FFC535;}
+
+.diggDown .diggText {color: #36C;}
+.diggDown .diggNum {color: #39C;}
+.diggDown .diggPer .diggPerBar span {border: 1px solid #689ACC;background: #94C0E4;}

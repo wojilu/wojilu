@@ -2,9 +2,12 @@
 
 <ul class="sectionVideos unstyled">
 	<!-- BEGIN list -->
-	<li style="border-radius:3px; box-shadow:3px 3px 10px #aaa; margin:10px 10px 10px 10px; background:#fff; padding:10px;">
-		<div><a href="#{img.Url}"><img src="#{img.Thumb}"  class="thumbItem"  style="max-width:120px; max-height:120px;" /></a></div>
-		<div style="margin-top:5px;"><span class="img_title">#{img.Title}</span></div>
+	<li style="width:140px; border-radius:3px; margin:10px 20px 10px 10px; background:#fff; padding:10px 5px; box-shadow:3px 3px 10px #aaa;">
+		<div><a href="#{img.Url}"><img src="#{img.Thumb}"  class="thumbItem"  style="max-width:130px; max-height:130px;" /></a></div>
+		<div style="width:135px;  overflow:hidden;text-overflow:clip;  white-space:nowrap; margin-top:10px;">
+        <a href="#{img.Url}">#{img.Title}</a>
+        </div>	
+
 	</li><!-- END list -->
 	
 </ul>

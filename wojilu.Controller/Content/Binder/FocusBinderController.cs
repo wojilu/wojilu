@@ -28,7 +28,7 @@ namespace wojilu.Web.Controller.Content.Binder {
         private void bindFocus( IBlock fblock, ContentPost article ) {
             fblock.Set( "article.Title", strUtil.SubString( article.Title, 19 ) );
             fblock.Set( "article.SummaryInfo", strUtil.CutString( article.Summary, 100 ) );
-            fblock.Set( "article.Url", alink.ToAppData( article ) );
+            fblock.Set( "article.Url", alink.ToAppData( article, ctx ) );
             fblock.Next();
         }
 
@@ -40,7 +40,7 @@ namespace wojilu.Web.Controller.Content.Binder {
                 String attIcon = a.Attachments > 0 ? BinderUtils.iconAttachment : "";
 
                 block.Set( "post.Title", a.Title );
-                block.Set( "post.Url", alink.ToAppData( a ) );
+                block.Set( "post.Url", alink.ToAppData( a, ctx ) );
                 block.Set( "post.DataIcon", typeIcon );
                 block.Set( "post.AttachmentIcon", attIcon );
                 block.Set( "post.Created", a.Created.ToShortDateString() );

@@ -8,35 +8,25 @@ using System.Collections;
 
 using wojilu.Web.Mvc;
 
+using wojilu.Common.MemberApp.Interface;
 using wojilu.Members.Users.Domain;
 using wojilu.Members.Users.Service;
 using wojilu.Members.Users.Interface;
 
-using wojilu.Common.Feeds.Service;
-using wojilu.Common.Feeds.Domain;
-using wojilu.Common.Feeds.Interface;
-
-using wojilu.Web.Controller.Users.Admin;
-using wojilu.Common.MemberApp.Interface;
 using wojilu.Members.Sites.Service;
 using wojilu.Members.Sites.Domain;
-using wojilu.Web.Controller.Security;
-using wojilu.Web.Controller.Common.Feeds;
 
 namespace wojilu.Web.Controller.Admin.Sys {
 
-    public partial class DashboardController : ControllerBase {
+    public class DashboardController : ControllerBase {
 
-        public IFeedService feedService { get; set; }
         public IUserService userService { get; set; }
         public IMemberAppService siteAppService { get; set; }
 
         public DashboardController() {
-            feedService = new FeedService();
             userService = new UserService();
             siteAppService = new SiteAppService();
         }
-
 
         public void Links() {
 
@@ -80,6 +70,14 @@ namespace wojilu.Web.Controller.Admin.Sys {
             bindAppList( apps, block );
         }
 
+        private void bindAppList( IList apps, IBlock block ) {
+            foreach (IMemberApp app in apps) {
+                block.Set( "app.Name", app.Name );
+                String lnk = lnkFull( alink.ToUserAppFull( app ) );
+                block.Set( "app.Link", lnk );
+                block.Next();
+            }
+        }
 
         private String lnkFull( String link ) {
             if (link.StartsWith( "http" )) return link;
@@ -94,79 +92,33 @@ namespace wojilu.Web.Controller.Admin.Sys {
 
             view( "Home" );
 
-            set( "searchTarget", to( Search ) );
-            set( "feedHomeLink", to( Home, -1 ) );
-
-            bindFeedTypes();
-
             bindUsers();
 
-            DataPage<Feed> feeds = getFeeds( id );
-            bindFeedList( feeds );
-
+            set( "feedList", loadHtml( new FeedAdminController().Home, id ) );
         }
 
-        private DataPage<Feed> getFeeds( int id ) {
+        //------------------------------------------------------------------------
 
-            String dataType = FeedType.GetByInt( id );
-            int userId = ctx.GetInt( "userId" );
-            User user = userService.GetById( userId );
+        private void bindUsers() {
+            List<User> newUsers = userService.GetNewList( 8 );
+            bindUserList( "newUsers", newUsers );
 
-            if (user != null) {
-                return feedService.GetAll( userId, dataType, 50 );
-            }
-            else {
-                return feedService.GetAll( dataType, 50 );
-            }
+            List<User> newLoginUsers = userService.GetNewLoginList( 8 );
+            bindUserList( "visitors", newLoginUsers );
         }
 
-        public void Search() {
+        private void bindUserList( String blockName, List<User> users ) {
 
-            String userName = ctx.Post( "UserName" );
-
-            if (strUtil.IsNullOrEmpty( userName )) {
-                echoRedirect( lang( "exUserName" ) );
-                return;
+            IBlock block = getBlock( blockName );
+            foreach (User user in users) {
+                block.Set( "user.Name", user.Name );
+                block.Set( "user.Face", user.PicSmall );
+                block.Set( "user.Created", cvt.ToTimeString( user.Created ) );
+                block.Set( "user.LastLoginTime", cvt.ToTimeString( user.LastLoginTime ) );
+                block.Set( "user.Link", toUser( user ) );
+                block.Next();
             }
-
-            User user = userService.GetByName( userName );
-            if (user == null) {
-                echoRedirect( lang( "exUserNotFound" ) );
-                return;
-            }
-
-            String lnk = to( Home, -1 ) + "?userId=" + user.Id;
-            redirectUrl( lnk );
         }
-
-        //-------------------------------------------------------------------------------
-
-
-        private List<FeedView> getFeedByDay( List<Feed> feeds, DateTime day ) {
-            List<Feed> results = new List<Feed>();
-            foreach (Feed feed in feeds) {
-                if (cvt.IsDayEqual( feed.Created, day )) results.Add( feed );
-            }
-            //return results;
-            return FeedUtils.mergeFeed( results );
-        }
-
-        private List<DateTime> getDayList( List<Feed> feeds ) {
-            List<DateTime> results = new List<DateTime>();
-            foreach (Feed feed in feeds) {
-                if (isDayAdded( results, feed.Created ) == false) results.Add( feed.Created );
-            }
-            return results;
-        }
-
-        private Boolean isDayAdded( List<DateTime> days, DateTime created ) {
-            foreach (DateTime day in days) {
-                if (cvt.IsDayEqual( day, created )) return true;
-            }
-            return false;
-        }
-
-
     }
 
 }

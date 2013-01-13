@@ -11,6 +11,7 @@ using wojilu.Common.Microblogs.Domain;
 using wojilu.Members.Users.Domain;
 using wojilu.Web.Mvc.Attr;
 using wojilu.Common.Tags;
+using wojilu.Common.Microblogs;
 
 namespace wojilu.Web.Controller.Microblogs {
 
@@ -25,6 +26,12 @@ namespace wojilu.Web.Controller.Microblogs {
         }
 
         public override void Layout() {
+
+            set( "mbAdminLink", to( new wojilu.Web.Controller.Admin.Mb.MicroblogController().List ) );
+            set( "mbSettingsLink", to( new wojilu.Web.Controller.Admin.Mb.MicroblogController().Settings ) );
+
+            set( "commentLink", to( new wojilu.Web.Controller.Admin.Mb.MbCommentController().Index ) );
+            set( "trashLink", to( new wojilu.Web.Controller.Admin.Mb.TrashController().Index ) );
 
             set( "siteName", config.Instance.Site.SiteName );
 
@@ -51,24 +58,20 @@ namespace wojilu.Web.Controller.Microblogs {
         }
 
         private void bindLoginForm() {
-
-
             set( "ActionLink", to( new wojilu.Web.Controller.MainController().CheckLogin ) );
             set( "resetPwdLink", to( new Common.ResetPwdController().StepOne ) );
-            //String returnUrl = strUtil.HasText( ctx.web.PathReferrer ) ? ctx.web.PathReferrer : to( Index );
             set( "returnUrl", to( Index ) );
-
         }
 
         private void bindLoginUser() {
-
-
             set( "mvcUrlExt", MvcConfig.Instance.UrlExt );
-
-
         }
 
         public void Index() {
+
+            ctx.Page.Title = MicroblogAppSetting.Instance.MetaTitle;
+            ctx.Page.Keywords = MicroblogAppSetting.Instance.MetaKeywords;
+            ctx.Page.Description = MicroblogAppSetting.Instance.MetaDescription;
 
             List<Microblog> list = Microblog.find( "order by Id desc" ).list( 20 );
             ctx.SetItem( "_microblogList", list );

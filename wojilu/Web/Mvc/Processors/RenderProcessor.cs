@@ -80,14 +80,14 @@ namespace wojilu.Web.Mvc.Processors {
 
             if (pageContent == null) return "";
 
-            String title = ctx.GetPageMeta().Title;
+            String title = ctx.Page.Title;
             if (strUtil.IsNullOrEmpty( title )) title = config.Instance.Site.SiteName;
             if (ctx.utils.getIsHome()) title = config.Instance.Site.SiteName + lang.get( "homePage" );
 
             String result = pageContent.Replace( "#{pageTitle}", title );
-            result = result.Replace( "#{pageDescription}", ctx.GetPageMeta().Description );
-            result = result.Replace( "#{pageKeywords}", ctx.GetPageMeta().Keywords );
-            result = result.Replace( "#{pageRssLink}", ctx.GetPageMeta().RssLink );
+            result = result.Replace( "#{pageDescription}", ctx.Page.Description );
+            result = result.Replace( "#{pageKeywords}", ctx.Page.Keywords );
+            result = result.Replace( "#{pageRssLink}", ctx.Page.RssLink );
 
             return result;
         }

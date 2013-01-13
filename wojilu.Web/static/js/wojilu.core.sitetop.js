@@ -52,7 +52,7 @@
         });
 
         
-        $.post( navUrl, function(data) {
+        $.get( navUrl, function(data) {
 
             ctx = data; 
             var nav = ctx.navInfo;

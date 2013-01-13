@@ -19,6 +19,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Reflection;
 using wojilu.Web.Mvc.Attr;
+using wojilu.Web.Context;
 
 namespace wojilu.Web.Mvc.Processors {
 
@@ -26,14 +27,16 @@ namespace wojilu.Web.Mvc.Processors {
 
         public override void Process( ProcessContext context ) {
 
-            MvcEventPublisher.Instance.BeginCheckForbiddenAction( context.ctx );
-            if (context.ctx.utils.isSkipCurrentProcessor()) return;
+            MvcContext ctx = context.ctx;
 
-            MethodInfo actionMethod = context.ctx.ActionMethodInfo; // context.getActionMethod();
+            MvcEventPublisher.Instance.BeginCheckForbiddenAction( ctx );
+            if (ctx.utils.isSkipCurrentProcessor()) return;
 
-            Attribute forbiddenAttr = context.getController().utils.getAttribute( actionMethod, typeof( NonVisitAttribute ) );
+            MethodInfo actionMethod = ctx.ActionMethodInfo;
+
+            Attribute forbiddenAttr = ctx.controller.utils.getAttribute( actionMethod, typeof( NonVisitAttribute ) );
             if (forbiddenAttr != null) {
-                context.endMsg( lang.get( "exVisitForbidden" ), HttpStatus.Forbidden_403 );
+                ctx.utils.endMsg( lang.get( "exVisitForbidden" ), HttpStatus.Forbidden_403 );
             }
 
         }

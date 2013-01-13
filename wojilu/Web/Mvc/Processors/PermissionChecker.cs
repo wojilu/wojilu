@@ -42,28 +42,11 @@ namespace wojilu.Web.Mvc.Processors {
                     controller.CheckPermission();
                 }
 
-                if (ctx.utils.isEnd()) {
-                    String msg = controller.utils.getActionResult();
-                    context.endMsgByText( checkFrame( ctx, msg ) );
-                    return;
-                }
+                if (ctx.utils.isEnd()) return;
             }
 
-            context.getController().CheckPermission();
-            if (ctx.utils.isEnd()) {
-                context.endMsgByText( checkFrame( ctx, context.getController().utils.getActionResult() ) );
-                return;
-            }
-
+            ctx.controller.CheckPermission();
         }
-
-        private String checkFrame( MvcContext ctx, String content ) {
-            if (ctx.utils.isFrame())
-                return MvcUtil.getFrameContent( content );
-            return content;
-
-        }
-
 
     }
 

@@ -28,6 +28,17 @@ namespace wojilu.Web.Controller.Photo.Wf {
 
             bindCategories();
             bindAdminCmd();
+
+            bindSysAdminLink();
+        }
+
+        private void bindSysAdminLink() {
+            set( "listLink", to( new wojilu.Web.Controller.Admin.Apps.Photo.MainController().Index, -1 ) );
+            set( "pickedLink", to( new wojilu.Web.Controller.Admin.Apps.Photo.PostAdminController().Picked ) );
+            set( "trashLink", to( new wojilu.Web.Controller.Admin.Apps.Photo.PostAdminController().Trash ) );
+            set( "commentLink", to( new wojilu.Web.Controller.Admin.Apps.Photo.CommentController().List ) + "?type=" + typeof( PhotoPostComment ).FullName );
+            set( "categoryLink", to( new wojilu.Web.Controller.Admin.Apps.Photo.SysCategoryController().List ) );
+            set( "settingLink", to( new wojilu.Web.Controller.Admin.Apps.Photo.SettingController().Index ) );
         }
 
         private void bindCategories() {

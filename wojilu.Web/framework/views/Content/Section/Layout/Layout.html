@@ -9,8 +9,18 @@
 	
 	<div id="postSidebar">
 
-        <iframe id="contentSidebar" src="#{lnkSidebar}?frm=true" frameborder="0" style="width:100%;"></iframe>
+        	<div id="cmsSidebarLoader" url="#{lnkSidebar}"></div>
+
 	</div>	
 	<div style="clear:both"></div>
 </div>
+
+<script>
+    _run(function () {
+        var url = $('#cmsSidebarLoader').attr('url');
+        $.get(url+'?ajax=true', function (data) {
+            $('#postSidebar').html(data);
+        });
+    });
+</script>
 

@@ -57,10 +57,7 @@ namespace wojilu.Web.Controller.Common.Feeds {
         }
 
 
-
-
-
-
+        public string Ip { get; set; }
     }
 
 }

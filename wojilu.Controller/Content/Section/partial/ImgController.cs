@@ -45,20 +45,8 @@ namespace wojilu.Web.Controller.Content.Section {
 
         private void bindShow( ContentPost post, DataPage<ContentImg> imgPage ) {
             ctx.SetItem( "ContentPost", post );
-            set( "post.Title", post.Title );
-            set( "post.Content", post.Content );
-            set( "post.CreateTime", post.Created );
-            set( "post.ReplyCount", post.Replies );
-            set( "post.Hits", post.Hits );
 
-            set( "post.Source", post.SourceLink );
-
-            if (post.Creator != null) {
-                set( "post.Submitter", string.Format( "<a href=\"{0}\" target=\"_blank\">{1}</a>", toUser( post.Creator ), post.Creator.Name ) );
-            }
-            else {
-                set( "post.Submitter", "нч" );
-            }
+            bind( "post", post );
 
             IBlock block = getBlock( "list" );
             foreach (ContentImg img in imgPage.Results) {
@@ -69,15 +57,13 @@ namespace wojilu.Web.Controller.Content.Section {
 
             Boolean isMakeHtml = HtmlHelper.IsMakeHtml( ctx );
             String postLink = alink.ToAppData( post, ctx );
-            String pageBar = ObjectPage.GetSimplePageBar( postLink, imgPage.Current, imgPage.PageCount, isMakeHtml );
+            String pageBar = PageHelper.GetSimplePageBar( postLink, imgPage.Current, imgPage.PageCount, isMakeHtml );
 
             set( "page", pageBar );
-
         }
 
         private void bindPosts( ContentSection section, DataPage<ContentPost> posts ) {
             set( "section.Name", section.Title );
-            ctx.SetItem( "PageTitle", Page.Title );
             IBlock block = getBlock( "list" );
             foreach (ContentPost post in posts.Results) {
                 block.Set( "img.Url", alink.ToAppData( post, ctx ) );

@@ -89,7 +89,7 @@ namespace wojilu.Open {
                 return null;
             }
 
-            if (sconfig.IsEnableUserSpace == false || strUtil.IsNullOrEmpty( user.Url ) ) {
+            if (strUtil.IsNullOrEmpty( user.Url )) {
                 user.Url = "user" + user.Id;
                 db.update( user, "Url" );
             }

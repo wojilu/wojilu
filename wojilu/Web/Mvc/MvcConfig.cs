@@ -45,6 +45,16 @@ namespace wojilu.Web.Mvc {
         public String UrlExt { get { return _urlExt; } }
 
         /// <summary>
+        /// 网址分隔符，默认是斜杠 "/"，可以配置成横杠 "-"
+        /// </summary>
+        public String UrlSeparator { get { return _urlSeparator; } }
+
+        /// <summary>
+        /// 网址是否小写。默认是false
+        /// </summary>
+        public Boolean IsUrlToLower { get { return _isUrlToLower; } }
+
+        /// <summary>
         /// 视图文件的后缀名。默认是.html，如果不为空，则带前缀.点号
         /// </summary>
         public String ViewExt { get { return _viewExt; } }
@@ -116,6 +126,12 @@ namespace wojilu.Web.Mvc {
         /// </summary>
         public List<String> Filter { get { return _filterList; } }
 
+        /// <summary>
+        /// 允许客户端提交的 html tag 白名单
+        /// </summary>
+        public List<String> TagWhitelist { get { return _tagWhiteList; } }
+
+
         //------------------------------------------------------------------------------------------------------------------------------
 
         /// <summary>
@@ -170,6 +186,7 @@ namespace wojilu.Web.Mvc {
 
         private List<String> _rootNamespace;
         private List<String> _filterList;
+        private List<String> _tagWhiteList;
 
         private String _urlExt;
         private String _viewExt;
@@ -185,6 +202,9 @@ namespace wojilu.Web.Mvc {
         private String _cssVersion;
         private String _staticDomain;
 
+        private String _urlSeparator;
+        private Boolean _isUrlToLower;
+
         private String _noLogError;
 
         private MvcConfig() {
@@ -193,7 +213,7 @@ namespace wojilu.Web.Mvc {
 
             _routeConfigPath = PathHelper.Map( strUtil.Join( cfgHelper.ConfigRoot, "route.config" ) );
 
-            _rootNamespace = getRootNamespace( dic );
+            _rootNamespace = getValueList( dic, "rootNamespace" );
             _isParseAppId = getIsParseAppId( dic );
             _isCacheView = getIsCacheView( dic );
 
@@ -205,7 +225,11 @@ namespace wojilu.Web.Mvc {
             _urlExt = getUrlExt( dic );
             _viewExt = getViewExt( dic );
             _viewDir = getViewDir( dic );
-            _filterList = getFilterList( dic );
+            _filterList = getValueList( dic, "filter" );
+            _tagWhiteList = getValueList( dic, "tagWhiteList" );
+
+            _urlSeparator = getUrlSeparator( dic );
+            _isUrlToLower = getIsUrlToLower( dic );
 
             dic.TryGetValue( "jsVersion", out _jsVersion );
             dic.TryGetValue( "cssVersion", out _cssVersion );
@@ -217,37 +241,18 @@ namespace wojilu.Web.Mvc {
         }
 
 
-
-
-        private List<String> getFilterList( Dictionary<String, String> dic ) {
+        private List<String> getValueList( Dictionary<String, String> dic, String keyName ) {
 
             List<String> result = new List<String>();
 
-            String filter;
-            dic.TryGetValue( "filter", out filter );
-            if (strUtil.IsNullOrEmpty( filter )) return result;
+            String rawStr;
+            dic.TryGetValue( keyName, out rawStr );
+            if (strUtil.IsNullOrEmpty( rawStr )) return result;
 
-            String[] arrF = filter.Split( ',' );
-            foreach (String f in arrF) {
-                if (strUtil.IsNullOrEmpty( f )) continue;
-                result.Add( f.Trim() );
-            }
-
-            return result;
-        }
-
-        private List<String> getRootNamespace( Dictionary<String, String> dic ) {
-
-            List<String> result = new List<String>();
-
-            String strNs;
-            dic.TryGetValue( "rootNamespace", out strNs );
-            if (strUtil.IsNullOrEmpty( strNs )) return result;
-
-            String[] arrNs = strNs.Split( ',' );
-            foreach (String ns in arrNs) {
-                if (strUtil.IsNullOrEmpty( ns )) continue;
-                result.Add( ns.Trim() );
+            String[] arr = rawStr.Split( ',' );
+            foreach (String item in arr) {
+                if (strUtil.IsNullOrEmpty( item )) continue;
+                result.Add( item.Trim() );
             }
 
             return result;
@@ -316,7 +321,26 @@ namespace wojilu.Web.Mvc {
             return ext;
         }
 
+        private String getUrlSeparator( Dictionary<String, String> dic ) {
 
+            String defaultValue = "/";
+
+            String urlSp;
+            dic.TryGetValue( "urlSeparator", out urlSp );
+            if (strUtil.IsNullOrEmpty( urlSp )) return defaultValue;
+
+            urlSp = urlSp.Trim();
+            if (urlSp.Length > 1) return defaultValue;
+
+            return urlSp;
+        }
+
+        private bool getIsUrlToLower( Dictionary<String, String> dic ) {
+            String isLower;
+            dic.TryGetValue( "isUrlToLower", out isLower );
+            if (strUtil.IsNullOrEmpty( isLower )) return false;
+            return cvt.ToBool( isLower );
+        }
 
     }
 }

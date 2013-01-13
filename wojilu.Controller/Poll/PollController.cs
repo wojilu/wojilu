@@ -38,7 +38,7 @@ namespace wojilu.Web.Controller.Poll {
 
         public void Index() {
 
-            WebUtils.pageTitle( this, lang( "poll" ) );
+            ctx.Page.Title = lang( "poll" );
 
             DataPage<PollData> polls = pollService.GetPageByApp( ctx.app.Id );
             bindPollList( polls );
@@ -160,12 +160,12 @@ namespace wojilu.Web.Controller.Poll {
 
             PollData poll = pollService.GetById( pollId );
             if (poll == null) {
-                actionContent( lang( "exPollNotFound" ) );
+                content( lang( "exPollNotFound" ) );
                 return;
             }
 
             if (poll.CheckHasVote( ctx.viewer.Id )) {
-                actionContent( alang( "exVoted" ) );
+                content( alang( "exVoted" ) );
                 return;
             }
 
@@ -188,7 +188,7 @@ namespace wojilu.Web.Controller.Poll {
 
             PollData poll = pollService.GetById( pollId );
             if (poll == null) {
-                actionContent( lang( "exPollNotFound" ) );
+                content( lang( "exPollNotFound" ) );
                 return;
             }
 

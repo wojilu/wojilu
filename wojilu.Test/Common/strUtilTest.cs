@@ -8,6 +8,7 @@ using wojilu.Common.Tags;
 using NUnit.Framework;
 using NUnit.Framework.SyntaxHelpers;
 using wojilu.ORM;
+using wojilu.Web.Utils;
 
 namespace wojilu.Test.Common {
 
@@ -330,11 +331,15 @@ namespace wojilu.Test.Common {
             str = strUtil.TrimHtml( flash );
             Assert.AreEqual( flash, str );
 
+            String flash2 = WebHelper.GetFlash( "www.abc.com/x.swf", 480, 360 );
+            str = strUtil.TrimHtml( flash2 );
+            Assert.AreEqual( flash2, str );
+
 
         }
 
         private static int getPage( string url ) {
-            return ObjectPage.GetPageByUrl( url );
+            return PageHelper.GetPageNoByUrl( url );
         }
 
         [Test]
@@ -610,6 +615,36 @@ namespace wojilu.Test.Common {
             String gmapList = strUtil.GetGenericTypeWithArgs( tmap );
             Assert.AreEqual( "System.Collections.Generic.Dictionary<System.Int32,System.String>", gmapList );
 
+
+        }
+
+
+        [Test]
+        public void testCount() {
+
+            int count = strUtil.CountString( "dfakf33dlkafkef33eiefla33kdkd", "33" );
+            Assert.AreEqual( 3, count );
+
+            count = strUtil.CountString( "", "33" );
+            Assert.AreEqual( 0, count );
+
+            count = strUtil.CountString( null, "33" );
+            Assert.AreEqual( 0, count );
+
+            count = strUtil.CountString( "aaaaaaaaaaaaaaaaaaa<br><br><br><br><br><br><br>", "<br" );
+            Assert.AreEqual( 7, count );
+
+            count = strUtil.CountString( "aaaaaaaaaaaaaaaaaaa<br><br><br>", "<br" );
+            Assert.AreEqual( 3, count );
+
+            count = strUtil.CountString( "aaaaaaaa<br>xx<br>aaaaaaaaaaa", "<br" );
+            Assert.AreEqual( 2, count );
+
+            count = strUtil.CountString( "<br", "<br" );
+            Assert.AreEqual( 1, count );
+
+            count = strUtil.CountString( "br", "<br" );
+            Assert.AreEqual( 0, count );
 
         }
 

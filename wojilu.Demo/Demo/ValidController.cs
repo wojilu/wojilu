@@ -183,7 +183,7 @@ namespace wojilu.Web.Controller.Demo {
                 echoRedirect( "请填写simpleContent内容" );
             }
             else {
-                actionContent( "<div>simpleContent</div><hr/>" + html );
+                content( "<div>simpleContent</div><hr/>" + html );
             }
         }
 
@@ -200,7 +200,7 @@ namespace wojilu.Web.Controller.Demo {
                 echoRedirect( "请填写postContent内容" );
             }
             else {
-                actionContent( "<div>postContent</div><hr/>" + html );
+                content( "<div>postContent</div><hr/>" + html );
             }
         }
 
@@ -210,7 +210,7 @@ namespace wojilu.Web.Controller.Demo {
                 echoRedirect( "请填写articleContent内容" );
             }
             else {
-                actionContent( "<div>articleContent</div><hr/>" + html );
+                content( "<div>articleContent</div><hr/>" + html );
             }
         }
 
@@ -240,7 +240,7 @@ namespace wojilu.Web.Controller.Demo {
         }
 
         public void EditorCode() {
-            actionContent( ctx.PostHtml( "simpleContent" ) );
+            content( ctx.PostHtml( "simpleContent" ) );
         }
 
         //----------------------------------------------------------------------------------------------------------------

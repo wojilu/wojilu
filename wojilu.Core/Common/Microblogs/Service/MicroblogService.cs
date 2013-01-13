@@ -1,26 +1,30 @@
-/*
+Ôªø/*
  * Copyright (c) 2010, www.wojilu.com. All rights reserved.
  */
 
 using System;
-using System.Text;
 using System.Collections.Generic;
 
-using wojilu.Common.Feeds.Service;
-using wojilu.Common.Microblogs.Domain;
+using wojilu.Web.Utils;
+
+using wojilu.Common.AppBase;
+
 using wojilu.Common.Feeds.Domain;
-using wojilu.Common.Msg.Service;
-using wojilu.Common.Msg.Enum;
 using wojilu.Common.Feeds.Interface;
-using wojilu.Common.Msg.Interface;
+using wojilu.Common.Feeds.Service;
+
+using wojilu.Common.Microblogs.Domain;
 using wojilu.Common.Microblogs.Interface;
-using wojilu.Members.Users.Domain;
-using wojilu.Serialization;
 using wojilu.Common.Microblogs.Parser;
+
+using wojilu.Common.Msg.Interface;
+using wojilu.Common.Msg.Service;
+
 using wojilu.Common.Tags;
+
+using wojilu.Members.Users.Domain;
 using wojilu.Members.Users.Interface;
 using wojilu.Members.Users.Service;
-using wojilu.Web.Utils;
 
 namespace wojilu.Common.Microblogs.Service {
 
@@ -39,13 +43,17 @@ namespace wojilu.Common.Microblogs.Service {
             followerService = new FollowerService();
         }
 
+        private static String showCondition() {
+            return " and SaveStatus=" + SaveStatus.Normal;
+        }
+
         public virtual int CountByUser( int userId ) {
-            return Microblog.count( "UserId=" + userId );
+            return Microblog.count( "UserId=" + userId + showCondition() );
         }
 
         public virtual List<Microblog> GetByUser( int count, int userId ) {
             if (count <= 0) count = 10;
-            return Microblog.find( "User.Id=" + userId ).list( count );
+            return Microblog.find( "User.Id=" + userId + showCondition() ).list( count );
         }
 
         public virtual List<IBinderValue> GetMyRecent( int count, int userId ) {
@@ -58,31 +66,26 @@ namespace wojilu.Common.Microblogs.Service {
         }
 
         public virtual Microblog GetFirst( int userId ) {
-            return Microblog.find( "User.Id=" + userId ).first();
+            return Microblog.find( "User.Id=" + userId + showCondition() ).first();
         }
 
         public virtual List<Microblog> GetCurrent( int count, int userId ) {
             if (count <= 0) count = 1;
-            return Microblog.find( "User.Id=" + userId ).list( count );
+            return Microblog.find( "User.Id=" + userId + showCondition() ).list( count );
         }
 
         public virtual DataPage<Microblog> GetPageList( int userId, int pageSize ) {
 
-            DataPage<Microblog> list = Microblog.findPage( "UserId=" + userId, pageSize );
+            DataPage<Microblog> list = Microblog.findPage( "UserId=" + userId + showCondition(), pageSize );
             return list;
         }
 
-        public virtual DataPage<Microblog> GetPageListAll( int pageSize ) {
-
-            DataPage<Microblog> list = Microblog.findPage( "", pageSize );
-            return list;
-        }
 
         public virtual DataPage<Microblog> GetFollowingPage( int ownerId, int pageSize ) {
 
             String followingIds = getFriendAndFollowingIds( ownerId );
 
-            return Microblog.findPage( "UserId in (" + followingIds + ")", pageSize );
+            return Microblog.findPage( "UserId in (" + followingIds + ")" + showCondition(), pageSize );
 
         }
 
@@ -91,8 +94,8 @@ namespace wojilu.Common.Microblogs.Service {
             String followingIds = getFriendAndFollowingIds( ownerId );
             searchKey = strUtil.SqlClean( searchKey, 10 );
             if( strUtil.IsNullOrEmpty( searchKey) )
-                return Microblog.findPage( "UserId in (" + followingIds + ")" );
-            return Microblog.findPage( "UserId in (" + followingIds + ") and Content like '%"+searchKey+"%'" );
+                return Microblog.findPage( "UserId in (" + followingIds + ")" + showCondition() );
+            return Microblog.findPage( "UserId in (" + followingIds + ") and Content like '%" + searchKey + "%'" + showCondition() );
 
         }
 
@@ -106,47 +109,9 @@ namespace wojilu.Common.Microblogs.Service {
             return ids;
         }
 
-        //--------------------------------------
-
-        //public virtual void InsertBig( Microblog blog ) {
-
-        //    List<String> arrContent = strUtil.SplitByNum( blog.Content, config.Instance.Site.MicroblogContentMax );
-
-        //    for (int i = 0; i < arrContent.Count; i++) {
-
-        //        saveMicroblogOther( blog, arrContent, i );
-        //    }
-        //}
-
-        //private void saveMicroblogOther( Microblog ob, List<String> arrContent, int i ) {
-
-        //    Microblog blog = new Microblog();
-
-        //    if (arrContent.Count > 1) {
-        //        blog.Content = "(" + (i + 1) + ")" + arrContent[i];
-        //    }
-        //    else {
-        //        blog.Content = arrContent[i];
-        //    }
-        //    if (i == 0) {
-        //        blog.Pic = ob.Pic;
-        //        blog.FlashUrl = ob.FlashUrl;
-        //        blog.PageUrl = ob.PageUrl;
-        //        blog.PicUrl = ob.PicUrl;
-        //    }
-
-        //    blog.Ip = ob.Ip;
-        //    blog.User = ob.User;
-
-
-
-
-        //    Insert( blog, i );
-        //}
-
         public virtual void Insert( Microblog blog ) {
 
-            blog.Content = strUtil.SubString( blog.Content, config.Instance.Site.MicroblogContentMax );
+            blog.Content = strUtil.SubString( blog.Content, MicroblogAppSetting.Instance.MicroblogContentMax );
 
             Insert( blog, 0 );
         }
@@ -170,14 +135,14 @@ namespace wojilu.Common.Microblogs.Service {
             
             if( i==0 ) {
 
-                // ±£¥Êtag
+                // ‰øùÂ≠òtag
                 TagService.SaveDataTag( blog, mp.GetTagList() );
 
-                // ∑¢Õ®÷™
+                // ÂèëÈÄöÁü•
                 addNotification( smbinder.GetValidUsers(), blog );
             }
 
-            // ◊™∑¢–Ë“™À¢–¬‘≠Ã˚µƒ◊™∑¢¡ø
+            // ËΩ¨ÂèëÈúÄË¶ÅÂà∑Êñ∞ÂéüÂ∏ñÁöÑËΩ¨ÂèëÈáè
             if (blog.ParentId > 0) {
                 Microblog parent = GetById( blog.ParentId );
                 if (parent != null) {
@@ -200,11 +165,8 @@ namespace wojilu.Common.Microblogs.Service {
 
         private void addNotification( List<User> users, Microblog blog ) {
 
-            // ∏¯@”√ªß∑¢Õ®÷™
+            // Áªô@Áî®Êà∑ÂèëÈÄöÁü•
             foreach (User u in users) {
-
-                //String msg = string.Format( "”–Œ¢≤©Ã·µΩ¡Àƒ˙:<a href=\"{0}\">{1}</a>", lnk, strUtil.ParseHtml( blog.Content, 30 ) );
-                //nfService.send( u.Id, msg );
 
                 MicroblogAt mat = new MicroblogAt();
                 mat.Microblog = blog;
@@ -226,15 +188,17 @@ namespace wojilu.Common.Microblogs.Service {
             feed.DataType = typeof( Microblog ).FullName;
             feed.DataId = log.Id;
 
-            // ◊™∑¢Œ¢≤©–≈œ¢
+            feed.Ip = log.Ip;
+
+            // ËΩ¨ÂèëÂæÆÂçö‰ø°ÊÅØ
             String pbody = "";
             if (log.ParentId > 0) {
                 Microblog parent = GetById( log.ParentId );
                 if (parent == null) {
-                    pbody = " [±ª◊™Œ¢≤©“—±ª‘≠◊˜’ﬂ…æ≥˝]";
+                    pbody = " [Ë¢´ËΩ¨ÂæÆÂçöÂ∑≤Ë¢´Âéü‰ΩúËÄÖÂà†Èô§]";
                 }
                 else {
-                    pbody = ": [◊™]" + parent.Content;
+                    pbody = ": [ËΩ¨]" + parent.Content;
                 }
             }
 
@@ -246,15 +210,21 @@ namespace wojilu.Common.Microblogs.Service {
                 data.Add( "pic", "<img src=\"" + log.PicSmall + "\" />" );
 
                 feed.BodyTemplate = "{*pic*}";
-                feed.BodyData = JsonString.ConvertDictionary( data );
+                feed.BodyData = Json.SerializeDic( data );
             }
 
             feedService.publishUserAction( feed );
         }
 
+        //----------------------------------------------------------------------------
 
         public virtual void Delete( Microblog blog ) {
+
+            if (blog == null) throw new ArgumentNullException( "blog" );
+
+            blog.SaveStatus = SaveStatus.Delete;
             blog.delete();
+
         }
 
         public virtual void DeleteBatch( string ids ) {
@@ -262,7 +232,7 @@ namespace wojilu.Common.Microblogs.Service {
             int[] arrIds = cvt.ToIntArray( ids );
             if (arrIds.Length == 0) return;
 
-            Microblog.deleteBatch( "id in (" + ids + ")" );
+            Microblog.updateBatch( "SaveStatus=" + SaveStatus.Delete, "id in (" + ids + ")" );
         }
 
     }

@@ -145,10 +145,10 @@ namespace wojilu {
             if (result == null) {
 
                 IList list = ObjectDB.FindPage( state, condition );
-                ObjectPage p = state.Pager;
+                PageHelper p = state.Pager;
                 ObjectPool.AddPage( typeof( T ), condition, p, list );
 
-                result = new PageList();
+                result = new DataPageInfo();
                 result.Results = list;
                 result.PageCount = p.PageCount;
                 result.RecordCount = p.RecordCount;
@@ -157,7 +157,7 @@ namespace wojilu {
                 result.Current = p.getCurrent();
             }
             else {
-                result.PageBar = new ObjectPage( result.RecordCount, result.Size, result.Current ).PageBar;
+                result.PageBar = new PageHelper( result.RecordCount, result.Size, result.Current ).PageBar;
             }
 
             return new DataPage<T>( result );
@@ -179,7 +179,7 @@ namespace wojilu {
             state.Pager.setCurrent( current );
 
             IList list = ObjectDB.FindPage( state, condition );
-            IPageList result = new PageList();
+            IPageList result = new DataPageInfo();
             result.Results = list;
             result.PageCount = state.Pager.PageCount;
             result.RecordCount = state.Pager.RecordCount;

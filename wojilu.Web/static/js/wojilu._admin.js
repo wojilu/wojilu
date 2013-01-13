@@ -8,11 +8,7 @@
     wojilu.ui.frmLink();
 
     function getChoiceList() {
-        var choiceList = [];
-        $('input[name=selectThis]:checked').each( function(i){
-            choiceList.push(this.id.replace('checkbox',''));
-        });
-        return choiceList;
+        return wojilu.ui.select();
     }
 
     // 列表管理：全选

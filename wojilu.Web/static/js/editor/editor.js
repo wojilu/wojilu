@@ -270,15 +270,20 @@ wojilu.editor.prototype = {
         _x.doc.open();
         _x.doc.write( htmlContent );
         _x.doc.close();
+        _x.styleBody();
     },
     
     isHtmlChecked : function() {
         return $('#chksrc'+this.id).attr( 'checked' );
     },
 
+    styleBody : function() {
+        var _x = this;
+        $(_x.doc.body).attr('style','background:#fff;margin:5px;padding:0px;font-family:verdana;font-size:14px;cursor:text;line-height:150%;');
+    },
+
     clearFormat : function() {
         var _x = this;
-        _x.doc.body.innerHTML = _x.doc.body.innerHTML.replace( /<!--((.|\n|\r)*?)-->/g, '');
 
         function removeAttrPrivate( tag, attrNames ) {
             var arrAttr = attrNames.split( "," );
@@ -305,9 +310,6 @@ wojilu.editor.prototype = {
         if( document.all ) {
             _x.doc.execCommand('removeFormat', false, null);
         }
-        else {
-            $("font", _x.doc.body).replaceWith(function() { return $(this).contents(); });
-        }
 
         $(_x.doc.body).find('style').remove();
         $(_x.doc.body).find('script').remove();
@@ -315,11 +317,12 @@ wojilu.editor.prototype = {
         $(_x.doc.body).find('frame').remove();
         $(_x.doc.body).find('xml').remove();
         $('pre',_x.doc.body).removeAttr('style');
+        _x.styleBody();
     },
 
     checkXhtml : function (str) {
         str = str.replace(/<br.*?>/gi, "<br />");
-        str = str.replace(/<b([^\/]*?>)/gi, "<strong$1");
+        str = str.replace(/<b>/gi, "<strong>");
         str = str.replace(/<\/b>/gi, "</strong>");
         str = str.replace(/(<hr[^>]*[^\/])(>)/gi, "$1 />");
         str = str.replace(/(<img[^>]*[^\/])(>)/gi, "$1 />");
@@ -369,7 +372,7 @@ wojilu.editor.prototype.beginRender = function() {
 
 wojilu.editor.prototype.getFrmBody = function( htmlContent ) {
     var _x = this;
-    return '<html><link rel="stylesheet" type="text/css" href="'+_x.skinPath+ 'style.css'+'" /><body style="background:#fff;border:0px #aaa solid;margin:5px;padding:0px;font-family:verdana;font-size:14px;line-height:150%;cursor:text;">\n' + htmlContent + '\n</body></html>';
+    return '<html><link rel="stylesheet" type="text/css" href="'+_x.skinPath+ 'style.css'+'" /><body>\n' + htmlContent + '\n</body></html>';
 };
    
 wojilu.editor.prototype.makeWritable = function () {
@@ -377,7 +380,7 @@ wojilu.editor.prototype.makeWritable = function () {
     var _x = this;
     var htmlContent = _x.html;
     if( !document.all && wojilu.str.isNull( _x.html ) ) {
-        htmlContent = '<br/>'+_x.html;
+        htmlContent = '<p>&nbsp;</p>'+_x.html;
     }
     var frameHtml = _x.getFrmBody( htmlContent );
 

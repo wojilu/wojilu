@@ -102,7 +102,7 @@ namespace wojilu.Web.Controller.Content.Admin.Section {
             }
 
             postService.Delete( post );
-            echoRedirect( lang( "opok" ) );
+            echoRedirectPart( lang( "opok" ) );
             HtmlHelper.SetCurrentPost( ctx, post );
         }
 

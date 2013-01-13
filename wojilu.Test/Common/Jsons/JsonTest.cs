@@ -198,7 +198,7 @@ namespace wojilu.Test.Common.Jsons {
 
             string str = "{Id:2,  Name:\"诺基亚n78\", Weight:300, Owner:6}";
 
-            object obj = JSON.ToObject( str, typeof( MyPhone ) );
+            object obj = Json.DeserializeObject( str, typeof( MyPhone ) );
             Assert.IsNotNull( obj );
             MyPhone phone = obj as MyPhone;
             Assert.IsNotNull( phone );
@@ -217,7 +217,7 @@ namespace wojilu.Test.Common.Jsons {
 	{ Id:3, Name:""新闻大事690501468"", Weight:0, Owner:""2"" }
 ]
 ";
-            List<MyPhone> list = JSON.ToList<MyPhone>( result );
+            List<MyPhone> list = Json.DeserializeList<MyPhone>( result );
             Assert.AreEqual( 4, list.Count );
 
             for (int i = 0; i < list.Count; i++) {
@@ -238,7 +238,7 @@ namespace wojilu.Test.Common.Jsons {
 
             //object obj = JsonParser.Parse( str );
 
-            List<Dictionary<string, object>> lists = JSON.ToDictionaryList( str );
+            List<Dictionary<string, object>> lists = Json.DeserializeDicList( str );
             Assert.AreEqual( 2, lists.Count );
 
             Dictionary<string, object> dic = lists[0];
@@ -265,7 +265,7 @@ namespace wojilu.Test.Common.Jsons {
 ]
 ";
 
-            Dictionary<string, object> dic = JSON.ToDictionary( str );
+            Dictionary<string, object> dic = Json.DeserializeDic( str );
 
             Assert.AreEqual( 3, dic.Keys.Count );
             Assert.AreEqual( 3, dic["Id"] );
@@ -482,7 +482,7 @@ AssemblyList : [""wojilu.Core"",""wojilu.Apps""]
     
 }";
 
-            MyDbConfig cf = JSON.ToObject<MyDbConfig>( str );
+            MyDbConfig cf = Json.DeserializeObject<MyDbConfig>( str );
 
             Assert.IsNotNull( cf );
 
@@ -501,7 +501,7 @@ AssemblyList : [""wojilu.Core"",""wojilu.Apps""]
         [Test]
         public void testQuote() {
             string str = "{post: \"<a href='/bv/Forum1/Post/Show/17355.aspx'>re:天下之大，无奇不有</a>\"}";
-            Dictionary<string, object> dic = JSON.ToDictionary( str );
+            Dictionary<string, object> dic = Json.DeserializeDic( str );
             Assert.AreEqual( 1, dic.Count );
             Assert.AreEqual( "<a href='/bv/Forum1/Post/Show/17355.aspx'>re:天下之大，无奇不有</a>", dic["post"] );
         }
@@ -511,7 +511,7 @@ AssemblyList : [""wojilu.Core"",""wojilu.Apps""]
 
             //string str = @"{ blog:""<a href='/space/sgzwiz/Blog574/Post/95'>\framework\views\Common\Admin\AppBase\</a>"" }";
             string str = @"{ blog:""<a href=\""/space/sgzwiz/Blog574/Post/95\"">\\framework\\views\\Common\\Admin\\AppBase\\</a>"" }";
-            Dictionary<string, object> dic = JSON.ToDictionary( str );
+            Dictionary<string, object> dic = Json.DeserializeDic( str );
             Assert.AreEqual( 1, dic.Count );
 
         }

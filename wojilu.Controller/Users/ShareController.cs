@@ -41,8 +41,7 @@ namespace wojilu.Web.Controller.Users {
                 return;
             }
 
-            WebUtils.pageTitle( this, lang( "share" ) );
-
+            ctx.Page.Title = lang( "share" );
 
             int userId = ctx.owner.Id;
 

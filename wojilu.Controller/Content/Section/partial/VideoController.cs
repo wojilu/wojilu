@@ -41,7 +41,6 @@ namespace wojilu.Web.Controller.Content.Section {
 
         private void bindPosts( ContentSection section, DataPage<ContentPost> posts ) {
             set( "section.Name", section.Title );
-            ctx.SetItem( "PageTitle", Page.Title );
             IBlock block = getBlock( "list" );
             foreach (ContentPost post in posts.Results) {
                 block.Set( "img.Url", alink.ToAppData( post, ctx ) );
@@ -56,21 +55,6 @@ namespace wojilu.Web.Controller.Content.Section {
 
         private void bindShow( ContentPost post ) {
             ctx.SetItem( "ContentPost", post );
-            set( "post.Title", post.Title );
-            set( "post.CreateTime", post.Created );
-            set( "post.ReplyCount", post.Replies );
-            set( "post.Source", post.SourceLink );
-            set( "post.Hits", post.Hits );
-
-            if (post.Creator != null) {
-                set( "post.Submitter", string.Format( "<a href=\"{0}\" target=\"_blank\">{1}</a>", toUser( post.Creator ), post.Creator.Name ) );
-            }
-            else {
-                set( "post.Submitter", "нч" );
-            }
-
-            String siteUrl = new UrlInfo( post.SourceLink ).SiteUrl;
-            set( "post.Source", siteUrl );
             String val = WebHelper.GetFlash( post.SourceLink, 500, 400 );
             set( "post.Content", val );
         }

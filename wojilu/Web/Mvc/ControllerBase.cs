@@ -57,7 +57,7 @@ namespace wojilu.Web.Mvc {
         /// 页面元信息(包括Title/Keywords/Description/RssLink)
         /// </summary>
         public PageMeta Page {
-            get { return this.ctx.GetPageMeta(); }
+            get { return this.ctx.Page; }
         }
 
         internal void setContext( MvcContext wctx ) {
@@ -461,6 +461,13 @@ namespace wojilu.Web.Mvc {
             return Link.ToUser( friendlyUrl );
         }
 
+        /// <summary>
+        /// 设置当前 action 返回的内容（一旦设置，先前绑定的模板内容将被覆盖）
+        /// </summary>
+        /// <param name="content"></param>
+        public void content( String content ) {
+            utils.setActionContent( content );
+        }
 
         /// <summary>
         /// 设置当前 action 返回的内容（一旦设置，先前绑定的模板内容将被覆盖）
@@ -494,6 +501,15 @@ namespace wojilu.Web.Mvc {
         /// <param name="msg"></param>
         public void echoText( String msg ) {
             ctx.utils.endMsgByText( msg );
+        }
+
+        /// <summary>
+        /// 将对象序列化，然后输出到客户端(ContentType="application/json")，不再输出布局页面
+        /// </summary>
+        /// <param name="msg"></param>
+        protected void echoJson( Object obj ) {
+            setJsonContentType();
+            echoText( Json.Serialize( obj ) );
         }
 
         /// <summary>
@@ -812,13 +828,20 @@ namespace wojilu.Web.Mvc {
                 ctx.web.Redirect( url, false );
             }
             else {
-                ctx.utils.end();
-                ctx.utils.skipRender();
-                ctx.utils.clearResource();
-                ctx.web.Redirect( url, false );
+                redirectDirect( url );
             }
         }
 
+        /// <summary>
+        /// 直接跳转，不经过layout参数处理
+        /// </summary>
+        /// <param name="url"></param>
+        public void redirectDirect( String url ) {
+            ctx.utils.end();
+            ctx.utils.skipRender();
+            ctx.utils.clearResource();
+            ctx.web.Redirect( url, false );
+        }
 
         private Boolean hasNolayout() {
             return ctx.utils.getNoLayout() > 0 || referrerHasNolayout();
@@ -922,6 +945,15 @@ namespace wojilu.Web.Mvc {
         }
 
         /// <summary>
+        /// 将某 action 的内容加载到指定位置
+        /// </summary>
+        /// <param name="sectionName">需要加载内容的位置</param>
+        /// <param name="action">被加载的 action</param>
+        protected void load( String sectionName, aActionWithId action, int id ) {
+            set( sectionName, loadHtml( action, id ) );
+        }
+
+        /// <summary>
         /// 获取某 action 的内容
         /// </summary>
         /// <param name="controller"></param>
@@ -966,16 +998,12 @@ namespace wojilu.Web.Mvc {
             }
             else {
 
-                // 如果继承
                 String actionName = action.Method.Name;
                 ControllerBase otherController = ControllerFactory.FindController( action.Method.DeclaringType, ctx );
                 otherController.view( actionName );
                 otherController.utils.runAction( actionName );
-                result = otherController.utils.getCurrentView().ToString();
-                //result = otherController.utils.getActionResult();
+                result = otherController.utils.getActionResult();
 
-                // 如果没有继承
-                //result = ControllerRunner.Run( action, ctx );
             }
 
             return result;
@@ -1043,7 +1071,7 @@ namespace wojilu.Web.Mvc {
                 //action.Method.Invoke( mycontroller, null );
                 //actionContent( mycontroller.utils.getActionResult() );
 
-                actionContent( ControllerRunner.Run( ctx, action ) );
+                content( ControllerRunner.Run( ctx, action ) );
             }
         }
 
@@ -1073,7 +1101,7 @@ namespace wojilu.Web.Mvc {
                 //action.Method.Invoke( mycontroller, new object[] { id } );
                 //actionContent( mycontroller.utils.getActionResult() );
 
-                actionContent( ControllerRunner.Run( ctx, action, id ) );
+                content( ControllerRunner.Run( ctx, action, id ) );
             }
         }
 
@@ -1092,7 +1120,8 @@ namespace wojilu.Web.Mvc {
             if (controllerType == base.GetType()) {
 
                 view( actionName );
-                MethodInfo method = base.GetType().GetMethod( actionName );
+
+                MethodInfo method = ActionRunner.getActionMethod( this, actionName );
                 if (method == null) {
                     throw new Exception( "action " + wojilu.lang.get( "exNotFound" ) );
                 }
@@ -1102,7 +1131,7 @@ namespace wojilu.Web.Mvc {
 
             }
             else {
-                actionContent( ControllerRunner.Run( ctx, controllerFullTypeName, actionName, args ) );
+                content( ControllerRunner.Run( ctx, controllerFullTypeName, actionName, args ) );
             }
         }
 

@@ -15,11 +15,13 @@ namespace wojilu.Web.Controller.Blog.Caching {
 
     public class BlogMainCache : ActionCache {
 
+        // 设计这个缓存的 key
         public override string GetCacheKey( MvcContext ctx, String actionName ) {
 
             return "__action_blog_main_index";
         }
 
+        // 让这个缓存监控(observe)其他action，一旦其他action发生操作，则自动更新缓存
         public override void ObserveActions() {
 
             Admin.MyListController my = new wojilu.Web.Controller.Blog.Admin.MyListController();
@@ -36,28 +38,16 @@ namespace wojilu.Web.Controller.Blog.Caching {
             wojilu.Web.Controller.Admin.Apps.Blog.MainController m = new wojilu.Web.Controller.Admin.Apps.Blog.MainController();
             observe( m.Admin );
             observe( m.Delete );
-            observe( m.UnDelete );
+
+            wojilu.Web.Controller.Admin.Apps.Blog.TrashController trash = new wojilu.Web.Controller.Admin.Apps.Blog.TrashController();
+            observe( trash.UnDelete );
+
         }
 
+        // 当被监控(observe)的action执行之后，这个 UpdateCache 也会被执行
         public override void UpdateCache( MvcContext ctx ) {
-
             CacheManager.GetApplicationCache().Remove( GetCacheKey( null, null ) );
-
-            //User owner = ctx.owner.obj as User;
-            //int appId = ctx.app.Id;
-            //String key = GetCacheKey( ctx, null );
-
-            //String content = getMainCache( appId );
-
-            //CacheManager.GetApplicationCache().Put( key, content );
         }
-
-        //private static string getMainCache( int appId ) {
-        //    MvcContext ctx = MockContext.GetOne( Site.Instance, typeof( BlogApp ), appId );
-        //    String content = ControllerRunner.Run( ctx, new wojilu.Web.Controller.Blog.MainController().Index );
-
-        //    return content;
-        //}
 
     }
 

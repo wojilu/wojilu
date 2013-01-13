@@ -18,7 +18,6 @@ namespace wojilu.Web.Controller.Microblogs {
 
         public override void Layout() {
 
-
             ctx.controller.HideLayout( typeof( wojilu.Web.Controller.LayoutController ) );
 
             set( "siteName", config.Instance.Site.SiteName );

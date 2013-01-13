@@ -31,7 +31,7 @@ _run( function() {
 	});
 
 	$('.lnkMsg').click( function() {
-		var choiceList = getChoiceList();
+		var choiceList = wojilu.ui.select();
 		if( choiceList.length == 0 ) {
 		    alert( "_{plsSelect}" );
 		    return false;
@@ -41,7 +41,6 @@ _run( function() {
 			$(this).attr( 'href', newUrl );
 		}
 	});
-	
 
 });
 
@@ -111,9 +110,8 @@ _run( function() {
 
 <table cellspacing="1" cellpadding="3" border="0" style="width: 100%;" id="dataAdminList" data-action="#{OperationUrl}">
 <tr class="adminBar">
-<td colspan="10">
+<td colspan="10" style=" padding-left:15px;">
 
-        <span class="right5"><a href="#{addUserLink}" class="frmBox" title="用户注册"><img src="~img/addUser.gif" /> 用户注册</a></span>
         <span class="btnCmd" cmd="approve">通过审核</span>
 		<span class="btnCmd" cmd="pick">_{recommend}</span>
 		<span class="btnCmd" cmd="unpick">_{cancelRecomment}</span>
@@ -143,8 +141,8 @@ _run( function() {
 		<td align="center">_{id}</td>
 		<td align="center">_{status}</td>
 		<td>_{role}</td>
-		<td>_{nickName}</td>
-		<td>_{realName}</td>
+		<td>_{nickName}/_{realName}</td>
+		<td>来源</td>
 		<td></td>
 		<td>Email</td>
 		<td>_{regTime}</td>
@@ -159,9 +157,9 @@ _run( function() {
 		<td align="center">#{user.Id}</td>
 		<td align="center">#{statusIcon}</td>
 		<td>#{user.RoleName}</td>
-		<td><a href="#{user.Url}" target="_blank">#{user.Name}</a></td>
-		<td>#{user.RealName}</td>
-		<td style="width2:30px;">#{user.IsEmailConfirm}</td>
+		<td><a href="#{user.Url}" target="_blank">#{user.Name}</a>#{user.RealNameInfo}</td>
+		<td><div class="user-ip hide">#{user.Ip}</div></td>
+		<td>#{user.IsEmailConfirm}</td>
 		<td>#{user.Email}</td>
 		<td>#{user.CreateTime}</td>
 		<td>#{user.LastLoginTime}</td>
@@ -183,3 +181,46 @@ _run( function() {
 
 
 </div>
+
+<script>
+    _run(function () {
+
+        var getIps = function () {
+
+            var ips = '';
+            $('.user-ip').each(function () {
+                var _x = $(this);
+                var ip = $(this).text();
+                if (!ip) return;
+                if (ip == 'unknow') return;
+                ips += ip + ',';
+            });
+
+            return ips;
+        };
+
+        var selectList = function (ip, ipList) {
+            if (!ip) return '--';
+            for (var i = 0; i < ipList.length; i++) {
+                if (ip == ipList[i].Ip) return ipList[i].Address + ipList[i].Info;
+            }
+            return ip;
+        };
+
+        var setIp = function (ipList) {
+            $('.user-ip').each(function () {
+                var ip = $(this).text();
+                $(this).text(selectList(ip, ipList)).attr('title', 'ip=' + ip).show();
+            });
+        };
+
+        var searchLink = 'http://www.lvhupo.com/?t=1&ip=' + getIps();
+        $.ajax({
+            dataType: 'jsonp',
+            url: searchLink,
+            jsonp: 'callback',
+            success: function (ipList) { setIp(ipList) }
+        });
+
+    });
+</script>
