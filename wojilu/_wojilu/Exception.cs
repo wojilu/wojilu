@@ -2,7 +2,19 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace wojilu.DI {
+namespace wojilu {
+
+    public class AssemblyNotFoundException : Exception {
+
+        public AssemblyNotFoundException()
+            : base() {
+        }
+
+        public AssemblyNotFoundException( string message )
+            : base( message ) {
+        }
+
+    }
 
     public class TypeNotFoundException : Exception {
 

@@ -16,6 +16,7 @@
 
 using System;
 using wojilu.ORM.Caching;
+using wojilu.DI;
 
 namespace wojilu.ORM {
 
@@ -25,7 +26,6 @@ namespace wojilu.ORM {
     [Serializable]
     public class ObjectInfo {
 
-
         private int _cacheMinutes;
         private String _order;
         private PageHelper pager;
@@ -34,26 +34,35 @@ namespace wojilu.ORM {
         private EntityInfo _entityInfo;
         private Includer _includer;
 
-        public ObjectInfo() {
-            init();
-        }
-
         public ObjectInfo( EntityInfo entity ) {
-            init();
-            _entityInfo = entity;
+            init( entity );
         }
 
         public ObjectInfo( Type t ) {
-            init();
-            _entityInfo = Entity.GetInfo( t );
+
+            if (t == null) throw new ArgumentNullException( "Type" );
+
+            EntityInfo entityInfo = Entity.GetInfo( t );
+            if (entityInfo == null) throw new TypeNotFoundException( string.Format( "ORM程序集中没有找到类型:{0}, 请检查 orm.config 中是否正确配置 AssemblyList", t.FullName ) );
+
+            init( entityInfo );
         }
 
         public ObjectInfo( String typeFullName ) {
-            init();
-            _entityInfo = Entity.GetInfo( typeFullName );
+
+            if (typeFullName == null) throw new ArgumentNullException( "typeFullName" );
+
+            EntityInfo entityInfo = Entity.GetInfo( typeFullName );
+            if (entityInfo == null) throw new TypeNotFoundException( string.Format( "ORM程序集中没有找到类型:{0}, 请检查 orm.config 中是否正确配置 AssemblyList", typeFullName ) );
+
+            init( entityInfo );
         }
 
-        private void init() {
+        private void init( EntityInfo entityInfo ) {
+
+            if (entityInfo == null) throw new ArgumentNullException( "EntityInfo" );
+            _entityInfo = entityInfo;
+
             _order = "desc";
             _findChild = true;
             pager = new PageHelper();
@@ -123,7 +132,7 @@ namespace wojilu.ORM {
 
                 String val = value.Trim().ToLower();
 
-                if (val.Equals( "asc")) {
+                if (val.Equals( "asc" )) {
                     _order = "asc";
                 }
                 else if (val.Equals( "desc" )) {

@@ -304,7 +304,7 @@ namespace wojilu.DI {
         /// <param name="objTarget"></param>
         private static Object checkPropertyObserver( Object objTarget ) {
 
-            Type targetType = objTarget.GetType();                
+            Type targetType = objTarget.GetType();
 
             PropertyInfo[] properties = targetType.GetProperties( BindingFlags.Public | BindingFlags.Instance );
 
@@ -377,10 +377,19 @@ namespace wojilu.DI {
         /// <param name="asmName"></param>
         /// <returns></returns>
         public static Assembly LoadAssembly( String asmName ) {
-            Assembly assembly;// = Instance.AssemblyList[asmName];
+            Assembly assembly;
             Instance.AssemblyList.TryGetValue( asmName, out assembly );
             if (assembly == null) {
-                assembly = Assembly.Load( asmName );
+                try {
+                    assembly = Assembly.Load( asmName );
+                }
+                catch (Exception ex) {
+                    String msg = string.Format( "无法加载程序集:{0}, 请检查名称是否正确", asmName );
+                    logger.Error( msg );
+                    logger.Error( ex.Message );
+                    logger.Error( ex.StackTrace );
+                    throw new AssemblyNotFoundException( msg );
+                }
                 Instance.AssemblyList.Add( asmName, assembly );
             }
             return assembly;

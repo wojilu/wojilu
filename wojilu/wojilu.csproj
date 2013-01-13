@@ -103,7 +103,7 @@
     <Compile Include="Common\Onlines\OnlineManager.cs" />
     <Compile Include="Aop\AopCoder.cs" />
     <Compile Include="Aop\MethodObserver.cs" />
-    <Compile Include="DI\Exception.cs" />
+    <Compile Include="_wojilu\Exception.cs" />
     <Compile Include="Web\Mvc\ActionCache.cs" />
     <Compile Include="_wojilu\Json.cs" />
     <Compile Include="_wojilu\SettingBase.cs" />

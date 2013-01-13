@@ -206,6 +206,10 @@ namespace wojilu.Data {
             String str = file.Read( cfgPath );
             DbConfig dbc = JSON.ToObject<DbConfig>( str );
 
+            if (dbc.AssemblyList.Count == 0) {
+                logger.Warn( "AssemblyList.Count == 0" );
+            }
+
             loadMappingInfo( dbc );
             checkConnectionString( dbc );
 
