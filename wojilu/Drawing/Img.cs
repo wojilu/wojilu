@@ -79,12 +79,12 @@ namespace wojilu.Drawing {
         }
 
         /// <summary>
-        /// 获取图片的随机文件名(会添加日期文件夹和随机文件名)，比如 2009-9-28/1530703343314547.jpg
+        /// 获取图片的随机文件名(会添加日期文件夹和随机文件名)，比如 2009/9/28/1530703343314547.jpg
         /// </summary>
         /// <remarks>如果日期文件夹不存在，则在磁盘上自动创建文件夹</remarks>
         /// <param name="pathName">图片存储的绝对路径</param>
         /// <param name="strContentType">图片类型</param>
-        /// <returns>返回图片名称，包括所在文件夹，比如 2009-9-28/1530703343314547.jpg</returns>
+        /// <returns>返回图片名称，包括所在文件夹，比如 2009/9/28/1530703343314547.jpg</returns>
         public static String GetPhotoName( String absPath, String strContentType ) {
             DateTime now = DateTime.Now;
             String strDir = getDirName( now );
@@ -101,21 +101,17 @@ namespace wojilu.Drawing {
             return Path.Combine( strDir, strFile );
         }
 
-        //private static string getDirName( DateTime now ) {
-        //    return string.Format( "{0}-{1}-{2}", now.Year, now.Month, now.Day );
-        //}
-
         private static string getDirName( DateTime now ) {
             return string.Format( "{0}/{1}/{2}", now.Year, now.Month, now.Day );
         }
 
         /// <summary>
-        /// 获取文件的随机文件名(会添加日期文件夹和随机文件名)，比如 2009-9-28/1530703343314547.zip
+        /// 获取文件的随机文件名(会添加日期文件夹和随机文件名)，比如 2009/9/28/1530703343314547.zip
         /// </summary>
         /// <remarks>如果日期文件夹不存在，则在磁盘上自动创建文件夹</remarks>
         /// <param name="pathName">存储路径</param>
         /// <param name="fileExt">文件类型</param>
-        /// <returns>返回文件名称，包括所在文件夹，比如 2009-9-28/1530703343314547.zip</returns>
+        /// <returns>返回文件名称，包括所在文件夹，比如 2009/9/28/1530703343314547.zip</returns>
         public static String GetFileName( String pathName, String fileExt ) {
             DateTime now = DateTime.Now;
             String strDate = getDirName( now );
