@@ -201,9 +201,14 @@ namespace wojilu.Data {
 
         //----------------------------------------------------------------------
 
-        private static DbConfig loadConfig( String cfgPath ) {
+        public static DbConfig loadConfig( String cfgPath ) {
 
             String str = file.Read( cfgPath );
+            return loadConfigByString( str );
+        }
+
+        public static DbConfig loadConfigByString( String str ) {
+
             DbConfig dbc = JSON.ToObject<DbConfig>( str );
 
             if (dbc.AssemblyList.Count == 0) {

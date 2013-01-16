@@ -25,7 +25,8 @@ namespace wojilu.Data {
         Server,
         UserId,
         Password,
-        Database
+        Database,
+        IsTrusted
     }
 }
 

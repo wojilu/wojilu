@@ -15,6 +15,7 @@
  */
 
 using System;
+using System.Collections.Generic;
 
 namespace wojilu.Data {
 
@@ -22,14 +23,63 @@ namespace wojilu.Data {
     /// sqlserver 特殊语法处理器
     /// </summary>
     public class SQLServerDialect : IDatabaseDialect {
+
         public String GetConnectionItem( String connectionString, ConnectionItemType connectionItem ) {
-            String str = connectionItem.ToString().ToLower().Replace( "userid", "uid" ).Replace( "password", "pwd" );
-            String[] strArray = connectionString.ToLower().Split( new char[] { ';' } );
-            foreach (String item in strArray) {
-                if (item.Trim().ToLower().StartsWith( str )) {
-                    return item.Replace( str, "" ).Replace( "=", "" ).Replace( " ", "" );
-                }
+
+            if (connectionString == null) throw new NullReferenceException( "connectionString" );
+
+            String[] arrItems = connectionString.Split( ';' );
+            Dictionary<String,String> dic = new Dictionary<String,String>();
+            foreach (String item in arrItems) {
+                if (strUtil.IsNullOrEmpty( item )) continue;
+
+                String[] arr = item.Trim().Split( '=' );
+                if (arr.Length != 2) continue;
+
+                String akey = getKey( arr[0].Trim() );
+                if (akey == null) continue;
+
+                dic[akey] = arr[1].Trim();
             }
+
+            String result = null;
+            dic.TryGetValue( getEnumKey( connectionItem ), out result );
+
+            return result;
+        }
+
+        private String getKey( string key ) {
+
+            key = key.ToLower();
+
+            if (key == "server") return getEnumKey( ConnectionItemType.Server );
+            if (key == "data source") return getEnumKey( ConnectionItemType.Server );
+            if (key == "addr") return getEnumKey( ConnectionItemType.Server );
+            if (key == "address") return getEnumKey( ConnectionItemType.Server );
+            if (key == "network address") return getEnumKey( ConnectionItemType.Server );
+
+            if (key == "uid") return getEnumKey( ConnectionItemType.UserId );
+            if (key == "user id") return getEnumKey( ConnectionItemType.UserId );
+            if (key == "user") return getEnumKey( ConnectionItemType.UserId );
+
+            if (key == "pwd") return getEnumKey( ConnectionItemType.Password );
+            if (key == "password") return getEnumKey( ConnectionItemType.Password );
+
+            if (key == "database") return getEnumKey( ConnectionItemType.Database );
+            if (key == "initial catalog") return getEnumKey( ConnectionItemType.Database );
+
+            if (key == "trusted_connection") return getEnumKey( ConnectionItemType.IsTrusted );
+            if (key == "integrated security") return getEnumKey( ConnectionItemType.IsTrusted );
+
+            return null;
+        }
+
+        private String getEnumKey( ConnectionItemType connectionItem ) {
+            if (connectionItem == ConnectionItemType.Server) return "server";
+            if (connectionItem == ConnectionItemType.UserId) return "userid";
+            if (connectionItem == ConnectionItemType.Password) return "password";
+            if (connectionItem == ConnectionItemType.Database) return "database";
+            if (connectionItem == ConnectionItemType.IsTrusted) return "istrusted";
             return null;
         }
 
