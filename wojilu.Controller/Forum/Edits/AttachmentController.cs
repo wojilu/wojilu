@@ -267,7 +267,8 @@ namespace wojilu.Web.Controller.Forum.Edits {
             attachment.Type = postedFile.ContentType;
             attachment.Name = result.Info.ToString();
 
-            attachmentService.UpdateFile( attachment, toDeleteFile );
+            User user = ctx.viewer.obj as User;
+            attachmentService.UpdateFile( user, attachment, toDeleteFile );
 
             echoToParent( lang( "opok" ) );
         }

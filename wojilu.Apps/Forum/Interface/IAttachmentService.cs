@@ -34,7 +34,7 @@ namespace wojilu.Apps.Forum.Interface {
 
         void UpdateName( Attachment attachment, string name );
 
-        void UpdateFile( Attachment attachment, String oldFilePath );
+        void UpdateFile( User user, Attachment attachment, String oldFilePath );
 
         void Delete( int id );
 

@@ -372,7 +372,7 @@ namespace wojilu.Web.Controller.Forum {
             }
 
             StringBuilder sb = new StringBuilder();
-            String created = attachList[0].Created.ToString();
+            String created = getAttachmentLastUpdateTime( attachList ).ToString();
             sb.Append( "<div class=\"hr\"></div><div class=\"attachmentTitleWrap\"><div class=\"attachmentTitle\">" + alang( "attachment" ) + " <span class=\"note\">(" + created + ")</span> " );
             if (ctx.viewer.Id == data.Creator.Id || hasAdminPermission( data )) {
                 sb.AppendFormat( "<a href=\"{0}\">" + alang( "adminAttachment" ) + "</a>", to( new Edits.AttachmentController().Admin, data.TopicId ) );
@@ -386,14 +386,13 @@ namespace wojilu.Web.Controller.Forum {
 
                 if (attachment.IsImage) {
 
-                    sb.AppendFormat( "<li><div>{0} <span class=\"note\">({1}KB)</span></div>", fileName, attachment.FileSizeKB );
+                    sb.AppendFormat( "<li><div>{0} <span class=\"note\">({1}KB, {2})</span></div>", fileName, attachment.FileSizeKB, attachment.Created );
                     sb.AppendFormat( "<div><a href=\"{0}\" target=\"_blank\"><img src=\"{1}\" /></a></div></li>",
                         attachment.FileUrl, attachment.FileMediuUrl );
                 }
                 else {
 
-
-                    sb.AppendFormat( "<li><div>{0} <span class=\"note right10\">({1}KB)</span>", fileName, attachment.FileSizeKB );
+                    sb.AppendFormat( "<li><div>{0} <span class=\"note right10\">({1}KB, {2})</span>", fileName, attachment.FileSizeKB, attachment.Created );
 
                     sb.AppendFormat( "<img src=\"{1}\" /><a href=\"{0}\" target=\"_blank\">" + alang( "hitDownload" ) + "</a></div>", to( new AttachmentController().Show, attachment.Id ) + "?id=" + attachment.Guid, strUtil.Join( sys.Path.Img, "/s/download.png" ) );
                 }
@@ -403,6 +402,16 @@ namespace wojilu.Web.Controller.Forum {
             content = string.Format( "<div>{0}</div><div id=\"attachmentPanel\">{1}</div>", content, sb.ToString() );
 
             return content;
+        }
+
+        private DateTime getAttachmentLastUpdateTime( List<Attachment> attachList ) {
+
+            DateTime result = attachList[0].Created;
+            foreach (Attachment x in attachList) {
+                if (x.Created > result) result = x.Created;
+            }
+
+            return result;
         }
 
         private String addEditInfo( ForumPost data, String content ) {

@@ -112,8 +112,9 @@ namespace wojilu.Apps.Forum.Service {
             attachment.update( "Description" );
         }
 
-        public virtual void UpdateFile( Attachment a, String oldFilePath ) {
+        public virtual void UpdateFile( User user, Attachment a, String oldFilePath ) {
 
+            a.Created = DateTime.Now;
             a.update();
 
             if (a.IsImage) {
@@ -122,6 +123,10 @@ namespace wojilu.Apps.Forum.Service {
             else {
                 Img.DeleteFile( oldFilePath );
             }
+
+            ForumTopicService topicService = new ForumTopicService();
+            ForumPost post = ForumPost.findById( a.PostId );
+            topicService.UpdateLastEditInfo( user, post );
         }
 
         //--------------------------------------------------------------------------------------------------------------
@@ -155,10 +160,11 @@ namespace wojilu.Apps.Forum.Service {
             ForumPost post = topicService.GetPostByTopic( a.TopicId );
             a.PostId = post.Id;
 
-
             Result result = db.insert( a );
 
             refreshTopicCount( a );
+
+            topicService.UpdateLastEditInfo( user, post );
 
             return result;
         }

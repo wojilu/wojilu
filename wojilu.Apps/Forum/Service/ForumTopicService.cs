@@ -537,13 +537,19 @@ namespace wojilu.Apps.Forum.Service {
         internal void UpdatePostByTopic( ForumTopic topic, User user ) {
 
 
-            ForumPost postByTopic = GetPostByTopic( topic.Id );
-            postByTopic.Title = topic.Title;
-            postByTopic.Content = topic.Content;
-            postByTopic.EditTime = DateTime.Now;
-            postByTopic.EditCount++;
-            postByTopic.EditMemberId = user.Id;
-            db.update( postByTopic );
+            ForumPost post = GetPostByTopic( topic.Id );
+            post.Title = topic.Title;
+            post.Content = topic.Content;
+
+            UpdateLastEditInfo( user, post );
+
+        }
+
+        public void UpdateLastEditInfo( User user, ForumPost post ) {
+            post.EditTime = DateTime.Now;
+            post.EditCount++;
+            post.EditMemberId = user.Id;
+            db.update( post );
         }
 
         public virtual void UpdateReply( ForumTopic topic ) {
