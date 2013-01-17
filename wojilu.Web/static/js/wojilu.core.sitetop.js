@@ -53,6 +53,7 @@
             if( nav.topNavDisplay == 1 ) {$('#topNav').hide(); return; }
             if( ctx.viewer.IsLogin ==false ) {
                 $('#loginSection').show();
+                $('#topLoginForm').show();
                 if( ctx.owner.LoginValidImg ==false ) {
                     $('#loginValidBox').remove(); 
                 } 

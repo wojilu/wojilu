@@ -1,6 +1,6 @@
 ﻿
 
-<div style="width: 550px; background: #fff; margin: auto; padding: 50px 0px;">
+<div style="width: 620px; background: #fff; margin: auto; padding: 50px 0px;">
 	<div style="font-size: 16px; font-weight: bold; padding: 5px 10px; border-bottom: 1px #ccc solid; margin: 10px">
 		_{resetPwd}</div>
 	<form action="#{ActionLink}" method="post" id="mypwdform" class="ajaxPostForm" loading="_{sendingEmailTip}" callback="postCallback">
@@ -14,7 +14,10 @@
 			<tr>
 				<td>&nbsp;</td>
 				<td>
-					<input class="btn" name="Submit1" type="submit" value="_{submit}" />
+                    <button name="Submit1" type="submit" class="btn btn-primary">
+                        <i class="icon-hand-right icon-white"></i>
+                        _{submit}
+                    </button>
 				</td>
 			</tr>
 			<tr><td></td><td><span class="note left10">_{forgetEmailTip}</span></td></tr>

@@ -24,8 +24,9 @@
             <span id="siteAdminCmd"></span>
 		</td>
 		
-		<td>		
-		    <form action="#{LoginAction}" method="post" id="loginForm" class="autoSubmitForm" style="float:right; border:0px #aaa solid; display:none;">		
+		<td>	
+            <div id="topLoginForm" style="display:none;">
+		    <form action="#{LoginAction}" method="post" id="loginForm" class="autoSubmitForm" style="float:right;">		
 		        _{userName} <input class="txtUid" name="txtUid" type="text" style="width:80px; border:1px #ccc inset;" />
 		        _{pwd} <input name="txtPwd" type="password"  style="width:60px;  border:1px #ccc inset;" />
 		    
@@ -36,6 +37,7 @@
 		    <input type="hidden" name="returnUrl" id="topNavReturnUrl" value="" />
 
 			</form>
+            </div>
 			
 			<div id="loginValidBox" class="ebox" style="width:380px;padding:10px 5px; ">_{validationCode} #{ValidationCode}</div>
 			
