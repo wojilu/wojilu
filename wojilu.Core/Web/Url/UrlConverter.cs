@@ -72,6 +72,8 @@ namespace wojilu.Web.Url {
 
         private static String getFullUrl( String url, String ownerPathAndUrl, MvcContext ctx ) {
 
+
+
             // 包括http是完整的url
             Boolean isFullUrl = url.ToLower().StartsWith( "http:" ) || url.ToLower().StartsWith( "https:" );
             if (isFullUrl) return url;
@@ -127,6 +129,12 @@ namespace wojilu.Web.Url {
         public static String getMenuFullPath( MvcContext ctx, IMenu menu ) {
 
             String url = menu.RawUrl;
+
+            // 增加微博的特殊处理
+            if (url != null && url.StartsWith( "t" + MvcConfig.Instance.UrlSeparator )) {
+                url = strUtil.Join( "", url, MvcConfig.Instance.UrlSeparator );
+            }
+
             String ownerPathAndUrl = getMemberPathUrlByMenu( menu );
 
             // 带http的完整网址
