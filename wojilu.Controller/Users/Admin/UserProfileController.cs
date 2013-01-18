@@ -206,7 +206,7 @@ namespace wojilu.Web.Controller.Users.Admin {
         public void SaveEmail() {
 
             String pwd = ctx.Post( "Pwd" );
-            String email = strUtil.CutString( ctx.Post( "Email" ), 30 );
+            String email = strUtil.SubString( ctx.Post( "Email" ), RegPattern.EmailLength );
 
             User user = ctx.owner.obj as User;
 

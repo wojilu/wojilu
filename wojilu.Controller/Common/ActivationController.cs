@@ -186,7 +186,7 @@ namespace wojilu.Web.Controller.Common {
             }
 
 
-            String email = ctx.Post( "Email" );
+            String email = strUtil.SubString( ctx.Post( "Email" ), RegPattern.EmailLength );
 
             if (strUtil.IsNullOrEmpty( email )) {
                 echoError( "请填写email" );

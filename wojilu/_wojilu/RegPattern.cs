@@ -36,6 +36,11 @@ namespace wojilu {
         // http://msdn.microsoft.com/en-us/library/ms998267.aspx
 
         /// <summary>
+        /// 允许的 email 长度
+        /// </summary>
+        public static readonly int EmailLength = 50;
+
+        /// <summary>
         /// email 正则表达式
         /// </summary>
         public static readonly String Email = @"^(?("")("".+?""@)|(([0-9a-zA-Z]((\.(?!\.))|[-!#\$%&'\*\+/=\?\^`\{\}\|~\w])*)(?<=[0-9a-zA-Z])@))(?(\[)(\[(\d{1,3}\.){3}\d{1,3}\])|(([0-9a-zA-Z][-\w]*[0-9a-zA-Z]\.)+[a-zA-Z]{2,6}))$";

@@ -340,8 +340,7 @@ namespace wojilu.Web.Controller {
             String name = ctx.Post( "Name" );
             String pwd = ctx.Post( "Password1" );
             String pageUrl = ctx.Post( "FriendUrl" );
-            String email = ctx.Post( "Email" );
-
+            String email = strUtil.SubString( ctx.Post( "Email" ), RegPattern.EmailLength );
 
             if (strUtil.IsNullOrEmpty( name )) {
                 errors.Add( lang( "exUserName" ) );

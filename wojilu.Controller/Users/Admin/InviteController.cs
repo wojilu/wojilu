@@ -67,7 +67,7 @@ namespace wojilu.Web.Controller.Users.Admin {
             List<String> list = new List<string>();
             foreach (String mailStr in arrMail) {
                 if (strUtil.IsNullOrEmpty( mailStr )) continue;
-                String mail = mailStr.Trim();
+                String mail = strUtil.SubString( mailStr.Trim(), RegPattern.EmailLength );
                 if (RegPattern.IsMatch( mail, RegPattern.Email )) list.Add( mail );
             }
 
