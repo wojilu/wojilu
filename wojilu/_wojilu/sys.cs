@@ -59,6 +59,20 @@ namespace wojilu {
     public class SysRequest {
 
         /// <summary>
+        /// 返回 http 或者 https，如果要返回 http:// ，请属性 SchemeStr
+        /// </summary>
+        public String Scheme {
+            get { return SystemInfo.Instance.Scheme; }
+        }
+
+        /// <summary>
+        /// 返回 http:// 或者 https://，如果要返回 http ，请属性 Scheme
+        /// </summary>
+        public String SchemeStr {
+            get { return this.Scheme + "://"; }
+        }
+
+        /// <summary>
         /// 返回 http://www.abc.com/app 这种格式，包括端口号
         /// </summary>
         public String SiteUrl {

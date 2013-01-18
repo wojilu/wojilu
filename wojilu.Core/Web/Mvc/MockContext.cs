@@ -88,7 +88,7 @@ namespace wojilu.Web.Mvc {
 
         private static MvcContext getContextInit() {
 
-            String urlRoot = "http://" + SystemInfo.Authority;
+            String urlRoot = sys.Url.SchemeStr + SystemInfo.Authority;
 
 
             IWebContext webContext = MockWebContext.New( 1, urlRoot, new System.IO.StringWriter() );

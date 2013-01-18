@@ -51,7 +51,9 @@ namespace wojilu.Drawing {
         public static void DeleteImgAndThumb( String srcPath, ThumbnailType[] arrThumbType ) {
 
             if (strUtil.IsNullOrEmpty( srcPath )) return;
-            if (srcPath.ToLower().StartsWith( "http://" )) return;
+            if (srcPath.ToLower().StartsWith( "http://" ) ||
+                srcPath.ToLower().StartsWith( "https://" )
+                ) return;
 
             String path = PathHelper.Map( srcPath );
             if (file.Exists( path ))
@@ -71,7 +73,9 @@ namespace wojilu.Drawing {
         /// <param name="srcPath">相对路径</param>
         public static void DeleteFile( String srcPath ) {
             if (strUtil.IsNullOrEmpty( srcPath )) return;
-            if (srcPath.ToLower().StartsWith( "http://" )) return;
+            if (srcPath.ToLower().StartsWith( "http://" ) ||
+                srcPath.ToLower().StartsWith( "https://" )
+                ) return;
 
             String path = PathHelper.Map( srcPath );
             if (file.Exists( path ))

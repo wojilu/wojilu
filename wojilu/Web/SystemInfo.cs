@@ -161,7 +161,7 @@ namespace wojilu.Web {
                     obj.host = obj.hostNoSubdomain;
                 }
 
-                obj.siteRoot = "http://" + SystemInfo.Host;
+                obj.siteRoot = obj.Scheme + "://" + SystemInfo.Host;
 
             }
             else {

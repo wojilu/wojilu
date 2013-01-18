@@ -126,10 +126,10 @@ namespace wojilu.Web.Mvc {
 
         internal static string GetMemberUrl( String memberUrl, String ownerPath, String memberType ) {
             if (LinkHelper.IsMemberSubdomain( memberType )) {
-                return "http://" + memberUrl + "." + SystemInfo.HostNoSubdomain;
+                return sys.Url.SchemeStr + memberUrl + "." + SystemInfo.HostNoSubdomain;
             }
             else {
-                return "http://" + Join( SystemInfo.Host, GetMemberUrl( memberType, memberUrl ) ) + MvcConfig.Instance.UrlExt;
+                return sys.Url.SchemeStr + Join( SystemInfo.Host, GetMemberUrl( memberType, memberUrl ) ) + MvcConfig.Instance.UrlExt;
             }
         }
 
@@ -173,10 +173,10 @@ namespace wojilu.Web.Mvc {
             if (MvcConfig.Instance.CheckDomainMap()) {
 
                 if (IsMemberSubdomain( memberType )) {
-                    return "http://" + memberUrl + "." + SystemInfo.HostNoSubdomain;
+                    return sys.Url.SchemeStr + memberUrl + "." + SystemInfo.HostNoSubdomain;
                 }
                 else {
-                    return "http://" + Join( SystemInfo.Host, GetMemberUrl( memberType, memberUrl ) );
+                    return sys.Url.SchemeStr + Join( SystemInfo.Host, GetMemberUrl( memberType, memberUrl ) );
                 }
             }
             else {

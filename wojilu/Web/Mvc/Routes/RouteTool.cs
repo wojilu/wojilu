@@ -107,7 +107,9 @@ namespace wojilu.Web.Mvc.Routes {
 
             String path;
 
-            if (urlPath.StartsWith( "http://" )) {
+            if (urlPath.StartsWith( "http://" ) ||
+                urlPath.StartsWith( "https://" )
+                ) {
                 UriBuilder builder = new UriBuilder( urlPath );
                 path = builder.Path;
             }

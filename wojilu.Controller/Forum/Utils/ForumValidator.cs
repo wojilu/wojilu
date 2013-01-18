@@ -99,7 +99,7 @@ namespace wojilu.Web.Controller.Forum.Utils {
 
             if (strUtil.IsNullOrEmpty( url ))
                 ctx.errors.Add( lang.get( "exUrl" ) );
-            else if (!url.ToLower().StartsWith( "http://" ))
+            else if (!url.ToLower().StartsWith( "http" ))
                 url = "http://" + url;
 
             //if (strUtil.IsNullOrEmpty( logo ))

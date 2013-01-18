@@ -24,7 +24,7 @@ namespace wojilu.Common.Jobs {
                 sys.Clear.ClearAll();
             }
 
-            String url = "http://" + SystemInfo.Authority;
+            String url = sys.Url.SchemeStr + SystemInfo.Authority;
             url = strUtil.Join( url, "refresh.aspx" );
             try {
                 HttpWebRequest request = (HttpWebRequest)WebRequest.Create( url );

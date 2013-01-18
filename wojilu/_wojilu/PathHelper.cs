@@ -102,7 +102,9 @@ namespace wojilu {
 
             if (strUtil.IsNullOrEmpty( url )) return false;
             if (url.Trim().StartsWith( "/" )) return false;
-            if (url.Trim().StartsWith( "http://" )) return true;
+            if (url.Trim().StartsWith( "http://" ) ||
+                url.Trim().StartsWith( "https://" )
+                ) return true;
 
             String[] arrItem = url.Split( '/' );
             if (arrItem.Length < 1) return false;

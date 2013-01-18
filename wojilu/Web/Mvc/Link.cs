@@ -120,7 +120,7 @@ namespace wojilu.Web.Mvc {
         /// <returns></returns>
         public static String ToUser( String friendUrl ) {
             if (LinkHelper.IsMemberSubdomain( ConstString.UserTypeFullName )) {
-                return "http://" + friendUrl + "." + SystemInfo.HostNoSubdomain;
+                return sys.Url.SchemeStr + friendUrl + "." + SystemInfo.HostNoSubdomain;
             }
             else {
                 return strUtil.Append( LinkHelper.Join( LinkHelper.AppPath, friendUrl ), MvcConfig.Instance.UrlExt );

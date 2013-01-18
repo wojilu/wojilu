@@ -120,7 +120,7 @@ namespace wojilu.Web.Mvc {
         public static String ToUserMicroblog( IMember user ) {
 
             if (LinkHelper.IsMemberSubdomain( typeof( User ).FullName )) {
-                return "http://" + user.Url + "." + SystemInfo.HostNoSubdomain + MvcConfig.Instance.UrlSeparator + "t" + MvcConfig.Instance.UrlExt;
+                return sys.Url.SchemeStr + user.Url + "." + SystemInfo.HostNoSubdomain + MvcConfig.Instance.UrlSeparator + "t" + MvcConfig.Instance.UrlExt;
             }
             else {
                 return LinkHelper.Join( _app, "t" ) + MvcConfig.Instance.UrlSeparator + user.Url + MvcConfig.Instance.UrlExt;
