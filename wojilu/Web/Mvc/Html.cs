@@ -50,7 +50,7 @@ namespace wojilu.Web.Mvc {
             StringBuilder builder = new StringBuilder();
             for (int i = 0; i < items.Length; i++) {
                 Boolean isChk = IsValueChecked( arrSelectValue, items[i] );
-                builder.AppendFormat( "<label class=\"checkbox\"><input type=\"checkbox\" name=\"{0}\" value=\"{1}\" {2}/> {1}</label> ", chkName, items[i], isChk ? "checked=\"checked\"" : "" );
+                builder.AppendFormat( "<label class=\"checkbox\" id=\"lbl-{0}{4}\"><input type=\"checkbox\" id=\"{0}{4}\" name=\"{0}\" value=\"{1}\" {2}/> {1}</label> ", chkName, items[i], isChk ? "checked=\"checked\"" : "", i );
             }
             return builder.ToString();
         }
@@ -68,10 +68,12 @@ namespace wojilu.Web.Mvc {
             String[] arrSelectValue = getSelectValueArray( chkName, selectValue );
             StringBuilder builder = new StringBuilder();
 
+            int i = 0;
             foreach (KeyValuePair<String, String> kv in dic) {
                 Boolean isChk = IsValueChecked( arrSelectValue, kv.Value );
                 String strchk = isChk ? "checked=\"checked\"" : "";
-                builder.AppendFormat( "<label class=\"checkbox\"><input type=\"checkbox\" name=\"{0}\" value=\"{1}\" {2}/> {3}</label> ", chkName, kv.Value, strchk, kv.Key );
+                builder.AppendFormat( "<label class=\"checkbox\" id=\"lbl-{0}{4}\"><input type=\"checkbox\" id=\"{0}{4}\" name=\"{0}\" value=\"{1}\" {2}/> {3}</label> ", chkName, kv.Value, strchk, kv.Key, i );
+                i++;
             }
 
             return builder.ToString();
@@ -94,7 +96,7 @@ namespace wojilu.Web.Mvc {
                 String txt = ReflectionUtil.GetPropertyValue( list[i], textField ).ToString();
                 String val = ReflectionUtil.GetPropertyValue( list[i], valueField ).ToString();
                 Boolean ischk = IsValueChecked( arrSelectValue, val );
-                builder.AppendFormat( "<label class=\"checkbox\"><input type=\"checkbox\" name=\"{0}\" value=\"{1}\" {3}/> {2}</label> ", chkName, val, txt, ischk ? "checked=\"checked\"" : "" );
+                builder.AppendFormat( "<label class=\"checkbox\" id=\"lbl-{0}{4}\"><input type=\"checkbox\" id=\"{0}{4}\" name=\"{0}\" value=\"{1}\" {3}/> {2}</label> ", chkName, val, txt, ischk ? "checked=\"checked\"" : "", i );
             }
             return builder.ToString();
         }
@@ -188,7 +190,7 @@ namespace wojilu.Web.Mvc {
                 if (string.Compare( items[i], str.ToString(), true ) == 0) {
                     strchk = "checked=\"checked\"";
                 }
-                builder.AppendFormat( "<label class=\"radio inline\"><input type=\"radio\" id=\"{0}{3}\" name=\"{0}\" value=\"{1}\" {2}/>{1}</label> ", radioName, items[i], strchk, i );
+                builder.AppendFormat( "<label class=\"radio inline\" id=\"lbl-{0}{3}\"><input type=\"radio\" id=\"{0}{3}\" name=\"{0}\" value=\"{1}\" {2}/>{1}</label> ", radioName, items[i], strchk, i );
             }
             return builder.ToString();
         }
@@ -206,7 +208,7 @@ namespace wojilu.Web.Mvc {
             int i = 0;
             foreach (KeyValuePair<String, String> kv in dic) {
                 String strchk = kv.Value.Equals( selval ) ? "checked=\"checked\"" : String.Empty;
-                builder.AppendFormat( "<label class=\"radio inline\"><input type=\"radio\" id=\"{0}{4}\" name=\"{0}\" value=\"{1}\" {2}/>{3}</label> ", radioName, kv.Value, strchk, kv.Key, i );
+                builder.AppendFormat( "<label class=\"radio inline\" id=\"lbl-{0}{4}\"><input type=\"radio\" id=\"{0}{4}\" name=\"{0}\" value=\"{1}\" {2}/>{3}</label> ", radioName, kv.Value, strchk, kv.Key, i );
                 i++;
             }
             return builder.ToString();
@@ -231,7 +233,7 @@ namespace wojilu.Web.Mvc {
                 if (string.Compare( fval, str.ToString(), true ) == 0) {
                     strchk = "checked=\"checked\"";
                 }
-                builder.AppendFormat( "<label class=\"radio inline\"><input type=\"radio\" id=\"{0}{4}\" name=\"{0}\" value=\"{1}\" {3}/>{2}</label> ", radioName, fval, txt, strchk, i );
+                builder.AppendFormat( "<label class=\"radio inline\" id=\"lbl-{0}{4}\"><input type=\"radio\" id=\"{0}{4}\" name=\"{0}\" value=\"{1}\" {3}/>{2}</label> ", radioName, fval, txt, strchk, i );
             }
             return builder.ToString();
         }
