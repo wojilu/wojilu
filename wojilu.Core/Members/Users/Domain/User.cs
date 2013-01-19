@@ -131,6 +131,8 @@ namespace wojilu.Members.Users.Domain {
             }
             set { _roleId = value; }
         }
+        public String QQOpenId { get; set; }
+        public String QQName { get; set; }
 
         //----------------------------------------------------------------
 

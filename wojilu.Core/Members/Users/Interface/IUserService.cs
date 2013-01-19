@@ -69,6 +69,7 @@ namespace wojilu.Members.Users.Interface {
         Boolean IsUserDeleted( User user );
 
         User Register( User user, MvcContext ctx );
+        User Bind(User user, MvcContext ctx);
 
         void SendConfirmEmail( User user );
         void UpdatePwd( User user, String pwd );

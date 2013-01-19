@@ -12875,6 +12875,15 @@ wojilu.ui.select = function() {
     return choiceList;
 };
 
+wojilu.ui.slideToggleForm = function () {
+    $(".forum-category-arrow").each(function () {
+        var self = $(this);
+        self.click(function () {
+        self.parent().parent().parent().find(".forumBoard").slideToggle("fast");
+        });
+    });
+};
+
 $(document).ready( function() {
     wojilu.ui.menu();
     wojilu.ui.clickMenu();
@@ -12886,6 +12895,7 @@ $(document).ready( function() {
     wojilu.ui.frmLoader();
     wojilu.ui.ajaxLoader();
     wojilu.ui.autoSubmitForm();
+    wojilu.ui.slideToggleForm();
 });
 
 

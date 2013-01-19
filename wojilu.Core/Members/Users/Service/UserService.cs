@@ -186,6 +186,21 @@ namespace wojilu.Members.Users.Service {
             return user;
         }
 
+        public virtual User Bind(User user, MvcContext ctx)
+        {
+            User ExistUser = IsNamePwdCorrect(user.Name, user.Pwd);
+            if (ExistUser == null)
+            {
+                ctx.errors.Add(lang.get("exUserNamePwdError"));
+                return null;
+            }
+            ExistUser.QQOpenId = ctx.web.SessionGet("openid").ToString();
+            db.update(ExistUser, "QQOpenId");
+
+            //sendMsg(user);
+            return ExistUser;
+        }
+
         private Boolean isFirstUser() {
             return db.count<User>() == 1;
         }
@@ -377,7 +392,8 @@ namespace wojilu.Members.Users.Service {
         }
 
         public virtual User GetByName( String name ) {
-            return User.find( "Name=:name" ).set( "name", name ).first();
+            //return User.find( "Name=:name" ).set( "name", name ).first();
+            return User.find("Name=:name and Pwd<>''").set("name", name).first();
         }
 
         public virtual User GetByUrl( String friendUrl ) {

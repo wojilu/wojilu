@@ -11,7 +11,7 @@
     <div class="navbar navbar-fixed-top">
         <div id="navbar-inner">
             <div id="top-nav-left">
-                <img src="~skin/site/new/home.png" style="margin-top:-8px;" />
+                <img src="~static/skin/site/new/home.gif" style="margin-top:-8px;" />
                 <a href="#{site.Url}" style="color:#333; font-size:18px; font-weight:bold;">#{site.Name}</a>
             </div>
             <ul class="nav-top" id="topNavMenu" style="display: none;">
@@ -40,6 +40,7 @@
             <div id="top-nav-right">
                 <!---------------login form---------------->
                 <form id="loginForm" class="navbar-form form-inline" action="#{LoginAction}" method="post" style="display:none; ">
+                    <span id="qqLoginBtn"><a href="#{QQloginUrl}"><img src="~img/Connect_logo_3.png" class="vm" alt="QQ登录" /></a></span>
                     <span class="help-inline"><a href="#{RegLink}" class="right10">_{register}</a></span>
                     <input type="text" name="txtUid" class="input-small" placeholder="用户名" style="height:14px;margin:0px;">
                     <input type="password" name="txtPwd" class="input-small" placeholder="密码" style="height:14px;margin:0px;">

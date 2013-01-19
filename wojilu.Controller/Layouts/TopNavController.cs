@@ -72,6 +72,7 @@ _run( function() {
             set( "LoginAction", Link.To( Site.Instance, new MainController().CheckLogin ) );
             set( "RegLink", Link.To( Site.Instance, new RegisterController().Register ) );
             set( "resetPwdLink", Link.To( Site.Instance, new wojilu.Web.Controller.Common.ResetPwdController().StepOne ) );
+            set("QQloginUrl", Link.To(Site.Instance, new QzoneAuthenController().QQlogin));
 
             String emailCredit = getEmailConfirmCredit( 18 );
             String uploadCredit = getEmailConfirmCredit( 17 );

@@ -194,6 +194,10 @@ namespace wojilu {
             _siteSetting.DenyEditUserRealName = cvt.ToBool(getVal(dic, "DenyEditUserRealName"));
             _siteSetting.DenyEditUserTitle = cvt.ToBool(getVal(dic, "DenyEditUserTitle"));
 
+            _siteSetting.QQAPI_appId = getVal(dic, "QQAPI_appId");
+            _siteSetting.QQAPI_appPass = getVal(dic, "QQAPI_appPass");
+            _siteSetting.QQAPI_redirectUri = getVal(dic, "QQAPI_redirectUri");
+
             _siteSetting.setValueAll( dic );
         }
 

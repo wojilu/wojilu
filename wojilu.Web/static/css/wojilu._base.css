@@ -160,7 +160,7 @@ input.searchs {background:url('../img/search2.gif') no-repeat;width:20px;height:
 
 /****************************************************************/
 
-body { background:url(../skin/site/new/body-bg.jpg);}
+body { background-color:#f0f0f0; background-position: 0px 0px; background-attachment: fixed; padding-top:42px;}
 .container { background:#fff; box-shadow:0px 5px 30px #aaa;}
 
 blockquote {font-size:14px; color:#3e3e3e;}
@@ -174,11 +174,19 @@ blockquote div{font-size:14px; color:#3e3e3e;}
     border-bottom: 1px solid rgba(0, 0, 0, 0.32);
     box-shadow: 0 0 4px rgba(0, 0, 0, 0.35);
     height:42px; 
-    position: static !important;
+    /*position: static !important;*/
     width: 100%;
     z-index: 888;
+    _position: relative ;
+    _top:0px;
 }
-    #navbar-inner {width:940px;margin:0px auto; }
+.navbar-fixed-top{
+position: fixed;
+top: 0px; /* position fixed for IE6 */
+_position: absolute;
+_top: expression(documentElement.scrollTop + "px");
+}
+    #navbar-inner {width:940px;margin:0px auto;}
         #top-nav-left { float:left;margin-top:12px;margin-left:5px;}
         #top-nav-right { float:right; margin-top:5px;}
         #topNavMenu { margin-top:5px; }
@@ -220,7 +228,7 @@ blockquote div{font-size:14px; color:#3e3e3e;}
 .admin-menu-current {font-weight:bold; font-size:14px; }
 .admin-menu-current a {}
 
-.footer{background:url(../skin/site/new/footer-bg.jpg); text-align:center; height:78px;margin-top:0px;padding-top:0px;}
+.footer{background:url(../skin/site/new/footer-bg.jpg);*background:url(../skin/site/new/footer-bg-ie.jpg); text-align:center; height:78px;margin-top:0px;padding-top:0px;}
 .footer-inner {padding-top:10px;}
 
 #backTop { display:none;position: fixed; bottom: 20px; right: 20px; z-index:1999 ; width: 71px;cursor:pointer;}

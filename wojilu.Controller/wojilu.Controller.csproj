@@ -194,6 +194,7 @@
     <Compile Include="Photo\Wf\LayoutController.cs" />
     <Compile Include="Photo\Helper\PhotoLink.cs" />
     <Compile Include="Photo\Wf\UserHomeController.cs" />
+    <Compile Include="QzoneAuthenController.cs" />
     <Compile Include="Security\SiteAdminService.cs" />
     <Compile Include="ShareController.cs" />
     <Compile Include="Photo\Admin\PhotoController.cs" />

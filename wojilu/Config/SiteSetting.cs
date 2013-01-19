@@ -773,6 +773,11 @@ namespace wojilu.Config {
 
         private static Object objLock = new object();
 
+        //----------------------------------------------------------------
+
+        public String QQAPI_appId { get; set; }
+        public String QQAPI_appPass { get; set; }
+        public String QQAPI_redirectUri { get; set; }
 
     }
 }

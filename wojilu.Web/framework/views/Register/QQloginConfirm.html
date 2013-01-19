@@ -1,0 +1,73 @@
+﻿
+
+<div style="padding:10px 0px 30px 30px;height:500px">
+
+<style>
+
+
+#register{ border:0px #ccc solid; border-collapse:collapse;  width:680px}
+#register td{font-size:12px; padding:3px;height:20px;}
+#register .right {width:120px; padding-right:5px}
+#register .lgTitle{padding:15px 10px 10px 0px; font-size:28px;font-weight:bold;}
+#register .lgsubmit {padding:15px 10px 10px 0px}
+#register .lgInput {width:180px;height:20px;font-size:16px; padding:3px}
+#register .valid {font-size:12px; color:#aaa}
+
+#refreshImg {color:blue;text-decoration:underline;cursor:pointer;}
+
+</style>
+
+
+<form method="post" action="#{ActionLink}" class="registerForm">
+
+	<div class="alert alert-warning" style="margin:20px;width:80%;">
+	<ul style="padding-left:70px;">
+	    <!-- BEGIN sendConfirmEmail -->
+	    <li style="list-style-type:disc;  margin-top:10px;">您现在是首次以QQ帐号方式登录，您可以 <a href="#{resendLink}" style="">点击此处</a> 创建帐号并直接登录，或者您也可以按以下提示输入帐号密码信息绑定现有帐号</li>
+	    <!-- END sendConfirmEmail -->
+	    <li style="list-style-type:disc;">#{loginTip}</li>
+	</ul>
+	</div>
+
+	<table id="register">
+	<tr><td></td>
+		<td class="lgTitle">_{userBind}</td>
+	</tr>
+		<tr>
+			<td class="right">_{userName}</td>
+			<td><input name="Name" id="userName" type="text" value="#{m.Name}"> <span class="valid" msg="#{userNameNote}" show="true" rule="name_cn"></span>
+			</td>
+		</tr>
+		<tr>
+			<td class="right">_{pwd}</td>
+			<td><input name="Password1" type="password" value="#{m.Password1}"> <span class="valid" msg="_{pwdNote}" show="true" rule="password"></span></td>
+		</tr>
+	
+		<tr><td colspan="2" style="height:1px;"></td></tr>
+		<!-- BEGIN Captcha -->
+		<tr id="validationRow">
+		    <td class="right">_{validationCode}</td><td>#{ValidationCode}</td>
+		</tr><!-- END Captcha -->
+		
+		<tr><td></td><td class="lgsubmit">
+		<input name="btnRegister" type="submit" class="btn btn-primary" value="_{submitBind}">
+		<input name="Reset1" type="reset" value="_{regReset}" class="btn btnReset left10" id="btnReset" />
+		</td></tr>
+		<tr><td></td><td><label for="readLow" style="color:#aaa;">_{readAndAgree} <a href="/agreement.html" style="text-decoration:underline;" target="_blank">_{regService}</a></label></td></tr>
+	</table>
+	
+</form>
+
+<script type="text/javascript">
+
+_run( function() {
+	wojilu.ui.valid();
+	var vimg = $('#validationRow img');
+	$('#btnReset').click( function() {wojilu.tool.refreshImg(vimg);} );
+	
+
+});
+
+</script>
+
+</div>
