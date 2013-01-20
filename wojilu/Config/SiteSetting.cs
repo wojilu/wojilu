@@ -132,6 +132,11 @@ namespace wojilu.Config {
         public String Description { get; set; }
 
         /// <summary>
+        /// 备案号
+        /// </summary>
+        public String BeiAn { get; set; }
+
+        /// <summary>
         /// 用户聚合首页的默认关键词
         /// </summary>
         public String UserPageKeywords { get; set; }

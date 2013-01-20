@@ -313,6 +313,7 @@ namespace wojilu.Web.Controller.Admin {
             String SiteUrl = ctx.Post( "SiteUrl" );
             String Webmaster = ctx.Post( "Webmaster" );
             String Email = ctx.Post( "Email" );
+            String BeiAn = ctx.Post( "BeiAn" );
 
             String Keywords = ctx.Post( "Keywords" );
             String Description = ctx.Post( "Description" );
@@ -327,9 +328,7 @@ namespace wojilu.Web.Controller.Admin {
             int UploadFileMaxMB = ctx.PostInt( "UploadFileMaxMB" );
             int UploadPicMaxMB = ctx.PostInt( "UploadPicMaxMB" );
 
-
             Boolean CloseComment = ctx.PostIsCheck( "CloseComment" ) == 1 ? true : false;
-
 
             Boolean StatsEnabled = ctx.PostIsCheck( "StatsEnabled" ) == 1 ? true : false;
             String StatsJs = ctx.PostHtmlAll( "StatsJs" );
@@ -337,48 +336,47 @@ namespace wojilu.Web.Controller.Admin {
             if (strUtil.IsNullOrEmpty( SiteName )) errors.Add( lang( "exSiteName" ) );
             if (strUtil.IsNullOrEmpty( SiteUrl )) errors.Add( lang( "exUrl" ) );
 
-            if (ctx.HasErrors)
+            if (ctx.HasErrors) {
                 echoError();
-            else {
-
-
-                config.Instance.Site.SiteName = SiteName; config.Instance.Site.Update( "SiteName", SiteName );
-                config.Instance.Site.SiteUrl = SiteUrl; config.Instance.Site.Update( "SiteUrl", SiteUrl );
-                config.Instance.Site.Webmaster = Webmaster; config.Instance.Site.Update( "Webmaster", Webmaster );
-                config.Instance.Site.Email = Email; config.Instance.Site.Update( "Email", Email );
-
-                config.Instance.Site.Keywords = Keywords; config.Instance.Site.Update( "Keywords", Keywords );
-                config.Instance.Site.Description = Description; config.Instance.Site.Update( "Description", Description );
-
-                config.Instance.Site.PageDefaultTitle = PageDefaultTitle; config.Instance.Site.Update( "PageDefaultTitle", PageDefaultTitle );
-
-                config.Instance.Site.Spider = SiteSetting.GetArrayValueByString( spiderString );
-                config.Instance.Site.Update( "Spider", spiderString );
-
-
-                config.Instance.Site.UploadFileTypes = SiteSetting.GetArrayValueByString( uploadFileTypes );
-                config.Instance.Site.Update( "UploadFileTypes", uploadFileTypes );
-
-                config.Instance.Site.UploadPicTypes = SiteSetting.GetArrayValueByString( uploadPicTypes );
-                config.Instance.Site.Update( "UploadPicTypes", uploadPicTypes );
-
-                config.Instance.Site.UploadFileMaxMB = UploadFileMaxMB;
-                config.Instance.Site.Update( "UploadFileMaxMB", UploadFileMaxMB );
-
-                config.Instance.Site.UploadPicMaxMB = UploadPicMaxMB;
-                config.Instance.Site.Update( "UploadPicMaxMB", UploadPicMaxMB );
-
-
-                config.Instance.Site.CloseComment = CloseComment; config.Instance.Site.Update( "CloseComment", CloseComment );
-
-                config.Instance.Site.StatsJs = StatsJs; config.Instance.Site.UpdateHtml( "StatsJs", StatsJs );
-                config.Instance.Site.StatsEnabled = StatsEnabled; config.Instance.Site.Update( "StatsEnabled", StatsEnabled );
-
-                log( SiteLogString.EditSiteSettingBase() );
-
-                echoRedirect( lang( "opok" ) );
+                return;
             }
 
+            config.Instance.Site.SiteName = SiteName; config.Instance.Site.Update( "SiteName", SiteName );
+            config.Instance.Site.SiteUrl = SiteUrl; config.Instance.Site.Update( "SiteUrl", SiteUrl );
+            config.Instance.Site.Webmaster = Webmaster; config.Instance.Site.Update( "Webmaster", Webmaster );
+            config.Instance.Site.Email = Email; config.Instance.Site.Update( "Email", Email );
+            config.Instance.Site.BeiAn = BeiAn; config.Instance.Site.Update( "BeiAn", BeiAn );
+
+            config.Instance.Site.Keywords = Keywords; config.Instance.Site.Update( "Keywords", Keywords );
+            config.Instance.Site.Description = Description; config.Instance.Site.Update( "Description", Description );
+
+            config.Instance.Site.PageDefaultTitle = PageDefaultTitle; config.Instance.Site.Update( "PageDefaultTitle", PageDefaultTitle );
+
+            config.Instance.Site.Spider = SiteSetting.GetArrayValueByString( spiderString );
+            config.Instance.Site.Update( "Spider", spiderString );
+
+
+            config.Instance.Site.UploadFileTypes = SiteSetting.GetArrayValueByString( uploadFileTypes );
+            config.Instance.Site.Update( "UploadFileTypes", uploadFileTypes );
+
+            config.Instance.Site.UploadPicTypes = SiteSetting.GetArrayValueByString( uploadPicTypes );
+            config.Instance.Site.Update( "UploadPicTypes", uploadPicTypes );
+
+            config.Instance.Site.UploadFileMaxMB = UploadFileMaxMB;
+            config.Instance.Site.Update( "UploadFileMaxMB", UploadFileMaxMB );
+
+            config.Instance.Site.UploadPicMaxMB = UploadPicMaxMB;
+            config.Instance.Site.Update( "UploadPicMaxMB", UploadPicMaxMB );
+
+
+            config.Instance.Site.CloseComment = CloseComment; config.Instance.Site.Update( "CloseComment", CloseComment );
+
+            config.Instance.Site.StatsJs = StatsJs; config.Instance.Site.UpdateHtml( "StatsJs", StatsJs );
+            config.Instance.Site.StatsEnabled = StatsEnabled; config.Instance.Site.Update( "StatsEnabled", StatsEnabled );
+
+            log( SiteLogString.EditSiteSettingBase() );
+
+            echoRedirect( lang( "opok" ) );
         }
 
         public void Close() {

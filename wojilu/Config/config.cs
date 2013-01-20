@@ -74,6 +74,7 @@ namespace wojilu {
             _siteSetting.SiteName = getVal( dic, "SiteName" );
             _siteSetting.SiteUrl = getVal( dic, "SiteUrl" );
             _siteSetting.SiteLogo = getVal( dic, "SiteLogo" );
+            _siteSetting.BeiAn = getVal( dic, "BeiAn" );
 
             _siteSetting.Webmaster = getVal( dic, "Webmaster" );
             _siteSetting.Email = getVal( dic, "Email" );

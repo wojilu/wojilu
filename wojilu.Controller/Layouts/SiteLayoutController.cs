@@ -57,6 +57,7 @@ namespace wojilu.Web.Controller.Layouts {
             bindCommon();
             bindSiteSkin();
 
+            set( "siteBeiAn", config.Instance.Site.BeiAn );
             set( "copyright", lang( "siteCopyright" ) );
             set( "ramsize", lang( "memoryUse" ) + ": " + (((Environment.WorkingSet / 1024) / 1024)) + " MB" );
 
