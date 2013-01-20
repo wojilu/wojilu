@@ -69,6 +69,46 @@ namespace wojilu.Web.Controller.Users.Admin {
         }
         //----------------------------------------------------------------------------------------------------------
 
+        public void NeedUserPic() {
+
+            HideLayout( typeof( wojilu.Web.Controller.LayoutController ) );
+            HideLayout( typeof( wojilu.Web.Controller.Users.Admin.LayoutController ) );
+            HideLayout( typeof( wojilu.Web.Controller.Users.Admin.UserProfileController ) );
+
+            target( SaveUserPic );
+
+            User user = ctx.owner.obj as User;
+            bindFace( user );
+            set( "redirectUrl", ctx.web.PathReferrer );
+        }
+
+        public void SaveUserPic() {
+
+            User user = ctx.owner.obj as User;
+
+            Result result = AvatarUploader.Save( ctx.GetFileSingle(), user.Id );
+            if (result.HasErrors) {
+                echoError( result );
+                return;
+            }
+
+            if (user.Pic != UserFactory.Guest.Pic) {
+                AvatarUploader.Delete( user.Pic );
+            }
+
+            userService.UpdateAvatar( user, result.Info.ToString() );
+
+            // 页面跳转
+            String redirectUrl = ctx.Post( "redirectUrl" );
+            String msg = "感谢上传！";
+            if (strUtil.HasText( redirectUrl )) {
+                echoRedirect( msg, redirectUrl );
+            }
+            else {
+                echoRedirect( msg, sys.Url.SiteUrl );
+            }
+        }
+
         public void Face() {
 
             target( FaceSave );

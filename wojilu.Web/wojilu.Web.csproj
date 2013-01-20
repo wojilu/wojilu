@@ -70,6 +70,7 @@
   <ItemGroup>
     <Content Include="agreement.html" />
     <Content Include="crossdomain.xml" />
+    <Content Include="framework\views\Users\Admin\UserProfile\NeedUserPic.html" />
     <Content Include="彻底初始化方法.txt" />
     <Content Include="framework\views\Admin\Apps\Blog\Layout\Layout.html" />
     <Content Include="framework\views\Admin\Apps\Blog\Main\Index.html" />

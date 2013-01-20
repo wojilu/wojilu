@@ -205,7 +205,7 @@ _run( function() {
 
             dic.Add( "viewerInviteLink", Link.To( user, new Users.Admin.InviteController().Index ) );
 
-            dic.Add( "uploadAvatarLink", Link.To( user, new Users.Admin.UserProfileController().Face ) );
+            dic.Add( "uploadAvatarLink", Link.To( user, new Users.Admin.UserProfileController().NeedUserPic ) );
             dic.Add( "confirmEmailLink", Link.To( user, new UserProfileController().Contact ) );
 
             dic.Add( "viewerFriends", Link.To( user, new Users.Admin.Friends.FriendController().List, 0 ) );

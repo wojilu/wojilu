@@ -1,0 +1,47 @@
+﻿<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>请上传头像</title>
+<link href="~css/bootstrap/css/bootstrap.css?v=#{cssVersion}" rel="stylesheet" />
+<link href="~css/wojilu._base.css?v=#{cssVersion}" rel="stylesheet" />
+<script>    var __funcList = []; var _run = function (aFunc) { __funcList.push(aFunc); }; var require = { urlArgs: 'v=#{jsVersion}' };</script>
+
+<style>
+#userFace img { border-radius:4px; padding:5px; border:1px solid #ccc; background:#fff; box-shadow:3px 3px 3px #ccc;}
+</style>
+</head>
+
+<body>
+<div style="width:400px; margin:50px auto;">
+
+    <h1>上传头像</h1>
+    <div style="border-top:1px solid #aaa; margin-top:10px;"></div>
+    <div style="margin-top:10px; margin-left:10px; color:#666;">上传头像可以获得更多关注、更多回应，谢谢您的支持！</div>
+
+	<form enctype="multipart/form-data" method="post" action="#{ActionLink}">
+		<table style="width:400px; margin-top: 20px;" border="0">
+			<tr>
+				<td align="center" valign="top" style="width:150px;">
+					<div id="userFace">#{memberFace}</div>
+				</td>
+				<td style=" vertical-align:top; padding-left:15px;">
+					<div style="margin:10px;"><input name="File1" type="file" style="width1:100px;" /></div>
+					<div style="margin:10px; ">
+                    <button name="Submit1" type="submit" class="btn btn-primary">
+                        <i class="icon-upload icon-white"></i>
+                        _{uploadFace}
+                    </button>
+					</div>
+                    <input type="hidden" name="redirectUrl" value="#{redirectUrl}" />
+				</td>
+			</tr>
+		</table>
+	</form>
+
+</div>
+
+<script data-main="~js/main" src="~js/lib/require-jquery-wojilu.js?v=#{jsVersion}"></script>
+
+</body>
+</html>

@@ -109,10 +109,10 @@
             $('#feedItem').after( appHtml );       
 
             if( ctx.viewer.HasPic==false && ctx.viewer.IsAlertUserPic ) {
-                $('#myUploadDlg').show();
-                $('#uploadAvatar').attr( 'href', nav.uploadAvatarLink );
-                if( $.browser.msie && $.browser.version == "6.0" ) {
-                    $('#myUploadDlg').css( 'left', '-280px' );
+                var cUrl = wojilu.tool.getRootParent(window).location.href.toLowerCase();
+                if( cUrl.indexOf( 'needuserpic')<0 && cUrl.indexOf( 'done' )<0 ) {
+                    wojilu.tool.forwardPage( nav.uploadAvatarLink, 0);
+                    return; 
                 }
             }
 
