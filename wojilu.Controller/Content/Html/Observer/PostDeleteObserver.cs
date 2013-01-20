@@ -13,6 +13,7 @@ using wojilu.Web.Context;
 using wojilu.Apps.Content.Domain;
 using wojilu.Apps.Content.Interface;
 using wojilu.Apps.Content.Service;
+using wojilu.Members.Sites.Domain;
 
 namespace wojilu.Web.Controller.Content.Htmls {
 
@@ -60,6 +61,8 @@ namespace wojilu.Web.Controller.Content.Htmls {
         }
 
         public override void AfterAction( Context.MvcContext ctx ) {
+
+            if (!HtmlHelper.CanHtml( ctx )) return;
 
             // 1）文章删除之后，app首页更新
             HtmlMaker.GetHome().Process( ctx.app.Id );

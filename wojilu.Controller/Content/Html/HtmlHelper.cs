@@ -29,6 +29,19 @@ namespace wojilu.Web.Controller.Content.Htmls {
             return isMakeHtml;
         }
 
+        public static Boolean CanHtml( MvcContext ctx ) {
+
+            if (ctx.owner == null || ctx.owner.obj == null) return false;
+
+            // 只限网站使用
+            if (ctx.owner.obj.GetType() != typeof( Site )) return false;
+
+            // 是否需要自动生成
+            ContentApp app = ctx.owner.obj as ContentApp;
+            ContentSetting setting = app.GetSettingsObj();
+            return setting.IsAutoHtml == 1;
+        }
+
         public static bool IsHtmlDirError( String htmlDir, Result errors ) {
 
             if (strUtil.HasText( htmlDir )) {

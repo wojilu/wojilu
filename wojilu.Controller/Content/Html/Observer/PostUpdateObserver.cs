@@ -11,6 +11,7 @@ using wojilu.Web.Context;
 using wojilu.Apps.Content.Interface;
 using wojilu.Apps.Content.Domain;
 using wojilu.Apps.Content.Service;
+using wojilu.Members.Sites.Domain;
 
 namespace wojilu.Web.Controller.Content.Htmls {
 
@@ -55,6 +56,8 @@ namespace wojilu.Web.Controller.Content.Htmls {
         }
 
         public override void AfterAction( MvcContext ctx ) {
+
+            if (!HtmlHelper.CanHtml( ctx )) return;
 
             // 1）文章更新之后，比如标题被修改，那么app首页要更新
             HtmlMaker.GetHome().Process( ctx.app.Id );

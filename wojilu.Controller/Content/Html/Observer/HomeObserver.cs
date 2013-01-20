@@ -5,7 +5,11 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+
 using wojilu.Web.Mvc;
+using wojilu.Web.Context;
+using wojilu.Members.Sites.Domain;
+using wojilu.Apps.Content.Domain;
 
 namespace wojilu.Web.Controller.Content.Htmls {
 
@@ -59,10 +63,15 @@ namespace wojilu.Web.Controller.Content.Htmls {
 
         }
 
-        public override void AfterAction( Context.MvcContext ctx ) {
+        public override void AfterAction( MvcContext ctx ) {
+
+            if (!HtmlHelper.CanHtml( ctx )) return;
+
             HtmlMaker.GetHome().Process( ctx.app.Id );
             logger.Info( "HomeObserver make app home" );
         }
+
+
 
 
     }

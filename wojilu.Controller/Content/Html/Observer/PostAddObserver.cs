@@ -10,6 +10,7 @@ using wojilu.Web.Context;
 using wojilu.Apps.Content.Domain;
 using wojilu.Apps.Content.Interface;
 using wojilu.Apps.Content.Service;
+using wojilu.Members.Sites.Domain;
 
 namespace wojilu.Web.Controller.Content.Htmls {
 
@@ -46,6 +47,8 @@ namespace wojilu.Web.Controller.Content.Htmls {
         }
 
         public override void AfterAction( MvcContext ctx ) {
+
+            if (!HtmlHelper.CanHtml( ctx )) return;
 
             // 1）文章添加之后，app首页和侧边栏都要更新
             HtmlMaker.GetHome().Process( ctx.app.Id );
