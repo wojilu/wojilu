@@ -1,6 +1,7 @@
 /*
  * Copyright (c) 2010, www.wojilu.com. All rights reserved.
  */
+using System;
 
 using wojilu.Web.Mvc;
 using wojilu.Web.Mvc.Attr;
@@ -40,13 +41,21 @@ namespace wojilu.Web.Controller.Photo {
 
             set( "photoStats", string.Format( alang( "photoStats" ), list.Current, list.RecordCount ) );
 
-            ctx.SetItem( "createAction", to( new PhotoCommentController().Create, id ) );
-            ctx.SetItem( "commentTarget", post );
-            load( "commentSection", new PhotoCommentController().ListAndForm );
+            bindComment( post );
 
             ctx.SetItem( "visitor", new PhotoPostVisitor() );
             ctx.SetItem( "visitTarget", post );
             load( "visitorList", new VisitorController().List );
+        }
+
+        private void bindComment( PhotoPost post ) {
+            String commentUrl = t2( new wojilu.Web.Controller.Open.CommentController().List )
+                + "?url=" + PhotoLink.ToPost( post.Id )
+                + "&dataType=" + typeof( PhotoPost ).FullName
+                + "&dataTitle=" + post.Title
+                + "&dataUserId=" + post.Creator.Id
+                + "&dataId=" + post.Id;
+            set( "commentUrl", commentUrl );
         }
 
 

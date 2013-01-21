@@ -9,7 +9,7 @@
 <div class="blogMain">
     <div>
 	<h4 class="blogTitle">#{blog.Title}</h4>
-	<div class="note">_{view}: #{blog.Hits} <span class="left10">#{blog.Replies}</span> <span class="left10">#{blog.TagList}</span></div>
+	<div class="note">_{view}: #{blog.Hits} <span class="left10" >_{reply}: <span id="contentReplies">0</span></span> <span class="left10">#{blog.TagList}</span></div>
 	
         <div class="blogBody clearBoth">#{blog.Body}</div>
         
@@ -36,11 +36,15 @@
 	<div style=" margin:10px 5px;border:1px #ccc solid; background:#fff; padding:3px 10px;" class="shareCmd" ></div>
 	
 	#{visitorList}	
-	#{commentSection}
+
+    <div class="frmLoader" url="#{commentUrl}"></div>
+
 </div>
 
 <script>
 _run( function() {
-wojilu.tool.shareFull();
+    wojilu.tool.shareFull();
+    wojilu.ctx.changeUrl = false;
+    wojilu.ui.frmLoader();
 });
 </script>

@@ -46,7 +46,9 @@ namespace wojilu.Web.Controller.Blog {
             postService.AddHits( post );
 
             bindBlogPost( post, saveStatusInfo );
-            bindComment( post );
+
+            set( "commentUrl", getCommentUrl( post ) );
+
             bindVisitor( post );
             bindAttachmentPanel( post );
         }

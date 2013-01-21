@@ -130,6 +130,8 @@
     <Compile Include="Admin\Security\LayoutController.cs" />
     <Compile Include="Admin\Sys\ViewsFileController.cs" />
     <Compile Include="Admin\TagAdminController.cs" />
+    <Compile Include="Admin\Upgrade\CommentImportController.cs" />
+    <Compile Include="Admin\Upgrade\ImportHelper.cs" />
     <Compile Include="Admin\Utils\AdminSecurityUtils.cs" />
     <Compile Include="Blog\Admin\BlogController.cs" />
     <Compile Include="Blog\Admin\DraftController.cs" />

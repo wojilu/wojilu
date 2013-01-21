@@ -150,6 +150,21 @@ namespace wojilu.Common.Comments {
 
         }
 
+        // 只是导入，并不发送通知
+        public Result Import( OpenComment c ) {
+
+            Result result = c.insert();
+            if (result.IsValid) {
+                updateParentReplies( c );
+                updateRootTargetReplies( c );
+                return result;
+            }
+            else {
+                return result;
+            }
+
+        }
+
         private void sendNotifications( OpenComment c ) {
 
             List<int> sentIds = new List<int>();

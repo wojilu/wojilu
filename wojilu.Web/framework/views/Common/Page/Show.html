@@ -54,7 +54,7 @@
                             <div id="postMain">
                                 <div class="page-inner">
                                     <h4 class="postTitle">#{post.Title}</h4>	
-                                    <div class="postInfo">#{post.Created} _{view}:#{post.Hits}　_{comment}:#{post.Replies} <a href="#comments">_{viewByHit}</a></div>
+                                    <div class="postInfo">#{post.Created} _{view}:#{post.Hits}　_{comment}:<span id="contentReplies"">#{post.Replies}</span> <a href="#comments">_{viewByHit}</a></div>
                                     <div class="clear"></div>
                                     <div class="postContent" style="float2:left;">
                                         <!-- BEGIN stats -->
@@ -72,8 +72,11 @@
                                     <div class="clear"></div>
                                 <div>
 
-                                <a name="comments"></a>
-                                #{commentSection}
+                                <div>
+                                    <a name="comments"></a>
+                                    <div class="frmLoader" url="#{commentUrl}"></div>
+                                </div>
+
                             </div>
 
                         </div>
@@ -90,7 +93,11 @@
 <script type="text/javascript">
 <!--
 _run( function() {
-	wojilu.ui.tree();
+    wojilu.ui.tree();
+
+    wojilu.ctx.changeUrl = false;
+    wojilu.ui.frmLoader();
+
 });
 //-->
 </script>

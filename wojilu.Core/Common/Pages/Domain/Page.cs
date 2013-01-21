@@ -12,11 +12,12 @@ using wojilu.Common.AppBase.Interface;
 using wojilu.Common.Feeds.Interface;
 using wojilu.Common.AppBase;
 using wojilu.Common.Tags;
+using wojilu.Common.Comments;
 
 namespace wojilu.Common.Pages.Domain {
 
     [Serializable]
-    public class Page : ObjectBase<Page>, IAppData, INode, IShareData, ISort {
+    public class Page : ObjectBase<Page>, IAppData, INode, IShareData, ISort, ICommentTarget {
 
         public int OwnerId { get; set; }
         public String OwnerType { get; set; }

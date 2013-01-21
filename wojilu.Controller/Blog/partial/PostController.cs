@@ -11,7 +11,7 @@ using wojilu.Apps.Blog.Domain;
 namespace wojilu.Web.Controller.Blog {
 
     public partial class PostController : ControllerBase {
-        
+
         private void bindBlogPost( BlogPost post, String saveStatusInfo ) {
 
             ctx.Page.Title = post.Title;
@@ -39,19 +39,24 @@ namespace wojilu.Web.Controller.Blog {
             load( "visitorList", new VisitorController().List );
         }
 
-        private void bindComment( BlogPost post ) {
-            ctx.SetItem( "createAction", to( new BlogCommentController().Create, post.Id ) );
-            ctx.SetItem( "commentTarget", post );
+
+        private string getCommentUrl( BlogPost post ) {
 
             BlogApp app = ctx.app.obj as BlogApp;
 
-            if (app.GetSettingsObj().AllowComment == 1) {
-                load( "commentSection", new BlogCommentController().ListAndForm );
+            if (app.GetSettingsObj().AllowComment == 0) {
+
+                return "#";
             }
-            else {
-                set( "commentSection", "" );
-            }
+
+            return t2( new wojilu.Web.Controller.Open.CommentController().List )
+                + "?url=" + alink.ToAppData( post, ctx )
+                + "&dataType=" + typeof( BlogPost ).FullName
+                + "&dataTitle=" + post.Title
+                + "&dataUserId=" + post.Creator.Id
+                + "&dataId=" + post.Id;
         }
+
 
     }
 }

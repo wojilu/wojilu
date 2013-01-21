@@ -110,15 +110,21 @@ namespace wojilu.Web.Controller.Common {
 
             pageService.AddHits( data );
 
-            if (data.IsAllowReply == 1) {
-                ctx.SetItem( "createAction", to( new PageCommentController().Create, id ) );
-                ctx.SetItem( "commentTarget", data );
-                load( "commentSection", new PageCommentController().ListAndForm );
-            }
-            else {
-                set( "commentSection", "" );
+            set( "commentUrl", getCommentUrl( data ) );
+        }
+
+        private string getCommentUrl( Page post ) {
+
+            if (post.IsAllowReply == 0) {
+                return "#";
             }
 
+            return t2( new wojilu.Web.Controller.Open.CommentController().List )
+                + "?url=" + alink.ToAppData( post, ctx )
+                + "&dataType=" + typeof( Page ).FullName
+                + "&dataTitle=" + post.Title
+                + "&dataUserId=" + post.Creator.Id
+                + "&dataId=" + post.Id;
         }
 
         private void bindWikiStats( int id, Page data ) {
