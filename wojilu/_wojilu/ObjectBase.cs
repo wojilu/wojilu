@@ -206,7 +206,7 @@ namespace wojilu {
             EntityInfo ei = getEntityInfo();
             if (propertyName.IndexOf( "." ) < 0) {
                 EntityPropertyInfo ep = ei.GetProperty( propertyName );
-                if (ep == null) throw new Exception( String.Format( "property '{1}' of {0} is empty", ei.FullName, propertyName ) );
+                if (ep == null) return null;
                 return ep.GetValue( this );
             }
             String[] arrItems = propertyName.Split( new char[] { '.' } );
