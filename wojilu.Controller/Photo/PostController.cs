@@ -54,7 +54,8 @@ namespace wojilu.Web.Controller.Photo {
                 + "&dataType=" + typeof( PhotoPost ).FullName
                 + "&dataTitle=" + post.Title
                 + "&dataUserId=" + post.Creator.Id
-                + "&dataId=" + post.Id;
+                + "&dataId=" + post.Id
+                + "&appId=" + post.AppId;
             set( "commentUrl", commentUrl );
         }
 

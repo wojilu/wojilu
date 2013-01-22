@@ -21,6 +21,8 @@ namespace wojilu.Web.Controller.Content.Admin {
             set( "settingLink", to( new SettingController().Index ) );
             set( "defaultLink", to( new ContentController().Home ) );
 
+            set( "commentLink", to( new CommentController().List ) );
+
             IBlock htmlBlock = getBlock( "html" );
             if (ctx.owner.obj is Site) {
                 htmlBlock.Set( "staticLink", to( new HtmlController().Index ) );

@@ -81,6 +81,8 @@
     <Compile Include="Admin\Apps\Blog\SysCategoryController.cs" />
     <Compile Include="Admin\Apps\Blog\TrashController.cs" />
     <Compile Include="Admin\Apps\Content\CommentController.cs" />
+    <Compile Include="Content\Admin\CommentController.cs" />
+    <Compile Include="Open\Admin\CommentController.cs" />
     <Compile Include="Admin\Apps\Content\LayoutController.cs" />
     <Compile Include="Admin\Apps\Content\MainController.cs" />
     <Compile Include="Admin\Apps\Photo\PostAdminController.cs" />

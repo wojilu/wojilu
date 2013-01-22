@@ -8,6 +8,7 @@ using wojilu.Web.Mvc;
 using wojilu.Apps.Content.Domain;
 using wojilu.Web.Controller.Content.Caching;
 using wojilu.Members.Sites.Domain;
+using wojilu.Web.Controller.Content.Admin;
 
 namespace wojilu.Web.Controller.Content {
 
@@ -36,6 +37,7 @@ namespace wojilu.Web.Controller.Content {
             set( "trashPostsLink", to( new Admin.Common.PostController().Trash ) );
             set( "settingLink", to( new Admin.SettingController().Index ) );
             set( "defaultLink", to( new Admin.ContentController().Home ) );
+            set( "commentLink", to( new CommentController().List ) );
 
             IBlock htmlBlock = getBlock( "html" );
             if (ctx.owner.obj is Site) {

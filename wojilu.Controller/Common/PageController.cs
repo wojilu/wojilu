@@ -124,7 +124,8 @@ namespace wojilu.Web.Controller.Common {
                 + "&dataType=" + typeof( Page ).FullName
                 + "&dataTitle=" + post.Title
                 + "&dataUserId=" + post.Creator.Id
-                + "&dataId=" + post.Id;
+                + "&dataId=" + post.Id
+                + "&appId=0";
         }
 
         private void bindWikiStats( int id, Page data ) {
@@ -233,7 +234,7 @@ namespace wojilu.Web.Controller.Common {
                 return;
             }
 
-            if( isInEditing( data) ) {
+            if (isInEditing( data )) {
 
                 User user = userService.GetById( data.UpdatingId );
                 if (user != null) {

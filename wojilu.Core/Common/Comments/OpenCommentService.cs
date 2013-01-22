@@ -21,6 +21,10 @@ namespace wojilu.Common.Comments {
             return db.findById<OpenComment>( id );
         }
 
+        public DataPage<OpenComment> GetPageAll( String condition ) {
+            return OpenComment.findPage( condition );
+        }
+
 
         public void Delete( OpenComment c ) {
             if (c == null) return;
@@ -32,6 +36,12 @@ namespace wojilu.Common.Comments {
         private void deleteSubComments( OpenComment c ) {
             if (c.Replies == 0) return;
             db.deleteBatch<OpenComment>( "ParentId=" + c.Id );
+        }
+
+        public void DeleteBatch( String ids ) {
+            if (strUtil.IsNullOrEmpty( ids )) return;
+            if (cvt.IsIdListValid( ids ) == false) throw new ArgumentException( "id list" );
+            db.deleteBatch<OpenComment>( "Id in (" + ids + ")" );
         }
 
         public void DeleteAll( string url, int dataId, string dataType ) {

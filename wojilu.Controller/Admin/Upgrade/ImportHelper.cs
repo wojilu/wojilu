@@ -74,6 +74,8 @@ namespace wojilu.Web.Controller.Admin.Upgrade {
             IComment x = obj as IComment;
 
             OpenComment comment = new OpenComment();
+            comment.AppId = x.AppId;
+
             comment.Title = x.Title;
             comment.Content = x.Content;
 

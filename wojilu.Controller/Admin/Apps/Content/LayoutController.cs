@@ -26,7 +26,7 @@ namespace wojilu.Web.Controller.Admin.Apps.Content {
         public override void Layout() {
             set( "listLink", to( new MainController().Index ) );
             set( "trashLink", to( new MainController().Trash ) );
-            set( "commentLink", to( new CommentController().List ) + "?type=" + typeof( ContentPostComment ).FullName );
+            set( "commentLink", to( new CommentController().List ) );
 
             int trashCount = sysblogService.GetDeleteCount();
             set( "trashCount", trashCount );

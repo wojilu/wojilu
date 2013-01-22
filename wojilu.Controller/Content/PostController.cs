@@ -163,7 +163,8 @@ namespace wojilu.Web.Controller.Content {
                 + "&dataType=" + typeof( ContentPost ).FullName
                 + "&dataTitle=" + post.Title
                 + "&dataUserId=" + post.Creator.Id
-                + "&dataId=" + post.Id;
+                + "&dataId=" + post.Id
+                + "&appId=" + post.AppId;
         }
 
         private String getLocation( ContentPost post, ContentSection section ) {

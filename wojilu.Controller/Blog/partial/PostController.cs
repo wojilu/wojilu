@@ -54,7 +54,8 @@ namespace wojilu.Web.Controller.Blog {
                 + "&dataType=" + typeof( BlogPost ).FullName
                 + "&dataTitle=" + post.Title
                 + "&dataUserId=" + post.Creator.Id
-                + "&dataId=" + post.Id;
+                + "&dataId=" + post.Id
+                + "&appId=" + post.AppId;
         }
 
 

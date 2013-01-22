@@ -13,10 +13,7 @@ using wojilu.Common.Comments;
 using wojilu.Members.Interface;
 using wojilu.Members.Users.Domain;
 
-
 namespace wojilu.Web.Controller.Open {
-
-
 
     public class CommentController : ControllerBase {
 
@@ -26,7 +23,6 @@ namespace wojilu.Web.Controller.Open {
             commentService = new OpenCommentService();
         }
 
-
         public void List() {
 
             String url = ctx.Get( "url" );
@@ -35,11 +31,13 @@ namespace wojilu.Web.Controller.Open {
             int dataId = ctx.GetInt( "dataId" );
             String dataType = ctx.Get( "dataType" );
 
+            set( "createLink", to( Create ) );
             set( "thisUrl", url );
             set( "thisDataType", dataType );
             set( "thisDataId", dataId );
             set( "thisDataTitle", ctx.Get( "dataTitle" ) );
             set( "thisDataUserId", ctx.GetInt( "dataUserId" ) );
+            set( "thisAppId", ctx.GetInt( "appId" ) );
 
             DataPage<OpenComment> datas = commentService.GetByDataDesc( dataType, dataId );
             int replies = commentService.GetReplies( dataId, dataType, url );
@@ -204,7 +202,6 @@ namespace wojilu.Web.Controller.Open {
         }
 
         private void bindForm() {
-            set( "createLink", to( Create ) );
 
             IBlock loginForm = getBlock( "loginForm" );
             IBlock guestForm = getBlock( "guestForm" );
@@ -259,6 +256,8 @@ namespace wojilu.Web.Controller.Open {
             c.TargetDataId = ctx.PostInt( "dataId" );
             c.TargetTitle = ctx.Post( "dataTitle" );
             c.TargetUserId = ctx.PostInt( "dataUserId" );
+
+            c.AppId = ctx.PostInt( "appId" );
 
             c.Ip = ctx.Ip;
             c.Author = userName;

@@ -225,7 +225,8 @@
             dataTitle: objX.thisDataTitle,
             dataType: objX.thisDataType,
             dataUserId: objX.thisDataUserId,
-            dataId: objX.thisDataId
+            dataId: objX.thisDataId,
+            appId: objX.thisAppId
         };
 
         loadBegin(ctxForm);

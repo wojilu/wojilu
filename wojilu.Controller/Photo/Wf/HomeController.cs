@@ -257,7 +257,9 @@ namespace wojilu.Web.Controller.Photo.Wf {
                 + "&dataType=" + typeof( PhotoPost ).FullName
                 + "&dataTitle=" + x.Title
                 + "&dataUserId=" + x.Creator.Id
-                + "&dataId=" + x.Id;
+                + "&dataId=" + x.Id
+                + "&appId=" + x.AppId;
+            
             set( "thisUrl", commentUrl );
         }
 
