@@ -16,6 +16,7 @@ using wojilu.Common.AppBase.Interface;
 
 namespace wojilu.Web.Controller.Open.Admin {
 
+
     public class CommentBaseController<T> : ControllerBase where T : ObjectBase<T> {
 
 
@@ -64,6 +65,8 @@ namespace wojilu.Web.Controller.Open.Admin {
 
 
         public void Search() {
+
+            view( "/Open/Admin/CommentBase/List" );
 
             String t = ctx.Get( "t" );
             String q = ctx.Get( "q" );
@@ -153,7 +156,7 @@ namespace wojilu.Web.Controller.Open.Admin {
             if (strUtil.IsNullOrEmpty( fTime )) return getAppTypeCondition();
 
             DateTime ft = getValidTime( fTime );
-            String tquote = Entity.GetInfo( typeof( T ) ).Dialect.GetTimeQuote();
+            String tquote = Entity.GetInfo( typeof( OpenComment ) ).Dialect.GetTimeQuote();
             return getAppTypeCondition() + " and Created>" + tquote + ft.ToShortDateString() + tquote + "";
         }
 
@@ -161,8 +164,9 @@ namespace wojilu.Web.Controller.Open.Admin {
 
             String appPrefix = getAppCondition();
 
-            return appPrefix + " TargetDataType='" + typeof( T ).FullName + "' ";
+            if (typeof( T ) == typeof( NullCommentTarget )) return appPrefix;
 
+            return appPrefix + " TargetDataType='" + typeof( T ).FullName + "' ";
         }
 
         private String getAppCondition() {

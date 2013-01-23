@@ -62,16 +62,16 @@ namespace wojilu.Web.Controller.Blog {
 
         }
 
-        private void bindComments( List<BlogPostComment> newComments ) {
-            IBlock commentblock = getBlock( "comment" );
-            foreach (BlogPostComment comment in newComments) {
-                commentblock.Set( "comment.Title", strUtil.SubString( comment.Content, 14 ) );
-                commentblock.Set( "comment.Url", to( new PostController().Show, comment.RootId ) + "#comments" );
-                commentblock.Next();
+        private void bindComments( List<OpenComment> comments ) {
+            IBlock block = getBlock( "comment" );
+            foreach (OpenComment x in comments) {
+                block.Set( "comment.Title", strUtil.SubString( x.Content, 14 ) );
+                block.Set( "comment.Url", to( new PostController().Show, x.TargetDataId ) + "#comments" );
+                block.Next();
             }
 
-            String commentMoreLink = BlogCommentController.GetCommentMoreLink( newComments.Count, ctx );
-            set( "commentMoreLink", commentMoreLink );
+            String lnkMore = BlogCommentController.GetMoreLink( comments.Count, ctx );
+            set( "commentMoreLink", lnkMore );
         }
 
     }

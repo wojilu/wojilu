@@ -100,6 +100,17 @@ namespace wojilu.Common.Comments {
             return datas;
         }
 
+
+        public List<OpenComment> GetByApp( Type type, int appId, int listCount ) {
+
+            if (listCount <= 0) listCount = 7;
+
+            String condition = "TargetDataType='" + type + "'";
+            if (appId > 0) condition = condition + " and AppId=" + appId;
+
+            return OpenComment.find( condition ).list( listCount );
+        }
+
         //----------------------------------------------------------------------------------------------
 
 
@@ -369,6 +380,7 @@ namespace wojilu.Common.Comments {
             objCount.Replies = 0;
             objCount.update();
         }
+
 
     }
 }

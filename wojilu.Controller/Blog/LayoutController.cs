@@ -24,9 +24,9 @@ namespace wojilu.Web.Controller.Blog {
 
         public IBlogService blogService { get; set; }
         public IBlogCategoryService categoryService { get; set; }
-        public ICommentService<BlogPostComment> commentService { get; set; }
         public IBlogPostService postService { get; set; }
         public IBlogrollService rollService { get; set; }
+        public OpenCommentService commentService { get; set; }
 
         public LayoutController() {
 
@@ -34,13 +34,14 @@ namespace wojilu.Web.Controller.Blog {
             postService = new BlogPostService();
             categoryService = new BlogCategoryService();
             rollService = new BlogrollService();
-            commentService = new CommentService<BlogPostComment>();
+            commentService = new OpenCommentService();
         }
 
         [CacheAction( typeof( BlogLayoutCache ) )]
         public override void Layout() {
 
             BlogApp blog = ctx.app.obj as BlogApp;
+            if (blog == null) throw new NullReferenceException( "BlogApp" );
             blogService.AddHits( blog );
 
             set( "adminUrl", to( new Admin.MyListController().Index ) );
@@ -56,15 +57,14 @@ namespace wojilu.Web.Controller.Blog {
             List<BlogCategory> categories = categoryService.GetByApp( ctx.app.Id );
             List<BlogPost> newBlogs = postService.GetNewBlog( ctx.app.Id, s.NewBlogCount );
 
-            //List<BlogPostComment> newComments = commentService.GetNew( ctx.owner.Id, ctx.app.Id, s.NewCommentCount );
-            List<BlogPostComment> newComments = BlogPostComment.find( "AppId=" + ctx.app.Id ).list( s.NewCommentCount );
+            List<OpenComment> comments = commentService.GetByApp( typeof( BlogPost ), ctx.app.Id, s.NewCommentCount );
 
             List<Blogroll> blogrolls = rollService.GetByApp( ctx.app.Id, ctx.owner.obj.Id );
 
             bindBlogroll( blogrolls );
             bindCategories( categories );
             bindPostList( newBlogs );
-            bindComments( newComments );
+            bindComments( comments );
         }
 
         private void bindAdminLink() {

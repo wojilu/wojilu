@@ -72,7 +72,7 @@
     <Content Include="crossdomain.xml" />
     <Content Include="framework\views\Admin\Upgrade\CommentImport\Index.html" />
     <Content Include="framework\views\Open\Admin\CommentBase\List.html" />
-    <Content Include="framework\views\Open\Admin\CommentBase\Search.html" />
+    <Content Include="framework\views\Open\CommentList\Index.html" />
     <Content Include="framework\views\Users\Admin\UserProfile\NeedUserPic.html" />
     <Content Include="彻底初始化方法.txt" />
     <Content Include="framework\views\Admin\Apps\Blog\Layout\Layout.html" />

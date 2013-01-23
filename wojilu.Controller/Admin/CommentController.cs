@@ -8,12 +8,12 @@ using System.Text;
 using wojilu.Web.Mvc.Attr;
 using wojilu.Web.Controller.Open.Admin;
 using wojilu.Apps.Content.Domain;
+using wojilu.Common.Comments;
 
-namespace wojilu.Web.Controller.Admin.Apps.Content {
+namespace wojilu.Web.Controller.Admin {
 
 
-    [App( typeof( ContentApp ) )]
-    public class CommentController : CommentBaseController<ContentPost> {
+    public class CommentController : CommentBaseController<NullCommentTarget> {
 
 
 

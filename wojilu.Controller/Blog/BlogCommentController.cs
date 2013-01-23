@@ -12,19 +12,38 @@ using wojilu.Web.Mvc.Attr;
 namespace wojilu.Web.Controller.Blog {
 
     [App( typeof( BlogApp ) )]
-    public class BlogCommentController : Common.CommentController<BlogPostComment> {
+    public class BlogCommentController : Open.CommentListController<BlogPost> {
 
-        internal static String GetCommentMoreLink( int commentCount, MvcContext ctx ) {
+        internal static String GetMoreLink( int commentCount, MvcContext ctx ) {
 
             if (commentCount == 0) return "";
 
             String link;
-            if (ctx.viewer.IsLogin && (ctx.viewer.Id == ctx.owner.Id))
-                link = ctx.link.To( new BlogCommentController().AdminList );
+            if (ctx.viewer.IsLogin && ctx.viewer.IsOwnerAdministrator( ctx.owner.obj ))
+                link = ctx.link.To( new BlogCommentAdminController().List );
             else
-                link = ctx.link.To( new BlogCommentController().List );
+                link = ctx.link.To( new BlogCommentController().Index );
 
             return string.Format( "<a href='{0}'>" + wojilu.lang.get( "more" ) + "…</a>", link );
+
+        }
+
+    }
+
+
+    [App( typeof( BlogApp ) )]
+    public class BlogCommentAdminController : Open.Admin.CommentBaseController<BlogPost> {
+
+        public override void CheckPermission() {
+
+            if (ctx.viewer.IsAdministrator()) return;
+
+            if (!ctx.viewer.IsLogin && ctx.viewer.IsOwnerAdministrator( ctx.owner.obj )==false) {
+
+
+                echoError( "没有权限" );
+            }
+
 
         }
 

@@ -18,7 +18,11 @@ namespace wojilu.Common.Comments {
         public String Created { get; set; }
         public String Content { get; set; }
     }
-    
+
+    public class NullCommentTarget : ObjectBase<NullCommentTarget> {
+
+        public String Name { get; set; }
+    }    
 
     public class OpenComment : ObjectBase<OpenComment> {
 

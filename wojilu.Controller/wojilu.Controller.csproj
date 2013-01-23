@@ -81,6 +81,7 @@
     <Compile Include="Admin\Apps\Blog\SysCategoryController.cs" />
     <Compile Include="Admin\Apps\Blog\TrashController.cs" />
     <Compile Include="Admin\Apps\Content\CommentController.cs" />
+    <Compile Include="Admin\CommentController.cs" />
     <Compile Include="Content\Admin\CommentController.cs" />
     <Compile Include="Open\Admin\CommentController.cs" />
     <Compile Include="Admin\Apps\Content\LayoutController.cs" />
@@ -162,6 +163,7 @@
     <Compile Include="Content\Html\Observer\HomeObserver.cs" />
     <Compile Include="Content\Html\Jobs\JobManager.cs" />
     <Compile Include="Content\Html\Observer\PostUpdateObserver.cs" />
+    <Compile Include="Open\CommentListController.cs" />
     <Compile Include="Open\VideoController.cs" />
     <Compile Include="Content\Admin\HtmlController.cs" />
     <Compile Include="Content\Admin\RowSettingController.cs" />
