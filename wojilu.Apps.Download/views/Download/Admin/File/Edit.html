@@ -1,11 +1,9 @@
 ﻿<div>
-	<div class="adminMainTitle">
-		<div class="adminSidebarTitleInternal">修改文件</div>
-	</div>
+
 	<div class="adminMainPanel">
 		<div class="formPanel">
 <script>
-$(document).ready( function() {
+_run( function() {
 
     var subcats = #{subCategoriesJson}; // 子类的数据(json格式)
     
@@ -32,46 +30,40 @@ $(document).ready( function() {
     $('#dropSubCategories').val( #{fileItem.CategoryId} );
     
     wojilu.ui.valid();
+
+    // 总共两个步骤——
+
+    // 1) 上传的配置信息
+    var cfg = wojilu.upload.getSettings();
+
+    cfg.uploader = '#{uploadLink}'.toAjax(); // 接受上传的网址
+    cfg.postData = #{authInfo}; // 客户端验证信息(cookie等)
+    cfg.fileTypeExts = '*.jpg;*.gif;*.png;*.zip;*.rar;*.7z;'; // 允许上传的文件类型
+    cfg.fileTypeDesc = 'All Files (.jpg, .png, .gif, .zip, .rar, .7z)'; // 选择框中文件类型描述
+    cfg.queueID = 'myqueue'; // 显示进度条的容器
+
+    // 每个文件上传成功之后在这里处理。data是服务端返回的数据。
+    cfg.onUploadSuccess = function (file, data, response) { 
+
+        var obj = eval( '('+data+')');
+
+	    if( !obj.IsValid ) {
+	        alert( obj.Msg );
+	        return;
+	    }
+
+        $('#fileUrl1').val( obj.FileUrl );
+
+    };
+
+    // 2) 将普通上传控件转化为 flash 上传控件
+    wojilu.upload.initFlash( '#file_upload', cfg );
     
 });
 </script>
 
-<link href="~js/uploadify/uploadify.css" type="text/css" rel="stylesheet" />
-<script type="text/javascript" src="~js/uploadify/swfobject.js"></script>
-<script type="text/javascript" src="~js/uploadify/jquery.uploadify.v2.1.4.min.js"></script>
 
 
-<script type="text/javascript">
-$(document).ready(function() {
-   
-    $('#file_upload').uploadify({
-        'uploader' : "#{jsPath}uploadify/uploadify.swf",
-        'cancelImg' : "~js/uploadify/cancel.png",
-        'buttonImg' : "~js/uploadify/browser.gif",
-        'width':90,
-        'height':24,
-        'removeCompleted': true,
-        'displayData' : 'speed',
-	    'queueSizeLimit':1,
-        'auto' : true,
-        
-        'script' : '#{uploadLink}'.toAjax(),
-        'scriptData':#{authInfo},
-        'queueID' : 'myqueue',
-        'fileExt' : '*.jpg;*.gif;*.png;*.zip;*.7z;*.rar;',
-        'fileDesc'  : 'Files (.JPG, .GIF, .PNG, .zip, .7z, .rar)',
-        'multi': true, // 是否允许多选
-        
-        'onComplete'  : function(event, ID, fileObj, response, data) {
-            $('#fileUrl1').val( response );
-        },
-        
-        'onAllComplete'  : function(event,data) {
-            //$('#status').text(data.filesUploaded + ' 个文件上传成功, ' + data.errors + ' 个错误.');
-        }
-    });
-});
-</script>
 		
 <form method="post" action="#{ActionLink}" class="ajaxPostForm">
 

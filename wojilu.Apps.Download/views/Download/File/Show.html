@@ -35,7 +35,7 @@
         <div class="downloadCategoryLocation">分类导航：#{categories}</div>
 
         <div class="fdTitle">#{f.Title}</div>
-        <div style="margin:5px 10px 15px 15px;" class="note">浏览:#{f.Hits} <span class="left5">评论:#{f.Replies}</span> <span class="left5">下载次数:#{f.Downloads}</span></div>
+        <div style="margin:5px 10px 15px 15px;" class="note">浏览:#{f.Hits} <span class="left5">评论:<span id="contentReplies">#{f.Replies}</span></span> <span class="left5">下载次数:#{f.Downloads}</span></div>
         <div>
         
             <table style="width:100%;margin-left:10px; margin-bottom:10px;">
@@ -106,8 +106,16 @@
             #{previewPic}
             </div>
             
+            <div><a name="comments"></a></div>
+		<div class="frmLoader" url="#{commentUrl}"></div>
+		
+		<script>
+		    _run(function () {
+		        wojilu.ctx.changeUrl = false;
+		        wojilu.ui.frmLoader();
+		    });
+		</script>
 
-            <div>#{commentSection}</div>
         
         </div>
         

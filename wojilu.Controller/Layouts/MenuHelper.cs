@@ -37,6 +37,7 @@ namespace wojilu.Web.Controller.Layouts {
         private static String getCssClassByArray( String rawUrl, String[] arrUrl, String currentClass ) {
 
             foreach (String cUrl in arrUrl) {
+                if (cUrl == null) continue;
                 String cssClass = getCssClassByString( rawUrl, cUrl, currentClass );
                 if (strUtil.HasText( cssClass )) {
                     return cssClass;

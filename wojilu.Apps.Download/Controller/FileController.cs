@@ -67,10 +67,19 @@ namespace wojilu.Web.Controller.Download {
         }
 
         private void bindComment( FileItem post ) {
-            ctx.SetItem( "createAction", to( new FileCommentController().Create, post.Id ) );
-            ctx.SetItem( "commentTarget", post );
-            load( "commentSection", new FileCommentController().ListAndForm );
+            set( "commentUrl", getCommentUrl( post ) );
         }
+
+        private string getCommentUrl( FileItem post ) {
+
+            return t2( new wojilu.Web.Controller.Open.CommentController().List )
+                + "?url=" + alink.ToAppData( post, ctx )
+                + "&dataType=" + typeof( FileItem ).FullName
+                + "&dataTitle=" + post.Title
+                + "&dataUserId=" + post.Creator.Id
+                + "&dataId=" + post.Id;
+        }
+
 
         public void Download( int id ) {
             FileItem f = FileItem.findById( id );

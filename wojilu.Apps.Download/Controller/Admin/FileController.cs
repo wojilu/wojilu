@@ -79,14 +79,17 @@ namespace wojilu.Web.Controller.Download.Admin {
             Result result = Uploader.SaveFile( ctx.GetFileSingle() );
 
             if (result.HasErrors) {
-                echoText( result.ErrorsText );
+                echoError( result );
                 return;
             }
 
             String fileName = result.Info.ToString();
             String fileUrl = strUtil.Join( sys.Path.Photo, fileName ); // 获取文件完整路径
-            echoText( fileUrl );
+            Dictionary<String, String> dic = new Dictionary<String, String>();
+            dic.Add( "IsValid", "true" );
+            dic.Add( "FileUrl", fileUrl );
 
+            echoJson( dic );
         }
 
         [HttpPost, DbTransaction]

@@ -31,13 +31,30 @@
 
 </style>
 
-<div style="padding:10px 0px 10px 0px;">
-    <div id="adminTool" class="appAdminTool" style="padding:0px; display:none;">
-        <div style="padding:8px 25px 0px 0px; float:right; margin-bottom:5px;">
-        <a href="#{adminUrl}" class="frmLink btnBig" loadTo="downloadPage" nolayout=1><img src="~img/s/star.png" /> 管理当前程序</a>
+<div style="padding:10px 10px 10px 10px;">
+
+<div id="adminTool" class="row appAdminTool" style=" display:none;">
+    <div class="admin-menu-wrap clearfix alert">
+        <div class="admin-pointer">            
+            <span class="btn btn-primary">
+                文件管理 <i class="icon-hand-right icon-white"></i>
+            </span>
         </div>
-        <div class="clear"></div>
+
+        <ul class="admin-menu unstyled">	
+            <li><a href="#{lnkFiles}" class="frmLink" loadTo="downloadPage" nolayout=3><img src="~img/list.gif" /> 所有文件</a></li>
+            <li><a href="#{lnkCateShow}" class="frmLink" loadTo="downloadPage" nolayout=3><img src="~img/list.gif" /> 分类浏览</a></li>
+            <li><a href="#{lnkCateAdmin}" class="frmLink" loadTo="downloadPage" nolayout=3><img src="~img/app/download/category.png" /> 分类管理</a></li>
+            <li><a href="#{lnkSubCate}" class="frmLink" loadTo="downloadPage" nolayout=3><img src="~img/app/download/subcategory.png" /> 子类管理</a></li>
+            <li><a href="#{lnkLicense}" class="frmLink" loadTo="downloadPage" nolayout=3><img src="~img/app/download/license.png" /> 授权方式</a></li>
+            <li><a href="#{lnkPlatform}" class="frmLink" loadTo="downloadPage" nolayout=3><img src="~img/app/download/platform.png" /> 运行平台</a></li>
+            <li><a href="#{lnkLang}" class="frmLink" loadTo="downloadPage" nolayout=3><img src="~img/app/download/lang.png" /> 语言类型</a></li>
+
+        </ul>
+
     </div>
+</div>
+
 
     <div id="downloadPage">#{layout_content}
     <div class="clear"></div>
@@ -46,7 +63,12 @@
 </div>
 
 <script>
-$(document).ready( function() {
+_run(function () {
+
+    $('.admin-menu li').click(function () {
+        $('.admin-menu li').removeClass('admin-menu-current');
+        $(this).addClass('admin-menu-current');
+    });
 
     var showAdminTool = function() {
         if( typeof(ctx) == 'undefined' ) return;

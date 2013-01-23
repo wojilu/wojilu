@@ -1,16 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.IO;
+
 using wojilu.ORM;
 using wojilu.Common.AppBase.Interface;
 using wojilu.Members.Users.Domain;
 using wojilu.Common.Tags;
-using System.IO;
+using wojilu.Common.Comments;
 
 namespace wojilu.Apps.Download.Domain {
 
     [Table( "DownloadItem" )]
-    public class FileItem : ObjectBase<FileItem>, IAppData {
+    public class FileItem : ObjectBase<FileItem>, IAppData, ICommentTarget {
 
         public int OwnerId { get; set; }
         public String OwnerType { get; set; }
@@ -30,6 +32,7 @@ namespace wojilu.Apps.Download.Domain {
 
         //-------------------------------------------------------------------------------------------
 
+        [NotNull( "请填写标题" )]
         public String Title { get; set; }
 
         public String DemoUrl { get; set; }

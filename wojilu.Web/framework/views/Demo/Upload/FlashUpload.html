@@ -29,7 +29,7 @@
         cfg.queueID = 'uploadProgressBar'; // 显示进度条的容器
 
         // 每个文件上传成功之后在这里处理。data是服务端返回的数据。
-        cfg.onUploadSuccess = function (file, data, response) {            
+        cfg.onUploadSuccess = function (file, data, response) {    
             $('#imgList').prepend( '<div style="margin:5px;"><img src="'+data+'" /></div>' );
         };
 
@@ -90,7 +90,16 @@
         cfg.queueID = 'uploadProgressBar'; // 显示进度条的容器
 
         // 每个文件上传成功之后在这里处理。data是服务端返回的数据。
-        cfg.onUploadSuccess = function (file, data, response) {            
+        cfg.onUploadSuccess = function (file, data, response) {
+
+            /* 如果是json数据，或者是上传错误，可以先eval然后处理
+            var obj = eval( '('+data+')');
+
+	        if( !obj.IsValid ) {
+	            alert( obj.Msg );
+	            return;
+	        }*/
+              
             $('#imgList').prepend( '&lt;div style="margin:5px;"&gt;&lt;img src="'+data+'" /&gt;&lt;/div&gt;' );
         };
 
@@ -118,10 +127,25 @@
         public void FlashSave() {
 
             Result result = Uploader.SaveImg( ctx.GetFileSingle() );
+
+            /* 如果要返回错误
+            if (result.HasErrors) {
+                echoError( result );
+                return;
+            }*/
+
             String picName = result.Info.ToString(); // 获取图片名称
             String picUrl = strUtil.Join( sys.Path.Photo, picName ); // 获取图片完整路径
             picUrl = Img.GetThumbPath( picUrl, ThumbnailType.Medium );// 获取中等缩略图
             echoText( picUrl ); // 将图片网址返回给客户端
+
+            /* 如果返回是否正确的信息，可以封装成 json 格式
+            Dictionary<String, String> dic = new Dictionary<String, String>();
+            dic.Add( "IsValid", "true" );
+            dic.Add( "FileUrl", fileUrl );
+
+            echoJson( dic );
+            */
         }
 
         </pre>
