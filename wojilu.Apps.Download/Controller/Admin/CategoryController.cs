@@ -1,4 +1,4 @@
-/*
+Ôªø/*
  * Copyright (c) 2010, www.wojilu.com. All rights reserved.
  */
 
@@ -27,8 +27,6 @@ namespace wojilu.Web.Controller.Download.Admin {
 
             List<FileCategory> list = FileCategory.GetRootList();
             bindList( "list", "data", list, bindLink );
-
-
         }
 
         private void bindLink( IBlock block, int id ) {
@@ -71,8 +69,7 @@ namespace wojilu.Web.Controller.Download.Admin {
         public void Create() {
             string name = ctx.Post( "Name" );
             if (strUtil.IsNullOrEmpty( name )) {
-                errors.Add( "«ÎÃÓ–¥√˚≥∆" );
-                run( Add );
+                echoError( "ËØ∑Â°´ÂÜôÂêçÁß∞" );
                 return;
             }
 
@@ -81,7 +78,7 @@ namespace wojilu.Web.Controller.Download.Admin {
             cat.IsThumbView = ctx.PostIsCheck( "IsThumbView" );
             cat.insert();
 
-            echoRedirect( lang( "opok" ), List );
+            echoToParentPart( lang( "opok" ) );
         }
 
         public void Edit( int id ) {
@@ -101,8 +98,7 @@ namespace wojilu.Web.Controller.Download.Admin {
 
             string name = ctx.Post( "Name" );
             if (strUtil.IsNullOrEmpty( name )) {
-                errors.Add( "«ÎÃÓ–¥√˚≥∆" );
-                run( Edit, id );
+                echoError( "ËØ∑Â°´ÂÜôÂêçÁß∞" );
                 return;
             }
 
@@ -111,7 +107,7 @@ namespace wojilu.Web.Controller.Download.Admin {
             cat.IsThumbView = ctx.PostIsCheck( "IsThumbView" );
             cat.update();
 
-            echoRedirect( lang( "opok" ), List );
+            echoToParentPart( lang( "opok" ) );
         }
 
         [HttpDelete]

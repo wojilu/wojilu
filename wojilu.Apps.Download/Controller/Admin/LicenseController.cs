@@ -62,8 +62,7 @@ namespace wojilu.Web.Controller.Download.Admin {
         public void Create() {
             string name = ctx.Post( "Name" );
             if (strUtil.IsNullOrEmpty( name )) {
-                errors.Add( "请填写名称" );
-                run( Add );
+                echoError( "请填写名称" );
                 return;
             }
 
@@ -71,7 +70,7 @@ namespace wojilu.Web.Controller.Download.Admin {
             lt.Name = name;
             lt.insert();
 
-            echoRedirect( lang( "opok" ), List );
+            echoToParentPart( lang( "opok" ) );
         }
 
         public void Edit( int id ) {
@@ -86,8 +85,7 @@ namespace wojilu.Web.Controller.Download.Admin {
 
             string name = ctx.Post( "Name" );
             if (strUtil.IsNullOrEmpty( name )) {
-                errors.Add( "请填写名称" );
-                run( Edit, id );
+                echoError( "请填写名称" );
                 return;
             }
 
@@ -95,7 +93,7 @@ namespace wojilu.Web.Controller.Download.Admin {
             lt.Name = name;
             lt.update();
 
-            echoRedirect( lang( "opok" ), List );
+            echoToParentPart( lang( "opok" ) );
         }
 
         [HttpDelete]

@@ -17,6 +17,7 @@ namespace wojilu.Web.Controller.Download.Admin {
         public void List() {
 
             set( "addLink", to( Add ) );
+            set( "lnkCateShow", to( new Admin.SubCategoryController().Files ) );
 
             DataPage<FileItem> pages = FileItem.GetPage( ctx.app.Id );
             bindList( "list", "data", pages.Results, bindLink );
@@ -33,6 +34,7 @@ namespace wojilu.Web.Controller.Download.Admin {
                 view( "List" );
             }
             set( "addLink", to( Add ) );
+            set( "lnkCateShow", to( new Admin.SubCategoryController().Files ) );
 
             DataPage<FileItem> pages = FileItem.GetPage( ctx.app.Id, id );
             bindList( "list", "data", pages.Results, bindLink );
@@ -115,7 +117,7 @@ namespace wojilu.Web.Controller.Download.Admin {
 
             FileItem.CreateFile( fi );
 
-            echoRedirectPart( lang( "opok" ), to( List ) );
+            redirect( List );
         }
 
         public void Edit( int id ) {
@@ -147,7 +149,8 @@ namespace wojilu.Web.Controller.Download.Admin {
             f = ctx.PostValue( f ) as FileItem;
             if (f.Rank > 5) f.Rank = 0;
             f.update();
-            echoRedirectPart( lang( "opok" ), to( List ) );
+
+            redirect( List );
         }
 
         [HttpDelete, DbTransaction]

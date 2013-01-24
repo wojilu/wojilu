@@ -1,9 +1,8 @@
 ﻿<div>
 
-	<div class="adminMainPanel">
-		<table id="dataAdminList" data-sortAction="#{sortAction}" border="0" cellpadding="2" cellspacing="0" style="width: 100%;">
+		<table id="dataAdminList" data-sortAction="#{sortAction}" border="0" cellpadding="2" cellspacing="0"  style="width: 98%; margin:10px auto;">
 			<tr class="adminBar">
-				<td colspan="3"><span><a href="#{addLink}"><img src="~img/add.gif" /> 添加语言</a></span> </td>
+				<td colspan="3"><span><a href="#{addLink}" class="frmBox"><img src="~img/add.gif" /> 添加语言</a></span> </td>
 			</tr>
 			<tr class="tableHeader">
 				<td style="width:5%">_{order}</td>
@@ -19,11 +18,10 @@
 
 				<td>#{data.Name}</td>
 				<td>
-					<a href="#{data.LinkEdit}"><img src="~img/edit.gif" /> _{edit}</a>
+					<a href="#{data.LinkEdit}" class="frmBox"><img src="~img/edit.gif" /> _{edit}</a>
 					<span href="#{data.LinkDelete}" class="deleteCmd left10"><img src="~img/delete.gif" /> _{delete}</span>
 				</td>
 			</tr>
 			<!-- END list -->
 		</table>
-	</div>
 </div>

@@ -14,7 +14,7 @@ namespace wojilu.Web.Controller.Download {
             DownloadApp app = ctx.app.obj as DownloadApp;
 
             set( "lnkFiles", to( new Admin.FileController().List ) );
-            set( "lnkCateShow", to( new Admin.SubCategoryController().Files ) );
+            set( "lnkAdd", to( new Admin.FileController().Add ) );
 
             set( "lnkCateAdmin", to( new Admin.CategoryController().List ) );
             set( "lnkSubCate", to( new Admin.SubCategoryController().List ) );

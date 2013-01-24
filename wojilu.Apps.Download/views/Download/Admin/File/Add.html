@@ -1,10 +1,7 @@
 ﻿<div>
-
-	<div class="adminMainPanel">
-		<div class="formPanel">
-
+	<div class="formPanel" style="margin:10px 15px;">
 		
-<form method="post" action="#{ActionLink}" class="ajaxPostForm">
+<form method="post" action="#{ActionLink}" class="">
 
     <table style="width:100%;">
         <tr>
@@ -37,7 +34,7 @@
             
                 <input name="fileItem.Version" type="text" style="width:80px" /><span class="valid" mode="border"></span>&nbsp; 
                 大小 <input name="fileItem.SizeMB" type="text" class="tipInput" tip="请填写整数或小数" style="width:100px;" /><span class="valid" mode="border"></span>MB&nbsp;&nbsp;&nbsp;
-                评分<input name="fileItem.Rank" type="text" style="width:50px;" /><span class="note">整数类型</span></td>
+                评分<input name="fileItem.Rank" type="text" style="width:50px;" /><span class="note">(整数类型1-5)</span></td>
         </tr>
         <tr>
             <td>
@@ -113,11 +110,8 @@
         </tr>
     </table>
 
-    
-
 </form>
 
-		</div>
 	</div>
 </div>
 

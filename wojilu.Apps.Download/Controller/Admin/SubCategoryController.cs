@@ -138,15 +138,17 @@ namespace wojilu.Web.Controller.Download.Admin {
         public void Create() {
 
             FileCategory cat = ctx.PostValue<FileCategory>();
-            if (ctx.HasErrors) {
-                run( Add, ctx.PostInt( "fileCategory.ParentId" ) );
+
+            if (strUtil.IsNullOrEmpty( cat.Name )) {
+                echoError( "请填写名称" );
                 return;
             }
+
 
             cat.IsThumbView = ctx.PostIsCheck( "fileCategory.IsThumbView" );
 
             cat.insert();
-            echoRedirect( lang( "opok" ), List );
+            echoToParentPart( lang( "opok" ) );
         }
 
 
@@ -169,16 +171,16 @@ namespace wojilu.Web.Controller.Download.Admin {
             FileCategory c = FileCategory.GetById( id );
 
             FileCategory cat = ctx.PostValue( c ) as FileCategory;
-            if (ctx.HasErrors) {
-                run( Edit, id );
+
+            if (strUtil.IsNullOrEmpty( cat.Name )) {
+                echoError( "请填写名称" );
                 return;
             }
+
             cat.IsThumbView = ctx.PostIsCheck( "fileCategory.IsThumbView" );
 
-
             cat.update();
-            echoRedirect( lang( "opok" ), List );
-
+            echoToParentPart( lang( "opok" ) );
         }
 
         [HttpDelete]

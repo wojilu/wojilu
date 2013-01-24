@@ -21,11 +21,6 @@ namespace wojilu.Web.Controller.Download.Admin {
 
             List<Platform> list = Platform.GetAll();
             bindList( "list", "data", list, bindLink );
-
-            //DataPage<Platform> re = cdb.findPage<Platform>( 6 );
-            //bindList( "list", "data", re.Results, bindLink );
-            //set( "page", re.PageBar );
-
         }
 
         private void bindLink( IBlock block, int id ) {
@@ -67,8 +62,7 @@ namespace wojilu.Web.Controller.Download.Admin {
         public void Create() {
             string name = ctx.Post( "Name" );
             if (strUtil.IsNullOrEmpty( name )) {
-                errors.Add( "请填写名称" );
-                run( Add );
+                echoError( "请填写名称" );
                 return;
             }
 
@@ -76,7 +70,7 @@ namespace wojilu.Web.Controller.Download.Admin {
             pf.Name = name;
             pf.insert();
 
-            echoRedirect( lang( "opok" ), List );
+            echoToParentPart( lang( "opok" ) );
         }
 
         public void Edit( int id ) {
@@ -91,8 +85,7 @@ namespace wojilu.Web.Controller.Download.Admin {
 
             string name = ctx.Post( "Name" );
             if (strUtil.IsNullOrEmpty( name )) {
-                errors.Add( "请填写名称" );
-                run( Edit, id );
+                echoError( "请填写名称" );
                 return;
             }
 
@@ -100,7 +93,7 @@ namespace wojilu.Web.Controller.Download.Admin {
             pf.Name = name;
             pf.update();
 
-            echoRedirect( lang( "opok" ), List );
+            echoToParentPart( lang( "opok" ) );
         }
 
         [HttpDelete]
