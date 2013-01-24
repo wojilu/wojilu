@@ -30,9 +30,17 @@ namespace wojilu.Web.Controller.Poll.Admin {
         }
 
         private void bindComment( PollData post ) {
-            ctx.SetItem( "createAction", to( new PollCommentController().Create, post.Id ) );
-            ctx.SetItem( "commentTarget", post );
-            load( "commentSection", new PollCommentController().ListAndForm );
+            set( "commentUrl", getCommentUrl( post ) );
+        }
+
+        private string getCommentUrl( PollData post ) {
+
+            return t2( new wojilu.Web.Controller.Open.CommentController().List )
+                + "?url=" + alink.ToAppData( post, ctx )
+                + "&dataType=" + typeof( PollData ).FullName
+                + "&dataTitle=" + post.Title
+                + "&dataUserId=" + post.Creator.Id
+                + "&dataId=" + post.Id;
         }
 
 

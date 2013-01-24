@@ -10,7 +10,7 @@
 
     <div class="pollMain" style="margin:0px;font-size:12px;">
         <div id="pollContainer">
-            <table class="pollOptions" cellpadding="0" cellspacing="0" style="width:95%;margin-left:5px;">
+            <table class="pollOptions" cellpadding="3" cellspacing="0" style="width:95%;margin-left:5px; border-collapse:collapse; border:1px solid #ccc;" border=1>
             <!-- BEGIN options -->
             <tr>
                 <td class="optionItemString"><label for="pollOption#{op.Id}">#{op.Text}</label></td>
@@ -21,7 +21,7 @@
             </tr><!-- END options -->
             </table>
 
-            <div class="note">
+            <div class="note" style="margin-top:10px;">
                 _{pollVoted}_{pollCount}: <a href="#{poll.ResultLink}" class="frmBox">#{poll.Voters}</a> 。#{poll.ExpiryInfo}
             </div>
             

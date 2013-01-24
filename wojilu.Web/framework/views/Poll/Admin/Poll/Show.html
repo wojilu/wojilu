@@ -1,2 +1,9 @@
 ﻿<div class="postContent" id="postContent">#{post.Content}</div>
-<div style="margin:20px 10px">#{commentSection}</div>
+<div class="frmLoader" url="#{commentUrl}"></div>
+		
+<script>
+    _run(function () {
+        wojilu.ctx.changeUrl = false;
+        wojilu.ui.frmLoader();
+    });
+</script>

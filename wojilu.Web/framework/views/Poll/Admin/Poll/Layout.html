@@ -1,27 +1,29 @@
-﻿
-<div style="padding:10px 5px 10px 10px;">
+﻿	
+<div style="font-weight:bold; font-size:14px; margin:20px 10px 15px 20px;"><img src="~img/poll.gif" /> 投票管理</div>        
+	
+    <div style="margin:20px 20px 0px 20px; width:95%;">    
 
     <style>
     .pollOptions td {padding:2px 10px; }
+    .tabList li { width:120px;}
     </style>
 
-	<table style="margin:0px;width:100%;" class="tabHeader" cellpadding="0" cellspacing="0">
-		<tr>
-			<td id="tabFriends" class="otherTab"><a href="#{friendsPollLink}" class="frmLink" loadTo="pollMain" nolayout=4><img src="~img/list.gif" /> _{friendPoll}</a></td>
-			<td id="tabMy" class="otherTab"><a href="#{myPollLink}" class="frmLink" loadTo="pollMain" nolayout=4><img src="~img/list.gif" /> _{myPoll}</a></td>
-			<td id="tabAdd" class="otherTab"><a href="#{addPollLink}" class="frmLink" loadTo="pollMain" nolayout=4><img src="~img/add.gif" /> _{addPoll}</a></td>
-			<td class="otherTab" style="width:50%;">&nbsp;</td>
-		</tr>
-	</table>
-	<div style="width:100%;padding:0px;margin:0px; background:#fff;" class="tabMain">
-		
-		<table style="width: 100%">
-			<tr>
-				<td style="padding:10px;" id="pollMain">#{layout_content}</td>
-			</tr>
-		</table>
-		
-		
-	</div>
+
+
+    <ul class="tabList">
+        <li class="firstTab"><a href="#{friendsPollLink}" class="frmLink" loadTo="pollMain" nolayout=4><img src="~img/list.gif" /> _{friendPoll}</a></a><span></span></li>
+        <li><a href="#{myPollLink}" class="frmLink" loadTo="pollMain" nolayout=4><img src="~img/list.gif" /> _{myPoll}</a></a><span></span></li>
+        <li><a href="#{addPollLink}" class="frmLink" loadTo="pollMain" nolayout=4><img src="~img/add.gif" /> _{addPoll}</a></a><span></span></li>
+    </ul>    
+
+    <script>
+        _run(function () {
+            wojilu.tool.makeTab('.tabList', 'currentTab', '');
+        });
+    </script>
+
+    <div style="margin:20px;" id="pollMain">#{layout_content}</div>
+    
+
 
 </div>
