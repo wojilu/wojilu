@@ -29,6 +29,7 @@ namespace wojilu.Web {
     /// </summary>
     public class ContentBlock : IBlock {
 
+        private static readonly ILog logger = LogManager.GetLogger( typeof( ContentBlock ) );
 
         protected Boolean _isTemplateExist = true;
         protected String _templatePath;
@@ -53,6 +54,9 @@ namespace wojilu.Web {
             return _blockdataList;
         }
 
+        /// <summary>
+        /// 绑定一行完毕，进入下一行绑定
+        /// </summary>
         public void Next() {
 
             BlockData saved = _blockData;
@@ -61,10 +65,20 @@ namespace wojilu.Web {
             _blockData = new BlockData( saved.getParentDic() );
         }
 
+        /// <summary>
+        /// 给模板中的变量赋值
+        /// </summary>
+        /// <param name="lbl"></param>
+        /// <param name="lblValue"></param>
         public void Set( String lbl, String lblValue ) {
             _blockData.getDic()[lbl] = (lblValue == null ? "" : lblValue);
         }
 
+        /// <summary>
+        /// 给模板中的变量赋值
+        /// </summary>
+        /// <param name="lbl">模板中的变量</param>
+        /// <param name="val">被赋予的值，会被转化成字符串</param>
         public void Set( String lbl, Object val ) {
 
             if (val == null) {
@@ -83,11 +97,20 @@ namespace wojilu.Web {
 
         }
 
+        /// <summary>
+        /// 将对象绑定到模板。模板中变量前缀使用camelCase格式：#{blogPost.Title}
+        /// </summary>
+        /// <param name="obj">被绑定的对象</param>
         public void Bind( Object obj ) {
             String lbl = getCamelCase( obj.GetType().Name );
             Bind( lbl, obj );
         }
 
+        /// <summary>
+        /// 将对象绑定到模板。可以自定义模板中变量前缀：#{x.Title}
+        /// </summary>
+        /// <param name="lbl">比如变量#{x.Title}中的x</param>
+        /// <param name="obj">被绑定的对象</param>
         public void Bind( String lbl, Object obj ) {
 
             if (this.bindOtherFunc != null)
@@ -105,19 +128,34 @@ namespace wojilu.Web {
             return str[0].ToString().ToLower() + str.Substring( 1 );
         }
 
+        /// <summary>
+        /// 判断区块是否存在
+        /// </summary>
+        /// <param name="blockName"></param>
+        /// <returns></returns>
+        public Boolean IsBlockExist( String blockName ) {
 
-        // 返回一个做数据容器的block（可以作为数据容器，并包括tokens信息）
+            if (_isTemplateExist == false) {
+                throw new Exception( lang.get( "exTemplateNotExist" ) + ": " + _templatePath );
+            }
+
+            return getBlockToken( blockName ) != null;
+        }
+
+        /// <summary>
+        /// 返回一个做数据容器的block（可以作为数据容器，并包括tokens信息）
+        /// </summary>
+        /// <param name="blockName"></param>
+        /// <returns></returns>
         public IBlock GetBlock( String blockName ) {
 
-            if (_isTemplateExist == false)
+            if (_isTemplateExist == false) {                
                 throw new Exception( lang.get( "exTemplateNotExist" ) + ": " + _templatePath );
+            }
 
             BlockToken blockToken = getBlockToken( blockName );
             if (blockToken == null) throw new Exception(
-
-                string.Format( lang.get( "exBlockExist" ) , blockName, _templatePath, "&lt;!-- BEGIN " + blockName+ " --&gt;" )
-
-                
+                string.Format( lang.get( "exBlockExist" ) , blockName, _templatePath, "&lt;!-- BEGIN " + blockName+ " --&gt;" )                
                 );
 
             ContentBlock block = new ContentBlock();
@@ -133,19 +171,21 @@ namespace wojilu.Web {
             return block;
         }
 
-        // 这一步比较消耗性能，需要做好索引。在编译后缓存起来
         private BlockToken getBlockToken( String blockName ) {
             foreach (Token tk in _thisToken.getTokens()) {
                 if (tk.getName() == blockName) return tk as BlockToken;
             }
             return null;
+
+            // map 反而更慢
+            // return _thisToken.getByName( blockName ) as BlockToken;
         }
 
-        //protected StringBuilder resultBuilder;
-
+        /// <summary>
+        /// 获取模板绑定之后的最终结果
+        /// </summary>
+        /// <returns></returns>
         public override String ToString() {
-
-            //if (resultBuilder == null) resultBuilder = new StringBuilder();
 
             StringBuilder resultBuilder = new StringBuilder();
             addResultOne( resultBuilder, this.getData() );
@@ -161,6 +201,12 @@ namespace wojilu.Web {
 
         //-----------------------------------------------------------------------------------
 
+        /// <summary>
+        /// 绑定对象列表
+        /// </summary>
+        /// <param name="listName"></param>
+        /// <param name="lbl"></param>
+        /// <param name="objList"></param>
         public void BindList( String listName, String lbl, System.Collections.IList objList ) {
 
             wojilu.Web.IBlock block = this.GetBlock( listName ) as wojilu.Web.IBlock;

@@ -1,4 +1,4 @@
-/*
+ï»¿/*
  * Copyright 2010 www.wojilu.com
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -21,44 +21,44 @@ using System.Text;
 namespace wojilu.Web {
 
     /// <summary>
-    /// Ä£°åÒıÇæÖĞµÄÇø¿é
+    /// æ¨¡æ¿å¼•æ“ä¸­çš„åŒºå—
     /// </summary>
     public interface IBlock {
 
         /// <summary>
-        /// ½øÈëÏÂÒ»¸öÑ­»·
+        /// è¿›å…¥ä¸‹ä¸€ä¸ªå¾ªç¯
         /// </summary>
         void Next();
 
         /// <summary>
-        /// ¸øÄ£°å±äÁ¿¸³Öµ
+        /// ç»™æ¨¡æ¿å˜é‡èµ‹å€¼
         /// </summary>
         /// <param name="lbl"></param>
         /// <param name="lblValue"></param>
         void Set( String lbl, String lblValue );
 
         /// <summary>
-        /// ¸øÄ£°å±äÁ¿¸³Öµ
+        /// ç»™æ¨¡æ¿å˜é‡èµ‹å€¼
         /// </summary>
         /// <param name="lbl"></param>
         /// <param name="val"></param>
         void Set( String lbl, Object val );
 
         /// <summary>
-        /// ½«¶ÔÏó°ó¶¨µ½Ä£°åÖĞ
+        /// å°†å¯¹è±¡ç»‘å®šåˆ°æ¨¡æ¿ä¸­
         /// </summary>
         /// <param name="obj"></param>
         void Bind( Object obj );
 
         /// <summary>
-        /// ½«¶ÔÏó°ó¶¨µ½Ä£°åÖĞ£¬²¢Ö¸¶¨¶ÔÏóÔÚÄ£°åÖĞµÄ±äÁ¿Ãû
+        /// å°†å¯¹è±¡ç»‘å®šåˆ°æ¨¡æ¿ä¸­ï¼Œå¹¶æŒ‡å®šå¯¹è±¡åœ¨æ¨¡æ¿ä¸­çš„å˜é‡å
         /// </summary>
         /// <param name="lbl"></param>
         /// <param name="obj"></param>
         void Bind( String lbl, Object obj );
 
         /// <summary>
-        /// ½«¶ÔÏóÁĞ±í°ó¶¨µ½Ä£°åÖĞ
+        /// å°†å¯¹è±¡åˆ—è¡¨ç»‘å®šåˆ°æ¨¡æ¿ä¸­
         /// </summary>
         /// <param name="listName"></param>
         /// <param name="lbl"></param>
@@ -66,19 +66,19 @@ namespace wojilu.Web {
         void BindList( String listName, String lbl, IList objList );
 
         /// <summary>
-        /// »ñÈ¡Ä£°åÖĞµÄÇø¿é£¬ÓÃÓÚ½øÒ»²½µÄ°ó¶¨
+        /// è·å–æ¨¡æ¿ä¸­çš„åŒºå—ï¼Œç”¨äºè¿›ä¸€æ­¥çš„ç»‘å®š
         /// </summary>
         /// <param name="blockName"></param>
         /// <returns></returns>
         IBlock GetBlock( String blockName );
 
         /// <summary>
-        /// °ó¶¨·½·¨£¬Í¨³£ÓÃÓÚ×Ô¶¨Òå°ó¶¨
+        /// ç»‘å®šæ–¹æ³•ï¼Œé€šå¸¸ç”¨äºè‡ªå®šä¹‰ç»‘å®š
         /// </summary>
         bindFunction bindFunc { get; set; }
 
         /// <summary>
-        /// °ó¶¨·½·¨£¬Í¨³£ÓÃÓÚ×Ô¶¨Òå°ó¶¨
+        /// ç»‘å®šæ–¹æ³•ï¼Œé€šå¸¸ç”¨äºè‡ªå®šä¹‰ç»‘å®š
         /// </summary>
         otherBindFunction bindOtherFunc { get; set; }
 

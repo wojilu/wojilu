@@ -1,4 +1,4 @@
-/*
+ï»¿/*
  * Copyright 2010 www.wojilu.com
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -21,7 +21,7 @@ using System.Text;
 namespace wojilu.Web {
 
     /// <summary>
-    /// web ·şÎñÆ÷·´À¡µÄ http ×´Ì¬Âë
+    /// web æœåŠ¡å™¨åé¦ˆçš„ http çŠ¶æ€ç 
     /// </summary>
     public class HttpStatus {
 

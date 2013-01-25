@@ -1,4 +1,4 @@
-/*
+ï»¿/*
  * Copyright 2010 www.wojilu.com
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -21,64 +21,64 @@ using System.Text;
 namespace wojilu.Web {
 
     /// <summary>
-    /// Ä£°åÒıÇæ
+    /// æ¨¡æ¿å¼•æ“
     /// </summary>
     public interface ITemplate {
 
         /// <summary>
-        /// ¸ù¾İÄ£°å×Ö·û´®£¬³õÊ¼»¯Ä£°å
+        /// æ ¹æ®æ¨¡æ¿å­—ç¬¦ä¸²ï¼Œåˆå§‹åŒ–æ¨¡æ¿
         /// </summary>
         /// <param name="content"></param>
         /// <returns></returns>
         ITemplate InitContent( String content );
 
         /// <summary>
-        /// ¸ù¾İÄ£°å×Ö·û´®£¬³õÊ¼»¯Ä£°å
+        /// æ ¹æ®æ¨¡æ¿å­—ç¬¦ä¸²ï¼Œåˆå§‹åŒ–æ¨¡æ¿
         /// </summary>
-        /// <param name="absPath">Ä£°åËùÔÚ¾ø¶ÔÂ·¾¶</param>
-        /// <param name="content">Ä£°åµÄÄÚÈİ</param>
+        /// <param name="absPath">æ¨¡æ¿æ‰€åœ¨ç»å¯¹è·¯å¾„</param>
+        /// <param name="content">æ¨¡æ¿çš„å†…å®¹</param>
         /// <returns></returns>
         ITemplate InitContent( String absPath, String content );
 
         /// <summary>
-        /// ×Ô¶¨ÒåµÄ°ó¶¨·½·¨
+        /// è‡ªå®šä¹‰çš„ç»‘å®šæ–¹æ³•
         /// </summary>
         bindFunction bindFunc { get; set; }
 
         /// <summary>
-        /// ×Ô¶¨ÒåµÄ°ó¶¨·½·¨
+        /// è‡ªå®šä¹‰çš„ç»‘å®šæ–¹æ³•
         /// </summary>
         otherBindFunction bindOtherFunc { get; set; }
 
         /// <summary>
-        /// ¸øÄ£°å±äÁ¿¸³Öµ
+        /// ç»™æ¨¡æ¿å˜é‡èµ‹å€¼
         /// </summary>
         /// <param name="lbl"></param>
         /// <param name="lblValue"></param>
         void Set( String lbl, String lblValue );
 
         /// <summary>
-        /// ¸øÄ£°å±äÁ¿¸³Öµ
+        /// ç»™æ¨¡æ¿å˜é‡èµ‹å€¼
         /// </summary>
         /// <param name="lbl"></param>
         /// <param name="val"></param>
         void Set( String lbl, Object val );
 
         /// <summary>
-        /// ½«¶ÔÏó°ó¶¨µ½Ä£°åÖĞ
+        /// å°†å¯¹è±¡ç»‘å®šåˆ°æ¨¡æ¿ä¸­
         /// </summary>
         /// <param name="obj"></param>
         void Bind( Object obj );
 
         /// <summary>
-        /// ½«¶ÔÏó°ó¶¨µ½Ä£°åÖĞ£¬²¢Ö¸¶¨¶ÔÏóÔÚÄ£°åÖĞµÄ±äÁ¿Ãû
+        /// å°†å¯¹è±¡ç»‘å®šåˆ°æ¨¡æ¿ä¸­ï¼Œå¹¶æŒ‡å®šå¯¹è±¡åœ¨æ¨¡æ¿ä¸­çš„å˜é‡å
         /// </summary>
         /// <param name="lbl"></param>
         /// <param name="obj"></param>
         void Bind( String lbl, Object obj );
 
         /// <summary>
-        /// ½«¶ÔÏóÁĞ±í°ó¶¨µ½Ä£°åÖĞ
+        /// å°†å¯¹è±¡åˆ—è¡¨ç»‘å®šåˆ°æ¨¡æ¿ä¸­
         /// </summary>
         /// <param name="listName"></param>
         /// <param name="lbl"></param>
@@ -86,23 +86,31 @@ namespace wojilu.Web {
         void BindList( String listName, String lbl, IList objList );
 
         /// <summary>
-        /// »ñÈ¡Ä£°åÖĞµÄÇø¿é£¬ÓÃÓÚ½øÒ»²½µÄ°ó¶¨
+        /// è·å–æ¨¡æ¿ä¸­çš„åŒºå—ï¼Œç”¨äºè¿›ä¸€æ­¥çš„ç»‘å®š
         /// </summary>
         /// <param name="blockName"></param>
         /// <returns></returns>
         IBlock GetBlock( String blockName );
 
         /// <summary>
-        /// Ä£°åÊÇ·ñÓĞÄÚÈİ
+        /// æ¨¡æ¿æ˜¯å¦æœ‰å†…å®¹
         /// </summary>
         Boolean IsEmpty { get; }
 
         /// <summary>
-        /// Ö±½Ó½øĞĞÄ£°åÄÚÈİÌæ»»
+        /// ç›´æ¥è¿›è¡Œæ¨¡æ¿å†…å®¹æ›¿æ¢
         /// </summary>
         /// <param name="lbl"></param>
         /// <param name="lblValue"></param>
         void Replace( String lbl, String lblValue );
+
+
+        /// <summary>
+        /// åŒºå—æ˜¯å¦å­˜åœ¨
+        /// </summary>
+        /// <param name="blockName"></param>
+        /// <returns></returns>
+        Boolean IsBlockExist( String blockName );
 
     }
 

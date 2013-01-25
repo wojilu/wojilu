@@ -42,14 +42,11 @@ namespace wojilu.Web {
         public Template() {
         }
 
+        /// <summary>
+        /// 根据指定路径的模板文件初始化
+        /// </summary>
+        /// <param name="absPath">模板文件所在的绝对路径</param>
         public Template( String absPath ) {
-
-            InitPath( absPath );
-        }
-
-        public Template( String absPath, StringBuilder builder ) {
-
-            //base.resultBuilder = builder;
 
             InitPath( absPath );
         }
@@ -120,17 +117,17 @@ namespace wojilu.Web {
             return templateContent;
         }
 
+        /// <summary>
+        /// 根据模板内容初始化
+        /// </summary>
+        /// <param name="content">需要使用的模板内容(模板字符串)</param>
+        /// <returns></returns>
         public ITemplate InitContent( String content ) {
             _templateContent = content;
 
             TemplateParser parser = TemplateParser.GetParser( content );
             _thisToken = parser.getToken() as BlockToken;
             return this;
-        }
-
-        public ITemplate InitContent( String content, StringBuilder resultBuilder ) {
-            //base.resultBuilder = resultBuilder;
-            return InitContent( content );
         }
 
         public ITemplate InitContent( String absPath, String content ) {
@@ -143,8 +140,9 @@ namespace wojilu.Web {
             return this;
         }
 
-
-
+        /// <summary>
+        /// 判断模板内容是否为空
+        /// </summary>
         public Boolean IsEmpty {
             get { return strUtil.IsNullOrEmpty( this._templateContent ); }
         }
@@ -152,15 +150,21 @@ namespace wojilu.Web {
         public void Replace( String lbl, String lblValue ) {
         }
 
-
+        /// <summary>
+        /// 获取模板绑定之后的最终结果
+        /// </summary>
+        /// <returns></returns>
         public override String ToString() {
 
             if (strUtil.IsNullOrEmpty( _templateContent )) return "";
 
-            //logger.Info( "_templateContent=>" + _templateContent );
             return base.ToString();
         }
 
+        /// <summary>
+        /// 返回模板的原始内容，尚未给变量赋值
+        /// </summary>
+        /// <returns></returns>
         public String getTemplateString() {
             return _templateContent;
         }

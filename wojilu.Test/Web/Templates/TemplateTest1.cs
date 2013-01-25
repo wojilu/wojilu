@@ -96,6 +96,20 @@ namespace wojilu.Test.Web.Templates {
 
         }
 
+
+        [Test]
+        public void testBlockExist() {
+
+            string html = "<div>#{title}<br/>#{body}<!-- BEGIN mylist --><p>kkkk</p><!-- END mylist --></div>";
+
+            wojilu.Web.ITemplate tpl = new Template().InitContent( html );
+
+            Assert.IsFalse( tpl.IsBlockExist( "list" ) );
+            Assert.IsTrue( tpl.IsBlockExist( "mylist" ) );
+
+        }
+
+
         [Test]
         public void testLoop() {
             string html = "<!-- BEGIN list --><div>#{title}<br/>#{body}</div><!-- END list -->";

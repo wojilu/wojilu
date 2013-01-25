@@ -24,6 +24,7 @@ namespace wojilu.Web.Templates.Tokens {
     internal class BlockToken : Token {
 
         private List<Token> tokens;
+        //private Dictionary<String, Token> tokenMap = new Dictionary<String, Token>();
 
         public List<Token> getTokens() {
             return tokens;
@@ -31,7 +32,28 @@ namespace wojilu.Web.Templates.Tokens {
 
         public void setTokens( List<Token> tokens ) {
             this.tokens = tokens;
+
+            //addMap( tokens );
         }
+
+        //public Token getByName( String tokenName ) {
+        //    Token x;
+        //    this.tokenMap.TryGetValue( tokenName, out x );
+        //    return x;
+        //}
+
+        //private void addMap( List<Token> tokens ) {
+        //    if (tokens == null) return;
+        //    foreach (Token x in tokens) {
+
+        //        if (x.getName() == null) continue;
+
+        //        // 允许变量存在多次
+        //        if (tokenMap.ContainsKey( x.getName() )) continue;
+
+        //        tokenMap.Add( x.getName(), x );
+        //    }
+        //}
 
         public override void appendData( StringBuilder sb, ContentBlock block, BlockData blockdata ) {
 

@@ -1,4 +1,4 @@
-/*
+﻿/*
  * Copyright 2010 www.wojilu.com
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -21,7 +21,7 @@ using System.Text;
 namespace wojilu.Web {
 
     /// <summary>
-    /// �����Զ���İ󶨷�������Ĭ�ϵİ�ִ����֮�󣬱������ᱻ������ȥ����ִ��
+    /// 额外自定义的绑定方法。在默认的绑定执行完之后，本方法会被附加上去继续执行
     /// </summary>
     /// <param name="tpl"></param>
     /// <param name="lbl"></param>
@@ -29,7 +29,7 @@ namespace wojilu.Web {
     public delegate void otherBindFunction( IBlock tpl, String lbl, Object obj );
 
     /// <summary>
-    /// �����Զ���İ󶨷�������Ĭ�ϵİ�ִ����֮�󣬱������ᱻ������ȥ����ִ��
+    /// 额外自定义的绑定方法。在默认的绑定执行完之后，本方法会被附加上去继续执行
     /// </summary>
     /// <param name="tpl"></param>
     /// <param name="id"></param>
