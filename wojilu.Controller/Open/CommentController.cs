@@ -17,7 +17,7 @@ namespace wojilu.Web.Controller.Open {
 
     public class CommentController : ControllerBase {
 
-        public OpenCommentService commentService { get; set; }
+        public IOpenCommentService commentService { get; set; }
 
         public CommentController() {
             commentService = new OpenCommentService();

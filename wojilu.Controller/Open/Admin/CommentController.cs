@@ -20,7 +20,7 @@ namespace wojilu.Web.Controller.Open.Admin {
     public class CommentBaseController<T> : ControllerBase where T : ObjectBase<T> {
 
 
-        public OpenCommentService commentService { get; set; }
+        public IOpenCommentService commentService { get; set; }
 
         public CommentBaseController() {
             commentService = new OpenCommentService();

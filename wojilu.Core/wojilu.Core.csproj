@@ -101,6 +101,7 @@
     <Compile Include="Common\Comments\ICommentService.cs" />
     <Compile Include="Common\Comments\ICommentTarget.cs" />
     <Compile Include="Common\Comments\IFeedComment.cs" />
+    <Compile Include="Common\Comments\IOpenCommentService.cs" />
     <Compile Include="Common\Comments\OpenCommentCount.cs" />
     <Compile Include="Common\Comments\OpenCommentService.cs" />
     <Compile Include="Common\Component\Component.cs" />

@@ -23,7 +23,7 @@ namespace wojilu.Web.Controller.Photo {
 
         public IPhotoAlbumService albumService { get; set; }
         public IPhotoPostService postService { get; set; }
-        public OpenCommentService commentService { get; set; }
+        public IOpenCommentService commentService { get; set; }
 
         public LayoutController() {
 

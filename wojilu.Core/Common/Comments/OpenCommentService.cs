@@ -9,7 +9,7 @@ using wojilu.Common.Msg.Enum;
 namespace wojilu.Common.Comments {
 
 
-    public class OpenCommentService {
+    public class OpenCommentService : IOpenCommentService {
 
         public INotificationService nfService { get; set; }
 

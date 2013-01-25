@@ -26,7 +26,7 @@ namespace wojilu.Web.Controller.Blog {
         public IBlogCategoryService categoryService { get; set; }
         public IBlogPostService postService { get; set; }
         public IBlogrollService rollService { get; set; }
-        public OpenCommentService commentService { get; set; }
+        public IOpenCommentService commentService { get; set; }
 
         public LayoutController() {
 

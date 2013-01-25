@@ -22,7 +22,7 @@ namespace wojilu.Web.Controller.Open {
 
 
 
-        public OpenCommentService commentService { get; set; }
+        public IOpenCommentService commentService { get; set; }
 
         public CommentListController() {
             commentService = new OpenCommentService();
