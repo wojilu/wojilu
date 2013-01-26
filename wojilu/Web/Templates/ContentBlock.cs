@@ -133,7 +133,7 @@ namespace wojilu.Web {
         /// </summary>
         /// <param name="blockName"></param>
         /// <returns></returns>
-        public Boolean IsBlockExist( String blockName ) {
+        public Boolean HasBlock( String blockName ) {
 
             if (_isTemplateExist == false) {
                 throw new Exception( lang.get( "exTemplateNotExist" ) + ": " + _templatePath );

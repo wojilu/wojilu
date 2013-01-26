@@ -110,7 +110,7 @@ namespace wojilu.Web {
         /// </summary>
         /// <param name="blockName"></param>
         /// <returns></returns>
-        Boolean IsBlockExist( String blockName );
+        Boolean HasBlock( String blockName );
 
     }
 

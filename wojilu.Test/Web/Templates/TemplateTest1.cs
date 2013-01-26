@@ -104,8 +104,8 @@ namespace wojilu.Test.Web.Templates {
 
             wojilu.Web.ITemplate tpl = new Template().InitContent( html );
 
-            Assert.IsFalse( tpl.IsBlockExist( "list" ) );
-            Assert.IsTrue( tpl.IsBlockExist( "mylist" ) );
+            Assert.IsFalse( tpl.HasBlock( "list" ) );
+            Assert.IsTrue( tpl.HasBlock( "mylist" ) );
 
         }
 
