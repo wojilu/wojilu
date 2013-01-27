@@ -180,6 +180,7 @@ table.postOne {width:100%; border-collapse:collapse; margin:auto;}
 	.poBody { vertical-align:top; background:#ffffff;}
 	div.poBodyContainer {color:#000; font-size:14px; margin:15px; line-height:150%;}
 	.poBodyContainer div{color:#000;}
+	.poBodyContainer img{ _width:expression(this.offsetWidth>700?"700px":true); max-width:700px;}
     .poBodyContainer [class*="span"] {float:none;}
 
     ul.replyPostList {margin:10px 0px 20px 10px;}
