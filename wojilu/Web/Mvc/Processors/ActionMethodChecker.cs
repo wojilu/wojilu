@@ -37,6 +37,7 @@ namespace wojilu.Web.Mvc.Processors {
             }
             else {
                 context.ctx.setActionMethodInfo( actionMethod );
+                context.ctx.route.setAction( actionMethod.Name ); // IgnoreCase
             }
 
         }

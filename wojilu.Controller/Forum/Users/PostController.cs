@@ -103,7 +103,7 @@ namespace wojilu.Web.Controller.Forum.Users {
                 Result result = postService.Insert( post, (User)ctx.viewer.obj, ctx.owner.obj, (IApp)ctx.app.obj );
                 if (result.IsValid) {
 
-                    new ForumCacheRemove( boardService, topicService, this ).CreatePost( post );
+                    //new ForumCacheRemove( boardService, topicService, this ).CreatePost( post );
 
                     String lnkTopicLastPage = getTopicLastPage( post );
                     echoRedirect( lang( "opok" ), lnkTopicLastPage );

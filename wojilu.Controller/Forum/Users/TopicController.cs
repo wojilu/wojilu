@@ -130,10 +130,7 @@ namespace wojilu.Web.Controller.Forum.Users {
                 return;
             }
 
-            new ForumCacheRemove( boardService, this ).CreateTopic( board );
-
             echoRedirect( lang( "opok" ), alink.ToAppData( topic ) );
-
         }
 
 

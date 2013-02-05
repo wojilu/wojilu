@@ -230,10 +230,6 @@
     <Compile Include="Forum\Caching\Actions\ForumBoardCache.cs" />
     <Compile Include="Forum\Caching\Actions\ForumIndexCache.cs" />
     <Compile Include="Common\Caching\SiteLayoutCache.cs" />
-    <Compile Include="Common\Caching\Interceptor\CacheInterceptor.cs" />
-    <Compile Include="Common\Caching\Interceptor\EntityInterceptorDB.cs" />
-    <Compile Include="Common\Caching\Interceptor\IEntityInterceptor.cs" />
-    <Compile Include="Common\Caching\Remove\BlogCache.cs" />
     <Compile Include="Blog\BlogCommentController.cs" />
     <Compile Include="Blog\partial\BlogController.cs" />
     <Compile Include="Blog\partial\CategoryController.cs" />
@@ -243,16 +239,6 @@
     <Compile Include="Common\Admin\partial\AppBaseController.cs" />
     <Compile Include="Common\Admin\partial\MenuBaseController.cs" />
     <Compile Include="Common\Admin\MenuBaseController.cs" />
-    <Compile Include="Common\Caching\ExpirationChecker\ExpirationChecker.cs" />
-    <Compile Include="Common\Caching\Remove\CacheRemoveBase.cs" />
-    <Compile Include="Common\Caching\CacheImpl\CacheHelper.cs" />
-    <Compile Include="Common\Caching\ExpirationChecker\ContentExpirationChecker.cs" />
-    <Compile Include="Common\Caching\CacheImpl\DiskCache.cs" />
-    <Compile Include="Common\Caching\ExpirationChecker\ForumExpirationChecker.cs" />
-    <Compile Include="Common\Caching\CacheImpl\ICacheHelper.cs" />
-    <Compile Include="Common\Caching\CacheImpl\InMemoryCache.cs" />
-    <Compile Include="Common\Caching\CacheImpl\MemcachedCache.cs" />
-    <Compile Include="Common\Caching\MyCacher.cs" />
     <Compile Include="Common\ConfirmEmail.cs" />
     <Compile Include="Common\Feeds\BodyMerger.cs" />
     <Compile Include="Common\Feeds\CommentMerger.cs" />
@@ -314,7 +300,6 @@
     <Compile Include="Content\Binder\MyInfoBinderController.cs" />
     <Compile Include="Content\Binder\ListTimeBinderController.cs" />
     <Compile Include="Content\Common\AttachmentController.cs" />
-    <Compile Include="Common\Caching\Remove\ContentCacheRemove.cs" />
     <Compile Include="Content\SectionDataController.cs" />
     <Compile Include="Content\Section\PostImgController.cs" />
     <Compile Include="Content\Submit\LayoutController.cs" />
@@ -359,7 +344,6 @@
     <Compile Include="Forum\SearchController.cs" />
     <Compile Include="Forum\Edits\TagController.cs" />
     <Compile Include="Forum\Users\UploaderController.cs" />
-    <Compile Include="Common\Caching\Remove\ForumCacheRemove.cs" />
     <Compile Include="Forum\Utils\LinkUtil.cs" />
     <Compile Include="Layouts\MenuHelper.cs" />
     <Compile Include="LinkController.cs" />

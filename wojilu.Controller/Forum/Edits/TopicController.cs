@@ -68,7 +68,6 @@ namespace wojilu.Web.Controller.Forum.Edits {
                 }
 
                 topicService.Update( topic, (User)ctx.viewer.obj, ctx.owner.obj );
-                new ForumCacheRemove( boardService, topicService, this ).UpdateTopic( topic );
                 echoRedirect( lang( "opok" ), alink.ToAppData( topic ) );
             }
         }
@@ -141,7 +140,6 @@ namespace wojilu.Web.Controller.Forum.Edits {
                 }
 
                 topicService.Update( topic, (User)ctx.viewer.obj, ctx.owner.obj );
-                new ForumCacheRemove( boardService, topicService, this ).UpdateTopic( topic );
                 echoRedirect( lang( "opok" ), alink.ToAppData( topic ) );
             }
         }

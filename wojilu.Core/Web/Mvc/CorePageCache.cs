@@ -46,13 +46,14 @@ namespace wojilu.Web.Mvc {
 
             foreach (IMenu menu in list) {
 
-                if (getFullUrl( menu.RawUrl ).Equals( rawUrl )) {
+                if (strUtil.EqualsIgnoreCase( rawUrl, getFullUrl( menu.RawUrl ) )) {
 
                     String urlKey = "/" + menu.Url + MvcConfig.Instance.UrlExt;
                     furls.Add( urlKey );
 
                     if (menu.Url == "default") { // 在静态页面的时候，有多种结果：/和/Default.aspx
                         furls.Add( "/" );
+                        furls.Add( "/default" + MvcConfig.Instance.UrlExt );
                         furls.Add( "/Default" + MvcConfig.Instance.UrlExt );
                     }
 

@@ -85,8 +85,6 @@ namespace wojilu.Web.Controller.Forum.Moderators {
             if (boardError( post )) return;
 
             postService.BanPost( post, ctx.Post( "Reason" ), ctx.PostIsCheck( "IsSendMsg" ), (User)ctx.viewer.obj, ctx.app.Id, ctx.Ip );
-
-            new ForumCacheRemove( this.boardService, topicService, this ).BanPost( post );
             echoRedirect( lang( "opok" ) );
         }
 
@@ -101,7 +99,6 @@ namespace wojilu.Web.Controller.Forum.Moderators {
             if (boardError( post )) return;
 
             postService.UnBanPost( post, (User)ctx.viewer.obj, ctx.app.Id, ctx.Ip );
-            new ForumCacheRemove( this.boardService, topicService, this ).BanPost( post );
             echoRedirect( lang( "opok" ) );
         }
 
