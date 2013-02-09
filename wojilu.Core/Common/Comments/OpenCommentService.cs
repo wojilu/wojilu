@@ -314,13 +314,22 @@ namespace wojilu.Common.Comments {
                     .first();
             }
             else {
-                replies = OpenComment.find( "TargetUrl=:url" )
-                    .set( "url", c.TargetUrl )
-                    .count();
 
-                objCount = OpenCommentCount.find( "TargetUrl=:url" )
-                    .set( "url", c.TargetUrl )
-                    .first();
+                if (c.TargetUrl == null) {
+                    replies = 0;
+                    objCount = null;
+                }
+                else {
+
+                    replies = OpenComment.find( "TargetUrl=:url" )
+                        .set( "url", c.TargetUrl )
+                        .count();
+
+                    objCount = OpenCommentCount.find( "TargetUrl=:url" )
+                        .set( "url", c.TargetUrl )
+                        .first();
+
+                }
             }
 
 

@@ -268,6 +268,7 @@ namespace wojilu.Data {
                 if ((dbtype == DatabaseType.Access)) {
                     String connectionItem = dialect.GetConnectionItem( connectionString, ConnectionItemType.Database );
                     logger.Info( "database path original:" + connectionItem );
+                    if (connectionItem == null) throw new Exception( "没有设置access地址：" + connectionString );
 
                     if (IsRelativePath( connectionItem )) {
                         connectionItem = PathHelper.Map( strUtil.Join( SystemInfo.ApplicationPath, connectionItem ) );

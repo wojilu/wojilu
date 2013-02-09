@@ -14,6 +14,8 @@ namespace wojilu.Web.Controller.Admin.Upgrade {
         where TComment : IEntity
         where TTarget : IEntity {
 
+        private static readonly ILog logger = LogManager.GetLogger( "ImportHelper" );
+
         public void Import() {
 
             List<TComment> clist = db.findAll<TComment>();
@@ -87,19 +89,25 @@ namespace wojilu.Web.Controller.Admin.Upgrade {
             comment.ParentId = getParentId( obj );
 
             IEntity p = ndb.findById( typeof( TTarget ), x.RootId );
-            int creatorId = getCreatorId( p );
-            String title = getTitle( p );
-
-            comment.TargetDataId = p.Id;
-            comment.TargetDataType = typeof( TTarget ).FullName;
-            comment.TargetTitle = title;
-
-            comment.TargetUserId = creatorId;
+            if (p == null) {
+                comment.TargetDataId = 0;
+                comment.TargetDataType = typeof( TTarget ).FullName;
+                comment.TargetTitle = "--null-";
+                comment.TargetUserId = 0;
+            }
+            else {
+                comment.TargetDataId = p.Id;
+                comment.TargetDataType = typeof( TTarget ).FullName;
+                comment.TargetTitle = getTitle( p );
+                comment.TargetUserId = getCreatorId( p );
+            }
 
             return comment;
         }
 
         private string getTitle( IEntity p ) {
+
+            if (p == null) return "--null--";
 
             Object obj = p.get( "Title" );
             if (obj == null) return "";
@@ -107,6 +115,8 @@ namespace wojilu.Web.Controller.Admin.Upgrade {
         }
 
         private int getCreatorId( IEntity p ) {
+
+            if (p == null) return 0;
 
             User user = p.get( "Creator" ) as User;
             if (user == null) return 0;
@@ -137,10 +147,13 @@ namespace wojilu.Web.Controller.Admin.Upgrade {
         private int getOldParentId( int id ) {
 
             TComment p = db.findById<TComment>( id );
+            if (p == null) return 0;
 
             IComment comment = p as IComment;
+            if (comment == null) return 0;
 
             if (comment.ParentId == 0) return id;
+            if (comment.ParentId == id) return id;
 
             return getOldParentId( comment.ParentId );
         }
