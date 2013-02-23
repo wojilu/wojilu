@@ -32,7 +32,7 @@ namespace wojilu.Web.Mvc.Attr {
     [Serializable, AttributeUsage( AttributeTargets.Method )]
     public class HttpGetAttribute : Attribute, IHttpMethod {
         public String GetString() {
-            return "GET";
+            return HttpMethod.Get;
         }
     }
 
@@ -42,7 +42,7 @@ namespace wojilu.Web.Mvc.Attr {
     [Serializable, AttributeUsage( AttributeTargets.Method )]
     public class HttpPostAttribute : Attribute, IHttpMethod {
         public String GetString() {
-            return "POST";
+            return HttpMethod.Post;
         }
     }
 
@@ -52,7 +52,7 @@ namespace wojilu.Web.Mvc.Attr {
     [Serializable, AttributeUsage( AttributeTargets.Method )]
     public class HttpPutAttribute : Attribute, IHttpMethod {
         public String GetString() {
-            return "PUT";
+            return HttpMethod.Put;
         }
     }
 
@@ -62,7 +62,7 @@ namespace wojilu.Web.Mvc.Attr {
     [Serializable, AttributeUsage( AttributeTargets.Method )]
     public class HttpDeleteAttribute : Attribute, IHttpMethod {
         public String GetString() {
-            return "DELETE";
+            return HttpMethod.Delete;
         }
     }
 
