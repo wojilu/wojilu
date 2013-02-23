@@ -20,6 +20,8 @@ using System.IO;
 using System.Web;
 using System.Drawing;
 using wojilu.Drawing;
+using System.Net;
+using wojilu.Net;
 
 namespace wojilu.Web.Utils {
 
@@ -85,12 +87,19 @@ namespace wojilu.Web.Utils {
                 return result;
             }
 
-            String uploadPath = sys.Path.DiskAvatar;
-
             AvatarSaver aSaver = AvatarSaver.New( oPicAbsPath );
 
-            return savePicCommon( aSaver, userId, result, uploadPath );
+            return savePicCommon( aSaver, userId, result, sys.Path.DiskAvatar );
+        }
 
+        public static Result SaveRemote( string picUrl, int userId ) {
+
+            logger.Info( "picUrl:" + picUrl );
+            logger.Info( "userId:" + userId );
+
+            Result result = new Result();
+            AvatarSaver aSaver = new AvatarNetSaver( picUrl );
+            return savePicCommon( aSaver, userId, result, sys.Path.DiskAvatar );
         }
 
         private static Result savePicCommon( AvatarSaver aSaver, int userId, Result result, String uploadPath ) {
@@ -143,42 +152,6 @@ namespace wojilu.Web.Utils {
             AvatarSaver aSaver = AvatarSaver.New( postedFile );
 
             return savePicCommon( aSaver, userId, result, uploadPath );
-
-
-            //DateTime now = DateTime.Now;
-            //String strDir = getDirName( now );
-            //String fullDir = strUtil.Join( uploadPath, strDir );
-
-            //String absPath = PathHelper.Map( fullDir );
-            //if (!Directory.Exists( absPath )) {
-            //    Directory.CreateDirectory( absPath );
-            //    logger.Info( "CreateDirectory:" + absPath );
-            //}
-
-            //String picName = string.Format( "{0}_{1}_{2}_{3}", userId, now.Hour, now.Minute, now.Second );
-            //String picNameWithExt = picName + "." + Img.GetImageExt( postedFile.ContentType );
-
-            //String picAbsPath = Path.Combine( absPath, picNameWithExt );
-            //try {
-            //    postedFile.SaveAs( picAbsPath );
-            //    saveAvatarThumb( picAbsPath );
-            //}
-            //catch (Exception exception) {
-            //    logger.Error( lang.get( "exPhotoUploadError" ) + ":" + exception.Message );
-            //    result.Add( lang.get( "exPhotoUploadErrorTip" ) );
-            //    return result;
-            //}
-
-            //// 返回的信息是缩略图
-            //String relPath = strUtil.Join( fullDir, picNameWithExt ).TrimStart( '/' );
-            //relPath = strUtil.TrimStart( relPath, "static/upload/" );
-            //String thumbPath = Img.GetThumbPath( relPath );
-
-            //logger.Info( "return thumbPath=" + thumbPath );
-
-            //result.Info = thumbPath;
-            //return result;
-
         }
 
 
@@ -226,6 +199,10 @@ namespace wojilu.Web.Utils {
 
 
         }
+
+
+
+
 
     }
 }

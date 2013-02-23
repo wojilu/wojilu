@@ -104,6 +104,7 @@
     <Compile Include="Aop\AopCoder.cs" />
     <Compile Include="Aop\MethodObserver.cs" />
     <Compile Include="Web\HttpMethod.cs" />
+    <Compile Include="Web\Utils\AvatarNetSaver.cs" />
     <Compile Include="_wojilu\Exception.cs" />
     <Compile Include="Web\Mvc\ActionCache.cs" />
     <Compile Include="_wojilu\Json.cs" />
