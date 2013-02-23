@@ -4,13 +4,15 @@
 
 using System;
 
+using wojilu.Web.Mvc;
+using wojilu.Web.Mvc.Attr;
+
+using wojilu.Config;
 using wojilu.Common;
 using wojilu.Common.AppBase;
 using wojilu.Common.MemberApp.Interface;
 using wojilu.Common.Menus.Interface;
 using wojilu.Common.Resource;
-
-using wojilu.Config;
 
 using wojilu.Members.Users.Domain;
 using wojilu.Members.Users.Interface;
@@ -18,8 +20,6 @@ using wojilu.Members.Users.Service;
 
 using wojilu.Web.Controller.Common;
 using wojilu.Web.Controller.Utils;
-using wojilu.Web.Mvc;
-using wojilu.Web.Mvc.Attr;
 
 namespace wojilu.Web.Controller {
 
@@ -61,7 +61,7 @@ namespace wojilu.Web.Controller {
         public void Invite( int userId ) {
 
             if (ctx.viewer.IsLogin) {
-                echo( "您有帐号，并且已经登录" );
+                echo( "对不起，您已经登录" );
                 return;
             }
 
@@ -87,6 +87,11 @@ namespace wojilu.Web.Controller {
         [HttpPost]
         public void RegisterFriend( int friendId ) {
 
+            if (ctx.viewer.IsLogin) {
+                echo( "对不起，您已经登录" );
+                return;
+            }
+
             String inviteCode = ctx.Post( "inviteCode" );
 
             Result result = inviteService.Validate( friendId, inviteCode );
@@ -107,13 +112,20 @@ namespace wojilu.Web.Controller {
 
         public void Register() {
 
+            if (ctx.viewer.IsLogin) {
+                echo( "对不起，您已经登录" );
+                return;
+            }
+
             if (config.Instance.Site.RegisterType == RegisterType.CloseUnlessInvite) {
                 echo( "对不起，您必须接受邀请才能注册" );
                 return;
             }
 
             bindRegister();
+            load( "connectLogin", new MainController().connectLogin );
         }
+
 
         private void bindRegister() {
 
@@ -341,6 +353,7 @@ namespace wojilu.Web.Controller {
             String pwd = ctx.Post( "Password1" );
             String pageUrl = ctx.Post( "FriendUrl" );
             String email = strUtil.SubString( ctx.Post( "Email" ), RegPattern.EmailLength );
+
 
             if (strUtil.IsNullOrEmpty( name )) {
                 errors.Add( lang( "exUserName" ) );

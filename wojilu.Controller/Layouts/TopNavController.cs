@@ -7,25 +7,30 @@ using System.Collections;
 using System.Collections.Generic;
 
 using wojilu.Web.Mvc;
-using wojilu.Web.Controller.Users.Admin;
+
+using wojilu.Config;
+
+using wojilu.Common;
+using wojilu.Common.Onlines;
+using wojilu.Common.MemberApp.Interface;
+
+using wojilu.Common.Msg.Interface;
+using wojilu.Common.Msg.Service;
+using wojilu.Common.Msg.Domain;
+using wojilu.Common.Money.Domain;
+using wojilu.Common.Money.Interface;
+using wojilu.Common.Money.Service;
+
+using wojilu.Common.Menus.Interface;
+using wojilu.Common.Microblogs.Domain;
+using wojilu.Common.Feeds.Domain;
 
 using wojilu.Members.Sites.Domain;
 using wojilu.Members.Sites.Service;
 using wojilu.Members.Users.Service;
 using wojilu.Members.Users.Domain;
-using wojilu.Common.Onlines;
-using wojilu.Common.MemberApp.Interface;
-using wojilu.Common.Msg.Interface;
-using wojilu.Common.Msg.Service;
-using wojilu.Common.Menus.Interface;
-using wojilu.Common.Money.Domain;
-using wojilu.Common.Money.Interface;
-using wojilu.Common.Money.Service;
-using wojilu.Common;
-using wojilu.Common.Microblogs.Domain;
-using wojilu.Common.Msg.Domain;
-using wojilu.Common.Feeds.Domain;
-using wojilu.Config;
+
+using wojilu.Web.Controller.Users.Admin;
 
 namespace wojilu.Web.Controller.Layouts {
 
@@ -50,7 +55,7 @@ namespace wojilu.Web.Controller.Layouts {
         public void Index() {
 
             if (config.Instance.Site.TopNavDisplay == TopNavDisplay.Hide ||
-                (config.Instance.Site.RegisterType == RegisterType.Close && 
+                (config.Instance.Site.RegisterType == RegisterType.Close &&
                 config.Instance.Site.TopNavDisplay == TopNavDisplay.NoRegHide)
                 ) {
 
@@ -65,13 +70,17 @@ _run( function() {
                 return;
             }
 
-
             set( "site.Name", config.Instance.Site.SiteName );
             set( "site.Url", SystemInfo.SiteRoot );
 
             set( "LoginAction", Link.To( Site.Instance, new MainController().CheckLogin ) );
             set( "RegLink", Link.To( Site.Instance, new RegisterController().Register ) );
             set( "resetPwdLink", Link.To( Site.Instance, new wojilu.Web.Controller.Common.ResetPwdController().StepOne ) );
+
+
+
+            //set( "weiboLoginLink", Link.To( Site.Instance, new ConnectController().Login ) + "?connectType=" + typeof( WeiboConnect ).FullName );
+            //set( "QQWeiboLoginLink", Link.To( Site.Instance, new ConnectController().Login ) + "?connectType=" + typeof( QQWeiboConnect ).FullName );
 
             String emailCredit = getEmailConfirmCredit( 18 );
             String uploadCredit = getEmailConfirmCredit( 17 );
@@ -98,6 +107,7 @@ _run( function() {
         public void Nav() {
 
             // TODO 如果是在访问用户空间，则判断：是否好友、是否关注
+            // 游客登录信息：已被 RenderHelper 拦截
             echoJson( getLoginJsonString() );
         }
 
@@ -110,31 +120,31 @@ _run( function() {
 
             Dictionary<String, object> dic = new Dictionary<string, object>();
 
-            Dictionary<String, object> viewer = new Dictionary<string, object>();
-            viewer.Add( "Id", user.Id );
-            viewer.Add( "IsLogin", ctx.viewer.IsLogin );
-            viewer.Add( "IsAdministrator", ctx.viewer.IsAdministrator() );
-            viewer.Add( "IsInAdminGroup", SiteRole.IsInAdminGroup( ctx.viewer.obj.RoleId ) );
-            viewer.Add( "HasPic", user.HasUploadPic() );
-            viewer.Add( "EmailConfirm", user.IsEmailConfirmed == 1 );
-            viewer.Add( "IsAlertActivation", isAlertActivation );
-            viewer.Add( "IsAlertUserPic", config.Instance.Site.AlertUserPic );
+                Dictionary<String, object> viewer = new Dictionary<string, object>();
+                viewer.Add( "Id", user.Id );
+                viewer.Add( "IsLogin", ctx.viewer.IsLogin );
+                viewer.Add( "IsAdministrator", ctx.viewer.IsAdministrator() );
+                viewer.Add( "IsInAdminGroup", SiteRole.IsInAdminGroup( ctx.viewer.obj.RoleId ) );
+                viewer.Add( "HasPic", user.HasUploadPic() );
+                viewer.Add( "EmailConfirm", user.IsEmailConfirmed == 1 );
+                viewer.Add( "IsAlertActivation", isAlertActivation );
+                viewer.Add( "IsAlertUserPic", config.Instance.Site.AlertUserPic );
 
-            Dictionary<String, object> objViewer = new Dictionary<string, object>();
-            objViewer.Add( "Id", user.Id );
-            objViewer.Add( "Name", user.Name );
-            objViewer.Add( "FriendlyUrl", user.Url );
-            objViewer.Add( "Url", toUser( user ) );
-            objViewer.Add( "PicMedium", user.PicMedium );
+                    Dictionary<String, object> objViewer = new Dictionary<string, object>();
+                    objViewer.Add( "Id", user.Id );
+                    objViewer.Add( "Name", user.Name );
+                    objViewer.Add( "FriendlyUrl", user.Url );
+                    objViewer.Add( "Url", toUser( user ) );
+                    objViewer.Add( "PicMedium", user.PicMedium );
 
-            viewer.Add( "obj", objViewer );
+                viewer.Add( "obj", objViewer );
 
             dic.Add( "viewer", viewer );
             dic.Add( "viewerOwnerSame", isViewerOwnerSame );
 
-            Dictionary<String, object> owner = new Dictionary<string, object>();
-            owner.Add( "IsSite", ctx.owner.obj.GetType() == typeof( Site ) );
-            owner.Add( "Id", ctx.owner.Id );
+                Dictionary<String, object> owner = new Dictionary<string, object>();
+                owner.Add( "IsSite", ctx.owner.obj.GetType() == typeof( Site ) );
+                owner.Add( "Id", ctx.owner.Id );
 
             dic.Add( "owner", owner );
             dic.Add( "navInfo", loginNavInfo() );
@@ -142,6 +152,7 @@ _run( function() {
 
             return Json.Serialize( dic );
         }
+
 
         public Dictionary<String, Object> loginNavInfo() {
 

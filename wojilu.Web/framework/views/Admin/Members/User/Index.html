@@ -67,7 +67,7 @@ _run( function() {
 		</span>
 		
 		<span class="menuMore" list="baseList">_{baseFilter} <img src="~img/down.gif" />
-		<ul id="baseList" class="menuItems" style="width:120px;">
+		<ul id="baseList" class="menuItems" style="width:150px;">
 		<li><a href="#{userListLink}?filter=picked">_{pickedUser}</a></li>
 		<li><a href="#{userListLink}?filter=deleted">_{trash}</a></li>
 		<li><a href="#{userListLink}?filter=male">_{male}</a></li>
@@ -75,7 +75,8 @@ _run( function() {
 		<li><a href="#{userListLink}?filter=UnConfirmed">_{UnConfirmed}</a></li>
 		<li><a href="#{userListLink}?filter=Confirmed">_{Confirmed}</a></li>
 		<li><a href="#{userListLink}?filter=EmailError">_{EmailError}</a></li>
-		<li><a href="#{userListLink}?filter=UnSendEmail">_{UnSendEmail}</a></li>		
+		<li><a href="#{userListLink}?filter=UnSendEmail">_{UnSendEmail}</a></li>
+        <li><a href="#{userListLink}?filter=bind">已绑定第三方帐号</a></li>	
 		</ul>
 		</span>
 		
@@ -172,7 +173,9 @@ _run( function() {
 		<table style="width: 100%">
 			<tr>
 				<td>#{page}</td>
-				<td align="right">_{note}: &quot;<img src="~img/trash.gif"/>&quot;_{referTrash}；&quot;★&quot;_{referPick}；&quot;--&quot;待审核</td>
+				<td align="right">_{note}: &quot;<img src="~img/trash.gif"/>&quot;_{referTrash}；&quot;★&quot;_{referPick}；&quot;--&quot;待审核；
+                &quot;<img src="~img/s/external-link.png" />&quot;绑定第三方帐号
+                </td>
 			</tr>
 		</table>
 	

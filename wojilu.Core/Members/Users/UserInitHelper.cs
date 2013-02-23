@@ -36,8 +36,6 @@ namespace wojilu.Members.Users {
             IMemberApp app = userAppService.GetByApp( (IApp)ctx.app.obj );
 
             if (app == null || app.IsStop == 1) {
-
-                ctx.utils.endMsg( lang.get( "exAppNotFound" ), HttpStatus.NotFound_404 );
                 return false;
             }
 

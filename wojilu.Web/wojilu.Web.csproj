@@ -70,10 +70,18 @@
   <ItemGroup>
     <Content Include="agreement.html" />
     <Content Include="crossdomain.xml" />
+    <Content Include="framework\views\Admin\Sys\ConnectAdmin\Add.html" />
+    <Content Include="framework\views\Admin\Sys\ConnectAdmin\Edit.html" />
+    <Content Include="framework\views\Admin\Sys\ConnectAdmin\Index.html" />
     <Content Include="framework\views\Admin\Upgrade\CommentImport\Index.html" />
+    <Content Include="framework\views\Main\connectLogin.html" />
     <Content Include="framework\views\Open\Admin\CommentBase\List.html" />
     <Content Include="framework\views\Open\CommentList\Index.html" />
+    <Content Include="framework\views\Users\Admin\UserProfile\AddEmail.html" />
+    <Content Include="framework\views\Users\Admin\UserProfile\BindAccount.html" />
     <Content Include="framework\views\Users\Admin\UserProfile\NeedUserPic.html" />
+    <Content Include="static\js\wojilu.core.base.js" />
+    <Content Include="static\js\wojilu.core.poll.js" />
     <Content Include="彻底初始化方法.txt" />
     <Content Include="framework\views\Admin\Apps\Blog\Layout\Layout.html" />
     <Content Include="framework\views\Admin\Apps\Blog\Main\Index.html" />

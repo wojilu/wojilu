@@ -369,6 +369,19 @@
     <Compile Include="Members\Sites\Domain\Setting\SettingList.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="OAuth\AuthConnectConfig.cs" />
+    <Compile Include="OAuth\AuthConnectFactory.cs" />
+    <Compile Include="OAuth\Connects\QQWeibo\QQWeiboConnect.cs" />
+    <Compile Include="OAuth\Connects\QQWeibo\QQWeiboJobHelper.cs" />
+    <Compile Include="OAuth\Connects\QQWeibo\QQWeiboSync.cs" />
+    <Compile Include="OAuth\Connects\QQ\QQConnect.cs" />
+    <Compile Include="OAuth\Connects\QQ\QQSync.cs" />
+    <Compile Include="OAuth\Connects\Weibo\WeiboConnect.cs" />
+    <Compile Include="OAuth\Connects\Weibo\WeiboSync.cs" />
+    <Compile Include="OAuth\ExpirationChecker.cs" />
+    <Compile Include="OAuth\IUserConnectService.cs" />
+    <Compile Include="OAuth\UserConnect.cs" />
+    <Compile Include="OAuth\UserConnectService.cs" />
     <Compile Include="Web\Context\ContextInit.cs" />
     <Compile Include="Web\Context\Helper\IInitHelper.cs" />
     <Compile Include="Web\Context\Helper\InitHelperFactory.cs" />

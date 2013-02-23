@@ -14,6 +14,7 @@ using wojilu.Data;
 using wojilu.Members.Users.Enum;
 using wojilu.Common.Resource;
 using wojilu.ORM;
+using wojilu.OAuth;
 
 
 namespace wojilu.Web.Controller.Admin.Members {
@@ -23,7 +24,11 @@ namespace wojilu.Web.Controller.Admin.Members {
 
         private void bindUserList( DataPage<User> list ) {
             IBlock block = getBlock( "list" );
-            foreach (User u in list.Results) {
+
+            List<User> users = list.Results;
+            List<UserConnect> connects = getUserConnects( users );
+
+            foreach (User u in users) {
                 block.Set( "user.Name", u.Name );
                 block.Set( "user.RoleName", u.Role.Name );
                 block.Set( "user.RealName", strUtil.SubString( u.RealName, 8 ) );
@@ -33,7 +38,8 @@ namespace wojilu.Web.Controller.Admin.Members {
 
                 String isEmailConfirm = getEmailConfirmStatus( u );
                 block.Set( "user.IsEmailConfirm", isEmailConfirm );
-                block.Set( "user.Email", u.Email );
+                String email = getUserEmail( u, connects );
+                block.Set( "user.Email", email );
 
                 block.Set( "user.CreateTime", u.Created.GetDateTimeFormats( 'g' )[0] );
                 block.Set( "user.LastLoginTime", u.LastLoginTime );
@@ -48,6 +54,37 @@ namespace wojilu.Web.Controller.Admin.Members {
             }
 
             set( "page", list.PageBar );
+        }
+
+        private string getUserEmail( User u, List<UserConnect> connects ) {
+
+            String email = u.Email;
+            String bindAccounts = "";
+            foreach (UserConnect x in connects) {
+                if ( x.User != null && x.User.Id == u.Id) {
+                    bindAccounts += getConnectName( x.ConnectType ) + ",";
+                }
+            }
+            bindAccounts = bindAccounts.TrimEnd( ',' );
+
+            if (strUtil.HasText( bindAccounts )) {
+                email = string.Format( "<span><img src=\"{0}\" title=\"绑定帐号：{1}\" /></span> ", strUtil.Join( sys.Path.Img, "/s/external-link.png" ), bindAccounts ) + email;
+            }
+
+            return email;
+        }
+
+        private string getConnectName( string connectType ) {
+            AuthConnectConfig x = AuthConnectConfig.GetByType( connectType );
+            return x == null ? "" : x.Name;
+        }
+
+        private List<UserConnect> getUserConnects( List<User> users ) {
+
+            if (users.Count == 0) return new List<UserConnect>();
+
+            String ids = strUtil.GetIds( users );
+            return UserConnect.find( "UserId in (" + ids + ")" ).list();
         }
 
         private string getEmailConfirmStatus( User user ) {
@@ -109,6 +146,8 @@ namespace wojilu.Web.Controller.Admin.Members {
                     condition += "and IsEmailConfirmed=" + (int)EmailConfirm.UnConfirmed;
                 else if (filter == "EmailError")
                     condition += "and IsEmailConfirmed=" + (int)EmailConfirm.EmailError;
+                else if (filter == "bind")
+                    condition += "and IsBind=1";
 
 
                 else if (filter == "male")

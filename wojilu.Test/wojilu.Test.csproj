@@ -6,7 +6,7 @@
     <ProductVersion>8.0.30703</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{458C03F6-60CF-4935-B40F-18CC9D091AC5}</ProjectGuid>
-    <OutputType>Library</OutputType>
+    <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>wojilu.Test</RootNamespace>
     <AssemblyName>wojilu.Test</AssemblyName>
@@ -30,6 +30,9 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject />
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="mysql.data">
@@ -60,6 +63,10 @@
     <Compile Include="Common\rftTest.cs" />
     <Compile Include="main.cs" />
     <Compile Include="Net\HttpClientTest.cs" />
+    <Compile Include="OpenAuth\ConnectConfigTest.cs" />
+    <Compile Include="OpenAuth\QQTest.cs" />
+    <Compile Include="OpenAuth\QQWeiboTest.cs" />
+    <Compile Include="OpenAuth\WeiboTest.cs" />
     <Compile Include="Platform\MailTest.cs" />
     <Compile Include="Orm\CRUD.IdTest.cs">
       <SubType>Code</SubType>

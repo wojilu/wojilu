@@ -3,7 +3,7 @@
 
 .lgTitle{padding:15px 10px 20px 90px; font-size:28px;font-weight:bold;}
 
-#loginTable { border:0px #ccc solid; border-collapse:collapse;  width:370px}
+#loginTable { border:0px #ccc solid; border-collapse:collapse;  width:390px}
 #loginTable td{font-size:14px; padding:3px}
 #loginTable .right {width:80px; padding-right:3px}
 #loginTable .lgsubmit {padding:15px 10px 10px 0px}
@@ -51,7 +51,7 @@
     </div>
 
 
-    <div style="float:right;width:250px; height:250px; margin-top:20px; margin-right:30px;" class="alert alert-warning hide">
+    <div style="float:right;width:250px; height:250px; margin-top:20px; margin-right:30px;" class="alert alert-warning ">
 
 	    <div class="" style="margin:0px 0px;width:100%; margin-top:20px;">
 	    <ul style="padding-left:0px; margin-left:0px;">
@@ -60,14 +60,9 @@
 	        <li style="list-style-type:disc;  margin-top:10px;">已注册，但尚未收到激活邮件，请 <a href="#{resendLink}" style="">点击此处</a> 重发激活邮件</li>
 	        <!-- END sendConfirmEmail -->
 	    </ul>
-        <div style=" margin-top:30px; font-size:18px; font-weight:bold; font-family:微软雅黑;">使用其他帐号登录：</div>
-        <ul style="margin-top:20px; font-size:14px;" class="hide1">
-            <li><a href="#">腾讯QQ登录</a></li>
-            <li><a href="#">腾讯微博登录</a></li>
-            <li><a href="#">新浪微博登录</a></li>
-            <li><a href="#">豆瓣登录</a></li>
-            <li><a href="#">人人网登录</a></li>
-        </ul>
+
+        <div>#{connectLogin}</div>
+
 	    </div>
     </div>
 

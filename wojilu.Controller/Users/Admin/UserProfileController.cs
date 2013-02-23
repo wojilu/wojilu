@@ -25,6 +25,7 @@ using wojilu.Common.Msg.Interface;
 using wojilu.Common.Msg.Service;
 using wojilu.Common.Money.Domain;
 using wojilu.Common;
+using wojilu.OAuth;
 
 namespace wojilu.Web.Controller.Users.Admin {
 
@@ -37,6 +38,7 @@ namespace wojilu.Web.Controller.Users.Admin {
         public IUserTagService userTagService { get; set; }
 
         public ICurrencyService currencyService { get; set; }
+        public IUserConnectService connectService { get; set; }
 
         public UserProfileController() {
             userService = new UserService();
@@ -45,6 +47,7 @@ namespace wojilu.Web.Controller.Users.Admin {
 
             userTagService = new UserTagService();
             currencyService = new CurrencyService();
+            connectService = new UserConnectService();
         }
 
         public override void Layout() {
@@ -53,7 +56,7 @@ namespace wojilu.Web.Controller.Users.Admin {
             set( "viewer.InterestUrl", to( Interest ) );
             set( "viewer.ContactLink", to( Contact ) );
             set( "viewer.TagUrl", to( Tag ) );
-
+            set( "viewer.AccountBind", to( BindAccount ) );
             set( "viewer.FaceUrl", to( Face ) );
             set( "viewer.PwdUrl", to( Pwd ) );
 
@@ -67,7 +70,47 @@ namespace wojilu.Web.Controller.Users.Admin {
                 set( "privacyLinkStyle", "" );
             }
         }
+
+        public void BindAccount() {
+
+
+            List<AuthConnectConfig> list = AuthConnectConfig.GetAll();
+
+            IBlock block = getBlock( "list" );
+
+            foreach (AuthConnectConfig x in list) {
+
+                if (x.IsStop == 1) continue;
+
+                block.Set( "connect.Logo", x.LogoM );
+                block.Set( "connect.Name", x.Name );
+
+                IBlock yBlock = block.GetBlock( "bind" );
+                IBlock xBlock = block.GetBlock( "unbind" );
+
+                String q = "?connectType=" + x.TypeFullName;
+
+                UserConnect c = connectService.GetConnectInfo( ctx.viewer.Id, x.TypeFullName );
+                if (c != null) {
+                    yBlock.Set( "connect.Uid", c.Uid );
+                    yBlock.Set( "connect.Name", c.Name );
+                    yBlock.Set( "connect.UnBindLink", to( new ConnectController().UnBind ) + q );
+                    yBlock.Set( "connect.SyncLink", to( new ConnectController().Sync ) + q );
+                    yBlock.Set( "connect.CheckSync", c.NoSync == 0 ? "checked=\"checked\"" : "" );
+                    yBlock.Next();
+                }
+                else {
+                    xBlock.Set( "connect.BindLink", to( new ConnectController().Bind ) + q );
+                    xBlock.Next();
+                }
+
+                block.Next();
+            }
+
+        }
+
         //----------------------------------------------------------------------------------------------------------
+
 
         public void NeedUserPic() {
 
@@ -108,6 +151,7 @@ namespace wojilu.Web.Controller.Users.Admin {
                 echoRedirect( msg, sys.Url.SiteUrl );
             }
         }
+
 
         public void Face() {
 
@@ -223,7 +267,20 @@ namespace wojilu.Web.Controller.Users.Admin {
             User user = ctx.owner.obj as User;
             bindContact( user );
 
-            set( "lnkEmail", to( Email ) );
+            IBlock yblock = getBlock( "ymail" );
+            IBlock xblock = getBlock( "xmail" );
+            if (strUtil.HasText( user.Email )) {
+
+                yblock.Set( "m.Email", user.Email );
+                yblock.Set( "lnkEditEmail", to( Email ) );
+                yblock.Next();
+
+            }
+            else {
+
+                xblock.Set( "lnkAddEmail", to( AddEmail ) );
+                xblock.Next();
+            }
 
         }
 
@@ -237,16 +294,48 @@ namespace wojilu.Web.Controller.Users.Admin {
 
         //----------------------------------------------------------------------------------------------------------
 
+        public void AddEmail() {
+            target( CreateEmail );
+        }
+
+        [HttpPost]
+        public void CreateEmail() {
+
+            User user = ctx.owner.obj as User;
+            if (strUtil.HasText( user.Email )) {
+                echoError( "已有email，无法创建" );
+                return;
+            }
+
+            String email = strUtil.CutString( ctx.Post( "Email" ), 30 );
+
+            if (strUtil.IsNullOrEmpty( email )) {
+                errors.Add( lang( "exEmail" ) );
+            }
+            else if (RegPattern.IsMatch( email, RegPattern.Email ) == false) {
+                errors.Add( lang( "exUserMail" ) );
+            }
+            else if (userService.IsEmailExist( email )) {
+                errors.Add( lang( "exEmailFound" ) );
+            }
+
+            if (ctx.HasErrors) { echoError(); return; }
+
+            Result result = userService.CreateEmail( user, email );
+            echoResult( result );
+        }
+
         public void Email() {
             target( SaveEmail );
             User user = ctx.owner.obj as User;
             set( "userEmail", user.Email );
         }
 
+        [HttpPost]
         public void SaveEmail() {
 
             String pwd = ctx.Post( "Pwd" );
-            String email = strUtil.SubString( ctx.Post( "Email" ), RegPattern.EmailLength );
+            String email = strUtil.CutString( ctx.Post( "Email" ), 30 );
 
             User user = ctx.owner.obj as User;
 
@@ -289,8 +378,6 @@ namespace wojilu.Web.Controller.Users.Admin {
 
             String pwd1 = ctx.Post( "NewPwd" );
             String pwd2 = ctx.Post( "NewPwd2" );
-
-            if (strUtil.IsNullOrEmpty( opwd )) errors.Add( lang( "exPwdOriginal" ) );
 
             if (strUtil.IsNullOrEmpty( pwd1 )) {
                 errors.Add( lang( "exPwdNew" ) );

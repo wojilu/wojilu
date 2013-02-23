@@ -25,10 +25,11 @@ namespace wojilu.Members.Sites {
         public bool IsAppRunning( MvcContext ctx ) {
             SiteAppService userAppService = new SiteAppService();
             IMemberApp app = userAppService.GetByApp( (IApp)ctx.app.obj );
-            if (app == null || app.IsStop == 1)
-                throw ctx.ex( HttpStatus.NotFound_404, lang.get( "exAppNotFound" ) );
+            if (app == null || app.IsStop == 1) {
+                return false;
+            }
 
-            return app.IsStop == 0;
+            return true;
         }
 
         public List<IMenu> GetMenus( IMember owner ) {

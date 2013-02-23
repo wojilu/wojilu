@@ -1,4 +1,4 @@
-/*
+ï»¿/*
  * Copyright (c) 2010, www.wojilu.com. All rights reserved.
  */
 
@@ -21,16 +21,18 @@ namespace wojilu.Web.Context.Initor {
 
             if (ctx.app.obj != null) {
 
-                // ¼ì²éappÊÇ·ñÍ£ÓÃ
+                // æ£€æŸ¥appæ˜¯å¦åœç”¨
                 Type appType = ctx.app.obj.GetType();
                 AppInstaller installer = new AppInstallerService().GetByType( appType );
                 if (installer == null || installer.IsInstanceClose( ctx.owner.obj.GetType() )) {
-                    ctx.utils.endMsg( "¶Ô²»Æğ£¬±¾appÒÑ¾­Í£ÓÃ", HttpStatus.NotFound_404 );
+                    ctx.utils.endMsg( "å¯¹ä¸èµ·ï¼Œæœ¬appå·²ç»åœç”¨", HttpStatus.NotFound_404 );
                     return;
                 }
 
+                if (InitHelperFactory.GetHelper( ctx ).IsAppRunning( ctx ) == false) { // æ£€æŸ¥appæ˜¯å¦å±äºæš‚åœçŠ¶æ€
+                    ctx.utils.endMsg( lang.get( "exAppNotFound" ) + ": appType=" + appType+", appId=" + ctx.app.Id, HttpStatus.NotFound_404 );
+                }
 
-                InitHelperFactory.GetHelper( ctx ).IsAppRunning( ctx ); // ¼ì²éappÊÇ·ñÊôÓÚÔİÍ£×´Ì¬
             }
 
         }
@@ -62,7 +64,7 @@ namespace wojilu.Web.Context.Initor {
             IApp app = getAppById( appType, appId, ctx.owner.obj );
             if (app == null) {
                 ctx.utils.setAppContext( context );
-                ctx.utils.endMsg( lang.get( "exAppNotFound" ) + ", appType=" + appType, HttpStatus.NotFound_404 );
+                ctx.utils.endMsg( lang.get( "exAppNotFound" ) + ": appType=" + appType, HttpStatus.NotFound_404 );
             }
             else {
 

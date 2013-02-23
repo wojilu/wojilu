@@ -3,20 +3,24 @@
  */
 
 using System;
+using System.Collections.Generic;
 
 using wojilu.Web.Mvc;
 using wojilu.Web.Mvc.Attr;
+using wojilu.Config;
 using wojilu.Common;
+using wojilu.Common.Onlines;
+using wojilu.Common.AppBase;
 
 using wojilu.Members.Users.Service;
 using wojilu.Members.Users.Interface;
 using wojilu.Members.Users.Domain;
+using wojilu.Members.Sites.Domain;
 
 using wojilu.Web.Controller.Common;
 using wojilu.Web.Controller.Users.Admin;
-using wojilu.Common.Onlines;
-using wojilu.Config;
-using wojilu.Common.AppBase;
+
+using wojilu.OAuth;
 
 namespace wojilu.Web.Controller {
 
@@ -48,6 +52,10 @@ namespace wojilu.Web.Controller {
 
         public void Login() {
 
+            if (ctx.viewer.IsLogin) {
+                echo( "对不起，您已经登录" );
+                return;
+            }
 
             Page.Title = lang( "userLogin" );
             target( CheckLogin );
@@ -60,6 +68,21 @@ namespace wojilu.Web.Controller {
             set( "resetPwdLink", to( new ResetPwdController().StepOne ) );
 
             setLoginValidationCode();
+
+            load( "connectLogin", connectLogin );
+        }
+
+        public void connectLogin() {
+
+            IBlock block = getBlock( "connectWrap" );
+            List<AuthConnectConfig> xlist = AuthConnectConfig.GetEnabledList();
+            if (xlist.Count == 0) return;
+
+            String lnk = Link.To( Site.Instance, new ConnectController().Login ) + "?connectType=";
+            xlist.ForEach( x => x.data.show = lnk + x.TypeFullName );
+            block.BindList( "connects", "x", xlist );
+
+            block.Next();
         }
 
         [HttpPost, DbTransaction]
@@ -73,7 +96,7 @@ namespace wojilu.Web.Controller {
         public void CheckLogin() {
 
             if (ctx.viewer.IsLogin) {
-                echo( "您有帐号，并且已经登录" );
+                echo( "对不起，您已经登录" );
                 return;
             }
 
@@ -112,7 +135,7 @@ namespace wojilu.Web.Controller {
             }
 
             // 需要激活才能登录
-            if ( member.IsEmailConfirmed==0 && config.Instance.Site.LoginType == LoginType.ActivationEmail ) {
+            if (member.IsEmailConfirmed == 0 && config.Instance.Site.LoginType == LoginType.ActivationEmail) {
                 ActivationController.AllowSendActivationEmail( ctx, member.Id );
                 redirect( new ActivationController().SendEmailButton );
                 return;

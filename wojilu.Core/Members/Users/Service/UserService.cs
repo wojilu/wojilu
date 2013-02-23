@@ -89,6 +89,11 @@ namespace wojilu.Members.Users.Service {
         }
 
         public virtual Boolean IsPwdCorrect( User user, String pwd ) {
+
+            if (strUtil.IsNullOrEmpty( user.Pwd )) {
+                return strUtil.IsNullOrEmpty( pwd );
+            }
+
             String hashedPwd = HashPwd( pwd, user.PwdSalt );
             return user.Pwd == hashedPwd;
         }
@@ -96,6 +101,11 @@ namespace wojilu.Members.Users.Service {
         public virtual void UpdatePwd( User user, String pwd ) {
             user.Pwd = HashPwd( pwd, user.PwdSalt );
             db.update( user, "Pwd" );
+        }
+
+        public virtual Result CreateEmail( User user, String email ) {
+            user.Email = email;
+            return db.update( user );
         }
 
         public virtual void UpdateEmail( User user, String email ) {
@@ -143,6 +153,66 @@ namespace wojilu.Members.Users.Service {
         }
 
         //----------------------------------------------------------------------
+
+        private Result validateUser( User user ) {
+
+            Result result = new Result();
+
+            if (isNameReserved( user.Name )) {
+                result.Add( lang.get( "exNameFound" ) );
+                return result;
+            }
+
+            if (isUrlReserved( user.Url )) {
+                result.Add( lang.get( "exUrlFound" ) );
+                return result;
+            }
+
+            if (IsExist( user.Name ) != null) {
+                result.Add( lang.get( "exNameFound" ) );
+                return result;
+            }
+
+            if (strUtil.HasText( user.Url ) && IsExistUrl( user.Url ) != null) {
+                result.Add( lang.get( "exUrlFound" ) );
+                return result;
+            }
+
+            return result;
+        }
+
+        public virtual Result RegisterNoPwd( User user ) {
+
+            Result result = validateUser( user );
+            if (result.HasErrors) return result;
+
+            setProfileAndTemplate( user );
+            user.RoleId = SiteRole.NormalMember.Id;
+            result = db.insert( user );
+
+            if (result.HasErrors) {
+                db.delete( user.Profile );
+                return result;
+            }
+
+            if (Component.IsEnableUserSpace() == false) {
+                user.Url = "user" + user.Id;
+                db.update( user, "Url" );
+            }
+
+            sendMsg( user );
+
+            userIncomeService.InitUserIncome( user );
+
+            if (isFirstUser()) {
+                user.RoleId = SiteRole.Administrator.Id;
+                db.update( user, "RoleId" );
+            }
+
+            result.Info = user;
+
+            return result;
+        }
 
         public virtual User Register( User user, MvcContext ctx ) {
 
@@ -250,6 +320,14 @@ namespace wojilu.Members.Users.Service {
             service.SiteSend( title, body, member );
         }
 
+        private void setProfileAndTemplate( User user ) {
+            MemberProfile profile = new MemberProfile();
+            db.insert( profile );
+            user.ProfileId = profile.Id;
+            user.TemplateId = config.Instance.Site.UserTemplateId;
+            user.GroupId = 3;
+        }
+
         private void setProfileAndTemplateAndHashPasswork( User user ) {
             MemberProfile profile = new MemberProfile();
             db.insert( profile );
@@ -259,7 +337,6 @@ namespace wojilu.Members.Users.Service {
 
             user.PwdSalt = hashTool.GetSalt( 4 );
             user.Pwd = HashPwd( user.Pwd, user.PwdSalt );
-
         }
 
 

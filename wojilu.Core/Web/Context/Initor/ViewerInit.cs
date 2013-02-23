@@ -26,7 +26,7 @@ namespace wojilu.Web.Context.Initor {
             userService = new UserService();
         }
 
-        public void Init( MvcContext ctx ) {
+        public virtual void Init( MvcContext ctx ) {
 
             if (ctx.utils.isEnd()) return;
 

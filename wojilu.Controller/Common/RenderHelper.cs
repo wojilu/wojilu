@@ -25,6 +25,7 @@ using wojilu.Web.Mvc.Routes;
 using System.Web;
 using System.Web.Security;
 using wojilu.Members.Users.Domain;
+using wojilu.OAuth;
 
 namespace wojilu.Web.Controller {
 
@@ -127,8 +128,11 @@ namespace wojilu.Web.Controller {
                     String onlineInfo = "{\"count\":" + o.Count + ",\"member\":" + o.MemberCount + ",\"guest\":" + o.GuestCount + ",\"max\":" + o.MaxCount + ",\"maxTime\":\"" + o.MaxTime.ToShortDateString() + "\"}";
 
                     String isSite = cPath.IndexOf( "/Layouts/" ) == 0 ? "true" : "false";
+                    String connects = getConnectLinks();
 
-                    String json = "{\"viewer\":{\"obj\" :{\"Id\":0,\"Name\":\"guest\",\"Url\":\"\"},\"Id\":0,\"IsLogin\":false,\"IsAdministrator\":false,\"HasPic\":false}, \"owner\":{\"IsSite\":" + isSite + ", \"LoginValidImg\":" + config.Instance.Site.LoginNeedImgValidation.ToString().ToLower() + "},\"navInfo\":{\"topNavDisplay\":" + config.Instance.Site.TopNavDisplay + "}, \"online\":" + onlineInfo + "}";
+                    //String json = "{\"viewer\":{\"obj\" :{\"Id\":0,\"Name\":\"guest\",\"Url\":\"\"},\"Id\":0,\"IsLogin\":false,\"IsAdministrator\":false,\"HasPic\":false}, \"owner\":{\"IsSite\":" + isSite + ", \"LoginValidImg\":" + config.Instance.Site.LoginNeedImgValidation.ToString().ToLower() + "},\"navInfo\":{\"topNavDisplay\":" + config.Instance.Site.TopNavDisplay + "}, \"online\":" + onlineInfo + "}";
+                    String json = "{\"viewer\":{\"obj\" :{\"Id\":0,\"Name\":\"guest\",\"Url\":\"\"},\"Id\":0,\"IsLogin\":false,\"IsAdministrator\":false,\"HasPic\":false}, \"owner\":{\"IsSite\":" + isSite + ", \"LoginValidImg\":" + config.Instance.Site.LoginNeedImgValidation.ToString().ToLower() + "},\"navInfo\":{\"topNavDisplay\":" + config.Instance.Site.TopNavDisplay + "}, \"online\":" + onlineInfo + ", \"connects\":" + connects + "}";
+
 
 
                     e.ctx.RenderJson( json );
@@ -138,6 +142,33 @@ namespace wojilu.Web.Controller {
                     return;
                 }
             }
+        }
+
+
+        public String getConnectLinks() {
+
+            List<AuthConnectConfig> xlist = AuthConnectConfig.GetEnabledList();
+            String lnk = Link.To( Site.Instance, new ConnectController().Login ) + "?connectType=";
+
+            StringBuilder sb = new StringBuilder();
+            sb.Append( "[" );
+
+            for (int i = 0; i < xlist.Count; i++) {
+
+                sb.Append( "{" );
+                sb.AppendFormat( "\"name\":\"{0}\",", xlist[i].Name );
+                sb.AppendFormat( "\"lname\":\"{0}\",", strUtil.HasText( xlist[i].LoginName ) ? xlist[i].LoginName : xlist[i].Name );
+                sb.AppendFormat( "\"link\":\"{0}\",", lnk + xlist[i].TypeFullName );
+                sb.AppendFormat( "\"logos\":\"{0}\",", xlist[i].LogoS );
+                sb.AppendFormat( "\"pick\":\"{0}\"", xlist[i].IsPick );
+                sb.Append( "}" );
+
+                if (i < xlist.Count - 1) sb.AppendFormat( "," );
+
+            }
+
+            sb.Append( "]" );
+            return sb.ToString();
         }
 
 

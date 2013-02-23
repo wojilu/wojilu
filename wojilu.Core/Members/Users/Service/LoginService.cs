@@ -19,33 +19,28 @@ namespace wojilu.Members.Users.Service {
 
     public class LoginService : ILoginService {
 
+        private static readonly ILog logger = LogManager.GetLogger( typeof( LoginService ) );
+
         // 用户登录区块：只起占位作用，没有具体意义
         public virtual IList GetLoginInfo() {
             return new ArrayList();
         }
 
+        // 直接本站登录(不是从第三方登录)
         public virtual void Login( User user, LoginTime expiration, String ip, MvcContext ctx ) {
+            Login( user, 0, expiration, ip, ctx );
+        }
+
+        // 从第三方带骨
+        public virtual void Login( User user, int userConnectId, LoginTime expiration, String ip, MvcContext ctx ) {
+
+            logger.Info( "userConnectId=" + userConnectId );
+
+            user.LoginType = userConnectId;
             updateLastLogin( user, ip );
             ctx.web.UserLogin( user.Id, user.Name, expiration );
             OnlineStats.Instance.AddMemberCount();
         }
-
-        private void checkMsg( User user ) {
-
-
-
-        }
-
-
-        //private void logForAdmin() {
-        //    AdminLog log = new AdminLog();
-        //    log.Member = _m;
-        //    log.MemberName = _m.Name;
-        //    log.MemberUrl = _m.Url;
-        //    log.AdminAction = lang.get( "login_site_admin" );
-        //    //log.Ip = util.GetIp();
-        //    log.insert();
-        //}
 
         // 直接登录
         private void updateLastLogin( User user, String ip ) {
@@ -56,8 +51,7 @@ namespace wojilu.Members.Users.Service {
             user.LastLoginTime = DateTime.Now;
 
             user.LastLoginIp = ip;
-            string[] arrPropertyName = new string[] { "LoginDay", "LoginCount", "LastLoginTime", "LastLoginIp" };
-            db.update( user, arrPropertyName );
+            user.update();
         }
 
         // 每次页面加载都要检查
@@ -69,8 +63,7 @@ namespace wojilu.Members.Users.Service {
                 user.LoginCount++;
                 user.LastLoginTime = DateTime.Now;
                 user.LastLoginIp = ip;
-                string[] arrPropertyName = new string[] { "LoginDay", "LoginCount", "LastLoginTime", "LastLoginIp" };
-                db.update( user, arrPropertyName );
+                user.update();
             }
 
         }

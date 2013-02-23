@@ -3,10 +3,12 @@
     .nav-top { float:left; display:block; left:0px;margin-right:10px; position:relative; list-style:none outside one;}
     .nav-top >li {display:block; float:left; line-height:18px; color:#999; margin:7px 6px 0px 6px;}
     .nav-top >li a { color:#333;}
-    .nav-top .caret {    opacity: 1;
-  filter: alpha(opacity=100);
-
-}
+    .nav-top .caret {    opacity: 1;  filter: alpha(opacity=100);}
+    #loginBoxConnectsMenu li { float:left; margin-left:10px;}
+    #topConnectsMenu li { font-size:14px; margin-top:5px; margin-bottom:5px;}
+    #topConnectsMenu {min-width:120px; padding:10px 0px;}
+    #topConnects img { padding-top:-8px;}
+    
 </style>
     <div class="navbar navbar-fixed-top">
         <div id="navbar-inner">
@@ -75,28 +77,43 @@
                         </tr>
                       </table>
 
-                      <div style="margin:15px 10px; border-top:1px dotted #aaa; padding-top:20px;" class="hide">
+                      <div id="loginBoxConnects" style="margin:15px 10px; border-top:1px dotted #aaa; padding-top:20px; display:none;">
                     
                         <div style="margin-left:20px; font-size:14px; float:left;">使用其他帐号登录</div>
-                        <ul style="margin-left:10px; font-size:14px;" class="hide1 unstyled pull-left">
-                            <li class="pull-left"><a href="#">新浪微博</a></li>
-                            <li class="pull-left left10 hide"><a href="#">QQ帐号</a></li>
-                            <li class="pull-left left10"><a href="#">腾讯微博</a></li>                            
-                            <li class="pull-left left10"><a href="#">豆瓣</a></li>
-                            <li class="pull-left left10"><a href="#">人人网</a></li>
+                        <ul id="loginBoxConnectsMenu" style="margin-left:10px; font-size:14px;" class="unstyled pull-left">
                         </ul>
                       </div>
                       </div>
                 </form>                
                 </div>
 
-                <div id="loginSection" style=" vertical-align:middle; display:block; padding-top:5px; display:none; margin-right:8px;">
-                    <span class="help-inline"><a href="" id="loginLink" class="btn btn-primary btn-mini" style="font-size:12px;line-height:14px;padding:3px 6px 3px 6px;margin:0px;"><i class="icon-user icon-white"></i> 登录</a></span>
+                <div id="loginSection" style=" vertical-align:middle; display:block; padding-top:5px; display:none; margin-right:5px; ">
+
+
+
+                    <div style="float:left;">
+                    <span class="help-inline">
+                        <a href="" id="loginLink" class="btn btn-primary btn-mini" style="font-size:12px;line-height:14px;padding:3px 6px 3px 6px;margin:0px;"><i class="icon-user icon-white"></i> 登录
+                        </a>
+                    </span>
+                    
+
+
                     <span class="help-inline"><a href="#{RegLink}" class="btn btn-primary btn-mini right10" style="font-size:12px;line-height:14px;padding:3px 6px 3px 6px;margin:0px;"><i class="icon-play-circle icon-white"></i> _{register}</a></span>
-                    <span class="left5"><a href="#{resetPwdLink}">忘记密码</a></span>
-                    <span class="left5 hide"><a href="#">微博登录</a></span>
-                    <span class="hide"><a href="#">QQ登录</a></span>
-                    <span class="hide">更多</span>
+                    <span class="help-inline left5"><a href="#{resetPwdLink}">忘记密码</a></span>
+                    </div>
+                    <ul id="topConnects" class="nav-top" style="margin-left:5px; margin-right:0px; display:none;">
+
+                        <li id="topConnectsMenuWrap" class="dropdown" style="margin-top:3px;">
+                            <a href="#" class="dropdown-toggle" data-hover="dropdown" data-toggle="dropdown">
+                                <span style="color:#333;">更多</span>
+                                <span class="caret" style="border-top-color:#fff;"></span>
+                            </a>
+                            <ul id="topConnectsMenu" class="dropdown-menu"></ul>                        
+                        </li>
+                    </ul>
+
+                    <div style="clear:both;"></div>
                 </div>
 
 <script>
@@ -117,7 +134,7 @@
                     <li><a href="" class="frmLink" id="msgLink" loadTo="uaMain" nolayout=1>_{msg}<span id="viewerNewMsgCount"></span></a></li>
                     <li style="position:relative"><a href="#" id="nfMsg"></a>&nbsp;
                     <div style="position:relative;">
-                        <div id="ntBox" style="position:absolute; text-align:left; z-index:999;left:-70px;top:12px;width:180px; ">
+                        <div id="ntBox" style="position:absolute; text-align:left; z-index:999;left:-70px;top:12px;width:180px; ">  
                             <div id="confirmEmailPanel" class="hide">
                                 <img src="~img/mail/mail.gif" /> <a href="#" id="confirmEmailLink" style="color:#e56f04;">激活邮件</a> #{emailCredit} <span class="closeNt">×</span>
                             </div>

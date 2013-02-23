@@ -85,6 +85,7 @@ namespace wojilu.Web.Controller.Security {
 
             results.Add( new SiteDataAdminMenu( 10, "spider", "采集管理", new TemplateController().List, rootNamespace ) );
             results.Add( new SiteDataAdminMenu( 11, "comment", "评论管理", new CommentController().List, rootNamespace ) );
+            results.Add( new SiteDataAdminMenu( 12, "connect", "第三方集成", new ConnectAdminController().Index, rootNamespace ) );
 
             this.SiteDataAdminMenus = results;
         }
@@ -123,6 +124,7 @@ namespace wojilu.Web.Controller.Security {
             results.Add( new SiteAdminOperation( 20, "广告管理", 1, typeof( AdController ) ) );
             results.Add( new SiteAdminOperation( 21, "采集管理", 1, typeof( TemplateController ) ) );
             results.Add( new SiteAdminOperation( 22, "评论管理", 1, typeof( CommentController ) ) );
+            results.Add( new SiteAdminOperation( 23, "第三方集成", 1, typeof( ConnectAdminController ) ) );
 
             this.SiteAdminOperations = results;
         }

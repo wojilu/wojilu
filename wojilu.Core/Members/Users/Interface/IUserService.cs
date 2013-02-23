@@ -69,17 +69,18 @@ namespace wojilu.Members.Users.Interface {
         Boolean IsUserDeleted( User user );
 
         User Register( User user, MvcContext ctx );
+        Result RegisterNoPwd( User user );
 
         void SendConfirmEmail( User user );
+
         void UpdatePwd( User user, String pwd );
         void UpdateEmail( User user, string email );
+        Result CreateEmail( User user, string email );
+
         void UpdateAvatar( User user, String newPic );
 
 
         List<User> SearchByName( String name );
-
-
-
 
 
     }

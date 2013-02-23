@@ -116,7 +116,7 @@ namespace wojilu.Web.Controller.Users.Admin {
 
 
         private Boolean isMyInfo( String bodyData ) {
-            Dictionary<string, object> dic = Json.DeserializeJson( bodyData );
+            JsonObject dic = Json.DeserializeJson( bodyData );
             if (dic.ContainsKey( "friendId" ) == false) return false;
             if (cvt.ToInt( dic["friendId"] ) == ctx.owner.obj.Id) return true;
             return false;

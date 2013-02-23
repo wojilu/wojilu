@@ -34,10 +34,11 @@ namespace wojilu.Members.Groups {
         public Boolean IsAppRunning( MvcContext ctx ) {
             GroupAppService userAppService = new GroupAppService();
             IMemberApp app = userAppService.GetByApp( (IApp)ctx.app.obj );
-            if (app == null || app.IsStop == 1)
-                throw ctx.ex( HttpStatus.NotFound_404, lang.get( "exAppNotFound" ) );
+            if (app == null || app.IsStop == 1) {
+                return false;
+            }
 
-            return app.IsStop == 0;
+            return true;
         }
 
         public List<IMenu> GetMenus( IMember owner ) {

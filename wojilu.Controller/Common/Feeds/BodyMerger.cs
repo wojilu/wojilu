@@ -27,8 +27,8 @@ namespace wojilu.Web.Controller.Common.Feeds {
 
         private void mergeBodyData( ) {
 
-            Dictionary<string, object> dic = Json.DeserializeJson( feed.BodyData );
-            Dictionary<string, object> dicTarget = Json.DeserializeJson( target.BodyData );
+            JsonObject dic = Json.DeserializeJson( feed.BodyData );
+            JsonObject dicTarget = Json.DeserializeJson( target.BodyData );
 
             String mergeKey = getMergeKey( dic, dicTarget );
 
@@ -40,8 +40,8 @@ namespace wojilu.Web.Controller.Common.Feeds {
 
         private void mergeNumberInTitle() {
 
-            Dictionary<string, object> dic = Json.DeserializeJson( feed.TitleData );
-            Dictionary<string, object> dicTarget = Json.DeserializeJson( target.TitleData );
+            JsonObject dic = Json.DeserializeJson( feed.TitleData );
+            JsonObject dicTarget = Json.DeserializeJson( target.TitleData );
 
             foreach (KeyValuePair<string, object> kv in dic) {
 

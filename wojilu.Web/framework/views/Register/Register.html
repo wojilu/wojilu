@@ -10,9 +10,7 @@
 #register .valid {font-size:12px; color:#aaa}
 
 #refreshImg {color:blue;text-decoration:underline;cursor:pointer;}
-
 #lbl-Gender0 {width:28px;}
-
 </style>
 
 <div style="padding:10px 0px 30px 30px; border:0px solid blue;">
@@ -79,7 +77,7 @@
 </form>
 </div>
 
-<div style="float:left;width:250px; height:350px; margin-top:30px;" class="alert alert-warning hide">
+<div style="float:left;width:250px; height:350px; margin-top:30px;" class="alert alert-warning hide1">
 
 	<div class="" style="margin:0px 0px;width:100%; margin-top:20px;">
 	<ul style="padding-left:0px; margin-left:0px;">
@@ -88,14 +86,9 @@
 	    <li style="list-style-type:disc;  margin-top:10px;">已注册，但尚未收到激活邮件，请 <a href="#{resendLink}" style="">点击此处</a> 重发激活邮件</li>
 	    <!-- END sendConfirmEmail -->
 	</ul>
-    <div style=" margin-top:30px; font-size:18px; font-weight:bold; font-family:微软雅黑;">使用其他帐号登录：</div>
-    <ul style="margin-top:20px; font-size:14px;" class="hide1">
-        <li><a href="#">腾讯QQ登录</a></li>
-        <li><a href="#">腾讯微博登录</a></li>
-        <li><a href="#">新浪微博登录</a></li>
-        <li><a href="#">豆瓣登录</a></li>
-        <li><a href="#">人人网登录</a></li>
-    </ul>
+
+    <div>#{connectLogin}</div>
+
 	</div>
 </div>
 

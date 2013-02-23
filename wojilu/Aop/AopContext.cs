@@ -251,11 +251,7 @@ namespace wojilu.Aop {
         private static Assembly loadCompiledAssembly() {
 
             Dictionary<Type, ObservedType> observers = loadObservers();
-
             String proxyCode = AopCoder.GetProxyClassCode( observers );
-
-            logger.Info( proxyCode );
-
             return AopCoder.CompileCode( proxyCode, ObjectContext.Instance.AssemblyList );
         }
 
