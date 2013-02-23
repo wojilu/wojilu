@@ -59,6 +59,7 @@
     <Compile Include="Aop\TComplexObject.cs" />
     <Compile Include="Common\rftTest.cs" />
     <Compile Include="main.cs" />
+    <Compile Include="Net\HttpClientTest.cs" />
     <Compile Include="Platform\MailTest.cs" />
     <Compile Include="Orm\CRUD.IdTest.cs">
       <SubType>Code</SubType>
