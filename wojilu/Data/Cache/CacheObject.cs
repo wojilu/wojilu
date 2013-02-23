@@ -31,6 +31,19 @@ namespace wojilu.Data {
         private int _id;
         private String _name;
 
+        private ExtData _extData;
+
+        [NotSave]
+        public ExtData data {
+            get {
+                if (_extData == null) _extData = new ExtData();
+                return _extData;
+            }
+            set {
+                _extData = value;
+            }
+        }
+
         /// <summary>
         /// 对象的 id
         /// </summary>
