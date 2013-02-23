@@ -537,6 +537,42 @@ namespace wojilu.Web.Mvc {
             echoText( "ok" );
         }
 
+
+        /// <summary>
+        /// 将操作结果返回到客户端
+        /// </summary>
+        /// <param name="result"></param>
+        protected void echoResult( Result result ) {
+            echoResult( result, null );
+        }
+
+        /// <summary>
+        /// 将操作结果返回到客户端
+        /// </summary>
+        /// <param name="result"></param>
+        /// <param name="okMsg">成功的提示信息(可为空)</param>
+        protected void echoResult( Result result, String okMsg ) {
+
+            if (result == null) result = new Result();
+
+            if (result.HasErrors) {
+                echoError( result );
+            }
+            else {
+                if (ctx.utils.isAjax) {
+                    echoAjaxOk();
+                }
+                else {
+                    if (strUtil.HasText( okMsg )) {
+                        echoRedirectPart( okMsg );
+                    }
+                    else {
+                        echoRedirectPart( lang( "opok" ) );
+                    }
+                }
+            }
+        }
+
         /// <summary>
         /// 显示错误信息并跳转到默认页。如果是ajax，输出错误信息的json格式。
         /// </summary>
