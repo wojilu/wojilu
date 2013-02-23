@@ -50,7 +50,7 @@ namespace wojilu.Serialization {
         /// <returns></returns>
         public static Object ToObject( String oneJsonString, Type t ) {
 
-            Dictionary<String, object> map = JsonParser.Parse( oneJsonString ) as Dictionary<String, object>;
+            JsonObject map = JsonParser.Parse( oneJsonString ) as JsonObject;
             return setValueToObject( t, map );
         }
 
@@ -78,7 +78,7 @@ namespace wojilu.Serialization {
 
             List<object> lists = JsonParser.Parse( jsonString ) as List<object>;
 
-            foreach (Dictionary<String, object> map in lists) {
+            foreach (JsonObject map in lists) {
                 Object result = setValueToObject( typeof( T ), map );
                 list.Add( (T)result );
             }
@@ -86,7 +86,7 @@ namespace wojilu.Serialization {
             return list;
         }
 
-        internal static Object setValueToObject( Type t, Dictionary<String, object> map ) {
+        internal static Object setValueToObject( Type t, JsonObject map ) {
             Object result = rft.GetInstance( t );
 
             PropertyInfo[] properties = t.GetProperties( BindingFlags.Public | BindingFlags.Instance );
@@ -106,7 +106,7 @@ namespace wojilu.Serialization {
                     if (ReflectionUtil.IsBaseType( info.PropertyType )) {
                         objValue = Convert.ChangeType( pValue, info.PropertyType );
                     }
-                    else if (info.PropertyType == typeof( Dictionary<String, object> )) {
+                    else if (info.PropertyType == typeof( JsonObject )) {
                         objValue = pair.Value;
                     }
                     else if (rft.IsInterface( info.PropertyType, typeof( IList ) )) {
@@ -125,12 +125,12 @@ namespace wojilu.Serialization {
 
         public static IEntity ToEntity( String jsonString, Type t ) {
 
-            Dictionary<String, object> map = JsonParser.Parse( jsonString ) as Dictionary<String, object>;
+            JsonObject map = JsonParser.Parse( jsonString ) as JsonObject;
 
             return toEntityByMap( t, map, null );
         }
 
-        private static IEntity toEntityByMap( Type t, Dictionary<String, object> map, Type parentType ) {
+        private static IEntity toEntityByMap( Type t, JsonObject map, Type parentType ) {
             if (map == null) return null;
             IEntity result = Entity.New( t.FullName );
             EntityInfo ei = Entity.GetInfo( t );
@@ -154,10 +154,10 @@ namespace wojilu.Serialization {
                     continue;
                 }
 
-                else if (pValue is Dictionary<String, object>) {
+                else if (pValue is JsonObject) {
                     if (p.Type == parentType) continue;
 
-                    Dictionary<String, object> dic = pValue as Dictionary<String, object>;
+                    JsonObject dic = pValue as JsonObject;
                     if (dic != null && dic.Count > 0) {
                         objValue = toEntityByMap( p.Type, dic, t );
                     }
@@ -173,20 +173,52 @@ namespace wojilu.Serialization {
 
         //--------------------------------------------------------------------------------------------------------------------------
 
+        public static List<T> ConvertList<T>( List<Object> list ) {
+
+            if (list == null) return null;
+
+            List<T> results = new List<T>();
+            foreach (Object obj in list) {
+
+                if (obj == null) continue;
+
+                T item;
+
+                if (typeof( T ) == typeof( DateTime )) {
+                    item = (T)((Object)cvt.ToTime( obj, DateTime.MinValue ));
+                }
+                else if (typeof( T ) == typeof( long )) {
+                    long x;
+                    long.TryParse( obj.ToString(), out x );
+                    item = (T)((Object)x);
+                }
+                else if (typeof( T ) == typeof( double )) {
+                    item = (T)((Object)cvt.ToDouble( obj.ToString() ));
+                }
+                else {
+                    item = (T)obj;
+                }
+
+                results.Add( item );
+            }
+
+            return results;
+        }
+
         /// <summary>
         /// 将 json 字符串反序列化为字典对象的列表
         /// </summary>
         /// <param name="jsonString"></param>
         /// <returns></returns>
-        public static List<Dictionary<String, object>> ToDictionaryList( String jsonString ) {
+        public static List<JsonObject> ToDictionaryList( String jsonString ) {
 
 
             List<object> list = JsonParser.Parse( jsonString ) as List<object>;
 
-            List<Dictionary<String, object>> results = new List<Dictionary<String, object>>();
+            List<JsonObject> results = new List<JsonObject>();
             foreach (Object obj in list) {
 
-                Dictionary<String, object> item = obj as Dictionary<String, object>;
+                JsonObject item = obj as JsonObject;
                 results.Add( item );
             }
 
@@ -198,12 +230,12 @@ namespace wojilu.Serialization {
         /// </summary>
         /// <param name="oneJsonString"></param>
         /// <returns></returns>
-        public static Dictionary<String, object> ToDictionary( String oneJsonString ) {
+        public static JsonObject ToDictionary( String oneJsonString ) {
             String str = trimBeginEnd( oneJsonString, "[", "]" );
 
-            if (strUtil.IsNullOrEmpty( str )) return new Dictionary<String, object>();
+            if (strUtil.IsNullOrEmpty( str )) return new JsonObject();
 
-            return JsonParser.Parse( str ) as Dictionary<String, object>;
+            return JsonParser.Parse( str ) as JsonObject;
         }
 
 

@@ -30,7 +30,14 @@ namespace wojilu.Test.Common.Jsons {
             dic.Add( "gender", "male" );
 
             string str = Json.SerializeDic( dic, false );
-            Assert.AreEqual( "{ \"name\":\"sunweb\", \"age\":99, \"gender\":\"male\" }", str );
+
+            JsonObject obj = Json.DeserializeJson( str );
+            Assert.AreEqual( "sunweb", obj.Get( "name" ) );
+            Assert.AreEqual( "male", obj.Get( "gender" ) );
+            Assert.AreEqual( 99, obj.Get<int>( "age" ) );
+
+            //没有顺序
+            //Assert.AreEqual( "{ \"name\":\"sunweb\", \"age\":99, \"gender\":\"male\" }", str );
 
             MyPhone phone = new MyPhone();
             phone.Name = "新闻大事690501468";
@@ -80,7 +87,7 @@ namespace wojilu.Test.Common.Jsons {
             Console.WriteLine( Json.SerializeDic( dic ) );
             Assert.AreEqual( expected, Json.SerializeDic( dic ) );
 
-            Dictionary<string, object> result = Json.DeserializeDic( expected );
+            Dictionary<string, object> result = Json.DeserializeJson( expected );
             Assert.AreEqual( 4, result.Count );
             Assert.AreEqual( lnk, result["postLink"] );
 
@@ -104,7 +111,7 @@ namespace wojilu.Test.Common.Jsons {
             Console.WriteLine( actual );
             Assert.AreEqual( expected, actual );
 
-            Dictionary<string, object> result = Json.DeserializeDic( expected );
+            Dictionary<string, object> result = Json.DeserializeJson( expected );
             Assert.AreEqual( 4, result.Count );
             Assert.AreEqual( "my'content", result["body"] );
             Assert.AreEqual( "my name is:china", result["other"] );
@@ -122,7 +129,7 @@ namespace wojilu.Test.Common.Jsons {
             Console.WriteLine( str );
             Assert.AreEqual( @"{ ""blog"":""<a href=\""/space/abcde/Blog22/Post/195\"">\\framework\\views\\Common</a>"" }", str );
 
-            Dictionary<String, object> mydic = Json.DeserializeDic( str );
+            Dictionary<String, object> mydic = Json.DeserializeJson( str );
             Assert.AreEqual( "<a href=\"/space/abcde/Blog22/Post/195\">\\framework\\views\\Common</a>", mydic["blog"] );
 
         }
@@ -140,7 +147,7 @@ namespace wojilu.Test.Common.Jsons {
 
             Assert.AreEqual( "{ \"title\":\"abcd\", \"user\":\"john\", \"body\":\"mycontent\" }", expected );
 
-            Dictionary<string, object> result = Json.DeserializeDic( expected );
+            Dictionary<string, object> result = Json.DeserializeJson( expected );
             Assert.AreEqual( 3, result.Count );
 
 
@@ -329,7 +336,7 @@ namespace wojilu.Test.Common.Jsons {
 
             MyDbConfig cf = new MyDbConfig();
 
-            cf.ConnectionStringTable = new Dictionary<string, object>();
+            cf.ConnectionStringTable = new JsonObject();
             cf.ConnectionStringTable.Add( "default", "Provider=Microsoft.Jet.OLEDB.4.0;Data Source=wojilu.mdb" );
             cf.ConnectionStringTable.Add( "db2", "server=localhost;uid=wojilusyy;pwd=test123;database=syyWojilu;" );
 

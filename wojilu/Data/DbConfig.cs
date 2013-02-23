@@ -45,9 +45,9 @@ namespace wojilu.Data {
         private static DbConfig _instance = loadConfig( getConfigPath() );
 
         public DbConfig() {
-            this.ConnectionStringTable = new Dictionary<String, object>();
+            this.ConnectionStringTable = new JsonObject();
             this.AssemblyList = new List<object>();
-            this.DbType = new Dictionary<String, object>();
+            this.DbType = new JsonObject();
             this.IdType = wojilu.Data.IdType.Auto;
             this.Interceptor = new List<object>();
             this.IsCheckDatabase = true;
@@ -70,7 +70,7 @@ namespace wojilu.Data {
         /// <summary>
         /// 直接解析json的结果：多个数据库连接字符串(connectionString)的键值对
         /// </summary>
-        public Dictionary<String, object> ConnectionStringTable { get; set; }
+        public JsonObject ConnectionStringTable { get; set; }
 
         private Dictionary<String, ConnectionString> _connectionStringMap = new Dictionary<String, ConnectionString>();
 
@@ -89,7 +89,7 @@ namespace wojilu.Data {
         /// <summary>
         /// 直接解析json的结果：数据库类型
         /// </summary>
-        public Dictionary<String, object> DbType { get; set; }
+        public JsonObject DbType { get; set; }
 
         /// <summary>
         /// 实体键值类型
@@ -223,7 +223,7 @@ namespace wojilu.Data {
 
         private static void loadMappingInfo( DbConfig dbc ) {
             if (dbc.Mapping.Count == 0) return;
-            foreach (Dictionary<String, object> dic in dbc.Mapping) {
+            foreach (JsonObject dic in dbc.Mapping) {
 
                 MappingInfo mi = new MappingInfo();
 
@@ -322,7 +322,7 @@ namespace wojilu.Data {
             String cfgPath = getConfigPath();
 
             if (DbConfig.Instance.ConnectionStringTable == null)
-                DbConfig.Instance.ConnectionStringTable = new Dictionary<String, object>();
+                DbConfig.Instance.ConnectionStringTable = new JsonObject();
 
             DbConfig.Instance.ConnectionStringTable[DefaultDbName] = connectionString;
 

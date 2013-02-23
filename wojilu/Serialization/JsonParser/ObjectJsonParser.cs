@@ -23,7 +23,7 @@ namespace wojilu.Serialization {
 
     internal class ObjectJsonParser : JsonParserBase {
 
-        private Dictionary<String, object> map = new Dictionary<String, object>();
+        private JsonObject map = new JsonObject();
 
         public override Object getResult() {
             return this.map;

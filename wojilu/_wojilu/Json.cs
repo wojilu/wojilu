@@ -1,4 +1,20 @@
-﻿using System;
+﻿/*
+ * Copyright 2010 www.wojilu.com
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * 
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ * 
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+using System;
 using System.Collections.Generic;
 using System.Text;
 using wojilu.Serialization;
@@ -103,16 +119,6 @@ namespace wojilu {
         }
 
         /// <summary>
-        /// 解析字符串，返回对象。
-        /// 根据 json 的不同，可能返回整数(int)、布尔类型(bool)、字符串(string)、一般对象(Dictionary&lt;string, object&gt;)、数组(List&lt;object&gt;)等不同类型
-        /// </summary>
-        /// <param name="src"></param>
-        /// <returns>根据 json 的不同，可能返回整数(int)、布尔类型(bool)、字符串(string)、一般对象(Dictionary&lt;string, object&gt;)、数组(List&lt;object&gt;)等不同类型</returns>
-        public static Object Parse( String src ) {
-            return JsonParser.Parse( src );
-        }
-
-        /// <summary>
         /// 将简单对象列表转换成 json 字符串(不换行，不支持子对象)
         /// </summary>
         /// <param name="list"></param>
@@ -128,6 +134,49 @@ namespace wojilu {
         /// <returns></returns>
         public static String SerializeObjectSimple( Object obj ) {
             return SimpleJsonString.ConvertObject( obj );
+        }
+
+        /// <summary>
+        /// 解析字符串，返回原始的 json 类型对象。
+        /// 根据 json 的不同，可能返回整数(int)、布尔类型(bool)、字符串(string)、一般Json对象(JsonObject)、数组(List&lt;object&gt;)等不同类型
+        /// </summary>
+        /// <param name="jsonString"></param>
+        /// <returns></returns>
+        public static Object Deserialize( String jsonString ) {
+            if (strUtil.IsNullOrEmpty( jsonString )) return null;
+            return JsonParser.Parse( jsonString );
+        }
+
+        /// <summary>
+        /// 将 json 字符串反序列化为原始的 JsonObject 类型
+        /// </summary>
+        /// <param name="jsonString"></param>
+        /// <returns></returns>
+        public static JsonObject DeserializeJson( String jsonString ) {
+            if (strUtil.IsNullOrEmpty( jsonString )) return new JsonObject();
+            return JSON.ToDictionary( jsonString );
+        }
+
+        /// <summary>
+        /// 将 json 字符串解析为 json 原始数据类型的列表，比如 ["abc", 88, {name:"aa", gender:"male"}]
+        /// </summary>
+        /// <param name="jsonString"></param>
+        /// <returns></returns>
+        public static List<Object> DeserializeJsonList( String jsonString ) {
+            if (strUtil.IsNullOrEmpty( jsonString )) return new List<Object>();
+            return JsonParser.Parse( jsonString ) as List<Object>;
+        }
+
+        /// <summary>
+        /// 将 json 字符串反序列化为 原始的json强类型(int,string,JsonObject等) 的数据列表。
+        /// 当列表内数据类型相同时使用，比如 ["abc", "www", "qqqxyz", "uuu"]
+        /// </summary>
+        /// <param name="jsonString"></param>
+        /// <returns></returns>
+        public static List<T> DeserializeJsonList<T>( String jsonString ) {
+            if (strUtil.IsNullOrEmpty( jsonString )) return new List<T>();
+            List<Object> list = DeserializeJsonList( jsonString );            
+            return JSON.ConvertList<T>( list);
         }
 
         /// <summary>
@@ -166,27 +215,11 @@ namespace wojilu {
         /// <param name="jsonString"></param>
         /// <param name="t"></param>
         /// <returns></returns>
-        public static IEntity DeserializeEntity( String jsonString, Type t ) {
+        public static IEntity DeserializeObjectEntity( String jsonString, Type t ) {
             return JSON.ToEntity( jsonString, t );
         }
 
-        /// <summary>
-        /// 将 json 字符串反序列化为 Dictionary 的列表
-        /// </summary>
-        /// <param name="jsonString"></param>
-        /// <returns></returns>
-        public static List<Dictionary<String, object>> DeserializeDicList( String jsonString ) {
-            return JSON.ToDictionaryList( jsonString );
-        }
 
-        /// <summary>
-        /// 将 json 字符串反序列化为 Dictionary
-        /// </summary>
-        /// <param name="jsonString"></param>
-        /// <returns></returns>
-        public static Dictionary<String, object> DeserializeDic( String jsonString ) {
-            return JSON.ToDictionary( jsonString );
-        }
 
     }
 

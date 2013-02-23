@@ -106,6 +106,7 @@
     <Compile Include="_wojilu\Exception.cs" />
     <Compile Include="Web\Mvc\ActionCache.cs" />
     <Compile Include="_wojilu\Json.cs" />
+    <Compile Include="_wojilu\JsonObject.cs" />
     <Compile Include="_wojilu\SettingBase.cs" />
     <Compile Include="Data\Enum\IdType.cs" />
     <Compile Include="Net\Video\IFengSpider.cs" />

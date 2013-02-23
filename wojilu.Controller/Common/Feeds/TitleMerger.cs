@@ -15,8 +15,8 @@ namespace wojilu.Web.Controller.Common.Feeds {
 
         public override Boolean Merge() {
 
-            Dictionary<string, object> dic = Json.DeserializeDic( feed.TitleData );
-            Dictionary<string, object> dicTarget = Json.DeserializeDic( target.TitleData );
+            Dictionary<string, object> dic = Json.DeserializeJson( feed.TitleData );
+            Dictionary<string, object> dicTarget = Json.DeserializeJson( target.TitleData );
 
             if (dic.Count != dicTarget.Count) return false;
 

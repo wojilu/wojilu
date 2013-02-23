@@ -274,7 +274,7 @@ namespace wojilu.Common.Feeds.Service {
 
             templateData = templateData.Trim().Replace( "\r", "" ).Replace( "\n", "" );
 
-            Dictionary<string, object> data = Json.DeserializeDic( templateData );
+            JsonObject data = Json.DeserializeJson( templateData );
 
             String result = template;
             String creatorKey = "{*actor*}";

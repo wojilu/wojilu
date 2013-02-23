@@ -93,7 +93,7 @@ namespace wojilu.Data {
 
             List<object> lists = JsonParser.Parse( jsonString ) as List<object>;
 
-            foreach (Dictionary<String, object> map in lists) {
+            foreach (JsonObject map in lists) {
 
                 CacheObject obj = JSON.setValueToObject( t, map ) as CacheObject;
                 int index = list.Add( obj );

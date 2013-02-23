@@ -23,39 +23,143 @@ namespace wojilu.Test.Common.Jsons {
 
 
 
+        [Test]
+        public void testCommon() {
+
+            // 解析对象
+            string str = @"
+{    
+    name : ['蒋介石', 'Chiang Kai-shek',  '常凯申'],
+    age : 125,
+    gender : 'male',
+    hasGun : true,
+    birthday : '1887-10-31',
+    wife : {
+        name : '宋美龄',
+        birthday : '1897-3-5'
+    },
+    friends : [
+        {name:'sun', address:'xxxxxxxxxxxxx1' },
+        {name:'mao', address:'xxxxxxxxxxxxx2' },
+        {name:'dai', address:'xxxxxxxxxxxxx3' }
+    ],
+    other : 993439419349934,
+    other2 : 88.99,
+    other3 : [ 123, 'kkkkk',  {p1:'p1-value', p2:'p2-value' }]
+}
+";
+
+            JsonObject obj = Json.DeserializeJson( str );
+            // 等同于 JsonObject obj = Json.Deserialize( str ) as JsonObject;
+
+            List<String> names = obj.GetList<String>( "name" );
+            Assert.AreEqual( 3, names.Count );
+            Assert.AreEqual( "蒋介石", names[0] );
+            Assert.AreEqual( "Chiang Kai-shek", names[1] );
+            Assert.AreEqual( "常凯申", names[2] );
+
+            Assert.AreEqual( 125, obj.Get<int>( "age" ) );
+
+            Assert.AreEqual( "male", obj.Get( "gender" ) );
+            Assert.IsTrue( obj.Get<bool>( "hasGun" ) );
+
+            DateTime birthday = obj.Get<DateTime>( "birthday" );
+            Assert.AreEqual( 1887, birthday.Year );
+            Assert.AreEqual( 10, birthday.Month );
+            Assert.AreEqual( 31, birthday.Day );
+
+            JsonObject wife1 = obj.GetJson( "wife" );
+            Assert.AreEqual( "宋美龄", wife1.Get( "name" ) );
+            // GetJson( "wife" ) 等效于 Get<JsonObject>( "wife" )
+            JsonObject wife2 = obj.Get<JsonObject>( "wife" );
+            Assert.AreEqual( "宋美龄", wife2.Get( "name" ) );
+
+            DateTime wifeBirthday = wife1.Get<DateTime>( "birthday" );
+
+            Assert.AreEqual( 1897, wifeBirthday.Year );
+            Assert.AreEqual( 3, wifeBirthday.Month );
+            Assert.AreEqual( 5, wifeBirthday.Day );
+
+            List<JsonObject> friends = obj.GetList<JsonObject>( "friends" );
+
+            Assert.AreEqual( "sun", friends[0].Get( "name" ) );
+            Assert.AreEqual( "xxxxxxxxxxxxx1", friends[0].Get( "address" ) );
+
+            Assert.AreEqual( "mao", friends[1].Get( "name" ) );
+            Assert.AreEqual( "xxxxxxxxxxxxx2", friends[1].Get( "address" ) );
+
+            Assert.AreEqual( "dai", friends[2].Get( "name" ) );
+            Assert.AreEqual( "xxxxxxxxxxxxx3", friends[2].Get( "address" ) );
+
+            Assert.AreEqual( 993439419349934, obj.Get<long>( "other" ) );
+            Assert.AreEqual( 88.99, obj.Get<decimal>( "other2" ) );
+
+            // 因为列表内的数据类型不一致 ，所以此处只能GetList() 而不是泛型方法 GetList<T>()
+            List<Object> list3 = obj.GetList( "other3" );
+            Assert.AreEqual( 123, list3[0] );
+            Assert.AreEqual( "kkkkk", list3[1] );
+
+            JsonObject obj3 = list3[2] as JsonObject;
+            Assert.AreEqual( "p1-value", obj3.Get( "p1" ) );
+            Assert.AreEqual( "p2-value", obj3.Get( "p2" ) );
 
 
+            // 解析数组
+            str = "[ 'xxx1', 88, false, {name:'孙中山', gender:'male' }]";
+            List<Object> list = Json.DeserializeJsonList( str );
+            //List<Object> list = Json.Deserialize( str ) as List<Object>;
+
+            Assert.AreEqual( 4, list.Count );
+            Assert.AreEqual( "xxx1", list[0] );
+            Assert.AreEqual( 88, list[1] );
+            Assert.AreEqual( false, list[2] );
+
+            JsonObject j = list[3] as JsonObject;
+            Assert.AreEqual( "孙中山", j.Get( "name" ) );
+            Assert.AreEqual( "male", j.Get( "gender" ) );
+
+            // 解析其它类型
+            string json = "376";
+            Assert.AreEqual( 376, Json.Deserialize( json ) );
+
+            json = " false";
+            Assert.AreEqual( false, Json.Deserialize( json ) );
+        }
 
 
         [Test]
         public void testValue() {
 
             string json = "376";
-            Assert.AreEqual( 376, JsonParser.Parse( json ) );
+            Assert.AreEqual( 376, Json.Deserialize( json ) );
 
             json = " false   ";
-            Assert.AreEqual( false, JsonParser.Parse( json ) );
+            Assert.AreEqual( false, Json.Deserialize( json ) );
 
             json = " 356   ";
-            Assert.AreEqual( 356, JsonParser.Parse( json ) );
+            Assert.AreEqual( 356, Json.Deserialize( json ) );
 
             json = " 3.17   ";
-            Assert.AreEqual( 3.17, JsonParser.Parse( json ) );
+            Assert.AreEqual( 3.17, Json.Deserialize( json ) );
+
+            json = "993439419349934";
+            Assert.AreEqual( 993439419349934, Json.Deserialize( json ) );
+
 
             json = " dfaflddak_dfaol   ";
-            Assert.AreEqual( "dfaflddak_dfaol", JsonParser.Parse( json ) );
+            Assert.AreEqual( "dfaflddak_dfaol", Json.Deserialize( json ) );
 
             json = " dfaflddak=dfaol   ";
-            Assert.AreEqual( "dfaflddak=dfaol", JsonParser.Parse( json ) );
+            Assert.AreEqual( "dfaflddak=dfaol", Json.Deserialize( json ) );
 
             json = " dfaflddak#dfaol   ";
-            Assert.AreEqual( "dfaflddak#dfaol", JsonParser.Parse( json ) );
+            Assert.AreEqual( "dfaflddak#dfaol", Json.Deserialize( json ) );
 
             json = " dfaflddak;dfaol   ";
-            Assert.AreEqual( "dfaflddak;dfaol", JsonParser.Parse( json ) );
+            Assert.AreEqual( "dfaflddak;dfaol", Json.Deserialize( json ) );
 
             json = " dfaflddak\\\"dfaol   ";
-            Assert.AreEqual( "dfaflddak\"dfaol", JsonParser.Parse( json ) );
+            Assert.AreEqual( "dfaflddak\"dfaol", Json.Deserialize( json ) );
         }
 
         [Test]
@@ -68,28 +172,38 @@ namespace wojilu.Test.Common.Jsons {
 
             json = "  [ \"zhangsan\", 3, false, { Name : \"zhangsan\",  Gender:\"male\"} ]  ";
             testObjectArray( json );
+
+            // 如果数组内的类型相同，可以使用泛型方法 DeserializeJsonList<Json>()
+            json = "[ 'abc', 'def', 'xxxxxxxxx', 'hhhhhhhhhhh3' ]";
+            List<String> strList = Json.DeserializeJsonList<String>( json );
+            Assert.AreEqual( "abc", strList[0] );
+            Assert.AreEqual( "def", strList[1] );
+            Assert.AreEqual( "xxxxxxxxx", strList[2] );
+            Assert.AreEqual( "hhhhhhhhhhh3", strList[3] );
+
         }
 
         private void testObjectArray( string json ) {
 
-            List<object> list = JsonParser.Parse( json ) as List<object>;
+            List<Object> list = Json.DeserializeJsonList( json );
             Assert.AreEqual( 4, list.Count );
             Assert.AreEqual( "zhangsan", list[0] );
             Assert.AreEqual( 3, list[1] );
             Assert.AreEqual( false, list[2] );
 
-            Dictionary<string, object> map = list[3] as Dictionary<string, object>;
-            Assert.IsNotNull( map );
+            JsonObject obj = list[3] as JsonObject;
+            Assert.IsNotNull( obj );
 
-            Assert.AreEqual( 2, map.Count );
-            foreach (KeyValuePair<string, object> pair in map) {
-                Console.WriteLine( pair.Key + ":" + pair.Value );
-            }
+            Assert.AreEqual( 2, obj.Count );
+
+            Assert.AreEqual( "zhangsan", obj.Get( "Name" ) );
+            Assert.AreEqual( "male", obj.Get( "Gender" ) );
+
 
         }
 
         private void testArraySimple( string json ) {
-            List<object> list = JsonParser.Parse( json ) as List<object>;
+            List<Object> list = Json.DeserializeJsonList( json );
             Assert.AreEqual( 4, list.Count );
             Assert.AreEqual( "zhangsan", list[0] );
             Assert.AreEqual( 3, list[1] );
@@ -100,7 +214,7 @@ namespace wojilu.Test.Common.Jsons {
         private void testArraySimple2() {
 
             string json = " [erieroe  , 38  , lakkk]   ";
-            List<object> list = JsonParser.Parse( json ) as List<object>;
+            List<Object> list = Json.DeserializeJsonList( json );
             Assert.AreEqual( 3, list.Count );
             Assert.AreEqual( "erieroe", list[0] );
             Assert.AreEqual( 38, list[1] );
@@ -112,7 +226,7 @@ namespace wojilu.Test.Common.Jsons {
         public void testArraySimple3() {
             string json = "  [ \"zhang\\\"san\", 3, false, \"lisi\"]  ";
 
-            List<object> list = JsonParser.Parse( json ) as List<object>;
+            List<Object> list = Json.DeserializeJsonList( json );
             Assert.AreEqual( 4, list.Count );
             Assert.AreEqual( "zhang\"san", list[0] );
             Assert.AreEqual( 3, list[1] );
@@ -139,11 +253,15 @@ namespace wojilu.Test.Common.Jsons {
 
         private void testObjectPrivate( string json ) {
 
-            Dictionary<string, object> map = JsonParser.Parse( json ) as Dictionary<string, object>;
+            JsonObject map = Json.DeserializeJson( json );
 
             Assert.AreEqual( 2, map.Count );
 
-            foreach (KeyValuePair<string, object> pair in map) {
+            Assert.AreEqual( "zhangsan", map.Get( "Name" ) );
+            Assert.AreEqual( "male", map.Get( "Gender" ) );
+
+
+            foreach (KeyValuePair<string, Object> pair in map) {
                 Console.WriteLine( pair.Key + ":" + pair.Value );
             }
             Console.WriteLine( "------------------------------------------------" );
@@ -151,17 +269,17 @@ namespace wojilu.Test.Common.Jsons {
 
         private void testsecondObject( string json ) {
 
-            Dictionary<string, object> map = JsonParser.Parse( json ) as Dictionary<string, object>;
+            JsonObject map = Json.DeserializeJson( json );
 
             Assert.AreEqual( 3, map.Count );
 
             Assert.IsTrue( map.ContainsKey( "Address" ) );
-            Dictionary<string, object> obj = map["Address"] as Dictionary<string, object>;
+            JsonObject obj = map.GetJson( "Address" );
             Assert.IsNotNull( obj );
 
             Assert.AreEqual( 2, obj.Count );
 
-            foreach (KeyValuePair<string, object> pair in obj) {
+            foreach (KeyValuePair<string, Object> pair in obj) {
                 Console.WriteLine( pair.Key + ":" + pair.Value );
             }
             Console.WriteLine( "------------------------------------------------" );
@@ -170,24 +288,24 @@ namespace wojilu.Test.Common.Jsons {
 
         private void testthirdObject( string json ) {
 
-            Dictionary<string, object> map = JsonParser.Parse( json ) as Dictionary<string, object>;
+            JsonObject map = Json.DeserializeJson( json );
 
             Assert.AreEqual( 3, map.Count );
 
             Assert.IsTrue( map.ContainsKey( "Address" ) );
-            Dictionary<string, object> addr = map["Address"] as Dictionary<string, object>;
+            JsonObject addr = map["Address"] as JsonObject;
             Assert.IsNotNull( addr );
 
             Assert.AreEqual( 2, addr.Count );
 
             Assert.IsTrue( addr.ContainsKey( "Name" ) );
-            Dictionary<string, object> name = addr["Name"] as Dictionary<string, object>;
+            JsonObject name = addr["Name"] as JsonObject;
             Assert.IsNotNull( name );
 
             Assert.AreEqual( 2, name.Count );
 
 
-            foreach (KeyValuePair<string, object> pair in name) {
+            foreach (KeyValuePair<string, Object> pair in name) {
                 Console.WriteLine( pair.Key + ":" + pair.Value );
             }
             Console.WriteLine( "------------------------------------------------" );
@@ -198,7 +316,7 @@ namespace wojilu.Test.Common.Jsons {
 
             string str = "{Id:2,  Name:\"诺基亚n78\", Weight:300, Owner:6}";
 
-            object obj = Json.DeserializeObject( str, typeof( MyPhone ) );
+            Object obj = Json.DeserializeObject( str, typeof( MyPhone ) );
             Assert.IsNotNull( obj );
             MyPhone phone = obj as MyPhone;
             Assert.IsNotNull( phone );
@@ -236,21 +354,25 @@ namespace wojilu.Test.Common.Jsons {
 ]
 ";
 
-            //object obj = JsonParser.Parse( str );
-
-            List<Dictionary<string, object>> lists = Json.DeserializeDicList( str );
+            List<JsonObject> lists = Json.DeserializeJsonList<JsonObject>( str );
             Assert.AreEqual( 2, lists.Count );
 
-            Dictionary<string, object> dic = lists[0];
+            // 弱类型获取值
+            JsonObject dic = lists[0];
             Assert.AreEqual( 3, dic.Keys.Count );
             Assert.AreEqual( 3, dic["Id"] );
             Assert.AreEqual( "zhangsan", dic["Name"] );
             Assert.AreEqual( 25, dic["Age"] );
 
-            Dictionary<string, object> dic2 = lists[1];
-            Assert.AreEqual( 5, dic2["Id"] );
-            Assert.AreEqual( "lisi", dic2["Name"] );
-            Assert.AreEqual( 18, dic2["Age"] );
+            // 强类型获取值
+            Assert.AreEqual( 3, dic.Get<int>( "Id" ) );
+            Assert.AreEqual( "zhangsan", dic.Get( "Name" ) );
+            Assert.AreEqual( 25, dic.Get<int>( "Age" ) );
+
+            JsonObject dic2 = lists[1];
+            Assert.AreEqual( 5, dic2.Get<int>( "Id" ) );
+            Assert.AreEqual( "lisi", dic2.Get( "Name" ) );
+            Assert.AreEqual( 18, dic2.Get<int>( "Age" ) );
 
 
         }
@@ -265,16 +387,42 @@ namespace wojilu.Test.Common.Jsons {
 ]
 ";
 
-            Dictionary<string, object> dic = Json.DeserializeDic( str );
+            JsonObject dic = Json.DeserializeJson( str );
 
             Assert.AreEqual( 3, dic.Keys.Count );
             Assert.AreEqual( 3, dic["Id"] );
             Assert.AreEqual( "zhangsan", dic["Name"] );
             Assert.AreEqual( 25, dic["Age"] );
 
+            // 强类型获取值
+            Assert.AreEqual( 3, dic.Get<int>( "Id" ) );
+            Assert.AreEqual( "zhangsan", dic.Get( "Name" ) );
+            Assert.AreEqual( 25, dic.Get<int>( "Age" ) );
+
         }
 
+        [Test]
+        public void testDeserializeObject() {
 
+            string json = @"{
+  'Email': 'abcd@example.com',
+  'Active': true,
+  'CreatedDate': '2013-01-20',
+  'Roles': [
+    'User',
+    'Admin'
+  ]
+}";
+
+            Account account = Json.DeserializeObject<Account>( json );
+
+            Assert.AreEqual( "abcd@example.com", account.Email );
+            Assert.AreEqual( true, account.Active );
+
+            Assert.AreEqual( 2, account.Roles.Count );
+            Assert.AreEqual( "User", account.Roles[0] );
+            Assert.AreEqual( "Admin", account.Roles[1] );
+        }
 
         [Test]
         public void testDbConfig() {
@@ -293,25 +441,25 @@ namespace wojilu.Test.Common.Jsons {
     MetaDLL : """"
     
 }";
-            Dictionary<string, object> dic = JsonParser.Parse( str ) as Dictionary<string, object>;
-            Assert.AreEqual( 7, dic.Count );
+            JsonObject obj = Json.DeserializeJson( str );
+            Assert.AreEqual( 7, obj.Count );
 
-            Assert.AreEqual( dic["IsCheckDatabase"], true );
-            Assert.AreEqual( dic["MappingTablePrefix"], "" );
-            Assert.AreEqual( dic["EnableContextCache"], true );
-            Assert.AreEqual( dic["EnableApplicationCache"], true );
-            Assert.AreEqual( dic["MetaDLL"], "" );
+            Assert.AreEqual( obj.Get<bool>( "IsCheckDatabase" ), true );
+            Assert.AreEqual( obj.Get( "MappingTablePrefix" ), "" );
+            Assert.AreEqual( obj.Get<bool>( "EnableContextCache" ), true );
+            Assert.AreEqual( obj.Get<bool>( "EnableApplicationCache" ), true );
+            Assert.AreEqual( obj.Get( "MetaDLL" ), "" );
 
-            List<object> list = dic["AssemblyList"] as List<object>;
+            List<Object> list = obj.GetList( "AssemblyList" );
             Assert.IsNotNull( list );
             Assert.AreEqual( list.Count, 2 );
             Assert.AreEqual( list[0], "wojilu.Core" );
             Assert.AreEqual( list[1], "wojilu.Apps" );
 
-            Dictionary<string, object> objcn = dic["ConnectionString"] as Dictionary<string, object>;
+            JsonObject objcn = obj.GetJson( "ConnectionString" );
             Assert.IsNotNull( objcn );
-            Assert.AreEqual( objcn["default"], "Provider=Microsoft.Jet.OLEDB.4.0;Data Source=wojilu.mdb" );
-            Assert.AreEqual( objcn["db2"], "server=localhost;uid=wojilu;pwd=abcd123;database=wojilu;" );
+            Assert.AreEqual( objcn.Get( "default" ), "Provider=Microsoft.Jet.OLEDB.4.0;Data Source=wojilu.mdb" );
+            Assert.AreEqual( objcn.Get( "db2" ), "server=localhost;uid=wojilu;pwd=abcd123;database=wojilu;" );
         }
 
         [Test]
@@ -327,17 +475,17 @@ default:""SqlServer""
 
 AssemblyList : [""wojilu.Core"",""wojilu.Apps""] 
 } ";
-            Dictionary<string, object> dic = JsonParser.Parse( str ) as Dictionary<string, object>;
+            JsonObject obj = Json.DeserializeJson( str );
 
-            List<object> list = dic["AssemblyList"] as List<object>;
+            List<Object> list = obj.GetList( "AssemblyList" );
             Assert.IsNotNull( list );
             Assert.AreEqual( list.Count, 2 );
             Assert.AreEqual( list[0], "wojilu.Core" );
             Assert.AreEqual( list[1], "wojilu.Apps" );
 
-            Dictionary<string, object> objcn = dic["ConnectionStringTable"] as Dictionary<string, object>;
+            JsonObject objcn = obj.GetJson( "ConnectionStringTable" );
             Assert.IsNotNull( objcn );
-            Assert.AreEqual( objcn["default"], "Server = ./sqlexpress;uid=sa;pwd=gl;database=wojilu;Pooling=true;" );
+            Assert.AreEqual( objcn.Get( "default" ), "Server = ./sqlexpress;uid=sa;pwd=gl;database=wojilu;Pooling=true;" );
         }
 
         [Test]
@@ -353,15 +501,15 @@ default:""SqlServer""
 
 AssemblyList : [""wojilu.Core"",""wojilu.Apps""] 
 } ";
-            Dictionary<string, object> dic = JsonParser.Parse( str ) as Dictionary<string, object>;
+            JsonObject obj = Json.DeserializeJson( str );
 
-            List<object> list = dic["AssemblyList"] as List<object>;
+            List<Object> list = obj.GetList( "AssemblyList" );
             Assert.IsNotNull( list );
             Assert.AreEqual( list.Count, 2 );
             Assert.AreEqual( list[0], "wojilu.Core" );
             Assert.AreEqual( list[1], "wojilu.Apps" );
 
-            Dictionary<string, object> objcn = dic["ConnectionStringTable"] as Dictionary<string, object>;
+            JsonObject objcn = obj.GetJson( "ConnectionStringTable" );
             Assert.IsNotNull( objcn );
             Assert.AreEqual( objcn["default"], "server=192.168.15.121:1433;uid=test;pwd=test;database=mydb;" );
         }
@@ -372,10 +520,10 @@ AssemblyList : [""wojilu.Core"",""wojilu.Apps""]
 
             string str = "{topic: \"<a href='/bv/Forum1/Topic/Show/4440.aspx'>亚裔美国文学研究的新起点</a>\"}";
 
-            Dictionary<string, object> dic = JsonParser.Parse( str ) as Dictionary<string, object>;
+            JsonObject dic = Json.DeserializeJson( str );
             Assert.AreEqual( 1, dic.Count );
 
-            Assert.AreEqual( "<a href='/bv/Forum1/Topic/Show/4440.aspx'>亚裔美国文学研究的新起点</a>", dic["topic"] );
+            Assert.AreEqual( "<a href='/bv/Forum1/Topic/Show/4440.aspx'>亚裔美国文学研究的新起点</a>", dic.Get( "topic" ) );
         }
 
         [Test]
@@ -390,11 +538,11 @@ AssemblyList : [""wojilu.Core"",""wojilu.Apps""]
 
 }
 ";
-            Dictionary<string, object> dic = JsonParser.Parse( str ) as Dictionary<string, object>;
-            Assert.AreEqual( 3, dic.Count );
-            Assert.AreEqual( dic["name"], "sunzhongshan" );
-            Assert.AreEqual( dic["age"], 99 );
-            Assert.AreEqual( dic["gender"], "male" );
+            JsonObject obj = Json.DeserializeJson( str );
+            Assert.AreEqual( 3, obj.Count );
+            Assert.AreEqual( obj.Get( "name" ), "sunzhongshan" );
+            Assert.AreEqual( obj.Get<int>( "age" ), 99 );
+            Assert.AreEqual( obj.Get( "gender" ), "male" );
         }
 
         [Test]
@@ -408,19 +556,18 @@ AssemblyList : [""wojilu.Core"",""wojilu.Apps""]
 
 }
 ";
-            Dictionary<string, object> dic = JsonParser.Parse( str ) as Dictionary<string, object>;
-            Assert.AreEqual( 3, dic.Count );
+            JsonObject obj = Json.DeserializeJson( str );
+            Assert.AreEqual( 3, obj.Count );
 
-            object obj = dic["name"];
+            List<Object> list = obj.GetList( "name" );
 
-            List<object> list = dic["name"] as List<object>;
             Assert.IsNotNull( list );
             Assert.AreEqual( list.Count, 2 );
             Assert.AreEqual( list[0], "sunwen" );
             Assert.AreEqual( list[1], "袁世凯" );
 
-            Assert.AreEqual( dic["age"], 99 );
-            Assert.AreEqual( dic["gender"], "male" );
+            Assert.AreEqual( obj.Get<int>( "age" ), 99 );
+            Assert.AreEqual( obj.Get( "gender" ), "male" );
         }
 
 
@@ -439,10 +586,12 @@ AssemblyList : [""wojilu.Core"",""wojilu.Apps""]
     	'$061':'狗狗','$062':'小猫','$063':'猪头','$064':'蜗牛','$065':'岛屿','$066':'足球','$067':'电话','$068':'灯泡','$069':'臭大粪、shit'
     }";
 
-            Dictionary<string, object> map = JsonParser.Parse( ems ) as Dictionary<string, object>;
-            Assert.IsNotNull( map );
-            Assert.AreEqual( 69, map.Count );
+            JsonObject objem = Json.DeserializeJson( ems );
+            Assert.IsNotNull( objem );
+            Assert.AreEqual( 69, objem.Count );
 
+            Assert.AreEqual( "岛屿", objem.Get( "$065" ) );
+            Assert.AreEqual( "灯泡", objem.Get( "$068" ) );
 
 
         }
@@ -501,7 +650,7 @@ AssemblyList : [""wojilu.Core"",""wojilu.Apps""]
         [Test]
         public void testQuote() {
             string str = "{post: \"<a href='/bv/Forum1/Post/Show/17355.aspx'>re:天下之大，无奇不有</a>\"}";
-            Dictionary<string, object> dic = Json.DeserializeDic( str );
+            JsonObject dic = Json.DeserializeJson( str );
             Assert.AreEqual( 1, dic.Count );
             Assert.AreEqual( "<a href='/bv/Forum1/Post/Show/17355.aspx'>re:天下之大，无奇不有</a>", dic["post"] );
         }
@@ -511,7 +660,7 @@ AssemblyList : [""wojilu.Core"",""wojilu.Apps""]
 
             //string str = @"{ blog:""<a href='/space/sgzwiz/Blog574/Post/95'>\framework\views\Common\Admin\AppBase\</a>"" }";
             string str = @"{ blog:""<a href=\""/space/sgzwiz/Blog574/Post/95\"">\\framework\\views\\Common\\Admin\\AppBase\\</a>"" }";
-            Dictionary<string, object> dic = Json.DeserializeDic( str );
+            JsonObject dic = Json.DeserializeJson( str );
             Assert.AreEqual( 1, dic.Count );
 
         }
