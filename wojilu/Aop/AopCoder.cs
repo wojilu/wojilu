@@ -25,6 +25,7 @@ using System.Reflection;
 using System.Text;
 
 using Microsoft.CSharp;
+using wojilu.DI;
 
 namespace wojilu.Aop {
 
@@ -237,7 +238,13 @@ namespace wojilu.Aop {
 
         private static void append_method_before( StringBuilder sb, ObservedMethod x, AopCoderDialect dialect ) {
 
-            sb.AppendFormat( "\t\t\tMethodInfo m = {0}.GetType().GetMethod( \"{1}\" );", dialect.GetInvokeTargetThis(), x.Method.Name );
+            if (x.Method.GetParameters().Length > 0) {
+                sb.AppendFormat( "\t\t\tMethodInfo m = {0}.GetType().GetMethod( \"{1}\", {2} );", dialect.GetInvokeTargetThis(), x.Method.Name, "new Type[] {" + getArgType( x.Method ) + "}" );
+            }
+            else {
+
+                sb.AppendFormat( "\t\t\tMethodInfo m = {0}.GetType().GetMethod( \"{1}\", {2} );", dialect.GetInvokeTargetThis(), x.Method.Name, "new Type[]{}" );
+            }
             sb.AppendLine();
 
             sb.AppendFormat( "\t\t\tObject[] args = {0};", getArgArray( x.Method ) );
@@ -246,12 +253,16 @@ namespace wojilu.Aop {
             List<MethodObserver> osList = getMethodObserver( x.ObservedType.Type, x.Method.Name );
             int i = 1;
             foreach (MethodObserver os in osList) {
-                sb.AppendFormat( "\t\t\t{0} observer{1} = new {0}();", os.GetType().FullName, i );
+                sb.AppendFormat( "\t\t\t{0} observer{1} = {2};", os.GetType().FullName, i, getObserverCreator( os ) );
                 sb.AppendLine();
                 sb.AppendFormat( "\t\t\tobserver{0}.Before( m, args, {1} );", i, dialect.GetInvokeTargetThis() );
                 sb.AppendLine();
                 i++;
             }
+        }
+
+        private static String getObserverCreator( MethodObserver os ) {
+            return string.Format( "{0}.Create<{1}>()", typeof( ObjectContext ).FullName, os.GetType().FullName );
         }
 
         private static void append_method_invoke( StringBuilder sb, ObservedMethod x, AopCoderDialect dialect ) {
@@ -445,6 +456,20 @@ namespace wojilu.Aop {
             int i = 1;
             foreach (ParameterInfo x in args) {
                 str += string.Format( "x{0},", i );
+                i++;
+            }
+            return str.Trim().TrimEnd( ',' );
+        }
+
+        // 获取参数类型，比如 BlogPost x1, String x2, int x3
+        // 转成 BlogPost , String , int 
+        // new Type[] {}
+        private static string getArgType( MethodInfo methodInfo ) {
+            String str = "";
+            ParameterInfo[] args = methodInfo.GetParameters();
+            int i = 1;
+            foreach (ParameterInfo x in args) {
+                str += string.Format( "typeof({0}),", x.ParameterType.FullName );
                 i++;
             }
             return str.Trim().TrimEnd( ',' );

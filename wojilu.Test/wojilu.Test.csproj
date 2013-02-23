@@ -54,6 +54,8 @@
     <Compile Include="Aop\MyMethodObserver2.cs" />
     <Compile Include="Aop\MyMethodObserver3.cs" />
     <Compile Include="Aop\MyNormalService.cs" />
+    <Compile Include="Aop\NewAopService.cs" />
+    <Compile Include="Aop\ObservedObject.cs" />
     <Compile Include="Aop\TComplexObject.cs" />
     <Compile Include="Common\rftTest.cs" />
     <Compile Include="main.cs" />

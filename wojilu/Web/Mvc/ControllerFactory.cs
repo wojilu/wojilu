@@ -66,7 +66,7 @@ namespace wojilu.Web.Mvc {
         /// <returns></returns>
         public static ControllerBase FindController( String typeName, MvcContext ctx ) {
 
-            if (typeName == null) throw new NullReferenceException();
+            if (typeName == null) throw new ArgumentNullException( "typeName" );
 
             if (ObjectContext.Instance.TypeList.ContainsKey( typeName )) {
 
@@ -74,7 +74,7 @@ namespace wojilu.Web.Mvc {
                 return FindController( controllerType, ctx );
 
             }
-            else if (MvcConfig.Instance.IsUrlToLower 
+            else if (MvcConfig.Instance.IsUrlToLower
                 && ObjectContext.Instance.LowerTypeList.ContainsKey( typeName.ToLower() )
                 ) {
 
@@ -96,12 +96,13 @@ namespace wojilu.Web.Mvc {
         public static ControllerBase FindController( Type controllerType, MvcContext ctx ) {
             if (controllerType == null) return null;
 
-            ControllerBase result = ObjectContext.CreateObject( controllerType ) as ControllerBase;
-            if (result == null) return null;
-            result.setContext( ctx );
-            setControllerAppInfo( controllerType, result );
+            ControllerBase controller = ObjectContext.CreateObject( controllerType ) as ControllerBase;
+            if (controller == null) return null;
+            ObjectContext.InterceptProperty( controller );
+            controller.setContext( ctx );
+            setControllerAppInfo( controllerType, controller );
 
-            return result;
+            return controller;
         }
 
         /// <summary>
@@ -112,6 +113,7 @@ namespace wojilu.Web.Mvc {
         public static void InjectController( ControllerBase controller, MvcContext ctx ) {
             if (controller == null) return;
             ObjectContext.Inject( controller );
+            ObjectContext.InterceptProperty( controller );
             controller.setContext( ctx );
             setControllerAppInfo( controller.GetType(), controller );
         }

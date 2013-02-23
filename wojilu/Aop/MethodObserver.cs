@@ -80,7 +80,35 @@ namespace wojilu.Aop {
             String methods;
             dic.TryGetValue( t, out methods );
 
+            // save/update(int,string)/getById
             dic[t] = strUtil.Join( methods, methodName );
+        }
+
+        /// <summary>
+        /// 监控其他 method
+        /// </summary>
+        /// <param name="t">类型</param>
+        /// <param name="methodName">方法名称</param>
+        /// <param name="args">参数类型</param>
+        protected void observe( Type t, String methodName, Type[] args ) {
+
+            String methods;
+            dic.TryGetValue( t, out methods );
+
+            if (args.Length > 0) {
+                methodName = appendParams( methodName, args );
+            }
+
+            dic[t] = strUtil.Join( methods, methodName );
+        }
+
+        private String appendParams( String methodName, Type[] args ) {
+            String strParams = "";
+            for (int i = 0; i < args.Length; i++) {
+                strParams += args[i].FullName;
+                if (i < args.Length - 1) strParams += ",";
+            }
+            return string.Format( "{0}({1})", methodName, strParams );
         }
 
         /// <summary>
@@ -90,13 +118,22 @@ namespace wojilu.Aop {
         /// <param name="methodName">方法名称</param>
         protected void observe( String typeFullName, String methodName ) {
             Type t;
-
             ObjectContext.Instance.TypeList.TryGetValue( typeFullName, out t );
-
             if (t == null) throw new TypeNotFoundException( typeFullName );
-
-
             observe( t, methodName );
+        }
+
+        /// <summary>
+        /// 监控其他 method
+        /// </summary>
+        /// <param name="typeFullName">类型的完整名称</param>
+        /// <param name="methodName">方法名称</param>
+        /// <param name="args">参数类型</param>
+        protected void observe( String typeFullName, String methodName, Type[] args ) {
+            Type t;
+            ObjectContext.Instance.TypeList.TryGetValue( typeFullName, out t );
+            if (t == null) throw new TypeNotFoundException( typeFullName );
+            observe( t, methodName, args );
         }
 
     }

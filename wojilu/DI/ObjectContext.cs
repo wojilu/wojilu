@@ -26,7 +26,9 @@ using wojilu.Aop;
 namespace wojilu.DI {
 
     /// <summary>
-    /// IOC 管理容器
+    /// 管理对象 Object 的容器。
+    /// 1. 保存了所有纳入容器的类型 Type。
+    /// 2. 将 Object 进行 Aop 拦截和 Ioc 注入处理。
     /// </summary>
     public class ObjectContext {
 
@@ -212,8 +214,8 @@ namespace wojilu.DI {
         }
 
         /// <summary>
-        /// 创建经对象(有注入的就注入，没有注入的直接生成)，不是单例；然后对属性进行拦截。
-        /// 如果属性有接口，按照接口拦截；否则按照子类拦截
+        /// 创建一个经过Aop和Ioc处理的对象，结果不是单例。
+        /// 如果需要拦截，则创建代理子类；然后检测是否需要注入。
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <returns></returns>
@@ -222,8 +224,8 @@ namespace wojilu.DI {
         }
 
         /// <summary>
-        /// 创建经对象(有注入的就注入，没有注入的直接生成)，不是单例；然后对属性进行拦截。
-        /// 如果属性有接口，按照接口拦截；否则按照子类拦截
+        /// 创建一个经过Aop和Ioc处理的对象，结果不是单例。
+        /// 如果需要拦截，则创建代理子类；然后检测是否需要注入。
         /// </summary>
         /// <param name="typeFullName"></param>
         /// <returns></returns>
@@ -234,16 +236,59 @@ namespace wojilu.DI {
         }
 
         /// <summary>
-        /// 创建经对象(有注入的就注入，没有注入的直接生成)，不是单例；然后对属性进行拦截。
-        /// 如果属性有接口，按照接口拦截；否则按照子类拦截
+        /// 创建一个经过Aop和Ioc处理的对象，结果不是单例。
+        /// 如果需要拦截，则创建代理子类；然后检测是否需要注入。
+        /// </summary>
+        /// <param name="typeFullName"></param>
+        /// <returns></returns>
+        public static Object Create( String typeFullName ) {
+            return CreateObject( typeFullName );
+        }
+
+        /// <summary>
+        /// 创建一个经过Aop和Ioc处理的对象，结果不是单例。
+        /// 如果需要拦截，则创建代理子类；然后检测是否需要注入。
+        /// </summary>
+        /// <param name="targetType"></param>
+        /// <returns></returns>
+        public static Object Create( Type targetType ) {
+            return CreateObject( targetType );
+        }
+
+        /// <summary>
+        /// 创建一个经过Aop和Ioc处理的对象，结果不是单例。
+        /// 如果需要拦截，则创建代理子类；然后检测是否需要注入。
         /// </summary>
         /// <param name="targetType"></param>
         /// <returns></returns>
         public static Object CreateObject( Type targetType ) {
+            Object objTarget = AopContext.CreateObjectBySub( targetType );
+            Inject( objTarget );
+            return objTarget;
+        }
 
-            Object objTarget = CreateObjectByIoc( targetType );
+        /// <summary>
+        /// 根据接口创建代理类，并经过注入处理。
+        /// 如果无法创建接口代理，则返回未经代理，但注入过的对象。
+        /// </summary>
+        /// <typeparam name="T">接口类型</typeparam>
+        /// <param name="targetType">需要代理的类型</param>
+        /// <returns></returns>
+        public static T Create<T>( Type targetType ) {
+            return (T)Create( targetType, typeof( T ) );
+        }
 
-            return checkPropertyObserver( objTarget );
+        /// <summary>
+        /// 根据接口创建代理类，并经过注入处理。
+        /// 如果无法创建接口代理，则返回未经代理，但注入过的对象。
+        /// </summary>
+        /// <param name="targetType">需要代理的类型</param>
+        /// <param name="interfaceType">接口类型</param>
+        /// <returns></returns>
+        public static Object Create( Type targetType, Type interfaceType ) {
+            Object objTarget = AopContext.CreateObjectByInterface( targetType, interfaceType );
+            Inject( objTarget );
+            return objTarget;
         }
 
         /// <summary>
@@ -299,10 +344,11 @@ namespace wojilu.DI {
 
 
         /// <summary>
-        /// 检查所有子属性：是否需要拦截
+        /// 用Aop拦截所有属性对象。
+        /// 如果属性有接口，按照接口拦截；否则按照子类拦截
         /// </summary>
         /// <param name="objTarget"></param>
-        private static Object checkPropertyObserver( Object objTarget ) {
+        public static Object InterceptProperty( Object objTarget ) {
 
             Type targetType = objTarget.GetType();
 
@@ -312,21 +358,31 @@ namespace wojilu.DI {
                 if (!p.CanRead) continue;
                 if (!p.CanWrite) continue;
 
+                if (rft.IsBaseType( p.PropertyType )) continue;
+
                 Object oValue = p.GetValue( objTarget, null );
                 if (oValue == null) {
                     logger.Info( "property value is null. type = " + targetType.FullName + ", property = " + p.Name );
                     continue;
                 }
 
-                Object propertyValue;
+                Type pType = oValue.GetType();
+                Object propertyValue = oValue;
                 if (p.PropertyType.IsInterface) {
-                    propertyValue = AopContext.CreateProxyByInterface( oValue, p.PropertyType );
+                    if (AopContext.CanCreateInterfaceProxy( pType, p.PropertyType )) {
+                        propertyValue = AopContext.createProxyByInterface( pType, p.PropertyType );
+                        if (propertyValue != null) {
+                            p.SetValue( objTarget, propertyValue, null );
+                        }
+                    }
                 }
-                else {
-                    propertyValue = AopContext.CreateProxy( oValue );
+                else if (AopContext.CanCreateSubProxy( pType )) {
+                    propertyValue = AopContext.createProxyBySub( pType );
+                    if (propertyValue != null) {
+                        p.SetValue( objTarget, propertyValue, null );
+                    }
                 }
 
-                p.SetValue( objTarget, propertyValue, null );
             }
 
             return objTarget;
@@ -362,7 +418,13 @@ namespace wojilu.DI {
             ctx.AssemblyTypes.Add( asmName, types );
 
             foreach (Type type in types) {
-                ctx.TypeList.Add( type.FullName, type );
+
+                try {
+                    ctx.TypeList.Add( type.FullName, type );
+                }
+                catch (Exception ex) {
+                    throw new Exception( ex.Message + ":" + type.FullName, ex );
+                }
 
                 if (rft.IsInterface( type, typeof( IDto ) )) {
                     ctx.DtoList.Add( strUtil.TrimEnd( type.FullName, "Dto" ), (IDto)rft.GetInstance( type ) );
@@ -407,7 +469,14 @@ namespace wojilu.DI {
                 types = LoadAssembly( asmName ).GetTypes();
                 Instance.AssemblyTypes.Add( asmName, types );
                 foreach (Type type in types) {
-                    Instance.TypeList.Add( type.FullName, type );
+                    try {
+                        Instance.TypeList.Add( type.FullName, type );
+                    }
+                    catch (Exception ex) {
+                        String msg = "type exist: " + type.FullName;
+                        logger.Error( msg );
+                        throw new Exception( msg, ex );
+                    }
                 }
             }
             return types;

@@ -17,12 +17,38 @@ namespace wojilu.Test.Aop {
 
 
 
+        // 测试重载方法
+        [Test]
+        public void testOverloadMethod() {
 
+            //NewAopService x = AopContext.CreateProxyBySub<NewAopService>();
+            NewAopService x = ObjectContext.Create<NewAopService>();
+
+            Boolean isSubClass = x.GetType().IsSubclassOf( typeof( NewAopService ) );
+            Assert.IsTrue( isSubClass );
+
+            x.count = 8;
+
+            Assert.AreEqual( 8, x.Save() ); // 没有参数，所以结果没有被修改
+            Assert.AreEqual( 8+6/2, x.Save( 6 ) ); // 参数被拦截，并除以2
+            Assert.AreEqual( "11zhangsan", x.Save( 6, "zhangsan" ) ); // 参数被拦截，并除以2
+        }
+
+        // 测试Aop+Ioc综合功能
+        [Test]
+        public void testIocAndAop() {
+
+            TComplexObject obj = ObjectContext.CreateObject( typeof( TComplexObject ) ) as TComplexObject;
+            obj.Save();
+
+        }
+
+        // 测试Aop的子类方式
         [Test]
         public void testSubClassProxy() {
 
             // 代理类是子类
-            MyAopService s1 = AopContext.CreateProxy<MyAopService>();
+            MyAopService s1 = AopContext.CreateProxyBySub<MyAopService>();
             Boolean isSubClass = s1.GetType().IsSubclassOf( typeof( MyAopService ) );
             Assert.IsTrue( isSubClass );
             Assert.AreEqual( "__" + typeof( MyAopService ).Name, s1.GetType().Name );
@@ -76,16 +102,12 @@ namespace wojilu.Test.Aop {
             Console.WriteLine();
 
             // 没有监控的对象，则没有代理类
-            MyNormalService s2 = AopContext.CreateProxy<MyNormalService>();
+            MyNormalService s2 = AopContext.CreateProxyBySub<MyNormalService>();
             Assert.IsNull( s2 );
 
-            // 不管有没有监控，CreateObject 都返回结果
-            MyNormalService s3 = AopContext.CreateObject<MyNormalService>();
-            Assert.IsNotNull( s3 );
-            Assert.AreEqual( typeof( MyNormalService ), s3.GetType() );
 
             // 测试参数是否成功修改
-            MyArgService x1 = AopContext.CreateProxy<MyArgService>();
+            MyArgService x1 = AopContext.CreateProxyBySub<MyArgService>();
 
             Console.WriteLine( "buy1" );
             int xResult1 = x1.Buy( 3 );
@@ -99,15 +121,19 @@ namespace wojilu.Test.Aop {
 
         }
 
+        // 测试返回对象
         [Test]
-        public void testIocAndAop() {
+        public void testSubclassObject() {
 
-            TComplexObject obj = ObjectContext.CreateObject( typeof( TComplexObject ) ) as TComplexObject;
-            obj.Save();
 
+            // 不管有没有监控，CreateObject 都返回结果
+            MyNormalService s3 = AopContext.CreateObjectBySub<MyNormalService>();
+            Assert.IsNotNull( s3 );
+            Assert.AreEqual( typeof( MyNormalService ), s3.GetType() );
         }
 
 
+        // 测试Aop的接口方式
         [Test]
         public void testInterfaceClassProxy() {
 
@@ -162,16 +188,16 @@ namespace wojilu.Test.Aop {
             Console.WriteLine();
 
             // 没有监控的对象，则没有代理类
-            MyNormalService s2 = AopContext.CreateProxy<MyNormalService>();
+            MyNormalService s2 = AopContext.CreateProxyBySub<MyNormalService>();
             Assert.IsNull( s2 );
 
             // 不管有没有监控，CreateObject 都返回结果
-            MyNormalService s3 = AopContext.CreateObject<MyNormalService>();
+            MyNormalService s3 = AopContext.CreateObjectBySub<MyNormalService>();
             Assert.IsNotNull( s3 );
             Assert.AreEqual( typeof( MyNormalService ), s3.GetType() );
 
             // 测试参数是否成功修改
-            MyArgService x1 = AopContext.CreateProxy<MyArgService>();
+            MyArgService x1 = AopContext.CreateProxyBySub<MyArgService>();
 
             Console.WriteLine( "buy1" );
             int xResult1 = x1.Buy( 3 );
@@ -182,6 +208,17 @@ namespace wojilu.Test.Aop {
 
             Assert.AreEqual( 8, xResult1 );
             Assert.AreEqual( 12, xResult2 );
+
+        }
+
+        // 对监控器的监控；无限级监控测试
+        [Test]
+        public void testObserveMethodObserver() {
+
+            TObservedTarget obj = ObjectContext.Create<TObservedTarget>();
+            obj.count = 8;
+            int count = obj.Save( 2 );
+            Assert.AreEqual( 13, count );
 
         }
 
