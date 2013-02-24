@@ -327,7 +327,7 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="DI\MapItem.cs" />
-    <Compile Include="DI\ObjectContext.cs" />
+    <Compile Include="_wojilu\ObjectContext.cs" />
     <Compile Include="IO\filesys.cs">
       <SubType>Code</SubType>
     </Compile>

@@ -18,12 +18,14 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Reflection;
+
+using wojilu.Aop;
+using wojilu.DI;
 using wojilu.Reflection;
 using wojilu.Web.Mvc;
 using wojilu.Web.Mvc.Interface;
-using wojilu.Aop;
 
-namespace wojilu.DI {
+namespace wojilu {
 
     /// <summary>
     /// 管理对象 Object 的容器。
