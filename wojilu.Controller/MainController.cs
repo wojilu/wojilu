@@ -69,6 +69,12 @@ namespace wojilu.Web.Controller {
 
             setLoginValidationCode();
 
+            IBlock confirmEmailBlock = getBlock( "sendConfirmEmail" );
+            if (config.Instance.Site.EnableEmail) {
+                confirmEmailBlock.Set( "resendLink", to( new Common.ActivationController().SendEmailLogin ) );
+                confirmEmailBlock.Next();
+            }
+
             load( "connectLogin", connectLogin );
         }
 

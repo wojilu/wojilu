@@ -7,25 +7,17 @@ using System.Collections.Generic;
 using System.Text;
 
 using wojilu.Data;
+using wojilu.OAuth;
+
+using wojilu.Common.Onlines;
+
+using wojilu.Web.Context;
 using wojilu.Web.Mvc;
 using wojilu.Web.Mvc.Interface;
-using wojilu.Web.Mvc.Processors;
+
 using wojilu.Members.Sites.Domain;
-using wojilu.Apps.Forum.Domain;
-using wojilu.Caching;
-using wojilu.DI;
-using System.Data;
-using wojilu.ORM;
-using System.IO;
-using wojilu.Web.Context;
-using wojilu.Web.Mvc.Attr;
-using wojilu.Web.Controller.Common;
-using wojilu.Common.Onlines;
-using wojilu.Web.Mvc.Routes;
-using System.Web;
-using System.Web.Security;
 using wojilu.Members.Users.Domain;
-using wojilu.OAuth;
+
 
 namespace wojilu.Web.Controller {
 
@@ -118,7 +110,7 @@ namespace wojilu.Web.Controller {
 
             String cPath = e.ctx.url.Path;
 
-            if (cPath.IndexOf( "/Layouts/TopNav/Nav" ) >= 0) {
+            if (cPath.ToLower().IndexOf( "/layouts/topnav/nav" ) >= 0) {
 
                 if (e.ctx.web.UserIsLogin == false) {
 

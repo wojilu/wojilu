@@ -69,8 +69,8 @@ namespace wojilu.OAuth {
 
                 String logoPath = string.Format( "/connect/{0}.png", x.TypeFullName );
                 String logoPaths = string.Format( "/connect/{0}_s.png", x.TypeFullName );
-                logoPath = strUtil.Join( sys.Path.Img, logoPath );
-                logoPaths = strUtil.Join( sys.Path.Img, logoPaths );
+                logoPath = strUtil.Join( sys.Path.DiskImg, logoPath );
+                logoPaths = strUtil.Join( sys.Path.DiskImg, logoPaths );
 
                 if (file.Exists( PathHelper.Map( logoPath ) )) {
 
