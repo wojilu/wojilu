@@ -4,21 +4,29 @@
 
 using System;
 using System.Collections.Generic;
-using System.Text;
 
 using wojilu.Web.Mvc;
-using wojilu.Web.Controller.Common;
-using wojilu.Common.Pages.Service;
-using wojilu.Common.Pages.Domain;
-using wojilu.Common.AppBase;
-using wojilu.Common.Pages.Interface;
-using wojilu.Members.Users.Interface;
-using wojilu.Members.Users.Service;
 using wojilu.Web.Mvc.Attr;
-using wojilu.Members.Users.Domain;
+using wojilu.Common.Msg.Enum;
 using wojilu.Common.Msg.Interface;
 using wojilu.Common.Msg.Service;
-using wojilu.Common.Msg.Enum;
+using wojilu.Common.Pages.Domain;
+using wojilu.Common.Pages.Interface;
+using wojilu.Common.Pages.Service;
+using wojilu.Members.Users.Domain;
+using wojilu.Members.Users.Interface;
+using wojilu.Members.Users.Service;
+
+namespace wojilu.Web.Controller.Pages {
+
+    public class PageController : ControllerBase {
+        public void Show( int id ) {
+            redirectDirect( to( new Common.PageController().Show, id ) );
+        }
+    }
+
+}
+
 
 namespace wojilu.Web.Controller.Common {
 
