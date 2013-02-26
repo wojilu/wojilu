@@ -54,9 +54,9 @@ namespace wojilu.Common.Feeds.Service {
         public virtual TemplateBundle registerTemplateBundle( List<OneLineStoryTemplate> oneLineStoryTemplates, List<ShortStoryTemplate> shortStoryTemplates, List<ActionLink> actionLinks ) {
 
             TemplateBundle t = new TemplateBundle();
-            t.OneLineStoryTemplatesStr = Json.SerializeListSimple( oneLineStoryTemplates );
-            t.ShortStoryTemplatesStr = Json.SerializeListSimple( shortStoryTemplates );
-            t.ActionLinksStr = Json.SerializeListSimple( actionLinks );
+            t.OneLineStoryTemplatesStr = Json.ToStringSimple( oneLineStoryTemplates );
+            t.ShortStoryTemplatesStr = Json.ToStringSimple( shortStoryTemplates );
+            t.ActionLinksStr = Json.ToStringSimple( actionLinks );
             db.insert( t );
 
             return t;
@@ -274,7 +274,7 @@ namespace wojilu.Common.Feeds.Service {
 
             templateData = templateData.Trim().Replace( "\r", "" ).Replace( "\n", "" );
 
-            JsonObject data = Json.DeserializeJson( templateData );
+            JsonObject data = Json.ParseJson( templateData );
 
             String result = template;
             String creatorKey = "{*actor*}";

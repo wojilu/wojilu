@@ -28,7 +28,7 @@ namespace wojilu.OAuth {
 
         public AccessToken( String jsonString ) {
 
-            JsonObject obj = Json.DeserializeJson( jsonString );
+            JsonObject obj = Json.ParseJson( jsonString );
 
             if (obj == null || obj.Count == 0) return;
 

@@ -183,7 +183,7 @@ namespace wojilu.Web.Controller.Content.Admin {
 
         private String getJsonResult( ContentSection section, IList data ) {
 
-            String jsonStr = Json.SerializeList( data );
+            String jsonStr = Json.ToString( data );
             String scriptData = string.Format( "	<script>var sectionData{0} = {1};</script>", section.Id, jsonStr );
             if (section.CustomTemplateId <= 0)
                 return scriptData;

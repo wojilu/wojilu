@@ -455,7 +455,7 @@ namespace wojilu.Apps.Forum.Service {
 
             Dictionary<string, object> dic = new Dictionary<string, object>();
             dic.Add( "topic", post );
-            String templateData = Json.SerializeDic( dic );
+            String templateData = Json.ToString( dic );
 
             TemplateBundle tplBundle = TemplateBundle.GetForumTopicTemplateBundle();
             new FeedService().publishUserAction( data.Creator, typeof( ForumTopic ).FullName, tplBundle.Id, templateData, "", data.Ip );

@@ -31,7 +31,7 @@ namespace wojilu.Web.Controller.Forum.Admin {
             s.MetaDescription = strUtil.CutString( s.MetaDescription, 500 );
 
             ForumApp app = ctx.app.obj as ForumApp;
-            app.Settings = Json.Serialize( s );
+            app.Settings = Json.ToString( s );
             app.update();
 
             echoRedirect( lang( "opok" ) );

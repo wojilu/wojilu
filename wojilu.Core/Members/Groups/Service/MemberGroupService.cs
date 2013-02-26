@@ -166,7 +166,7 @@ namespace wojilu.Members.Groups.Service {
             String lnk = string.Format( "<a href=\"{0}\">{1}</a>", Link.ToMember( g ), g.Name );
             Dictionary<string, object> dic = new Dictionary<string, object>();
             dic.Add( "group", lnk );
-            return Json.SerializeDic( dic );
+            return Json.ToString( dic );
         }
 
         public virtual void JoinCreateGroup( User user, Group group, String ip ) {

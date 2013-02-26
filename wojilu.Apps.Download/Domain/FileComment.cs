@@ -62,7 +62,7 @@ namespace wojilu.Apps.Download.Domain {
 
             Dictionary<string, object> dic = new Dictionary<string, object>();
             dic.Add( "target", target );
-            return Json.SerializeDic( dic );
+            return Json.ToString( dic );
         }
 
         public void AddNotification( string lnkTarget ) {

@@ -41,7 +41,7 @@ namespace wojilu.Apps.Reader.Domain {
             dic["postLink"] = dataLink;
             dic["user"] = post.Author;
             dic["body"] = strUtil.ParseHtml( post.Abstract, 100 );
-            _shareData = Json.SerializeDic( dic );
+            _shareData = Json.ToString( dic );
             return _shareData;
         }
 

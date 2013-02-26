@@ -150,7 +150,7 @@ _run( function() {
             dic.Add( "navInfo", loginNavInfo() );
             dic.Add( "online", getOnlineDic() );
 
-            return Json.Serialize( dic );
+            return Json.ToString( dic );
         }
 
 

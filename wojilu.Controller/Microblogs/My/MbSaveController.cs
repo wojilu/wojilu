@@ -94,7 +94,7 @@ namespace wojilu.Web.Controller.Microblogs.My {
             dic["picThumbUrl"] = post.ImgThumbUrl;
             dic["picUrl"] = post.DataUrl;
 
-            String json = Json.SerializeDic( dic );
+            String json = Json.ToString( dic );
 
             echoText( json );
 

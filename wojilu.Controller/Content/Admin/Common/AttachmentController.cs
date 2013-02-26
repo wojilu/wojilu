@@ -200,7 +200,7 @@ namespace wojilu.Web.Controller.Content.Admin.Common {
                 dic.Add( "DeleteLink", "" );
                 dic.Add( "Msg", result.ErrorsText );
 
-                echoText( Json.SerializeDic( dic ) );
+                echoText( Json.ToString( dic ) );
             }
             else {
 
@@ -211,7 +211,7 @@ namespace wojilu.Web.Controller.Content.Admin.Common {
                 dic.Add( "DeleteLink", deleteLink );
                 dic.Add( "Id", att.Id.ToString() );
 
-                echoText( Json.SerializeDic( dic ) );
+                echoText( Json.ToString( dic ) );
             }
 
         }

@@ -209,7 +209,7 @@ namespace wojilu.Web.Controller.Admin.Spiders {
                     echoRedirect( lang( "exDataNotFound" ) );
                     return;
                 }
-                set( "itemJson", Json.Serialize( new ImportJson( item ) ) );
+                set( "itemJson", Json.ToString( new ImportJson( item ) ) );
             }
             else {
                 set( "itemJson", "{Id:0}" );

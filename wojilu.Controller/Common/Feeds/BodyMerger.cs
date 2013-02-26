@@ -27,21 +27,21 @@ namespace wojilu.Web.Controller.Common.Feeds {
 
         private void mergeBodyData( ) {
 
-            JsonObject dic = Json.DeserializeJson( feed.BodyData );
-            JsonObject dicTarget = Json.DeserializeJson( target.BodyData );
+            JsonObject dic = Json.ParseJson( feed.BodyData );
+            JsonObject dicTarget = Json.ParseJson( target.BodyData );
 
             String mergeKey = getMergeKey( dic, dicTarget );
 
             if( strUtil.HasText( mergeKey) )
                 dicTarget[mergeKey] = dicTarget[mergeKey] + " " + dic[mergeKey];
 
-            target.BodyData = Json.SerializeDic( dicTarget );
+            target.BodyData = Json.ToString( dicTarget );
         }
 
         private void mergeNumberInTitle() {
 
-            JsonObject dic = Json.DeserializeJson( feed.TitleData );
-            JsonObject dicTarget = Json.DeserializeJson( target.TitleData );
+            JsonObject dic = Json.ParseJson( feed.TitleData );
+            JsonObject dicTarget = Json.ParseJson( target.TitleData );
 
             foreach (KeyValuePair<string, object> kv in dic) {
 
@@ -55,7 +55,7 @@ namespace wojilu.Web.Controller.Common.Feeds {
 
                     dicTarget[kv.Key] = val + valNumber;
 
-                    target.TitleData = Json.SerializeDic( dicTarget );
+                    target.TitleData = Json.ToString( dicTarget );
 
                 }
 

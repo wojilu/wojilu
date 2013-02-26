@@ -29,7 +29,7 @@ namespace wojilu.Web.Controller.Blog.Admin {
             s.IsShowStats = ctx.PostIsCheck( "blogSetting.IsShowStats" );
 
             BlogApp app = ctx.app.obj as BlogApp;
-            app.Settings = Json.Serialize( s );
+            app.Settings = Json.ToString( s );
             app.update();
 
             echoRedirect( lang( "opok" ) );

@@ -84,7 +84,7 @@ namespace wojilu.Apps.Photo.Domain {
 
             Dictionary<string, object> dic = new Dictionary<string, object>();
             dic.Add( "target", target );
-            return Json.SerializeDic( dic );
+            return Json.ToString( dic );
         }
 
         private String getBodyData( PhotoPost data ) {
@@ -93,7 +93,7 @@ namespace wojilu.Apps.Photo.Domain {
 
             Dictionary<string, object> dic = new Dictionary<string, object>();
             dic.Add( "photo", photoHtml );
-            return Json.SerializeDic( dic );
+            return Json.ToString( dic );
         }
 
         public void AddNotification( String lnkTarget ) {

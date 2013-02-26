@@ -150,7 +150,7 @@ namespace wojilu.Web.Controller.Admin.Spiders {
             if (id > 0) {
                 SpiderTemplate s = templateService.GetById( id );
                 // 感谢 sgzwiz (http://www.wojilu.com/sgzwiz) 贡献此处代码
-                set( "objTemplate", Json.Serialize( s ).Replace( "<", "&lt;" ).Replace( ">", "&gt;" ) );
+                set( "objTemplate", Json.ToString( s ).Replace( "<", "&lt;" ).Replace( ">", "&gt;" ) );
             }
             else {
                 set( "objTemplate", "{Id:0}" );

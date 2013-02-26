@@ -79,7 +79,7 @@ namespace wojilu.Web.Controller.Content.Admin.Common {
 
                 dic.Add( "PicUrl", "" );
                 dic.Add( "Msg", result.ErrorsText );
-                echoText( Json.SerializeDic( dic ) );
+                echoText( Json.ToString( dic ) );
             }
             else {
 
@@ -89,7 +89,7 @@ namespace wojilu.Web.Controller.Content.Admin.Common {
                 dic.Add( "PicThumbUrl", tfile.FileThumbUrl );
                 dic.Add( "DeleteLink", to( DeleteTempPic, tfile.Id ) );
 
-                echoText( Json.SerializeDic( dic ) );
+                echoText( Json.ToString( dic ) );
             }
 
         }

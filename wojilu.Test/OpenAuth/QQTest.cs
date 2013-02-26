@@ -66,7 +66,7 @@ namespace wojilu.Test.OpenAuth {
             Console.WriteLine( "获取openid返回结果=" + response );
 
             String strJson = strUtil.TrimStart( response.Trim().TrimEnd( ';' ), "callback(" ).TrimEnd( ')' );
-            JsonObject obj = Json.DeserializeJson( strJson );
+            JsonObject obj = Json.ParseJson( strJson );
             String openIdMsg = "openid=" + obj.Get( "openid" );
             Console.WriteLine( openIdMsg );
             logger.Info( openIdMsg );

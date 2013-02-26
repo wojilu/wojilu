@@ -509,7 +509,7 @@ namespace wojilu.Web.Mvc {
         /// <param name="msg"></param>
         protected void echoJson( Object obj ) {
             setJsonContentType();
-            echoText( Json.Serialize( obj ) );
+            echoText( Json.ToString( obj ) );
         }
 
         /// <summary>

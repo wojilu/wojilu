@@ -53,7 +53,7 @@ namespace wojilu.Apps.Blog.Domain {
             dic["userLink"] = Link.ToMember( post.Creator );
             dic["body"] = strUtil.ParseHtml( post.Content, 100 );
 
-            _shareData = Json.SerializeDic( dic );
+            _shareData = Json.ToString( dic );
 
             return _shareData;
         }

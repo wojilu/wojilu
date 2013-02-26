@@ -62,7 +62,7 @@ namespace wojilu.Apps.Photo.Domain {
             dic["userLink"] = Link.ToMember( post.Creator );
             dic["imgName"] = post.Title;
 
-            _shareData = Json.SerializeDic( dic );
+            _shareData = Json.ToString( dic );
 
             return _shareData;
         }

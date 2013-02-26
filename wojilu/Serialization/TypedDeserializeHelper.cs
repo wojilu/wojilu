@@ -30,7 +30,7 @@ namespace wojilu.Serialization {
 
         public static List<T> DeserializeList<T>( String jsonString ) {
 
-            List<Object> list = Json.DeserializeJsonList( jsonString );
+            List<Object> list = Json.ParseList( jsonString );
 
             IList retList = convertListToTypedList( list, typeof( List<T> ) );
 
@@ -39,7 +39,7 @@ namespace wojilu.Serialization {
 
         public static Object DeserializeObject( String jsonString, Type t ) {
 
-            JsonObject obj = Json.DeserializeJson( jsonString );
+            JsonObject obj = Json.ParseJson( jsonString );
 
             return deserializeType( t, obj );
         }

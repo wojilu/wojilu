@@ -193,7 +193,7 @@ _run( function() {
 
 
                 OptionResult opr = new OptionResult( poll, optionList.Length, i );
-                json += Json.Serialize( opr );
+                json += Json.ToString( opr );
                 if (i != optionList.Length - 1) json += ", ";
 
             }

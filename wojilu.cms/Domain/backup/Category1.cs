@@ -12,7 +12,7 @@ namespace wojilu.cms.Domain {
         public string Name { get; set; }
 
         public string ToJson() {
-            return Json.Serialize( this );
+            return Json.ToString( this );
         }
 
         public static Category FromJson( string jsonString ) {

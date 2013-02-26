@@ -98,7 +98,7 @@ namespace wojilu.Web.Controller.Content.Admin {
             ContentSetting s = app.GetSettingsObj();
             s.IsAutoHtml = ctx.PostIsCheck( "IsAutoHtml" );
 
-            app.Settings = Json.Serialize( s );
+            app.Settings = Json.ToString( s );
             app.update();
 
             echoToParentPart( lang( "opok" ) );
@@ -138,7 +138,7 @@ namespace wojilu.Web.Controller.Content.Admin {
             ContentSetting s = app.GetSettingsObj();
             s.StaticDir = htmlDir;
 
-            app.Settings = Json.Serialize( s );
+            app.Settings = Json.ToString( s );
             app.update();
 
             echoToParentPart( lang( "opok" ) );

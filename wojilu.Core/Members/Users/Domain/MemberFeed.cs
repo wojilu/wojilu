@@ -38,7 +38,7 @@ namespace wojilu.Members.Users.Domain {
             Dictionary<string, object> dic = new Dictionary<string, object>();
             dic["title"] = user.Name;
             dic["titlelink"] = Link.ToMember( user );
-            return Json.SerializeDic( dic );
+            return Json.ToString( dic );
         }
 
         public String GetShareBodyTemplate() {
@@ -57,7 +57,7 @@ namespace wojilu.Members.Users.Domain {
             dic["user"] = user.Name;
             dic["userLink"] = Link.ToMember( user );
 
-            _shareData = Json.SerializeDic( dic );
+            _shareData = Json.ToString( dic );
 
             return _shareData;
         }

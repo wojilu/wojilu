@@ -42,7 +42,7 @@ namespace wojilu.Apps.Forum.Domain {
             List<StickyTopic> stickyList = GetTopics( json );
             List<StickyTopic> results = mergeData( stickyList, newTopics );
 
-            return Json.SerializeListSimple( results );
+            return Json.ToStringSimple( results );
         }
 
         private static List<StickyTopic> mergeData( List<StickyTopic> stickyList, List<ForumTopic> newTopics ) {
@@ -81,7 +81,7 @@ namespace wojilu.Apps.Forum.Domain {
             List<StickyTopic> stickyList = GetTopics( json );
             List<StickyTopic> results = subtractData( stickyList, newStickTopics );
 
-            return Json.SerializeListSimple( results );
+            return Json.ToStringSimple( results );
         }
 
         private static List<StickyTopic> subtractData( List<StickyTopic> stickyList, List<ForumTopic> newStickTopics ) {
@@ -183,7 +183,7 @@ namespace wojilu.Apps.Forum.Domain {
             StickyTopic t = getById( topics, topicId );
             SortUtil<StickyTopic> s = new SortUtil<StickyTopic>( t, topics );
             s.MoveUp();
-            return Json.SerializeListSimple( s.GetOrderedList() );
+            return Json.ToStringSimple( s.GetOrderedList() );
 
         }
 
@@ -192,7 +192,7 @@ namespace wojilu.Apps.Forum.Domain {
             StickyTopic t = getById( topics, topicId );
             SortUtil<StickyTopic> s = new SortUtil<StickyTopic>( t, topics );
             s.MoveDown();
-            return Json.SerializeListSimple( s.GetOrderedList() );
+            return Json.ToStringSimple( s.GetOrderedList() );
         }
 
         private static StickyTopic getById( List<StickyTopic> topics, int topicId ) {

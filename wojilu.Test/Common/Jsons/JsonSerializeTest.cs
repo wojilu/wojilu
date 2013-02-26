@@ -30,9 +30,9 @@ namespace wojilu.Test.Common.Jsons {
             dic.Add( "age", 99 );
             dic.Add( "gender", "male" );
 
-            string str = Json.SerializeDic( dic, false );
+            string str = Json.ToString( dic, false );
 
-            JsonObject obj = Json.DeserializeJson( str );
+            JsonObject obj = Json.ParseJson( str );
             Assert.AreEqual( "sunweb", obj.Get( "name" ) );
             Assert.AreEqual( "male", obj.Get( "gender" ) );
             Assert.AreEqual( 99, obj.Get<int>( "age" ) );
@@ -45,7 +45,7 @@ namespace wojilu.Test.Common.Jsons {
             phone.Owner = new PhoneOwner { Id = 2 };
             dic.Add( "phone", phone );
 
-            str = Json.SerializeDic( dic, false );
+            str = Json.ToString( dic, false );
             Console.WriteLine( str );
         }
 
@@ -57,7 +57,7 @@ namespace wojilu.Test.Common.Jsons {
             dic.Add( "age", 99 );
             dic.Add( "gender", "male" );
 
-            string str = Json.SerializeDic( dic, false );
+            string str = Json.ToString( dic, false );
             Assert.AreEqual( "{ \"name\":\"sunweb\", \"age\":99, \"gender\":\"male\" }", str );
 
             // 将对象放入dic中
@@ -66,7 +66,7 @@ namespace wojilu.Test.Common.Jsons {
             phone.Owner = new PhoneOwner { Id = 2 };
             dic.Add( "phone", phone );
 
-            str = Json.SerializeDic( dic, false );
+            str = Json.ToString( dic, false );
             Console.WriteLine( str );
             Assert.AreEqual( "{ \"name\":\"sunweb\", \"age\":99, \"gender\":\"male\", \"phone\":{ \"Id\":0, \"Name\":\"新闻大事690501468\", \"Weight\":0, \"Owner\":{ \"Id\":2, \"Name\":\"\", \"Age\":\"\" } } }", str );
         }
@@ -78,17 +78,17 @@ namespace wojilu.Test.Common.Jsons {
             dic["title"] = "abcd";
             dic["user"] = "john";
             dic["body"] = "mycontent";
-            Assert.AreEqual( "{ \"title\":\"abcd\", \"user\":\"john\", \"body\":\"mycontent\" }", Json.SerializeDic( dic ) );
+            Assert.AreEqual( "{ \"title\":\"abcd\", \"user\":\"john\", \"body\":\"mycontent\" }", Json.ToString( dic ) );
 
             string lnk = "<a href=\"http://www.163.com/news.html\">这是文章标题</a>"; // 双引号需要转义
             dic["postLink"] = lnk;
 
             string expected = @"{ ""title"":""abcd"", ""user"":""john"", ""body"":""mycontent"", ""postLink"":""<a href=\""http://www.163.com/news.html\"">这是文章标题</a>"" }";
 
-            Console.WriteLine( Json.SerializeDic( dic ) );
-            Assert.AreEqual( expected, Json.SerializeDic( dic ) );
+            Console.WriteLine( Json.ToString( dic ) );
+            Assert.AreEqual( expected, Json.ToString( dic ) );
 
-            Dictionary<string, object> result = Json.DeserializeJson( expected );
+            Dictionary<string, object> result = Json.ParseJson( expected );
             Assert.AreEqual( 4, result.Count );
             Assert.AreEqual( lnk, result["postLink"] );
 
@@ -102,17 +102,17 @@ namespace wojilu.Test.Common.Jsons {
             dic["user"] = "john";
             dic["body"] = "my'content"; // 单引号不需要转义
 
-            Assert.AreEqual( "{ \"title\":\"abcd\", \"user\":\"john\", \"body\":\"my'content\" }", Json.SerializeDic( dic ) );
+            Assert.AreEqual( "{ \"title\":\"abcd\", \"user\":\"john\", \"body\":\"my'content\" }", Json.ToString( dic ) );
 
             dic["other"] = "my name is:china"; // 冒号不需要转义
             String expected = "{ \"title\":\"abcd\", \"user\":\"john\", \"body\":\"my'content\", \"other\":\"my name is:china\" }";
 
-            String actual = Json.SerializeDic( dic );
+            String actual = Json.ToString( dic );
             Console.WriteLine( expected );
             Console.WriteLine( actual );
             Assert.AreEqual( expected, actual );
 
-            Dictionary<string, object> result = Json.DeserializeJson( expected );
+            Dictionary<string, object> result = Json.ParseJson( expected );
             Assert.AreEqual( 4, result.Count );
             Assert.AreEqual( "my'content", result["body"] );
             Assert.AreEqual( "my name is:china", result["other"] );
@@ -125,12 +125,12 @@ namespace wojilu.Test.Common.Jsons {
             String blog = string.Format( "<a href=\"{0}\">{1}</a>", "/space/abcde/Blog22/Post/195", @"\framework\views\Common" );
             Dictionary<string, object> dic = new Dictionary<string, object>();
             dic.Add( "blog", blog );
-            String str = Json.SerializeDic( dic, false );
+            String str = Json.ToString( dic, false );
 
             Console.WriteLine( str );
             Assert.AreEqual( @"{ ""blog"":""<a href=\""/space/abcde/Blog22/Post/195\"">\\framework\\views\\Common</a>"" }", str );
 
-            Dictionary<String, object> mydic = Json.DeserializeJson( str );
+            Dictionary<String, object> mydic = Json.ParseJson( str );
             Assert.AreEqual( "<a href=\"/space/abcde/Blog22/Post/195\">\\framework\\views\\Common</a>", mydic["blog"] );
 
         }
@@ -144,11 +144,11 @@ namespace wojilu.Test.Common.Jsons {
             dic["user"] = "john";
             dic["body"] = "my"+Environment.NewLine+"content"; //字符串里面有换行
 
-            String expected = Json.SerializeDic( dic );
+            String expected = Json.ToString( dic );
 
             Assert.AreEqual( "{ \"title\":\"abcd\", \"user\":\"john\", \"body\":\"mycontent\" }", expected );
 
-            Dictionary<string, object> result = Json.DeserializeJson( expected );
+            Dictionary<string, object> result = Json.ParseJson( expected );
             Assert.AreEqual( 3, result.Count );
 
 
@@ -164,10 +164,10 @@ namespace wojilu.Test.Common.Jsons {
             list.Add( "" );
             list.Add( "name" );
 
-            string str = Json.SerializeList( list );
+            string str = Json.ToString( list );
             Assert.AreEqual( "[ \"123\", \"abc\", \"\", \"name\" ]", str );
 
-            string newStr = Json.Serialize( list );
+            string newStr = Json.ToString( list );
             Assert.AreEqual( str, newStr );
 
             ArrayList nlist = new ArrayList();
@@ -175,7 +175,7 @@ namespace wojilu.Test.Common.Jsons {
             nlist.Add( "abc" );
             nlist.Add( "" );
             nlist.Add( "name" );
-            string nstr = Json.Serialize( nlist );
+            string nstr = Json.ToString( nlist );
             Assert.AreEqual( "[ 123, \"abc\", \"\", \"name\" ]", nstr );
 
             MyPhone phone = new MyPhone();
@@ -187,7 +187,7 @@ namespace wojilu.Test.Common.Jsons {
             mylist.Add( 123 );
             mylist.Add( phone );
 
-            string mystr = Json.Serialize( mylist );
+            string mystr = Json.ToString( mylist );
 
             Assert.AreEqual( "[ \"abc\", 123, { \"Id\":0, \"Name\":\"新闻大事690501468\", \"Weight\":0, \"Owner\":{ \"Id\":2, \"Name\":\"\", \"Age\":\"\" } } ]", mystr );
 
@@ -201,7 +201,7 @@ namespace wojilu.Test.Common.Jsons {
             phone.Name = "新闻大事690501468";
             phone.Owner = new PhoneOwner { Id = 2 };
 
-            string strJson = Json.SerializeObject( phone );
+            string strJson = Json.ToString( phone );
 
             Console.WriteLine( strJson );
 
@@ -217,10 +217,10 @@ namespace wojilu.Test.Common.Jsons {
                 "123", "abc", "", "name"
             };
 
-            string str = Json.SerializeArray( arr );
+            string str = Json.ToString( arr );
             Assert.AreEqual( "[ \"123\", \"abc\", \"\", \"name\" ]", str );
 
-            string newStr = Json.Serialize( arr );
+            string newStr = Json.ToString( arr );
             Assert.AreEqual( str, newStr );
         }
 
@@ -228,25 +228,25 @@ namespace wojilu.Test.Common.Jsons {
         [Test]
         public void testNumber() {
 
-            string str = Json.Serialize( 123 );
+            string str = Json.ToString( 123 );
             Assert.AreEqual( str, "123" );
-            str = Json.Serialize( 12.33 );
+            str = Json.ToString( 12.33 );
             Assert.AreEqual( str, "12.33" );
-            str = Json.Serialize( -3.5 );
+            str = Json.ToString( -3.5 );
             Assert.AreEqual( str, "-3.5" );
         }
 
         [Test]
         public void testString() {
 
-            string str = Json.Serialize( "" );
+            string str = Json.ToString( "" );
             Assert.AreEqual( str, "\"\"" );
-            str = Json.Serialize( null );
+            str = Json.ToString( null );
             Assert.AreEqual( str, "\"\"" );
-            str = Json.Serialize( "123" );
+            str = Json.ToString( "123" );
             Assert.AreEqual( str, "\"123\"" );
 
-            str = Json.Serialize( @"\framework\views\Common" );
+            str = Json.ToString( @"\framework\views\Common" );
             Console.WriteLine( str );
             Assert.AreEqual( str, @"""\\framework\\views\\Common""" );
 
@@ -256,16 +256,16 @@ namespace wojilu.Test.Common.Jsons {
         [Test]
         public void testBool() {
 
-            string str = Json.Serialize( false );
+            string str = Json.ToString( false );
             Assert.AreEqual( "false", str );
-            str = Json.Serialize( true );
+            str = Json.ToString( true );
             Assert.AreEqual( "true", str );
         }
 
         [Test]
         public void testDateTime() {
 
-            string str = Json.Serialize( new DateTime( 1999, 12, 6, 17, 25, 58 ) );
+            string str = Json.ToString( new DateTime( 1999, 12, 6, 17, 25, 58 ) );
             //Assert.AreEqual( "\"1999-12-6 17:25:58\"", str );
             Console.WriteLine( str);
         }
@@ -282,7 +282,7 @@ namespace wojilu.Test.Common.Jsons {
             results.Add( getPhoneList() );
             results.Add( getPhoneList() );
 
-            string strJson = Json.SerializeListSimple( results );
+            string strJson = Json.ToStringSimple( results );
 
             Console.WriteLine( strJson );
 
@@ -313,7 +313,7 @@ namespace wojilu.Test.Common.Jsons {
                  Id = "3", Name = "新闻", Url = "/abc.aspx"
             };
 
-            String str = Json.SerializeObjectSimple( m );
+            String str = Json.ToStringSimple( m );
             Console.WriteLine( str );
 
             AdminMenuGroup g = new AdminMenuGroup();
@@ -324,7 +324,7 @@ namespace wojilu.Test.Common.Jsons {
             g.AdminMenus.Add( m );
 
             //String subStr = JSON.ObjectToJSON( g );
-            String subStr = Json.Serialize( g );
+            String subStr = Json.ToString( g );
 
             Console.WriteLine( subStr );
 
@@ -345,7 +345,7 @@ namespace wojilu.Test.Common.Jsons {
             cf.AssemblyList.Add( "wojilu.Core" );
             cf.AssemblyList.Add( "wojilu.Apps" );
 
-            string str = Json.Serialize( cf, true );
+            string str = Json.ToString( cf, true );
             Console.WriteLine( str );
 
         }

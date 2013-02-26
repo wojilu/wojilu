@@ -45,7 +45,7 @@ namespace wojilu.Apps.Content.Domain {
             dic["postLink"] = dataLink;
             dic["body"] = strUtil.ParseHtml( post.Content, 100 );
 
-            _shareData = Json.SerializeDic( dic );
+            _shareData = Json.ToString( dic );
             return _shareData;
         }
 

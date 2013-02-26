@@ -73,7 +73,7 @@ namespace wojilu.Common.Polls.Service {
             Dictionary<string, object> dic = new Dictionary<string, object>();
             String lnkPoll = string.Format( "<a href=\"{0}\">{1}</a>", lnkpost, poll.Title );
             dic.Add( "poll", lnkPoll );
-            return Json.SerializeDic( dic );
+            return Json.ToString( dic );
         }
 
         public void PubCreatedFeed( TP poll, String lnkPoll ) {

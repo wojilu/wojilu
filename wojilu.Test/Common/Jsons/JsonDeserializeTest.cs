@@ -50,7 +50,7 @@ namespace wojilu.Test.Common.Jsons {
 }
 ";
 
-            JsonObject obj = Json.DeserializeJson( str );
+            JsonObject obj = Json.ParseJson( str );
             // 等同于 JsonObject obj = Json.Deserialize( str ) as JsonObject;
 
             List<String> names = obj.GetList<String>( "name" );
@@ -107,7 +107,7 @@ namespace wojilu.Test.Common.Jsons {
 
             // 解析数组
             str = "[ 'xxx1', 88, false, {name:'孙中山', gender:'male' }]";
-            List<Object> list = Json.DeserializeJsonList( str );
+            List<Object> list = Json.ParseList( str );
             //List<Object> list = Json.Deserialize( str ) as List<Object>;
 
             Assert.AreEqual( 4, list.Count );
@@ -121,10 +121,10 @@ namespace wojilu.Test.Common.Jsons {
 
             // 解析其它类型
             string json = "376";
-            Assert.AreEqual( 376, Json.Deserialize( json ) );
+            Assert.AreEqual( 376, Json.Parse( json ) );
 
             json = " false";
-            Assert.AreEqual( false, Json.Deserialize( json ) );
+            Assert.AreEqual( false, Json.Parse( json ) );
         }
 
 
@@ -132,35 +132,35 @@ namespace wojilu.Test.Common.Jsons {
         public void testValue() {
 
             string json = "376";
-            Assert.AreEqual( 376, Json.Deserialize( json ) );
+            Assert.AreEqual( 376, Json.Parse( json ) );
 
             json = " false   ";
-            Assert.AreEqual( false, Json.Deserialize( json ) );
+            Assert.AreEqual( false, Json.Parse( json ) );
 
             json = " 356   ";
-            Assert.AreEqual( 356, Json.Deserialize( json ) );
+            Assert.AreEqual( 356, Json.Parse( json ) );
 
             json = " 3.17   ";
-            Assert.AreEqual( 3.17, Json.Deserialize( json ) );
+            Assert.AreEqual( 3.17, Json.Parse( json ) );
 
             json = "993439419349934";
-            Assert.AreEqual( 993439419349934, Json.Deserialize( json ) );
+            Assert.AreEqual( 993439419349934, Json.Parse( json ) );
 
 
             json = " dfaflddak_dfaol   ";
-            Assert.AreEqual( "dfaflddak_dfaol", Json.Deserialize( json ) );
+            Assert.AreEqual( "dfaflddak_dfaol", Json.Parse( json ) );
 
             json = " dfaflddak=dfaol   ";
-            Assert.AreEqual( "dfaflddak=dfaol", Json.Deserialize( json ) );
+            Assert.AreEqual( "dfaflddak=dfaol", Json.Parse( json ) );
 
             json = " dfaflddak#dfaol   ";
-            Assert.AreEqual( "dfaflddak#dfaol", Json.Deserialize( json ) );
+            Assert.AreEqual( "dfaflddak#dfaol", Json.Parse( json ) );
 
             json = " dfaflddak;dfaol   ";
-            Assert.AreEqual( "dfaflddak;dfaol", Json.Deserialize( json ) );
+            Assert.AreEqual( "dfaflddak;dfaol", Json.Parse( json ) );
 
             json = " dfaflddak\\\"dfaol   ";
-            Assert.AreEqual( "dfaflddak\"dfaol", Json.Deserialize( json ) );
+            Assert.AreEqual( "dfaflddak\"dfaol", Json.Parse( json ) );
         }
 
         [Test]
@@ -186,7 +186,7 @@ namespace wojilu.Test.Common.Jsons {
 
         private void testObjectArray( string json ) {
 
-            List<Object> list = Json.DeserializeJsonList( json );
+            List<Object> list = Json.ParseList( json );
             Assert.AreEqual( 4, list.Count );
             Assert.AreEqual( "zhangsan", list[0] );
             Assert.AreEqual( 3, list[1] );
@@ -204,7 +204,7 @@ namespace wojilu.Test.Common.Jsons {
         }
 
         private void testArraySimple( string json ) {
-            List<Object> list = Json.DeserializeJsonList( json );
+            List<Object> list = Json.ParseList( json );
             Assert.AreEqual( 4, list.Count );
             Assert.AreEqual( "zhangsan", list[0] );
             Assert.AreEqual( 3, list[1] );
@@ -215,7 +215,7 @@ namespace wojilu.Test.Common.Jsons {
         private void testArraySimple2() {
 
             string json = " [erieroe  , 38  , lakkk]   ";
-            List<Object> list = Json.DeserializeJsonList( json );
+            List<Object> list = Json.ParseList( json );
             Assert.AreEqual( 3, list.Count );
             Assert.AreEqual( "erieroe", list[0] );
             Assert.AreEqual( 38, list[1] );
@@ -227,7 +227,7 @@ namespace wojilu.Test.Common.Jsons {
         public void testArraySimple3() {
             string json = "  [ \"zhang\\\"san\", 3, false, \"lisi\"]  ";
 
-            List<Object> list = Json.DeserializeJsonList( json );
+            List<Object> list = Json.ParseList( json );
             Assert.AreEqual( 4, list.Count );
             Assert.AreEqual( "zhang\"san", list[0] );
             Assert.AreEqual( 3, list[1] );
@@ -254,7 +254,7 @@ namespace wojilu.Test.Common.Jsons {
 
         private void testObjectPrivate( string json ) {
 
-            JsonObject map = Json.DeserializeJson( json );
+            JsonObject map = Json.ParseJson( json );
 
             Assert.AreEqual( 2, map.Count );
 
@@ -270,7 +270,7 @@ namespace wojilu.Test.Common.Jsons {
 
         private void testsecondObject( string json ) {
 
-            JsonObject map = Json.DeserializeJson( json );
+            JsonObject map = Json.ParseJson( json );
 
             Assert.AreEqual( 3, map.Count );
 
@@ -289,7 +289,7 @@ namespace wojilu.Test.Common.Jsons {
 
         private void testthirdObject( string json ) {
 
-            JsonObject map = Json.DeserializeJson( json );
+            JsonObject map = Json.ParseJson( json );
 
             Assert.AreEqual( 3, map.Count );
 
@@ -322,7 +322,7 @@ namespace wojilu.Test.Common.Jsons {
 ]
 ";
 
-            List<JsonObject> lists = Json.DeserializeJsonList<JsonObject>( str );
+            List<JsonObject> lists = Json.ParseList<JsonObject>( str );
             Assert.AreEqual( 2, lists.Count );
 
             // 弱类型获取值
@@ -353,7 +353,7 @@ namespace wojilu.Test.Common.Jsons {
 
 ";
 
-            JsonObject dic = Json.DeserializeJson( str );
+            JsonObject dic = Json.ParseJson( str );
 
             Assert.AreEqual( 3, dic.Keys.Count );
             Assert.AreEqual( 3, dic["Id"] );
@@ -385,7 +385,7 @@ namespace wojilu.Test.Common.Jsons {
     MetaDLL : """"
     
 }";
-            JsonObject obj = Json.DeserializeJson( str );
+            JsonObject obj = Json.ParseJson( str );
             Assert.AreEqual( 7, obj.Count );
 
             Assert.AreEqual( obj.Get<bool>( "IsCheckDatabase" ), true );
@@ -419,7 +419,7 @@ default:""SqlServer""
 
 AssemblyList : [""wojilu.Core"",""wojilu.Apps""] 
 } ";
-            JsonObject obj = Json.DeserializeJson( str );
+            JsonObject obj = Json.ParseJson( str );
 
             List<Object> list = obj.GetList( "AssemblyList" );
             Assert.IsNotNull( list );
@@ -445,7 +445,7 @@ default:""SqlServer""
 
 AssemblyList : [""wojilu.Core"",""wojilu.Apps""] 
 } ";
-            JsonObject obj = Json.DeserializeJson( str );
+            JsonObject obj = Json.ParseJson( str );
 
             List<Object> list = obj.GetList( "AssemblyList" );
             Assert.IsNotNull( list );
@@ -464,7 +464,7 @@ AssemblyList : [""wojilu.Core"",""wojilu.Apps""]
 
             string str = "{topic: \"<a href='/bv/Forum1/Topic/Show/4440.aspx'>亚裔美国文学研究的新起点</a>\"}";
 
-            JsonObject dic = Json.DeserializeJson( str );
+            JsonObject dic = Json.ParseJson( str );
             Assert.AreEqual( 1, dic.Count );
 
             Assert.AreEqual( "<a href='/bv/Forum1/Topic/Show/4440.aspx'>亚裔美国文学研究的新起点</a>", dic.Get( "topic" ) );
@@ -482,7 +482,7 @@ AssemblyList : [""wojilu.Core"",""wojilu.Apps""]
 
 }
 ";
-            JsonObject obj = Json.DeserializeJson( str );
+            JsonObject obj = Json.ParseJson( str );
             Assert.AreEqual( 3, obj.Count );
             Assert.AreEqual( obj.Get( "name" ), "sunzhongshan" );
             Assert.AreEqual( obj.Get<int>( "age" ), 99 );
@@ -500,7 +500,7 @@ AssemblyList : [""wojilu.Core"",""wojilu.Apps""]
 
 }
 ";
-            JsonObject obj = Json.DeserializeJson( str );
+            JsonObject obj = Json.ParseJson( str );
             Assert.AreEqual( 3, obj.Count );
 
             List<Object> list = obj.GetList( "name" );
@@ -530,7 +530,7 @@ AssemblyList : [""wojilu.Core"",""wojilu.Apps""]
     	'$061':'狗狗','$062':'小猫','$063':'猪头','$064':'蜗牛','$065':'岛屿','$066':'足球','$067':'电话','$068':'灯泡','$069':'臭大粪、shit'
     }";
 
-            JsonObject objem = Json.DeserializeJson( ems );
+            JsonObject objem = Json.ParseJson( ems );
             Assert.IsNotNull( objem );
             Assert.AreEqual( 69, objem.Count );
 
@@ -560,7 +560,7 @@ AssemblyList : [""wojilu.Core"",""wojilu.Apps""]
         [Test]
         public void testQuote() {
             string str = "{post: \"<a href='/bv/Forum1/Post/Show/17355.aspx'>re:天下之大，无奇不有</a>\"}";
-            JsonObject dic = Json.DeserializeJson( str );
+            JsonObject dic = Json.ParseJson( str );
             Assert.AreEqual( 1, dic.Count );
             Assert.AreEqual( "<a href='/bv/Forum1/Post/Show/17355.aspx'>re:天下之大，无奇不有</a>", dic["post"] );
         }
@@ -570,7 +570,7 @@ AssemblyList : [""wojilu.Core"",""wojilu.Apps""]
 
             //string str = @"{ blog:""<a href='/space/sgzwiz/Blog574/Post/95'>\framework\views\Common\Admin\AppBase\</a>"" }";
             string str = @"{ blog:""<a href=\""/space/sgzwiz/Blog574/Post/95\"">\\framework\\views\\Common\\Admin\\AppBase\\</a>"" }";
-            JsonObject dic = Json.DeserializeJson( str );
+            JsonObject dic = Json.ParseJson( str );
             Assert.AreEqual( 1, dic.Count );
 
         }

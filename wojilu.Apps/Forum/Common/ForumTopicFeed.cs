@@ -54,7 +54,7 @@ namespace wojilu.Apps.Forum.Domain {
             dic["userLink"] = Link.ToMember( topic.Creator );
             dic["body"] = strUtil.ParseHtml( topic.Content, 100 );
 
-            _shareData = Json.SerializeDic( dic );
+            _shareData = Json.ToString( dic );
 
             return _shareData;
         }

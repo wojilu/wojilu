@@ -15,8 +15,8 @@ namespace wojilu.Web.Controller.Common.Feeds {
 
         public override Boolean Merge() {
 
-            JsonObject dic = Json.DeserializeJson( feed.TitleData );
-            JsonObject dicTarget = Json.DeserializeJson( target.TitleData );
+            JsonObject dic = Json.ParseJson( feed.TitleData );
+            JsonObject dicTarget = Json.ParseJson( target.TitleData );
 
             if (dic.Count != dicTarget.Count) return false;
 
@@ -24,7 +24,7 @@ namespace wojilu.Web.Controller.Common.Feeds {
             if (feed.Creator.Id == target.Creator.Id && mergeKey != null) {
 
                 dicTarget[mergeKey] = dicTarget[mergeKey] + mergeSeperator + dic[mergeKey];
-                target.TitleData = Json.SerializeDic( dicTarget );
+                target.TitleData = Json.ToString( dicTarget );
                 target.IsMerged = true;
 
 

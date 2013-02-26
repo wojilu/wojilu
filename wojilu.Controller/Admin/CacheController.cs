@@ -93,7 +93,7 @@ namespace wojilu.Web.Controller.Admin {
             String cacheValue = val == null ? "" : val.ToString();
 
             if (key.StartsWith( "__object_" )) {
-                cacheValue = Json.SerializeEntity( val as IEntity );
+                cacheValue = Json.ToString( val as IEntity );
             }
 
             set( "cacheValue", strUtil.EncodeTextarea( cacheValue ) );

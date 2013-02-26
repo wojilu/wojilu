@@ -181,7 +181,7 @@ namespace wojilu.Members.Users.Service {
             Dictionary<string, object> dic = new Dictionary<string, object>();
             dic.Add( "friend", lnkInfo );
             dic.Add( "friendId", friend.Id );
-            String templateData = Json.SerializeDic( dic );
+            String templateData = Json.ToString( dic );
 
             TemplateBundle tplBundle = TemplateBundle.GetFriendsTemplateBundle();
             new FeedService().publishUserAction( user, typeof( FriendShip ).FullName, tplBundle.Id, templateData, "", ip );

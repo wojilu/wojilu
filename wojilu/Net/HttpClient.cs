@@ -203,7 +203,7 @@ namespace wojilu.Net {
         /// <returns></returns>
         public virtual JsonObject RunJson() {
             String response = this.Run();
-            return Json.DeserializeJson( response );
+            return Json.ParseJson( response );
         }
 
         /// <summary>

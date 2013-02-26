@@ -85,7 +85,7 @@ namespace wojilu.Members.Users.Service {
             String flnk = string.Format( "<a href=\"{0}\">{1}</a>", userLink, f.Target.Name );
             dic.Add( "friend", flnk );
             dic.Add( "friendId", f.Target.Id );
-            String templateData = Json.SerializeDic( dic );
+            String templateData = Json.ToString( dic );
 
             feed.TitleData = templateData;
 

@@ -208,7 +208,7 @@ namespace wojilu.Web.Controller.Content.Admin {
                 s.Sections.Add( ps );
             }
 
-            String json = Json.Serialize( s, true );
+            String json = Json.ToString( s, true );
             file.Write( PathHelper.Map( "/content.json" ), json );
 
 

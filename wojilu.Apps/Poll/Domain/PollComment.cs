@@ -78,7 +78,7 @@ namespace wojilu.Apps.Poll.Domain {
             dic.Add( "target", target );
             dic.Add( "blog", blog );
 
-            return Json.SerializeDic( dic );
+            return Json.ToString( dic );
 
         }
 

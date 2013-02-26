@@ -80,7 +80,7 @@ namespace wojilu.Apps.Blog.Domain {
             dic.Add( "target", target );
             dic.Add( "blog", blog );
 
-            return Json.SerializeDic( dic );
+            return Json.ToString( dic );
         }
 
         public void AddNotification( String lnkTarget ) {

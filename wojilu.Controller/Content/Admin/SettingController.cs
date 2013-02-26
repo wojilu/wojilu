@@ -46,7 +46,7 @@ namespace wojilu.Web.Controller.Content.Admin {
             }
 
             ContentApp app = ctx.app.obj as ContentApp;
-            app.Settings = Json.Serialize( s );
+            app.Settings = Json.ToString( s );
             app.update();
 
             echoRedirect( lang( "opok" ) );

@@ -64,7 +64,7 @@ namespace wojilu.Test.Common.Jsons {
             };
 
 
-            String jsonString = Json.Serialize( x );
+            String jsonString = Json.ToString( x );
             Console.WriteLine( jsonString );
 
             // 反序列化测试

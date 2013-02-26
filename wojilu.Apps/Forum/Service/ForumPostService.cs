@@ -251,7 +251,7 @@ namespace wojilu.Apps.Forum.Service {
 
             Dictionary<string, object> dic = new Dictionary<string, object>();
             dic.Add( "post", post );
-            String templateData = Json.SerializeDic( dic );
+            String templateData = Json.ToString( dic );
 
             TemplateBundle tplBundle = TemplateBundle.GetForumPostTemplateBundle();
             feedService.publishUserAction( data.Creator, typeof( ForumPost ).FullName, tplBundle.Id, templateData, "", data.Ip );

@@ -47,7 +47,7 @@ namespace wojilu.Common.Feeds.Domain {
         }
 
         public void Publish() {
-            new FeedService().publishUserAction( creator, typeFullName, templateId, Json.SerializeDic( dic ), commentContet, ip );
+            new FeedService().publishUserAction( creator, typeFullName, templateId, Json.ToString( dic ), commentContet, ip );
         }
     }
 

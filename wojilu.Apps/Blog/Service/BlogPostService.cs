@@ -270,7 +270,7 @@ namespace wojilu.Apps.Blog.Service {
 
             Dictionary<string, object> dic = new Dictionary<string, object>();
             dic.Add( "blog", blog );
-            String templateData = Json.SerializeDic( dic );
+            String templateData = Json.ToString( dic );
 
             TemplateBundle tplBundle = TemplateBundle.GetBlogTemplateBundle();
             new FeedService().publishUserAction( data.Creator, typeof( BlogPost ).FullName, tplBundle.Id, templateData, "", data.Ip );

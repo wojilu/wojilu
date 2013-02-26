@@ -210,7 +210,7 @@ namespace wojilu.Common.Microblogs.Service {
                 data.Add( "pic", "<img src=\"" + log.PicSmall + "\" />" );
 
                 feed.BodyTemplate = "{*pic*}";
-                feed.BodyData = Json.SerializeDic( data );
+                feed.BodyData = Json.ToString( data );
             }
 
             feedService.publishUserAction( feed );

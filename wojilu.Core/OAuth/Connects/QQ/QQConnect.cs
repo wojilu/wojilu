@@ -138,7 +138,7 @@ namespace wojilu.OAuth.Connects {
             logger.Info( "获取openid返回结果=" + response );
 
             String strJson = strUtil.TrimStart( response.Trim().TrimEnd( ';' ), "callback(" ).TrimEnd( ')' );
-            JsonObject obj = Json.DeserializeJson( strJson );
+            JsonObject obj = Json.ParseJson( strJson );
 
             String ret = obj.Get( "openid" );
             logger.Info( "openid=" + ret );

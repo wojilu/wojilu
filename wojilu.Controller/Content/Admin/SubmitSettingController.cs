@@ -132,7 +132,7 @@ namespace wojilu.Web.Controller.Content.Admin {
             ContentApp app = ctx.app.obj as ContentApp;
             ContentSubmitterRole roles = ctx.PostValue( app.GetSubmitterRoleObj() ) as ContentSubmitterRole;
 
-            app.SubmitterRole = Json.Serialize( roles );
+            app.SubmitterRole = Json.ToString( roles );
 
             app.update( "SubmitterRole" );
 
