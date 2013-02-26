@@ -4,11 +4,11 @@ using System.Text;
 
 namespace wojilu.ORM {
 
-    internal class MappingInfo {
+    public class MappingInfo {
 
-        public String TypeName { get; set; }
-        public String Database { get; set; }
-        public String Table { get; set; }
+        public String name { get; set; }
+        public String database { get; set; }
+        public String table { get; set; }
 
 
     }

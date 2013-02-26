@@ -13,7 +13,8 @@ namespace wojilu.Test.Common.Jsons {
     
 
     [TestFixture]
-    public class ObjectToJsonString {
+    public class JsonSerializeTest {
+
 
 
 
@@ -336,11 +337,11 @@ namespace wojilu.Test.Common.Jsons {
 
             MyDbConfig cf = new MyDbConfig();
 
-            cf.ConnectionStringTable = new JsonObject();
+            cf.ConnectionStringTable = new Dictionary<string, string>();
             cf.ConnectionStringTable.Add( "default", "Provider=Microsoft.Jet.OLEDB.4.0;Data Source=wojilu.mdb" );
             cf.ConnectionStringTable.Add( "db2", "server=localhost;uid=wojilusyy;pwd=test123;database=syyWojilu;" );
 
-            cf.AssemblyList = new List<object>();
+            cf.AssemblyList = new List<string>();
             cf.AssemblyList.Add( "wojilu.Core" );
             cf.AssemblyList.Add( "wojilu.Apps" );
 

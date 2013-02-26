@@ -274,8 +274,8 @@ namespace wojilu.ORM {
 
                 MappingInfo mi = map[info.Type.FullName];
 
-                if (strUtil.HasText( mi.Table )) info.TableName = mi.Table;
-                if (strUtil.HasText( mi.Database )) info.Database = mi.Database;
+                if (strUtil.HasText( mi.table )) info.TableName = mi.table;
+                if (strUtil.HasText( mi.database )) info.Database = mi.database;
 
             }
 

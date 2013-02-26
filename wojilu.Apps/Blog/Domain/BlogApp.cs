@@ -32,7 +32,7 @@ namespace wojilu.Apps.Blog.Domain {
 
         public BlogSetting GetSettingsObj() {
             if (strUtil.IsNullOrEmpty( this.Settings )) return new BlogSetting();
-            BlogSetting s = Json.DeserializeObject<BlogSetting>( this.Settings );
+            BlogSetting s = Json.Deserialize<BlogSetting>( this.Settings );
             s.SetDefaultValue();
             return s;
         }

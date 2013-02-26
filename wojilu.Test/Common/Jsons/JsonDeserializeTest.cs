@@ -14,7 +14,8 @@ namespace wojilu.Test.Common.Jsons {
 
     // 本测试用于解析json字符串
     [TestFixture]
-    public class JsonTest {
+    public class JsonDeserializeTest {
+
 
 
 
@@ -175,7 +176,7 @@ namespace wojilu.Test.Common.Jsons {
 
             // 如果数组内的类型相同，可以使用泛型方法 DeserializeJsonList<Json>()
             json = "[ 'abc', 'def', 'xxxxxxxxx', 'hhhhhhhhhhh3' ]";
-            List<String> strList = Json.DeserializeJsonList<String>( json );
+            List<String> strList = Json.DeserializeList<String>( json );
             Assert.AreEqual( "abc", strList[0] );
             Assert.AreEqual( "def", strList[1] );
             Assert.AreEqual( "xxxxxxxxx", strList[2] );
@@ -311,39 +312,6 @@ namespace wojilu.Test.Common.Jsons {
             Console.WriteLine( "------------------------------------------------" );
         }
 
-        [Test]
-        public void StringToObject() {
-
-            string str = "{Id:2,  Name:\"诺基亚n78\", Weight:300, Owner:6}";
-
-            Object obj = Json.DeserializeObject( str, typeof( MyPhone ) );
-            Assert.IsNotNull( obj );
-            MyPhone phone = obj as MyPhone;
-            Assert.IsNotNull( phone );
-            Assert.AreEqual( 6, phone.Owner.Id );
-
-        }
-
-
-        [Test]
-        public void JsonStringToList() {
-            string result = @"
-[
-	{ Id:0, Name:""新闻大事690501468"", Weight:0, Owner:""2"" },
-	{ Id:1, Name:""新闻大事690501468"", Weight:0, Owner:""2"" },
-	{ Id:2, Name:""新闻大事690501468"", Weight:0, Owner:""2"" },
-	{ Id:3, Name:""新闻大事690501468"", Weight:0, Owner:""2"" }
-]
-";
-            List<MyPhone> list = Json.DeserializeList<MyPhone>( result );
-            Assert.AreEqual( 4, list.Count );
-
-            for (int i = 0; i < list.Count; i++) {
-                MyPhone phone = list[i] as MyPhone;
-                Assert.AreEqual( i, phone.Id );
-            }
-
-        }
 
         [Test]
         public void StringToHashtable2() {
@@ -373,18 +341,16 @@ namespace wojilu.Test.Common.Jsons {
             Assert.AreEqual( 5, dic2.Get<int>( "Id" ) );
             Assert.AreEqual( "lisi", dic2.Get( "Name" ) );
             Assert.AreEqual( 18, dic2.Get<int>( "Age" ) );
-
-
         }
 
         [Test]
         public void StringToHashtable() {
             string str = @"
 
-[
+
 
        { Id:3, Name:""zhangsan"", Age:25 }  
-]
+
 ";
 
             JsonObject dic = Json.DeserializeJson( str );
@@ -401,28 +367,6 @@ namespace wojilu.Test.Common.Jsons {
 
         }
 
-        [Test]
-        public void testDeserializeObject() {
-
-            string json = @"{
-  'Email': 'abcd@example.com',
-  'Active': true,
-  'CreatedDate': '2013-01-20',
-  'Roles': [
-    'User',
-    'Admin'
-  ]
-}";
-
-            Account account = Json.DeserializeObject<Account>( json );
-
-            Assert.AreEqual( "abcd@example.com", account.Email );
-            Assert.AreEqual( true, account.Active );
-
-            Assert.AreEqual( 2, account.Roles.Count );
-            Assert.AreEqual( "User", account.Roles[0] );
-            Assert.AreEqual( "Admin", account.Roles[1] );
-        }
 
         [Test]
         public void testDbConfig() {
@@ -610,40 +554,6 @@ AssemblyList : [""wojilu.Core"",""wojilu.Apps""]
             string result = encode( str );
             string expected = "can\\'t find matching route \\: Url=_vti_bin/owssvr.dl";
             Assert.AreEqual( expected, result );
-        }
-
-        [Test]
-        public void testReadDbConfig() {
-
-            string str = @"{
-
-    ConnectionStringTable : {
-        default:""Provider=Microsoft.Jet.OLEDB.4.0;Data Source=wojilu.mdb"",
-        db2:""server=localhost;uid=wojilusyy;pwd=test123;database=syyWojilu;""
-    },
-    
-    IsCheckDatabase : true,
-    MappingTablePrefix :"""",
-    EnableContextCache : true,
-    EnableApplicationCache : true,
-    AssemblyList : [""wojilu.Core"",""wojilu.Apps""],
-    MetaDLL : """"
-    
-}";
-
-            MyDbConfig cf = Json.DeserializeObject<MyDbConfig>( str );
-
-            Assert.IsNotNull( cf );
-
-            Assert.AreEqual( 2, cf.ConnectionStringTable.Count );
-            Assert.AreEqual( "Provider=Microsoft.Jet.OLEDB.4.0;Data Source=wojilu.mdb", cf.ConnectionStringTable["default"] );
-            Assert.AreEqual( "server=localhost;uid=wojilusyy;pwd=test123;database=syyWojilu;", cf.ConnectionStringTable["db2"] );
-
-            Assert.AreEqual( 2, cf.AssemblyList.Count );
-            Assert.AreEqual( "wojilu.Core", cf.AssemblyList[0] );
-            Assert.AreEqual( "wojilu.Apps", cf.AssemblyList[1] );
-
-            Assert.IsNull( cf.Interceptor );
         }
 
 

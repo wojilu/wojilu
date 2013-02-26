@@ -148,13 +148,44 @@ namespace wojilu {
         }
 
         /// <summary>
+        /// 解析字符串，返回强类型的对象。如果要返回List列表，请使用 DeserializeList 方法
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="jsonString"></param>
+        /// <returns></returns>
+        public static T Deserialize<T>( String jsonString ) {
+            if (strUtil.IsNullOrEmpty( jsonString )) return default( T );
+            return TypedDeserializeHelper.Deserialize<T>( jsonString );
+        }
+
+        /// <summary>
+        /// 将 json 字符串反序列化为对象
+        /// </summary>
+        /// <param name="jsonString">json 字符串</param>
+        /// <param name="t">目标类型</param>
+        /// <returns></returns>
+        public static Object DeserializeObject( String jsonString, Type t ) {
+            return TypedDeserializeHelper.DeserializeObject( jsonString, t );
+        }
+
+        /// <summary>
+        /// 将 json 字符串反序列化为对象列表
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="jsonString"></param>
+        /// <returns></returns>
+        public static List<T> DeserializeList<T>( String jsonString ) {
+            return TypedDeserializeHelper.DeserializeList<T>( jsonString );
+        }
+
+        /// <summary>
         /// 将 json 字符串反序列化为原始的 JsonObject 类型
         /// </summary>
         /// <param name="jsonString"></param>
         /// <returns></returns>
         public static JsonObject DeserializeJson( String jsonString ) {
             if (strUtil.IsNullOrEmpty( jsonString )) return new JsonObject();
-            return JSON.ToDictionary( jsonString );
+            return JsonParser.Parse( jsonString ) as JsonObject;
         }
 
         /// <summary>
@@ -175,50 +206,9 @@ namespace wojilu {
         /// <returns></returns>
         public static List<T> DeserializeJsonList<T>( String jsonString ) {
             if (strUtil.IsNullOrEmpty( jsonString )) return new List<T>();
-            List<Object> list = DeserializeJsonList( jsonString );            
-            return JSON.ConvertList<T>( list);
+            List<Object> list = DeserializeJsonList( jsonString );
+            return JSON.ConvertList<T>( list );
         }
-
-        /// <summary>
-        /// 将 json 字符串反序列化为对象
-        /// </summary>
-        /// <param name="jsonString">json 字符串</param>
-        /// <param name="t">目标类型</param>
-        /// <returns></returns>
-        public static Object DeserializeObject( String jsonString, Type t ) {
-            return JSON.ToObject( jsonString, t );
-        }
-
-        /// <summary>
-        /// 将 json 字符串反序列化为对象
-        /// </summary>
-        /// <typeparam name="T">目标类型</typeparam>
-        /// <param name="jsonString">json 字符串</param>
-        /// <returns></returns>
-        public static T DeserializeObject<T>( String jsonString ) {
-            return JSON.ToObject<T>( jsonString );
-        }
-
-        /// <summary>
-        /// 将 json 字符串反序列化为对象列表
-        /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="jsonString"></param>
-        /// <returns></returns>
-        public static List<T> DeserializeList<T>( String jsonString ) {
-            return JSON.ToList<T>( jsonString );
-        }
-
-        /// <summary>
-        /// 将 json 字符串反序列化为 ORM 实体类
-        /// </summary>
-        /// <param name="jsonString"></param>
-        /// <param name="t"></param>
-        /// <returns></returns>
-        public static IEntity DeserializeObjectEntity( String jsonString, Type t ) {
-            return JSON.ToEntity( jsonString, t );
-        }
-
 
 
     }

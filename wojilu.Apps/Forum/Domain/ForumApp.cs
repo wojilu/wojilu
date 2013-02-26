@@ -109,7 +109,7 @@ namespace wojilu.Apps.Forum.Domain {
 
             if (_settings != null) return _settings;
 
-            ForumSetting s = Json.DeserializeObject<ForumSetting>( this.Settings );
+            ForumSetting s = Json.Deserialize<ForumSetting>( this.Settings );
             s.SetDefaultValue();
             _settings = s;
 

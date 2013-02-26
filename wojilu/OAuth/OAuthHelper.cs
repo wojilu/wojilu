@@ -93,7 +93,7 @@ namespace wojilu.OAuth {
                 return accessToken;
             }
             catch (Exception ex) {
-                throw new HttpClientException( "解析 access token 失败" );
+                throw new HttpClientException( "解析 access token 失败" + Environment.NewLine + ex.Message );
             }
         }
 

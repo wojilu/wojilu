@@ -27,7 +27,7 @@ namespace wojilu.OAuth {
 
     public class OAuthClient : HttpClient {
 
-        public static OAuthClient New() {
+        public static new OAuthClient New() {
             return ObjectContext.Create<OAuthClient>();
         }
 

@@ -68,9 +68,8 @@ namespace wojilu.Serialization {
             }
 
             if (t == typeof( Boolean )) return obj.ToString().ToLower();
-            if (t == typeof( DateTime )) return "\"" + obj.ToString() + "\"";
+            if (t == typeof( DateTime ) || t == typeof( long )) return "\"" + obj.ToString() + "\"";
             if (t == typeof( String )) {
-
                 // 转义双引号，消除换行
                 return "\"" + ClearNewLine( obj.ToString() ) + "\"";
             }

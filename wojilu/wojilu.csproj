@@ -116,6 +116,7 @@
     <Compile Include="OAuth\OAuthClient.cs" />
     <Compile Include="OAuth\OAuthHelper.cs" />
     <Compile Include="OAuth\OAuthUserProfile.cs" />
+    <Compile Include="Serialization\TypedDeserializeHelper.cs" />
     <Compile Include="Web\HttpMethod.cs" />
     <Compile Include="Web\Utils\AvatarNetSaver.cs" />
     <Compile Include="_wojilu\Exception.cs" />

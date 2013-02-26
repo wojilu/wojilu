@@ -16,7 +16,7 @@ namespace wojilu.cms.Domain {
         }
 
         public static Category FromJson( string jsonString ) {
-            return Json.DeserializeObject<Category>( jsonString );
+            return Json.Deserialize<Category>( jsonString );
         }
 
     }

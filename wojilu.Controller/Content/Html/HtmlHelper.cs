@@ -37,7 +37,7 @@ namespace wojilu.Web.Controller.Content.Htmls {
             if (ctx.owner.obj.GetType() != typeof( Site )) return false;
 
             // 是否需要自动生成
-            ContentApp app = ctx.owner.obj as ContentApp;
+            ContentApp app = ctx.app.obj as ContentApp;
             ContentSetting setting = app.GetSettingsObj();
             return setting.IsAutoHtml == 1;
         }

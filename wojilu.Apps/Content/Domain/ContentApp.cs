@@ -64,7 +64,7 @@ namespace wojilu.Apps.Content.Domain {
 
         public ContentSubmitterRole GetSubmitterRoleObj() {
             if (strUtil.IsNullOrEmpty( this.SubmitterRole )) return new ContentSubmitterRole();
-            ContentSubmitterRole s = Json.DeserializeObject<ContentSubmitterRole>( this.SubmitterRole );
+            ContentSubmitterRole s = Json.Deserialize<ContentSubmitterRole>( this.SubmitterRole );
             return s;
         }
 
@@ -73,7 +73,7 @@ namespace wojilu.Apps.Content.Domain {
 
         public ContentSetting GetSettingsObj() {
             if (strUtil.IsNullOrEmpty( this.Settings )) return new ContentSetting();
-            ContentSetting s = Json.DeserializeObject<ContentSetting>( this.Settings );
+            ContentSetting s = Json.Deserialize<ContentSetting>( this.Settings );
             s.SetDefaultValue();
             return s;
         }

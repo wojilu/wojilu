@@ -46,13 +46,10 @@ namespace wojilu {
         /// <returns></returns>
         public T Get<T>( String key ) {
 
-            if (typeof( T ) == typeof( DateTime )) return (T)((Object)this.getTime( key ));
-            if (typeof( T ) == typeof( long )) return (T)((Object)this.getLong( key ));
-            if (typeof( T ) == typeof( double )) return (T)((Object)this.getDouble( key ));
-
             Object obj = this.GetValue( key );
             if (obj == null) return default( T );
-            return (T)obj;
+
+            return (T)this.GetValue( key, typeof( T ) );
         }
 
         /// <summary>
@@ -101,6 +98,28 @@ namespace wojilu {
             this.TryGetValue( key, out result );
 
             return result;
+        }
+
+        /// <summary>
+        /// 获取属性的值，返回强类型。支持 int, string, bool, long, decimal, double, DateTime, JsonObject, List&lt;Object&gt; 一共9种类型
+        /// </summary>
+        /// <param name="key"></param>
+        /// <param name="retType"></param>
+        /// <returns></returns>
+        public Object GetValue( String key, Type retType ) {
+
+            if (retType == typeof( DateTime )) return this.getTime( key );
+            if (retType == typeof( long )) return this.getLong( key );
+            if (retType == typeof( double )) return this.getDouble( key );
+
+            Object obj = this.GetValue( key );
+            if (obj == null) {
+                if (retType == typeof( int )) return 0;
+                if (retType == typeof( Boolean )) return false;
+                return null;
+            }
+
+            return obj;
         }
 
         /// <summary>

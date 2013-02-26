@@ -182,7 +182,7 @@ namespace wojilu.Test.Orm {
             String IsTrusted = x.GetConnectionItem( str, ConnectionItemType.IsTrusted );
             Assert.AreEqual( IsTrusted, "True" );
 
-            String str2 = "";
+
             String IsTrusted2 = x.GetConnectionItem( "Data Source=myServerAddress;Initial Catalog=myDataBase;Integrated Security=True", ConnectionItemType.IsTrusted );
             Assert.AreEqual( IsTrusted2, "True" );
         }
@@ -244,7 +244,7 @@ namespace wojilu.Test.Orm {
             String pwd = x.GetConnectionItem( str, ConnectionItemType.Password );
             Assert.AreEqual( pwd, "myPassword" );
 
-            String str2 = "Server=.;Database=myDataBase;User Id=myUsername;Password=myPassword;";
+            //String str2 = "Server=.;Database=myDataBase;User Id=myUsername;Password=myPassword;";
         }
 
         [Test]

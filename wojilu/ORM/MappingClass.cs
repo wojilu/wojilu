@@ -272,11 +272,11 @@ namespace wojilu.ORM {
 
         private static void cacheInterceptor( MappingClass map ) {
 
-            List<object> interceptor = DbConfig.Instance.Interceptor;
+            List<JsonObject> interceptor = DbConfig.Instance.Interceptor;
             for (int i = 0; i < interceptor.Count; i++) {
-                Dictionary<String, object> info = interceptor[i] as Dictionary<String, object>;
-                String asmName = info["AssemblyName"].ToString();
-                String typeName = info["TypeFullName"].ToString();
+                JsonObject info = interceptor[i];
+                String asmName = info.Get( "AssemblyName" );
+                String typeName = info.Get( "TypeFullName" );
                 IInterceptor obj = rft.GetInstance( asmName, typeName ) as IInterceptor;
                 if (obj == null) {
                     throw new Exception( "load ORM interceptor error( Assembly:" + asmName + ", Type:" + typeName + ")" );
