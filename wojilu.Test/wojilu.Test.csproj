@@ -51,6 +51,7 @@
   <ItemGroup>
     <Compile Include="Aop\AopTest.cs" />
     <Compile Include="Aop\IMyAopService.cs" />
+    <Compile Include="Aop\MultiInvocationObserver.cs" />
     <Compile Include="Aop\MyAopService.cs" />
     <Compile Include="Aop\MyBeforeService.cs" />
     <Compile Include="Aop\MyMethodObserver1.cs" />

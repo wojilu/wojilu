@@ -222,5 +222,31 @@ namespace wojilu.Test.Aop {
 
         }
 
+        // 多个 around advice 测试
+        [Test]
+        public void testMutilInvocation() {
+
+            TMultiInvocationTarget obj = ObjectContext.Create<TMultiInvocationTarget>();
+
+            obj.count = 8;
+            int count = obj.Save( 2 );
+
+            // 运行结果
+            // 当有多个 around advice 的时候，只运行其中一个
+
+/*
+before advice 1 running...
+before advice 2 running...
+before advice 3 running...
+around advice 1 running before...
+--------save 2--------
+around advice 1 running after...
+after advice 1 running...
+after advice 2 running...
+after advice 3 running...
+*/
+
+        }
+
     }
 }

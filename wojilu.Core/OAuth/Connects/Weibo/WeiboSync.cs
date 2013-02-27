@@ -7,12 +7,12 @@ using System.Collections.Generic;
 using System.Text;
 using System.Reflection;
 
+using wojilu.DI;
 using wojilu.Aop;
 using wojilu.Common.Microblogs.Service;
 using wojilu.Common.Microblogs.Domain;
 using wojilu.OAuth.Connects;
 using wojilu.Members.Users.Domain;
-using wojilu.DI;
 
 namespace wojilu.OAuth.Connects {
 
@@ -21,20 +21,33 @@ namespace wojilu.OAuth.Connects {
 
         private static readonly ILog logger = LogManager.GetLogger( typeof( WeiboSync ) );
 
+        public IUserConnectService connectService { get; set; }
+
+        public WeiboSync() {
+            connectService = new UserConnectService();
+        }
+
         public override void ObserveMethods() {
 
             observe( typeof( MicroblogService ), "Insert" );
 
         }
 
+        private String _blogContent = null;
+
+        public override void Before( MethodInfo method, object[] args, object target ) {
+            Microblog blog = args[0] as Microblog;
+            _blogContent = blog.Content; // 获得原始的微博内容（没有经过 #tag# 和链接处理）
+        }
+
         public override void After( object returnValue, MethodInfo method, object[] args, object target ) {
 
             Microblog blog = args[0] as Microblog;
+
             if (blog == null || blog.ParentId > 0) return;
             if (blog.User == null || blog.User.Id <= 0) return;
 
-            UserConnect uc = ObjectContext.Create<UserConnectService>()
-                .GetConnectInfo( blog.User.Id, typeof( WeiboConnect ).FullName );
+            UserConnect uc = connectService.GetConnectInfo( blog.User.Id, typeof( WeiboConnect ).FullName );
 
             // 1. 检查：用户是否绑定，是否允许同步
             if (uc == null) return; // 绑定
@@ -45,9 +58,14 @@ namespace wojilu.OAuth.Connects {
 
             // 2. 同步
             WeiboConnect connect = AuthConnectFactory.GetConnect( typeof( WeiboConnect ).FullName ) as WeiboConnect;
-            connect.Publish( uc.AccessToken, blog.Content, PathHelper.Map( blog.PicOriginal ) );
+            connect.Publish( uc.AccessToken, _blogContent, getPicDiskPath( blog.Pic ) );
+
         }
 
+        private String getPicDiskPath( String pic ) {
+            if (strUtil.IsNullOrEmpty( pic )) return null;
+            return PathHelper.Map( strUtil.Join( sys.Path.DiskPhoto, pic ) );
+        }
 
     }
 

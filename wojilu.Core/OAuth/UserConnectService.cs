@@ -92,7 +92,7 @@ namespace wojilu.OAuth {
             }
 
             // 如果这是最后一个绑定，并且用户没有补充过用户名和密码，那么禁止取消绑定。
-            if (strUtil.IsNullOrEmpty( user.Pwd ) && isLastBind( user, connectType )) {
+            if (strUtil.IsNullOrEmpty( user.Pwd ) && isLastBind( user )) {
                 result.Add( "这是您的最后一个绑定，取消之后将无法登录。请在“修改密码”页面补充密码之后，再取消绑定。" );
                 return result;
             }
@@ -109,11 +109,10 @@ namespace wojilu.OAuth {
             return result;
         }
 
-        private bool isLastBind( User user, String connectType ) {
+        private bool isLastBind( User user ) {
 
-            return UserConnect.find( "UserId=:userId and ConnectType=:ctype" )
+            return UserConnect.find( "UserId=:userId" )
                 .set( "userId", user.Id )
-                .set( "ctype", connectType )
                 .count() == 1;
         }
 
