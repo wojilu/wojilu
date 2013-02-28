@@ -208,6 +208,7 @@ _run( function() {
             dic.Add( "viewerSiteNotification", getSiteNotification() );
 
             dic.Add( "viewerProfileUrl", Link.To( user, new UserProfileController().Profile ) );
+            dic.Add( "viewerBindUrl", Link.To( user, new UserProfileController().BindAccount ) );
             dic.Add( "viewerContactLink", Link.To( user, new UserProfileController().Contact ) );
             dic.Add( "viewerInterestUrl", Link.To( user, new UserProfileController().Interest ) );
             dic.Add( "viewerTagUrl", Link.To( user, new UserProfileController().Tag ) );
