@@ -91,7 +91,7 @@
             $('#userAccountTable').show();
             $('#topNavMenu').show();
 
-            var urls = ['shareLink', 'myGroupsLink', 'appAdminUrl', 'menuAdminUrl', 'myUrlList', 'viewerSpace', 'viewerMicroblogHome', 'viewerTemplateUrl', 'viewerFriends', 'viewerInviteLink', 'siteOnlineUrl', 'viewerProfileUrl', 'viewerContactLink', 'viewerInterestUrl', 'viewerTagUrl', 'viewerPwdUrl', 'viewerSettings', 'viewerCurrency', 'logoutLink'];
+            var urls = ['shareLink', 'myGroupsLink', 'appAdminUrl', 'menuAdminUrl', 'myUrlList', 'viewerSpace', 'viewerMicroblogHome', 'viewerTemplateUrl', 'viewerFriends', 'viewerInviteLink', 'siteOnlineUrl', 'viewerProfileUrl', 'viewerBindUrl', 'viewerContactLink', 'viewerInterestUrl', 'viewerTagUrl', 'viewerPwdUrl', 'viewerSettings', 'viewerCurrency', 'logoutLink'];
             //var urls = ['shareLink', 'myGroupsLink', 'appAdminUrl','menuAdminUrl','myUrlList', 'viewerSpace', 'viewerMicroblogHome', 'viewerTemplateUrl', 'viewerFriends', 'viewerInviteLink', 'siteOnlineUrl', 'viewerProfileUrl', 'viewerContactLink', 'viewerInterestUrl', 'viewerTagUrl', 'viewerPwdUrl', 'viewerSettings', 'viewerCurrency'];
             for (var i = 0; i < urls.length; i++) { $('#' + urls[i]).attr('href', nav[urls[i]]); }
 
