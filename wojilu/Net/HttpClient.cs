@@ -21,6 +21,7 @@ using System.Net;
 using System.Text;
 using wojilu.Web;
 using wojilu.DI;
+using System.Reflection;
 
 namespace wojilu.Net {
 
@@ -167,6 +168,37 @@ namespace wojilu.Net {
         public virtual HttpClient AddQuery( Dictionary<String, String> queryItems ) {
             foreach (KeyValuePair<String, String> kv in queryItems) {
                 _queryItems.Add( kv.Key, kv.Value );
+            }
+            return this;
+        }
+
+        /// <summary>
+        /// 将对象的属性和字段的值加入参数(param)中
+        /// </summary>
+        /// <param name="obj"></param>
+        /// <returns></returns>
+        public virtual HttpClient AddObject( Object obj ) {
+            return AddObject( obj, null );
+        }
+
+        /// <summary>
+        /// 将对象的属性和字段的值加入参数(param)中
+        /// </summary>
+        /// <param name="obj"></param>
+        /// <param name="prefix">参数的前缀</param>
+        /// <returns></returns>
+        public virtual HttpClient AddObject( Object obj, String prefix ) {
+            if (obj == null) throw new ArgumentNullException( "obj" );
+            PropertyInfo[] ps = obj.GetType().GetProperties( BindingFlags.Public | BindingFlags.Instance );
+            if (strUtil.HasText( prefix )) {
+                prefix = prefix + ".";
+            }
+            foreach (PropertyInfo x in ps) {
+                this.AddParam( prefix + x.Name, x.GetValue( obj, null ) );
+            }
+            FieldInfo[] fs = obj.GetType().GetFields( BindingFlags.Public | BindingFlags.Instance );
+            foreach (FieldInfo x in fs) {
+                this.AddParam( prefix + x.Name, x.GetValue( obj ) );
             }
             return this;
         }

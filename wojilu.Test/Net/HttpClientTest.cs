@@ -5,6 +5,7 @@ using System.Text;
 using wojilu.Net;
 using NUnit.Framework;
 using wojilu.Aop;
+using System.Web;
 
 namespace wojilu.Test.Net {
 
@@ -124,6 +125,76 @@ namespace wojilu.Test.Net {
 
 
         }
+
+        [Test]
+        public void testAddObject() {
+
+            TAddObject x = new TAddObject();
+            x.TFId = 2;
+            x.TFMoney = 2.88M;
+            x.TFName = "fname";
+            x.TFState = true;
+            x.TFTime = DateTime.Now.AddDays( -1 );
+
+            x.TPId = 5;
+            x.TPMoney = 5.88M;
+            x.TPName = "pname";
+            x.TPState = false;
+            x.TPTime = DateTime.Now.AddDays( -5 );
+
+            HttpClient client = HttpClient.Init( "http://www.abc.com", "GET" );
+            client.AddObject( x );
+
+            //String expected = "http://www.abc.com?TPId=5&TPName=pname&TPTime=2013%2f2%2f24+19%3a56%3a00&TPMoney=5.88&TPState=False&TFId=2&TFName=fname&TFTime=2013%2f2%2f28+19%3a56%3a00&TFMoney=2.88&TFState=True";
+            String requestUrl = client.GetRequestUrl();
+            Console.WriteLine( requestUrl );
+
+            String[] arr = requestUrl.Split( '?' );
+            Assert.AreEqual( 2, arr.Length );
+
+            var qlist = HttpUtility.ParseQueryString( arr[1] );
+
+            Assert.AreEqual( x.TFId, cvt.ToInt( qlist["TFId"] ) );
+            Assert.AreEqual( x.TFMoney, cvt.ToDecimal( qlist["TFMoney"] ) );
+            Assert.AreEqual( x.TFName, qlist["TFName"] );
+            Assert.AreEqual( x.TFState, cvt.ToBool( qlist["TFState"] ) );
+            Assert.IsTrue( isTimeEqual( x.TFTime, cvt.ToTime( qlist["TFTime"] ) ) );
+
+            Assert.AreEqual( x.TPId, cvt.ToInt( qlist["TPId"] ) );
+            Assert.AreEqual( x.TPMoney, cvt.ToDecimal( qlist["TPMoney"] ) );
+            Assert.AreEqual( x.TPName, qlist["TPName"] );
+            Assert.AreEqual( x.TPState, cvt.ToBool( qlist["TPState"] ) );
+            Assert.IsTrue( isTimeEqual( x.TPTime, cvt.ToTime( qlist["TPTime"] ) ) );
+
+        }
+
+        private bool isTimeEqual( DateTime x, DateTime y ) {
+
+            return x.Year == y.Year &&
+                x.Month == y.Month &&
+                x.Day == y.Day &&
+                x.Hour == y.Hour &&
+                x.Minute == y.Minute &&
+                x.Second == y.Second;
+
+        }
+
+    }
+
+
+    public class TAddObject {
+
+        public int TFId;
+        public String TFName;
+        public DateTime TFTime;
+        public decimal TFMoney;
+        public Boolean TFState;
+
+        public int TPId { get; set; }
+        public String TPName { get; set; }
+        public DateTime TPTime { get; set; }
+        public decimal TPMoney { get; set; }
+        public Boolean TPState { get; set; }
 
     }
 
