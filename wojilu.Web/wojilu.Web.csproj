@@ -76,6 +76,7 @@
     <Content Include="framework\views\Admin\Sys\ConnectAdmin\Index.html" />
     <Content Include="framework\views\Admin\Upgrade\CommentImport\Index.html" />
     <Content Include="framework\views\Connect\confirmUserInfo.html" />
+    <Content Include="framework\views\Demo\CtxPost\Index.html" />
     <Content Include="framework\views\Main\connectLogin.html" />
     <Content Include="framework\views\Open\Admin\CommentBase\List.html" />
     <Content Include="framework\views\Open\CommentList\Index.html" />

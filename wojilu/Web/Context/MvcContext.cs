@@ -658,21 +658,46 @@ namespace wojilu.Web.Context {
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <returns></returns>
+        public T PostObject<T>() {
+            return PostObject<T>( null );
+        }
+
+        /// <summary>
+        /// 获取客户端post的数据，并自动赋值到对象各属性，最后进行验证
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="lblName">表单中对象名称。如果为空，使用属性名</param>
+        /// <returns></returns>
+        public T PostObject<T>( String lblName ) {
+            return PostValue<T>( lblName );
+        }
+
+        /// <summary>
+        /// 获取客户端post的数据，并自动赋值到对象各属性，最后进行验证
+        /// </summary>
+        /// <param name="obj"></param>
+        /// <returns></returns>
+        public Object PostObject( Object obj ) {
+            return PostObject( obj, null );
+        }
+
+        /// <summary>
+        /// 获取客户端post的数据，并自动赋值到对象各属性，最后进行验证
+        /// </summary>
+        /// <param name="obj"></param>
+        /// <param name="lblName">表单中对象名称。如果为空，使用属性名</param>
+        /// <returns></returns>
+        public Object PostObject( Object obj, String lblName ) {
+            return PostValue( obj, lblName );
+        }
+
+        /// <summary>
+        /// 获取客户端post的数据，并自动赋值到对象各属性，最后进行验证
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <returns></returns>
         public T PostValue<T>() {
-
-            EntityInfo entityInfo = Entity.GetInfo( typeof( T ) );
-            Type t = typeof( T );
-            T obj = (T)rft.GetInstance( t );
-
-            setObjectProperties( null, entityInfo, t, obj );
-
-            IEntity entity = obj as IEntity;
-            if (entity != null) {
-                Result result = Validate( entity );
-                if (result.HasErrors) errors.Join( result );
-            }
-
-            return obj;
+            return PostValue<T>( strUtil.GetCamelCase( typeof( T ).Name ) );
         }
 
         /// <summary>
@@ -704,18 +729,7 @@ namespace wojilu.Web.Context {
         /// <param name="obj"></param>
         /// <returns></returns>
         public Object PostValue( Object obj ) {
-
-            EntityInfo entityInfo = Entity.GetInfo( obj );
-            Type t = obj.GetType();
-            setObjectProperties( null, entityInfo, t, obj );
-
-            IEntity entity = obj as IEntity;
-            if (entity != null) {
-                Result result = Validate( entity );
-                if (result.HasErrors) errors.Join( result );
-            }
-
-            return obj;
+            return PostValue( obj, strUtil.GetCamelCase( obj.GetType().Name ) );
         }
 
         /// <summary>
@@ -742,21 +756,16 @@ namespace wojilu.Web.Context {
 
         private void setObjectProperties( String lblName, EntityInfo entityInfo, Type t, Object obj ) {
 
-            String prefix;
+            String prefix = "";
 
             if (strUtil.HasText( lblName )) {
-                prefix = lblName;
+                prefix = lblName + ".";
             }
-            else {
-                prefix = strUtil.GetCamelCase( t.Name );
-            }
-
-            prefix += ".";
 
             NameValueCollection posts = _context.postValueAll();
             foreach (String key in posts.Keys) {
 
-                if (key.StartsWith( prefix ) == false) continue;
+                if (strUtil.HasText( prefix ) && key.StartsWith( prefix ) == false) continue;
 
                 String propertyName = strUtil.TrimStart( key, prefix );
                 PropertyInfo p = t.GetProperty( propertyName );

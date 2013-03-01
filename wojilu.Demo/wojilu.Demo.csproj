@@ -37,6 +37,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Demo\BoxController.cs" />
+    <Compile Include="Demo\CtxPostController.cs" />
     <Compile Include="Demo\EffectController.cs" />
     <Compile Include="Demo\FrmLinkController.cs" />
     <Compile Include="Demo\FrmTestController.cs" />
