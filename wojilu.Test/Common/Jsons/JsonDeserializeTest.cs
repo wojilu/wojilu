@@ -127,6 +127,76 @@ namespace wojilu.Test.Common.Jsons {
             Assert.AreEqual( false, Json.Parse( json ) );
         }
 
+        // ParseJson 等效于 Deserialize<JsonObject>
+        // ParseList<JsonObject> 等效于 DeserializeList<JsonObject>
+        [Test]
+        public void testDeserializeAndParseEqual() {
+
+            String str = "{ \"Name\" : \"zhangsan\",  \"Gender\":\"male\", \"Age\":66,  \"Address\" : { \"Name\":\"changan\", \"zip\":\"100000\"  } }";
+
+            JsonObject obj1 = Json.ParseJson( str );
+            JsonObject obj2 = Json.Deserialize<JsonObject>( str );
+
+            Assert.AreEqual( obj1.Get( "Name" ), "zhangsan" );
+            Assert.AreEqual( obj1.Get( "Name" ), obj2.Get( "Name" ) );
+
+            Assert.AreEqual( obj1.Get( "Gender" ), "male" );
+            Assert.AreEqual( obj1.Get( "Gender" ), obj2.Get( "Gender" ) );
+
+            Assert.AreEqual( obj1.Get<int>( "Age" ), 66 );
+            Assert.AreEqual( obj1.Get<int>( "Age" ), obj2.Get<int>( "Age" ) );
+
+            JsonObject addr1 = obj1.GetJson( "Address" );
+            JsonObject addr2 = obj2.GetJson( "Address" );
+
+            Assert.AreEqual( addr1.Get( "Name" ), "changan" );
+            Assert.AreEqual( addr1.Get( "Name" ), addr2.Get( "Name" ) );
+
+            Assert.AreEqual( addr1.Get( "zip" ), "100000" );
+            Assert.AreEqual( addr1.Get( "zip" ), addr2.Get( "zip" ) );
+
+
+            //---------------------------------------------------------------------
+
+
+            // list object test
+            str = @"
+[
+{ Id:3, Name:""zhangsan"", Age:25 },
+{ Id:5, Name:""lisi"", Age:18 }
+]
+";
+
+            List<JsonObject> list1 = Json.ParseList<JsonObject>( str );
+            List<JsonObject> list2 = Json.DeserializeList<JsonObject>( str );
+
+            Assert.AreEqual( 2, list1.Count );
+            Assert.AreEqual( 2, list2.Count );
+            //-------------------
+
+            Assert.AreEqual( 3, list1[0].Get<int>( "Id" ) );
+            Assert.AreEqual( 3, list2[0].Get<int>( "Id" ) );
+
+            Assert.AreEqual( "zhangsan", list1[0].Get( "Name" ) );
+            Assert.AreEqual( "zhangsan", list2[0].Get( "Name" ) );
+
+            Assert.AreEqual( 25, list1[0].Get<int>( "Age" ) );
+            Assert.AreEqual( 25, list2[0].Get<int>( "Age" ) );
+
+            //-------------------
+            Assert.AreEqual( 5, list1[1].Get<int>( "Id" ) );
+            Assert.AreEqual( 5, list2[1].Get<int>( "Id" ) );
+
+            Assert.AreEqual( "lisi", list1[1].Get( "Name" ) );
+            Assert.AreEqual( "lisi", list2[1].Get( "Name" ) );
+
+            Assert.AreEqual( 18, list1[1].Get<int>( "Age" ) );
+            Assert.AreEqual( 18, list2[1].Get<int>( "Age" ) );
+
+
+
+        }
+
 
         [Test]
         public void testValue() {
@@ -174,7 +244,6 @@ namespace wojilu.Test.Common.Jsons {
             json = "  [ \"zhangsan\", 3, false, { Name : \"zhangsan\",  Gender:\"male\"} ]  ";
             testObjectArray( json );
 
-            // 如果数组内的类型相同，可以使用泛型方法 DeserializeJsonList<Json>()
             json = "[ 'abc', 'def', 'xxxxxxxxx', 'hhhhhhhhhhh3' ]";
             List<String> strList = Json.DeserializeList<String>( json );
             Assert.AreEqual( "abc", strList[0] );
@@ -314,7 +383,7 @@ namespace wojilu.Test.Common.Jsons {
 
 
         [Test]
-        public void StringToHashtable2() {
+        public void testParseTypedList() {
             string str = @"
 [
 { Id:3, Name:""zhangsan"", Age:25 },
@@ -341,7 +410,24 @@ namespace wojilu.Test.Common.Jsons {
             Assert.AreEqual( 5, dic2.Get<int>( "Id" ) );
             Assert.AreEqual( "lisi", dic2.Get( "Name" ) );
             Assert.AreEqual( 18, dic2.Get<int>( "Age" ) );
+
+
+            str = @"[3, 5, 6, 99]";
+            List<int> intList = Json.ParseList<int>( str );
+            Assert.AreEqual( 3, intList[0] );
+            Assert.AreEqual( 5, intList[1] );
+            Assert.AreEqual( 6, intList[2] );
+            Assert.AreEqual( 99, intList[3] );
+
+            str = "  [  \"zhangsan\",  \"lisi\", \"fname2\", \"zname88\" ] ";
+            List<String> strList = Json.ParseList<String>( str );
+            Assert.AreEqual( "zhangsan", strList[0] );
+            Assert.AreEqual( "lisi", strList[1] );
+            Assert.AreEqual( "fname2", strList[2] );
+            Assert.AreEqual( "zname88", strList[3] );
+
         }
+
 
         [Test]
         public void StringToHashtable() {

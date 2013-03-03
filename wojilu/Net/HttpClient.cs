@@ -64,6 +64,8 @@ namespace wojilu.Net {
 
         public IHttpClientHelper restHelper { get; set; }
 
+        private String _response;
+
         public HttpClient() {
             restHelper = new HttpClientHelper();
         }
@@ -223,10 +225,13 @@ namespace wojilu.Net {
         public virtual String Run() {
 
             if (_absPathFiles.Count > 0) {
-                return restHelper.Upload( GetRequestUrl(), _parameters, _headers, _absPathFiles );
+                _response = restHelper.Upload( GetRequestUrl(), _parameters, _headers, _absPathFiles );
+            }
+            else {
+                _response = restHelper.InvokeApi( GetRequestUrl(), _httpMethod, restHelper.ConstructQueryString( _parameters ), _headers, "", "", _userAgent, _encoding );
             }
 
-            return restHelper.InvokeApi( GetRequestUrl(), _httpMethod, restHelper.ConstructQueryString( _parameters ), _headers, "", "", _userAgent, _encoding );
+            return _response;
         }
 
         /// <summary>
@@ -234,8 +239,35 @@ namespace wojilu.Net {
         /// </summary>
         /// <returns></returns>
         public virtual JsonObject RunJson() {
+            return this.Run<JsonObject>();
+        }
+
+        /// <summary>
+        /// 调用远程 api, 返回结果已经解析成强类型对象
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <returns></returns>
+        public virtual T Run<T>() {
             String response = this.Run();
-            return Json.ParseJson( response );
+            return Json.Deserialize<T>( response );
+        }
+
+        /// <summary>
+        /// 调用远程 api, 返回结果已经解析成强类型对象的List
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <returns></returns>
+        public virtual List<T> RunList<T>() {
+            String response = this.Run();
+            return Json.DeserializeList<T>( response );
+        }
+
+        /// <summary>
+        /// 在调用远程api之后(Run之后)，返回字符串结果。本方法不会再次执行远程调用。
+        /// </summary>
+        /// <returns></returns>
+        public virtual String GetResponse() {
+            return _response;
         }
 
         /// <summary>

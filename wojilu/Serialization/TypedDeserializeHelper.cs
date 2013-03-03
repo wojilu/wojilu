@@ -40,11 +40,15 @@ namespace wojilu.Serialization {
         public static Object DeserializeObject( String jsonString, Type t ) {
 
             JsonObject obj = Json.ParseJson( jsonString );
+            if (t == typeof( JsonObject )) return obj;
 
             return deserializeType( t, obj );
         }
 
         private static object deserializeType( Type t, JsonObject obj ) {
+
+            if (t == typeof( JsonObject )) return obj;
+
             Object ret = rft.GetInstance( t );
             PropertyInfo[] properties = t.GetProperties( BindingFlags.Public | BindingFlags.Instance );
             foreach (PropertyInfo p in properties) {
@@ -194,7 +198,6 @@ namespace wojilu.Serialization {
             if (targeType == typeof( String )) return obj.ToString();
             if (targeType == typeof( Boolean )) return cvt.ToBool( obj );
             if (targeType == typeof( Decimal )) return cvt.ToDecimal( obj.ToString() );
-
 
             if (targeType == typeof( DateTime )) {
                 return (Object)cvt.ToTime( obj, DateTime.MinValue );

@@ -134,8 +134,7 @@ namespace wojilu {
         /// <returns></returns>
         public static List<T> ParseList<T>( String jsonString ) {
             if (strUtil.IsNullOrEmpty( jsonString )) return new List<T>();
-            List<Object> list = ParseList( jsonString );
-            return JSON.ConvertList<T>( list );
+            return DeserializeList<T>( jsonString );
         }
 
 
