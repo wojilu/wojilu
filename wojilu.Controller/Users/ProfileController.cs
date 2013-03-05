@@ -77,7 +77,7 @@ namespace wojilu.Web.Controller.Users {
             }
 
             set( "profile", t2( Main ) );
-            set( "user.Face", user.PicMedium );
+            set( "user.Face", user.PicBig );
 
             set( "user.FriendCount", user.FriendCount );
             set( "user.FollowingCount", user.FollowingCount );

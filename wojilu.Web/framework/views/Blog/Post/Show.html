@@ -9,7 +9,9 @@
 <div class="blogMain">
     <div>
 	<h4 class="blogTitle">#{blog.Title}</h4>
-	<div class="note">_{view}: #{blog.Hits} <span class="left10" >_{reply}: <span id="contentReplies">0</span></span> <span class="left10">#{blog.TagList}</span></div>
+	<div class="blog-hits note">#{blog.Author} 发布于 #{blog.CreateTime} <span class="left10" >_{view}:</span> #{blog.Hits} <span class="left10" >_{reply}: <span id="contentReplies">0</span></span> 
+    <span class="left10">所在分类：<a href="#{blog.CategoryLink}">#{blog.CategoryName}</a></span>
+    <span class="left10">#{blog.TagList}</span></div>
 	
         <div class="blogBody clearBoth">#{blog.Body}</div>
         

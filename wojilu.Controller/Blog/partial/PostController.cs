@@ -28,6 +28,10 @@ namespace wojilu.Web.Controller.Blog {
             String comments = post.Replies > 0 ? lang( "comment" ) + ":" + post.Replies : "";
             set( "blog.Replies", comments );
 
+            set( "blog.CategoryName", post.Category.Name );
+            set( "blog.CategoryLink", to( new CategoryController().Show, post.Category.Id ) );
+
+
             String tags = post.Tag.List.Count > 0 ? "tag:" + post.Tag.HtmlString : "";
             set( "blog.TagList", tags );
 

@@ -71,7 +71,7 @@ namespace wojilu.Common.Skins {
         }
 
         public IPageList GetPage() {
-            return ndb.findPage( thisType(), "Status=" + SkinStatus.Public + " and MemberId=0 order by Id" );
+            return ndb.findPage( thisType(), "Status=" + SkinStatus.Public + " and MemberId=0 order by Id", 50 );
         }
 
 

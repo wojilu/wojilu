@@ -54,6 +54,12 @@ namespace wojilu.Web.Controller.Blog.Admin {
 
             set( "s.ListModeFull", s.ListMode == BlogListMode.Full ? chk : "" );
             set( "s.ListModeAbstract", s.ListMode == BlogListMode.Abstract ? chk : "" );
+
+            String[] options = new String[] {
+                "100", "200", "300", "500", "600", "800", "1000", "1200", "1500", "2000", "3000"
+            };
+            radioList( "blogSetting.ListAbstractLength", options, s.ListAbstractLength );
+
         }
 
         private String dropList( String name, int istart, int iend, int val ) {

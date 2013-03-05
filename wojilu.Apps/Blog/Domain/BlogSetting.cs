@@ -13,6 +13,7 @@ namespace wojilu.Apps.Blog.Domain {
             if (this.NewBlogCount == 0) this.NewBlogCount = 7;
             if (this.NewCommentCount == 0) this.NewCommentCount = 7;
             if (this.RssCount == 0) this.RssCount = 10;
+            if (this.ListAbstractLength == 0) this.ListAbstractLength = 300; // 默认列表显示300字
         }
 
         public BlogSetting() {
@@ -33,7 +34,10 @@ namespace wojilu.Apps.Blog.Domain {
         public int IsShowStats { get; set; }
 
         public int PerPageBlogs { get; set; }
+
         public int ListMode { get; set; }
+        public int ListAbstractLength { get; set; }
+
         public int StickyCount { get; set; }
         public int NewBlogCount { get; set; }
         public int NewCommentCount { get; set; }

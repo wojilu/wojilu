@@ -6,11 +6,15 @@
 .plbl {	text-align:right; padding:2px 2px 1px 5px; color:#666; width:120px; font-size:14px;}
 </style>
 
-<table class="appMain" style="width: 670px; background: #fff;">
+<table class="appMain" style="width: 670px; background: #fff; margin-left:30px;">
 	<tr>
 		<td>
-		<div style="margin:20px 0px 20px 0px; font-size:28px;font-weight:bold;">#{user.Name} <span class="note left10" style="font-weight:normal">#{microblog}</span></div>
+		<div style="margin:20px 0px 20px 60px; font-size:28px;font-weight:bold;">#{user.Name} </div>
+
 		<table style=" margin:10px 0px 50px 0px">
+
+            <tr><td class="plbl">最近微博：</td><td>#{microblog}</td></tr>
+            <tr><td class="plbl">&nbsp;</td><td></td></tr>
 		
 			<!-- BEGIN profile -->
 			<tr><td class="plbl">_{gender}:</td><td class="pval">#{user.Gender}</td></tr>
