@@ -69,6 +69,11 @@ namespace wojilu.Web.Mvc {
         public static String ToUserAppFull( IMemberApp app ) {
 
             String strApp = strUtil.TrimEnd( app.AppInfo.TypeName, "App" );
+
+            if (MvcConfig.Instance.IsUrlToLower) {
+                strApp = strApp.ToLower();
+            }
+
             return getAppLink( app.OwnerType, app.OwnerUrl, strApp, app.AppOid );
         }
 
@@ -103,17 +108,13 @@ namespace wojilu.Web.Mvc {
             if (appId > 0) result = result + appId;
 
             result = LinkHelper.Join( result, appName );
-            return LinkHelper.Join( result, "Index" ) + MvcConfig.Instance.UrlExt;
+            if (MvcConfig.Instance.IsUrlToLower) {
+                return LinkHelper.Join( result, "index" ) + MvcConfig.Instance.UrlExt;
+            }
+            else {
+                return LinkHelper.Join( result, "Index" ) + MvcConfig.Instance.UrlExt;
+            }
         }
-
-        //private static String getOwnerUrl( String ownerTypeFull, String ownerUrl ) {
-
-        //    if (ownerTypeFull.Equals( typeof( Site ).FullName )) return ownerUrl;
-
-        //    String result = strUtil.GetTypeName( ownerTypeFull ).ToLower();
-        //    result = MemberPath.GetPath( result );
-        //    return LinkHelper.Join( result, ownerUrl );
-        //}
 
         //----------------------------------------------------------------------------------------------------------------
 
