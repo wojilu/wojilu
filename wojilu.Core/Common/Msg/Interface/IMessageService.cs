@@ -43,28 +43,26 @@ namespace wojilu.Common.Msg.Interface {
         
 
         void ReadMsg( Message msg );
-
-        Boolean AdminByAction( String action, User member, String choice );
-
-        DataPage<Message> FindPageAll( int receiverId );
-        DataPage<MessageData> FindPageSent( int senderId );
-
-        DataPage<Message> FindPageTrash( int receiverId );
-        DataPage<Message> GetNewMsg( int receiverId );
+        void CheckSiteMsg( User user );
 
         Message GetById( int receiverId, int id );
         MessageData GetDataById( int senderId, int id );
-        List<Message> GetNewMsg( int receiverId, int count );
         MessageStats GetStats( User owner );
 
-        void CheckSiteMsg( User user );
+        Message GetPrevMsg( int receiverId, int msgId );
+        Message GetNextMsg( int receiverId, int msgId );
 
+        DataPage<Message> GetPageAll( int receiverId );
+        DataPage<MessageData> GetPageSent( int senderId );
+        DataPage<Message> GetPageTrash( int receiverId );
 
         DataPage<Message> SearchByUser( int receiverId, string senderName );
         DataPage<MessageData> SearchByReceiver( int senderId, string receiverName );
 
-        Message GetPrevMsg( int receiverId, int msgId );
-        Message GetNextMsg( int receiverId, int msgId );
+        DataPage<Message> GetNewMsg( int receiverId );
+        List<Message> GetNewMsg( int receiverId, int count );
+
+        Boolean AdminByAction( String action, User member, String choice );
 
         void DeleteToTrash( Message msg );
     }

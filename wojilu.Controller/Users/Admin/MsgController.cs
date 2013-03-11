@@ -59,7 +59,7 @@ namespace wojilu.Web.Controller.Users.Admin {
             set( "friendLink", Link.To( ctx.viewer.obj, new Users.Admin.Friends.FriendController().SelectBox ) );
             set( "searchTerm", "" );
 
-            bindList( msgService.FindPageAll( ctx.owner.Id ) );
+            bindList( msgService.GetPageAll( ctx.owner.Id ) );
         }
 
         public void Sent() {
@@ -70,7 +70,7 @@ namespace wojilu.Web.Controller.Users.Admin {
             set( "friendLink", Link.To( ctx.viewer.obj, new Users.Admin.Friends.FriendController().SelectBox ) );
             set( "searchTerm", "" );
 
-            DataPage<MessageData> list = msgService.FindPageSent( ctx.owner.Id );
+            DataPage<MessageData> list = msgService.GetPageSent( ctx.owner.Id );
             bindSentList( list );
         }
 
@@ -88,7 +88,7 @@ namespace wojilu.Web.Controller.Users.Admin {
             set( "actionTitle", lang( "msgTrash" ) );
             set( "adminAction", to( Admin ) );
 
-            bindList( msgService.FindPageTrash( ctx.owner.Id ) );
+            bindList( msgService.GetPageTrash( ctx.owner.Id ) );
         }
 
         //-------------------------------------------------------------------------------------------------
@@ -242,6 +242,8 @@ namespace wojilu.Web.Controller.Users.Admin {
                 return;
             }
 
+            bindAttachmentPanel( data );
+
             set( "m.ToName", data.ToName );
             set( "m.Title", data.Title );
             set( "m.CreateTime", data.Created );
@@ -256,7 +258,8 @@ namespace wojilu.Web.Controller.Users.Admin {
                 return;
             }
 
-            if (attachmentService.IsReceiver( ctx.viewer.Id, att ) == false) {
+            if (attachmentService.IsReceiver( ctx.viewer.Id, att ) == false &&
+                attachmentService.IsSender( ctx.viewer.Id, att ) == false) {
                 echoRedirect( lang( "exNoPermission" ) );
                 return;
             }
@@ -265,7 +268,7 @@ namespace wojilu.Web.Controller.Users.Admin {
         }
 
         //-------------------------------------------------------------------------------------------------
-        
+
         [HttpPost, DbTransaction]
         public void Admin() {
 
@@ -291,7 +294,7 @@ namespace wojilu.Web.Controller.Users.Admin {
             msgService.DeleteToTrash( msg );
 
 
-            redirectUrl( to( All )+"?frm=true" );
+            redirectUrl( to( All ) + "?frm=true" );
 
 
 

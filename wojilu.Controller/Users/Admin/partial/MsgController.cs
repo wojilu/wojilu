@@ -51,8 +51,7 @@ namespace wojilu.Web.Controller.Users.Admin {
             IBlock block = getBlock( "list" );
             foreach (Message msg in results.Results) {
 
-                String attachments = msg.MessageData.AttachmentCount > 0 ? string.Format( "<img src=\"{0}attachment.gif\" />", sys.Path.Img ) : "";
-                block.Set( "m.Attachments", attachments );
+                block.Set( "m.Attachments", getAttachmentIcon( msg.MessageData ) );
 
                 block.Set( "m.Title", strUtil.CutString( msg.Title, 40 ) );
                 block.Set( "m.StatusString", getStatusString( msg ) );
@@ -64,6 +63,10 @@ namespace wojilu.Web.Controller.Users.Admin {
                 block.Next();
             }
             set( "page", results.PageBar );
+        }
+
+        private String getAttachmentIcon( MessageData x ) {
+            return x.AttachmentCount > 0 ? string.Format( "<img src=\"{0}attachment.gif\" />", sys.Path.Img ) : "";
         }
 
         private string getIsNew( Message msg ) {
@@ -172,6 +175,9 @@ namespace wojilu.Web.Controller.Users.Admin {
         private void bindSentList( DataPage<MessageData> list ) {
             IBlock block = getBlock( "list" );
             foreach (MessageData data in list.Results) {
+
+                block.Set( "m.Attachments", getAttachmentIcon( data ) );
+
                 block.Set( "m.Title", strUtil.CutString( data.Title, 40 ) );
                 block.Set( "m.ToName", data.ToName );
                 block.Set( "m.ReadUrl", to( SentMsg, data.Id ) );

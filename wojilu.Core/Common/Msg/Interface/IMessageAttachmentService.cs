@@ -13,6 +13,7 @@ namespace wojilu.Common.Msg.Interface {
         List<MessageAttachment> GetByMsg( int msgDataId );
 
         bool IsReceiver( int viewerId, MessageAttachment attachment );
+        bool IsSender( int viewerId, MessageAttachment attachment );
 
         Result SaveFile( HttpFile postedFile );
         void Insert( MessageAttachment attachment );

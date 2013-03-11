@@ -170,7 +170,7 @@ namespace wojilu.Common.Msg.Service {
             db.update( receiver, "MsgNewCount" );
         }
 
-        public virtual DataPage<Message> FindPageAll( int receiverId ) {
+        public virtual DataPage<Message> GetPageAll( int receiverId ) {
             return db.findPage<Message>( "Receiver.Id=" + receiverId + " and IsDelete=0" );
         }
 
@@ -195,11 +195,11 @@ namespace wojilu.Common.Msg.Service {
             return db.findPage<MessageData>( condition + " and SenderId=" + senderId );
         }
 
-        public virtual DataPage<MessageData> FindPageSent( int senderId ) {
+        public virtual DataPage<MessageData> GetPageSent( int senderId ) {
             return db.findPage<MessageData>( "Sender.Id=" + senderId + " and IsDelete=0" );
         }
 
-        public virtual DataPage<Message> FindPageTrash( int receiverId ) {
+        public virtual DataPage<Message> GetPageTrash( int receiverId ) {
             return db.findPage<Message>( "Receiver.Id=" + receiverId + " and IsDelete=1" );
         }
 

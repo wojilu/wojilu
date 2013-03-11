@@ -22,6 +22,13 @@ namespace wojilu.Common.Msg.Service {
             return false;
         }
 
+        public bool IsSender( int viewerId, MessageAttachment attachment ) {
+            if (attachment.MessageData == null) return false;
+            MessageData x = MessageData.findById( attachment.MessageData.Id );
+            if (attachment.MessageData.Sender == null) return false;
+            return attachment.MessageData.Sender.Id == viewerId;
+        }
+
         public MessageAttachment GetById( int id ) {
             return MessageAttachment.findById( id );
         }
