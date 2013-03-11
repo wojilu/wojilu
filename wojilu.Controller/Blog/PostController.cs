@@ -36,7 +36,7 @@ namespace wojilu.Web.Controller.Blog {
 
             String saveStatusInfo = string.Empty;
             if (post.SaveStatus == 1) {
-                saveStatusInfo = "<span class='warning border'>" + alang( "blog_draft_info" ) + "</span>";
+                saveStatusInfo = "<div class='warning border'>" + alang( "blog_draft_info" ) + "</div>";
                 if (ctx.viewer.Id != ctx.owner.obj.Id) {
                     echoRedirect( alang( "blog_error_status" ) );
                     return;

@@ -202,7 +202,6 @@
     <Content Include="framework\views\Blog\Admin\Blogroll\Add.html" />
     <Content Include="framework\views\Blog\Admin\Blogroll\AdminList.html" />
     <Content Include="framework\views\Blog\Admin\Blogroll\Edit.html" />
-    <Content Include="framework\views\Blog\Admin\Category\Delete.html" />
     <Content Include="framework\views\Blog\Admin\Category\New.html" />
     <Content Include="framework\views\Blog\Admin\Layout\Layout.html" />
     <Content Include="framework\views\Blog\Admin\Post\Add.html" />

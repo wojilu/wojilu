@@ -53,8 +53,7 @@ namespace wojilu.Web.Controller.Blog.Admin {
             }
             else {
                 rollService.Insert( roll, ctx.owner.obj.Id, ctx.app.Id );
-                echoRedirect( lang( "opok" ), AdminList );
-
+                echoRedirectPart( lang( "opok" ), to( AdminList ) );
             }
         }
 
@@ -80,7 +79,7 @@ namespace wojilu.Web.Controller.Blog.Admin {
             }
             else {
                 rollService.Update( blogroll );
-                echoRedirect( lang( "opok" ), AdminList );
+                echoRedirectPart( lang( "opok" ), to( AdminList ) );
             }
         }
 

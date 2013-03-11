@@ -107,7 +107,7 @@ namespace wojilu.Web.Controller.Blog.Admin {
             Result result = postService.Insert( data, ids );
             if (result.IsValid) {
 
-                echoRedirectPart( lang( "opok" ), to( new MyListController().Index ), 1 );
+                echoRedirectPart( lang( "opok" ), to( new MyListController().Index ) );
             }
             else {
                 echoError( result );
@@ -224,7 +224,7 @@ namespace wojilu.Web.Controller.Blog.Admin {
             Result result = db.update( post );
             if (result.IsValid) {
                 TagService.SaveDataTag( post, ctx.Post( "TagList" ) );
-                echoRedirectPart( lang( "opok" ), to( new MyListController().Index ), 1 );
+                echoRedirectPart( lang( "opok" ), to( new MyListController().Index ) );
             }
             else {
                 echoRedirect( result.ErrorsHtml );

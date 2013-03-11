@@ -96,7 +96,7 @@ namespace wojilu.Web.Controller.Common {
 
             Result result = db.insert( category );
 
-            echoToParent( lang( "opok" ) );
+            echoToParentPart( lang( "opok" ) );
 
         }
 
@@ -121,8 +121,7 @@ namespace wojilu.Web.Controller.Common {
                 echoError( result );
             }
             else
-                echoToParent( lang( "opok" ) );
-                //echoToParent( lang( "okUpdate" ) );
+                echoToParentPart( lang( "opok" ) );
         }
 
         [HttpDelete, DbTransaction]

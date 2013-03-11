@@ -56,7 +56,7 @@ namespace wojilu.Web.Controller.Blog.Admin {
             int count = postService.GetCountByCategory( id );
             if (count > 0) {
                 String msg = string.Format( alang( "deleteCategoryTip" ), count );
-                set( "msg", msg );
+                echo( msg );
             }
             else {
                 base.Delete( id );

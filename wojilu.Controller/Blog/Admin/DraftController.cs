@@ -97,7 +97,7 @@ namespace wojilu.Web.Controller.Blog.Admin {
 
             Result result = postService.PublishDraft( post );
             if (result.IsValid) {
-                echoRedirect( lang( "opok" ), new MyListController().My );
+                echoRedirectPart( lang( "opok" ), to( new MyListController().My ) );
             }
             else {
                 echoRedirect( result.ErrorsHtml );
