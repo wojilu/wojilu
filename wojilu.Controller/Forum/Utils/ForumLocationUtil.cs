@@ -28,7 +28,7 @@ namespace wojilu.Web.Controller.Forum.Utils {
         public static String GetBoard( List<ForumBoard> boards, MvcContext ctx ) {
             StringBuilder sb = getBuilder( boards, ctx );
             int length = separator.Length + 1;
-            sb.Remove( sb.Length - length, separator.Length+1 );
+            sb.Remove( sb.Length - length, separator.Length + 1 );
             appendEnd( sb );
             return sb.ToString();
         }
@@ -91,7 +91,7 @@ namespace wojilu.Web.Controller.Forum.Utils {
         public static String GetTopic( List<ForumBoard> boards, ForumTopic topic, MvcContext ctx ) {
             StringBuilder sb = getBuilder( boards, ctx );
             String url = LinkUtil.appendListPageToTopic( alink.ToAppData( topic ), ctx );
-            sb.AppendFormat( "<div class=\"pull-left\"><a href=\"{0}\">" + alang( ctx, "pTopic" ) + ": {1}</a></div>", url, topic.Title );
+            sb.AppendFormat( "<div class=\"pull-left\"><a href=\"{0}\">" + alang( ctx, "pTopic" ) + ": {1}</a></div>", url, strUtil.CutString( topic.Title, 35 ) );
 
             appendEnd( sb );
             return sb.ToString();
