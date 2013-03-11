@@ -12,8 +12,8 @@ namespace wojilu.Apps.Forum.Interface {
         ForumPick GetEditTopic( int appId, int topicId );
         ForumPick GetPinPostByIndex( int appId, int index );
 
-        void AddPinPost( int appId, int index, string title, string link, string summary );
-        void AddPinTopic( ForumTopic topic, int index );
+        Result AddPinPost( int appId, int index, string title, string link, string summary );
+        Result AddPinTopic( ForumTopic topic, int index );
 
         void DeletePinPost( int appId, int index );
         void DeleteTopic( int appId, int topicId );

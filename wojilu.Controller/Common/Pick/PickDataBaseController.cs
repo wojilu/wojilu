@@ -201,13 +201,24 @@ namespace wojilu.Web.Controller.Common {
         [HttpPost]
         public void SavePinAd() { // 保存普通广告pin
 
-            pickService.AddPinPost( ctx.app.Id, ctx.PostInt( "Index" ),
+            int idx = ctx.PostInt( "Index" );
+            if (idx <= 0) {
+                echoError( "请选择一个固定位置" );
+                return;
+            }
+
+            Result ret = pickService.AddPinPost( ctx.app.Id, idx,
                 ctx.PostHtml( "Title" ),
                 ctx.Post( "Link" ),
                 ctx.PostHtml( "Summary" )
                 );
 
-            echoToParentPart( lang( "opok" ) );
+            if (ret.HasErrors) {
+                echoError( ret );
+            }
+            else {
+                echoToParentPart( lang( "opok" ) );
+            }
         }
 
         public void PinTopic( int topicId ) { // 主题pin
@@ -226,11 +237,25 @@ namespace wojilu.Web.Controller.Common {
         [HttpPost]
         public void SavePinTopic( int topicId ) {
 
-            TData topic = getTopic( topicId );
-            if (topic == null) throw new NullReferenceException( "PinTopic" );
+            int idx = ctx.PostInt( "Index" );
+            if (idx <= 0) {
+                echoError( "请选择一个固定位置" );
+                return;
+            }
 
-            pickService.AddPinTopic( topic, ctx.PostInt( "Index" ) );
-            echoToParentPart( lang( "opok" ) );
+            TData topic = getTopic( topicId );
+            if (topic == null) {
+                echoError( lang( "exDataNotFound" ) + "=PinTopic" );
+                return;
+            }
+
+            Result ret = pickService.AddPinTopic( topic, idx );
+            if (ret.HasErrors) {
+                echoError( ret );
+            }
+            else {
+                echoToParentPart( lang( "opok" ) );
+            }
         }
 
         // 3）删除与恢复

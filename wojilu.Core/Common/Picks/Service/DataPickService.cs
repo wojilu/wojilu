@@ -132,9 +132,14 @@ namespace wojilu.Common.Picks {
             return db.find<TPick>( addAppId( condition, appId ) ).get( "PinIndex" );
         }
 
-        public void AddPinTopic( TData topic, int index ) {
+        public Result AddPinTopic( TData topic, int index ) {
 
-            if (hasPosition( topic.AppId, index ) == false) throw new Exception( "位置已被占用:" + index );
+            Result ret = new Result();
+            
+            if (hasPosition( topic.AppId, index ) == false) {
+                ret.Add( "位置已被占用:" + index );
+                return ret;
+            }
 
             List<TPick> customList = getCustomList( topic.AppId );
             TPick editPost = getEditPost( topic, customList );
@@ -144,22 +149,26 @@ namespace wojilu.Common.Picks {
 
             // 然后添加固定内容
             if (editPost != null) {
-                this.AddPinPost( topic.AppId, index, editPost.Title, editPost.Link, editPost.Summary, topic.Id );
+                return this.AddPinPost( topic.AppId, index, editPost.Title, editPost.Link, editPost.Summary, topic.Id );
             }
             else {
-                this.AddPinPost( topic.AppId, index, topic.Title, alink.ToAppData( topic ), getSummary( topic ), topic.Id );
+                return this.AddPinPost( topic.AppId, index, topic.Title, alink.ToAppData( topic ), getSummary( topic ), topic.Id );
             }
         }
 
 
-        public void AddPinPost( int appId, int index, String title, String link, String summary ) {
-            this.AddPinPost( appId, index, title, link, summary, 0 );
-
+        public Result AddPinPost( int appId, int index, String title, String link, String summary ) {
+            return this.AddPinPost( appId, index, title, link, summary, 0 );
         }
 
-        public void AddPinPost( int appId, int index, String title, String link, String summary, int topicId ) {
+        public Result AddPinPost( int appId, int index, String title, String link, String summary, int topicId ) {
 
-            if (hasPosition( appId, index ) == false) throw new Exception( "位置已被占用:" + index );
+            Result ret = new Result();
+
+            if (hasPosition( appId, index ) == false) {
+                ret.Add( "位置已被占用:" + index );
+                return ret;
+            }
 
             TPick x = new TPick();
             x.AppId = appId;
@@ -171,7 +180,7 @@ namespace wojilu.Common.Picks {
             x.Link = link;
             x.Summary = summary;
 
-            x.insert();
+            return x.insert();
         }
 
         private bool hasPosition( int appId, int index ) {
