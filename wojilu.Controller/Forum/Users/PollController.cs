@@ -189,7 +189,11 @@ namespace wojilu.Web.Controller.Forum.Users {
                 html.CheckBox( "pollOption", Convert.ToString( (optionIndex + 1) ), optionText );
             }
             else {
-                html.Radio( "pollOption", Convert.ToString( (optionIndex + 1) ), optionText );
+                String __name = "pollOption";
+                String __val = Convert.ToString( (optionIndex + 1) );
+                String __txt = optionText;
+
+                html.Code( string.Format( "<label class=\"radio\"><input type=\"radio\" name=\"{0}\" id=\"{3}\" value=\"{1}\" /> {2}</label> ", __name, __val, __txt, __name + __val ) );
             }
             return html.ToString();
         }
