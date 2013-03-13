@@ -42,6 +42,7 @@
     <Compile Include="Demo\FrmLinkController.cs" />
     <Compile Include="Demo\FrmTestController.cs" />
     <Compile Include="Demo\LayoutController.cs" />
+    <Compile Include="Demo\MenuController.cs" />
     <Compile Include="Demo\UploadController.cs" />
     <Compile Include="Demo\ValidController.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

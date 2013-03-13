@@ -11959,6 +11959,18 @@ wojilu.ui.menu = function(eleId) {
     );
 };
 
+wojilu.ui.xmenu = function() {
+    $('.xmenu').find('li').each(function () {
+        if ($(this).find('ul').length > 0) {
+            $(this).hover(function () {
+                $(this).find('>ul').stop(true, true).slideDown('fast');
+            }, function () {
+                $(this).find('>ul').stop(true, true).hide('fast');
+            });
+        }
+    });
+};
+
 wojilu.ui.tab = function() { wojilu.tool.makeTab( '.otherTab', 'currentTab', 'otherTab' );};
 
 wojilu.ui.pageReturn = function() {
@@ -12908,6 +12920,7 @@ wojilu.ui.select = function() {
 
 $(document).ready( function() {
     wojilu.ui.menu();
+    wojilu.ui.xmenu();
     wojilu.ui.tab();
     wojilu.ui.httpMethod();
     wojilu.ui.frmBox();

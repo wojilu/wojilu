@@ -175,6 +175,7 @@ namespace wojilu.Web.Controller.Layouts {
 
             foreach (IMenu m in list) {
 
+                if (m == null || strUtil.IsNullOrEmpty( m.RawUrl )) continue;
                 if (m.RawUrl.StartsWith( "http:" )) continue;
 
                 Route rt = RouteTool.RecognizePath( m.RawUrl );

@@ -153,7 +153,6 @@ namespace wojilu.Web.Controller.Admin {
             item.AdCode = ctx.PostHtmlAll( "adItem.AdCode" );
 
             if (strUtil.IsNullOrEmpty( item.Name )) errors.Add( "请填写名称" );
-            if (strUtil.IsNullOrEmpty( item.AdCode )) errors.Add( "请填写广告代码" );
         }
 
         [HttpPost, DbTransaction]

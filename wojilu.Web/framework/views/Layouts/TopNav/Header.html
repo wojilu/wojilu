@@ -11,12 +11,20 @@
 
 <div class="site-nav-wrap" id="site-nav-wrap">
     <ul id="site-nav">     
-        <!-- BEGIN navLink -->
-        <li id="#{menu.ItemId}" class="#{menu.CurrentClass}"><!-- BEGIN rootNav -->
-            <a href="#{menu.Link}" style="#{menu.Style}" #{menu.LinkTarget}>#{menu.Name}</a><!-- END rootNav --> <!-- BEGIN subNav -->
-            <a href="#{menu.Link}" style="#{menu.Style}" #{menu.LinkTarget}>#{menu.Name}<span class="caret" style="border-top-color:#fff;"></span></a>
-            <ul class="dropdown-menu"><!-- BEGIN subMenu --><li><a href="#{menu.Link}" style="#{menu.Style}" #{menu.LinkTarget}>#{menu.Name}</a></li><!-- END subMenu --></ul><!-- END subNav -->                
-        </li><!-- END navLink -->
+        <!-- BEGIN navLink --><!-- BEGIN rootNav -->
+            <li id="#{menu.ItemId}" class="root-item #{menu.CurrentClass}">
+                <a href="#{menu.Link}" class="root-link" style="#{menu.Style}" #{menu.LinkTarget}>#{menu.Name}</a>
+            </li>
+            <!-- END rootNav -->
+            <!-- BEGIN subNav -->
+            <li id="#{menu.ItemId}" class="root-item dropdown #{menu.CurrentClass}">
+                <a href="#{menu.Link}" style="#{menu.Style}" #{menu.LinkTarget} class="root-link dropdown-toggle" data-toggle="dropdown" data-hover="dropdown">#{menu.Name} <b class="arrowDown"></b></a>
+                <ul class="dropdown-menu">
+                    <!-- BEGIN subMenu --><li><a href="#{menu.Link}" style="#{menu.Style}" #{menu.LinkTarget}>#{menu.Name}</a></li>
+                    <!-- END subMenu -->
+                </ul>
+            </li><!-- END subNav -->               
+        <!-- END navLink -->
     </ul>
 </div>
 

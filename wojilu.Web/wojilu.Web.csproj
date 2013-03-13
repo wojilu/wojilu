@@ -77,6 +77,7 @@
     <Content Include="framework\views\Admin\Upgrade\CommentImport\Index.html" />
     <Content Include="framework\views\Connect\confirmUserInfo.html" />
     <Content Include="framework\views\Demo\CtxPost\Index.html" />
+    <Content Include="framework\views\Demo\Menu\Multi.html" />
     <Content Include="framework\views\Main\connectLogin.html" />
     <Content Include="framework\views\Open\Admin\CommentBase\List.html" />
     <Content Include="framework\views\Open\CommentList\Index.html" />
@@ -987,7 +988,7 @@
     <Content Include="framework\views\Demo\Valid\CustomRule.html" />
     <Content Include="framework\views\Demo\Valid\Drop.html" />
     <Content Include="framework\views\Demo\Valid\HttpMethod.html" />
-    <Content Include="framework\views\Demo\Valid\Menu.html" />
+    <Content Include="framework\views\Demo\Menu\Simple.html" />
     <Content Include="framework\views\Demo\Valid\Editor.html" />
     <Content Include="framework\views\Demo\Valid\EditorCustom.html" />
     <Content Include="framework\views\Demo\Valid\EditorExt.html" />

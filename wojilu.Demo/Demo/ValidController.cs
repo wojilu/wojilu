@@ -319,8 +319,7 @@ namespace wojilu.Web.Controller.Demo {
 
         //----------------------------------------------------------------------------------------------------------------
 
-        public void Menu() {
-        }
+
 
         public void Tab( int id ) {
         }

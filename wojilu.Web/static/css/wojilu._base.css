@@ -95,6 +95,20 @@ a.currentPageNo {color:#fff;background-color:#296bbc;padding:2px 4px 2px 4px; bo
 .menuItems a:hover {text-decoration:none;}
 .menuItems { box-shadow:3px 3px 15px #aaa; filter:progid:DXImageTransform.Microsoft.Shadow(color='#cccccc', Direction=135, Strength=5); }
 
+/********* xmenu *********/
+.xmenu {float: left;margin: 0; padding: 0;}
+.xmenu li a, 
+.xmenu li {float: left;}
+.xmenu li {list-style: none;position: relative;}
+.xmenu li ul {display: none;position: absolute;left: 0;top: 100%;	padding: 0; margin: 0;}
+.xmenu li:hover > ul {display: block;}
+.xmenu li ul li,
+.xmenu li ul li a {float: none;}
+.xmenu li ul li a {width: 150px;display: block;}
+* html .xmenu li ul li {display: inline; }
+.xmenu li ul li ul {display: none;}
+.xmenu li ul li:hover ul {	left: 100%;top: 0;}
+
 .clickMenu {cursor:pointer; }
 .frmUpdate {cursor:pointer;}
 
@@ -204,13 +218,15 @@ blockquote div{font-size:14px; color:#3e3e3e;}
     #slogo {margin:40px 0px 0px 30px;}
 
 #site-nav {background:url(../skin/site/new/menu-nav-bg.jpg); height:40px;margin:0px;padding-left:20px;}
-#site-nav li { float:left; display:block; margin:0px;height:38px;margin-top:2px;}
-#site-nav a { color:#fff;display:block;font-weight:bold;height:38px; font-size:14px;padding:10px 13px 0px 13px; text-decoration:none;}
-#site-nav li:hover { background:#f2f2f2;}
-#site-nav li a:hover { color:#666;}
+#site-nav li.root-item { float:left; display:block; margin:0px;height:38px;margin-top:2px;}
+#site-nav a.root-link { color:#fff;display:block;font-weight:bold;height:38px; font-size:14px;padding:10px 13px 0px 13px; text-decoration:none;}
 
 #site-nav .current-site-menu { background:#fff; }
-#site-nav .current-site-menu a { color:#666; }
+#site-nav .current-site-menu a.root-link { color:#666; }
+#site-nav .arrowDown {display:inline-block;width:0;height:0;vertical-align:top;border-top:4px solid #fff;border-left:4px solid transparent;border-right:4px solid transparent;margin-top:7px;}
+#site-nav .current-site-menu .arrowDown { border-top-color:#aaa; }
+
+#site-nav .dropdown-menu a { padding:8px 20px;}
 
 .admin-menu-wrap { padding:8px 10px; border-width:5px !important;margin-top:10px; margin-left:30px; margin-right:15px; margin-bottom:5px;}
 .admin-menu-wrap a { color:#C09853;}
