@@ -54,7 +54,19 @@ namespace wojilu.Common.Microblogs.Service {
         public virtual DataPage<Microblog> GetPageByCondition( String condition, int pageSize ) {
             DataPage<Microblog> list;
             if (strUtil.HasText( condition )) {
-                list = db.findPage<Microblog>( condition + " and " + showCondition(), pageSize );
+
+                String strCondition = showCondition();
+                if (condition.Trim().ToLower().StartsWith( "order" )) {
+                    strCondition = strCondition + " " + condition;
+                }
+                else if (condition.Trim().ToLower().StartsWith( "and" )) {
+                    strCondition = strCondition + " " + condition;
+                }
+                else {
+                    strCondition = strCondition + " and " + condition;
+                }
+
+                list = db.findPage<Microblog>( strCondition, pageSize );
             }
             else {
                 list = DataPage<Microblog>.GetEmpty();
