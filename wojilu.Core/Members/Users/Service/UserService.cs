@@ -349,7 +349,7 @@ namespace wojilu.Members.Users.Service {
         public virtual List<User> GetRankedToMakeFriends( int count, List<int> ids ) {
 
             List<User> results = new List<User>();
-            List<User> list = db.find<User>( "order by Credit desc, Hits desc, Id desc" ).list( count );
+            List<User> list = db.find<User>( "status>=0 order by Credit desc, Hits desc, Id desc" ).list( count );
             foreach (User user in list) {
                 if (ids.Contains( user.Id )) continue;
                 results.Add( user );
@@ -359,7 +359,7 @@ namespace wojilu.Members.Users.Service {
 
 
         public virtual List<User> GetRanked( int count ) {
-            return db.find<User>( "order by Credit desc, Hits desc, Id desc" ).list( count );
+            return db.find<User>( "status>=0 order by Credit desc, Hits desc, Id desc" ).list( count );
         }
 
         public virtual List<User> GetRanked( String sortBy, int count ) {
