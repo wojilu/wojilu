@@ -26,10 +26,11 @@ namespace wojilu.Web.Controller.Open {
         public void List() {
 
             String url = ctx.Get( "url" );
-            url = strUtil.SqlClean( url, 50 );
+            url = strUtil.SqlClean( url, 100 );
 
             int dataId = ctx.GetInt( "dataId" );
             String dataType = ctx.Get( "dataType" );
+            int pageSize = ctx.GetInt( "pageSize" );
 
             set( "createLink", to( Create ) );
             set( "thisUrl", url );
@@ -39,7 +40,7 @@ namespace wojilu.Web.Controller.Open {
             set( "thisDataUserId", ctx.GetInt( "dataUserId" ) );
             set( "thisAppId", ctx.GetInt( "appId" ) );
 
-            DataPage<OpenComment> datas = commentService.GetByDataDesc( dataType, dataId );
+            DataPage<OpenComment> datas = commentService.GetByDataDesc( dataType, dataId, pageSize );
             int replies = commentService.GetReplies( dataId, dataType, url );
 
             List<OpenComment> lists = datas.Results;

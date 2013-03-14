@@ -1,9 +1,10 @@
 ﻿<div id="commentWrap">
-
+<div><a name="commentTop"></a></div>
 <style>
     .commentPublishTableWrap { width: 85%;background:#f2f2f2;margin:10px 10px 10px 15px; padding:10px; border-radius:5px; box-shadow:0px 0px 8px #aaa; }
     .commentPublishTable { width:98%; }
 .commentItem {width:100%; margin: 8px; border-bottom: 1px #ccc solid;padding-bottom:10px;}
+.commentSubItem {border-bottom: 0px; border-top:1px solid #ccc; padding-bottom:0px; padding-top:8px;}
 .fL { float: left; }
 .commentItem img { border-radius:4px;}
 
@@ -83,7 +84,7 @@
                 <div class="replySubList" id="replyListLine#{c.Id}" style="width:95%;">
 
                     <!-- BEGIN replyList -->
-                    <table class="commentItem" id="commentItem#{c.Id}" style="width:99%;"><tr>
+                    <table class="commentItem commentSubItem" id="commentItem#{c.Id}" style="width:99%;"><tr>
                         <td class="cmUserFace">#{c.UserFace}</td>
                         <td class="cmItemMain">
                             <div><span class="strong">#{c.UserName}</span></div>
@@ -123,6 +124,12 @@
     }
 
     _run(function () {
+
+        $('.turnpage a').attr('target', '');
+        $('.turnpage a').each( function() {
+            var newUrl = $(this).attr('href')+'#commentTop';
+            $(this).attr('href', newUrl);
+        });
 
         var commentInfo = {
 

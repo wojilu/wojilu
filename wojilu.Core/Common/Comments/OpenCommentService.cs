@@ -65,8 +65,14 @@ namespace wojilu.Common.Comments {
         }
 
         public DataPage<OpenComment> GetByDataDesc( String dataType, int dataId ) {
+            return GetByDataDesc( dataType, dataId, -1 );
+        }
 
-            DataPage<OpenComment> datas = OpenComment.findPage( "TargetDataType='" + strUtil.SqlClean( dataType, 50 ) + "' and TargetDataId=" + dataId + " and ParentId=0" );
+        public DataPage<OpenComment> GetByDataDesc( String dataType, int dataId, int pageSize ) {
+
+            if (pageSize <= 0 || pageSize > 500) pageSize = 20;
+
+            DataPage<OpenComment> datas = OpenComment.findPage( "TargetDataType='" + strUtil.SqlClean( dataType, 50 ) + "' and TargetDataId=" + dataId + " and ParentId=0", pageSize );
 
             datas.Results = addSubList( datas.Results, true );
 

@@ -20,6 +20,8 @@ namespace wojilu.Common.Comments {
 
         DataPage<OpenComment> GetByDataAsc( string dataType, int dataId );
         DataPage<OpenComment> GetByDataDesc( string dataType, int dataId );
+        DataPage<OpenComment> GetByDataDesc( string dataType, int dataId, int pageSize );
+
         DataPage<OpenComment> GetByUrlAsc( string url );
         DataPage<OpenComment> GetByUrlDesc( string url );
 
@@ -32,6 +34,7 @@ namespace wojilu.Common.Comments {
         int GetRepliesByUrl( string url );
 
         Result Import( OpenComment c );
+
 
     }
 
