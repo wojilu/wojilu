@@ -164,7 +164,11 @@ namespace wojilu.Web.Utils {
                 postedFile.SaveAs( filename );
 
                 foreach (ThumbnailType ttype in arrThumbType) {
-                    saveThumbSmall( filename, ttype );
+                    Boolean isValid = saveThumbSmall( filename, ttype );
+                    if (!isValid) {
+                        result.Add( "format error: " + postedFile.FileName );
+                        return result;
+                    }
                 }
 
             }
@@ -177,7 +181,7 @@ namespace wojilu.Web.Utils {
             return result;
         }
 
-        private static void saveThumbSmall( String filename, ThumbnailType ttype ) {
+        private static Boolean saveThumbSmall( String filename, ThumbnailType ttype ) {
 
             int x = 0;
             int y = 0;
@@ -197,23 +201,36 @@ namespace wojilu.Web.Utils {
                 y = config.Instance.Site.PhotoThumbHeightBig;
             }
 
+            try {
+                using (Image img = Image.FromFile( filename )) {
+                    if (img.Size.Width <= x && img.Size.Height <= y) {
+                        File.Copy( filename, Img.GetThumbPath( filename, ttype ) );
+                    }
+                    else {
+                        Img.SaveThumbnail( filename, Img.GetThumbPath( filename, ttype ), x, y, sm );
+                    }
+                }
 
-            using (Image img = Image.FromFile( filename )) {
-                if (img.Size.Width <= x && img.Size.Height <= y) {
-                    File.Copy( filename, Img.GetThumbPath( filename, ttype ) );
-                }
-                else {
-                    Img.SaveThumbnail( filename, Img.GetThumbPath( filename, ttype ), x, y, sm );
-                }
+                return true;
+            }
+            catch (OutOfMemoryException ex) {
+                logger.Error( "file format error: " + filename );
+                return false;
             }
         }
 
 
         private static Boolean shouldMakeThumb( String ofile ) {
-            using (Image img = Image.FromFile( ofile )) {
-                if (img.Size.Width <= 500 && img.Size.Height <= 500) return false;
+            try {
+                using (Image img = Image.FromFile( ofile )) {
+                    if (img.Size.Width <= 500 && img.Size.Height <= 500) return false;
+                }
+                return true;
             }
-            return true;
+            catch (OutOfMemoryException ex) {
+                logger.Error( "file format error: " + ofile );
+                return false;
+            }
         }
 
 

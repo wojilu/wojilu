@@ -229,26 +229,31 @@ namespace wojilu.Drawing {
         /// <param name="mode"></param>
         public static void SaveThumbnail( String srcPath, String destPath, int width, int height, SaveThumbnailMode mode ) {
 
-            using (Image srcImg = Image.FromFile( srcPath )) {
+            try {
+                using (Image srcImg = Image.FromFile( srcPath )) {
 
-                ThumbSize t = getTargetSize( width, height, mode, srcImg );
-                using (Bitmap newImg = new Bitmap( t.New.Width, t.New.Height )) {
+                    ThumbSize t = getTargetSize( width, height, mode, srcImg );
+                    using (Bitmap newImg = new Bitmap( t.New.Width, t.New.Height )) {
 
-                    using (Graphics g = Graphics.FromImage( newImg )) {
-                        g.InterpolationMode = InterpolationMode.High;
-                        g.SmoothingMode = SmoothingMode.HighQuality;
-                        g.Clear( Color.White );
-                        g.DrawImage( srcImg, t.getNewRect(), t.getRect(), GraphicsUnit.Pixel );
+                        using (Graphics g = Graphics.FromImage( newImg )) {
+                            g.InterpolationMode = InterpolationMode.High;
+                            g.SmoothingMode = SmoothingMode.HighQuality;
+                            g.Clear( Color.White );
+                            g.DrawImage( srcImg, t.getNewRect(), t.getRect(), GraphicsUnit.Pixel );
 
-                        try {
-                            newImg.Save( destPath, ImageFormat.Jpeg );
+                            try {
+                                newImg.Save( destPath, ImageFormat.Jpeg );
+                            }
+                            catch (Exception e) {
+                                throw e;
+                            }
+
                         }
-                        catch (Exception e) {
-                            throw e;
-                        }
-
                     }
                 }
+            }
+            catch (OutOfMemoryException ex) {
+                logger.Error( "file format error: " + srcPath );
             }
         }
 
@@ -353,17 +358,17 @@ namespace wojilu.Drawing {
             if (t.Equals( "jpg" )) return "jpg";
             if (t.Equals( "jpeg" )) return "jpeg";
 
-            if (t.Equals( "image/gif")) return "gif";
-            if (t.Equals( "image/bmp")) return "bmp";
-            if (t.Equals( "image/tiff")) return "tiff";
-            if (t.Equals( "image/x-icon")) return "icon";
-            if (t.Equals( "image/x-png")) return "png"; // ie
+            if (t.Equals( "image/gif" )) return "gif";
+            if (t.Equals( "image/bmp" )) return "bmp";
+            if (t.Equals( "image/tiff" )) return "tiff";
+            if (t.Equals( "image/x-icon" )) return "icon";
+            if (t.Equals( "image/x-png" )) return "png"; // ie
             if (t.Equals( "image/png" )) return "png"; // firefox, google
 
-            if (t.Equals( "image/x-emf")) return "emf";
-            if (t.Equals( "image/x-exif")) return "exif";
-            if (t.Equals( "image/x-wmf")) return "wmf";
-            if (t.Equals( "image/pjpeg")) return "jpg"; // ie6
+            if (t.Equals( "image/x-emf" )) return "emf";
+            if (t.Equals( "image/x-exif" )) return "exif";
+            if (t.Equals( "image/x-wmf" )) return "wmf";
+            if (t.Equals( "image/pjpeg" )) return "jpg"; // ie6
             if (t.Equals( "image/jpg" )) return "jpg"; // ie8
             if (t.Equals( "image/jpeg" )) return "jpg"; // firefox, google
 
@@ -393,16 +398,16 @@ namespace wojilu.Drawing {
             if (t.Equals( "jpg" )) return ImageFormat.Jpeg;
             if (t.Equals( "jpeg" )) return ImageFormat.Jpeg;
 
-            if (t.Equals( "image/pjpeg")) return ImageFormat.Jpeg;
-            if (t.Equals( "image/gif")) return ImageFormat.Gif;
-            if (t.Equals( "image/bmp")) return ImageFormat.Bmp;
-            if (t.Equals( "image/tiff")) return ImageFormat.Tiff;
-            if (t.Equals( "image/x-icon")) return ImageFormat.Icon;
-            if (t.Equals( "image/x-png")) return ImageFormat.Png;
+            if (t.Equals( "image/pjpeg" )) return ImageFormat.Jpeg;
+            if (t.Equals( "image/gif" )) return ImageFormat.Gif;
+            if (t.Equals( "image/bmp" )) return ImageFormat.Bmp;
+            if (t.Equals( "image/tiff" )) return ImageFormat.Tiff;
+            if (t.Equals( "image/x-icon" )) return ImageFormat.Icon;
+            if (t.Equals( "image/x-png" )) return ImageFormat.Png;
             if (t.Equals( "image/png" )) return ImageFormat.Png;
-            if (t.Equals( "image/x-emf")) return ImageFormat.Emf;
-            if (t.Equals( "image/x-exif")) return ImageFormat.Exif;
-            if (t.Equals( "image/x-wmf")) return ImageFormat.Wmf;
+            if (t.Equals( "image/x-emf" )) return ImageFormat.Emf;
+            if (t.Equals( "image/x-exif" )) return ImageFormat.Exif;
+            if (t.Equals( "image/x-wmf" )) return ImageFormat.Wmf;
 
             return ImageFormat.MemoryBmp;
         }

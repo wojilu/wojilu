@@ -121,7 +121,14 @@ namespace wojilu.Web.Utils {
             try {
 
                 aSaver.Save( picAbsPath );
-                saveAvatarThumb( picAbsPath );
+                Boolean isValid = saveAvatarThumb( picAbsPath );
+                if (!isValid) {
+
+                    file.Delete( picAbsPath );
+                    result.Add( "format error" );
+                    return result;
+
+                }
             }
             catch (Exception exception) {
                 logger.Error( lang.get( "exPhotoUploadError" ) + ":" + exception.Message );
@@ -160,41 +167,53 @@ namespace wojilu.Web.Utils {
         }
 
 
-        private static void saveAvatarThumb( String srcPath ) {
+        private static Boolean saveAvatarThumb( String srcPath ) {
 
             Boolean saveSmallThumb = true;
             if (saveSmallThumb) {
                 int x = config.Instance.Site.AvatarThumbWidth;
                 int y = config.Instance.Site.AvatarThumbHeight;
-                saveAvatarPrivate( x, y, srcPath, ThumbnailType.Small );
+                Boolean isValid = saveAvatarPrivate( x, y, srcPath, ThumbnailType.Small );
+                if (!isValid) return false;
             }
 
             if (config.Instance.Site.IsSaveAvatarMedium) {
                 int x = config.Instance.Site.AvatarThumbWidthMedium;
                 int y = config.Instance.Site.AvatarThumbHeightMedium;
-                saveAvatarPrivate( x, y, srcPath, ThumbnailType.Medium );
+                Boolean isValid = saveAvatarPrivate( x, y, srcPath, ThumbnailType.Medium );
+                if (!isValid) return false;
             }
 
             if (config.Instance.Site.IsSaveAvatarBig) {
                 int x = config.Instance.Site.AvatarThumbWidthBig;
                 int y = config.Instance.Site.AvatarThumbHeightBig;
-                saveAvatarPrivate( x, y, srcPath, ThumbnailType.Big );
+                Boolean isValid = saveAvatarPrivate( x, y, srcPath, ThumbnailType.Big );
+                if (!isValid) return false;
             }
 
+            return true;
         }
 
-        private static void saveAvatarPrivate( int x, int y, String srcPath, ThumbnailType ttype ) {
+        public static Boolean saveAvatarPrivate( int x, int y, String srcPath, ThumbnailType ttype ) {
 
             String thumbPath = Img.GetThumbPath( srcPath, ttype );
 
-            using (Image img = Image.FromFile( srcPath )) {
-                if (img.Size.Width <= x && img.Size.Height <= y) {
-                    File.Copy( srcPath, thumbPath );
+            try {
+                using (Image img = Image.FromFile( srcPath )) {
+                    if (img.Size.Width <= x && img.Size.Height <= y) {
+                        File.Copy( srcPath, thumbPath );
+                    }
+                    else {
+                        logger.Info( "save thumbnail..." + ttype.ToString() + ": " + srcPath + "=>" + thumbPath );
+                        Img.SaveThumbnail( srcPath, thumbPath, x, y, SaveThumbnailMode.Cut );
+                    }
+                    return true;
                 }
-                else {
-                    logger.Info( "SaveThumbnail..." + ttype.ToString() );
-                    Img.SaveThumbnail( srcPath, thumbPath, x, y, SaveThumbnailMode.Cut );
-                }
+
+            }
+            catch (OutOfMemoryException ex) {
+                logger.Error( "file format error: " + srcPath );
+                return false;
             }
 
 
