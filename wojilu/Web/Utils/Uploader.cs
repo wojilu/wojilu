@@ -166,6 +166,7 @@ namespace wojilu.Web.Utils {
                 foreach (ThumbnailType ttype in arrThumbType) {
                     Boolean isValid = saveThumbSmall( filename, ttype );
                     if (!isValid) {
+                        file.Delete( filename );
                         result.Add( "format error: " + postedFile.FileName );
                         return result;
                     }
@@ -202,20 +203,23 @@ namespace wojilu.Web.Utils {
             }
 
             try {
-                using (Image img = Image.FromFile( filename )) {
-                    if (img.Size.Width <= x && img.Size.Height <= y) {
-                        File.Copy( filename, Img.GetThumbPath( filename, ttype ) );
-                    }
-                    else {
-                        Img.SaveThumbnail( filename, Img.GetThumbPath( filename, ttype ), x, y, sm );
-                    }
-                }
-
+                saveThumbImagePrivate( filename, ttype, x, y, sm );
                 return true;
             }
             catch (OutOfMemoryException ex) {
                 logger.Error( "file format error: " + filename );
                 return false;
+            }
+        }
+
+        private static void saveThumbImagePrivate( String filename, ThumbnailType ttype, int x, int y, SaveThumbnailMode sm ) {
+            using (Image img = Image.FromFile( filename )) {
+                if (img.Size.Width <= x && img.Size.Height <= y) {
+                    File.Copy( filename, Img.GetThumbPath( filename, ttype ) );
+                }
+                else {
+                    Img.SaveThumbnail( filename, Img.GetThumbPath( filename, ttype ), x, y, sm );
+                }
             }
         }
 
@@ -235,7 +239,7 @@ namespace wojilu.Web.Utils {
 
 
         /// <summary>
-        /// 上传图片(自定义保存路径)
+        /// 上传图片(自定义保存路径)，同时生成最小的缩略图
         /// </summary>
         /// <param name="uploadPath">保存路径(相对路径)</param>
         /// <param name="postedFile">HttpFile</param>
@@ -255,8 +259,35 @@ namespace wojilu.Web.Utils {
             String str2 = picName + "." + Img.GetImageExt( postedFile.ContentType );
             String filename = Path.Combine( str, str2 );
             try {
+
+                String oldFile = null;
+                if (file.Exists( filename )) {
+                    oldFile = filename + "." + Guid.NewGuid() + Path.GetExtension( filename );
+                    file.Move( filename, oldFile );
+                }
+
                 postedFile.SaveAs( filename );
-                Img.SaveThumbnail( filename, Img.GetThumbPath( filename ), width, height, SaveThumbnailMode.Cut );
+
+                try {
+                    saveThumbImagePrivate( filename, ThumbnailType.Small, width, height, SaveThumbnailMode.Cut );
+
+                    if (strUtil.HasText( oldFile )) {
+                        file.Delete( oldFile );
+                    }
+                }
+                catch (OutOfMemoryException ex) {
+
+                    file.Delete( filename );
+                    if (strUtil.HasText( oldFile )) {
+                        file.Move( oldFile, filename );
+                    }
+
+                    String msg = "file format error: " + picName;
+                    logger.Error( msg );
+                    result.Add( msg );
+                    return result;
+                }
+
             }
             catch (Exception exception) {
                 logger.Error( lang.get( "exPhotoUploadError" ) + ":" + exception.Message );
@@ -317,12 +348,6 @@ namespace wojilu.Web.Utils {
                 errors.Add( lang.get( "exUploadMax" ) + " " + config.Instance.Site.UploadPicMaxMB + " MB" );
                 return;
             }
-
-            // TODO: (flash upload) application/octet-stream 
-            //if (postedFile.ContentType.ToLower().IndexOf( "image" ) < 0) {
-            //    errors.Add( lang.get( "exPhotoFormatTip" ) );
-            //    return;
-            //}
 
             // 检查文件格式
             if (Uploader.isAllowedPic( postedFile ) == false) {

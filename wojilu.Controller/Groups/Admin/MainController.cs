@@ -96,7 +96,7 @@ namespace wojilu.Web.Controller.Groups.Admin {
                 db.update( group, "Logo" );
                 log( SiteLogString.UpdateGroupLogo(), group );
 
-                echoRedirect( lang( "opok" ) );
+                echoRedirect( lang( "opok" ), Logo );
             }
         }
 

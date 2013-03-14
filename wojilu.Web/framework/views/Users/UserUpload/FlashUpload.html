@@ -20,10 +20,19 @@ _run( function(){
     cfg.queueID = 'uploader'; // 显示进度条的容器
 
     cfg.onUploadSuccess = function (file, data, response) {            
-            var obj = eval( '(' + data + ')' );
-            window.parent.addEditorPicAndLink( '#{editorName}', obj.PicUrl, obj.OpicUrl );
-            wojilu.tool.reloadPage();// 解决上传完毕，无法输入中文问题
+        var obj = eval( '(' + data + ')' );
+        if( !obj.IsValid ) {
+            alert( obj.Msg );
+            return;
+        }
+
+        window.parent.addEditorPicAndLink( '#{editorName}', obj.PicUrl, obj.OpicUrl );            
     };
+
+    cfg.onQueueComplete = function (data) {
+        wojilu.tool.reloadPage();// 解决上传完毕，无法输入中文问题
+    };
+
 
     wojilu.upload.initFlash( '#file_upload', cfg );
     

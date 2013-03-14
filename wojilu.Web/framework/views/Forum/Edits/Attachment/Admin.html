@@ -83,16 +83,8 @@ _run( function() {
         }
     };
 
-    cfg.onQueueComplete = function (data) {
-        var msg = data.successful_uploads + ' 个文件上传成功. ';
-        if( data.upload_errors>0 ) {
-            msg += data.upload_errors + ' 个错误.';
-            $('#status').text( msg );
-        }
-        else {            
-            wojilu.tool.reloadPage();
-        }
-        
+    cfg.onQueueComplete = function (data) {     
+        wojilu.tool.reloadPage();        
     };
 
     wojilu.upload.initFlash( '#file_upload', cfg );    

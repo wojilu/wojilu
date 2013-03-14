@@ -83,6 +83,7 @@
     <Compile Include="Admin\Apps\Content\CommentController.cs" />
     <Compile Include="Admin\CommentController.cs" />
     <Compile Include="Admin\Sys\ConnectAdminController.cs" />
+    <Compile Include="Admin\Upgrade\FaceController.cs" />
     <Compile Include="ConnectController.cs" />
     <Compile Include="Content\Admin\CommentController.cs" />
     <Compile Include="Forum\ServiceController.cs" />

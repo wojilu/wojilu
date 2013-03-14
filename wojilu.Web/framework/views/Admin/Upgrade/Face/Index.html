@@ -1,0 +1,108 @@
+﻿<div>
+
+<style>
+input.num { width:60px;}
+.btnBig {width:150px;}
+</style>
+
+<script>
+    _run(function () {
+
+        var myTimer;
+
+        function getStatus() {
+            $.post('#{processLink}'.toAjax(), function (data) {
+                $('#txtOutput').html(data);
+                if (data.indexOf('操作结束') >= 0) {
+                    clearInterval(myTimer);
+                    $('#loading').html('<img src="~img/m/ok.gif" /> 操作结束');
+                }
+            });
+        };
+
+
+        $('.myForm').submit(function () {
+            var form = $(this);
+            var obj = form.serializeArray();
+            $.post("#{lnkSave}", obj, function (data) {
+                if (data != 'ok') { alert(data); return; }
+
+                // 每隔200毫秒轮询结果并显示
+                myTimer = setInterval(getStatus, 200);
+                $('#loading', form).remove();
+                $('.btn', form).parent().append('<span id="loading" style="margin-left:10px;"><img src="~img/ajax/ajaxloading.gif" /></span>');
+
+            });
+            return false;
+        });
+
+    });
+</script>
+
+	<div id="listWrap">
+	    <div style="margin-bottom:5px; font-size:14px; font-weight:bold;">生成用户的缩略图</div>
+
+
+        <table style="width:98%;">
+        <tr>
+            <td style="width:280px; vertical-align:top;">
+            
+
+                <div>
+	                <div style="margin:30px 0px 10px 15px;">
+	                    <form action="#{lnkSave}" method="post" class="myForm">
+                        <div>
+                            开始ID <input type="text" name="startId" class="num right20" />                
+                            结束ID <input type="text" name="endId" class="num" />    
+                        </div>
+                        <div style="margin-top:5px;">
+                            <input type="hidden" name="thumbType" value="s" />
+                            <input id="Submit1" type="submit" value="生成最小的缩略图" class="btn btnBig" style="float:left;" />
+	                    </div>
+                        </form>
+	                </div>
+                    <div style=" clear:both;"></div>
+
+	                <div style="margin:30px 0px 10px 15px;">
+	                    <form action="#{lnkSave}" method="post" class="myForm">
+                        <div>
+                            开始ID <input type="text" name="startId" class="num right20" />                
+                            结束ID <input type="text" name="endId" class="num" />    
+                        </div>
+                        <div style="margin-top:5px;">
+                            <input type="hidden" name="thumbType" value="m" />
+                            <input id="Submit2" type="submit" value="生成中等的缩略图" class="btn btnBig" style="float:left;" />
+                        </div>
+	                    </form>
+	                </div>
+                    <div style=" clear:both;"></div>
+
+	                <div style="margin:30px 0px 10px 15px;">
+	                    <form action="#{lnkSave}" method="post" class="myForm">
+                        <div>
+                            开始ID <input type="text" name="startId" class="num right20" />                
+                            结束ID <input type="text" name="endId" class="num" />    
+                        </div>
+                        <div style="margin-top:5px;">
+                            <input type="hidden" name="thumbType" value="b" />
+                            <input id="Submit3" type="submit" value="生成稍大的缩略图" class="btn btnBig" style="float:left;" />
+                        </div>
+	                    </form>
+	                </div>
+                    <div style=" clear:both;"></div>
+                </div>
+
+            </td>
+            <td id="txtOutput" style=" vertical-align:top;"></td>
+        </tr>
+        
+        </table>
+
+	</div>	
+
+
+</div>
+
+<style>
+#listWrap {padding:5px 10px;}
+</style>

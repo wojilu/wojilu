@@ -86,7 +86,7 @@ namespace wojilu.Web.Controller.Photo.Admin {
             }
 
             PhotoAlbum album = albumService.GetById( albumId, ctx.owner.Id );
-            if (album == null) { echoRedirect( lang( "exDataNotFound" ) ); return; }
+            if (album == null) { echo( lang( "exDataNotFound" ) + ": albumId=" + albumId ); return; }
 
             int systemCategoryId = ctx.PostInt( "SystemCategoryId" );
             if (systemCategoryId <= 0) {
@@ -185,8 +185,7 @@ namespace wojilu.Web.Controller.Photo.Admin {
                 // 发生任何错误，则返回
                 Result result = Uploader.SaveImg( file );
                 if (result.HasErrors) {
-                    errors.Join( result );
-                    run( NewPost, albumId );
+                    echo( result.ErrorsHtml );
                     return;
                 }
 

@@ -81,7 +81,8 @@
 
                 </div>
 
-                <div id="uploader"></div>
+                <div id="status"></div>
+                <div id="uploader"></div>                
                 <div id="uploadFiles"></div>
 
             </div>
@@ -118,20 +119,37 @@ _run( function() {
         cfg.fileTypeDesc = 'All Files'; // 选择框中罗列的类型
         cfg.queueID = 'uploader'; // 显示进度条的容器
 
+        // 可以自定义上传处理结果
+        cfg.errors= '';
+        cfg.validCount = 0;
+        cfg.errorCount = 0;
+
         cfg.onUploadSuccess = function (file, data, response) {
             var obj = eval( '(' + data + ')' );
             if( obj.Msg ) {
-                alert( obj.Msg );
+                //alert( obj.Msg );
+                cfg.errors += obj.Msg + '<br/>';
+                cfg.errorCount += 1;
             }
             else {
                 attach.addFile( obj.photo, obj.deleteLink );
+                cfg.validCount += 1;
             }
         };
 
         cfg.onQueueComplete = function (data) {
-            var msg = data.successful_uploads + ' 个文件上传成功. ';
-            if( data.upload_errors>0 ) msg += data.upload_errors + ' 个错误.';
-            $('#status').text( msg );
+            //var msg = data.successful_uploads + ' 个文件上传成功. ';
+            //if( data.upload_errors>0 ) msg += data.upload_errors + ' 个错误.';
+            //$('#status').text( msg );
+
+            var msg = cfg.validCount + ' 个文件上传成功. ';
+            if( cfg.errors.length>0 ) msg += '<br/>' + cfg.errorCount + ' 个错误：<br/>'+cfg.errors;
+            $('#status').html( msg );
+
+            // 重置
+            cfg.errors = '';
+            cfg.validCount = 0;
+            cfg.errorCount = 0;
         };
 
         wojilu.upload.initFlash( '#file_upload', cfg );

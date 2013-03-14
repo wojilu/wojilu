@@ -108,10 +108,9 @@ namespace wojilu.Web.Controller.Users {
             set( "picUrl", post.ImgMediumUrl );
             set( "oPicUrl", post.ImgUrl );
 
-            String json = "{PicUrl:'" + post.ImgMediumUrl + "', OpicUrl:'" + post.ImgUrl + "'}";
+            String json = "{IsValid:true, PicUrl:'" + post.ImgMediumUrl + "', OpicUrl:'" + post.ImgUrl + "'}";
 
-            echoText( json );
-
+            echoJson( json );
         }
 
         [Login]

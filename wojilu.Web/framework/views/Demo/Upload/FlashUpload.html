@@ -89,24 +89,57 @@
         cfg.fileTypeDesc = 'Image Files'; // 选择框中文件类型描述
         cfg.queueID = 'uploadProgressBar'; // 显示进度条的容器
 
+        // 推荐自定义上传处理结果
+        cfg.errors= '';
+        cfg.validCount = 0;
+        cfg.errorCount = 0;
+
         // 每个文件上传成功之后在这里处理。data是服务端返回的数据。
         cfg.onUploadSuccess = function (file, data, response) {
 
+            
+
             /* 如果是json数据，或者是上传错误，可以先eval然后处理
+            如果要查看json字符串，可以用 JSON.stringify(data); 
             var obj = eval( '('+data+')');
 
 	        if( !obj.IsValid ) {
 	            alert( obj.Msg );
 	            return;
 	        }*/
-              
+
+
+            /* 推荐对对处理结果进行自定义统计：正确数和错误数
+            if( data != 'ok' ) {
+                cfg.errors += data + '<br/>';
+                cfg.errorCount += 1;
+            }
+            else {
+                cfg.validCount += 1;
+            }*/
+            
+            /* 其他处理
             $('#imgList').prepend( '&lt;div style="margin:5px;"&gt;&lt;img src="'+data+'" /&gt;&lt;/div&gt;' );
+            */
         };
 
         cfg.onQueueComplete = function (data) {
+
+            /* 对自定义的上传结果进行汇总显示 */
+            var msg = cfg.validCount + ' 个文件上传成功. ';
+            if( cfg.errors.length>0 ) msg += '<br/>' + cfg.errorCount + ' 个错误：<br/>'+cfg.errors;
+            $('#uploadResult').html( msg );
+
+            // 重置上传数量
+            cfg.errors = '';
+            cfg.validCount = 0;
+            cfg.errorCount = 0;
+
+            /* 插件自带的处理结果(不推荐)
             var msg = data.successful_uploads + ' 个文件上传成功. ';
             if( data.upload_errors&gt;0 ) msg += data.upload_errors + ' 个错误.';
-            $('#uploadResult').text( msg );
+            $('#uploadResult').text( msg );*/
+
         };
 
         // 2) 将普通上传控件转化为 flash 上传控件

@@ -21,7 +21,7 @@
 	</table>
 	<div id="uploadPanel" style="display:none;margin-top:-20px;">
 	    <div style="margin:0px 0px 0px 20px;"><input id="myFile" name="myFile" type="file" /></div>
-        <div id="uploadResult" style="margin-left:22px;">一次最多选择10张图片</div>
+        <div id="uploadResult" style="margin-left:22px; margin-top:10px;">一次最多选择10张图片</div>
 	    <div id="uploadProgressBar"></div>	
 	</div>
 	
@@ -64,10 +64,34 @@ _run( function() {
         cfg.fileTypeDesc = 'Image Files'; // 选择框中罗列的类型
         cfg.queueID = 'uploadProgressBar'; // 显示进度条的容器
 
+        // 可以自定义上传处理结果
+        cfg.errors= '';
+        cfg.validCount = 0;
+        cfg.errorCount = 0;
+
+        // 每个文件上传成功之后在这里处理。data是服务端返回的数据。
+        cfg.onUploadSuccess = function (file, data, response) {
+            if( data != 'ok' ) {
+                cfg.errors += data + '<br/>';
+                cfg.errorCount += 1;
+            }
+            else {
+                cfg.validCount += 1;
+            }          
+        };
+
         cfg.onQueueComplete = function (data) {
-            var msg = data.successful_uploads + ' 个文件上传成功. ';
-            if( data.upload_errors>0 ) msg += data.upload_errors + ' 个错误.';
-            $('#uploadResult').text( msg );
+
+
+            var msg = cfg.validCount + ' 个文件上传成功. ';
+            if( cfg.errors.length>0 ) msg += '<br/>' + cfg.errorCount + ' 个错误：<br/>'+cfg.errors;
+            $('#uploadResult').html( msg );
+
+            // 重置
+            cfg.errors = '';
+            cfg.validCount = 0;
+            cfg.errorCount = 0;
+
         };
 
         wojilu.upload.initFlash( '#myFile', cfg );        
