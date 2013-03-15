@@ -9,11 +9,13 @@ using System.Text;
 
 using wojilu.Web.Mvc;
 using wojilu.Web.Mvc.Attr;
+using wojilu.ORM;
 
 using wojilu.Common;
-using wojilu.Common.AppBase;
 using wojilu.Common.Money.Domain;
 using wojilu.Common.Security;
+using wojilu.Common.Tags;
+using wojilu.Common.AppBase.Interface;
 
 using wojilu.Members.Sites.Domain;
 using wojilu.Members.Users.Domain;
@@ -88,6 +90,8 @@ namespace wojilu.Web.Controller.Forum {
                     bindPostOne( block, data, board, attachList );
                 }
 
+                block.Set( "relativePosts", getRelativePosts( data ) );
+
                 block.Set( "adForumPosts", AdItem.GetAdById( AdCategory.ForumPosts ) );
 
 
@@ -97,6 +101,44 @@ namespace wojilu.Web.Controller.Forum {
             set( "moderatorJson", moderatorService.GetModeratorJson( board ) );
             set( "creatorId", topic.Creator.Id );
             set( "tagAction", to( new Edits.TagController().SaveTag, topic.Id ) );
+        }
+
+        private string getRelativePosts( ForumPost data ) {
+
+            if (data.ParentId > 0) return "";
+            ForumTopic topic = data.Topic;
+            if (topic == null) return "";
+
+            String tagIds = topic.Tag.TagIds;
+            if (strUtil.IsNullOrEmpty( tagIds )) return "";
+
+            List<DataTagShip> list = DataTagShip.find( "TagId in (" + tagIds + ")" ).list( 21 );
+            if (list.Count <= 1) return "";
+
+            StringBuilder sb = new StringBuilder();
+            sb.AppendLine( "<div class=\"relative-post\">" );
+            sb.AppendLine( "<div class=\"relative-title\">相关文章</div>" );
+            sb.AppendLine( "<ul>" );
+
+            foreach (DataTagShip dt in list) {
+
+                if (dt.DataId == topic.Id && dt.TypeFullName == typeof( ForumTopic ).FullName) continue;
+
+                EntityInfo ei = Entity.GetInfo( dt.TypeFullName );
+                if (ei == null) continue;
+
+                IAppData obj = ndb.findById( ei.Type, dt.DataId ) as IAppData;
+                if (obj == null) continue;
+
+                sb.AppendFormat( "<li><div><a href=\"{0}\">{1}</a></div></li>", alink.ToAppData( obj ), obj.Title );
+                sb.AppendLine();
+            }
+
+            sb.AppendLine( "</ul>" );
+            sb.AppendLine( "<div style=\"clear:both;\"></div>" );
+            sb.AppendLine( "</div>" );
+
+            return sb.ToString();
         }
 
         private static String getRankStr( ForumPost data ) {

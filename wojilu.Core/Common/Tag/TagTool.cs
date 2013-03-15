@@ -66,6 +66,13 @@ namespace wojilu.Common.Tags {
         }
 
 
+        public String TagIds {
+            get {
+                return strUtil.GetIds( this.List );
+            }
+        }
+
+
         public void Save( String rawTagString ) {
 
             if (strUtil.IsNullOrEmpty( rawTagString )) return;
