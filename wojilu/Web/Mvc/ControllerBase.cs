@@ -604,13 +604,23 @@ namespace wojilu.Web.Mvc {
         }
 
         /// <summary>
-        /// 显示 json 信息给客户端，提示是否 valid ，返回 {IsValid:true, Msg:"", Info:""}
+        /// 显示 json 信息给客户端，提示是否 valid ，返回 {"IsValid":true, "Msg":"", "Info":"这里是字符串"}
         /// </summary>
         /// <param name="msg"></param>
         /// <param name="isValid"></param>
         /// <param name="otherInfo"></param>
         protected void echoJsonMsg( String msg, Boolean isValid, String otherInfo ) {
             echoJson( MvcUtil.renderValidatorJson( msg, isValid, otherInfo ) );
+        }
+
+        /// <summary>
+        /// 显示 json 信息给客户端，提示是否 valid ，返回 {"IsValid":true, "Msg":"", "Info":{这里是具体的json对象信息}}
+        /// </summary>
+        /// <param name="msg"></param>
+        /// <param name="isValid"></param>
+        /// <param name="otherObject"></param>
+        protected void echoJsonMsg( String msg, Boolean isValid, Object otherObject ) {
+            echoJson( MvcUtil.renderValidatorJsonObject( msg, isValid, otherObject ) );
         }
 
         /// <summary>

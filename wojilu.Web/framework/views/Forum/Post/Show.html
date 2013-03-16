@@ -12,6 +12,14 @@
 
 #{currentPost}
 
+<script>
+    _run(function () {
+        require(['wojilu.app.forum.edit'], function (x) {
+            x.check( #{moderatorJson}, #{creatorId}, '#{tagAction}' );
+        });
+    });
+</script>
+
 <div style="margin-top:10px; margin-left:20px;">
 	<div><a href="#{topic.Url}">&rsaquo;&rsaquo; :{expandTopic}</a></div>
 	<ul class="replyPostList">	

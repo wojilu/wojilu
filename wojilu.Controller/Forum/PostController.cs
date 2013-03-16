@@ -96,6 +96,10 @@ namespace wojilu.Web.Controller.Forum {
 
             set( "topic.Url", to( new TopicController().Show, post.TopicId ) );
 
+            set( "moderatorJson", moderatorService.GetModeratorJson( board ) );
+            set( "creatorId", topic.Creator.Id );
+            set( "tagAction", to( new Edits.TagController().SaveTag, topic.Id ) );
+
             DataPage<ForumPost> replyList = postService.GetPageList( post.TopicId, 200, 0 );
 
             bindReplyList( replyList, post.Id );

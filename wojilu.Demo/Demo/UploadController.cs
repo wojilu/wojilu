@@ -54,13 +54,15 @@ namespace wojilu.Web.Controller.Demo {
 
             Result result = Uploader.SaveImg( ctx.GetFileSingle() );
             if (result.HasErrors) {
+                echoError( result ); // 返回错误信息
                 return;
             }
 
             String picName = result.Info.ToString(); // 获取图片名称
             String picUrl = strUtil.Join( sys.Path.Photo, picName ); // 获取图片完整路径
             picUrl = Img.GetThumbPath( picUrl, ThumbnailType.Medium );// 获取中等缩略图
-            echoText( picUrl ); // 将图片网址返回给客户端
+
+            echoJsonMsg( "ok", true, picUrl ); // 将图片网址返回给客户端
         }
 
     }

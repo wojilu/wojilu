@@ -95,6 +95,10 @@ namespace wojilu.Web.Controller.Forum {
 
             int userId = ctx.GetInt( "userId" );
             bindPosts( id, topic, board, userId );
+
+            set( "moderatorJson", moderatorService.GetModeratorJson( board ) );
+            set( "creatorId", topic.Creator.Id );
+            set( "tagAction", to( new Edits.TagController().SaveTag, topic.Id ) );
         }
 
         private void bindPosts( int id, ForumTopic topic, ForumBoard board, int userId ) {
@@ -186,6 +190,9 @@ namespace wojilu.Web.Controller.Forum {
             ed.AddUploadUrl( ctx );
 
             formBlock.Set( "Editor", ed );
+
+            formBlock.Set( "currentPageId", ctx.route.page );
+
             formBlock.Next();
         }
 

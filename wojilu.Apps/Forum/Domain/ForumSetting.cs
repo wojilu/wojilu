@@ -19,6 +19,8 @@ namespace wojilu.Apps.Forum.Domain {
             if (this.HomeImgCount == 0) this.HomeImgCount = 5;
             if (this.HomeListCount == 0) this.HomeListCount = 10;
             if (this.HomeHotDays == 0) this.HomeHotDays = 30;
+
+            if (this.ReplyInterval == 0) this.ReplyInterval = 5;
         }
 
         public int PageSize { get; set; } // 主题列表页：每页数量
@@ -36,6 +38,8 @@ namespace wojilu.Apps.Forum.Domain {
 
         public String MetaKeywords { get; set; }
         public String MetaDescription { get; set; }
+
+        public int ReplyInterval { get; set; } // 回复的间隔时间(秒)，少于此时间，不允许发布
 
 
     }

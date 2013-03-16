@@ -54,6 +54,9 @@ namespace wojilu.Web.Controller.Forum.Admin {
 
             set( "s.MetaKeywords", s.MetaKeywords );
             set( "s.MetaDescription", s.MetaDescription );
+
+            set( "s.ReplyInterval", dropList( "ReplyInterval", 1, 300, s.ReplyInterval ) );
+
         }
 
         private String dropList( String name, int istart, int iend, int val ) {

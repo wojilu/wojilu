@@ -3,7 +3,7 @@
 <div class="">
 
 <style>
-.tblSetting { width:700px; margin:10px auto;}
+.tblSetting { width:750px; margin:10px auto;}
 .tblSetting td { border-bottom:1px #eee solid; padding:4px 5px;}
 
 .lblLeft { }
@@ -14,8 +14,8 @@
     <table class="tblSetting" cellpadding="0" cellspacing="0">
         
         <tr style="font-weight:bold; background:#f2f2f2;">
-            <td class="lblLeft" style="width:80px; ">区域</td>
-            <td class="lblLeft" style="width:90px;">配置名称</td>
+            <td class="lblLeft" style="width:90px; ">区域</td>
+            <td class="lblLeft" style="width:120px;">配置名称</td>
             <td>值</td>
         </tr>
         
@@ -87,6 +87,11 @@
             <td>#{s.TopicPageSize}</td>
         </tr>
 
+        <tr>
+            <td class="lblLeft">论坛</td>
+            <td class="lblLeft">回复间隔时间不能少于</td>
+            <td>#{s.ReplyInterval} 秒</td>
+        </tr>
 
     </table>
     

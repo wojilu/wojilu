@@ -84,6 +84,25 @@ namespace wojilu.Web.Mvc.Utils {
             return builder.ToString();
         }
 
+        public static String renderValidatorJsonObject( String htmlMsg, Boolean isValid, Object obj ) {
+
+            if (obj == null) return renderValidatorJson( htmlMsg, isValid, "" );
+            if (obj.GetType() == typeof( String )) return renderValidatorJson( htmlMsg, isValid, obj.ToString() );
+
+            StringBuilder builder = new StringBuilder();
+            builder.Append( "{\"IsValid\":" );
+            builder.Append( isValid ? "true" : "false" );
+            builder.Append( ", \"Msg\":\"" );
+
+            builder.Append( JsonString.ClearNewLine( htmlMsg ) );
+
+            builder.Append( "\", \"Info\":" );
+            builder.Append( Json.ToString( obj ) );
+            builder.Append( "}" );
+
+            return builder.ToString();
+        }
+
         //--------------------------------------------------------------------------------------------
 
         internal static String getNoLayoutContent( String body ) {

@@ -85,6 +85,13 @@ namespace wojilu.Web.Controller.Forum.Users {
         [HttpPost, DbTransaction]
         public void Create() {
 
+
+
+            if (isIntervalShort()) {
+                echoError( "对不起，您发布太快，请稍等一会儿再发布" );
+                return;
+            }
+
             ForumPost post = ForumValidator.ValidatePost( ctx );
 
             if (!checkLock( post.TopicId )) return;
@@ -98,20 +105,57 @@ namespace wojilu.Web.Controller.Forum.Users {
 
             if (ctx.HasErrors) {
                 echoError();
+                return;
+            }
+
+            Result result = postService.Insert( post, (User)ctx.viewer.obj, ctx.owner.obj, (IApp)ctx.app.obj );
+            if (result.HasErrors) {
+                echoError( result );
+                return;
+            }
+
+            int lastPageNo = getLastPageNo( post );
+            if (ctx.PostInt( "currentPageId" ) == lastPageNo) {
+                String postHtml = getReturnHtml( post, board );
+                echoJsonMsg( "ajax", true, postHtml );
             }
             else {
-                Result result = postService.Insert( post, (User)ctx.viewer.obj, ctx.owner.obj, (IApp)ctx.app.obj );
-                if (result.IsValid) {
-
-                    //new ForumCacheRemove( boardService, topicService, this ).CreatePost( post );
-
-                    String lnkTopicLastPage = getTopicLastPage( post );
-                    echoRedirect( lang( "opok" ), lnkTopicLastPage );
-                }
-                else {
-                    echoRedirect( result.ErrorsHtml );
-                }
+                String lnkTopicLastPage = getTopicLastPage( post, lastPageNo );
+                echoJsonMsg( "redirect", true, lnkTopicLastPage );
             }
+
+            ctx.web.SessionSet( "__forumLastReplied", DateTime.Now );
+        }
+
+        private bool isIntervalShort() {
+            Object objLast = ctx.web.SessionGet( "__forumLastReplied" );
+            if (objLast == null) return false;
+
+            ForumApp app = ctx.app.obj as ForumApp;
+            ForumSetting setting = app.GetSettingsObj();
+
+            return DateTime.Now.Subtract( (DateTime)objLast ).Seconds <= setting.ReplyInterval;
+        }
+
+        private int getLastPageNo( ForumPost post ) {
+            int pageNo = postService.GetPageCount( post.TopicId, getPageSize( ctx.app.obj ) );
+            return pageNo;
+        }
+
+        private String getReturnHtml( ForumPost post, ForumBoard board ) {
+
+            ForumTopic topic = topicService.GetById( post.TopicId, ctx.owner.obj );
+            List<ForumPost> posts = new List<ForumPost>();
+            posts.Add( post );
+
+            ctx.SetItem( "forumBoard", board );
+            ctx.SetItem( "forumTopic", topic );
+            ctx.SetItem( "posts", posts );
+            ctx.SetItem( "attachs", new List<Attachment>() );
+            ctx.SetItem( "pageSize", -1 );
+
+            String postHtml = loadHtml( new Forum.TopicController().PostLoop );
+            return postHtml;
         }
         //-----------------------------------------------------------------------------
 
@@ -363,9 +407,8 @@ namespace wojilu.Web.Controller.Forum.Users {
             return true;
         }
 
-        private string getTopicLastPage( ForumPost post ) {
+        private string getTopicLastPage( ForumPost post, int pageNo ) {
             String lnk = to( new wojilu.Web.Controller.Forum.TopicController().Show, post.TopicId );
-            int pageNo = postService.GetPageCount( post.TopicId, getPageSize( ctx.app.obj ) );
             lnk = PageHelper.AppendNo( lnk, pageNo );
 
             if (ctx.web.PathReferrer.IndexOf( "reload=true" ) < 0) {

@@ -45,7 +45,7 @@ namespace wojilu.Web.Controller.Forum {
                 ForumPost data = posts[i];
                 if (data.Creator == null) continue;
 
-                getPostTopic( data );
+                populatePostTopic( data );
 
                 block.Set( "post.Id", data.Id );
                 block.Set( "post.TopicId", data.TopicId );
@@ -98,9 +98,6 @@ namespace wojilu.Web.Controller.Forum {
                 block.Next();
             }
 
-            set( "moderatorJson", moderatorService.GetModeratorJson( board ) );
-            set( "creatorId", topic.Creator.Id );
-            set( "tagAction", to( new Edits.TagController().SaveTag, topic.Id ) );
         }
 
         private string getRelativePosts( ForumPost data ) {
@@ -247,7 +244,7 @@ namespace wojilu.Web.Controller.Forum {
 
             if (data.Status == 1) return "<div class=\"banned\">" + alang( "postBanned" ) + "</div>";
 
-            ForumTopic topic = getPostTopic( data );
+            ForumTopic topic = populatePostTopic( data );
 
             String content = data.Content;
 
@@ -292,7 +289,7 @@ namespace wojilu.Web.Controller.Forum {
             return addAttachment( board, data, attachList, content );
         }
 
-        private ForumTopic getPostTopic( ForumPost post ) {
+        private ForumTopic populatePostTopic( ForumPost post ) {
             ForumTopic topic = topicService.GetById( post.TopicId, ctx.owner.obj );
             post.Topic = topic;
             return topic;
@@ -388,7 +385,7 @@ namespace wojilu.Web.Controller.Forum {
 
         private void setLockAction( ForumPost data, StringBuilder sb ) {
             if (data.ParentId <= 0) {
-                ForumTopic topic = getPostTopic( data );
+                ForumTopic topic = populatePostTopic( data );
                 if (topic.IsLocked == 1) {
                     sb.AppendFormat( "<li cmdurl=\"{0}\"><a href='#' class=\"postAdminItem putCmd\"><i class=\"icon-lock\"></i> {1}</a></li>", to( new Moderators.PostSaveController().UnLock, topic.Id ) + "?boardId=" + data.ForumBoardId, alang( "cmdUnlock" ) );
                 }
@@ -465,7 +462,7 @@ namespace wojilu.Web.Controller.Forum {
         }
 
         private String addLockedInfo( ForumPost data, String content ) {
-            if (getPostTopic( data ).IsLocked == 1) {
+            if (populatePostTopic( data ).IsLocked == 1) {
                 return ("<div class=\"locked\">" + alang( "exLockTip" ) + "</div>" + content);
             }
             return content;

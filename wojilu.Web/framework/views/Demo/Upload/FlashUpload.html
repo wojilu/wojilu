@@ -6,7 +6,7 @@
     <div class="demoTitle">flash上传(带进度条) </div>
     <div style="padding:10px 20px;">
         <div><input id="myFile" name="myFile" type="file" /></div>
-        <div id="uploadResult"></div>
+        <div id="uploadResult" style="margin-top:10px;"></div>
         <div id="uploadProgressBar"></div>
         <div id="imgList"></div>
     </div>
@@ -28,15 +28,36 @@
         cfg.fileTypeDesc = 'Image Files'; // 选择框中文件类型描述
         cfg.queueID = 'uploadProgressBar'; // 显示进度条的容器
 
+        // 推荐自定义上传处理结果
+        cfg.errors= '';
+        cfg.validCount = 0;
+        cfg.errorCount = 0;
+
         // 每个文件上传成功之后在这里处理。data是服务端返回的数据。
-        cfg.onUploadSuccess = function (file, data, response) {    
-            $('#imgList').prepend( '<div style="margin:5px;"><img src="'+data+'" /></div>' );
+        cfg.onUploadSuccess = function (file, data, response) {
+            var obj = eval( '('+data+')');
+
+            if( !obj.IsValid ) {
+                cfg.errors += obj.Msg + '<br>';
+                cfg.errorCount += 1;
+            }
+            else {
+                cfg.validCount += 1;
+                $('#imgList').prepend( '<div style="margin:5px;"><img src="'+obj.Info+'" /></div>' );
+            }
         };
 
         cfg.onQueueComplete = function (data) {
-            var msg = data.successful_uploads + ' 个文件上传成功. ';
-            if( data.upload_errors>0 ) msg += data.upload_errors + ' 个错误.';
-            $('#uploadResult').text( msg );
+
+            var msg = cfg.validCount + ' 个文件上传成功. ';
+            if( cfg.errors.length>0 ) msg += '<br>' + cfg.errorCount + ' 个错误：<br>'+cfg.errors;
+            $('#uploadResult').html( msg );
+
+            // 重置上传数量
+            cfg.errors = '';
+            cfg.validCount = 0;
+            cfg.errorCount = 0;
+
         };
 
         // 2) 将普通上传控件转化为 flash 上传控件
@@ -97,30 +118,23 @@
         // 每个文件上传成功之后在这里处理。data是服务端返回的数据。
         cfg.onUploadSuccess = function (file, data, response) {
 
-            
-
-            /* 如果是json数据，或者是上传错误，可以先eval然后处理
-            如果要查看json字符串，可以用 JSON.stringify(data); 
+            /* 如果是data是json类型数据，可以先eval然后处理*/
             var obj = eval( '('+data+')');
 
-	        if( !obj.IsValid ) {
-	            alert( obj.Msg );
-	            return;
-	        }*/
+            /* 如果要查看json字符串，可以用 JSON.stringify( objJson ); */
 
-
-            /* 推荐对对处理结果进行自定义统计：正确数和错误数
-            if( data != 'ok' ) {
-                cfg.errors += data + '<br/>';
-                cfg.errorCount += 1;
+            // 记录错误
+            if( !obj.IsValid ) {
+                cfg.errors += obj.Msg + '<br>';
+                cfg.errorCount += 1; // 将错误上传次数+1
             }
             else {
-                cfg.validCount += 1;
-            }*/
-            
-            /* 其他处理
-            $('#imgList').prepend( '&lt;div style="margin:5px;"&gt;&lt;img src="'+data+'" /&gt;&lt;/div&gt;' );
-            */
+                cfg.validCount += 1; // 将正确上传的次数+1
+                // 其他自定义操作
+                $('#imgList').prepend( '&lt;div style="margin:5px;"&gt;&lt;img src="'+obj.Info+'" /&gt;&lt;/div&gt;' );
+            }
+
+
         };
 
         cfg.onQueueComplete = function (data) {
@@ -161,24 +175,16 @@
 
             Result result = Uploader.SaveImg( ctx.GetFileSingle() );
 
-            /* 如果要返回错误
             if (result.HasErrors) {
-                echoError( result );
+                echoError( result ); // 返回错误信息
                 return;
-            }*/
+            }
 
             String picName = result.Info.ToString(); // 获取图片名称
             String picUrl = strUtil.Join( sys.Path.Photo, picName ); // 获取图片完整路径
             picUrl = Img.GetThumbPath( picUrl, ThumbnailType.Medium );// 获取中等缩略图
-            echoText( picUrl ); // 将图片网址返回给客户端
 
-            /* 如果返回是否正确的信息，可以封装成 json 格式
-            Dictionary<String, String> dic = new Dictionary<String, String>();
-            dic.Add( "IsValid", "true" );
-            dic.Add( "FileUrl", fileUrl );
-
-            echoJson( dic );
-            */
+            echoJsonMsg( "ok", true, picUrl ); // 将图片网址返回给客户端
         }
 
         </pre>
