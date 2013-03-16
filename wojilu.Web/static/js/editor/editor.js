@@ -272,6 +272,11 @@ wojilu.editor.prototype = {
         _x.doc.close();
         _x.styleBody();
     },
+
+    writeContentToText : function( htmlContent ) {
+        var _x = this;
+        $('#'+_x.name).val( htmlContent );
+    },
     
     isHtmlChecked : function() {
         return $('#chksrc'+this.id).attr( 'checked' );
@@ -374,6 +379,13 @@ wojilu.editor.prototype.getFrmBody = function( htmlContent ) {
     var _x = this;
     return '<html><link rel="stylesheet" type="text/css" href="'+_x.skinPath+ 'style.css'+'" /><body>\n' + htmlContent + '\n</body></html>';
 };
+
+
+wojilu.editor.prototype.addBlur = function() {
+    var _x = this; 
+    var setValue = function() { if( _x.isHtmlChecked() ) { } else { _x.val( _x.name, _x.checkXhtml(_x.doc.body.innerHTML) ); }; };
+    if (document.all) { _x.editor.attachEvent('onblur', setValue ); } else { _x.editor.addEventListener('blur', setValue, false ); };
+};
    
 wojilu.editor.prototype.makeWritable = function () {
     
@@ -390,27 +402,13 @@ wojilu.editor.prototype.makeWritable = function () {
     if (document.all) {
         _x.writeContentToEditor(frameHtml);            
         if (!_x.IsReadOnly) _x.doc.designMode = 'on';            
-        
-        _x.editor.attachEvent('onblur', function() {
-            if( _x.isHtmlChecked() ) {
-            }
-            else {
-                _x.val( _x.name, _x.checkXhtml( _x.doc.body.innerHTML ));
-            };
-        });
     }
     else {
         if (!_x.IsReadOnly) _x.$id(_x.frmId).contentDocument.designMode = 'on';
         _x.writeContentToEditor(frameHtml);
-        _x.editor.addEventListener('blur', function() {
-            if( _x.isHtmlChecked() ) {
-            }
-            else {
-                _x.val( _x.name, _x.checkXhtml(_x.doc.body.innerHTML) );
-            };
-        
-        }, false );
     };
+
+    _x.addBlur();
 
     $(_x.doc).bind('paste',function(e){
         setTimeout( function() {
@@ -467,6 +465,14 @@ wojilu.editor.prototype.resize = function() {
 // 主要事件处理
 //-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
+wojilu.editor.prototype.clear = function() {
+    var _x = this;
+    var htmlContent = _x.getFrmBody(''); 
+    _x.writeContentToText( '' );
+    _x.writeContentToEditor( htmlContent );
+    _x.addBlur();
+};
+
 wojilu.editor.prototype.addCallback = function () {
     var _x = this;
     
@@ -489,7 +495,9 @@ wojilu.editor.prototype.addCallback = function () {
 
     _x.cmdCell( 'clear' ).click( function() {
         if( confirm( '确实删除所有内容？') ) {
-            _x.writeContentToEditor( _x.getFrmBody('') );
+            //_x.writeContentToText( '' );
+            //_x.writeContentToEditor( _x.getFrmBody('') );
+            _x.clear();
             $(_x.editor).unbind('paste').bind('paste',function(e){
                 setTimeout( function() {
                     _x.clearFormat();
@@ -555,7 +563,16 @@ wojilu.editor.prototype.dialog = function (cmd, target) {
     var dlg = _x.$id(divId);
     var hasDlg = ( dlg==null || dlg == 'undefined' )?false:true;
 
+    var setPosition = function() {
+        var tp = wojilu.position.getTarget(target);
+        $(dlg).css( 'display', 'block' ).addClass( 'editorCmdBox' )
+            .css( 'position', 'absolute' ).css( 'zIndex', 98 )
+            .css( 'left', tp.x - dlg.offsetWidth/2 + 15 ).css( 'top', tp.y + target.offsetHeight - 2 )
+            .css( 'font-family', 'verdana' ).css( 'font-size', '12px' );
+    };
+
     if( hasDlg ) {
+        setPosition();
         $(dlg).show();
         return;
     } 
@@ -564,12 +581,7 @@ wojilu.editor.prototype.dialog = function (cmd, target) {
         eval( 'divString = this.'+cmd+'Dialog();' );
         $( 'body' ).append( divString );
         dlg = _x.$id(divId);
-
-        var tp = wojilu.position.getTarget(target);
-        $(dlg).css( 'display', 'block' ).css( 'position', 'absolute' ).css( 'zIndex', 98 )
-            .css( 'left', tp.x - dlg.offsetWidth/2 + 15 ).css( 'top', tp.y + target.offsetHeight - 2 )
-            .css( 'font-family', 'verdana' ).css( 'font-size', '12px' ).addClass( 'editorCmdBox' );
-            
+        setPosition();
         eval( 'this.'+cmd+'Handler();' );
     }
 };
@@ -1133,3 +1145,4 @@ wojilu.editor.prototype.render = function() {
     _x.beginRender().addImgs().makeWritable().addCallback().resize();
     $('#'+_x.frmId).before($('#'+_x.name));
 };
+
