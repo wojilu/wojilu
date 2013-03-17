@@ -115,6 +115,18 @@ namespace wojilu.Web.Controller.Forum.Users {
             }
 
             int lastPageNo = getLastPageNo( post );
+            if (ctx.PostInt( "__ajaxUpdate" ) > 0) {
+                echoAjaxUpdate( post, board, lastPageNo );
+            }
+            else {
+                String lnkTopicLastPage = getTopicLastPage( post, lastPageNo );
+                echoRedirect( lang( "opok" ), lnkTopicLastPage );
+            }
+
+            ctx.web.SessionSet( "__forumLastReplied", DateTime.Now );
+        }
+
+        private void echoAjaxUpdate( ForumPost post, ForumBoard board, int lastPageNo ) {
             if (ctx.PostInt( "currentPageId" ) == lastPageNo) {
                 String postHtml = getReturnHtml( post, board );
                 echoJsonMsg( "ajax", true, postHtml );
@@ -123,8 +135,6 @@ namespace wojilu.Web.Controller.Forum.Users {
                 String lnkTopicLastPage = getTopicLastPage( post, lastPageNo );
                 echoJsonMsg( "redirect", true, lnkTopicLastPage );
             }
-
-            ctx.web.SessionSet( "__forumLastReplied", DateTime.Now );
         }
 
         private bool isIntervalShort() {
