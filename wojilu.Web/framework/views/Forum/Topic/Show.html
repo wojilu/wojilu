@@ -159,6 +159,11 @@ _run( function() {
             $( '.loadingInfo', thisForm ).html('');
             btnSubmit.attr( 'disabled', false );
 
+            if( wojilu.str.isJson( data ) == false ) {
+                alert(data);
+                return;
+            }
+
             if( !data.IsValid) {
                 alert( data.Msg );
                 return;
