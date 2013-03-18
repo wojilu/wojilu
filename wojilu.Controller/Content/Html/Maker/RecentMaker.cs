@@ -30,36 +30,16 @@ namespace wojilu.Web.Controller.Content.Htmls {
         /// </summary>
         /// <param name="ctx"></param>
         /// <returns></returns>
-        public int ProcessAll( int appId, int recordCount ) {
+        public int ProcessAll( int appId ) {
 
             CheckDir();
 
-            String cpLink = Link.To( Site.Instance, new PostController().Recent, appId );
-            String caLink = Link.To( Site.Instance, new PostController().RecentArchive, appId );
-
-
-            int pageSize = ContentSetting.ListRecentPageSize;
-
-            return makeHtmlLoopAll( recordCount, appId, cpLink, caLink, pageSize );
-        }
-
-        /// <summary>
-        /// 生成某app的最近文章列表的缓存页，不包括存档页。
-        /// </summary>
-        /// <param name="appId"></param>
-        /// <returns></returns>
-        public int ProcessCache( int appId ) {
-
-            CheckDir();
+            int recordCount =  postService.CountByApp( appId );
 
             String cpLink = Link.To( Site.Instance, new PostController().Recent, appId );
-            String caLink = Link.To( Site.Instance, new PostController().RecentArchive, appId );
-
             int pageSize = ContentSetting.ListRecentPageSize;
 
-            int recentCount = postService.CountByApp( appId );
-
-            return makeHtmlLoopCache( recentCount, appId, cpLink, caLink, pageSize );
+            return makeHtmlLoopAll( appId, cpLink, recordCount, pageSize );
         }
 
         protected override string GetDir() {

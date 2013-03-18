@@ -22,7 +22,7 @@ namespace wojilu.Web.Controller.Content.Htmls {
             logger.Info( "[AfterPostAdd] make html list done. postId=" + postId );
 
             // 4) 最近列表页处理
-            HtmlMaker.GetRecent().ProcessCache( post.AppId );
+            HtmlMaker.GetRecent().ProcessAll( post.AppId );
             logger.Info( "[AfterPostAdd] make html recent done. postId=" + postId );
 
         }
@@ -36,7 +36,7 @@ namespace wojilu.Web.Controller.Content.Htmls {
             logger.Info( "[AfterPostDelete] make html list done. postId=" + postId );
 
             // 4) 最近列表页处理
-            HtmlMaker.GetRecent().ProcessCache( post.AppId );
+            HtmlMaker.GetRecent().ProcessAll( post.AppId );
             logger.Info( "[AfterPostDelete] make html recent done. postId=" + postId );
 
             // 5) 侧边栏
@@ -54,7 +54,7 @@ namespace wojilu.Web.Controller.Content.Htmls {
             logger.Info( "[AfterPostUpdate] make html list done. postId=" + postId );
 
             // 4) 最近列表页处理
-            HtmlMaker.GetRecent().ProcessCache( post.AppId );
+            HtmlMaker.GetRecent().ProcessAll( post.AppId );
             logger.Info( "[AfterPostUpdate] make html recent done. postId=" + postId );
 
             // 5) 侧边栏

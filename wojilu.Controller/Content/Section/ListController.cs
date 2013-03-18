@@ -47,26 +47,11 @@ namespace wojilu.Web.Controller.Content.Section {
             bindListCommon( sectionId, section, s, posts );
 
             Boolean isMakeHtml = HtmlHelper.IsMakeHtml( ctx );
-            set( "page", posts.GetRecentPage( clink.toSection( sectionId, ctx ), clink.toArchive( sectionId, ctx ), ContentSetting.ListPageWidth, isMakeHtml ) );
+            String listLink = clink.toSection( sectionId, ctx );
+            set( "page", posts.GetPageBar( listLink, isMakeHtml ) );
 
         }
 
-
-        [Data( typeof( ContentSection ) )]
-        public void Archive( int sectionId ) {
-            view( "List" );
-
-            ContentSection section = ctx.Get<ContentSection>();
-            ContentApp app = ctx.app.obj as ContentApp;
-            ContentSetting s = app.GetSettingsObj();
-
-            DataPage<ContentPost> posts = postService.GetPageBySectionArchive( sectionId, s.ListPostPerPage );
-
-            bindListCommon( sectionId, section, s, posts );
-
-            Boolean isMakeHtml = HtmlHelper.IsMakeHtml( ctx );
-            set( "page", posts.GetArchivePage( clink.toSection( sectionId, ctx ), clink.toArchive( sectionId, ctx ), 3, isMakeHtml ) );
-        }
 
         private void bindListCommon( int sectionId, ContentSection section, ContentSetting s,
             DataPage<ContentPost> posts ) {

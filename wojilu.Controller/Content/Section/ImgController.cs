@@ -61,15 +61,6 @@ namespace wojilu.Web.Controller.Content.Section {
 
 
         public void List( int sectionId ) {
-            bindPostInfos( sectionId, false );
-        }
-
-        public void Archive( int sectionId ) {
-            view( "List" );
-            bindPostInfos( sectionId, true );
-        }
-
-        private void bindPostInfos( int sectionId, Boolean isArchive ) {
 
             ContentSection section = sectionService.GetById( sectionId, ctx.app.Id );
             if (section == null) {
@@ -83,18 +74,10 @@ namespace wojilu.Web.Controller.Content.Section {
             ContentSetting s = app.GetSettingsObj();
 
             String cpLink = clink.toSection( sectionId, ctx );
-            String apLink = clink.toArchive( sectionId, ctx );
             Boolean isMakeHtml = HtmlHelper.IsMakeHtml( ctx );
+            DataPage<ContentPost> posts = postService.GetPageBySection( sectionId, s.ListPostPerPage );
 
-            DataPage<ContentPost> posts;
-            if (isArchive) {
-                posts = postService.GetPageBySectionArchive( section.Id, s.ListPostPerPage );
-                set( "page", posts.GetArchivePage( cpLink, apLink, 3, isMakeHtml ) );
-            }
-            else {
-                posts = postService.GetPageBySection( sectionId, s.ListPostPerPage );
-                set( "page", posts.GetRecentPage( cpLink, apLink, 3, isMakeHtml ) );
-            }
+            set( "page", posts.GetPageBar( cpLink, isMakeHtml ) );
 
             bindPosts( section, posts );
         }

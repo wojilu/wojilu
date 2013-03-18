@@ -46,10 +46,6 @@ namespace wojilu.Web.Controller.Content.Section {
             run( new ListController().List, sectionId );
         }
 
-        public void Archive( int sectionId ) {
-            run( new ListController().Archive, sectionId );
-        }
-
         public void Show( int id ) {
             run( new ListController().Show, id );
         }

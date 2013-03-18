@@ -132,91 +132,91 @@ namespace wojilu {
             }
         }
 
-        public String GetRecentPage( String recentLink, String archiveLink, int recentPageCount, Boolean isHtml ) {
-            return GetRecentPage( recentLink, archiveLink, recentPageCount, recentPageCount, isHtml );
-        }
+        //public String GetRecentPage( String recentLink, String archiveLink, int recentPageCount, Boolean isHtml ) {
+        //    return GetRecentPage( recentLink, archiveLink, recentPageCount, recentPageCount, isHtml );
+        //}
 
-        /// <summary>
-        /// 最近数据列表的分页栏
-        /// </summary>
-        /// <param name="recentLink">最近数据列表网址(不带页码)</param>
-        /// <param name="archiveLink">存档数据列表网址(不带页码)</param>
-        /// <param name="recentPageCount">最近数据列表需要展示的页数</param>
-        /// <returns></returns>
-        public String GetRecentPage( String recentLink, String archiveLink, int recentPageCount ) {
-            return GetRecentPage( recentLink, archiveLink, recentPageCount, recentPageCount );
-        }
+        ///// <summary>
+        ///// 最近数据列表的分页栏
+        ///// </summary>
+        ///// <param name="recentLink">最近数据列表网址(不带页码)</param>
+        ///// <param name="archiveLink">存档数据列表网址(不带页码)</param>
+        ///// <param name="recentPageCount">最近数据列表需要展示的页数</param>
+        ///// <returns></returns>
+        //public String GetRecentPage( String recentLink, String archiveLink, int recentPageCount ) {
+        //    return GetRecentPage( recentLink, archiveLink, recentPageCount, recentPageCount );
+        //}
 
-        /// <summary>
-        /// 最近数据列表的分页栏
-        /// </summary>
-        /// <param name="recentLink">最近数据列表网址(不带页码)</param>
-        /// <param name="archiveLink">存档数据列表网址(不带页码)</param>
-        /// <param name="recentPageCount">最近数据列表需要展示的页数</param>
-        /// <param name="pageWidth">分页栏宽度</param>
-        /// <returns></returns>
-        public String GetRecentPage( String recentLink, String archiveLink, int recentPageCount, int pageWidth ) {
-            return GetRecentPage( recentLink, archiveLink, recentPageCount, pageWidth, false );
-        }
+        ///// <summary>
+        ///// 最近数据列表的分页栏
+        ///// </summary>
+        ///// <param name="recentLink">最近数据列表网址(不带页码)</param>
+        ///// <param name="archiveLink">存档数据列表网址(不带页码)</param>
+        ///// <param name="recentPageCount">最近数据列表需要展示的页数</param>
+        ///// <param name="pageWidth">分页栏宽度</param>
+        ///// <returns></returns>
+        //public String GetRecentPage( String recentLink, String archiveLink, int recentPageCount, int pageWidth ) {
+        //    return GetRecentPage( recentLink, archiveLink, recentPageCount, pageWidth, false );
+        //}
 
 
-        /// <summary>
-        /// 最近数据列表的分页栏
-        /// </summary>
-        /// <param name="recentLink">最近数据列表网址(不带页码)</param>
-        /// <param name="archiveLink">存档数据列表网址(不带页码)</param>
-        /// <param name="recentPageCount">最近数据列表需要展示的页数</param>
-        /// <param name="pageWidth">分页栏宽度</param>
-        /// <param name="isHtml">是否html制作请求</param>
-        /// <returns></returns>
-        public String GetRecentPage( String recentLink, String archiveLink, int recentPageCount, int pageWidth, Boolean isHtml ) {
+        ///// <summary>
+        ///// 最近数据列表的分页栏
+        ///// </summary>
+        ///// <param name="recentLink">最近数据列表网址(不带页码)</param>
+        ///// <param name="archiveLink">存档数据列表网址(不带页码)</param>
+        ///// <param name="recentPageCount">最近数据列表需要展示的页数</param>
+        ///// <param name="pageWidth">分页栏宽度</param>
+        ///// <param name="isHtml">是否html制作请求</param>
+        ///// <returns></returns>
+        //public String GetRecentPage( String recentLink, String archiveLink, int recentPageCount, int pageWidth, Boolean isHtml ) {
 
-            StringBuilder sb = new StringBuilder();
-            sb.Append( "<div class=\"turnpage\">" );
+        //    StringBuilder sb = new StringBuilder();
+        //    sb.Append( "<div class=\"turnpage\">" );
 
-            // prev
-            if (this.Current > 1) {
-                sb.AppendFormat( "<a href=\"{0}\">&lt;{1}</a>&nbsp;", appendPage( recentLink, this.Current - 1, isHtml ), lang.get( "prevPage" ) );
-            }
+        //    // prev
+        //    if (this.Current > 1) {
+        //        sb.AppendFormat( "<a href=\"{0}\">&lt;{1}</a>&nbsp;", appendPage( recentLink, this.Current - 1, isHtml ), lang.get( "prevPage" ) );
+        //    }
 
-            // page number
-            int startNo;
-            int pp = this.Current / pageWidth;
-            if (this.Current % pageWidth == 0) {
-                startNo = (pp - 1) * pageWidth + 1;
-            }
-            else {
-                startNo = pp * pageWidth + 1;
-            }
+        //    // page number
+        //    int startNo;
+        //    int pp = this.Current / pageWidth;
+        //    if (this.Current % pageWidth == 0) {
+        //        startNo = (pp - 1) * pageWidth + 1;
+        //    }
+        //    else {
+        //        startNo = pp * pageWidth + 1;
+        //    }
 
-            if (startNo > this.PageCount) startNo = 1;
+        //    if (startNo > this.PageCount) startNo = 1;
 
-            int endNo = startNo + pageWidth - 1;
-            if (endNo >= this.PageCount) endNo = this.PageCount;
-            if (endNo > recentPageCount) endNo = recentPageCount;
+        //    int endNo = startNo + pageWidth - 1;
+        //    if (endNo >= this.PageCount) endNo = this.PageCount;
+        //    if (endNo > recentPageCount) endNo = recentPageCount;
 
-            for (int i = startNo; i <= endNo; i++) {
-                String pstyle = this.Current == i ? "currentPageNo" : "pageNo";
-                sb.AppendFormat( "<a href=\"{0}\" class=\"{1}\">{2}</a>&nbsp;", appendPage( recentLink, i, isHtml ), pstyle, i );
-            }
+        //    for (int i = startNo; i <= endNo; i++) {
+        //        String pstyle = this.Current == i ? "currentPageNo" : "pageNo";
+        //        sb.AppendFormat( "<a href=\"{0}\" class=\"{1}\">{2}</a>&nbsp;", appendPage( recentLink, i, isHtml ), pstyle, i );
+        //    }
 
-            // next
-            if (this.Current + 1 > this.PageCount) {
-            }
-            else if (this.Current + 1 > recentPageCount) {
-                int nextPage = this.PageCount - recentPageCount;
-                sb.AppendFormat( "<a href=\"{0}\">{1}&gt;</a>&nbsp;", appendPage( archiveLink, nextPage, isHtml ), lang.get( "nextPage" ) );
-            }
-            else {
-                sb.AppendFormat( "<a href=\"{0}\">{1}&gt;</a>&nbsp;", appendPage( recentLink, this.Current + 1, isHtml ), lang.get( "nextPage" ) );
-            }
+        //    // next
+        //    if (this.Current + 1 > this.PageCount) {
+        //    }
+        //    else if (this.Current + 1 > recentPageCount) {
+        //        int nextPage = this.PageCount - recentPageCount;
+        //        sb.AppendFormat( "<a href=\"{0}\">{1}&gt;</a>&nbsp;", appendPage( archiveLink, nextPage, isHtml ), lang.get( "nextPage" ) );
+        //    }
+        //    else {
+        //        sb.AppendFormat( "<a href=\"{0}\">{1}&gt;</a>&nbsp;", appendPage( recentLink, this.Current + 1, isHtml ), lang.get( "nextPage" ) );
+        //    }
 
-            sb.AppendFormat( "<span class=\"pageCount\">" + lang.get( "pageCount" ) + "</span>", this.PageCount );
+        //    sb.AppendFormat( "<span class=\"pageCount\">" + lang.get( "pageCount" ) + "</span>", this.PageCount );
 
-            sb.Append( "</div>" );
+        //    sb.Append( "</div>" );
 
-            return sb.ToString();
-        }
+        //    return sb.ToString();
+        //}
 
         private String appendPage( String url, int pageNumber, Boolean isHtml ) {
 
@@ -229,60 +229,11 @@ namespace wojilu {
 
         }
 
-        /// <summary>
-        /// 存档数据列表的分页栏
-        /// </summary>
-        /// <param name="recentLink">最近数据列表网址(不带页码)</param>
-        /// <param name="archiveLink">存档数据列表网址(不带页码)</param>
-        /// <param name="recentPageCount">最近数据列表需要展示的页数</param>
-        /// <returns></returns>
-        public String GetArchivePage( String recentLink, String archiveLink, int recentPageCount ) {
-            return GetArchivePage( recentLink, archiveLink, recentPageCount, false );
-        }
+        public String GetPageBar( string cpLink, bool isMakeHtml ) {
 
-        /// <summary>
-        /// 存档数据列表的分页栏
-        /// </summary>
-        /// <param name="recentLink">最近数据列表网址(不带页码)</param>
-        /// <param name="archiveLink">存档数据列表网址(不带页码)</param>
-        /// <param name="recentPageCount">最近数据列表需要展示的页数</param>
-        /// <param name="isHtml">是否html制作请求</param>
-        /// <returns></returns>
-        public String GetArchivePage( String recentLink, String archiveLink, int recentPageCount, Boolean isHtml ) {
+            if (isMakeHtml == false) return this.PageBar;
 
-            StringBuilder sb = new StringBuilder();
-            sb.Append( "<div class=\"turnpage\">" );
-
-            sb.AppendFormat( "<a href=\"{0}\">&laquo;{1}</a>", recentLink, lang.get( "firstPage" ) );
-            sb.Append( "<span class=\"\">&nbsp;</span>" );
-
-
-            if (this.PageCount - this.Current <= recentPageCount) {
-                int prevPage = this.PageCount - this.Current;
-                sb.AppendFormat( "<a href=\"{0}\">&lt;{1}</a>", appendPage( recentLink, prevPage, isHtml ), lang.get( "prevPage" ) );
-                sb.Append( "<span class=\"\">&nbsp;</span>" );
-            }
-            else {
-                sb.AppendFormat( "<a href=\"{0}\">&lt;{1}</a>", appendPage( archiveLink, this.Current + 1, isHtml ), lang.get( "prevPage" ) );
-                sb.Append( "<span class=\"\">&nbsp;</span>" );
-            }
-
-            if (this.Current > 1) {
-
-                int nextPage = this.Current - 1;
-
-                if (nextPage > 1) {
-                    sb.AppendFormat( "<a href=\"{0}\">{1}&gt;</a>", appendPage( archiveLink, this.Current - 1, isHtml ), lang.get( "nextPage" ) );
-                    sb.Append( "<span class=\"\">&nbsp;</span>" );
-                    sb.AppendFormat( "<a href=\"{0}\">{1}&raquo;</a>", appendPage( archiveLink, 1, isHtml ), lang.get( "lastPage" ) );
-                }
-                else {
-                    sb.AppendFormat( "<a href=\"{0}\">{1}&gt;</a>", appendPage( archiveLink, this.Current - 1, isHtml ), lang.get( "nextPage" ) );
-                }
-            }
-            sb.Append( "</div>" );
-
-            return sb.ToString();
+            return PageHelper.GetSimplePageBar( cpLink, this.Current, this.PageCount, isMakeHtml );
         }
 
 
@@ -323,6 +274,8 @@ namespace wojilu {
 
             return page;
         }
+
+
 
 
     }

@@ -177,8 +177,7 @@ namespace wojilu.Web.Controller.Content.Admin {
             MakeSidebar();
 
             // 最近列表页
-            int recentCount = postService.CountByApp( app.Id );
-            HtmlMaker.GetRecent().ProcessAll( app.Id, recentCount );
+            HtmlMaker.GetRecent().ProcessAll( app.Id );
             logger.Info( "make recent html" );
 
             // 区块列表页

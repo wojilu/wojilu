@@ -43,25 +43,10 @@ namespace wojilu.Web.Controller.Content.Htmls {
 
                 int recordCount = postService.CountBySection( x.Section.Id );
 
-                totalCount += this.ProcessCache( x.Section.Id, recordCount );
+                totalCount += this.ProcessAll( x.Section.Id, recordCount );
             }
 
             return totalCount;
-        }
-
-        public int ProcessCache( int sectionId, int recordCount ) {
-
-            CheckDir();
-
-            ContentSection section = sectionService.GetById( sectionId );
-
-            String lnkNormal = Link.To( Site.Instance, new SectionController().Show, sectionId, section.AppId );
-            String lnkArchive = Link.To( Site.Instance, new SectionController().Archive, sectionId, section.AppId );
-
-
-            int pageSize = getPageSize( section.AppId );
-
-            return makeHtmlLoopCache( recordCount, sectionId, lnkNormal, lnkArchive, pageSize );
         }
 
         public int ProcessAll( int sectionId, int recordCount ) {
@@ -71,12 +56,10 @@ namespace wojilu.Web.Controller.Content.Htmls {
             ContentSection section = sectionService.GetById( sectionId );
 
             String lnkNormal = Link.To( Site.Instance, new SectionController().Show, sectionId, section.AppId );
-            String lnkArchive = Link.To( Site.Instance, new SectionController().Archive, sectionId, section.AppId );
-
 
             int pageSize = getPageSize( section.AppId );
 
-            return makeHtmlLoopAll( recordCount, sectionId, lnkNormal, lnkArchive, pageSize );
+            return makeHtmlLoopAll( sectionId, lnkNormal, recordCount, pageSize );
         }
 
         private int getPageSize( int appId ) {

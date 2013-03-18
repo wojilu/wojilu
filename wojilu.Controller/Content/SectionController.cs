@@ -44,15 +44,6 @@ namespace wojilu.Web.Controller.Content {
             showInfo( section );
         }
 
-
-        [Data( typeof( ContentSection ) )]
-        public void Archive( int sectionId ) {
-            view( "Show" );
-            ContentSection section = sectionService.GetById( sectionId, ctx.app.Id );
-            set( "listContent", loadHtml( section.SectionType, "Archive", sectionId ) );
-            showInfo( section );
-        }
-
         private void showInfo( ContentSection section ) {
 
             //1)location
