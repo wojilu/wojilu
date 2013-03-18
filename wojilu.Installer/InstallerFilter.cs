@@ -23,7 +23,7 @@ namespace wojilu.Installer {
 
             MvcContext ctx = e.ctx;
 
-            if (ctx.url.Path.IndexOf( "/Installer/" ) <0) {
+            if (ctx.url.Path.ToLower().IndexOf( "/installer" ) <0) {
 
                 String installerUrl = "/Installer/Index" + MvcConfig.Instance.UrlExt;
                 ctx.setUrl( strUtil.Join( ctx.url.SiteAndAppPath, installerUrl ) );

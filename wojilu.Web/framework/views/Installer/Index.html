@@ -53,6 +53,7 @@ background: linear-gradient(top, #eab92d 0%,#c79810 100%); /* W3C */
     #step1 { top:0;left:0;}
     #step2 { top:0px;left:800px; }
     #step3 { top:0px;left:1600px;}
+    #step4 { top:0px;left:2400px;}
 
 .tdL { text-align:right; padding-right:10px; font-size:12px; color:#468847; font-weight:bold;}
 
@@ -73,7 +74,7 @@ lable {right:5px;}
 </head>
 <body>
 
-<h1 style="text-align:center; color:#666; font-size:20px; font-weight:bold; font-family:微软雅黑; margin:30px;">欢迎安装“我记录网站综合系统”</h1>
+<h1 style="text-align:center; color:#666; font-size:28px; font-weight:bold; font-family:微软雅黑; margin:30px;">欢迎安装“我记录网站综合系统”</h1>
 
 <div style="width:180px;margin:auto;margin-bottom:20px; ">#{writeFileMsg}</div>
 
@@ -99,7 +100,7 @@ lable {right:5px;}
         
         <table style="width:100%;"><tr><td style="vertical-align:middle; height:210px;">
 
-        <table style="width:100%;" cellpadding="5" cellspacing="0">
+        <table style="width:90%; margin:auto;" cellpadding="5" cellspacing="0">
             <tr class=""><td class="tdL" style="width:200px; text-align:center;">            
                 <div style=" font-size:24px; ">请选择数据库类型</div>
                 <div class="note font12" style="font-weight:normal; margin-top:10px;"></div> 
@@ -111,7 +112,7 @@ lable {right:5px;}
                         <div><label><input id="rdoAccess" name="dbType" type="radio" value="access" />access <span class="note font12 left5">(这是默认值，如果您不了解数据库，请选择此项)</span></label></div>
                         <div class="accessInfo" style="background:#fff; margin:5px 30px 5px 15px; padding:10px; box-shadow:2px 2px 10px #aaa;">
                             <div style="color:#468847;font-size:12px;">请填写access数据库名称</div>
-                            <div><input name="accessName" type="text" value="#{accessDbName}.mdb" style="width:380px;" /><br /><span class="note font12">(不用预先创建access，系统会自动生成数据库)</span></div>
+                            <div><input name="accessName" type="text" value="#{accessDbName}.mdb" style="width:350px;" /><br /><span class="note font12">(系统会自动生成数据库)</span></div>
                         </div>                    
                     </li>
                     
@@ -179,7 +180,7 @@ lable {right:5px;}
         
         
 
-        <div id="Div1" class="btnStepPanel" style="text-align:center; padding:5px;">
+        <div id="btnStepWrap1" class="btnStepPanel" style="text-align:center; padding:5px;">
             <div style="width:120px; margin:auto;"><button id="btnStep1" type="button" class="btn btn-large btn-primary btnNext" data-tab="stepTitle2" ><i class="icon-hand-right icon-white"></i> 下一步</button>
             </div>
             <div style="font-size:14px;margin-top:8px;margin:10px auto;width:250px;" class="warning">我不了解数据库，<a href="#" id="lnkNext" style="color:Red; font-weight:bold;">直接进入下一步</a></div>
@@ -187,8 +188,34 @@ lable {right:5px;}
         
         
     </div>
-    
+
+
     <div id="step2" style="" class="step">
+
+        <div class="stepPanel">
+        <table style="width:380px; margin:30px auto;">
+            <tr><td style=" text-align:right; padding-right:10px !important; font-size:16px;">用户名</td><td><input type="text" name="" style=" height:30px !important; font-size:16px;" placeholder="请输入管理员的名称" /></td></tr>
+            <tr><td colspan="2" style=" height:5px;"></td></tr>
+            <tr><td style=" text-align:right; padding-right:10px !important; font-size:16px;">电子邮件</td><td><input type="text" name="" style=" height:30px !important; font-size:16px;" placeholder="请输入管理员的Email" /></td></tr>
+            <tr><td colspan="2" style=" height:5px;"></td></tr>
+            <tr><td style=" text-align:right; padding-right:10px !important;; font-size:16px;">密码</td><td><input type="password" name="" style=" height:30px !important; font-size:16px;" placeholder="请输入管理员的密码" /></td></tr>
+            <tr><td colspan="2" style=" height:5px;"></td></tr>
+            <tr><td style=" text-align:right; padding-right:10px !important;; font-size:16px;">重复密码</td><td><input type="password" name="" style=" height:30px !important; font-size:16px;" placeholder="请再次输入管理员密码" /></td></tr>
+        </table>
+
+        </div>
+
+        <div id="btnStepWrap2" class="btnStepPanel" style="text-align:center; padding:5px;">
+            <div style="width:220px; margin:auto;">
+                <button type="button" style=" float:left; " class="btn btn-danger btn-large btnPrev" data-tab="stepTitle1"><i class="icon-hand-left icon-white"></i> 上一步</button>
+                <button id="btnStep2" type="button" class="btn btn-large btn-primary btnNext" data-tab="stepTitle3" ><i class="icon-hand-right icon-white"></i> 下一步</button>
+            </div>
+        </div>
+
+    </div>
+
+    
+    <div id="step3" style="" class="step">
 
         <div class="stepPanel">
         
@@ -216,13 +243,36 @@ lable {right:5px;}
             </table>
         
         </div>
-        <div id="Div2" class="btnStepPanel" style="text-align:center; padding:5px;" class="">
+        <div id="btnStepWrap3" class="btnStepPanel" style="text-align:center; padding:5px;" class="">
             <div style="width:230px; margin:auto;">
-            <button id="Button2" type="button" style=" float:left; " class="btn btn-danger btn-large btnPrev" data-tab="stepTitle1"><i class="icon-hand-left icon-white"></i> 上一步</button>
-            <button id="btnStep2" type="button" style="float:left;" class="btn btn-primary btn-large btnNext" data-tab="stepTitle3"><i class="icon-hand-right icon-white"></i> 完成注册</button>
+            <button type="button" style=" float:left; " class="btn btn-danger btn-large btnPrev" data-tab="stepTitle2"><i class="icon-hand-left icon-white"></i> 上一步</button>
+            <button id="btnStep3" type="button" style="float:left;" class="btn btn-primary btn-large btnNext" data-tab="stepTitle4"><i class="icon-hand-right icon-white"></i> 下一步</button>
             </div>
         </div>
     </div>    
+
+    
+    <div id="step4" style="display1:none;" class="step">
+
+        <div class="stepPanel">
+
+
+            <div>注册成功！</div>
+
+            如有问题，欢迎访问官方网站：，欢迎到论坛访问，谢谢您的支持！
+
+        </div>
+
+        <div id="btnStepWrap4" class="btnStepPanel" style="text-align:center; padding:5px;">
+            <div style="width:220px; margin:auto;">
+                <button type="button" style=" float:left; " class="btn btn-danger btn-large btnPrev" data-tab="stepTitle3"><i class="icon-hand-left icon-white"></i> 上一步</button>
+                <button id="btnStep4" type="button" style="float:left;" class="btn btn-primary btn-large btnNext" data-tab="stepTitle4"><i class="icon-hand-right icon-white"></i> 完成注册</button>
+            </div>
+        </div>
+
+    </div>
+
+
 
 </div>
 
@@ -320,6 +370,10 @@ lable {right:5px;}
             });
 
             $('#btnStep2').click(function () {
+                slidePage(this);
+            });
+
+            $('#btnStep3').click(function () {
                 slidePage(this);
             });
 

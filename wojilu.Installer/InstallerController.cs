@@ -69,7 +69,7 @@ namespace wojilu.Web.Controller {
 
             String fileName = "/config/orm_test.config";
             String filePath = strUtil.Join( cfgHelper.FrameworkRoot, fileName );
-            String dataPath = PathHelper.Map( strUtil.Join( SystemInfo.ApplicationPath, filePath ) );
+            String dataPath = PathHelper.Map( filePath );
             file.Write( dataPath, t.ToString() );
 
             echoAjaxOk();
@@ -134,7 +134,7 @@ namespace wojilu.Web.Controller {
         private void testUploadPath() {
             String fileName = getRandomFileName();
             String filePath = strUtil.Join( sys.Path.DiskUpload, fileName );
-            String dataPath = PathHelper.Map( strUtil.Join( SystemInfo.ApplicationPath, filePath ) );
+            String dataPath = PathHelper.Map( filePath );
             writeFilePrivate( dataPath );
         }
 
@@ -142,7 +142,7 @@ namespace wojilu.Web.Controller {
         private void testFrameworkPath() {
             String fileName = getRandomFileName();
             String filePath = strUtil.Join( cfgHelper.FrameworkRoot, fileName );
-            String dataPath = PathHelper.Map( strUtil.Join( SystemInfo.ApplicationPath, filePath ) );
+            String dataPath = PathHelper.Map( filePath );
             writeFilePrivate( dataPath );
         }
 
@@ -167,7 +167,7 @@ namespace wojilu.Web.Controller {
         }
 
         private String getRandomFileName() {
-            String fileName = "_test_write_file_" + rd.Next( 1000000, 9000000 ) + ".txt";
+            String fileName = "_test_write_file_" + Guid.NewGuid() + ".txt";
             return fileName;
         }
 
