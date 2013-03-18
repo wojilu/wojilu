@@ -27,7 +27,6 @@ namespace wojilu.Apps.Content.Interface {
 
         int CountBySection( int sectionId );
         List<ContentPost> GetAllBySection( int sectionId );
-        //List<ContentPost> GetBySection( List<ContentPost> dataAll, int sectionId );
         List<ContentPost> GetBySection( int sectionId );
         List<ContentPost> GetBySection( int sectionId, int count );
         List<ContentPost> GetTopBySectionAndCategory( int sectionId, int categoryId );
@@ -37,13 +36,11 @@ namespace wojilu.Apps.Content.Interface {
 
         DataPage<ContentPost> GetPageBySection( int sectionId );
         DataPage<ContentPost> GetPageBySection( int sectionId, int pageSize );
-        DataPage<ContentPost> GetPageBySectionArchive( int sectionId, int pageSize );
 
         List<ContentPost> GetByIds( string ids );
         List<ContentPost> GetByApp( int appId );
 
         DataPage<ContentPost> GetByApp( int appId, int pageSize );
-        DataPage<ContentPost> GetByAppArchive( int appId, int pageSize );
 
         DataPage<ContentPost> GetBySearch( int appId, string key, int pageSize );
         DataPage<ContentPost> GetTrashByApp( int appId, int pageSize );

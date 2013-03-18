@@ -297,10 +297,6 @@ namespace wojilu.Apps.Content.Service {
             return ContentPost.findPage( "AppId=" + appId + " and SaveStatus=" + SaveStatus.Normal + " order by Id desc", pageSize );
         }
 
-        public virtual DataPage<ContentPost> GetByAppArchive( int appId, int pageSize ) {
-            return ContentPost.findPageArchive( "AppId=" + appId + " and SaveStatus=" + SaveStatus.Normal, pageSize );
-        }
-
         public virtual DataPage<ContentPost> GetTrashByApp( int appId, int pageSize ) {
             return ContentPost.findPage( "AppId=" + appId + " and SaveStatus=" + SaveStatus.Delete + " order by Id desc", pageSize );
         }
@@ -323,19 +319,6 @@ namespace wojilu.Apps.Content.Service {
             // 兼容旧版
             if (xResult.RecordCount == 0) {
                 return ContentPost.findPage( "SectionId=" + sectionId + " and SaveStatus=" + SaveStatus.Normal, pageSize );
-            }
-            else {
-                return xResult;
-            }
-        }
-
-        public virtual DataPage<ContentPost> GetPageBySectionArchive( int sectionId, int pageSize ) {
-            DataPage<ContentPostSection> list = ContentPostSection.findPageArchive( "SectionId=" + sectionId + " and SaveStatus=" + SaveStatus.Normal, pageSize );
-
-            DataPage<ContentPost> xResult = list.Convert<ContentPost>( populatePost( list.Results ) );
-            // 兼容旧版
-            if (xResult.RecordCount == 0) {
-                return ContentPost.findPageArchive( "SectionId=" + sectionId + " and SaveStatus=" + SaveStatus.Normal, pageSize );
             }
             else {
                 return xResult;

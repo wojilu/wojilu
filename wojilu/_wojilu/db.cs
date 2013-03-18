@@ -94,37 +94,6 @@ namespace wojilu {
 
             return findPage<T>( condition, 20 );
         }
-        /// <summary>
-        /// 存档模式翻页(默认按照 order by Id asc 排序)
-        /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="condition">查询条件</param>
-        /// <returns>分页数据列表，包括当前页、总记录数、分页条等</returns>
-        public static DataPage<T> findPageArchive<T>( String condition ) where T : IEntity {
-            return findPageArchive<T>( condition, 20 );
-        }
-
-        /// <summary>
-        /// 存档模式翻页(默认按照 order by Id asc 排序)
-        /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="condition">查询条件</param>
-        /// <param name="pageSize">每页需要显示的数据量</param>
-        /// <returns>分页数据列表，包括当前页、总记录数、分页条等</returns>
-        public static DataPage<T> findPageArchive<T>( String condition, int pageSize ) where T : IEntity {
-
-            if (strUtil.IsNullOrEmpty( condition )) condition = "order by Id asc";
-            if (condition.ToLower().IndexOf( "order" ) < 0) condition = condition + " order by Id asc";
-
-            DataPage<T> list = findPage<T>( condition, pageSize );
-
-            list.Results.Sort( compareEntity );
-            return list;
-        }
-
-        private static int compareEntity<T>( T p1, T p2 ) where T : IEntity {
-            return p1.Id > p2.Id ? -1 : 1;
-        }
 
         /// <summary>
         /// 根据查询条件、每页数量，返回分页数据集合

@@ -122,22 +122,6 @@ namespace wojilu {
         public static DataPage<T> findPage( String condition, int pageSize ) { return db.findPage<T>( condition, pageSize ); }
 
         /// <summary>
-        /// 存档模式翻页(默认按照 order by Id asc 排序)
-        /// </summary>
-        /// <param name="condition">查询条件</param>
-        /// <returns>分页数据列表，包括当前页、总记录数、分页条等</returns>
-        public static DataPage<T> findPageArchive( String condition ) { return db.findPageArchive<T>( condition ); }
-
-        /// <summary>
-        /// 存档模式翻页(默认按照 order by Id asc 排序)
-        /// </summary>
-        /// <param name="condition">查询条件</param>
-        /// <param name="pageSize">每页数量</param>
-        /// <returns>分页数据列表，包括当前页、总记录数、分页条等</returns>
-        public static DataPage<T> findPageArchive( String condition, int pageSize ) { return db.findPageArchive<T>( condition, pageSize ); }
-
-
-        /// <summary>
         /// 直接使用 sql 语句查询，返回对象列表
         /// </summary>
         /// <param name="sql"></param>
