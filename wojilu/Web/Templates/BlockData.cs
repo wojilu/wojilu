@@ -29,14 +29,14 @@ namespace wojilu.Web.Templates {
             copyValues( vars, this.parentVars );
         }
 
-        private void copyValues( Dictionary<String, Object> values,  Dictionary<String, Object> target) {
+        private void copyValues( Dictionary<String, Object> values, Dictionary<String, Object> target ) {
             foreach (String key in values.Keys) {
                 target.Add( key, values[key] );
             }
         }
 
-        private Dictionary<String, Object> vars = new Dictionary<String,Object>();
-        private Dictionary<String, Object> parentVars = new Dictionary<String,Object>();
+        private Dictionary<String, Object> vars = new Dictionary<String, Object>();
+        private Dictionary<String, Object> parentVars = new Dictionary<String, Object>();
         private Dictionary<String, ContentBlock> _blocks = new Dictionary<String, ContentBlock>();
 
         public Dictionary<String, Object> getDic() {
@@ -53,6 +53,7 @@ namespace wojilu.Web.Templates {
 
 
         public void addBlock( ContentBlock block ) {
+            if (_blocks.ContainsKey( block.Name )) throw new TemplateException( "请勿重复绑定(getBlock)区块。区块名=" + block.Name + "，模板文件=" + block.getTemplatePath() );
             _blocks.Add( block.Name, block );
         }
 

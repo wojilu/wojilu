@@ -54,6 +54,10 @@ namespace wojilu.Web {
             return _blockdataList;
         }
 
+        public String getTemplatePath() {
+            return _templatePath;
+        }
+
         /// <summary>
         /// 绑定一行完毕，进入下一行绑定
         /// </summary>
@@ -136,7 +140,7 @@ namespace wojilu.Web {
         public Boolean HasBlock( String blockName ) {
 
             if (_isTemplateExist == false) {
-                throw new Exception( lang.get( "exTemplateNotExist" ) + ": " + _templatePath );
+                throw new TemplateException( lang.get( "exTemplateNotExist" ) + ": " + _templatePath );
             }
 
             return getBlockToken( blockName ) != null;
@@ -149,18 +153,19 @@ namespace wojilu.Web {
         /// <returns></returns>
         public IBlock GetBlock( String blockName ) {
 
-            if (_isTemplateExist == false) {                
-                throw new Exception( lang.get( "exTemplateNotExist" ) + ": " + _templatePath );
+            if (_isTemplateExist == false) {
+                throw new TemplateException( lang.get( "exTemplateNotExist" ) + ": " + _templatePath );
             }
 
             BlockToken blockToken = getBlockToken( blockName );
-            if (blockToken == null) throw new Exception(
+            if (blockToken == null) throw new TemplateException(
                 string.Format( lang.get( "exBlockExist" ) , blockName, _templatePath, "&lt;!-- BEGIN " + blockName+ " --&gt;" )                
                 );
 
             ContentBlock block = new ContentBlock();
             block.Name = blockName;
             block._thisToken = blockToken;
+            block._templatePath = _templatePath;
 
             // 将上级变量放入下级循环可用
             block._blockData = new BlockData( _blockData.getDic() ); 

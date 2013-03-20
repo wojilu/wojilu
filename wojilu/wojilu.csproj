@@ -118,6 +118,7 @@
     <Compile Include="OAuth\OAuthUserProfile.cs" />
     <Compile Include="Serialization\TypedDeserializeHelper.cs" />
     <Compile Include="Web\HttpMethod.cs" />
+    <Compile Include="Web\Templates\TemplateException.cs" />
     <Compile Include="Web\Utils\AvatarNetSaver.cs" />
     <Compile Include="_wojilu\Exception.cs" />
     <Compile Include="Web\Mvc\ActionCache.cs" />
