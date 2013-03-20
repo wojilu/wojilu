@@ -20,7 +20,6 @@ div.picTool span a { background:#f2f2f2;}
 .mpicPanel { overflow:hidden;}
 
 </style>
-
         
         <div id="blogList">
         <!-- BEGIN list -->
@@ -35,6 +34,16 @@ div.picTool span a { background:#f2f2f2;}
 		            <div class="mpicPanel"></div>
 		        </div>
 		        <!-- END pic -->
+
+
+
+		        <!-- BEGIN video -->
+		        <div style="position:relative;">
+		        <a href="#{blog.ShowLink}"><img src="#{blog.FlashPic}" style="float:left;padding:3px; border:1px #ccc solid;" />
+		        <img class="blogVideo" src="~img/m/videoplay.png" style="position:relative;float:left; top:35px; left:-85px; cursor:pointer;" /></a>
+		        </div>
+		        <!-- END video -->
+                <div style=" clear:both;"></div>
 
                 <div class="note font12">#{m.Created}</div><div class="clear"></div>
             </div>

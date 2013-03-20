@@ -66,10 +66,15 @@
 </div>
 			
 <script>
-_run( function() {
-    wojilu.ui.valid();
-    wojilu.ui.ajaxUpdateForm();
-});
+    _run(function () {
+        wojilu.ui.valid();
+        wojilu.ui.ajaxUpdateForm();
+
+        setTimeout(function () {
+            $('.blogVideo').click();
+        }, 100);
+
+    });
 </script>
 
 

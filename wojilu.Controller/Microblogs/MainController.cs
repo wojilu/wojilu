@@ -99,18 +99,34 @@ namespace wojilu.Web.Controller.Microblogs {
                 block.Set( "m.Content", m.Content );
                 block.Set( "m.Created", m.Created );
 
-                IBlock picBlock = block.GetBlock( "pic" );
-                if (strUtil.HasText( m.Pic )) {
-                    picBlock.Set( "blog.PicSmall", m.PicSmall );
-                    picBlock.Set( "blog.PicMedium", m.PicMedium );
-                    picBlock.Set( "blog.PicOriginal", m.PicOriginal );
-                    picBlock.Next();
-                }
-
+                bindPicInfo( block, m );
+                bindVideoInfo( block, m );
 
                 block.Next();
             }
+        }
 
+        private static void bindPicInfo( IBlock block, Microblog m ) {
+            IBlock picBlock = block.GetBlock( "pic" );
+            if (strUtil.HasText( m.Pic )) {
+                picBlock.Set( "blog.PicSmall", m.PicSmall );
+                picBlock.Set( "blog.PicMedium", m.PicMedium );
+                picBlock.Set( "blog.PicOriginal", m.PicOriginal );
+                picBlock.Next();
+            }
+        }
+
+        private void bindVideoInfo( IBlock block, Microblog blog ) {
+            IBlock vBlock = block.GetBlock( "video" );
+            if (strUtil.HasText( blog.FlashUrl )) {
+
+                String vpic = strUtil.HasText( blog.PicUrl ) ? blog.PicUrl : strUtil.Join( sys.Path.Img, "/big/novideopic.png" );
+
+                vBlock.Set( "blog.FlashPic", vpic );
+                vBlock.Set( "blog.ShowLink", Link.To( blog.User, new MicroblogController().Show, blog.Id ) );
+                    
+                vBlock.Next();
+            }
 
         }
 

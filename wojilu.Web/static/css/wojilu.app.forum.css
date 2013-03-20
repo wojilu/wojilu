@@ -225,8 +225,10 @@ table.postOne {width:100%; border-collapse:collapse; margin:auto;}
 
     .relative-post {margin-top:10px; font-size:12px;}
     .relative-post .relative-title {margin-bottom:10px;background:#f2f2f2;padding:5px 10px;}
-    .relative-post ul li {float:left;width:310px; margin-right:15px; margin-left:10px; list-style-type: disc;list-style-position:inside;}
+    .relative-post ul li {float:left;width:310px; margin-right:15px; margin-left:10px; list-style-position:inside;}
     .relative-post ul li div {width:290px; overflow:hidden;white-space:nowrap;text-overflow:ellipsis;}
+
+    @-moz-document url-prefix() { .relative-post ul li {list-style:disc;} }
 
     .postAdmin {display:none;}
     .cmdTag {display:none;}
