@@ -61,7 +61,7 @@ _run( function() {
         。</div>
     <pre class="brush: c-sharp;">
     
-public void Json() {
+public void JsonTest() {
     set( "jsonLink", to( JsonResult ) );
 }
 
@@ -74,7 +74,7 @@ public void JsonResult() {
     dic.Add( "Name", "你选择了" + id  );
 
     // 使用JsonString的Convert方法构造json字符串，可以避免手工拼接的错误
-    String jsonStr = JsonString.Convert( dic );
+    String jsonStr = Json.ToString( dic );
 
     // 使用 echoJson 方法返回 json 字符串，客户端jquery可以直接使用
     echoJson( jsonStr );

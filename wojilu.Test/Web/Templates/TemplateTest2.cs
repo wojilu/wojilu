@@ -30,10 +30,10 @@ namespace wojilu.Test.Web.Templates {
 			string looppage = @"
 <table>
 <!-- BEGIN newphotos -->
-	<tr><td>{#Title#}</td><td>{#CreateTime#}</td></tr>
-	<tr><td colspan=2><!-- BEGIN item --> {#Name#} 
+	<tr><td>#{Title}</td><td>#{CreateTime}</td></tr>
+	<tr><td colspan=2><!-- BEGIN item --> #{Name} 
 <!-- BEGIN suitem -->
-{#SubName#}<br/><!-- END suitem -->
+#{SubName}<br/><!-- END suitem -->
 <!-- END item --></td></tr>
 <!-- END newphotos -->
 </table>
@@ -74,8 +74,8 @@ namespace wojilu.Test.Web.Templates {
 			string looppage = @"
 <table>
 <!-- BEGIN newphotos -->
-	<tr><td>{#Title#}</td><td>{#CreateTime#}</td></tr>
-	<tr><td colspan=2><!-- BEGIN item --> {#Name#} <!-- END item --></td></tr>
+	<tr><td>#{Title}</td><td>#{CreateTime}</td></tr>
+	<tr><td colspan=2><!-- BEGIN item --> #{Name} <!-- END item --></td></tr>
 <!-- END newphotos -->
 </table>
 ";
@@ -110,7 +110,7 @@ namespace wojilu.Test.Web.Templates {
 
 			string looppage = @"
 <table><!-- BEGIN newphotos -->
-	<tr><td>{#Title#}</td><td>{#CreateTime#}</td></tr><!-- END newphotos -->
+	<tr><td>#{Title}</td><td>#{CreateTime}</td></tr><!-- END newphotos -->
 </table>
 ";
 
@@ -136,7 +136,7 @@ namespace wojilu.Test.Web.Templates {
 
 //            string looppage = @"
 //<table><!-- BEGIN newphotos -->
-//	<tr><td>{#Title#}</td><td>{#CreateTime#}</td></tr><!-- END newphotos -->
+//	<tr><td>#{Title}</td><td>#{CreateTime}</td></tr><!-- END newphotos -->
 //</table>
 //";
 
@@ -164,8 +164,8 @@ namespace wojilu.Test.Web.Templates {
 
 			string a = @"  
 <h4>
-{#Title#}</h4> 
-<b>{#CreateTime#}</b><br />
+#{Title}</h4> 
+<b>#{CreateTime}</b><br />
 	";
 			SpeedUtil.Start();
 
@@ -184,8 +184,8 @@ namespace wojilu.Test.Web.Templates {
 //        public void singleNew() {
 //            string a = @"  
 //<h4>
-//{#Title#}</h4> 
-//<b>{#CreateTime#}</b><br />
+//#{Title}</h4> 
+//<b>#{CreateTime}</b><br />
 //	";
 //            timer.Start();
 

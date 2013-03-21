@@ -996,7 +996,7 @@
     <Content Include="framework\views\Demo\Valid\EditorFullbar.html" />
     <Content Include="framework\views\Demo\Valid\EditorUpload.html" />
     <Content Include="framework\views\Demo\Valid\Index.html" />
-    <Content Include="framework\views\Demo\Valid\Json.html" />
+    <Content Include="framework\views\Demo\JsonTest\JsonTest.html" />
     <Content Include="framework\views\Demo\Valid\Layout.html" />
     <Content Include="framework\views\Demo\Valid\Checkbox.html" />
     <Content Include="framework\views\Demo\Valid\Pwd.html" />
