@@ -57,7 +57,7 @@ namespace wojilu.Serialization {
             if (obj == null) return empty();
 
             Type t = obj.GetType();
-            if (t.IsArray) return ConvertArray( (object[])obj );
+            if (t.IsArray) return ConvertArray( obj );
             if (rft.IsInterface( t, typeof( IList ) )) return ConvertList( (IList)obj );
             if (rft.IsInterface( t, typeof( IDictionary ) )) return ConvertDictionary( (IDictionary)obj, isBreakline );
 
@@ -92,6 +92,29 @@ namespace wojilu.Serialization {
                     .Replace( "\r", "" )
                     .Replace( "\n", "" )
                     .Replace( "\t", "" );
+        }
+
+        public static String ConvertArray( Object obj ) {
+
+            if (obj == null) return "[]";
+            Array arrObj = (Array)obj;
+
+            StringBuilder sb = new StringBuilder();
+            sb.Append( "[ " );
+
+            for (int i = 0; i < arrObj.Length; i++) {
+
+                Object x = arrObj.GetValue( i );
+
+                if (x == null) continue;
+                sb.Append( Convert( x, getDefaultIsBreakline() ) );
+                if (i < arrObj.Length - 1) sb.Append( ", " );
+
+
+            }
+
+            sb.Append( " ]" );
+            return sb.ToString();
         }
 
 
@@ -256,7 +279,7 @@ namespace wojilu.Serialization {
 
                 String jsonValue;
                 if (info.PropertyType.IsArray) {
-                    jsonValue = ConvertArray( (object[])propertyValue );
+                    jsonValue = ConvertArray( propertyValue );
                 }
                 else if (rft.IsInterface( info.PropertyType, typeof( IList ) )) {
                     jsonValue = ConvertList( (IList)propertyValue, isBreakline );

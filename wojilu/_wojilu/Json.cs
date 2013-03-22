@@ -19,6 +19,7 @@ using System.Collections.Generic;
 using System.Text;
 using wojilu.Serialization;
 using System.Collections;
+using System.Reflection;
 
 namespace wojilu {
 
@@ -93,6 +94,34 @@ namespace wojilu {
         /// <returns></returns>
         public static List<T> DeserializeList<T>( String jsonString ) {
             return TypedDeserializeHelper.DeserializeList<T>( jsonString );
+        }
+
+        /// <summary>
+        /// 将 json 字符串反序列化为匿名对象
+        /// </summary>
+        /// <param name="jsonString"></param>
+        /// <param name="objDefinition">一个object，可以定义或代表匿名对象</param>
+        /// <returns></returns>
+        public static Object DeserializeAnonymous( String jsonString, Object objDefinition ) {
+            if (objDefinition == null) throw new ArgumentNullException( "anonymousObject" );
+            return DeserializeAnonymous( jsonString, objDefinition.GetType() );
+        }
+        
+        /// <summary>
+        /// 将 json 字符串反序列化为匿名对象
+        /// </summary>
+        /// <param name="jsonString"></param>
+        /// <param name="t">匿名对象的类型</param>
+        /// <returns></returns>
+        public static Object DeserializeAnonymous( String jsonString, Type t ) {
+
+            if (strUtil.IsNullOrEmpty( jsonString )) return null;
+            if (t == null) throw new ArgumentNullException( "anonymous type is null" );
+
+            JsonObject obj = ParseJson( jsonString );
+            if (obj == null) return null;
+
+            return TypedDeserializeHelper.DeserializeAnonymous( obj, t );
         }
 
         /// <summary>

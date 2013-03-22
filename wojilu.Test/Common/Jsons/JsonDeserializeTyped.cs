@@ -38,6 +38,7 @@ namespace wojilu.Test.Common.Jsons {
             x.JsonObject.Add( "key1", "v1" );
             x.JsonObject.Add( "key2", "v2" );
 
+            x.IntArray = new int[] { 2, 6, 8 };
             x.Id_List = new List<int> { 3, 4, 5 };
             x.Name_List = new List<string> { "x03", "x04", "x05" };
             x.TMoney_List = new List<decimal> { 3.93M, 4.94M, 5.95M };
@@ -79,7 +80,7 @@ namespace wojilu.Test.Common.Jsons {
             Assert.AreEqual( x.TMoney, k.TMoney );
             Assert.AreEqual( x.TDouble, k.TDouble );
             Assert.AreEqual( x.IsBlack, k.IsBlack );
-            Assert.IsTrue( isTimeEqual( x.Created, k.Created) );
+            Assert.IsTrue( isTimeEqual( x.Created, k.Created ) );
 
             // 其他对象类型
             Assert.IsNotNull( k.TPhone );
@@ -97,6 +98,11 @@ namespace wojilu.Test.Common.Jsons {
             Assert.AreEqual( x.Id_List[0], k.Id_List[0] );
             Assert.AreEqual( x.Id_List[1], k.Id_List[1] );
             Assert.AreEqual( x.Id_List[2], k.Id_List[2] );
+
+            Assert.AreEqual( x.IntArray.Length, k.IntArray.Length );
+            Assert.AreEqual( x.IntArray[0], k.IntArray[0] );
+            Assert.AreEqual( x.IntArray[1], k.IntArray[1] );
+            Assert.AreEqual( x.IntArray[2], k.IntArray[2] );
 
             Assert.AreEqual( x.Name_List.Count, k.Name_List.Count );
             Assert.AreEqual( x.Name_List[0], k.Name_List[0] );

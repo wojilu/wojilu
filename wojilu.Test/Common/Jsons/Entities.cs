@@ -41,6 +41,7 @@ namespace wojilu.Test.Common.Jsons {
         public List<DateTime> Created_List { get; set; }
 
         // 支持数组
+        public int[] IntArray { get; set; }
         public TPhone[] TPhone_Array { get; set; }
 
         // 支持List泛型

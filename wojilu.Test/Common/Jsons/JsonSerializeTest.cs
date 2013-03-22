@@ -10,7 +10,7 @@ using wojilu.ORM;
 using System.Collections;
 
 namespace wojilu.Test.Common.Jsons {
-    
+
 
     [TestFixture]
     public class JsonSerializeTest {
@@ -95,6 +95,64 @@ namespace wojilu.Test.Common.Jsons {
         }
 
         [Test]
+        public void testAnonymousType() {
+
+            // 创建一个匿名对象
+            var obj1 = new {
+
+                // 基本类型
+                id = 2,
+                name = "zhangsan",
+                age = 18,
+                money = 2.92M,
+                area = 22222222222222222L,
+                tdouble = 22222.2222222299,
+                isBlack = true,
+                created = DateTime.Now.AddDays( -2 ),
+
+                // 匿名对象
+                phone = new {
+                    id = 38,
+                    name = "xphone",
+                    weight = 88,
+
+                    // 匿名对象的匿名对象
+                    company = new { Name = "google", price = 2999, rank = 10 }
+                },
+
+                // 数组
+                arrInt = new int[] { 2, 6, 9 },
+                arrString = new String[] { "s1", "s3", "s6" },
+                TPhone_Array = new TPhone[] {
+                    new TPhone { Id=7, Name = "p07", Weight=77 },
+                    new TPhone { Id=8, Name = "p08", Weight=88 },
+                    new TPhone { Id=9, Name = "p09", Weight=99 }
+                },
+
+                // 列表
+                names = new List<string> { "x03", "x04", "x05" },
+                TPhone_List = new List<TPhone> {
+                    new  TPhone{ Id=2, Name = "p02", Weight=22 },
+                    new  TPhone{ Id=3, Name = "p03", Weight=33 },
+                    new  TPhone{ Id=4, Name = "p04", Weight=44 }
+                }
+            };
+
+            // 序列化“匿名类型”
+            String str1 = Json.ToString( obj1 );
+            Console.WriteLine( str1 );
+
+            // 反序列化“匿名类型”
+            var obj2 = Json.DeserializeAnonymous( str1, obj1.GetType() );
+            String str2 = Json.ToString( obj2 );
+
+            Assert.AreEqual( str1, str2 );
+
+        }
+
+
+
+        [Test]
         public void testEscape() {
 
             Dictionary<string, object> dic = new Dictionary<string, object>();
@@ -142,7 +200,7 @@ namespace wojilu.Test.Common.Jsons {
             Dictionary<string, object> dic = new Dictionary<string, object>();
             dic["title"] = "abcd";
             dic["user"] = "john";
-            dic["body"] = "my"+Environment.NewLine+"content"; //字符串里面有换行
+            dic["body"] = "my" + Environment.NewLine + "content"; //字符串里面有换行
 
             String expected = Json.ToString( dic );
 
@@ -267,7 +325,7 @@ namespace wojilu.Test.Common.Jsons {
 
             string str = Json.ToString( new DateTime( 1999, 12, 6, 17, 25, 58 ) );
             //Assert.AreEqual( "\"1999-12-6 17:25:58\"", str );
-            Console.WriteLine( str);
+            Console.WriteLine( str );
         }
 
         //---------------------------------------------------------------------------------
@@ -310,7 +368,9 @@ namespace wojilu.Test.Common.Jsons {
         public void testSubObjects() {
 
             AdminMenu m = new AdminMenu {
-                 Id = "3", Name = "新闻", Url = "/abc.aspx"
+                Id = "3",
+                Name = "新闻",
+                Url = "/abc.aspx"
             };
 
             String str = Json.ToStringSimple( m );

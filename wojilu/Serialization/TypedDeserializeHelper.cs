@@ -49,6 +49,8 @@ namespace wojilu.Serialization {
 
             if (t == typeof( JsonObject )) return obj;
 
+            if (t.FullName.IndexOf( "__AnonymousType" ) > 0) return DeserializeAnonymous( obj, t );
+
             Object ret = rft.GetInstance( t );
             PropertyInfo[] properties = t.GetProperties( BindingFlags.Public | BindingFlags.Instance );
             foreach (PropertyInfo p in properties) {
@@ -56,6 +58,46 @@ namespace wojilu.Serialization {
             }
             return ret;
         }
+
+        public static object DeserializeAnonymous( JsonObject obj, Type t ) {
+
+            PropertyInfo[] ps = t.GetProperties();
+            List<Object> values = new List<object>();
+            foreach (PropertyInfo p in ps) {
+
+                Object objValue = obj.GetValue( p.Name );
+                if (objValue == null) continue;
+
+                if (objValue is JsonObject) {
+                    Object val = DeserializeAnonymous( (JsonObject)objValue, p.PropertyType );
+                    values.Add( val );
+                }
+                else if (objValue is IList) {
+                    Object val = getListValue( p, objValue as List<Object> );
+                    values.Add( val );
+                }
+                else {
+                    Object val = obj.GetValue( p.Name, p.PropertyType );
+                    values.Add( val );
+                }
+            }
+
+            return rft.GetInstance( t, values.ToArray() );
+        }
+
+        private static object getListValue( PropertyInfo p, List<Object> values ) {
+
+            if (p.PropertyType.IsArray) {
+                return convertListToArray( values, p.PropertyType.GetElementType() );
+            }
+
+            if (rft.IsInterface( p.PropertyType, typeof( IList ) ) && p.PropertyType.IsGenericType) {
+                return convertListToTypedList( values, p.PropertyType );
+            }
+
+            return null;
+        }
+
 
         private static void setPropertyValue( Object ret, PropertyInfo p, JsonObject obj ) {
 
@@ -215,6 +257,10 @@ namespace wojilu.Serialization {
 
             if (obj is JsonObject) {
                 return deserializeType( targeType, (JsonObject)obj );
+            }
+
+            if (targeType == typeof( Object )) {
+                return obj;
             }
 
             return null;

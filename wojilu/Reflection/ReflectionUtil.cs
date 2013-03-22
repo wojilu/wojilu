@@ -61,12 +61,16 @@ namespace wojilu.Reflection {
             return asm.CreateInstance( typeName );
         }
 
-        //private static Object GetInstance( String typeFullName ) {
-        //    if (typeFullName.IndexOf( ',' ) <= 0) {
-        //        typeFullName = typeFullName + "," + Assembly.GetEntryAssembly().GetName().Name;
-        //    }
-        //    return rft.GetInstance( Type.GetType( typeFullName ) );
-        //}
+        /// <summary>
+        /// 初始化匿名类型
+        /// </summary>
+        /// <param name="t">匿名类型的type</param>
+        /// <param name="values">参数的值</param>
+        /// <returns></returns>
+        public static Object GetAnonymousInstance( Type t, Object[] values ) {
+            ConstructorInfo constructor = t.GetConstructors()[0];
+            return constructor.Invoke( values );
+        }
 
         public static Object GetInstanceFromProgId( String progId ) {
             return rft.GetInstance( Type.GetTypeFromProgID( progId ) );
