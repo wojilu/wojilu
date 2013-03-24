@@ -1,34 +1,66 @@
-/*button i {display:none !important;}*/
+﻿/*button i {display:none !important;}*/
+
+body { background:url(../skin/site/new/body-bg.jpg);}
 
 .caret { width:10px !important;height:5px !important;margin-top:5px !important;margin-left:0px !important; background:url(/static/img/down.gif) no-repeat !important;border:0px !important};
 
 .row {margin-left:0px;}
+.span12 {margin-left:0px;}
 .span4 {margin-left:20px;}
 
-/********************************************/
+/************ 顶部导航栏 ************/
+#navbar-inner ul.dropdown-menu {width:120px;}
+#topAccountInfo ul.dropdown-menu { text-align:left;}
 
-#topNavMenu { margin-top:3px;}
+#top-nav-right .help-inline {float:left;}
+.top-login-btn, .top-reg-btn {margin-top:-3px;}
+.top-forget-pwd {margin-top:3px; margin-right:10px;}
+
+#topConnects {margin-top:8px;}
+#topConnects li {float:left; margin-right:10px;}
+#topConnectsMenuWrap {padding-top:-2px; display:none;}
+
+#topNavMenu { margin-top:8px; border-top1:1px solid red; }
 #topNavMenu li {float:left; margin:5px 6px 0px 0px;}
+
+
 #userAccountTable {margin-top:3px;}
 #userAccountTable li {float:left;margin:5px 6px 0px 0px;}
 
-.site-header{margin-left:0px;}
-.site-header-inner {padding-left:10px;}
-
-.site-nav-wrap .nav li {float:left; margin-right:15px;margin-bottom:-5px;}
-.site-nav-wrap .nav li a{display:block; padding-top:8px;float:left; }
-
-#top-nav-left { width1:550px;}
-#top-nav-right { width1:380px; text-align:right;}
+#top-nav-right { text-align:right;}
 #top-nav-login-form-remember {display:inline-block;width:70px;padding-top:3px; }
 #chkRemember {display:inline-block;width:22px;}
 
+
+/************ 网站菜单 ************/
+.site-header{margin-left:0px;}
+.site-header-inner {padding-left:10px;}
+
+#site-nav-wrap {}
+#site-nav-wrap .nav li {float:left; margin-right:15px;margin-bottom:-5px;}
+#site-nav-wrap .nav li a{display:block; padding-top:8px;float:left; }
+
+#site-nav li.root-item {width:0; white-space:nowrap; margin-bottom:-12px;}
+#site-nav .arrowDown {border:0px;}	
+#site-nav .current-site-menu a { height:10px;}
+
+/************ footer *************/
 .footer { width:940px;}
+#backTop { position:absolute;bottom:auto; margin-bottom:20px;
+top:expression(eval(document.documentElement.scrollTop+document.documentElement.clientHeight-this.offsetHeight-(parseInt(this.currentStyle.marginTop,10)||0)-(parseInt(this.currentStyle.marginBottom,10)||0)));}
+*html{background-image:url(about:blank);background-attachment:fixed;}
+
+
+#page-container { }
+#page-main-wrap {}
 
 /*********** forum **************/
+.forum-top-list .span5 {margin-left:-10px;}
+.forum-top-list .span7 {margin-left:0px;}
+
 .forum-search-row, .forum-stats-row , .forum-location{width:940px;} 
-    .forum-stats-title {_margin-left:20px;}
-    .forum-stats-data {_margin-left:100px;}
+    .forum-stats-title {margin-left:20px;}
+    .forum-stats-data {margin-left:100px;}
 
 .forum-top-list { background:#fff; }
 .forum-top-list .slideWrap{ margin:10px !important;margin-left:5px !important; }
@@ -38,9 +70,23 @@
     .forum-category-arrow { margin-left:22px !important;}
     .forum-prenext-spl { margin-left:5px !important;}
 
+.forum-form-quick {width:700px;}
+#txtTitle {width:550px;}
+
+#locationBoards li.forum_location_forums {margin-left:10px;}
+#locationBoards li.forum_location_forums a{ padding-left:5px; padding-right:15px;}
+
+.forum-toolbar {margin-left:0px;}
+
+.forum-prenext-pager {width:480px !important;}
+.forum-prenext-pager .turnpage {}
+.forum-prenext-cmd {width:190px; margin-top:0px; padding-right:0px;}
+
+
 /*********** photo **************/
 #pick-row {margin-bottom:0px; }
 #pick-row .span4{margin-left:15px;}
+#pick-row .photo-pick-left {margin-left:-10px;}
 #pick-row .user-rank li {margin:0px 5px;padding:0px 3px;}
 .img-section li {margin:15px 22px 0px 0px !important;}
 
@@ -48,14 +94,14 @@
 /*********** blog **************/
 #blog-main-row .span4 {margin-left:10px !important;}
 .blog-top-list { margin-left:20px !important;}
+.blog-category { width:292px !important;}
 .blog-category-item0 {margin-right:10px !important;}
+.blog-list-title {width:210px !important;}
 .blog-search button {float:left;display:block;}
 
 /*********** microblog **************/
 
-
-
 #pubUserPic {float:left; margin;0px !important;}
 
-.forum-form-quick {width:700px;}
-#txtTitle {width:550px !important;}
+
+

@@ -51,6 +51,11 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#d2ebf9', end
 .forum-location a { color:#333;}
 .forum-location .forum-location-sp {margin:0px 7px 0px 7px;background:url(../skin/site/new/forum-location-arrow.jpg);width:10px;height:33px;}
 
+#locationBoards { padding-bottom:20px;}
+#locationBoards li.forum_location_category {padding:10px 0px 2px 15px; font-weight:bold;}
+#locationBoards li.forum_location_forums { padding:0px;}
+#locationBoards li.forum_location_forums a { padding-left:30px;}
+
 .forum-toolbar, .psTopicType {background:url(../skin/site/new/forum-toolbar-bg.jpg); height:34px;border-top:1px solid #d7e0e9;border-bottom:1px solid #d7e0e9;}
 .psTopicSep {*height:26px;}
 
@@ -89,12 +94,17 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#d2ebf9', end
 
 
 .forum-topic-prenext {background:url(../skin/site/new/forum-prenext-bg.jpg); height:34px; border-top:1px solid #d7e0e9;border-bottom:1px solid #d7e0e9;}
-.forum-prenext-spl {background:url(../skin/site/new/forum-prenext-spl.jpg); height:34px;width:10px;margin:0px 5px 0px 20px;}
-.forum-prenext-spr {background:url(../skin/site/new/forum-prenext-spr.jpg); height:34px;width:10px;margin:0px 0px 0px 5px;}
-.forum-prenext-pre, .forum-prenext-next {margin-top:8px; font-weight:bold;}
-.forum-prenext-sp {margin:8px 10px 0px 10px; color:#cad4e0;}
-.forum-topic-prenext a {color:#333;}
-.forum-prenext-cmd { text-align:right; padding-top:5px;padding-right:15px; *margin-top:-18px !important;_margin-top:0px !important;}
+.forum-prenext-link {width:220px; float:left; margin-left:20px;}
+    .forum-prenext-spl {background:url(../skin/site/new/forum-prenext-spl.jpg); height:34px;width:10px;margin:0px 5px 0px 20px;}
+    .forum-prenext-spr {background:url(../skin/site/new/forum-prenext-spr.jpg); height:34px;width:10px;margin:0px 0px 0px 5px;}
+    .forum-prenext-pre, .forum-prenext-next {margin-top:8px; font-weight:bold;}
+    .forum-prenext-sp {margin:8px 10px 0px 10px; color:#cad4e0;}
+    .forum-topic-prenext a {color:#333;}
+
+.forum-prenext-pager {width:500px;float:left;}
+.forum-prenext-pager .turnpage{margin-top:8px;}
+.forum-prenext-cmd {width:180px; float:right; }
+.forum-prenext-cmd { text-align:right; padding-top:3px; padding-right:15px;}
 .forum-prenext-cmd .cmdreply {margin-right:5px; }
 
 .forum-post-admin .dropdown-menu {min-width:100px;}

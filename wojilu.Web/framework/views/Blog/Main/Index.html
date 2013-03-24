@@ -19,10 +19,9 @@
 .blog-category-inner {border1:1px #ccc solid; }
 
 .blog-category-name { height:30px; line-height:30px;border:1px ##08c solid; padding-left:10px; padding-right:10px;
-border-top-left-radius: 4px;
-border-top-right-radius: 4px;
-background: #08c;
-
+    border-top-left-radius: 4px;
+    border-top-right-radius: 4px;
+    background: #08c;
 }
 
 .blog-category-text {float:left; font-weight:bold; color:#fff}
@@ -41,7 +40,7 @@ border-bottom-right-radius: 4px;
 .blog-list-title, .blog-list-author{overflow: hidden; text-overflow:clip; white-space:nowrap;}
 </style>
 
-#{blogPickedList}
+<div style="overflow:hidden;width:100%;">#{blogPickedList}</div>
 
 <div class="user-rank">
 	<div class="user-rank-title"><i class="icon-user"></i> :{blogUserRank}</div>
@@ -61,8 +60,7 @@ border-bottom-right-radius: 4px;
 	<div class="clear"></div>
 </div>
 
-<div class="row">
-<div class="span8">
+
 <div class="blog-category-wrap">
 <!-- BEGIN categories -->
 <div class=" blog-category blog-category-item#{c.Index}">
@@ -87,5 +85,4 @@ border-bottom-right-radius: 4px;
 <!-- END categories -->
 <div class="clear"></div>
 </div>
-</div>
-</div>
+

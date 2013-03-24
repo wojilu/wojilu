@@ -120,11 +120,23 @@ namespace wojilu.OAuth.Connects {
 
         private void processEx( String content, HttpClientException ex ) {
             //{"error":"invalid_access_token","error_code":21332,"request":"/2/statuses/update.json"}
+            //{"error":"expired_token","error_code":21327,"request":"/2/statuses/update.json"}
 
-            if (ex.ErrorInfo != null && ex.ErrorInfo.IndexOf( "invalid_access_token" ) >= 0) {
+            // 原因不明，请查看已经记录的日志，此处不处理
+            if (ex.ErrorInfo == null) {
+                return;
+            }
+
+            if (ex.ErrorInfo.IndexOf( "invalid_access_token" ) >= 0) {
                 refreshToken();
                 republishPost( content );
+                return;
             }
+
+            // token过期处理
+            if (ex.ErrorInfo.IndexOf( "expired_token" ) >= 0) {
+            }
+
         }
 
         // TODO 1
@@ -136,9 +148,6 @@ namespace wojilu.OAuth.Connects {
         private void refreshToken() {
             logger.Error( "refreshToken" );
         }
-
-        // TODO 3
-        // 将检测 invalid_access_token 方法：挪到策略中(oauth line 193)
 
     }
 

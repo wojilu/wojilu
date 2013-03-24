@@ -162,6 +162,6 @@ span.closeSpan {cursor:pointer;}
 #aboutBox input {margin:5px 2px 0px 2px; width:80px;}
 
 .resizer {border-top:1px solid #999;height:9px; cursor:s-resize;background:#f2f2f2;}
-.resizerInner {background:url(toolbar/resize-s.gif) no-repeat top center;width:20px;margin:0px auto;height:9px;}
+.resizerInner {background:url(toolbar/resize-s.gif) no-repeat top center;width:20px;margin:0px auto;height:9px; _margin-bottom:-8px;}
 
 .editor-textarea { width:98%; margin:1px !important; color:#222 !important}

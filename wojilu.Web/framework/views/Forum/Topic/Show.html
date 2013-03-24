@@ -10,115 +10,96 @@
 
 <div class="row" style="margin-bottom:15px;"><div class="span12">#{location}</div></div>
 
-<div class="row">
-    <div class="span12 forum-topic-prenext">
-        <div class="row">
-            <div style="width:220px; float:left; margin-left:20px;">
-                <div class="pull-left forum-prenext-spl"></div>
-                <div class="pull-left forum-prenext-pre"><a href="?pre">:{prevTopic}</a></div>
-                <div class="pull-left forum-prenext-sp">|</div>
-                <div class="pull-left forum-prenext-next"><a href="?next">:{nextTopic}</a></div>
-                <div class="pull-left forum-prenext-spr"></div>
-            </div>
-            <div style="width:500px; float:left; "><div style="padding-top:3px">#{page}</div></div>
-            <div class="forum-prenext-cmd" style="width:180px; float:right; padding-top:3px; *padding-top:22px;">
-                 
-                <a href="#{newReplyUrl}" class="cmdreply btn btn-info" rel="nofollow" style="color:#fff;"><i class="icon-share-alt icon-white"></i> 回复</a>
-                <a href="#{newTopicUrl}" class="cmdnew btn btn-success btn-white" rel="nofollow" style="color:#fff;"><i class="icon-plus icon-white"></i> 发布主题</a>
-
-            </div>
-        </div>
+<div class="forum-topic-prenext">
+    <div class="forum-prenext-link">
+        <div class="pull-left forum-prenext-spl"></div>
+        <div class="pull-left forum-prenext-pre"><a href="?pre">:{prevTopic}</a></div>
+        <div class="pull-left forum-prenext-sp">|</div>
+        <div class="pull-left forum-prenext-next"><a href="?next">:{nextTopic}</a></div>
+        <div class="pull-left forum-prenext-spr"></div>
+    </div>    
+    <div class="forum-prenext-pager">#{page}</div>    
+    <div class="forum-prenext-cmd">                 
+        <a href="#{newReplyUrl}" class="cmdreply btn btn-info" rel="nofollow" style="color:#fff;"><i class="icon-share-alt icon-white"></i> 回复</a>
+        <a href="#{newTopicUrl}" class="cmdnew btn btn-success btn-white" rel="nofollow" style="color:#fff;"><i class="icon-plus icon-white"></i> 发布主题</a>
     </div>
 </div>
 
 #{postBlock}
 
 <!-- copy from above -->
-<div class="row">
-    <div class="span12 forum-topic-prenext">
-        <div class="row">
-            <div style="width:220px; float:left; margin-left:20px;">
-                <div class="pull-left forum-prenext-spl"></div>
-                <div class="pull-left forum-prenext-pre"><a href="?pre">:{prevTopic}</a></div>
-                <div class="pull-left forum-prenext-sp">|</div>
-                <div class="pull-left forum-prenext-next"><a href="?next">:{nextTopic}</a></div>
-                <div class="pull-left forum-prenext-spr"></div>
-            </div>
-            <div style="width:500px; float:left; "><div style="padding-top:3px">#{page}</div></div>
-            <div class="forum-prenext-cmd" style="width:180px; float:right; padding-top:3px; *padding-top:22px;">
-                 
-                <a href="#{newReplyUrl}" class="cmdreply btn btn-info" rel="nofollow" style="color:#fff;"><i class="icon-share-alt icon-white"></i> 回复</a>
-                <a href="#{newTopicUrl}" class="cmdnew btn btn-success btn-white" rel="nofollow" style="color:#fff;"><i class="icon-plus icon-white"></i> 发布主题</a>
-
-            </div>
-        </div>
+<div class="forum-topic-prenext">
+    <div class="forum-prenext-link">
+        <div class="pull-left forum-prenext-spl"></div>
+        <div class="pull-left forum-prenext-pre"><a href="?pre">:{prevTopic}</a></div>
+        <div class="pull-left forum-prenext-sp">|</div>
+        <div class="pull-left forum-prenext-next"><a href="?next">:{nextTopic}</a></div>
+        <div class="pull-left forum-prenext-spr"></div>
+    </div>    
+    <div class="forum-prenext-pager">#{page}</div>    
+    <div class="forum-prenext-cmd">                 
+        <a href="#{newReplyUrl}" class="cmdreply btn btn-info" rel="nofollow" style="color:#fff;"><i class="icon-share-alt icon-white"></i> 回复</a>
+        <a href="#{newTopicUrl}" class="cmdnew btn btn-success btn-white" rel="nofollow" style="color:#fff;"><i class="icon-plus icon-white"></i> 发布主题</a>
     </div>
 </div>
 
 <!-- BEGIN form -->
 
-
-<div class="row">
-<div class="span12">
 <div class="forum-form-container" id="topicForm">
 
-	    <div class="row">
-            <div style="padding-left:40px;"><h3>:{replyTopic}</h3></div>
-        </div>
+    <div class="row">
+        <div style="padding-left:40px;"><h3>:{replyTopic}</h3></div>
+    </div>
 
-        <div class="clearfix" style="margin-top:10px;">
+    <div class="clearfix" style="margin-top:10px;">
 
-	        <form method="post" action="#{post.ReplyActionUrl}" class="form-horizontal ajaxPostForm1 autoSubmitForm" id="pubTopicForm">
+        <form method="post" action="#{post.ReplyActionUrl}" class="form-horizontal ajaxPostForm1 autoSubmitForm" id="pubTopicForm">
 
-            <div class="pull-left" id="pubUserPic" style=" text-align:right;width:124px;margin-left:20px;margin-top:10px;">#{currentUser}</div>
+        <div class="pull-left" id="pubUserPic" style=" text-align:right;width:124px;margin-left:20px;margin-top:10px;">#{currentUser}</div>
 
+        <div class="pull-left forum-form-quick">
 
-            <div class="pull-left forum-form-quick">
-
-                <div class="control-group">
-                      <label class="control-label" for="txtTitle">_{title}</label>
-                      <div class="controls">
-                        <input id="txtTitle" name="Title" type="text" placeholder="请填写标题" value="#{post.ReplyTitle}" style="width:600px;">
-                        
-                      </div>
-                      <div class="hide"><span class="valid" to="Title" msg="_{exTitle}" mode="border"></span></div>
-                </div>
-
-                <div class="control-group">
-                      <label class="control-label">_{content}</label>
-                      <div class="controls" style="width:610px;">
-                        #{Editor}
-                      </div>
-                      <div class="hide"><span class="valid" to="Content" mode="border"></span></div>
-                </div>
-
-                <div class="control-group">    
-                    <label class="control-label"></label>
-
-                    <!-- Button --> 
-                    <div class="controls">
-
-                        <button id="btnForumReply" name="btnSubmit" class="btn btn-primary" type="submit">
-                            <i class="icon-pencil icon-white"></i>
-                            :{submitPost}
-                        </button>
-
-			            <input type="hidden" name="forumId" value="#{forumBoard.Id}" />
-			            <input type="hidden" name="topicId" value="#{post.TopicId}" />
-			            <input type="hidden" name="parentId" value="#{post.ParentId}" />
-                        <input type="hidden" name="currentPageId" value="#{currentPageId}" />
-                        <input type="hidden" name="__ajaxUpdate" value="1" />
-                    </div>
-                </div>
-
+            <div class="control-group">
+                  <label class="control-label" for="txtTitle">_{title}</label>
+                  <div class="controls">
+                    <input id="txtTitle" name="Title" type="text" placeholder="请填写标题" value="#{post.ReplyTitle}" style="width:600px;">
+                    
+                  </div>
+                  <div class="hide"><span class="valid" to="Title" msg="_{exTitle}" mode="border"></span></div>
             </div>
 
-	        </form>
+            <div class="control-group">
+                  <label class="control-label">_{content}</label>
+                  <div class="controls" style="width:610px;">
+                    #{Editor}
+                  </div>
+                  <div class="hide"><span class="valid" to="Content" mode="border"></span></div>
+            </div>
+
+            <div class="control-group">    
+                <label class="control-label"></label>
+
+                <!-- Button --> 
+                <div class="controls">
+
+                    <button id="btnForumReply" name="btnSubmit" class="btn btn-primary" type="submit">
+                        <i class="icon-pencil icon-white"></i>
+                        :{submitPost}
+                    </button>
+
+                    <input type="hidden" name="forumId" value="#{forumBoard.Id}" />
+                    <input type="hidden" name="topicId" value="#{post.TopicId}" />
+                    <input type="hidden" name="parentId" value="#{post.ParentId}" />
+                    <input type="hidden" name="currentPageId" value="#{currentPageId}" />
+                    <input type="hidden" name="__ajaxUpdate" value="1" />
+                </div>
+            </div>
+
         </div>
 
+        </form>
+    </div>
 
-    </div>
-    </div>
 </div>
 <!-- END form -->
 
