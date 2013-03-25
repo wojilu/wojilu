@@ -48,6 +48,29 @@
     <Content Include="framework\config\route.config" />
     <Content Include="framework\config\site.config" />
     <Content Include="framework\lang\zh-cn\core.config" />
+    <Content Include="static\css\wojilu.site.admin.css" />
+    <Content Include="static\css\wojilu._admin.css" />
+    <Content Include="static\css\wojilu._base.css" />
+    <Content Include="static\css\wojilu._common.css" />
+    <Content Include="static\js\lib\bootstrap-dropdown.js" />
+    <Content Include="static\js\lib\jquery.easing.1.3.js" />
+    <Content Include="static\js\lib\jquery.infinitescroll.min.js" />
+    <Content Include="static\js\lib\jquery.masonry.min.js" />
+    <Content Include="static\js\lib\require-jquery-wojilu.js" />
+    <Content Include="static\js\lib\uploadify\browser1.gif" />
+    <Content Include="static\js\lib\uploadify\browser_s.gif" />
+    <Content Include="static\js\lib\uploadify\btn.gif" />
+    <Content Include="static\js\lib\uploadify\btn_s.gif" />
+    <Content Include="static\js\lib\uploadify\cancel.png" />
+    <Content Include="static\js\lib\uploadify\jquery.uploadify.js" />
+    <Content Include="static\js\lib\uploadify\jquery.uploadify.min.js" />
+    <Content Include="static\js\lib\uploadify\uploadify.css" />
+    <Content Include="static\js\lib\uploadify\uploadify.swf" />
+    <Content Include="static\js\main.js" />
+    <Content Include="static\js\wojilu._admin.js" />
+    <Content Include="static\js\wojilu._frame.js" />
+    <Content Include="static\js\wojilu._nolayout.js" />
+    <Content Include="static\js\wojilu._slider.js" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
@@ -69,32 +92,6 @@
     <Content Include="framework\views\msg.html" />
     <Content Include="framework\views\msgbox.html" />
     <Content Include="Global.asax" />
-    <Content Include="static\css\wojilu.common.admin.css" />
-    <Content Include="static\css\wojilu.common.css" />
-    <Content Include="static\flash\mp3player.swf" />
-    <Content Include="static\flash\mp3player2.swf" />
-    <Content Include="static\flash\swfupload\default.css" />
-    <Content Include="static\flash\swfupload\fileprogress.js" />
-    <Content Include="static\flash\swfupload\handlers.js" />
-    <Content Include="static\flash\swfupload\images\btnSelect160-24.png" />
-    <Content Include="static\flash\swfupload\images\cancelbutton.gif" />
-    <Content Include="static\flash\swfupload\images\error.gif" />
-    <Content Include="static\flash\swfupload\images\header-bg.jpg" />
-    <Content Include="static\flash\swfupload\images\logo.gif" />
-    <Content Include="static\flash\swfupload\images\page_white_add.png" />
-    <Content Include="static\flash\swfupload\images\toobig.gif" />
-    <Content Include="static\flash\swfupload\images\uploadlimit.gif" />
-    <Content Include="static\flash\swfupload\images\XPButtonNoText_160x22.png" />
-    <Content Include="static\flash\swfupload\images\zerobyte.gif" />
-    <Content Include="static\flash\swfupload\plugins\SWFObject License.txt" />
-    <Content Include="static\flash\swfupload\plugins\swfupload.cookies.js" />
-    <Content Include="static\flash\swfupload\plugins\swfupload.queue.js" />
-    <Content Include="static\flash\swfupload\plugins\swfupload.speed.js" />
-    <Content Include="static\flash\swfupload\plugins\swfupload.swfobject.js" />
-    <Content Include="static\flash\swfupload\swfupload license.txt" />
-    <Content Include="static\flash\swfupload\swfupload.js" />
-    <Content Include="static\flash\swfupload\swfupload.swf" />
-    <Content Include="static\flash\swfupload\swfuploadbutton.swf" />
     <Content Include="static\img\add.gif" />
     <Content Include="static\img\addcategory.gif" />
     <Content Include="static\img\adddoc1.gif" />
@@ -367,14 +364,6 @@
     <Content Include="static\js\editor\skin\toolbar\undo.gif" />
     <Content Include="static\js\editor\skin\toolbar\unlink.gif" />
     <Content Include="static\js\editor\skin\toolbar\unorderedlist.gif" />
-    <Content Include="static\js\jquery.cookie.pack.js" />
-    <Content Include="static\js\jquery.drag.js" />
-    <Content Include="static\js\jquery.js" />
-    <Content Include="static\js\lang.zh-cn.js" />
-    <Content Include="static\js\lang.zh-tw.js" />
-    <Content Include="static\js\wojilu.common.admin.js" />
-    <Content Include="static\js\wojilu.common.js" />
-    <Content Include="static\js\wojilu.frame.js" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="framework\config\SystemConfig.config" />
@@ -426,10 +415,14 @@
   <ItemGroup>
     <Folder Include="framework\data\" />
     <Folder Include="framework\log\" />
+    <Folder Include="static\flash\" />
     <Folder Include="static\upload\image\" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="static\js\lib\uploadify\uplodify.v2.1.4.7z" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" />
