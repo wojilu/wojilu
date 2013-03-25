@@ -52,7 +52,7 @@ namespace wojilu.Web.Controller.Forum.Users {
             AttachmentTemp uploadFile = savePostData( postedFile, result );
 
             // 返回数据给主页面
-            set( "objFile", Json.ToStringSimple( uploadFile.GetJsonObject() ) );
+            set( "objFile", Json.ToString( uploadFile.GetJsonObject() ) );
             set( "deleteLink", to( DeleteTempAttachment ) + "?boardId=" + boardId );
 
         }
@@ -89,7 +89,7 @@ namespace wojilu.Web.Controller.Forum.Users {
             AttachmentTemp uploadFile = savePostData( postedFile, result );
 
             // 返回json给主页面
-            String photoJson = Json.ToStringSimple( uploadFile.GetJsonObject() );
+            String photoJson = Json.ToString( uploadFile.GetJsonObject() );
             String json = "{\"deleteLink\":\"" + to( DeleteTempAttachment ) + "?boardId=" + boardId + "\", \"photo\":" + photoJson + "}";
             echoText( json );
 

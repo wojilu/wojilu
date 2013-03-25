@@ -45,7 +45,8 @@ namespace wojilu {
         }
 
         private static Boolean isDecimal_private( String str ) {
-            foreach (char ch in str.ToCharArray()) {
+            char[] arrChar = str.ToCharArray();
+            foreach (char ch in arrChar) {
                 if (!(char.IsDigit( ch ) || (ch == '.'))) {
                     return false;
                 }

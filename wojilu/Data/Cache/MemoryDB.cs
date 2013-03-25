@@ -93,15 +93,17 @@ namespace wojilu.Data {
 
             List<object> lists = JsonParser.Parse( jsonString ) as List<object>;
 
-            foreach (JsonObject map in lists) {
+            foreach (JsonObject jsonObject in lists) {
 
-                CacheObject obj = JSON.setValueToObject( t, map ) as CacheObject;
+                CacheObject obj = TypedDeserializeHelper.deserializeType( t, jsonObject ) as CacheObject;
                 int index = list.Add( obj );
                 addIdIndex( t.FullName, obj.Id, index );
                 makeIndexByInsert( obj );
+
             }
 
             return list;
+
         }
 
         private static void Serialize( Type t ) {

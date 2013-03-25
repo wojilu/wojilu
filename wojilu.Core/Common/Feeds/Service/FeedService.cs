@@ -54,9 +54,9 @@ namespace wojilu.Common.Feeds.Service {
         public virtual TemplateBundle registerTemplateBundle( List<OneLineStoryTemplate> oneLineStoryTemplates, List<ShortStoryTemplate> shortStoryTemplates, List<ActionLink> actionLinks ) {
 
             TemplateBundle t = new TemplateBundle();
-            t.OneLineStoryTemplatesStr = Json.ToStringSimple( oneLineStoryTemplates );
-            t.ShortStoryTemplatesStr = Json.ToStringSimple( shortStoryTemplates );
-            t.ActionLinksStr = Json.ToStringSimple( actionLinks );
+            t.OneLineStoryTemplatesStr = Json.ToStringList( oneLineStoryTemplates );
+            t.ShortStoryTemplatesStr = Json.ToStringList( shortStoryTemplates );
+            t.ActionLinksStr = Json.ToStringList( actionLinks );
             db.insert( t );
 
             return t;

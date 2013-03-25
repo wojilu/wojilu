@@ -45,7 +45,7 @@ namespace wojilu.Serialization {
             return deserializeType( t, obj );
         }
 
-        private static object deserializeType( Type t, JsonObject obj ) {
+        internal static object deserializeType( Type t, JsonObject obj ) {
 
             if (t == typeof( JsonObject )) return obj;
 

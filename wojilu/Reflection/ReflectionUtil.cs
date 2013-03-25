@@ -105,11 +105,16 @@ namespace wojilu.Reflection {
                 throw new NullReferenceException( String.Format( "propertyName={0}, propertyValue={1}", propertyName, propertyValue ) );
             }
 
+            PropertyInfo p = currentObject.GetType().GetProperty( propertyName );
+            if (p == null) {
+                throw new NullReferenceException( "property not exist=" + propertyName + ", type=" + currentObject.GetType().FullName );
+            }
+
             try {
-                currentObject.GetType().GetProperty( propertyName ).SetValue( currentObject, propertyValue, null );
+                p.SetValue( currentObject, propertyValue, null );
             }
             catch (Exception exception) {
-                throw new Exception( exception.Message + "(propertyName=" + propertyName + ")" );
+                throw new Exception( exception.Message + " (property=" + propertyName + ", type=" + currentObject.GetType().FullName + ")" );
             }
         }
 
@@ -210,6 +215,7 @@ namespace wojilu.Reflection {
                 type == typeof( String ) ||
                 type == typeof( DateTime ) ||
                 type == typeof( bool ) ||
+                type == typeof( long ) ||
                 type == typeof( double ) ||
                 type == typeof( decimal );
         }

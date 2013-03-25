@@ -110,7 +110,8 @@ namespace wojilu {
 
             if (retType == typeof( DateTime )) return this.getTime( key );
             if (retType == typeof( long )) return this.getLong( key );
-            if (retType == typeof( double )) return this.getDouble( key );
+            if (retType == typeof( Double )) return this.getDouble( key );
+            if (retType == typeof( Decimal )) return this.getDecimal( key );
 
             Object obj = this.GetValue( key );
             if (obj == null) {
@@ -163,6 +164,19 @@ namespace wojilu {
             this.TryGetValue( key, out result );
 
             return result == null ? 0 : cvt.ToDouble( result.ToString() );
+        }
+
+        /// <summary>
+        /// 获取属性的值，返回 Decimal 类型
+        /// </summary>
+        /// <param name="key"></param>
+        /// <returns></returns>
+        private Decimal getDecimal( String key ) {
+
+            Object result;
+            this.TryGetValue( key, out result );
+
+            return result == null ? 0 : cvt.ToDecimal( result.ToString() );
         }
 
     }

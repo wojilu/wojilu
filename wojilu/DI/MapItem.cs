@@ -28,7 +28,7 @@ namespace wojilu.DI {
     public class MapItem : CacheObject {
 
         private Boolean _singleton = true;
-        private Dictionary<String, object> _maps = new Dictionary<String, object>();
+        private Dictionary<String, String> _maps = new Dictionary<String, String>();
         
         /// <summary>
         /// 容器创建对象的时候，是否以单例模式返回
@@ -41,7 +41,7 @@ namespace wojilu.DI {
         /// <summary>
         /// 对象依赖注入关系的 map
         /// </summary>
-        public Dictionary<String, object> Map {
+        public Dictionary<String, String> Map {
             get { return _maps; }
             set { _maps = value; }
         }

@@ -95,30 +95,28 @@ namespace wojilu.Serialization {
             foreach (KeyValuePair<String, object> pair in map) {
 
                 String pName = pair.Key;
-                String pValue = pair.Value.ToString();
+                String strValue = pair.Value.ToString();
 
+                PropertyInfo p = getPropertyInfo( properties, pName );
+                if (p == null) continue;
+                if (p.IsDefined( typeof( NotSaveAttribute ), false )) continue;
 
-                PropertyInfo info = getPropertyInfo( properties, pName );
-                if ((info != null) && !info.IsDefined( typeof( NotSaveAttribute ), false )) {
+                Object objValue;
 
-                    Object objValue;
-
-                    if (ReflectionUtil.IsBaseType( info.PropertyType )) {
-                        objValue = Convert.ChangeType( pValue, info.PropertyType );
-                    }
-                    else if (info.PropertyType == typeof( JsonObject )) {
-                        objValue = pair.Value;
-                    }
-                    else if (rft.IsInterface( info.PropertyType, typeof( IList ) )) {
-                        objValue = pair.Value;
-                    }
-                    else {
-                        objValue = rft.GetInstance( info.PropertyType );
-                        ReflectionUtil.SetPropertyValue( objValue, "Id", cvt.ToInt( pValue ) );
-                    }
-                    ReflectionUtil.SetPropertyValue( result, pName, objValue );
+                if (ReflectionUtil.IsBaseType( p.PropertyType )) {
+                    objValue = Convert.ChangeType( strValue, p.PropertyType );
                 }
-
+                else if (p.PropertyType == typeof( Dictionary<String, Object> )) {
+                    objValue = pair.Value;
+                }
+                else if (rft.IsInterface( p.PropertyType, typeof( IList ) )) {
+                    objValue = pair.Value;
+                }
+                else {
+                    objValue = rft.GetInstance( p.PropertyType );
+                    ReflectionUtil.SetPropertyValue( objValue, "Id", cvt.ToInt( strValue ) );
+                }
+                ReflectionUtil.SetPropertyValue( result, pName, objValue );
             }
             return result;
         }

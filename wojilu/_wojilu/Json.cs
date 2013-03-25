@@ -48,21 +48,12 @@ namespace wojilu {
         }        
 
         /// <summary>
-        /// 将简单对象列表转换成 json 字符串(不换行，不支持子对象)
+        /// 将简单对象列表转换成 json 字符串，用于存储。属性名称没有引号。对象之间换行，对象内部不换行。
         /// </summary>
         /// <param name="list"></param>
         /// <returns></returns>
-        public static String ToStringSimple( IList list ) {
+        public static String ToStringList( IList list ) {
             return SimpleJsonString.ConvertList( list );
-        }
-
-        /// <summary>
-        /// 将简单对象转换成 json 字符串(不换行，不支持子对象)
-        /// </summary>
-        /// <param name="obj"></param>
-        /// <returns></returns>
-        public static String ToStringSimple( Object obj ) {
-            return SimpleJsonString.ConvertObject( obj );
         }
 
         /// <summary>

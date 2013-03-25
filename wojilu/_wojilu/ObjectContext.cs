@@ -332,10 +332,10 @@ namespace wojilu {
 
         private static Object createInstanceAndInject( MapItem item ) {
             Object currentObject = rft.GetInstance( item.TargetObject.GetType() );
-            Dictionary<String, object> maps = item.Map;
+            Dictionary<String, String> maps = item.Map;
             if (maps.Count > 0) {
-                foreach (KeyValuePair<String, object> entry in maps) {
-                    Object propertyValue = GetByName( entry.Value.ToString() );
+                foreach (KeyValuePair<String, String> entry in maps) {
+                    Object propertyValue = GetByName( entry.Value );
                     if (propertyValue != null) {
                         ReflectionUtil.SetPropertyValue( currentObject, entry.Key, propertyValue );
                     }
@@ -531,13 +531,13 @@ namespace wojilu {
         private static void injectObjects( List<MapItem> mapItems, Dictionary<String, MapItem> resolvedMap ) {
             foreach (MapItem item in mapItems) {
                 logger.Info( "inject:" + item.Name );
-                Dictionary<String, object> maps = item.Map;
+                Dictionary<String, String> maps = item.Map;
                 if (maps.Count <= 0) continue;
 
-                foreach (KeyValuePair<String, object> entry in maps) {
-                    logger.Info( "------inject key:" + entry.Key.ToString() );
+                foreach (KeyValuePair<String, String> entry in maps) {
+                    logger.Info( "------inject key:" + entry.Key );
                     MapItem referencedItem;// = resolvedMap[entry.Value.ToString()];
-                    resolvedMap.TryGetValue( entry.Value.ToString(), out referencedItem );
+                    resolvedMap.TryGetValue( entry.Value, out referencedItem );
                     if (referencedItem != null) {
                         ReflectionUtil.SetPropertyValue( item.TargetObject, entry.Key, referencedItem.TargetObject );
                     }
@@ -575,7 +575,7 @@ namespace wojilu {
                 MapItem item = pair.Value;
                 if (item.Type.Equals( t.FullName ) == false) continue;
 
-                Dictionary<String, object> maps = item.Map;
+                Dictionary<String, String> maps = item.Map;
                 if (maps.Count <= 0) return;
 
                 injectObjectSingle( obj, resolvedMap, maps );
@@ -584,12 +584,12 @@ namespace wojilu {
             }
         }
 
-        private static void injectObjectSingle( Object obj, Dictionary<String, MapItem> resolvedMap, Dictionary<String, object> maps ) {
-            foreach (KeyValuePair<String, object> entry in maps) {
+        private static void injectObjectSingle( Object obj, Dictionary<String, MapItem> resolvedMap, Dictionary<String, String> maps ) {
+            foreach (KeyValuePair<String, String> entry in maps) {
 
-                logger.Info( "------inject key:" + entry.Key.ToString() );
+                logger.Info( "------inject key:" + entry.Key );
                 MapItem referencedItem;
-                resolvedMap.TryGetValue( entry.Value.ToString(), out referencedItem );
+                resolvedMap.TryGetValue( entry.Value, out referencedItem );
                 if (referencedItem != null) {
                     ReflectionUtil.SetPropertyValue( obj, entry.Key, referencedItem.TargetObject );
                 }

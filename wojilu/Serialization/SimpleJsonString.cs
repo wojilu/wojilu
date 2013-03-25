@@ -74,7 +74,9 @@ namespace wojilu.Serialization {
                 }
 
                 Object propertyValue = ReflectionUtil.GetPropertyValue( obj, info.Name );
-                if ((info.PropertyType == typeof( int )) || (info.PropertyType == typeof( decimal ))) {
+                if (propertyValue == null) continue;
+
+                if (info.PropertyType == typeof( int ) || info.PropertyType == typeof( decimal )) {
                     builder.AppendFormat( "{0}:{1}", info.Name, propertyValue );
                 }
                 else if (info.PropertyType == typeof( Boolean )) {
@@ -83,9 +85,14 @@ namespace wojilu.Serialization {
                 else if (ReflectionUtil.IsBaseType( info.PropertyType )) {
                     builder.AppendFormat( "{0}:\"{1}\"", info.Name, EncodeQuoteAndClearLine( strUtil.ConverToNotNull( propertyValue ) ) );
                 }
+                else if (info.PropertyType.IsArray) {
+                    builder.AppendFormat( "{0}:{1}", info.Name, JsonString.ConvertArray( propertyValue ) );
+                }
+                else if (rft.IsInterface( info.PropertyType, typeof( IList ) )) {
+                    builder.AppendFormat( "{0}:{1}", info.Name, JsonString.ConvertList( (IList)propertyValue, false ) );
+                }
                 else {
-                    Object str = ReflectionUtil.GetPropertyValue( propertyValue, "Id" );
-                    builder.AppendFormat( "{0}:\"{1}\"", info.Name, EncodeQuoteAndClearLine( strUtil.ConverToNotNull( str ) ) );
+                    builder.AppendFormat( "{0}:{1}", info.Name, JsonString.ConvertObject( propertyValue ) );
                 }
                 builder.Append( ", " );
             }

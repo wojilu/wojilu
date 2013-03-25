@@ -99,7 +99,7 @@ namespace wojilu.Apps.Download.Domain {
         public static String GetSubCatsJson() {
 
             List<ViewCat> subcats = GetSubCatsForSelect();
-            String jsons = Json.ToStringSimple( subcats );
+            String jsons = Json.ToStringList( subcats );
             return jsons;
         }
 

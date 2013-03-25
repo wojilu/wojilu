@@ -340,7 +340,7 @@ namespace wojilu.Test.Common.Jsons {
             results.Add( getPhoneList() );
             results.Add( getPhoneList() );
 
-            string strJson = Json.ToStringSimple( results );
+            string strJson = Json.ToStringList( results );
 
             Console.WriteLine( strJson );
 
@@ -373,7 +373,7 @@ namespace wojilu.Test.Common.Jsons {
                 Url = "/abc.aspx"
             };
 
-            String str = Json.ToStringSimple( m );
+            String str = Json.ToString( m );
             Console.WriteLine( str );
 
             AdminMenuGroup g = new AdminMenuGroup();
@@ -383,12 +383,9 @@ namespace wojilu.Test.Common.Jsons {
             g.AdminMenus = new List<AdminMenu>();
             g.AdminMenus.Add( m );
 
-            //String subStr = JSON.ObjectToJSON( g );
             String subStr = Json.ToString( g );
 
             Console.WriteLine( subStr );
-
-
         }
 
 
