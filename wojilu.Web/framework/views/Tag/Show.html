@@ -1,8 +1,11 @@
 ﻿<style>
 #tagResultsPanel { padding:10px 10px 15px 15px; margin:0px 10px 10px 0px; border-radius:5px;}
 #tagResultsTitle { font-size:14px; font-weight:bold; margin:10px 0px 10px 5px;}
+
 #tagDataList {margin:5px;}
-#tagDataList li { margin:5px 5px 10px 15px; }
+#tagDataList li { margin:15px 5px 10px 15px; border-bottom:5px solid #eee; padding-bottom:15px;}
+    .tag-item-time {color:#666; margin:5px 0px 0px 0px;}
+    .tag-item-summary {margin-top:5px; color:#333;}
 
 .tagListTitle {height:28px;margin:0px 0px 10px 0px; background:#f2f2f2; padding:3px 10px;border-radius:5px;}
 
@@ -30,14 +33,18 @@
         </form>
 
     
-        <ul id="tagDataList">
+        <ul id="tagDataList" class="unstyled">
             <!-- BEGIN list -->
             <li>
-                <div class="font14"><a href="#{data.Link}">#{data.TypeName} #{data.Title}</a></div>
-                <div class="note" style="margin-top:5px;">#{data.Summary}</div>
+                <div class="font14 strong"><a href="#{data.Link}">#{data.Title}</a></div>
+                <div class="tag-item-time">
+                    <span class="right10">时间：#{data.Created}</span>
+                    <span class="right10">#{data.Author}</span>
+                    <span class="right10">#{data.TypeName}</span>
+                </div>
+                <div class="tag-item-summary">#{data.Summary}</div>
             </li>
             <!-- END list -->
-
         </ul>
 
         <div style="margin:15px 10px;">#{page}</div>

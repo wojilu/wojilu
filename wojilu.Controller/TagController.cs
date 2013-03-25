@@ -135,9 +135,13 @@ namespace wojilu.Web.Controller {
 
                 block.Set( "data.Title", obj.Title );
                 block.Set( "data.Link", alink.ToAppData( obj ) );
+                block.Set( "data.Created", obj.Created );
+
+                String author = obj.Creator != null && obj.Creator.Id > 0 ? string.Format( "作者：<a href=\"{0}\">{1}</a>", Link.ToMember( obj.Creator ), obj.Creator.Name ) : "";
+                block.Set( "data.Author", author );
 
                 String typeName = getTypeName( obj );
-                if (strUtil.HasText( typeName )) typeName = "(" + typeName + ")";
+                if (strUtil.HasText( typeName )) typeName = "类型：" + typeName;
 
                 block.Set( "data.TypeName", typeName );
 
