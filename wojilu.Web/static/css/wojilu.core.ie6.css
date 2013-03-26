@@ -82,7 +82,6 @@ top:expression(eval(document.documentElement.scrollTop+document.documentElement.
 .forum-prenext-pager .turnpage {}
 .forum-prenext-cmd {width:190px; margin-top:0px; padding-right:0px;}
 
-
 /*********** photo **************/
 #pick-row {margin-bottom:0px; }
 #pick-row .span4{margin-left:15px;}
@@ -100,8 +99,16 @@ top:expression(eval(document.documentElement.scrollTop+document.documentElement.
 .blog-search button {float:left;display:block;}
 
 /*********** microblog **************/
-
 #pubUserPic {float:left; margin;0px !important;}
 
+/*********** group **************/
+.group-list .thumbnails img {width:105px; margin:5px 0px 0px 6px;}
+.group-list .thumbnails li.span2 {width:110px !important;}
+.group-list .thumbnails div.thumbnail {width:110px !important; padding:0px !important;}
 
+/*********** content **************/
+#postMainContainer {width:570px !important;}
+.sectionTitle {border:1px solid #f2f2f2;}
 
+/*********** wiki **************/
+#postMain img{width:expression(this.width>550?"550px":this.width);}
