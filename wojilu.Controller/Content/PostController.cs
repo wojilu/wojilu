@@ -351,10 +351,12 @@ namespace wojilu.Web.Controller.Content {
 
         private void loadRelatedPosts( ContentPost post ) {
 
-            List<DataTagShip> list = postService.GetRelatedDatas( post );
+            List<DataTagShip> list = postService.GetRelatedDatas( post, 21 );
             IBlock block = getBlock( "related" );
 
             foreach (DataTagShip dt in list) {
+
+                if (dt.DataId == post.Id && dt.TypeFullName.Equals( typeof( ContentPost ).FullName )) continue;
 
                 EntityInfo ei = Entity.GetInfo( dt.TypeFullName );
                 if (ei == null) continue;

@@ -123,48 +123,28 @@ namespace wojilu.Apps.Content.Service {
         }
 
 
+        public virtual List<DataTagShip> GetRelatedDatas( ContentPost post, int count ) {
 
-        public virtual List<DataTagShip> GetRelatedDatas( ContentPost post ) {
+            String tagIds = post.Tag.TagIds;
+            if (strUtil.IsNullOrEmpty( tagIds )) return new List<DataTagShip>();
 
-            List<Tag> tags = post.Tag.List;
-
-            List<DataTagShip> results = new List<DataTagShip>();
-            foreach (Tag t in tags) {
-
-                List<DataTagShip> list = DataTagShip.find( "TagId=" + t.Id + "" ).list();
-                mergeTagDatas( results, list, post );
-            }
-
-            return results;
+            return DataTagShip.find( "TagId in (" + tagIds + ")" ).list( count );
         }
 
-        private void mergeTagDatas( List<DataTagShip> results, List<DataTagShip> list, ContentPost post ) {
-            foreach (DataTagShip dt in list) {
-                if (dt.DataId == post.Id && dt.TypeFullName.Equals( typeof( ContentPost ).FullName )) continue;
-                if (containsDataTag( results, dt ) == false) results.Add( dt );
-            }
-        }
 
-        private bool containsDataTag( List<DataTagShip> results, DataTagShip dt ) {
-            foreach (DataTagShip d in results) {
-                if (d.DataId == dt.DataId && d.TypeFullName.Equals( dt.TypeFullName )) return true;
-            }
-            return false;
-        }
+        public virtual List<ContentPost> GetRelatedPosts( ContentPost post, int count ) {
 
-        public virtual List<ContentPost> GetRelatedPosts( ContentPost post ) {
+            String tagIds = post.Tag.TagIds;
+            if (strUtil.IsNullOrEmpty( tagIds )) return new List<ContentPost>();
 
-            List<Tag> tags = post.Tag.List;
+            List<DataTagShip> list = DataTagShip.find( "TagId in (" + tagIds + ") and TypeFullName=:tname" )
+                .set( "tname", typeof( ContentPost ).FullName )
+                .list( count );
 
             List<int> ids = new List<int>();
-
-            foreach (Tag t in tags) {
-
-                List<DataTagShip> list = DataTagShip.find( "TagId=" + t.Id + " and TypeFullName=:tname" )
-                    .set( "tname", typeof( ContentPost ).FullName )
-                    .list();
-
-                getPostIds( ids, list, post );
+            foreach (DataTagShip x in list) {
+                if (ids.Contains( x.DataId )) continue;
+                ids.Add( x.DataId );
             }
 
             if (ids.Count == 0) return new List<ContentPost>();

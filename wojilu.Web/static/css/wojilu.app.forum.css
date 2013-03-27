@@ -187,7 +187,7 @@ table.postOne {width:100%; border-collapse:collapse; margin:auto;}
 		.poMemberInfo {margin:5px 10px 20px 20px;}
 		.poMemberInfo div{margin:5px;line-height:100%; color:#555}
 
-	.poBody { vertical-align:top; background:#ffffff;}
+	.poBody { vertical-align:top; background:#ffffff; word-break:break-all;}
 	div.poBodyContainer {color:#000; font-size:14px; margin:15px; line-height:150%;}
 	.poBodyContainer div{color:#000;}
 	.poBodyContainer img{ _width:expression(this.offsetWidth>700?"700px":true); max-width:700px;}

@@ -16,8 +16,8 @@ namespace wojilu.Apps.Content.Interface {
 
         ContentPost GetById( int postId, int ownerId );
 
-        List<ContentPost> GetRelatedPosts( ContentPost post );
-        List<DataTagShip> GetRelatedDatas( ContentPost post );
+        List<ContentPost> GetRelatedPosts( ContentPost post, int count );
+        List<DataTagShip> GetRelatedDatas( ContentPost post, int count );
 
         ContentPost GetPrevPost( ContentPost post );
         ContentPost GetNextPost( ContentPost post );
@@ -73,6 +73,7 @@ namespace wojilu.Apps.Content.Interface {
         void SetStatus_Pick( string ids );
         void SetStatus_Normal( string ids );
         void SetStatus_Focus( string ids );
+
 
 
 
