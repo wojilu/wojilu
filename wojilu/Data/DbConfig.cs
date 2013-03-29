@@ -309,6 +309,33 @@ namespace wojilu.Data {
             return (String)DbConfig.Instance.ConnectionStringTable[db];
         }
 
+        /// <summary>
+        /// 获取默认数据库的ConnectionString
+        /// </summary>
+        /// <returns></returns>
+        public static String GetConnectionString() {
+            return GetConnectionString( DefaultDbName );
+        }
+
+        /// <summary>
+        /// 获取数据库类型
+        /// </summary>
+        /// <param name="db"></param>
+        /// <returns></returns>
+        public static String GetDatabaseType( String db ) {
+            String ret;
+            DbConfig.Instance.DbType.TryGetValue( db, out ret );
+            return ret;
+        }
+
+        /// <summary>
+        /// 获取默认数据库的类型
+        /// </summary>
+        /// <param name="db"></param>
+        /// <returns></returns>
+        public static String GetDatabaseType() {
+            return GetDatabaseType( DefaultDbName );
+        }
 
         internal static void SaveConnectionString( String connectionString ) {
 

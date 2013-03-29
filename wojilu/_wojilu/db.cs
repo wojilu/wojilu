@@ -411,7 +411,7 @@ namespace wojilu {
         /// </summary>
         /// <returns></returns>
         public static IDbConnection getConnection() {
-            return getConnection( "default" );
+            return getConnection( DbConfig.DefaultDbName );
         }
 
         /// <summary>
@@ -474,6 +474,41 @@ namespace wojilu {
             IDbConnection cn = getConnection( dataType );
             return DataFactory.GetCommand( commandText, cn );
         }
+
+        /// <summary>
+        /// 获取默认数据库的ConnectionString
+        /// </summary>
+        /// <returns></returns>
+        public static String getConnectionString() {
+            return DbConfig.GetConnectionString();
+        }
+
+        /// <summary>
+        /// 获取数据库的ConnectionString
+        /// </summary>
+        /// <param name="db"></param>
+        /// <returns></returns>
+        public static String getConnectionString( String db ) {
+            return DbConfig.GetConnectionString( db );
+        }
+
+        /// <summary>
+        /// 获取数据库类型
+        /// </summary>
+        /// <param name="db"></param>
+        /// <returns></returns>
+        public static String getDatabaseType( String db ) {
+            return DbConfig.GetDatabaseType( db );
+        }
+
+        /// <summary>
+        /// 获取默认数据库类型
+        /// </summary>
+        /// <returns></returns>
+        public static String getDatabaseType() {
+            return DbConfig.GetDatabaseType();
+        }
+
 
     }
 }

@@ -24,6 +24,7 @@ using wojilu.Apps.Photo.Domain;
 using wojilu.Members.Groups.Domain;
 using wojilu.Apps.Forum.Domain;
 using wojilu.Apps.Content.Domain;
+using wojilu.Data;
 
 namespace wojilu.Web.Controller {
 
@@ -67,6 +68,13 @@ namespace wojilu.Web.Controller {
         public void view1InitData() {
             set( "link", to( Init ) );
             set( "selectDbLink", to( SelectDb ) );
+
+            String dbType = db.getDatabaseType();
+            if (strUtil.IsNullOrEmpty( dbType )) {
+                throw new Exception( "数据库配置错误，请参考官方配置示例。" );
+            }
+
+            set( "dbType", db.getDatabaseType() );
         }
 
         [NonVisit]
