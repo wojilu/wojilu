@@ -84,13 +84,13 @@ namespace wojilu.Test.Net {
             client.AddQuery( "location", "beijing" );
             Assert.AreEqual( "http://www.abc.com/xy.aspx?gender=1&location=beijing", client.GetRequestUrl() );
 
-            // 如果不指定 HttpMethod，则使用 POST
+            // 如果不指定 HttpMethod，则使用 GET
             client = HttpClient.Init( "http://www.abc.com/xy.aspx", null );
             client.AddParam( "name", "zhangsan" );
             client.AddQuery( "gender", 1 );
             client.AddParam( "day", "2012-12-12" );
             client.AddQuery( "location", "beijing" );
-            Assert.AreEqual( "http://www.abc.com/xy.aspx?gender=1&location=beijing", client.GetRequestUrl() );
+            Assert.AreEqual( "http://www.abc.com/xy.aspx?gender=1&location=beijing&name=zhangsan&day=2012-12-12", client.GetRequestUrl() );
 
             client = HttpClient.Init( "http://www.abc.com/xy.aspx?z1=v1&z2=v2", "POST" );
             client.AddParam( "name", "zhangsan" );

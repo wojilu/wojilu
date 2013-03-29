@@ -29,7 +29,7 @@ namespace wojilu.Net {
 
         private static readonly ILog logger = LogManager.GetLogger( typeof( HttpClientHelper ) );
 
-        public String Upload( String apiUrl, Dictionary<String, String> parameters, Dictionary<String, String> headers, List<HttpFile> files ) {
+        public String Upload( String apiUrl, Dictionary<String, String> parameters, Dictionary<String, String> headers, List<HttpFile> files, String userAgent ) {
 
             if (files == null || files.Count == 0) return InvokeApi( apiUrl, "POST", ConstructQueryString( parameters ), headers );
 
@@ -57,7 +57,7 @@ namespace wojilu.Net {
             }
             sb.AppendLine( footer );
 
-            return InvokeApi( apiUrl, "POST", sbParams.ToString(), headers, boundary, sb.ToString() );
+            return InvokeApi( apiUrl, "POST", sbParams.ToString(), headers, boundary, sb.ToString(), userAgent );
         }
 
         public String InvokeApi( String apiUrl, String httpMethod, String strQuery, Dictionary<String, String> headers, String boundary = "", String strFiles = "", String userAgent = "", String strEncoding = "" ) {

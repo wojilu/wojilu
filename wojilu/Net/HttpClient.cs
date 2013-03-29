@@ -84,6 +84,7 @@ namespace wojilu.Net {
         /// </summary>
         /// <param name="httpMethod"></param>
         public virtual HttpClient SetMethod( String httpMethod ) {
+            if (strUtil.IsNullOrEmpty( httpMethod )) return this;
             _httpMethod = httpMethod;
             return this;
         }
@@ -225,7 +226,7 @@ namespace wojilu.Net {
         public virtual String Run() {
 
             if (_absPathFiles.Count > 0) {
-                _response = restHelper.Upload( GetRequestUrl(), _parameters, _headers, _absPathFiles );
+                _response = restHelper.Upload( GetRequestUrl(), _parameters, _headers, _absPathFiles, _userAgent );
             }
             else {
                 _response = restHelper.InvokeApi( GetRequestUrl(), _httpMethod, restHelper.ConstructQueryString( _parameters ), _headers, "", "", _userAgent, _encoding );
@@ -288,13 +289,13 @@ namespace wojilu.Net {
 
         private String getQueryString() {
 
-            if (_httpMethod == HttpMethod.Get) {
+            if (_httpMethod == HttpMethod.Post) {
+                return restHelper.ConstructQueryString( _queryItems );
+            }
+            else {
                 String strQuery = restHelper.ConstructQueryString( _queryItems );
                 String strParams = restHelper.ConstructQueryString( _parameters );
                 return strUtil.Join( strQuery, strParams, "&" ).TrimStart( '&' ).TrimEnd( '&' );
-            }
-            else {
-                return restHelper.ConstructQueryString( _queryItems );
             }
         }
 
