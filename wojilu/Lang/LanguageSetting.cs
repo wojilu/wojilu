@@ -28,8 +28,17 @@ namespace wojilu {
     /// </summary>
     public class LanguageSetting {
 
+        private static readonly ILog logger = LogManager.GetLogger( typeof( LanguageSetting ) );
+
         private String name;
-        private Dictionary<String, String> langMap;
+        private Dictionary<String, String> langMap = new Dictionary<String, String>();
+
+        public static LanguageSetting NewNull() {
+            return new LanguageSetting();
+        }
+
+        private LanguageSetting() {
+        }
 
         public LanguageSetting( String name, Dictionary<String, String> lang ) {
             this.name = name;
@@ -42,7 +51,15 @@ namespace wojilu {
         /// <param name="key"></param>
         /// <returns></returns>
         public String get( String key ) {
-            return langMap[key];
+
+            String ret;
+            langMap.TryGetValue( key, out ret );
+            if (ret == null) {
+                ret = lang.CoreLangPrefix + key;
+                logger.Error( "no language key: core.config =>" + key );
+            }
+
+            return ret;
         }
 
         /// <summary>

@@ -29,8 +29,12 @@ namespace wojilu {
     /// </remarks>
     public class lang {
 
-        // 这个一定要放在第一行，以保证第一个加载
+        private static readonly ILog logger = LogManager.GetLogger( typeof( lang ) );
+
         private static Dictionary<String, Dictionary<String, LanguageSetting>> langLocaleAll = getLangLocale();
+
+        public static readonly String CoreLangPrefix = "_!";
+        public static readonly String AppLangPrefix = "_@";
 
         //--------------------------------------------------------------------
 
@@ -40,10 +44,24 @@ namespace wojilu {
         /// <returns></returns>
         public static String getLangString() {
 
+            Object ret = CurrentRequest.getItem( "__lang_name" );
+            if (ret == null) {
+                String langCookie = CurrentRequest.getLangCookie();
+                logger.Info( "lang cookie: " + ret );
+                ret = getLangNamePrivate( langCookie );
+                CurrentRequest.setItem( "__lang_name", ret );
+            }
+
+            return ret.ToString();
+        }
+
+        private static String getLangNamePrivate( String langCookie ) {
+
             String defaultLang = "zh-cn";
 
-            String langCookie = CurrentRequest.getLangCookie();
-            if (strUtil.HasText( langCookie ) && langLocaleAll.ContainsKey( langCookie )) return langCookie;
+            if (strUtil.HasText( langCookie ) && langLocaleAll.ContainsKey( langCookie )) {
+                return langCookie;
+            }
 
             if (CurrentRequest.getUserLanguages() == null) return defaultLang;
             String[] reqLangs = CurrentRequest.getUserLanguages();
@@ -53,20 +71,14 @@ namespace wojilu {
             return defaultLang;
         }
 
+
         /// <summary>
-        /// 获取某 key 的语言值
+        /// 获取某 key 的语言值(从 core.config 中获取)
         /// </summary>
         /// <param name="key"></param>
         /// <returns></returns>
         public static String get( String key ) {
-            try {
-                String langStr = getLangString();
-                return getCoreLang( langStr ).getLangMap() [key];
-
-            }
-            catch (KeyNotFoundException) {
-                throw new KeyNotFoundException( "language's key not found: " + key );
-            }
+            return getCoreLang().get( key );
         }
 
         /// <summary>
@@ -78,8 +90,22 @@ namespace wojilu {
         }
 
         private static LanguageSetting getCoreLang( String langStr ) {
-            Dictionary<String, LanguageSetting> langlist = langLocaleAll[langStr];
-            return langlist["core"];
+            Dictionary<String, LanguageSetting> langlist;
+            langLocaleAll.TryGetValue( langStr, out langlist );
+
+            if (langlist == null) {
+                langlist = new Dictionary<String, LanguageSetting>();
+                logger.Error( "no language: " + langStr );
+            }
+
+            String configName = "core";
+            LanguageSetting ret;
+            langlist.TryGetValue( configName, out ret );
+            if (ret == null) {
+                ret = LanguageSetting.NewNull();
+                logger.Error( "no language config: " + langStr + " => " + configName );
+            }
+            return ret;
         }
 
         /// <summary>
@@ -89,11 +115,25 @@ namespace wojilu {
         /// <returns></returns>
         public static LanguageSetting getByApp( Type t ) {
 
-            Dictionary<String, LanguageSetting> langlist = langLocaleAll[getLangString()];
+            String langStr = getLangString();
+            Dictionary<String, LanguageSetting> langlist;
+
+            langLocaleAll.TryGetValue( langStr, out langlist );
+
+            if (langlist == null) {
+                langlist = new Dictionary<String, LanguageSetting>();
+                logger.Error( "no language: " + langStr );
+            }
+
             LanguageSetting result;
             langlist.TryGetValue( t.FullName, out result );
-            return result;
 
+            if (result == null) {
+                result = LanguageSetting.NewNull();
+                logger.Error( "no language config: " + langStr + " => " + t.FullName );
+            }
+
+            return result;
         }
 
         //--------------------------------------------------------------------
@@ -102,12 +142,21 @@ namespace wojilu {
 
             String dirRoot = PathHelper.Map( getLangRootPath() );
 
+            if (Directory.Exists( dirRoot ) == false) {
+                logger.Error( "no language directory: " + dirRoot );
+                return new Dictionary<String, Dictionary<String, LanguageSetting>>();
+            }
+
             String[] dirPaths = Directory.GetDirectories( dirRoot );
 
             Dictionary<String, Dictionary<String, LanguageSetting>> results = new Dictionary<String, Dictionary<String, LanguageSetting>>();
             foreach (String path in dirPaths) {
                 String langName = Path.GetFileName( path );
                 results.Add( langName.ToLower(), getLangList( path ) );
+            }
+
+            if (results.Count == 0) {
+                logger.Error( "no language sub directory: " + dirRoot );
             }
 
             return results;

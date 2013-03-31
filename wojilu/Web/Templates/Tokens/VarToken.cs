@@ -54,15 +54,19 @@ namespace wojilu.Web.Templates.Tokens {
                 return;
             }
 
-            if (this.isObject() && blockdata.getDic().ContainsKey( this.getObjName() )) {
+            if (this.isObject()) {
 
-                Object obj = blockdata.getDic()[this.getObjName()];
-                if (obj == null) throw new NullReferenceException( "view's data " + this.getObjName() + " is null" );
+                Dictionary<String, Object> dicValues = blockdata.getDic();
+                Object obj;
+                dicValues.TryGetValue( this.getObjName(), out obj );
 
-                Object pval = getPropertyValue( obj, _objAccessor );
-                sb.Append( pval );
+                if (obj != null) {
 
-                return;
+                    Object pval = getPropertyValue( obj, _objAccessor, this.getObjName() );
+                    sb.Append( pval );
+                    return;
+                }
+
             }
 
             sb.Append( this.getRawLabelAndVar() );
@@ -70,7 +74,7 @@ namespace wojilu.Web.Templates.Tokens {
 
 
 
-        private static String getPropertyValue( Object obj, String[] _objAccessor ) {
+        private static String getPropertyValue( Object obj, String[] _objAccessor, String objName ) {
 
             Object pval = obj;
 
@@ -79,13 +83,13 @@ namespace wojilu.Web.Templates.Tokens {
             }
 
             for (int i = 1; i < _objAccessor.Length; i++) {
-                pval = getpvalue( pval, _objAccessor[i] );
+                pval = getpvalue( pval, _objAccessor[i], objName );
             }
 
             return pval == null ? "" : pval.ToString();
         }
 
-        private static Object getpvalue( Object obj, String pname ) {
+        private static Object getpvalue( Object obj, String pname, String objName ) {
 
             if (obj == null) return null;
 
@@ -94,16 +98,31 @@ namespace wojilu.Web.Templates.Tokens {
 
             Dictionary<String, String> objDic = obj as Dictionary<String, String>;
             if (objDic != null) {
-                try {
-                    return objDic[pname];
+
+                String result;
+                objDic.TryGetValue( pname, out result );
+                if (result == null) {
+                    if (objName == "lang") {
+                        return lang.CoreLangPrefix + pname;
+                    }
+                    else if (objName == "alang") {
+                        return lang.AppLangPrefix + pname;
+                    }
+                    else {
+                        throw new KeyNotFoundException( "no view data item in dictionary: " + objName + "->" + pname );
+                    }
                 }
-                catch (KeyNotFoundException) {
-                    throw new KeyNotFoundException( "(view) key not found:" + pname );
+                else {
+                    return result;
                 }
+
             }
 
             PropertyInfo p = obj.GetType().GetProperty( pname );
-            if (p == null) return null;
+            if (p == null) {
+                throw new KeyNotFoundException( "no view data item in object: " + objName + "->" + pname );
+            }
+
             return p.GetValue( obj, null );
         }
 
