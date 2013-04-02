@@ -346,10 +346,10 @@ namespace wojilu.Test.Common.Jsons {
 
             string result = @"
 [
-	{ Id:0, Name:""新闻大事690501468"", Weight:0, Owner:""2"" },
-	{ Id:0, Name:""新闻大事690501468"", Weight:0, Owner:""2"" },
-	{ Id:0, Name:""新闻大事690501468"", Weight:0, Owner:""2"" },
-	{ Id:0, Name:""新闻大事690501468"", Weight:0, Owner:""2"" }
+	{ Id:0, Name:""新闻大事690501468"", Weight:0, Owner:{ ""Id"":2, ""Name"":"""", ""Age"":"""" } },
+	{ Id:0, Name:""新闻大事690501468"", Weight:0, Owner:{ ""Id"":2, ""Name"":"""", ""Age"":"""" } },
+	{ Id:0, Name:""新闻大事690501468"", Weight:0, Owner:{ ""Id"":2, ""Name"":"""", ""Age"":"""" } },
+	{ Id:0, Name:""新闻大事690501468"", Weight:0, Owner:{ ""Id"":2, ""Name"":"""", ""Age"":"""" } }
 ]
 ";
 

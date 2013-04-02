@@ -76,9 +76,9 @@
 		+ '			<td style="width:100px; font-size:14px; text-align:right;">密　码</td>'
 		+ '			<td><input type="password" name="txtPwd" placeholder="密码" style="height:24px;margin:0px; font-size:14px;"><a href="'+resetPwdLink+'" class="left10 help-inline">忘记密码</a></td>'
 		+ '		</tr>'
-		+ '		<tr>'
-		+ '			<td></td>'
-		+ '			<td><div id="loginValidBox" class="ebox" style="width:380px;padding:2px 5px; ">验证码 #{ValidationCode}</div></td>'
+		+ '		<tr id="loginValidBox">'
+		+ '			<td style="width:100px; font-size:14px; text-align:right;">验证码</td>'
+		+ '			<td><input name="ValidationText" class="ValidationText" type="text" style="width:90px;">  <span class="refreshImg link">换一张</span></td>'
 		+ '		</tr>'
 		+ '		<tr>'
 		+ '			<td><input type="hidden" name="returnUrl" id="Hidden1" value="" /></td>'
@@ -132,39 +132,30 @@
 		+ '</div>';
 	
         navUrl = (navUrl + '?url=' + window.location.href).toAjax();
-        $('#topNavReturnUrl').val(window.location.href);	
-		
+        $('#topNavReturnUrl').val(window.location.href);		
 
 		var bindLoginForm = function() {
 		
 			$('#loginLink').click(function () {
-				wojilu.box.title('用户登录').width(500).height(280).id('loginForm').show();
+                var isImgExist = $('#loginValidBox .validationImg').length>0;
+                if (ctx.owner.LoginValidImg && isImgExist==false) {
+                    $('#loginValidBox .ValidationText').after('<img class="validationImg" src="/CaptchaImage.ashx?fromSiteTop" style="cursor:pointer"/>');
+                    $('#loginValidBox .validationImg').click( function() { wojilu.tool.refreshImg($(this)); });            
+                    $('#loginValidBox .refreshImg').click( function() { wojilu.tool.refreshImg($(this).prev());});
+                }
+                
+				wojilu.box.title('用户登录').width(500).height(300).id('loginForm').show();
 				return false;
 			});
-			
-			$('#loginForm .txtUid').click(function () {
-				$(this).parent().append($('#loginValidBox'));
-				var ps = $(this).position();
-				$('#loginValidBox').css('top', ps.top + 20).css('left', ps.left).slideDown('fast');
-			});
-
-
+            
 			$('#loginForm').submit(function () {
-				var tform = this;
-
-				if ($('#loginValidBox').length > 0 && $('#loginValidBox').css('display') == 'none') {
-					$(this).append($('#loginValidBox'));
-					var ps = $(tform).position();
-					$('#loginValidBox').css('top', ps.top + 20).css('left', (ps.left + 50)).slideDown('fast');
-					return false;
-				}
-
-				var btn = $(':submit', tform);
+				var _thisForm = this;
+				var btn = $(':submit', _thisForm);
 				btn.attr('disabled', 'disabled');
-				var loading = $('.loadingInfo', tform);
+				var loading = $('.loadingInfo', _thisForm);
 				loading.html(' <img src="' + wojilu.path.img + '/ajax/loading.gif"/>');
 
-				$.post($(tform).attr('action').toAjax(), $(tform).serializeArray(), function (data) {
+				$.post($(_thisForm).attr('action').toAjax(), $(_thisForm).serializeArray(), function (data) {
 					var result = data;
 
 					if (result.IsValid) {
@@ -227,6 +218,7 @@
 				// 显示登录链接
 				$('#top-nav-right').html(loginSection);
                 $('#loginSection').show();
+                $('#topLoginForm').show();
 				
 				// 登录表单
 				$('body').append(loginForm);
@@ -257,7 +249,6 @@
 			$('#userAccountTable').show();
 
             var urls = ['shareLink', 'myGroupsLink', 'appAdminUrl', 'menuAdminUrl', 'myUrlList', 'viewerSpace', 'viewerMicroblogHome', 'viewerTemplateUrl', 'viewerFriends', 'viewerInviteLink', 'siteOnlineUrl', 'viewerProfileUrl', 'viewerBindUrl', 'viewerContactLink', 'viewerInterestUrl', 'viewerTagUrl', 'viewerPwdUrl', 'viewerSettings', 'viewerCurrency', 'logoutLink'];
-            //var urls = ['shareLink', 'myGroupsLink', 'appAdminUrl','menuAdminUrl','myUrlList', 'viewerSpace', 'viewerMicroblogHome', 'viewerTemplateUrl', 'viewerFriends', 'viewerInviteLink', 'siteOnlineUrl', 'viewerProfileUrl', 'viewerContactLink', 'viewerInterestUrl', 'viewerTagUrl', 'viewerPwdUrl', 'viewerSettings', 'viewerCurrency'];
             for (var i = 0; i < urls.length; i++) { $('#' + urls[i]).attr('href', nav[urls[i]]); }
 
             if (nav.isUserHomeClose) {
@@ -296,7 +287,6 @@
             $('#viewerNewNotificationCount').html(nav.viewerNewNotificationCount);
             $('#viewerNewMicroblogAtCount').html(nav.viewerNewMicroblogAtCount);
 
-
             var appHtml = '';
             for (var i = 0; i < nav.userAppList.length; i++) { appHtml += '<li>' + nav.userAppList[i] + '</li>'; }
             $('#feedItem').after(appHtml);
@@ -327,5 +317,4 @@
     };
 
     return { init: _initTopnav };
-
 });

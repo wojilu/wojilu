@@ -74,21 +74,16 @@ _run( function() {
             set( "site.Url", SystemInfo.SiteRoot );
 
             set( "LoginAction", Link.To( Site.Instance, new MainController().CheckLogin ) );
+            set( "loginLink", Link.To( Site.Instance, new MainController().Login ) );
             set( "RegLink", Link.To( Site.Instance, new RegisterController().Register ) );
             set( "resetPwdLink", Link.To( Site.Instance, new wojilu.Web.Controller.Common.ResetPwdController().StepOne ) );
 
-
-
-            //set( "weiboLoginLink", Link.To( Site.Instance, new ConnectController().Login ) + "?connectType=" + typeof( WeiboConnect ).FullName );
-            //set( "QQWeiboLoginLink", Link.To( Site.Instance, new ConnectController().Login ) + "?connectType=" + typeof( QQWeiboConnect ).FullName );
 
             String emailCredit = getEmailConfirmCredit( 18 );
             String uploadCredit = getEmailConfirmCredit( 17 );
 
             set( "emailCredit", emailCredit );
             set( "uploadCredit", uploadCredit );
-
-            set( "ValidationCode", Html.Captcha );
 
             //ajax
             //set( "navUrl", Link.T2( Site.Instance, Nav ) );

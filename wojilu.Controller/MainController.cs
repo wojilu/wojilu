@@ -155,7 +155,6 @@ namespace wojilu.Web.Controller {
 
             loginService.Login( member, expiration, ctx.Ip, ctx );
 
-            //echoToParent( lang( "loginok" ), getSavedReturnUrl() );
             echoRedirect( lang( "loginok" ), getSavedReturnUrl() );
         }
 
@@ -195,12 +194,17 @@ namespace wojilu.Web.Controller {
         }
 
         private String getSavedReturnUrl() {
+
             String returnUrl = ctx.Post( "returnUrl" );
             if (strUtil.IsNullOrEmpty( returnUrl )) {
                 returnUrl = sys.Path.Root;
             }
 
             returnUrl = returnUrl.Replace( "&amp;", "&" );
+
+            // 禁止跳转到注册页面
+            String regLink = to( new RegisterController().Register );
+            if (returnUrl.IndexOf( regLink ) >= 0) return sys.Path.Root;
 
             return returnUrl;
         }

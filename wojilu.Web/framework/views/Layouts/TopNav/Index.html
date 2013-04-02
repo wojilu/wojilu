@@ -25,21 +25,12 @@
 		</td>
 		
 		<td>	
-            <div id="topLoginForm" style="display:none;">
-		    <form action="#{LoginAction}" method="post" id="loginForm" class="autoSubmitForm" style="float:right;">		
-		        _{userName} <input class="txtUid" name="txtUid" type="text" style="width:80px; border:1px #ccc inset;" />
-		        _{pwd} <input name="txtPwd" type="password"  style="width:60px;  border:1px #ccc inset;" />
-		    
-			<label><input name="RememberMe" type="checkbox" id="chkRemember" checked="checked" />_{rememberMe}</label>
-            <input id="Submit1" type="submit" value="_{login}" class="btn btns" /><span class="loadingInfo"></span>
-		    <a href="#{RegLink}" class="left5 right5 strong">_{register}</a>
-		    <a href="#{resetPwdLink}">_{forgetPwd}</a>
-		    <input type="hidden" name="returnUrl" id="topNavReturnUrl" value="" />
-
-			</form>
+            <div id="topLoginForm" style="display:none; text-align:right;">
+                <a href="#{loginLink}" class="left5 right5 strong">_{login}</a>
+		        <a href="#{RegLink}" class="left5 right5 strong">_{register}</a>
+		        <a href="#{resetPwdLink}">_{forgetPwd}</a>
             </div>
-			
-			<div id="loginValidBox" class="ebox" style="width:380px;padding:10px 5px; ">_{validationCode} #{ValidationCode}</div>
+
 			
 
 		<table id="userAccountTable" cellpadding="0" cellspacing="0" border="0" style="display:none;">

@@ -48,7 +48,7 @@ namespace wojilu {
         }        
 
         /// <summary>
-        /// 将简单对象列表转换成 json 字符串，用于存储。属性名称没有引号。对象之间换行，对象内部不换行。
+        /// 将简单对象列表转换成 json 字符串，用于存储。对象之间换行，对象内部不换行。
         /// </summary>
         /// <param name="list"></param>
         /// <returns></returns>
