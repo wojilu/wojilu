@@ -117,6 +117,8 @@ namespace wojilu.Web.Controller.Forum {
             sb.AppendLine( "<div class=\"relative-title\">相关文章</div>" );
             sb.AppendLine( "<ul>" );
 
+            List<IAppData> addList = new List<IAppData>();
+
             foreach (DataTagShip dt in list) {
 
                 if (dt.DataId == topic.Id && dt.TypeFullName == typeof( ForumTopic ).FullName) continue;
@@ -127,8 +129,12 @@ namespace wojilu.Web.Controller.Forum {
                 IAppData obj = ndb.findById( ei.Type, dt.DataId ) as IAppData;
                 if (obj == null) continue;
 
+                if (hasAdded( addList, obj )) continue;
+
                 sb.AppendFormat( "<li><div><a href=\"{0}\">{1}</a></div></li>", alink.ToAppData( obj ), obj.Title );
                 sb.AppendLine();
+
+                addList.Add( obj );
             }
 
             sb.AppendLine( "</ul>" );
@@ -136,6 +142,14 @@ namespace wojilu.Web.Controller.Forum {
             sb.AppendLine( "</div>" );
 
             return sb.ToString();
+        }
+
+        private bool hasAdded( List<IAppData> xlist, IAppData obj ) {
+
+            foreach (IAppData x in xlist) {
+                if (x.Id == obj.Id && x.GetType() == obj.GetType()) return true;
+            }
+            return false;
         }
 
         private static String getRankStr( ForumPost data ) {

@@ -354,6 +354,8 @@ namespace wojilu.Web.Controller.Content {
             List<DataTagShip> list = postService.GetRelatedDatas( post, 21 );
             IBlock block = getBlock( "related" );
 
+            List<IAppData> addList = new List<IAppData>();
+
             foreach (DataTagShip dt in list) {
 
                 if (dt.DataId == post.Id && dt.TypeFullName.Equals( typeof( ContentPost ).FullName )) continue;
@@ -363,6 +365,8 @@ namespace wojilu.Web.Controller.Content {
 
                 IAppData obj = ndb.findById( ei.Type, dt.DataId ) as IAppData;
                 if (obj == null) continue;
+
+                if (hasAdded( addList, obj )) continue;
 
                 block.Set( "p.Title", obj.Title );
 
@@ -379,6 +383,14 @@ namespace wojilu.Web.Controller.Content {
 
                 block.Next();
             }
+        }
+
+        private bool hasAdded( List<IAppData> xlist, IAppData obj ) {
+
+            foreach (IAppData x in xlist) {
+                if (x.Id == obj.Id && x.GetType() == obj.GetType()) return true;
+            }
+            return false;
         }
 
         public void Stats( int id ) {
