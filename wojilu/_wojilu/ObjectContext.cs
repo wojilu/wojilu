@@ -421,6 +421,8 @@ namespace wojilu {
 
             foreach (Type type in types) {
 
+                if (type.Name.StartsWith( "<>f__AnonymousType" )) continue;
+
                 try {
                     ctx.TypeList.Add( type.FullName, type );
                 }
