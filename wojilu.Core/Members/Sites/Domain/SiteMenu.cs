@@ -17,8 +17,17 @@ namespace wojilu.Members.Sites.Domain {
 
     [Serializable]
     public class SiteMenu : CacheObject, IMenu, IComparable {
-        
-        public User Creator { get; set; }
+
+        public int CreatorId { get; set; }
+
+        [NotSave]
+        public User Creator {
+            get { return User.findById( this.CreatorId ); }
+            set {
+                if (value == null) return;
+                this.CreatorId = value.Id;
+            }
+        }
 
         public int OrderId { get; set; }
 

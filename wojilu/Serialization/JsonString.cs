@@ -272,9 +272,19 @@ namespace wojilu.Serialization {
             }
 
             foreach (PropertyInfo info in propertyList) {
+
+                if (info.CanRead == false) {
+                    continue;
+                }
+
                 if (info.IsDefined( typeof( NotSerializeAttribute ), false )) {
                     continue;
                 }
+
+                if (info.IsDefined( typeof( NotSaveAttribute ), false )) {
+                    continue;
+                }
+
                 Object propertyValue = ReflectionUtil.GetPropertyValue( obj, info.Name );
 
                 String jsonValue;

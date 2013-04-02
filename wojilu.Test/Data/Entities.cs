@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using wojilu.Data;
+using wojilu.ORM;
 
 namespace wojilu.Test.Data {
 
@@ -68,6 +69,30 @@ namespace wojilu.Test.Data {
     public class TCurrency : CacheObject {
 
         public decimal ExchangeRate { get; set; }
+
+
+    }
+
+
+    public class TProperty : CacheObject {
+
+        public String Address { get; set; }
+        public Boolean IsDone { get; set; }
+
+        // 只读
+        public int IsRead {
+            get { return 66; }
+        }
+
+        private int _isWrite = 1;
+
+        // 只写
+        public int IsWrite {
+            set { _isWrite = value; }
+        }
+
+        [NotSave]
+        public String Product { get; set; }
 
 
     }

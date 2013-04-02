@@ -24,6 +24,7 @@ using System.Text;
 using wojilu.ORM;
 using wojilu.Serialization;
 using wojilu.Web;
+using System.IO;
 
 namespace wojilu.Data {
 
@@ -116,6 +117,12 @@ namespace wojilu.Data {
 
             String absolutePath = getCachePath( t );
             lock (objLock) {
+
+                String dir = Path.GetDirectoryName( absolutePath );
+                if (Directory.Exists( dir ) == false) {
+                    Directory.CreateDirectory( dir );
+                }
+
                 wojilu.IO.File.Write( absolutePath, target );
             }
         }
@@ -379,6 +386,7 @@ namespace wojilu.Data {
 
             String propertyKey = getPropertyKey( cacheObject.GetType().FullName, p.Name );
 
+            if (p.CanRead == false) return;
             Object pValue = rft.GetPropertyValue( cacheObject, p.Name );
             if (pValue == null || strUtil.IsNullOrEmpty( pValue.ToString() )) return;
 

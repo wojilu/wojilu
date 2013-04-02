@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using NUnit.Framework;
+using wojilu.Members.Sites.Domain;
 
 namespace wojilu.Test.Data {
 
@@ -12,39 +13,7 @@ namespace wojilu.Test.Data {
 
 
 
-        [TestFixtureTearDown]
-        public void clear() {
 
-            List<TCacheS> list1 = cdb.findAll<TCacheS>();
-            foreach (TCacheS x in list1) {
-                cdb.delete( x );
-            }
-
-            List<TCacheType> list2 = cdb.findAll<TCacheType>();
-            foreach (TCacheType x in list2) {
-                cdb.delete( x );
-            }
-
-            List<TCacheList> list3 = cdb.findAll<TCacheList>();
-            foreach (TCacheList x in list3) {
-                cdb.delete( x );
-            }
-
-            List<TCacheArray> list4 = cdb.findAll<TCacheArray>();
-            foreach (TCacheArray x in list4) {
-                cdb.delete( x );
-            }
-
-            List<TCacheSub> list5 = cdb.findAll<TCacheSub>();
-            foreach (TCacheSub x in list5) {
-                cdb.delete( x );
-            }
-
-            List<TCurrency> list6 = cdb.findAll<TCurrency>();
-            foreach (TCurrency x in list6) {
-                cdb.delete( x );
-            }
-        }
 
         [Test]
         public void testSimple() {
@@ -249,6 +218,87 @@ namespace wojilu.Test.Data {
 
         }
 
+        [Test]
+        public void testProperty() {
+
+            TProperty obj1 = new TProperty();
+            obj1.Name = "n1";
+            obj1.Address = "a1";
+            obj1.IsDone = false;
+
+            obj1.IsWrite = 99;
+            obj1.Product = "product1";
+
+            obj1.insert();
+
+            TProperty obj2 = new TProperty();
+            obj2.Name = "n2";
+            obj2.Address = "a2";
+            obj2.IsDone = true;
+
+            obj2.IsWrite = 99;
+            obj2.Product = "product1";
+
+            obj2.insert();
+
+            List<TProperty> list = cdb.findAll<TProperty>();
+            Assert.AreEqual( 2, list.Count );
+
+            Assert.AreEqual( obj1.Name, list[0].Name );
+            Assert.AreEqual( obj1.Address, list[0].Address );
+            Assert.AreEqual( obj1.IsDone, list[0].IsDone );
+            Assert.AreEqual( 66, list[0].IsRead );
+            Assert.AreEqual( "product1", list[0].Product );
+
+            Assert.AreEqual( obj2.Name, list[1].Name );
+            Assert.AreEqual( obj2.Address, list[1].Address );
+            Assert.AreEqual( obj2.IsDone, list[1].IsDone );
+
+            Assert.AreEqual( 66, list[1].IsRead );
+            Assert.AreEqual( "product1", list[1].Product );
+
+        }
+
+
+
+        [TestFixtureTearDown]
+        public void clear() {
+
+            List<TCacheS> list1 = cdb.findAll<TCacheS>();
+            foreach (TCacheS x in list1) {
+                cdb.delete( x );
+            }
+
+            List<TCacheType> list2 = cdb.findAll<TCacheType>();
+            foreach (TCacheType x in list2) {
+                cdb.delete( x );
+            }
+
+            List<TCacheList> list3 = cdb.findAll<TCacheList>();
+            foreach (TCacheList x in list3) {
+                cdb.delete( x );
+            }
+
+            List<TCacheArray> list4 = cdb.findAll<TCacheArray>();
+            foreach (TCacheArray x in list4) {
+                cdb.delete( x );
+            }
+
+            List<TCacheSub> list5 = cdb.findAll<TCacheSub>();
+            foreach (TCacheSub x in list5) {
+                cdb.delete( x );
+            }
+
+            List<TCurrency> list6 = cdb.findAll<TCurrency>();
+            foreach (TCurrency x in list6) {
+                cdb.delete( x );
+            }
+
+            List<TProperty> list7 = cdb.findAll<TProperty>();
+            foreach (TProperty x in list7) {
+                cdb.delete( x );
+            }
+        }
 
     }
 

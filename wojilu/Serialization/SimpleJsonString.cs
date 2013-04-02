@@ -9,7 +9,7 @@ using wojilu.ORM;
 namespace wojilu.Serialization {
 
     /// <summary>
-    /// 将简单的对象转换成 json 字符串，不支持子对象(即属性为对象)的序列化
+    /// 将简单的对象转换成 json 字符串
     /// </summary>
     public class SimpleJsonString {
 
@@ -64,6 +64,10 @@ namespace wojilu.Serialization {
             if (isNameFind) builder.AppendFormat( "Name:\"{0}\", ", nameValue );
 
             foreach (PropertyInfo info in propertyList) {
+
+                if (info.CanRead == false) {
+                    continue;
+                }
 
                 if (info.IsDefined( typeof( NotSerializeAttribute ), false )) {
                     continue;

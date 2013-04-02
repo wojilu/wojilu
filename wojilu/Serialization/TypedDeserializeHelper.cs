@@ -101,6 +101,8 @@ namespace wojilu.Serialization {
 
         private static void setPropertyValue( Object ret, PropertyInfo p, JsonObject obj ) {
 
+            if (p.CanWrite == false) return;
+
             Object pValue = obj.GetValue( p.Name );
             if (pValue == null) return;
 
@@ -178,11 +180,18 @@ namespace wojilu.Serialization {
 
         private static void setDictionaryValues( object ret, PropertyInfo p, JsonObject pValue ) {
 
+            Type ptype = p.PropertyType;
             if (p.PropertyType.IsGenericType == false) {
-                throw new Exception( "属性的类型必须是泛型 Dictionary，属性名称：" + p.Name + ", 属性类型：" + p.PropertyType );
+
+                Type baseType = p.PropertyType.BaseType;
+                if (baseType.IsGenericType == false) {
+                    throw new Exception( "属性的类型必须是泛型 Dictionary，属性名称：" + p.Name + ", 属性类型：" + p.PropertyType );
+                }
+
+                ptype = baseType;
             }
 
-            Type[] typeList = p.PropertyType.GetGenericArguments();
+            Type[] typeList = ptype.GetGenericArguments();
 
             if (typeList[0] != typeof( String )) {
                 throw new Exception( "属性 Dictionary 的 key 必须是 string 类型，属性名称：" + p.Name + ", 属性类型：" + p.PropertyType );

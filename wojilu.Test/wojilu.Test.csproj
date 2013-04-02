@@ -61,7 +61,7 @@
     <Compile Include="Aop\NewAopService.cs" />
     <Compile Include="Aop\ObservedObject.cs" />
     <Compile Include="Aop\TComplexObject.cs" />
-    <Compile Include="Common\Jsons\JsonDeserializeTyped.cs" />
+    <Compile Include="Jsons\JsonDeserializeTyped.cs" />
     <Compile Include="Common\rftTest.cs" />
     <Compile Include="Data\CacheObjectTest.cs" />
     <Compile Include="Data\Entities.cs" />
@@ -78,9 +78,9 @@
     <Compile Include="Platform\MoveRowTest.cs" />
     <Compile Include="Common\cvtTest.cs" />
     <Compile Include="Common\ImgPathTest.cs" />
-    <Compile Include="Common\Jsons\Entities.cs" />
-    <Compile Include="Common\Jsons\JsonDeserializeTest.cs" />
-    <Compile Include="Common\Jsons\JsonSerializeTest.cs" />
+    <Compile Include="Jsons\Entities.cs" />
+    <Compile Include="Jsons\JsonDeserializeTest.cs" />
+    <Compile Include="Jsons\JsonSerializeTest.cs" />
     <Compile Include="Common\PageTest.cs" />
     <Compile Include="Common\PathUtilTest.cs" />
     <Compile Include="Platform\TagTest.cs" />
