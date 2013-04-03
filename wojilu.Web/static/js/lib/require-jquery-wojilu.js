@@ -1,4 +1,4 @@
-/** vim: et:ts=4:sw=4:sts=4
+﻿/** vim: et:ts=4:sw=4:sts=4
  * @license RequireJS 2.0.6 Copyright (c) 2010-2012, The Dojo Foundation All Rights Reserved.
  * Available via the MIT or new BSD license.
  * see: http://github.com/jrburke/requirejs for details
@@ -5277,7 +5277,7 @@ jQuery.removeEvent = document.removeEventListener ?
 
 		if ( elem.detachEvent ) {
 
-			// #8545, #7054, preventing memory leaks for custom events in IE6-8 –
+			// #8545, #7054, preventing memory leaks for custom events in IE6-8 鈥?
 			// detachEvent needed property on element, by name of that event, to properly expose it to GC
 			if ( typeof elem[ name ] === "undefined" ) {
 				elem[ name ] = null;
@@ -11572,7 +11572,7 @@ wojilu.tool = {
         return url;
     },
 
-    forward : function( url, time ) { // 如果实在框架中跳转，则自动加上frm后缀，避免加载layout
+    forward : function( url, time ) { // 如果是在框架中跳转，则自动加上frm后缀，避免加载layout
         if( !time ) {time = 500;};
         setTimeout( function(){
             if( window.location.href.indexOf( 'frm=true' )>0 && url.indexOf( 'frm=true' )<0 ) {
@@ -11752,7 +11752,7 @@ wojilu.tool = {
         
         var arrFrames = parent.document.getElementsByTagName("IFRAME");
         for (var i = 0; i < arrFrames.length; i++) {    
-            if (arrFrames[i].contentWindow == window) { // box 所在的iframe
+            if (arrFrames[i].contentWindow == window) { // box 所在的ifram
                 var frmsrc = arrFrames[i].src;
                 srcFrmId = wojilu.tool.getQuery( 'srcFrmId', frmsrc );
                 if( srcFrmId=='' ) break; // 比如frmLink的页面
@@ -11995,7 +11995,7 @@ wojilu.ui.tip = function() {
 		    if( $(this).val() == $(this).attr('tip') ) $(this).val('');
 		    $(this).removeClass('inputTip');
 	    });
-	    tipInputs.parents("form").submit( function () {//此处ltcszk贡献代码(http://www.wojilu.com/ltcszk)。
+	    tipInputs.parents("form").submit( function () {//此处ltcszk贡献代码(http://www.wojilu.com/ltcszk)
             tipInputs.click();
 	    });
 
@@ -12102,8 +12102,8 @@ wojilu.ui.httpMethod = function(eleId) {
 wojilu.ui.valid = function() {
 
     var arrRule = new Array();
-    arrRule['name'] = /^[a-zA-Z]{1}([a-zA-Z0-9]|[_]){2,19}$/;          //英文开头，可数字、下划线，3-20个字符
-    arrRule['name_cn'] = /^[a-zA-Z\u4E00-\u9FA5]{1}([0-9a-zA-Z \u4E00-\u9FA5]|[_]){1,19}$/;   //可中英文，长度2-19
+    arrRule['name'] = /^[a-zA-Z]{1}([a-zA-Z0-9]|[_]){2,19}$/; //英文开头，可数字、下划线，3-20个字符
+    arrRule['name_cn'] = /^[a-zA-Z\u4E00-\u9FA5]{1}([0-9a-zA-Z \u4E00-\u9FA5]|[_]){1,19}$/; //可中英文，长度2-19
     arrRule['password'] = /^.{4,20}$/;
     arrRule['int'] = /^[0-9]{1,10}$/;
     arrRule['email'] = /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
@@ -12585,7 +12585,6 @@ wojilu.ui.box = {
 		var box_y = ( $(window).height() - bHeight ) / 2 + $(document).scrollTop() -60;
 		boxWrap.css( 'left', box_x + 'px' ).css( 'top', box_y + 'px' ).show();
         
-        //$('#boxContents'+bid).append( loadingDiv ).append( content );
         showCallback(bid, loadingDiv, content);
         $('#boxTitleText'+bid).html( btitle );
 	},
