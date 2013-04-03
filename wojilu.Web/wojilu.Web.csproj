@@ -80,6 +80,7 @@
     <Content Include="framework\views\Demo\CtxPost\Index.html" />
     <Content Include="framework\views\Demo\Menu\Multi.html" />
     <Content Include="framework\views\Main\connectLogin.html" />
+    <Content Include="framework\views\Main\LoginBox.html" />
     <Content Include="framework\views\Open\Admin\CommentBase\List.html" />
     <Content Include="framework\views\Open\CommentList\Index.html" />
     <Content Include="framework\views\Users\Admin\UserProfile\AddEmail.html" />

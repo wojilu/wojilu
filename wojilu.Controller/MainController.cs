@@ -50,6 +50,26 @@ namespace wojilu.Web.Controller {
             redirect( new SiteInitController().Index );
         }
 
+        public void LoginBox() {
+
+            if (ctx.viewer.IsLogin) {
+                echo( "对不起，您已经登录" );
+                return;
+            }
+
+            set( "loginAction", Link.To( Site.Instance, new MainController().CheckLogin ) );
+            set( "regLink", Link.To( Site.Instance, new RegisterController().Register ) );
+            set( "resetPwdLink", Link.To( Site.Instance, new wojilu.Web.Controller.Common.ResetPwdController().StepOne ) );
+
+            IBlock block = getBlock( "validBox" );
+            if (config.Instance.Site.LoginNeedImgValidation) {
+                block.Set( "valideCode", Html.Captcha );
+                block.Next();
+            }
+
+            set( "returnUrl", ctx.Get( "returnUrl" ) );
+        }
+
         public void Login() {
 
             if (ctx.viewer.IsLogin) {
@@ -57,10 +77,19 @@ namespace wojilu.Web.Controller {
                 return;
             }
 
+            String returnUrl = getReturnUrl();
+            if (strUtil.HasText( returnUrl ) &&
+                (returnUrl.IndexOf( "frm=true" ) >= 0 || returnUrl.IndexOf( "nolayout=" ) >= 0)
+                ) {
+                run( LoginBox );
+                return;
+
+            }
+
             Page.Title = lang( "userLogin" );
             target( CheckLogin );
 
-            set( "returnUrl", getReturnUrl() );
+            set( "returnUrl", returnUrl );
 
             String lblUnRegisterTip = string.Format( lang( "unRegisterTip" ), to( new RegisterController().Register ) );
             set( "lblUnRegisterTip", lblUnRegisterTip );
