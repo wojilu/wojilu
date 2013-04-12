@@ -63,9 +63,9 @@ namespace wojilu.OAuth {
             AuthConnect obj = ObjectContext.Create( t ) as AuthConnect;
 
             if (strUtil.IsNullOrEmpty( x.ConsumerKey ))
-                throw new Exception( String.Format( "请设置 Consumer Key: {0}({1})", x.Name ) );
+                throw new Exception( String.Format( "请设置 Consumer Key: {0}", x.Name ) );
             if (strUtil.IsNullOrEmpty( x.ConsumerSecret ))
-                throw new Exception( String.Format( "请设置 Consumer Secret: {0}({1})", x.Name ) );
+                throw new Exception( String.Format( "请设置 Consumer Secret: {0}", x.Name ) );
 
             obj.ConsumerKey = x.ConsumerKey;
             obj.ConsumerSecret = x.ConsumerSecret;
