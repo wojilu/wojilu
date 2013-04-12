@@ -385,7 +385,35 @@ namespace wojilu.Web {
         }
 
         public String GetAuthJson() {
-            return "{ \"" + this.CookieAuthName() + "\":\"" + this.CookieAuthValue() + "\", \"" + SystemInfo.clientSessionID + "\":\"" + this.SessionId + "\" }";
+            return GetAuthJson( new String[] { } );
+        }
+
+        public String GetAuthJson( String arrCookieName ) {
+            return GetAuthJson( new String[] { arrCookieName } );
+        }
+
+        /// <summary>
+        /// 获取安全验证的cookie字符串(json格式)
+        /// </summary>
+        /// <param name="arrCookieName">默认cookie名称之外的其他cookie名称，在ctx.web.UserLogin() 第一个参数中指定</param>
+        /// <returns></returns>
+        public String GetAuthJson( String[] arrCookieName ) {
+
+            String str = "{ \"" + this.CookieAuthName() + "\":\"" + this.CookieAuthValue() + "\", \"" + SystemInfo.clientSessionID + "\":\"" + this.SessionId + "\" ";
+
+            if (arrCookieName == null || arrCookieName.Length == 0) {
+                return str + "}";
+            }
+            else {
+                str += ", ";
+            }
+
+            foreach (String cookieName in arrCookieName) {
+                if (strUtil.IsNullOrEmpty( cookieName )) continue;
+                str += "\"" + cookieName + "\":\"" + this.CookieAuthValue( cookieName ) + "\", ";
+            }
+
+            return str.Trim().TrimEnd( ',' ) + "}";
         }
 
 

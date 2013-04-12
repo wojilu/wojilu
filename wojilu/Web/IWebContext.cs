@@ -184,6 +184,8 @@ namespace wojilu.Web {
         String SessionId { get; }
 
         String GetAuthJson();
+        String GetAuthJson( String cookieName );
+        String GetAuthJson( String[] arrCookieName );
 
         object Session { get; }
         object Context { get; }

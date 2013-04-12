@@ -324,6 +324,14 @@ namespace wojilu.Web {
             return "{}";
         }
 
+        public String GetAuthJson( String cookieName ) {
+            return "{}";
+        }
+
+        public String GetAuthJson( String[] arrCookieName ) {
+            return "{}";
+        }
+
     }
 
 }

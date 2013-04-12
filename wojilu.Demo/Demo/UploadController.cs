@@ -48,6 +48,9 @@ namespace wojilu.Web.Controller.Demo {
         public void FlashUpload() {
             set( "uploadLink", to( FlashSave ) ); // 接受上传的网址
             set( "authJson", ctx.web.GetAuthJson() );
+
+            // 如果有其他安全cookie，请指定。否则没有权限
+            //set( "authJson", ctx.web.GetAuthJson( "_cookieName" ) );
         }
 
         public void FlashSave() {
