@@ -36,7 +36,7 @@ namespace wojilu.Web.Controller.Admin.Members {
                 String realNameInfo = strUtil.HasText( u.RealName ) ? "(" + strUtil.SubString( u.RealName, 8 ) + ")" : "";
                 block.Set( "user.RealNameInfo", realNameInfo );
 
-                String isEmailConfirm = getEmailConfirmStatus( u );
+                String isEmailConfirm = getEmailConfirmStatus( u, connects );
                 block.Set( "user.IsEmailConfirm", isEmailConfirm );
                 String email = getUserEmail( u, connects );
                 block.Set( "user.Email", email );
@@ -54,6 +54,15 @@ namespace wojilu.Web.Controller.Admin.Members {
             }
 
             set( "page", list.PageBar );
+        }
+
+        private Boolean isBindConnects( User u, List<UserConnect> connects ) {
+            foreach (UserConnect x in connects) {
+                if (x.User != null && x.User.Id == u.Id) {
+                    return true;
+                }
+            }
+            return false;
         }
 
         private string getUserEmail( User u, List<UserConnect> connects ) {
@@ -87,9 +96,16 @@ namespace wojilu.Web.Controller.Admin.Members {
             return UserConnect.find( "UserId in (" + ids + ")" ).list();
         }
 
-        private string getEmailConfirmStatus( User user ) {
+        private string getEmailConfirmStatus( User user, List<UserConnect> connects ) {
             if (user.IsEmailConfirmed == EmailConfirm.Confirmed) return "√";
-            if (user.IsEmailConfirmed == EmailConfirm.EmailError) return lang( "EmailError" );
+            if (user.IsEmailConfirmed == EmailConfirm.EmailError) {
+                if (isBindConnects( user, connects )) {
+                    return "--";
+                }
+                else {
+                    return lang( "EmailError" );
+                }
+            }
             if (user.IsEmailConfirmed == EmailConfirm.UnConfirmed) return lang( "UnConfirmed" );
             if (user.IsEmailConfirmed == EmailConfirm.UnSendEmail) return lang( "UnSendEmail" );
             return "";
