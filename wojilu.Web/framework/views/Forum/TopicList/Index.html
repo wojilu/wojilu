@@ -125,12 +125,10 @@
     </div>
     <div class="row clearfix" style="margin-top:10px;">
 
-	    <form method="post" action="#{ActionLink}" class="form-horizontal ajaxPostForm" id="pubTopicForm">
-
-
         <div class="span2" id="pubUserPic" style=" text-align:left;margin-left:20px;padding-left:20px;margin-top:10px;width:110px;"></div>
 
-        <div class="span9 pull-left1 forum-form-quick">
+        <div class="span9 pull-left1 forum-form-quick" style=" ">
+        <form method="post" action="#{ActionLink}" class="form-horizontal ajaxPostForm" id="pubTopicForm">
 
             <div class="control-group">
                   <label class="control-label" for="txtTitle">_{title}</label>
@@ -157,11 +155,11 @@
                     </button>
                 </div>
             </div>
-
+        </form>
         </div>
 
 
-	    </form>
+	    
     </div>
 
 

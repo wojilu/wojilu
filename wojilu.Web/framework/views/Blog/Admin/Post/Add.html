@@ -198,7 +198,10 @@ _run(function() {
         var ele = $(this).parent();
         
         $.post( deleteLink, function(data) {
-            if( 'ok'!=data ) alert( data );
+            if( 'ok'!=data ) {
+                alert( data );
+                return;
+            }
             ele.remove();
             
             // 从hidden字段中移除id

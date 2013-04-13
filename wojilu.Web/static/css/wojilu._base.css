@@ -4,6 +4,10 @@
 .hide {display:none;}
 .note {color:#666; }
 .clear { clear:both;}
+.warning {border:1px #fed22f solid;background:#ffe45c;padding:10px;width:80%;}/* js_ajaxPostForm 中被使用*/
+.opok {background:url('../img/ok.gif') no-repeat left center;margin-left:10px;padding-left:20px; }
+.okBig {background:url('../img/m/ok.png') no-repeat left center;margin-left:10px;padding-left:55px;height:50px;line-height:50px; }
+.inputTip {color:#ccc;}
 
 .quote { margin:5px; color:#333; padding-left:20px; padding-top:0px; background:url('../img/quoteBegin.gif') no-repeat top left;  }
 .quote .qSpan {background:url('../img/quoteEnd.gif') no-repeat bottom right; padding-right:18px; }
