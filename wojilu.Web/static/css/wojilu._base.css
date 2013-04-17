@@ -1,4 +1,7 @@
-﻿.link, .hand{cursor:pointer;}
+﻿table {border-collapse:collapse;}
+th,td {border:1px solid #ddd; padding:5px 10px;}
+
+.link, .hand{cursor:pointer;}
 .link { color:#0088cc; } /*链接的颜色*/
 
 .hide {display:none;}

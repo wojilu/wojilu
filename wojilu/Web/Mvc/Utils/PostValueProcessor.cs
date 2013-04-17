@@ -24,6 +24,7 @@ namespace wojilu.Web.Mvc.Utils {
     internal class PostValueProcessor {
 
         public static String ProcessPostValue( String result, MvcContext ctx ) {
+            if (result == null) return null;
             if (ctx.HttpMethod.Equals( "POST" )) {
                 result = showErrorInfo( result, ctx );
                 result = setPostValue( result, ctx );
