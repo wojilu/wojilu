@@ -11,11 +11,12 @@ using wojilu.Common.Tags;
 using wojilu.Common.Jobs;
 using wojilu.Common.AppBase.Interface;
 using wojilu.Common;
+using wojilu.Common.Comments;
 
 namespace wojilu.Apps.Blog.Domain {
 
     [Serializable]
-    public class BlogPost : ObjectBase<BlogPost>, IAppData, IShareData, IHits {
+    public class BlogPost : ObjectBase<BlogPost>, IAppData, IShareData, IHits, ICommentTarget {
 
         public IShareInfo GetShareInfo() {
             return new BlogPostFeed( this );
