@@ -75,6 +75,8 @@
 
     
     window.onload = function () {
+    
+        if( !uploadAuthParams ) return;
    
         var settings = {
             upload_url:editor.options.fileUrl,           //附件上传服务器地址

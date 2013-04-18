@@ -3,27 +3,24 @@
  */
 
 using System;
-using System.IO;
-using System.Collections.Generic;
-
-using wojilu.Web.Mvc;
-using wojilu.Web.Utils;
-using wojilu.Apps.Photo.Domain;
-using wojilu.Apps.Photo.Service;
-using wojilu.Apps.Photo.Interface;
-using wojilu.Members.Users.Domain;
-using wojilu.Web.Mvc.Attr;
-using wojilu.Common.Msg.Domain;
-using wojilu.Common.Msg.Service;
-using wojilu.Common.Msg.Interface;
-using wojilu.Web.Controller.Admin;
-using wojilu.Common.Upload;
-using System.Text;
-using wojilu.Members.Interface;
-using System.Net;
-using wojilu.Net;
-using System.Text.RegularExpressions;
 using System.Collections;
+using System.Collections.Generic;
+using System.IO;
+using System.Net;
+
+using wojilu.Apps.Photo.Domain;
+using wojilu.Apps.Photo.Interface;
+using wojilu.Apps.Photo.Service;
+using wojilu.Common.Msg.Domain;
+using wojilu.Common.Msg.Interface;
+using wojilu.Common.Msg.Service;
+using wojilu.Common.Upload;
+using wojilu.Members.Users.Domain;
+using wojilu.Net;
+using wojilu.Web.Controller.Admin;
+using wojilu.Web.Mvc;
+using wojilu.Web.Mvc.Attr;
+using wojilu.Web.Utils;
 
 namespace wojilu.Web.Controller.Users {
 
@@ -44,17 +41,19 @@ namespace wojilu.Web.Controller.Users {
             fileService = new UserFileService();
         }
 
-        public override void CheckPermission() {
-            if (ctx.viewer.IsLogin == false) {
-                redirectLogin();
-            }
-        }
-
-        [Login]
         public void GetAuthJson() {
-            String script = string.Format( "window.uploadAuthParams = {0};", ctx.web.GetAuthJson() );
+
             ctx.web.ResponseContentType( "application/javascript" );
-            echoText( script );
+
+            String paramName = "window.uploadAuthParams";
+
+            if (ctx.viewer.IsLogin == false) {
+                echoText( string.Format( "{0} = null;", paramName ) );
+            }
+            else {
+                String script = string.Format( "{0} = {1};", paramName, ctx.web.GetAuthJson() );
+                echoText( script );
+            }
         }
 
         [Login]
@@ -102,7 +101,7 @@ namespace wojilu.Web.Controller.Users {
                 wc.Dispose();
             }
 
-            echoJson( "{url:'" + converToString( tmpNames ) + "',tip:'远程图片抓取成功！',srcUrl:'" + uri + "'}" );             
+            echoJson( "{url:'" + converToString( tmpNames ) + "',tip:'远程图片抓取成功！',srcUrl:'" + uri + "'}" );
         }
 
         //集合转换字符串
@@ -142,7 +141,7 @@ namespace wojilu.Web.Controller.Users {
                 imgs.Add( post.ImgMediumUrl );
             }
 
-            echoJson( new { ImgList=imgs, Pager=list.PageBar } );
+            echoJson( new { ImgList = imgs, Pager = list.PageBar } );
         }
 
         [Login]
@@ -201,7 +200,7 @@ namespace wojilu.Web.Controller.Users {
             dic.Add( "original", ctx.GetFileSingle().FileName ); // 图片原始名称
             dic.Add( "state", "SUCCESS" ); // 上传成功
 
-            echoJson( dic ); 
+            echoJson( dic );
         }
 
         [Login]
