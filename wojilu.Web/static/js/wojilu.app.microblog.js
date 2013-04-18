@@ -1,4 +1,4 @@
-﻿define(['wojilu.core.ems'], function(x) {
+﻿define(['wojilu.core.ems', 'wojilu.app.microblog.view'], function(x, viewHelper) {
 
     function _getEmotionTable() {
         var trS = '<table cellpadding="3" class="emSelector"><tr id="emRow1">';
@@ -201,7 +201,7 @@
                         newBlog.fadeIn('slow');
 
                         // 给新博增加点击事件
-                        addBlogEvent( newBlog );
+                        viewHelper.addBlogEvent( newBlog );
                         wojilu.ui.frmBox( newBlog );
                         wojilu.ui.frmUpdate( newBlog );
                         wojilu.ui.httpMethod( newBlog );

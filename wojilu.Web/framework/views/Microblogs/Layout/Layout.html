@@ -63,7 +63,10 @@
 
 <script data-main="~js/main" src="~js/lib/require-jquery-wojilu.js?v=#{jsVersion}"></script>
 <script>
-    require(['wojilu.app.microblog.view']);
+    require(['wojilu.app.microblog.view'],function(x){
+        x.init();
+        x.addBlogEvent();
+    });
     require(['wojilu.core.base'], function (x) { x.backTop(); });
 </script>
 

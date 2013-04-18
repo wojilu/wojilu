@@ -1,106 +1,109 @@
-﻿require( ['wojilu.app.microblog.rotate'], function( rt ) {
+﻿define( ['wojilu.app.microblog.rotate'], function( rt ) {
 
-	wojilu.tool.makeTab( '.mbNav', 'currentMbNav', '' );
-
-    wojilu.ui.frmUpdate();
-
-    $('#lblFollow').click( function() {
-        alert( '请先登录' );
-    });
-
-    $('#cmdFollow').click( function() {
-	    var ps = $(this).position();
-	    $('#myBox').css( 'top', ps.top+30 ).css( 'left', ps.left ).toggle('fast');
-    });
+    var _init = function() {
     
-    $('#btnFollow').click( function() {
-        $(this).parent().parent().toggle('fast');
-        var url = $(this).attr( 'url' );
-        $.post( url, function(data) {
-            if( 'ok'==data ) {
-                $('#cmdFollow').html( '关注成功！' );
-            }
-            else {
-                alert( '对不起，系统错误：'+data );
-            }
+        wojilu.tool.makeTab( '.mbNav', 'currentMbNav', '' );
+        wojilu.ui.frmUpdate();    
+
+
+        $('#lblFollow').click( function() {
+            alert( '请先登录' );
         });
-    });
-    
-    $('#cancelFollow').click( function() {
-	    var ps = $(this).position();
-	    $('#cancelBox').css( 'top', ps.top+20 ).css( 'left', ps.left ).toggle('fast');
-    });
-    
-    $('#btnCancelFollow').click( function() {
+
+        $('#cmdFollow').click( function() {
+            var ps = $(this).position();
+            $('#myBox').css( 'top', ps.top+30 ).css( 'left', ps.left ).toggle('fast');
+        });
         
-        var box = $(this).parent().parent();
-        $.post( $(this).attr( 'url' ), function(data) {
-            if( 'ok'==data ) {
-                box.toggle('fast');
-                $('#cmdCancelFollow').html( '取消关注成功！' );
-            }
-            else {
-                alert( '对不起，系统错误：'+data );
-            }
-
+        $('#btnFollow').click( function() {
+            $(this).parent().parent().toggle('fast');
+            var url = $(this).attr( 'url' );
+            $.post( url, function(data) {
+                if( 'ok'==data ) {
+                    $('#cmdFollow').html( '关注成功！' );
+                }
+                else {
+                    alert( '对不起，系统错误：'+data );
+                }
+            });
         });
-    });
+        
+        $('#cancelFollow').click( function() {
+            var ps = $(this).position();
+            $('#cancelBox').css( 'top', ps.top+20 ).css( 'left', ps.left ).toggle('fast');
+        });
+        
+        $('#btnCancelFollow').click( function() {
+            
+            var box = $(this).parent().parent();
+            $.post( $(this).attr( 'url' ), function(data) {
+                if( 'ok'==data ) {
+                    box.toggle('fast');
+                    $('#cmdCancelFollow').html( '取消关注成功！' );
+                }
+                else {
+                    alert( '对不起，系统错误：'+data );
+                }
+
+            });
+        });
+        
+        $('#bntClose').click( function() {
+            $(this).parent().parent().toggle('fast');
+        });
+
+        // -------------------------------------------------------------------------
+        $('.addFavorite').click( function() {
+
+            var btn = $(this);
+            var ps = $(this).position();    
+            if( btn.text() == '已收藏' ) return;
+
+            var url = $(this).attr( 'to' ).toAjax();
+            $.post( url, function(data) {
+                var msg = data; 
+                if( msg.IsValid ) {
+                    btn.text( '已收藏' );
+                    btn.css( 'cursor', 'text' );
+                    $('#myBoxFav').css( 'top', ps.top-55 ).css( 'left', ps.left ).show();
+                    setTimeout( function() {
+                        $('#myBoxFav').fadeOut();
+                    }, 500 );
+                }
+                else {
+                    alert( msg.Msg );
+                }
+            });
+        });
+
+        $('.cancelFavorite').click( function() {
+
+            var btn = $(this);
+            var ps = $(this).position();    
+            if( btn.text() == '已取消' ) return;
+
+            var url = $(this).attr( 'to' ).toAjax();
+            $.post( url, function(data) {
+                var msg = data; 
+                if( msg.IsValid ) {
+                    btn.text( '已取消' );
+                    btn.css( 'cursor', 'text' );
+                    $('#myBoxFavX').css( 'top', ps.top-55 ).css( 'left', ps.left ).show();
+                    setTimeout( function() {
+                        $('#myBoxFavX').fadeOut();
+                    }, 500 );
+                }
+                else {
+                    alert( msg.Msg );
+                }
+            });
+        });
+        
+    };
     
-    $('#bntClose').click( function() {
-        $(this).parent().parent().toggle('fast');
-    });
-
-    // -------------------------------------------------------------------------
-    $('.addFavorite').click( function() {
-
-        var btn = $(this);
-        var ps = $(this).position();    
-        if( btn.text() == '已收藏' ) return;
-
-        var url = $(this).attr( 'to' ).toAjax();
-        $.post( url, function(data) {
-            var msg = data; 
-            if( msg.IsValid ) {
-                btn.text( '已收藏' );
-                btn.css( 'cursor', 'text' );
-                $('#myBoxFav').css( 'top', ps.top-55 ).css( 'left', ps.left ).show();
-                setTimeout( function() {
-                    $('#myBoxFav').fadeOut();
-                }, 500 );
-            }
-            else {
-                alert( msg.Msg );
-            }
-        });
-    });
-
-    $('.cancelFavorite').click( function() {
-
-        var btn = $(this);
-        var ps = $(this).position();    
-        if( btn.text() == '已取消' ) return;
-
-        var url = $(this).attr( 'to' ).toAjax();
-        $.post( url, function(data) {
-            var msg = data; 
-            if( msg.IsValid ) {
-                btn.text( '已取消' );
-                btn.css( 'cursor', 'text' );
-                $('#myBoxFavX').css( 'top', ps.top-55 ).css( 'left', ps.left ).show();
-                setTimeout( function() {
-                    $('#myBoxFavX').fadeOut();
-                }, 500 );
-            }
-            else {
-                alert( msg.Msg );
-            }
-        });
-    });
-
     // -------------------------------------------------------------------------
 
-
-    function addBlogEvent( pageContext ) {
+    function _addBlogEvent( pageContext ) {
 
         var elePic;
         var elePicPanel;
@@ -193,9 +196,12 @@
         });
 
     }
-
-
-    addBlogEvent();
+    
+    
+    return {
+        init : _init,
+        addBlogEvent : _addBlogEvent
+    };
 
 });
 
