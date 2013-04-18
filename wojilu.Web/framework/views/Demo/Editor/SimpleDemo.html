@@ -1,0 +1,26 @@
+﻿
+<div style="margin:30px;">
+    <h1 style=" margin-bottom:20px;">UEditor简单功能</h1>
+
+     <form id="form" method="post" target="_blank" action="#{ActionLink}">
+    <!--style给定宽度可以影响编辑器的最终宽度-->
+    <script type="text/plain" id="myEditor" name="post.Content">
+        <p>这里我可以写一些输入提示</p>
+    </script>
+    <div class="top10"><button type="submit" class="btn btn-primary"><i class="icon-plus icon-white"></i> 发布数据</button> </div>
+    </form>
+
+    <script type="text/javascript">
+
+
+        _run(function () {
+            require(["lib/ueditor/editor_config", "lib/ueditor/editor_all"], function () {
+
+                UE.getEditor('myEditor', {})
+
+            });
+        });
+    </script>
+
+
+</div>

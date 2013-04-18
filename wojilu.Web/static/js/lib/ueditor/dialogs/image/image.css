@@ -43,9 +43,11 @@ td input {
 #maskIframe{ width: 620px; height: 325px; position: absolute;z-index: 100; }
 #flashContainer { margin: 6px;position: relative;}
 #upload{width: 100px;height: 30px;float: right; margin:3px 6px 0 0;cursor: pointer;}
-#imageList{width: 620px;height: 315px; margin-top: 10px;overflow:hidden;overflow-y: auto;}
+#imageList{width: 620px;height: 320px; margin-top: 10px;overflow:hidden;overflow-y: auto; }
 #imageList img{cursor: pointer ;border: 2px solid #fff}
-#imgManager #imageList div{float: left;width: 100px;height: 100px;margin: 5px 10px;}
+#imgManager #imageList div{float: left;width: 100px;height: 90px;margin: 5px 10px 3px 10px;}
+#imgPager a{ color:#0070c0; }
+
 #imgSearchTxt{padding-left:2px;margin-left:15px;background: #FFF;width:200px;height:21px;line-height:21px;border: 1px solid #d7d7d7;}
 #searchList{width: 620px;overflow: auto;zoom:1;height: 270px;}
 #searchList div{float: left;width: 116px;height: 135px;margin: 5px 15px;_margin:5px 10px;}

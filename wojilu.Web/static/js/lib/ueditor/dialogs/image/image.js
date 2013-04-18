@@ -279,7 +279,13 @@ var imageUploader = {},
             tmpObj.title = ci.title;
             tmpObj.floatStyle = align;
             //修正显示时候的地址数据,如果后台返回的是图片的绝对地址，那么此处无需修正
-            tmpObj.data_ue_src = tmpObj.src = editor.options.imagePath + ci.url;
+            // wojilu fix
+            if( ci.url.length>0 && ci.url[0]=='/' ) {
+                tmpObj.data_ue_src = tmpObj.src = ci.url;
+            }
+            else {
+                tmpObj.data_ue_src = tmpObj.src = editor.options.imagePath + ci.url;
+            }
             imgObjs.push(tmpObj);
         }
         insertImage(imgObjs);
@@ -590,42 +596,87 @@ var imageUploader = {},
                     list.style.display = "";
                     //已经初始化过时不再重复提交请求
                     if (!list.children.length) {
-                        ajax.request(editor.options.imageManagerUrl, {
-                            timeout:100000,
-                            action:"get",
-                            onsuccess:function (xhr) {
-                                //去除空格
-                                var tmp = utils.trim(xhr.responseText),
-                                    imageUrls = !tmp ? [] : tmp.split("ue_separate_ue"),
-                                    length = imageUrls.length;
-                                g("imageList").innerHTML = !length ? "&nbsp;&nbsp;" + lang.noUploadImage : "";
-                                for (var k = 0, ci; ci = imageUrls[k++];) {
-                                    var img = document.createElement("img");
+                    
+                        /*************** wojilu 增加翻页绑定链接*******************/
+                        function bindImgList(imageUrls) {
+                            for (var k = 0, ci; ci = imageUrls[k++];) {
+                                var img = document.createElement("img");
 
-                                    var div = document.createElement("div");
-                                    div.appendChild(img);
-                                    div.style.display = "none";
-                                    g("imageList").appendChild(div);
-                                    img.onclick = function () {
-                                        changeSelected(this);
-                                    };
-                                    img.onload = function () {
-                                        this.parentNode.style.display = "";
-                                        var w = this.width, h = this.height;
-                                        scale(this, 100, 120, 80);
-                                        this.title = lang.toggleSelect + w + "X" + h;
-                                        this.onload = null;
-                                    };
+                                var div = document.createElement("div");
+                                div.appendChild(img);
+                                div.style.display = "none";
+                                g("imageList").appendChild(div);
+                                img.onclick = function () {
+                                    changeSelected(this);
+                                };
+                                img.onload = function () {
+                                    this.parentNode.style.display = "";
+                                    var w = this.width, h = this.height;
+                                    scale(this, 90, 120, 80);
+                                    this.title = lang.toggleSelect + w + "X" + h;
+                                    this.onload = null;
+                                };
+                                
+                                if( ci.length>0 && ci[0]=='/' ) {
+                                    img.setAttribute(k < 35 ? "src" : "lazy_src", ci.replace(/\s+|\s+/ig, ""));
+                                    img.setAttribute("data_ue_src", ci.replace(/\s+|\s+/ig, ""));
+                                }
+                                else {                                    
                                     img.setAttribute(k < 35 ? "src" : "lazy_src", editor.options.imageManagerPath + ci.replace(/\s+|\s+/ig, ""));
                                     img.setAttribute("data_ue_src", editor.options.imageManagerPath + ci.replace(/\s+|\s+/ig, ""));
-
                                 }
-                            },
-                            onerror:function () {
-                                g("imageList").innerHTML = lang.imageLoadError;
                             }
-                        });
+                        };
+                    
+                        function onAjaxImg(xhr){
+                           
+                            var isJson = xhr.responseText && xhr.responseText[0]=='{';
+                            if( !isJson ) {
+                                g("imageList").innerHTML='&nbsp;&nbsp;';
+                                return;
+                            }
+
+                            var tmp = eval( '('+xhr.responseText+')' );
+                            var imageUrls = tmp.ImgList;
+                            var pager = tmp.Pager;
+                            var length = imageUrls.length;
+                            g('imgPager').innerHTML = pager;
+                            
+                            //循环绑定：翻页链接a的点击事件                            
+                            var arrLinks = g('imgPager').children[0].children;
+                            for( var i=0;i<arrLinks.length;i++ ) {
+                                arrLinks[i].onclick = function() {
+                                    var remoteUrl = this.getAttribute('href');
+                                    if( remoteUrl ) {
+                                        ajaxRequestImg( remoteUrl );
+                                    }
+                                    return false;
+                                };
+                            };
+
+                            g("imageList").innerHTML = !length ? "&nbsp;&nbsp;" + lang.noUploadImage : "";
+                            bindImgList( imageUrls );
+                        };
+
+                        function ajaxRequestImg( imgServerUrl ) {
+                            ajax.request(imgServerUrl, {
+                                timeout:100000,
+                                action:"get",
+                                onsuccess:function (xhr) {
+                                    onAjaxImg(xhr);
+                                },
+                                onerror:function () {
+                                    g("imageList").innerHTML = lang.imageLoadError;
+                                }
+                            });                        
+                        };
+                        
+                        ajaxRequestImg( editor.options.imageManagerUrl );
                     }
+                    /*************** wojilu 增加了上面的翻页绑定链接*******************/
+
+                    
+                    
                 }
                 if (id == "imgSearch") {
                     selectTxt(g("imgSearchTxt"));

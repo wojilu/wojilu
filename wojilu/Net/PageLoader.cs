@@ -237,6 +237,15 @@ namespace wojilu.Net {
                 picUrl = strUtil.Join( siteUrl, picUrl );
             }
 
+            return DownloadPic( picUrl );
+        }
+
+        /// <summary>
+        /// 抓取远程图片，保存到服务器
+        /// </summary>
+        /// <param name="picUrl">图片网址，必须http开头</param>
+        /// <returns>返回从根目录/开始的图片路径</returns>
+        public static string DownloadPic( string picUrl ) {
             // 2、图片保存的路径
             string picExt = Path.GetExtension( picUrl ).ToLower();
             if (string.IsNullOrEmpty( picExt )) picExt = ".jpg";

@@ -1,7 +1,4 @@
-﻿table {border-collapse:collapse;}
-th,td {border:1px solid #ddd; padding:5px 10px;}
-
-.link, .hand{cursor:pointer;}
+﻿.link, .hand{cursor:pointer;}
 .link { color:#0088cc; } /*链接的颜色*/
 
 .hide {display:none;}
@@ -118,6 +115,10 @@ a.currentPageNo {color:#fff;background-color:#296bbc;padding:2px 4px 2px 4px; bo
 
 .clickMenu {cursor:pointer; }
 .frmUpdate {cursor:pointer;}
+
+/******** ueditor ******/
+.edui table {border-collapse:collapse;}
+.edui th, .edui td {border:1px solid #ddd; padding:5px 10px;}
 
 /******** tab *********/
 .tabList {border-bottom: 1px solid #B8D5FF;}

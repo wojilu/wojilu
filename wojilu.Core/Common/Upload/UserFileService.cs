@@ -8,6 +8,8 @@ using wojilu.DI;
 using wojilu.Web;
 using wojilu.Web.Utils;
 using wojilu.ORM;
+using wojilu.Members.Users.Domain;
+using wojilu.Members.Interface;
 
 namespace wojilu.Common.Upload {
 
@@ -52,9 +54,7 @@ namespace wojilu.Common.Upload {
             return UserFile.find( "DataId=" + entity.Id + " and DataType='" + obj.GetType().FullName + "' order by Id asc" ).list();
         }
 
-        public Result SaveFile( HttpFile postedFile, String ip ) {
-
-            Dictionary<String, String> dic = new Dictionary<String, String>();
+        public Result SaveFile( HttpFile postedFile, String ip, User creator, IMember owner ) {
 
             Result result = Uploader.SaveFileOrImage( postedFile );
             if (result.HasErrors) return result;
@@ -68,6 +68,17 @@ namespace wojilu.Common.Upload {
             att.IsPic = Uploader.IsImage( postedFile ) ? 1 : 0;
 
             att.Ip = ip;
+
+            if (creator != null) {
+                att.Creator = creator;
+                att.CreatorUrl = creator.Url;
+            }
+
+            if (owner != null) {
+                att.OwnerId = owner.Id;
+                att.OwnerType = owner.GetType().FullName;
+                att.OwnerUrl = owner.Url;
+            }
 
             try {
                 this.Insert( att );

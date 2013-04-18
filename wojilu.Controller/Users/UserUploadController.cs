@@ -18,6 +18,12 @@ using wojilu.Common.Msg.Service;
 using wojilu.Common.Msg.Interface;
 using wojilu.Web.Controller.Admin;
 using wojilu.Common.Upload;
+using System.Text;
+using wojilu.Members.Interface;
+using System.Net;
+using wojilu.Net;
+using System.Text.RegularExpressions;
+using System.Collections;
 
 namespace wojilu.Web.Controller.Users {
 
@@ -45,6 +51,72 @@ namespace wojilu.Web.Controller.Users {
         }
 
         [Login]
+        public void GetAuthJson() {
+            String script = string.Format( "window.uploadAuthParams = {0};", ctx.web.GetAuthJson() );
+            ctx.web.ResponseContentType( "application/javascript" );
+            echoText( script );
+        }
+
+        [Login]
+        public void GetRemotePic() {
+
+            string uri = ctx.Post( "upfile" );
+            uri = uri.Replace( "&amp;", "&" );
+            string[] imgUrls = strUtil.Split( uri, "ue_separate_ue" );
+
+            string[] filetype = { ".gif", ".png", ".jpg", ".jpeg", ".bmp" };             //文件允许格式
+            int fileSize = 3000;                                                        //文件大小限制，单位kb
+
+            ArrayList tmpNames = new ArrayList();
+            WebClient wc = new WebClient();
+            HttpWebResponse res;
+            String tmpName = String.Empty;
+            String imgUrl = String.Empty;
+            String currentType = String.Empty;
+
+            try {
+                for (int i = 0, len = imgUrls.Length; i < len; i++) {
+                    imgUrl = imgUrls[i];
+
+                    if (imgUrl.Substring( 0, 7 ) != "http://") {
+                        tmpNames.Add( "error!" );
+                        continue;
+                    }
+
+                    //格式验证
+                    int temp = imgUrl.LastIndexOf( '.' );
+                    currentType = imgUrl.Substring( temp ).ToLower();
+                    if (Array.IndexOf( filetype, currentType ) == -1) {
+                        tmpNames.Add( "error!" );
+                        continue;
+                    }
+
+                    String imgPath = PageLoader.DownloadPic( imgUrl );
+                    tmpNames.Add( imgPath );
+                }
+            }
+            catch (Exception) {
+                tmpNames.Add( "error!" );
+            }
+            finally {
+                wc.Dispose();
+            }
+
+            echoJson( "{url:'" + converToString( tmpNames ) + "',tip:'远程图片抓取成功！',srcUrl:'" + uri + "'}" );             
+        }
+
+        //集合转换字符串
+        private string converToString( ArrayList tmpNames ) {
+            String str = String.Empty;
+            for (int i = 0, len = tmpNames.Count; i < len; i++) {
+                str += tmpNames[i] + "ue_separate_ue";
+                if (i == tmpNames.Count - 1)
+                    str += tmpNames[i];
+            }
+            return str;
+        }
+
+        [Login]
         public void MyPics() {
 
             String editorName = ctx.Get( "editor" );
@@ -59,6 +131,18 @@ namespace wojilu.Web.Controller.Users {
                 block.Next();
             }
             set( "page", list.PageBar );
+        }
+
+        [Login]
+        public void MyPicJson() {
+
+            List<String> imgs = new List<String>();
+            DataPage<PhotoPost> list = postService.GetByUser( ctx.viewer.Id, 15 );
+            foreach (PhotoPost post in list.Results) {
+                imgs.Add( post.ImgMediumUrl );
+            }
+
+            echoJson( new { ImgList=imgs, Pager=list.PageBar } );
         }
 
         [Login]
@@ -108,9 +192,16 @@ namespace wojilu.Web.Controller.Users {
             set( "picUrl", post.ImgMediumUrl );
             set( "oPicUrl", post.ImgUrl );
 
-            String json = "{IsValid:true, PicUrl:'" + post.ImgMediumUrl + "', OpicUrl:'" + post.ImgUrl + "'}";
+            //String json = "{IsValid:true, PicUrl:'" + post.ImgMediumUrl + "', OpicUrl:'" + post.ImgUrl + "'}";
+            //echoJson( json );
 
-            echoJson( json );
+            Dictionary<String, String> dic = new Dictionary<String, String>();
+            dic.Add( "url", post.ImgUrl ); // 图片的完整url
+            dic.Add( "title", post.Title ); // 图片名称
+            dic.Add( "original", ctx.GetFileSingle().FileName ); // 图片原始名称
+            dic.Add( "state", "SUCCESS" ); // 上传成功
+
+            echoJson( dic ); 
         }
 
         [Login]
@@ -169,7 +260,7 @@ namespace wojilu.Web.Controller.Users {
         [Login, DbTransaction]
         public void SaveUserFile() {
 
-            Result result = fileService.SaveFile( ctx.GetFileSingle(), ctx.Ip );
+            Result result = fileService.SaveFile( ctx.GetFileSingle(), ctx.Ip, ctx.viewer.obj as User, ctx.owner.obj );
 
             Dictionary<String, String> dic = new Dictionary<String, String>();
 
@@ -179,7 +270,7 @@ namespace wojilu.Web.Controller.Users {
                 dic.Add( "DeleteLink", "" );
                 dic.Add( "Msg", result.ErrorsText );
 
-                echoText( Json.ToString( dic ) );
+                echoJson( dic );
             }
             else {
 
@@ -193,7 +284,35 @@ namespace wojilu.Web.Controller.Users {
                 dic.Add( "DeleteLink", deleteLink );
                 dic.Add( "Id", att.Id.ToString() );
 
-                echoText( Json.ToString( dic ) );
+                echoJson( dic );
+            }
+        }
+
+        [Login, DbTransaction]
+        public void SaveUserFileUE() {
+
+            Result result = fileService.SaveFile( ctx.GetFileSingle(), ctx.Ip, ctx.viewer.obj as User, ctx.owner.obj );
+
+            Dictionary<String, String> dic = new Dictionary<String, String>();
+
+            if (result.HasErrors) {
+
+                dic.Add( "state", result.ErrorsText );
+
+                echoJson( dic );
+            }
+            else {
+
+                UserFile att = result.Info as UserFile;
+
+                updateDataInfo( att );
+
+                dic.Add( "state", "SUCCESS" );
+                dic.Add( "url", att.PathFull );
+                dic.Add( "fileType", att.Ext );
+                dic.Add( "original", att.FileName );
+
+                echoJson( dic );
             }
         }
 
@@ -206,19 +325,6 @@ namespace wojilu.Web.Controller.Users {
 
             uFile.DataId = dataId;
             uFile.DataType = dataType;
-
-            int viewerId = ctx.PostInt( "viewerId" );
-            String viewerUrl = ctx.Post( "viewerUrl" );
-            int ownerId = ctx.PostInt( "ownerId" );
-            String ownerType = ctx.Post( "ownerType" );
-            String ownerUrl = ctx.Post( "ownerUrl" );
-
-            if (viewerId > 0) uFile.Creator = new User( viewerId );
-            if (strUtil.HasText( viewerUrl )) uFile.CreatorUrl = viewerUrl;
-
-            if (ownerId > 0) uFile.OwnerId = ownerId;
-            if (strUtil.HasText( ownerType )) uFile.OwnerType = ownerType;
-            if (strUtil.HasText( ownerUrl )) uFile.OwnerUrl = ownerUrl;
 
             uFile.update();
             fileService.UpdateDataInfo( uFile );
