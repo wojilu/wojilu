@@ -47,11 +47,14 @@
                 .sectionVideos li:hover { background:#f2f2f2;}
                 .sectionVideos li .item-pic-title {width:130px;margin-left:10px;}
                 
-                .excerpt li {list-style:none; margin-bottom:10px; display:block; clear:both; background:#fff; padding:5px 10px 10px 5px;}
-                .epFace {float:left; width:60px; text-align:center; font-size:12px;}
-                .epTitle, .epContent {margin-left:80px;}
+                .excerpt {}
+                .excerpt li {list-style:none; margin-bottom:10px; display:block; clear:both; background:#fff; padding-bottom:10px; border-bottom:1px solid #ddd;}
+                .epFace {width:55px; vertical-align:top;}
+                .epTitle, .epContent { line-height:150%;}
                 .epTitle a {font-weight:bold;}
-                .epContent {font-size:12px;}
+                .epContent { font-size:12px;}
+                .epOnlyTitle {font-size:14px;}
+                .excerpt .note { font-size:12px; margin-top:5px;}
                 
                 .ulL {float:left;}
                 .ulR {float:right; text-align:center; font-size:12px;}

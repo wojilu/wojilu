@@ -136,9 +136,9 @@ namespace wojilu.Common.Microblogs.Service {
                 vo.CreatorLink = alink.ToUserMicroblog( post.User );
                 vo.CreatorPic = post.User.PicSmall;
 
-                vo.Title = post.Content;
+                vo.Title = strUtil.ParseHtml( post.Content, 500 );
                 vo.Link = alink.ToUserMicroblog( post.User );
-                vo.Content = post.Content;
+
                 vo.Created = post.Created;
                 vo.Replies = post.Replies;
 
