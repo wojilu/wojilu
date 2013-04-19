@@ -25,7 +25,7 @@ namespace wojilu {
 
         public static IEditor NewOne( String propertyName, String propertyValue, String height, Editor.ToolbarType toolbar ) {
 
-            IEditor x = new Editor();
+            IEditor x = new UEditor();
             x.Init( propertyName, propertyValue, height, toolbar );
             return x;
         }
@@ -37,7 +37,64 @@ namespace wojilu {
         Boolean IsUnique { get; set; }
     }
 
+    public class UEditor : IEditor {
 
+        private String _propertyName;
+        private String _propertyValue;
+        private String _height;
+        private Editor.ToolbarType _toolbar;
+
+        public void Init( String propertyName, String propertyValue, String height, Editor.ToolbarType toolbar ) {
+            _propertyName = propertyName;
+            _propertyValue = propertyValue;
+            _height = height;
+            _toolbar = toolbar;
+        }
+
+        public void AddUploadUrl( MvcContext ctx ) {
+        }
+
+        public Boolean IsUnique { get; set; }
+
+        public override string ToString() {
+
+            StringBuilder sb = new StringBuilder();
+
+            sb.AppendFormat( "<script type=\"text/plain\" id=\"{0}\" name=\"{0}\">", _propertyName );
+            sb.AppendLine();
+            sb.AppendLine( _propertyValue );
+            sb.AppendLine( "</script>" );
+
+            sb.AppendLine( "<script>" );
+            sb.AppendLine( "_run(function () {" );
+            sb.AppendLine( "\trequire([\"lib/ueditor/editor_config\", \"lib/ueditor/editor_all\"], function () {" );
+            sb.AppendFormat( "\t\tUE.getEditor('{0}',", _propertyName );
+
+            sb.Append( "{_w:''" );
+
+            if (_toolbar == Editor.ToolbarType.Basic) {
+                sb.AppendLine( @",toolbars: [
+        ['source','bold', 'forecolor', 'underline', 'strikethrough','link', 'fontfamily', 'fontsize', 
+        'insertimage', 'emotion', 'insertvideo', 'music', 'attachment','highlightcode', 'removeformat', 'pasteplain' ]
+        ]" );
+            }
+
+            if (strUtil.HasText( _height )) {
+                sb.AppendLine( ", initialFrameHeight:'" + strUtil.TrimEnd( _height.Trim(), "px" ).Trim() + "'" );
+            }
+
+
+
+            sb.AppendLine( "})" );
+            sb.AppendLine();
+            sb.AppendLine( "\t});" );
+            sb.AppendLine( "});" );
+            sb.AppendLine( "</script>" );
+
+            return sb.ToString();
+        }
+
+    }
 
 
     /// <summary>

@@ -1007,11 +1007,11 @@
     <Content Include="framework\views\Demo\Valid\Drop.html" />
     <Content Include="framework\views\Demo\Valid\HttpMethod.html" />
     <Content Include="framework\views\Demo\Menu\Simple.html" />
-    <Content Include="framework\views\Demo\Valid\Editor.html" />
-    <Content Include="framework\views\Demo\Valid\EditorCustom.html" />
-    <Content Include="framework\views\Demo\Valid\EditorExt.html" />
-    <Content Include="framework\views\Demo\Valid\EditorFullbar.html" />
-    <Content Include="framework\views\Demo\Valid\EditorUpload.html" />
+    <Content Include="framework\views\Demo\EditorOld\Editor.html" />
+    <Content Include="framework\views\Demo\EditorOld\EditorCustom.html" />
+    <Content Include="framework\views\Demo\EditorOld\EditorExt.html" />
+    <Content Include="framework\views\Demo\EditorOld\EditorFullbar.html" />
+    <Content Include="framework\views\Demo\EditorOld\EditorUpload.html" />
     <Content Include="framework\views\Demo\Valid\Index.html" />
     <Content Include="framework\views\Demo\JsonTest\JsonTest.html" />
     <Content Include="framework\views\Demo\Valid\Layout.html" />
@@ -1021,7 +1021,7 @@
     <Content Include="framework\views\Demo\Valid\Slider.html" />
     <Content Include="framework\views\Demo\Valid\Tab.html" />
     <Content Include="framework\views\Demo\Valid\Tip.html" />
-    <Content Include="framework\views\Demo\Valid\EditorSimple.html" />
+    <Content Include="framework\views\Demo\EditorOld\EditorSimple.html" />
     <Content Include="framework\views\Demo\Valid\BoxShow.html" />
     <Content Include="framework\views\Demo\Valid\BoxReturn.html" />
     <Content Include="framework\views\Demo\Valid\BoxReturnBody.html" />

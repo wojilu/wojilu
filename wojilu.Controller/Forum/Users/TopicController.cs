@@ -86,7 +86,7 @@ namespace wojilu.Web.Controller.Forum.Users {
             setCategory( id );
             set( "Title", ctx.Post( "Title" ) );
             set( "TagList", ctx.Post( "TagList" ) );
-            editor( "Content", ctx.PostHtml( "Content" ), "350px" );
+            editorFull( "Content", ctx.PostHtml( "Content" ), "350px" );
             set( "currency.Unit", KeyCurrency.Instance.Unit );
             int uploadMax = 13;
             set( "uploadMax", uploadMax );

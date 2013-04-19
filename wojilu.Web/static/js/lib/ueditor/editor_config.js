@@ -88,6 +88,7 @@ window.UEDITOR_HOME_URL = wojilu.path.js + "/lib/ueditor/"; // wojilu自定义
         ,getMovieUrl:URL+"net/getMovie.ashx"                   //视频数据获取地址
 
         //工具栏上的所有的功能按钮和下拉框，可以在new编辑器的实例时选择自己需要的从新定义
+        /*
         ,toolbars:[
             ['fullscreen', 'source', '|', 'undo', 'redo', '|',
                 'bold', 'italic', 'underline', 'strikethrough', 'superscript', 'subscript', 'removeformat', 'formatmatch','autotypeset','blockquote', 'pasteplain', '|', 'forecolor', 'backcolor', 'insertorderedlist', 'insertunorderedlist','selectall', 'cleardoc', '|',
@@ -101,11 +102,11 @@ window.UEDITOR_HOME_URL = wojilu.path.js + "/lib/ueditor/"; // wojilu自定义
                 'inserttable', 'deletetable', 'insertparagraphbeforetable', 'insertrow', 'deleterow', 'insertcol', 'deletecol', 'mergecells', 'mergeright', 'mergedown', 'splittocells', 'splittorows', 'splittocols', '|',
                 'print', 'preview', 'searchreplace','help']
         ]
-
+        */
         
-        /*
+
         ,toolbars: [
-            ['fullscreen', 'source', '|',
+            ['source', '|',
             'bold', 'italic', 'forecolor', 'backcolor', 'underline', 'strikethrough', 'superscript', '|',
             'link', 'unlink', 'anchor',
             'horizontal', '|', 'undo', 'redo', 
@@ -115,7 +116,7 @@ window.UEDITOR_HOME_URL = wojilu.path.js + "/lib/ueditor/"; // wojilu自定义
             'insertimage', 'emotion', 'insertvideo', 'music', 'attachment', 'map', '|',
             'blockquote', 'highlightcode', 'spechars', 'searchreplace']
         ]
-        */
+
         
         /*
         ,toolbars: [
@@ -151,10 +152,10 @@ window.UEDITOR_HOME_URL = wojilu.path.js + "/lib/ueditor/"; // wojilu自定义
         //常用配置项目
         //,isShow : true    //默认显示编辑器
 
-        //,initialContent:'欢迎使用ueditor!'    //初始化编辑器的内容,也可以通过textarea/script给值，看官网例子
+        ,initialContent:''    //初始化编辑器的内容,也可以通过textarea/script给值，看官网例子
 
         ,initialFrameWidth:'100%'  //初始化编辑器宽度,默认1000
-        //,initialFrameHeight:320  //初始化编辑器高度,默认320
+        //,initialFrameHeight:500  //初始化编辑器高度,默认320
 
         //,autoClearinitialContent:true //是否自动清除编辑器初始内容，注意：如果focus属性设置为true,这个也为真，那么编辑器一上来就会触发导致初始化的内容看不到了
 
@@ -285,7 +286,7 @@ window.UEDITOR_HOME_URL = wojilu.path.js + "/lib/ueditor/"; // wojilu自定义
 //           ]
 
         //wordCount
-        //,wordCount:true          //是否开启字数统计
+        ,wordCount:false          //是否开启字数统计
         ,maximumWords:10000       //允许的最大字符数
         //字数统计提示，{#count}代表当前字数，{#leave}代表还可以输入多少字符数,留空支持多语言自动切换，否则按此配置显示
         ,wordCountMsg:'当前已输入 {#count} 个字符'   //当前已输入 {#count} 个字符，您还可以输入{#leave} 个字符
@@ -304,7 +305,7 @@ window.UEDITOR_HOME_URL = wojilu.path.js + "/lib/ueditor/"; // wojilu自定义
 
         //elementPathEnabled
         //是否启用元素路径，默认是显示
-        //,elementPathEnabled : true
+        ,elementPathEnabled : false
 
         //removeFormat
         //清除格式时可以删除的标签和属性

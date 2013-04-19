@@ -47,6 +47,7 @@
     <Compile Include="Demo\MenuController.cs" />
     <Compile Include="Demo\UploadController.cs" />
     <Compile Include="Demo\ValidController.cs" />
+    <Compile Include="Demo\EditorOldController.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
