@@ -186,7 +186,7 @@ namespace wojilu.Web.Controller.Forum {
             formBlock.Set( "post.ParentId", lastPost.Id );
             formBlock.Set( "forumBoard.Id", topic.ForumBoard.Id );
 
-            Editor ed = Editor.NewOne( "Content", "", "150px", sys.Path.Editor, MvcConfig.Instance.JsVersion, Editor.ToolbarType.Basic );
+            IEditor ed = EditorFactory.NewOne( "Content", "", "150px", Editor.ToolbarType.Basic );
             ed.AddUploadUrl( ctx );
 
             formBlock.Set( "Editor", ed );

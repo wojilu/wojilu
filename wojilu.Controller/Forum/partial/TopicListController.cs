@@ -221,7 +221,7 @@ namespace wojilu.Web.Controller.Forum {
 
             formBlock.Set( "ActionLink", to( new Users.TopicController().Create ) + "?boardId=" + boardId );
 
-            Editor ed = Editor.NewOne( "Content", "", "150px", sys.Path.Editor, MvcConfig.Instance.JsVersion, Editor.ToolbarType.Basic );
+            IEditor ed = EditorFactory.NewOne( "Content", "", "150px", Editor.ToolbarType.Basic );
             ed.AddUploadUrl( ctx );
 
             formBlock.Set( "Editor", ed );

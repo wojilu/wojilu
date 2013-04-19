@@ -256,7 +256,20 @@ namespace wojilu.Web.Mvc {
                 return;
             }
 
-            Editor ed = Editor.NewOne( propertyName, propertyValue, height, sys.Path.Editor, MvcConfig.Instance.JsVersion, Editor.ToolbarType.Basic );
+            IEditor ed = EditorFactory.NewOne( propertyName, propertyValue, height, Editor.ToolbarType.Basic );
+            ed.AddUploadUrl( ctx );
+            set( "Editor", ed );
+        }
+
+        /// <summary>
+        /// 编辑器，包括全部的工具栏
+        /// </summary>
+        /// <param name="propertyName">属性名称(也是编辑器名称)</param>
+        /// <param name="propertyValue">需要被编辑的内容</param>
+        /// <param name="height">编辑器高度(必须手动指定px单位)</param>
+        protected void editorFull( String propertyName, String propertyValue, String height ) {
+
+            IEditor ed = EditorFactory.NewOne( propertyName, propertyValue, height, Editor.ToolbarType.Full );
             ed.AddUploadUrl( ctx );
             set( "Editor", ed );
         }
@@ -287,7 +300,7 @@ namespace wojilu.Web.Mvc {
             List<String> editorList = ctx.GetItem( currentEditorKey ) as List<String>;
             if (editorList != null && editorList.Contains( propertyName )) throw new Exception( lang( "exEditorNameUnique" ) );
 
-            Editor ed = Editor.NewOne( propertyName, propertyValue, height, sys.Path.Editor, MvcConfig.Instance.JsVersion, toolbar );
+            IEditor ed = EditorFactory.NewOne( propertyName, propertyValue, height, toolbar );
             ed.AddUploadUrl( ctx );
             if (editorList != null && editorList.Count > 0) ed.IsUnique = false;
             set( varName, ed );
@@ -297,18 +310,6 @@ namespace wojilu.Web.Mvc {
             ctx.SetItem( currentEditorKey, editorList );
         }
 
-        /// <summary>
-        /// 编辑器，包括全部的工具栏
-        /// </summary>
-        /// <param name="propertyName">属性名称(也是编辑器名称)</param>
-        /// <param name="propertyValue">需要被编辑的内容</param>
-        /// <param name="height">编辑器高度(必须手动指定px单位)</param>
-        protected void editorFull( String propertyName, String propertyValue, String height ) {
-
-            Editor ed = Editor.NewOne( propertyName, propertyValue, height, sys.Path.Editor, MvcConfig.Instance.JsVersion, Editor.ToolbarType.Full );
-            ed.AddUploadUrl( ctx );
-            set( "Editor", ed );
-        }
 
         /// <summary>
         /// 下拉控件(用数组填充)
