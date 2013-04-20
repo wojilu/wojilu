@@ -78,6 +78,7 @@
     <Content Include="framework\views\Admin\Upgrade\Face\Index.html" />
     <Content Include="framework\views\Connect\confirmUserInfo.html" />
     <Content Include="framework\views\Demo\CtxPost\Index.html" />
+    <Content Include="framework\views\Demo\Editor\AjaxForm.html" />
     <Content Include="framework\views\Demo\Editor\CompleteDemo.html" />
     <Content Include="framework\views\Demo\Editor\CustomPluginDemo.html" />
     <Content Include="framework\views\Demo\Editor\CustomToolbarDemo.html" />

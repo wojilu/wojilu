@@ -26,6 +26,16 @@ namespace wojilu.Web.Controller.Demo {
         }
 
 
+        public void AjaxForm() {
+            target( AjaxFormSave );
+        }
+
+        public void AjaxFormSave() {
+            String content = ctx.PostHtml( "post.Content" );
+            echoError( content );
+        }
+
+
         //-----------------------------------------------------------------------
 
         public void CustomPluginDemo() {

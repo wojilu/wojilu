@@ -136,6 +136,7 @@ namespace wojilu {
                     builder.Append( "{" );
                     builder.Append( "\"IsValid\":false, \"Msg\":\"" );
                     for (int i = 0; i < Errors.Count; i++) {
+                        if (Errors[i] == null) continue;
                         builder.Append( Errors[i].Replace( "\"", "'" ) );
                         if (i < Errors.Count - 1) builder.Append( "," );
                     }

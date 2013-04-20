@@ -12385,14 +12385,16 @@ wojilu.ui.valid = function() {
 
 wojilu.ui.ajaxFormCallback = function(thisForm,validFunc) {
     if( wojilu.ctx.isValid==false ) return false;
-        
+    
+    wojilu.editor.sync();
+    
     var actionUrl = $(thisForm).attr( 'action' ).toAjax();
     var loadingInfo = $(thisForm).attr( 'loading' );
     loadingInfo = loadingInfo ? loadingInfo : "";
     
     var formValues = $(thisForm).serializeArray();
     
-    var btnSubmit = $( ':submit', thisForm );
+    var btnSubmit = $(thisForm).find("[type='submit']");
     btnSubmit.attr( 'disabled', 'disabled' );
     btnSubmit.after( ' <span class="loadingInfo"><img src="'+wojilu.path.img+'/ajax/loading.gif"/>' + loadingInfo + '</span>' );
     
@@ -12974,6 +12976,32 @@ wojilu.editor = {
         this._pluginList.push({pluginName:xName, pluginFunc:xFunc});
         return this;
     },
+    get : function(editorId) {
+        if( !editorId ) return null;
+        if( !window.ueditorList ) return null;        
+        for( x in window.ueditorList ) {
+            if( x=='editor'+editorId) return window.ueditorList[x];            
+        }
+        return null;
+    },
+    sync : function(editorId) {    
+        if( !window.ueditorList ) return;
+        if( editorId ) {
+            var ueditor = this.get( editorId );
+            if (ueditor == null ) return;
+            ueditor.sync();
+            return;
+        }
+        for( x in window.ueditorList ) {
+            window.ueditorList[x].sync();
+        }        
+    },
+    clear : function(editorId) {
+        if( !editorId ) return;
+        var ueditor = this.get( editorId );
+        if (ueditor == null ) return;
+        ueditor.execCommand('cleardoc');
+    },
     show : function( callback ) {
         var thisParams = this._params;
         var thisToolbar = this._toolbar;
@@ -12990,6 +13018,10 @@ wojilu.editor = {
             if( thisToolbar=='standard' ) thisParams.toolbars = _wbar.standard;
             if( thisToolbar=='full' ) thisParams.toolbars = _wbar.full;
             var _editor = UE.getEditor(thisEditor, thisParams);
+            
+            if( !window.ueditorList ) window.ueditorList = {};
+            window.ueditorList['editor'+thisEditor] = _editor;
+
             if( callback ) {
                 callback( _editor );
             }

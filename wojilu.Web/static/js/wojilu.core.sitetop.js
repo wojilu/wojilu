@@ -155,7 +155,7 @@
         
         $('#loginForm').submit(function () {
             var _thisForm = this;
-            var btn = $(':submit', _thisForm);
+            var btn = $(_thisForm).find("[type='submit']");
             btn.attr('disabled', 'disabled');
             var loading = $('.loadingInfo', _thisForm);
             loading.html(' <img src="' + wojilu.path.img + '/ajax/loading.gif"/>');

@@ -123,7 +123,9 @@ _run( function() {
     var appendHtml = function(data) {
         $('.postOne').last().after( data.Info );
         $('.editCmd', $('.postOne').last()).show(); // 显示编辑命令
-        ContentEditor.clear(); // 清空编辑器内容 
+        
+        // 清空编辑器内容 
+        wojilu.editor.clear('Content');
     };
 
     $('#btnForumReply').click( function() {
@@ -131,9 +133,12 @@ _run( function() {
         var thisForm = $('#pubTopicForm');
 
         // disable & loading
-        var btnSubmit = $( ':submit', thisForm );
+        var btnSubmit = $(thisForm).find("[type='submit']");
         btnSubmit.attr( 'disabled', 'disabled' );
         btnSubmit.after( ' <span class="loadingInfo"><img src="'+wojilu.path.img+'/ajax/loading.gif"/>loading...</span>' );
+
+        // 提交之前先同步编辑器内容
+        wojilu.editor.sync('Content');
 
         $.post( thisForm.attr('action').toAjax(), thisForm.serializeArray(), function(data) {
 
