@@ -12849,25 +12849,6 @@ wojilu.ui.editFontSize = function() {
     });
 };
 
-wojilu.ui.editor = function() {
-    $('.wEditor').each( function() {
-    
-        var eName = $(this).attr( 'name' );
-        var eHeight = $(this).css( 'height' );
-        var ePath = $(this).attr( 'path' );
-        var eContent = $(this).attr( 'content' );
-        
-        var editorPanel = eName.replace( '.', '_' )+'Editor';    
-        $(this).after( '<div id=\"'+editorPanel+'\"></div>' );
-        $(this).remove();
-        
-        $.getScript( ePath+'editor.js', function() {
-            new wojilu.editor( {editorPath:ePath, height:eHeight, name:eName, content:eContent, toolbarType:'full', uploadUrl:'', mypicsUrl:'' } ).render();
-        });
-        
-    });
-};
-
 wojilu.ui.doubleClick = function() {
     $('.click2').dblclick( function() {
         window.location.href = $(this).attr( 'href');
@@ -12950,7 +12931,6 @@ $(document).ready( function() {
     wojilu.ui.httpMethod();
     wojilu.ui.frmBox();
     wojilu.ui.boxCancel();
-    wojilu.ui.editor();
     wojilu.ui.frmLoader();
     wojilu.ui.ajaxLoader();
     wojilu.ui.autoSubmitForm();
@@ -12964,6 +12944,56 @@ wojilu.site = {
             clearInterval( userCheck );
             callback();
         }, 100 );
+    }
+};
+
+wojilu.editor = {
+    _editorId:null,
+    _toolbar:null,
+    _height:null,
+    _params:{},
+    _pluginFunc:null,
+    _pluginName:null,
+    _pluginList:[],
+    bind : function( editorId ) {
+        this._editorId = editorId; return this;
+    },
+    line : function( intToolbar ) {
+        if(intToolbar==1) this._toolbar = 'simple';
+        if(intToolbar==2) this._toolbar = 'standard';
+        if(intToolbar==3) this._toolbar = 'full';
+        return this;
+    },
+    height : function( intHeight ) {
+        this._height = intHeight; return this;
+    },
+    config : function( objParams ) {
+        if( objParams ) this._params = objParams; return this;
+    },
+    plugin : function(xName, xFunc) {
+        this._pluginList.push({pluginName:xName, pluginFunc:xFunc});
+        return this;
+    },
+    show : function( callback ) {
+        var thisParams = this._params;
+        var thisToolbar = this._toolbar;
+        var thisEditor = this._editorId;
+        var thisPluginList = this._pluginList;
+        if( this._height ) thisParams.initialFrameHeight = this._height;
+        require(["lib/ueditor/editor_config", "lib/ueditor/editor_all"], function () {
+            if( thisPluginList.length>0 ) {
+                for( var i=0;i<thisPluginList.length;i++ ) {
+                    UE.plugins[thisPluginList[i].pluginName] = thisPluginList[i].pluginFunc;
+                }
+            }
+            if( thisToolbar=='simple' ) thisParams.toolbars = _wbar.simple;
+            if( thisToolbar=='standard' ) thisParams.toolbars = _wbar.standard;
+            if( thisToolbar=='full' ) thisParams.toolbars = _wbar.full;
+            var _editor = UE.getEditor(thisEditor, thisParams);
+            if( callback ) {
+                callback( _editor );
+            }
+        });
     }
 };
 

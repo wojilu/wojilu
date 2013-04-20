@@ -35,10 +35,9 @@
 <script type="text/javascript">
 _run(function () {
 
-    require(["lib/ueditor/editor_config", "lib/ueditor/editor_all"], function () {
+    wojilu.editor.bind('editor').show(function (ue) {
 
-       //实例化编辑器
-        var ue = UE.getEditor('editor');
+
 
         ue.addListener('ready',function(){
             this.focus()

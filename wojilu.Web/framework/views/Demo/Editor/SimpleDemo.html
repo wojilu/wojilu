@@ -11,14 +11,8 @@
     </form>
 
     <script type="text/javascript">
-
-
         _run(function () {
-            require(["lib/ueditor/editor_config", "lib/ueditor/editor_all"], function () {
-
-                UE.getEditor('myEditor', {})
-
-            });
+            wojilu.editor.bind('myEditor').height(220).line(2).show();
         });
     </script>
 

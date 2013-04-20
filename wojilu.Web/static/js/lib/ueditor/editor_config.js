@@ -29,6 +29,39 @@ window.UEDITOR_HOME_URL = wojilu.path.js + "/lib/ueditor/"; // wojilu自定义
      */
     var tmp = location.protocol.indexOf("file")==-1 ? location.pathname : location.href;
     URL = window.UEDITOR_HOME_URL||tmp.substr(0,tmp.lastIndexOf("\/")+1).replace("_examples/","").replace("website/","");//这里你可以配置成ueditor目录在您网站的相对路径或者绝对路径（指以http开头的绝对路径）
+    
+    window._wbar = {
+        simple :[
+        ['bold', 'forecolor', 'underline', 'strikethrough','link', 'fontfamily', 'fontsize', 
+        'insertimage', 'emotion', 'insertvideo', 'music', 'attachment','highlightcode', 'removeformat', 'pasteplain' ]
+        ]
+        
+        ,standard : [
+            ['source', '|',
+            'bold', 'italic', 'forecolor', 'backcolor', 'underline', 'strikethrough', 'superscript', '|',
+            'link', 'unlink', 'anchor',
+            'horizontal', '|', 'undo', 'redo', 
+            'removeformat', 'autotypeset', 'pasteplain'],
+
+            ['fontfamily', 'fontsize', 'insertorderedlist', 'insertunorderedlist', '|',
+            'insertimage', 'emotion', 'insertvideo', 'music', 'attachment', 'map', '|',
+            'blockquote', 'highlightcode', 'spechars', 'searchreplace']
+        ]
+        
+        ,full : [
+            ['fullscreen', 'source', '|', 'undo', 'redo', '|',
+                'bold', 'italic', 'underline', 'strikethrough', 'superscript', 'subscript', 'removeformat', 'formatmatch','autotypeset','blockquote', 'pasteplain', '|', 'forecolor', 'backcolor', 'insertorderedlist', 'insertunorderedlist','selectall', 'cleardoc', '|',
+                'rowspacingtop', 'rowspacingbottom','lineheight','|',
+                'customstyle', 'paragraph', 'fontfamily', 'fontsize', '|',
+                'directionalityltr', 'directionalityrtl', 'indent', '|',
+                'justifyleft', 'justifycenter', 'justifyright', 'justifyjustify', '|','touppercase','tolowercase','|',
+                'link', 'unlink', 'anchor', '|', 'imagenone', 'imageleft', 'imageright','imagecenter', '|',
+                'insertimage', 'emotion','insertvideo','music','attachment', 'map', 'gmap', 'insertframe','highlightcode','pagebreak','template','background', '|',
+                'horizontal', 'date', 'time', 'spechars','|',
+                'inserttable', 'deletetable', 'insertparagraphbeforetable', 'insertrow', 'deleterow', 'insertcol', 'deletecol', 'mergecells', 'mergeright', 'mergedown', 'splittocells', 'splittorows', 'splittocols', '|',
+                'print', 'preview', 'searchreplace','help']
+        ]
+    };
 
     /**
      * 配置项主体。注意，此处所有涉及到路径的配置别遗漏URL变量。
@@ -88,42 +121,7 @@ window.UEDITOR_HOME_URL = wojilu.path.js + "/lib/ueditor/"; // wojilu自定义
         ,getMovieUrl:URL+"net/getMovie.ashx"                   //视频数据获取地址
 
         //工具栏上的所有的功能按钮和下拉框，可以在new编辑器的实例时选择自己需要的从新定义
-        /*
-        ,toolbars:[
-            ['fullscreen', 'source', '|', 'undo', 'redo', '|',
-                'bold', 'italic', 'underline', 'strikethrough', 'superscript', 'subscript', 'removeformat', 'formatmatch','autotypeset','blockquote', 'pasteplain', '|', 'forecolor', 'backcolor', 'insertorderedlist', 'insertunorderedlist','selectall', 'cleardoc', '|',
-                'rowspacingtop', 'rowspacingbottom','lineheight','|',
-                'customstyle', 'paragraph', 'fontfamily', 'fontsize', '|',
-                'directionalityltr', 'directionalityrtl', 'indent', '|',
-                'justifyleft', 'justifycenter', 'justifyright', 'justifyjustify', '|','touppercase','tolowercase','|',
-                'link', 'unlink', 'anchor', '|', 'imagenone', 'imageleft', 'imageright','imagecenter', '|',
-                'insertimage', 'emotion','insertvideo','music','attachment', 'map', 'gmap', 'insertframe','highlightcode','pagebreak','template','background', '|',
-                'horizontal', 'date', 'time', 'spechars','|',
-                'inserttable', 'deletetable', 'insertparagraphbeforetable', 'insertrow', 'deleterow', 'insertcol', 'deletecol', 'mergecells', 'mergeright', 'mergedown', 'splittocells', 'splittorows', 'splittocols', '|',
-                'print', 'preview', 'searchreplace','help']
-        ]
-        */
-        
-
-        ,toolbars: [
-            ['source', '|',
-            'bold', 'italic', 'forecolor', 'backcolor', 'underline', 'strikethrough', 'superscript', '|',
-            'link', 'unlink', 'anchor',
-            'horizontal', '|', 'undo', 'redo', 
-            'removeformat', 'autotypeset', 'pasteplain'],
-
-            ['fontfamily', 'fontsize', 'insertorderedlist', 'insertunorderedlist', '|',
-            'insertimage', 'emotion', 'insertvideo', 'music', 'attachment', 'map', '|',
-            'blockquote', 'highlightcode', 'spechars', 'searchreplace']
-        ]
-
-        
-        /*
-        ,toolbars: [
-        ['bold', 'forecolor', 'underline', 'strikethrough','link', 'fontfamily', 'fontsize', 
-        'insertimage', 'emotion', 'insertvideo', 'music', 'attachment','highlightcode', 'removeformat', 'pasteplain' ]
-        ]
-        */
+        ,toolbars: _wbar.standard
         
         //当鼠标放在工具栏上时显示的tooltip提示,留空支持自动多语言配置，否则以配置值为准
         ,labelMap:{
@@ -155,7 +153,7 @@ window.UEDITOR_HOME_URL = wojilu.path.js + "/lib/ueditor/"; // wojilu自定义
         ,initialContent:''    //初始化编辑器的内容,也可以通过textarea/script给值，看官网例子
 
         ,initialFrameWidth:'100%'  //初始化编辑器宽度,默认1000
-        //,initialFrameHeight:500  //初始化编辑器高度,默认320
+        ,initialFrameHeight:280  //初始化编辑器高度,默认320
 
         //,autoClearinitialContent:true //是否自动清除编辑器初始内容，注意：如果focus属性设置为true,这个也为真，那么编辑器一上来就会触发导致初始化的内容看不到了
 
@@ -328,7 +326,7 @@ window.UEDITOR_HOME_URL = wojilu.path.js + "/lib/ueditor/"; // wojilu自定义
         //是否可以拉伸长高,默认true(当开启时，自动长高失效)
         //,scaleEnabled:false
         //,minFrameWidth:800    //编辑器拖动时最小宽度,默认800
-        //,minFrameHeight:220  //编辑器拖动时最小高度,默认220
+        ,minFrameHeight:50  //编辑器拖动时最小高度,默认220
 
         //autoFloatEnabled
         //是否保持toolbar的位置不动,默认true

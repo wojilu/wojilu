@@ -21,20 +21,14 @@
     <script type="text/javascript">
         _run(function () {
 
-            require(["lib/ueditor/editor_config", "lib/ueditor/editor_all"], function () {
-
-
-                window.editor_a = UE.getEditor('myEditor', {
-                    minFrameHeight: 150
-                });
-
-                window.editor_a1 = UE.getEditor('myEditor1', {
-                    allHtmlEnabled: true, // 将会和html，body等标签一块提交
-                    minFrameHeight: 150
-                });
-
-
+            wojilu.editor.bind('myEditor').height(150).show(function (x) {
+                window.editor_a = x;
             });
+
+            wojilu.editor.bind('myEditor1').height(200).config({ allHtmlEnabled: true })
+                .show(function (x) {
+                    window.editor_a1 = x;
+                });
 
         });
 

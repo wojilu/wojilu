@@ -61,35 +61,23 @@ namespace wojilu {
             StringBuilder sb = new StringBuilder();
 
             sb.AppendFormat( "<script type=\"text/plain\" id=\"{0}\" name=\"{0}\">", _propertyName );
-            sb.AppendLine();
-            sb.AppendLine( _propertyValue );
-            sb.AppendLine( "</script>" );
+            sb.Append( _propertyValue );
+            sb.Append( "</script>" );
 
-            sb.AppendLine( "<script>" );
-            sb.AppendLine( "_run(function () {" );
-            sb.AppendLine( "\trequire([\"lib/ueditor/editor_config\", \"lib/ueditor/editor_all\"], function () {" );
-            sb.AppendFormat( "\t\tUE.getEditor('{0}',", _propertyName );
+            sb.Append( "<script>" );
+            sb.Append( "_run(function(){" );
 
-            sb.Append( "{_w:''" );
-
-            if (_toolbar == Editor.ToolbarType.Basic) {
-                sb.AppendLine( @",toolbars: [
-        ['source','bold', 'forecolor', 'underline', 'strikethrough','link', 'fontfamily', 'fontsize', 
-        'insertimage', 'emotion', 'insertvideo', 'music', 'attachment','highlightcode', 'removeformat', 'pasteplain' ]
-        ]" );
-            }
-
+            int line = (_toolbar == Editor.ToolbarType.Basic ? 1 : 2);
+            String height = "";
             if (strUtil.HasText( _height )) {
-                sb.AppendLine( ", initialFrameHeight:'" + strUtil.TrimEnd( _height.Trim(), "px" ).Trim() + "'" );
+                height = strUtil.TrimEnd( _height.Trim(), "px" ).Trim();
+                height = ".height("+height+")";
             }
 
+            sb.AppendFormat( "wojilu.editor.bind('{0}').line({1}){2}.show();", _propertyName, line, height );
 
-
-            sb.AppendLine( "})" );
-            sb.AppendLine();
-            sb.AppendLine( "\t});" );
-            sb.AppendLine( "});" );
-            sb.AppendLine( "</script>" );
+            sb.Append( "})" );
+            sb.Append( "</script>" );
 
             return sb.ToString();
         }

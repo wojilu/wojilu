@@ -7,20 +7,17 @@
     </div>
 
     <div>
-        <input type="button" onclick="render()" value="渲染编辑器">
+        <input type="button" id="btnRender" value="渲染编辑器">
     </div>
 
 
     <script type="text/javascript">
         _run(function () {
 
-            require(["lib/ueditor/editor_config", "lib/ueditor/editor_all"], function () {
-                //渲染编辑器
-                window.render = function () {
-                    UE.getEditor('myEditor')
-                };
-
+            $('#btnRender').click(function () {
+                wojilu.editor.bind('myEditor').show();
             });
+
         });
     </script>
 

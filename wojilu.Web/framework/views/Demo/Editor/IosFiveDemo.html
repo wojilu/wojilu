@@ -11,26 +11,14 @@
 <script  id="editor" type="text/plain">编辑器你的内容</script>
 
 <script type="text/javascript">
-_run(function () {
-    require(["lib/ueditor/editor_config", "lib/ueditor/editor_all"], function () {
-        UE.getEditor('editor',{
-            autoFloatEnabled:false,
-            initialFrameHeight:480,
-            toolbars:[
-            ['fullscreen', 'source', '|', 'undo', 'redo', '|',
-                'bold', 'italic', 'underline', 'strikethrough', 'superscript', 'subscript', 'removeformat', 'formatmatch','autotypeset', '|',
-                'blockquote', '|',  'forecolor', 'backcolor', 'insertorderedlist', 'insertunorderedlist','selectall', 'cleardoc', '|', 'customstyle',
-                'paragraph', '|','rowspacingtop', 'rowspacingbottom','lineheight', '|','fontfamily', 'fontsize', '|',
-                'directionalityltr', 'directionalityrtl', '|', '', 'indent', '|',
-                'justifyleft', 'justifycenter', 'justifyright', 'justifyjustify', '|','touppercase','tolowercase','|',
-                'link', 'unlink', 'anchor', '|', 'imagenone', 'imageleft', 'imageright',
-                'imagecenter', '|', 'emotion','scrawl', 'insertvideo','music','map', 'gmap', 'insertframe','highlightcode','webapp','pagebreak','template','background', '|',
-                'horizontal', 'date', 'time', 'spechars','snapscreen', 'wordimage', '|',
-                'inserttable', 'deletetable', 'insertparagraphbeforetable', 'insertrow', 'deleterow', 'insertcol', 'deletecol', 'mergecells', 'mergeright', 'mergedown', 'splittocells', 'splittorows', 'splittocols', '|',
-                'print', 'preview', 'searchreplace','help']
-        ]
-        });
+    _run(function () {
+
+        wojilu.editor.bind('editor').line(3).config({
+            autoFloatEnabled: false,
+            initialFrameHeight: 480
+        }).show();
+
+
     });
-});
 </script>
 </div>

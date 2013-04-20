@@ -1,15 +1,14 @@
 ﻿<div style="margin:30px;">
     <h2>重置编辑器和销毁编辑器示例</h2>
-    <div class="content" id="simple"></div>
+    <div class="content" id="simple" style="width:700px;"></div>
     <p><input type="button" onclick="simple()" value="重置编辑器内部参数"><span id="txt"></span></p>
     <p><input id="destroy" type="button" onclick="destroy()" value="销毁编辑器"></p>
     <script type="text/javascript" charset="utf-8">
 
         _run(function () {
 
-            require(["lib/ueditor/editor_config", "lib/ueditor/editor_all"], function () {
+            wojilu.editor.bind('simple').height(150).show(function (editor) {
 
-                var editor = UE.getEditor('simple');
                 window.simple = function () {
                     if (editor) {
                         editor.setContent("编辑器内部变量已经被重置!");
