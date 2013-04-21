@@ -5,6 +5,7 @@ using wojilu.Common.Msg.Interface;
 using wojilu.Common.Msg.Service;
 using wojilu.Members.Users.Domain;
 using wojilu.Common.Msg.Enum;
+using wojilu.Common.AppBase.Interface;
 
 namespace wojilu.Common.Comments {
 
@@ -370,6 +371,16 @@ namespace wojilu.Common.Comments {
             if (target == null) return;
             target.Replies = replies;
             db.update( target );
+
+            if (c.AppId <= 0) return;
+            Type appType = target.GetAppType();
+            if (appType == null) return;
+
+            ICommentApp app = ndb.findById( appType, c.AppId ) as ICommentApp;
+            if (app == null) return;
+            int appCount = OpenComment.count( "AppId=" + c.AppId + " and TargetDataType='" + c.TargetDataType + "'" );
+            app.CommentCount = appCount;
+            db.update( app );
         }
 
         private static void clearRootTargetRepliesByData( int dataId, string dataType ) {

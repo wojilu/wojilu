@@ -4,11 +4,8 @@ using System.Text;
 
 namespace wojilu.Common.Comments {
 
-    public interface ICommentTarget {
-
-        int Replies { get; set; }
-        Type GetAppType();
-
+    public interface ICommentApp {
+        int CommentCount { get; set; }
     }
 
 }

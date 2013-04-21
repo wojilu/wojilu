@@ -8,13 +8,14 @@ using wojilu.ORM;
 using wojilu.Common;
 using wojilu.Common.AppBase;
 using wojilu.Common.AppBase.Interface;
+using wojilu.Common.Comments;
 
 
 namespace wojilu.Apps.Blog.Domain {
 
 
     [Serializable]
-    public class BlogApp : ObjectBase<BlogApp>, IApp, IAccessStatus, IHits {
+    public class BlogApp : ObjectBase<BlogApp>, IApp, IAccessStatus, IHits, ICommentApp {
 
         public int OwnerId { get; set; }
         public String OwnerUrl { get; set; }

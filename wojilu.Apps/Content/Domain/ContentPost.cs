@@ -210,7 +210,9 @@ namespace wojilu.Apps.Content.Domain {
             }
         }
 
-
+        public Type GetAppType() {
+            return typeof( ContentApp );
+        }
 
     }
 

@@ -9,13 +9,14 @@ using wojilu.Web.Mvc;
 
 using wojilu.Common.AppBase;
 using wojilu.Common.AppBase.Interface;
+using wojilu.Common.Comments;
 
 namespace wojilu.Apps.Content.Domain {
 
     // TODO 每个区块可以选择风格
 
     [Serializable]
-    public class ContentApp : ObjectBase<ContentApp>, IApp, IAccessStatus, IStaticApp {
+    public class ContentApp : ObjectBase<ContentApp>, IApp, IAccessStatus, IStaticApp, ICommentApp {
 
         public ContentApp() {
             this.Style = "#row1_column1 {width:48%;margin:5px 5px 5px 10px;}" + Environment.NewLine
@@ -49,6 +50,9 @@ namespace wojilu.Apps.Content.Domain {
         [TinyInt]
         public int AccessStatus { get; set; }
         public DateTime Created { get; set; }
+
+        public int CommentCount { get; set; }
+
 
         [NotSave]
         public string[] RowList {

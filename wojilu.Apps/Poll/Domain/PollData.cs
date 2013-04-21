@@ -15,6 +15,10 @@ namespace wojilu.Apps.Poll.Domain {
 
         public int Replies { get; set; }
 
+        public Type GetAppType() {
+            return typeof( PollApp );
+        }
+
     }
 
 }

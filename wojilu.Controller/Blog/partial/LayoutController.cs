@@ -27,11 +27,8 @@ namespace wojilu.Web.Controller.Blog {
 
         }
 
-        private object getBlogComments( BlogApp blog ) {
-
-            return BlogPostComment.count( "AppId=" + blog.Id );
-
-            //return blog.CommentCount;
+        private int getBlogComments( BlogApp blog ) {
+            return blog.CommentCount;
         }
 
         private void bindCategories( List<BlogCategory> categories ) {

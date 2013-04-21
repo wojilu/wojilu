@@ -105,6 +105,9 @@ namespace wojilu.Common.Pages.Domain {
             }
         }
 
+        public Type GetAppType() {
+            return null;
+        }
 
     }
 

@@ -104,6 +104,7 @@
     <Compile Include="Common\Comments\IOpenCommentService.cs" />
     <Compile Include="Common\Comments\OpenCommentCount.cs" />
     <Compile Include="Common\Comments\OpenCommentService.cs" />
+    <Compile Include="Common\Comments\ICommentApp.cs" />
     <Compile Include="Common\Component\Component.cs" />
     <Compile Include="Common\Component\ComponentStatus.cs" />
     <Compile Include="Common\Feeds\Domain\FeedApp.cs" />

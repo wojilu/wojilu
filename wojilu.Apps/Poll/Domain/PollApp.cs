@@ -8,11 +8,12 @@ using System.Text;
 using wojilu.Common.AppBase.Interface;
 using wojilu.ORM;
 using wojilu.Common.AppBase;
+using wojilu.Common.Comments;
 
 namespace wojilu.Apps.Poll.Domain {
 
     [Serializable]
-    public class PollApp : ObjectBase<PollApp>, IApp, IAccessStatus {
+    public class PollApp : ObjectBase<PollApp>, IApp, IAccessStatus, ICommentApp {
 
         public int OwnerId { get; set; }
         public String OwnerUrl { get; set; }
@@ -21,6 +22,9 @@ namespace wojilu.Apps.Poll.Domain {
         [TinyInt]
         public int AccessStatus { get; set; }
         public DateTime Created { get; set; }
+
+        public int CommentCount { get; set; }
+
 
     }
 

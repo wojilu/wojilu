@@ -20,7 +20,7 @@ namespace wojilu.Apps.Blog.Domain {
 
     [Serializable]
     [Table( "BlogComment" )]
-    public class BlogPostComment : ObjectBase<BlogPostComment>, IComment, ICommentTarget {
+    public class BlogPostComment : ObjectBase<BlogPostComment>, IComment {
 
         public int AppId { get; set; }
         public int ParentId { get; set; }

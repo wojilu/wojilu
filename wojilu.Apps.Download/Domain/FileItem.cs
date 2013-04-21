@@ -259,6 +259,11 @@ namespace wojilu.Apps.Download.Domain {
         public static List<FileItem> GetTops() {
             return FileItem.find( "order by Downloads desc, Hits desc, Replies desc, Id desc" ).list( 10 );
         }
+
+
+        public Type GetAppType() {
+            return typeof( DownloadApp );
+        }
     }
 
 }

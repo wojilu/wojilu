@@ -109,6 +109,10 @@ namespace wojilu.Apps.Photo.Domain {
 
         }
 
+        public Type GetAppType() {
+            return typeof( PhotoApp );
+        }
+
     }
 }
 

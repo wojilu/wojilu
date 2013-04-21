@@ -84,6 +84,18 @@ namespace wojilu.Apps.Blog.Domain {
         [NotSave]
         public String Tags { get; set; }
 
+        public void UpdateComments() {
+
+            BlogApp app = BlogApp.findById( this.AppId );
+            if (app == null) return;
+            app.CommentCount = OpenComment.count( "AppId=" + this.AppId + " and TargetDataType='" + this.GetType().FullName + "'" );
+            app.update();
+
+        }
+
+        public Type GetAppType() {
+            return typeof( BlogApp );
+        }
     }
 }
 
