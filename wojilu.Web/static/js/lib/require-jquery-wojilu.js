@@ -11376,13 +11376,15 @@ wojilu.str = {
     },
 
     startsWith : function( txt, value ) {
+        if( !txt || !value) return false;
         return ( txt.substr( 0, value.length ) == value );
     },
 
     endsWith : function( txt, value ) {
+        if( !txt || !value) return false;
         return ( txt.substr( txt.length-value.length, txt.length ) == value ) ;
     },
-
+    
     isJson : function( obj ) {
         return typeof(obj) == "object" && Object.prototype.toString.call(obj).toLowerCase() == "[object object]" && !obj.length;    
     },
@@ -11401,10 +11403,6 @@ wojilu.str = {
             intIndexOfMatch = strText.indexOf( strTarget );
         };
         return strText;
-    },
-
-    endsWith : function ( txt, value ) {
-        return ( txt.substr( txt.length-value.length, txt.length ) == value ) ;
     },
 
     trimStart : function( txt, val ) {
@@ -11875,9 +11873,10 @@ wojilu.upload.initFlash = function( selector, settings ) {
 
 String.prototype.trimStart = function(str) { return wojilu.str.trimStart(this,str);};
 String.prototype.trimEnd = function(str) { return wojilu.str.trimEnd(this,str);};
+String.prototype.startsWith = function(str) { return wojilu.str.startsWith(this,str);};
+String.prototype.endsWith = function(str) { return wojilu.str.endsWith(this,str);};
 String.prototype.toInt = function() { return parseInt(this)};
 String.prototype.cssVal = function() { return this.trimEnd('px').toInt();};
-String.prototype.startsWith = function(str) { if (str.length > this.length) return false; return this.substr(0, str.length) == str;};
 
 String.prototype.toAjax = function(onlyRadom) {
     var strAjax = onlyRadom ? '' : '&ajax=true';
@@ -12117,12 +12116,15 @@ wojilu.ui.valid = function() {
     validPage();
 
     function validPage() {
+        wojilu.editor.sync();
         var validator = $( '.valid' );
         if( validator.length<=0 ) return;
-        $( '.valid' ).each( addValid );
-        var form = $( '.valid' ).parents( 'form' );
+        setTimeout( function() {
+            $( '.valid' ).each( addValid );
+        }, 500 );
+        var form = $( '.valid' ).closest( 'form' );
         form.submit( function() {
-
+            wojilu.editor.sync();
             $( '.valid', $(this) ).each( validOne );
             var errors = 0;
             $( '.valid', $(this) ).each( function() {
@@ -12141,7 +12143,11 @@ wojilu.ui.valid = function() {
         var isShow = validSpan.attr( 'show' );
         if( 'true'==isShow ) validSpan.html( validSpan.attr('msg') );
         var inputType = target.attr( 'type' );
-        if(  inputType == 'hidden' ) {
+        var inputId = target.attr('id');
+        if( inputId && inputId.startsWith( 'ueditor_' ) ) {
+            wojilu.editor.blur(target.attr('name'), function() {validInput(target, validSpan);});
+        }
+        else if(  inputType == 'hidden' ) {
             editorBlur( target, validSpan );
         }
         else if( inputType == 'checkbox' ) {
@@ -12282,7 +12288,7 @@ wojilu.ui.valid = function() {
     };
 
     function validInput(target, validSpan) {
-
+        
         var inputValue = target.val();
         var rule = validSpan.attr( 'rule' );
         var msg = validSpan.attr( 'msg' );
@@ -12333,7 +12339,7 @@ wojilu.ui.valid = function() {
 
         if( rule=='password2' ) {
             var result = inputValue.search( arrRule['password'] );
-            var form = validSpan.parents( 'form' );
+            var form = validSpan.closest('form');
             var isSame = ( inputValue==$( ':password', form[0] ).not(getTarget(validSpan)).val() );
             var pwdResult = (result==-1 || isSame==false)?-1:0;
             setMsg( pwdResult, validSpan, msg );
@@ -12367,6 +12373,7 @@ wojilu.ui.valid = function() {
     };
 
     function getTarget(validSpan) {
+        wojilu.editor.sync();
         var target = validSpan.attr( 'to' );
         if( target=='undefined' || target==null ) {
             return validSpan.prev();
@@ -12377,8 +12384,8 @@ wojilu.ui.valid = function() {
     };
 
     function getTargetSelector( target, validSpan ) {
-        var form = validSpan.parents( 'form' );
-        var tt = $("[name='"+target+"']", form);
+        var form = validSpan.closest('form');
+        var tt = form.find("[name='"+target+"']");
         return tt;
     };
 };
@@ -13002,6 +13009,14 @@ wojilu.editor = {
         if (ueditor == null ) return;
         ueditor.execCommand('cleardoc');
     },
+    blur : function( editorId, callback ) {
+        var myeditor = wojilu.editor.get(editorId);
+        var funcSync = function() {
+            myeditor.sync();
+            if( callback ) callback();
+        };
+        myeditor.addListener('blur', funcSync);
+    },
     show : function( callback ) {
         var thisParams = this._params;
         var thisToolbar = this._toolbar;
@@ -13018,7 +13033,7 @@ wojilu.editor = {
             if( thisToolbar=='standard' ) thisParams.toolbars = _wbar.standard;
             if( thisToolbar=='full' ) thisParams.toolbars = _wbar.full;
             var _editor = UE.getEditor(thisEditor, thisParams);
-            
+             
             if( !window.ueditorList ) window.ueditorList = {};
             window.ueditorList['editor'+thisEditor] = _editor;
 

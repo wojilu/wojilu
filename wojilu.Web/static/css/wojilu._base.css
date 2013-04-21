@@ -88,7 +88,7 @@ a.currentPageNo {color:#fff;background-color:#296bbc;padding:2px 4px 2px 4px; bo
 .valid {color:#666; font-size:12px; padding:2px;}
 .validOk {background: url(../img/ajax/ok.gif) no-repeat;}
 .validError {background: url(../img/ajax/error.gif) no-repeat;padding-left:20px;margin-left:3px;}
-.inputWarning {border:2px red solid;}
+.inputWarning {border:2px red solid !important;}
 /*input.inputWarning {border:2px #fed22f solid;}*/
 
 /******* menu *****/
