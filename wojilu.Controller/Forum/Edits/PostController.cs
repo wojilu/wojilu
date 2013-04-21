@@ -47,7 +47,7 @@ namespace wojilu.Web.Controller.Forum.Edits {
             set( "location", ForumLocationUtil.GetPostEdit( pathboards, post, ctx ) );
 
             set( "post.Title", post.Title );
-            editor( "Content", post.Content, "280px" );
+            set( "Content", post.Content );
         }
 
         [HttpPost, DbTransaction]

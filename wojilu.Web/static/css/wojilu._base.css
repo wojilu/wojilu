@@ -188,6 +188,7 @@ body { background:url(../skin/site/new/body-bg.jpg);}
 blockquote {font-size:14px; color:#3e3e3e;}
 blockquote p{font-size:14px; color:#3e3e3e;}
 blockquote div{font-size:14px; color:#3e3e3e;}
+blockquote .quote-user {font-size:12px; margin-left:0px; color:#666; padding:5px 5px; width:70%; margin-top:10px; border-top:1px dotted #ccc;}
 
 .navbar{
     background:url(../skin/site/new/top-nav-bg.png); 

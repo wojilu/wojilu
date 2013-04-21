@@ -45,7 +45,7 @@ namespace wojilu.Web.Controller.Forum.Edits {
             set( "post.Title", post.Title );
             set( "post.TagList", topic.Tag.TextString );
 
-            editor( "Content", post.Content, "300px" );
+            set( "Content", post.Content );
 
             set( "attachmentLink", to( new Edits.AttachmentController().Admin, id ) );
         }
@@ -112,7 +112,7 @@ namespace wojilu.Web.Controller.Forum.Edits {
                 set( "rewardTip", alang( "rewardTip" ) );
             }
 
-            editor( "Content", post.Content, "300px" );
+            set( "Content", post.Content );
 
             set( "attachmentLink", to( new Edits.AttachmentController().Admin, id ) );
         }

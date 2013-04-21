@@ -293,7 +293,6 @@ namespace wojilu.Web.Controller.Forum.Users {
             set( "location", ForumLocationUtil.GetPollAdd( pathboards, ctx ) );
             set( "optionCount", 5 );
             set( "forumId", id );
-            editor( "Question", "", "150px" );
 
             if ((ctx.Post( "PollType" ) == null) || (ctx.Post( "PollType" ) == "0")) {
                 set( "singleCheck", " checked=\"checked\"" );

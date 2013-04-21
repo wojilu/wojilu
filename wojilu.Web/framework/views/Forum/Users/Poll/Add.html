@@ -65,7 +65,15 @@ input.width300 {width:450px;}
 
         <div class="control-group">
             <label class="control-label">_{pollNote}<br /><span class="label label-info">_{optional}</span></label>
-            <div class="controls"><div  style="width:90%;">#{Editor}</div></div>
+            <div class="controls"><div  style="width:90%;">
+<script type="text/plain" id="Question" name="Question"></script>
+<script>
+    _run(function () {
+        wojilu.editor.bind('Question').height(100).line(1).show();
+    });
+</script>
+            
+            </div></div>
         </div>
 
         <div class="hide" id="optionCount">#{optionCount}</div>

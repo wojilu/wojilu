@@ -54,7 +54,7 @@ namespace wojilu.Web.Controller.Forum.Users {
 
             view( "Quote" );
             setPostView( id );
-            editor( "Content", "", "250px" );
+            set( "Content", "" );
         }
 
         public void QuotePost( int id ) {
@@ -70,7 +70,7 @@ namespace wojilu.Web.Controller.Forum.Users {
 
             view( "Quote" );
             setTopicView( id );
-            editor( "Content", "", "250px" );
+            set( "Content", "" );
         }
 
         public void QuoteTopic( int id ) {
@@ -450,11 +450,10 @@ namespace wojilu.Web.Controller.Forum.Users {
 
             String signature = string.Format( " <a href=\"{0}\">{1}</a> at {2} {3}", toUser( post.Creator ), post.Creator.Name, post.Created.ToString( "g" ), lnk );
 
-
-            String content = string.Format( "<div class=\"quoteContainer\"><div class=\"quote\"><div class=\"qSpan\">{0}<div class=\"quoteAuthor\">{1}</div></div></div></div>", post.Content, signature );
+            String content = string.Format( "<blockquote>{0}<p class=\"quote-user\">{1}</p></blockquote>", post.Content, signature );
             content += "<p>&nbsp;</p>";
 
-            editor( "Content", content, "350px" );
+            set( "Content", content );
         }
 
         private ForumPost setPostView( int id ) {

@@ -23,7 +23,14 @@ _run(function () {
 
         <div class="control-group">
             <label class="control-label">_{content}</label>
-            <div class="controls"><div  style="width:90%;">#{Editor}</div></div>
+            <div class="controls"><div  style="width:90%;">
+<script type="text/plain" id="Content" name="Content">#{Content}</script>
+<script>
+    _run(function () {
+        wojilu.editor.bind('Content').height(250).line(2).show();
+    });
+</script>
+            </div></div>
             <div class="hide"><span class="valid" to="Content" mode="border"></span></div>
         </div>
 

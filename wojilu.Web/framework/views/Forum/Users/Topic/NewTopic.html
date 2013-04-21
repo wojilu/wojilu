@@ -31,7 +31,17 @@
         <div class="control-group">
             <label class="control-label" for="tagList">_{content}</label>
             <div class="controls">
-                <div style="width:90%;">#{Editor}</div>
+                <div style="width:90%;">
+<script type="text/plain" id="Content" name="Content">
+    #{Content}
+</script>
+<script>
+    _run(function () {
+        wojilu.editor.bind('Content').height(350).line(2).show();
+    });
+</script>
+
+                </div>
                 <div class="row" style="margin-top:5px;">
                     <div class="span4">                        
                         <label class="checkbox pull-left" style="width:90px;"><input name="saveContentPic" type="checkbox" /> 保存远程图片</label>
