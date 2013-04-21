@@ -102,34 +102,33 @@ window.UEDITOR_HOME_URL = wojilu.path.js + "/lib/ueditor/"; // wojilu自定义
 
 
         //涂鸦图片配置区
-        ,scrawlUrl:URL+"net/scrawlUp.ashx"           //涂鸦上传地址
-        ,scrawlPath:URL+"net/"                            //图片修正地址，同imagePath
+        //,scrawlUrl:URL+''                           //涂鸦上传地址 URL+"net/scrawlUp.ashx" 
+        //,scrawlPath:URL+"net/"                            //图片修正地址，同imagePath
 
         //屏幕截图配置区
-        ,snapscreenHost: '127.0.0.1'                                  //屏幕截图的server端文件所在的网站地址或者ip，请不要加http://
-        ,snapscreenServerUrl: URL +"net/imageUp.ashx" //屏幕截图的server端保存程序，UEditor的范例代码为“URL +"server/upload/net/snapImgUp.ashx"”
+        //,snapscreenHost: '127.0.0.1'                                  //屏幕截图的server端文件所在的网站地址或者ip，请不要加http://
+        //,snapscreenServerUrl: URL +"net/imageUp.ashx" //屏幕截图的server端保存程序，UEditor的范例代码为“URL +"server/upload/net/snapImgUp.ashx"”
         //,snapscreenPath: URL + "net/"
         //,snapscreenServerPort: 80                                    //屏幕截图的server端端口
         //,snapscreenImgAlign: ''                                //截图的图片默认的排版方式
 
         //word转存配置区
-        ,wordImageUrl:URL + "net/imageUp.ashx"             //word转存提交地址
+        //,wordImageUrl:URL + "net/imageUp.ashx"             //word转存提交地址
         //,wordImagePath:URL + "net/"                       //
         //,wordImageFieldName:"upfile"                     //word转存表单名若此处修改，需要在后台对应文件修改对应参数
 
         //获取视频数据的地址
-        ,getMovieUrl:URL+"net/getMovie.ashx"                   //视频数据获取地址
+        //,getMovieUrl:URL+"net/getMovie.ashx"                   //视频数据获取地址
 
         //工具栏上的所有的功能按钮和下拉框，可以在new编辑器的实例时选择自己需要的从新定义
         ,toolbars: _wbar.standard
         
         //当鼠标放在工具栏上时显示的tooltip提示,留空支持自动多语言配置，否则以配置值为准
-        ,labelMap:{
-            'anchor':'', 'undo':''
-        }
+        //,labelMap:{ 'anchor':'', 'undo':'' }
+        
         //webAppKey
         //百度应用的APIkey，每个站长必须首先去百度官网注册一个key后方能正常使用app功能
-        ,webAppKey:""
+        //,webAppKey:""
 
         //语言配置项,默认是zh-cn。有需要的话也可以使用如下这样的方式来自动多语言切换，当然，前提条件是lang文件夹下存在对应的语言文件：
         //lang值也可以通过自动获取 (navigator.language||navigator.browserLanguage ||navigator.userLanguage).toLowerCase()
@@ -173,7 +172,7 @@ window.UEDITOR_HOME_URL = wojilu.path.js + "/lib/ueditor/"; // wojilu自定义
 
         //,imagePopup:true      //图片操作的浮层开关，默认打开
 
-        ,initialStyle:'body{font-size:14px}'   //编辑器内部样式,可以用来改变字体等
+        ,initialStyle:'body{font-size:14px;line-height:150%;}'   //编辑器内部样式,可以用来改变字体等
 
         //,emotionLocalization:false //是否开启表情本地化，默认关闭。若要开启请确保emotion文件夹下包含官网提供的images表情文件夹
 
@@ -318,9 +317,7 @@ window.UEDITOR_HOME_URL = wojilu.path.js + "/lib/ueditor/"; // wojilu自定义
         //当输入的字符数超过该值时，保存一次现场
         //,maxInputCount:1
 
-        //autoHeightEnabled
-        // 是否自动长高,默认true
-        //,autoHeightEnabled:true
+        ,autoHeightEnabled:false // 是否自动长高,默认true
 
         //scaleEnabled
         //是否可以拉伸长高,默认true(当开启时，自动长高失效)

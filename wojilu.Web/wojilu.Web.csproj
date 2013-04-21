@@ -90,6 +90,7 @@
     <Content Include="framework\views\Demo\Editor\MultiDemo.html" />
     <Content Include="framework\views\Demo\Editor\RenderInTable.html" />
     <Content Include="framework\views\Demo\Editor\ResetDemo.html" />
+    <Content Include="framework\views\Demo\Editor\AutoHeight.html" />
     <Content Include="framework\views\Demo\Editor\SimpleDemo.html" />
     <Content Include="framework\views\Demo\Editor\SimpleSave.html" />
     <Content Include="framework\views\Demo\Editor\SubmitFormDemo.html" />

@@ -12,7 +12,6 @@ namespace wojilu.Web.Controller.Demo {
 
         public void SimpleDemo() {
             target( SimpleSave );
-            set( "authoJson", ctx.web.GetAuthJson() );
         }
 
         public void SimpleSave() {
@@ -35,6 +34,9 @@ namespace wojilu.Web.Controller.Demo {
             echoError( content );
         }
 
+        public void AutoHeight() {
+            target( SimpleSave );
+        }
 
         //-----------------------------------------------------------------------
 
