@@ -59,6 +59,7 @@ namespace wojilu.Web.Context {
         public Boolean IsOwnerAdministrator( IMember owner ) {
 
             IRole role = owner.GetUserRole( (IMember)this.obj );
+            if (role == null) return false;
 
             if (owner is User) {
                 return owner.Id == this.Id;
