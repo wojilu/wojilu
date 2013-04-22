@@ -142,7 +142,9 @@
             <div class="control-group">
                   <label class="control-label">_{content}</label>
                   <div class="controls" style="width:610px;">
-                    #{Editor}
+                        <script type="text/plain" id="Content" name="Content"></script>
+                        <script>_run(function () {wojilu.editor.bind('Content').height(150).line(1).show();})</script>
+                        <div class="valid border" to="Content"></div>
                   </div>
             </div>
 

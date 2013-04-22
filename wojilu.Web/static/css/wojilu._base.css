@@ -7,7 +7,7 @@
 .warning {border:1px #fed22f solid;background:#ffe45c;padding:10px;width:80%;}/* js_ajaxPostForm 中被使用*/
 .opok {background:url('../img/ok.gif') no-repeat left center;margin-left:10px;padding-left:20px; }
 .okBig {background:url('../img/m/ok.png') no-repeat left center;margin-left:10px;padding-left:55px;height:50px;line-height:50px; }
-.inputTip {color:#ccc;}
+.inputTip {color:#ccc !important;}
 
 .quote { margin:5px; color:#333; padding-left:20px; padding-top:0px; background:url('../img/quoteBegin.gif') no-repeat top left;  }
 .quote .qSpan {background:url('../img/quoteEnd.gif') no-repeat bottom right; padding-right:18px; }
@@ -88,7 +88,9 @@ a.currentPageNo {color:#fff;background-color:#296bbc;padding:2px 4px 2px 4px; bo
 .valid {color:#666; font-size:12px; padding:2px;}
 .validOk {background: url(../img/ajax/ok.gif) no-repeat;}
 .validError {background: url(../img/ajax/error.gif) no-repeat;padding-left:20px;margin-left:3px;}
+.border { display:none;}
 .inputWarning {border:2px red solid !important;}
+.editorWarning {border-bottom:3px red solid !important;}
 /*input.inputWarning {border:2px #fed22f solid;}*/
 
 /******* menu *****/

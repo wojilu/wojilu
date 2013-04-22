@@ -221,17 +221,8 @@ namespace wojilu.Web.Controller.Forum {
 
             formBlock.Set( "ActionLink", to( new Users.TopicController().Create ) + "?boardId=" + boardId );
 
-            IEditor ed = EditorFactory.NewOne( "Content", "", "150px", Editor.ToolbarType.Basic );
-            ed.AddUploadUrl( ctx );
-
-            formBlock.Set( "Editor", ed );
-
             formBlock.Set( "loginLink", t2( new MainController().Login ) );
             formBlock.Set( "regLink", t2( new RegisterController().Register ) );
-
-            //User user = ctx.viewer.obj as User;
-            //String userHtml = strUtil.HasText( user.Pic ) ? "<img src=\"" + user.PicMedium + "\"/>" : user.Name;
-            //formBlock.Set( "currentUser", userHtml );
 
             String categoryHtml = "";
             if (categories.Count > 0) categoryHtml = Html.DropList( categories, "CategoryId", "Name", "Id", 0 );

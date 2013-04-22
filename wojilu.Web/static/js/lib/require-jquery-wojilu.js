@@ -12121,20 +12121,32 @@ wojilu.ui.valid = function() {
         if( validator.length<=0 ) return;
         setTimeout( function() {
             $( '.valid' ).each( addValid );
-        }, 500 );
-        var form = $( '.valid' ).closest( 'form' );
-        form.submit( function() {
-            wojilu.editor.sync();
-            $( '.valid', $(this) ).each( validOne );
-            var errors = 0;
-            $( '.valid', $(this) ).each( function() {
-                var validResult = $(this).attr( 'result' );
-                if( validResult != 'ok' ) {
-                    errors +=1;
-                }
-            });
-            return errors==0;
+        }, 800 );
+        bindSubmitValid();
+    };
+    
+    function bindSubmitValid() {
+        var formList = $( '.valid' ).closest( 'form' );        
+        for( var i=0;i<formList.length;i++ ) {
+            var btnSubmit = $(formList[i]).find("[type='submit']");
+            btnSubmit.click( onSubmitClick );
+        }
+    };
+    
+    function onSubmitClick() {
+        var form = $(this).closest( 'form' );
+        wojilu.editor.sync();
+
+        $( '.valid', form ).each(validOne);
+
+        var errors = 0;
+        $( '.valid', form).each( function() {
+            var validResult = $(this).attr( 'result' );
+            if( validResult != 'ok' ) {
+                errors +=1;
+            }
         });
+        return errors==0;
     };
 
     function addValid() {
@@ -12145,6 +12157,7 @@ wojilu.ui.valid = function() {
         var inputType = target.attr( 'type' );
         var inputId = target.attr('id');
         if( inputId && inputId.startsWith( 'ueditor_' ) ) {
+            validSpan.attr('isEditor', 'true');
             wojilu.editor.blur(target.attr('name'), function() {validInput(target, validSpan);});
         }
         else if(  inputType == 'hidden' ) {
@@ -12193,6 +12206,7 @@ wojilu.ui.valid = function() {
     function setMsg( result, validSpan, msg ) {
         var target = getTarget(validSpan);
         var mode = validSpan.attr( 'mode' );
+        if( validSpan.hasClass('border') ) mode='border';
         if( result==-1 ) {
             if( 'border' == mode ) {
                 setErrorMsgSimple( validSpan, msg );
@@ -12231,7 +12245,14 @@ wojilu.ui.valid = function() {
     function setErrorMsgSimple( validSpan, msg ){
         if( !msg ) msg = lang.exFill;
         var target = getTarget(validSpan);
-        if( target.attr( 'type' )=='hidden' ) {
+        
+        var isEditor = validSpan.attr( 'isEditor' );
+        if( isEditor=='true' ) {
+            var editorId = validSpan.attr('to');
+            var divEditor = $('[id="'+editorId+'"]');
+            divEditor.addClass( 'editorWarning' );
+        }        
+        else if( target.attr( 'type' )=='hidden' ) {
             //editor
             target.parent().parent().addClass( 'inputWarning' );
         }
@@ -12255,8 +12276,15 @@ wojilu.ui.valid = function() {
     };
     
     function setOkMsgSimple(validSpan) {
-        var target = getTarget(validSpan);		
-        if( target.attr( 'type' )=='hidden' ) {
+        var target = getTarget(validSpan);
+
+        var isEditor = validSpan.attr( 'isEditor' );
+        if( isEditor=='true' ) {
+            var editorId = validSpan.attr('to');
+            var divEditor = $('[id="'+editorId+'"]');
+            divEditor.removeClass( 'editorWarning' );
+        }
+        else if( target.attr( 'type' )=='hidden' ) {
             target.next().removeClass( 'inputWarning' );
         }
         else if( target.attr( 'type' )=='checkbox' ) {
@@ -12288,11 +12316,13 @@ wojilu.ui.valid = function() {
     };
 
     function validInput(target, validSpan) {
-        
+
         var inputValue = target.val();
         var rule = validSpan.attr( 'rule' );
         var msg = validSpan.attr( 'msg' );
         var mode = validSpan.attr( 'mode' );
+        if( validSpan.hasClass('border') ) mode='border';
+        
         var ajaxAction = validSpan.attr( 'ajaxAction' );        
 
         if( isValNull(target) ) {
@@ -13011,6 +13041,7 @@ wojilu.editor = {
     },
     blur : function( editorId, callback ) {
         var myeditor = wojilu.editor.get(editorId);
+        if( myeditor==null ) return;
         var funcSync = function() {
             myeditor.sync();
             if( callback ) callback();

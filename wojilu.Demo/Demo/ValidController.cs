@@ -59,6 +59,21 @@ namespace wojilu.Web.Controller.Demo {
         public void Index() {
         }
 
+        public void Editor() {
+
+            set( "ActionLink1", to( EdiotrShow ) );
+            set( "ActionLink2", to( EdiotrShowAjax ) );
+        }
+
+        public void EdiotrShow() {
+            String postContent = ctx.PostHtml( "postContent" );
+            content( "您输入的内容="+ postContent );
+        }
+
+        public void EdiotrShowAjax() {
+            echoError( "您输入的内容=" + ctx.PostHtml( "myContent" ) );
+        }
+
         public void Tip() {
         }
 
