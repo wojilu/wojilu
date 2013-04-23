@@ -181,12 +181,14 @@ _run( function() {
 	<table style="width: 99%;margin:auto;" border="0">
 		<tr>
 			<td class="pubLeft">_{title}</td>
-			<td id="titleTd"><input name="Title" id="title" type="text" class="tipInput" tip="_{exTitle}" style="height:20px;"><span class="valid" mode="border"></span></td>
-			<td rowspan="5" style=" border-left:1px #e2e6f3  solid;" id="uploadImgPanel"></td>
+			<td id="titleTd"><input name="Title" id="title" type="text" class="tipInput" tip="_{exTitle}" style="height:20px;"><span class="valid border"></span></td>
+			<td rowspan="5" style=" border-left2:1px #e2e6f3  solid;" id="uploadImgPanel"></td>
 		</tr>
 		<tr id="sectionPanel" style="display:none;">
 		    <td style="vertical-align:top;" class="pubLeft">所属区块</td>
-		    <td class="postSection">#{postSection}</td>
+		    <td class="postSection">#{postSection}
+            <span class="valid border" to="postSection"></span>
+            </td>
 		</tr>
 
 		<tr>
@@ -226,8 +228,16 @@ _run( function() {
 		</tr>
 		
 		<tr>
-			<td class="pubLeft">_{content}<br /><span to="Content" class="valid" mode="border"></span></td>
-			<td colspan="2">#{Editor}</td>
+			<td class="pubLeft">_{content}</td>
+			<td colspan="2">
+<script type="text/plain" id="Content" name="Content"></script>
+<script>
+    _run(function () {
+        wojilu.editor.bind('Content').height(250).line(1).show();
+    });
+</script>
+<span class="valid border" to="Content"></span>
+            </td>
 		</tr>
 		<tr>
 			<td>&nbsp;</td>

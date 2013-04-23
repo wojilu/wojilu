@@ -89,7 +89,15 @@ label.clickLabel { background:#ffe45c; }
 
         <tr>
             <td class="tdL" style=" vertical-align:top;">_{pollNote}<br /><span class="label label-info note">(_{optional})</span></td>
-            <td><div  style="width:520px;">#{Editor}</div></td>
+            <td><div  style="width:520px;">
+<script type="text/plain" id="Question" name="Question"></script>
+<script>
+    _run(function () {
+        wojilu.editor.bind('Question').height(80).line(1).show();
+    });
+</script>
+            
+            </div></td>
         </tr>
 
         <tr>

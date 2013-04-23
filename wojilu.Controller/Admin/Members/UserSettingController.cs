@@ -55,7 +55,7 @@ namespace wojilu.Web.Controller.Admin.Members {
 
             bind( "site", config.Instance.Site );
 
-            editor( "SystemMsgContent", config.Instance.Site.SystemMsgContent, "100px" );
+            set( "SystemMsgContent", config.Instance.Site.SystemMsgContent );
 
             set( "site.ReservedUserNameStr", config.Instance.Site.GetValue( "ReservedUserName" ) );
             set( "site.ReservedUserUrlStr", config.Instance.Site.GetValue( "ReservedUserUrl" ) );

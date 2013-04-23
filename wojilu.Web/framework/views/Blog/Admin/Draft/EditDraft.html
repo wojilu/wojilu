@@ -9,13 +9,19 @@
 		<tr>
 			<td><strong>_{category} </strong></td>
 			<td><strong>#{CategoryId}&nbsp;&nbsp; _{tag}</strong> <span class="red">
-			<input name="TagList" type="text" style="width: 315px" value="#{data.TagList}">(_{blankSeparator})</span></td>
+			<input name="TagList" type="text" style="width: 150px" value="#{data.TagList}">(_{blankSeparator})</span></td>
 		</tr>
 		<tr>
 			<td>
 			<strong>_{content}</strong></td>
 			<td>
-			#{Editor}
+<script type="text/plain" id="Content" name="Content">#{Content}</script>
+<script>
+    _run(function () {
+        wojilu.editor.bind('Content').height(350).line(2).show();
+    });
+</script>
+<span class="valid border" to="Content"></span>
 			</td>
 		</tr>
 		<tr>

@@ -138,7 +138,7 @@ namespace wojilu.Web.Controller.Users.Admin {
             set( "m.ToName", receiver == null ? "" : receiver.Name );
             set( "m.Title", "" );
             set( "m.ReplyId", "" );
-            editor( "Content", "", "200px" );
+            set( "Content", "" );
 
             set( "friendLink", Link.To( ctx.viewer.obj, new Users.Admin.Friends.FriendController().SelectBox ) );
             bindUploadInfo();
@@ -162,7 +162,7 @@ namespace wojilu.Web.Controller.Users.Admin {
             set( "m.ToName", "" );
             set( "m.Title", lang( "forwardPrefix" ) + msgData.Title );
             set( "m.ReplyId", "" );
-            editor( "Content", getForward( msgData.Body ), "200px" );
+            set( "Content", getForward( msgData.Body ) );
 
             set( "friendLink", Link.To( ctx.viewer.obj, new Users.Admin.Friends.FriendController().SelectBox ) );
             bindUploadInfo();
@@ -190,7 +190,7 @@ namespace wojilu.Web.Controller.Users.Admin {
             set( "m.ToName", msg.SenderName );
             set( "m.Title", lang( "replyPrefix" ) + msgData.Title );
             set( "m.ReplyId", id );
-            editor( "Content", getQuote( msgData.Body ), "200px" );
+            set( "Content", getQuote( msgData.Body ) );
 
             set( "friendLink", Link.To( ctx.viewer.obj, new Users.Admin.Friends.FriendController().SelectBox ) );
             bindUploadInfo();

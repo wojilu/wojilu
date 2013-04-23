@@ -383,7 +383,7 @@ namespace wojilu.Web.Controller.Admin {
 
             target( SaveClose );
             set( "closeChecked", config.Instance.Site.IsClose ? "checked=\"checked\"" : "" );
-            editor( "CloseReason", config.Instance.Site.CloseReason, "150px" );
+            set( "CloseReason", config.Instance.Site.CloseReason );
 
         }
 

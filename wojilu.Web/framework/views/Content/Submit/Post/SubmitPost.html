@@ -63,8 +63,17 @@
 			</td>
 		</tr>	
 		<tr>
-			<td style=" vertical-align:top;">_{content}<span to="Content" class="valid" mode="border"></span></td>
-			<td>#{Editor}</td>
+			<td style=" vertical-align:top;">_{content}</td>
+			<td>
+<script type="text/plain" id="Content" name="Content"></script>
+<script>
+    _run(function () {
+        wojilu.editor.bind('Content').height(350).line(1).show();
+    });
+</script>
+<span class="valid border" to="Content"></span>
+            
+            </td>
 		</tr>	
 		<tr>
 			<td>&nbsp;</td>

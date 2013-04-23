@@ -64,14 +64,16 @@ namespace wojilu.Web.Controller.Forum.Admin {
         }
 
         public void Notice() {
-
             redirect( new ForumPickController().Index );
+        }
+
+        public void Headline() {
 
             target( SaveNotice );
 
             ForumApp forum = ctx.app.obj as ForumApp;
 
-            editor( "Notice", forum.Notice, "380px" );
+            set( "Notice", forum.Notice );
         }
 
         [HttpPost, DbTransaction]

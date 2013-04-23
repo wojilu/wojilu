@@ -120,14 +120,14 @@ _run( function() {
 
 		<tr>
 			<td class="pubLeft"">_{title}</td>
-			<td class="postTitleTd"><input name="Title" id="title" type="text" value="#{post.Title}" class="tipInput postTitle" tip="_{exTitle}"><span class="valid" mode="border"></span>
+			<td class="postTitleTd"><input name="Title" id="title" type="text" value="#{post.Title}" class="tipInput postTitle" tip="_{exTitle}"><span class="valid border"></span>
 			</td>
-			<td rowspan="6" id="uploadImgPanel"></td>
+			<td rowspan="5" id="uploadImgPanel"></td>
 		</tr>				
 
 		<tr>
 		    <td style="vertical-align:top;" class="pubLeft">所属区块</td>
-		    <td id="postSection">#{postSection}</td>
+		    <td id="postSection">#{postSection}<span class="valid border" to="postSection"></span></td>
 		</tr>
 
 		<tr>
@@ -169,8 +169,16 @@ _run( function() {
 		</tr>
 
 		<tr>
-			<td class="pubLeft">_{content}<br /><span to="Content" class="valid" mode="border"></span></td>
-			<td colspan="2">#{Editor}</td>
+			<td class="pubLeft">_{content}<br /><span to="Content" class="valid border"></span></td>
+			<td colspan="2">
+<script type="text/plain" id="Content" name="Content">#{Content}</script>
+<script>
+    _run(function () {
+        wojilu.editor.bind('Content').height(250).line(1).show();
+    });
+</script>
+            
+            </td>
 		</tr>		
 		<tr>
 			<td>&nbsp;</td>

@@ -66,7 +66,7 @@
 			<td><strong>_{category}</strong></td>
 			<td>&nbsp;<span id="categoryList">#{CategoryId}</span><a id="categoryBox" href="#{categoryAddUrl}" class="frmBox link" xwidth="500" title=":{addCategory}"><img src="~img/add.gif"/> _{add}</a>
 			<strong class="left10">_{tag}</strong> 
-			<input name="TagList" id="tagList" type="text" style="width: 221px"> <img src="~img/help.gif" title=":{tagTip}"/></td>
+			<input name="TagList" id="tagList" type="text" style="width:150px"> <img src="~img/help.gif" title=":{tagTip}"/></td>
 		</tr>
 
 	    <!--附件部分-->
@@ -93,7 +93,15 @@
 			<td style="vertical-align:top;"><strong>_{content}</strong>
 			<span to="Content" class="valid" mode="border"></span>
 			</td>
-			<td>#{Editor}</td>
+			<td>
+<script type="text/plain" id="Content" name="Content"></script>
+<script>
+    _run(function () {
+        wojilu.editor.bind('Content').height(400).line(2).show();
+    });
+</script>
+<span class="valid border" to="Content"></span>
+            </td>
 		</tr>
 		<tr><td></td><td><label><input name="saveContentPic" type="checkbox" />保存远程图片</label></td></tr>
 

@@ -23,6 +23,7 @@ namespace wojilu.Web.Controller.Forum {
             ctx.SetItem( "_moduleUrl", to( new ForumController().Index ) );
 
             set( "noticeLink", to( new Admin.ForumController().Notice ) );
+            set( "headlineLink", to( new Admin.ForumController().Headline ) );
             set( "forumBoardList", to( new Admin.ForumController().Index ) );
             set( "dataCombine", to( new Admin.ForumController().DataCombine ) );
             set( "security", to( new Admin.SecurityController().Setting ) );

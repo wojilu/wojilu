@@ -1,4 +1,4 @@
-﻿<div style="width:600px; height:400px;">
+﻿<div style="width:800px; height:480px;">
 
 	<form method="post" action="#{ActionLink}" style="margin:5px 5px 35px 5px;">
 		<table style="width: 100%; margin:auto;">
@@ -9,8 +9,16 @@
 			</tr>					
 			<tr>
 			    <td colspan="2">
-			        <div class="hide">_{content}<span to="Content" class="valid" mode="border"></span></div>
-			        <div>#{Editor}</div>
+			        <div class="hide">_{content}</div>
+			        <div>
+<script type="text/plain" id="Content" name="Content">#{Content}</script>
+<script>
+    _run(function () {
+        wojilu.editor.bind('Content').height(380).line(2).show();
+    });
+</script>
+<span class="valid border" to="Content"></span>
+                    </div>
 			    </td>
 			</tr>
 			<tr>

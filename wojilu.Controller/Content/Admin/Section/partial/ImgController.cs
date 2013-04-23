@@ -114,7 +114,7 @@ namespace wojilu.Web.Controller.Content.Admin.Section {
 
             set( "post.IsCloseComment", Html.CheckBox( "IsCloseComment", lang( "closeComment" ), "1", cvt.ToBool( post.CommentCondition ) ) );
 
-            editor( "Content", post.Content, "190px" );
+            set( "Content", post.Content );
 
 
         }

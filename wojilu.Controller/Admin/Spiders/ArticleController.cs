@@ -53,7 +53,6 @@ namespace wojilu.Web.Controller.Admin.Spiders {
             target( Update, id );
             SpiderArticle article = SpiderArticle.findById( id );
             bind( "data", article );
-            editor( "spiderArticle.Body", article.Body, "480px" );
         }
 
         [HttpPost, DbTransaction]

@@ -33,7 +33,6 @@ namespace wojilu.Web.Controller.Groups.Admin {
 
         public void Add() {
             target( Create );
-            editor( "msg", "", "150px;" );
             set( "lnkSelectFriends", Link.To( ctx.viewer.obj, new Users.Admin.Friends.FriendController().SelectBox ) );
         }
 

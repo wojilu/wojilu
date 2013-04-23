@@ -184,7 +184,6 @@ namespace wojilu.Web.Controller.Common {
             }
 
             target( Create, id );
-            editorFull( "content", "", "500px" );
         }
 
         [HttpPost, DbTransaction]
@@ -255,7 +254,7 @@ namespace wojilu.Web.Controller.Common {
             }
 
             set( "title", data.Title );
-            editorFull( "content", data.Content, "500px" );
+            set( "content", data.Content );
             target( Update, id );
 
             set( "cancelUrl", to( Cancel, id ) );

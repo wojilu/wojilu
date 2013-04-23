@@ -56,7 +56,6 @@ namespace wojilu.Web.Controller.Download.Admin {
             dropList( "fileItem.Lang", FileLang.GetAll(), "Name=Name", "" );
             set( "subCategoriesJson", FileCategory.GetSubCatsJson() );
             checkboxList( "fileItem.PlatformIds", Platform.GetAll(), "Name=Id", "" );
-            editor( "fileItem.Description", "", "200px" );
 
             set( "authInfo", AdminSecurityUtils.GetAuthCookieJson( ctx ) );
             set( "uploadLink", to( SaveUpload ) );
@@ -134,7 +133,7 @@ namespace wojilu.Web.Controller.Download.Admin {
             set( "subCategoriesJson", FileCategory.GetSubCatsJson() );
             checkboxList( "fileItem.PlatformIds", Platform.GetAll(), "Name=Id", f.PlatformIds );
 
-            editor( "fileItem.Description", f.Description, "200px" );
+            set( "fileItem.Description", f.Description );
 
             set( "authInfo", AdminSecurityUtils.GetAuthCookieJson( ctx ) );
             set( "uploadLink", to( SaveUpload ) );

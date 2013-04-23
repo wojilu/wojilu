@@ -1,5 +1,5 @@
 ﻿
-<div class="formPanel2">
+<div class="formPanel2" style=" height:550px;">
 
 	<form id="dataForm" method="post" action="#{ActionLink}" class="ajaxPostForm">
 		<table style="width:98%;">
@@ -11,12 +11,16 @@
                     <textarea name="ToName" id="receiver" style="width:380px; height:15px;">#{m.ToName}</textarea>
 				    <a href="#{friendLink}" class="frmBox" title="_{addReceiverByFriendsTitle}">_{addReceiverByFriendsTip}</a>
 				    <span class="note">_{receiverNote}</span>
+                    <span class="valid border" to="ToName"></span>
 				</td>
 			</tr>
 			<tr>
 				<td style="text-align:right; vertical-align:top;padding-right:8px;">_{title}</td>
 				<td>
-				    <div><input name="Title" type="text" style="width:380px;" value="#{m.Title}"></div>
+				    <div>
+                        <input name="Title" type="text" style="width:380px;" value="#{m.Title}">
+                        <span class="valid border" to="Title"></span>
+                    </div>
 				    <table>
 				        <tr>
 				            <td><img src="~img/attachment.gif" />上传附件</td>
@@ -29,7 +33,16 @@
 				</td>
 			</tr>
 			<tr><td style="text-align:right; vertical-align:top;padding-right:8px;">_{content}</td>
-				<td>#{Editor}
+				<td>
+
+<script type="text/plain" id="Content" name="Content">#{Content}</script>
+<script>
+    _run(function () {
+        wojilu.editor.bind('Content').height(350).line(1).show();
+    });
+</script>
+<span class="valid border" to="Content"></span>
+
 				</td>
 			</tr>
 			<tr><td></td>

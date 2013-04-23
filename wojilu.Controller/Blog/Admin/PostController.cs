@@ -248,25 +248,13 @@ namespace wojilu.Web.Controller.Blog.Admin {
             data.AppId = ctx.app.Id;
         }
 
-
-
-
-
         private void bindAdd( List<BlogCategory> categories ) {
             set( "categoryAddUrl", to( new CategoryController().New ) );
             set( "DraftActionUrl", to( new DraftController().SaveDraft ) );
-
-            //String dropList = Html.DropList( categories, "CategoryId", "Name", "Id", null );
-            //set( "categoryDropList", dropList );
             dropList( "CategoryId", categories, "Name=Id", null );
-
-            editor( "Content", "", "400px" );
         }
 
-
         private void bindEdit( BlogPost data, List<BlogCategory> categories ) {
-            //String categoryDropList = Html.DropList( categories, "CategoryId", "Name", "Id", data.Category.Id );
-            //set( "data.CatetgoryId", categoryDropList );
             dropList( "CategoryId", categories, "Name=Id", data.Category.Id );
 
             set( "data.Id", data.Id );
@@ -274,7 +262,7 @@ namespace wojilu.Web.Controller.Blog.Admin {
             set( "data.TagList", data.Tag.TextString );
             set( "data.Title", data.Title );
 
-            editor( "Content", data.Content, "400px" );
+            set( "Content", data.Content );
 
             set( "data.AccessStatus", AccessStatusUtil.GetRadioList( data.AccessStatus ) );
             set( "data.IsCloseComment", Html.CheckBox( "IsCloseComment", lang( "closeComment" ), "1", cvt.ToBool( data.CommentCondition ) ) );

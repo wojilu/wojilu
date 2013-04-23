@@ -90,7 +90,6 @@ namespace wojilu.Web.Controller.Admin.Sys {
             target( Create, id );
             PageCategory category = pageService.GetCategoryById( id, ctx.owner.obj );
             set( "category", category.Name );
-            editor( "Content", "", "350px" );
         }
 
         [HttpPost, DbTransaction]
@@ -131,7 +130,6 @@ namespace wojilu.Web.Controller.Admin.Sys {
 
             target( CreateSubPage, id );
             set( "pageName", page.Name );
-            editor( "Content", "", "350px" );
         }
 
         [HttpPost, DbTransaction]

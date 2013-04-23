@@ -44,8 +44,6 @@ namespace wojilu.Web.Controller.Admin.Members {
 
             List<SiteRole> roles = getRoles();
             dropList( "siteRole", roles, "Name=Id", 0 );
-            editor( "Body", "", "350px" );
-
         }
 
         private List<SiteRole> getRoles() {
@@ -79,7 +77,7 @@ namespace wojilu.Web.Controller.Admin.Members {
             MessageSite msg = msgService.GetById( id );
 
             set( "Title", msg.Title );
-            editor( "Body", msg.Body, "300px" );
+            set( "Body", msg.Body );
 
             List<SiteRole> roles = getRoles();
             dropList( "siteRole", roles, "Name=Id", msg.ReceiverRoleId );

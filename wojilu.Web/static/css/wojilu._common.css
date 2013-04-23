@@ -175,7 +175,9 @@ td.adminPage {background:#efefef;}
 .valid {color:#666; font-size:12px; padding:2px;}
 .validOk {background: url(../img/ajax/ok.gif) no-repeat;}
 .validError {background: url(../img/ajax/error.gif) no-repeat;padding-left:20px;margin-left:3px;}
-.inputWarning {border:2px red solid;}
+.border { display:none;}
+.inputWarning {border:2px red solid !important;}
+.editorWarning {border-bottom:3px red solid !important;}
 /*input.inputWarning {border:2px #fed22f solid;}*/
 
 /******* menu *****/

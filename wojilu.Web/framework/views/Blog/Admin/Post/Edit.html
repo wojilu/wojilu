@@ -12,7 +12,7 @@ a.lnkPreview { text-decoration:underline; margin-left:5px;}
 		<tr>
 			<td><strong>_{category} </strong></td>
 			<td><strong>#{CategoryId}&nbsp;&nbsp; _{tag}</strong> <span class="red">
-			<input name="TagList" type="text" style="width: 315px" value="#{data.TagList}"> <img src="~img/help.gif" title=":{tagTip}"/></span></td>
+			<input name="TagList" type="text" style="width: 115px" value="#{data.TagList}"> <img src="~img/help.gif" title=":{tagTip}"/></span></td>
 		</tr>
 
         <tr>
@@ -45,7 +45,13 @@ a.lnkPreview { text-decoration:underline; margin-left:5px;}
 			<td style="vertical-align:top">
 			<strong>_{content}</strong></td>
 			<td>
-			#{Editor}
+<script type="text/plain" id="Content" name="Content">#{Content}</script>
+<script>
+    _run(function () {
+        wojilu.editor.bind('Content').height(400).line(1).show();
+    });
+</script>
+<span class="valid border" to="Content"></span>
 			</td>
 		</tr>
 

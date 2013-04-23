@@ -32,7 +32,7 @@ window.UEDITOR_HOME_URL = wojilu.path.js + "/lib/ueditor/"; // wojilu自定义
     
     window._wbar = {
         simple :[
-        ['bold', 'forecolor', 'underline', 'strikethrough','link', 'fontfamily', 'fontsize', 
+        ['source','bold', 'forecolor', 'underline', 'strikethrough','link', 'fontfamily', 'fontsize', 
         'insertimage', 'emotion', 'insertvideo', 'music', 'attachment','highlightcode', 'removeformat', 'pasteplain' ]
         ]
         

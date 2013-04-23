@@ -81,7 +81,6 @@ namespace wojilu.Web.Controller.Content.Submit {
             set( "section.Name", s.Title );
 
             target( SavePost, sectionId );
-            editor( "Content", "", "300px" );
         }
 
         public void SavePost( int sectionId ) {

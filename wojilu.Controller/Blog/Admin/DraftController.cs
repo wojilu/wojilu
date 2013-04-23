@@ -157,8 +157,6 @@ namespace wojilu.Web.Controller.Blog.Admin {
         private void bindDraftEdit( BlogPost data ) {
             List<BlogCategory> categories = categoryService.GetByApp( ctx.app.Id );
 
-            //String categoryDropList = Html.DropList( categories, "CategoryId", "Name", "Id", data.Category.Id );
-            //set( "data.CatetgoryId", categoryDropList );
             dropList( "CategoryId", categories, "Name=Id", data.Category.Id );
 
             set( "data.Id", data.Id );
@@ -166,7 +164,7 @@ namespace wojilu.Web.Controller.Blog.Admin {
             set( "data.TagList", data.Tag.TextString );
             set( "data.Title", data.Title );
 
-            editor( "Content", data.Content, "400px" );
+            set( "Content", data.Content );
 
             set( "data.AccessStatus", AccessStatusUtil.GetRadioList( data.AccessStatus ) );
             set( "data.IsCloseComment", Html.CheckBox( "IsCloseComment", lang( "closeComment" ), "1", cvt.ToBool( data.CommentCondition ) ) );

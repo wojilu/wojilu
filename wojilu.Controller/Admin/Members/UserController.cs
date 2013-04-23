@@ -207,13 +207,12 @@ namespace wojilu.Web.Controller.Admin.Members {
             String idsStr = ctx.GetIdList( "id" );
             List<User> users = userService.GetByIds( idsStr );
             bindReceiverList( users, idsStr );
-            editor( "MsgBody", "", "350px" );
         }
 
         [HttpPost, DbTransaction]
         public void SaveMsg() {
 
-            MsgInfo msgInfo = validateMsg();
+            MsgInfo msgInfo = validateMsg( true );
 
             if (ctx.HasErrors) {
                 run( SendMsg );
@@ -237,7 +236,6 @@ namespace wojilu.Web.Controller.Admin.Members {
 
             List<User> users = userService.GetByIds( ids );
             bindReceiverEmailList( users, ids );
-            editor( "MsgBody", "", "350px" );
         }
 
         public void SendConfirmMail() {

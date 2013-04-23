@@ -37,12 +37,6 @@ namespace wojilu.Web.Controller.Poll.Admin {
             bindPollList( polls );
         }
 
-        //public void Friends() {
-        //    view( "List" );
-        //    DataPage<PollData> polls = pollService.GetFriendsPage( ctx.owner.Id );
-        //    bindPollList( polls );
-        //}
-
         public void List() {
             DataPage<PollData> polls = pollService.GetPageByApp( ctx.app.Id );
             bindPollList( polls );
@@ -52,8 +46,6 @@ namespace wojilu.Web.Controller.Poll.Admin {
 
             target( Create );
             set( "optionCount", 5 );
-            editor( "Question", "", "80px" );
-
         }
 
         [HttpPost, DbTransaction]

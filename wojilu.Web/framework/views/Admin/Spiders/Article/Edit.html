@@ -12,7 +12,15 @@
         </tr>
         <tr>
             <td style="vertical-align:top;">内容</td>
-            <td>#{Editor}</td>
+            <td>
+<script type="text/plain" id="spiderArticle.Body" name="spiderArticle.Body">#{data.Body}</script>
+<script>
+    _run(function () {
+        wojilu.editor.bind('spiderArticle.Body').height(500).line(1).show();
+    });
+</script>
+
+            </td>
         </tr>
         <tr>
             <td>&nbsp;</td>

@@ -73,7 +73,7 @@ namespace wojilu.Web.Controller.Content.Admin.Section {
             view( "Add" );
             ContentSection section = sectionService.GetById( sectionId, ctx.app.Id );
             target( Create, sectionId );
-            bindAddInfo( section );
+            set( "section.Title", section.Title );
         }
 
         [HttpPost, DbTransaction]
@@ -122,7 +122,8 @@ namespace wojilu.Web.Controller.Content.Admin.Section {
             }
 
             target( Update, postId );
-            bindEditInfo( post );
+            set( "section.Title", post.SectionName );
+            set( "Content", post.Content );
         }
 
         [HttpPost, DbTransaction]

@@ -46,7 +46,6 @@ namespace wojilu.Web.Controller.Content.Admin.Common {
 
             set( "optionCount", 5 );
             set( "appId", ctx.app.Id );
-            editor( "Question", "", "80px" );
 
             if ((ctx.Post( "PollType" ) == null) || (ctx.Post( "PollType" ) == "0")) {
                 set( "singleCheck", " checked=\"checked\"" );
@@ -156,8 +155,6 @@ namespace wojilu.Web.Controller.Content.Admin.Common {
 
             set( "post.Width", post.Width );
             set( "post.Height", post.Height );
-
-            editor( "Content", post.Content, "250px" );
 
             set( "post.Created", post.Created );
             set( "post.Hits", post.Hits );

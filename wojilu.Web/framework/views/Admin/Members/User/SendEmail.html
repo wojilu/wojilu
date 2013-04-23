@@ -18,7 +18,15 @@
 			</tr>
 			<tr>
 				<td style="vertical-align:top">_{content}</td>
-				<td>#{Editor}<span class="valid" to="MsgBody" mode="border"></span>
+				<td>
+<script type="text/plain" id="MsgBody" name="MsgBody"></script>
+<script>
+    _run(function () {
+        wojilu.editor.bind('MsgBody').height(300).line(1).show();
+    });
+</script>
+<span class="valid border" to="MsgBody"></span>
+
 				</td>
 			</tr>
 			<tr>

@@ -815,7 +815,7 @@
     <Content Include="framework\views\Content\Admin\Section\VideoShow\AdminSectionShow.html" />
     <Content Include="framework\views\Content\Section\Poll\Show.html" />
     <Content Include="framework\views\Content\Section\VideoShow\SectionShow.html" />
-    <Content Include="framework\views\Forum\Admin\Forum\Notice.html" />
+    <Content Include="framework\views\Forum\Admin\Forum\Headline.html" />
     <Content Include="framework\views\Forum\Edits\Attachment\Admin.html" />
     <Content Include="framework\views\Forum\Edits\Attachment\Rename.html" />
     <Content Include="framework\views\Forum\Edits\Attachment\SetPermission.html" />

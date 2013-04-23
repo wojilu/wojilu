@@ -1,9 +1,7 @@
-﻿<div>
+﻿<div style=" height:480px;">
 
 	<form action="#{ActionLink}" method="post">
-	
 
-		
 	
     <style>
     .tabList li{ width:130px;}
@@ -36,7 +34,16 @@
 
 				<tr>
 					<td style="vertical-align:top">_{description}</td>
-					<td>#{Editor}</td>
+					<td>
+<script type="text/plain" id="Content" name="Content"></script>
+<script>
+    _run(function () {
+        wojilu.editor.bind('Content').height(250).line(1).show();
+    });
+</script>
+
+                    
+                    </td>
 				</tr>
 				<tr class="hide">
 					<td>_{orderId}</td>
@@ -45,7 +52,8 @@
 				</tr>
 
 				<tr>
-					<td colspan="2" style="text-align:center;padding:8px;">
+                    <td>&nbsp;</td>
+					<td style="padding:8px 0px;">
 					    <input name="Submit1" type="submit" value=":{nextStep}" class="btn" >
 					    <input type="button" value="_{cancel}" class="btnCancel" />
 					</td>

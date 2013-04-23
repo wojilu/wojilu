@@ -77,8 +77,6 @@ namespace wojilu.Web.Controller.Content.Admin.Section {
             target( to( CreateListInfo, sectionId ) + "?categoryId=" + ctx.GetInt( "categoryId" ) );
             set( "section.Name", section.Title );
             set( "App.ImagesPath", sys.Path.Img );
-
-            editor( "Content", "", "190px" );
         }
         
         [HttpPost, DbTransaction]

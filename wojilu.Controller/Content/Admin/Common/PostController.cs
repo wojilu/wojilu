@@ -43,7 +43,6 @@ namespace wojilu.Web.Controller.Content.Admin.Common {
         public void Add( int sectionId ) {
 
             target( to( Create ) + "?categoryId=" + ctx.GetInt( "categoryId" ) + "&fromList=" + ctx.GetInt( "fromList" ) );
-            editor( "Content", "", "280px" );
 
             List<ContentSection> sections = sectionService.GetInputSectionsByApp( ctx.app.Id );
             checkboxList( "postSection", sections, "Title=Id", 0 );
@@ -202,7 +201,7 @@ namespace wojilu.Web.Controller.Content.Admin.Common {
             set( "post.Width", post.Width );
             set( "post.Height", post.Height );
 
-            editor( "Content", post.Content, "250px" );
+            set( "Content", post.Content );
 
             set( "post.Created", post.Created );
             set( "post.Hits", post.Hits );

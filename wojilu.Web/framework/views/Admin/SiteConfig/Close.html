@@ -14,7 +14,16 @@ td.ltd { width:100px; text-align:right;vertical-align:top; padding-right:10px}
 			</tr>
 			<tr>
 				<td class="ltd">_{closeReason}</td>
-				<td><div style="width:600px;">#{Editor}</div></td>
+				<td><div style="width:600px;">
+<script type="text/plain" id="CloseReason" name="CloseReason">#{CloseReason}</script>
+<script>
+    _run(function () {
+        wojilu.editor.bind('CloseReason').height(250).line(1).show();
+    });
+</script>
+
+                
+                </div></td>
 			</tr>
 			
 			

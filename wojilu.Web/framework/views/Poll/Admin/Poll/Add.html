@@ -48,7 +48,16 @@ _run( function(){
 		<tr>
 			<td class="tdL" valign="top">_{pollNote}<br>
 			<span class="note">(_{optional})</span></td>
-			<td>#{Editor}</td>
+			<td>
+            
+<script type="text/plain" id="Question" name="Question"></script>
+<script>
+    _run(function () {
+        wojilu.editor.bind('Question').height(80).line(1).show();
+    });
+</script>
+
+            </td>
 		</tr>
 		<tr>
 			<td valign="top" colspan="2" style=" line-height:200%; padding:10px 0px 10px 13px"><div style="display:none;" id="optionCount">#{optionCount}</div>

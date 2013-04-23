@@ -9,7 +9,18 @@
         <div style="margin:5px 0px 5px 0px;"><span href="#{lnkSelectFriends}" class="cmd frmBox" title="选择好友"><img src="~img/add.gif" /> 选择好友</span></div>
 
     </td></tr>
-    <tr><td style="vertical-align:top; text-align:right;">邀请信息</td><td>#{Editor}<span class="valid" to="msg" mode="border"></span></td></tr>
+    <tr><td style="vertical-align:top; text-align:right;">邀请信息</td><td>
+    
+<script type="text/plain" id="msg" name="msg"></script>
+<script>
+    _run(function () {
+        wojilu.editor.bind('msg').height(150).line(1).show();
+    });
+</script>
+<span class="valid border" to="msg"></span>
+    
+    
+    </td></tr>
     <tr><td></td><td><input id="Submit1" class="btn" type="submit" value="发送邀请" />
     
     

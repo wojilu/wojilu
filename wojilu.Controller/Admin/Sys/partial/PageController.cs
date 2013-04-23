@@ -67,7 +67,7 @@ namespace wojilu.Web.Controller.Admin.Sys {
             String drop = tree.DropList( "ParentId", data.ParentId, data.Id, "---" );
             set( "dropParent", drop );
             set( "IsAllowReply", data.IsAllowReply == 1 ? "checked=\"checked\"" : "" );
-            editor( "Content", data.Content, "300px" );
+            set( "Content", data.Content );
         }
 
         //--------------------------------------------------------------------------
