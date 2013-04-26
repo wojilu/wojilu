@@ -109,7 +109,7 @@ namespace wojilu.Web.Mvc {
         }
 
         private static String getTitlePostfix( MvcContext ctx ) {
-            if (ctx.owner.obj.GetType().FullName.Equals( ConstString.SiteTypeFullName ) == false) {
+            if ( ctx.owner != null && ctx.owner.obj != null &&  ctx.owner.obj.GetType().FullName.Equals( ConstString.SiteTypeFullName ) == false) {
                 return ctx.owner.obj.Name + titleSeparator + config.Instance.Site.SiteName;
             }
             else {

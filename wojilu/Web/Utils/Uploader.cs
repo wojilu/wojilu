@@ -361,6 +361,8 @@ namespace wojilu.Web.Utils {
             String[] cfgTypes = config.Instance.Site.UploadFileTypes;
             if (cfgTypes != null && cfgTypes.Length > 0) types = cfgTypes;
 
+            if (containsChar( cfgTypes, "*" )) return true;
+
             foreach (String ext in types) {
                 if (strUtil.IsNullOrEmpty( ext )) continue;
                 String extWithDot = ext.StartsWith( "." ) ? ext : "." + ext;
@@ -376,10 +378,21 @@ namespace wojilu.Web.Utils {
             String[] cfgTypes = config.Instance.Site.UploadPicTypes;
             if (cfgTypes != null && cfgTypes.Length > 0) types = cfgTypes;
 
+            if (containsChar( cfgTypes, "*" )) return true;
+
             foreach (String ext in types) {
                 if (strUtil.IsNullOrEmpty( ext )) continue;
                 String extWithDot = ext.StartsWith( "." ) ? ext : "." + ext;
                 if (strUtil.EqualsIgnoreCase( Path.GetExtension( pfile.FileName ), extWithDot )) return true;
+            }
+
+            return false;
+        }
+
+        private static bool containsChar( string[] cfgTypes, string charSingle ) {
+
+            foreach (String ext in cfgTypes) {
+                if (ext == charSingle) return true;
             }
 
             return false;
