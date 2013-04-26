@@ -90,7 +90,6 @@ window.UEDITOR_HOME_URL = wojilu.path.js + "/lib/ueditor/"; // wojilu自定义
         // wojilu 新增上传配置参数
         ,fileUploadTypes : '*.7z;*.zip;*.rar' // 分号分隔
         ,fileUploadDescription : '压缩文件'
-        ,fileUploadAuthUrl : '/Users/UserUpload/GetAuthJson.aspx' // 此网址返回上传必须的cookie/session的验证信息 window.uploadAuthParams = {xxxx:xxxxxxxxxx}
                     
          //远程抓取配置区
         ,catchRemoteImageEnable:false               //是否开启远程图片抓取,默认开启

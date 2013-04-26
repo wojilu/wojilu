@@ -23,48 +23,9 @@
 <script type="text/javascript" src="../../third-party/swfupload/fileprogress.js"></script>
 <script type="text/javascript" src="callbacks.js"></script>
 <script type="text/javascript" src="fileTypeMaps.js"></script>
+<script type="text/javascript" src="/Users/UserUpload/GetAuthJson.aspx"></script>
 
 <script type="text/javascript">
-
-    /*********** 获取上传必须的cookie/session的验证信息***********/
-    var __scriptHelper = {
-        getPageHead : function() {
-            return document.getElementsByTagName('HEAD').item(0);
-        },
-
-        loadJsFull : function( filePath ) {
-            var script = document.createElement('script');
-            script.src = filePath;
-            this.getPageHead().appendChild(script);
-        },
-
-        getTimePrivate : function(seperator, isMilliseconds){
-           var result = '';
-           var d = new Date();
-           result += d.getHours() + seperator;
-           result += d.getMinutes() + seperator;
-           result += d.getSeconds();
-           if( isMilliseconds ) {result += seperator + d.getMilliseconds();};
-           return result;
-        },
-
-        getDayPrivate : function(seperator){
-           var d = new Date();
-           var result = '';
-           result += d.getFullYear() + seperator;
-           result += (d.getMonth()+1) + seperator;
-           result += d.getDate();
-           return result; 
-        },
-
-        getRandom  : function() {
-            return Math.random()+ this.getDayPrivate('')+ this.getTimePrivate('', true);
-        }
-    };    
-
-    __scriptHelper.loadJsFull( editor.options.fileUploadAuthUrl + '?rd=' + __scriptHelper.getRandom() );
-
-
 
     /*********** swfupload 上传 ***********/
     var swfupload,
