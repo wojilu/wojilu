@@ -72,7 +72,7 @@ window.UEDITOR_HOME_URL = wojilu.path.js + "/lib/ueditor/"; // wojilu自定义
         UEDITOR_HOME_URL : URL
 
         //图片上传配置区
-        ,imageUrl:"/Users/UserUpload/SaveFlash.aspx"             //图片上传提交地址
+        ,imageUrl:"/Users/UserUpload/SaveEditorPic.aspx"             //图片上传提交地址
         ,imagePath:""                     //图片修正地址，引用了fixedImagePath,如有特殊需求，可自行配置
        //,imageFieldName:"upfile"                   //图片数据的key,若此处修改，需要在后台对应文件修改对应参数
         //,compressSide:0                            //等比压缩的基准，确定maxImageSideLength参数的参照对象。0为按照最长边，1为按照宽度，2为按照高度
@@ -83,13 +83,9 @@ window.UEDITOR_HOME_URL = wojilu.path.js + "/lib/ueditor/"; // wojilu自定义
         ,imageManagerPath:""                                    //图片修正地址，同imagePath
 
         //附件上传配置区
-        ,fileUrl:"/Users/UserUpload/SaveUserFileUE.aspx"               //附件上传提交地址
+        ,fileUrl:"/Users/UserUpload/SaveEditorFile.aspx"               //附件上传提交地址
         ,filePath:""                   //附件修正地址，同imagePath
         //,fileFieldName:"upfile"                    //附件提交的表单名，若此处修改，需要在后台对应文件修改对应参数
-        
-        // wojilu 新增上传配置参数
-        ,fileUploadTypes : '*.7z;*.zip;*.rar' // 分号分隔
-        ,fileUploadDescription : '压缩文件'
                     
          //远程抓取配置区
         ,catchRemoteImageEnable:false               //是否开启远程图片抓取,默认开启

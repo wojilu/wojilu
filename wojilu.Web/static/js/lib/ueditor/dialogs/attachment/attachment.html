@@ -45,9 +45,9 @@
             flash_url:"../../third-party/swfupload/swfupload.swf",
             flash9_url:"../../third-party/swfupload/swfupload_fp9.swf",
             post_params: uploadAuthParams, //解决session丢失问题
-            file_size_limit:"100 MB",                                 //文件大小限制，此处仅是前端flash选择时候的限制，具体还需要和后端结合判断
-            file_types: editor.options.fileUploadTypes || "*.*",                                         //允许的扩展名，多个扩展名之间用分号隔开，支持*通配符
-            file_types_description: editor.options.fileUploadDescription ||"All Files",                      //扩展名描述
+            file_size_limit:fileMaxMB+" MB",                                 //文件大小限制，此处仅是前端flash选择时候的限制，具体还需要和后端结合判断
+            file_types: fileTypes || "*.*",                                         //允许的扩展名，多个扩展名之间用分号隔开，支持*通配符
+            file_types_description: "上传文件",                      //扩展名描述
             file_upload_limit:100,                                   //单次可同时上传的文件数目
             file_queue_limit:10,                                      //队列中可同时上传的文件数目
             custom_settings:{                                         //自定义设置，用户可在此向服务器传递自定义变量

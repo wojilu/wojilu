@@ -41,80 +41,6 @@ namespace wojilu.Web.Controller.Users {
             fileService = new UserFileService();
         }
 
-        public void GetAuthJson() {
-
-            ctx.web.ResponseContentType( "application/javascript" );
-
-            String paramName = "window.uploadAuthParams";
-
-            if (ctx.viewer.IsLogin == false) {
-                echoText( string.Format( "{0} = null;", paramName ) );
-            }
-            else {
-                String script = string.Format( "{0} = {1};", paramName, ctx.web.GetAuthJson() );
-                echoText( script );
-            }
-        }
-
-        [Login]
-        public void GetRemotePic() {
-
-            string uri = ctx.Post( "upfile" );
-            uri = uri.Replace( "&amp;", "&" );
-            string[] imgUrls = strUtil.Split( uri, "ue_separate_ue" );
-
-            string[] filetype = { ".gif", ".png", ".jpg", ".jpeg", ".bmp" };             //文件允许格式
-            int fileSize = 3000;                                                        //文件大小限制，单位kb
-
-            ArrayList tmpNames = new ArrayList();
-            WebClient wc = new WebClient();
-            HttpWebResponse res;
-            String tmpName = String.Empty;
-            String imgUrl = String.Empty;
-            String currentType = String.Empty;
-
-            try {
-                for (int i = 0, len = imgUrls.Length; i < len; i++) {
-                    imgUrl = imgUrls[i];
-
-                    if (imgUrl.Substring( 0, 7 ) != "http://") {
-                        tmpNames.Add( "error!" );
-                        continue;
-                    }
-
-                    //格式验证
-                    int temp = imgUrl.LastIndexOf( '.' );
-                    currentType = imgUrl.Substring( temp ).ToLower();
-                    if (Array.IndexOf( filetype, currentType ) == -1) {
-                        tmpNames.Add( "error!" );
-                        continue;
-                    }
-
-                    String imgPath = PageLoader.DownloadPic( imgUrl );
-                    tmpNames.Add( imgPath );
-                }
-            }
-            catch (Exception) {
-                tmpNames.Add( "error!" );
-            }
-            finally {
-                wc.Dispose();
-            }
-
-            echoJson( "{url:'" + converToString( tmpNames ) + "',tip:'远程图片抓取成功！',srcUrl:'" + uri + "'}" );
-        }
-
-        //集合转换字符串
-        private string converToString( ArrayList tmpNames ) {
-            String str = String.Empty;
-            for (int i = 0, len = tmpNames.Count; i < len; i++) {
-                str += tmpNames[i] + "ue_separate_ue";
-                if (i == tmpNames.Count - 1)
-                    str += tmpNames[i];
-            }
-            return str;
-        }
-
         [Login]
         public void MyPics() {
 
@@ -133,18 +59,6 @@ namespace wojilu.Web.Controller.Users {
         }
 
         [Login]
-        public void MyPicJson() {
-
-            List<String> imgs = new List<String>();
-            DataPage<PhotoPost> list = postService.GetByUser( ctx.viewer.Id, 15 );
-            foreach (PhotoPost post in list.Results) {
-                imgs.Add( post.ImgMediumUrl );
-            }
-
-            echoJson( new { ImgList = imgs, Pager = list.PageBar } );
-        }
-
-        [Login]
         public void UploadForm() {
 
             Boolean isFlash = ("normal".Equals( ctx.Get( "type" ) ) == false);
@@ -152,7 +66,7 @@ namespace wojilu.Web.Controller.Users {
             if (isFlash) {
 
                 view( "FlashUpload" );
-                set( "uploadLink", to( SaveFlash ) );
+                set( "uploadLink", to( SaveEditorPic ) );
 
                 set( "authJson", AdminSecurityUtils.GetAuthCookieJson( ctx ) );
 
@@ -166,41 +80,11 @@ namespace wojilu.Web.Controller.Users {
 
             }
             else {
-
-
                 target( SavePic );
-
                 String editorName = ctx.Get( "editor" );
                 set( "editorName", editorName );
-
             }
 
-        }
-
-        [Login]
-        public void SaveFlash() {
-
-            PhotoPost post = savePicPrivate();
-
-            if (ctx.HasErrors) {
-                echoError();
-                return;
-            }
-
-            // 只允许使用中略图，原始图片可能很大，影响页面效果
-            set( "picUrl", post.ImgMediumUrl );
-            set( "oPicUrl", post.ImgUrl );
-
-            //String json = "{IsValid:true, PicUrl:'" + post.ImgMediumUrl + "', OpicUrl:'" + post.ImgUrl + "'}";
-            //echoJson( json );
-
-            Dictionary<String, String> dic = new Dictionary<String, String>();
-            dic.Add( "url", post.ImgUrl ); // 图片的完整url
-            dic.Add( "title", post.Title ); // 图片名称
-            dic.Add( "original", ctx.GetFileSingle().FileName ); // 图片原始名称
-            dic.Add( "state", "SUCCESS" ); // 上传成功
-
-            echoJson( dic );
         }
 
         [Login]
@@ -250,7 +134,6 @@ namespace wojilu.Web.Controller.Users {
             postService.CreatePostTemp( post );
 
             return post;
-
         }
 
         //---------------------------------------------------------------------
@@ -282,34 +165,6 @@ namespace wojilu.Web.Controller.Users {
                 dic.Add( "FileName", att.Name );
                 dic.Add( "DeleteLink", deleteLink );
                 dic.Add( "Id", att.Id.ToString() );
-
-                echoJson( dic );
-            }
-        }
-
-        [Login, DbTransaction]
-        public void SaveUserFileUE() {
-
-            Result result = fileService.SaveFile( ctx.GetFileSingle(), ctx.Ip, ctx.viewer.obj as User, ctx.owner.obj );
-
-            Dictionary<String, String> dic = new Dictionary<String, String>();
-
-            if (result.HasErrors) {
-
-                dic.Add( "state", result.ErrorsText );
-
-                echoJson( dic );
-            }
-            else {
-
-                UserFile att = result.Info as UserFile;
-
-                updateDataInfo( att );
-
-                dic.Add( "state", "SUCCESS" );
-                dic.Add( "url", att.PathFull );
-                dic.Add( "fileType", att.Ext );
-                dic.Add( "original", att.FileName );
 
                 echoJson( dic );
             }
@@ -385,6 +240,180 @@ namespace wojilu.Web.Controller.Users {
             }
 
         }
+
+
+        //-----------------以下是编辑器上传功能-------------------------------------------------
+
+
+        public void GetAuthJson() {
+
+            ctx.web.ResponseContentType( "application/javascript" );
+
+            String paramAuth = "window.uploadAuthParams";
+            String paramFileSizeMB = "window.fileMaxMB";
+            String paramPicSizeMB = "window.picMaxMB";
+
+            String paramFileTypes = "window.fileTypes";
+            String paramPicTypes = "window.picTypes";
+
+
+            if (ctx.viewer.IsLogin == false) {
+                echoText( string.Format( "{0} = null;{1}=0;{2}=0;{3}='';{4}='';", paramAuth, paramFileSizeMB, paramPicSizeMB, paramFileTypes, paramPicTypes ) );
+            }
+            else {
+                String script = string.Format( "{0} = {1};{2}={3};{4}={5};{6}='{7}';{8}='{9}';",
+                    paramAuth, ctx.web.GetAuthJson(),
+                    paramFileSizeMB, config.Instance.Site.UploadFileMaxMB,
+                    paramPicSizeMB, config.Instance.Site.UploadPicMaxMB,
+                    paramFileTypes, getExtString( config.Instance.Site.UploadFileTypes ),
+                    paramPicTypes, getExtString( config.Instance.Site.UploadPicTypes )
+                    );
+                echoText( script );
+            }
+        }
+
+        /// <summary>
+        /// 返回 *.7z;*.zip;*.rar
+        /// </summary>
+        /// <param name="arrExt"></param>
+        /// <returns></returns> 
+        private String getExtString( string[] arrExt ) {
+
+            String str = "";
+            foreach (String ext in arrExt) {
+                if (strUtil.IsNullOrEmpty( ext )) continue;
+                str += strUtil.Join( "*", ext, "." ) + ";";
+            }
+
+            return str;
+        }
+
+
+        [Login]
+        public void GetRemotePic() {
+
+            string uri = ctx.Post( "upfile" );
+            uri = uri.Replace( "&amp;", "&" );
+            string[] imgUrls = strUtil.Split( uri, "ue_separate_ue" );
+
+            string[] filetype = { ".gif", ".png", ".jpg", ".jpeg", ".bmp" };             //文件允许格式
+            int fileSize = 3000;                                                        //文件大小限制，单位kb
+
+            ArrayList tmpNames = new ArrayList();
+            WebClient wc = new WebClient();
+            HttpWebResponse res;
+            String tmpName = String.Empty;
+            String imgUrl = String.Empty;
+            String currentType = String.Empty;
+
+            try {
+                for (int i = 0, len = imgUrls.Length; i < len; i++) {
+                    imgUrl = imgUrls[i];
+
+                    if (imgUrl.Substring( 0, 7 ) != "http://") {
+                        tmpNames.Add( "error!" );
+                        continue;
+                    }
+
+                    //格式验证
+                    int temp = imgUrl.LastIndexOf( '.' );
+                    currentType = imgUrl.Substring( temp ).ToLower();
+                    if (Array.IndexOf( filetype, currentType ) == -1) {
+                        tmpNames.Add( "error!" );
+                        continue;
+                    }
+
+                    String imgPath = PageLoader.DownloadPic( imgUrl );
+                    tmpNames.Add( imgPath );
+                }
+            }
+            catch (Exception) {
+                tmpNames.Add( "error!" );
+            }
+            finally {
+                wc.Dispose();
+            }
+
+            echoJson( "{url:'" + converToString( tmpNames ) + "',tip:'远程图片抓取成功！',srcUrl:'" + uri + "'}" );
+        }
+
+        //集合转换字符串
+        private string converToString( ArrayList tmpNames ) {
+            String str = String.Empty;
+            for (int i = 0, len = tmpNames.Count; i < len; i++) {
+                str += tmpNames[i] + "ue_separate_ue";
+                if (i == tmpNames.Count - 1)
+                    str += tmpNames[i];
+            }
+            return str;
+        }
+
+
+        [Login]
+        public void MyPicJson() {
+
+            List<String> imgs = new List<String>();
+            DataPage<PhotoPost> list = postService.GetByUser( ctx.viewer.Id, 15 );
+            foreach (PhotoPost post in list.Results) {
+                imgs.Add( post.ImgMediumUrl );
+            }
+
+            echoJson( new { ImgList = imgs, Pager = list.PageBar } );
+        }
+
+
+        [Login]
+        public void SaveEditorPic() {
+
+            PhotoPost post = savePicPrivate();
+
+            if (ctx.HasErrors) {
+                echoError();
+                return;
+            }
+
+            // 只允许使用中略图，原始图片可能很大，影响页面效果
+            set( "picUrl", post.ImgMediumUrl );
+            set( "oPicUrl", post.ImgUrl );
+
+            Dictionary<String, String> dic = new Dictionary<String, String>();
+            dic.Add( "url", post.ImgUrl ); // 图片的完整url
+            dic.Add( "title", post.Title ); // 图片名称
+            dic.Add( "original", ctx.GetFileSingle().FileName ); // 图片原始名称
+            dic.Add( "state", "SUCCESS" ); // 上传成功
+
+            echoJson( dic );
+        }
+
+
+        [Login, DbTransaction]
+        public void SaveEditorFile() {
+
+            Result result = fileService.SaveFile( ctx.GetFileSingle(), ctx.Ip, ctx.viewer.obj as User, ctx.owner.obj );
+
+            Dictionary<String, String> dic = new Dictionary<String, String>();
+
+            if (result.HasErrors) {
+
+                dic.Add( "state", result.ErrorsText );
+
+                echoJson( dic );
+            }
+            else {
+
+                UserFile att = result.Info as UserFile;
+
+                updateDataInfo( att );
+
+                dic.Add( "state", "SUCCESS" );
+                dic.Add( "url", att.PathFull );
+                dic.Add( "fileType", att.Ext );
+                dic.Add( "original", att.FileName );
+
+                echoJson( dic );
+            }
+        }
+
 
     }
 
