@@ -142,7 +142,9 @@ namespace wojilu.Web.Controller.Forum.Moderators {
 
             postService.DeleteToTrash( post, (User)ctx.viewer.obj, ctx.Ip );
 
-            echoRedirect( lang( "opok" ) );
+            ForumTopic topic = topicService.GetById( post.TopicId, ctx.owner.obj );
+
+            echoRedirect( lang( "opok" ), alink.ToAppData( topic ) );
         }
 
         public void DeleteTopic( int id ) {
