@@ -75,6 +75,64 @@ namespace wojilu.Apps.Forum.Domain {
 
         //---------------------------------------- 减少置顶的帖子 ---------------------------------------------------------
 
+        public static void DeleteTopic( int appId, String ids ) {
+
+
+            ForumApp app = ForumApp.findById( appId );
+            if (app == null) return;
+            List<StickyTopic> stickyList = GetTopics( app.StickyTopic );
+            List<StickyTopic> list = new List<StickyTopic>();
+            Boolean shouldDelete = false;
+
+            int[] arrIds = cvt.ToIntArray( ids );
+
+            foreach (StickyTopic x in stickyList) {
+                if (containsTopicId( arrIds, x.Id )) {
+                    shouldDelete = true;
+                    continue;
+                }
+                list.Add( x );
+            }
+
+            if (shouldDelete) {
+                String newJson = Json.ToStringList( list );
+                app.StickyTopic = newJson;
+                app.update();
+            }
+        }
+
+        private static bool containsTopicId( int[] arrIds, int topicId ) {
+
+            foreach (int id in arrIds) {
+                if (id == topicId) return true;
+            }
+
+            return false;
+        }
+
+        public static void DeleteTopic( ForumTopic topic ) {
+
+            ForumApp app = ForumApp.findById( topic.AppId );
+            if (app == null) return;
+
+            List<StickyTopic> stickyList = GetTopics( app.StickyTopic );
+            List<StickyTopic> list = new List<StickyTopic>();
+            Boolean shouldDelete = false;
+            foreach (StickyTopic x in stickyList) {
+                if (x.Id == topic.Id) {
+                    shouldDelete = true;
+                    continue;
+                }
+                list.Add( x );
+            }
+
+            if (shouldDelete) {
+                String newJson = Json.ToStringList( list );
+                app.StickyTopic = newJson;
+                app.update();
+            }
+        }
+
 
         public static String SubtractData( String json, List<ForumTopic> newStickTopics ) {
 

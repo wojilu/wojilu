@@ -575,6 +575,9 @@ namespace wojilu.Apps.Forum.Service {
                 incomeService.AddIncome( topic.Creator, UserAction.Forum_TopicDeleted.Id, msg );
             }
 
+            // 检查总置顶帖子缓存
+            StickyTopic.DeleteTopic( topic );
+
             logService.AddTopic( creator, topic.AppId, topic.Id, ForumLogAction.Delete, ip );
         }
 
@@ -750,6 +753,10 @@ namespace wojilu.Apps.Forum.Service {
             DeleteListToTrash( av.Ids );
             // 积分规则中本身定义的是负值，所以此处用AddIncome
             AddAuthorIncome( av.Condition, UserAction.Forum_TopicDeleted.Id, "删除" );
+
+            // 检查总置顶
+            StickyTopic.DeleteTopic( av.AppId, av.Ids );
+
             makeLog( av );
         }
 
