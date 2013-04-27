@@ -140,5 +140,21 @@ namespace wojilu.Test.Common {
 
         }
 
+
+        [Test]
+        public void testTimeSubstract() {
+
+            DateTime x1 = cvt.ToTime( "2013/1/16 15:22:11" );
+            DateTime x2 = cvt.ToTime( "2013/1/16 15:22:19" );
+            Assert.AreEqual( 8, x2.Subtract( x1 ).Seconds );
+
+            x1 = cvt.ToTime( "2013/1/16 15:22:11" );
+            x2 = cvt.ToTime( "2013/1/16 15:23:19" );
+            Assert.AreEqual( 8, x2.Subtract( x1 ).Seconds );
+            Assert.AreEqual( 68, x2.Subtract( x1 ).TotalSeconds );
+            Assert.AreEqual( 1, x2.Subtract( x1 ).Minutes );
+
+        }
+
     }
 }

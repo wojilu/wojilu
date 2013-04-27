@@ -14,6 +14,20 @@ namespace wojilu.Web.Controller.Forum.Utils {
 
     public class ForumValidator {
 
+        public static void AddCreateTime( MvcContext ctx ) {
+            ctx.web.SessionSet( "__forumLastPublish", DateTime.Now );
+        }
+
+        public static Boolean IsIntervalShort( MvcContext ctx ) {
+            Object objLast = ctx.web.SessionGet( "__forumLastPublish" );
+            if (objLast == null) return false;
+
+            ForumApp app = ctx.app.obj as ForumApp;
+            ForumSetting setting = app.GetSettingsObj();
+
+            return DateTime.Now.Subtract( (DateTime)objLast ).TotalSeconds <= setting.ReplyInterval;
+        }
+
         public static ForumBoard ValidateBoard( MvcContext ctx ) {
             return ValidateBoard( null, ctx );
         }

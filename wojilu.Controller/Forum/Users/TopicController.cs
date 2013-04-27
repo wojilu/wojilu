@@ -97,6 +97,11 @@ namespace wojilu.Web.Controller.Forum.Users {
         [HttpPost, DbTransaction]
         public void Create() {
 
+            if (ForumValidator.IsIntervalShort( ctx )) {
+                echoError( "对不起，您发布太快，请稍等一会儿再发布" );
+                return;
+            }
+
             int boardId = ctx.GetInt( "boardId" );
 
             ForumBoard board = boardService.GetById( boardId, ctx.owner.obj );
@@ -132,6 +137,7 @@ namespace wojilu.Web.Controller.Forum.Users {
             }
 
             echoRedirect( lang( "opok" ), alink.ToAppData( topic ) );
+            ForumValidator.AddCreateTime( ctx );
         }
 
 

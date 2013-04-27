@@ -85,9 +85,7 @@ namespace wojilu.Web.Controller.Forum.Users {
         [HttpPost, DbTransaction]
         public void Create() {
 
-
-
-            if (isIntervalShort()) {
+            if (ForumValidator.IsIntervalShort( ctx )) {
                 echoError( "对不起，您发布太快，请稍等一会儿再发布" );
                 return;
             }
@@ -123,7 +121,7 @@ namespace wojilu.Web.Controller.Forum.Users {
                 echoRedirect( lang( "opok" ), lnkTopicLastPage );
             }
 
-            ctx.web.SessionSet( "__forumLastReplied", DateTime.Now );
+            ForumValidator.AddCreateTime( ctx );
         }
 
         private void echoAjaxUpdate( ForumPost post, ForumBoard board, int lastPageNo ) {
@@ -135,16 +133,6 @@ namespace wojilu.Web.Controller.Forum.Users {
                 String lnkTopicLastPage = getTopicLastPage( post, lastPageNo );
                 echoJsonMsg( "redirect", true, lnkTopicLastPage );
             }
-        }
-
-        private bool isIntervalShort() {
-            Object objLast = ctx.web.SessionGet( "__forumLastReplied" );
-            if (objLast == null) return false;
-
-            ForumApp app = ctx.app.obj as ForumApp;
-            ForumSetting setting = app.GetSettingsObj();
-
-            return DateTime.Now.Subtract( (DateTime)objLast ).Seconds <= setting.ReplyInterval;
         }
 
         private int getLastPageNo( ForumPost post ) {
