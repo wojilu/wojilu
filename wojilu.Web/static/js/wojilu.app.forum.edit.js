@@ -59,13 +59,14 @@ define( [], function() {
 			var tagSpan = $( '#'+$('#tagId').val() );
 			var postId = tagSpan.attr( 'postId' );
 			$.post( tagAction.toAjax(), {'postId':postId ,'tagValue':tagValue}, function(data) {
-				btn.attr( 'disabled', '' );
+				btn.attr( 'disabled', false );
 				if( 'ok'==data ) {
 					tagSpan.text( tagValue );
 					$("#tagBox").toggle('fast');
 				}
-				else
+				else {
 					alert( data );
+                }
 			});
 		});
 		
