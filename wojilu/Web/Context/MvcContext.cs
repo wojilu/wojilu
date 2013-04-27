@@ -524,7 +524,8 @@ namespace wojilu.Web.Context {
         }
 
         /// <summary>
-        /// 获取客户端 post 的 html，结果已被过滤，只有在白名单中的 tag 才被允许
+        /// 获取客户端 post 的 html，结果已被过滤(管理员除外)，只有在白名单中的 tag 才被允许。
+        /// <para>自定义白名单方法：修改 mvc.config 中的 tagWhiteList 项。</para>
         /// </summary>
         /// <param name="postItem"></param>
         /// <returns></returns>

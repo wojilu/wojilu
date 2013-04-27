@@ -98,6 +98,7 @@
     <Content Include="framework\views\Demo\Editor\Uparsedemo.html" />
     <Content Include="framework\views\Demo\Menu\Multi.html" />
     <Content Include="framework\views\Demo\Valid\Editor.html" />
+    <Content Include="framework\views\Demo\Valid\HtmlPost.html" />
     <Content Include="framework\views\Main\connectLogin.html" />
     <Content Include="framework\views\Main\LoginBox.html" />
     <Content Include="framework\views\Open\Admin\CommentBase\List.html" />

@@ -22,6 +22,22 @@ namespace wojilu.Web.Controller.Demo {
             echo( "当前提交方法："+ctx.HttpMethod );
         }
 
+        public void HtmlPost() {
+            target( HtmlPostShow );
+        }
+
+        public void HtmlPostShow() {
+
+            StringBuilder sb = new StringBuilder();
+            foreach (KeyValuePair<String, String> kv in wojilu.Web.Utils.Tags.TagWhitelist.GetInstance()) {
+                sb.Append( kv.Key + "<br/>" );
+            }
+
+            String str = ctx.PostHtml( "content" );
+
+            echoText( sb + "<hr><br/>" + str );
+        }
+
 
         private static readonly String cookieName = "__wojilu_demo_cookie_test";
 

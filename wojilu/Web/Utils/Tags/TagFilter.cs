@@ -19,6 +19,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Text.RegularExpressions;
 using wojilu.Web.Utils;
+using wojilu.Web.Mvc;
 
 namespace wojilu.Web.Utils.Tags {
 
@@ -31,6 +32,7 @@ namespace wojilu.Web.Utils.Tags {
 
 
         public static String Clear( String input ) {
+            if (TagWhitelist.IsAllowAllHtml()) return input;
             return Clear( input, TagWhitelist.GetInstance(), true );
         }
 

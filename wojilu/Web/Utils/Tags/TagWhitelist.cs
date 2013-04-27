@@ -21,9 +21,20 @@ using wojilu.Web.Mvc;
 
 namespace wojilu.Web.Utils.Tags {
 
-    internal class TagWhitelist {
+    public class TagWhitelist {
 
         private static readonly Dictionary<String, String> whitelist = getConfigWhiteList();
+
+        /// <summary>
+        /// 是否允许所有的html标签
+        /// </summary>
+        /// <returns></returns>
+        public static Boolean IsAllowAllHtml() {
+            foreach (String tag in MvcConfig.Instance.TagWhitelist) {
+                if (tag == "*") return true;
+            }
+            return false;
+        }
 
         private static Dictionary<String, String> getConfigWhiteList() {
 
@@ -38,9 +49,12 @@ namespace wojilu.Web.Utils.Tags {
 
                 String key = rTag.ToLower();
 
-                if (defaultValues.ContainsKey( key ) == false) continue;
-
-                dic.Add( key, defaultValues[key] );
+                if (defaultValues.ContainsKey( key ) == false) {
+                    dic.Add( key, "" );
+                }
+                else {
+                    dic.Add( key, defaultValues[key] );
+                }
 
             }
 
