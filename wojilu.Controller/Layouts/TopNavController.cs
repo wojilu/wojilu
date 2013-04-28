@@ -195,7 +195,7 @@ _run( function() {
 
             dic.Add( "viewerTemplateUrl", Link.To( user, new Users.Admin.SkinController().My ) );
 
-            dic.Add( "viewerMsg", Link.To( user, new MsgController().All ) );
+            dic.Add( "viewerMsg", Link.To( user, new MsgController().Index ) );
             dic.Add( "viewerNewMsgCount", this.getMsgCount() );
             dic.Add( "viewerNewNotificationCount", this.getNewNotificationCount() );
             dic.Add( "viewerNewMicroblogAtCount", this.getNewMicroblogAtCount() );

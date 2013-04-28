@@ -47,10 +47,6 @@ namespace wojilu.Web.Controller.Users.Admin {
 
         //-------------------------------------------------------------------------------
 
-        public void All() {
-            set( "myMsgLink", to( Index ) );
-        }
-
         public void Index() {
             set( "actionTitle", lang( "allMsg" ) );
             set( "adminAction", to( Admin ) );
@@ -293,11 +289,7 @@ namespace wojilu.Web.Controller.Users.Admin {
 
             msgService.DeleteToTrash( msg );
 
-
-            redirectUrl( to( All ) + "?frm=true" );
-
-
-
+            redirectUrl( to( Index ) + "?frm=true" );
         }
 
 

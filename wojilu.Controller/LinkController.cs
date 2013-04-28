@@ -37,7 +37,7 @@ namespace wojilu.Web.Controller {
 
         [Login]
         public void MyMsg() {
-            redirectDirect( Link.To( ctx.viewer.obj, new wojilu.Web.Controller.Users.Admin.MsgController().All ) );
+            redirectDirect( Link.To( ctx.viewer.obj, new wojilu.Web.Controller.Users.Admin.MsgController().Index ) );
         }
 
         [Login]

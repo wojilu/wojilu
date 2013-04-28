@@ -38,7 +38,7 @@ namespace wojilu.Web.Controller.Microblogs {
             block.Set( "myHomeLink", Link.To( ctx.viewer.obj, new Microblogs.My.MicroblogController().Home ) );
             block.Set( "myPageLink", alink.ToUserMicroblog( ctx.viewer.obj ) );
             block.Set( "atmeLink", to( new My.MicroblogController().Atme ) );
-            block.Set( "msgLink", to( new Users.Admin.MsgController().All ) );
+            block.Set( "msgLink", to( new Users.Admin.MsgController().Index ) );
 
 
             block.Set( "searchAction", to( new My.MicroblogController().Search ) );
