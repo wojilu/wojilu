@@ -69,7 +69,7 @@ namespace wojilu.Web.Controller.Admin {
                 return;
             }
 
-            r.delete();
+            Resource.Delete( r );
 
             redirect( ResourceList, r.TypeId );
         }

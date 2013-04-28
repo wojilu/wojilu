@@ -50,6 +50,14 @@ namespace wojilu.Common.Skins {
             return Resource.findPage( "TypeId=" + typeId, pageSize );
         }
 
+        public static void Delete( Resource r ) {
+            r.delete();
+
+            String picPath = strUtil.Join( sys.Path.DiskPhoto, r.Url );
+            wojilu.Drawing.Img.DeleteImgAndThumb( picPath );
+
+        }
+
     }
 
 }
