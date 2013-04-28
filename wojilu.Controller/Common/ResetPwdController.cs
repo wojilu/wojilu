@@ -29,7 +29,9 @@ namespace wojilu.Web.Controller.Common {
         }
 
         public override void CheckPermission() {
-            if (ctx.viewer.IsLogin) echoRedirect( lang( "exLogged" ) );
+            if (ctx.viewer.IsLogin) {
+                echoRedirect( lang( "exLogged" ), sys.Url.SiteUrl );
+            }
         }
 
         public override void Layout() {
