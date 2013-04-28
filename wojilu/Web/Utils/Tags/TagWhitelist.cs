@@ -21,6 +21,20 @@ using wojilu.Web.Mvc;
 
 namespace wojilu.Web.Utils.Tags {
 
+    public class TagConfigItem {
+        public String TagName;
+        public List<String> PropertyList;
+
+        public String GetPropertyString() {
+            if ( this.PropertyList==null || this.PropertyList.Count == 0) return "";
+            String str = "";
+            foreach (String x in this.PropertyList) {
+                str += x + ",";
+            }
+            return str.TrimEnd( ',' );
+        }
+    }
+
     public class TagWhitelist {
 
         private static readonly Dictionary<String, String> whitelist = getConfigWhiteList();
@@ -49,16 +63,47 @@ namespace wojilu.Web.Utils.Tags {
 
                 String key = rTag.ToLower();
 
-                if (defaultValues.ContainsKey( key ) == false) {
-                    dic.Add( key, "" );
+                TagConfigItem item = getTagItem( key );
+
+                if (item.PropertyList.Count > 0) {
+                    dic.Add( item.TagName, item.GetPropertyString() );
+                }
+                else if (defaultValues.ContainsKey( key )) {
+                    dic.Add( item.TagName, defaultValues[key] );
                 }
                 else {
-                    dic.Add( key, defaultValues[key] );
+                    dic.Add( item.TagName, "" );
                 }
 
             }
 
             return dic;
+        }
+
+        // script(id/name/type)
+        private static TagConfigItem getTagItem( string key ) {
+
+            TagConfigItem x = new TagConfigItem();
+            x.PropertyList = new List<String>();
+
+            key = key.Trim().TrimEnd( ')' );
+            String[] arr = key.Split( '(' );
+
+            if (arr.Length == 2 ) {
+
+                x.TagName = arr[0].Trim();
+                String[] arrProperty = arr[1].Split( '/' );
+                foreach (String p in arrProperty) {
+                    if (strUtil.IsNullOrEmpty( p )) continue;
+                    x.PropertyList.Add( p.Trim() );
+                }
+
+            }
+            else {
+                x.TagName = key;
+            }
+
+            return x;
         }
 
         // 默认允许属性id,class,style

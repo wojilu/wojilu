@@ -35,7 +35,7 @@ namespace wojilu.Web.Controller.Demo {
 
             String str = ctx.PostHtml( "content" );
 
-            echoText( sb + "<hr><br/>" + str );
+            echoText( sb + "<hr>" + str );
         }
 
 
