@@ -146,6 +146,8 @@ namespace wojilu {
             _siteSetting.AvatarThumbHeightBig = cvt.ToInt( getVal( dic, "AvatarThumbHeightBig" ) );
             _siteSetting.AvatarThumbWidthBig = cvt.ToInt( getVal( dic, "AvatarThumbWidthBig" ) );
 
+            _siteSetting.PhotoThumbMode = getVal( dic, "PhotoThumbMode" );
+
             _siteSetting.UploadFileTypes = _siteSetting.getArrayValue( dic, "UploadFileTypes" );
             _siteSetting.UploadPicTypes = _siteSetting.getArrayValue( dic, "UploadPicTypes" );
 

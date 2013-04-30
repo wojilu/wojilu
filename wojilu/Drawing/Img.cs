@@ -110,13 +110,36 @@ namespace wojilu.Drawing {
         }
 
         /// <summary>
+        /// 获取上传文件(图片或其他类型)的随机文件名。
+        /// <para>返回完整绝对路径，比如 d:\www\static\upload\image\2009\9\28\1530703343314547.zip</para>
+        /// </summary>
+        /// <param name="ext">文件类型，比如 jpg 或者 png</param>
+        /// <returns>返回完整绝对路径，比如 d:\www\static\upload\image\2009\9\28\1530703343314547.zip</returns>
+        public static String GetPhotoAbsName( String ext ) {
+            String targetPath = GetPhotoName( ext );
+            return PathHelper.Map( strUtil.Join( sys.Path.DiskPhoto, targetPath ) );
+        }
+
+        /// <summary>
+        /// 获取上传文件(图片或其他类型)的随机文件名。
+        /// <para>返回 2009/9/28/1530703343314547.jpg 类似格式。</para> 
+        /// <para>如果文件夹不存在，则自动创建。</para> 
+        /// </summary>
+        /// <remarks>如果日期文件夹不存在，则在磁盘上自动创建文件夹，存放在 sys.Path.DiskPhoto 中</remarks>
+        /// <param name="ext">文件类型，比如 jpg 或者 png</param>
+        /// <returns>返回文件名称，包括所在文件夹，比如 2009/9/28/1530703343314547.zip</returns>
+        public static String GetPhotoName( String ext ) {
+            return GetFileName( PathHelper.Map( sys.Path.DiskPhoto ), ext );
+        }
+
+        /// <summary>
         /// 获取文件的随机文件名(会添加日期文件夹和随机文件名)，比如 2009/9/28/1530703343314547.zip
         /// </summary>
         /// <remarks>如果日期文件夹不存在，则在磁盘上自动创建文件夹</remarks>
-        /// <param name="pathName">存储路径</param>
-        /// <param name="fileExt">文件类型</param>
+        /// <param name="absPath">存储的绝对路径，比如 PathHelper.Map( sys.Path.DiskPhoto )</param>
+        /// <param name="fileExt">文件类型，比如 jpg 或者 png</param>
         /// <returns>返回文件名称，包括所在文件夹，比如 2009/9/28/1530703343314547.zip</returns>
-        public static String GetFileName( String pathName, String fileExt ) {
+        public static String GetFileName( String absPath, String fileExt ) {
             DateTime now = DateTime.Now;
             String strDate = getDirName( now );
 
@@ -124,7 +147,7 @@ namespace wojilu.Drawing {
             String strFile = now.Hour.ToString() + now.Minute.ToString() + now.Second.ToString() + now.Millisecond.ToString() + strRandom;
             strFile = strUtil.Join( strFile, fileExt, "." );
 
-            String path = Path.Combine( pathName, strDate );
+            String path = Path.Combine( absPath, strDate );
             if (!Directory.Exists( path )) {
                 Directory.CreateDirectory( path );
             }
@@ -410,6 +433,33 @@ namespace wojilu.Drawing {
             if (t.Equals( "image/x-wmf" )) return ImageFormat.Wmf;
 
             return ImageFormat.MemoryBmp;
+        }
+
+        /// <summary>
+        /// 将图片拷贝到上传目录中，并生成中、小缩略图
+        /// </summary>
+        /// <param name="oPath">原始相对路径</param>
+        /// <returns>返回图片名称，包括所在文件夹，比如 2009/9/28/1530703343314547.jpg</returns>
+        public static string CopyToUploadPath( String oPath ) {
+            oPath = PathHelper.Map( oPath );
+
+            // 需要保存的路径
+            String shortPath = Img.GetPhotoName( Path.GetExtension( oPath ) );
+            String targetPath = PathHelper.Map( strUtil.Join( sys.Path.DiskPhoto, shortPath ) );
+            logger.Info( "copy pic. oPath=" + oPath + ", target=" + targetPath );
+
+            // 1) 复制原图
+            file.Copy( oPath, targetPath );
+
+            // 2) 生成最小缩略图
+            String sPath = Img.GetThumbPath( targetPath, ThumbnailType.Small );
+            Img.SaveThumbnail( oPath, sPath, config.Instance.Site.PhotoThumbWidth, config.Instance.Site.PhotoThumbHeight, config.Instance.Site.GetPhotoThumbMode() );
+
+            // 3) 生成中等缩略图
+            String mPath = Img.GetThumbPath( targetPath, ThumbnailType.Medium );
+            Img.SaveThumbnail( oPath, mPath, config.Instance.Site.PhotoThumbWidthMedium, config.Instance.Site.PhotoThumbHeightMedium, SaveThumbnailMode.Auto );
+
+            return shortPath;
         }
 
 

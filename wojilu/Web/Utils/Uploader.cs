@@ -77,7 +77,7 @@ namespace wojilu.Web.Utils {
         /// <param name="postedFile"></param>
         /// <returns></returns>
         public static Result SaveSiteLogo( HttpFile postedFile ) {
-            return SaveImg( sys.Path.DiskPhoto, postedFile, "logo", config.Instance.Site.LogoWidth, config.Instance.Site.LogoHeight );
+            return SaveImg( sys.Path.DiskPhoto, postedFile, "logo", config.Instance.Site.LogoWidth, config.Instance.Site.LogoHeight, SaveThumbnailMode.Cut );
         }
 
         /// <summary>
@@ -191,7 +191,7 @@ namespace wojilu.Web.Utils {
             if (ttype == ThumbnailType.Small) {
                 x = config.Instance.Site.PhotoThumbWidth;
                 y = config.Instance.Site.PhotoThumbHeight;
-                sm = SaveThumbnailMode.Cut;
+                sm = config.Instance.Site.GetPhotoThumbMode();
             }
             else if (ttype == ThumbnailType.Medium) {
                 x = config.Instance.Site.PhotoThumbWidthMedium;
@@ -224,20 +224,6 @@ namespace wojilu.Web.Utils {
         }
 
 
-        private static Boolean shouldMakeThumb( String ofile ) {
-            try {
-                using (Image img = Image.FromFile( ofile )) {
-                    if (img.Size.Width <= 500 && img.Size.Height <= 500) return false;
-                }
-                return true;
-            }
-            catch (OutOfMemoryException ex) {
-                logger.Error( "file format error: " + ofile );
-                return false;
-            }
-        }
-
-
         /// <summary>
         /// 上传图片(自定义保存路径)，同时生成最小的缩略图
         /// </summary>
@@ -247,7 +233,7 @@ namespace wojilu.Web.Utils {
         /// <param name="width">宽度</param>
         /// <param name="height">高度</param>
         /// <returns></returns>
-        public static Result SaveImg( String uploadPath, HttpFile postedFile, String picName, int width, int height ) {
+        public static Result SaveImg( String uploadPath, HttpFile postedFile, String picName, int width, int height, SaveThumbnailMode mode ) {
             logger.Info( "uploadPath : " + uploadPath );
             logger.Info( "picName : " + picName );
             Result result = new Result();
@@ -268,8 +254,8 @@ namespace wojilu.Web.Utils {
 
                 postedFile.SaveAs( filename );
 
-                try {
-                    saveThumbImagePrivate( filename, ThumbnailType.Small, width, height, SaveThumbnailMode.Cut );
+                try {                    
+                    saveThumbImagePrivate( filename, ThumbnailType.Small, width, height, mode );
 
                     if (strUtil.HasText( oldFile )) {
                         file.Delete( oldFile );
@@ -297,6 +283,8 @@ namespace wojilu.Web.Utils {
             result.Info = Path.GetFileName( Img.GetThumbPath( filename ) );
             return result;
         }
+
+
 
 
         private static void checkUploadFile( HttpFile postedFile, Result errors ) {

@@ -19,7 +19,7 @@ namespace wojilu.Members.Groups {
         /// <param name="groupUrlName"></param>
         /// <returns></returns>
         public static Result SaveGroupLogo( HttpFile postedFile, String groupUrlName ) {
-            return Uploader.SaveImg( sys.Path.DiskGroupLogo, postedFile, groupUrlName, GroupSetting.Instance.LogoWidth, GroupSetting.Instance.LogoHeight );
+            return Uploader.SaveImg( sys.Path.DiskGroupLogo, postedFile, groupUrlName, GroupSetting.Instance.LogoWidth, GroupSetting.Instance.LogoHeight, Drawing.SaveThumbnailMode.Cut );
         }
     }
 

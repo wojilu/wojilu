@@ -96,7 +96,7 @@ namespace wojilu.Members {
         }
 
         public Result SaveLogo( HttpFile afile, String url ) {
-            return Uploader.SaveImg( this.LogoDiskPath, afile, url, this.LogoWidth, this.LogoHeight );
+            return Uploader.SaveImg( this.LogoDiskPath, afile, url, this.LogoWidth, this.LogoHeight, SaveThumbnailMode.Cut );
         }
 
         //------------------------------------------------------

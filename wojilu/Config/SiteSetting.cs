@@ -21,6 +21,7 @@ using System.Text;
 using System.Collections.Generic;
 using wojilu.Web.Handler;
 using wojilu.Web.Mvc;
+using wojilu.Drawing;
 
 namespace wojilu.Config {
 
@@ -587,6 +588,27 @@ namespace wojilu.Config {
 
 
         //----------------------------------------------------------------
+
+        /// <summary>
+        /// 上传图片时，生成小型缩略图的模式，可填写5种：auto,cut, x, y, xy。
+        /// <para>含义依次是：auto(自动)，cut(裁切)，x(根据宽度)，y(根据高度)，xy(根据宽高)</para>
+        /// <para>如果不填写，默认使用auto</para>
+        /// </summary>
+        public String PhotoThumbMode { get; set; }
+
+        /// <summary>
+        /// 获取小型缩略图生成模式
+        /// </summary>
+        /// <returns></returns>
+        public SaveThumbnailMode GetPhotoThumbMode( ) {
+            String mode = this.PhotoThumbMode;
+            if (strUtil.IsNullOrEmpty( mode )) return SaveThumbnailMode.Auto;
+            if (strUtil.EqualsIgnoreCase( mode, "cut" )) return SaveThumbnailMode.Cut;
+            if (strUtil.EqualsIgnoreCase( mode, "x" )) return SaveThumbnailMode.ByWidth;
+            if (strUtil.EqualsIgnoreCase( mode, "y" )) return SaveThumbnailMode.ByHeight;
+            if (strUtil.EqualsIgnoreCase( mode, "xy" )) return SaveThumbnailMode.ByWidthHeight;
+            return SaveThumbnailMode.Auto;
+        }
 
         public int PhotoThumbHeight { get; set; }
         public int PhotoThumbWidth { get; set; }
