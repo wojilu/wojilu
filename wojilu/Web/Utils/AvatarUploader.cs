@@ -153,12 +153,37 @@ namespace wojilu.Web.Utils {
 
             Result result = new Result();
 
-            Uploader.checkUploadPic( postedFile, result );
+            checkUploadPic( postedFile, result );
             if (result.HasErrors) return result;
 
             AvatarSaver aSaver = AvatarSaver.New( postedFile );
 
             return savePicCommon( aSaver, userId, result, uploadPath );
+        }
+
+        private static void checkUploadPic( HttpFile postedFile, Result errors ) {
+
+            if (postedFile == null) {
+                errors.Add( lang.get( "exPlsUpload" ) );
+                return;
+            }
+
+            // 检查文件大小
+            if (postedFile.ContentLength <= 1) {
+                errors.Add( lang.get( "exPlsUpload" ) );
+                return;
+            }
+
+            int uploadMax = 1024 * config.Instance.Site.UploadAvatarMaxKB;
+            if (postedFile.ContentLength > uploadMax) {
+                errors.Add( lang.get( "exUploadMax" ) + " " + config.Instance.Site.UploadAvatarMaxKB + " KB" );
+                return;
+            }
+
+            // 检查文件格式
+            if (Uploader.IsAllowedPic( postedFile ) == false) {
+                errors.Add( lang.get( "exUploadType" ) + ":" + postedFile.FileName + "(" + postedFile.ContentType + ")" );
+            }
         }
 
 

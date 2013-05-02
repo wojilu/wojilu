@@ -33,7 +33,7 @@
 
 #userAccountTable {float:right; border-collapse:collapse;color:#005eac; margin-right:5px;} 
 #userAccountTable td {padding:0px;}
-#userAvatar {border:2px #fff solid; padding:0px; height:23px;
+#userAvatar {border:2px #fff solid; padding:0px; height:23px; width:23px;
     border-radius: 3px;
     -moz-border-radius: 3px;
     -webkit-border-radius: 3px;

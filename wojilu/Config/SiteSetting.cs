@@ -635,12 +635,26 @@ namespace wojilu.Config {
         public String[] UploadFileTypes { get; set; }
         public String[] UploadPicTypes { get; set; }
 
+        private int _uploadAvatarMaxKB;
         private int _uploadPicMaxMB;
         private int _uploadFileMaxMB;
+
+        /// <summary>
+        /// 用户头像最大上传大小，单位KB
+        /// <para>如果不设置，默认是2000KB</para>
+        /// </summary>
+        public int UploadAvatarMaxKB {
+            get {
+                if (_uploadAvatarMaxKB == 0) return 2000;
+                return _uploadAvatarMaxKB;
+            }
+            set { _uploadAvatarMaxKB = value; }
+        }
 
 
         /// <summary>
         /// 图片最大上传的大小，单位MB
+        /// <para>如果不设置，默认是5M</para>
         /// </summary>
         public int UploadPicMaxMB {
             get {
@@ -652,6 +666,7 @@ namespace wojilu.Config {
 
         /// <summary>
         /// 图片最大上传的大小，单位MB
+        /// <para>如果不设置，默认是20M</para>
         /// </summary>
         public int UploadFileMaxMB {
             get {

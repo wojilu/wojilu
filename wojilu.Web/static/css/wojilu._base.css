@@ -160,9 +160,9 @@ td.sort img:hover {background:#333;}
 .userAvatar li img{width:48px;}
 .userAvatar li div {width:100%; text-align:center;text-overflow: clip;  -moz-text-overflow: clip;white-space: nowrap; overflow: hidden;}
 
-.avs {width:48px;}
-.avm {width:100px;}
-.avb {width:200px;}
+.avs {width:48px; height:48px;}
+.avm {width:100px; height:100px;}
+.avb {width:200px; height:200px;}
 
 input.searchs {background:url('../img/search2.gif') no-repeat;width:20px;height:20px; border:0px; cursor:pointer;}
 

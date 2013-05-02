@@ -151,6 +151,7 @@ namespace wojilu {
             _siteSetting.UploadFileTypes = _siteSetting.getArrayValue( dic, "UploadFileTypes" );
             _siteSetting.UploadPicTypes = _siteSetting.getArrayValue( dic, "UploadPicTypes" );
 
+            _siteSetting.UploadAvatarMaxKB = cvt.ToInt( getVal( dic, "UploadAvatarMaxKB" ) );
             _siteSetting.UploadPicMaxMB = cvt.ToInt( getVal( dic, "UploadPicMaxMB" ) );
             _siteSetting.UploadFileMaxMB = cvt.ToInt( getVal( dic, "UploadFileMaxMB" ) );
 

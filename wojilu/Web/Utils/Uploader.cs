@@ -150,7 +150,7 @@ namespace wojilu.Web.Utils {
 
             Result result = new Result();
 
-            checkUploadPic( postedFile, result );
+            CheckUploadPic( postedFile, result );
             if (result.HasErrors) {
                 logger.Info( result.ErrorsText );
                 return result;
@@ -238,7 +238,7 @@ namespace wojilu.Web.Utils {
             logger.Info( "picName : " + picName );
             Result result = new Result();
 
-            checkUploadPic( postedFile, result );
+            CheckUploadPic( postedFile, result );
             if (result.HasErrors) return result;
 
             String str = PathHelper.Map( uploadPath );
@@ -307,7 +307,7 @@ namespace wojilu.Web.Utils {
             }
 
             // 检查文件格式
-            if (Uploader.isAllowedFile( postedFile ) == false) {
+            if (Uploader.IsAllowedFile( postedFile ) == false) {
                 errors.Add( lang.get( "exUploadType" ) + ":" + postedFile.FileName + "(" + postedFile.ContentType + ")" );
             }
 
@@ -318,7 +318,7 @@ namespace wojilu.Web.Utils {
         /// </summary>
         /// <param name="postedFile"></param>
         /// <param name="errors"></param>
-        public static void checkUploadPic( HttpFile postedFile, Result errors ) {
+        public static void CheckUploadPic( HttpFile postedFile, Result errors ) {
 
             if (postedFile == null) {
                 errors.Add( lang.get( "exPlsUpload" ) );
@@ -338,12 +338,17 @@ namespace wojilu.Web.Utils {
             }
 
             // 检查文件格式
-            if (Uploader.isAllowedPic( postedFile ) == false) {
+            if (Uploader.IsAllowedPic( postedFile ) == false) {
                 errors.Add( lang.get( "exUploadType" ) + ":" + postedFile.FileName + "(" + postedFile.ContentType + ")" );
             }
         }
 
-        private static Boolean isAllowedFile( HttpFile pfile ) {
+        /// <summary>
+        /// 是否允许的格式
+        /// </summary>
+        /// <param name="pfile"></param>
+        /// <returns></returns>
+        private static Boolean IsAllowedFile( HttpFile pfile ) {
 
             String[] types = { "zip", "7z", "rar" };
             String[] cfgTypes = config.Instance.Site.UploadFileTypes;
@@ -360,7 +365,12 @@ namespace wojilu.Web.Utils {
             return false;
         }
 
-        private static Boolean isAllowedPic( HttpFile pfile ) {
+        /// <summary>
+        /// 是否允许的格式
+        /// </summary>
+        /// <param name="pfile"></param>
+        /// <returns></returns>
+        public static Boolean IsAllowedPic( HttpFile pfile ) {
 
             String[] types = { "jpg", "gif", "bmp", "png", "jpeg" };
             String[] cfgTypes = config.Instance.Site.UploadPicTypes;
