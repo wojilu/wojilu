@@ -184,6 +184,7 @@ table.postOne {width:100%; border-collapse:collapse; margin:auto;}
 
 	.poMember {border-top:0px;width:180px; padding:0px; vertical-align:top; background:#f3f4f8; color:#717274; border-bottom:7px solid #e2e7eb;}
 		.poFace {text-align:center; margin:10px 0px 0px 0px;}
+       .poFace img {width:100px; height:100px;}
 		.poMemberInfo {margin:5px 10px 20px 20px;}
 		.poMemberInfo div{margin:5px;line-height:100%; color:#555}
 

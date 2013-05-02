@@ -78,8 +78,9 @@ namespace wojilu.Drawing {
                 ) return;
 
             String path = PathHelper.Map( srcPath );
-            if (file.Exists( path ))
+            if (file.Exists( path )) {
                 wojilu.IO.File.Delete( path );
+            }
         }
 
         /// <summary>
@@ -213,10 +214,12 @@ namespace wojilu.Drawing {
             if (pathWithoutExt.EndsWith( "_m" )) pathWithoutExt = strUtil.TrimEnd( pathWithoutExt, "_m" );
 
             String suffix = "_s";
-            if (ttype == ThumbnailType.Medium)
+            if (ttype == ThumbnailType.Medium) {
                 suffix = "_m";
-            else if (ttype == ThumbnailType.Big)
+            }
+            else if (ttype == ThumbnailType.Big) {
                 suffix = "_b";
+            }
 
             return pathWithoutExt + suffix + ext;
         }
@@ -273,6 +276,7 @@ namespace wojilu.Drawing {
 
                         }
                     }
+
                 }
             }
             catch (OutOfMemoryException ex) {
@@ -461,7 +465,6 @@ namespace wojilu.Drawing {
 
             return shortPath;
         }
-
 
     }
 }

@@ -203,6 +203,9 @@ namespace wojilu.Web.Utils {
                     if (img.Size.Width <= x && img.Size.Height <= y) {
                         File.Copy( srcPath, thumbPath );
                     }
+                    else if (img.RawFormat.Equals( System.Drawing.Imaging.ImageFormat.Gif ) && ImageAnimator.CanAnimate( img )) {
+                        File.Copy( srcPath, thumbPath );
+                    }
                     else {
                         logger.Info( "save thumbnail..." + ttype.ToString() + ": " + srcPath + "=>" + thumbPath );
                         Img.SaveThumbnail( srcPath, thumbPath, x, y, SaveThumbnailMode.Cut );
