@@ -19,7 +19,7 @@ using wojilu.Members.Users.Interface;
 using wojilu.Members.Users.Service;
 
 using wojilu.Web.Controller.Common;
-using wojilu.Web.Controller.Utils;
+using wojilu.Web.Controller.Helpers;
 
 namespace wojilu.Web.Controller {
 
@@ -289,10 +289,10 @@ namespace wojilu.Web.Controller {
             }
 
             // 是否开启空间
-            RegUtils.CheckUserSpace( user, ctx );
+            RegHelper.CheckUserSpace( user, ctx );
 
             // 好友处理
-            RegUtils.ProcessFriend( user, ctx );
+            RegHelper.ProcessFriend( user, ctx );
 
             // 是否需要审核、激活
             if (config.Instance.Site.UserNeedApprove) {

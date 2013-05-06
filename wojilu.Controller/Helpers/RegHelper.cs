@@ -17,9 +17,9 @@ using wojilu.Web.Mvc;
 
 using wojilu.Members.Users.Interface;
 
-namespace wojilu.Web.Controller.Utils {
+namespace wojilu.Web.Controller.Helpers {
 
-    public class RegUtils {
+    public class RegHelper {
 
         // 根据邀请码注册，需要加为好友
         public static void ProcessFriend( User newRegUser, MvcContext ctx ) {

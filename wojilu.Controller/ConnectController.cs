@@ -9,10 +9,10 @@ using wojilu.Members.Users.Domain;
 using wojilu.Members.Users.Interface;
 using wojilu.Members.Users.Service;
 using wojilu.Common;
-using wojilu.Web.Controller.Utils;
 using wojilu.Web.Utils;
 using wojilu.Net;
 using wojilu.DI;
+using wojilu.Web.Controller.Helpers;
 
 namespace wojilu.Web.Controller {
 
@@ -315,7 +315,7 @@ namespace wojilu.Web.Controller {
             }
 
             // 是否开启空间
-            RegUtils.CheckUserSpace( user, ctx );
+            RegHelper.CheckUserSpace( user, ctx );
 
             // 绑定用户
             Result saveResult = connectService.Create( user, connect.GetType().FullName, accessToken );
