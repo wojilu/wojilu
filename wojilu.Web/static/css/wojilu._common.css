@@ -260,6 +260,10 @@ td.sort img:hover {background:#333;}
 .avm {width:100px; height:100px;}
 .avb {width:200px; height:200px;}
 
+.avs img{width:48px; height:48px;}
+.avm img{width:100px; height:100px;}
+.avb img{width:200px; height:200px;}
+
 input.searchs {background:url('../img/search2.gif') no-repeat;width:20px;height:20px; border:0px; cursor:pointer;}
 
 .sectionPanel {background:#; border:1px #e2e6f3 solid;margin-bottom:20px; display:block;}

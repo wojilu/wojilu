@@ -26,7 +26,7 @@
         <div class="commentPublishTableWrap">
         <table class="commentPublishTable">
             <tr>
-                <td class="cmUserFaceInfo cmUserFace"></td>
+                <td class="cmUserFaceInfo cmUserFace avs"></td>
                 <td>
                     <div><textarea name="commentBody" style="width: 100%;height:60px;"></textarea></div>
                     <div style="margin-top:5px;"><input class="btnComment btn btns" type="button" value="_{submitComment}" /></div>
@@ -69,7 +69,7 @@
     <div id="commentListWrapInner">
         <!-- BEGIN list -->
         <table class="commentItem" id="commentItem#{c.Id}"><tr>
-            <td class="cmUserFace">#{c.UserFace}</td>
+            <td class="cmUserFace avs">#{c.UserFace}</td>
             <td class="cmItemMain">
                 <div><span class="strong">#{c.UserName}</span></div>
                 <div style="color:#000;max-width:500px;">#{c.Content}</div>
@@ -85,7 +85,7 @@
 
                     <!-- BEGIN replyList -->
                     <table class="commentItem commentSubItem" id="commentItem#{c.Id}" style="width:99%;"><tr>
-                        <td class="cmUserFace">#{c.UserFace}</td>
+                        <td class="cmUserFace avs">#{c.UserFace}</td>
                         <td class="cmItemMain">
                             <div><span class="strong">#{c.UserName}</span></div>
                             <div id="replySubContent#{c.Id}" style="width:420px;">#{c.Content}</div>

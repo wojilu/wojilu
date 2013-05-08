@@ -141,7 +141,7 @@
         for (var i = 0; i < data.length; i++) {
 
             moreItems += '    <table class="commentItem"><tr>' +
-                '<td class="cmUserFace">' + data[i].UserFace + '</td>' +
+                '<td class="cmUserFace avs">' + data[i].UserFace + '</td>' +
                 '<td class="cmItemMain">' +
                 '    <div><span class="strong">' + data[i].UserName + '</span></div>' +
                 '   <div>' + data[i].Content + '</div>' +
@@ -162,7 +162,7 @@
     function appendComment (cmContent, parentId, objX) {
 
         var item = '    <table class="commentItem"><tr>' +
-            '<td class="cmUserFace">' + objX.userFace + '</td>' +
+            '<td class="cmUserFace avs">' + objX.userFace + '</td>' +
             '<td class="cmItemMain">' +
             '    <div><span class="strong">' + objX.userName + '</span></div>' +
             '   <div>' + cmContent + '</div>' +
