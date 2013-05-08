@@ -14,7 +14,7 @@
                 <span></span>
             </li>
 
-            <li>
+            <li id="addMenu">
                 <a href="#{addLink}" class="frmLink" loadTo="tabMain" nolayout=4><img src="~img/addcategory.gif" /> _{addMenu}</a>
                 <span></span>
             </li>            
@@ -25,9 +25,12 @@
 </div>
 
 <script>
-_run( function() {
-    wojilu.tool.makeTab( '.tabList', 'currentTab', '' );
-});
+    _run(function () {
+        wojilu.tool.makeTab('.tabList', 'currentTab', '');
+        if (window.location.href.toLowerCase().indexOf('addmenu') > 0) {
+            $('#addMenu').addClass('currentTab');
+        }
+    });
 </script>
 
 
