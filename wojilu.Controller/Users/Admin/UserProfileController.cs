@@ -144,12 +144,9 @@ namespace wojilu.Web.Controller.Users.Admin {
             // 页面跳转
             String redirectUrl = ctx.Post( "redirectUrl" );
             String msg = "感谢上传！";
-            if (strUtil.HasText( redirectUrl )) {
-                echoRedirect( msg, redirectUrl );
-            }
-            else {
-                echoRedirect( msg, sys.Url.SiteUrl );
-            }
+
+            echoRedirect( msg, sys.Url.SiteUrl );
+
         }
 
 
