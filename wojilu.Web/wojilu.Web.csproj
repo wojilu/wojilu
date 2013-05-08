@@ -99,6 +99,7 @@
     <Content Include="framework\views\Demo\Menu\Multi.html" />
     <Content Include="framework\views\Demo\Valid\Editor.html" />
     <Content Include="framework\views\Demo\Valid\HtmlPost.html" />
+    <Content Include="framework\views\Installer\SiteType.html" />
     <Content Include="framework\views\Main\connectLogin.html" />
     <Content Include="framework\views\Main\LoginBox.html" />
     <Content Include="framework\views\Open\Admin\CommentBase\List.html" />
@@ -491,9 +492,9 @@
     <Content Include="framework\views\Reader\Reader\Index.html" />
     <Content Include="framework\views\Reader\Reader\Users.html" />
     <Content Include="framework\views\Reader\Subscription\Show.html" />
-    <Content Include="framework\views\SiteInit\view1InitData.html" />
-    <Content Include="framework\views\SiteInit\view2Register.html" />
-    <Content Include="framework\views\SiteInit\view3Initok.html" />
+    <Content Include="framework\views\SiteInit\InitData.html" />
+    <Content Include="framework\views\SiteInit\Register.html" />
+    <Content Include="framework\views\SiteInit\Initok.html" />
     <Content Include="framework\views\Users\Admin\Credit\IncomeLog.html" />
     <Content Include="framework\views\Users\Admin\Credit\IncomeRule.html" />
     <Content Include="framework\views\Users\Admin\Credit\Layout.html" />

@@ -35,7 +35,7 @@ namespace wojilu.Web.Controller.Helpers {
 
         }
 
-        public Boolean IsInit() {
+        public Boolean HasInit() {
             if (skinService.GetSkinCount() <= 0) return false;
             if (feedService.GetTemplateBundleCount() <= 0) return false;
             return true;
@@ -44,6 +44,8 @@ namespace wojilu.Web.Controller.Helpers {
         public Boolean InitSite() {
 
             Boolean isInit = false;
+
+            backupCacheData();
 
             if (skinService.GetSkinCount() <= 0) {
                 InitSpaceSkin();
@@ -68,6 +70,16 @@ namespace wojilu.Web.Controller.Helpers {
             return isInit;
         }
 
+        private void backupCacheData() {
+            String srcPath = PathHelper.Map( strUtil.Join( cfgHelper.FrameworkRoot, "/data/" ) );
+            String destPath = PathHelper.Map( strUtil.Join( cfgHelper.FrameworkRoot, "/data_backup_" + getTimeString() + "/" ) );
+            file.CopyDirectory( srcPath, destPath, true );
+        }
+
+        private string getTimeString() {
+            DateTime x = DateTime.Now;
+            return string.Format( "{0}{1}{2}_{3}{4}{5}", x.Year, x.Month, x.Day, x.Hour, x.Minute, x.Second );
+        }
 
         public void InitForumRole() {
             ForumRole role = ForumRole.findById( 1 );
@@ -159,6 +171,7 @@ namespace wojilu.Web.Controller.Helpers {
             new SpaceSkin( "草原与树", "28/skin.css", "28/thumb.jpg" ).insert();
             new SpaceSkin( "脚印", "29/skin.css", "29/thumb.jpg" ).insert();
             new SpaceSkin( "格子", "30/skin.css", "30/thumb.jpg" ).insert();
+            new SpaceSkin( "博客", "31/skin.css", "31/thumb.jpg" ).insert();
 
 
             new GroupSkin( "默认模板", "1/skin.css", "1/thumb.jpg" ).insert();
@@ -212,6 +225,12 @@ namespace wojilu.Web.Controller.Helpers {
         }
 
         public void InitSiteFooter() {
+
+            List<FooterMenu> list = cdb.findAll<FooterMenu>();
+            foreach (FooterMenu x in list) {
+                x.delete();
+            }
+
             PageCategory category1 = createCategory( "网站信息" );
             PageCategory category2 = createCategory( "帮助中心" );
 

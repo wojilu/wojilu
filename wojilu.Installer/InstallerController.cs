@@ -1,9 +1,17 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using wojilu.Web.Mvc;
+using System.Data;
 using System.IO;
+
+using wojilu.Common;
+using wojilu.Data;
+
+using wojilu.Web.Mvc;
 using wojilu.Web.Mvc.Attr;
+
+using wojilu.Members.Users.Domain;
+using wojilu.Members.Users.Interface;
+using wojilu.Members.Users.Service;
+using wojilu.Web.Controller.Helpers;
 
 namespace wojilu.Web.Controller {
 
@@ -11,12 +19,17 @@ namespace wojilu.Web.Controller {
 
         private static readonly Random rd = new Random();
 
+        public IUserService userService { get; set; }
+        public ILoginService loginService { get; set; }
+
         public InstallerController() {
 
             HideLayout( typeof( wojilu.Web.Controller.LayoutController ) );
             HidePermission( typeof( wojilu.Web.Controller.SecurityController ) );
-        }
 
+            userService = new UserService();
+            loginService = new LoginService();
+        }
 
         public void Index() {
 
@@ -29,6 +42,7 @@ namespace wojilu.Web.Controller {
 
             set( "setConfigLink", to( setDbConfig ) );
             set( "doneLink", to( Done ) );
+            set( "setUserLink", to( setFirstUser ) );
 
             if (ctx.HasErrors) {
                 set( "writeFileMsg", string.Format( "<div class=\"warning\">{0}<br/>【提醒】请不要把项目放在桌面或者其他有特殊权限的文件夹下，文件路径不能有空格。</div>", errors.ErrorsHtml ) );
@@ -37,7 +51,72 @@ namespace wojilu.Web.Controller {
                 set( "writeFileMsg", "" );
             }
 
+            set( "userUrlPrefix", strUtil.TrimStart( strUtil.Append( ctx.url.SiteAndAppPath, "/" ), "http://" ) );
+            set( "urlExt", MvcConfig.Instance.UrlExt );
         }
+
+        [HttpPost]
+        public void setDbConfig() {
+
+            String dbType = ctx.Post( "dbType" );
+            String dbName = ctx.Post( "dbName" );
+            String connectionStr = ctx.Post( "connectionStr" );
+
+            String connectionString = createConnectionString( dbType, dbName, connectionStr );
+
+            if (ctx.HasErrors) {
+                echoText( errors.ErrorsText );
+                return;
+            }
+
+            String strConfig = getConfigTemplate();
+            Template t = new Template();
+            t.InitContent( strConfig );
+            t.Set( "connectionString", connectionString );
+            t.Set( "dbType", dbType );
+
+            String fileName = "/config/orm.config";
+            String filePath = strUtil.Join( cfgHelper.FrameworkRoot, fileName );
+            String dataPath = PathHelper.Map( filePath );
+            file.Write( dataPath, t.ToString() );
+
+            sys.Clear.ClearAll();
+
+            echoAjaxOk();
+        }
+
+        [HttpPost]
+        public void setFirstUser() {
+
+            SiteInitHelper initHelper = ObjectContext.Create<SiteInitHelper>();
+            if (initHelper.HasInit() == false) {
+                initHelper.InitSite();
+            }
+
+            String name = ctx.Post( "name" );
+            String email = ctx.Post( "email" );
+            String pwd = ctx.Post( "pwd" );
+            String pageUrl = ctx.Post( "url" );
+
+            User user = new User();
+            user.Name = name;
+            user.Pwd = pwd;
+            user.Email = email;
+            user.Url = strUtil.IsNullOrEmpty( pageUrl ) ? "admin" : pageUrl;
+
+            user = userService.Register( user, ctx );
+            if (ctx.HasErrors) {
+                echoText( errors.ErrorsText );
+            }
+            else {
+
+                RegHelper.CheckUserSpace( user, ctx );
+                loginService.Login( user, LoginTime.Forever, ctx.Ip, ctx );
+
+                echoAjaxOk();
+            }
+        }
+
 
         [HttpPost]
         public void Done() {
@@ -48,32 +127,7 @@ namespace wojilu.Web.Controller {
             echoAjaxOk();
         }
 
-
-
-        [HttpPost]
-        public void setDbConfig() {
-
-            String dbType = ctx.Post( "dbType" );
-            String dbAddress = ctx.Post( "dbAddress" );
-            String dbName = ctx.Post( "dbName" );
-            String user = ctx.Post( "user" );
-            String pwd = ctx.Post( "pwd" );
-
-            String connectionString = createConnectionString( dbType, dbAddress, dbName, user, pwd );
-
-            String strConfig = getConfigTemplate();
-            Template t = new Template();
-            t.InitContent( strConfig );
-            t.Set( "connectionString", connectionString );
-            t.Set( "dbType", dbType );
-
-            String fileName = "/config/orm_test.config";
-            String filePath = strUtil.Join( cfgHelper.FrameworkRoot, fileName );
-            String dataPath = PathHelper.Map( filePath );
-            file.Write( dataPath, t.ToString() );
-
-            echoAjaxOk();
-        }
+        //----------------------------------------------------------------------------------
 
         private string getConfigTemplate() {
 
@@ -99,26 +153,70 @@ namespace wojilu.Web.Controller {
     ApplicationCacheMinutes:-999
 
  }
-
 ";
 
         }
 
-        private string createConnectionString( string dbType, string dbAddress, string dbName, string user, string pwd ) {
+        private string createConnectionString( string dbType, String dbName, string connectionStr ) {
 
             if ("access".Equals( dbType )) {
-                return string.Format( "Provider=Microsoft.Jet.OLEDB.4.0;Data Source={0}", dbName );
+
+                if (strUtil.IsNullOrEmpty( dbName )) {
+                    errors.Add( "请填写access数据库的名称" );
+                    return null;
+                }
+                else {
+                    return string.Format( "Provider=Microsoft.Jet.OLEDB.4.0;Data Source={0}", dbName );
+                }
             }
-            else if ("sqlserver".Equals( dbType ) || "sqlserver2000".Equals( dbType )) {
-                return string.Format( "server={0};uid={1};pwd={2};database={3};", dbAddress, user, pwd, dbName );
+
+
+            if ("sqlserver".Equals( dbType ) || "sqlserver2000".Equals( dbType )) {
+
+                String str = clearStrLine( connectionStr );
+                if (ctx.HasErrors) return null;
+
+                try {
+                    IDbConnection cn = DataFactory.GetConnection( str, DatabaseType.SqlServer );
+                    cn.Open();
+                    cn.Close();
+                    return str;
+                }
+                catch (Exception ex) {
+                    errors.Add( ex.Message );
+                    return null;
+                }
             }
-            else if ("mysql".Equals( dbType )) {
-                return string.Format( "server={0};user={1};password={2};database={3};port=3306;Charset=utf8", dbAddress, user, pwd, dbName );
+
+            if ("mysql".Equals( dbType )) {
+
+                String str = clearStrLine( connectionStr );
+                if (ctx.HasErrors) return null;
+
+                try {
+                    IDbConnection cn = DataFactory.GetConnection( str, DatabaseType.MySql );
+                    cn.Open();
+                    cn.Close();
+                    return str;
+                }
+                catch (Exception ex) {
+                    errors.Add( ex.Message );
+                    return "";
+                }
+
             }
-            else {
-                errors.Add( "请选择正确的数据库类型" );
+
+            errors.Add( "请选择正确的数据库类型" );
+            return null;
+
+        }
+
+        private string clearStrLine( string connectionStr ) {
+            if (strUtil.IsNullOrEmpty( connectionStr )) {
+                errors.Add( "请填写数据库连接字符串" );
                 return "";
             }
+            return connectionStr.Replace( "\n", "" ).Replace( "\r", "" ).Replace( "\\", "\\\\" );
         }
 
         // 在检测之前，必须关闭log，将其设为error，否则日志系统会提前写磁盘，然后提前报错

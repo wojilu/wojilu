@@ -31,15 +31,15 @@ namespace wojilu.Web.Controller {
         public void Index() {
 
             if (isInit() == false) {
-                String view = loadHtml( view1InitData );
+                String view = loadHtml( InitData );
                 content( view );
             }
             else if (hasMember() == false) {
-                String view = loadHtml( view2Register );
+                String view = loadHtml( Register );
                 content( view );
             }
             else {
-                String view = loadHtml( view3Initok );
+                String view = loadHtml( Initok );
                 content( view );
             }
         }
@@ -49,7 +49,7 @@ namespace wojilu.Web.Controller {
         }
 
         [NonVisit]
-        public void view1InitData() {
+        public void InitData() {
             set( "link", to( Init ) );
             set( "selectDbLink", to( SelectDb ) );
 
@@ -62,12 +62,15 @@ namespace wojilu.Web.Controller {
         }
 
         [NonVisit]
-        public void view2Register() {
+        public void Register() {
             set( "link", to( new RegisterController().Register ) );
         }
 
         [NonVisit]
-        public void view3Initok() {
+        public void Initok() {
+
+            set( "addAppLink", to( new Admin.AppController().Select ) );
+            set( "addMenuLink", to( new Admin.Sys.DashboardController().Links ) );
         }
 
         private Boolean hasMember() {
@@ -89,7 +92,7 @@ namespace wojilu.Web.Controller {
         }
 
         private Boolean isInit() {
-            return siteInitHelper.IsInit();
+            return siteInitHelper.HasInit();
         }
 
 

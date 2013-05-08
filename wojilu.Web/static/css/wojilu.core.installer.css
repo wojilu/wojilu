@@ -1,0 +1,83 @@
+﻿body { font-size:14px; background:#fff;}
+
+input { height:15px !important; padding:2px 3px !important;}
+table td {font-size:14px; padding:2px 3px !important;}
+table td input {margin:0px !important;}
+
+h1 {text-align:center; color:#666; font-size:28px; font-weight:bold; font-family:微软雅黑; margin:30px;}
+.writeMsg {width:180px;margin:auto;margin-bottom:20px; }
+.mainWrap {border:1px #aaa solid; border-radius:5px; width:802px; margin:auto; box-shadow:0px 10px 80px #bbb;}
+
+/*********************标题栏********************/
+.titleWrap {width:801px; margin:auto; background:#f2f2f2;}
+    .stepTitleItem  {
+        float:left; margin:1px; font-weight:bold; padding-top:18px; padding-bottom:5px; width:265px; height:38px; text-align:center; color:#fff;
+        background: rgb(122,188,255); /* Old browsers */
+        background: -moz-linear-gradient(top, rgba(122,188,255,1) 0%, rgba(96,171,248,1) 44%, rgba(64,150,238,1) 100%); /* FF3.6+ */
+        background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(122,188,255,1)), color-stop(44%,rgba(96,171,248,1)), color-stop(100%,rgba(64,150,238,1))); /* Chrome,Safari4+ */
+        background: -webkit-linear-gradient(top, rgba(122,188,255,1) 0%,rgba(96,171,248,1) 44%,rgba(64,150,238,1) 100%); /* Chrome10+,Safari5.1+ */
+        background: -o-linear-gradient(top, rgba(122,188,255,1) 0%,rgba(96,171,248,1) 44%,rgba(64,150,238,1) 100%); /* Opera11.10+ */
+        background: -ms-linear-gradient(top, rgba(122,188,255,1) 0%,rgba(96,171,248,1) 44%,rgba(64,150,238,1) 100%); /* IE10+ */
+        filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#7abcff', endColorstr='#4096ee',GradientType=0 ); /* IE6-9 */
+        background: linear-gradient(top, rgba(122,188,255,1) 0%,rgba(96,171,248,1) 44%,rgba(64,150,238,1) 100%); /* W3C */
+    }
+    .stepTitleItemCurrent {
+        color:#333;
+        background: #eab92d; /* Old browsers */
+        background: -moz-linear-gradient(top, #eab92d 0%, #c79810 100%); /* FF3.6+ */
+        background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#eab92d), color-stop(100%,#c79810)); /* Chrome,Safari4+ */
+        background: -webkit-linear-gradient(top, #eab92d 0%,#c79810 100%); /* Chrome10+,Safari5.1+ */
+        background: -o-linear-gradient(top, #eab92d 0%,#c79810 100%); /* Opera11.10+ */
+        background: -ms-linear-gradient(top, #eab92d 0%,#c79810 100%); /* IE10+ */
+        filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#eab92d', endColorstr='#c79810',GradientType=0 ); /* IE6-9 */
+        background: linear-gradient(top, #eab92d 0%,#c79810 100%); /* W3C */
+    }
+
+    .titleNo { font-size:28px; font-weight:bold; font-style:italic; margin-right:10px;}
+
+/*********************配置主体********************/
+#xSlidePanel { position:relative; overflow:hidden;height:350px;width:801px; margin:auto; margin-bottom:20px;}
+    .step { position:absolute;width:800px; background:#fff;}
+        .stepPanel {height:230px; padding:10px; }
+        .btnStepPanel {height:120px;text-align:center; padding:5px;}
+        .btnStepPanel .btnPrev { margin-right:15px;}
+        
+        #btn-wrap1 {width:120px; margin:auto;}
+        .btn-wrap {width:220px; margin:auto;}
+        
+    #step1 { top:0;left:0;}
+    #step2 { top:0px;left:800px; }
+    #step3 { top:0px;left:1600px;}
+    #step4 { top:0px;left:2400px;}
+    
+    /*********************数据库配置********************/
+    .tdL { text-align:right; padding-right:10px; font-size:12px; color:#468847; font-weight:bold;}
+    .radioList div {margin:5px 0px 5px 0px; }
+    .skinItem {width:150px; height:160px; float:left; border:1px #fff solid; border-radius:5px; text-align:center; margin:15px 15px 10px 25px;}
+    .skinItem img {margin-top:5px; border-radius1:5px; }
+    .skinTitle {margin-top:5px; font-size:12px;}
+    lable {right:5px;}
+
+    .db-wrap {width:98%; margin:auto; height:230px; }
+    .db-left {width:200px; text-align:center;font-size:24px; }
+    .db-right {padding-left:35px !important;}
+    .db-right ul {list-style:none;margin:0px;padding:0px;}
+    
+    .accessInfo, .sqlserverInfo, .mysqlInfo { display:none;}
+    .accessInfo {background:#fff; margin:5px 5px 5px 15px; padding:10px; box-shadow:2px 2px 10px #aaa;}
+    .sqlserverInfo {background:#fff; margin:5px 5px 5px 15px; padding:10px; box-shadow:2px 2px 10px #aaa;}
+    .mysqlInfo {background:#fff; margin:5px 5px 5px 15px; padding:10px; box-shadow:2px 2px 10px #aaa;}
+
+    .lnk-next-wrap {font-size:14px;margin-top:8px;margin:10px auto;width:250px; border:1px #fed22f solid;background:#ffe45c; padding:5px 10px;}
+    .lnk-next-wrap a {color:Red; font-weight:bold;}
+    
+    /*********************用户信息********************/
+    table.user-wrap {width:380px; margin:30px auto;}
+    td.user-left { text-align:right; padding-right:10px !important; font-size:16px;}
+    table.user-wrap input {height:20px !important; font-size:14px;}
+    .user-sp {height:5px;}
+    
+    /*********************完成安装********************/
+    div.done-msg {margin:60px 20px 20px 20px; text-align:center;}
+    .done-msg-title { font-size:30px; font-weight:bold;}
+    .done-msg-info { font-size:14px; margin-top:35px;}
