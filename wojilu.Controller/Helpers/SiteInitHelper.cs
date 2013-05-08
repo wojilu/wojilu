@@ -74,6 +74,19 @@ namespace wojilu.Web.Controller.Helpers {
             String srcPath = PathHelper.Map( strUtil.Join( cfgHelper.FrameworkRoot, "/data/" ) );
             String destPath = PathHelper.Map( strUtil.Join( cfgHelper.FrameworkRoot, "/data_backup_" + getTimeString() + "/" ) );
             file.CopyDirectory( srcPath, destPath, true );
+
+            // 删除不必要的数据
+            String[] fileList = new String[] {
+                typeof(wojilu.Common.Menus.FooterMenu).FullName,
+                typeof(wojilu.Members.Sites.Domain.SiteApp).FullName,
+                typeof(wojilu.Members.Sites.Domain.SiteMenu).FullName,
+                typeof(wojilu.Web.Controller.Security.AppAdminRole).FullName,
+                typeof(wojilu.Web.Controller.Security.AppRole).FullName
+            };
+            foreach (String x in fileList) {
+                String filePath = PathHelper.Map( strUtil.Join( cfgHelper.FrameworkRoot, "/data/" + x + ".config" ) );
+                file.Delete( filePath );
+            }
         }
 
         private string getTimeString() {

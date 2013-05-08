@@ -55,6 +55,7 @@ wojilu.Web/framework/cache/
 wojilu.Web/framework/index/
 wojilu.Web/framework/config/
 wojilu.Web/framework/data/
+wojilu.Web/framework/data_backup*/
 
 !wojilu.Web/static/upload/face/guest.jpg
 !wojilu.Web/static/upload/face/guest_m.jpg
