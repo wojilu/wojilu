@@ -140,6 +140,53 @@ namespace wojilu.IO {
         }
 
         /// <summary>
+        /// 拷贝文件夹
+        /// <see cref="http://msdn.microsoft.com/en-us/library/bb762914.aspx"/>
+        /// </summary>
+        /// <param name="sourceDirName">源目录</param>
+        /// <param name="destDirName">目标目标，如果不存在，则创建</param>
+        /// <param name="copySubDirs">是否拷贝子目录</param>
+        public static void CopyDirectory( string sourceDirName, string destDirName, bool copySubDirs ) {
+            DirectoryInfo dir = new DirectoryInfo( sourceDirName );
+            DirectoryInfo[] dirs = dir.GetDirectories();
+
+            // If the source directory does not exist, throw an exception.
+            if (!dir.Exists) {
+                throw new DirectoryNotFoundException(
+                    "Source directory does not exist or could not be found: "
+                    + sourceDirName );
+            }
+
+            // If the destination directory does not exist, create it.
+            if (!Directory.Exists( destDirName )) {
+                Directory.CreateDirectory( destDirName );
+            }
+
+            // Get the file contents of the directory to copy.
+            FileInfo[] files = dir.GetFiles();
+
+            foreach (FileInfo file in files) {
+                // Create the path to the new copy of the file.
+                string temppath = Path.Combine( destDirName, file.Name );
+
+                // Copy the file.
+                file.CopyTo( temppath, false );
+            }
+
+            // If copySubDirs is true, copy the subdirectories.
+            if (copySubDirs) {
+
+                foreach (DirectoryInfo subdir in dirs) {
+                    // Create the subdirectory.
+                    string temppath = Path.Combine( destDirName, subdir.Name );
+
+                    // Copy the subdirectories.
+                    CopyDirectory( subdir.FullName, temppath, copySubDirs );
+                }
+            }
+        }
+
+        /// <summary>
         /// 将内容追加到文件中(采用UTF8编码)
         /// </summary>
         /// <param name="absolutePath">文件的绝对路径</param>
