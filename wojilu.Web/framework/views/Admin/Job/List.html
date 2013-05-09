@@ -32,7 +32,7 @@ _run( function() {
             $.post( url, function(data) {
                 if( 'ok'==data ) {
                     $('body').html( '<div style="width:500px;text-align:center;margin:50px auto;font-size:22px;font-weight:bold;">_{jobCmdDone}</div>' );
-                    wojilu.tool.forwardPage( '#{siteUrl}',0 );
+                    wojilu.tool.forwardPage( '#{listUrl}',0 );
                 }
                 else
                     alert( data );

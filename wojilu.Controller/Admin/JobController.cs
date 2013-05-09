@@ -16,7 +16,7 @@ namespace wojilu.Web.Controller.Admin {
 
         public void List() {
 
-            set( "siteUrl", ctx.url.SiteAndAppPath );
+            set( "listUrl", to( List ) );
 
             List<WebJob> list = cdb.findAll<WebJob>();
 
@@ -45,7 +45,7 @@ namespace wojilu.Web.Controller.Admin {
 
         private string getLinkStop( WebJob job ) {
 
-            if( job.IsRunning )
+            if (job.IsRunning)
                 return string.Format( "<span class=\"running\">{1} <span href=\"{0}\" class=\"stopCmd cmd\">{2}</span></span>", to( Stop, job.Id ), lang( "running" ), lang( "jobStop" ) );
             else
                 return string.Format( "<span class=\"stopped\">{1} <span href=\"{0}\" class=\"startCmd cmd\">{2}</span></span>", to( Start, job.Id ), lang( "stopped" ), lang( "jobStart" ) );
@@ -84,14 +84,14 @@ namespace wojilu.Web.Controller.Admin {
 
             HttpRuntime.UnloadAppDomain();
             echoAjaxOk();
-        }        
+        }
 
         public void Edit( int id ) {
             target( Update, id );
 
             WebJob job = cdb.findById<WebJob>( id );
             if (job == null) {
-                echoRedirect( lang( "exDataNotFound") );
+                echoRedirect( lang( "exDataNotFound" ) );
                 return;
             }
 
@@ -114,7 +114,7 @@ namespace wojilu.Web.Controller.Admin {
 
             HttpRuntime.UnloadAppDomain();
 
-            echoToParentPart( lang( "opok" ), SystemInfo.SiteRoot, 999 );
+            echoToParentPart( lang( "opok" ), to( List ), 999 );
 
         }
 
