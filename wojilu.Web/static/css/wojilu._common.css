@@ -98,7 +98,7 @@ a.cmd4 span {color:#fff;margin:5px;display:block;text-align:center;}
 
 .externalLink  {background:url("../img/s/external-link.png") no-repeat right center; padding-right:13px;}
 
-ul.wojiluValidationResultList {font-size:16px; font-family:微软雅黑, Calibri; color:red; margin:10px 10px 10px 50px; font-weight:bold; line-height:150%;}
+ul.wojiluValidationResultList {font-size:16px; font-family:Microsoft YaHei, Calibri; color:red; margin:10px 10px 10px 50px; font-weight:bold; line-height:150%;}
 
 /* 翻页 */
 .turnpage {margin:5px;font-family:arial; color:#000;}
@@ -249,7 +249,7 @@ td.sort img:hover {background:#333;}
 .right {text-align:right;}
 .more {text-align:right;margin:10px;}
 .auto {margin:auto;}
-.msfont {font-family:微软雅黑;}
+.msfont {font-family:Microsoft YaHei;}
 
 .userAvatar {margin:10px 0px 0px 5px;}
 .userAvatar li {float:left; height:70px; width:60px; padding:0px 2px 5px 2px; text-align:center;}

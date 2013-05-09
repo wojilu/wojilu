@@ -66,7 +66,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#d2ebf9', end
 
 .board-info { border:0px solid #dedede; margin:10px 0px; padding:0px;}
 .board-info-title { background1:#eee; padding:10px 15px 10px 0px;}
-    .board-info-name { font-size:22px; font-weight:bold; font-family:微软雅黑; margin-right:20px;}
+    .board-info-name { font-size:22px; font-weight:bold; font-family:Microsoft YaHei; margin-right:20px;}
     .board-info-num {  font-weight:bold;}
     .board-info-num-today { font-weight:bold;}
     .board-info-sp { color:#aaa; margin-left:5px; margin-right:5px;}
