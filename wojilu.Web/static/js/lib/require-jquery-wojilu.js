@@ -11717,12 +11717,11 @@ wojilu.tool = {
     },
     
     makeTab : function(containerClassOrId, currentClass, otherClass) {
-    	var currentUrl = wojilu.str.trimHost( window.location.href );
+    	var currentUrl = wojilu.str.trimHost( window.location.href ).toLowerCase();
         currentUrl = wojilu.tool.getUrlWithoutQuery( wojilu.str.trimExt( currentUrl ));
     	$(containerClassOrId+' a' ).each( function(i) {
-            var link = $(this).attr( 'href' );
+            var link = $(this).attr( 'href' ).toLowerCase();
             link = wojilu.tool.getUrlWithoutQuery( wojilu.str.trimExt( link ) );
-            //if( currentUrl.indexOf( link )>=0 || link.indexOf( currentUrl )>=0 ) {
             if( currentUrl==link ) {
                 $(this).parent().removeClass( otherClass ).addClass( currentClass );
             };
