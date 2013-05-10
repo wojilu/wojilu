@@ -34,6 +34,11 @@ namespace wojilu.Web.Controller.Security {
             nsString = strUtil.TrimStart( nsString, "." ).Replace( ".", "/" );
 
             String path = strUtil.Join( nsString, method.Name );
+
+            if (MvcConfig.Instance.IsUrlToLower) {
+                path = path.ToLower();
+            }
+
             return path;
         }
 

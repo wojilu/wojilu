@@ -33,6 +33,7 @@ namespace wojilu.Web.Controller.Security {
         public SiteAdminOperation( int id, String name, int menuId, String url ) {
             init( id, name, menuId );
             this.Url = url;
+            checkLowerUrl();
         }
 
         public SiteAdminOperation( int id, String name, int menuId, Type controllerType ) {
@@ -50,11 +51,13 @@ namespace wojilu.Web.Controller.Security {
         public SiteAdminOperation( int id, String name, int menuId, aActionWithId action, String rootNamespace ) {
             init( id, name, menuId );
             this.Url = SecurityUtils.getPath( action.Method, rootNamespace );
+            checkLowerUrl();
         }
 
         public SiteAdminOperation( int id, String name, int menuId, aAction action, String rootNamespace ) {
             init( id, name, menuId );
             this.Url = SecurityUtils.getPath( action.Method, rootNamespace );
+            checkLowerUrl();
         }
 
         //--------------------------------------------------------------------------------------
@@ -69,7 +72,9 @@ namespace wojilu.Web.Controller.Security {
             StringBuilder sb = new StringBuilder();
             addUrl( sb, controllerType, rootNamespace );
             this.Url = sb.ToString().TrimEnd( ';' );
+            checkLowerUrl();
         }
+
 
         private void initOperations( Type[] controllerTypes ) {
 
@@ -78,6 +83,7 @@ namespace wojilu.Web.Controller.Security {
                 addUrl( sb, controllerType, rootNamespace );
             }
             this.Url = sb.ToString().TrimEnd( ';' );
+            checkLowerUrl();
         }
 
         private static void addUrl( StringBuilder sb, Type controllerType, String rootNamespace ) {
@@ -90,6 +96,11 @@ namespace wojilu.Web.Controller.Security {
         }
 
 
+        private void checkLowerUrl() {
+            if (MvcConfig.Instance.IsUrlToLower) {
+                this.Url = this.Url.ToLower();
+            }
+        }
 
 
         //--------------------------------------------------------------------------------------

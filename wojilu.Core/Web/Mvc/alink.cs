@@ -97,7 +97,11 @@ namespace wojilu.Web.Mvc {
             if (ctx != null && ctx.IsMock && ctx.GetItem( "_makeHtml" ) != null) return HtmlLink.ToApp( app );
 
             String appName = strUtil.TrimEnd( app.GetType().Name, "App" );
-            return getAppLink( app.OwnerType, app.OwnerUrl, appName, app.Id );
+            String ret = getAppLink( app.OwnerType, app.OwnerUrl, appName, app.Id );
+            if (MvcConfig.Instance.IsUrlToLower) {
+                return ret.ToLower();
+            }
+            return ret;
         }
 
         private static String getAppLink( String ownerTypeFull, String ownerUrl, String appName, int appId ) {
