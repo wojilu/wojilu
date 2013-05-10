@@ -11,6 +11,7 @@ using wojilu.Apps.Content.Enum;
 using wojilu.Data;
 using wojilu.Apps.Content.Service;
 using wojilu.DI;
+using wojilu.Web.Controller.Content.Htmls;
 
 namespace wojilu.Web.Controller.Admin.Spiders {
 
@@ -24,7 +25,8 @@ namespace wojilu.Web.Controller.Admin.Spiders {
             ImportState ts = param as ImportState;
 
             try {
-                beginImportPrivate( ts );
+                List<int> ids = beginImportPrivate( ts );
+                JobManager.ImportPost( ids );
             }
             catch (Exception ex) {
                 logger.Error( ex.Message );
@@ -37,7 +39,7 @@ namespace wojilu.Web.Controller.Admin.Spiders {
             }
         }
 
-        private static void beginImportPrivate( ImportState ts ) {
+        private static List<int> beginImportPrivate( ImportState ts ) {
 
             int id = ts.TemplateId;
 
@@ -51,6 +53,7 @@ namespace wojilu.Web.Controller.Admin.Spiders {
             if (sections.Count == 0) throw new Exception( "导入的目标section不存在" );
 
             ContentSection section = null;
+            List<int> results = new List<int>();
             for (int i = 0; i < articles.Count; i++) {
 
                 if (articleExist( articles[i] )) {
@@ -61,10 +64,13 @@ namespace wojilu.Web.Controller.Admin.Spiders {
                 section = getNextSection( sections, section ); // 均匀分散到各目标section中
                 ContentApp app = getApp( section );
 
-                if (item.IsApprove == 1)
+                if (item.IsApprove == 1) {
                     importToTemp( articles[i], item, section, app );
-                else
-                    importDirect( articles[i], item, section, app );
+                }
+                else {
+                    int newArticleId = importDirect( articles[i], item, section, app );
+                    results.Add( newArticleId );
+                }
 
                 ts.Log.AppendLine( "导入：" + articles[i].Title );
 
@@ -78,6 +84,9 @@ namespace wojilu.Web.Controller.Admin.Spiders {
             else {
                 ts.Log.AppendLine( "没有新条目可导入(操作结束)" );
             }
+
+
+            return results;
         }
 
         private static bool articleExist( SpiderArticle spiderArticle ) {

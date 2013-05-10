@@ -44,6 +44,9 @@ namespace wojilu.Web.Controller.Content.Htmls {
 
             Admin.Common.PollController poll = new wojilu.Web.Controller.Content.Admin.Common.PollController();
             observe( poll.Create );
+
+            Submit.AdminController submit = new Submit.AdminController();
+            observe( submit.SavePass );
         }
 
         public override void AfterAction( MvcContext ctx ) {

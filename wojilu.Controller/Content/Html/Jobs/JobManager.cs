@@ -41,6 +41,19 @@ namespace wojilu.Web.Controller.Content.Htmls {
             cdb.insert( item );
         }
 
+        public static void ImportPost( List<int> ids ) {
+
+            if (ids == null || ids.Count == 0) return;
+
+            HtmlJobItem item = new HtmlJobItem();
+            item.Name = typeof( JobProcessor ).FullName;
+            item.Method = "AfterImport";
+            item.Ids = strUtil.GetIds( ids );
+
+            cdb.insert( item );
+
+        }
+
         private static String getMethodName( aActionWithId action ) {
             return action.Method.Name;
         }

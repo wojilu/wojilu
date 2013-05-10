@@ -39,8 +39,9 @@ namespace wojilu.Common.Spider.Service {
 
         public static List<DetailLink> GetDataList( SpiderTemplate s, StringBuilder sb ) {
 
-            if (strUtil.HasText( s.ListUrl ))
+            if (strUtil.HasText( s.ListUrl )) {
                 s.SiteUrl = new UrlInfo( s.ListUrl ).SiteUrl;
+            }
 
             // 一、先抓取列表页面内容
             string page = downloadListPage( s, sb );
@@ -62,6 +63,7 @@ namespace wojilu.Common.Spider.Service {
             MatchCollection matchs = Regex.Matches( page, SpiderConfig.ListLinkPattern, RegexOptions.Singleline );
             if (matchs.Count == 0) {
                 logger.Error( "list link match count=0" );
+                logInfo( "list link match count=0", s, sb );
             }
 
             for (int i = matchs.Count - 1; i >= 0; i--) {
@@ -72,7 +74,8 @@ namespace wojilu.Common.Spider.Service {
                 if (dlink.Url.Length > 100) continue;
                 list.Add( dlink );
             }
-            sb.AppendLine( "共抓取到链接：" + list.Count );
+            logInfo( "共抓取到链接：" + list.Count, s, sb );
+
             return list;
         }
 
@@ -165,11 +168,9 @@ namespace wojilu.Common.Spider.Service {
 
             try {
                 page = downloadListPageBody( s, sb );
-
             }
             catch (Exception ex) {
                 logInfo( "error=抓取" + s.ListUrl + "发生错误：" + ex.Message, s, sb );
-
                 return page;
             }
 
@@ -181,36 +182,50 @@ namespace wojilu.Common.Spider.Service {
 
             String target;
 
-            if (strUtil.HasText( s.ListEncoding ))
+            if (strUtil.HasText( s.ListEncoding )) {
                 target = PageLoader.Download( s.ListUrl, SpiderConfig.UserAgent, s.ListEncoding );
-            else
+            }
+            else {
                 target = PageLoader.Download( s.ListUrl, SpiderConfig.UserAgent, "" );
-
-            if (strUtil.IsNullOrEmpty( target )) {
-
-                logInfo( "error=原始页面没有内容: " + s.ListUrl, s, sb );
-
-                return target;
             }
 
-            if (!strUtil.IsNullOrEmpty( s.GetListBodyPattern() )) {
+            if (strUtil.IsNullOrEmpty( target )) {
+                logInfo( "error=原始页面没有内容: " + s.ListUrl, s, sb );
+                return target;
+            }
+            else {
+                logInfo( "抓取列表内容成功", s, sb );
+            }
+
+            if (strUtil.HasText( s.GetListBodyPattern() )) {
                 HtmlDocument htmlDoc = new HtmlDocument {
                     OptionAddDebuggingAttributes = false,
                     OptionAutoCloseOnEnd = true,
                     OptionFixNestedTags = true,
                     OptionReadEncoding = true
                 };
+
                 htmlDoc.LoadHtml( target );
-                IEnumerable<HtmlNode> Nodes = htmlDoc.DocumentNode.QuerySelectorAll( s.GetListBodyPattern() );
-                if (Nodes.Count() > 0) {
-                    target = Nodes.ToArray()[0].OuterHtml;
-                    return target.Trim();
+                try {
+                    IEnumerable<HtmlNode> Nodes = htmlDoc.DocumentNode.QuerySelectorAll( s.GetListBodyPattern() );
+
+                    if (Nodes.Count() > 0) {
+                        logInfo( "匹配列表内容成功", s, sb );
+                        target = Nodes.ToArray()[0].OuterHtml;
+                        target = target.Trim();
+                        return target;
+                    }
+                    else {
+                        logInfo( "error=没有匹配的页面内容:" + s.ListUrl, s, sb );
+                        return null;
+                    }
                 }
-                else {
-                    logInfo( "error=没有匹配的页面内容:" + s.ListUrl, s, sb );
+                catch (Exception ex) {
+                    logInfo( "htmlDoc QuerySelectorAll解析出错=" + ex.Message, s, sb );
                     return null;
                 }
             }
+
             //这里未来也可以改成css选择器的方式，来细化目标url集合的范围
             //Match match = Regex.Match(target, s.GetListBodyPattern(), RegexOptions.Singleline);
             //if (match.Success)

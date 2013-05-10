@@ -86,6 +86,7 @@
     <Compile Include="Admin\Upgrade\FaceController.cs" />
     <Compile Include="ConnectController.cs" />
     <Compile Include="Content\Admin\CommentController.cs" />
+    <Compile Include="Content\Html\Observer\BatchAddObserver.cs" />
     <Compile Include="Forum\ServiceController.cs" />
     <Compile Include="Open\Admin\CommentController.cs" />
     <Compile Include="Admin\Apps\Content\LayoutController.cs" />

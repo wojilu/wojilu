@@ -129,13 +129,19 @@ namespace wojilu.Web.Controller.Content.Admin {
                 return;
             }
 
+            ContentApp app = ctx.app.obj as ContentApp;
+            ContentSetting s = app.GetSettingsObj();
+
+            if (htmlDir == s.StaticDir) {
+                echoError( "您没有修改目录名称" );
+                return;
+            }
+
             if (HtmlHelper.IsHtmlDirError( htmlDir, ctx.errors )) {
                 echoError();
                 return;
             }
 
-            ContentApp app = ctx.app.obj as ContentApp;
-            ContentSetting s = app.GetSettingsObj();
             s.StaticDir = htmlDir;
 
             app.Settings = Json.ToString( s );

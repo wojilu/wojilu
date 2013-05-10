@@ -49,6 +49,11 @@ namespace wojilu.Web.Controller.Content.Htmls {
             return totalCount;
         }
 
+        public int ProcessSection( int sectionId ) {
+            int recordCount = postService.CountBySection( sectionId );
+            return ProcessAll( sectionId, recordCount );
+        }
+
         public int ProcessAll( int sectionId, int recordCount ) {
 
             CheckDir();

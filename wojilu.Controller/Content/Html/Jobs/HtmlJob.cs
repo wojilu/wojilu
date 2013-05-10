@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Text;
 using wojilu.Web.Jobs;
 using wojilu.DI;
+using wojilu.Data;
 
 namespace wojilu.Web.Controller.Content.Htmls {
 
@@ -16,7 +17,10 @@ namespace wojilu.Web.Controller.Content.Htmls {
 
         public void Execute() {
 
+            
             List<HtmlJobItem> jobs = cdb.findAll<HtmlJobItem>();
+            logger.Info( "begin HtmlJob=" + jobs.Count );
+            
             foreach (HtmlJobItem x in jobs) {
                 runJobSingle( x );
             }
@@ -27,9 +31,19 @@ namespace wojilu.Web.Controller.Content.Htmls {
             try {
 
                 Object p = ObjectContext.CreateObject( x.Name );
-                rft.CallMethod( p, x.Method, new object[] { x.PostId } );
 
-                cdb.delete( x );
+                if (strUtil.HasText( x.Ids )) {
+                    rft.CallMethod( p, x.Method, new object[] { x.Ids } );
+                    cdb.delete( x );
+                }
+                else if (x.PostId > 0) {
+                    rft.CallMethod( p, x.Method, new object[] { x.PostId } );
+                    cdb.delete( x );
+                }
+                else {
+                    logger.Info( "param is invalid. type=" + x.Name + ", method=" + x.Method );
+                }
+
 
             }
 
@@ -40,6 +54,7 @@ namespace wojilu.Web.Controller.Content.Htmls {
         }
 
         public void End() {
+            DbContext.closeConnectionAll();
         }
     }
 }

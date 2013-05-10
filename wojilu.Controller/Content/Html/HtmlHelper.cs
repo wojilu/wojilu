@@ -23,6 +23,14 @@ namespace wojilu.Web.Controller.Content.Htmls {
             return ctx.GetItem( "_currentContentPost" ) as ContentPost;
         }
 
+        public static void SetPostListToContext( MvcContext ctx, List<ContentPost> posts ) {
+            ctx.SetItem( "_currentContentPostList", posts );
+        }
+
+        public static List<ContentPost> GetPostListFromContext( MvcContext ctx ) {
+            return ctx.GetItem( "_currentContentPostList" ) as List<ContentPost>;
+        }
+
         public static Boolean IsMakeHtml( MvcContext ctx ) {
             if (ctx.GetItem( "_makeHtml" ) == null) return false;
             Boolean isMakeHtml = (Boolean)ctx.GetItem( "_makeHtml" );

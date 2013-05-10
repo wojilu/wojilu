@@ -32,7 +32,9 @@ namespace wojilu.Web.Controller.Content.Admin {
 
         public void Save() {
 
-            ContentSetting s = ctx.PostValue<ContentSetting>();
+            ContentApp app = ctx.app.obj as ContentApp;
+
+            ContentSetting s = ctx.PostValue( app.GetSettingsObj() ) as ContentSetting;
 
             s.AllowComment = ctx.PostIsCheck( "contentSetting.AllowComment" );
             s.AllowAnonymousComment = ctx.PostIsCheck( "contentSetting.AllowAnonymousComment" );
@@ -40,12 +42,6 @@ namespace wojilu.Web.Controller.Content.Admin {
 
             s.MetaDescription = strUtil.CutString( s.MetaDescription, 500 );
 
-            if (HtmlHelper.IsHtmlDirError( s.StaticDir, ctx.errors )) {
-                echoError();
-                return;
-            }
-
-            ContentApp app = ctx.app.obj as ContentApp;
             app.Settings = Json.ToString( s );
             app.update();
 
