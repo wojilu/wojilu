@@ -231,6 +231,30 @@ namespace wojilu {
         }
 
         /// <summary>
+        /// 获取所有整数 int 的字符串
+        /// </summary>
+        /// <param name="idList"></param>
+        /// <returns></returns>
+        public static String GetIds( List<int> idList ) {
+            if (idList == null || idList.Count == 0) return "";
+            return GetIds( idList.ToArray() );
+        }
+
+        /// <summary>
+        /// 获取所有整数 int 的字符串
+        /// </summary>
+        /// <param name="arrIds"></param>
+        /// <returns></returns>
+        public static String GetIds( int[] arrIds ) {
+            if (arrIds == null || arrIds.Length == 0) return "";
+            String ids = "";
+            foreach (int x in arrIds) {
+                ids += x + ",";
+            }
+            return ids.TrimEnd( ',' );
+        }
+
+        /// <summary>
         /// 从类型的全名中获取类型名称(不包括命名空间)
         /// </summary>
         /// <param name="typeFullName"></param>
