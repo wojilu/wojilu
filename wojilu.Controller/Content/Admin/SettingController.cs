@@ -28,6 +28,8 @@ namespace wojilu.Web.Controller.Content.Admin {
             bindSettings( app.GetSettingsObj() );
 
             set( "submitSettingLink", to( new SubmitSettingController().EditRole ) );
+            set( "submitLink", to( new Submit.PostController().Index ) );
+            set( "submitAdminLink", to( new Submit.AdminController().Index));
         }
 
         public void Save() {

@@ -16,7 +16,10 @@
         <tr>
             <td class="lblLeft">:{enableSubmit}</td>
             <td><label><input name="contentSetting.EnableSubmit" type="checkbox" #{s.EnableSubmit} /></label>
-            <a href="#{submitSettingLink}">设置投递者</a>
+            <a href="#{submitSettingLink}" class="left20 right10"><img src="~img/user.gif" /> 设置投递者</a>
+            |
+            <a href="#{submitLink}" target="_blank" class="left10"><img src="~img/add.gif" /> 投递网址</a>
+            <a href="#{submitAdminLink}" target="_blank" class="left10"><img src="~img/s/settings.png" /> 投递管理网址</a>
             </td>
         </tr>
         <tr>
