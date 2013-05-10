@@ -6,6 +6,8 @@ using System;
 
 using wojilu.Web.Context;
 using wojilu.Web.Controller.Content.Htmls;
+using wojilu.Web.Mvc;
+using wojilu.Common.AppBase.Interface;
 
 namespace wojilu.Web.Controller.Content.Utils {
 
@@ -13,6 +15,14 @@ namespace wojilu.Web.Controller.Content.Utils {
     /// 为 ContentPost 专门定制的 html 结果页面的链接
     /// </summary>
     public class clink {
+
+        public static String toApp( IApp app ) {
+            return HtmlLink.ToApp( app );
+        }
+
+        public static String toAppData( IAppData data ) {
+            return HtmlLink.ToAppData( data );
+        }
 
         public static String toRecent( MvcContext ctx ) {
 

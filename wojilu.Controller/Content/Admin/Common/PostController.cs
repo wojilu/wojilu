@@ -471,6 +471,10 @@ namespace wojilu.Web.Controller.Content.Admin.Common {
                 String lnkDelete = to( Delete, post.Id );
                 if (isTrash) lnkDelete = to( DeleteSys, post.Id );
 
+
+                block.Set( "post.HtmlUrl", clink.toAppData( post ) );
+
+
                 block.Set( "post.EditUrl", lnkEdit );
                 block.Set( "post.DeleteUrl", lnkDelete );
 
