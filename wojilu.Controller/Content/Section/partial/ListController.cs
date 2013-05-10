@@ -70,7 +70,13 @@ namespace wojilu.Web.Controller.Content.Section {
             }
 
             if (post.HasImg()) {
-                content = string.Format( "<div style=\"text-align:center;\"><img src=\"{0}\" />", post.GetImgMedium() ) + "</div>" + content;
+
+                String imgUrl = post.GetImgMedium();
+                if (content.IndexOf( imgUrl ) < 0) {
+
+                    content = string.Format( "<div class=\"post-detail-content-pic\"><img src=\"{0}\" /></div>", imgUrl )
+                        + content;
+                }
             }
 
             set( "post.Content", content );

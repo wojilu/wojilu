@@ -88,6 +88,8 @@ div.articleLocation {margin:0px 10px 10px 5px; color:#666;}
         .post-detail-attachment {margin:0px 20px;}
         .post-detail-tag {text-align:; color:#666; padding:0px 0px 10px 10px;}
         .post-detail-submitter { margin-left:10px;}
+        
+        .post-detail-content-pic { text-align:center; margin-bottom:15px;}
 
     #postSidebar { width:265px; float:right; padding:10px 0px 0px 10px;margin-right:5px;}
     #postSidebarContainer {padding:10px 0px 0px 0px; }
