@@ -54,8 +54,11 @@ namespace wojilu.Apps.Content.Domain {
 
         public int ServiceId { get; set; } // 调用哪个服务对象
         public int TemplateId { get; set; } // 数据源对应的模板
-        // 需要给服务对象传递的参数(序列化的原始字符串，从0开始) 
-        // param0=3;param1=strA;param2=2234
+
+        /// <summary>
+        /// 需要给服务对象传递的参数(序列化的原始字符串，从0开始) 
+        /// <para>param0=3;param1=strA;param2=2234</para>
+        /// </summary>
         public String ServiceParams { get; set; }
 
         private Dictionary<string, string> _paramValues;

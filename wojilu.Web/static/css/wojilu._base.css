@@ -170,6 +170,7 @@ td.sort img:hover {background:#333;}
 
 input.searchs {background:url('../img/search2.gif') no-repeat;width:20px;height:20px; border:0px; cursor:pointer;}
 
+.sectionTitle {padding:6px 10px; font-size:14px;font-weight:bold;background:#eceff5;background:url('../img/sectionTitleBg.gif'); border-top:0px #94a3c4 solid; margin:1px;}
 
 /*投票*/
 .poll-v-table {width:95%;margin-left:5px;}

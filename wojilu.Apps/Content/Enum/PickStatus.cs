@@ -5,9 +5,21 @@ using System.Text;
 namespace wojilu.Apps.Content.Enum {
 
     public class PickStatus {
+
+        /// <summary>
+        /// 普通
+        /// </summary>
         public static readonly int Normal = 0;
-        public static readonly int Picked = 1; // 精选要闻
-        public static readonly int Focus = 2; // 头条要闻
+
+        /// <summary>
+        /// 精选要闻
+        /// </summary>
+        public static readonly int Picked = 1;
+
+        /// <summary>
+        /// 头条要闻
+        /// </summary>
+        public static readonly int Focus = 2;
 
         private static Dictionary<String, String> pickStatusList = getPickStatus();
 

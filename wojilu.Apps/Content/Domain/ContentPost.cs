@@ -86,6 +86,9 @@ namespace wojilu.Apps.Content.Domain {
         public String MetaDescription { get; set; }
         public String RedirectUrl { get; set; }
 
+        /// <summary>
+        /// 普通Normal = 0; 精选Picked = 1; 头条Focus = 2;
+        /// </summary>
         public int PickStatus { get; set; }
 
 

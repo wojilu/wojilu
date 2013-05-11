@@ -27,11 +27,15 @@ namespace wojilu.Apps.Content.Domain {
         public String OwnerUrl { get; set; }
         public String OwnerType { get; set; }
 
-        // 可视化修改css
+        /// <summary>
+        /// 可视化修改css
+        /// </summary>
         [LongText]
         public String Style { get; set; }
 
-        // 手动定义css样式
+        /// <summary>
+        /// 手动定义css样式
+        /// </summary>
         [LongText]
         public String SkinStyle { get; set; }
 

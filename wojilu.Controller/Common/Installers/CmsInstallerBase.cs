@@ -173,45 +173,40 @@ namespace wojilu.Web.Controller.Common.Installers {
         }
 
 
-        protected void createImgS( ContentSection s, String title, String content, String imgUrl ) {
-            createPost( s, title, content, imgUrl, "", false );
+        protected ContentPost createImgS( ContentSection s, String title, String content, String imgUrl ) {
+            return createPost( s, title, content, imgUrl, "", false );
         }
 
-        protected void createPostC( ContentSection s, String title, String cat ) {
-
-            createPost( s, title, "[" + cat + "] " + title, title, "", "", false );
+        protected ContentPost createPostC( ContentSection s, String title, String cat ) {
+            return createPost( s, title, "[" + cat + "] " + title, title, "", "", false );
         }
 
         //----------------------------------------------------------------------------
-        protected void createImgHome( ContentSection s, String title, String titleHome, int width, int height, String imgUrl ) {
-
-            createPost( s, title, titleHome, title, imgUrl, "", 0, width, height );
+        protected ContentPost createImgHome( ContentSection s, String title, String titleHome, int width, int height, String imgUrl ) {
+            return createPost( s, title, titleHome, title, imgUrl, "", 0, width, height );
         }
         //----------------------------------------------------------------------------
 
 
-        protected void createImgHome( ContentSection s, String title, String titleHome, String imgUrl ) {
-
-            createPost( s, title, titleHome, title, imgUrl, "", true );
+        protected ContentPost createImgHome( ContentSection s, String title, String titleHome, String imgUrl ) {
+            return createPost( s, title, titleHome, title, imgUrl, "", true );
         }
 
-        protected void createImgPost( ContentSection s, String title, String content, String imgUrl ) {
-
-            createPost( s, title, title, content, imgUrl, "", false, PostCategory.ImgPost );
+        protected ContentPost createImgPost( ContentSection s, String title, String content, String imgUrl ) {
+            return createPost( s, title, title, content, imgUrl, "", false, PostCategory.ImgPost );
         }
 
-        protected void createPost( ContentSection s, String title, String content, String imgUrl, String videoUrl, Boolean isBigImg ) {
-            createPost( s, title, "", content, imgUrl, videoUrl, isBigImg );
+        protected ContentPost createPost( ContentSection s, String title, String content, String imgUrl, String videoUrl, Boolean isBigImg ) {
+            return createPost( s, title, "", content, imgUrl, videoUrl, isBigImg );
         }
 
-        protected void createPost( ContentSection s, String title, String titleHome, String content, String imgUrl, String videoUrl, Boolean isBigImg ) {
-            createPost( s, title, titleHome, content, imgUrl, videoUrl, isBigImg, 0 );
-
+        protected ContentPost createPost( ContentSection s, String title, String titleHome, String content, String imgUrl, String videoUrl, Boolean isBigImg ) {
+            return createPost( s, title, titleHome, content, imgUrl, videoUrl, isBigImg, 0 );
         }
 
         //---------------------------------
 
-        protected void createPost( ContentSection s, String title, String titleHome, String content, String imgUrl, String videoUrl, Boolean isBigImg, int categoryId ) {
+        protected ContentPost createPost( ContentSection s, String title, String titleHome, String content, String imgUrl, String videoUrl, Boolean isBigImg, int categoryId ) {
             int width=0;
             int height=0;
 
@@ -227,11 +222,10 @@ namespace wojilu.Web.Controller.Common.Installers {
                 }
             }
 
-            createPost( s, title, titleHome, content, imgUrl, videoUrl, categoryId, width, height );
-
+            return createPost( s, title, titleHome, content, imgUrl, videoUrl, categoryId, width, height );
         }
 
-        protected void createPost( ContentSection s, String title, String titleHome, String content, String imgUrl, String videoUrl, int categoryId, int width, int height ) {
+        protected ContentPost createPost( ContentSection s, String title, String titleHome, String content, String imgUrl, String videoUrl, int categoryId, int width, int height ) {
 
             IMember o = this.owner;
             User u = this.user;
@@ -266,25 +260,20 @@ namespace wojilu.Web.Controller.Common.Installers {
             }
             else if (strUtil.HasText( imgUrl )) {
 
-                if (categoryId > 0)
+                if (categoryId > 0) {
                     p.CategoryId = categoryId;
-                else
+                }
+                else {
                     p.CategoryId = PostCategory.Img;
-
-                //if (isBigImg) {
-                //    p.Width = 290;
-                //    p.Height = 210;
-                //}
-                //else {
-                //    p.Width = 120;
-                //    p.Height = 90;
-                //}
+                }
 
                 p.Width = width;
                 p.Height = height;
             }
 
             postService.Insert( p, "" );
+
+            return p;
         }
 
         //---------------------------------

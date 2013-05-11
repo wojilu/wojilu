@@ -20,7 +20,7 @@ namespace wojilu.Web.Controller.Content.Admin.Section {
             set( "addUrl", to( new Common.PostController().Add, sectionId ) + "?categoryId=" + imgcat );
             set( "listUrl", to( new ListController().AdminList, sectionId ) + "?categoryId=" + imgcat );
 
-            int slideWidth = first == null ? 300 : first.Width;
+            int slideWidth = first == null ? 300 : first.Width-30;
             int slideHeight = first == null ? 220 : first.Height;
 
             set( "slideWidth", slideWidth );

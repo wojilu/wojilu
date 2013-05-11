@@ -78,7 +78,7 @@ namespace wojilu.Web.Controller.Content.Section {
                 else
                     imgBlock.Set( "ipost.Title", img.Title );
 
-                String content = strUtil.HasText( img.Summary ) ? img.Summary : strUtil.ParseHtml( img.Content, 50 );
+                String content = strUtil.HasText( img.Summary ) ? img.Summary : strUtil.ParseHtml( img.Content, 100 );
                 imgBlock.Set( "ipost.Content", content );
                 imgBlock.Set( "ipost.Width", img.Width );
                 imgBlock.Set( "ipost.Height", img.Height );

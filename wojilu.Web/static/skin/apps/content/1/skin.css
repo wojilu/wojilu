@@ -7,17 +7,23 @@
 
 #portalContainer { margin: 0 auto; padding-top:15px; }
 #portalContainer a {color:#333;}
+#portalContainer .slideBarText a {color:#fff;}
+#portalContainer .slideBarNum a {color:#fff;}
+
 .rowContainer {margin: 0 auto;text-align: left;color: #2b2b2b; }
 
     .columnContainer {float: left;overflow:hidden;display:inline;}
     
         .sectionPanel {margin-bottom:10px; clear:both; }
+        
+        .normal-section {margin-left:5px; margin-right:3px;}
 
-            .sectionTitle { padding:0px 5px; font-size:14px;font-weight:bold;}
+            .sectionTitle { padding:1px 5px; font-size:14px;font-weight:bold; margin:0px; border-bottom:1px solid #dedede; }
             .sectionMore {float:right;padding:6px 3px 0px 0px;font-weight:normal;font-size:12px;}
-            .sectionMore a {font-size:12px;color:#555;font-weight:normal;}
+            .sectionMore a {font-size:12px;color:#555;font-weight:normal; font-family:Song style;}
             .sectionContent {line-height:150%; font-size:14px;padding:10px 6px;}
             .sectionContent li {list-style:none; margin:2px 0px 3px 0px;}
+            .nlist li { background:url(list.gif) no-repeat 5px 8px; padding-left:15px;}
 
                 .item-pic-title {width:158px;  overflow:hidden;text-overflow:clip;  white-space:nowrap;}
             
@@ -27,13 +33,16 @@
                 .sectionTitleTab { }
                 
                 .ul1 {margin:5px;}
-                .ul1 li {list-style:none; width:100%;white-space:nowrap;text-overflow:ellipsis; -o-text-overflow:ellipsis; -moz-text-overflow:ellipsis; overflow: hidden; }
+                .ul1 li {list-style:none; width:100%;white-space:nowrap;text-overflow:ellipsis; -o-text-overflow:ellipsis; -moz-text-overflow:ellipsis; overflow: hidden;background:url(list.gif) no-repeat 5px -49px; padding-left:15px;}
                 .ul2 li {list-style:none; width:45%;white-space:nowrap;text-overflow:ellipsis; -o-text-overflow:ellipsis; -moz-text-overflow:ellipsis; overflow: hidden; float:left; margin-right:5px;  }
                 .ulimg {margin:0px;}
                 .ulimg li {float:left;list-style:none; }
                 .ulimg img {width:60px;height:60px;margin:5px}
                 .ulLR li .leftTitle{width:270px;float:left;white-space:nowrap;text-overflow:ellipsis; -o-text-overflow:ellipsis; -moz-text-overflow:ellipsis; overflow: hidden;}
                 .ulLR li .rightInfo{float:right;}
+                
+                .float-img {float:left; border:1px solid #ccc; padding:3px; margin:0px 8px 8px 0px;}
+                .float-img2 {float:left; margin:5px 8px 8px 0px;}
                 
                 .ulRank {margin:5px;}
                 .ulRank li {list-style:none; font-size:12px;width:100%;margin-bottom:2px;white-space:nowrap;text-overflow:ellipsis; -o-text-overflow:ellipsis; -moz-text-overflow:ellipsis; overflow: hidden; }                

@@ -91,7 +91,7 @@ namespace wojilu.Web.Controller.Content {
 
             if (strUtil.IsNullOrEmpty( moreUrl ) || "#".Equals( moreUrl )) return "";
 
-            if (isUrl(moreUrl)) return string.Format( "<a href=\"{0}\">{1}</a>", moreUrl, lang( "more" ) );
+            if (isUrl(moreUrl)) return string.Format( "<a href=\"{0}\">{1}>></a>", moreUrl, lang( "more" ) );
 
             return moreUrl;
         }
