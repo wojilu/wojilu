@@ -80,11 +80,11 @@ namespace wojilu.Web.Controller.Common.Installers {
 
             // 创建自定义模板
             ContentCustomTemplate cs = new ContentCustomTemplate();
-            cs.Content = @"<ul class=""nlist ulLR unstyled"">
+            cs.Content = @"<ul class=""dot2 ulLR unstyled"">
 <!-- BEGIN list -->
-<li style=""height:20px;""><div style=""float:left;width:310px;font-size:14px;text-overflow:ellipsis;overflow: hidden;white-space:nowrap;"">
+<li style=""height:20px;""><div class=""left-title"" style=""width:310px;font-size:14px;"">
 <a href=""#{post.Url}"" style=""#{post.TitleCss}"" title=""#{post.TitleFull}"" style=""#{post.TitleCss}"">#{post.Title}</a></div>
-<div style=""float:right; color:#999; font-size:12px;"">#{post.CreatedDay}</div>
+<div class=""right-info"">#{post.CreatedDay}</div>
 <div class=""clear""></div>
 </li>
 <!-- END list -->

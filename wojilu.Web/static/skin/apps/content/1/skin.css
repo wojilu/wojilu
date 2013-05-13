@@ -14,7 +14,7 @@
 
     .columnContainer {float: left;overflow:hidden;display:inline;}
     
-        .sectionPanel {margin-bottom:10px; clear:both; }
+        .sectionPanel {margin-bottom:10px; clear:both; border:1px solid #ddd; }
         
         .normal-section {margin-left:5px; margin-right:3px;}
 
@@ -23,7 +23,6 @@
             .sectionMore a {font-size:12px;color:#555;font-weight:normal; font-family:Song style;}
             .sectionContent {line-height:150%; font-size:14px;padding:10px 6px;}
             .sectionContent li {list-style:none; margin:2px 0px 3px 0px;}
-            .nlist li { background:url(list.gif) no-repeat 5px 8px; padding-left:15px;}
 
                 .item-pic-title {width:158px;  overflow:hidden;text-overflow:clip;  white-space:nowrap;}
             
@@ -33,13 +32,19 @@
                 .sectionTitleTab { }
                 
                 .ul1 {margin:5px;}
-                .ul1 li {list-style:none; width:100%;white-space:nowrap;text-overflow:ellipsis; -o-text-overflow:ellipsis; -moz-text-overflow:ellipsis; overflow: hidden;background:url(list.gif) no-repeat 5px -49px; padding-left:15px;}
-                .ul2 li {list-style:none; width:45%;white-space:nowrap;text-overflow:ellipsis; -o-text-overflow:ellipsis; -moz-text-overflow:ellipsis; overflow: hidden; float:left; margin-right:5px;  }
+                .ul1 li {list-style:none; width:100%;white-space:nowrap;text-overflow:ellipsis; -o-text-overflow:ellipsis; -moz-text-overflow:ellipsis; overflow: hidden;}
+                .ul2 {margin-left:0px;}
+                .ul2 li {list-style:none; width:45%;white-space:nowrap;text-overflow:ellipsis; -o-text-overflow:ellipsis; -moz-text-overflow:ellipsis; overflow: hidden; float:left; margin-right:3px; }
+
                 .ulimg {margin:0px;}
                 .ulimg li {float:left;list-style:none; }
                 .ulimg img {width:60px;height:60px;margin:5px}
-                .ulLR li .leftTitle{width:270px;float:left;white-space:nowrap;text-overflow:ellipsis; -o-text-overflow:ellipsis; -moz-text-overflow:ellipsis; overflow: hidden;}
-                .ulLR li .rightInfo{float:right;}
+                
+                .ulL {float:left;}
+                .ulR {float:right; text-align:center; font-size:12px;}
+                
+                .ulLR li .left-title{width:270px;float:left;white-space:nowrap;text-overflow:ellipsis; -o-text-overflow:ellipsis; -moz-text-overflow:ellipsis; overflow: hidden;}
+                .ulLR li .right-info{float:right;color:#999; font-size:12px;}
                 
                 .float-img {float:left; border:1px solid #ccc; padding:3px; margin:0px 8px 8px 0px;}
                 .float-img2 {float:left; margin:5px 8px 8px 0px;}
@@ -52,9 +57,9 @@
                 .ulRank li.rankItem3 span{background-color:orange; color:#fff;font-weight:bold;}
                 .ulRank li span {color:#555;}               
 
-                .sectionVideos li{list-style:none; float:left;margin:10px 10px 0px 0px; width:150px; height:120px; font-size:12px; text-align:center; padding:5px 3px;}
+                .sectionVideos li{list-style:none; float:left;margin:5px 3px 0px 0px; width:136px; height:110px; font-size:12px; text-align:center; padding:5px 3px;}
                 .sectionVideos li:hover { background:#f2f2f2;}
-                .sectionVideos li .item-pic-title {width:130px;margin-left:10px;}
+                .sectionVideos li .item-pic-title {width:130px;}
                 
                 .excerpt {}
                 .excerpt li {list-style:none; margin-bottom:10px; display:block; clear:both; background:#fff; padding-bottom:10px; border-bottom:1px solid #ddd;}
@@ -65,30 +70,35 @@
                 .epOnlyTitle {font-size:14px;}
                 .excerpt .note { font-size:12px; margin-top:5px;}
                 
-                .ulL {float:left;}
-                .ulR {float:right; text-align:center; font-size:12px;}
+
 
                 
-div.articleLocation {margin:0px 10px 10px 5px; color:#666;}
+div.articleLocation {margin:0px 0px 0px 0px; color:#666; border-bottom:1px solid #dedede; padding:6px 10px; background:url(../../../../img/sectionTitleBg.gif);}
+div.articleLocation a { color:#333;}
       
 /************** detail ***************/
 
-#postContainer {width:100%;position:relative;border-top:1px dotted #d8d8d8;margin-top:20px;background:url(post-sp-bg.png) repeat-y;}
+#postContainer {width:100%;position:relative;border-top1:1px dotted #d8d8d8;margin-top:0px;background1:url(post-sp-bg.png) repeat-y;}
 
 
-    #postMain {float:left;  padding:0px 10px 10px 0px; margin:0px 0px 10px 10px;}
+    #postMain {float:left;  padding:20px 10px 10px 5px; margin:0px 0px 10px 10px;}
         #postMain h4{font-size:20px;font-family:微软雅黑; margin:10px;margin-top:20px;}
-        #postMainContainer {padding:15px;  width:600px;margin-top:10px; }
+        #postMainContainer {padding:0px 0px 15px 0px;  width:630px;margin-top:10px; border:1px solid #ddd; }
         
         .ulimgMiddle li {float:left;width:115px;list-style:none; height:125px;margin:10px; padding-top:10px; background:#fff;text-align:center}
         .ulimgMiddle li div {margin:5px; }
     
-        .post-detail-title{font-size:26px;font-weight:bold; color:#004499; margin:25px 0px 5px 0px; text-align:center; border-bottom:1px #aaa solid; padding-bottom:5px;}
+        .post-detail-title{font-size:26px;font-weight:bold; color1:#333; margin:25px 0px 5px 0px; text-align:center; border-bottom:1px #ddd solid; padding-bottom:5px;}
         .h4title {font-size:16px; font-weight:bold; margin:20px 0px 0px 5px;}
-        .ulposts {font-size:14px; line-height:150%; padding:15px 10px 10px 5px;}
-        .ulposts .note {font-size:12px;}
         
-        .post-detail-info {color:#333;text-align:center;margin:5px 5px 10px 5px; }
+        /********** list ***********/
+        .ulposts {padding:15px 10px 10px 5px; }
+        .ulposts li { list-style:square;margin-left:25px;}
+        .ulposts .list-title { color:#333; font-size:14px;}
+        .ulposts .list-info { float:right; color:#999; font-size:12px;}
+        .ulposts .note {font-size:12px; color:#666; margin-left:5px; }
+        
+        .post-detail-info {color:#999;text-align:center;margin:5px 5px 10px 5px; }
         .post-detail-info a{color:#cc0000;}
         #postContent {margin:5px 5px 5px 5px; font-size:14px; line-height:150%}   
         #postContent img {max-width:560px;}

@@ -79,7 +79,7 @@ namespace wojilu.Web.Controller.Content.Utils {
             block.Set( "post.TitleCss", post.Style );
 
             block.Set( "post.Title", strUtil.SubString( post.GetTitle(), 50 ) );
-            block.Set( "post.Created", post.Created );
+            block.Set( "post.Created", post.Created.ToString( "yyyy-MM-dd HH:mm:ss" ) );
             block.Set( "post.Hits", post.Hits );
             block.Set( "post.Url", alink.ToAppData( post, ctx ) );
 

@@ -20,6 +20,8 @@ textarea {padding:2px;}
 
 a:hover { color:#5195ce} /*鼠标悬停链接颜色*/
 
+.overflow {white-space:nowrap;text-overflow:ellipsis; -o-text-overflow:ellipsis; -moz-text-overflow:ellipsis; overflow: hidden;}
+
 .clear {clear: both;height: 0;overflow: hidden;display: block;}
 .clearfix:after {clear: both;height: 0;overflow: hidden;display: block;visibility: hidden;	content: ".";}
 .clearfix {zoom: 1;}
