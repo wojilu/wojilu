@@ -345,9 +345,6 @@
     <Compile Include="Common\Comments\IComment.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Common\AppBase\PageSettingLink.cs">
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Include="Members\Users\Domain\Skin\SpaceSkin.cs">
       <SubType>Code</SubType>
     </Compile>

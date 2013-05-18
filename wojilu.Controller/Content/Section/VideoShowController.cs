@@ -22,12 +22,10 @@ namespace wojilu.Web.Controller.Content.Section {
 
         public IContentPostService postService { get; set; }
         public IContentSectionService sectionService { get; set; }
-        public IContentCustomTemplateService ctService { get; set; }
 
         public VideoShowController() {
             postService = new ContentPostService();
             sectionService = new ContentSectionService();
-            ctService = new ContentCustomTemplateService();
         }
 
         public void SectionShow( int sectionId ) {
@@ -36,8 +34,6 @@ namespace wojilu.Web.Controller.Content.Section {
             if (s == null) {
                 throw new Exception( lang( "exDataNotFound" ) + "=>page section:" + sectionId );
             }
-
-            TemplateUtil.loadTemplate( this, s, ctService );
 
             ContentPost video = postService.GetFirstPost( ctx.app.Id, sectionId );
             bindSectionShow( s, video );

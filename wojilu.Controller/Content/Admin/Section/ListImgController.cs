@@ -64,6 +64,19 @@ namespace wojilu.Web.Controller.Content.Admin.Section {
             bindSectionShow( sectionId, postcat, imgcat, posts, imgs );
         }
 
+        public List<ContentPost> GetSectionPosts( int sectionId ) {
+
+            int postcat = PostCategory.Post;
+            int imgcat = PostCategory.Img;
+            List<ContentPost> posts = this.postService.GetTopBySectionAndCategory( sectionId, postcat );
+            List<ContentPost> imgs = this.imgService.GetByCategory( sectionId, imgcat, ctx.app.Id );
+
+            List<ContentPost> list = new List<ContentPost>();
+            list.AddRange( posts );
+            list.AddRange( imgs );
+            return list;
+        }
+
     }
 }
 

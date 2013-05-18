@@ -79,5 +79,10 @@ namespace wojilu.Web.Controller.Content.Admin.Section {
 
         }
 
+        public List<ContentPost> GetSectionPosts( int sectionId ) {
+            ContentSection section = sectionService.GetById( sectionId, ctx.app.Id );
+            return postService.GetBySection( sectionId, section.ListCount );
+        }
+
     }
 }

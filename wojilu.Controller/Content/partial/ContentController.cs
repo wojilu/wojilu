@@ -48,6 +48,7 @@ namespace wojilu.Web.Controller.Content {
 
         private void bindSectionList( IBlock sectionBlock, IList sections ) {
 
+            int iSection = 1;
             foreach (ContentSection section in sections) {
 
                 String moreUrl = getMoreUrl( section );
@@ -71,9 +72,13 @@ namespace wojilu.Web.Controller.Content {
                 }
 
                 sectionBlock.Set( "section.Id", section.Id );
+                sectionBlock.Set( "sectionClassId", iSection );
+
                 String content = getSectionContent( section );
                 sectionBlock.Set( "section.Content", content );
                 sectionBlock.Next();
+
+                iSection = iSection + 1;
 
             }
         }
@@ -114,15 +119,16 @@ namespace wojilu.Web.Controller.Content {
 
         private String getSectionContent( ContentSection section ) {
             String content;
-            if (section.ServiceId <= 0)
+            if (section.ServiceId <= 0) {
                 content = getData( section );
-            else
+            } else {
                 content = getAutoData( section );
+            }
             return content;
         }
 
         private String getData( ContentSection articleSection ) {
-            IPageSection section = BinderUtils.GetPageSection( articleSection, ctx, "SectionShow" );
+            IPageSection section = BinderUtils.GetPageSection( articleSection, ctx );
             ControllerBase sectionController = section as ControllerBase;
             section.SectionShow( articleSection.Id );
             String actionContent = sectionController.utils.getActionResult();
@@ -137,10 +143,8 @@ namespace wojilu.Web.Controller.Content {
 
             if (section.TemplateId <= 0) return getJsonResult( section, data );
 
-            ContentSectionTemplate sectionTemplate = TplService.GetById( section.TemplateId );
-            Template currentView = utils.getTemplateByFileName( BinderUtils.GetBinderTemplatePath( sectionTemplate ) );
-            ISectionBinder binder = BinderUtils.GetBinder( sectionTemplate, ctx, currentView );
-            binder.Bind( section, data ); // custom template : SectionUtil.loadTemplate
+            ISectionBinder binder = BinderUtils.GetBinder( section, ctx );
+            binder.Bind( section, data );
             ControllerBase sectionController = binder as ControllerBase;
             return sectionController.utils.getActionResult();
         }

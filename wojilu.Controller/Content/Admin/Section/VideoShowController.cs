@@ -60,6 +60,13 @@ namespace wojilu.Web.Controller.Content.Admin.Section {
             bindSectionShow( sectionId, video );
         }
 
+        public List<ContentPost> GetSectionPosts( int sectionId ) {
+            ContentPost video = postService.GetFirstPost( ctx.app.Id, sectionId );
+            List<ContentPost> list = new List<ContentPost>();
+            list.Add( video );
+            return list;
+        }
+
     }
 }
 

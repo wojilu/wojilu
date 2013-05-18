@@ -38,7 +38,7 @@ namespace wojilu.Web.Controller.Common.Installers {
             createImgBig( s, "嫦娥二号整流罩坠落江西", "http://img2.cache.netease.com/cnews/2010/10/2/201010021526102b7fa.jpg" );
             createImgBig( s, "重庆特警开装甲车巡逻维稳", "http://img2.cache.netease.com/cnews/2010/10/2/201010020837190e40a.jpg" );
             createImgBig( s, "香港举行国庆烟花汇演", "http://img1.cache.netease.com/cnews/2010/10/2/20101002081623541f8.jpg" );
-            designCss.AppendLine( "#section" + s.Id + " { border-width:0px !important; }" );
+            designCss.AppendLine( "#portalContainer #section" + s.Id + " { border:0px; }" );
             designCss.AppendLine( "#sectionTitle" + s.Id + " { display:none; }" );
             designCss.AppendLine( "#sectionContent" + s.Id + " { padding-left:0px; padding-top:0px; padding-right:0px; padding-bottom:0px; }" );
 
@@ -124,7 +124,7 @@ namespace wojilu.Web.Controller.Common.Installers {
             s = createSection( "通栏广告", typeof( TextController ), "21" );
             createText( s, @"<img src=""/static/img/big/ad1.gif""/>" );
 
-            designCss.AppendLine( "#section" + s.Id + " { border-width:0px !important; }" );
+            designCss.AppendLine( "#portalContainer #section" + s.Id + " { border:0px; }" );
             designCss.AppendLine( "#sectionTitle" + s.Id + " { display:none; }" );
             designCss.AppendLine( "#sectionContent" + s.Id + " { padding-left:0px; padding-top:0px; padding-right:0px; padding-bottom:0px; margin-right:10px;}" );
 
@@ -133,7 +133,7 @@ namespace wojilu.Web.Controller.Common.Installers {
 
 
             StringBuilder customCss = new StringBuilder();
-            customCss.AppendLine( "#section" + s.Id + ".sectionPanel {border:0px;}" );
+            customCss.AppendLine( "#portalContainer #section" + s.Id + " {border:0px;}" );
             customCss.AppendLine( "#sectionTitle" + s.Id + " {background:url(/static/img/big/rowBg1.jpg) no-repeat;height:31px; border-bottom:0px;}" );
             customCss.AppendLine( "#sectionTitle" + s.Id + " .sectionTitleText a{color:#fff;}" );
             customCss.AppendLine( "#sectionTitle" + s.Id + " .sectionMore {margin-right:15px;}" );
@@ -164,13 +164,13 @@ namespace wojilu.Web.Controller.Common.Installers {
             // 第四行
             s = createSection( "通栏广告", typeof( TextController ), "41" );
             createText( s, @"<img src=""/static/img/big/ad2.gif""/>" );
-            designCss.AppendLine( "#section" + s.Id + " { border-width:0px !important; }" );
+            designCss.AppendLine( "#portalContainer #section" + s.Id + " { border:0px; }" );
             designCss.AppendLine( "#sectionTitle" + s.Id + " { display:none; }" );
             designCss.AppendLine( "#sectionContent" + s.Id + " { padding-left:0px; padding-top:0px; padding-right:0px; padding-bottom:0px; margin-right:10px;}" );
 
             // 第五行
             s = createSection( "娱乐资讯", typeof( PostImgController ), "51" );
-            customCss.AppendLine( "#section" + s.Id + ".sectionPanel {border:0px;}" );
+            customCss.AppendLine( "#portalContainer #section" + s.Id + " {border:0px;}" );
             customCss.AppendLine( "#sectionTitle" + s.Id + " {background:url(/static/img/big/rowBg2.jpg) no-repeat;height:31px;border-bottom:0px;}" );
             customCss.AppendLine( "#sectionTitle" + s.Id + " .sectionTitleText a{color:#fff;}" );
             customCss.AppendLine( "#sectionTitle" + s.Id + " .sectionMore {margin-right:15px;}" );
@@ -201,12 +201,12 @@ namespace wojilu.Web.Controller.Common.Installers {
             // 第六行
             s = createSection( "通栏广告", typeof( TextController ), "61" );
             createText( s, @"<img src=""/static/img/big/ad3.gif""/>" );
-            designCss.AppendLine( "#section" + s.Id + " { border-width:0px !important; }" );
+            designCss.AppendLine( "#portalContainer #section" + s.Id + " { border:0px; }" );
             designCss.AppendLine( "#sectionTitle" + s.Id + " { display:none; }" );
             designCss.AppendLine( "#sectionContent" + s.Id + " { padding-left:0px; padding-top:0px; padding-right:0px; padding-bottom:0px; margin-right:10px;}" );
 
             s = createSection( "综合图文", typeof( PostImgController ), "71" );
-            customCss.AppendLine( "#section" + s.Id + ".sectionPanel {border:0px;}" );
+            customCss.AppendLine( "#portalContainer #section" + s.Id + "{border:0px;}" );
             customCss.AppendLine( "#sectionTitle" + s.Id + " {background:url(/static/img/big/rowBg3.jpg) no-repeat;height:31px;border-bottom:0px;}" );
             customCss.AppendLine( "#sectionTitle" + s.Id + " .sectionTitleText a{color:#fff;}" );
             customCss.AppendLine( "#sectionTitle" + s.Id + " .sectionMore {margin-right:15px;}" );

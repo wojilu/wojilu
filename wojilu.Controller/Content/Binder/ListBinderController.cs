@@ -16,15 +16,7 @@ namespace wojilu.Web.Controller.Content.Binder {
 
     public class ListBinderController : ControllerBase, ISectionBinder {
 
-        public IContentCustomTemplateService ctService { get; set; }
-
-        public ListBinderController() {
-            ctService = new ContentCustomTemplateService();
-        }
-
         public void Bind( ContentSection section, IList serviceData ) {
-
-            TemplateUtil.loadTemplate( this, section, ctService );
 
             IBlock block = base.getBlock( "list" );
 

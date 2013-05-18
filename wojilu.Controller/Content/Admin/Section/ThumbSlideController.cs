@@ -54,10 +54,14 @@ namespace wojilu.Web.Controller.Content.Admin.Section {
         public void AdminSectionShow( int sectionId ) {
 
             int imgcat = PostCategory.Img;
-            List<ContentPost> posts = postService.GetBySection( sectionId, 4 );
+            List<ContentPost> posts = GetSectionPosts( sectionId );
             ContentPost first = posts.Count > 0 ? posts[0] : null;
 
             bindSectionShow( sectionId, imgcat, posts, first );
+        }
+
+        public List<ContentPost> GetSectionPosts( int sectionId ) {
+            return postService.GetBySection( sectionId, 4 );
         }
 
     }

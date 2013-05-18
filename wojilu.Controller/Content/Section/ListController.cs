@@ -27,12 +27,10 @@ namespace wojilu.Web.Controller.Content.Section {
 
         public IContentPostService postService { get; set; }
         public IContentSectionService sectionService { get; set; }
-        public IContentCustomTemplateService ctService { get; set; }
 
         public ListController() {
             postService = new ContentPostService();
             sectionService = new ContentSectionService();
-            ctService = new ContentCustomTemplateService();
         }
 
         [Data( typeof( ContentSection ) )]
@@ -68,9 +66,7 @@ namespace wojilu.Web.Controller.Content.Section {
                 throw new Exception( lang( "exDataNotFound" ) + "=>page section:" + sectionId );
             }
 
-            TemplateUtil.loadTemplate( this, s, ctService );
-
-            IList posts = postService.GetBySection( sectionId );
+            IList posts = postService.GetBySection( sectionId, s.ListCount );
             bindSectionPosts( posts );
         }
 

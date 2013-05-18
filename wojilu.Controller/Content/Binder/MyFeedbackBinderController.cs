@@ -4,7 +4,6 @@
 
 using System;
 using System.Collections;
-using System.Text;
 
 using wojilu.Web.Mvc;
 using wojilu.Members.Users.Domain;
@@ -13,22 +12,14 @@ using wojilu.Web.Controller.Users;
 using wojilu.Apps.Content.Domain;
 using wojilu.Apps.Content.Interface;
 using wojilu.Common.Msg.Domain;
-using wojilu.Apps.Content.Service;
-using wojilu.Web.Controller.Content.Utils;
 
 namespace wojilu.Web.Controller.Content.Binder {
 
     public class MyFeedbackBinderController : ControllerBase, ISectionBinder {
 
-        public IContentCustomTemplateService ctService { get; set; }
-        public MyFeedbackBinderController() {
-            ctService = new ContentCustomTemplateService();
-        }
         public void Bind( ContentSection section, IList serviceData ) {
 
-            TemplateUtil.loadTemplate( this, section, ctService );
 
-            //target( new FeedbackController().Create );
             set( "ActionLink", t2( new FeedbackController().Create ) );
 
             if (ctx.viewer.Id == ctx.owner.Id && ctx.owner.obj is User)

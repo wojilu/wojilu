@@ -42,3 +42,5 @@
             
             .adminListOne a {color:#333;}
             
+            a.edit {color:red !important; font-size:12px;}
+            .edit a {color:red;font-size:12px;}

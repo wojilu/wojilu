@@ -44,6 +44,8 @@ namespace wojilu.Web.Controller.Common.Installers {
         protected MvcContext ctx;
         protected ContentApp app;
 
+        protected int themeId;
+
         public CmsInstallerBase() {
             installerService = new AppInstallerService();
             appService = new UserAppService();
@@ -91,7 +93,7 @@ namespace wojilu.Web.Controller.Common.Installers {
 </div>";
         }
 
-        public IMemberApp Install( MvcContext ctx, IMember owner, String appName, AccessStatus accessStatus ) {
+        public IMemberApp Install( MvcContext ctx, IMember owner, String appName, AccessStatus accessStatus, int themeId ) {
 
 
             this.ctx = ctx;
@@ -99,12 +101,22 @@ namespace wojilu.Web.Controller.Common.Installers {
             this.user = ctx.viewer.obj as User;
             this.owner = owner;
 
+            this.themeId = themeId;
+
             setService( ctx );
 
+
+            // 真正初始化过程
+
+            initTheme();
             IMemberApp app = createPortalApp();
             createLayout();
 
             return app;
+        }
+
+
+        protected virtual void initTheme() {
         }
 
         protected abstract IMemberApp createPortalApp();
@@ -207,16 +219,15 @@ namespace wojilu.Web.Controller.Common.Installers {
         //---------------------------------
 
         protected ContentPost createPost( ContentSection s, String title, String titleHome, String content, String imgUrl, String videoUrl, Boolean isBigImg, int categoryId ) {
-            int width=0;
-            int height=0;
+            int width = 0;
+            int height = 0;
 
             if (strUtil.HasText( imgUrl )) {
 
                 if (isBigImg) {
                     width = 290;
                     height = 210;
-                }
-                else {
+                } else {
                     width = 120;
                     height = 90;
                 }
@@ -257,13 +268,11 @@ namespace wojilu.Web.Controller.Common.Installers {
                 p.TypeName = typeof( ContentVideo ).FullName;
                 p.Width = 290;
                 p.Height = 235;
-            }
-            else if (strUtil.HasText( imgUrl )) {
+            } else if (strUtil.HasText( imgUrl )) {
 
                 if (categoryId > 0) {
                     p.CategoryId = categoryId;
-                }
-                else {
+                } else {
                     p.CategoryId = PostCategory.Img;
                 }
 
@@ -303,6 +312,10 @@ namespace wojilu.Web.Controller.Common.Installers {
             return mapp;
         }
 
+        protected ContentSection createSection( String name, String sectionType, String layoutStr ) {
+            return createSection( name, sectionType, layoutStr, null );
+        }
+
         /// <summary>
         /// 创建手动添加区块
         /// </summary>
@@ -315,6 +328,10 @@ namespace wojilu.Web.Controller.Common.Installers {
             return createSection( name, sectionType, layoutStr, null );
         }
 
+        protected ContentSection createSection( String name, Type sectionType, String layoutStr, ContentCustomTemplate ct ) {
+            return createSection( name, sectionType.FullName, layoutStr, ct );
+        }
+
         /// <summary>
         /// 创建手动添加区块
         /// </summary>
@@ -323,7 +340,7 @@ namespace wojilu.Web.Controller.Common.Installers {
         /// <param name="layoutStr">所属行和所属列</param>
         /// <param name="ct">自定义模板</param>
         /// <returns></returns>
-        protected ContentSection createSection( String name, Type sectionType, String layoutStr, ContentCustomTemplate ct ) {
+        protected ContentSection createSection( String name, String sectionType, String layoutStr, ContentCustomTemplate ct ) {
 
             ContentSection section = new ContentSection();
 
@@ -333,7 +350,7 @@ namespace wojilu.Web.Controller.Common.Installers {
             section.AppId = this.app.Id;
             section.RowId = rowId;
             section.ColumnId = columnId;
-            section.SectionType = sectionType.FullName;
+            section.SectionType = sectionType;
             section.Title = name;
 
             if (ct != null) section.CustomTemplateId = ct.Id;

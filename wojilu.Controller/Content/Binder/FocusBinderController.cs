@@ -27,13 +27,25 @@ namespace wojilu.Web.Controller.Content.Binder {
         }
 
         private void bindFocus( IBlock fblock, ContentPost article ) {
-            fblock.Set( "article.Title", strUtil.SubString( article.Title, 19 ) );
-            fblock.Set( "article.SummaryInfo", strUtil.CutString( article.Summary, 100 ) );
+
+            if (strUtil.HasText( article.TitleHome )) {
+                fblock.Set( "article.Title", article.TitleHome );
+            } else {
+                fblock.Set( "article.Title", strUtil.SubString( article.Title, 19 ) );
+            }
+
+            if (strUtil.HasText( article.Summary )) {
+                fblock.Set( "article.SummaryInfo", article.Summary);
+            } else {
+                fblock.Set( "article.SummaryInfo", strUtil.ParseHtml( article.Content, 100 ) );
+            }
+
             fblock.Set( "article.Url", alink.ToAppData( article, ctx ) );
             fblock.Next();
         }
 
         private void bindPickedList( IList serviceData, IBlock block ) {
+
             for (int i = 1; i < serviceData.Count; i++) {
 
                 ContentPost post = serviceData[i] as ContentPost;
@@ -43,7 +55,13 @@ namespace wojilu.Web.Controller.Content.Binder {
 
                 String attIcon = post.Attachments > 0 ? BinderUtils.iconAttachment : "";
 
-                block.Set( "post.Title", post.Title );
+                if (strUtil.HasText( post.TitleHome )) {
+                    block.Set( "post.Title", post.TitleHome );
+                } else {
+                    block.Set( "post.Title", post.Title );
+                }
+
+
                 block.Set( "post.Url", alink.ToAppData( post, ctx ) );
                 block.Set( "post.DataIcon", typeIcon );
                 block.Set( "post.AttachmentIcon", attIcon );

@@ -56,8 +56,13 @@ namespace wojilu.Web.Controller.Content.Admin.Section {
         }
 
         public void AdminSectionShow( int sectionId ) {
-            List<ContentPost> posts = postService.GetBySection( sectionId );
+            List<ContentPost> posts = GetSectionPosts( sectionId );
             bindSectionShow( sectionId, posts );
+        }
+
+        public List<ContentPost> GetSectionPosts( int sectionId ) {
+            ContentSection s = sectionService.GetById( sectionId, ctx.app.Id );
+            return postService.GetBySection( sectionId, s.ListCount );
         }
 
         public void AdminList( int sectionId ) {
@@ -137,6 +142,7 @@ namespace wojilu.Web.Controller.Content.Admin.Section {
             echoToParentPart( lang( "opok" ) );
             HtmlHelper.SetPostToContext( ctx, post );
         }
+
 
     }
 }

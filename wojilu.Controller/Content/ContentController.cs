@@ -23,12 +23,10 @@ namespace wojilu.Web.Controller.Content {
         private static readonly ILog logger = LogManager.GetLogger( typeof( ContentController ) );
 
         public IContentSectionService SectionService { get; set; }
-        public IContentSectionTemplateService TplService { get; set; }
         public IContentCustomTemplateService ctService { get; set; }
 
         public ContentController() {
             SectionService = new ContentSectionService();
-            TplService = new ContentSectionTemplateService();
             ctService = new ContentCustomTemplateService();
         }
 

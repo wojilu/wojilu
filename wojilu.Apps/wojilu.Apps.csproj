@@ -87,6 +87,7 @@
     <Compile Include="Blog\Service\BlogSysCategoryService.cs" />
     <Compile Include="Blog\Service\BlogPickService.cs" />
     <Compile Include="Content\Domain\ContentDigg.cs" />
+    <Compile Include="Content\Theme\ContentTheme.cs" />
     <Compile Include="Content\Domain\ContentPostSection.cs" />
     <Compile Include="Content\Domain\ContentTempPost.cs" />
     <Compile Include="Content\Domain\ContentAttachment.cs" />
@@ -123,6 +124,7 @@
     <Compile Include="Content\Domain\ContentSkin.cs" />
     <Compile Include="Content\Domain\ContentSubmitter.cs" />
     <Compile Include="Content\Domain\ContentVideo.cs" />
+    <Compile Include="Content\Theme\XApp.cs" />
     <Compile Include="Content\Enum\PickStatus.cs" />
     <Compile Include="Content\Enum\PostCategory.cs" />
     <Compile Include="Content\Enum\PostSubmitStatus.cs" />
@@ -144,6 +146,9 @@
     <Compile Include="Content\Interface\ISectionBinder.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Content\IPageSection.cs" />
+    <Compile Include="Content\IPageSettingLink.cs" />
+    <Compile Include="Content\PageSettingLink.cs" />
     <Compile Include="Content\Service\AttachmentService.cs" />
     <Compile Include="Content\Service\ContentCustomTemplateService.cs" />
     <Compile Include="Content\Service\ContentImgService.cs" />
@@ -210,6 +215,7 @@
     <Compile Include="Content\Service\ContentTempPostService.cs" />
     <Compile Include="Content\Service\RowService.cs" />
     <Compile Include="Content\Service\SysPostService.cs" />
+    <Compile Include="Content\Theme\XSection.cs" />
     <Compile Include="Forum\Domain\AttachmentDownload.cs" />
     <Compile Include="Forum\Domain\AttachmentTemp.cs" />
     <Compile Include="Forum\Domain\ForumPick.cs" />
@@ -419,6 +425,9 @@
       <Project>{5912B6E1-6099-4392-9A67-AFD3A8AA4343}</Project>
       <Name>wojilu</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Content\Theme\XPost.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

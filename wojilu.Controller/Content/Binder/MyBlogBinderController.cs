@@ -19,20 +19,11 @@ namespace wojilu.Web.Controller.Content.Binder {
 
     public class MyBlogBinderController : ControllerBase, ISectionBinder {
 
-        public IContentCustomTemplateService ctService { get; set; }
-
-        public MyBlogBinderController() {
-            ctService = new ContentCustomTemplateService();
-        }
-
         public void Bind( ContentSection section, IList serviceData ) {
-
-            TemplateUtil.loadTemplate( this, section, ctService );
 
             IBlock block = base.getBlock( "list" );
 
             foreach (IBinderValue item in serviceData) {
-
 
                 block.Set( "d.Created", cvt.ToTimeString(  item.Created ));
                 block.Set( "d.Replies", item.Replies );

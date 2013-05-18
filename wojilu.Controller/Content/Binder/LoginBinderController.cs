@@ -18,16 +18,7 @@ namespace wojilu.Web.Controller.Content.Binder {
 
     public class LoginBinderController : ControllerBase, ISectionBinder{
 
-        public IContentCustomTemplateService ctService { get; set; }
-
-        public LoginBinderController() {
-            ctService = new ContentCustomTemplateService();
-        }
-
         public void Bind( ContentSection section, IList serviceData ) {
-
-            TemplateUtil.loadTemplate( this, section, ctService );
-
 
             set( "loginScriptLink", t2( new MainController().LoginScript ) );
         }

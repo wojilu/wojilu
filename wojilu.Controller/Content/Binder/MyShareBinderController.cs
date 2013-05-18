@@ -20,17 +20,13 @@ namespace wojilu.Web.Controller.Content.Binder {
     public class MyShareBinderController : ControllerBase, ISectionBinder {
 
         public FeedService feedService { get; set; }
-        public IContentCustomTemplateService ctService { get; set; }
 
         public MyShareBinderController() {
             feedService = new FeedService();
-            ctService = new ContentCustomTemplateService();
         }
 
 
         public void Bind( ContentSection section, IList serviceData ) {
-
-            TemplateUtil.loadTemplate( this, section, ctService );
 
             IBlock block = getBlock( "list" );
             foreach (Share share in serviceData) {

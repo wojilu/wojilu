@@ -55,11 +55,20 @@ namespace wojilu.Web.Controller.Content.Admin.Section {
             bindSectionShow( sectionId, textPost );
         }
 
+        public List<ContentPost> GetSectionPosts( int sectionId ) {
+            ContentPost textPost = postService.GetFirstPost( ctx.app.Id, sectionId );
+            List<ContentPost> list = new List<ContentPost>();
+            list.Add( textPost );
+            return list;
+        }
+
         public void AdminList( int sectionId ) {
             ContentSection section = sectionService.GetById( sectionId, ctx.app.Id );
             DataPage<ContentPost> posts = postService.GetPageBySectionAndCategory( section.Id, ctx.GetInt( "categoryId" ) );
             bindAdminList( section, posts );
         }
+
+
 
         public String GetEditLink( int postId ) {
             return to( Edit, postId );

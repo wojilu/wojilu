@@ -4,29 +4,17 @@
 
 using System;
 using System.Collections;
-using System.Text;
 using wojilu.Web.Mvc;
 using wojilu.Apps.Content.Interface;
 using wojilu.Members.Users.Domain;
 using wojilu.Apps.Content.Domain;
-using wojilu.Web.Controller.Common;
-using wojilu.Apps.Content.Service;
-using wojilu.Web.Controller.Content.Utils;
 using wojilu.Web.Controller.Users;
-using wojilu.Members.Sites.Domain;
 
 namespace wojilu.Web.Controller.Content.Binder {
 
     public class MyFaceBinderController : ControllerBase, ISectionBinder {
 
-        public IContentCustomTemplateService ctService { get; set; }
-        public MyFaceBinderController() {
-            ctService = new ContentCustomTemplateService();
-        }
-
         public void Bind( ContentSection section, IList serviceData ) {
-
-            TemplateUtil.loadTemplate( this, section, ctService );
 
             User user = ctx.owner.obj as User;
 
@@ -36,8 +24,6 @@ namespace wojilu.Web.Controller.Content.Binder {
             }
 
             bindFace( user );
-
-
         }
 
         private void bindFace( User user ) {

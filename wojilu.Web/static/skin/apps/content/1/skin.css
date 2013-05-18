@@ -164,9 +164,11 @@ table.commentPublishTable {color:#004499; border:0px #aaa solid; margin-left:15p
 .adRow .sectionContent {padding-left:1px !important;overflow:hidden;}
 .adRow .sectionTitle { display:none;}
 
-.focusSection { background:url(focus-new.jpg) no-repeat; border:0px !important;}
+.focusSection { background:url(focus-new-left.jpg) no-repeat; border:0px !important;}
 .focusSection a{ color:#2A2A2A;}
 .focusSection .sectionTitle { display:none;}
+.focusSection .sectionContentText { background:url(focus-new-right.jpg) no-repeat top right;}
+#portalContainer .focusSection .sectionContent {padding:0px;}
 
 .login {font-size:12px !important;}
 .login td { padding:3px 1px;}

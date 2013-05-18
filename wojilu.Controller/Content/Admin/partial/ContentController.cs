@@ -34,13 +34,14 @@ namespace wojilu.Web.Controller.Content.Admin {
 
             set( "setStyleUrl", to( new ContentController().SetStyle ) );
             set( "layoutSaveUrl", to( new ContentController().SaveLayout ) );
+            set( "lnkExport", to( new ExportController().Index ) );
 
             set( "resizeLink", to( new ContentController().SaveResize ) );
         }
 
-        private void bindRowList( ContentApp article, List<ContentSection> sections ) {
+        private void bindRowList( ContentApp app, List<ContentSection> sections ) {
             IBlock block = getBlock( "rowList" );
-            string[] rowList = article.RowList;
+            string[] rowList = app.RowList;
             for (int i = 1; i < (rowList.Length + 1); i++) {
 
                 int columnCount = cvt.ToInt( rowList[i - 1] );
@@ -172,11 +173,8 @@ namespace wojilu.Web.Controller.Content.Admin {
             if (section.TemplateId <= 0) return getJsonResult( section, data );
 
 
-            ContentSectionTemplate tpl = templatelService.GetById( section.TemplateId );
-            Template currentView = utils.getTemplateByFileName( BinderUtils.GetBinderTemplatePath( tpl ) );
-            ISectionBinder binder = BinderUtils.GetBinder( tpl, ctx, currentView );
+            ISectionBinder binder = BinderUtils.GetBinder( section, ctx );
             binder.Bind( section, data );
-
             ControllerBase cb2 = binder as ControllerBase;
             return cb2.utils.getActionResult();
         }

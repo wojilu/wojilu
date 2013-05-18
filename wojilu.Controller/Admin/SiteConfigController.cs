@@ -23,6 +23,7 @@ using wojilu.Web.Handler;
 using wojilu.Common.AppInstall;
 using wojilu.Common;
 using wojilu.Web.Controller.Admin.Members;
+using wojilu.Data;
 
 namespace wojilu.Web.Controller.Admin {
 
@@ -147,9 +148,30 @@ namespace wojilu.Web.Controller.Admin {
         }
 
         private void bindAppAdminLink( IBlock block, String lbl, object obj ) {
-            AppInstaller ai = obj as AppInstaller;
+            AppInstaller installer = obj as AppInstaller;
             block.Set( "app.StatusAdminName", "修改" );
-            block.Set( "app.StatusAdminLink", to( EditStatus, ai.Id ) );
+            block.Set( "app.StatusAdminLink", to( EditStatus, installer.Id ) );
+
+            // 绑定安装主题
+            List<CacheObject> themeList = getThemeList( installer );
+            if (themeList.Count > 0) {
+                block.Set( "app.ThemeInfo", string.Format( "{0}个安装主题", themeList.Count ) );
+                block.Set( "app.ThemeAdminLink", to( new AppThemeController().Index, installer.Id ) );
+            } else {
+                block.Set( "app.ThemeInfo", "" );
+                block.Set( "app.ThemeAdminLink", "#" );
+            }
+
+        }
+
+        private List<CacheObject> getThemeList( AppInstaller installer ) {
+            List<CacheObject> list = new List<CacheObject>();
+            if (strUtil.IsNullOrEmpty( installer.ThemeType )) return list;
+
+            Type themeType = ObjectContext.GetType( installer.ThemeType );
+            if (themeType == null) return list;
+
+            return cdbx.findAll( themeType );
         }
 
         public void EditStatus( int id ) {
@@ -166,8 +188,7 @@ namespace wojilu.Web.Controller.Admin {
             List<AppCategory> cats = new List<AppCategory>();
             if (installer.CatId == AppCategory.General) {
                 cats = AppCategory.GetAllWithoutGeneral();
-            }
-            else {
+            } else {
                 cats.Add( AppCategory.GetByCatId( installer.CatId ) );
             }
             checkboxList( "appCheckboxList", cats, "Name=TypeFullName", installer.StatusValue );
@@ -239,8 +260,7 @@ namespace wojilu.Web.Controller.Admin {
             if (strUtil.HasText( config.Instance.Site.SiteLogo )) {
                 logo = "<img src=\"" + config.Instance.Site.SiteLogoFull + "\"/>";
                 logo += "<div><a href=\"" + to( DeleteLogo ) + "\" class=\"cmd deleteCmd\">× " + lang( "textReplaceLogo" ) + "</a></div>";
-            }
-            else {
+            } else {
                 logo = "<div class=\"nologo\">" + lang( "notUploadLogo" ) + "</div>";
             }
 
@@ -263,8 +283,7 @@ namespace wojilu.Web.Controller.Admin {
                 config.Instance.Site.Update( "SiteLogo", logo );
                 log( SiteLogString.UpdateLogo() );
                 redirect( Logo );
-            }
-            else {
+            } else {
                 errors.Join( result );
                 run( Logo );
             }
@@ -283,8 +302,7 @@ namespace wojilu.Web.Controller.Admin {
 
                 redirect( Logo );
 
-            }
-            else
+            } else
                 echoRedirect( lang( "notUploadLogo" ) );
         }
 

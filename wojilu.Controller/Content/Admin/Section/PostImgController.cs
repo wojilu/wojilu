@@ -40,6 +40,23 @@ namespace wojilu.Web.Controller.Content.Admin.Section {
             bindImgs( imgs );
         }
 
+        public List<ContentPost> GetSectionPosts( int sectionId ) {
+
+            int postcat = PostCategory.Post;
+            int imgcat = PostCategory.Img;
+            int imgPostCat = PostCategory.ImgPost;
+
+            List<ContentPost> posts = postService.GetTopBySectionAndCategory( sectionId, postcat );
+            ContentPost img = imgService.GetTopImg( sectionId, imgPostCat, ctx.app.Id );
+            List<ContentPost> imgs = this.imgService.GetByCategory( sectionId, imgcat, ctx.app.Id, 4 );
+
+            List<ContentPost> list = new List<ContentPost>();
+            list.AddRange( posts );
+            list.Add( img );
+            list.AddRange( imgs );
+            return list;
+        }
+
         public String GetEditLink( int postId ) {
             return to( new Common.PostController().Edit, postId );
         }

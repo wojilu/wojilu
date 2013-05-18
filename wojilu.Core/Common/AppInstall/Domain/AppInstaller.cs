@@ -79,6 +79,11 @@ namespace wojilu.Common.AppInstall {
         /// </summary>
         public int CloseMode { get; set; }
 
+        /// <summary>
+        /// 本App的主题类型，供安装时选择。
+        /// </summary>
+        public String ThemeType { get; set; }
+
         //-------------------------------------------------------------------------------------
 
         [NotSave]

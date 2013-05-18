@@ -18,15 +18,7 @@ namespace wojilu.Web.Controller.Content.Binder {
 
     public class MyInfoBinderController : ControllerBase, ISectionBinder {
 
-        public IContentCustomTemplateService ctService { get; set; }
-
-        public MyInfoBinderController() {
-            ctService = new ContentCustomTemplateService();
-        }
-
         public void Bind( ContentSection section, IList serviceData ) {
-
-            TemplateUtil.loadTemplate( this, section, ctService );
 
             User user = ctx.owner.obj as User;
             if (user == null) return;

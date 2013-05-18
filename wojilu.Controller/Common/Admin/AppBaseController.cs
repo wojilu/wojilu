@@ -21,6 +21,7 @@ using wojilu.Members.Users.Domain;
 using wojilu.Web.Controller.Security;
 using wojilu.Common.AppBase.Interface;
 using System.Collections.Generic;
+using wojilu.Data;
 
 namespace wojilu.Web.Controller.Common.Admin {
 
@@ -73,13 +74,11 @@ namespace wojilu.Web.Controller.Common.Admin {
 
                 new SortUtil<IMemberApp>( app, list ).MoveUp();
                 echoJsonOk();
-            }
-            else if (cmd == "down") {
+            } else if (cmd == "down") {
 
                 new SortUtil<IMemberApp>( app, list ).MoveDown();
                 echoJsonOk();
-            }
-            else {
+            } else {
                 echoError( lang( "exUnknowCmd" ) );
             }
 
@@ -118,6 +117,37 @@ namespace wojilu.Web.Controller.Common.Admin {
 
             target( Create );
             bindAppInfo( info );
+
+            List<CacheObject> themeList = getThemeList( info );
+            if (themeList.Count > 0) {
+                //String lnkThemeList = to( ThemeList, info.Id ) + "";
+                //set( "themeList", "<tr><td>主题类型</td><td><iframe id=\"tmplist\" src=\"" + lnkThemeList + "?frm=true\" frameborder=\"0\" scrolling=\"no\" style=\"width:600px;height:230px;\"></iframe></td></tr>" );
+
+                int val = themeList[0].Id;
+                set( "themeList", "<tr><td>主题类型</td><td>" + Html.RadioList( themeList, "themeId", "Name", "Id", val ) + "</td></tr>" );
+
+            } else {
+                set( "themeList", "" );
+            }
+
+        }
+
+        public void ThemeList( int appInstallerId ) {
+
+            AppInstaller info = getAppInfo( appInstallerId );
+
+            List<CacheObject> themeList = getThemeList( info );
+            bindList( "list", "x", themeList );
+        }
+
+        private List<CacheObject> getThemeList( AppInstaller installer ) {
+            List<CacheObject> list = new List<CacheObject>();
+            if (strUtil.IsNullOrEmpty( installer.ThemeType )) return list;
+
+            Type themeType = ObjectContext.GetType( installer.ThemeType );
+            if (themeType == null) return list;
+
+            return cdbx.findAll( themeType );
         }
 
         private Boolean checkInstall( AppInstaller info ) {
@@ -150,9 +180,14 @@ namespace wojilu.Web.Controller.Common.Admin {
 
             Type appType = ObjectContext.Instance.TypeList[info.TypeFullName];
             if (rft.IsInterface( appType, typeof( IAppInstaller ) )) {
+
+                // 主题ID
+                int themeId = ctx.PostInt( "themeId" );
+
                 IAppInstaller customInstaller = ObjectContext.CreateObject( appType ) as IAppInstaller;
-                IMemberApp capp = customInstaller.Install( ctx, ctx.owner.obj, name, accs );
+                IMemberApp capp = customInstaller.Install( ctx, ctx.owner.obj, name, accs, themeId );
                 intiAppPermission( capp );
+
 
                 echoToParentPart( lang( "opok" ), to( Index ), 1 );
                 return;
@@ -178,8 +213,7 @@ namespace wojilu.Web.Controller.Common.Admin {
 
 
                 echoToParentPart( lang( "opok" ), to( Index ), 1 );
-            }
-            else {
+            } else {
                 errors.Add( lang( "exop" ) );
 
                 run( NewApp, info.Id );

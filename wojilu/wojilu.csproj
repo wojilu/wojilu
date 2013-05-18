@@ -652,8 +652,6 @@
     <Compile Include="Common\AppBase\Enum\SaveStatus.cs" />
     <Compile Include="Common\AppBase\Enum\SystemPickStatus.cs" />
     <Compile Include="Common\AppBase\IAccessStatus.cs" />
-    <Compile Include="Common\AppBase\IPageSection.cs" />
-    <Compile Include="Common\AppBase\IPageSettingLink.cs" />
     <Compile Include="Common\AppBase\ISort.cs" />
     <Compile Include="Common\Onlines\OnlineUser.cs" />
     <Compile Include="Common\Resource\AppResource.cs" />
@@ -736,6 +734,7 @@
     <Compile Include="Web\Utils\HtmlFilter.cs" />
     <Compile Include="Web\Utils\MailUtil.cs" />
     <Compile Include="Web\Utils\Uploader.cs" />
+    <Compile Include="Data\Cache\cdbx.cs" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include="Microsoft.Net.Client.3.5">

@@ -23,12 +23,10 @@ namespace wojilu.Web.Controller.Content.Section {
 
         public IContentPostService postService { get; set; }
         public IContentSectionService sectionService { get; set; }
-        public IContentCustomTemplateService ctService { get; set; }
 
         public SlideController() {
             postService = new ContentPostService();
             sectionService = new ContentSectionService();
-            ctService = new ContentCustomTemplateService();
         }
         
         public void SectionShow( int sectionId ) {
@@ -37,8 +35,6 @@ namespace wojilu.Web.Controller.Content.Section {
             if (s == null) {
                 throw new Exception( lang( "exDataNotFound" ) + "=>page section:" + sectionId );
             }
-
-            TemplateUtil.loadTemplate( this, s, ctService );
 
             List<ContentPost> posts = this.postService.GetBySection( sectionId, 3 );
             ContentPost first = posts.Count > 0 ? posts[0] : null;

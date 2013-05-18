@@ -56,7 +56,7 @@
 			<td style="width:9%;">启用状态</td>
 			<td>名称</td>
 			<td style="width:40%;">简介</td>
-			<td>关闭模式</td>
+			<td>安装主题</td>
 			<td align="center">_{admin}</td>
 		</tr>
 		<!-- BEGIN list -->
@@ -65,7 +65,7 @@
 			<td class="appStatus">#{app.StatusName}</td>
 			<td class="appName"><img src="#{app.LogoImg}" style="width:36px;" /> <strong>#{app.Name}</strong></td>
 			<td><span class="note">#{app.Description}</span></td>
-			<td>#{app.CloseModeName}</td>
+			<td><a href="#{app.ThemeAdminLink}" class="frmBox">#{app.ThemeInfo}</a></td>
 			<td align="center"><a href="#{app.StatusAdminLink}" class="frmBox"><img src="~img/edit.gif" /> #{app.StatusAdminName}</a></td>
 		</tr>
 		<!-- END list -->

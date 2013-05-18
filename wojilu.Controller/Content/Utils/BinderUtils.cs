@@ -19,6 +19,7 @@ using wojilu.Members.Sites.Domain;
 using wojilu.Apps.Content.Enum;
 using wojilu.Web.Controller.Content.Admin.Section;
 using wojilu.Web.Controller.Content.Section;
+using wojilu.Apps.Content.Service;
 
 namespace wojilu.Web.Controller.Content.Utils {
 
@@ -85,30 +86,80 @@ namespace wojilu.Web.Controller.Content.Utils {
 
             if (post.Creator != null) {
                 block.Set( "post.Submitter", string.Format( "<a href=\"{0}\" target=\"_blank\">{1}</a>", Link.ToMember( post.Creator ), post.Creator.Name ) );
-            }
-            else {
+            } else {
                 block.Set( "post.Submitter", "" );
             }
 
         }
 
-        public static ISectionBinder GetBinder( ContentSectionTemplate template, MvcContext ctx, Template currentView ) {
-
+        /// <summary>
+        /// 获取聚合区块对应的 BinderController。加载模板的时候，检查是否已经自定义了模板。
+        /// </summary>
+        /// <param name="section"></param>
+        /// <param name="ctx"></param>
+        /// <returns></returns>
+        public static ISectionBinder GetBinder( ContentSection section, MvcContext ctx ) {
+            IContentSectionTemplateService TplService = ObjectContext.Create<IContentSectionTemplateService>( typeof( ContentSectionTemplateService ) );
+            ContentSectionTemplate template = TplService.GetById( section.TemplateId );
             String binderName = string.Format( "wojilu.Web.Controller.Content.Binder.{0}BinderController", template.TemplateName );
-
             ControllerBase controller = ControllerFactory.FindController( binderName, ctx ) as ControllerBase;
             if (controller == null) throw new Exception( "ISectionBinder not found:" + binderName );
-            controller.utils.setCurrentView( currentView );
-            return controller as ISectionBinder;
+
+            String customTemplateStr = getCustomTemplateBody( section, ctx );
+
+            // 自定义模板
+            if (strUtil.HasText( customTemplateStr )) {
+                controller.viewContent( customTemplateStr );
+                return controller as ISectionBinder;
+            } else {
+                Template currentView = controller.utils.getTemplateByFileName( BinderUtils.GetBinderTemplatePath( template ) );
+                controller.utils.setCurrentView( currentView );
+                return controller as ISectionBinder;
+            }
         }
 
-        public static IPageSection GetPageSection( ContentSection articleSection, MvcContext ctx, String currentView ) {
+        private static string getCustomTemplateBody( ContentSection section, MvcContext ctx ) {
 
-            if (articleSection == null) return new NullSectionController();
+            if (section.CustomTemplateId <= 0) return null;
 
-            ControllerBase controller = ControllerFactory.FindController( articleSection.SectionType, ctx ) as ControllerBase;
+            IContentCustomTemplateService ctService = ObjectContext.Create<IContentCustomTemplateService>( typeof( ContentCustomTemplateService ) );
+            ContentCustomTemplate ct = ctService.GetById( section.CustomTemplateId, ctx.owner.Id );
+
+            if (ct == null) return null;
+            return ct.Content;
+        }
+
+        /// <summary>
+        /// 获取当前区块对应的 SectionController。加载模板的时候，检查是否已经自定义了模板。
+        /// </summary>
+        /// <param name="section"></param>
+        /// <param name="ctx"></param>
+        /// <returns></returns>
+        public static IPageSection GetPageSection( ContentSection section, MvcContext ctx ) {
+            return GetPageSection( section, ctx, null );
+        }
+
+        /// <summary>
+        /// 获取当前区块对应的 SectionController。加载模板的时候，检查是否已经自定义了模板。
+        /// </summary>
+        /// <param name="section"></param>
+        /// <param name="ctx"></param>
+        /// <param name="currentView">需要加载的模板，默认是 SectionShow</param>
+        /// <returns></returns>
+        public static IPageSection GetPageSection( ContentSection section, MvcContext ctx, String currentView ) {
+
+            if (section == null) return new NullSectionController();
+            if (strUtil.IsNullOrEmpty( currentView )) currentView = "SectionShow";
+
+            ControllerBase controller = ControllerFactory.FindController( section.SectionType, ctx ) as ControllerBase;
             if (controller == null) return new NullSectionController();
-            controller.view( currentView );
+
+            String customTemplateStr = getCustomTemplateBody( section, ctx );
+            if (strUtil.HasText( customTemplateStr )) {
+                controller.viewContent( customTemplateStr );
+            } else {
+                controller.view( currentView );
+            }
             return controller as IPageSection;
         }
 

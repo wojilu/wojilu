@@ -1,0 +1,34 @@
+﻿
+<div id="typePanel">
+
+
+    <!-- BEGIN list -->
+    <div class="typeItem">
+        <div><input class="rdoType" name="themeId" id="themeId#{x.Id}" type="radio" value="#{x.Id}" />
+        <label for="themeId#{x.Id}">#{x.Name}
+        <span class="note left10">#{x.Description}</span></label>
+        </div>
+
+    </div>
+    <!-- END list -->
+
+    <div class="clear"></div>
+</div>
+
+<style>
+#typePanel { font-size:12px;}
+.typeItem {margin:5px; }
+</style>
+
+<script>
+    _run(function () {
+
+        
+
+        $('.rdoType').click(function () {
+            $('#themeId', window.parent.document).val($(this).val());
+        });
+
+        $($('.rdoType')[0]).click();
+    });
+</script>

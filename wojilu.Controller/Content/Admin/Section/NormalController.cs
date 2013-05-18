@@ -61,7 +61,19 @@ namespace wojilu.Web.Controller.Content.Admin.Section {
             ContentPost img = imgService.GetTopImg( sectionId, imgcat, ctx.app.Id );
 
             bindSectionShow( sectionId, postcat, imgcat, posts, img );
+        }
 
+        public List<ContentPost> GetSectionPosts( int sectionId ) {
+
+            int postcat = PostCategory.Post;
+            int imgcat = PostCategory.Img;
+            List<ContentPost> posts = postService.GetTopBySectionAndCategory( sectionId, postcat );
+            ContentPost img = imgService.GetTopImg( sectionId, imgcat, ctx.app.Id );
+
+            List<ContentPost> list = new List<ContentPost>();
+            list.AddRange( posts );
+            list.Add( img );
+            return list;
         }
 
     }

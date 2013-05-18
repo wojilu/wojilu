@@ -12,17 +12,6 @@ namespace wojilu.Web.Controller.Content.Utils {
 
     public class TemplateUtil {
 
-
-        public static void loadTemplate( ControllerBase controller, ContentSection s, IContentCustomTemplateService ctService ) {
-
-            if (s.CustomTemplateId <= 0) return;
-
-            ContentCustomTemplate ct = ctService.GetById( s.CustomTemplateId, controller.ctx.owner.Id );
-            if (ct == null) return;
-
-            controller.viewContent( ct.Content );
-        }
-
         public static List<ContentSectionTemplate> addJson( List<ContentSectionTemplate> tpls ) {
 
             List<ContentSectionTemplate> list = new List<ContentSectionTemplate>();

@@ -26,13 +26,11 @@ namespace wojilu.Web.Controller.Content.Section {
         public IContentPostService postService { get; set; }
         public IContentSectionService sectionService { get; set; }
         public IContentImgService imgService { get; set; }
-        public IContentCustomTemplateService ctService { get; set; }
 
         public ImgController() {
             postService = new ContentPostService();
             sectionService = new ContentSectionService();
             imgService = new ContentImgService();
-            ctService = new ContentCustomTemplateService();
         }
 
         public void SectionShow( int sectionId ) {
@@ -41,7 +39,6 @@ namespace wojilu.Web.Controller.Content.Section {
                 throw new Exception( lang( "exDataNotFound" ) + "=>page section:" + sectionId );
             }
 
-            TemplateUtil.loadTemplate( this, s, ctService );
             List<ContentPost> posts = postService.GetBySection( sectionId );
             bindSectionShow( s, posts );
         }
