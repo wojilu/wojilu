@@ -22,7 +22,7 @@ namespace wojilu.Apps.Content.Domain {
         public String Description { get; set; }
 
         /// <summary>
-        /// 主题数据在磁盘上的文件名，默认保存在 /static/skin/installer/ 目录下
+        /// 主题数据在磁盘上的文件名，默认保存在 /static/theme/ 目录下
         /// </summary>
         public String FileName { get; set; }
 
@@ -31,7 +31,7 @@ namespace wojilu.Apps.Content.Domain {
         /// </summary>
         /// <returns></returns>
         public static String GetFileAbsDir() {
-            return PathHelper.Map( strUtil.Join( sys.Path.DiskStatic, "skin/installer/" ) );
+            return PathHelper.Map( strUtil.Join( sys.Path.DiskStatic, "/theme/" ) );
         }
 
         /// <summary>
