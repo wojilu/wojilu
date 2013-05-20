@@ -14,7 +14,7 @@ a { text-decoration: none;}
 a:hover { text-decoration: underline;}
 .link {cursor:pointer;}
 
-body {background-image : url(../img/bg2.jpg); background-repeat:repeat-x; background-position :center 35px;} /*整个网页的背景*/
+
 a, .link { color: #005eac; } /*链接的颜色*/
 textarea {padding:2px;}
 
