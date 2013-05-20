@@ -12542,7 +12542,7 @@ wojilu.ui.box = {
     id : 0, mouseOffset : null, init : function() {},hideBg:function() {},
 
     getId:function() {
-        var frmdoc = !(top===self)?window.parent.document:document;
+        var frmdoc = wojilu.tool.getRootParent().document;
         var arrFrames = frmdoc.getElementsByTagName("IFRAME");
         var ifrm=1;
         for (var i = 0; i < arrFrames.length; i++) {    
