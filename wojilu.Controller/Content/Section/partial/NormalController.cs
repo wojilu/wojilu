@@ -28,17 +28,7 @@ namespace wojilu.Web.Controller.Content.Section {
             if (img != null) {
 
                 imgBlock.Set( "ipost.TitleCss", img.Style );
-                imgBlock.Set( "ipost.TitleFull", img.Title );
 
-                if (strUtil.HasText( img.TitleHome ))
-                    block.Set( "ipost.Title", img.TitleHome );
-                else
-                    block.Set( "ipost.Title", img.Title );
-
-                if (img.ImgLink.StartsWith( "/" ) || img.ImgLink.StartsWith( "http://" ))
-                    imgBlock.Set( "ipost.ImgUrl", img.ImgLink );
-                else
-                    imgBlock.Set( "ipost.ImgUrl", img.GetImgThumb() );
                 String content = strUtil.HasText( img.Summary ) ? img.Summary : strUtil.ParseHtml( img.Content, 50 );
                 imgBlock.Set( "ipost.Content", content );
 

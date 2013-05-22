@@ -112,7 +112,44 @@ namespace wojilu.Apps.Content.Domain {
         public int DiggUp { get; set; }
         public int DiggDown { get; set; }
 
+        //-----------------------------用于界面绑定显示----------------------------------------------------------------------------
+
+        [NotSave]
+        public String TitleShow {
+            get {
+                if (strUtil.HasText( this.TitleHome )) return this.TitleHome;
+                return this.Title;
+            }
+        }
+
+        [NotSave]
+        public String SummaryShow {
+            get {
+                if (strUtil.HasText( this.Summary )) return this.Summary;
+                return strUtil.ParseHtml( this.Content, 200 );
+            }
+        }
+
+        [NotSave]
+        public String PicS {
+            get { return this.GetImgThumb(); }
+        }
+
+        [NotSave]
+        public String PicSHtml {
+            get {
+                if (this.HasImg() == false) return "";
+                return string.Format( "<img src=\"{0}\" />", this.GetImgThumb() );
+            }
+        }
+
+        [NotSave]
+        public String PicM {
+            get { return this.GetImgMedium(); }
+        }
+
         //---------------------------------------------------------------------------------------------------------
+
 
         [NotSave]
         public int SectionId {
@@ -190,6 +227,7 @@ namespace wojilu.Apps.Content.Domain {
             if (strUtil.HasText( this.Summary )) return strUtil.CutString( this.Summary, length );
             return strUtil.ParseHtml( this.Content, length );
         }
+
 
         public bool HasImg() {
             return strUtil.HasText( this.ImgLink );
