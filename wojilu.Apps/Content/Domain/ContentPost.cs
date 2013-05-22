@@ -148,6 +148,22 @@ namespace wojilu.Apps.Content.Domain {
             get { return this.GetImgMedium(); }
         }
 
+        [NotSave]
+        public String HitsShow {
+            get {
+                if (this.Hits <= 0) return "";
+                return string.Format( "点击:{0}", this.Hits );
+            }
+        }
+
+        [NotSave]
+        public String RepliesShow {
+            get {
+                if (this.Replies <= 0) return "";
+                return string.Format( "评论:{0}", this.Replies );
+            }
+        }
+
         //---------------------------------------------------------------------------------------------------------
 
 

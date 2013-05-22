@@ -80,6 +80,8 @@
     <Content Include="framework\views\Common\Admin\AppBase\ThemeList.html" />
     <Content Include="framework\views\Connect\confirmUserInfo.html" />
     <Content Include="framework\views\Content\Admin\Export\Index.html" />
+    <Content Include="framework\views\Content\Admin\Section\Summary\AdminSectionShow.html" />
+    <Content Include="framework\views\Content\Section\Summary\SectionShow.html" />
     <Content Include="framework\views\Demo\CtxPost\Index.html" />
     <Content Include="framework\views\Demo\Editor\AjaxForm.html" />
     <Content Include="framework\views\Demo\Editor\CompleteDemo.html" />
