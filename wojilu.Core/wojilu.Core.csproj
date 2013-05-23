@@ -113,6 +113,7 @@
     <Compile Include="Common\Feeds\Interface\IFeedService.cs" />
     <Compile Include="Common\Feeds\Interface\IShareService.cs" />
     <Compile Include="Common\Comments\OpenComment.cs" />
+    <Compile Include="Common\ITheme.cs" />
     <Compile Include="Common\Microblogs\MicroblogAppSetting.cs" />
     <Compile Include="Common\Microblogs\Service\SysMicroblogCommentService.cs" />
     <Compile Include="Common\Picks\Domain\DataPickBase.cs" />

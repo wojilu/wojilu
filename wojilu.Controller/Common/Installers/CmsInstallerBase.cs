@@ -44,7 +44,7 @@ namespace wojilu.Web.Controller.Common.Installers {
         protected MvcContext ctx;
         protected ContentApp app;
 
-        protected int themeId;
+        protected String themeId;
 
         public CmsInstallerBase() {
             installerService = new AppInstallerService();
@@ -93,7 +93,7 @@ namespace wojilu.Web.Controller.Common.Installers {
 </div>";
         }
 
-        public IMemberApp Install( MvcContext ctx, IMember owner, String appName, AccessStatus accessStatus, int themeId ) {
+        public IMemberApp Install( MvcContext ctx, IMember owner, String appName, AccessStatus accessStatus, String themeId ) {
 
 
             this.ctx = ctx;

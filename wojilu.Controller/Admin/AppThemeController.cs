@@ -5,6 +5,8 @@ using wojilu.Web.Mvc;
 using wojilu.Common.AppInstall;
 using wojilu.Data;
 using wojilu.Web.Mvc.Attr;
+using System.Collections;
+using wojilu.Common;
 
 namespace wojilu.Web.Controller.Admin {
 
@@ -13,49 +15,35 @@ namespace wojilu.Web.Controller.Admin {
         public void Index( int appInstallerId ) {
 
             AppInstaller installer = cdb.findById<AppInstaller>( appInstallerId );
-            List<CacheObject> themeList = getThemeList( installer );
-            themeList.ForEach( x => x.data.delete = to( Delete, appInstallerId ) + "?id=" + x.Id );
+            List<ITheme> themeList = ThemeHelper.GetThemeList( installer );
 
-            bindList( "list", "x", themeList );
-
+            bindList( "list", "x", themeList, bindThemes );
         }
 
-        private List<CacheObject> getThemeList( AppInstaller installer ) {
-            List<CacheObject> list = new List<CacheObject>();
-            if (strUtil.IsNullOrEmpty( installer.ThemeType )) return list;
-
-            Type themeType = ObjectContext.GetType( installer.ThemeType );
-            if (themeType == null) return list;
-
-            return cdbx.findAll( themeType );
+        public void bindThemes( IBlock block, String lbl, Object x ) {
+            ITheme theme = x as ITheme;
+            block.Set( "x.data.delete", to( Delete, ctx.route.id ) + "?id=" + theme.Id );
         }
+
 
         [HttpDelete]
         public void Delete( int appInstallerId ) {
-            int id = ctx.GetInt( "id" );
+            String id = ctx.Get( "id" );
             AppInstaller installer = cdb.findById<AppInstaller>( appInstallerId );
 
-            CacheObject objTheme = getThemeById( installer, id );
+            ITheme objTheme = ThemeHelper.GetThemeById( installer, id );
             if (objTheme == null) {
+                echoError( "主题不存在" );
+                return;
             }
 
-            objTheme.delete();
-
-            rft.CallMethod( objTheme, "DeleteTheme" );                
+            objTheme.Delete();
 
             echoRedirect( "删除成功", to( Index, appInstallerId ) );
 
         }
 
-        private CacheObject getThemeById( AppInstaller installer, int id ) {
 
-            if (strUtil.IsNullOrEmpty( installer.ThemeType )) return null;
-
-            Type themeType = ObjectContext.GetType( installer.ThemeType );
-            if (themeType == null) return null;
-
-            return cdbx.findById( themeType, id );
-        }
 
     }
 

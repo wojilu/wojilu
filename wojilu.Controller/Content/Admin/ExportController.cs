@@ -89,19 +89,7 @@ namespace wojilu.Web.Controller.Content.Admin {
         private void exportToDisk( XApp xapp, ContentTheme theme ) {
 
             String jsonString = Json.ToString( xapp );
-
-            String fileName = Guid.NewGuid().ToString() + ".config";
-            String savedPath = ContentTheme.GetFileAbsDir();
-
-            if (Directory.Exists( savedPath ) == false) {
-                Directory.CreateDirectory( savedPath );
-            }
-
-            file.Write( Path.Combine( savedPath, fileName ), jsonString );
-
-
-            theme.FileName = fileName;
-            theme.insert();
+            theme.Insert( jsonString );
         }
 
         private void processCssId( XApp xapp, List<ContentSection> sectionList ) {

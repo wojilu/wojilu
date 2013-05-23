@@ -4,9 +4,9 @@
 
     <!-- BEGIN list -->
     <div class="typeItem">
+        <div><img src="#{x.PicShow}"  /></div>
         <div><input class="rdoType" name="themeId" id="themeId#{x.Id}" type="radio" value="#{x.Id}" />
-        <label for="themeId#{x.Id}">#{x.Name}
-        <span class="note left10">#{x.Description}</span></label>
+        <label for="themeId#{x.Id}">#{x.Name}</label>
         </div>
 
     </div>
@@ -17,13 +17,12 @@
 
 <style>
 #typePanel { font-size:12px;}
-.typeItem {margin:5px; }
+.typeItem {float:left; margin:5px;}
+.typeItem img{width:150px;height:100px;}
 </style>
 
 <script>
     _run(function () {
-
-        
 
         $('.rdoType').click(function () {
             $('#themeId', window.parent.document).val($(this).val());

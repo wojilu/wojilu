@@ -153,7 +153,7 @@ namespace wojilu.Web.Controller.Admin {
             block.Set( "app.StatusAdminLink", to( EditStatus, installer.Id ) );
 
             // 绑定安装主题
-            List<CacheObject> themeList = getThemeList( installer );
+            List<ITheme> themeList = ThemeHelper.GetThemeList( installer );
             if (themeList.Count > 0) {
                 block.Set( "app.ThemeInfo", string.Format( "{0}个安装主题", themeList.Count ) );
                 block.Set( "app.ThemeAdminLink", to( new AppThemeController().Index, installer.Id ) );
@@ -162,16 +162,6 @@ namespace wojilu.Web.Controller.Admin {
                 block.Set( "app.ThemeAdminLink", "#" );
             }
 
-        }
-
-        private List<CacheObject> getThemeList( AppInstaller installer ) {
-            List<CacheObject> list = new List<CacheObject>();
-            if (strUtil.IsNullOrEmpty( installer.ThemeType )) return list;
-
-            Type themeType = ObjectContext.GetType( installer.ThemeType );
-            if (themeType == null) return list;
-
-            return cdbx.findAll( themeType );
         }
 
         public void EditStatus( int id ) {

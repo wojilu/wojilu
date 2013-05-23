@@ -22,15 +22,14 @@ namespace wojilu.Web.Controller.Common.Installers {
 
         protected override void initTheme() {
 
-            if (base.themeId <= 0) return;
+            if (ContentTheme.IdHasError( base.themeId )) {
+                logger.Error( "theme id error, id=" + base.themeId );
+                return;
+            }
 
-            ContentTheme x = cdb.findById<ContentTheme>( base.themeId );
-            if (x == null) return;
+            this.xapp = ContentTheme.GetByThemeId( base.themeId );
 
-            String jsonStr = file.Read( x.GetFileAbsPath() );
-            xapp = Json.Deserialize<XApp>( jsonStr );
-
-            if (xapp == null) throw new Exception( "没有有效的主题数据, name=" + x.Name + ", path=" + x.GetFileAbsPath() );
+            if (this.xapp == null) throw new Exception( "没有有效的主题数据, themeId=" + base.themeId );
         }
 
         protected override void createLayout() {

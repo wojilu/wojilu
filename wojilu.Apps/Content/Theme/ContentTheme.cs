@@ -3,13 +3,22 @@ using System.Collections.Generic;
 using System.Text;
 using wojilu.Data;
 using System.IO;
+using wojilu.ORM;
+using wojilu.Common;
 
 namespace wojilu.Apps.Content.Domain {
+
+
 
     /// <summary>
     /// Content安装主题。所谓主题，就是一个设计好的界面，包括样式、布局、初始化数据。
     /// </summary>
-    public class ContentTheme : CacheObject {
+    public class ContentTheme : ITheme {
+
+        private static readonly ILog logger = LogManager.GetLogger( typeof( ContentTheme ) );
+
+        [NotSave]
+        public String Id { get; set; }
 
         /// <summary>
         /// 名称
@@ -22,16 +31,26 @@ namespace wojilu.Apps.Content.Domain {
         public String Description { get; set; }
 
         /// <summary>
-        /// 主题数据在磁盘上的文件名，默认保存在 /static/theme/ 目录下
+        /// 图片路径
         /// </summary>
-        public String FileName { get; set; }
+        public String Pic { get; set; }
+
+        [NotSave]
+        public String PicShow {
+            get {
+                if (strUtil.IsNullOrEmpty( this.Pic )) return "";
+                if (this.Pic.StartsWith( "http:" )) return this.Pic;
+                if (this.Pic.StartsWith( "/" )) return this.Pic;
+                return strUtil.Join( sys.Path.Static, "/theme/wojilu.Apps.Content/" ) + this.Pic;
+            }
+        }
 
         /// <summary>
         /// 获取文件所在路径
         /// </summary>
         /// <returns></returns>
         public static String GetFileAbsDir() {
-            return PathHelper.Map( strUtil.Join( sys.Path.DiskStatic, "/theme/" ) );
+            return PathHelper.Map( strUtil.Join( sys.Path.DiskStatic, "/theme/wojilu.Apps.Content/" ) );
         }
 
         /// <summary>
@@ -39,17 +58,142 @@ namespace wojilu.Apps.Content.Domain {
         /// </summary>
         /// <returns></returns>
         public String GetFileAbsPath() {
-            return Path.Combine( GetFileAbsDir(), this.FileName );
+            return Path.Combine( GetFileAbsDir(), this.Id+".data.config" );
         }
 
-        public void DeleteTheme() {
+        //---------------------------------------------------------------
 
-            base.delete();
+        public List<ITheme> GetAll() {
+            return cvt.ToList<ITheme>( findAll() );
+        }
 
-            String filePath = this.GetFileAbsPath();
-            if (file.Exists( filePath )) {
-                file.Delete( filePath );
+        public ITheme GetById( String id ) {
+            return findById( id );
+        }
+
+        public void Delete() {
+            delete( this.Id );
+        }
+
+        //---------------------------------------------------------------
+
+        public void Insert( String jsonString ) {
+
+            this.Id = Guid.NewGuid().ToString();
+
+            // 1) 
+            saveDataPrivate( jsonString, ".data" );
+
+            // 2)
+            saveMetaInfo();
+        }
+
+
+        public static XApp GetByThemeId( String themeId ) {
+
+            ContentTheme x = findById( themeId );
+            if (x == null) return null;
+
+            String jsonStr = file.Read( x.GetFileAbsPath() );
+            return Json.Deserialize<XApp>( jsonStr );
+        }
+
+        //---------------------------------------------------------------
+
+        private void saveMetaInfo() {
+
+            this.Pic = this.Id + ".jpg";
+            String jsonString = Json.ToString( this );
+
+            saveDataPrivate( jsonString, "" );
+        }
+
+        private void saveDataPrivate( String jsonString, String ext ) {
+
+            String fileName = this.Id + ext + ".config";
+            String savedPath = ContentTheme.GetFileAbsDir();
+
+            if (Directory.Exists( savedPath ) == false) {
+                Directory.CreateDirectory( savedPath );
             }
+
+            file.Write( Path.Combine( savedPath, fileName ), jsonString );
+        }
+
+        private static void delete( String guid ) {
+            deletePrivate( guid, "" );
+            deletePrivate( guid, ".data" );
+        }
+
+        private static void deletePrivate( String guid, String ext ) {
+            String fileName = guid + ext + ".config";
+            String savedPath = ContentTheme.GetFileAbsDir();
+            String filePath = Path.Combine( savedPath, fileName );
+
+            if (file.Exists( filePath )) file.Delete( filePath );
+        }
+
+        private static ContentTheme findById( String guid ) {
+            List<ContentTheme> list = findAll();
+            foreach (ContentTheme x in list) {
+                if (x.Id == guid) return x;
+            }
+            return null;
+        }
+
+
+        private static List<ContentTheme> findAll() {
+
+            List<String> nameList = new List<String>();
+
+            List<ContentTheme> list = new List<ContentTheme>();
+
+            String themeDir = GetFileAbsDir();
+            if (Directory.Exists( themeDir ) == false) {
+                logger.Error( "theme dir not exist=" + themeDir );
+                return list;
+            }
+
+            String[] files = Directory.GetFiles( themeDir );
+            foreach (String x in files) {
+
+                if (x.EndsWith( ".data.config" )) continue;
+                if (x.EndsWith( ".config" ) == false) continue;
+
+                String name = Path.GetFileName( x );
+                if (nameList.Contains( name )) continue;
+
+                String jsonString = file.Read( x );
+                try {
+                    ContentTheme theme = Json.Deserialize<ContentTheme>( jsonString );
+
+                    if (theme == null) {
+                        logger.Error( "Deserialize ContentTheme=null" );
+                    } else if (strUtil.IsNullOrEmpty( theme.Name )) {
+                        logger.Error( "Deserialize ContentTheme=theme name is empty" );
+                    } else {
+
+                        theme.Id = strUtil.TrimEnd( name, ".config" );
+
+                        list.Add( theme );
+                    }
+                }
+                catch (Exception ex) {
+                    logger.Error( "Deserialize ContentTheme=" + ex );
+                }
+
+                nameList.Add( name );
+            }
+
+            return list;
+        }
+
+        public static Boolean IdHasError( string tid ) {
+            if (strUtil.IsNullOrEmpty( tid )) return true;
+            if (tid.Length > 40) return true;
+            String[] arr = tid.Split( '-' );
+            if (arr.Length != 5) return true;
+            return false;
         }
 
     }

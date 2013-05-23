@@ -1,20 +1,16 @@
 ﻿
-<div style="padding:20px; " >
+<div style="padding:10px; width:700px;" >
+<style>
+.tdL {width:60px; text-align:right; padding-right:10px; vertical-align:top; font-weight:bold;}
+</style>
 
 <form action="#{ActionLink}" method="post">
-	<table style="width:500px;">
+	<table style="width:680px;">
 		<tr>
-			<td style="width:100px;">_{appName} </td>
+			<td class="tdL">_{appName}</td>
 			<td>
 			<div class="moduleEdit_typeName highlight">
-				#{app.Name}</div>
-			</td>
-		</tr>
-		<tr>
-			<td>_{description}</td>
-			<td>
-			<div class="moduleEdit_description font10 note">
-				#{app.Description}</div>
+				<strong>#{app.Name}</strong> <span class="note">#{app.Description}</span> </div>
 			</td>
 		</tr>
 		<tr>
@@ -23,14 +19,16 @@
 		</tr>
         
 		<tr>
-			<td>_{appFriendlyName}</td>
+			<td class="tdL">_{appFriendlyName}</td>
 			<td><input name="Name" type="text" value="#{app.Name}"></td>
 		</tr>
         #{themeList}
 		<tr>
 			<td></td>
-			<td style="padding-top:20px;">
+			<td style="padding-top:5px;">
 			<input name="appInfoId" type="hidden" value="#{app.Id}" />
+            <input name="themeId" id="themeId" type="hidden" value="" />
+            
 
 			<input name="Submit1" type="submit" value="_{installApp}" class="btn">
 			<input type="button" value="_{cancel}" class="btnCancel"> </td>
