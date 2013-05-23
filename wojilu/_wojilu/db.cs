@@ -352,11 +352,7 @@ namespace wojilu {
         //-------------------------------------------------------------------------
 
         internal static List<T> getResults<T>( IList list ) {
-            List<T> results = new List<T>();
-            foreach (T obj in list) {
-                results.Add( obj );
-            }
-            return results;
+            return cvt.ToList<T>( list );
         }
 
         //-------------------------------------------------------------------------

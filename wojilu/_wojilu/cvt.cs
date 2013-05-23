@@ -16,6 +16,8 @@
 
 using System;
 using System.Text;
+using System.Collections.Generic;
+using System.Collections;
 using wojilu.Data;
 
 namespace wojilu {
@@ -459,6 +461,14 @@ namespace wojilu {
             }
 
             return result;
+        }
+
+        public static List<T> ToList<T>( IList list ) {
+            List<T> results = new List<T>();
+            foreach (T obj in list) {
+                results.Add( obj );
+            }
+            return results;
         }
 
 
