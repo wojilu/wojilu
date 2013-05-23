@@ -247,6 +247,11 @@ namespace wojilu.Serialization {
             Object nameValue = "";
             List<PropertyInfo> propertyList = new List<PropertyInfo>();
             foreach (PropertyInfo info in properties) {
+
+                if (isSkip( info )) {
+                    continue;
+                }
+
                 if (info.Name.Equals( "Id" )) {
                     isIdFind = true;
                     idValue = ReflectionUtil.GetPropertyValue( obj, "Id" );
@@ -277,14 +282,6 @@ namespace wojilu.Serialization {
                     continue;
                 }
 
-                if (info.IsDefined( typeof( NotSerializeAttribute ), false )) {
-                    continue;
-                }
-
-                if (info.IsDefined( typeof( NotSaveAttribute ), false )) {
-                    continue;
-                }
-
                 Object propertyValue = ReflectionUtil.GetPropertyValue( obj, info.Name );
 
                 String jsonValue;
@@ -312,6 +309,19 @@ namespace wojilu.Serialization {
             String result = builder.ToString().Trim().TrimEnd( ',' );
             if (isBreakline) result += Environment.NewLine;
             return result + " }";
+        }
+
+        private static Boolean isSkip( PropertyInfo info ) {
+
+            if (info.IsDefined( typeof( NotSerializeAttribute ), false )) {
+                return true;
+            }
+
+            if (info.IsDefined( typeof( NotSaveAttribute ), false )) {
+                return true;
+            }
+
+            return false;
         }
 
         public static String ConvertEntity( IEntity obj ) {
