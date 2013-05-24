@@ -164,6 +164,22 @@ namespace wojilu.Apps.Content.Domain {
             }
         }
 
+        [NotSave]
+        public String TagShow {
+            get {
+                if (this.Tag.List.Count == 0) return "";
+                return string.Format( "<span class=\"tag-label\">标签:</span> {0}", this.Tag.HtmlString );
+            }
+        }
+
+        [NotSave]
+        public String AuthorShow {
+            get {
+                if (strUtil.IsNullOrEmpty( this.Author )) return "";
+                return string.Format( "<span class=\"author-label\">作者:</span> {0}", this.Author );
+            }
+        }
+
         //---------------------------------------------------------------------------------------------------------
 
 

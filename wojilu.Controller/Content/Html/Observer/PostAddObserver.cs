@@ -67,13 +67,16 @@ namespace wojilu.Web.Controller.Content.Htmls {
                 if (prev != null) {
                     mk.Process( prev );
                 }
+
+
+                // 3) 侧边栏
+                HtmlMaker.GetSidebar().Process( post.AppId );
+
+                // 4) 其他生成工作放到队列中
+                JobManager.PostAdd( post );
+
             }
 
-            // 3) 侧边栏
-            HtmlMaker.GetSidebar().Process( post.AppId );
-
-            // 4) 其他生成工作放到队列中
-            JobManager.PostAdd( post );
         }
 
 
