@@ -34,6 +34,10 @@ namespace wojilu.Web.Controller.Admin {
             logService.Add( (User)ctx.viewer.obj, msg, dataInfo, menu.GetType().FullName, ctx.Ip );
         }
 
+        public override String GetCommonLink() {
+            return to( new Sys.DashboardController().Links );
+        }
+
         public override void Update( int id ) {
 
             base.Update( id );

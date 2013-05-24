@@ -43,6 +43,10 @@ namespace wojilu.Web.Controller.Common.Admin {
             return _tree;
         }
 
+        public virtual String GetCommonLink() {
+            return null;
+        }
+
         //-----------------------------------------------------------------------------------------------------
 
         public override void Layout() {
@@ -102,6 +106,14 @@ namespace wojilu.Web.Controller.Common.Admin {
             set( "url", url );
             set( "name", ctx.Get( "name" ) );
             set( "furl", ctx.Get( "furl" ) );
+
+            String commonLink = this.GetCommonLink();
+            IBlock lnkBlock = getBlock( "commonLink" );
+            if (strUtil.HasText( commonLink )) {
+                lnkBlock.Set( "lnkAddLink", commonLink );
+                lnkBlock.Next();
+            }
+
         }
 
 

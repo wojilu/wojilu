@@ -22,7 +22,6 @@ namespace wojilu.Web.Controller.Users.Admin {
             logService = new UserLogService();
         }
 
-
         public override void CheckPermission() {
 
             Boolean isUserMenuAdmin = Component.IsClose( typeof( UserMenuAdmin ) );
@@ -36,7 +35,9 @@ namespace wojilu.Web.Controller.Users.Admin {
             logService.Add( (User)ctx.viewer.obj, msg, dataInfo, menu.GetType().FullName, ctx.Ip );
         }
 
-
+        public override String GetCommonLink() {
+            return to( new Users.Admin.MyLinkController().Index );
+        }
 
     }
 

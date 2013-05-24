@@ -27,7 +27,9 @@ namespace wojilu.Web.Controller.Groups.Admin {
             logService.Add( (User)ctx.viewer.obj, msg, dataInfo, menu.GetType().FullName, ctx.Ip );
         }
 
-
+        public override String GetCommonLink() {
+            return to( new Groups.Admin.GLinkController().Index );
+        }
     }
 
 }
