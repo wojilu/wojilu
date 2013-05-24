@@ -40,8 +40,9 @@ namespace wojilu.Web.Controller.Content.Section {
                 throw new Exception( lang( "exDataNotFound" ) + "=>page section:" + sectionId );
             }
 
-            IList posts = postService.GetBySection( sectionId, s.ListCount );
-            bindSectionPosts( posts );
+            DataPage<ContentPost> data = postService.GetPageBySection( sectionId, s.ListCount );
+            bindSectionPosts( data.Results );
+            set( "page", data.PageBar );
         }
 
 

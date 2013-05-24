@@ -126,7 +126,7 @@ namespace wojilu.Apps.Content.Domain {
         public String SummaryShow {
             get {
                 if (strUtil.HasText( this.Summary )) return this.Summary;
-                return strUtil.ParseHtml( this.Content, 200 );
+                return strUtil.ParseHtml( this.Content, 220 );
             }
         }
 

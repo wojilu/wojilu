@@ -111,7 +111,7 @@ namespace wojilu.Apps.Content.Domain {
 
         private void saveMetaInfo() {
 
-            this.Pic = this.Id + ".png";
+            this.Pic = "";
             String jsonString = Json.ToString( this );
 
             saveDataPrivate( jsonString, "" );

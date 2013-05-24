@@ -77,12 +77,9 @@ namespace wojilu.Web.Controller.Content.Admin.Section {
                 block.Set( "post.TitleCss", post.Style );
                 block.Set( "post.TitleFull", post.Title );
 
-                if (strUtil.HasText( post.TitleHome ))
-                    block.Set( "post.Title", post.TitleHome );
-                else
-                    block.Set( "post.Title", post.Title );
-
                 block.Set( "post.Url", to( new Common.PostController().Edit, post.Id ) );
+
+                block.Bind( "post", post );
                 block.Next();
             }
         }

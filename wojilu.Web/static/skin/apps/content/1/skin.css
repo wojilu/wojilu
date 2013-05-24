@@ -72,16 +72,18 @@
                 
 
     .summary-wrap { margin:0px 10px;}
-    .summary-item h3 {font-size:16px; }
+    .summary-item h3 {font-size:18px; font-family:"microsoft yahei" }
     .summary-item {border-bottom:1px solid #ccc; margin-bottom:10px;padding-bottom:10px; }
     .summary-item:last-child { border-bottom:0px;}
     
-    .summary-body { font-size:12px; line-height:150%; color:#666;}    
-    .summary-body img { float: left; margin-right: 10px; width: 120px; height: 80px; padding-top: 6px; border:1px solid #ccc; }
+    .summary-body { font-size:14px; line-height:150%; color:#666;}    
+    .summary-body .summary-pic img { float: left; margin-right: 10px; width: 160px; height: 120px;  border:0px solid #eee; margin-top:3px; box-shadow:3px 3px 3px #ccc; }
     
     .summary-tag { color:#999; font-size:12px; margin-top:5px;}
     .summary-tag a { color:#999 !important;}
     .summary-tag .tag-label { margin-right:5px;}
+    
+    .summary-more { text-align:right; margin:5px 5px 0px 0px;}
                 
 div.articleLocation {margin:0px 0px 0px 0px; color:#666; border-bottom:1px solid #dedede; padding:6px 10px; background:url(../../../../img/sectionTitleBg.gif);}
 div.articleLocation a { color:#333;}

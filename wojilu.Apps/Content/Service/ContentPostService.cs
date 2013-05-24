@@ -293,7 +293,7 @@ namespace wojilu.Apps.Content.Service {
         }
 
         public virtual DataPage<ContentPost> GetPageBySection( int sectionId, int pageSize ) {
-            DataPage<ContentPostSection> list = ContentPostSection.findPage( "SectionId=" + sectionId + " and SaveStatus=" + SaveStatus.Normal, pageSize );
+            DataPage<ContentPostSection> list = ContentPostSection.findPage( "SectionId=" + sectionId + " and SaveStatus=" + SaveStatus.Normal + " order by PostId desc", pageSize );
             DataPage<ContentPost> xResult = list.Convert<ContentPost>( populatePost( list.Results ) );
 
             // 兼容旧版
