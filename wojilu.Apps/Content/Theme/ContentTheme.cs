@@ -1,14 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
-using wojilu.Data;
 using System.IO;
 using wojilu.ORM;
-using wojilu.Common;
+using wojilu.Common.Themes;
 
 namespace wojilu.Apps.Content.Domain {
-
-
 
     /// <summary>
     /// Content安装主题。所谓主题，就是一个设计好的界面，包括样式、布局、初始化数据。
@@ -172,9 +168,7 @@ namespace wojilu.Apps.Content.Domain {
                     } else if (strUtil.IsNullOrEmpty( theme.Name )) {
                         logger.Error( "Deserialize ContentTheme=theme name is empty" );
                     } else {
-
                         theme.Id = strUtil.TrimEnd( name, ".config" );
-
                         list.Add( theme );
                     }
                 }

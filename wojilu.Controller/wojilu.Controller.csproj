@@ -72,6 +72,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Admin\AdController.cs" />
+    <Compile Include="Admin\AppConfigController.cs" />
     <Compile Include="Admin\AppController.cs" />
     <Compile Include="Admin\Apps\Blog\BlogFileController.cs" />
     <Compile Include="Admin\Apps\Blog\CommentController.cs" />

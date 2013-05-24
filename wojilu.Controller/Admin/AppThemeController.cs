@@ -6,16 +6,22 @@ using wojilu.Common.AppInstall;
 using wojilu.Data;
 using wojilu.Web.Mvc.Attr;
 using System.Collections;
-using wojilu.Common;
+using wojilu.Common.Themes;
 
 namespace wojilu.Web.Controller.Admin {
 
     public class AppThemeController : ControllerBase {
 
+        public IThemeService themeService { get; set; }
+
+        public AppThemeController() {
+            themeService = new ThemeService();
+        }
+
         public void Index( int appInstallerId ) {
 
             AppInstaller installer = cdb.findById<AppInstaller>( appInstallerId );
-            List<ITheme> themeList = ThemeHelper.GetThemeList( installer );
+            List<ITheme> themeList = themeService.GetThemeList( installer );
 
             bindList( "list", "x", themeList, bindThemes );
         }
@@ -31,7 +37,7 @@ namespace wojilu.Web.Controller.Admin {
             String id = ctx.Get( "id" );
             AppInstaller installer = cdb.findById<AppInstaller>( appInstallerId );
 
-            ITheme objTheme = ThemeHelper.GetThemeById( installer, id );
+            ITheme objTheme = themeService.GetThemeById( installer, id );
             if (objTheme == null) {
                 echoError( "主题不存在" );
                 return;

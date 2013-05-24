@@ -4,12 +4,12 @@
 
 using System;
 using System.Collections;
+using System.Collections.Generic;
 
 using wojilu.Web.Url;
 using wojilu.Web.Mvc;
 using wojilu.Web.Mvc.Attr;
 
-using wojilu.DI;
 using wojilu.Common.AppInstall;
 using wojilu.Common.AppBase;
 using wojilu.Common.Menus.Interface;
@@ -20,9 +20,7 @@ using wojilu.Members.Users.Domain;
 
 using wojilu.Web.Controller.Security;
 using wojilu.Common.AppBase.Interface;
-using System.Collections.Generic;
-using wojilu.Data;
-using wojilu.Common;
+using wojilu.Common.Themes;
 
 namespace wojilu.Web.Controller.Common.Admin {
 
@@ -32,9 +30,11 @@ namespace wojilu.Web.Controller.Common.Admin {
 
         public IMemberAppService userAppService { get; set; }
         public IMenuService menuService { get; set; }
+        public IThemeService themeService { get; set; }
 
         public AppBaseController() {
             appinfoService = new AppInstallerService();
+            themeService = new ThemeService();
         }
 
         public virtual void log( String msg, IMemberApp app ) {
@@ -119,7 +119,7 @@ namespace wojilu.Web.Controller.Common.Admin {
             target( Create );
             bindAppInfo( info );
 
-            List<ITheme> themeList = ThemeHelper.GetThemeList( info );
+            List<ITheme> themeList = themeService.GetThemeList( info );
             if (themeList.Count > 0) {
                 String lnkThemeList = to( ThemeList, info.Id ) + "";
                 set( "themeList", "<tr><td class=\"tdL\">主题类型</td><td><iframe id=\"tmplist\" src=\"" + lnkThemeList + "?frm=true\" frameborder=\"0\" scrolling=\"no\" style=\"width:580px;height:280px;\"></iframe></td></tr>" );
@@ -134,7 +134,7 @@ namespace wojilu.Web.Controller.Common.Admin {
 
             AppInstaller info = getAppInfo( appInstallerId );
 
-            List<ITheme> themeList = ThemeHelper.GetThemeList( info );
+            List<ITheme> themeList = themeService.GetThemeList( info );
             bindList( "list", "x", themeList );
         }
 

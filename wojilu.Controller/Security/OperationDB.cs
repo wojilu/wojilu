@@ -73,8 +73,8 @@ namespace wojilu.Web.Controller.Security {
         private void initSiteDataAdminMenu() {
             List<SiteDataAdminMenu> results = new List<SiteDataAdminMenu>();
             // 第二个参数是图片，第三个参数是名称
-            results.Add( new SiteDataAdminMenu( 1, "settings", lang.get( "adminSiteApp" ), new AppController().Index, rootNamespace ) );
-            results.Add( new SiteDataAdminMenu( 2, "menus", lang.get( "menuAdmin" ), new MenuController().Index, rootNamespace ) );
+            //results.Add( new SiteDataAdminMenu( 1, "settings", lang.get( "adminSiteApp" ), new AppController().Index, rootNamespace ) );
+            //results.Add( new SiteDataAdminMenu( 2, "menus", lang.get( "menuAdmin" ), new MenuController().Index, rootNamespace ) );
             results.Add( new SiteDataAdminMenu( 3, "link", lang.get( "pageFooterLink" ), new FooterMenuController().List, rootNamespace ) );
             results.Add( new SiteDataAdminMenu( 4, "url", lang.get( "adminSiteUrl" ), new DashboardController().Links, rootNamespace ) );
             results.Add( new SiteDataAdminMenu( 5, "doc", lang.get( "commonPage" ), new PageCategoryController().List, rootNamespace ) );
@@ -88,6 +88,21 @@ namespace wojilu.Web.Controller.Security {
             results.Add( new SiteDataAdminMenu( 12, "connect", "第三方集成", new ConnectAdminController().Index, rootNamespace ) );
 
             this.SiteDataAdminMenus = results;
+        }
+
+        private static List<SiteDataAdminMenu> GetAppAndMenu() {
+            List<SiteDataAdminMenu> results = new List<SiteDataAdminMenu>();
+            results.Add( new SiteDataAdminMenu( new AppController().Index, rootNamespace ) );
+            results.Add( new SiteDataAdminMenu( new AppController().Select, rootNamespace ) );
+            results.Add( new SiteDataAdminMenu( new MenuController().Index, rootNamespace ) );
+            results.Add( new SiteDataAdminMenu( new MenuController().AddMenu, rootNamespace ) );
+            results.Add( new SiteDataAdminMenu( new AppConfigController().App, rootNamespace ) );
+
+            return results;
+        }
+
+        public static SiteDataAdminMenu GetMenu( int index ) {
+            return GetAppAndMenu()[index];
         }
 
         // 所有需要纳入细分权限的后台操作列表
@@ -125,6 +140,7 @@ namespace wojilu.Web.Controller.Security {
             results.Add( new SiteAdminOperation( 21, "采集管理", 1, typeof( TemplateController ) ) );
             results.Add( new SiteAdminOperation( 22, "评论管理", 1, typeof( CommentController ) ) );
             results.Add( new SiteAdminOperation( 23, "第三方集成", 1, typeof( ConnectAdminController ) ) );
+            results.Add( new SiteAdminOperation( 24, "App和组件配置", 1, typeof( AppConfigController ) ) );
 
             this.SiteAdminOperations = results;
         }

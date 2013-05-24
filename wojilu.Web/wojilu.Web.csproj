@@ -884,7 +884,7 @@
     <Content Include="framework\views\Admin\Cache\ViewCache.html" />
     <Content Include="framework\views\Admin\Mb\Microblog\Layout.html" />
     <Content Include="framework\views\Admin\SiteConfig\BanIp.html" />
-    <Content Include="framework\views\Admin\SiteConfig\App.html" />
+    <Content Include="framework\views\Admin\AppConfig\App.html" />
     <Content Include="framework\views\Admin\SiteConfig\Drawing.html" />
     <Content Include="framework\views\Admin\TagAdmin\DataList.html" />
     <Content Include="framework\views\Admin\TagAdmin\Index.html" />
@@ -991,9 +991,9 @@
     <Content Include="framework\views\Admin\Ad\Add.html" />
     <Content Include="framework\views\Admin\Ad\Index.html" />
     <Content Include="framework\views\Admin\Ad\Edit.html" />
-    <Content Include="framework\views\Admin\SiteConfig\EditStatus.html" />
+    <Content Include="framework\views\Admin\AppConfig\EditStatus.html" />
     <Content Include="framework\views\Admin\Main\Welcome.html" />
-    <Content Include="framework\views\Admin\SiteConfig\EditComponent.html" />
+    <Content Include="framework\views\Admin\AppConfig\EditComponent.html" />
     <Content Include="framework\views\Content\Admin\Row\DeleteRow.html" />
     <Content Include="framework\views\Content\Admin\Common\Post\Edit.html" />
     <Content Include="framework\views\Content\Section\Poll\SectionShow.html" />

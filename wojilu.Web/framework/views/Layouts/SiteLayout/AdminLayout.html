@@ -83,9 +83,24 @@
 
 <table border="1" cellpadding="0" cellspacing="0" class="adminContainer">
 	<tr>
-		<td class="adminSidebar">
+		<td class="adminSidebar" style="width:180px;">
 			<div class="adminSidebarTitle"><div class="adminSidebarTitleInternal">_{adminApp}</div></div>
-			
+
+            <ul>
+                <li style="#{appHide}">
+                    <a href="#{lnkAppList}"><img src="~img/s/settings.png"> 程序列表</a> 
+                    <a href="#{lnkAppAdd}" class=""><img src="~img/add.gif"> 添加</a>
+                </li>
+                <li style="#{menuHide}">
+                    <a href="#{lnkMenuList}"><img src="~img/s/menus.png"> 菜单列表</a> 
+                    <a href="#{lnkMenuAdd}" class=""><img src="~img/add.gif"> 添加</a>
+                </li>
+
+                <li style="#{appConfigHide}"><a href="#{lnkAppConfig}"><img src="~img/s/cache.png"> App和组件配置</a></li>
+            </ul>
+
+			<div style="border-bottom:1px #aaa dotted; margin:10px 0px 5px 0px;"></div>
+
 			<ul id="sidebarApps"><!-- BEGIN apps --><li>#{app.NameAndUrl}</li><!-- END apps -->
 			</ul>
 			

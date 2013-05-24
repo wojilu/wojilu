@@ -66,11 +66,9 @@ namespace wojilu.Web.Controller.Layouts {
                     if (menu.IsUserDataAdmin()) {
                         String imgMenu = getLogo( "userdata" );
                         builder.AppendFormat( getUserDataAppList( userDataApps ), imgMenu, menu.Name );
-                    }
-                    else
+                    } else
                         builder.AppendFormat( "<a href='#'>{0}</a> ", menu.Name );
-                }
-                else {
+                } else {
                     String link = strUtil.Join( sys.Path.Root, menu.Url ) + MvcConfig.Instance.UrlExt;
                     String imgMenu = getLogo( menu.Logo );
                     builder.AppendFormat( "<li><a href=\"{0}\" class='frmLink' loadto='adminMainBody' nolayout=1><div>{1}</div><div>{2}</div></a></li>", link, imgMenu, menu.Name );
@@ -153,11 +151,47 @@ namespace wojilu.Web.Controller.Layouts {
         private void bindLeftNav( IList apps ) {
             bindAppNavList( apps );
 
-            List<SiteAdminOperation> userActions = SiteAdminOperationConfig.Instance.GetActionsByUser( (User)ctx.viewer.obj );
-            List<SiteDataAdminMenu> menus = OperationDB.GetInstance().SiteDataAdminMenus;
-            bindSiteDataAdminMenus( menus, userActions );
+            List<SiteAdminOperation> actionOfUser = SiteAdminOperationConfig.Instance.GetActionsByUser( (User)ctx.viewer.obj );
+            List<SiteDataAdminMenu> allAction = OperationDB.GetInstance().SiteDataAdminMenus;
+
+            bindAppAndMenu( actionOfUser );
+
+            bindSiteDataAdminMenus( allAction, actionOfUser );
 
             set( "cacheAdminLink", to( new CacheController().Index ) );
+        }
+
+        private void bindAppAndMenu( List<SiteAdminOperation> actionOfUser ) {
+            String strHide = "display:none";
+
+            // 是否显示app管理
+            set( "lnkAppList", to( new Admin.AppController().Index ) );
+            set( "lnkAppAdd", to( new Admin.AppController().Select ) );
+
+            String appHide = "";
+            if (OperationDB.GetMenu( 1 ).CanShow( actionOfUser ) == false) {
+                appHide = strHide;
+            }
+            set( "appHide", appHide );
+
+            // 是否显示菜单管理
+            set( "lnkMenuList", to( new Admin.MenuController().Index ) );
+            set( "lnkMenuAdd", to( new Admin.MenuController().AddMenu ) );
+
+            String menuHide = "";
+            if (OperationDB.GetMenu( 2 ).CanShow( actionOfUser ) == false) {
+                menuHide = strHide;
+            }
+            set( "menuHide", menuHide );
+
+            // 是否显示App和组件管理
+            set( "lnkAppConfig", to( new Admin.AppConfigController().App ) );
+
+            String appConfigHide = "";
+            if (OperationDB.GetMenu( 4 ).CanShow( actionOfUser ) == false) {
+                appConfigHide = strHide;
+            }
+            set( "appConfigHide", appConfigHide );
         }
 
         private void bindAppNavList( IList apps ) {
@@ -172,11 +206,11 @@ namespace wojilu.Web.Controller.Layouts {
         }
 
 
-        private void bindSiteDataAdminMenus( List<SiteDataAdminMenu> menus, List<SiteAdminOperation> userActions ) {
+        private void bindSiteDataAdminMenus( List<SiteDataAdminMenu> allAction, List<SiteAdminOperation> actionOfUser ) {
             IBlock block = getBlock( "siteDataAdmin" );
-            foreach (SiteDataAdminMenu m in menus) {
+            foreach (SiteDataAdminMenu m in allAction) {
 
-                if (m.CanShow( userActions ) == false) continue;
+                if (m.CanShow( actionOfUser ) == false) continue;
 
                 String link = strUtil.Join( sys.Path.Root, m.Url ) + MvcConfig.Instance.UrlExt;
 

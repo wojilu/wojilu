@@ -113,7 +113,7 @@
     <Compile Include="Common\Feeds\Interface\IFeedService.cs" />
     <Compile Include="Common\Feeds\Interface\IShareService.cs" />
     <Compile Include="Common\Comments\OpenComment.cs" />
-    <Compile Include="Common\ITheme.cs" />
+    <Compile Include="Common\Themes\ITheme.cs" />
     <Compile Include="Common\Microblogs\MicroblogAppSetting.cs" />
     <Compile Include="Common\Microblogs\Service\SysMicroblogCommentService.cs" />
     <Compile Include="Common\Picks\Domain\DataPickBase.cs" />
@@ -122,6 +122,8 @@
     <Compile Include="Common\Picks\Interface\IPickPost.cs" />
     <Compile Include="Common\Picks\Domain\MergedData.cs" />
     <Compile Include="Common\Polls\Service\PollHelper.cs" />
+    <Compile Include="Common\Themes\IThemeService.cs" />
+    <Compile Include="Common\Themes\ThemeService.cs" />
     <Compile Include="Common\Upload\TempUploadFileService.cs" />
     <Compile Include="Common\Upload\TempUploadFile.cs" />
     <Compile Include="Common\Upload\UserFile.cs" />

@@ -21,6 +21,12 @@ namespace wojilu.Web.Controller.Security {
             init( id, logo, name, url );
         }
 
+        public SiteDataAdminMenu( aAction action, String rootNamespace ) {
+
+            String url = SecurityUtils.getPath( action, rootNamespace );
+            init( 0, "", "", url );
+        }
+
         private void init( int id, String logo, String name, String url ) {
             this.Id = id;
             this.Name = name;
@@ -37,6 +43,7 @@ namespace wojilu.Web.Controller.Security {
             }
             return false;
         }
+
     }
 
 

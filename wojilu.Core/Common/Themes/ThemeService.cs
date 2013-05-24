@@ -3,23 +3,12 @@ using System.Collections.Generic;
 using System.Text;
 using wojilu.Common.AppInstall;
 
-namespace wojilu.Common {
+namespace wojilu.Common.Themes {
 
-    public interface ITheme {
-        String Id { get; set; }
-        String Name { get; set; }
-        String Description { get; set; }
-        String Pic { get; set; }
-
-        List<ITheme> GetAll();
-        ITheme GetById( String id );
-        void Delete();
-    }
-
-    public class ThemeHelper {
+    public class ThemeService : IThemeService {
 
 
-        public static List<ITheme> GetThemeList( AppInstaller installer ) {
+        public List<ITheme> GetThemeList( AppInstaller installer ) {
             List<ITheme> list = new List<ITheme>();
             if (strUtil.IsNullOrEmpty( installer.ThemeType )) return list;
 
@@ -30,7 +19,7 @@ namespace wojilu.Common {
             return obj.GetAll();
         }
 
-        public static ITheme GetThemeById( AppInstaller installer, String id ) {
+        public ITheme GetThemeById( AppInstaller installer, String id ) {
 
             if (strUtil.IsNullOrEmpty( installer.ThemeType )) return null;
 
@@ -40,7 +29,5 @@ namespace wojilu.Common {
             ITheme obj = ObjectContext.Create<ITheme>( themeType );
             return obj.GetById( id );
         }
-
     }
-
 }
