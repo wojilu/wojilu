@@ -9,7 +9,7 @@ namespace wojilu.Apps.Content.Domain {
     /// <summary>
     /// Content安装主题。所谓主题，就是一个设计好的界面，包括样式、布局、初始化数据。
     /// </summary>
-    public class ContentTheme : ITheme {
+    public class ContentTheme : ITheme, IComparable {
 
         private static readonly ILog logger = LogManager.GetLogger( typeof( ContentTheme ) );
 
@@ -30,6 +30,19 @@ namespace wojilu.Apps.Content.Domain {
         /// 图片路径
         /// </summary>
         public String Pic { get; set; }
+
+        /// <summary>
+        /// 排序ID
+        /// </summary>
+        public int OrderId { get; set; }
+
+        public int CompareTo( object obj ) {
+            ContentTheme t = obj as ContentTheme;
+            if (this.OrderId > t.OrderId) return -1;
+            if (this.OrderId < t.OrderId) return 1;
+            return 0;
+        }
+
 
         [NotSave]
         public String PicShow {
@@ -98,7 +111,7 @@ namespace wojilu.Apps.Content.Domain {
 
         private void saveMetaInfo() {
 
-            this.Pic = this.Id + ".jpg";
+            this.Pic = this.Id + ".png";
             String jsonString = Json.ToString( this );
 
             saveDataPrivate( jsonString, "" );
@@ -178,6 +191,8 @@ namespace wojilu.Apps.Content.Domain {
 
                 nameList.Add( name );
             }
+
+            list.Sort();
 
             return list;
         }

@@ -49,12 +49,6 @@ namespace wojilu.Web.Controller.Common.Admin {
         }
 
         public void Index() {
-            //set( "addAppLink", to( Select ) );
-            //set( "appListLink", to( List ) );
-            //load( "list", List );
-            //}
-
-            //public void List() {
             IList apps = userAppService.GetByMember( ctx.owner.Id );
             bindAppList( apps );
             set( "sortAction", to( SortMenu ) );
@@ -122,7 +116,7 @@ namespace wojilu.Web.Controller.Common.Admin {
             List<ITheme> themeList = themeService.GetThemeList( info );
             if (themeList.Count > 0) {
                 String lnkThemeList = to( ThemeList, info.Id ) + "";
-                set( "themeList", "<tr><td class=\"tdL\">主题类型</td><td><iframe id=\"tmplist\" src=\"" + lnkThemeList + "?frm=true\" frameborder=\"0\" scrolling=\"no\" style=\"width:580px;height:280px;\"></iframe></td></tr>" );
+                set( "themeList", "<tr><td class=\"tdL\">主题类型</td><td><iframe id=\"tmplist\" src=\"" + lnkThemeList + "?frm=true\" frameborder=\"0\" scrolling=\"auto\" style=\"width:580px;\"></iframe></td></tr>" );
 
             } else {
                 set( "themeList", "" );
@@ -135,7 +129,27 @@ namespace wojilu.Web.Controller.Common.Admin {
             AppInstaller info = getAppInfo( appInstallerId );
 
             List<ITheme> themeList = themeService.GetThemeList( info );
-            bindList( "list", "x", themeList );
+            bindList( "list", "x", themeList, bindThemePic );
+        }
+
+        private void bindThemePic( IBlock block, String lbl, Object obj ) {
+
+            ITheme theme = (ITheme)obj;
+
+            if (strUtil.IsNullOrEmpty( theme.Pic )) {
+                block.Set( "x.PicOrDesc", string.Format( "<div class=\"desc\"><div class=\"desc-inner\">{0}</div></div>", theme.Description ) );
+            } else {
+                block.Set( "x.PicOrDesc", string.Format( "<img src=\"{0}\" title=\"{1}\" />", getPicShow( theme.Pic ), theme.Description ) );
+            }
+
+        }
+
+        private String getPicShow( String pic ) {
+            if (strUtil.IsNullOrEmpty( pic )) return "";
+            if (pic.StartsWith( "http:" )) return pic;
+            if (pic.StartsWith( "/" )) return pic;
+            return strUtil.Join( sys.Path.Static, "/theme/wojilu.Apps.Content/" ) + pic;
+
         }
 
         private Boolean checkInstall( AppInstaller info ) {
@@ -162,10 +176,14 @@ namespace wojilu.Web.Controller.Common.Admin {
             if (!checkInstall( info )) return;
 
             String name = ctx.Post( "Name" );
-            //AccessStatus accs = AccessStatusUtil.GetPostValue( ctx.PostInt( "AccessStatus" ) );
             AccessStatus accs = AccessStatus.Public;
 
+            if (strUtil.IsNullOrEmpty( name )) {
+                echoError( "请填写名称" );
+                return;
+            }
 
+            // 自定义安装
             Type appType = ObjectContext.Instance.TypeList[info.TypeFullName];
             if (rft.IsInterface( appType, typeof( IAppInstaller ) )) {
 
@@ -181,7 +199,24 @@ namespace wojilu.Web.Controller.Common.Admin {
                 return;
             }
 
+            // 主题安装
+            if (strUtil.HasText( info.InstallerType )) {
 
+                // 主题ID
+                String themeId = ctx.Post( "themeId" );
+
+                Type installerType = ObjectContext.GetType( info.InstallerType );
+
+                IAppInstaller customInstaller = ObjectContext.CreateObject( installerType ) as IAppInstaller;
+                IMemberApp capp = customInstaller.Install( ctx, ctx.owner.obj, name, accs, themeId );
+                intiAppPermission( capp );
+
+                echoToParentPart( lang( "opok" ), to( Index ), 1 );
+                return;
+
+            }
+
+            // 默认安装
             IMember owner = ctx.owner.obj;
             User creator = (User)ctx.viewer.obj;
 
@@ -230,7 +265,6 @@ namespace wojilu.Web.Controller.Common.Admin {
             userAppService.Start( app, appUrl );
             log( SiteLogString.StartApp(), app );
 
-            //echoRedirect( lang( "opok" ), Index );
             echoRedirectPart( lang( "opok" ), to( Index ), 0 );
         }
 

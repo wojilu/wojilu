@@ -10,7 +10,7 @@
 			<td class="tdL">_{appName}</td>
 			<td>
 			<div class="moduleEdit_typeName highlight">
-				<strong>#{app.Name}</strong> <span class="note">#{app.Description}</span> </div>
+				<strong>#{app.Name}</strong> <span class="note left15">#{app.Description}</span> </div>
 			</td>
 		</tr>
 		<tr>
@@ -23,12 +23,11 @@
 			<td><input name="Name" type="text" value="#{app.Name}"></td>
 		</tr>
         #{themeList}
-		<tr>
+		<tr style="">
 			<td></td>
-			<td style="padding-top:5px;">
+			<td style="padding-top:0px;">
 			<input name="appInfoId" type="hidden" value="#{app.Id}" />
             <input name="themeId" id="themeId" type="hidden" value="" />
-            
 
 			<input name="Submit1" type="submit" value="_{installApp}" class="btn">
 			<input type="button" value="_{cancel}" class="btnCancel"> </td>

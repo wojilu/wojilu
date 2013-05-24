@@ -107,7 +107,6 @@ namespace wojilu.Web.Controller.Common.Admin {
             set( "app.Name", info.Name );
             set( "app.Description", info.Description );
             set( "app.Id", info.Id );
-            //set( "app.AccessStatus", AccessStatusUtil.GetRadioList( AccessStatus.Public ) );
         }
 
 

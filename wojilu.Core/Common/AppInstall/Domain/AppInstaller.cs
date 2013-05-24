@@ -84,6 +84,11 @@ namespace wojilu.Common.AppInstall {
         /// </summary>
         public String ThemeType { get; set; }
 
+        /// <summary>
+        /// 自定义的主题安装器，可以根据主题进行安装
+        /// </summary>
+        public String InstallerType { get; set; }
+
         //-------------------------------------------------------------------------------------
 
         [NotSave]
