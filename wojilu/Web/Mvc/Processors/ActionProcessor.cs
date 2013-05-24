@@ -30,6 +30,8 @@ namespace wojilu.Web.Mvc.Processors {
 
         private static readonly ILog logger = LogManager.GetLogger( typeof( ActionProcessor ) );
 
+        private List<ActionObserver> obList = new List<ActionObserver>();
+
         public override void Process( ProcessContext context ) {
 
             MvcEventPublisher.Instance.BeginProcessAction( context.ctx );
@@ -55,6 +57,7 @@ namespace wojilu.Web.Mvc.Processors {
             if (actionObservers != null) {
                 foreach (ActionObserver x in actionObservers) {
                     ActionObserver ob = (ActionObserver)ObjectContext.CreateObject( x.GetType() );
+                    obList.Add( ob );
                     Boolean isContinue = ob.BeforeAction( ctx );
                     if (!isContinue) return;
                 }
@@ -132,14 +135,10 @@ namespace wojilu.Web.Mvc.Processors {
 
             List<String> pages = new List<String>();
 
-            List<ActionObserver> actionObservers = ControllerMeta.GetActionObservers( ctx.controller.GetType(), ctx.route.action );
-            if (actionObservers == null) return;
-
             List<IPageCache> observedPages = new List<IPageCache>();
-            foreach (ActionObserver x in actionObservers) {
+            foreach (ActionObserver ob in obList) {
 
-                logger.Info( "run after ActionObserver=>" + x.GetType() );
-                ActionObserver ob = (ActionObserver)ObjectContext.CreateObject( x.GetType() );
+                logger.Info( "run after ActionObserver=>" + ob.GetType() );
                 ob.AfterAction( ctx );
 
                 if (ob.GetType().IsSubclassOf( typeof( ActionCache ) )) {

@@ -43,7 +43,7 @@ namespace wojilu.Web.Mvc {
         /// action 前置动作
         /// </summary>
         /// <param name="ctx"></param>
-        /// <returns>是否继续执行，默认是 true 继续执行</returns>
+        /// <returns>是否继续执行当前action(ctx.route.action)，默认是 true 继续执行</returns>
         public virtual Boolean BeforeAction( MvcContext ctx ) {
             return true;
         }
