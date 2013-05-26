@@ -13053,7 +13053,7 @@ wojilu.editor = {
         var thisEditor = this._editorId;
         var thisPluginList = this._pluginList;
         if( this._height ) thisParams.initialFrameHeight = this._height;
-        require(["lib/ueditor/editor_config", "lib/ueditor/editor_all"], function () {
+        require(["lib/ueditor/ueditor.all.min", "lib/ueditor/ueditor.config"], function () {
             if( thisPluginList.length>0 ) {
                 for( var i=0;i<thisPluginList.length;i++ ) {
                     UE.plugins[thisPluginList[i].pluginName] = thisPluginList[i].pluginFunc;

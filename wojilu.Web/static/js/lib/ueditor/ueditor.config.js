@@ -9,6 +9,39 @@
  * 当升级编辑器时，可直接使用旧版配置文件替换新版配置文件,不用担心旧版配置文件中因缺少新功能所需的参数而导致脚本报错。
  **************************提示********************************/
 
+window.UEDITOR_HOME_URL = wojilu.path.js + "/lib/ueditor/"; // wojilu自定义
+window._wbar = {
+    simple :[
+    ['source','bold', 'forecolor', 'underline', 'strikethrough','link', 'fontfamily', 'fontsize', 
+    'insertimage', 'emotion', 'insertvideo', 'music', 'attachment','highlightcode', 'removeformat', 'pasteplain' ]
+    ]
+    
+    ,standard : [
+        ['source', '|',
+        'bold', 'italic', 'forecolor', 'backcolor', 'underline', 'strikethrough', 'superscript', '|',
+        'link', 'unlink', 'anchor',
+        'horizontal', '|', 'undo', 'redo', 
+        'removeformat', 'autotypeset', 'pasteplain'],
+
+        ['fontfamily', 'fontsize', 'insertorderedlist', 'insertunorderedlist', '|',
+        'insertimage', 'emotion', 'insertvideo', 'music', 'attachment', 'map', '|',
+        'blockquote', 'highlightcode', 'spechars', 'searchreplace']
+    ]
+    
+    ,full : [
+        ['fullscreen', 'source', '|', 'undo', 'redo', '|',
+            'bold', 'italic', 'underline', 'fontborder', 'strikethrough', 'superscript', 'subscript', 'removeformat', 'formatmatch', 'autotypeset', 'blockquote', 'pasteplain', '|', 'forecolor', 'backcolor', 'insertorderedlist', 'insertunorderedlist', 'selectall', 'cleardoc', '|',
+            'rowspacingtop', 'rowspacingbottom', 'lineheight', '|',
+            'customstyle', 'paragraph', 'fontfamily', 'fontsize', '|',
+            'directionalityltr', 'directionalityrtl', 'indent', '|',
+            'justifyleft', 'justifycenter', 'justifyright', 'justifyjustify', '|', 'touppercase', 'tolowercase', '|',
+            'link', 'unlink', 'anchor', '|', 'imagenone', 'imageleft', 'imageright', 'imagecenter', '|',
+            'insertimage', 'emotion', 'scrawl', 'insertvideo', 'music', 'attachment', 'map', 'gmap', 'insertframe','insertcode', 'webapp', 'pagebreak', 'template', 'background', '|',
+            'horizontal', 'date', 'time', 'spechars', 'snapscreen', 'wordimage', '|',
+            'inserttable', 'deletetable', 'insertparagraphbeforetable', 'insertrow', 'deleterow', 'insertcol', 'deletecol', 'mergecells', 'mergeright', 'mergedown', 'splittocells', 'splittorows', 'splittocols', '|',
+            'print', 'preview', 'searchreplace', 'help']
+    ]
+};
 
 (function () {
     /**
@@ -133,62 +166,54 @@
         UEDITOR_HOME_URL : URL
 
         //图片上传配置区
-        ,imageUrl:URL+"net/imageUp.ashx"             //图片上传提交地址
-        ,imagePath:URL + "net/"                     //图片修正地址，引用了fixedImagePath,如有特殊需求，可自行配置
+        ,imageUrl:"/Users/UserUpload/SaveEditorPic.aspx"             //图片上传提交地址
+        ,imagePath:""                     //图片修正地址，引用了fixedImagePath,如有特殊需求，可自行配置
+        
+        //图片在线管理配置区
+        ,imageManagerUrl:"/Users/UserUpload/MyPicJson.aspx"       //图片在线管理的处理地址
+        ,imageManagerPath:""                                    //图片修正地址，同imagePath
+        
+        //附件上传配置区
+        ,fileUrl:"/Users/UserUpload/SaveEditorFile.aspx"               //附件上传提交地址
+        ,filePath:""                   //附件修正地址，同imagePath
+        //,fileFieldName:"upfile"                    //附件提交的表单名，若此处修改，需要在后台对应文件修改对应参数
+        
+         //远程抓取配置区
+        ,catchRemoteImageEnable:false               //是否开启远程图片抓取,默认开启
+        ,catcherUrl:"/Users/UserUpload/GetRemotePic.aspx"   //处理远程图片抓取的地址
+        ,catcherPath:""                  //图片修正地址，同imagePath;如果不是从根目录开始，设置为catcherPath:URL + "net/"   
+
         //,imageFieldName:"upfile"                   //图片数据的key,若此处修改，需要在后台对应文件修改对应参数
         //,compressSide:0                            //等比压缩的基准，确定maxImageSideLength参数的参照对象。0为按照最长边，1为按照宽度，2为按照高度
         //,maxImageSideLength:900                    //上传图片最大允许的边长，超过会自动等比缩放,不缩放就设置一个比较大的值，更多设置在image.html中
 
         //涂鸦图片配置区
-        ,scrawlUrl:URL+"net/scrawlUp.ashx"           //涂鸦上传地址
-        ,scrawlPath:URL+"net/"                            //图片修正地址，同imagePath
+        //,scrawlUrl:URL+"net/scrawlUp.ashx"           //涂鸦上传地址
+        //,scrawlPath:URL+"net/"                            //图片修正地址，同imagePath
 
-        //附件上传配置区
-        ,fileUrl:URL+"net/fileUp.ashx"               //附件上传提交地址
-        ,filePath:URL + "net/"                   //附件修正地址，同imagePath
-        //,fileFieldName:"upfile"                    //附件提交的表单名，若此处修改，需要在后台对应文件修改对应参数
 
-        //远程抓取配置区
-        //,catchRemoteImageEnable:true               //是否开启远程图片抓取,默认开启
-        ,catcherUrl:URL +"net/getRemoteImage.ashx"   //处理远程图片抓取的地址
-        ,catcherPath:URL + "net/"                  //图片修正地址，同imagePath
         //,catchFieldName:"upfile"                   //提交到后台远程图片uri合集，若此处修改，需要在后台对应文件修改对应参数
         //,separater:'ue_separate_ue'               //提交至后台的远程图片地址字符串分隔符
         //,localDomain:[]                            //本地顶级域名，当开启远程图片抓取时，除此之外的所有其它域名下的图片都将被抓取到本地,默认不抓取127.0.0.1和localhost
 
-        //图片在线管理配置区
-        ,imageManagerUrl:URL + "net/imageManager.ashx"       //图片在线管理的处理地址
-        ,imageManagerPath:URL + "net/"                                    //图片修正地址，同imagePath
 
         //屏幕截图配置区
-        ,snapscreenHost: location.hostname                                 //屏幕截图的server端文件所在的网站地址或者ip，请不要加http://
-        ,snapscreenServerUrl: URL +"net/imageUp.ashx" //屏幕截图的server端保存程序，UEditor的范例代码为“URL +"server/upload/net/snapImgUp.ashx"”
-        ,snapscreenPath: URL + "net/"
-        ,snapscreenServerPort: location.port                                   //屏幕截图的server端端口
+        //,snapscreenHost: location.hostname                                 //屏幕截图的server端文件所在的网站地址或者ip，请不要加http://
+        //,snapscreenServerUrl: URL +"net/imageUp.ashx" //屏幕截图的server端保存程序，UEditor的范例代码为“URL +"server/upload/net/snapImgUp.ashx"”
+        //,snapscreenPath: URL + "net/"
+        //,snapscreenServerPort: location.port                                   //屏幕截图的server端端口
         //,snapscreenImgAlign: ''                                //截图的图片默认的排版方式
 
         //word转存配置区
-        ,wordImageUrl:URL + "net/imageUp.ashx"             //word转存提交地址
-        ,wordImagePath:URL + "net/"                       //
+        //,wordImageUrl:URL + "net/imageUp.ashx"             //word转存提交地址
+        //,wordImagePath:URL + "net/"                       //
         //,wordImageFieldName:"upfile"                     //word转存表单名若此处修改，需要在后台对应文件修改对应参数
 
         //获取视频数据的地址
-        ,getMovieUrl:URL+"net/getMovie.ashx"                   //视频数据获取地址
+        //,getMovieUrl:URL+"net/getMovie.ashx"                   //视频数据获取地址
 
         //工具栏上的所有的功能按钮和下拉框，可以在new编辑器的实例时选择自己需要的从新定义
-        , toolbars:[
-            ['fullscreen', 'source', '|', 'undo', 'redo', '|',
-                'bold', 'italic', 'underline', 'fontborder', 'strikethrough', 'superscript', 'subscript', 'removeformat', 'formatmatch', 'autotypeset', 'blockquote', 'pasteplain', '|', 'forecolor', 'backcolor', 'insertorderedlist', 'insertunorderedlist', 'selectall', 'cleardoc', '|',
-                'rowspacingtop', 'rowspacingbottom', 'lineheight', '|',
-                'customstyle', 'paragraph', 'fontfamily', 'fontsize', '|',
-                'directionalityltr', 'directionalityrtl', 'indent', '|',
-                'justifyleft', 'justifycenter', 'justifyright', 'justifyjustify', '|', 'touppercase', 'tolowercase', '|',
-                'link', 'unlink', 'anchor', '|', 'imagenone', 'imageleft', 'imageright', 'imagecenter', '|',
-                'insertimage', 'emotion', 'scrawl', 'insertvideo', 'music', 'attachment', 'map', 'gmap', 'insertframe','insertcode', 'webapp', 'pagebreak', 'template', 'background', '|',
-                'horizontal', 'date', 'time', 'spechars', 'snapscreen', 'wordimage', '|',
-                'inserttable', 'deletetable', 'insertparagraphbeforetable', 'insertrow', 'deleterow', 'insertcol', 'deletecol', 'mergecells', 'mergeright', 'mergedown', 'splittocells', 'splittorows', 'splittocols', '|',
-                'print', 'preview', 'searchreplace', 'help']
-        ]
+        , toolbars:_wbar.standard
         //当鼠标放在工具栏上时显示的tooltip提示,留空支持自动多语言配置，否则以配置值为准
 //        ,labelMap:{
 //            'anchor':'', 'undo':''
@@ -216,10 +241,10 @@
         //常用配置项目
         //,isShow : true    //默认显示编辑器
 
-        //,initialContent:'欢迎使用ueditor!'    //初始化编辑器的内容,也可以通过textarea/script给值，看官网例子
+        ,initialContent:''    //初始化编辑器的内容,也可以通过textarea/script给值，看官网例子
 
-        //,initialFrameWidth:1000  //初始化编辑器宽度,默认1000
-        //,initialFrameHeight:320  //初始化编辑器高度,默认320
+        ,initialFrameWidth:'100%'  //初始化编辑器宽度,默认1000
+        ,initialFrameHeight:280  //初始化编辑器高度,默认320
 
         //,autoClearinitialContent:true //是否自动清除编辑器初始内容，注意：如果focus属性设置为true,这个也为真，那么编辑器一上来就会触发导致初始化的内容看不到了
 
@@ -241,6 +266,7 @@
 
         //如果自定义，最好给p标签如下的行高，要不输入中文时，会有跳动感
         //,initialStyle:'p{line-height:1em}'//编辑器层级的基数,可以用来改变字体等
+        ,initialStyle:'body{font-size:14px;line-height:150%;}'   //编辑器内部样式,可以用来改变字体等
 
         //,autoSyncData:true //自动同步编辑器要提交的数据
         //,emotionLocalization:false //是否开启表情本地化，默认关闭。若要开启请确保emotion文件夹下包含官网提供的images表情文件夹
@@ -378,12 +404,12 @@
 //           ]
 
         //wordCount
-        //,wordCount:true          //是否开启字数统计
-        //,maximumWords:10000       //允许的最大字符数
+        ,wordCount:false          //是否开启字数统计
+        ,maximumWords:10000       //允许的最大字符数
         //字数统计提示，{#count}代表当前字数，{#leave}代表还可以输入多少字符数,留空支持多语言自动切换，否则按此配置显示
-        //,wordCountMsg:''   //当前已输入 {#count} 个字符，您还可以输入{#leave} 个字符
+        ,wordCountMsg:'当前已输入 {#count} 个字符'   //当前已输入 {#count} 个字符，您还可以输入{#leave} 个字符
         //超出字数限制提示  留空支持多语言自动切换，否则按此配置显示
-        //,wordOverFlowMsg:''    //<span style="color:red;">你输入的字符个数已经超出最大允许值，服务器可能会拒绝保存！</span>
+        ,wordOverFlowMsg:''    //<span style="color:red;">你输入的字符个数已经超出最大允许值，服务器可能会拒绝保存！</span>
 
         //highlightcode
         // 代码高亮时需要加载的第三方插件的路径
@@ -397,7 +423,7 @@
 
         //elementPathEnabled
         //是否启用元素路径，默认是显示
-        //,elementPathEnabled : true
+        ,elementPathEnabled : false
 
         //removeFormat
         //清除格式时可以删除的标签和属性
@@ -414,13 +440,13 @@
 
         //autoHeightEnabled
         // 是否自动长高,默认true
-        //,autoHeightEnabled:true
+        ,autoHeightEnabled:false
 
         //scaleEnabled
         //是否可以拉伸长高,默认true(当开启时，自动长高失效)
         //,scaleEnabled:false
         //,minFrameWidth:800    //编辑器拖动时最小宽度,默认800
-        //,minFrameHeight:220  //编辑器拖动时最小高度,默认220
+        ,minFrameHeight:50  //编辑器拖动时最小高度,默认220
 
         //autoFloatEnabled
         //是否保持toolbar的位置不动,默认true
