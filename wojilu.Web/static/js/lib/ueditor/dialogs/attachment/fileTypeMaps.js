@@ -8,7 +8,6 @@
 //文件类型图标索引
 var fileTypeMaps = {
     ".rar":"icon_rar.gif",
-    ".7z":"icon_rar.gif",
     ".zip":"icon_rar.gif",
     ".doc":"icon_doc.gif",
     ".docx":"icon_doc.gif",

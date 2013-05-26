@@ -1,7 +1,6 @@
-//±à¼­Æ÷Õ¹Ê¾Ò³ÃæÄÚÈÝ½âÎö£¬¼ÓÔØ×ÊÔ´¹¤¾ß
 //by zhanyi
 function uParse(selector,opt){
-    //ÐèÒªµÄ¹¤¾ß·½·¨
+
     var ie = !!window.ActiveXObject,
         cssRule = ie ? function(key,style,doc){
             var indexList,index;
@@ -171,7 +170,7 @@ function uParse(selector,opt){
         }();
 
 
-    //Ä¬ÈÏµÄÅäÖÃÏîÄ¿
+    //Ä¬ï¿½Ïµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä¿
     var defaultOption ={
         liiconpath : 'http://bs.baidu.com/listicon/',
         listDefaultPaddingLeft : '20',
@@ -185,7 +184,6 @@ function uParse(selector,opt){
         }
     }
     domReady(function(){
-        //´¦ÀíÈÝÆ÷
         var contents;
         if(document.querySelectorAll){
             contents = document.querySelectorAll(selector)
@@ -217,6 +215,14 @@ function uParse(selector,opt){
                 content = tmpNode;
             }
 
+            function fillNode(nodes){
+                _each(nodes,function(node){
+                    if(!node.firstChild){
+                        node.innerHTML = '&nbsp;'
+                    }
+                })
+
+            }
             function checkList(nodes){
                 var customCss = [],
                     customStyle = {
@@ -282,15 +288,15 @@ function uParse(selector,opt){
                 customCss.push(selector +' .list-paddingleft-1{padding-left:0}');
                 customCss.push(selector +' .list-paddingleft-2{padding-left:'+defaultOption.listDefaultPaddingLeft+'px}');
                 customCss.push(selector +' .list-paddingleft-3{padding-left:'+defaultOption.listDefaultPaddingLeft*2+'px}');
-                //Èç¹û²»¸ø¿í¶È»áÔÚ×Ô¶¨Ó¦ÑùÊ½Àï³öÏÖ¹ö¶¯Ìõ
-                cssRule('list', selector +' ol,'+selector +' ul{margin:0;pading:0;}li{clear:both;}'+customCss.join('\n'), document);
+                //ï¿½ï¿½ï¿½ï¿½ï¿½È»ï¿½ï¿½ï¿½ï¿½Ô¶ï¿½Ó¦ï¿½ï¿½Ê½ï¿½ï¿½ï¿½ï¿½Ö¹ï¿½ï¿½ï¿½ï¿½ï¿½
+                cssRule('list', selector +' ol,'+selector +' ul{margin:0;padding:0;}li{clear:both;}'+customCss.join('\n'), document);
             }
-            //½âÎöÄÚÈÝ
+            //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
             var needParseTagName = {
                 'table' : function(){
                     cssRule('table',
                         selector +' table.noBorderTable td,'+selector+' table.noBorderTable th,'+selector+' table.noBorderTable caption{border:1px dashed #ddd !important}' +
-                            //²åÈëµÄ±í¸ñµÄÄ¬ÈÏÑùÊ½
+                            //ï¿½ï¿½ï¿½ï¿½Ä±ï¿½ï¿½ï¿½Ä¬ï¿½ï¿½ï¿½ï¿½Ê½
                             selector +' table{margin-bottom:10px;border-collapse:collapse;display:table;}' +
                             selector +' td,'+selector+' th{ background:white; padding: 5px 10px;border: 1px solid #DDD;}' +
                             selector +' caption{border:1px dashed #DDD;border-bottom:0;padding:3px;text-align:center;}' +
@@ -301,7 +307,6 @@ function uParse(selector,opt){
                 'ol' : checkList,
                 'ul' : checkList,
                 'pre': function(nodes){
-                    //±ÜÃâÖØ¸´¼ÓÔØ¸ßÁÁÎÄ¼þ
                     if(typeof XRegExp == "undefined"){
                         loadFile(document,{
                             id : "syntaxhighlighter_js",
@@ -314,17 +319,17 @@ function uParse(selector,opt){
                                 if(/brush/i.test(pi.className)){
                                     SyntaxHighlighter.highlight(pi);
                                     var tables = document.getElementsByTagName('table');
-                                       for(var t= 0,ti;ti=tables[t++];){
-                                           if(/SyntaxHighlighter/i.test(ti.className)){
-                                               var tds = ti.getElementsByTagName('td');
-                                               for(var i=0,li,ri;li=tds[0].childNodes[i];i++){
-                                                   ri = tds[1].firstChild.childNodes[i];
-                                                   if(ri){
-                                                      ri.style.height = li.style.height = ri.offsetHeight + 'px';
-                                                   }
-                                               }
-                                           }
-                                       }
+                                    for(var t= 0,ti;ti=tables[t++];){
+                                        if(/SyntaxHighlighter/i.test(ti.className)){
+                                            var tds = ti.getElementsByTagName('td');
+                                            for(var i=0,li,ri;li=tds[0].childNodes[i];i++){
+                                                ri = tds[1].firstChild.childNodes[i];
+                                                if(ri){
+                                                    ri.style.height = li.style.height = ri.offsetHeight + 'px';
+                                                }
+                                            }
+                                        }
+                                    }
                                 }
                             });
                         });
@@ -339,9 +344,15 @@ function uParse(selector,opt){
                         });
                     }
 
-                }
+
+
+                },
+                'td':fillNode,
+                'th':fillNode,
+                'caption':fillNode
+
             };
-            //ÏÈ²åÈëÄ¬ÈÏµÄÊôÐÔ
+            //ï¿½È²ï¿½ï¿½ï¿½Ä¬ï¿½Ïµï¿½ï¿½ï¿½ï¿½ï¿½
 
             for(var tag in needParseTagName){
                 var nodes = content.getElementsByTagName(tag);

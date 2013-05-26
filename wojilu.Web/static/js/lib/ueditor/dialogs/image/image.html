@@ -56,7 +56,7 @@
                     <div id="flashContainer"></div>
                     <div><div id="upload" style="display: none" ></div><div id="duiqi"></div><div id="localFloat"></div></div>
 
-                    <div class="saveDir" style="display:none;">
+                    <div class="saveDir">
                         <var id="lang_savePath" ></var>：<select id="savePath">
                             <option value="1">upload</option>
                             <option value="2">upload1</option>
@@ -65,7 +65,6 @@
                 </div>
                 <div id="imgManager" class="panel">
                     <div id="imageList"><var id="lang_imgLoading"></var></div>
-                    <div id="imgPager"></div>
                 </div>
                 <div id="imgSearch" class="panel">
                     <table style="margin-top: 5px;">
@@ -81,7 +80,7 @@
                                 </select>
                             </td>
                             <td width="80"><input id="imgSearchBtn" type="button"  /></td>
-                            <td width="80" style="padding-left:5px;"><input id="imgSearchReset" type="button" /></td>
+                            <td width="80"><input id="imgSearchReset" type="button" /></td>
                         </tr>
                     </table>
                     <div id="searchList"></div>
@@ -92,7 +91,6 @@
     </div>
     <script type="text/javascript" src="../tangram.js"></script>
     <script type="text/javascript" src="image.js"></script>
-    <script type="text/javascript" src="/Users/UserUpload/GetAuthJson.aspx"></script>
 
     <script type="text/javascript">
         //全局变量
@@ -105,14 +103,11 @@
             maxImageSideLength:900
         });
         utils.domReady(function(){
-        
-            if( !uploadAuthParams ) return;
-        
             var flashOptions = {
                 container:"flashContainer",                                                    //flash容器id
                 url:editor.options.imageUrl,                                           // 上传处理页面的url地址
                 ext:'{"param1":"value1", "param2":"value2"}',                                 //可向服务器提交的自定义参数列表
-                fileType:'{"description":"'+lang.fileType+'", "extension":"'+picTypes+'"}',     //上传文件格式限制
+                fileType:'{"description":"'+lang.fileType+'", "extension":"*.gif;*.jpeg;*.png;*.jpg"}',     //上传文件格式限制
                 flashUrl:'imageUploader.swf',                                                  //上传用的flash组件地址
                 width:608,          //flash的宽度
                 height:272,         //flash的高度
@@ -122,7 +117,7 @@
                 picHeight:100,     // 单张预览图片的高度
                 uploadDataFieldName:editor.options.imageFieldName,    // POST请求中图片数据的key
                 picDescFieldName:'pictitle',      // POST请求中图片描述的key
-                maxSize:picMaxMB,                         // 文件的最大体积,单位M
+                maxSize:4,                         // 文件的最大体积,单位M
                 compressSize:2,                   // 上传前如果图片体积超过该值，会先压缩,单位M
                 maxNum:32,                         // 单次最大可上传多少个文件
                 compressSide:editor.options.compressSide,                 //等比压缩的基准，0为按照最长边，1为按照宽度，2为按照高度
