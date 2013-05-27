@@ -4,6 +4,12 @@
 .hide {display:none;}
 .note {color:#666; }
 .clear { clear:both;}
+.warning {border:1px #fed22f solid;background:#ffe45c;padding:10px;width:80%;}/* js_ajaxPostForm 中被使用*/
+.opok {background:url('../img/ok.gif') no-repeat left center;margin-left:10px;padding-left:20px; }
+.okBig {background:url('../img/m/ok.png') no-repeat left center;margin-left:10px;padding-left:55px;height:50px;line-height:50px; }
+.inputTip {color:#ccc !important;}
+
+.overflow {white-space:nowrap;text-overflow:ellipsis; -o-text-overflow:ellipsis; -moz-text-overflow:ellipsis; overflow: hidden;}
 
 .quote { margin:5px; color:#333; padding-left:20px; padding-top:0px; background:url('../img/quoteBegin.gif') no-repeat top left;  }
 .quote .qSpan {background:url('../img/quoteEnd.gif') no-repeat bottom right; padding-right:18px; }
@@ -22,7 +28,7 @@
 
 .externalLink  {background:url("../img/s/external-link.png") no-repeat right center; padding-right:13px;}
 
-ul.wojiluValidationResultList {font-size:16px; font-family:微软雅黑, Calibri; color:red; margin:10px 10px 10px 50px; font-weight:bold; line-height:150%;}
+ul.wojiluValidationResultList {font-size:16px; font-family:Microsoft YaHei, Calibri; color:red; margin:10px 10px 10px 50px; font-weight:bold; line-height:150%;}
 
 /* 翻页 */
 .turnpage {margin:5px;font-family:arial; color:#000;}
@@ -67,6 +73,15 @@ a.currentPageNo {color:#fff;background-color:#296bbc;padding:2px 4px 2px 4px; bo
 .share:hover {background:url('../img/share2.gif') no-repeat right; }
 .share div:hover {color:#fff;background:#005eac;}
 
+/********* list tyle ************/
+.dot1, .dot2, .dot3, .dot4, .dot5 { list-style:none;}
+
+.dot1 li{background:url(../img/dots.gif) no-repeat 5px 8px; padding-left:15px;}
+.dot2 li{background:url(../img/dots.gif) no-repeat 5px -10px; padding-left:15px;}
+.dot3 li{background:url(../img/dots.gif) no-repeat 5px -30px;padding-left:15px; }
+.dot4 li{background:url(../img/dots.gif) no-repeat 5px -49px; padding-left:16px;}
+.dot5 li{background:url(../img/dots.gif) no-repeat 5px -70px; padding-left:18px;}
+
 /********* slide ************/
 .slideWrap {float: left; position: relative;}
 .slideWrap img{display:none;}
@@ -84,7 +99,9 @@ a.currentPageNo {color:#fff;background-color:#296bbc;padding:2px 4px 2px 4px; bo
 .valid {color:#666; font-size:12px; padding:2px;}
 .validOk {background: url(../img/ajax/ok.gif) no-repeat;}
 .validError {background: url(../img/ajax/error.gif) no-repeat;padding-left:20px;margin-left:3px;}
-.inputWarning {border:2px red solid;}
+.border { display:none;}
+.inputWarning {border:2px red solid !important;}
+.editorWarning {border-bottom:3px red solid !important;}
 /*input.inputWarning {border:2px #fed22f solid;}*/
 
 /******* menu *****/
@@ -111,6 +128,10 @@ a.currentPageNo {color:#fff;background-color:#296bbc;padding:2px 4px 2px 4px; bo
 
 .clickMenu {cursor:pointer; }
 .frmUpdate {cursor:pointer;}
+
+/******** ueditor ******/
+.edui table {border-collapse:collapse;}
+.edui th, .edui td {border:1px solid #ddd; padding:5px 10px;}
 
 /******** tab *********/
 .tabList {border-bottom: 1px solid #B8D5FF;}
@@ -143,15 +164,24 @@ td.sort img:hover {background:#333;}
 .right {text-align:right;}
 .more {text-align:right;margin:10px;}
 .auto {margin:auto;}
-.msfont {font-family:微软雅黑;}
+.msfont {font-family:Microsoft YaHei;}
 
 .userAvatar {margin:10px 0px 0px 5px;}
 .userAvatar li {float:left; height:70px; width:60px; padding:0px 2px 5px 2px; text-align:center;}
 .userAvatar li img{width:48px;}
 .userAvatar li div {width:100%; text-align:center;text-overflow: clip;  -moz-text-overflow: clip;white-space: nowrap; overflow: hidden;}
 
+.avs {width:48px; height:48px;}
+.avm {width:100px; height:100px;}
+.avb {width:200px; height:200px;}
+
+.avs img{width:48px; height:48px;}
+.avm img{width:100px; height:100px;}
+.avb img{width:200px; height:200px;}
+
 input.searchs {background:url('../img/search2.gif') no-repeat;width:20px;height:20px; border:0px; cursor:pointer;}
 
+.sectionTitle {padding:6px 10px; font-size:14px;font-weight:bold;background:#eceff5;background:url('../img/sectionTitleBg.gif'); border-top:0px #94a3c4 solid; margin:1px;}
 
 /*投票*/
 .poll-v-table {width:95%;margin-left:5px;}
@@ -180,6 +210,7 @@ body { background:url(../skin/site/new/body-bg.jpg);}
 blockquote {font-size:14px; color:#3e3e3e;}
 blockquote p{font-size:14px; color:#3e3e3e;}
 blockquote div{font-size:14px; color:#3e3e3e;}
+blockquote .quote-user {font-size:12px; margin-left:0px; color:#666; padding:5px 5px; width:70%; margin-top:10px; border-top:1px dotted #ccc;}
 
 .navbar{
     background:url(../skin/site/new/top-nav-bg.png); 

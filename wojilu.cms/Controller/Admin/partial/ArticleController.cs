@@ -17,7 +17,7 @@ namespace wojilu.cms.Controller.Admin {
 
                 string title = a.Title.Length > 8 ? a.Title : "<strong>" + a.Title + "</strong>";
                 block.Set( "article.Title", title );
-                block.Set( "article.Content", a.Content.Length > 20 ? a.Content.Substring( 0, 20 ) : a.Content );
+                block.Set( "article.Content", a.Content.Length > 20 ? strUtil.ParseHtml( a.Content, 20 ) : a.Content );
                 block.Next();
             }
         }

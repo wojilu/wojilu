@@ -6,10 +6,17 @@
     <div class="formPanel">
     <form method="post" action="#{ActionLink}">
 
-            <table>
-                <tr><td>标题：</td><td><input name="article.Title" type="text" style="width:450px;" value="#{article.Title}" /></td></tr>
+        <table style="width:98%;">
+            <tr><td style="width:80px;">标题：</td>
+                <td><input name="article.Title" type="text" style="width:450px;" value="#{article.Title}" /></td></tr>
                 <tr><td>所属分类：</td><td>#{categoryId}</td></tr>
-                <tr><td>内容：</td><td>#{Editor}</td></tr>
+                <tr><td>内容：</td><td>
+                
+        <script type="text/plain"  id="article.Content" name="article.Content">#{article.Content}</script>
+        <script>_run(function () { wojilu.editor.bind('article.Content').height(280).line(2).show(); });</script>
+        <span class="valid border" to="article.Content"></span>
+                
+                </td></tr>
                 <tr><td></td><td><input type="submit" value="修改文章" class="btn" /></td></tr>
             </table>
 

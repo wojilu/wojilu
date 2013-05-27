@@ -14,11 +14,13 @@ a { text-decoration: none;}
 a:hover { text-decoration: underline;}
 .link {cursor:pointer;}
 
-body {background-image : url(../img/bg2.jpg); background-repeat:repeat-x; background-position :center 35px;} /*整个网页的背景*/
+
 a, .link { color: #005eac; } /*链接的颜色*/
 textarea {padding:2px;}
 
 a:hover { color:#5195ce} /*鼠标悬停链接颜色*/
+
+.overflow {white-space:nowrap;text-overflow:ellipsis; -o-text-overflow:ellipsis; -moz-text-overflow:ellipsis; overflow: hidden;}
 
 .clear {clear: both;height: 0;overflow: hidden;display: block;}
 .clearfix:after {clear: both;height: 0;overflow: hidden;display: block;visibility: hidden;	content: ".";}
@@ -98,7 +100,7 @@ a.cmd4 span {color:#fff;margin:5px;display:block;text-align:center;}
 
 .externalLink  {background:url("../img/s/external-link.png") no-repeat right center; padding-right:13px;}
 
-ul.wojiluValidationResultList {font-size:16px; font-family:微软雅黑, Calibri; color:red; margin:10px 10px 10px 50px; font-weight:bold; line-height:150%;}
+ul.wojiluValidationResultList {font-size:16px; font-family:Microsoft YaHei, Calibri; color:red; margin:10px 10px 10px 50px; font-weight:bold; line-height:150%;}
 
 /* 翻页 */
 .turnpage {margin:5px;font-family:arial; color:#000;}
@@ -175,7 +177,9 @@ td.adminPage {background:#efefef;}
 .valid {color:#666; font-size:12px; padding:2px;}
 .validOk {background: url(../img/ajax/ok.gif) no-repeat;}
 .validError {background: url(../img/ajax/error.gif) no-repeat;padding-left:20px;margin-left:3px;}
-.inputWarning {border:2px red solid;}
+.border { display:none;}
+.inputWarning {border:2px red solid !important;}
+.editorWarning {border-bottom:3px red solid !important;}
 /*input.inputWarning {border:2px #fed22f solid;}*/
 
 /******* menu *****/
@@ -188,6 +192,10 @@ td.adminPage {background:#efefef;}
 
 .clickMenu {cursor:pointer; }
 .frmUpdate {cursor:pointer;}
+
+/******** ueditor ******/
+.edui table {border-collapse:collapse;}
+.edui th, .edui td {border:1px solid #ddd; padding:5px 10px;}
 
 /******** tab *********/
 .tabList {border-bottom: 1px solid #B8D5FF;}
@@ -243,12 +251,20 @@ td.sort img:hover {background:#333;}
 .right {text-align:right;}
 .more {text-align:right;margin:10px;}
 .auto {margin:auto;}
-.msfont {font-family:微软雅黑;}
+.msfont {font-family:Microsoft YaHei;}
 
 .userAvatar {margin:10px 0px 0px 5px;}
 .userAvatar li {float:left; height:70px; width:60px; padding:0px 2px 5px 2px; text-align:center;}
 .userAvatar li img{width:48px;}
 .userAvatar li div {width:100%; text-align:center;text-overflow: clip;  -moz-text-overflow: clip;white-space: nowrap; overflow: hidden;}
+
+.avs {width:48px; height:48px;}
+.avm {width:100px; height:100px;}
+.avb {width:200px; height:200px;}
+
+.avs img{width:48px; height:48px;}
+.avm img{width:100px; height:100px;}
+.avb img{width:200px; height:200px;}
 
 input.searchs {background:url('../img/search2.gif') no-repeat;width:20px;height:20px; border:0px; cursor:pointer;}
 

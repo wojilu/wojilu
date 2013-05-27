@@ -95,7 +95,6 @@ namespace wojilu.cms.Controller.Admin {
         public void Add() {
             target( Create );
             dropList( "categoryId", Category.findAll(), "Name=Id", 0 );
-            editor( "article.Content", "", "200px" );
         }
 
         public void Create() {
@@ -117,7 +116,7 @@ namespace wojilu.cms.Controller.Admin {
             bind( a );
             int selected = a.Category == null ? 0 : a.Category.Id;
             dropList( "categoryId", Category.findAll(), "Name=Id", selected );
-            editor( "article.Content", a.Content, "200px" );
+            set( "article.Content", a.Content );
         }
 
         public void Update( int id ) {

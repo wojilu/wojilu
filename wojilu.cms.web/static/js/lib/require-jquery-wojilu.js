@@ -11376,13 +11376,15 @@ wojilu.str = {
     },
 
     startsWith : function( txt, value ) {
+        if( !txt || !value) return false;
         return ( txt.substr( 0, value.length ) == value );
     },
 
     endsWith : function( txt, value ) {
+        if( !txt || !value) return false;
         return ( txt.substr( txt.length-value.length, txt.length ) == value ) ;
     },
-
+    
     isJson : function( obj ) {
         return typeof(obj) == "object" && Object.prototype.toString.call(obj).toLowerCase() == "[object object]" && !obj.length;    
     },
@@ -11401,10 +11403,6 @@ wojilu.str = {
             intIndexOfMatch = strText.indexOf( strTarget );
         };
         return strText;
-    },
-
-    endsWith : function ( txt, value ) {
-        return ( txt.substr( txt.length-value.length, txt.length ) == value ) ;
     },
 
     trimStart : function( txt, val ) {
@@ -11719,12 +11717,11 @@ wojilu.tool = {
     },
     
     makeTab : function(containerClassOrId, currentClass, otherClass) {
-    	var currentUrl = wojilu.str.trimHost( window.location.href );
+    	var currentUrl = wojilu.str.trimHost( window.location.href ).toLowerCase();
         currentUrl = wojilu.tool.getUrlWithoutQuery( wojilu.str.trimExt( currentUrl ));
     	$(containerClassOrId+' a' ).each( function(i) {
-            var link = $(this).attr( 'href' );
+            var link = $(this).attr( 'href' ).toLowerCase();
             link = wojilu.tool.getUrlWithoutQuery( wojilu.str.trimExt( link ) );
-            //if( currentUrl.indexOf( link )>=0 || link.indexOf( currentUrl )>=0 ) {
             if( currentUrl==link ) {
                 $(this).parent().removeClass( otherClass ).addClass( currentClass );
             };
@@ -11875,9 +11872,10 @@ wojilu.upload.initFlash = function( selector, settings ) {
 
 String.prototype.trimStart = function(str) { return wojilu.str.trimStart(this,str);};
 String.prototype.trimEnd = function(str) { return wojilu.str.trimEnd(this,str);};
+String.prototype.startsWith = function(str) { return wojilu.str.startsWith(this,str);};
+String.prototype.endsWith = function(str) { return wojilu.str.endsWith(this,str);};
 String.prototype.toInt = function() { return parseInt(this)};
 String.prototype.cssVal = function() { return this.trimEnd('px').toInt();};
-String.prototype.startsWith = function(str) { if (str.length > this.length) return false; return this.substr(0, str.length) == str;};
 
 String.prototype.toAjax = function(onlyRadom) {
     var strAjax = onlyRadom ? '' : '&ajax=true';
@@ -12117,22 +12115,37 @@ wojilu.ui.valid = function() {
     validPage();
 
     function validPage() {
+        wojilu.editor.sync();
         var validator = $( '.valid' );
         if( validator.length<=0 ) return;
-        $( '.valid' ).each( addValid );
-        var form = $( '.valid' ).parents( 'form' );
-        form.submit( function() {
+        setTimeout( function() {
+            $( '.valid' ).each( addValid );
+        }, 800 );
+        bindSubmitValid();
+    };
+    
+    function bindSubmitValid() {
+        var formList = $( '.valid' ).closest( 'form' );        
+        for( var i=0;i<formList.length;i++ ) {
+            var btnSubmit = $(formList[i]).find("[type='submit']");
+            btnSubmit.click( onSubmitClick );
+        }
+    };
+    
+    function onSubmitClick() {
+        var form = $(this).closest( 'form' );
+        wojilu.editor.sync();
 
-            $( '.valid', $(this) ).each( validOne );
-            var errors = 0;
-            $( '.valid', $(this) ).each( function() {
-                var validResult = $(this).attr( 'result' );
-                if( validResult != 'ok' ) {
-                    errors +=1;
-                }
-            });
-            return errors==0;
+        $( '.valid', form ).each(validOne);
+
+        var errors = 0;
+        $( '.valid', form).each( function() {
+            var validResult = $(this).attr( 'result' );
+            if( validResult != 'ok' ) {
+                errors +=1;
+            }
         });
+        return errors==0;
     };
 
     function addValid() {
@@ -12141,7 +12154,12 @@ wojilu.ui.valid = function() {
         var isShow = validSpan.attr( 'show' );
         if( 'true'==isShow ) validSpan.html( validSpan.attr('msg') );
         var inputType = target.attr( 'type' );
-        if(  inputType == 'hidden' ) {
+        var inputId = target.attr('id');
+        if( inputId && inputId.startsWith( 'ueditor_' ) ) {
+            validSpan.attr('isEditor', 'true');
+            wojilu.editor.blur(target.attr('name'), function() {validInput(target, validSpan);});
+        }
+        else if(  inputType == 'hidden' ) {
             editorBlur( target, validSpan );
         }
         else if( inputType == 'checkbox' ) {
@@ -12187,6 +12205,7 @@ wojilu.ui.valid = function() {
     function setMsg( result, validSpan, msg ) {
         var target = getTarget(validSpan);
         var mode = validSpan.attr( 'mode' );
+        if( validSpan.hasClass('border') ) mode='border';
         if( result==-1 ) {
             if( 'border' == mode ) {
                 setErrorMsgSimple( validSpan, msg );
@@ -12225,7 +12244,14 @@ wojilu.ui.valid = function() {
     function setErrorMsgSimple( validSpan, msg ){
         if( !msg ) msg = lang.exFill;
         var target = getTarget(validSpan);
-        if( target.attr( 'type' )=='hidden' ) {
+        
+        var isEditor = validSpan.attr( 'isEditor' );
+        if( isEditor=='true' ) {
+            var editorId = validSpan.attr('to');
+            var divEditor = $('[id="'+editorId+'"]');
+            divEditor.addClass( 'editorWarning' );
+        }        
+        else if( target.attr( 'type' )=='hidden' ) {
             //editor
             target.parent().parent().addClass( 'inputWarning' );
         }
@@ -12249,8 +12275,15 @@ wojilu.ui.valid = function() {
     };
     
     function setOkMsgSimple(validSpan) {
-        var target = getTarget(validSpan);		
-        if( target.attr( 'type' )=='hidden' ) {
+        var target = getTarget(validSpan);
+
+        var isEditor = validSpan.attr( 'isEditor' );
+        if( isEditor=='true' ) {
+            var editorId = validSpan.attr('to');
+            var divEditor = $('[id="'+editorId+'"]');
+            divEditor.removeClass( 'editorWarning' );
+        }
+        else if( target.attr( 'type' )=='hidden' ) {
             target.next().removeClass( 'inputWarning' );
         }
         else if( target.attr( 'type' )=='checkbox' ) {
@@ -12287,6 +12320,8 @@ wojilu.ui.valid = function() {
         var rule = validSpan.attr( 'rule' );
         var msg = validSpan.attr( 'msg' );
         var mode = validSpan.attr( 'mode' );
+        if( validSpan.hasClass('border') ) mode='border';
+        
         var ajaxAction = validSpan.attr( 'ajaxAction' );        
 
         if( isValNull(target) ) {
@@ -12333,7 +12368,7 @@ wojilu.ui.valid = function() {
 
         if( rule=='password2' ) {
             var result = inputValue.search( arrRule['password'] );
-            var form = validSpan.parents( 'form' );
+            var form = validSpan.closest('form');
             var isSame = ( inputValue==$( ':password', form[0] ).not(getTarget(validSpan)).val() );
             var pwdResult = (result==-1 || isSame==false)?-1:0;
             setMsg( pwdResult, validSpan, msg );
@@ -12367,6 +12402,7 @@ wojilu.ui.valid = function() {
     };
 
     function getTarget(validSpan) {
+        wojilu.editor.sync();
         var target = validSpan.attr( 'to' );
         if( target=='undefined' || target==null ) {
             return validSpan.prev();
@@ -12377,8 +12413,8 @@ wojilu.ui.valid = function() {
     };
 
     function getTargetSelector( target, validSpan ) {
-        var form = validSpan.parents( 'form' );
-        var tt = $("[name='"+target+"']", form);
+        var form = validSpan.closest('form');
+        var tt = form.find("[name='"+target+"']");
         return tt;
     };
 };
@@ -12506,7 +12542,7 @@ wojilu.ui.box = {
     id : 0, mouseOffset : null, init : function() {},hideBg:function() {},
 
     getId:function() {
-        var frmdoc = !(top===self)?window.parent.document:document;
+        var frmdoc = wojilu.tool.getRootParent().document;
         var arrFrames = frmdoc.getElementsByTagName("IFRAME");
         var ifrm=1;
         for (var i = 0; i < arrFrames.length; i++) {    
@@ -12976,29 +13012,40 @@ wojilu.editor = {
         this._pluginList.push({pluginName:xName, pluginFunc:xFunc});
         return this;
     },
-    sync : function(editorId) {    
-        if( window.ueditorList ) {
-            for( x in window.ueditorList ) {
-                if( editorId ) {
-                    if( x=='editor'+editorId) {
-                        window.ueditorList[x].sync();
-                    }
-                }
-                else {
-                    window.ueditorList[x].sync();
-                }
-
-            }
+    get : function(editorId) {
+        if( !editorId ) return null;
+        if( !window.ueditorList ) return null;        
+        for( x in window.ueditorList ) {
+            if( x=='editor'+editorId) return window.ueditorList[x];            
         }
+        return null;
+    },
+    sync : function(editorId) {    
+        if( !window.ueditorList ) return;
+        if( editorId ) {
+            var ueditor = this.get( editorId );
+            if (ueditor == null ) return;
+            ueditor.sync();
+            return;
+        }
+        for( x in window.ueditorList ) {
+            window.ueditorList[x].sync();
+        }        
     },
     clear : function(editorId) {
-        if( window.ueditorList ) {
-            for( x in window.ueditorList ) {
-                if( x=='editor'+editorId) {
-                    window.ueditorList[x].execCommand('cleardoc');
-                }
-            }
-        }
+        if( !editorId ) return;
+        var ueditor = this.get( editorId );
+        if (ueditor == null ) return;
+        ueditor.execCommand('cleardoc');
+    },
+    blur : function( editorId, callback ) {
+        var myeditor = wojilu.editor.get(editorId);
+        if( myeditor==null ) return;
+        var funcSync = function() {
+            myeditor.sync();
+            if( callback ) callback();
+        };
+        myeditor.addListener('blur', funcSync);
     },
     show : function( callback ) {
         var thisParams = this._params;
@@ -13006,7 +13053,7 @@ wojilu.editor = {
         var thisEditor = this._editorId;
         var thisPluginList = this._pluginList;
         if( this._height ) thisParams.initialFrameHeight = this._height;
-        require(["lib/ueditor/editor_config", "lib/ueditor/editor_all"], function () {
+        require(["lib/ueditor/ueditor.all.min", "lib/ueditor/ueditor.config"], function () {
             if( thisPluginList.length>0 ) {
                 for( var i=0;i<thisPluginList.length;i++ ) {
                     UE.plugins[thisPluginList[i].pluginName] = thisPluginList[i].pluginFunc;
@@ -13016,7 +13063,7 @@ wojilu.editor = {
             if( thisToolbar=='standard' ) thisParams.toolbars = _wbar.standard;
             if( thisToolbar=='full' ) thisParams.toolbars = _wbar.full;
             var _editor = UE.getEditor(thisEditor, thisParams);
-            
+             
             if( !window.ueditorList ) window.ueditorList = {};
             window.ueditorList['editor'+thisEditor] = _editor;
 
