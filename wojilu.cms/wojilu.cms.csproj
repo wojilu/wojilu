@@ -61,6 +61,7 @@
     <Compile Include="Controller\Admin\ArticleController.cs" />
     <Compile Include="Controller\Admin\CategoryController.cs" />
     <Compile Include="Controller\Admin\ConfigController.cs" />
+    <Compile Include="Controller\Admin\EditorUploadController.cs" />
     <Compile Include="Controller\Admin\FileController.cs" />
     <Compile Include="Controller\Admin\FooterController.cs" />
     <Compile Include="Controller\Admin\LayoutController.cs" />

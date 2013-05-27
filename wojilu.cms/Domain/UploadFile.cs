@@ -26,6 +26,26 @@ namespace wojilu.cms.Domain {
             get { return sys.Path.GetPhotoThumb( this.Path ); }
         }
 
+        [NotSave]
+        public string PicO {
+            get { return sys.Path.GetPhotoOriginal( this.Path ); }
+        }
+
+        [NotSave]
+        public String PicS {
+            get { return sys.Path.GetPhotoThumb( this.Path ); }
+        }
+
+        [NotSave]
+        public String PicM {
+            get { return sys.Path.GetPhotoThumb( this.Path, wojilu.Drawing.ThumbnailType.Medium ); }
+        }
+
+        [NotSave]
+        public String Ext {
+            get { return System.IO.Path.GetExtension( this.Path ); }
+        }
+
     }
 
 }
