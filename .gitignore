@@ -42,7 +42,10 @@ wojilu.Web/*/default.html
 _wtemp/
 
 wojilu.OpenSample/framework/log/
+
 wojilu.cms.web/framework/log/
+wojilu.cms.web/static/upload/image/
+wojilu.cms.web/static/upload/wimg/
 
 #wojilu.Web/static/upload/
 wojilu.Web/static/upload/face/

@@ -166,21 +166,21 @@ window._wbar = {
         UEDITOR_HOME_URL : URL
 
         //图片上传配置区
-        ,imageUrl:"/Users/UserUpload/SaveEditorPic.aspx"             //图片上传提交地址
+        ,imageUrl:"/Admin/EditorUpload/SaveEditorPic.aspx"             //图片上传提交地址
         ,imagePath:""                     //图片修正地址，引用了fixedImagePath,如有特殊需求，可自行配置
         
         //图片在线管理配置区
-        ,imageManagerUrl:"/Users/UserUpload/MyPicJson.aspx"       //图片在线管理的处理地址
+        ,imageManagerUrl:"/Admin/EditorUpload/MyPicJson.aspx"       //图片在线管理的处理地址
         ,imageManagerPath:""                                    //图片修正地址，同imagePath
         
         //附件上传配置区
-        ,fileUrl:"/Users/UserUpload/SaveEditorFile.aspx"               //附件上传提交地址
+        ,fileUrl:"/Admin/EditorUpload/SaveEditorFile.aspx"               //附件上传提交地址
         ,filePath:""                   //附件修正地址，同imagePath
         //,fileFieldName:"upfile"                    //附件提交的表单名，若此处修改，需要在后台对应文件修改对应参数
         
          //远程抓取配置区
         ,catchRemoteImageEnable:false               //是否开启远程图片抓取,默认开启
-        ,catcherUrl:"/Users/UserUpload/GetRemotePic.aspx"   //处理远程图片抓取的地址
+        ,catcherUrl:"/Admin/EditorUpload/GetRemotePic.aspx"   //处理远程图片抓取的地址
         ,catcherPath:""                  //图片修正地址，同imagePath;如果不是从根目录开始，设置为catcherPath:URL + "net/"   
 
         //,imageFieldName:"upfile"                   //图片数据的key,若此处修改，需要在后台对应文件修改对应参数
