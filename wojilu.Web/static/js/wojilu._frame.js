@@ -22,8 +22,20 @@ define([],function(){
     hideParentLoading(); 
     
     //---------------------调整iframe高度------------------------------------
+
+    var shouldResize = true;
+    var srcFrmId = wojilu.tool.getCurrentFrmId();
+    if( srcFrmId != null ) {
+        var scrolling = $('#'+srcFrmId, parent.document).attr( 'scrolling' );
+        if( scrolling != 'no' ) {
+            shouldResize = false;
+        }
+    }
     
-    var cmdResize = setInterval( resizeParent, 50 );    
+    var cmdResize;
+    if( shouldResize ) {
+        cmdResize = setInterval( resizeParent, 50 );
+    }
 
     var iResize = 1;
     
