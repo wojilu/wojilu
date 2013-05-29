@@ -105,6 +105,22 @@ namespace wojilu.Web.Controller.Blog {
             IBlock block = getBlock( "categories" );
             int i = 0;
             foreach (BlogSysCategory c in categories) {
+                    //给博客的聚合入口中博客系统分类的展示增加逻辑：每行显示2个 
+                     if (i % 2 == 0)                {
+                    
+                    block.Set("c.Begin", "<tr><td>");
+                   block.Set("c.End", "</td>");
+                   if (categories.Count % 2 != 0 && categories.Count == (i + 1))
+                       block.Set("c.End", "</td></tr>");
+                 
+                }
+                else
+                {
+                    block.Set("c.Begin", "<td>");
+                 block.Set("c.End", "</td></tr>");
+                
+                 }
+
 
                 List<BlogPost> list = sysblogService.GetByCategory( c.Id, 8 );
                 bindOneCategory( block, list );
