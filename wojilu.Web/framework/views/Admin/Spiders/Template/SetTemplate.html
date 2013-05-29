@@ -8,11 +8,16 @@
 
 fieldset {border:0px #ccc solid;}
 
+table.tabHeader { margin-left:0px;}
+div.tabMain { margin-left:0px;}
 </style>
 
-<div style="margin:10px;">
+<div>
 
 
+<div style="margin-bottom:10px;border:1px solid #ccc; padding:10px 10px; background:#fff;">
+采集功能使用说明：<a href="http://www.wojilu.com/forum1/topic/3021" target="_blank" style="font-size:12px;">http://www.wojilu.com/forum1/topic/3021 <img src="~img/s/external-link.png" /></a>
+</div>
 
 
 <form method="get" id="myform">
@@ -138,9 +143,24 @@ fieldset {border:0px #ccc solid;}
         <table id="Table1" style="width:100%;  margin:10px; margin-top:0px;">
             <tr id="doutPanel" style="display:none"><td class="formLeft">抓取详细页结果</td><td ><textarea id="dout" style="width:98%; height:280px;"></textarea></td></tr>
             <tr><td class="formLeft3">采集名称</td><td><input id="siteName" type="text" /></td></tr>
+            <tr><td class="formLeft3">清除标签</td><td>
+                <label><input type="checkbox" name="clearTag" value="script" checked="checked" />script</label>
+                <label><input type="checkbox" name="clearTag" value="iframe" checked="checked" />iframe</label>
+                <label><input type="checkbox" name="clearTag" value="frame" checked="checked" />frame</label>
+                <label><input type="checkbox" name="clearTag" value="object" checked="checked" />object</label>
+                <label><input type="checkbox" name="clearTag" value="style" checked="checked" />style</label>
+                <label><input type="checkbox" name="clearTag" value="table" />table</label>
+                <label><input type="checkbox" name="clearTag" value="font" checked="checked" />font</label>
+                <label><input type="checkbox" name="clearTag" value="span" />span</label>
+                <label><input type="checkbox" name="clearTag" value="img" />img</label>
+                <label><input type="checkbox" name="clearTag" value="a" />a</label>
+                <label><input type="checkbox" name="clearTag" value="br" />br</label>
+            
+            </td></tr>
             <tr><td class="formLeft3">图片选项</td><td>
                 <label><input id="checkPic" type="checkbox" checked="checked" /> 采集文章中图片</label></td></tr>
-            <tr><td></td><td><input id="btnSave" type="button" class="btn" value="保存采集模板" />            
+            <tr><td></td><td><input id="btnSave" type="button" class="btn" value="保存采集模板" />
+            <span id="loadingSave" class="left10"></span>          
             <input id="return2" class="btnOther left15" type="button" value="_{return}" />
             </td></tr>
         
@@ -153,8 +173,6 @@ fieldset {border:0px #ccc solid;}
 </div>
 
 <script language="javascript" type="text/javascript">
-// <!CDATA[
-
 
 _run( function() {
     var objT = #{objTemplate};
@@ -166,6 +184,8 @@ _run( function() {
         $('#ListPattern').val( objT.ListPattern );
         
         $('#DetailPattern').val( objT.DetailPattern );
+
+        $('#siteName').val( objT.SiteName );
     }
 
 
@@ -266,7 +286,7 @@ _run( function() {
     
     // 第三步：保存模板
     $('#btnSave').click( function() {
-        $('#loading').html( '<img src="~img/ajax/loading.gif" /> 保存……请稍后' );
+        $('#loadingSave').html( '<img src="~img/ajax/loading.gif" /> 保存……请稍后' );
         var mybtn = $(this);
         mybtn.attr( 'disabled', 'disabled' );
 
@@ -284,10 +304,11 @@ _run( function() {
             'DetailPattern':DetailPattern,
             'listEncoding':$('#listEncoding').val(),
             'detailEncoding':$('#detailEncoding').val(),
+            'clearTag':$("input[name='clearTag']:checked").chkVal(),
             'checkPic':$('#checkPic').attr("checked")
         }, function(data) {
             mybtn.attr( 'disabled', false );
-            $('#loading').html('');
+            $('#loadingSave').html('');
             if( data=='ok') {
                 //alert( '保存成功' );
                 $('#loading').html( '<span style="color:red;font-weight:bold;">保存成功</span>' );
@@ -303,5 +324,4 @@ _run( function() {
     
 });
 
-// ]]>
 </script>

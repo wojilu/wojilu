@@ -86,6 +86,16 @@ namespace wojilu.Common.Spider.Service {
                 return null;
             }
         }
+        protected string getMatchedBody( string page, SpiderTemplate s, StringBuilder sb ) {
+            Match match = Regex.Match( page, s.GetDetailPattern(), RegexOptions.Singleline );
+            if (match == null || !match.Success || string.IsNullOrEmpty( match.Value )) {
+                logInfo( "error=没有匹配的页面内容:" + _url, this._url, s, sb );
+                return null;
+            }
+
+            return match.Groups[1].Value;
+        }
+
         //利用HtmlAgilityPack生成HtmlDocument
         protected HtmlDocument getDetailPageBodyHtmlDocument( string detailUrl, SpiderTemplate template, StringBuilder sb ) {
             try {
@@ -114,19 +124,7 @@ namespace wojilu.Common.Spider.Service {
             }
         }
 
-        protected string getMatchedBody( string page, SpiderTemplate s, StringBuilder sb ) {
-            Match match = Regex.Match( page, s.GetDetailPattern(), RegexOptions.Singleline );
-            if (match == null || !match.Success || string.IsNullOrEmpty( match.Value )) {
-                logInfo( "error=没有匹配的页面内容:" + _url, this._url, s, sb );
-                return null;
-            }
 
-            page = match.Groups[1].Value;
-
-            String fpage = HtmlFilter.Filter( page ); // 过滤广告
-
-            return fpage;
-        }
 
 
 

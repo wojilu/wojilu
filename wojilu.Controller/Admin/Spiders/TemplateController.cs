@@ -308,11 +308,19 @@ namespace wojilu.Web.Controller.Admin.Spiders {
             s.DetailPattern = DetailPattern;
             s.SiteName = ctx.Post( "siteName" );
 
+
+            if (strUtil.IsNullOrEmpty( s.SiteName )) {
+                echoError( "请填写采集名称" );
+                return;
+            }
+
             s.ListEncoding = ctx.Post( "listEncoding" );
             s.DetailEncoding = ctx.Post( "detailEncoding" );
 
             Boolean chkPic = cvt.ToBool( ctx.Post( "checkPic" ) );
             s.IsSavePic = chkPic ? 1 : 0;
+
+            s.DetailClearTag = ctx.Post( "clearTag" );
 
             if (templateId > 0) {
                 templateService.Update( s );

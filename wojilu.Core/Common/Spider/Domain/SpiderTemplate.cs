@@ -71,15 +71,18 @@ namespace wojilu.Common.Spider.Domain {
             return this.DetailBegin + "(.+?)" + this.DetailEnd;
         }
 
+        /// <summary>
+        /// 详细页需要清除的tag。比如 "script,iframe,frame,object,table,font,span,img,a,br" 等
+        /// </summary>
+        [LongText]
+        public String DetailClearTag { get; set; }
+
         //--------------------------------------------------------------
 
 
         public DateTime Created { get; set; }
 
         public int IsDelete { get; set; }
-
-
-
 
         public int OrderId  { get; set; }
 
