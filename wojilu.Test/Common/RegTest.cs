@@ -25,7 +25,68 @@ namespace wojilu.Test.Common {
             Assert.IsFalse( RegPattern.IsMatch( "http://天气预报", RegPattern.Url ) );
             Assert.IsFalse( RegPattern.IsMatch( "abc", RegPattern.Url ) );
             //Assert.IsFalse( RegPattern.IsMatch( "http://abc", RegPattern.Url ) );
+        }
 
+
+        [Test]
+        public void testReplaceHtml() {
+
+            String html = @"<p>
+  Hello. <font size=""2"">I am size 2</font>
+  <font color=""red"">and I am red</font>
+</p>";
+
+            String result = @"<p>
+  Hello. I am size 2
+  and I am red
+</p>";
+
+            Assert.AreEqual( result, RegPattern.ReplaceHtml( html, "font", false ) );
+
+            html = @"<p><span style=""color:red;"">kkk</span> aaaaaaaa</p>";
+            result = @"<p>kkk aaaaaaaa</p>";
+            Assert.AreEqual( result, RegPattern.ReplaceHtml( html, "span", false ) );
+
+            html = @"<p>zzz <a href=""ccc.html"">aaa name</a> pppp</p>";
+            result = @"<p>zzz aaa name pppp</p>";
+            Assert.AreEqual( result, RegPattern.ReplaceHtml( html, "a", false ) );
+
+
+            //---------------------------------------------------------------------------------------------
+
+
+
+            html = @"<p>
+<script>         alert('sss');       </script>
+<style>
+p {color:red;}
+</style>
+  Hello. <font size=""2"">I am size 2</font>
+  <font color=""red"">and I am red</font>
+</p>";
+
+            result = @"<p>
+
+
+  Hello. <font size=""2"">I am size 2</font>
+  <font color=""red"">and I am red</font>
+</p>";
+
+            String x = RegPattern.ReplaceHtml( html, "script", true );
+            x = RegPattern.ReplaceHtml( x, "style", true );
+
+            Assert.AreEqual( result, x );
+
+            html = @" <p>  pic1 <img src=""eeeeeeee.jpg"" />   </p>  pic2<IMG src=""xxxxxx.gif"" >  ";
+            result = @" <p>  pic1    </p>  pic2  ";
+            x = RegPattern.ReplaceHtml( html, "img", true );
+            Assert.AreEqual( result, x );
+
+
+            html = @" <p>  pic1 <br/>    </p>  pic2<BR> <div><br   /></div> <br /> ";
+            result = @" <p>  pic1     </p>  pic2 <div></div>  ";
+            x = RegPattern.ReplaceHtml( html, "br", true );
+            Assert.AreEqual( result, x );
 
         }
 

@@ -69,7 +69,33 @@ namespace wojilu {
         /// <param name="pattern">正则表达式</param>
         /// <returns></returns>
         public static Boolean IsMatch( String input, String pattern ) {
-            return Regex.IsMatch( input, pattern);
+            return Regex.IsMatch( input, pattern );
+        }
+
+        /// <summary>
+        /// 替换html中的标签
+        /// </summary>
+        /// <param name="input"></param>
+        /// <param name="tag">需要过滤的标签</param>
+        /// <param name="stripConent">是否过滤标签的内容</param>
+        /// <returns></returns>
+        public static String ReplaceHtml( String input, String tag, Boolean stripConent ) {
+
+            // self closing tag
+            if (tag == "img" || tag == "br" || tag == "hr") {
+                Regex r = new Regex( "<" + tag + @"\s*.*?>", RegexOptions.IgnoreCase );
+                return r.Replace( input, "" );
+            }
+
+            // 过滤标签，以及标签内部的内容
+            if (stripConent) {
+                Regex r = new Regex( "<" + tag + @"[\s\S]+</" + tag + " *>", RegexOptions.IgnoreCase );
+                return r.Replace( input, "" );
+            }
+
+            // 只过滤标签，不过滤标签的内容
+            Regex rx = new Regex( "</?" + tag + "[^<]*?>", RegexOptions.IgnoreCase );
+            return rx.Replace( input, "" );
         }
 
     }
