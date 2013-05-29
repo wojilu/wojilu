@@ -79,6 +79,7 @@
     <Content Include="framework\views\Admin\Upgrade\Face\Index.html" />
     <Content Include="framework\views\Common\Admin\AppBase\ThemeList.html" />
     <Content Include="framework\views\Connect\confirmUserInfo.html" />
+    <Content Include="framework\views\Content\Admin\Common\Post\Trans.html" />
     <Content Include="framework\views\Content\Admin\Export\Index.html" />
     <Content Include="framework\views\Content\Admin\Section\Summary\AdminSectionShow.html" />
     <Content Include="framework\views\Content\Section\Summary\SectionShow.html" />

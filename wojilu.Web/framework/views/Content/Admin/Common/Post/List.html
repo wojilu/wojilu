@@ -1,8 +1,8 @@
 ﻿<div>
 
-<div style="margin:5px 15px;">
+<div style="margin:5px 10px; background:#f2f2f2; padding:5px 10px; border-radius:4px;">
 
-<div style="float:left; margin-right:10px;">分类浏览：</div>
+<div style="float:left; margin-right:10px;"><strong>分类浏览：</strong></div>
 
 <ul style="float:left;">
 <!-- BEGIN cats -->
@@ -13,6 +13,30 @@
 <div style=" clear:both;"></div>
 
 </div>
+
+<script>
+    _run(function () {
+        $('#btnTrans').click(function () {
+
+            var choiceList = wojilu.ui.select();
+
+            if (choiceList.length == 0) {
+                alert(lang.exSelect);
+                return false;
+            }
+
+            var oUrl = $('#lnkTrans').attr('href');
+            if (oUrl.indexOf('?') <= 0) {
+                var newUrl = oUrl + "?ids=" + choiceList;
+                $('#lnkTrans').attr('href', newUrl).click();
+            }
+            else {
+                $('#lnkTrans').click();
+            }
+
+        });
+    });
+</script>
 
 <table cellspacing="0" cellpadding="4" border="0" style="width:98%;margin:10px auto;" id="dataAdminList" data-action="#{OperationUrl}">
 
@@ -30,6 +54,9 @@
                     <li class="btnCmd" style="" cmd="status_focus"><img src="~img/sticky2.gif" /> 设为头条</li>
                     <li class="btnCmd" style="" cmd="delete"><img src="~img/s/delete.png" /> 批量删除</li>
                 </ul></span>
+
+                <span class="left20" id="btnTrans" style=" cursor:pointer;"><img src="~img/combine.gif" /> 转移</span>
+                <a href="#{lnkTrans}" class="frmBox" id="lnkTrans" data-scrolling="auto" style=" display:none;" xwidth=580 xheight=280 title="迁移数据">&nbsp;</a>
         
             </div>
             <div style="float:right; padding-right:10px;">

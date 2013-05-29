@@ -74,13 +74,7 @@ namespace wojilu.Apps.Content.Interface {
         void SetStatus_Normal( string ids );
         void SetStatus_Focus( string ids );
 
-
-
-
-
-
-
-
+        void Trans( string postIds, string targetSectionIds );
     }
 }
 

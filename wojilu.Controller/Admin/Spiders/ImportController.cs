@@ -45,9 +45,8 @@ namespace wojilu.Web.Controller.Admin.Spiders {
             set( "sortAction", to( SaveSort ) );
 
             List<SpiderTemplate> dataSrc = templateService.GetAll();
-            List<ContentApp> apps = ContentApp.find( "OwnerType=:otype" ).set( "otype", typeof( Site ).FullName ).list();
-
             List<SpiderImport> list = importService.GetAll();
+
             IBlock block = getBlock( "list" );
             foreach (SpiderImport it in list) {
                 block.Set( "s.Id", it.Id );

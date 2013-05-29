@@ -22,6 +22,9 @@ using wojilu.Apps.Content.Enum;
 using wojilu.Common.Upload;
 using wojilu.Common.AppBase;
 using wojilu.Web.Controller.Content.Htmls;
+using wojilu.Members.Sites.Domain;
+using wojilu.Common.MemberApp.Interface;
+using wojilu.Members.Sites.Service;
 
 namespace wojilu.Web.Controller.Content.Admin.Common {
 
@@ -31,11 +34,13 @@ namespace wojilu.Web.Controller.Content.Admin.Common {
         public virtual IContentPostService postService { get; set; }
         public virtual IContentSectionService sectionService { get; set; }
         public virtual IAttachmentService attachService { get; set; }
+        public virtual IMemberAppService appService { get; set; }
 
         public PostController() {
             postService = new ContentPostService();
             sectionService = new ContentSectionService();
             attachService = new AttachmentService();
+            appService = new SiteAppService();
 
             HideLayout( typeof( wojilu.Web.Controller.Content.LayoutController ) );
         }
@@ -240,7 +245,6 @@ namespace wojilu.Web.Controller.Content.Admin.Common {
                 return;
             }
 
-
             wojilu.Drawing.Img.DeleteImgAndThumb( post.GetImgUrl() );
             echoAjaxOk();
         }
@@ -283,8 +287,9 @@ namespace wojilu.Web.Controller.Content.Admin.Common {
         public void List( int sectionId ) {
 
             set( "addUrl", to( Add, 0 ) );
-
             set( "OperationUrl", to( SaveAdmin ) );
+            set( "lnkTrans", to( Trans ) );
+
             ContentApp app = ctx.app.obj as ContentApp;
             set( "app.Name", ctx.app.Name );
             set( "app.Link", to( new ContentController().Index ) );
@@ -306,6 +311,58 @@ namespace wojilu.Web.Controller.Content.Admin.Common {
             bindCategories( app );
 
             target( Search );
+        }
+
+        public void Trans() {
+
+            target( TransSave );
+
+            String ids = ctx.GetIdList( "ids" );
+            set( "ids", ids );
+
+            List<ContentApp> apps = ContentApp.find( "OwnerType=:otype order by Id" ).set( "otype", typeof( Site ).FullName ).list();
+            IBlock block = getBlock( "apps" );
+            List<Dictionary<String, String>> xlist = new List<Dictionary<String, String>>();
+            foreach (ContentApp app in apps) {
+                block.Set( "app.Id", app.Id );
+
+                IMemberApp ma = appService.GetByApp( app );
+                if (ma == null) continue;
+
+                block.Set( "app.Name", ma.Name );
+                List<ContentSection> sections = ContentSection.find( "AppId=" + app.Id + " order by Id" ).list();
+                if (sections.Count == 0) continue;
+
+                Dictionary<String, String> obj = new Dictionary<String, String>();
+                obj["Id"] = app.Id.ToString();
+                obj["Name"] = ma.Name;
+                xlist.Add( obj );
+
+                block.Set( "dataTarget", Html.CheckBoxList( sections, "dataTarget", "Title", "Id", null ) );
+                block.Next();
+            }
+
+            bindList( "xlist", "x", xlist );
+        }
+
+        public void TransSave() {
+
+            String postIds = ctx.PostIdList( "srcIds" );
+            String targetSectionIds = ctx.PostIdList( "dataTarget" );
+
+            if (strUtil.IsNullOrEmpty( postIds )) {
+                echoError( "postIds is empty" );
+                return;
+            }
+
+            if (strUtil.IsNullOrEmpty( targetSectionIds )) {
+                echoError( "targetSectionIds" );
+                return;
+            }
+
+            postService.Trans( postIds, targetSectionIds );
+
+            echoToParentPart( lang( "opok" ) );
         }
 
         private void bindCategories( ContentApp app ) {
@@ -395,7 +452,6 @@ namespace wojilu.Web.Controller.Content.Admin.Common {
             String cmd = ctx.Post( "action" );
 
             if ("delete" == cmd) {
-                //makeHtml( ids );
                 postService.DeleteBatch( ids );
             }
             else if ("deletetrue" == cmd) {
@@ -413,23 +469,6 @@ namespace wojilu.Web.Controller.Content.Admin.Common {
 
             echoAjaxOk();
         }
-
-        // TODO
-        //private void makeHtml( String ids ) {
-
-        //    List<ContentPost> posts = postService.GetByIds( ids );
-        //    foreach (ContentPost post in posts) {
-
-        //        HtmlHelper.SetCurrentPost( ctx, post );
-
-        //        HtmlHelper.DeleteDetailHtml( ctx );
-
-        //        int sectionId = post.PageSection.Id;
-        //        int recordCount = postService.CountBySection( sectionId );
-        //        new HtmlListMaker().MakeHtml( ctx, sectionId, recordCount );
-
-        //    }
-        //}
 
         private void bindAdminList( DataPage<ContentPost> posts, bool isTrash ) {
 

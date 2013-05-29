@@ -445,6 +445,42 @@ namespace wojilu.Apps.Content.Service {
             ContentPost.updateBatch( "set PickStatus=" + PickStatus.Focus, "Id in (" + ids + ")" );
         }
 
+        //----------------------------------------------------------------------------------------------------------
+
+        public virtual void Trans( String postIds, String targetSectionIds ) {
+
+            List<ContentPost> posts = ContentPost.find( "Id in (" + postIds + ") " ).list();
+
+            List<ContentSection> sections = ContentSection.find( "Id in (" + targetSectionIds + ") " ).list();
+
+            foreach (ContentPost x in posts) {
+                transOne( x, sections );
+            }
+        }
+
+        private void transOne( ContentPost x, List<ContentSection> sections ) {
+
+            if (sections.Count == 0) return;
+
+            // 0. 先更新post
+            x.AppId = sections[0].AppId;
+            x.PageSection = sections[0];
+            x.update();
+
+            // 1. 删除旧有关系
+            ContentPostSection.deleteBatch( "PostId=" + x.Id );
+
+            // 2. 挪到新section中
+            foreach (ContentSection section in sections) {
+
+                // 多对多处理
+                ContentPostSection ps = new ContentPostSection();
+                ps.Post = x;
+                ps.Section = section;
+                ps.insert();
+
+            }
+        }
 
         //-----------------------------------------------------------------------------------------
 
