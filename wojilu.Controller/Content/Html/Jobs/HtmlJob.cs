@@ -11,6 +11,9 @@ using wojilu.Data;
 
 namespace wojilu.Web.Controller.Content.Htmls {
 
+    /// <summary>
+    /// 自动生成html静态页面
+    /// </summary>
     public class HtmlJob : IWebJobItem {
 
         private static readonly ILog logger = LogManager.GetLogger( typeof( HtmlJob ) );

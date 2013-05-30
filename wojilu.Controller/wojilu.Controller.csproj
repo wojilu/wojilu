@@ -90,6 +90,7 @@
     <Compile Include="Content\Admin\CommentController.cs" />
     <Compile Include="Content\Admin\ExportController.cs" />
     <Compile Include="Content\Admin\Section\SummaryController.cs" />
+    <Compile Include="Content\Html\Jobs\HomeHtmlJob.cs" />
     <Compile Include="Content\Html\Observer\BatchAddObserver.cs" />
     <Compile Include="Content\Section\SummaryController.cs" />
     <Compile Include="Forum\ServiceController.cs" />
