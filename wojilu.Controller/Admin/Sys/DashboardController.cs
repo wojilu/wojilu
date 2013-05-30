@@ -15,6 +15,7 @@ using wojilu.Members.Users.Interface;
 
 using wojilu.Members.Sites.Service;
 using wojilu.Members.Sites.Domain;
+using wojilu.Web.Controller.Photo;
 
 namespace wojilu.Web.Controller.Admin.Sys {
 
@@ -37,6 +38,9 @@ namespace wojilu.Web.Controller.Admin.Sys {
             set( "userLink", lnkFull( to( new Users.MainController().Index ) ) );
             set( "blogLink", lnkFull( to( new Blog.MainController().Index ) ) );
             set( "photoLink", lnkFull( to( new Photo.MainController().Index ) ) );
+
+            set( "photoWfLink", lnkFull( PhotoLink.ToHome() ) );
+
             set( "microblogLink", lnkFull( alink.ToMicroblog() ) );
             set( "tagLink", lnkFull( to( new TagController().Index ) ) );
 
