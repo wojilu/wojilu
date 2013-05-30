@@ -217,10 +217,17 @@ namespace wojilu.Web.Controller.Content.Utils {
             block.Set( "post.TitleCss", post.Style );
             block.Set( "post.TitleFull", post.Title );
 
-            if (strUtil.HasText( post.TitleHome ))
+            if (strUtil.HasText( post.TitleHome )) {
                 block.Set( "post.Title", post.TitleHome );
-            else
+            }
+            else {
                 block.Set( "post.Title", post.Title );
+            }
+
+            if (post.PageSection != null) {
+                block.Set( "post.SectionName", post.PageSection.Title );
+                block.Set( "post.SectionUrl", clink.toSection( post.PageSection.Id, ctx ) );
+            }
 
             block.Set( "post.Url", alink.ToAppData( post, ctx ) );
 

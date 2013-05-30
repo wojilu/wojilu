@@ -46,7 +46,7 @@ namespace wojilu.Web.Controller.Content.Section {
             IBlock block = getBlock( "list" );
             foreach (ContentPost post in posts.Results) {
 
-                BinderUtils.bindListItem( block, post, ctx );
+                BinderUtils.bindPostSingle( block, post, ctx );
 
                 if (setting.ArticleListMode == ArticleListMode.Summary) {
                     block.Set( "post.Summary", post.GetSummary( setting.SummaryLength ) );

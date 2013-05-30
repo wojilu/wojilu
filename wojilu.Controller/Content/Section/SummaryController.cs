@@ -42,7 +42,10 @@ namespace wojilu.Web.Controller.Content.Section {
 
             DataPage<ContentPost> data = postService.GetPageBySection( sectionId, s.ListCount );
             bindSectionPosts( data.Results );
-            set( "page", data.PageBar );
+
+            Boolean isMakeHtml = HtmlHelper.IsMakeHtml( ctx );
+            String listLink = clink.toSection( sectionId, ctx );
+            set( "lnkList", listLink );
         }
 
 

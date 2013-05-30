@@ -73,11 +73,12 @@
 
     .summary-wrap { margin:0px 10px;}
     .summary-item h3 {font-size:18px; font-family:"microsoft yahei" }
+    .summary-item h3 a { color:#333;}
     .summary-item {border-bottom:1px solid #ccc; margin-bottom:10px;padding-bottom:10px; }
     .summary-item:last-child { border-bottom:0px;}
     
     .summary-body { font-size:14px; line-height:150%; color:#666;}    
-    .summary-body .summary-pic img { float: left; margin-right: 10px; width: 160px; height: 120px;  border:0px solid #eee; margin-top:3px; box-shadow:3px 3px 3px #ccc; }
+    .summary-body .summary-pic img { float: left; margin-right: 10px; width: 160px; height: 120px;  border:0px solid #eee; margin-top:3px; box-shadow:0px 3px 10px rgba(0,0,0,0.3); }
     
     .summary-tag { color:#999; font-size:12px; margin-top:5px;}
     .summary-tag a { color:#999 !important;}
