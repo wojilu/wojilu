@@ -60,7 +60,7 @@ namespace wojilu.Apps.Content.Domain {
         public String MetaKeywords { get; set; }
         public String MetaDescription { get; set; }
 
-        public String StaticDir { get; set; }
+        public String StaticPath { get; set; }
 
 
         public static int ListPageWidth = 3;

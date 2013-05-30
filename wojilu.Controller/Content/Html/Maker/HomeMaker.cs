@@ -21,8 +21,13 @@ namespace wojilu.Web.Controller.Content.Htmls {
         private int appId;
 
         protected override string GetDir() {
-            String staticDir = GetlAppDirName( appId );
-            return PathHelper.Map( "/" + staticDir + "/" );
+            String staticDir = getAppDirName( appId );
+            if (staticDir == "/") {
+                return PathHelper.Map( "/" );
+            }
+            else {
+                return PathHelper.Map( "/" + staticDir + "/" );
+            }
         }
 
         public void Process( int appId ) {
@@ -32,21 +37,27 @@ namespace wojilu.Web.Controller.Content.Htmls {
             String addr = Link.To( Site.Instance, new ContentController().Index, appId );
 
             String html = makeHtml( addr );
-            String htmlPath = getHomePageAbs();
+            String htmlPath = getHomePageAbs( appId );
             file.Write( htmlPath, html );
             logger.Info( "make ContentApp html done =>" + htmlPath );
         }
 
+        private string getHomePageAbs( int appId ) {
+            return PathHelper.Map( GetAppPath( appId ) );
+        }
 
-        public static String GetlAppDirName( int appId ) {
+        private static String getAppDirName( int appId ) {
             ContentApp app = ContentApp.findById( appId );
             if (app == null) throw new Exception( "app not found: Content.AppId=" + appId );
             return HtmlLink.GetStaticDir( app );
         }
 
-        private string getHomePageAbs() {
-            return Path.Combine( GetDir(), "default.html" );
+        public static String GetAppPath( int appId ) {
+            ContentApp app = ContentApp.findById( appId );
+            if (app == null) throw new Exception( "app not found: Content.AppId=" + appId );
+            return HtmlLink.ToApp( app );
         }
+
 
     }
 

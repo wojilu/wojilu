@@ -92,9 +92,9 @@ namespace wojilu.Apps.Content.Domain {
         }
 
 
-        public String GetStaticDir() {
+        public String GetStaticPath() {
             ContentSetting s = this.GetSettingsObj();
-            return s.StaticDir;
+            return s.StaticPath;
         }
 
 

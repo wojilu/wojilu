@@ -75,7 +75,7 @@ namespace wojilu.Web.Controller.Content.Admin {
 
             dropList( "contentSetting.ArticleListMode", dic, s.ArticleListMode.ToString() );
 
-            set( "s.StaticDir", s.StaticDir );
+            set( "s.StaticDir", s.StaticPath );
             set( "s.MetaKeywords", s.MetaKeywords );
             set( "s.MetaDescription", s.MetaDescription );
 

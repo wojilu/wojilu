@@ -83,7 +83,7 @@ namespace wojilu.Web.Controller.Content.Htmls {
 
             foreach (ContentApp app in appList) {
 
-                if (dirName.Equals( app.GetSettingsObj().StaticDir )) return true;
+                if (dirName.Equals( app.GetSettingsObj().StaticPath )) return true;
             }
 
             return false;

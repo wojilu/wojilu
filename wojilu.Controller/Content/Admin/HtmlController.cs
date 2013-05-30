@@ -65,15 +65,15 @@ namespace wojilu.Web.Controller.Content.Admin {
             ContentApp app = ctx.app.obj as ContentApp;
             ContentSetting s = app.GetSettingsObj();
 
-            String htmlDir = HomeMaker.GetlAppDirName( app.Id );
-            htmlDir = htmlDir.TrimStart( '/' ).TrimEnd( '/' );
+            String htmlPath = HomeMaker.GetAppPath( app.Id );
+            htmlPath = htmlPath.TrimStart( '/' ).TrimEnd( '/' );
 
-            set( "htmlDir", htmlDir );
+            set( "htmlPath", htmlPath );
 
             set( "host", ctx.url.SiteAndAppPath );
-            set( "editHtmlDirLink", to( EditHtmlDir ) );
+            set( "editHtmlDirLink", to( EditHtmlPath ) );
 
-            String lnkHtmlHome = strUtil.Join( ctx.url.SiteAndAppPath, htmlDir ) + "/default.html";
+            String lnkHtmlHome = strUtil.Join( ctx.url.SiteAndAppPath, htmlPath );
 
             set( "lnkHtmlHome", lnkHtmlHome );
             set( "lnkOriginalHome", alink.ToApp( app ) );
@@ -104,27 +104,26 @@ namespace wojilu.Web.Controller.Content.Admin {
             echoToParentPart( lang( "opok" ) );
         }
 
-        public void EditHtmlDir() {
+        public void EditHtmlPath() {
 
-            target( SaveHtmlDir );
+            target( SaveHtmlPath );
 
             ContentApp app = ctx.app.obj as ContentApp;
             ContentSetting s = app.GetSettingsObj();
 
-            String htmlDir = HomeMaker.GetlAppDirName( app.Id );
-            htmlDir = htmlDir.TrimStart( '/' ).TrimEnd( '/' );
+            String htmlPath = HomeMaker.GetAppPath( app.Id ).TrimStart( '/' );
 
-            set( "htmlDir", htmlDir );
+            set( "htmlPath", htmlPath );
 
             set( "host", ctx.url.SiteAndAppPath );
 
         }
 
         [HttpPost]
-        public void SaveHtmlDir() {
+        public void SaveHtmlPath() {
 
-            String htmlDir = strUtil.SubString( ctx.Post( "htmlDir" ), 30 );
-            if (strUtil.IsNullOrEmpty( htmlDir )) {
+            String htmlPath = strUtil.SubString( ctx.Post( "htmlPath" ), 30 );
+            if (strUtil.IsNullOrEmpty( htmlPath )) {
                 echoError( "请填写内容" );
                 return;
             }
@@ -132,17 +131,17 @@ namespace wojilu.Web.Controller.Content.Admin {
             ContentApp app = ctx.app.obj as ContentApp;
             ContentSetting s = app.GetSettingsObj();
 
-            if (htmlDir == s.StaticDir) {
+            if (htmlPath == s.StaticPath) {
                 echoError( "您没有修改目录名称" );
                 return;
             }
 
-            if (HtmlHelper.IsHtmlDirError( htmlDir, ctx.errors )) {
+            if (HtmlHelper.IsHtmlDirError( htmlPath, ctx.errors )) {
                 echoError();
                 return;
             }
 
-            s.StaticDir = htmlDir;
+            s.StaticPath = htmlPath;
 
             app.Settings = Json.ToString( s );
             app.update();

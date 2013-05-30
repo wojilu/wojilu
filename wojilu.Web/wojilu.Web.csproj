@@ -291,7 +291,7 @@
     <Content Include="framework\views\Content\Admin\ContentSection\AddFeed.html" />
     <Content Include="framework\views\Content\Admin\ContentSection\_Edit.html" />
     <Content Include="framework\views\Content\Admin\Html\EditAutoHtml.html" />
-    <Content Include="framework\views\Content\Admin\Html\EditHtmlDir.html" />
+    <Content Include="framework\views\Content\Admin\Html\EditHtmlPath.html" />
     <Content Include="framework\views\Content\Admin\Html\Index.html" />
     <Content Include="framework\views\Content\Admin\Html\MakeDone.html" />
     <Content Include="framework\views\Content\Admin\SectionSetting\EditBinder.html" />
