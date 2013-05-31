@@ -90,8 +90,11 @@ namespace wojilu.Web.Controller.Content.Common {
             ContentPoll p = ctx.GetItem( "poll" ) as ContentPoll;
 
             if (p == null) {
+                set( "topicId", 0 );
                 set( "pollForm", "" );
                 set( "pollResult", "" );
+                set( "poll.VoteLink", "" );
+                set( "resultLink", "" );
                 return;
             }
 

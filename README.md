@@ -1,4 +1,4 @@
-﻿“我记录”这套源码总共包括 __两个部分__：  
+“我记录”这套源码总共包括 __两个部分__：  
 
 1. 一个 .net 平台下的全栈式、轻量级开发框架，包括 ORM、MVC、IOC、AOP、JSON、LOG 等，同时包括全套图文教程；  
 2. 用这个框架开发的 SNS 互联网产品。本产品以 SNS 为基础平台，是一个包括门户、CMS、论坛、微博、博客、相册、群组、下载、WIKI、瀑布流等的综合系统。
@@ -16,9 +16,10 @@
 
 “我记录”开发框架(wojilu framework) 是 .net 平台下的综合开发框架，主要用于 web 方面的快速开发。如果您对本框架感兴趣，欢迎参加开发团队，本团队常年招贤纳士，期待您的加入。
 
-官方网址：<http://www.wojilu.com>
+官方网址：<http://www.wojilu.com>  
+开发教程：<http://www.wojilu.com/framework>
 
-授权协议：Apache License，可免费用于商业环境  
+授权协议：**Apache License**，可免费用于商业环境  
 
 参加开发团队比较简单，一般需要先了解 Git 和 Github 的操作：  
 Git 使用教程图解(中文): <http://www.wojilu.com/Forum1/Topic/2261>  
@@ -35,7 +36,6 @@ __框架包括__
 * 一个日志类库 wojilu Log
 * 一个轻量级 Json 解析器
 * 一个简易的前端 Ajax 库(弹窗、局部刷新、验证、上传等)
-* 一个富文本编辑器 wojilu Editor
 
 
 2. 我记录网站综合系统 1.9
