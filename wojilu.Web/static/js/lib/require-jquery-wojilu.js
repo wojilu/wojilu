@@ -13053,23 +13053,25 @@ wojilu.editor = {
         var thisEditor = this._editorId;
         var thisPluginList = this._pluginList;
         if( this._height ) thisParams.initialFrameHeight = this._height;
-        require(["lib/ueditor/ueditor.all.min", "lib/ueditor/ueditor.config"], function () {
-            if( thisPluginList.length>0 ) {
-                for( var i=0;i<thisPluginList.length;i++ ) {
-                    UE.plugins[thisPluginList[i].pluginName] = thisPluginList[i].pluginFunc;
+        require(["lib/ueditor/ueditor.all.min"], function () {
+            require(["lib/ueditor/ueditor.config"], function () {
+                if( thisPluginList.length>0 ) {
+                    for( var i=0;i<thisPluginList.length;i++ ) {
+                        UE.plugins[thisPluginList[i].pluginName] = thisPluginList[i].pluginFunc;
+                    }
                 }
-            }
-            if( thisToolbar=='simple' ) thisParams.toolbars = _wbar.simple;
-            if( thisToolbar=='standard' ) thisParams.toolbars = _wbar.standard;
-            if( thisToolbar=='full' ) thisParams.toolbars = _wbar.full;
-            var _editor = UE.getEditor(thisEditor, thisParams);
-             
-            if( !window.ueditorList ) window.ueditorList = {};
-            window.ueditorList['editor'+thisEditor] = _editor;
+                if( thisToolbar=='simple' ) thisParams.toolbars = _wbar.simple;
+                if( thisToolbar=='standard' ) thisParams.toolbars = _wbar.standard;
+                if( thisToolbar=='full' ) thisParams.toolbars = _wbar.full;
+                var _editor = UE.getEditor(thisEditor, thisParams);
+                 
+                if( !window.ueditorList ) window.ueditorList = {};
+                window.ueditorList['editor'+thisEditor] = _editor;
 
-            if( callback ) {
-                callback( _editor );
-            }
+                if( callback ) {
+                    callback( _editor );
+                }
+            });
         });
     }
 };
