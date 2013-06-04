@@ -46,7 +46,7 @@ namespace wojilu.ORM {
                         setEntityPropertyValueById( obj, state, ep, rd.GetInt32( i ) );
                     }
                     else {
-                        ep.SetValue( obj, getReaderValue( fdvalue, ep.Type ) );
+                        ep.SetValue( obj, getReaderValue( rd, i, fdvalue, ep.Type ) );
                     }
 
                 }
@@ -76,13 +76,16 @@ namespace wojilu.ORM {
             }
         }
 
-        private static Object getReaderValue( Object rdValue, Type ptype ) {
+        private static Object getReaderValue( IDataRecord rd, int i, Object rdValue, Type ptype ) {
 
             if (ptype == typeof( decimal ))
                 return Convert.ToDecimal( rdValue );
 
             if (ptype == typeof( int ))
                 return Convert.ToInt32( rdValue );
+
+            if (ptype == typeof( long ))
+                return Convert.ToInt64( rdValue );
 
             return rdValue;
         }

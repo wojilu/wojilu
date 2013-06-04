@@ -1,4 +1,4 @@
-using System;
+ï»¿using System;
 using System.Collections;
 using System.Collections.Generic;
 using wojilu.Test.Orm.Entities;
@@ -7,12 +7,12 @@ using NUnit.Framework;
 
 namespace wojilu.Test.Orm {
 
-    // ¶àÌ¬¹ØÁªºÍ¶àÌ¬¼ìË÷²âÊÔ
+    // å¤šæ€å…³è”å’Œå¤šæ€æ£€ç´¢æµ‹è¯•
     [TestFixture]
     public class TestPolymorphism {
 
 
-        // ¿ÉÒÔÖ±½ÓÓÒ¼ü´Ë´¦¿ªÊ¼²âÊÔ£¡£¨²»ÓÃ¿¼ÂÇÊı¾İ¿â³õÊ¼»¯£©
+        // å¯ä»¥ç›´æ¥å³é”®æ­¤å¤„å¼€å§‹æµ‹è¯•ï¼ï¼ˆä¸ç”¨è€ƒè™‘æ•°æ®åº“åˆå§‹åŒ–ï¼‰
 
 
 
@@ -21,17 +21,17 @@ namespace wojilu.Test.Orm {
         [Test]
         public void testAbstractFind() {
 
-            // ³éÏó»ùÀàÊÇ TAbCategory
+            // æŠ½è±¡åŸºç±»æ˜¯ TAbCategory
 
             List<TAbNewCategory> list = db.findAll<TAbNewCategory>();
             Assert.AreEqual( 9, list.Count );
 
-            Assert.AreEqual( "±êÌâ°¡_1", list[0].Title );
+            Assert.AreEqual( "æ ‡é¢˜å•Š_1", list[0].Title );
 
             List<TAbNewCategory2> list2 = db.findAll<TAbNewCategory2>();
             Assert.AreEqual( 9, list2.Count );
 
-            Assert.AreEqual( "±êÌâ°¡2_1", list2[0].Title2 );
+            Assert.AreEqual( "æ ‡é¢˜å•Š2_1", list2[0].Title2 );
 
 
             TAbNewCategory c = db.findById<TAbNewCategory>( 2 );
@@ -48,9 +48,9 @@ namespace wojilu.Test.Orm {
         public void FindById() {
             ConsoleTitleUtil.ShowTestTitle( "FindById" );
 
-            // »ùÀàTDataRoot£¬×ÓÀàTPostºÍTTopic
+            // åŸºç±»TDataRootï¼Œå­ç±»TPostå’ŒTTopic
 
-            //×ÓÀà¼òµ¥²éÑ¯
+            //å­ç±»ç®€å•æŸ¥è¯¢
             TPost post = TPost.findById( 3 ) as TPost;
             Assert.IsNotNull( post );
             Assert.AreEqual( 3, post.Id );
@@ -60,44 +60,44 @@ namespace wojilu.Test.Orm {
             Assert.IsNotNull( post2 );
 
 
-            //¶àÌ¬²éÑ¯£ºÕıÈ·ÅĞ¶Ï½á¹ûÊÇÏàÓ¦×ÓÀà
+            //å¤šæ€æŸ¥è¯¢ï¼šæ­£ç¡®åˆ¤æ–­ç»“æœæ˜¯ç›¸åº”å­ç±»
             TDataRoot root = TDataRoot.findById( 6 );
             Assert.IsNotNull( root );
             Assert.AreEqual( 6, root.Id );
             Assert.AreEqual( typeof( TTopic ), root.GetType() );
 
-            //Õë¶ÔÊôĞÔµÄ¶àÌ¬²éÑ¯
+            //é’ˆå¯¹å±æ€§çš„å¤šæ€æŸ¥è¯¢
             Assert.AreEqual( typeof( TTopicCategory ), root.Category.GetType() );
         }
 
         [Test]
         public void FindById_FromRoot() {
 
-            // 1¡¢·ÖÀàµÄ¶àÌ¬
+            // 1ã€åˆ†ç±»çš„å¤šæ€
             //---------------------------------------
 
-            Console.WriteLine( "---------- ·ÖÀà¶àÌ¬ -----------" );
+            Console.WriteLine( "---------- åˆ†ç±»å¤šæ€ -----------" );
 
-            // Ò²¿ÉÒÔÖ±½Ó´´½¨¸¸Àà
+            // ä¹Ÿå¯ä»¥ç›´æ¥åˆ›å»ºçˆ¶ç±»
             TCategory category = new TCategory();
-            category.Name = "¸¸ÀàµÄ·ÖÀàÖ®FindById_FromRoot";
+            category.Name = "çˆ¶ç±»çš„åˆ†ç±»ä¹‹FindById_FromRoot";
             db.insert( category );
 
             Assert.Greater( category.Id, 0 );
 
-            // ¶àÌ¬²éÑ¯£ºÕıÈ·ÅĞ¶Ï¾ßÌåµÄ½á¹ûÊÇ¸¸Àà
+            // å¤šæ€æŸ¥è¯¢ï¼šæ­£ç¡®åˆ¤æ–­å…·ä½“çš„ç»“æœæ˜¯çˆ¶ç±»
             TCategory cat = TCategory.findById( category.Id );
             Assert.AreEqual( category.Name, cat.Name );
             Assert.AreEqual( typeof( TCategory ), cat.GetType() );
 
-            Console.WriteLine( "---------- ¶àÌ¬¹ØÁª -----------" );
+            Console.WriteLine( "---------- å¤šæ€å…³è” -----------" );
 
 
-            // 2¡¢ Êı¾İÉÏÃæ ¹ØÁªµ½ ¶àÌ¬µÄ·ÖÀà
+            // 2ã€ æ•°æ®ä¸Šé¢ å…³è”åˆ° å¤šæ€çš„åˆ†ç±»
             //---------------------------------------
             TDataRoot root = new TDataRoot();
-            root.Title = "ÎÒÊÇ¸¸ÀàÖ®Ò»";
-            root.Body = "¸¸ÀàµÄÄÚÈİÖ®Ò»";
+            root.Title = "æˆ‘æ˜¯çˆ¶ç±»ä¹‹ä¸€";
+            root.Body = "çˆ¶ç±»çš„å†…å®¹ä¹‹ä¸€";
             root.Category = category;
             db.insert( root );
 
@@ -114,13 +114,13 @@ namespace wojilu.Test.Orm {
 
             Console.WriteLine( "__tpost__" );
 
-            // ×ÓÀàÖ±½Ó²éÑ¯£ºÕâ¸ö×î¼òµ¥£¬Ã»ÓĞ¶îÍâ¿¼ÂÇ
+            // å­ç±»ç›´æ¥æŸ¥è¯¢ï¼šè¿™ä¸ªæœ€ç®€å•ï¼Œæ²¡æœ‰é¢å¤–è€ƒè™‘
             //IList list = TPost.findAll();
             IList list = db.findAll<TPost>();
 
             Assert.AreEqual( list.Count, 20 );
             foreach (TPost post in list) {
-                Assert.AreEqual( typeof( TPostCategory ), post.Category.GetType() ); //¼ìË÷ÊµÌåÊôĞÔµÄÊ±ºò£¬Ê¹ÓÃÁËFindBy·½·¨
+                Assert.AreEqual( typeof( TPostCategory ), post.Category.GetType() ); //æ£€ç´¢å®ä½“å±æ€§çš„æ—¶å€™ï¼Œä½¿ç”¨äº†FindByæ–¹æ³•
                 Console.WriteLine( "Id:{0}  Title:{1}", post.Id, post.Title );
             }
 
@@ -137,7 +137,7 @@ namespace wojilu.Test.Orm {
 
             Console.WriteLine( "__findAll__" );
 
-            //¶àÌ¬²éÑ¯£º½«×ÓÀà²éÑ¯½á¹ûºÏ²¢£¬²¢ÇÒ¸ù¾İ¶àÌ¬²éÑ¯ËùÊô·ÖÀà
+            //å¤šæ€æŸ¥è¯¢ï¼šå°†å­ç±»æŸ¥è¯¢ç»“æœåˆå¹¶ï¼Œå¹¶ä¸”æ ¹æ®å¤šæ€æŸ¥è¯¢æ‰€å±åˆ†ç±»
             IList list2 = TDataRoot.findAll();
             Assert.AreEqual( 46, list2.Count );
 
@@ -165,18 +165,18 @@ namespace wojilu.Test.Orm {
         public void FindBy() {
             ConsoleTitleUtil.ShowTestTitle( "Find" );
 
-            IList list = TDataRoot.find( "Category.Name=:cname" ).set( "cname", "postÌû×Ó·ÖÀà" ).select( "Id,Title,Body,Category.Name" ).list();
+            IList list = TDataRoot.find( "Category.Name=:cname" ).set( "cname", "postå¸–å­åˆ†ç±»" ).select( "Id,Title,Body,Category.Name" ).list();
             Assert.AreEqual( 23, list.Count );
-            Console.WriteLine( "¹²ÓĞ½á¹û£º" + list.Count );
+            Console.WriteLine( "å…±æœ‰ç»“æœï¼š" + list.Count );
 
             int rootDataCount = 0;
             foreach (TDataRoot root in list) {
-                Assert.AreEqual( "postÌû×Ó·ÖÀà", root.Category.Name );
+                Assert.AreEqual( "postå¸–å­åˆ†ç±»", root.Category.Name );
 
-                // ÒòÎªÊÇ¶àÌ¬£¬½á¹ûÓĞÈıÖÖÀàĞÍ
+                // å› ä¸ºæ˜¯å¤šæ€ï¼Œç»“æœæœ‰ä¸‰ç§ç±»å‹
 
                 if (root.GetType() == typeof( TPost )) {
-                    Assert.AreEqual( typeof( TPostCategory ), root.Category.GetType() ); //Ã¿ÖÖÀàĞÍµÄÊôĞÔ£º¡°·ÖÀà¡±Ò²ÊÇ¶àÌ¬²éÑ¯µÃµ½µÄ£¬¸÷²»ÏàÍ¬£¬°üÀ¨ÏàÓ¦µÄ¸¸Àà»ò×ÓÀà
+                    Assert.AreEqual( typeof( TPostCategory ), root.Category.GetType() ); //æ¯ç§ç±»å‹çš„å±æ€§ï¼šâ€œåˆ†ç±»â€ä¹Ÿæ˜¯å¤šæ€æŸ¥è¯¢å¾—åˆ°çš„ï¼Œå„ä¸ç›¸åŒï¼ŒåŒ…æ‹¬ç›¸åº”çš„çˆ¶ç±»æˆ–å­ç±»
                 }
                 else if (root.GetType() == typeof( TTopic )) {
                     Assert.AreEqual( typeof( TTopicCategory ), root.Category.GetType() );
@@ -198,8 +198,8 @@ namespace wojilu.Test.Orm {
         }
 
 
-        // ´´½¨±íµÄÊ±ºò£¬Ò»¸ö¸¸Àà¡¢Á½¸ö×ÓÀà¶¼Òª´´½¨±í£»
-        // 1¡¢×ÓÀà½¨±íµÄÊ±ºò£¬½«IDµÄ×ÔÔöÊôĞÔÈ¥µô£¬½ö½öInt¼´¿É
+        // åˆ›å»ºè¡¨çš„æ—¶å€™ï¼Œä¸€ä¸ªçˆ¶ç±»ã€ä¸¤ä¸ªå­ç±»éƒ½è¦åˆ›å»ºè¡¨ï¼›
+        // 1ã€å­ç±»å»ºè¡¨çš„æ—¶å€™ï¼Œå°†IDçš„è‡ªå¢å±æ€§å»æ‰ï¼Œä»…ä»…Intå³å¯
         [Test]
         public void A_Insert() {
 
@@ -211,39 +211,39 @@ namespace wojilu.Test.Orm {
 
             //wojilu.file.Delete( "log.txt" );
 
-            // ´Ë´¦Ó¦¸ÃÏÈÏò»ùÀàÌí¼ÓÊı¾İ
-            // È»ºóÏò×ÓÀàÌí¼ÓÊı¾İ£¨Í¬Ê±µ÷Õûinsert sql£¬²åÈëIdµÄÖµ£©
+            // æ­¤å¤„åº”è¯¥å…ˆå‘åŸºç±»æ·»åŠ æ•°æ®
+            // ç„¶åå‘å­ç±»æ·»åŠ æ•°æ®ï¼ˆåŒæ—¶è°ƒæ•´insert sqlï¼Œæ’å…¥Idçš„å€¼ï¼‰
 
-            // ×Ü¹²Ìí¼Ó46ÌõÊı¾İ
+            // æ€»å…±æ·»åŠ 46æ¡æ•°æ®
             for (int i = 0; i < 20; i++) {
 
-                // ÔÚ²åÈëÊı¾İµÄÊ±ºò£¬¶àÌ¬¹ØÁªÃ»ÓĞÌØ±ğĞèÒª×¢ÒâµÄ
+                // åœ¨æ’å…¥æ•°æ®çš„æ—¶å€™ï¼Œå¤šæ€å…³è”æ²¡æœ‰ç‰¹åˆ«éœ€è¦æ³¨æ„çš„
 
                 TPostCategory pcat = new TPostCategory();
-                pcat.Name = "postÌû×Ó·ÖÀà";
+                pcat.Name = "postå¸–å­åˆ†ç±»";
                 pcat.Hits = new Random().Next( 1, 100 );
                 db.insert( pcat );
                 Assert.Greater( pcat.Id, 0 );
 
                 TTopicCategory tcat = new TTopicCategory();
-                tcat.Name = "topicÖ÷Ìâ·ÖÀà";
+                tcat.Name = "topicä¸»é¢˜åˆ†ç±»";
                 tcat.ReplyCount = new Random().Next( 1, 200 );
                 db.insert( tcat );
                 Assert.Greater( tcat.Id, 0 );
 
                 TPost post = new TPost();
-                post.Title = "post_34ÃûÃÀ¹úÒéÔ±ÁªÃûÖÂº¯";
-                post.Body = "Ï£À°Éî»¯µÄ¹ıÈ¥µÄ·¢¶÷³Ö´ó’Y¿ÏÂ¯³Ä’YÀ­š_³Æ";
-                post.Uid = "ÕÅÈı";
-                post.Category = pcat; // ¶àÌ¬¹ØÁªÌí¼Ó
+                post.Title = "post_34åç¾å›½è®®å‘˜è”åè‡´å‡½";
+                post.Body = "å¸Œè…Šæ·±åŒ–çš„è¿‡å»çš„å‘æ©æŒå¤§æ‰½è‚¯ç‚‰è¡¬æ‰½æ‹‰æ­˜ç§°";
+                post.Uid = "å¼ ä¸‰";
+                post.Category = pcat; // å¤šæ€å…³è”æ·»åŠ 
                 post.Hits = new Random().Next();
                 db.insert( post );
                 Assert.Greater( post.Id, 0 );
 
                 TTopic topic = new TTopic();
-                topic.Title = "topic_ÎÒÊÇÖ÷ÌâÌû×Ó";
-                topic.Body = "±êÌâËÆºõºÜÆæ¹Ö£¬ÃØÃÜÂï£¬×ÔÈ»ÊÇ²»ÄÜËµµÄ¡£ÓÚÊÇºõ¡°²»ÄÜËµµÄÃØÃÜ¡±±ã³ÉÁËÒ»¸ö²¡¾ä¡£";
-                topic.Uid = "ÀîËÄ";
+                topic.Title = "topic_æˆ‘æ˜¯ä¸»é¢˜å¸–å­";
+                topic.Body = "æ ‡é¢˜ä¼¼ä¹å¾ˆå¥‡æ€ªï¼Œç§˜å¯†å˜›ï¼Œè‡ªç„¶æ˜¯ä¸èƒ½è¯´çš„ã€‚äºæ˜¯ä¹â€œä¸èƒ½è¯´çš„ç§˜å¯†â€ä¾¿æˆäº†ä¸€ä¸ªç—…å¥ã€‚";
+                topic.Uid = "æå››";
                 topic.Category = tcat;
                 topic.Hits = new Random().Next( 34, 10039343 );
                 topic.ReplyCount = 3;
@@ -255,31 +255,31 @@ namespace wojilu.Test.Orm {
 
             for (int i = 0; i < 3; i++) {
 
-                // Ìí¼ÓÖ÷ÌâÌû×Ó£¬ÈÃÆä·ÖÀàÃû³ÆºÍÌû×Ó·ÖÀàÃû³ÆÏàÍ¬£¬±ãÓÚÏÂÃæ²âÊÔµÄÊ±ºò¿´ÊÇ·ñÒ²ÔÚ¶àÌ¬²éÑ¯½á¹ûÖĞ
+                // æ·»åŠ ä¸»é¢˜å¸–å­ï¼Œè®©å…¶åˆ†ç±»åç§°å’Œå¸–å­åˆ†ç±»åç§°ç›¸åŒï¼Œä¾¿äºä¸‹é¢æµ‹è¯•çš„æ—¶å€™çœ‹æ˜¯å¦ä¹Ÿåœ¨å¤šæ€æŸ¥è¯¢ç»“æœä¸­
                 TTopicCategory tcatfake = new TTopicCategory();
-                tcatfake.Name = "zzTopicÌû×Ó·ÖÀà";
+                tcatfake.Name = "zzTopicå¸–å­åˆ†ç±»";
                 tcatfake.ReplyCount = new Random().Next( 1, 200 );
                 db.insert( tcatfake );
                 Assert.Greater( tcatfake.Id, 0 );
 
                 TTopic topicfake = new TTopic();
-                topicfake.Title = "zzTopicÎÒÊÇÖ÷ÌâÌû×Ó";
-                topicfake.Body = "±êÌâËÆºõºÜÆæ¹Ö£¬ÃØÃÜÂï£¬×ÔÈ»ÊÇ²»ÄÜËµµÄ¡£ÓÚÊÇºõ¡°²»ÄÜËµµÄÃØÃÜ¡±±ã³ÉÁËÒ»¸ö²¡¾ä¡£";
-                topicfake.Uid = "ÀîËÄ";
+                topicfake.Title = "zzTopicæˆ‘æ˜¯ä¸»é¢˜å¸–å­";
+                topicfake.Body = "æ ‡é¢˜ä¼¼ä¹å¾ˆå¥‡æ€ªï¼Œç§˜å¯†å˜›ï¼Œè‡ªç„¶æ˜¯ä¸èƒ½è¯´çš„ã€‚äºæ˜¯ä¹â€œä¸èƒ½è¯´çš„ç§˜å¯†â€ä¾¿æˆäº†ä¸€ä¸ªç—…å¥ã€‚";
+                topicfake.Uid = "æå››";
                 topicfake.Category = tcatfake;
                 topicfake.Hits = new Random().Next( 34, 10039343 );
                 topicfake.ReplyCount = 3;
                 db.insert( topicfake );
                 Assert.Greater( topicfake.Id, 0 );
 
-                // Ö±½ÓÌí¼Ó¸¸ÀàµÄ¾ßÌåÊı¾İ
+                // ç›´æ¥æ·»åŠ çˆ¶ç±»çš„å…·ä½“æ•°æ®
                 TCategory category = new TCategory();
-                category.Name = "postÌû×Ó·ÖÀà";
+                category.Name = "postå¸–å­åˆ†ç±»";
                 db.insert( category );
 
                 TDataRoot root = new TDataRoot();
-                root.Title = "zzParentÎÒÊÇ¸¸ÀàÖ®init³õÊ¼»¯";
-                root.Body = "¸¸ÀàµÄÄÚÈİÖ®init³õÊ¼»¯";
+                root.Title = "zzParentæˆ‘æ˜¯çˆ¶ç±»ä¹‹initåˆå§‹åŒ–";
+                root.Body = "çˆ¶ç±»çš„å†…å®¹ä¹‹initåˆå§‹åŒ–";
                 root.Category = category;
                 db.insert( root );
             }
@@ -293,15 +293,15 @@ namespace wojilu.Test.Orm {
 
             for (int i = 1; i < 10; i++) {
                 TAbNewCategory abCategory = new TAbNewCategory();
-                abCategory.Name = "ÎÒÊÇ¼Ì³ĞµÄÃû³Æ_" + i;
-                abCategory.Title = "±êÌâ°¡_" + i;
+                abCategory.Name = "æˆ‘æ˜¯ç»§æ‰¿çš„åç§°_" + i;
+                abCategory.Title = "æ ‡é¢˜å•Š_" + i;
                 abCategory.Hits = 2 + i;
                 db.insert( abCategory );
                 Assert.AreEqual( abCategory.Id, i );
 
                 TAbNewCategory2 abCategory2 = new TAbNewCategory2();
-                abCategory2.Name = "ÎÒÊÇ¼Ì³ĞµÄÃû³Æ2_" + i;
-                abCategory2.Title2 = "±êÌâ°¡2_" + i;
+                abCategory2.Name = "æˆ‘æ˜¯ç»§æ‰¿çš„åç§°2_" + i;
+                abCategory2.Title2 = "æ ‡é¢˜å•Š2_" + i;
                 db.insert( abCategory2 );
                 Assert.AreEqual( abCategory2.Id, i );
             }
@@ -319,7 +319,7 @@ namespace wojilu.Test.Orm {
         public void Delete() {
             ConsoleTitleUtil.ShowTestTitle( "Delete" );
 
-            //×ÓÀàÉ¾³ı£ºÉ¾³ı×ÓÀàµÄÍ¬Ê±£¬Ò²ÒªÉ¾³ı¸¸ÀàÖĞµÄÊı¾İ
+            //å­ç±»åˆ é™¤ï¼šåˆ é™¤å­ç±»çš„åŒæ—¶ï¼Œä¹Ÿè¦åˆ é™¤çˆ¶ç±»ä¸­çš„æ•°æ®
             TPost post = TPost.findById( 11 ) as TPost;
             Assert.IsNotNull( post );
             db.delete( post );
@@ -327,7 +327,7 @@ namespace wojilu.Test.Orm {
             post = TPost.findById( 11 ) as TPost;
             Assert.IsNull( post );
 
-            //¸¸ÀàÉ¾³ı£ºÍ¬Ê±É¾³ı×ÓÀà
+            //çˆ¶ç±»åˆ é™¤ï¼šåŒæ—¶åˆ é™¤å­ç±»
             TDataRoot.delete( 13 );
             Assert.IsNull( TDataRoot.findById( 13 ) );
         }
@@ -335,9 +335,9 @@ namespace wojilu.Test.Orm {
         public void Update() {
             ConsoleTitleUtil.ShowTestTitle( "Update" );
 
-            //×ÓÀà¸üĞÂ£º¸¸ÀàÏàÓ¦ÊôĞÔÒ²Òª¸üĞÂ
+            //å­ç±»æ›´æ–°ï¼šçˆ¶ç±»ç›¸åº”å±æ€§ä¹Ÿè¦æ›´æ–°
             TPost post = TPost.findById( 3 ) as TPost;
-            post.Title = "**¸üĞÂÖ®ºóµÄ×ÓÀà";
+            post.Title = "**æ›´æ–°ä¹‹åçš„å­ç±»";
             db.update( post );
 
             string sql = "select title from Tdataroot where id=3";
@@ -346,7 +346,7 @@ namespace wojilu.Test.Orm {
             Assert.IsNotNull( title );
             Assert.AreEqual( post.Title, title );
 
-            //¸¸Àà¸üĞÂ£ºÆäÊµÊÇÕæÊµµÄµ×²ã×ÓÀà¸üĞÂ£¬Í¬ÉÏ
+            //çˆ¶ç±»æ›´æ–°ï¼šå…¶å®æ˜¯çœŸå®çš„åº•å±‚å­ç±»æ›´æ–°ï¼ŒåŒä¸Š
         }
 
 

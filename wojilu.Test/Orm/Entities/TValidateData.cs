@@ -1,4 +1,4 @@
-using System;
+ï»¿using System;
 using System.Collections;
 
 using wojilu.ORM;
@@ -11,7 +11,7 @@ namespace wojilu.Test.Orm.Entities {
     }
 
     public class TValidateData2 : ObjectBase<TValidateData2> {
-        [NotNull( "ÇëÌîĞ´ÄÚÈİ" )]
+        [NotNull( "è¯·å¡«å†™å†…å®¹" )]
         public string Body { get; set; }
     }
 
@@ -23,7 +23,7 @@ namespace wojilu.Test.Orm.Entities {
 
     public class TValidateData4 : ObjectBase<TValidateData4> {
 
-        [Email( "ÇëÕıÈ·ÌîĞ´µç×ÓÓÊ¼ş" )]
+        [Email( "è¯·æ­£ç¡®å¡«å†™ç”µå­é‚®ä»¶" )]
         public string Email { get; set; }
     }
 
@@ -35,7 +35,7 @@ namespace wojilu.Test.Orm.Entities {
 
     public class TValidateData6 : ObjectBase<TValidateData6> {
 
-        [Unique( "ÓÃ»§ÃûÖØ¸´" )]
+        [Unique( "ç”¨æˆ·åé‡å¤" )]
         public string Name { get; set; }
     }
 }

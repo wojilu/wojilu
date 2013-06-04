@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections;
 
 using wojilu;
@@ -19,6 +19,14 @@ namespace wojilu.Test.Orm.Entities {
         public double DubleNum { get; set; }
         public float SingleNum { get; set; }
 
+    }
+
+
+    public class TPostLong : ObjectBase<TPostLong> {
+
+        public String Name { get; set; }
+
+        public long Width { get; set; }
 
     }
 

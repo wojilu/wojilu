@@ -1,9 +1,9 @@
-using System;
+ï»¿using System;
 
 namespace wojilu.Test.Orm.Utils {
 
     /// <summary>
-    /// TestUtil µÄÕªÒªËµÃ÷¡£
+    /// TestUtil çš„æ‘˜è¦è¯´æ˜ã€‚
     /// </summary>
     public class ConsoleTitleUtil {
         public static void ShowTestTitle( string title ) {

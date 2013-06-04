@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using wojilu.ORM;
 
 namespace wojilu.Test.Orm.Entities {

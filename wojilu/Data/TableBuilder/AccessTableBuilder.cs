@@ -30,6 +30,11 @@ namespace wojilu.Data {
             return false;
         }
 
+        protected override void addColumn_Long( StringBuilder sb, string columnName ) {
+            sb.Append( columnName );
+            sb.Append( " long, " );
+        }
+
         protected override void addColumn_Decimal( EntityInfo entity, StringBuilder sb, EntityPropertyInfo ep, String columnName ) {
             if (ep.MoneyAttribute != null) {
                 sb.Append( columnName );

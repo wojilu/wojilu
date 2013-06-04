@@ -1,4 +1,4 @@
-using System;
+ï»¿using System;
 using wojilu.Test.Orm.Entities;
 using wojilu.Test.Orm.Utils;
 using NUnit.Framework;
@@ -17,7 +17,7 @@ namespace wojilu.Test.Orm {
     [TestFixture]
     public class ValidationTest {
 
-        // ¿ÉÒÔÖ±½ÓÓÒ¼ü´Ë´¦¿ªÊ¼²âÊÔ£¡£¨²»ÓÃ¿¼ÂÇÊı¾İ¿â³õÊ¼»¯£©
+        // å¯ä»¥ç›´æ¥å³é”®æ­¤å¤„å¼€å§‹æµ‹è¯•ï¼ï¼ˆä¸ç”¨è€ƒè™‘æ•°æ®åº“åˆå§‹åŒ–ï¼‰
 
 
 
@@ -46,12 +46,12 @@ namespace wojilu.Test.Orm {
             Console.WriteLine( result.ErrorsText );
 
 
-            //×Ô¶¨Òå´íÎóĞÅÏ¢
+            //è‡ªå®šä¹‰é”™è¯¯ä¿¡æ¯
             TValidateData2 d2 = new TValidateData2();
             Result result2 = db.insert( d2 );
 
             Assert.IsFalse( result2.IsValid );
-            Assert.AreEqual( "ÇëÌîĞ´ÄÚÈİ", result2.ErrorsText.Trim() );
+            Assert.AreEqual( "è¯·å¡«å†™å†…å®¹", result2.ErrorsText.Trim() );
             Console.WriteLine( result2.ErrorsText );
         }
 
@@ -69,7 +69,7 @@ namespace wojilu.Test.Orm {
             Console.WriteLine( updateResult.ErrorsText );
 
 
-            //×Ô¶¨Òå´íÎóĞÅÏ¢
+            //è‡ªå®šä¹‰é”™è¯¯ä¿¡æ¯
             TValidateData2 d2 = new TValidateData2();
             d2.Body = "body";
             Result result2 = db.insert( d2 );
@@ -79,7 +79,7 @@ namespace wojilu.Test.Orm {
 
 
             Assert.IsFalse( updateResult2.IsValid );
-            Assert.AreEqual( "ÇëÌîĞ´ÄÚÈİ", updateResult2.ErrorsText.Trim() );
+            Assert.AreEqual( "è¯·å¡«å†™å†…å®¹", updateResult2.ErrorsText.Trim() );
             Console.WriteLine( updateResult2.ErrorsText );
         }
 
@@ -92,13 +92,13 @@ namespace wojilu.Test.Orm {
             Assert.IsFalse( result3.IsValid );
             Console.WriteLine( result3.ErrorsText );
 
-            //×Ô¶¨Òå´íÎóĞÅÏ¢
+            //è‡ªå®šä¹‰é”™è¯¯ä¿¡æ¯
             TValidateData4 d4 = new TValidateData4();
             d4.Email = "fdafkfeii";
             Result result4 = db.insert( d4 );
 
             Assert.IsFalse( result4.IsValid );
-            Assert.AreEqual( "ÇëÕıÈ·ÌîĞ´µç×ÓÓÊ¼ş", result4.ErrorsText.Trim() );
+            Assert.AreEqual( "è¯·æ­£ç¡®å¡«å†™ç”µå­é‚®ä»¶", result4.ErrorsText.Trim() );
             Console.WriteLine( result4.ErrorsText );
         }
 
@@ -115,7 +115,7 @@ namespace wojilu.Test.Orm {
             Assert.IsFalse( resultUpdate.IsValid );
             Console.WriteLine( resultUpdate.ErrorsText );
 
-            //×Ô¶¨Òå´íÎóĞÅÏ¢
+            //è‡ªå®šä¹‰é”™è¯¯ä¿¡æ¯
             TValidateData4 d4 = new TValidateData4();
             d4.Email = "ss@ee.com";
             Result result4 = db.insert( d4 );
@@ -125,21 +125,21 @@ namespace wojilu.Test.Orm {
             Result resultUpdateCustom = db.update( d4 );
 
             Assert.IsFalse( resultUpdateCustom.IsValid );
-            Assert.AreEqual( "ÇëÕıÈ·ÌîĞ´µç×ÓÓÊ¼ş", resultUpdateCustom.ErrorsText.Trim() );
+            Assert.AreEqual( "è¯·æ­£ç¡®å¡«å†™ç”µå­é‚®ä»¶", resultUpdateCustom.ErrorsText.Trim() );
             Console.WriteLine( resultUpdateCustom.ErrorsText );
         }
 
         [Test]
         public void Unique_Insert() {
 
-            //Õı³£Ìí¼Ó
+            //æ­£å¸¸æ·»åŠ 
             TValidateData5 d = new TValidateData5();
             d.Name = "zhangsan";
             Result result = db.insert( d );
             Assert.IsTrue( result.IsValid );
             Assert.Greater( d.Id, 0 );
 
-            //ÖØ¸´Ìí¼Ó
+            //é‡å¤æ·»åŠ 
             TValidateData5 d5 = new TValidateData5();
             d5.Name = "zhangsan";
             Result result5 = db.insert( d5 );
@@ -148,70 +148,70 @@ namespace wojilu.Test.Orm {
             Assert.AreEqual( 0, d5.Id );
             Console.WriteLine( result5.ErrorsText );
 
-            //--------------×Ô¶¨Òå´íÎóĞÅÏ¢--------------
+            //--------------è‡ªå®šä¹‰é”™è¯¯ä¿¡æ¯--------------
 
-            //Õı³£Ìí¼Ó
+            //æ­£å¸¸æ·»åŠ 
             TValidateData6 d2 = new TValidateData6();
             d2.Name = "zhangsan";
             Result result2 = db.insert( d2 );
             Assert.IsTrue( result2.IsValid );
             Assert.Greater( d2.Id, 0 );
 
-            //ÖØ¸´Ìí¼Ó
+            //é‡å¤æ·»åŠ 
             TValidateData6 d6 = new TValidateData6();
             d6.Name = "zhangsan";
             Result result6 = db.insert( d6 );
 
             Assert.IsFalse( result6.IsValid );
             Assert.AreEqual( 0, d6.Id );
-            Assert.AreEqual( "ÓÃ»§ÃûÖØ¸´", result6.ErrorsText.Trim() );
+            Assert.AreEqual( "ç”¨æˆ·åé‡å¤", result6.ErrorsText.Trim() );
             Console.WriteLine( result6.ErrorsText );
         }
 
         [Test]
         public void Unique_Update() {
 
-            //Ìí¼Ó
+            //æ·»åŠ 
             TValidateData5 d = new TValidateData5();
             d.Name = "lisiwang";
             Result result = db.insert( d );
             Assert.IsTrue( result.IsValid );
             Assert.Greater( d.Id, 0 );
 
-            //ÔÙ´ÎÌí¼Ó
+            //å†æ¬¡æ·»åŠ 
             TValidateData5 dnext = new TValidateData5();
             dnext.Name = "wanger";
             Result resultNext = db.insert( dnext );
             Assert.IsTrue( resultNext.IsValid );
             Assert.Greater( dnext.Id, 0 );
 
-            //ĞŞ¸ÄµÚ¶ş´ÎÌí¼ÓµÄÊı¾İ£¬ºÍµÚÒ»´ÎµÄÏàÍ¬
+            //ä¿®æ”¹ç¬¬äºŒæ¬¡æ·»åŠ çš„æ•°æ®ï¼Œå’Œç¬¬ä¸€æ¬¡çš„ç›¸åŒ
             dnext.Name = d.Name;
             Result resultUpdate = db.update( dnext );
             Assert.IsFalse( resultUpdate.IsValid );
             Console.WriteLine( resultUpdate.ErrorsText );
 
-            //--------------×Ô¶¨Òå´íÎóĞÅÏ¢--------------
+            //--------------è‡ªå®šä¹‰é”™è¯¯ä¿¡æ¯--------------
 
-            //Õı³£Ìí¼Ó
+            //æ­£å¸¸æ·»åŠ 
             TValidateData6 d2 = new TValidateData6();
             d2.Name = "liswang";
             Result result2 = db.insert( d2 );
             Assert.IsTrue( result2.IsValid );
             Assert.Greater( d2.Id, 0 );
 
-            //ÔÙ´ÎÌí¼Ó
+            //å†æ¬¡æ·»åŠ 
             TValidateData6 datanext = new TValidateData6();
             datanext.Name = "wanger";
             Result insertResultNext = db.insert( datanext );
             Assert.IsTrue( insertResultNext.IsValid );
             Assert.Greater( datanext.Id, 0 );
 
-            //ĞŞ¸ÄµÚ¶ş´ÎÌí¼ÓµÄÊı¾İ£¬ºÍµÚÒ»´ÎµÄÏàÍ¬
+            //ä¿®æ”¹ç¬¬äºŒæ¬¡æ·»åŠ çš„æ•°æ®ï¼Œå’Œç¬¬ä¸€æ¬¡çš„ç›¸åŒ
             datanext.Name = d2.Name;
             Result updateResultNext = db.update( datanext );
             Assert.IsFalse( updateResultNext.IsValid );
-            Assert.AreEqual( "ÓÃ»§ÃûÖØ¸´", updateResultNext.ErrorsText.Trim() );
+            Assert.AreEqual( "ç”¨æˆ·åé‡å¤", updateResultNext.ErrorsText.Trim() );
             Console.WriteLine( updateResultNext.ErrorsText );
 
         }

@@ -1,4 +1,4 @@
-using System;
+ï»¿using System;
 using System.Collections;
 
 using wojilu;
@@ -9,7 +9,7 @@ namespace wojilu.Test.Orm.Entities {
     public class DefaultValueData : ObjectBase<DefaultValueData> {
 
 
-        [Default( "ÄäÃûÓÃ»§" )]
+        [Default( "åŒ¿åç”¨æˆ·" )]
         public string Name { get; set; }
 
         public DateTime CreateTime { get; set; }

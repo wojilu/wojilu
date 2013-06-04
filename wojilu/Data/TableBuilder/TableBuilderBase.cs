@@ -81,6 +81,9 @@ namespace wojilu.Data {
             if (ep.Type == typeof( int )) {
                 addColumn_Int( sb, ep, columnName );
             }
+            else if (ep.Type == typeof( long )) {
+                addColumn_Long( sb, columnName );
+            }
             else if (ep.Type == typeof( DateTime )) {
                 addColumn_Time( sb, columnName );
             }
@@ -132,6 +135,10 @@ namespace wojilu.Data {
             }
         }
 
+        protected virtual void addColumn_Long( StringBuilder sb, string columnName ) {
+            sb.Append( columnName );
+            sb.Append( " bigint, " );
+        }
 
         protected virtual void addColumn_Time( StringBuilder sb, String columnName ) {
             sb.Append( columnName );

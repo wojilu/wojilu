@@ -1,4 +1,4 @@
-using System;
+锘縰sing System;
 using System.Collections;
 using System.IO;
 using System.Web;
@@ -29,7 +29,7 @@ namespace wojilu.Test.Orm.Utils {
             int count = MappingClass.Instance.ClassList.Count;
 
             resetConnection();
-            Console.WriteLine( "初始化成功！" );
+            Console.WriteLine( "鍒濆鍖栨垚鍔燂紒" );
             Console.WriteLine();
             SpeedUtil.Stop();
 

@@ -1,4 +1,4 @@
-using System;
+ï»¿using System;
 using wojilu;
 using wojilu.ORM;
 using System.Collections;
@@ -21,7 +21,7 @@ namespace wojilu.Test.Orm.Entities {
             set { _name = value; }
         }
 
-        // =====Í³¼Æ»º´æ=====
+        // =====ç»Ÿè®¡ç¼“å­˜=====
         [Column]
         public int ArticleCount {
             get { return _articleCount; }

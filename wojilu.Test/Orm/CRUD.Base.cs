@@ -1,4 +1,4 @@
-using System;
+ï»¿using System;
 using System.Collections;
 using System.Collections.Generic;
 using wojilu.Test.Orm.Entities;
@@ -13,9 +13,9 @@ namespace wojilu.Test.Orm {
     public class CRUDBase {
 
 
-        // ×¢Òâ£º±ØĞë EnableContextCache=false²ÅÄÜÈ«²¿²âÊÔ³É¹¦
-        // ¿ÉÒÔÖ±½ÓÓÒ¼ü´Ë´¦¿ªÊ¼²âÊÔ£¡£¨²»ÓÃ¿¼ÂÇÊı¾İ¿â³õÊ¼»¯£©
-        // (¸ß¼¶ÌØĞÔ£º¼Ì³Ğ²¿·Ö²âÊÔ¼ûTestPolymorphism)
+        // æ³¨æ„ï¼šå¿…é¡» EnableContextCache=falseæ‰èƒ½å…¨éƒ¨æµ‹è¯•æˆåŠŸ
+        // å¯ä»¥ç›´æ¥å³é”®æ­¤å¤„å¼€å§‹æµ‹è¯•ï¼ï¼ˆä¸ç”¨è€ƒè™‘æ•°æ®åº“åˆå§‹åŒ–ï¼‰
+        // (é«˜çº§ç‰¹æ€§ï¼šç»§æ‰¿éƒ¨åˆ†æµ‹è¯•è§TestPolymorphism)
 
         
 
@@ -43,9 +43,41 @@ namespace wojilu.Test.Orm {
 
             String dbName = "default";
             ConnectionString cnstr = DbConfig.Instance.GetConnectionStringMap()[dbName];
-            Console.WriteLine( "µ±Ç°ÔËĞĞÊı¾İ¿âÀàĞÍ£º" + cnstr.DbType );
-            Console.WriteLine("µ±Ç°ÔËĞĞÊı¾İ¿âIDÀàĞÍ£º" + DbConfig.Instance.IdType);
-            Console.WriteLine( "µ±Ç°ÔËĞĞÊı¾İ¿âÀàĞÍ£º" + cnstr.StringContent );
+            Console.WriteLine( "å½“å‰è¿è¡Œæ•°æ®åº“ç±»å‹ï¼š" + cnstr.DbType );
+            Console.WriteLine("å½“å‰è¿è¡Œæ•°æ®åº“IDç±»å‹ï¼š" + DbConfig.Instance.IdType);
+            Console.WriteLine( "å½“å‰è¿è¡Œæ•°æ®åº“ç±»å‹ï¼š" + cnstr.StringContent );
+        }
+
+        [Test]
+        public void testLong() {
+
+
+            TPostLong x = new TPostLong();
+            x.Name = "å­™ä¸­å±±";
+
+            // access ä¸æ”¯æŒ int64
+            if (db.getDatabaseType() == "access") {
+                x.Width = 1122228888;
+            }
+            else {
+                x.Width = 88888888888888888L;
+            }
+
+            x.insert();
+
+            Console.WriteLine( "æ·»åŠ æˆåŠŸdone" );
+
+
+            TPostLong x1 = TPostLong.find( "Name=:name" )
+                .set( "name", x.Name )
+                .first();
+
+
+            Console.WriteLine( "find done" );
+
+            Assert.IsNotNull( x1 );
+            Assert.AreEqual( x.Width, x1.Width );
+
         }
 
 
@@ -62,11 +94,11 @@ namespace wojilu.Test.Orm {
             m.insert();
 
             TMoney mb = new TMoney();
-            mb.MyMoney = 99.1268m; // moneyÀàĞÍ¿ÉÒÔ×î¶à´æ´¢4Î»Êı
-            mb.DecimalNum = 777.12345m; // TMoneyÅú×¢Àï×Ô¶¨ÒåÁË5Î»Ğ¡Êı
+            mb.MyMoney = 99.1268m; // moneyç±»å‹å¯ä»¥æœ€å¤šå­˜å‚¨4ä½æ•°
+            mb.DecimalNum = 777.12345m; // TMoneyæ‰¹æ³¨é‡Œè‡ªå®šä¹‰äº†5ä½å°æ•°
 
             mb.DubleNum = 988.1234567899;
-            mb.SingleNum = 999.128f; // mysql floatÄ¬ÈÏ3Î»
+            mb.SingleNum = 999.128f; // mysql floaté»˜è®¤3ä½
             mb.insert();
 
             List<TMoney> list = TMoney.findAll();
@@ -110,7 +142,7 @@ namespace wojilu.Test.Orm {
                 catIds += cat.Id + ",";
 
                 TArticle art = new TArticle();
-                art.Title = "ÕâÊÇÊ²Ã´µØ·½µÄ²âÊÔ" + i;
+                art.Title = "è¿™æ˜¯ä»€ä¹ˆåœ°æ–¹çš„æµ‹è¯•" + i;
                 art.Cat = cat;
 
                 art.insert();
@@ -178,12 +210,12 @@ namespace wojilu.Test.Orm {
             ConsoleTitleUtil.ShowTestTitle( "FindCondition_LikeParams" );
 
 
-            List<TCat> cats = TCat.find( "Name like '%'+:t+'%'" ).set( "t", "ĞÂÎÅ" ).list();
+            List<TCat> cats = TCat.find( "Name like '%'+:t+'%'" ).set( "t", "æ–°é—»" ).list();
 
             Assert.AreEqual( 2, cats.Count );
 
-            Assert.AreEqual( "¹ú¼ÊĞÂÎÅ", cats[0].Name );
-            Assert.AreEqual( "¹úÄÚĞÂÎÅ", cats[1].Name );
+            Assert.AreEqual( "å›½é™…æ–°é—»", cats[0].Name );
+            Assert.AreEqual( "å›½å†…æ–°é—»", cats[1].Name );
 
         }
 
@@ -207,7 +239,7 @@ namespace wojilu.Test.Orm {
 
             TCat mycat = TCat.find( "Id=" + 3 ).first();
             Assert.IsNotNull( mycat );
-            Assert.AreEqual( "ÓéÀÖµçÓ°", mycat.Name );
+            Assert.AreEqual( "å¨±ä¹ç”µå½±", mycat.Name );
         }
 
         [Test]
@@ -218,7 +250,7 @@ namespace wojilu.Test.Orm {
             Assert.AreEqual( 1, articles.Count );
 
             TArticle art = articles[0];
-            Assert.AreEqual( "ïú¿µ", art.Author );
+            Assert.AreEqual( "åµ‡åº·", art.Author );
         }
 
 
@@ -229,7 +261,7 @@ namespace wojilu.Test.Orm {
             art.Member = TMember.findById( 8 );
             art.Cat = TCat.findById( 7 );
             art.Board = TBoard.findById( 3 );
-            art.Author = "163Óğ»¯";
+            art.Author = "163ç¾½åŒ–";
             art.Title = "myurl=www.163.com";
             art.CreateTime = DateTime.Now;
             art.ChannelId = 4;
@@ -265,7 +297,7 @@ namespace wojilu.Test.Orm {
         public void FindCondition_NoJoinTable() {
             ConsoleTitleUtil.ShowTestTitle( "FindCondition_NoJoinTable" );
 
-            // ²»Áª±í²éÑ¯
+            // ä¸è”è¡¨æŸ¥è¯¢
             IList<TArticle> articles = TArticle.find( "Member.Id=:mid" ).set( "mid", 7 ).select( "Id,Title,Member.Id,Cat.Name,Cat.ArticleCount,Board.Name" ).list();
 
             Assert.AreEqual( 1, articles.Count );
@@ -273,7 +305,7 @@ namespace wojilu.Test.Orm {
             Assert.IsNotNull( article );
             Assert.IsNotNull( article.Title );
 
-            //sql»º´æ²âÊÔ
+            //sqlç¼“å­˜æµ‹è¯•
             IList<TArticle> articles2 = TArticle.find( "Member.Id=:mid" ).set( "mid", 7 ).select( "Id,Title,Member.Id,Cat.Name,Cat.ArticleCount,Board.Name" ).list();
 
             Assert.AreEqual( 1, articles2.Count );
@@ -287,8 +319,8 @@ namespace wojilu.Test.Orm {
         public void FindCondition_JoinTable() {
             ConsoleTitleUtil.ShowTestTitle( "FindCondition_JoinTable" );
 
-            // ĞèÒªÁª±í²éÑ¯
-            IList<TArticle> articles = TArticle.find( "Member.Id=:mid and Cat.Name=:catname order by Id desc, Member.Id asc" ).set( "mid", 7 ).set( "catname", "ÒôÏñÊÀ½ç" ).select( "Id,Title,Member.Id,Cat.Name,Cat.ArticleCount,Board.Name" ).list();
+            // éœ€è¦è”è¡¨æŸ¥è¯¢
+            IList<TArticle> articles = TArticle.find( "Member.Id=:mid and Cat.Name=:catname order by Id desc, Member.Id asc" ).set( "mid", 7 ).set( "catname", "éŸ³åƒä¸–ç•Œ" ).select( "Id,Title,Member.Id,Cat.Name,Cat.ArticleCount,Board.Name" ).list();
 
             Assert.AreEqual( 1, articles.Count );
             TArticle article = articles[0];
@@ -354,11 +386,11 @@ namespace wojilu.Test.Orm {
         public void FindById_Simply() {
             ConsoleTitleUtil.ShowTestTitle( "FindById_Simply" );
 
-            //¼òÒ×find
+            //ç®€æ˜“find
             TCat cat = TCat.findById( 3 );
 
             Console.WriteLine( "cat name is : " + cat.Name );
-            Assert.AreEqual( "ÓéÀÖµçÓ°", cat.Name );
+            Assert.AreEqual( "å¨±ä¹ç”µå½±", cat.Name );
 
             TCat nullCat = TCat.findById( 99999999 );
             Assert.IsNull( nullCat );
@@ -368,23 +400,23 @@ namespace wojilu.Test.Orm {
         public void FindById_ContextCache() {
             ConsoleTitleUtil.ShowTestTitle( "FindById_ContextCache" );
 
-            //¸´ÔÓ¹ØÁªfind
+            //å¤æ‚å…³è”find
             TArticle art = TArticle.findById( 1 );
             Console.WriteLine( "article 1 title is : " + art.Title );
-            Assert.AreEqual( "¿ñÈËÈÕ¼Ç", art.Title );
+            Assert.AreEqual( "ç‹‚äººæ—¥è®°", art.Title );
 
-            //Ò»¼¶»º´æ
+            //ä¸€çº§ç¼“å­˜
             TMember member = TMember.findById( 13 );
             Console.WriteLine( "member 13 name is : " + member.Name );
-            Assert.AreEqual( "Ô¬ÊÀ¿­", member.Name );
+            Assert.AreEqual( "è¢ä¸–å‡¯", member.Name );
 
             TCat cat = TCat.findById( 8 );
             Console.WriteLine( "cat 8 name is " + cat.Name );
-            Assert.AreEqual( "ÎäÏÀĞ¡Ëµ", cat.Name );
+            Assert.AreEqual( "æ­¦ä¾ å°è¯´", cat.Name );
 
             TBoard board = TBoard.findById( 9 );
             Console.WriteLine( "board 9 name is : " + board.Name );
-            Assert.AreEqual( "board_»¥ÁªÍøÂç", board.Name );
+            Assert.AreEqual( "board_äº’è”ç½‘ç»œ", board.Name );
 
         }
 
@@ -400,13 +432,13 @@ namespace wojilu.Test.Orm {
             count = TArticle.count( "Member.Id=7" );
             Assert.AreEqual( 1, count );
 
-            count = TArticle.count( "Author='ÖÜ×öÈË'  " );
+            count = TArticle.count( "Author='å‘¨åšäºº'  " );
             Assert.AreEqual( 1, count );
 
-            // ÉÏÃæÖ±½ÓÊ¹ÓÃCountµÄËÙ¶È±È½Ï¿ì£¬ÒòÎªÖ±½ÓÔËĞĞ select count(*) from TCat Óï¾ä
+            // ä¸Šé¢ç›´æ¥ä½¿ç”¨Countçš„é€Ÿåº¦æ¯”è¾ƒå¿«ï¼Œå› ä¸ºç›´æ¥è¿è¡Œ select count(*) from TCat è¯­å¥
 
-            // ÏÂÃæµÄcountËÙ¶ÈÂı£¬ÏÈ select Id from Syy_Article where ( MemberId = 7 )  order by Id desc £¬È»ºó¼ÆËãÊıÁ¿¡£
-            // µ«ÕâµÚ¶şÖÖ·½·¨Ò²ÓĞÓÅµã£¬¾ÍÊÇ¿ÉÒÔÊ¹ÓÃ²ÎÊı»¯²éÑ¯
+            // ä¸‹é¢çš„counté€Ÿåº¦æ…¢ï¼Œå…ˆ select Id from Syy_Article where ( MemberId = 7 )  order by Id desc ï¼Œç„¶åè®¡ç®—æ•°é‡ã€‚
+            // ä½†è¿™ç¬¬äºŒç§æ–¹æ³•ä¹Ÿæœ‰ä¼˜ç‚¹ï¼Œå°±æ˜¯å¯ä»¥ä½¿ç”¨å‚æ•°åŒ–æŸ¥è¯¢
 
             //count = TArticle.find( "Member.Id=:mid" ).set( "mid", 7 ).count();
             //Assert.AreEqual( 1, count );
@@ -419,7 +451,7 @@ namespace wojilu.Test.Orm {
 
             int pageSize = 5;
 
-            //------------- µÚ1Ò³ ---------------
+            //------------- ç¬¬1é¡µ ---------------
             int current = 1;
             CurrentRequest.setCurrentPage( current );
 
@@ -431,7 +463,7 @@ namespace wojilu.Test.Orm {
             Assert.AreEqual( pageSize, list.Size );
             Assert.AreEqual( pageSize, list.Results.Count );
 
-            //------------- µÚ2Ò³ ---------------
+            //------------- ç¬¬2é¡µ ---------------
             current = 2;
             CurrentRequest.setCurrentPage( current );
 
@@ -444,7 +476,7 @@ namespace wojilu.Test.Orm {
             Assert.AreEqual( pageSize, list.Results.Count );
 
 
-            //------------- µÚ3Ò³ ---------------
+            //------------- ç¬¬3é¡µ ---------------
 
             current = 3;
             CurrentRequest.setCurrentPage( current );
@@ -458,7 +490,7 @@ namespace wojilu.Test.Orm {
             Assert.AreEqual( 2, list.Results.Count );
 
 
-            //------------- µÚnÒ³ ---------------
+            //------------- ç¬¬né¡µ ---------------
 
             for (int i = 0; i < 100; i++) {
 
@@ -500,12 +532,12 @@ namespace wojilu.Test.Orm {
             ConsoleTitleUtil.ShowTestTitle( "UpdateCat" );
 
             TCat cat = TCat.findById( 2 );
-            Assert.AreEqual( "¹ú¼ÊĞÂÎÅ", cat.Name );
-            cat.Name = "ÕâÀï²»ÊÇĞÂÎÅ";
+            Assert.AreEqual( "å›½é™…æ–°é—»", cat.Name );
+            cat.Name = "è¿™é‡Œä¸æ˜¯æ–°é—»";
             cat.update();
 
             TCat newcat = TCat.findById( cat.Id );
-            Assert.AreEqual( "ÕâÀï²»ÊÇĞÂÎÅ", newcat.Name );
+            Assert.AreEqual( "è¿™é‡Œä¸æ˜¯æ–°é—»", newcat.Name );
         }
 
         [Test]
@@ -582,8 +614,8 @@ namespace wojilu.Test.Orm {
             art.Member = TMember.findById( 13 );
             art.Cat = TCat.findById( 8 );
             art.Board = TBoard.findById( 9 );
-            art.Author = "54Â³Ñ¸";
-            art.Title = "¿ñÈËÈÕ¼Ç";
+            art.Author = "54é²è¿…";
+            art.Title = "ç‹‚äººæ—¥è®°";
             art.CreateTime = DateTime.Now;
             art.ChannelId = 18;
             art.IsDelete = 0;
@@ -594,8 +626,8 @@ namespace wojilu.Test.Orm {
             art.Member = TMember.findById( 2 );
             art.Cat = TCat.findById( 10 );
             art.Board = TBoard.findById( 11 );
-            art.Author = "ÖÜ×öÈË";
-            art.Title = "ÂÛÀ×·æ´óµÄµ¹µô";
+            art.Author = "å‘¨åšäºº";
+            art.Title = "è®ºé›·é”‹å¤§çš„å€’æ‰";
             art.CreateTime = DateTime.Now;
             art.ChannelId = 12;
             art.IsDelete = 0;
@@ -607,8 +639,8 @@ namespace wojilu.Test.Orm {
             art.Member = TMember.findById( 7 );
             art.Cat = TCat.findById( 4 );
             art.Board = TBoard.findById( 4 );
-            art.Author = "ïú¿µ";
-            art.Title = "ÓëÉÆ¾ÙÔ±¾ø½»Êı";
+            art.Author = "åµ‡åº·";
+            art.Title = "ä¸å–„ä¸¾å‘˜ç»äº¤æ•°";
             art.CreateTime = DateTime.Now;
             art.ChannelId = 4;
             art.IsDelete = 0;
@@ -620,8 +652,8 @@ namespace wojilu.Test.Orm {
             art.Member = TMember.findById( 8 );
             art.Cat = TCat.findById( 7 );
             art.Board = TBoard.findById( 3 );
-            art.Author = "Óğ»¯";
-            art.Title = "ĞíÈı¹ÜÂòÑª¼£";
+            art.Author = "ç¾½åŒ–";
+            art.Title = "è®¸ä¸‰ç®¡ä¹°è¡€è¿¹";
             art.CreateTime = DateTime.Now;
             art.ChannelId = 4;
             art.IsDelete = 0;
@@ -630,7 +662,7 @@ namespace wojilu.Test.Orm {
             id = id + 1;
             Assert.AreEqual( id, art.Id );
 
-            Console.WriteLine( "Ìí¼Ó article ³É¹¦£¡" );
+            Console.WriteLine( "æ·»åŠ  article æˆåŠŸï¼" );
         }
 
         public void InsertMember() {
@@ -638,49 +670,49 @@ namespace wojilu.Test.Orm {
 
             TMember member = new TMember();
 
-            member.Name = "ÕÅÈı";
+            member.Name = "å¼ ä¸‰";
             member.insert();
 
-            member.Name = "ÇüÔ­";
+            member.Name = "å±ˆåŸ";
             member.insert();
 
-            member.Name = "Àî°×";
+            member.Name = "æç™½";
             member.insert();
 
-            member.Name = "ïú¿µ";
+            member.Name = "åµ‡åº·";
             member.insert();
 
-            member.Name = "×¯×Ó";
+            member.Name = "åº„å­";
             member.insert();
 
-            member.Name = "¶Å¸¦";
+            member.Name = "æœç”«";
             member.insert();
 
-            member.Name = "ËÕéø";
+            member.Name = "è‹è½¼";
             member.insert();
 
-            member.Name = "ÀîÊÀÃñ";
+            member.Name = "æä¸–æ°‘";
             member.insert();
 
-            member.Name = "Öî¸ğÁÁ";
+            member.Name = "è¯¸è‘›äº®";
             member.insert();
 
-            member.Name = "²Ü²Ù";
+            member.Name = "æ›¹æ“";
             member.insert();
 
-            member.Name = "Ë¾ÂíÇ¨";
+            member.Name = "å¸é©¬è¿";
             member.insert();
 
-            member.Name = "ËïÖĞÉ½";
+            member.Name = "å­™ä¸­å±±";
             member.insert();
 
-            member.Name = "Ô¬ÊÀ¿­";
+            member.Name = "è¢ä¸–å‡¯";
             member.insert();
 
-            member.Name = "Ã«Ôó¶«";
+            member.Name = "æ¯›æ³½ä¸œ";
             member.insert();
 
-            Console.WriteLine( "Ìí¼Ó member ³É¹¦£¡" );
+            Console.WriteLine( "æ·»åŠ  member æˆåŠŸï¼" );
 
         }
 
@@ -689,43 +721,43 @@ namespace wojilu.Test.Orm {
 
 
             TCat cat = new TCat();
-            cat.Name = "¹úÄÚĞÂÎÅ";
+            cat.Name = "å›½å†…æ–°é—»";
             cat.insert();
 
-            cat.Name = "¹ú¼ÊĞÂÎÅ";
+            cat.Name = "å›½é™…æ–°é—»";
             cat.insert();
 
-            cat.Name = "ÓéÀÖµçÓ°";
+            cat.Name = "å¨±ä¹ç”µå½±";
             cat.insert();
 
-            cat.Name = "ÒôÏñÊÀ½ç";
+            cat.Name = "éŸ³åƒä¸–ç•Œ";
             cat.insert();
 
-            cat.Name = "ÓÎÏ·¹ã³¡";
+            cat.Name = "æ¸¸æˆå¹¿åœº";
             cat.insert();
 
-            cat.Name = "ÎÄÑ§ÒÕÊõ";
+            cat.Name = "æ–‡å­¦è‰ºæœ¯";
             cat.insert();
 
-            cat.Name = "µçÊÓ¾ç±¾";
+            cat.Name = "ç”µè§†å‰§æœ¬";
             cat.insert();
 
-            cat.Name = "ÎäÏÀĞ¡Ëµ";
+            cat.Name = "æ­¦ä¾ å°è¯´";
             cat.insert();
 
-            cat.Name = "»¥ÁªÍøÂç";
+            cat.Name = "äº’è”ç½‘ç»œ";
             cat.insert();
 
-            cat.Name = "Èí¼ş·şÎñ";
+            cat.Name = "è½¯ä»¶æœåŠ¡";
             cat.insert();
 
-            cat.Name = "Ğ¦»°ÓÄÄ¬";
+            cat.Name = "ç¬‘è¯å¹½é»˜";
             cat.insert();
 
-            cat.Name = "½ğÈÚÆÚ»õ";
+            cat.Name = "é‡‘èæœŸè´§";
             cat.insert();
 
-            Console.WriteLine( "Ìí¼Ó cat ³É¹¦£¡" );
+            Console.WriteLine( "æ·»åŠ  cat æˆåŠŸï¼" );
         }
 
 
@@ -734,69 +766,69 @@ namespace wojilu.Test.Orm {
 
 
             TBoard board = new TBoard();
-            board.Name = "board_¹úÄÚĞÂÎÅ";
+            board.Name = "board_å›½å†…æ–°é—»";
             board.insert();
 
-            board.Name = "board_¹ú¼ÊĞÂÎÅ";
+            board.Name = "board_å›½é™…æ–°é—»";
             board.insert();
 
-            board.Name = "board_ÓéÀÖµçÓ°";
+            board.Name = "board_å¨±ä¹ç”µå½±";
             board.insert();
 
-            board.Name = "board_ÒôÏñÊÀ½ç";
+            board.Name = "board_éŸ³åƒä¸–ç•Œ";
             board.insert();
 
-            board.Name = "board_ÓÎÏ·¹ã³¡";
+            board.Name = "board_æ¸¸æˆå¹¿åœº";
             board.insert();
 
-            board.Name = "board_ÎÄÑ§ÒÕÊõ";
+            board.Name = "board_æ–‡å­¦è‰ºæœ¯";
             board.insert();
 
-            board.Name = "board_µçÊÓ¾ç±¾";
+            board.Name = "board_ç”µè§†å‰§æœ¬";
             board.insert();
 
-            board.Name = "board_ÎäÏÀĞ¡Ëµ";
+            board.Name = "board_æ­¦ä¾ å°è¯´";
             board.insert();
 
-            board.Name = "board_»¥ÁªÍøÂç";
+            board.Name = "board_äº’è”ç½‘ç»œ";
             board.insert();
 
-            board.Name = "board_Èí¼ş·şÎñ";
+            board.Name = "board_è½¯ä»¶æœåŠ¡";
             board.insert();
 
-            board.Name = "board_Ğ¦»°ÓÄÄ¬";
+            board.Name = "board_ç¬‘è¯å¹½é»˜";
             board.insert();
 
-            board.Name = "board_½ğÈÚÆÚ»õ";
+            board.Name = "board_é‡‘èæœŸè´§";
             board.insert();
 
-            Console.WriteLine( "Ìí¼Ó board ³É¹¦£¡" );
+            Console.WriteLine( "æ·»åŠ  board æˆåŠŸï¼" );
         }
 
         public void InsertTNews() {
 
-            TAuthorCategory c1 = new TAuthorCategory() { Name = "×÷¼Ò" }; c1.insert();
-            TAuthorCategory c2 = new TAuthorCategory() { Name = "Ñ§Õß" }; c2.insert();
-            TAuthorCategory c3 = new TAuthorCategory() { Name = "Ã÷ĞÇ" }; c3.insert();
+            TAuthorCategory c1 = new TAuthorCategory() { Name = "ä½œå®¶" }; c1.insert();
+            TAuthorCategory c2 = new TAuthorCategory() { Name = "å­¦è€…" }; c2.insert();
+            TAuthorCategory c3 = new TAuthorCategory() { Name = "æ˜æ˜Ÿ" }; c3.insert();
 
-            TAuthor a1 = new TAuthor() { Name = "ÇüÔ­", Category = c1 }; a1.insert();
-            TAuthor a2 = new TAuthor() { Name = "ÌÕÔ¨Ã÷", Category = c1 }; a2.insert();
-            TAuthor a3 = new TAuthor() { Name = "¹ËÑ×Îä", Category = c2 }; a3.insert();
-            TAuthor a4 = new TAuthor() { Name = "ÓàÇïÓê", Category = c3 }; a4.insert();
+            TAuthor a1 = new TAuthor() { Name = "å±ˆåŸ", Category = c1 }; a1.insert();
+            TAuthor a2 = new TAuthor() { Name = "é™¶æ¸Šæ˜", Category = c1 }; a2.insert();
+            TAuthor a3 = new TAuthor() { Name = "é¡¾ç‚æ­¦", Category = c2 }; a3.insert();
+            TAuthor a4 = new TAuthor() { Name = "ä½™ç§‹é›¨", Category = c3 }; a4.insert();
 
-            new TNews() { Title = "ÀëÉ§", Author = a1 }.insert();
-            new TNews() { Title = "ÌìÎÊ", Author = a1 }.insert();
+            new TNews() { Title = "ç¦»éªš", Author = a1 }.insert();
+            new TNews() { Title = "å¤©é—®", Author = a1 }.insert();
 
-            new TNews() { Title = "¶ÁÉ½º£¾­", Author = a2 }.insert();
-            new TNews() { Title = "ÏĞÇé¸³", Author = a2 }.insert();
-            new TNews() { Title = "ÎåÁøÏÈÉú´«", Author = a2 }.insert();
+            new TNews() { Title = "è¯»å±±æµ·ç»", Author = a2 }.insert();
+            new TNews() { Title = "é—²æƒ…èµ‹", Author = a2 }.insert();
+            new TNews() { Title = "äº”æŸ³å…ˆç”Ÿä¼ ", Author = a2 }.insert();
 
-            new TNews() { Title = "ÌìÏÂ¿¤¹úÀû²¡Êé", Author = a3 }.insert();
-            new TNews() { Title = "ÈÕÖªÂ¼", Author = a3 }.insert();
+            new TNews() { Title = "å¤©ä¸‹éƒ¡å›½åˆ©ç—…ä¹¦", Author = a3 }.insert();
+            new TNews() { Title = "æ—¥çŸ¥å½•", Author = a3 }.insert();
 
-            new TNews() { Title = "ÎÄ»¯¿àÂÃ", Author = a4 }.insert();
-            new TNews() { Title = "É½¾Ó±Ê¼Ç", Author = a4 }.insert();
-            new TNews() { Title = "ËªÀä³¤ºÓ", Author = a4 }.insert();
+            new TNews() { Title = "æ–‡åŒ–è‹¦æ—…", Author = a4 }.insert();
+            new TNews() { Title = "å±±å±…ç¬”è®°", Author = a4 }.insert();
+            new TNews() { Title = "éœœå†·é•¿æ²³", Author = a4 }.insert();
 
 
         }
