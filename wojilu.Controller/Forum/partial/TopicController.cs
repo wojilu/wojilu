@@ -59,8 +59,7 @@ namespace wojilu.Web.Controller.Forum {
 
                 block.Set( "post.MemberFace", face );
 
-
-                block.Set( "post.MemberRank", getRankStr( data ) );
+                block.Set( "post.MemberRank", data.Creator.Rank.Name );
                 block.Set( "post.StarList", data.Creator.Rank.StarHtml );
                 block.Set( "post.IncomeList", data.Creator.IncomeInfo );
                 block.Set( "post.MemberTitle", getUserTitle( data ) );
@@ -150,16 +149,6 @@ namespace wojilu.Web.Controller.Forum {
                 if (x.Id == obj.Id && x.GetType() == obj.GetType()) return true;
             }
             return false;
-        }
-
-        private static String getRankStr( ForumPost data ) {
-
-            if (data.Creator.RoleId != SiteRole.NormalMember.Id) {
-                return data.Creator.Role.Name;
-            }
-            else {
-                return data.Creator.Rank.Name;
-            }
         }
 
         private void bindTopicOne( IBlock block, ForumPost data, ForumBoard board, List<Attachment> attachList ) {
@@ -310,8 +299,16 @@ namespace wojilu.Web.Controller.Forum {
         }
 
         private String getUserTitle( ForumPost data ) {
-            if (strUtil.IsNullOrEmpty( data.Creator.Title )) return "";
-            return string.Format( "<div>{0}: {1}</div>", alang( "userTitle" ), data.Creator.Title );
+
+            if (data.Creator.RoleId != SiteRole.NormalMember.Id) {
+                return data.Creator.Role.Name;
+            }
+
+            if (moderatorService.IsModerator( data.AppId, data.Creator.Name )) {
+                return "版主";
+            }
+
+            return data.Creator.Rank.Name;
         }
 
         //----------------------------------------------------------------------------------------------------------------------------------

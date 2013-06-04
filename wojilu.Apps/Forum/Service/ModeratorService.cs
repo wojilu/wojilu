@@ -172,6 +172,18 @@ namespace wojilu.Apps.Forum.Service {
 
         //-----------------------------------------------------------
 
+        public virtual Boolean IsModerator( int appId, String userName ) {
+
+            List<ForumBoard> boardList = ForumBoard.find( "AppId=" + appId ).list();
+
+            foreach (ForumBoard bd in boardList) {
+                Boolean isModerator = this.IsModerator( bd.Moderator, userName );
+                if (isModerator) return true;
+            }
+
+            return false;
+        }
+
         public virtual Boolean IsModerator( ForumBoard fb, User user ) {
 
             return this.IsModerator( fb.Moderator, user.Name );

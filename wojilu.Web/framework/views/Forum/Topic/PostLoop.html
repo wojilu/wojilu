@@ -21,9 +21,8 @@
 		<td class="poMember" rowspan="2">			
 		
 			<div class="poFace"><a href="#{post.MemberUrl}">#{post.MemberFace}</a></div>			
-			<div class="poMemberInfo">
-				<div><strong>#{post.MemberRank}</strong> #{post.StarList}</div>
-				#{post.MemberTitle}
+			<div class="poMemberInfo">                
+				<div class="user-rank"><span title="#{post.MemberRank}">#{post.MemberTitle}</span> #{post.StarList}</div>
 				<div>_{gender}: #{post.MemberGender}</div>
 				#{post.IncomeList}
 				<div>:{postCount}: #{post.MemberPostCount}</div>

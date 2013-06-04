@@ -171,6 +171,9 @@ table.postOne {width:100%; border-collapse:collapse; margin:auto;}
 	.poMemberName {font-weight:bold; font-size:14px; border-bottom:0px; text-align:center; padding:10px 0px;}
 	.poMemberName a{color:#333}
 	.poMemberName, .fdPanel_Member {background:#f3f4f8}
+    
+    .user-title { font-weight:bold;}
+    .user-rank span{font-weight:bold;}
 
 	.poTitle {background:#ffffff;border-bottom:1px dashed #a7c7d9; padding-left:5px;  padding-bottom:3px; padding-top:3px;}
 	.poTitle a {color:#333}
