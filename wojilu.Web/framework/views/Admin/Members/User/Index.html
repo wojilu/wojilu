@@ -143,7 +143,7 @@ _run( function() {
 		<td align="center">_{status}</td>
 		<td>_{role}</td>
 		<td>_{nickName}/_{realName}</td>
-		<td>来源</td>
+		<td></td>
 		<td></td>
 		<td>Email</td>
 		<td>_{regTime}</td>
@@ -184,46 +184,3 @@ _run( function() {
 
 
 </div>
-
-<script>
-    _run(function () {
-
-        var getIps = function () {
-
-            var ips = '';
-            $('.user-ip').each(function () {
-                var _x = $(this);
-                var ip = $(this).text();
-                if (!ip) return;
-                if (ip == 'unknow') return;
-                ips += ip + ',';
-            });
-
-            return ips;
-        };
-
-        var selectList = function (ip, ipList) {
-            if (!ip) return '--';
-            for (var i = 0; i < ipList.length; i++) {
-                if (ip == ipList[i].Ip) return ipList[i].Address + ipList[i].Info;
-            }
-            return ip;
-        };
-
-        var setIp = function (ipList) {
-            $('.user-ip').each(function () {
-                var ip = $(this).text();
-                $(this).text(selectList(ip, ipList)).attr('title', 'ip=' + ip).show();
-            });
-        };
-
-        var searchLink = 'http://www.lvhupo.com/?t=1&ip=' + getIps();
-        $.ajax({
-            dataType: 'jsonp',
-            url: searchLink,
-            jsonp: 'callback',
-            success: function (ipList) { setIp(ipList) }
-        });
-
-    });
-</script>
