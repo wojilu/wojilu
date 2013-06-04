@@ -1,4 +1,4 @@
-/*
+﻿/*
  * Copyright (c) 2010, www.wojilu.com. All rights reserved.
  */
 
@@ -72,8 +72,8 @@ namespace wojilu.Web.Controller.Content.Admin.Section {
             set( "post.EditListInfo", to( EditListInfo, postId ) );
             IBlock block = getBlock( "list" );
             foreach (ContentImg img in imgList) {
-                block.Set( "img.Url", img.GetImgUrl() );
-                block.Set( "img.Thumb", img.GetThumb() );
+                block.Set( "img.Url", img.GetImgOriginal() );
+                block.Set( "img.Thumb", img.GetThumbS() );
                 block.Set( "img.Description", strUtil.CutString( img.Description, 8 ) );
                 block.Set( "img.DeleteUrl", to( DeleteImg, post.Id ) + "?imgId=" + img.Id );
                 String setLogoCmd = getSetLogoCmd( post, img );

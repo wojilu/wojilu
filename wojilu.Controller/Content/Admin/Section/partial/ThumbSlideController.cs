@@ -1,4 +1,4 @@
-/*
+﻿/*
  * Copyright (c) 2010, www.wojilu.com. All rights reserved.
  */
 
@@ -30,7 +30,7 @@ namespace wojilu.Web.Controller.Content.Admin.Section {
                 else
                     block.Set( "photo.Title", photo.Title );
 
-                block.Set( "photo.ImgUrl", photo.GetImgUrl() );
+                block.Set( "photo.ImgUrl", photo.GetImgOriginal() );
                 block.Set( "photo.ThumbUrl", photo.GetImgThumb() );
                 block.Set( "photo.Link", to( new Common.PostController().EditImg, photo.Id ) );
                 block.Next();
@@ -41,7 +41,7 @@ namespace wojilu.Web.Controller.Content.Admin.Section {
             if (first != null) {
 
                 fblock.Set( "first.Title", strUtil.SubString( first.Title, 20 ) );
-                fblock.Set( "first.ImgUrl", first.GetImgUrl() );
+                fblock.Set( "first.ImgUrl", first.GetImgOriginal() );
                 fblock.Set( "first.Link", to( new Common.PostController().EditImg, first.Id ) );
 
                 fblock.Set( "first.Width", first.Width );

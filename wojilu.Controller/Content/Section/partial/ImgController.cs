@@ -51,7 +51,7 @@ namespace wojilu.Web.Controller.Content.Section {
 
             IBlock block = getBlock( "list" );
             foreach (ContentImg img in imgPage.Results) {
-                block.Set( "img.Url", img.GetImgUrl() );
+                block.Set( "img.Url", img.GetImgOriginal() );
                 block.Set( "img.Description", img.Description );
                 block.Next();
             }

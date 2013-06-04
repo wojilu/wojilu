@@ -164,7 +164,7 @@ namespace wojilu.Web.Controller.Content.Admin {
 
                 x.Title = post.Title;
                 x.Content = post.Content;
-                x.Pic = post.GetImgUrl();
+                x.Pic = post.GetImgOriginal();
                 x.Summary = post.Summary;
 
                 x.TitleHome = post.TitleHome;

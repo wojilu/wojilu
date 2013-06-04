@@ -82,6 +82,11 @@ namespace wojilu {
         /************************************* 方法 *********************************************/
 
         public String GetPhotoOriginal( String relativeUrl ) {
+
+            if (strUtil.IsNullOrEmpty( relativeUrl )) return null;
+            if (relativeUrl.ToLower().StartsWith( "http://" )) return relativeUrl;
+            if (relativeUrl.StartsWith( "/" )) return relativeUrl;
+
             if (strUtil.IsNullOrEmpty( relativeUrl )) return "";
             if (relativeUrl.StartsWith( sys.Path.Photo )) return relativeUrl;
             return strUtil.Join( sys.Path.Photo, relativeUrl );
@@ -92,6 +97,11 @@ namespace wojilu {
         }
 
         public String GetPhotoThumb( String relativeUrl, ThumbnailType ttype ) {
+
+            if (strUtil.IsNullOrEmpty( relativeUrl )) return null;
+            if (relativeUrl.ToLower().StartsWith( "http://" )) return relativeUrl;
+            if (relativeUrl.StartsWith( "/" )) return relativeUrl;
+
             return wojilu.Drawing.Img.GetThumbPath( GetPhotoOriginal( relativeUrl ), ttype );
         }
 

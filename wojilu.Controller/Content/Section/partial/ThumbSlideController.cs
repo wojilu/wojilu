@@ -22,7 +22,7 @@ namespace wojilu.Web.Controller.Content.Section {
             int i = 1;
             foreach (ContentPost photo in posts) {
                 block.Set( "photo.Number", i );
-                block.Set( "photo.ImgUrl", photo.GetImgUrl() );
+                block.Set( "photo.ImgUrl", photo.GetImgOriginal() );
                 block.Set( "photo.ThumbUrl", photo.GetImgThumb() );
                 block.Set( "photo.Link", alink.ToAppData( photo, ctx ) );
 
@@ -46,7 +46,7 @@ namespace wojilu.Web.Controller.Content.Section {
                     fblock.Set( "first.Title", first.Title );
 
 
-                fblock.Set( "first.ImgUrl", first.GetImgUrl() );
+                fblock.Set( "first.ImgUrl", first.GetImgOriginal() );
                 fblock.Set( "first.Link", alink.ToAppData( first, ctx ) );
 
 

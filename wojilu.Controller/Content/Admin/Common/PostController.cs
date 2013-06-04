@@ -221,7 +221,7 @@ namespace wojilu.Web.Controller.Content.Admin.Common {
             set( "post.SourceLink", post.SourceLink );
             set( "post.Style", post.Style );
 
-            set( "post.ImgLink", post.GetImgUrl() );
+            set( "post.ImgLink", post.GetImgOriginal() );
             set( "post.ImgThumbLink", post.GetImgThumb() );
             set( "post.ImgDeleteLink", to( DeletePostPic, post.Id ) );
 
@@ -245,7 +245,7 @@ namespace wojilu.Web.Controller.Content.Admin.Common {
                 return;
             }
 
-            wojilu.Drawing.Img.DeleteImgAndThumb( post.GetImgUrl() );
+            wojilu.Drawing.Img.DeleteImgAndThumb( post.GetImgOriginal() );
             echoAjaxOk();
         }
 

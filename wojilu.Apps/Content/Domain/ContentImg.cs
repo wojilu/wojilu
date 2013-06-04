@@ -16,11 +16,11 @@ namespace wojilu.Apps.Content.Domain {
         public String Description { get; set; }
         public DateTime Created { get; set; }
 
-        public String GetImgUrl() {
+        public String GetImgOriginal() {
             return sys.Path.GetPhotoOriginal( this.ImgUrl );
         }
 
-        public String GetThumb() {
+        public String GetThumbS() {
             return sys.Path.GetPhotoThumb( this.ImgUrl );
         }
 

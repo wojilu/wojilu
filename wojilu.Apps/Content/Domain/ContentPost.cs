@@ -229,24 +229,14 @@ namespace wojilu.Apps.Content.Domain {
         }
 
         public String GetImgThumb() {
-
-            if (strUtil.IsNullOrEmpty( this.ImgLink )) return null;
-            if (this.ImgLink.ToLower().StartsWith( "http://" )) return this.ImgLink;
-            if (this.ImgLink.StartsWith( "/" )) return this.ImgLink;
             return sys.Path.GetPhotoThumb( this.ImgLink );
         }
 
         public String GetImgMedium() {
-            if (strUtil.IsNullOrEmpty( this.ImgLink )) return null;
-            if (this.ImgLink.ToLower().StartsWith( "http://" )) return this.ImgLink;
-            if (this.ImgLink.StartsWith( "/" )) return this.ImgLink;
             return sys.Path.GetPhotoThumb( this.ImgLink, ThumbnailType.Medium );
         }
 
-        public String GetImgUrl() {
-            if (strUtil.IsNullOrEmpty( this.ImgLink )) return null;
-            if (this.ImgLink.ToLower().StartsWith( "http://" )) return this.ImgLink;
-            if (this.ImgLink.StartsWith( "/" )) return this.ImgLink;
+        public String GetImgOriginal() {
             return sys.Path.GetPhotoOriginal( this.ImgLink );
         }
 

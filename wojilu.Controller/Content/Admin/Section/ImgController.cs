@@ -1,4 +1,4 @@
-/*
+﻿/*
  * Copyright (c) 2010, www.wojilu.com. All rights reserved.
  */
 
@@ -83,13 +83,13 @@ namespace wojilu.Web.Controller.Content.Admin.Section {
             set( "section.Name", section.Title );
             set( "App.ImagesPath", sys.Path.Img );
         }
-        
+
         [HttpPost, DbTransaction]
         public void CreateListInfo( int sectionId ) {
             ContentPost post = ContentValidator.SetValueBySection( sectionService.GetById( sectionId, ctx.app.Id ), ctx );
             if (strUtil.IsNullOrEmpty( post.Title )) {
                 errors.Add( lang( "exTitle" ) );
-                run(AddListInfo, sectionId );
+                run( AddListInfo, sectionId );
             }
             else {
                 post.CategoryId = PostCategory.Img;
@@ -117,6 +117,16 @@ namespace wojilu.Web.Controller.Content.Admin.Section {
             List<ContentImg> imgList = imgService.GetImgList( postId );
 
             bindAddList( postId, post, imgList );
+            bindLinkList();
+        }
+
+        private void bindLinkList() {
+            int lnkCounts = 3;
+            IBlock lnkBlock = getBlock( "linkList" );
+            for (int i = 1; i < (lnkCounts + 1); i++) {
+                lnkBlock.Set( "photoIndex", i );
+                lnkBlock.Next();
+            }
         }
 
 
@@ -129,9 +139,59 @@ namespace wojilu.Web.Controller.Content.Admin.Section {
                 return;
             }
 
+            String dataType = ctx.Post( "dataType" );
+            if (dataType == "upload") {
+                saveUploadPic( postId, post );
+            }
+            else if (dataType == "link") {
+                saveLinkPic( post );
+            }
+        }
+
+        private void saveLinkPic( ContentPost post ) {
+
+            int lnkCounts = 3;
+            Boolean hasPic = false;
+            for (int i = 1; i < (lnkCounts + 1); i++) {
+
+                String picUrl = ctx.Post( "Pic"+i );
+                String picDesc = ctx.Post( "Desc" + i );
+
+                if (strUtil.IsNullOrEmpty( picUrl )) continue;
+
+                saveLinkPicSingle( picUrl, picDesc, post, i );
+
+                hasPic = true;
+
+            }
+
+            if (hasPic == false) {
+                echoError( "请填写图片网址" );
+            }
+            else {
+                redirect( AddImgList, post.Id );
+            }
+
+        }
+
+        private void saveLinkPicSingle( string picUrl, string picDesc, ContentPost post, int i ) {
+
+            ContentImg img = new ContentImg();
+            img.Post = post;
+            img.ImgUrl = picUrl;
+            img.Description = picDesc;
+            imgService.CreateImg( img );
+            if ((i == 1) && post.HasImg() == false) {
+                post.ImgLink = img.ImgUrl;
+                imgService.UpdateImgLogo( post );
+            }
+        }
+
+        private void saveUploadPic( int postId, ContentPost post ) {
+
             if (ctx.GetFiles().Count <= 0) {
                 errors.Add( alang( "plsUpImg" ) );
-                run(AddImgList, postId );
+                run( AddImgList, postId );
                 return;
             }
 
@@ -146,7 +206,7 @@ namespace wojilu.Web.Controller.Content.Admin.Section {
                     img.ImgUrl = result.Info.ToString();
                     img.Description = ctx.Post( "Text" + (i + 1) );
                     imgService.CreateImg( img );
-                    if ((i == 0) && post.HasImg()==false) {
+                    if ((i == 0) && post.HasImg() == false) {
                         post.ImgLink = img.ImgUrl;
                         imgService.UpdateImgLogo( post );
                     }
@@ -188,7 +248,7 @@ namespace wojilu.Web.Controller.Content.Admin.Section {
         }
 
         //--------------------------------------------------------------------------------------------------------------------------
-        
+
         public void EditListInfo( int postId ) {
 
             view( "EditListInfo" );
@@ -197,8 +257,8 @@ namespace wojilu.Web.Controller.Content.Admin.Section {
                 echoRedirect( lang( "exDataNotFound" ) );
                 return;
             }
-            
-            target( UpdateListInfo, postId  );
+
+            target( UpdateListInfo, postId );
             bindListEdit( postId, post );
         }
 
@@ -223,7 +283,7 @@ namespace wojilu.Web.Controller.Content.Admin.Section {
 
             if (strUtil.IsNullOrEmpty( post.Title )) {
                 errors.Add( lang( "exTitle" ) );
-                run(EditListInfo, postId );
+                run( EditListInfo, postId );
             }
             else {
                 postService.Update( post, null );
@@ -242,7 +302,7 @@ namespace wojilu.Web.Controller.Content.Admin.Section {
                 return;
             }
 
-            postService.Delete( post ); // ɾ������վ
+            postService.Delete( post ); // 删除回收站
             echoRedirect( lang( "opok" ) );
             HtmlHelper.SetPostToContext( ctx, post );
         }
@@ -264,7 +324,7 @@ namespace wojilu.Web.Controller.Content.Admin.Section {
             }
 
             imgService.DeleteImgOne( img );
-            
+
             echoRedirect( lang( "opok" ) );
             HtmlHelper.SetPostToContext( ctx, post );
         }
