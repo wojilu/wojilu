@@ -34,9 +34,14 @@ namespace wojilu.Web.Controller.Content.Admin {
 
             set( "setStyleUrl", to( new ContentController().SetStyle ) );
             set( "layoutSaveUrl", to( new ContentController().SaveLayout ) );
-            set( "lnkExport", to( new ExportController().Index ) );
 
             set( "resizeLink", to( new ContentController().SaveResize ) );
+
+            IBlock xblock = getBlock( "export" );
+            if (ctx.viewer.IsAdministrator()) {
+                xblock.Set( "lnkExport", to( new ExportController().Index ) );
+                xblock.Next();
+            }
         }
 
         private void bindRowList( ContentApp app, List<ContentSection> sections ) {

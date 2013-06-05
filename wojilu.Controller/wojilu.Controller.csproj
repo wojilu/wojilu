@@ -93,7 +93,6 @@
     <Compile Include="Content\Html\Jobs\HomeHtmlJob.cs" />
     <Compile Include="Content\Html\Observer\BatchAddObserver.cs" />
     <Compile Include="Content\Section\SummaryController.cs" />
-    <Compile Include="Forum\ServiceController.cs" />
     <Compile Include="Open\Admin\CommentController.cs" />
     <Compile Include="Admin\Apps\Content\LayoutController.cs" />
     <Compile Include="Admin\Apps\Content\MainController.cs" />
