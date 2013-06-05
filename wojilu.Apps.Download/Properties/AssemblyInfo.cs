@@ -10,7 +10,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyConfiguration( "" )]
 [assembly: AssemblyCompany( "http://www.wojilu.com" )]
 [assembly: AssemblyProduct( "wojilu.Apps.Download" )]
-[assembly: AssemblyCopyright( "Copyright © 2010-2012 www.wojilu.com" )]
+[assembly: AssemblyCopyright( "Copyright © 2010-2013 www.wojilu.com" )]
 [assembly: AssemblyTrademark( "" )]
 [assembly: AssemblyCulture( "" )]
 

@@ -4,10 +4,10 @@
 
 using System.Reflection;
 
-[assembly: AssemblyTitle( "wojilu.Apps" )]
-[assembly: AssemblyProduct( "wojilu.Apps" )]
+[assembly: AssemblyTitle( "wojilu.Core" )]
+[assembly: AssemblyProduct( "wojilu.Core" )]
 [assembly: AssemblyCompany( "http://www.wojilu.com" )]
-[assembly: AssemblyCopyright( "Copyright (c) 2010-2012 www.wojilu.com" )]
+[assembly: AssemblyCopyright( "Copyright (c) 2010-2013 www.wojilu.com" )]
 [assembly: AssemblyConfiguration( "" )]
 [assembly: AssemblyDescription( "" )]
 [assembly: AssemblyTrademark( "" )]
@@ -16,4 +16,3 @@ using System.Reflection;
 [assembly: AssemblyFileVersion( "1.9" )]
 [assembly: AssemblyKeyName( "" )]
 [assembly: AssemblyKeyFile( "" )]
-

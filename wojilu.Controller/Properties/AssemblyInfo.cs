@@ -7,7 +7,7 @@ using System.Reflection;
 [assembly: AssemblyTitle( "wojilu.Controller" )]
 [assembly: AssemblyProduct( "wojilu.Controller" )]
 [assembly: AssemblyCompany( "http://www.wojilu.com" )]
-[assembly: AssemblyCopyright( "Copyright (c) 2010-2012 www.wojilu.com" )]
+[assembly: AssemblyCopyright( "Copyright (c) 2010-2013 www.wojilu.com" )]
 [assembly: AssemblyConfiguration( "" )]
 [assembly: AssemblyDescription( "" )]
 [assembly: AssemblyTrademark( "" )]
