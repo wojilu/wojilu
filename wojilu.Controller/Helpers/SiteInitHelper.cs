@@ -154,8 +154,8 @@ namespace wojilu.Web.Controller.Helpers {
 
         public void InitSpaceSkin() {
 
-            new SpaceSkin( "书写", "1/skin.css", "1/thumb.jpg" ).insert();
-            new SpaceSkin( "花与墙", "2/skin.css", "2/thumb.jpg" ).insert();
+            new SpaceSkin( "花与墙", "1/skin.css", "1/thumb.jpg" ).insert();
+            new SpaceSkin( "书写", "2/skin.css", "2/thumb.jpg" ).insert();
             new SpaceSkin( "山水相映", "3/skin.css", "3/thumb.jpg" ).insert();
             new SpaceSkin( "灯火夜晚", "4/skin.css", "4/thumb.jpg" ).insert();
             new SpaceSkin( "水中贝壳", "5/skin.css", "5/thumb.jpg" ).insert();

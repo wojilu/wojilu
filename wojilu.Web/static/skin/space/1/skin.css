@@ -1,16 +1,30 @@
-﻿
-#topNavWrap {background:url("../../site/topNavBg.png");}
-#spacePageWrap { width:100%; padding-top:25px;}
+﻿body {background:url('bg.jpg');}
+
+#topNavWrap {color:#fff !important;background-color: rgba(0, 0, 0, 0.3);
+    filter:progid:DXImageTransform.Microsoft.gradient(startColorstr=#55000000, endColorstr=#55000000);-ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr=#55000000, endColorstr=#55000000)";
+}
+
+#topNavWrap a{color:#fff !important;}
+#topNavWrap .menuItems a{color:#005eac !important;}
+#topNavWrap td a{color:#fff !important;}
+
+#topNavWrap .NewNotificationCount span{color:#005EAC !important;}
+#topNavWrap .NewNotificationCount a{color:#005EAC !important;}
+
+#topNavWrap span{color:#fff !important;}
+#topNavWrap form{color:#fff !important;}
+
+#spacePageWrap { width:100%; background1:url('1header.jpg') repeat-x; padding-top:38px;}
 
 #spacePage{margin:auto; width:960px; box-shadow:0px 6px 18px #333; margin-bottom:30px; border-radius:8px;}
 
 #spaceHeaderWrap,#spaceNavWrap,#spaceMainWrap, #spaceFooterWrap {margin:auto;}
 
 /*头部*/
-#spaceHeaderWrap { background:#333;border-radius:8px 8px 0px 0px;background:#a2b0d9;background:url('bg.jpg') repeat-x; }
-    #spaceHeader {height:160px;padding:38px 50px 20px 50px; border-radius:8px 8px 0px 0px;}
-        #spaceName a {color:#fff;font-size:18px;font-weight:bold;margin:0px 0px 0px 0px;font-family:arial black;}
-        #spaceUrl a{color:#fff; font-style:italic;}
+#spaceHeaderWrap { background:#333;border-radius:8px 8px 0px 0px;background:rgb(212,196,219);}
+    #spaceHeader {height:100px;padding:38px 50px 20px 50px; border-radius:8px 8px 0px 0px;}
+        #spaceName a {color:#333;font-size:18px;font-weight:bold;margin:0px 0px 0px 0px;font-family:arial black;}
+        #spaceUrl a{color:#555; font-style:italic;}
 
 /*导航*/
 #spaceNavWrap { height:35px;margin-bottom:-1px; 
@@ -71,13 +85,13 @@
             .blogBody img {max-width:580px;}
             .blogInfo {color:#aaa;}
 
-.sectionPanel { border:0px #000 solid;}
-.sectionTitle { background:#f2f2f2 !important;border-radius:5px !important; font-size:12px !important;font-weight:normal !important;}
+.sectionPanel { border:0px #000 solid !important;}
+.sectionTitle { background:#f2f2f2 !important;border-radius:5px !important; font-size:12px !important;font-weight:normal !important; border:0px !important;}
 .sectionTitleText div {padding-left:8px !important;}
 
 
 /*页脚*/
 #spaceFooterWrap { text-align:center;background:#f2f2f2;border-radius:0px 0px 8px 8px; }
-#spaceFooter {margin: auto; height:70px; padding-top:20px ;border-radius:0px 0px 8px 8px;}
+#spaceFooter {margin: auto; height:70px; padding-top:20px;border-radius:0px 0px 8px 8px;}
 
 
