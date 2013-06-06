@@ -24,6 +24,15 @@ namespace wojilu.Apps.Content.Domain {
             return sys.Path.GetPhotoThumb( this.ImgUrl );
         }
 
+        public Boolean IsWebPic() {
+
+            if (strUtil.IsNullOrEmpty( this.ImgUrl )) return true;
+            if (this.ImgUrl.ToLower().StartsWith( "http://" )) return true;
+            if (this.ImgUrl.StartsWith( "/" )) return true;
+
+            return false;
+        }
+
     }
 }
 

@@ -78,7 +78,7 @@
     .summary-item:last-child { border-bottom:0px;}
     
     .summary-body { font-size:14px; line-height:150%; color:#666;}    
-    .summary-body .summary-pic img { float: left; margin-right: 10px; width: 160px; height: 120px;  border:0px solid #eee; margin-top:3px; box-shadow:0px 3px 10px rgba(0,0,0,0.3); }
+    .summary-body .summary-pic img { float: left; margin-right: 10px; width: 160px; height: 120px;  border:0px solid #eee; margin-top:3px; box-shadow:0px 3px 10px rgba(0,0,0,0.1); }
     
     .summary-tag { color:#999; font-size:12px; margin-top:5px;}
     .summary-tag a { color:#999 !important;}

@@ -88,7 +88,11 @@ namespace wojilu.Apps.Content.Service {
 
         public virtual void DeleteImgOne( ContentImg articleImg ) {
             db.delete( articleImg );
-            Img.DeleteImgAndThumb( strUtil.Join( sys.Path.DiskPhoto, articleImg.ImgUrl ) );
+
+            if (articleImg.IsWebPic() == false) {
+                Img.DeleteImgAndThumb( strUtil.Join( sys.Path.DiskPhoto, articleImg.ImgUrl ) );
+            }
+
             if (articleImg.ImgUrl.Equals( articleImg.Post.ImgLink )) {
                 this.setPreImgLogo( articleImg );
             }
