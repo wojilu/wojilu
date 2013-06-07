@@ -9,10 +9,16 @@ namespace wojilu.Apps.Content.Service {
     public class ContentPostHomeService {
 
 
-        public List<ContentPost> GetPicked( String ids, int count ) {
+        public List<ContentPost> GetPicked( String ids, int count, int appId ) {
+
+            if (strUtil.IsNullOrEmpty( ids ) || ids == "0") {
+                ids = appId.ToString();
+            }
 
             String sids = checkIds( ids );
-            if (strUtil.IsNullOrEmpty( sids )) return new List<ContentPost>();
+            if (strUtil.IsNullOrEmpty( sids )) {
+                return new List<ContentPost>();
+            }
 
             if (count <= 0) count = 10;
 

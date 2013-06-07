@@ -38,7 +38,7 @@ namespace wojilu.Web.Controller.Content {
                 columnBlock.Set( "column.Index", i );
                 columnBlock.Set( "column.Id", "row" + iRow + "_column" + i );
                 columnBlock.Set( "columnId", string.Format( "row{0}_column{1}", iRow, i ) );
-                
+
                 IBlock sectionBlock = columnBlock.GetBlock( "sectionList" );
                 List<ContentSection> sections = SectionService.GetByRowColumn( sectionList, iRow, i );
                 bindSectionList( sectionBlock, sections );
@@ -96,7 +96,7 @@ namespace wojilu.Web.Controller.Content {
 
             if (strUtil.IsNullOrEmpty( moreUrl ) || "#".Equals( moreUrl )) return "";
 
-            if (isUrl(moreUrl)) return string.Format( "<a href=\"{0}\">{1}>></a>", moreUrl, lang( "more" ) );
+            if (isUrl( moreUrl )) return string.Format( "<a href=\"{0}\">{1}>></a>", moreUrl, lang( "more" ) );
 
             return moreUrl;
         }
@@ -112,7 +112,7 @@ namespace wojilu.Web.Controller.Content {
 
             return clink.toSection( section.Id, ctx );
         }
-        
+
         private Boolean isUrl( String url ) {
             return url.ToLower().StartsWith( "http://" ) || url.StartsWith( "/" );
         }
@@ -121,7 +121,8 @@ namespace wojilu.Web.Controller.Content {
             String content;
             if (section.ServiceId <= 0) {
                 content = getData( section );
-            } else {
+            }
+            else {
                 content = getAutoData( section );
             }
             return content;
@@ -156,10 +157,10 @@ namespace wojilu.Web.Controller.Content {
             if (section.CustomTemplateId <= 0)
                 return scriptData;
 
-                ContentCustomTemplate ct = ctService.GetById( section.CustomTemplateId, ctx.owner.Id );
-                if (ct == null) return scriptData;
+            ContentCustomTemplate ct = ctService.GetById( section.CustomTemplateId, ctx.owner.Id );
+            if (ct == null) return scriptData;
 
-                return scriptData + ct.Content;
+            return scriptData + ct.Content;
         }
 
         private Dictionary<string, string> getDefaultValue( ContentSection section ) {
@@ -168,12 +169,18 @@ namespace wojilu.Web.Controller.Content {
             Dictionary<string, string> pd = service.GetParamDefault();
             Dictionary<string, string> presult = new Dictionary<string, string>();
             foreach (KeyValuePair<string, string> pair in pd) {
-                if (pair.Key.Equals( "ownerId" ))
+                if (pair.Key.Equals( "ownerId" )) {
                     presult.Add( pair.Key, ctx.owner.Id.ToString() );
-                else if (pair.Key.Equals( "viewerId" ))
+                }
+                else if (pair.Key.Equals( "viewerId" )) {
                     presult.Add( pair.Key, ctx.viewer.Id.ToString() );
-                else
+                }
+                else if (pair.Key.Equals( "appId" )) {
+                    presult.Add( pair.Key, ctx.app.Id.ToString() );
+                }
+                else {
                     presult.Add( pair.Key, pair.Key );
+                }
             }
             return presult;
         }

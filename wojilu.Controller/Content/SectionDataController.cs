@@ -100,12 +100,18 @@ namespace wojilu.Web.Controller.Content {
             Dictionary<string, string> pd = service.GetParamDefault();
             Dictionary<string, string> presult = new Dictionary<string, string>();
             foreach (KeyValuePair<string, string> pair in pd) {
-                if (pair.Key.Equals( "ownerId" ))
+                if (pair.Key.Equals( "ownerId" )) {
                     presult.Add( pair.Key, ctx.owner.Id.ToString() );
-                else if (pair.Key.Equals( "viewerId" ))
+                }
+                else if (pair.Key.Equals( "viewerId" )) {
                     presult.Add( pair.Key, ctx.viewer.Id.ToString() );
-                else
+                }
+                else if (pair.Key.Equals( "appId" )) {
+                    presult.Add( pair.Key, ctx.app.Id.ToString() );
+                }
+                else {
                     presult.Add( pair.Key, pair.Key );
+                }
             }
             return presult;
         }

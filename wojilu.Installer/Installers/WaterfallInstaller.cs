@@ -42,6 +42,7 @@ namespace wojilu.Web.Controller {
             for (int i = 0; i < 20; i++) {
 
                 PhotoPost x = new PhotoPost();
+                x.AppId = app.Id;
                 x.DataUrl = Img.CopyToUploadPath( "/__installer/pic/pic" + i + ".jpg" );
                 x.Title = Path.GetFileName( x.DataUrl );
 
@@ -57,7 +58,6 @@ namespace wojilu.Web.Controller {
                 x.OwnerId = creator.Id;
                 x.OwnerType = creator.GetType().FullName;
                 x.OwnerUrl = creator.Url;
-
 
                 x.insert();
 
