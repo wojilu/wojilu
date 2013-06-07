@@ -46,7 +46,7 @@ namespace wojilu.Web.Controller.Common.Installers {
             lbl = lang.getByApp( typeof( ContentApp ) );
         }
 
-        public IMemberApp Install( MvcContext ctx, IMember owner, String appName, AccessStatus accessStatus, String themeId ) {
+        public IMemberApp Install( MvcContext ctx, IMember owner, String appName, AccessStatus accessStatus, String themeId, String friendlyUrl ) {
 
             this.ctx = ctx;
 

@@ -24,7 +24,8 @@
         <div class="stepTitle">
             <div id="stepTitle1" class="stepTitleItem stepTitleItemCurrent"><span class="titleNo">1</span>设置数据库</div>
             <div id="stepTitle2" class="stepTitleItem"><span class="titleNo">2</span>设置管理员帐号</div>
-            <div id="stepTitle3" class="stepTitleItem"><span class="titleNo">3</span>安装成功</div>
+            <div id="stepTitle3" class="stepTitleItem"><span class="titleNo">3</span>选择网站内容类型</div>
+            <div id="stepTitle4" class="stepTitleItem"><span class="titleNo">4</span>安装成功</div>
             <div style="clear:both;"></div>
         </div>
 </div>
@@ -133,12 +134,44 @@
                     <i class="icon-hand-right icon-white"></i> 下一步
                 </button>                
             </div>
-            <div id="initInfo" style=" display:none; margin-top:20px;"><img src="~img/ajax/loading.gif" /> 正在初始化，请稍后……</div>
+
         </div>
 
     </div>
 
-    <div id="step3" class="step">
+    <div id="step3" style="" class="step">
+
+        <div class="stepPanel">
+        
+            <table style="width:100%; margin-top:50px;">
+                <tr>
+                    <td class="tdL" style="font-size:14px; width:210px; padding-top:60px; padding-right:15px; text-align:center;">
+                    <div style="font-size:24px;">请选择网站类型</div>
+                    <div style="margin-top:10px; margin-left:5px; font-weight:normal;" class="note font12">(也可以安装之后重新调整组件功能)</div>
+                    </td>
+                    <td style="font-size:12px; padding-left:15px !important;" class="radioList">
+                        <div><label><input id="siteType1" name="siteType" type="radio" value="1" checked="checked" /> <span class="strong">全功能型</span>，完整安装，包括SNS、门户、论坛、微博、博客、相册、群组等所有功能</label></div>
+                        <div><label><input id="siteType2" name="siteType" type="radio" value="0" /> <span class="strong">精简型</span>，只包括内核，所有程序在安装之后，可以手工添加(适合老用户)</label></div>                        
+                    </td>
+                </tr>
+            </table>
+        
+        </div>
+        <div id="btnStepWrap3" class="btnStepPanel">
+            <div class="btn-wrap">
+                <button type="button" style=" float:left; " class="btn btn-danger btn-large btnPrev" data-id="3">
+                    <i class="icon-hand-left icon-white"></i> 上一步
+                </button>
+                <button id="btnStep3" type="button" style="float:left;" class="btn btn-primary btn-large btnNext" data-id="3">
+                    <i class="icon-hand-right icon-white"></i> 下一步
+                </button>
+            </div>
+            <div style=" clear:both;"></div>
+            <div id="initInfo" style=" display:none; margin-top:20px;"><img src="~img/ajax/loading.gif" /> 正在初始化，请稍后……</div>
+        </div>
+    </div>    
+
+    <div id="step4" class="step">
 
         <div class="stepPanel">
 
@@ -165,7 +198,7 @@
     _run(function () {
         window.doneLink = '#{doneLink}';
         window.setConfigLink = '#{setConfigLink}';
-        window.setUserLink = '#{setUserLink}';
+        window.setUserLink = '#{setUserAndAppLink}';
         require(['wojilu.core.installer']);
     });
 </script>

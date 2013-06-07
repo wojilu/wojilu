@@ -11,7 +11,7 @@ h1 {text-align:center; color:#666; font-size:28px; font-weight:bold; font-family
 /*********************标题栏********************/
 .titleWrap {width:801px; margin:auto; background:#f2f2f2;}
     .stepTitleItem  {
-        float:left; margin:1px; font-weight:bold; padding-top:18px; padding-bottom:5px; width:265px; height:38px; text-align:center; color:#fff;
+        float:left; margin:1px; font-weight:bold; padding-top:18px; padding-bottom:5px; width:198px; height:38px; text-align:center; color:#fff;
         background: rgb(122,188,255); /* Old browsers */
         background: -moz-linear-gradient(top, rgba(122,188,255,1) 0%, rgba(96,171,248,1) 44%, rgba(64,150,238,1) 100%); /* FF3.6+ */
         background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(122,188,255,1)), color-stop(44%,rgba(96,171,248,1)), color-stop(100%,rgba(64,150,238,1))); /* Chrome,Safari4+ */

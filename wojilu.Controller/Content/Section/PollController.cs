@@ -41,11 +41,6 @@ namespace wojilu.Web.Controller.Content.Section {
 
                 block.Set( "postId", x.Id );
                 block.Set( "lnkPoll", to( new wojilu.Web.Controller.Content.Common.PollController().Show, x.Id ) );
-
-                //ContentPoll p = pollService.GetByTopicId( polls, x.Id );
-
-                //ctx.SetItem( "poll", p );
-                //block.Set( "pollHtml", loadHtml( new wojilu.Web.Controller.Content.Common.PollController().Detail ) );
                 block.Next();
             }
         }

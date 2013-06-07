@@ -1,4 +1,8 @@
-﻿using System;
+﻿/*
+ * Copyright (c) 2010, www.wojilu.com. All rights reserved.
+ */
+
+using System;
 using System.Data;
 using System.IO;
 
@@ -12,6 +16,10 @@ using wojilu.Members.Users.Domain;
 using wojilu.Members.Users.Interface;
 using wojilu.Members.Users.Service;
 using wojilu.Web.Controller.Helpers;
+using wojilu.Web.Context.Initor;
+using wojilu.Web.Context;
+using wojilu.Members.Interface;
+using wojilu.Members.Sites.Domain;
 
 namespace wojilu.Web.Controller {
 
@@ -42,7 +50,7 @@ namespace wojilu.Web.Controller {
 
             set( "setConfigLink", to( setDbConfig ) );
             set( "doneLink", to( Done ) );
-            set( "setUserLink", to( setFirstUser ) );
+            set( "setUserAndAppLink", to( setUserAndApp ) );
 
             if (ctx.HasErrors) {
                 set( "writeFileMsg", string.Format( "<div class=\"warning\">{0}<br/>【提醒】请不要把项目放在桌面或者其他有特殊权限的文件夹下，文件路径不能有空格。</div>", errors.ErrorsHtml ) );
@@ -86,13 +94,15 @@ namespace wojilu.Web.Controller {
         }
 
         [HttpPost]
-        public void setFirstUser() {
+        public void setUserAndApp() {
 
+            // 1）初始化网站基本信息
             SiteInitHelper initHelper = ObjectContext.Create<SiteInitHelper>();
             if (initHelper.HasInit() == false) {
                 initHelper.InitSite();
             }
 
+            // 2）创建用户
             String name = ctx.Post( "name" );
             String email = ctx.Post( "email" );
             String pwd = ctx.Post( "pwd" );
@@ -107,14 +117,77 @@ namespace wojilu.Web.Controller {
             user = userService.Register( user, ctx );
             if (ctx.HasErrors) {
                 echoText( errors.ErrorsText );
+                return;
             }
-            else {
 
-                RegHelper.CheckUserSpace( user, ctx );
-                loginService.Login( user, LoginTime.Forever, ctx.Ip, ctx );
+            RegHelper.CheckUserSpace( user, ctx );
+            loginService.Login( user, LoginTime.Forever, ctx.Ip, ctx );
 
-                echoAjaxOk();
-            }
+            // 3）初始化owner/viewer
+            initOwner( ctx );
+            initViewer( ctx, user );
+
+            // 4）安装app
+            int siteType = ctx.PostInt( "siteType" );
+            initSiteApp( siteType );
+
+            echoAjaxOk();
+        }
+
+        private void initOwner( Context.MvcContext ctx ) {
+            IMember owner = Site.Instance;
+
+            OwnerContext context = new OwnerContext();
+            context.Id = owner.Id;
+            context.obj = owner;
+            ctx.utils.setOwnerContext( context );
+        }
+
+        private void initViewer( MvcContext ctx, User user ) {
+            ViewerContext context = new ViewerContext( ctx );
+            context.Id = user.Id;
+            context.obj = user;
+            context.IsLogin = true;
+            ctx.utils.setViewerContext( context );
+        }
+
+        private void initSiteApp( int siteType ) {
+
+            if (siteType <= 0) return;
+
+            // 完整安装
+            CmsInstaller x1 = ObjectContext.Create<CmsInstaller>();
+            LinkInstaller x2 = ObjectContext.Create<LinkInstaller>();
+
+            // 门户首页
+            x1.CreatePortal( ctx, "首页", "default" );
+
+            // 新闻
+            x1.CreateNews( ctx, "新闻资讯", "news" );
+
+            // 论坛
+            ObjectContext.Create<ForumInstaller>().Init( ctx, "讨论区", "bbs" );
+
+            // 微博
+            ObjectContext.Create<MicroblogInstaller>().Init( ctx, "微博", "t" );
+
+            // 瀑布流
+            ObjectContext.Create<WaterfallInstaller>().Init( ctx, "图片", "pic" );
+
+            // 下载
+            ObjectContext.Create<DownloadInstaller>().Init( ctx, "资源下载", "download" );
+
+            // 博客
+            x2.AddBlog( ctx, "博客", "blog" );
+
+            // 群组
+            x2.AddGroup( ctx, "群组", "group" );
+
+            // 用户
+            x2.AddUser( ctx, "用户列表", "user" );
+
+            // tag
+            x2.AddTag( ctx, "Tag", "tags" );
         }
 
 

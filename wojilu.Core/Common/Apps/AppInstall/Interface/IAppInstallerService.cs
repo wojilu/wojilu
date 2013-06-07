@@ -4,10 +4,25 @@
 
 using System;
 using System.Collections.Generic;
+using wojilu.Common.AppBase.Interface;
+using wojilu.Members.Interface;
+using wojilu.Members.Users.Domain;
+using wojilu.Common.MemberApp.Interface;
 
 namespace wojilu.Common.AppInstall {
 
     public interface IAppInstallerService {
+
+        /// <summary>
+        /// 安装某个app
+        /// </summary>
+        /// <param name="appType">必须事先IApp的类型，比如ForumApp</param>
+        /// <param name="owner"></param>
+        /// <param name="creator"></param>
+        /// <param name="appName">app名称</param>
+        /// <returns></returns>
+        IMemberApp Install( Type appType, IMember owner, User creator, String appName );
+
         List<AppInstaller> GetAll();
         List<AppInstaller> GetByCategory( int categoryId );
         List<AppInstaller> GetUserDataAdmin();

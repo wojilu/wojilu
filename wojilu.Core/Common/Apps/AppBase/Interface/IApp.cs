@@ -3,6 +3,7 @@
  */
 
 using System;
+using wojilu.Common.MemberApp.Interface;
 
 namespace wojilu.Common.AppBase.Interface {
 

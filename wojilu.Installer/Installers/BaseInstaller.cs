@@ -1,4 +1,8 @@
-﻿using System;
+﻿/*
+ * Copyright (c) 2010, www.wojilu.com. All rights reserved.
+ */
+
+using System;
 using System.Collections.Generic;
 using System.Text;
 using wojilu.Common.Menus.Interface;
@@ -8,6 +12,8 @@ using wojilu.Web.Url;
 using wojilu.Members.Sites.Domain;
 using wojilu.Members.Users.Domain;
 using wojilu.Drawing;
+using wojilu.Common.MemberApp.Interface;
+using wojilu.Web.Controller.Security;
 
 namespace wojilu.Web.Controller {
 
@@ -18,19 +24,26 @@ namespace wojilu.Web.Controller {
 
         protected IMenuService menuService = new SiteMenuService();
 
-        protected void AddMenuToHome( MvcContext ctx, String url, String name ) {
+        protected void AddMenu( MvcContext ctx, String name, String url, String fUrl ) {
 
             IMenu menu = new SiteMenu();
             menu.Name = name;
-            menu.Url = "default"; // 设为首页
+            menu.Url = fUrl;
             menu.RawUrl = UrlConverter.clearUrl( url, ctx, typeof( Site ).FullName, Site.Instance.Url );
 
             User creator = ctx.viewer.obj as User;
             menuService.Insert( menu, creator, Site.Instance );
         }
 
+        protected String lnkFull( MvcContext ctx, String link ) {
+            if (link.StartsWith( "http" )) return link;
+            return strUtil.Join( ctx.url.SiteAndAppPath, link );
+        }
 
-
+        protected void initAppPermission( IMemberApp app ) {
+            AppRole.InitSiteFront( app.Id );
+            AppAdminRole.InitSiteAdmin( app.Id );
+        }
 
     }
 }

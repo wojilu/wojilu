@@ -57,15 +57,22 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BaseInstaller.cs" />
-    <Compile Include="ForumInstaller.cs" />
+    <Compile Include="Installers\BaseInstaller.cs" />
+    <Compile Include="Installers\CmsInstaller.cs" />
+    <Compile Include="Installers\ForumInstaller.cs" />
     <Compile Include="InstallerController.cs" />
     <Compile Include="InstallerFilter.cs" />
-    <Compile Include="MicroblogInstaller.cs" />
+    <Compile Include="Installers\LinkInstaller.cs" />
+    <Compile Include="Installers\MicroblogInstaller.cs" />
+    <Compile Include="Installers\DownloadInstaller.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="WaterfallInstaller.cs" />
+    <Compile Include="Installers\WaterfallInstaller.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\wojilu.Apps.Download\wojilu.Apps.Download.csproj">
+      <Project>{C326837A-E2AD-497C-98D8-22F30CB714CE}</Project>
+      <Name>wojilu.Apps.Download</Name>
+    </ProjectReference>
     <ProjectReference Include="..\wojilu.Apps\wojilu.Apps.csproj">
       <Project>{2C3A61B8-3AFD-45D2-B81E-FBC652D0ADC2}</Project>
       <Name>wojilu.Apps</Name>

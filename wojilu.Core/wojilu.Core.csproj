@@ -87,17 +87,17 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Common\AD.cs" />
-    <Compile Include="Common\AppBase\ExtObject.cs" />
-    <Compile Include="Common\AppBase\Interface\IApp.cs" />
-    <Compile Include="Common\AppBase\Interface\IAppData.cs" />
-    <Compile Include="Common\AppBase\Interface\IAppInstaller.cs" />
-    <Compile Include="Common\AppBase\Interface\IAppStats.cs" />
-    <Compile Include="Common\AppBase\Interface\IExtViewService.cs" />
-    <Compile Include="Common\AppInstall\Domain\AppCloseMode.cs" />
-    <Compile Include="Common\AppInstall\Domain\AppInstaller.cs" />
-    <Compile Include="Common\AppInstall\Domain\AppInstallerStatus.cs" />
-    <Compile Include="Common\AppInstall\Domain\AppMemberShip.cs" />
-    <Compile Include="Common\AppInstall\Interface\IAppInstallerService.cs" />
+    <Compile Include="Common\Apps\AppBase\ExtObject.cs" />
+    <Compile Include="Common\Apps\AppBase\Interface\IApp.cs" />
+    <Compile Include="Common\Apps\AppBase\Interface\IAppData.cs" />
+    <Compile Include="Common\Apps\AppBase\Interface\IAppInstaller.cs" />
+    <Compile Include="Common\Apps\AppBase\Interface\IAppStats.cs" />
+    <Compile Include="Common\Apps\AppBase\Interface\IExtViewService.cs" />
+    <Compile Include="Common\Apps\AppInstall\Domain\AppCloseMode.cs" />
+    <Compile Include="Common\Apps\AppInstall\Domain\AppInstaller.cs" />
+    <Compile Include="Common\Apps\AppInstall\Domain\AppInstallerStatus.cs" />
+    <Compile Include="Common\Apps\AppInstall\Domain\AppMemberShip.cs" />
+    <Compile Include="Common\Apps\AppInstall\Interface\IAppInstallerService.cs" />
     <Compile Include="Common\Comments\CommentService.cs" />
     <Compile Include="Common\Comments\ICommentService.cs" />
     <Compile Include="Common\Comments\ICommentTarget.cs" />
@@ -187,8 +187,8 @@
     <Compile Include="Common\Spider\Service\SpiderTemplateService.cs" />
     <Compile Include="Common\Spider\Service\SportImportService.cs" />
     <Compile Include="Common\Tag\IAppTag.cs" />
-    <Compile Include="Common\MemberApp\Interface\IMemberApp.cs" />
-    <Compile Include="Common\MemberApp\Interface\IMemberAppService.cs" />
+    <Compile Include="Common\Apps\MemberApp\Interface\IMemberApp.cs" />
+    <Compile Include="Common\Apps\MemberApp\Interface\IMemberAppService.cs" />
     <Compile Include="Members\Groups\Domain\GroupInvite.cs" />
     <Compile Include="Members\Groups\Domain\GroupLog.cs" />
     <Compile Include="Members\Groups\GroupInitHelper.cs" />
@@ -241,7 +241,7 @@
     <Compile Include="Members\Users\Service\Jobs\SpaceVisitJob.cs" />
     <Compile Include="Members\Users\Service\Jobs\SpaceVisitJobItem.cs" />
     <Compile Include="Members\Users\Service\Jobs\VisitItem.cs" />
-    <Compile Include="Common\AppBase\AccessStatusUtil.cs">
+    <Compile Include="Common\Apps\AppBase\AccessStatusUtil.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Common\Menus\FooterMenu.cs" />
@@ -294,16 +294,16 @@
     <Compile Include="Members\Users\Service\LoginService.cs" />
     <Compile Include="Members\Users\UserInitHelper.cs" />
     <Compile Include="Members\Users\Utils\LoginUtil.cs" />
-    <Compile Include="Common\AppInstall\Domain\AppCategory.cs">
+    <Compile Include="Common\Apps\AppInstall\Domain\AppCategory.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Common\AppInstall\Service\AppInstallerService.cs">
+    <Compile Include="Common\Apps\AppInstall\Service\AppInstallerService.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Common\Tag\AppTagService.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Common\AppBase\AppFactory.cs">
+    <Compile Include="Common\Apps\AppBase\AppFactory.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Common\Categories\CategoryBase.cs">
@@ -330,7 +330,7 @@
     <Compile Include="Members\Users\Domain\UserApp.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Common\MemberApp\MemberAppServiceBase.cs">
+    <Compile Include="Common\Apps\MemberApp\MemberAppServiceBase.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Members\Users\Domain\UserMenu.cs">
@@ -340,9 +340,6 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Members\Groups\Domain\GroupCategory.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Members\Groups\Domain\GroupIndex.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Common\Comments\IComment.cs">

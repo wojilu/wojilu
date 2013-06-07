@@ -85,7 +85,7 @@
         var adminPwd2 = $('#adminPwd2').val();
         var adminUrl = $('#adminUrl').val();
 
-        var objUser = {
+        window.objUser = {
             name: adminName,
             email: adminEmail,
             pwd : adminPwd,
@@ -131,8 +131,18 @@
             $('#adminPwd2').focus();
             return false;
         }
-
         
+     
+
+        slidePageNext(me);
+    });
+    
+    // 第三步处理：选择网站类型
+    //-----------------------------------------------------------------------------------------------------
+    $('#btnStep3').click(function () {
+        var me = this;
+        window.objUser.siteType = $('input[name=siteType]').val();
+
         if( confirm( '确认提交？' )==false ) {
             return false;
         }
@@ -143,23 +153,22 @@
         btn.attr('disabled', true );
         var btnPrev = btn.prev();
         btnPrev.attr('disabled', true );
+        
 
-        $.post(setUserLink.toAjax(), objUser, function (data) {
+        $.post(setUserLink.toAjax(), window.objUser, function (data) {
             $('#initInfo').hide();
             btn.attr('disabled', false );
             btnPrev.attr('disabled', false );
-            if( data=='ok' ) {                
+            if( data=='ok' ) {
                 slidePageNext(me);
             }
             else {
                 alert( data );
             }
         });
-
-        return false;
     });
 
-    // 第三步处理：安装完成
+    // 第四步处理：安装完成
     //-----------------------------------------------------------------------------------------------------
     $('#btnDone').click(function () {
         $.post(doneLink.toAjax(), function (data) {

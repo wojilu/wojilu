@@ -5,9 +5,68 @@
 using System;
 using System.Collections.Generic;
 
+using wojilu.Members.Interface;
+using wojilu.Common.AppBase.Interface;
+using wojilu.Common.MemberApp.Interface;
+using wojilu.Members.Users.Domain;
+using wojilu.Data;
+
 namespace wojilu.Common.AppInstall {
 
     public class AppInstallerService : IAppInstallerService {
+
+        /// <summary>
+        /// 安装某个app
+        /// </summary>
+        /// <param name="appType">必须事先IApp的类型，比如ForumApp</param>
+        /// <param name="owner"></param>
+        /// <param name="creator"></param>
+        /// <param name="appName">app名称</param>
+        /// <returns></returns>
+        public virtual IMemberApp Install( Type appType, IMember owner, User creator, String appName ) {
+
+            IApp objApp = ObjectContext.Create<IApp>( appType );
+
+            objApp.OwnerId = owner.Id;
+            objApp.OwnerType = owner.GetType().FullName;
+            objApp.OwnerUrl = owner.Url;
+            db.insert( objApp );
+
+            AppInstaller info = GetByType( appType );
+
+            IMemberApp mApp = ObjectContext.Create<IMemberApp>( getMemberAppType( owner ) );
+            mApp.Creator = creator;
+            mApp.CreatorUrl = creator.Url;
+            mApp.AppInfoId = info.Id;
+            mApp.AppOid = objApp.Id;
+            mApp.Name = appName;
+
+            if (mApp.GetType().IsSubclassOf( typeof( CacheObject ) )) {
+                cdb.insert( (CacheObject)mApp );
+            }
+            else {
+                db.insert( mApp );
+            }
+
+            return mApp;
+        }
+
+        private Type getMemberAppType( IMember owner ) {
+
+            foreach (KeyValuePair<String, Type> kv in ObjectContext.Instance.TypeList) {
+
+                if (rft.IsInterface( kv.Value, typeof( IMemberApp ) )) {
+
+                    IMemberApp obj = ObjectContext.Create<IMemberApp>( kv.Value );
+                    if (obj.OwnerType == owner.GetType().FullName) return kv.Value;
+
+                }
+
+            }
+
+            return null;
+        }
+
 
         public virtual List<AppInstaller> GetByOwnerType( Type ownerType ) {
             List<AppInstaller> all = GetAll();

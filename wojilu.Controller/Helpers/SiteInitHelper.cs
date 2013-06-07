@@ -17,6 +17,7 @@ using wojilu.Common.Skins;
 using wojilu.Common.Feeds.Interface;
 using wojilu.Common.Pages.Interface;
 using wojilu.Common.Feeds.Service;
+using wojilu.Apps.Blog.Domain;
 
 namespace wojilu.Web.Controller.Helpers {
 
@@ -62,6 +63,7 @@ namespace wojilu.Web.Controller.Helpers {
                 isInit = true;
             }
 
+            InitBlogCategory();
             InitPhotoCategory();
             InitGroupCategory();
             InitForumRole();
@@ -139,6 +141,15 @@ namespace wojilu.Web.Controller.Helpers {
             new GroupCategory( "行业" ).insert();
 
             new GroupCategory( "文化与社会" ).insert();
+        }
+
+        public void InitBlogCategory() {
+
+            new BlogSysCategory( "旅行" ).insert();
+            new BlogSysCategory( "日记" ).insert();
+            new BlogSysCategory( "心情" ).insert();
+            new BlogSysCategory( "娱乐" ).insert();
+
         }
 
         public void InitPhotoCategory() {

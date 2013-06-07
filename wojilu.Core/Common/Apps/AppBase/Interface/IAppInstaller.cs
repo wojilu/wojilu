@@ -13,7 +13,7 @@ using wojilu.Members.Interface;
 namespace wojilu.Common.AppBase.Interface {
 
     public interface IAppInstaller {
-        IMemberApp Install( MvcContext ctx, IMember owner, String appName, AccessStatus accessStatus, String themeId );
+        IMemberApp Install( MvcContext ctx, IMember owner, String appName, AccessStatus accessStatus, String themeId, String friendlyUrl );
     }
 
 }

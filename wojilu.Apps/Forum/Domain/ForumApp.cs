@@ -11,6 +11,8 @@ using wojilu.Common.Security;
 using wojilu.Common.AppBase.Interface;
 
 using wojilu.Apps.Forum.Domain.Security;
+using wojilu.Common.MemberApp.Interface;
+using wojilu.Members.Sites.Domain;
 
 namespace wojilu.Apps.Forum.Domain {
 
@@ -22,6 +24,7 @@ namespace wojilu.Apps.Forum.Domain {
             this.Security = ForumPermission.GetDefaultPermission();
 
         }
+
 
         public int OwnerId { get; set; }
         public String OwnerType { get; set; }
@@ -115,6 +118,7 @@ namespace wojilu.Apps.Forum.Domain {
 
             return s;
         }
+
 
     }
 }

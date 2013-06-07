@@ -41,6 +41,8 @@ namespace wojilu.Web.Controller.Common.Installers {
         protected User user;
         protected IMember owner;
         protected String appName;
+        protected String menuFUrl;
+
         protected MvcContext ctx;
         protected ContentApp app;
 
@@ -93,11 +95,12 @@ namespace wojilu.Web.Controller.Common.Installers {
 </div>";
         }
 
-        public IMemberApp Install( MvcContext ctx, IMember owner, String appName, AccessStatus accessStatus, String themeId ) {
+        public IMemberApp Install( MvcContext ctx, IMember owner, String appName, AccessStatus accessStatus, String themeId, String friendlyUrl ) {
 
 
             this.ctx = ctx;
             this.appName = appName;
+            this.menuFUrl = friendlyUrl;
             this.user = ctx.viewer.obj as User;
             this.owner = owner;
 
@@ -304,7 +307,7 @@ namespace wojilu.Web.Controller.Common.Installers {
             IMemberApp mapp = appService.Add( creator, owner, name, installer.Id, AccessStatus.Public );
             String appUrl = UrlConverter.clearUrl( mapp, ctx, this.owner );
 
-            IMenu menu = menuService.AddMenuByApp( mapp, name, "", appUrl );
+            IMenu menu = menuService.AddMenuByApp( mapp, name, this.menuFUrl, appUrl );
 
             ContentApp newApp = ContentApp.findById( mapp.AppOid );
             this.app = newApp;

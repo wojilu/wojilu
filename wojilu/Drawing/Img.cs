@@ -152,7 +152,7 @@ namespace wojilu.Drawing {
             if (!Directory.Exists( path )) {
                 Directory.CreateDirectory( path );
             }
-            return Path.Combine( strDate, strFile );
+            return Path.Combine( strDate, strFile ).Replace( "\\", "/" );
         }
 
         /// <summary>
