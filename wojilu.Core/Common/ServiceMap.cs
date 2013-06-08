@@ -7,6 +7,10 @@ using wojilu.DI;
 
 namespace wojilu.Common {
 
+
+    /// <summary>
+    /// 提供常用 service 获取快捷方式。比如根据 ownerType 获取 menuService
+    /// </summary>
     public class ServiceMap {
 
 
@@ -21,6 +25,11 @@ namespace wojilu.Common {
             return _mappServiceMap;
         }
 
+        /// <summary>
+        /// 根据 onwerType 获取 IMenuService
+        /// </summary>
+        /// <param name="ownerType"></param>
+        /// <returns></returns>
         public static IMenuService GetMenuService( Type ownerType ) {
 
             IMenuService obj = null;
@@ -29,6 +38,11 @@ namespace wojilu.Common {
             return obj;
         }
 
+        /// <summary>
+        /// 根据 onwerType 获取 IMemberAppService
+        /// </summary>
+        /// <param name="ownerType"></param>
+        /// <returns></returns>
         public static IMemberAppService GetUserAppService( Type ownerType ) {
 
             IMemberAppService obj = null;

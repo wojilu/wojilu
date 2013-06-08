@@ -96,11 +96,15 @@ namespace wojilu.Members.Sites.Service {
 
             clearDefaultMenu( menu );
 
+            updateRoute( menu );
+
+            return Insert( menu );
+        }
+
+        private static void updateRoute( IMenu menu ) {
             if (strUtil.HasText( menu.Url ) && strUtil.EqualsIgnoreCase( "default", menu.Url ) == false) {
                 RouteTable.UpdateFriendUrl( menu.Url );
             }
-
-            return Insert( menu );
         }
 
 
@@ -168,6 +172,9 @@ namespace wojilu.Members.Sites.Service {
             menu.Created = DateTime.Now;
 
             Insert( menu );
+
+            updateRoute( menu );
+
             return menu;
         }
 
