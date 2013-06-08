@@ -77,13 +77,18 @@ namespace wojilu.Apps.Photo.Domain {
         [NotSave]
         public String ImgMediumUrl {
             get {
-                return sys.Path.GetPhotoThumb( this.DataUrl, wojilu.Drawing.ThumbnailType.Medium );
+                return sys.Path.GetPhotoThumb( this.DataUrl, "m" );
             }
         }
 
         [NotSave]
         public String ImgThumbUrl {
-            get { return sys.Path.GetPhotoThumb( this.DataUrl ); }
+            get { return sys.Path.GetPhotoThumb( this.DataUrl, "sx" ); }
+        }
+
+        [NotSave]
+        public String ImgSmallUrl {
+            get { return sys.Path.GetPhotoThumb( this.DataUrl, "s" ); }
         }
 
         private TagTool _tag;

@@ -132,21 +132,8 @@ namespace wojilu {
             _siteSetting.ReservedUserUrl = _siteSetting.getArrayValue( dic, "ReservedUserUrl" );
             _siteSetting.ReservedKey = _siteSetting.getArrayValue( dic, "ReservedKey" );
 
-            _siteSetting.PhotoThumbHeight = cvt.ToInt( getVal( dic, "PhotoThumbHeight" ) );
-            _siteSetting.PhotoThumbWidth = cvt.ToInt( getVal( dic, "PhotoThumbWidth" ) );
-            _siteSetting.PhotoThumbHeightMedium = cvt.ToInt( getVal( dic, "PhotoThumbHeightMedium" ) );
-            _siteSetting.PhotoThumbWidthMedium = cvt.ToInt( getVal( dic, "PhotoThumbWidthMedium" ) );
-            _siteSetting.PhotoThumbHeightBig = cvt.ToInt( getVal( dic, "PhotoThumbHeightBig" ) );
-            _siteSetting.PhotoThumbWidthBig = cvt.ToInt( getVal( dic, "PhotoThumbWidthBig" ) );
-
-            _siteSetting.AvatarThumbHeight = cvt.ToInt( getVal( dic, "AvatarThumbHeight" ) );
-            _siteSetting.AvatarThumbWidth = cvt.ToInt( getVal( dic, "AvatarThumbWidth" ) );
-            _siteSetting.AvatarThumbHeightMedium = cvt.ToInt( getVal( dic, "AvatarThumbHeightMedium" ) );
-            _siteSetting.AvatarThumbWidthMedium = cvt.ToInt( getVal( dic, "AvatarThumbWidthMedium" ) );
-            _siteSetting.AvatarThumbHeightBig = cvt.ToInt( getVal( dic, "AvatarThumbHeightBig" ) );
-            _siteSetting.AvatarThumbWidthBig = cvt.ToInt( getVal( dic, "AvatarThumbWidthBig" ) );
-
-            _siteSetting.PhotoThumbMode = getVal( dic, "PhotoThumbMode" );
+            _siteSetting.PhotoThumb = getVal( dic, "PhotoThumb" );
+            _siteSetting.AvatarThumb = getVal( dic, "AvatarThumb" );
 
             _siteSetting.UploadFileTypes = _siteSetting.getArrayValue( dic, "UploadFileTypes" );
             _siteSetting.UploadPicTypes = _siteSetting.getArrayValue( dic, "UploadPicTypes" );
@@ -161,9 +148,6 @@ namespace wojilu {
             _siteSetting.UserSignatureMax = cvt.ToInt( getVal( dic, "UserSignatureMax" ) );
             _siteSetting.UserDescriptionMin = cvt.ToInt( getVal( dic, "UserDescriptionMin" ) );
             _siteSetting.UserDescriptionMax = cvt.ToInt( getVal( dic, "UserDescriptionMax" ) );
-
-            _siteSetting.IsSaveAvatarMedium = cvt.ToBool( getVal( dic, "IsSaveAvatarMedium" ) );
-            _siteSetting.IsSaveAvatarBig = cvt.ToBool( getVal( dic, "IsSaveAvatarBig" ) );
 
             _siteSetting.BadWords = _siteSetting.getArrayValue( dic, "BadWords" );
             _siteSetting.BadWordsReplacement = getVal( dic, "BadWordsReplacement" );

@@ -22,6 +22,7 @@ using System.Drawing;
 using wojilu.Drawing;
 using System.Net;
 using wojilu.Net;
+using System.Collections.Generic;
 
 namespace wojilu.Web.Utils {
 
@@ -51,14 +52,10 @@ namespace wojilu.Web.Utils {
             String oPath = Img.GetOriginalPath( fullPath );
             deleteImgPrivate( oPath, "original" );
 
-            if (config.Instance.Site.IsSaveAvatarMedium) {
-                String mPath = Img.GetThumbPath( fullPath, ThumbnailType.Medium );
-                deleteImgPrivate( mPath, "medium" );
-            }
-
-            if (config.Instance.Site.IsSaveAvatarBig) {
-                String bPath = Img.GetThumbPath( fullPath, ThumbnailType.Big );
-                deleteImgPrivate( bPath, "big" );
+            Dictionary<String, ThumbInfo> dicThumbConfig = ThumbConfig.GetAvatarConfig();
+            foreach (KeyValuePair<String, ThumbInfo> kv in dicThumbConfig) {
+                String mPath = Img.GetThumbPath( fullPath, kv.Key );
+                deleteImgPrivate( mPath, kv.Key );
             }
         }
 
@@ -194,34 +191,19 @@ namespace wojilu.Web.Utils {
 
         private static Boolean saveAvatarThumb( String srcPath ) {
 
-            Boolean saveSmallThumb = true;
-            if (saveSmallThumb) {
-                int x = config.Instance.Site.AvatarThumbWidth;
-                int y = config.Instance.Site.AvatarThumbHeight;
-                Boolean isValid = saveAvatarPrivate( x, y, srcPath, ThumbnailType.Small );
-                if (!isValid) return false;
-            }
-
-            if (config.Instance.Site.IsSaveAvatarMedium) {
-                int x = config.Instance.Site.AvatarThumbWidthMedium;
-                int y = config.Instance.Site.AvatarThumbHeightMedium;
-                Boolean isValid = saveAvatarPrivate( x, y, srcPath, ThumbnailType.Medium );
-                if (!isValid) return false;
-            }
-
-            if (config.Instance.Site.IsSaveAvatarBig) {
-                int x = config.Instance.Site.AvatarThumbWidthBig;
-                int y = config.Instance.Site.AvatarThumbHeightBig;
-                Boolean isValid = saveAvatarPrivate( x, y, srcPath, ThumbnailType.Big );
-                if (!isValid) return false;
+            Dictionary<String, ThumbInfo> dicThumbConfig = ThumbConfig.GetAvatarConfig();
+            foreach (KeyValuePair<String, ThumbInfo> kv in dicThumbConfig) {
+                saveAvatarPrivate( srcPath, kv.Key, kv.Value );
             }
 
             return true;
         }
 
-        public static Boolean saveAvatarPrivate( int x, int y, String srcPath, ThumbnailType ttype ) {
+        public static Boolean saveAvatarPrivate( String srcPath, String suffix, ThumbInfo thumbInfo ) {
 
-            String thumbPath = Img.GetThumbPath( srcPath, ttype );
+            String thumbPath = Img.GetThumbPath( srcPath, suffix );
+            int x = thumbInfo.Width;
+            int y = thumbInfo.Height;
 
             try {
                 using (Image img = Image.FromFile( srcPath )) {
@@ -232,8 +214,8 @@ namespace wojilu.Web.Utils {
                         File.Copy( srcPath, thumbPath );
                     }
                     else {
-                        logger.Info( "save thumbnail..." + ttype.ToString() + ": " + srcPath + "=>" + thumbPath );
-                        Img.SaveThumbnail( srcPath, thumbPath, x, y, SaveThumbnailMode.Cut );
+                        logger.Info( "save thumbnail..." + suffix + ": " + srcPath + "=>" + thumbPath );
+                        Img.SaveThumbnail( srcPath, thumbPath, x, y, thumbInfo.Mode );
                     }
                     return true;
                 }
@@ -246,10 +228,6 @@ namespace wojilu.Web.Utils {
 
 
         }
-
-
-
-
 
     }
 }

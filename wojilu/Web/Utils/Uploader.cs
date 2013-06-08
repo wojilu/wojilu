@@ -33,11 +33,6 @@ namespace wojilu.Web.Utils {
         private static readonly ILog logger = LogManager.GetLogger( typeof( Uploader ) );
 
         /// <summary>
-        /// 默认生成缩略图的类型
-        /// </summary>
-        public static ThumbnailType[] ThumbTypes = new ThumbnailType[] { ThumbnailType.Small, ThumbnailType.Medium };
-
-        /// <summary>
         /// 判断上传文件是否是图片
         /// </summary>
         /// <param name="postedFile"></param>
@@ -137,7 +132,7 @@ namespace wojilu.Web.Utils {
         /// <returns></returns>
         public static Result SaveImg( HttpFile postedFile ) {
 
-            return SaveImg( postedFile, ThumbTypes );
+            return SaveImg( postedFile, ThumbConfig.GetPhotoConfig() );
         }
 
         /// <summary>
@@ -146,7 +141,7 @@ namespace wojilu.Web.Utils {
         /// <param name="postedFile"></param>
         /// <param name="arrThumbType"></param>
         /// <returns></returns>
-        public static Result SaveImg( HttpFile postedFile, ThumbnailType[] arrThumbType ) {
+        public static Result SaveImg( HttpFile postedFile, Dictionary<String, ThumbInfo> arrThumbType ) {
 
             Result result = new Result();
 
@@ -163,14 +158,15 @@ namespace wojilu.Web.Utils {
             try {
                 postedFile.SaveAs( filename );
 
-                foreach (ThumbnailType ttype in arrThumbType) {
-                    Boolean isValid = saveThumbSmall( filename, ttype );
+                foreach (KeyValuePair<String, ThumbInfo> kv in arrThumbType) {
+                    Boolean isValid = saveThumb( filename, kv.Key, kv.Value );
                     if (!isValid) {
                         file.Delete( filename );
                         result.Add( "format error: " + postedFile.FileName );
                         return result;
                     }
                 }
+
 
             }
             catch (Exception exception) {
@@ -182,28 +178,18 @@ namespace wojilu.Web.Utils {
             return result;
         }
 
-        private static Boolean saveThumbSmall( String filename, ThumbnailType ttype ) {
-
-            int x = 0;
-            int y = 0;
-            SaveThumbnailMode sm = SaveThumbnailMode.Auto;
-
-            if (ttype == ThumbnailType.Small) {
-                x = config.Instance.Site.PhotoThumbWidth;
-                y = config.Instance.Site.PhotoThumbHeight;
-                sm = config.Instance.Site.GetPhotoThumbMode();
-            }
-            else if (ttype == ThumbnailType.Medium) {
-                x = config.Instance.Site.PhotoThumbWidthMedium;
-                y = config.Instance.Site.PhotoThumbHeightMedium;
-            }
-            else if (ttype == ThumbnailType.Big) {
-                x = config.Instance.Site.PhotoThumbWidthBig;
-                y = config.Instance.Site.PhotoThumbHeightBig;
-            }
-
+        private static Boolean saveThumb( String filename, String suffix, ThumbInfo x ) {
             try {
-                saveThumbImagePrivate( filename, ttype, x, y, sm );
+
+                using (Image img = Image.FromFile( filename )) {
+                    if (img.Size.Width <= x.Width && img.Size.Height <= x.Height) {
+                        File.Copy( filename, Img.GetThumbPath( filename, suffix ) );
+                    }
+                    else {
+                        Img.SaveThumbnail( filename, Img.GetThumbPath( filename, suffix ), x.Width, x.Height, x.Mode );
+                    }
+                }
+
                 return true;
             }
             catch (OutOfMemoryException ex) {
@@ -211,6 +197,7 @@ namespace wojilu.Web.Utils {
                 return false;
             }
         }
+
 
         private static void saveThumbImagePrivate( String filename, ThumbnailType ttype, int x, int y, SaveThumbnailMode sm ) {
             using (Image img = Image.FromFile( filename )) {
@@ -254,7 +241,7 @@ namespace wojilu.Web.Utils {
 
                 postedFile.SaveAs( filename );
 
-                try {                    
+                try {
                     saveThumbImagePrivate( filename, ThumbnailType.Small, width, height, mode );
 
                     if (strUtil.HasText( oldFile )) {

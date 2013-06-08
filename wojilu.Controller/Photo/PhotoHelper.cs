@@ -9,7 +9,7 @@ namespace wojilu.Web.Controller.Photo {
 
         public static string getCover( PhotoAlbum album ) {
 
-            if (strUtil.HasText( album.Logo )) return sys.Path.GetPhotoThumb( album.Logo );
+            if (strUtil.HasText( album.Logo )) return sys.Path.GetPhotoThumb( album.Logo, "sx" );
 
             PhotoPost photo = PhotoPost.find( "AppId=" + album.AppId + " and PhotoAlbum.Id=" + album.Id ).first();
             if (photo != null) {
@@ -22,7 +22,6 @@ namespace wojilu.Web.Controller.Photo {
 
             return strUtil.Join( sys.Path.Img, "/m/album.jpg" );
         }
-
 
         public static int getDataCount( PhotoAlbum album ) {
             if (album.DataCount > 0) return album.DataCount;

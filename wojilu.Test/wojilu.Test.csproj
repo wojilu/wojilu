@@ -72,6 +72,7 @@
     <Compile Include="OpenAuth\QQWeiboTest.cs" />
     <Compile Include="OpenAuth\WeiboTest.cs" />
     <Compile Include="Orm\ConcurrentTest.cs" />
+    <Compile Include="Platform\ConfigTest.cs" />
     <Compile Include="Platform\MailTest.cs" />
     <Compile Include="Orm\CRUD.IdTest.cs">
       <SubType>Code</SubType>

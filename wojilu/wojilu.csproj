@@ -94,6 +94,8 @@
     <Compile Include="Aop\MethodInvocation.cs" />
     <Compile Include="Aop\ObservedMethod.cs" />
     <Compile Include="Aop\ObservedType.cs" />
+    <Compile Include="Drawing\ThumbInfo.cs" />
+    <Compile Include="Drawing\ThumbConfig.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Common\IBinderValue.cs" />
     <Compile Include="Common\ItemValue.cs" />

@@ -586,51 +586,51 @@ namespace wojilu.Config {
             return sb.ToString();
         }
 
-
         //----------------------------------------------------------------
 
         /// <summary>
-        /// 上传图片时，生成小型缩略图的模式，可填写5种：auto,cut, x, y, xy。
-        /// <para>含义依次是：auto(自动)，cut(裁切)，x(根据宽度)，y(根据高度)，xy(根据宽高)</para>
-        /// <para>如果不填写，默认使用auto</para>
+        /// 上传图片的配置信息，具体内容，请参考 ThumbConfig 的注释
         /// </summary>
-        public String PhotoThumbMode { get; set; }
+        public String PhotoThumb { get; set; }
 
-        /// <summary>
-        /// 获取小型缩略图生成模式
-        /// </summary>
-        /// <returns></returns>
-        public SaveThumbnailMode GetPhotoThumbMode( ) {
-            String mode = this.PhotoThumbMode;
-            if (strUtil.IsNullOrEmpty( mode )) return SaveThumbnailMode.Auto;
-            if (strUtil.EqualsIgnoreCase( mode, "cut" )) return SaveThumbnailMode.Cut;
-            if (strUtil.EqualsIgnoreCase( mode, "x" )) return SaveThumbnailMode.ByWidth;
-            if (strUtil.EqualsIgnoreCase( mode, "y" )) return SaveThumbnailMode.ByHeight;
-            if (strUtil.EqualsIgnoreCase( mode, "xy" )) return SaveThumbnailMode.ByWidthHeight;
-            return SaveThumbnailMode.Auto;
+        private Dictionary<String, ThumbInfo> _photoThumbConfig = null;
+        public Dictionary<String, ThumbInfo> GetPhotoThumbConfig() {
+
+            if (_photoThumbConfig == null) {
+
+                // 默认值
+                if (strUtil.IsNullOrEmpty( this.PhotoThumb )) {
+                    this.PhotoThumb = "s=width:170|height:170|mode:cut, m=width:600|height:600|mode:auto, b=width:1024|height:1024|mode:auto";
+                }
+
+                _photoThumbConfig = ThumbConfig.ReadString( this.PhotoThumb );
+            }
+
+            return _photoThumbConfig;
         }
 
-        public int PhotoThumbHeight { get; set; }
-        public int PhotoThumbWidth { get; set; }
+        /// <summary>
+        /// 头像缩略的配置信息，具体内容，请参考 ThumbConfig 的注释
+        /// </summary>
+        public String AvatarThumb { get; set; }
 
-        public int PhotoThumbHeightMedium { get; set; }
-        public int PhotoThumbWidthMedium { get; set; }
+        private Dictionary<String, ThumbInfo> _avatarThumbConfig = null;
+        public Dictionary<String, ThumbInfo> GetAvatarThumbConfig() {
 
-        public int PhotoThumbHeightBig { get; set; }
-        public int PhotoThumbWidthBig { get; set; }
+            if (_avatarThumbConfig == null) {
 
+                // 默认值
+                if (strUtil.IsNullOrEmpty( this.AvatarThumb )) {
+                    this.AvatarThumb = "s=width:48|height:48|mode:cut, m=width:100|height:100|mode:cut, b=width:200|height:200|mode:cut";
+                }
 
-        public int AvatarThumbHeight { get; set; }
-        public int AvatarThumbWidth { get; set; }
+                _avatarThumbConfig = ThumbConfig.ReadString( this.AvatarThumb );
+            }
 
-        public int AvatarThumbHeightMedium { get; set; }
-        public int AvatarThumbWidthMedium { get; set; }
+            return _avatarThumbConfig;
+        }
+        //----------------------------------------------------------------
 
-        public int AvatarThumbHeightBig { get; set; }
-        public int AvatarThumbWidthBig { get; set; }
-
-        public Boolean IsSaveAvatarMedium { get; set; }
-        public Boolean IsSaveAvatarBig { get; set; }
 
         public String[] UploadFileTypes { get; set; }
         public String[] UploadPicTypes { get; set; }

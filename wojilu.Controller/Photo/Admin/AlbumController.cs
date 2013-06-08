@@ -67,7 +67,7 @@ namespace wojilu.Web.Controller.Photo.Admin {
                 String desc = strUtil.HasText( album.Description ) ? "<div class=\"descriptionInfo\">" + album.Description + "</div>" : "";
                 block.Set( "album.Description", desc );
 
-                String coverImg = getCover( album );
+                String coverImg = PhotoHelper.getCover( album );
                 block.Set( "album.Cover", coverImg );
 
 
@@ -83,22 +83,6 @@ namespace wojilu.Web.Controller.Photo.Admin {
                 album.update( "DataCount" );
             }
             return count;
-        }
-
-        private string getCover( PhotoAlbum album ) {
-
-            if (strUtil.HasText( album.Logo )) return sys.Path.GetPhotoThumb( album.Logo );
-
-            PhotoPost photo = PhotoPost.find( "AppId=" + ctx.app.Id + " and PhotoAlbum.Id=" + album.Id ).first();
-            if (photo != null) {
-
-                album.Logo = photo.DataUrl;
-                album.update( "Logo" );
-
-                return photo.ImgThumbUrl;
-            }
-
-            return strUtil.Join( sys.Path.Img, "/m/album.jpg" );
         }
 
 

@@ -22,6 +22,7 @@ using System.IO;
 using System.Web;
 using wojilu.Web;
 using wojilu.Web.Utils;
+using System.Collections.Generic;
 
 
 namespace wojilu.Drawing {
@@ -40,7 +41,7 @@ namespace wojilu.Drawing {
         /// <param name="srcPath">相对网址</param>
         public static void DeleteImgAndThumb( String srcPath ) {
 
-            DeleteImgAndThumb( srcPath, Uploader.ThumbTypes );
+            DeleteImgAndThumb( srcPath, ThumbConfig.GetPhotoConfig() );
         }
 
         /// <summary>
@@ -48,7 +49,7 @@ namespace wojilu.Drawing {
         /// </summary>
         /// <param name="srcPath">相对网址</param>
         /// <param name="arrThumbType">多个缩略图类型</param>
-        public static void DeleteImgAndThumb( String srcPath, ThumbnailType[] arrThumbType ) {
+        public static void DeleteImgAndThumb( String srcPath, Dictionary<String, ThumbInfo> arrThumbType ) {
 
             if (strUtil.IsNullOrEmpty( srcPath )) return;
             if (srcPath.ToLower().StartsWith( "http://" ) ||
@@ -56,14 +57,15 @@ namespace wojilu.Drawing {
                 ) return;
 
             String path = PathHelper.Map( srcPath );
-            if (file.Exists( path ))
+            if (file.Exists( path )) {
                 wojilu.IO.File.Delete( path );
+            }
 
-            foreach (ThumbnailType ttype in arrThumbType) {
-
-                String pathThumb = PathHelper.Map( GetThumbPath( srcPath, ttype ) );
-                if (file.Exists( pathThumb ))
+            foreach (KeyValuePair<String, ThumbInfo> kv in arrThumbType) {
+                String pathThumb = PathHelper.Map( GetThumbPath( srcPath,  kv.Key ) );
+                if (file.Exists( pathThumb )) {
                     wojilu.IO.File.Delete( pathThumb );
+                }
             }
         }
 
@@ -219,6 +221,30 @@ namespace wojilu.Drawing {
             }
             else if (ttype == ThumbnailType.Big) {
                 suffix = "_b";
+            }
+
+            return pathWithoutExt + suffix + ext;
+        }
+
+        /// <summary>
+        /// 根据原始图片名称和缩略图后缀(_s或_m等)，获取缩略图名称
+        /// </summary>
+        /// <param name="srcPath"></param>
+        /// <param name="suffix">请勿添加下划线，系统会自动添加</param>
+        /// <returns></returns>
+        public static String GetThumbPath( Object srcPath, String suffix ) {
+
+            if (srcPath == null) return "";
+            String path = srcPath.ToString();
+            if (strUtil.IsNullOrEmpty( path )) return "";
+
+            String ext = Path.GetExtension( path );
+            String pathWithoutExt = strUtil.TrimEnd( path, ext );
+
+            if (suffix.StartsWith( "_" ) == false) suffix = "_" + suffix;
+
+            foreach (KeyValuePair<String, ThumbInfo> kv in ThumbConfig.GetPhotoConfig()) {
+                pathWithoutExt = strUtil.TrimEnd( pathWithoutExt, "_" + kv.Key );
             }
 
             return pathWithoutExt + suffix + ext;
@@ -455,13 +481,13 @@ namespace wojilu.Drawing {
             // 1) 复制原图
             file.Copy( oPath, targetPath );
 
-            // 2) 生成最小缩略图
-            String sPath = Img.GetThumbPath( targetPath, ThumbnailType.Small );
-            Img.SaveThumbnail( oPath, sPath, config.Instance.Site.PhotoThumbWidth, config.Instance.Site.PhotoThumbHeight, config.Instance.Site.GetPhotoThumbMode() );
+            Dictionary<String, ThumbInfo> thumbConfigMap = ThumbConfig.GetPhotoConfig();
+            foreach (KeyValuePair<String, ThumbInfo> kv in thumbConfigMap) {
 
-            // 3) 生成中等缩略图
-            String mPath = Img.GetThumbPath( targetPath, ThumbnailType.Medium );
-            Img.SaveThumbnail( oPath, mPath, config.Instance.Site.PhotoThumbWidthMedium, config.Instance.Site.PhotoThumbHeightMedium, SaveThumbnailMode.Auto );
+                String sPath = Img.GetThumbPath( targetPath, kv.Key );
+                Img.SaveThumbnail( oPath, sPath, kv.Value.Width, kv.Value.Height, kv.Value.Mode );
+
+            }
 
             return shortPath;
         }

@@ -105,6 +105,21 @@ namespace wojilu {
             return wojilu.Drawing.Img.GetThumbPath( GetPhotoOriginal( relativeUrl ), ttype );
         }
 
+        /// <summary>
+        /// 获取图片的缩略图
+        /// </summary>
+        /// <param name="relativeUrl"></param>
+        /// <param name="suffix"></param>
+        /// <returns></returns>
+        public String GetPhotoThumb( String relativeUrl, String suffix ) {
+
+            if (strUtil.IsNullOrEmpty( relativeUrl )) return null;
+            if (relativeUrl.ToLower().StartsWith( "http://" )) return relativeUrl;
+            if (relativeUrl.StartsWith( "/" )) return relativeUrl;
+
+            return wojilu.Drawing.Img.GetThumbPath( GetPhotoOriginal( relativeUrl ), suffix );
+        }
+
         public String GetPhotoRelative( String originalUrl ) {
             if (strUtil.IsNullOrEmpty( originalUrl )) return "";
             if (originalUrl.StartsWith( sys.Path.Photo )) {
