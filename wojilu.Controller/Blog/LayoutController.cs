@@ -69,7 +69,7 @@ namespace wojilu.Web.Controller.Blog {
 
         private void bindAdminLink() {
 
-            set( "friendsBlogLink", to( new Admin.BlogController().Index, -1 ) );
+            set( "friendsBlogLink", to( new Admin.BlogController().Friends, -1 ) );
             set( "myBlogLink", to( new Admin.MyListController().My ) );
             set( "addBlogLink", to( new Admin.PostController().Add ) );
             set( "categoryLink", to( new Admin.CategoryController().List ) );

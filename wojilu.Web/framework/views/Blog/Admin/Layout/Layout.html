@@ -39,12 +39,13 @@ _run( function() {
 
 	
 <style>
-.tabList {border-bottom: 1px solid #B8D5FF;}
+.tabList li {width:85px;}
 </style>
 
 <ul class="tabList" style="margin-left:10px; width:95%;">
     <li id="tabFriends" class="firstTab"><a href="#{friendsBlogLink}" class="frmLink" loadTo="blogMain" nolayout=3>:{friendBlog}</a><span></span></li>
     <li id="tabMy"><a href="#{myBlogLink}" class="frmLink" loadTo="blogMain" nolayout=3>:{myblog}</a><span></span> </li>
+
     <li id="tabAdd" style="width:90px;"><a href="#{addBlogLink}" class="frmLink" loadTo="blogMain" nolayout=3><img src="~img/add.gif" /> :{writeBlog}</a><span></span></li>
     <li id="tabDraft" style="width:50px;"><a href="#{draftLink}" class="frmLink" loadTo="blogMain" nolayout=3>:{draft}</a><span></span></li>
     <li id="tabTrash" style="width:60px;"><a href="#{trashLink}" class="frmLink" loadTo="blogMain" nolayout=3>_{trash}</a><span></span></li>

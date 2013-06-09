@@ -474,7 +474,7 @@
     <Content Include="framework\views\Photo\Admin\Album\Edit.html" />
     <Content Include="framework\views\Photo\Admin\Album\OrderList.html" />
     <Content Include="framework\views\Photo\Admin\Layout\Layout.html" />
-    <Content Include="framework\views\Photo\Admin\Photo\Index.html" />
+    <Content Include="framework\views\Photo\Admin\Photo\Friends.html" />
     <Content Include="framework\views\Photo\Admin\My\Index2.html" />
     <Content Include="framework\views\Photo\Admin\My\My.html" />
     <Content Include="framework\views\Photo\Admin\Post\Add.html" />
@@ -891,7 +891,7 @@
     <Content Include="framework\views\Admin\TagAdmin\Index.html" />
     <Content Include="framework\views\Admin\TagAdmin\Layout.html" />
     <Content Include="framework\views\Admin\TagAdmin\Toolbar.html" />
-    <Content Include="framework\views\Blog\Admin\Blog\Index.html" />
+    <Content Include="framework\views\Blog\Admin\Blog\Friends.html" />
     <Content Include="framework\views\Blog\Admin\Blog\Layout.html" />
     <Content Include="framework\views\Blog\Admin\MyList\Index.html" />
     <Content Include="framework\views\Blog\Admin\MyList\Layout.html" />

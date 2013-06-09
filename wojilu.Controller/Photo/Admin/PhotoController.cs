@@ -31,8 +31,11 @@ namespace wojilu.Web.Controller.Photo.Admin {
 
         }
 
+        public void Index() {
+            redirect( new MyController().My );
+        }
 
-        public void Index( int friendId ) {
+        public void Friends( int friendId ) {
 
             int userId = ctx.viewer.Id;
             DataPage<PhotoPost> list = postService.GetFriendsPhoto( userId, friendId );
@@ -60,7 +63,7 @@ namespace wojilu.Web.Controller.Photo.Admin {
             foreach (User user in friends) {
                 block.Set( "user.Name", user.Name );
                 block.Set( "user.Face", user.PicSmall );
-                block.Set( "user.BlogLink", to( Index, user.Id ) );
+                block.Set( "user.BlogLink", to( Friends, user.Id ) );
                 block.Next();
             }
         }

@@ -34,7 +34,11 @@ namespace wojilu.Web.Controller.Blog.Admin {
             bindFriends( friends );
         }
 
-        public void Index( int friendId ) {
+        public void Index() {
+            redirect( new MyListController().My );
+        }
+
+        public void Friends( int friendId ) {
 
             int userId = ctx.viewer.Id;
             DataPage<BlogPost> list = postService.GetFriendsBlog( userId, friendId );
@@ -63,7 +67,7 @@ namespace wojilu.Web.Controller.Blog.Admin {
             foreach (User user in friends) {
                 block.Set( "user.Name", user.Name );
                 block.Set( "user.Face", user.PicSmall );
-                block.Set( "user.BlogLink", to( Index, user.Id ) );
+                block.Set( "user.BlogLink", to( Friends, user.Id ) );
                 block.Next();
             }
         }
