@@ -49,6 +49,7 @@ namespace wojilu.Web.Controller.Content {
 
             set( "app.Style", app.Style );
             set( "app.SkinStyle", app.SkinStyle );
+            set( "lnkSendPost", to( new Submit.PostController().Index ) );
 
             List<ContentSection> sections = SectionService.GetByApp( ctx.app.Id );
             bindRows( app, sections );

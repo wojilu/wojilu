@@ -8,8 +8,9 @@
 
 <script>
     _run(function () {
-        require(['wojilu.app.content'], function () {
-            mergeSection();
+        require(['wojilu.app.content'], function (x) {
+            x.mergeSection();
+            x.bindSendButton('#{lnkSendPost}');
         });
     });
 </script>

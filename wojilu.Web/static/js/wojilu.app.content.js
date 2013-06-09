@@ -1,4 +1,5 @@
-﻿
+﻿define( [], function() {
+
 var hideSection = function( targetId, current ) {
     
     // 将其他区块的标题挪来
@@ -21,7 +22,7 @@ var hideSection = function( targetId, current ) {
 
 }
 
-var mergeSection = function() {
+var _mergeSection = function() {
 	
 	// 区块合并
 	$('.sectionPanel').each( function() {
@@ -36,5 +37,16 @@ var mergeSection = function() {
 	        }
 	    }
 	});
-    
+
 };
+
+var _bindSendButton = function(lnkSendPost) {
+    $('.btnSendPost').click( function() {
+        window.location.href= lnkSendPost;
+        return false;
+    });
+};
+
+return {mergeSection:_mergeSection, bindSendButton:_bindSendButton}
+
+});
