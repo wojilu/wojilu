@@ -9,6 +9,7 @@ using wojilu.Apps.Content.Domain;
 using wojilu.Web.Controller.Content.Caching;
 using wojilu.Members.Sites.Domain;
 using wojilu.Web.Controller.Content.Admin;
+using System.Collections.Generic;
 
 namespace wojilu.Web.Controller.Content {
 
@@ -26,11 +27,18 @@ namespace wojilu.Web.Controller.Content {
             set( "adminCheckUrl", t2( new SecurityController().CanAppAdmin, app.Id ) + "?appType=" + typeof( ContentApp ).FullName );
 
             // 当前app/module所有页面，所属的首页
-            String[] moduleUrlList = new String[2];
-            moduleUrlList[0] = to( new ContentController().Index );
-            moduleUrlList[1] = HtmlLink.ToApp( app );
+            List<String> moduleUrlList = new List<string>();
+            moduleUrlList.Add( to( new ContentController().Index ) );
+            moduleUrlList.Add( HtmlLink.ToApp( app ) );
 
-            ctx.SetItem( "_moduleUrl", moduleUrlList );
+            ContentSetting setting = app.GetSettingsObj();
+            if (strUtil.HasText( setting.StaticPath )) {
+                // 把所有可能的路径都加到 _moduleUrl 中
+                moduleUrlList.Add( setting.StaticPath ); //news/default.html
+                moduleUrlList.Add( getStaticDir( setting.StaticPath ) ); //news/
+            }
+
+            ctx.SetItem( "_moduleUrl", moduleUrlList.ToArray() );
 
             // admin link
             set( "allPostsLink", to( new Admin.Common.PostController().List, 0 ) );
@@ -55,9 +63,16 @@ namespace wojilu.Web.Controller.Content {
                 set( "submitterLink", "" );
             }
 
-
-
         }
+
+        //news/default.html=>news/
+        private string getStaticDir( string spath ) {
+            String[] arrItem = spath.Split( '/' );
+            if (arrItem.Length <= 1) return spath;
+            return strUtil.TrimEnd( spath, arrItem[arrItem.Length - 1] );
+        }
+
+
     }
 
 }
