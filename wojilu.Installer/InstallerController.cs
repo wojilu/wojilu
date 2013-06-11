@@ -20,6 +20,7 @@ using wojilu.Web.Context.Initor;
 using wojilu.Web.Context;
 using wojilu.Members.Interface;
 using wojilu.Members.Sites.Domain;
+using wojilu.Common.MemberApp.Interface;
 
 namespace wojilu.Web.Controller {
 
@@ -160,10 +161,10 @@ namespace wojilu.Web.Controller {
             LinkInstaller x2 = ObjectContext.Create<LinkInstaller>();
 
             // 门户首页
-            x1.CreatePortal( ctx, "首页", "default" );
+            IMemberApp mappPortal = x1.CreatePortal( ctx, "首页", "default" );
 
             // 新闻
-            x1.CreateNews( ctx, "新闻资讯", "news" );
+            IMemberApp mappNews = x1.CreateNews( ctx, "新闻资讯", "news" );
 
             // 论坛
             ObjectContext.Create<ForumInstaller>().Init( ctx, "讨论区", "bbs" );
@@ -188,14 +189,20 @@ namespace wojilu.Web.Controller {
 
             // tag
             x2.AddTag( ctx, "Tag", "tags" );
+
+
+            // 设置安装完毕
+            config.Instance.Site.IsInstall = true;
+            config.Instance.Site.Update( "IsInstall", true );
+
+            // 生成静态页面
+            HtmlInstallerHelper htmlHelper = ObjectContext.Create<HtmlInstallerHelper>();
+            htmlHelper.MakeHtml( ctx, mappPortal, mappNews );
         }
 
 
         [HttpPost]
         public void Done() {
-
-            config.Instance.Site.IsInstall = true;
-            config.Instance.Site.Update( "IsInstall", true );
 
             echoAjaxOk();
         }

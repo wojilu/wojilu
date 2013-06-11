@@ -17,17 +17,17 @@ namespace wojilu.Web.Controller {
 
     public class CmsInstaller : BaseInstaller {
 
-        public void CreateNews( MvcContext ctx, String appName, String appUrl ) {
+        public IMemberApp CreateNews( MvcContext ctx, String appName, String appUrl ) {
             String themeId = "3c715507-29ba-4436-b71d-11f6b08e12f7";
-            createContentApp( ctx, appName, appUrl, themeId );
+            return createContentApp( ctx, appName, appUrl, themeId );
         }
 
-        public void CreatePortal( MvcContext ctx, String appName, String appUrl ) {
+        public IMemberApp CreatePortal( MvcContext ctx, String appName, String appUrl ) {
             String themeId = "78349067-6e1f-4639-92ea-4acc142470ed";
-            createContentApp( ctx, appName, appUrl, themeId );
+            return createContentApp( ctx, appName, appUrl, themeId );
         }
 
-        private void createContentApp( MvcContext ctx, String appName, String appUrl, String themeId ) {
+        private IMemberApp createContentApp( MvcContext ctx, String appName, String appUrl, String themeId ) {
             IMember owner = ctx.owner.obj;
 
             NewsInstaller x = ObjectContext.Create<NewsInstaller>();
@@ -36,8 +36,10 @@ namespace wojilu.Web.Controller {
             // 初始化权限，否则无法访问
             base.initAppPermission( mapp );
 
+            return mapp;
         }
 
+        //----------------------------------
 
     }
 

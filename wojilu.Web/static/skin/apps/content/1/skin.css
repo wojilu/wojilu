@@ -72,7 +72,7 @@
                 
 
     .summary-wrap { margin:0px 10px;}
-    .summary-item h3 {font-size:18px; font-family:"microsoft yahei" }
+    .summary-item h3 {font-size:16px; font-family:"microsoft yahei" }
     .summary-item h3 a { color:#333;}
     .summary-item {border-bottom:1px solid #ccc; margin-bottom:10px;padding-bottom:10px; }
     .summary-item:last-child { border-bottom:0px;}

@@ -62,6 +62,7 @@
     <Compile Include="Installers\ForumInstaller.cs" />
     <Compile Include="InstallerController.cs" />
     <Compile Include="InstallerFilter.cs" />
+    <Compile Include="Installers\HtmlInstallerHelper.cs" />
     <Compile Include="Installers\LinkInstaller.cs" />
     <Compile Include="Installers\MicroblogInstaller.cs" />
     <Compile Include="Installers\DownloadInstaller.cs" />
