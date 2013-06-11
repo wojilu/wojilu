@@ -1,16 +1,20 @@
 ﻿
     
         <div class="downloadSidebarMain">
-            <div style="font-size:16px; " class="sidebarTitle">分类目录</div>
+            <div style="" class="sidebarTitle">分类目录</div>
             
-            <div style="margin:10px;">
+
+            <ul class="unstyled">
                 <!-- BEGIN cat -->
-                <div style="margin:5px 0px; font-size:14px; font-weight:bold; "><a href="#{cat.Link}">#{cat.Name}</a></div>
-                <div style="margin-bottom:15px;">
-                    <!-- BEGIN subcat --><a href="#{subcat.Link}" style="margin-right:10px;">#{subcat.Name}</a><!-- END subcat -->
+                <li>
+                <div class="cat-title"><a href="#{cat.Link}">#{cat.Name}</a></div>
+                <div class="cat-list">
+                    <!-- BEGIN subcat --><a href="#{subcat.Link}">#{subcat.Name}</a><!-- END subcat -->
                 </div>
+                </li>
                 <!-- END cat -->
-            </div>
+            </ul>
+
         
         </div>
     
