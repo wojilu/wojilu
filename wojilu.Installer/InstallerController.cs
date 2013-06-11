@@ -128,11 +128,21 @@ namespace wojilu.Web.Controller {
             initOwner( ctx );
             initViewer( ctx, user );
 
-            // 4）安装app
+            // 4) 网站名称
+            String siteName = ctx.Post( "siteName" );
+            updateSiteName( siteName );
+
+            // 5）安装app
             int siteType = ctx.PostInt( "siteType" );
             initSiteApp( siteType );
 
             echoAjaxOk();
+        }
+
+        private void updateSiteName( string siteName ) {
+            if (strUtil.IsNullOrEmpty( siteName )) return;
+            config.Instance.Site.SiteName = siteName;
+            config.Instance.Site.Update( "SiteName", siteName );
         }
 
         private void initOwner( Context.MvcContext ctx ) {

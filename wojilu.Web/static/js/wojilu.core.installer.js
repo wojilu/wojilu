@@ -142,6 +142,7 @@
     $('#btnStep3').click(function () {
         var me = this;
         window.objUser.siteType = $('input[name=siteType]').val();
+        window.objUser.siteName = $('input[name=siteName]').val();
 
         if( confirm( '确认提交？' )==false ) {
             return false;
@@ -152,8 +153,7 @@
         var btn = $(this);
         btn.attr('disabled', true );
         var btnPrev = btn.prev();
-        btnPrev.attr('disabled', true );
-        
+        btnPrev.attr('disabled', true );        
 
         $.post(setUserLink.toAjax(), window.objUser, function (data) {
             $('#initInfo').hide();
