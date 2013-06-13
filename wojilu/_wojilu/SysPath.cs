@@ -142,6 +142,16 @@ namespace wojilu {
             return GetAvatarThumb( relativeUrl, ThumbnailType.Small );
         }
 
+        public String GetAvatarThumb( String relativeUrl, String suffix ) {
+
+            if (strUtil.IsNullOrEmpty( relativeUrl )) return null;
+            if (relativeUrl.ToLower().StartsWith( "http://" )) return relativeUrl;
+            if (relativeUrl.StartsWith( "/" )) return relativeUrl;
+
+            String originalAvatar = GetAvatarOriginal( relativeUrl );
+            return wojilu.Drawing.Img.GetThumbPath( originalAvatar, suffix );
+        }
+
         public String GetAvatarThumb( String relativeUrl, ThumbnailType ttype ) {
             String originalAvatar = GetAvatarOriginal( relativeUrl );
             return wojilu.Drawing.Img.GetThumbPath( originalAvatar, ttype );

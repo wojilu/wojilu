@@ -45,23 +45,6 @@ namespace wojilu.Web.Controller.Download {
             set( "page", list.PageBar );
         }
 
-        //private void bindSubCategories( FileCategory c ) {
-        //    IBlock subblock = getBlock( "sub" );
-
-        //    int rootId = c.Id;
-        //    if (c.ParentId > 0) rootId = c.ParentId;
-
-        //    IBlock block = subblock.GetBlock( "subcats" );
-        //    List<FileCategory> subs = FileCategory.GetByParentId( rootId );
-        //    foreach (FileCategory sub in subs) {
-        //        block.Set( "cat.Name", sub.Name );
-        //        block.Set( "cat.Link", to( Show, sub.Id ) );
-        //        block.Next();
-        //    }
-        //    subblock.Next();
-
-        //}
-
         private void bindLink( IBlock block, int id ) {
             block.Set( "f.ShowLink", to( new FileController().Show, id ) );
         }

@@ -1,4 +1,4 @@
-/*
+﻿/*
  * Copyright (c) 2010, www.wojilu.com. All rights reserved.
  */
 
@@ -35,7 +35,7 @@ namespace wojilu.Web.Controller.Users {
             User owner = ctx.owner.obj as User;
 
             set( "user.Name", owner.Name );
-            set( "user.Face", owner.PicMedium );
+            set( "user.Face", owner.PicM );
 
             int friendCount = owner.FriendCount;
             int blogCount = blogPostService.GetCountByUser( owner.Id );

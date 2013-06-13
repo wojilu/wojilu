@@ -142,7 +142,7 @@ namespace wojilu.Web.Controller.Blog {
             User user = User.findById( s.BlogStarUserId );
             if (user != null) {
                 sblock.Set( "x.UserTitle", s.BlogStarUserTitle );
-                sblock.Set( "x.Pic", user.PicMedium );
+                sblock.Set( "x.Pic", user.PicM );
                 sblock.Set( "x.Link", Link.ToMember( user ) );
                 sblock.Set( "x.Description", s.BlogStarUserDescription );
                 sblock.Next();

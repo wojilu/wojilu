@@ -95,7 +95,7 @@ namespace wojilu.Web.Controller.Users.Admin {
             set( "inviteLink", ctx.GetItem( "inviteLink" ) );
             set( "userName", user.Name );
 
-            String userPic = user.PicMedium;
+            String userPic = user.PicM;
             if (userPic.StartsWith( "/" )) userPic = getFullUrl( userPic );
 
             set( "userPic", userPic );

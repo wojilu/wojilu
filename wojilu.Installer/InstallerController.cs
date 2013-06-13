@@ -21,6 +21,8 @@ using wojilu.Web.Context;
 using wojilu.Members.Interface;
 using wojilu.Members.Sites.Domain;
 using wojilu.Common.MemberApp.Interface;
+using wojilu.Common.Menus.Interface;
+using System.Collections.Generic;
 
 namespace wojilu.Web.Controller {
 
@@ -134,7 +136,7 @@ namespace wojilu.Web.Controller {
 
             // 5）安装app
             int siteType = ctx.PostInt( "siteType" );
-            initSiteApp( siteType );
+            initSiteApp( siteType, user );
 
             echoAjaxOk();
         }
@@ -162,9 +164,113 @@ namespace wojilu.Web.Controller {
             ctx.utils.setViewerContext( context );
         }
 
-        private void initSiteApp( int siteType ) {
+        private void initSiteApp( int siteType, User user ) {
 
             if (siteType <= 0) return;
+
+            if (siteType == 1) {
+                createFullSite();
+            }
+            else if (siteType == 2) {
+                createCmsSite();
+            }
+            else if (siteType == 3) {
+                createForumSite();
+            }
+            else if (siteType == 4) {
+                createMicroblogSite();
+            }
+            else if (siteType == 5) {
+                createWaterfallSite();
+            }
+            else if (siteType == 6) {
+                createPersonalSite( user );
+            }
+        }
+
+
+        private void createCmsSite() {
+            CmsInstaller x1 = ObjectContext.Create<CmsInstaller>();
+            LinkInstaller x2 = ObjectContext.Create<LinkInstaller>();
+
+            // 门户首页
+            IMemberApp mappPortal = x1.CreatePortal( ctx, "首页", "default" );
+
+            // 新闻
+            IMemberApp mappNews = x1.CreateNews( ctx, "新闻资讯", "news" );
+
+            // 设置安装完毕
+            updateSiteDone();
+
+            // 生成静态页面
+            HtmlInstallerHelper htmlHelper = ObjectContext.Create<HtmlInstallerHelper>();
+            htmlHelper.MakeHtml( ctx, mappPortal, mappNews );
+        }
+
+        private static void updateSiteDone() {
+            config.Instance.Site.IsInstall = true;
+            config.Instance.Site.Update( "IsInstall", true );
+        }
+
+        // 论坛
+        private void createForumSite() {
+            ObjectContext.Create<ForumInstaller>().Init( ctx, "首页", "default" );
+            updateSiteDone();
+        }
+
+        // 微博
+        private void createMicroblogSite() {
+            ObjectContext.Create<MicroblogInstaller>().Init( ctx, "首页", "default" );
+            updateSiteDone();
+        }
+
+        // 瀑布流
+        private void createWaterfallSite() {
+            ObjectContext.Create<WaterfallInstaller>().Init( ctx, "首页", "default" );
+            updateSiteDone();
+        }
+
+        private void createPersonalSite( User user ) {
+
+            // 将博客=>设为个人空间首页
+            UserMenu blogMenu = getBlogMenu( user );
+            blogMenu.Url = "default";
+            ServiceMap.GetMenuService( typeof( User ) ).Update( blogMenu );
+
+            // 修改路由default;default:{owner=admin,ownertype=user}
+            updateRoute( user );
+
+            // 修改主题
+            user.TemplateId = 31;
+            user.update();
+
+            // done
+            updateSiteDone();
+
+            // 重启网站
+            sys.Clear.ClearAll();
+        }
+
+        private static void updateRoute( User user ) {
+            String routePath = strUtil.Join( cfgHelper.ConfigRoot, "route.config" );
+            routePath = PathHelper.Map( routePath );
+            String routeContent = file.Read( routePath );
+            routeContent = routeContent.Replace( "default;default:{controller=SiteInit}", "//default;default:{controller=SiteInit}" );
+            routeContent = routeContent.Replace( "//default;default:{owner=userUrl,ownertype=user}", "default;default:{owner=" + user.Url + ",ownertype=user}" );
+            file.Write( routePath, routeContent );
+        }
+
+        private UserMenu getBlogMenu( User user ) {
+
+            List<IMenu> menus = ServiceMap.GetMenuService( typeof( User ) ).GetList( user );
+            foreach (IMenu x in menus) {
+                if (x.RawUrl == null) continue;
+                if (x.RawUrl.ToLower().IndexOf( "blog/index" ) > 0) return x as UserMenu;
+            }
+            return null;
+        }
+
+        private void createFullSite() {
 
             // 完整安装
             CmsInstaller x1 = ObjectContext.Create<CmsInstaller>();

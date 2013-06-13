@@ -1,4 +1,4 @@
-/*
+﻿/*
  * Copyright (c) 2010, www.wojilu.com. All rights reserved.
  */
 
@@ -29,7 +29,7 @@ namespace wojilu.Web.Controller.Content.Binder {
         private void bindFace( User user ) {
 
             set( "profile", t2( new ProfileController().Main ) );
-            set( "user.Face", user.PicMedium );
+            set( "user.Face", user.PicM );
 
             set( "user.FriendCount", user.FriendCount );
             set( "user.FollowingCount", user.FollowingCount );
@@ -48,7 +48,7 @@ namespace wojilu.Web.Controller.Content.Binder {
 
             String shareLink = Link.To( ctx.owner.obj, new wojilu.Web.Controller.ShareController().Add );
             shareLink = shareLink + string.Format( "?url={0}&title={1}&pic={2}",
-                getFullUrl( toUser( user ) ), "" + user.Name + " �Ŀռ�", user.PicOriginal );
+                getFullUrl( toUser( user ) ), "" + user.Name + " 的空间", user.PicO );
 
             set( "shareLink", shareLink );
 

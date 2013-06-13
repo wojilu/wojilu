@@ -47,7 +47,7 @@ namespace wojilu.Web.Controller.Photo.Wf {
         private void bindUserInfo( User u ) {
             set( "u.Name", u.Name );
             set( "u.Created", u.Created.ToShortDateString() );
-            set( "u.PicMedium", u.PicMedium );
+            set( "u.PicMedium", u.PicM );
             set( "u.Link", PhotoLink.ToUser( u ) );
 
             set( "u.Gender", u.GenderString );
@@ -77,7 +77,7 @@ namespace wojilu.Web.Controller.Photo.Wf {
 
             String shareLink = Link.To( ctx.owner.obj, new wojilu.Web.Controller.ShareController().Add );
             shareLink = shareLink + string.Format( "?url={0}&title={1}&pic={2}",
-                getFullUrl( PhotoLink.ToUser( u ) ), u.Name + "的图片首页", u.PicOriginal );
+                getFullUrl( PhotoLink.ToUser( u ) ), u.Name + "的图片首页", u.PicO );
 
             set( "shareLink", shareLink );
         }

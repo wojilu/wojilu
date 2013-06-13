@@ -78,7 +78,7 @@ namespace wojilu.Web.Controller {
             set( "inviteCode", inviteCode );
 
             set( "userName", user.Name );
-            set( "userPic", user.PicMedium );
+            set( "userPic", user.PicM );
 
             set( "loginLink", to( new MainController().Login ) );
 
@@ -103,7 +103,7 @@ namespace wojilu.Web.Controller {
             User friend = userService.GetById( friendId );
 
             set( "friend.Name", friend.Name );
-            set( "friend.Pic", friend.PicMedium );
+            set( "friend.Pic", friend.PicM );
             set( "friend.Id", friend.Id );
             set( "friend.Code", inviteCode );
 

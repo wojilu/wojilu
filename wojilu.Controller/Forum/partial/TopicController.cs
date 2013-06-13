@@ -54,7 +54,7 @@ namespace wojilu.Web.Controller.Forum {
 
                 String face = "";
                 if (strUtil.HasText( data.Creator.Pic )) {
-                    face = string.Format( "<img src=\"{0}\"/>", data.Creator.PicMedium );
+                    face = string.Format( "<img src=\"{0}\"/>", data.Creator.PicM );
                 }
 
                 block.Set( "post.MemberFace", face );

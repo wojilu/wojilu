@@ -174,7 +174,7 @@ namespace wojilu.Web.Controller.Forum {
 
             User user = ctx.viewer.obj as User;
             if (strUtil.HasText( user.Pic )) {
-                formBlock.Set( "currentUser", "<img src=\"" + user.PicMedium + "\"/>" );
+                formBlock.Set( "currentUser", "<img src=\"" + user.PicM + "\"/>" );
             }
             else {
                 formBlock.Set( "currentUser", user.Name );

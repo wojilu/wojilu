@@ -25,7 +25,7 @@ namespace wojilu.Web.Controller.Users.Admin {
                 set( "memberFace", "<span class=\"warning\">" + lang( "exNotUploadFace" ) + "</span>" );
             }
             else {
-                set( "memberFace", string.Format( "<img src=\"{0}\">", user.PicMedium ) );
+                set( "memberFace", string.Format( "<img src=\"{0}\">", user.PicM ) );
             }
         }
 

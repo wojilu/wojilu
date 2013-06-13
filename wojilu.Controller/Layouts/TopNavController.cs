@@ -130,7 +130,7 @@ _run( function() {
                     objViewer.Add( "Name", user.Name );
                     objViewer.Add( "FriendlyUrl", user.Url );
                     objViewer.Add( "Url", toUser( user ) );
-                    objViewer.Add( "PicMedium", user.PicMedium );
+                    objViewer.Add( "PicMedium", user.PicM );
 
                 viewer.Add( "obj", objViewer );
 

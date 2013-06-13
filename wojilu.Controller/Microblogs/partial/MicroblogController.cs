@@ -36,10 +36,10 @@ namespace wojilu.Web.Controller.Microblogs {
             set( "myCommentLink", to( new My.MicroblogCommentsController().My ) );
 
             set( "user.Name", user.Name );
-            set( "user.Pic", user.PicMedium );
+            set( "user.Pic", user.PicSX );
             set( "user.PicSmall", user.PicSmall );
 
-            set( "user.PicBig", user.PicBig );
+            set( "user.PicBig", user.PicM );
 
             if (Component.IsEnableUserSpace()) {
                 set( "user.Link", lnkFull( toUser( user ) ) );

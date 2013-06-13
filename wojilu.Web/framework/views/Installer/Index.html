@@ -14,7 +14,7 @@
 </head>
 <body>
 
-<h1>欢迎安装“我记录网站综合系统”</h1>
+<h1>欢迎安装“我记录网站综合系统 1.9”</h1>
 
 <div class="writeMsg">#{writeFileMsg}</div>
 
@@ -24,7 +24,7 @@
         <div class="stepTitle">
             <div id="stepTitle1" class="stepTitleItem stepTitleItemCurrent"><span class="titleNo">1</span>设置数据库</div>
             <div id="stepTitle2" class="stepTitleItem"><span class="titleNo">2</span>设置管理员帐号</div>
-            <div id="stepTitle3" class="stepTitleItem"><span class="titleNo">3</span>选择网站内容类型</div>
+            <div id="stepTitle3" class="stepTitleItem"><span class="titleNo">3</span>选择网站类型</div>
             <div id="stepTitle4" class="stepTitleItem"><span class="titleNo">4</span>安装成功</div>
             <div style="clear:both;"></div>
         </div>
@@ -42,17 +42,11 @@
             <td class="db-right">
                 <ul>
                 
-                    <li>                    
-                        <div><label><input id="rdoAccess" name="dbType" type="radio" value="access" />access <span class="note font12 left5">(这是默认值，如果您不了解数据库，请选择此项)</span></label></div>
-                        <div class="accessInfo">
-                            <div style="color:#468847;font-size:12px;">请填写access数据库名称</div>
-                            <div><input name="accessName" type="text" value="#{accessDbName}.mdb" style="width:350px;" /><br /><span class="note font12">(系统会自动生成数据库)</span></div>
-                        </div>                    
-                    </li>
+
                     
                     <li>
                         <div>
-                            <label><input id="rdoSqlServer" name="dbType" type="radio" value="sqlserver" />sqlserver2005 或更高版本 <span></span></label>
+                            <label><input id="rdoSqlServer" name="dbType" type="radio" value="sqlserver" /> sqlserver2005 或更高版本 <span></span></label>
                         </div>
                         <div id="sqlserverInfo" class="sqlserverInfo">
                             <div style="color:#468847;font-size:12px;">请填写数据库连接的字符串</div>
@@ -62,16 +56,22 @@
                             <div class="note" style="font-size:9px;">比如：server=localhost;uid=sa;pwd=123456;database=wojilu001</div>
                         </div>
                     </li>
-                    
+                    <li>                    
+                        <div><label><input id="rdoAccess" name="dbType" type="radio" value="access" /> access <span class="note font12 left5">(如果您不了解数据库，请选择此项)</span></label></div>
+                        <div class="accessInfo">
+                            <div style="color:#468847;font-size:12px;">请填写access数据库名称</div>
+                            <div><input name="accessName" type="text" value="#{accessDbName}.mdb" style="width:350px;" /><br /><span class="note font12">(系统会自动生成数据库)</span></div>
+                        </div>                    
+                    </li>
                     <li>
                     <div>                    
-                    <label><input id="rdoSqlServer2000" name="dbType" type="radio" value="sqlserver2000" />sqlserver2000 <span></span></label>
+                    <label><input id="rdoSqlServer2000" name="dbType" type="radio" value="sqlserver2000" /> sqlserver2000 <span></span></label>
                     </div>                    
                     </li>
                     
                     <li>                    
                         <div>
-                            <label><input id="rdoMysql" name="dbType" type="radio" value="mysql" />mysql <span></span></label>
+                            <label><input id="rdoMysql" name="dbType" type="radio" value="mysql" /> mysql <span></span></label>
                         </div>
                         <div class="mysqlInfo">
                             <div style="color:#468847;font-size:12px;">请填写数据库连接的字符串</div>
@@ -145,26 +145,32 @@
 
            
         
-            <table style="width:100%; margin-top:50px;">
+            <table style="width:100%; margin-top:5px;">
 
                 <tr>
                     <td class="tdL" style="width:180px; padding-right:10px; text-align:right;">
                         <div style="font-size:16px;">请填写网站名称</div>
                     </td>
                     <td style="font-size:16px; padding-left:16px !important;">
-                        <lable><input type="text" name="siteName" id="siteName" style="width:150px;  font-size: 16px; height: 26px !important; padding: 5px 10px !important; " /> 
+                        <lable><input type="text" name="siteName" id="siteName" style="width:150px;  font-size: 16px; height: 22px !important; padding: 5px 5px !important; " /> 
                         <span class="note" style="font-size:14px;">在logo处显示，请尽量简短。安装之后可改成图片</span></lable>
                     </td>
                 </tr>
 
-                <tr><td style=" height:10px;">&nbsp;</td></tr>
                 <tr>
                     <td class="tdL" style="width:180px; padding-right:10px; text-align:right;">
                         <div style="font-size:16px;">请选择网站类型</div>
                     </td>
                     <td style="font-size:12px; padding-left:15px !important;" class="radioList">
-                        <div><label><input id="siteType1" name="siteType" type="radio" value="1" checked="checked" /> <span class="strong">全功能型</span>，完整安装，包括SNS、门户、论坛、微博、博客、相册、群组等所有功能</label></div>
-                        <div><label><input id="siteType2" name="siteType" type="radio" value="0" /> <span class="strong">精简型</span>，只包括内核，所有程序在安装之后，可以手工添加(适合老用户)</label></div>                        
+                        <div><label><input name="siteType" type="radio" value="1" checked="checked" /> <span class="strong">全功能型</span>，完整安装，包括SNS、门户、论坛、微博、博客、相册、群组等所有功能</label></div>
+                        <div><label><input name="siteType" type="radio" value="2" /> <span class="strong">门户资讯</span>，生成静态html页面，发布文章资讯</label></div>
+                        <div><label><input name="siteType" type="radio" value="3" /> <span class="strong">论坛型</span>，只安装论坛讨论区，方便用户发帖交流</label></div>
+                        
+                        <div><label><input name="siteType" type="radio" value="4" /> <span class="strong">微博型</span>，对外呈现为一个微博网站，没有多余干扰因素</label></div>
+                        <div><label><input name="siteType" type="radio" value="5" /> <span class="strong">图片瀑布流</span>，图片单页无限滚动加载，适合图片展示和分享</label></div>
+                        <div><label><input name="siteType" type="radio" value="6" /> <span class="strong">个人网站</span>，作为个人网站使用。首页呈现自己的博客等信息</label></div>
+                        <div><label><input name="siteType" type="radio" value="0" /> <span class="strong">精简型</span>，只包括内核，所有程序在安装之后，由您手工添加(适合熟手)</label></div>     
+                        <div><span class="note left10">(说明：不管哪种类型，在安装之后，所有APP都可以自定义、自由添加和卸载)</span></div>                   
                     </td>
                 </tr>
             </table>

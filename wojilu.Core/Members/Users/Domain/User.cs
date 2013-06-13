@@ -146,23 +146,23 @@ namespace wojilu.Members.Users.Domain {
 
 
         [NotSave]
-        public String PicMedium {
-            get { return sys.Path.GetAvatarThumb( this.Pic, ThumbnailType.Medium ); }
+        public String PicM {
+            get { return sys.Path.GetAvatarThumb( this.Pic, "m" ); }
         }
 
         [NotSave]
-        public String PicBig {
-            get { return sys.Path.GetAvatarThumb( this.Pic, ThumbnailType.Big ); }
+        public String PicSX {
+            get { return sys.Path.GetAvatarThumb( this.Pic, "sx" ); }
         }
 
         [NotSave]
-        public String PicOriginal {
+        public String PicO {
             get { return sys.Path.GetAvatarOriginal( this.Pic ); }
         }
 
         [NotSave]
         public String PicSmall {
-            get { return sys.Path.GetAvatarThumb( this.Pic ); }
+            get { return sys.Path.GetAvatarThumb( this.Pic, "s" ); }
         }
 
         public Boolean HasUploadPic() {

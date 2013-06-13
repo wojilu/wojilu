@@ -24,10 +24,10 @@ namespace wojilu.Web.Controller.Microblogs.My {
             set( "myCommentLink", to( new MicroblogCommentsController().My ) );
 
             set( "user.Name", user.Name );
-            set( "user.Pic", user.PicMedium );
+            set( "user.Pic", user.PicSX );
             set( "user.PicSmall", user.PicSmall );
 
-            set( "user.PicBig", user.PicBig );
+            set( "user.PicBig", user.PicM );
             set( "user.Link", getFullUrl( toUser( user ) ) );
             set( "user.MLink", getFullUrl( alink.ToUserMicroblog( user ) ) );
             set( "user.Signature", user.Signature );

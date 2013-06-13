@@ -279,7 +279,7 @@ namespace wojilu.Web.Controller.Users.Admin.Friends {
             List<User> friends = list.Results;
             foreach (User user in friends) {
                 block.Set( "m.Name", user.Name );
-                block.Set( "m.FaceFull", user.PicMedium );
+                block.Set( "m.FaceFull", user.PicM );
                 block.Set( "m.UrlFull", toUser( user ) );
                 block.Set( "m.DeleteUrl", to( Delete, user.RealId ) );
                 block.Set( "m.DeleteFollowingLink", to( DeleteFollowing, user.RealId ) );
@@ -325,7 +325,7 @@ namespace wojilu.Web.Controller.Users.Admin.Friends {
                 block.Set( "m.Id", friend.RealId );
                 block.Set( "m.Name", friend.Name );
 
-                block.Set( "m.FaceFull", friend.PicMedium );
+                block.Set( "m.FaceFull", friend.PicM );
                 block.Set( "m.UrlFull", toUser( friend ) );
                 block.Set( "m.DeleteUrl", to( Delete, friend.RealId ) );
                 block.Set( "m.DeleteFollowingLink", to( DeleteFollowing, friend.RealId ) );

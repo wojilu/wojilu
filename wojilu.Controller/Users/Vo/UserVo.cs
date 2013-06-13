@@ -37,8 +37,8 @@ namespace wojilu.Web.Controller.Users {
             this.Tel = user.Profile.Tel;
             this.WebSite = user.Profile.WebSite;
 
-            this.Face = user.PicOriginal;
-            this.FaceMedium = user.PicMedium;
+            this.Face = user.PicO;
+            this.FaceMedium = user.PicM;
             this.FaceSmall = user.PicSmall;
 
             this.RoleSite = getRoleString( user );

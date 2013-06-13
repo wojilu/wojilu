@@ -141,7 +141,7 @@
     //-----------------------------------------------------------------------------------------------------
     $('#btnStep3').click(function () {
         var me = this;
-        window.objUser.siteType = $('input[name=siteType]').val();
+        window.objUser.siteType = $('input[name=siteType]:checked').val();
         window.objUser.siteName = $('input[name=siteName]').val();
 
         if( confirm( '确认提交？' )==false ) {
