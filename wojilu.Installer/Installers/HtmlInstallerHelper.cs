@@ -19,8 +19,8 @@ namespace wojilu.Web.Controller {
             updateStaticMenu( "news" );
 
             // 2) 生成静态页面
-            makeHtml( ctx, portalApp, "default.html" );
-            makeHtml( ctx, newsApp, "news/default.html" );
+            makeHtml( ctx, portalApp, "index.htm" );
+            makeHtml( ctx, newsApp, "news/index.htm" );
 
             // 3) 启动生成静态页面的job
             startJob( "wojilu.Web.Controller.Content.Htmls.HtmlJob" );

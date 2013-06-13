@@ -38,6 +38,8 @@ wojilu.Web/html/
 wojilu.Web/cms*/
 wojilu.Web/*/default.html
 wojilu.Web/default.html
+wojilu.Web/*/index.htm
+wojilu.Web/index.htm
 
 #wojilu temp files
 _wtemp/
