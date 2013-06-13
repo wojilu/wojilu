@@ -185,6 +185,9 @@ namespace wojilu.Web.Utils {
                     if (img.Size.Width <= x.Width && img.Size.Height <= x.Height) {
                         File.Copy( filename, Img.GetThumbPath( filename, suffix ) );
                     }
+                    else if (img.RawFormat.Equals( System.Drawing.Imaging.ImageFormat.Gif ) && ImageAnimator.CanAnimate( img )) {
+                        File.Copy( filename, Img.GetThumbPath( filename, suffix ) );
+                    }
                     else {
                         Img.SaveThumbnail( filename, Img.GetThumbPath( filename, suffix ), x.Width, x.Height, x.Mode );
                     }

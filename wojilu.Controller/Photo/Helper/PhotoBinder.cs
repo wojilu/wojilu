@@ -6,6 +6,7 @@ using wojilu.Web.Context;
 using wojilu.Members.Users.Domain;
 using wojilu.Web.Controller.Photo.Wf;
 using wojilu.Web.Mvc;
+using wojilu.Drawing;
 
 namespace wojilu.Web.Controller.Photo {
 
@@ -65,9 +66,16 @@ namespace wojilu.Web.Controller.Photo {
             block.Set( "x.PicM", x.ImgMediumUrl );
             block.Set( "x.PicO", x.ImgUrl );
 
-            block.Set( "x.WidthSx", x.SizeSX.Width );
-            block.Set( "x.HeightSx", x.SizeSX.Height );
+            int width = x.SizeSX.Width;
+            int height = x.SizeSX.Height;
+            int cfgWidth = getCfgWidth();
+            if (width > cfgWidth) {
+                height = Convert.ToInt32( (decimal)(cfgWidth * height) / (decimal)width );
+                width = cfgWidth;
+            }
 
+            block.Set( "x.WidthSx", width );
+            block.Set( "x.HeightSx", height );
 
             block.Set( "x.Pins", x.Pins );
             block.Set( "x.Likes", x.Likes );
@@ -104,6 +112,12 @@ namespace wojilu.Web.Controller.Photo {
                 block.Set( "x.LikedCss", "wfpost-like" );
                 block.Set( "x.LikeName", "<i class=\"icon-heart icon-white\"></i> 喜欢" );
             }
+        }
+
+        private static int getCfgWidth() {
+            ThumbInfo t = ThumbConfig.GetPhoto( "sx" );
+            if (t == null) return 170;
+            return t.Width;
         }
 
         private static String getSrcInfo( PhotoPost x ) {
