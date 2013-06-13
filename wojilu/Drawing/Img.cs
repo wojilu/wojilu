@@ -311,6 +311,17 @@ namespace wojilu.Drawing {
         }
 
         /// <summary>
+        /// 根据图片绝对路径，获取图片的大小
+        /// </summary>
+        /// <param name="absPhotoPath"></param>
+        /// <returns></returns>
+        public static Size GetPhotoSize( String absPhotoPath ) {
+            using (Image img = Image.FromFile( absPhotoPath )) {
+                return img.Size;
+            }
+        }
+
+        /// <summary>
         /// 获取缩略图尺寸
         /// </summary>
         /// <param name="width"></param>

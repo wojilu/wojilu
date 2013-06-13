@@ -85,6 +85,7 @@
     <Compile Include="Jsons\JsonSerializeTest.cs" />
     <Compile Include="Common\PageTest.cs" />
     <Compile Include="Common\PathUtilTest.cs" />
+    <Compile Include="Platform\PhotoTest.cs" />
     <Compile Include="Platform\TagTest.cs" />
     <Compile Include="Web\Mvc\RouteTestNew.cs" />
     <Compile Include="Web\Utils\PlatformTemplateTest.cs" />

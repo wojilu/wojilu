@@ -65,6 +65,7 @@
     <Reference Include="System.Data">
       <Name>System.Data</Name>
     </Reference>
+    <Reference Include="System.Drawing" />
     <Reference Include="System.Web" />
     <Reference Include="System.Xml" />
   </ItemGroup>
@@ -167,6 +168,8 @@
     <Compile Include="Content\Service\ContentSectionTypeService.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Photo\Domain\PhotoInfo.cs" />
+    <Compile Include="Photo\Helper\PhotoInfoHelper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -429,6 +432,7 @@
   <ItemGroup>
     <Compile Include="Content\Theme\XPost.cs" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PreBuildEvent>

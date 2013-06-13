@@ -28,6 +28,8 @@ namespace wojilu.Web.Controller {
 
     public class InstallerController : ControllerBase {
 
+        private static readonly ILog logger = LogManager.GetLogger( typeof( InstallerController ) );
+
         private static readonly Random rd = new Random();
 
         public IUserService userService { get; set; }
@@ -454,9 +456,11 @@ namespace wojilu.Web.Controller {
             try {
                 file.Write( filePath, "_test_write_file_content ..." );
                 file.Delete( filePath );
+                logger.Info( "write test ok:" + filePath );
             }
             catch (IOException ex) {
                 errors.Add( ex.Message );
+                logger.Error( "write error:" + filePath );
             }
         }
 

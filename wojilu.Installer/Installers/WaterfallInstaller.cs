@@ -12,6 +12,7 @@ using wojilu.Drawing;
 using wojilu.Members.Users.Domain;
 using wojilu.Web.Context;
 using wojilu.Web.Controller.Photo;
+using wojilu.Apps.Photo.Service;
 
 namespace wojilu.Web.Controller {
 
@@ -20,6 +21,10 @@ namespace wojilu.Web.Controller {
         private static readonly ILog logger = LogManager.GetLogger( typeof( WaterfallInstaller ) );
 
         public IPhotoPostService postService { get; set; }
+
+        public WaterfallInstaller() {
+            postService = new PhotoPostService();
+        }
 
         public void Init( MvcContext ctx, String appName, String fUrl ) {
 
@@ -59,7 +64,7 @@ namespace wojilu.Web.Controller {
                 x.OwnerType = creator.GetType().FullName;
                 x.OwnerUrl = creator.Url;
 
-                x.insert();
+                postService.CreatePost( x, app );
 
             }
 

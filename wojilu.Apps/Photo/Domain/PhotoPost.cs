@@ -15,6 +15,7 @@ using wojilu.Common.Jobs;
 using wojilu.Common.AppBase.Interface;
 using wojilu.Common;
 using wojilu.Common.Comments;
+using wojilu.Apps.Photo.Helper;
 
 namespace wojilu.Apps.Photo.Domain {
 
@@ -48,6 +49,11 @@ namespace wojilu.Apps.Photo.Domain {
         public int Hits { get; set; }
         public int Replies { get; set; }
 
+        /// <summary>
+        /// 图片大小等信息，存储格式：s=68/68,sx=80/120,m=180/500
+        /// </summary>
+        public String SizeInfo { get; set; }
+
         //--------------------------------------------------------------------
 
         public int Likes { get; set; }
@@ -68,6 +74,43 @@ namespace wojilu.Apps.Photo.Domain {
 
         [Column( Length = 40 )]
         public String Ip { get; set; }
+
+        //--------------------------------------------------------------------
+
+        private Dictionary<String, PhotoInfo> _sizeInfo;
+
+        [NotSave]
+        public PhotoInfo SizeS {
+            get { return getSizeDic( "s" ); }
+        }
+
+        [NotSave]
+        public PhotoInfo SizeSX {
+            get { return getSizeDic( "sx" ); }
+        }
+
+        [NotSave]
+        public PhotoInfo SizeM {
+            get { return getSizeDic( "m" ); }
+        }
+
+        [NotSave]
+        public PhotoInfo SizeB {
+            get { return getSizeDic( "b" ); }
+        }
+
+        private PhotoInfo getSizeDic( string key ) {
+
+            if (_sizeInfo == null) {
+                _sizeInfo = ObjectContext.Create<PhotoInfoHelper>().GetInfo( this.SizeInfo );
+            }
+
+            PhotoInfo ret;
+            _sizeInfo.TryGetValue( key, out ret );
+            return ret;
+        }
+
+        //--------------------------------------------------------------------
 
         [NotSave]
         public String ImgUrl {

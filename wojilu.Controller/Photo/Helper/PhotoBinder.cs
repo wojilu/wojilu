@@ -65,6 +65,10 @@ namespace wojilu.Web.Controller.Photo {
             block.Set( "x.PicM", x.ImgMediumUrl );
             block.Set( "x.PicO", x.ImgUrl );
 
+            block.Set( "x.WidthSx", x.SizeSX.Width );
+            block.Set( "x.HeightSx", x.SizeSX.Height );
+
+
             block.Set( "x.Pins", x.Pins );
             block.Set( "x.Likes", x.Likes );
 

@@ -6,7 +6,7 @@
 
 div.lgReginfo {padding:10px 0px 20px 20px;}
 
-#register{ border:0px #ccc solid; border-collapse:collapse;  width:600px}
+#register{ border:0px #ccc solid; border-collapse:collapse;  width:680px}
 #register td{font-size:12px; padding:3px;height:20px;}
 #register .right {width:120px; padding-right:5px}
 #register .lgTitle{padding:15px 10px 10px 0px; font-size:28px;font-weight:bold;}
@@ -22,7 +22,7 @@ div.lgReginfo {padding:10px 0px 20px 20px;}
 <form method="post" action="#{ActionLink}" class="registerForm">
 
 	<div class="lgReginfo">
-	<ul style="padding-left:70px;">
+	<ul style="padding-left:70px; display:none">
 	    <li style="list-style-type:disc;">#{loginTip}</li>
 	    <!-- BEGIN sendConfirmEmail -->
 	    <li style="list-style-type:disc;  margin-top:10px;">已注册，但尚未收到激活邮件，请 <a href="#{resendLink}" style="">点击此处</a> 重发激活邮件</li>
@@ -30,13 +30,11 @@ div.lgReginfo {padding:10px 0px 20px 20px;}
 	</ul>
 	</div>
 	<table id="register">
-	    <tr><td></td>
-		    <td class="lgTitle">_{userReg}</td>
-	    </tr>
+
 	    <tr>
 	        <td class="right"><strong>邀请人</strong></td>
 	        <td>
-	            <div><img src="#{friend.Pic}" /> #{friend.Name}
+	            <div><img src="#{friend.Pic}" style="width:100px;" /> #{friend.Name}
                     <input id="Hidden1" type="hidden" name="friendId" value="#{friend.Id}" />
                     <input id="Hidden2" type="hidden" name="friendCode" value="#{friend.Code}" />
 	            </div>
@@ -87,8 +85,8 @@ div.lgReginfo {padding:10px 0px 20px 20px;}
 			<td>#{m.Gender}</td>
 		</tr>
 		<tr><td></td><td class="lgsubmit">
-		<input name="btnRegister" type="submit" class="btn" value="_{submitReg}">
-		<input name="Reset1" type="reset" value="_{regReset}" class="btnReset" id="btnReset" />
+		<input name="btnRegister" type="submit" class="btn btn-primary" value="_{submitReg}">
+		<input name="Reset1" type="reset" value="_{regReset}" class="btn btnReset" id="btnReset" />
 		</td></tr>
 		<tr><td></td><td><label for="readLow" style="color:#aaa;">_{readAndAgree} <a href="" style="text-decoration:underline;" target="_blank">_{regService}</a></label></td></tr>
 	</table>

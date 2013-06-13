@@ -1,4 +1,4 @@
-/*
+ï»¿/*
  * Copyright (c) 2010, www.wojilu.com. All rights reserved.
  */
 
@@ -22,6 +22,9 @@ using wojilu.Members.Users.Service;
 
 using wojilu.Apps.Photo.Domain;
 using wojilu.Apps.Photo.Interface;
+using wojilu.Drawing;
+using System.Drawing;
+using wojilu.Apps.Photo.Helper;
 
 namespace wojilu.Apps.Photo.Service {
 
@@ -167,7 +170,7 @@ namespace wojilu.Apps.Photo.Service {
 
             DeletePosts( ids, list );
 
-            // Í³¼Æ
+            // ç»Ÿè®¡
             User user = User.findById( ownerId );
             if (user != null) {
                 user.Pins = PhotoPost.count( "OwnerId=" + ownerId );
@@ -187,17 +190,17 @@ namespace wojilu.Apps.Photo.Service {
         }
 
         public Boolean CanDeleteImg( PhotoPost post ) {
-            // Ô­Ê¼Í¼Æ¬
+            // åŸå§‹å›¾ç‰‡
             if (post.RootId == 0) {
-                return noRepins( post ); // ÊÇ·ñÓĞÆäËûÈËÊÕ¼¯
+                return noRepins( post ); // æ˜¯å¦æœ‰å…¶ä»–äººæ”¶é›†
             }
-            // Ö»ÊÇ×ª·¢: Ô­Ê¼Í¼Æ¬´æÔÚ
+            // åªæ˜¯è½¬å‘: åŸå§‹å›¾ç‰‡å­˜åœ¨
             else if (isRootExits( post.RootId )) {
                 return false;
             }
-            // Ö»ÊÇ×ª·¢
+            // åªæ˜¯è½¬å‘
             else {
-                return isLastRepin( post );  //¿´ÊÇ·ñÊÇ×îºóÒ»¸ö×ª·¢ 
+                return isLastRepin( post );  //çœ‹æ˜¯å¦æ˜¯æœ€åä¸€ä¸ªè½¬å‘ 
             }
         }
 
@@ -232,14 +235,43 @@ namespace wojilu.Apps.Photo.Service {
 
             Result result = db.insert( post );
             if (result.IsValid) {
+
+                updatePhotoSize( post );
+
                 this.updateCountApp( app );
                 this.updateCountAlbum( post.PhotoAlbum );
 
-                String msg = string.Format( "ÉÏ´«Í¼Æ¬ <a href=\"{0}\">{1}</a>£¬µÃµ½½±Àø", alink.ToAppData( post ), post.Title );
+                String msg = string.Format( "ä¸Šä¼ å›¾ç‰‡ <a href=\"{0}\">{1}</a>ï¼Œå¾—åˆ°å¥–åŠ±", alink.ToAppData( post ), post.Title );
                 incomeService.AddIncome( post.Creator, UserAction.Photo_CreatePost.Id, msg );
 
             }
             return result;
+        }
+
+        // ä¿å­˜å›¾ç‰‡å¤§å°ç­‰ä¿¡æ¯
+        private void updatePhotoSize( PhotoPost post ) {
+
+            String photoPath = post.DataUrl;
+            if (strUtil.IsNullOrEmpty( photoPath )) return;
+            if (photoPath.ToLower().StartsWith( "http://" )) return;
+            if (photoPath.StartsWith( "/" )) return;
+
+            Dictionary<String, PhotoInfo> dic = new Dictionary<String, PhotoInfo>();
+            foreach (KeyValuePair<String, ThumbInfo> kv in ThumbConfig.GetPhotoConfig()) {
+
+                String xpath = Img.GetThumbPath( strUtil.Join( sys.Path.DiskPhoto, photoPath ), kv.Key );
+                String thumbPath = PathHelper.Map( xpath );
+
+                Size size = Img.GetPhotoSize( thumbPath );
+
+                dic.Add( kv.Key, new PhotoInfo { Width=size.Width, Height=size.Height } );
+            }
+
+            String str = ObjectContext.Create<PhotoInfoHelper>().ConvertString( dic );
+            if (strUtil.IsNullOrEmpty( str )) return;
+
+            post.SizeInfo = str;
+            post.update();
         }
 
         public virtual Result CreatePost( Result uploadResult, String photoName, int albumId, MvcContext ctx ) {
@@ -381,7 +413,7 @@ namespace wojilu.Apps.Photo.Service {
 
             photo.insert();
             photo.Tag.Save( tagList );
-            // TODO ¶¯Ì¬ÏûÏ¢
+            // TODO åŠ¨æ€æ¶ˆæ¯
 
             x.Pins = PhotoPost.count( "RootId=" + x.Id + " or ParentId=" + x.Id );
             x.update( "Pins" );
