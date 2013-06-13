@@ -58,7 +58,8 @@ namespace wojilu.Web.Controller {
             set( "setUserAndAppLink", to( setUserAndApp ) );
 
             if (ctx.HasErrors) {
-                set( "writeFileMsg", string.Format( "<div class=\"warning\">{0}<br/>【提醒】请不要把项目放在桌面或者其他有特殊权限的文件夹下，文件路径不能有空格。</div>", errors.ErrorsHtml ) );
+                set( "writeFileMsg", string.Format( "<div class=\"warning\">【错误提醒】在安装之前，您必须让网站根目录允许写入权限，<strong>否则无法正常安装</strong>。正确设置方法，请 <a href=\"http://www.wojilu.com/tag/%E5%86%99%E6%9D%83%E9%99%90\" target=\"_blank\">参考此处</a><br/>" +
+                    "{0}</div>", errors.ErrorsHtml ) );
             }
             else {
                 set( "writeFileMsg", "" );
@@ -432,6 +433,15 @@ namespace wojilu.Web.Controller {
             String filePath = strUtil.Join( sys.Path.DiskUpload, fileName );
             String dataPath = PathHelper.Map( filePath );
             writeFilePrivate( dataPath );
+
+            try {
+                String testDir = PathHelper.Map( strUtil.Join( sys.Path.DiskUpload, "imageTest" ) );
+                Directory.CreateDirectory( testDir );
+                Directory.Delete( testDir );
+            }
+            catch (Exception ex) {
+                errors.Add( "不能在上传目录创建子目录:" + sys.Path.DiskUpload );
+            }
         }
 
         // framework目录检测
@@ -440,6 +450,24 @@ namespace wojilu.Web.Controller {
             String filePath = strUtil.Join( cfgHelper.FrameworkRoot, fileName );
             String dataPath = PathHelper.Map( filePath );
             writeFilePrivate( dataPath );
+
+            testConfigFile( "orm.config" );
+            testConfigFile( "route.config" );
+            testConfigFile( "site.config" );
+        }
+
+        private void testConfigFile( String configFile ) {
+            String ormPath = strUtil.Join( cfgHelper.ConfigRoot, configFile );
+            ormPath = PathHelper.Map( ormPath );
+            String ormContent = file.Read( ormPath );
+            try {
+                file.Write( ormPath, ormContent );
+                logger.Info( "write " + ormPath + " ok" );
+            }
+            catch (Exception ex) {
+                logger.Error( "write error:" + configFile );
+                errors.Add( "出错了！这个文件不能修改: " + ormPath );
+            }
         }
 
         // 根目录检测
@@ -447,6 +475,15 @@ namespace wojilu.Web.Controller {
             String fileName = getRandomFileName();
             String rootPathFile = PathHelper.Map( strUtil.Join( SystemInfo.ApplicationPath, fileName ) );
             writeFilePrivate( rootPathFile );
+
+            String rootDir = PathHelper.Map( strUtil.Join( SystemInfo.ApplicationPath, "_dirtest" ) );
+            try {
+                Directory.CreateDirectory( rootDir );
+                Directory.Delete( rootDir );
+            }
+            catch (Exception ex) {
+                errors.Add( "不能在根目录创建子目录" );
+            }
         }
 
         //-----------------------------------------------------------------------------------------

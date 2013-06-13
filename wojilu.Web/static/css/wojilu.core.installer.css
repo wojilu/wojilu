@@ -5,7 +5,9 @@ table td {font-size:14px; padding:2px 3px !important;}
 table td input {margin:0px !important;}
 
 h1 {text-align:center; color:#666; font-size:28px; font-weight:bold; font-family:Microsoft YaHei; margin:30px;}
-.writeMsg {width:180px;margin:auto;margin-bottom:20px; }
+.writeMsg {width:80%;margin:auto;margin-bottom:20px; }
+.writeMsg .warning { margin:auto;}
+.writeMsg .warning ul.wojiluValidationResultList {font-size:14px;font-weight:normal;}
 .mainWrap {border:1px #aaa solid; border-radius:5px; width:802px; margin:auto; box-shadow:0px 10px 80px #bbb;}
 
 /*********************标题栏********************/
