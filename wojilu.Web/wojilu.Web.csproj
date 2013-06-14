@@ -76,7 +76,7 @@
     <Content Include="framework\views\Admin\Sys\ConnectAdmin\Edit.html" />
     <Content Include="framework\views\Admin\Sys\ConnectAdmin\Index.html" />
     <Content Include="framework\views\Admin\Upgrade\CommentImport\Index.html" />
-    <Content Include="framework\views\Admin\Upgrade\Face\Index.html" />
+    <Content Include="framework\views\Admin\Upgrade\Photo\Index.html" />
     <Content Include="framework\views\Common\Admin\AppBase\ThemeList.html" />
     <Content Include="framework\views\Connect\confirmUserInfo.html" />
     <Content Include="framework\views\Content\Admin\Common\Post\Trans.html" />

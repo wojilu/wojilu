@@ -159,7 +159,7 @@ namespace wojilu.Web.Utils {
                 postedFile.SaveAs( filename );
 
                 foreach (KeyValuePair<String, ThumbInfo> kv in arrThumbType) {
-                    Boolean isValid = saveThumb( filename, kv.Key, kv.Value );
+                    Boolean isValid = SaveThumbSingle( filename, kv.Key, kv.Value );
                     if (!isValid) {
                         file.Delete( filename );
                         result.Add( "format error: " + postedFile.FileName );
@@ -178,18 +178,22 @@ namespace wojilu.Web.Utils {
             return result;
         }
 
-        private static Boolean saveThumb( String filename, String suffix, ThumbInfo x ) {
+        public static Boolean SaveThumbSingle( String filename, String suffix, ThumbInfo x ) {
             try {
 
                 using (Image img = Image.FromFile( filename )) {
+
+                    String destPath = Img.GetThumbPath( filename, suffix );
+                    if (file.Exists( destPath )) file.Delete( destPath );
+
                     if (img.Size.Width <= x.Width && img.Size.Height <= x.Height) {
-                        File.Copy( filename, Img.GetThumbPath( filename, suffix ) );
+                        File.Copy( filename, destPath );
                     }
                     else if (img.RawFormat.Equals( System.Drawing.Imaging.ImageFormat.Gif ) && ImageAnimator.CanAnimate( img )) {
-                        File.Copy( filename, Img.GetThumbPath( filename, suffix ) );
+                        File.Copy( filename, destPath );
                     }
                     else {
-                        Img.SaveThumbnail( filename, Img.GetThumbPath( filename, suffix ), x.Width, x.Height, x.Mode );
+                        Img.SaveThumbnail( filename, destPath, x.Width, x.Height, x.Mode );
                     }
                 }
 

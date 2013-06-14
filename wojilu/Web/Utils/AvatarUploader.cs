@@ -193,13 +193,13 @@ namespace wojilu.Web.Utils {
 
             Dictionary<String, ThumbInfo> dicThumbConfig = ThumbConfig.GetAvatarConfig();
             foreach (KeyValuePair<String, ThumbInfo> kv in dicThumbConfig) {
-                saveAvatarPrivate( srcPath, kv.Key, kv.Value );
+                SaveThumbSingle( srcPath, kv.Key, kv.Value );
             }
 
             return true;
         }
 
-        public static Boolean saveAvatarPrivate( String srcPath, String suffix, ThumbInfo thumbInfo ) {
+        public static Boolean SaveThumbSingle( String srcPath, String suffix, ThumbInfo thumbInfo ) {
 
             String thumbPath = Img.GetThumbPath( srcPath, suffix );
             int x = thumbInfo.Width;
@@ -207,6 +207,10 @@ namespace wojilu.Web.Utils {
 
             try {
                 using (Image img = Image.FromFile( srcPath )) {
+
+                    if (file.Exists( thumbPath )) file.Delete( thumbPath );
+
+
                     if (img.Size.Width <= x && img.Size.Height <= y) {
                         File.Copy( srcPath, thumbPath );
                     }
