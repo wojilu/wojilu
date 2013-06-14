@@ -47,9 +47,12 @@
 #topSiteName {padding-left:32px;background:url('../../../img/home.png') 10px center no-repeat;}
 #topSiteName a{font-size:16px;font-weight:bold;}
 
-#header {margin:auto; height:80px; }
-	#header table {height:80px;}
-	#slogo {vertical-align:middle;font-size:40px;font-weight:bold; }    
+#headerWrap {background:;}
+#header {margin:auto; height:80px; }/*头部背景*/
+    #header table {height:80px;}
+    #slogo {vertical-align:middle;font-weight:bold; margin-top:45px;}
+    #slogo a {color:#005db3;font-size:30px;} /*logo的文字颜色*/
+    
     table#calendar {float:right;margin:10px; height:40px;}
     #calendar {color:#666;}
     #calendarDay {text-shadow: -1px 1px 1px #ffb69a;width:39px;vertical-align:middle;font-size:22px; text-align:center; font-weight:bold; color:orange; background:url('calendar-bg.png') }
@@ -71,13 +74,6 @@
 #nav .menuMore { background:url('../../../img/downWhite.gif') no-repeat right center; padding-right:15px;}
 */
 
-    
-
-#headerWrap {background:;}
-#header {background:} /*头部背景*/
-    #slogo a {color:#005db3} /*logo的文字颜色*/
-    
-#header { }
 
 /*导航菜单*/    
 #nav {background:url(navbg.gif);}
