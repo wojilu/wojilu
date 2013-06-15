@@ -39,9 +39,9 @@ namespace wojilu.Net {
     /// <example>
     /// 使用说明
     /// <code>
-    /// MailService mail = new MailService( "smtp.gmail.com", "aaa@gmail.com", "123456" );
-    /// mail.setSender( "岳不群" ); // 此行(即发送人)可省略
-    /// mail.send( "aaa@126.com", "岳老二的邮件标题", "此处内容，此处<strong style='color:red;font-size:36px;'>html部分</strong>"
+    /// MailService.Init( "smtp.gmail.com", "aaa@gmail.com", "123456" )
+    ///     .SetSender( "岳不群" ); // 此行(即发送人)可省略
+    ///     .Send( "aaa@126.com", "岳老二的邮件标题", "此处内容，此处<strong style='color:red;font-size:36px;'>html部分</strong>"
     /// </code>
     /// </example>
     public class MailService {
@@ -58,8 +58,10 @@ namespace wojilu.Net {
         private MailPriority _mailPriority = MailPriority.Normal;
         private Boolean _isBodyHtml = true;
 
-
         private ISuccessCallback sendSuccessCallback;
+
+        public MailService() {
+        }
 
         /// <summary>
         /// 创建一个发送对象
@@ -68,72 +70,117 @@ namespace wojilu.Net {
         /// <param name="user">登录名</param>
         /// <param name="pwd">密码</param>
         public MailService( String smtpUrl, String user, String pwd ) {
+            Init( smtpUrl, user, pwd );
+        }
+
+        public static MailService New() {
+            return ObjectContext.Create<MailService>();
+        }
+
+        /// <summary>
+        /// 根据网站配置(site.config)中的smtp网址、用户名、密码等，进行初始化
+        /// </summary>
+        /// <returns></returns>
+        public static MailService Init() {
+            MailService mail = New();
+            mail.SetSmtp( config.Instance.Site.SmtpUrl, config.Instance.Site.SmtpUser, config.Instance.Site.SmtpPwd );
+            mail.EnableSsl( config.Instance.Site.SmtpEnableSsl );
+            mail.SetSender( config.Instance.Site.SiteName );
+            return mail;
+        }
+
+        /// <summary>
+        /// 根据smtp网址、用户名、密码等，进行初始化
+        /// </summary>
+        /// <param name="smtpUrl">smtp 地址</param>
+        /// <param name="user">登录名</param>
+        /// <param name="pwd">密码</param>
+        /// <returns></returns>
+        public static MailService Init( String smtpUrl, String user, String pwd ) {
+            return New().SetSmtp( smtpUrl, user, pwd );
+        }
+
+        /// <summary>
+        /// 初始化 smtp 服务器、用户、密码
+        /// </summary>
+        /// <param name="smtpUrl">smtp 地址</param>
+        /// <param name="user">登录名</param>
+        /// <param name="pwd">密码</param>
+        public virtual MailService SetSmtp( String smtpUrl, String user, String pwd ) {
             _smtpUrl = smtpUrl;
             _smtpUser = user;
             _smtpPwd = pwd;
+            return this;
         }
 
         /// <summary>
         /// 是否启用 ssl 链接(默认是启用的)
         /// </summary>
         /// <param name="isSsl"></param>
-        public void enableSsl( Boolean isSsl ) {
+        public virtual MailService EnableSsl( Boolean isSsl ) {
             _enableSsl = isSsl;
+            return this;
         }
 
         /// <summary>
         /// 默认启用 html
         /// </summary>
         /// <param name="isHtml"></param>
-        public void isBodyHtml( Boolean isHtml ) {
+        public virtual MailService IsBodyHtml( Boolean isHtml ) {
             _isBodyHtml = isHtml;
+            return this;
         }
 
         /// <summary>
         /// 设置高优先级
         /// </summary>
-        public void priorityHight() {
+        public virtual MailService PriorityHight() {
             _mailPriority = MailPriority.High;
+            return this;
         }
 
         /// <summary>
         /// 设置低优先级
         /// </summary>
-        public void priorityLow() {
+        public virtual MailService PriorityLow() {
             _mailPriority = MailPriority.Low;
+            return this;
         }
 
         /// <summary>
         /// 设置普通优先级
         /// </summary>
-        public void priorityNormal() {
+        public virtual MailService PriorityNormal() {
             _mailPriority = MailPriority.Normal;
+            return this;
         }
 
         /// <summary>
         /// 设置发送者名称
         /// </summary>
         /// <param name="name"></param>
-        public void setSender( String name ) {
+        public virtual MailService SetSender( String name ) {
             _senderName = name;
+            return this;
         }
 
         /// <summary>
         /// 设置发送成功之后执行的方法
         /// </summary>
         /// <param name="action"></param>
-        public void successCallback( ISuccessCallback action ) {
+        public virtual MailService SuccessCallback( ISuccessCallback action ) {
             sendSuccessCallback = action;
+            return this;
         }
 
         /// <summary>
-        /// 发送方法
+        /// 发送 Email
         /// </summary>
         /// <param name="to">接收方的email</param>
         /// <param name="title">邮件标题</param>
         /// <param name="htmlBody">邮件内容</param>
-        /// <returns>是否成功</returns>
-        public Boolean send( String to, String title, String htmlBody ) {
+        /// <returns>Result.IsValid是否成功</returns>
+        public virtual Result Send( String to, String title, String htmlBody ) {
 
             if (strUtil.IsNullOrEmpty( _senderName )) _senderName = _smtpUser;
 
@@ -159,14 +206,15 @@ namespace wojilu.Net {
 
                 try {
                     client.Send( message );
-                    if (sendSuccessCallback != null)
+                    if (sendSuccessCallback != null) {
                         sendSuccessCallback.SuccessRun();
-                    return true;
+                    }
+                    return new Result();
                 }
                 catch (SmtpException ex) {
-                    String info = "send mail to " + to + " : " + title;
-                    logger.Error( "[" + info + "] error : " + ex.ToString() );
-                    return false;
+                    String info = "[" + "send mail to " + to + " : " + title + "] error : " + ex.ToString();
+                    logger.Error( info );
+                    return new Result( info );
                 }
 
             }

@@ -43,7 +43,7 @@ namespace wojilu.Web.Controller.Admin.Members {
             String title = ctx.Post( "Title" );
             if (strUtil.IsNullOrEmpty( title )) title = config.Instance.Site.SiteName + lang( "exAccountConfirm" );
 
-            MailService mail = MailUtil.getMailService();
+            MailService mail = MailService.Init();
 
             int[] arrId = cvt.ToIntArray( ids );
 

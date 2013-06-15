@@ -734,7 +734,6 @@
     <Compile Include="Web\Handler\CaptchaImageHandler.cs" />
     <Compile Include="Web\Utils\AvatarUploader.cs" />
     <Compile Include="Web\Utils\HtmlFilter.cs" />
-    <Compile Include="Web\Utils\MailUtil.cs" />
     <Compile Include="Web\Utils\Uploader.cs" />
     <Compile Include="Data\Cache\cdbx.cs" />
   </ItemGroup>

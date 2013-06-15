@@ -80,11 +80,11 @@ namespace wojilu.Web.Controller.Common {
             ctx.SetItem( "ResetLink", resetLink );
 
             // 3、给此email发送一封重置pwd的邮件
-            MailService mail = MailUtil.getMailService();
+            MailService mail = MailService.Init();
             String title = string.Format( lang( "exResetMsgTitle" ), config.Instance.Site.SiteName );
             String body = loadHtml( emailBody );
-            Boolean isSent = mail.send( email, title, body );
-            if (!isSent) {
+            Result sentResult = mail.Send( email, title, body );
+            if (sentResult.HasErrors) {
                 errors.Add( lang( "exResetSend" ) );
                 showError();
             }

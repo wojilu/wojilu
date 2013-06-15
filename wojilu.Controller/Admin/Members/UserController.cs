@@ -181,7 +181,7 @@ namespace wojilu.Web.Controller.Admin.Members {
 
         private void sendPwdToEmail( List<User> users, String pwd ) {
 
-            MailService mail = MailUtil.getMailService();
+            MailService mail = MailService.Init();
 
             String msgTitle = string.Format( lang( "newPwdInfo" ), config.Instance.Site.SiteName );
             String msgBody = "{0} : <br/>" + string.Format( lang( "newPwdBody" ), config.Instance.Site.SiteName, pwd ) + config.Instance.Site.SiteName;
@@ -189,7 +189,7 @@ namespace wojilu.Web.Controller.Admin.Members {
             int sendCount = 0;
             foreach (User user in users) {
                 if (isEmailValid( user ) == false) continue;
-                mail.send( user.Email, msgTitle, string.Format( msgBody, user.Name ) );
+                mail.Send( user.Email, msgTitle, string.Format( msgBody, user.Name ) );
                 sendCount++;
             }
 
@@ -277,8 +277,8 @@ namespace wojilu.Web.Controller.Admin.Members {
             int sendCount = 0;
             foreach (User user in msgInfo.Users) {
                 if (isEmailValid( user ) == false) continue;
-                Boolean sent = confirmEmail.SendEmail( user, msgInfo.Title, msgInfo.Body );
-                if (sent) {
+                Result sent = confirmEmail.SendEmail( user, msgInfo.Title, msgInfo.Body );
+                if (sent.IsValid) {
                     logUser( SiteLogString.SendUserEmail(), user );
                     sendCount++;
                 }

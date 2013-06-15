@@ -326,9 +326,9 @@ namespace wojilu.Web.Controller {
         public void SendConfirmEmail( int userId ) {
 
             User user = userService.GetById( userId );
-            Boolean sent = confirmEmail.SendEmail( user, null, null );
+            Result sent = confirmEmail.SendEmail( user, null, null );
 
-            if (sent) {
+            if (sent.IsValid) {
                 echoAjaxOk();
             }
             else

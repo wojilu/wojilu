@@ -13,11 +13,11 @@ namespace wojilu.Web.Controller.Common {
 
     public interface IConfirmEmail {
         String GetEmailBody( User user );
-        Boolean SendEmail( User user, String title, String msg );
+        Result SendEmail( User user, String title, String msg );
         String getTemplatePath();
     }
 
-    public class ConfirmEmail : IConfirmEmail{
+    public class ConfirmEmail : IConfirmEmail {
 
         private static readonly ILog logger = LogManager.GetLogger( typeof( ConfirmEmail ) );
 
@@ -29,21 +29,22 @@ namespace wojilu.Web.Controller.Common {
             userService = new UserService();
         }
 
-        public Boolean SendEmail( User user, String title, String msg ) {
+        public Result SendEmail( User user, String title, String msg ) {
 
             if (strUtil.IsNullOrEmpty( title )) title = config.Instance.Site.SiteName + lang.get( "exAccountConfirm" );
             if (strUtil.IsNullOrEmpty( msg )) msg = GetEmailBody( user );
 
             if (System.Text.RegularExpressions.Regex.IsMatch( user.Email, RegPattern.Email ) == false) {
                 userService.ConfirmEmailIsError( user );
-                logger.Info( lang.get( "exEmailFormat" ) + ": " + user.Name + "[" + user.Email + "]" );
-                return false;
+                String errorMail = lang.get( "exEmailFormat" ) + ": " + user.Name + "[" + user.Email + "]";
+                logger.Info( errorMail );
+                return new Result( errorMail );
             }
 
-            MailService mail = MailUtil.getMailService();
-            Boolean isSent = mail.send( user.Email, title, msg );
+            MailService mail = MailService.Init();
+            Result sentResult = mail.Send( user.Email, title, msg );
 
-            if (isSent) {
+            if (sentResult.IsValid) {
                 userService.SendConfirmEmail( user );
                 logger.Info( lang.get( "sentok" ) + ": " + user.Name + "[" + user.Email + "]" );
             }
@@ -52,8 +53,7 @@ namespace wojilu.Web.Controller.Common {
                 logger.Info( lang.get( "exSentError" ) + ": " + user.Name + "[" + user.Email + "]" );
             }
 
-            return isSent;
-
+            return sentResult;
         }
 
         public String getTemplatePath() {

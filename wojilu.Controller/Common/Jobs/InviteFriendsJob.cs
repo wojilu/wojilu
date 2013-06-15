@@ -56,14 +56,14 @@ namespace wojilu.Web.Controller.Common {
                 return;
             }
 
-            MailService mail = MailUtil.getMailService();
+            MailService mail = MailService.Init();
 
             String title = invite.Inviter.Name + lang.get( "inviteMailTitle" );
             String msg = invite.MailBody;
 
-            Boolean isSent = mail.send( invite.ReceiverMail, title, msg );
+            Result sentResult = mail.Send( invite.ReceiverMail, title, msg );
 
-            if (isSent) {
+            if (sentResult.IsValid) {
                 inviteService.SendDone( invite );
                 logger.Info( lang.get( "inviteSendDone" ) + ": " + invite.Inviter.Name + "[" + invite.ReceiverMail + "]" );
             }
