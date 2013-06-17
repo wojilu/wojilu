@@ -33,6 +33,7 @@ namespace wojilu.ORM.Utils {
         private static IEntity getNullUser( int realUserId ) {
 
             IUserFactory userFactory = CurrentRequest.getItem( "_user_factory" ) as IUserFactory;
+            if (userFactory == null) return null;
             IEntity user = userFactory.NullUser() as IEntity;
             if (user != null) {
                 user.set( "RealId", realUserId );

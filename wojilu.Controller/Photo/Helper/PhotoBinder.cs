@@ -66,8 +66,8 @@ namespace wojilu.Web.Controller.Photo {
             block.Set( "x.PicM", x.ImgMediumUrl );
             block.Set( "x.PicO", x.ImgUrl );
 
-            int width = x.SizeSX.Width;
-            int height = x.SizeSX.Height;
+            int width = x.SizeSX == null ? 170 : x.SizeSX.Width;
+            int height = x.SizeSX == null ? 170 : x.SizeSX.Height;
             int cfgWidth = getCfgWidth();
             if (width > cfgWidth) {
                 height = Convert.ToInt32( (decimal)(cfgWidth * height) / (decimal)width );

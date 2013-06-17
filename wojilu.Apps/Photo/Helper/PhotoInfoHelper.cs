@@ -7,9 +7,10 @@ namespace wojilu.Apps.Photo.Helper {
 
     public class PhotoInfoHelper {
 
-        public Dictionary<String, PhotoInfo> GetInfo( String str ) {
+        public virtual Dictionary<String, PhotoInfo> GetInfo( String str ) {
 
             Dictionary<String, PhotoInfo> dic = new Dictionary<String, PhotoInfo>();
+            if (strUtil.IsNullOrEmpty( str )) return dic;
 
             String[] arr = str.Split( ',' );
             foreach (String item in arr) {
@@ -49,7 +50,7 @@ namespace wojilu.Apps.Photo.Helper {
             return x;
         }
 
-        public String ConvertString( Dictionary<String, PhotoInfo> dic ) {
+        public virtual String ConvertString( Dictionary<String, PhotoInfo> dic ) {
             String str = "";
             foreach (KeyValuePair<String, PhotoInfo> kv in dic) {
                 str += kv.Key + "=";

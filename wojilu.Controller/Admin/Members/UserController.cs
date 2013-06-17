@@ -277,7 +277,7 @@ namespace wojilu.Web.Controller.Admin.Members {
             int sendCount = 0;
             foreach (User user in msgInfo.Users) {
                 if (isEmailValid( user ) == false) continue;
-                Result sent = confirmEmail.SendEmail( user, msgInfo.Title, msgInfo.Body );
+                Result sent = sendEmail( user, msgInfo.Title, msgInfo.Body );
                 if (sent.IsValid) {
                     logUser( SiteLogString.SendUserEmail(), user );
                     sendCount++;
@@ -292,7 +292,9 @@ namespace wojilu.Web.Controller.Admin.Members {
             }
         }
 
-
+        private Result sendEmail( User user, string title, string msg ) {
+            return MailService.Init().Send( user.Email, title, msg );
+        }
 
 
     }

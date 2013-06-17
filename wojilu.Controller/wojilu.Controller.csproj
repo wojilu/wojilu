@@ -65,6 +65,7 @@
       <Name>System</Name>
     </Reference>
     <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
     <Reference Include="System.Web">
       <Name>System.Web</Name>
     </Reference>
