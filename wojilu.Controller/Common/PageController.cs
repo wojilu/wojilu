@@ -1,4 +1,4 @@
-/*
+ï»¿/*
  * Copyright (c) 2010, www.wojilu.com. All rights reserved.
  */
 
@@ -145,7 +145,7 @@ namespace wojilu.Web.Controller.Common {
                 String updated = data.Updated.Year <= 1 ? "" : cvt.ToDayString( data.Updated );
                 wiki.Set( "postUpdated", updated );
 
-                String cmd = hasPermission( data.Category ) ? string.Format( "<img src=\"{1}\" /> <a href=\"{0}\">±à¼­</a>", to( Edit, data.Id ), strUtil.Join( sys.Path.Img, "edit.gif" ) ) : "";
+                String cmd = hasPermission( data.Category ) ? string.Format( "<img src=\"{1}\" /> <a href=\"{0}\">ç¼–è¾‘</a>", to( Edit, data.Id ), strUtil.Join( sys.Path.Img, "edit.gif" ) ) : "";
                 wiki.Set( "editCmd", cmd );
 
                 wiki.Next();
@@ -210,8 +210,8 @@ namespace wojilu.Web.Controller.Common {
 
             pageService.Insert( data );
 
-            // ·¢Í¨Öª
-            String msg = data.Creator.Name + " ´´½¨ÁËÒ³Ãæ <a href=\"" + to( Show, data.Id ) + "\">" + data.Title + "</a>";
+            // å‘é€šçŸ¥
+            String msg = data.Creator.Name + " åˆ›å»ºäº†é¡µé¢ <a href=\"" + to( Show, data.Id ) + "\">" + data.Title + "</a>";
             nfService.send( data.OwnerId, data.OwnerType, msg, NotificationType.Normal );
 
 
@@ -266,8 +266,8 @@ namespace wojilu.Web.Controller.Common {
         private bool isInEditing( Page data ) {
             if (data.UpdatingTime.Year <= 1) return false;
             if (data.UpdatingId <= 0) return false;
-            if (data.UpdatingId == ctx.viewer.Id) return false; // ×Ô¼º¸Õ¸Õ±à¼­¹ı
-            if (DateTime.Now.Subtract( data.UpdatingTime ).TotalMinutes >= 1) return false; // ³¬¹ı1·ÖÖÓ±íÊ¾ÎŞÈË¸üĞÂ
+            if (data.UpdatingId == ctx.viewer.Id) return false; // è‡ªå·±åˆšåˆšç¼–è¾‘è¿‡
+            if (DateTime.Now.Subtract( data.UpdatingTime ).TotalMinutes >= 1) return false; // è¶…è¿‡1åˆ†é’Ÿè¡¨ç¤ºæ— äººæ›´æ–°
             return true;
         }
 
@@ -324,7 +324,7 @@ namespace wojilu.Web.Controller.Common {
             echoRedirect( lang( "opok" ), pageLink );
         }
 
-        // ·¢Í¨Öª
+        // å‘é€šçŸ¥
         private void sendNotification( Page data, String pageLink ) {
 
             List<int> editorIds = pageService.GetEditorIds( data.Id );
@@ -333,7 +333,7 @@ namespace wojilu.Web.Controller.Common {
 
                 if (ctx.viewer.Id == receiverId) continue;
 
-                String msg = ctx.viewer.obj.Name + " ĞŞ¸ÄÁËÄú²ÎÓë¹ıµÄÒ³Ãæ <a href=\"" + pageLink + "\">" + data.Title + "</a>";
+                String msg = ctx.viewer.obj.Name + " ä¿®æ”¹äº†æ‚¨å‚ä¸è¿‡çš„é¡µé¢ <a href=\"" + pageLink + "\">" + data.Title + "</a>";
                 nfService.send( receiverId, msg );
             }
 
@@ -347,7 +347,7 @@ namespace wojilu.Web.Controller.Common {
 
             if (strUtil.IsNullOrEmpty( data.Title )) errors.Add( lang( "exTitle" ) );
             if (strUtil.IsNullOrEmpty( data.Content )) errors.Add( lang( "exContent" ) );
-            if (strUtil.IsNullOrEmpty( data.EditReason )) errors.Add( "ÇëÌîĞ´±à¼­Ô­Òò" );
+            if (strUtil.IsNullOrEmpty( data.EditReason )) errors.Add( "è¯·å¡«å†™ç¼–è¾‘åŸå› " );
 
             return data;
         }
@@ -368,7 +368,7 @@ namespace wojilu.Web.Controller.Common {
 
             sidebar.Set( "tree", tree.RenderList( "mytree", true, binder, data.Id ) );
 
-            String cmd = hasPermission( data.Category ) ? string.Format( "<img src=\"{1}\" /> <a href=\"{0}\">Ìí¼ÓÒ³Ãæ</a>", to( Add, data.Category.Id ), strUtil.Join( sys.Path.Img, "add.gif" ) ) : "";
+            String cmd = hasPermission( data.Category ) ? string.Format( "<a href=\"{0}\" class=\"btn\"><i class=\"icon-plus\"></i> æ·»åŠ é¡µé¢</a>", to( Add, data.Category.Id ) ) : "";
 
             sidebar.Set( "addCmd", cmd );
 

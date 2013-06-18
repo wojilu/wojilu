@@ -37,13 +37,13 @@ ul.wojiluValidationResultList {font-size:16px; font-family:Microsoft YaHei, Cali
 .currentPageNo {color:#fff;background-color:#296bbc;padding:2px 4px 2px 4px; border:1px #666 solid;}
 a.currentPageNo {color:#fff;background-color:#296bbc;padding:2px 4px 2px 4px; border:1px #666 solid;}
 
-.wTree {margin:5px 30px 20px 20px;}
-.wTree ul {padding:0px;padding-left:10px; margin-bottom:10px}
-.wTree li {display:block;padding:3px 3px 3px 15px; background:url("../img/tree/node.gif") no-repeat 5px left; border-bottom:1px #ccc dotted;}
-.wTree li:hover {background:#fff;}
-.wTree li.parentNode {cursor:pointer;padding-left:15px; }
-.wTree li.collapseNode {background:url("../img/tree/collapse.gif") no-repeat 5px left; }
-.wTree li.expandNode {background:url("../img/tree/expand.gif") no-repeat 5px left; }
+.wTree {margin:5px 10px 20px 10px;}
+.wTree ul {padding:0px;padding-left:10px; margin:5px 0px 10px 5px;}
+.wTree li {display:block;padding:5px 3px 5px 20px; border-bottom:1px #ccc dotted;font-size:14px; background:url(../img/tree/node-sub.gif) no-repeat 5px 9px;}
+.wTree ul li { font-size:12px; background:url(../img/tree/node.gif) no-repeat 5px 8px;}
+.wTree li.parentNode {cursor:pointer;padding-left:20px; }
+.wTree li.collapseNode { }
+.wTree li.expandNode {}
 .wTree li.currentNode a {color:orange; font-weight:bold;}
 .wTree li a:hover {color:red;}
 

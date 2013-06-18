@@ -1,4 +1,4 @@
-/*
+ï»¿/*
  * Copyright (c) 2010, www.wojilu.com. All rights reserved.
  */
 
@@ -76,9 +76,9 @@ namespace wojilu.Web.Controller.Admin.Sys {
 
         private static Dictionary<String, String> getOptions() {
             Dictionary<String, String> dic = new Dictionary<String, String>();
-            dic.Add( "¹Ø±Õ(Ö»ÔÊĞí¹ÜÀíÔ±±à¼­)", OpenStatus.Close.ToString() );
-            dic.Add( "¿ª·Å(ÈÎºÎµÇÂ¼ÓÃ»§¶¼¿ÉÒÔ±à¼­)", OpenStatus.Open.ToString() );
-            dic.Add( "½öÔÊĞíÊÜÑûÓÃ»§±à¼­", OpenStatus.Editor.ToString() );
+            dic.Add( "å…³é—­(åªå…è®¸ç®¡ç†å‘˜ç¼–è¾‘)", OpenStatus.Close.ToString() );
+            dic.Add( "å¼€æ”¾(ä»»ä½•ç™»å½•ç”¨æˆ·éƒ½å¯ä»¥ç¼–è¾‘)", OpenStatus.Open.ToString() );
+            dic.Add( "ä»…å…è®¸å—é‚€ç”¨æˆ·ç¼–è¾‘", OpenStatus.Editor.ToString() );
 
             return dic;
         }
@@ -170,7 +170,7 @@ namespace wojilu.Web.Controller.Admin.Sys {
 
             db.update( data );
 
-            // ¸øĞÂÔö¼ÓµÄ±à¼­·¢ËÍÍ¨Öª
+            // ç»™æ–°å¢åŠ çš„ç¼–è¾‘å‘é€é€šçŸ¥
             String newEditorIds = getNewEditorIds( userIds, data.EditorIds );
             addNotification( newEditorIds, data.Name );
 
@@ -182,8 +182,8 @@ namespace wojilu.Web.Controller.Admin.Sys {
             int[] arrIds = cvt.ToIntArray( userIds );
             foreach (int id in arrIds) {
                 User user = userService.GetById( id );
-                String body = user.Name + "£º<br/><br/>ÄúºÃ£¡ÄúÒÑ±»ÑûÇë³ÉÎªÍøÕ¾ ¡°" + categoryName + "¡± À¸Ä¿µÄÌØÔ¼ wiki ±à¼­¡£ÏÖÔÚÄú¿ÉÒÔ¡ª¡ª<br/>1£©Ìí¼ÓĞÂÒ³Ãæ<br/>2£©ĞŞ¸ÄÏÖÓĞÒ³Ãæ¡£<br/><br/>»¶Ó­ÄúµÄ²ÎÓë¡£<br/><br/>ÈçÓĞÆäËûÒâ¼û£¬Çë¸øÍøÕ¾¹ÜÀíÔ±·¢ËÍÕ¾ÄÚ¶ÌĞÅ¡£";
-                msgService.SiteSend( "ÄúÒÑ³ÉÎªÍøÕ¾ wiki ÌØÔ¼±à¼­", body, user );
+                String body = user.Name + "ï¼š<br/><br/>æ‚¨å¥½ï¼æ‚¨å·²è¢«é‚€è¯·æˆä¸ºç½‘ç«™ â€œ" + categoryName + "â€ æ ç›®çš„ç‰¹çº¦ wiki ç¼–è¾‘ã€‚ç°åœ¨æ‚¨å¯ä»¥â€”â€”<br/>1ï¼‰æ·»åŠ æ–°é¡µé¢<br/>2ï¼‰ä¿®æ”¹ç°æœ‰é¡µé¢ã€‚<br/><br/>æ¬¢è¿æ‚¨çš„å‚ä¸ã€‚<br/><br/>å¦‚æœ‰å…¶ä»–æ„è§ï¼Œè¯·ç»™ç½‘ç«™ç®¡ç†å‘˜å‘é€ç«™å†…çŸ­ä¿¡ã€‚";
+                msgService.SiteSend( "æ‚¨å·²æˆä¸ºç½‘ç«™ wiki ç‰¹çº¦ç¼–è¾‘", body, user );
             }
         }
 
@@ -246,7 +246,7 @@ namespace wojilu.Web.Controller.Admin.Sys {
             String userList = ctx.Post( "userList" );
             if (strUtil.IsNullOrEmpty( userList )) return "";
 
-            String[] arrUser = userList.Split( new char[] { ',', '£¬' } );
+            String[] arrUser = userList.Split( new char[] { ',', 'ï¼Œ' } );
             String ids = "";
             for (int i = 0; i < arrUser.Length; i++) {
 

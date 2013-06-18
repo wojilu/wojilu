@@ -1,4 +1,4 @@
-/*
+ï»¿/*
  * Copyright (c) 2010, www.wojilu.com. All rights reserved.
  */
 
@@ -78,8 +78,6 @@ namespace wojilu.Web.Controller.Admin.Sys {
 
         private Page validate( Page data ) {
 
-
-
             data.Title = ctx.Post( "Title" );
             data.Logo = ctx.Post( "Logo" );
             data.Content = ctx.PostHtml( "Content" );
@@ -87,10 +85,9 @@ namespace wojilu.Web.Controller.Admin.Sys {
 
             if (strUtil.IsNullOrEmpty( data.Title )) errors.Add( lang( "exTitle" ) );
             if (strUtil.IsNullOrEmpty( data.Content )) errors.Add( lang( "exContent" ) );
-            if (strUtil.IsNullOrEmpty( data.EditReason )) errors.Add( "ÇëÌîÐ´±à¼­Ô­Òò" );
+            if (strUtil.IsNullOrEmpty( data.EditReason )) errors.Add( "è¯·å¡«å†™ç¼–è¾‘åŽŸå› " );
 
             data.IsAllowReply = ctx.PostIsCheck( "IsAllowReply" );
-            data.OrderId = ctx.PostInt( "OrderId" );
 
             return data;
         }
