@@ -47,7 +47,6 @@ namespace wojilu.Web.Utils {
         public static void Delete( String picPath ) {
 
             String fullPath = strUtil.Join( "/static/upload/", picPath );
-            Boolean deleted = deleteImgPrivate( fullPath, "small" );
 
             String oPath = Img.GetOriginalPath( fullPath );
             deleteImgPrivate( oPath, "original" );
