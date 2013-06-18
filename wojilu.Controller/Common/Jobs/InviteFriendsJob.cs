@@ -56,7 +56,7 @@ namespace wojilu.Web.Controller.Common {
                 return;
             }
 
-            MailService mail = MailService.Init();
+            MailClient mail = MailClient.Init();
 
             String title = invite.Inviter.Name + lang.get( "inviteMailTitle" );
             String msg = invite.MailBody;

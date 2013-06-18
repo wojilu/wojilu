@@ -41,7 +41,7 @@ namespace wojilu.Web.Controller.Common {
                 return new Result( errorMail );
             }
 
-            MailService mail = MailService.Init();
+            MailClient mail = MailClient.Init();
             Result sentResult = mail.Send( user.Email, title, msg );
 
             if (sentResult.IsValid) {

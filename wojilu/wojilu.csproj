@@ -96,6 +96,7 @@
     <Compile Include="Aop\ObservedType.cs" />
     <Compile Include="Drawing\ThumbInfo.cs" />
     <Compile Include="Drawing\ThumbConfig.cs" />
+    <Compile Include="Net\MailService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Common\IBinderValue.cs" />
     <Compile Include="Common\ItemValue.cs" />
@@ -377,7 +378,7 @@
     <Compile Include="Log\NullLogger.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Net\MailService.cs" />
+    <Compile Include="Net\MailClient.cs" />
     <Compile Include="Net\PageLoader.cs">
       <SubType>Code</SubType>
     </Compile>

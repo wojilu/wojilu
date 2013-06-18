@@ -181,7 +181,7 @@ namespace wojilu.Web.Controller.Admin.Members {
 
         private void sendPwdToEmail( List<User> users, String pwd ) {
 
-            MailService mail = MailService.Init();
+            MailClient mail = MailClient.Init();
 
             String msgTitle = string.Format( lang( "newPwdInfo" ), config.Instance.Site.SiteName );
             String msgBody = "{0} : <br/>" + string.Format( lang( "newPwdBody" ), config.Instance.Site.SiteName, pwd ) + config.Instance.Site.SiteName;
@@ -293,7 +293,7 @@ namespace wojilu.Web.Controller.Admin.Members {
         }
 
         private Result sendEmail( User user, string title, string msg ) {
-            return MailService.Init().Send( user.Email, title, msg );
+            return MailClient.Init().Send( user.Email, title, msg );
         }
 
 
