@@ -158,6 +158,36 @@ namespace wojilu.Members.Users.Service {
 
             Result result = new Result();
 
+            if (strUtil.IsNullOrEmpty( user.Name )) {
+                result.Add( lang.get( "exUserName" ) );
+                return result;
+            }
+
+            if (strUtil.IsNullOrEmpty( user.Url )) {
+                result.Add( lang.get( "exUrl" ) );
+                return result;
+            }
+
+            user.Name = user.Name.Trim().TrimEnd( '/' );
+            user.Url = user.Url.Trim().TrimEnd( '/' );
+
+            if (user.Url.IndexOf( "http:" ) >= 0) {
+                result.Add( lang.get( "exUserUrlHttpError" ) );
+            }
+            else {
+                user.Url = strUtil.SubString( user.Url, config.Instance.Site.UserNameLengthMax );
+                user.Url = user.Url.ToLower();
+            }
+
+            if (strUtil.IsUrlItem( user.Url ) == false) {
+                result.Add( lang.get( "exUserUrlError" ) );
+            }
+
+            if (result.HasErrors) {
+                return result;
+            }
+
+
             if (isNameReserved( user.Name )) {
                 result.Add( lang.get( "exNameFound" ) );
                 return result;

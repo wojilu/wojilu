@@ -145,7 +145,7 @@ namespace wojilu.Aop {
             }
             else {
                 Object objTarget = rft.GetInstance( targetType );
-                logger.Error( "can't create interface proxy" );
+                logger.Info( "can't create interface proxy" );
                 return objTarget;
             }
         }
