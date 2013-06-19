@@ -56,7 +56,7 @@ namespace wojilu.Common.AppBase {
         }
 
         /// <summary>
-        /// 先前移动
+        /// 向前移动
         /// </summary>
         public void MoveUp() {
 
@@ -86,7 +86,7 @@ namespace wojilu.Common.AppBase {
         }
 
         /// <summary>
-        /// 先后移动
+        /// 向后移动
         /// </summary>
         public void MoveDown() {
 

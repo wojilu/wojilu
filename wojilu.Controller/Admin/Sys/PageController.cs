@@ -61,19 +61,32 @@ namespace wojilu.Web.Controller.Admin.Sys {
             Page data = pageService.GetPostById( id, ctx.owner.obj );
 
             List<Page> list = pageService.GetPosts( ctx.owner.obj, categoryId );
+            // 在同一个层级排序
+            List<Page> xlist = filterByParent( list, data.ParentId );
 
             if (cmd == "up") {
-                new SortUtil<Page>( data, list ).MoveUp();
+                new SortUtil<Page>( data, xlist ).MoveUp();
                 echoJsonOk();
             }
             else if (cmd == "down") {
 
-                new SortUtil<Page>( data, list ).MoveDown();
+                new SortUtil<Page>( data, xlist ).MoveDown();
                 echoJsonOk();
             }
             else {
                 echoError( lang( "exUnknowCmd" ) );
             }
+        }
+
+        private List<Page> filterByParent( List<Page> list, int parentId ) {
+
+            List<Page> xlist = new List<Page>();
+            foreach (Page x in list) {
+                if (x.ParentId == parentId) {
+                    xlist.Add( x );
+                }
+            }
+            return xlist;
         }
 
 

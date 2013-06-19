@@ -39,8 +39,8 @@ a.currentPageNo {color:#fff;background-color:#296bbc;padding:2px 4px 2px 4px; bo
 
 .wTree {margin:5px 10px 20px 10px;}
 .wTree ul {padding:0px;padding-left:10px; margin:5px 0px 10px 5px;}
-.wTree li {display:block;padding:5px 3px 5px 20px; border-bottom:1px #ccc dotted;font-size:14px; background:url(../img/tree/node-sub.gif) no-repeat 5px 9px;}
-.wTree ul li { font-size:12px; background:url(../img/tree/node.gif) no-repeat 5px 8px;}
+.wTree li {display:block;padding:8px 3px 8px 20px; border-bottom:1px #ccc dotted;font-size:14px; background:url(../img/tree/node.gif) no-repeat 5px 11px;}
+.wTree ul li { font-size:12px;padding-top:5px;padding-bottom:5px;background:url(../img/tree/node-sub.gif) no-repeat 5px 8px; border-bottom:0px;}
 .wTree li.parentNode {cursor:pointer;padding-left:20px; }
 .wTree li.collapseNode { }
 .wTree li.expandNode {}
