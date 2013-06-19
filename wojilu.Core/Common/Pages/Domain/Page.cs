@@ -52,6 +52,16 @@ namespace wojilu.Common.Pages.Domain {
         public int UpdatingId { get; set; } // 正在编辑的用户
         public DateTime UpdatingTime { get; set; } // 正在编辑的最后时间
 
+        /// <summary>
+        /// 是否收缩节点。如果是父节点，默认0表示不收缩(也就是展开节点)
+        /// </summary>
+        public int IsCollapse { get; set; }
+
+        /// <summary>
+        /// 是否作为纯文本节点(不作为链接)。默认父节点是可以点击，有链接内容的。如果IsTextNode设置为1，则没有链接不可点击。
+        /// </summary>
+        public int IsTextNode { get; set; }
+
 
         [NotSave]
         public String CategoryStr {
@@ -61,6 +71,14 @@ namespace wojilu.Common.Pages.Domain {
         [NotSave]
         public String IsAllowReplyStr {
             get { return this.IsAllowReply == 1 ? "√" : "×"; }
+        }
+
+        [NotSave]
+        public String IsCollapseStr {
+            get {
+                if (this.ParentId > 0) return "";
+                return this.IsCollapse == 1 ? "-" : "+"; 
+            }
         }
 
 

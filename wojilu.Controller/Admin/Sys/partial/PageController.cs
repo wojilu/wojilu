@@ -46,6 +46,8 @@ namespace wojilu.Web.Controller.Admin.Sys {
                 block.Set( "data.Hits", data.Hits );
                 block.Set( "data.ReplyCount", data.Replies );
                 block.Set( "data.IsAllowReplyStr", data.IsAllowReplyStr );
+                block.Set( "data.IsCollapseStr", data.IsCollapseStr );
+
 
                 block.Set( "data.ViewUrl", to( ViewUrl, data.Id ) );
 
@@ -66,8 +68,12 @@ namespace wojilu.Web.Controller.Admin.Sys {
             set( "p.Logo", data.Logo );
             String drop = tree.DropList( "ParentId", data.ParentId, data.Id, "---" );
             set( "dropParent", drop );
-            set( "IsAllowReply", data.IsAllowReply == 1 ? "checked=\"checked\"" : "" );
             set( "Content", data.Content );
+
+            String chk = "checked=\"checked\"";
+            set( "IsAllowReply", data.IsAllowReply == 1 ? chk : "" );
+            set( "chkIsCollapse", data.IsCollapse == 1 ? chk : "" );
+            set( "chkIsTextNode", data.IsTextNode == 1 ? chk : "" );
         }
 
         //--------------------------------------------------------------------------
@@ -88,6 +94,9 @@ namespace wojilu.Web.Controller.Admin.Sys {
             if (strUtil.IsNullOrEmpty( data.EditReason )) errors.Add( "请填写编辑原因" );
 
             data.IsAllowReply = ctx.PostIsCheck( "IsAllowReply" );
+            data.IsCollapse = ctx.PostIsCheck( "IsCollapse" );
+            data.IsTextNode = ctx.PostIsCheck( "IsTextNode" );
+
 
             return data;
         }

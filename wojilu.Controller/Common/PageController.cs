@@ -363,6 +363,8 @@ namespace wojilu.Web.Controller.Common {
 
             Tree<Page> tree = new Tree<Page>( relativeList );
 
+            CurrentRequest.setItem( "__currentPageParentId", data.ParentId );
+
             treeBinder binder = new treeBinder();
             binder.link = this.ctx.link;
 
@@ -376,15 +378,40 @@ namespace wojilu.Web.Controller.Common {
 
         }
 
-
-
         class treeBinder : INodeBinder {
 
             public CtxLink link { get; set; }
 
             public String Bind( INode node ) {
                 String lnk = link.T2( new PageController().Show, node.Id );
-                return "<a href=\"" + lnk + "\">" + node.Name + "</a>";
+                Page x = node as Page;
+                if (isCollapse( x )) {
+
+                    if (x.IsTextNode == 1) {
+                        return string.Format( "<span class=\"initCollapse\">{0}</span>", node.Name );
+                    }
+                    else {
+                        return string.Format( "<span class=\"initCollapse\"><a href=\"{0}\">{1}</a></span>", lnk, node.Name );
+                    }
+
+                }
+                else {
+
+                    if (x.IsTextNode == 1) {
+                        return node.Name;
+                    }
+                    else {
+                        return "<a href=\"" + lnk + "\">" + node.Name + "</a>";
+                    }
+                }
+            }
+
+            private bool isCollapse( Page x ) {
+
+                Object obj = CurrentRequest.getItem( "__currentPageParentId" );
+                if (obj != null && (int)obj == x.Id) return false;
+
+                return x.IsCollapse == 1;
             }
 
         }

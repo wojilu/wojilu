@@ -42,6 +42,15 @@
                 <div>#{addCmd}</div>
                 #{tree}
                 <div class="clear"></div>
+<script>
+    _run(function () {
+        $('.initCollapse').parent().each(function () {
+            $(this).toggleClass('expandNode');
+            $(this).toggleClass('collapseNode');
+            $(this).next().toggle();
+        });
+    });
+</script>
             </div>
             <!-- END sidebar -->
                                 

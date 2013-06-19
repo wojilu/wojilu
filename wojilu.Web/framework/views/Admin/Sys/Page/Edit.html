@@ -15,7 +15,12 @@
 			<tr>
 				<td>_{pageTopic}</td>
 				<td>#{dropParent} <span style="margin-left: 30px;">
-				</span>_{pageLogo} <input name="Logo" style="width: 150px;" type="text" value="#{p.Logo}" /></td>
+				</span>_{pageLogo} <input name="Logo" style="width: 150px;" type="text" value="#{p.Logo}" />
+                
+                <span class="left20"><label><input type="checkbox" name="IsCollapse" #{chkIsCollapse} /> 缩进折叠</label></span>
+                <span class="left10"><label><input type="checkbox" name="IsTextNode" #{chkIsTextNode} /> 纯文本节点(没有链接)</label></span>
+                
+                </td>
 			</tr>
 			<tr>
 				<td style=" vertical-align:top;">_{content}</td>
