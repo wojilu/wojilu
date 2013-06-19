@@ -32,6 +32,8 @@ namespace wojilu.Common.Pages.Interface {
 
         PageHistory GetHistory( int id );
         List<int> GetEditorIds( int pageId );
+
+        void UpdateCategory( string ids, int categoryId );
     }
 
 }

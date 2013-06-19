@@ -3,9 +3,18 @@
 	    <div class="hide">_{pageAdmin}(_{pageTopic}:#{category.Name})</div>
 		<table id="dataAdminList" data-sortAction="#{sortAction}" border="0" cellpadding="2" cellspacing="0" style="width: 100%;">
 			<tr class="adminBar">
-				<td colspan="9"><span><a href="#{addLink}"><img src="~img/add.gif" /> _{addPage}</a></span> </td>
+				<td colspan="9">
+                    <span class="right20"><a href="#{addLink}"><img src="~img/add.gif" /> _{addPage}</a></span> 
+                    <select id="transDrop">
+                        <option value="0">转移到其他专题...</option>
+                        <!-- BEGIN transList -->
+                        <option value="#{x.Id}" data-url="#{x.data.TransLink}">#{x.Name}</option>
+                        <!-- END transList -->
+                    </select>
+                </td>
 			</tr>
 			<tr class="tableHeader">
+			<td align="center" style="width:4%;"><input id="selectAll" class="selectAll" type="checkbox" title="_{checkAll}" /></td>
 				<td style="width:10%">_{orderId}</td>
 				<td style="width:13%">_{subPage}</td>
 				<td >_{title}</td>
@@ -17,6 +26,7 @@
 			</tr>
 			<!-- BEGIN list -->
 			<tr class="tableItems">
+			<td align="center"><input name="selectThis" id="checkbox#{data.Id}" type="checkbox" class="selectSingle"/> </td>
 		         <td class="sort">
 			        <img src="~img/up.gif" class="cmdUp right10" data-id="#{data.Id}"/>
 			        <img src="~img/dn.gif" class="cmdDown" data-id="#{data.Id}"/>
@@ -39,6 +49,31 @@
 		</table>
 	</div>
 
+<script>
+    _run(function () {
 
 
 
+        $('#transDrop').change(function () {
+            var choiceList = wojilu.ui.select();
+            if (choiceList.length == 0) {
+                alert(lang.exSelect);
+                return;
+            }
+
+            var url = $(this).find(":selected").attr('data-url');
+            if (!url) return;
+
+            $.post(url, { 'ids': choiceList }, function (data) {
+                if (data == 'ok') {
+                    wojilu.tool.reloadPage();
+                }
+                else {
+                    alert(data);
+                }
+            });
+
+        });
+
+    });
+</script>

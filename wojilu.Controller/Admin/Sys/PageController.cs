@@ -46,9 +46,43 @@ namespace wojilu.Web.Controller.Admin.Sys {
             PageCategory category = pageService.GetCategoryById( categoryId, ctx.owner.obj );
             set( "category.Name", category.Name );
 
+            bindTransDrop( category );
+
             List<Page> list = pageService.GetPosts( ctx.owner.obj, categoryId );
 
             bindPages( list );
+        }
+
+        [HttpPost]
+        public void TransPage( int categoryId ) {
+            String ids = ctx.PostIdList( "ids" );
+            if (strUtil.IsNullOrEmpty( ids )) {
+                echoText( "请先选择" );
+                return;
+            }
+
+            pageService.UpdateCategory( ids, categoryId );
+
+            echoAjaxOk();
+        }
+
+        private void bindTransDrop( PageCategory category ) {
+
+            List<PageCategory> xlist = getTransList( category );
+            xlist.ForEach( x => x.data["TransLink"] = to( TransPage, x.Id ) );
+            bindList( "transList", "x", xlist );
+
+        }
+
+        private List<PageCategory> getTransList( PageCategory category ) {
+            List<PageCategory> list = pageService.GetCategories( ctx.owner.obj );
+            List<PageCategory> xlist = new List<PageCategory>();
+            foreach (PageCategory x in list) {
+                if (x.Id != category.Id) {
+                    xlist.Add( x );
+                }
+            }
+            return xlist;
         }
 
 

@@ -139,6 +139,11 @@ namespace wojilu.Common.Pages.Service {
             p.delete();
         }
 
+        public virtual void UpdateCategory( string ids, int categoryId ) {
+
+            db.updateBatch<Page>( "CategoryId=" + categoryId, "Id in (" + ids + ")" );
+        }
+
 
 
     }
