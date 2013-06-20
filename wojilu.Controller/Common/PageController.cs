@@ -354,56 +354,56 @@ namespace wojilu.Web.Controller.Common {
 
         private void bindSidebar( Page data ) {
 
+            ctx.SetItem( "_currentPage", data );
             List<Page> relativeList = pageService.GetPosts( ctx.owner.obj, data.Category.Id );
+            ctx.SetItem( "_relativeList", relativeList );
 
-            IBlock sidebar = getBlock( "sidebar" );
-            if (relativeList.Count <= 1) return;
-
-            sidebar.Set( "category.Name", data.Category.Name );
-
-            Tree<Page> tree = new Tree<Page>( relativeList );
-
-            CurrentRequest.setItem( "__currentPageParentId", data.ParentId );
-
-            treeBinder binder = new treeBinder();
-            binder.link = this.ctx.link;
-
-            sidebar.Set( "tree", tree.RenderList( "mytree", true, binder, data.Id ) );
-
-            String cmd = hasPermission( data.Category ) ? string.Format( "<a href=\"{0}\" class=\"btn\"><i class=\"icon-plus\"></i> 添加页面</a>", to( Add, data.Category.Id ) ) : "";
-
-            sidebar.Set( "addCmd", cmd );
-
-            sidebar.Next();
-
+            if (relativeList.Count <= 1) {
+                set( "sidebar", "" );
+            }
+            else {
+                load( "sidebar", SideBar );
+            }
         }
+
+        public void SideBar() {
+
+            Page data = ctx.GetItem( "_currentPage" ) as Page;
+            List<Page> relativeList = ctx.GetItem( "_relativeList" ) as List<Page>;
+
+            // 1) 所属分类
+            set( "category.Name", data.Category.Name );
+
+            // 2) 添加命令
+            String cmd = hasPermission( data.Category ) ? string.Format( "<a href=\"{0}\" class=\"btn\"><i class=\"icon-plus\"></i> 添加页面</a>", to( Add, data.Category.Id ) ) : "";
+            set( "addCmd", cmd );
+
+            // 3) 树形列表
+            Tree<Page> tree = new Tree<Page>( relativeList );
+            CurrentRequest.setItem( "__currentPageParentId", data.ParentId );
+            treeBinder binder = new treeBinder( data.Id );
+            binder.link = this.ctx.link;
+            List<zNode> nodes = tree.GetZNodeList( binder );
+            set( "jsonData", Json.ToString( nodes ) );
+
+            // 4) 传统链接
+            set( "tree", tree.RenderList( "mytree", true, binder, data.Id ) );
+        }
+
 
         class treeBinder : INodeBinder {
 
             public CtxLink link { get; set; }
 
+            private int currentNodeId;
+
+            public treeBinder( int nodeId ) {
+                currentNodeId = nodeId;
+            }
+
             public String Bind( INode node ) {
                 String lnk = link.T2( new PageController().Show, node.Id );
-                Page x = node as Page;
-                if (isCollapse( x )) {
-
-                    if (x.IsTextNode == 1) {
-                        return string.Format( "<span class=\"initCollapse\">{0}</span>", node.Name );
-                    }
-                    else {
-                        return string.Format( "<span class=\"initCollapse\"><a href=\"{0}\">{1}</a></span>", lnk, node.Name );
-                    }
-
-                }
-                else {
-
-                    if (x.IsTextNode == 1) {
-                        return node.Name;
-                    }
-                    else {
-                        return "<a href=\"" + lnk + "\">" + node.Name + "</a>";
-                    }
-                }
+                return "<a href=\"" + lnk + "\">" + node.Name + "</a>";
             }
 
             private bool isCollapse( Page x ) {
@@ -412,6 +412,28 @@ namespace wojilu.Web.Controller.Common {
                 if (obj != null && (int)obj == x.Id) return false;
 
                 return x.IsCollapse == 1;
+            }
+
+            public bool IsOpen( INode node ) {
+                return !isCollapse( (Page)node );
+            }
+
+            public string GetTarget( INode node ) {
+                return "_self";
+            }
+
+            public string GetUrl( INode node ) {
+
+                Page x = node as Page;
+                if (x.IsTextNode == 1) return "";
+
+                return link.T2( new PageController().Show, node.Id );
+            }
+
+            public String GetName( INode node ) {
+                if (node.Id != currentNodeId) return node.Name;
+                String lnk = link.T2( new PageController().Show, node.Id );
+                return "<span class='currentNode'>" + node.Name + "</span>";
             }
 
         }

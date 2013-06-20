@@ -48,6 +48,10 @@ namespace wojilu {
     /// </summary>
     public interface INodeBinder {
         String Bind( INode node );
+        Boolean IsOpen( INode node );
+        String GetTarget( INode node );
+        String GetUrl( INode node );
+        string GetName( INode node );
     }
 
     /// <summary>
@@ -180,6 +184,9 @@ namespace wojilu {
         internal int getOutdentCount() {
             return getPrev().getDepth() - getDepth();
         }
+
+
+
     }
 
     /// <summary>
@@ -485,6 +492,46 @@ namespace wojilu {
         /// <returns></returns>
         public String RenderList( String treeId ) {
             return RenderList( treeId, true, null, 0 );
+        }
+
+        public List<zNode> GetZNodeList( INodeBinder binder) {
+
+            List<zNode> results = new List<zNode>();
+
+            List<Node<T>> list = this.FindAllOrdered();
+
+            for (int i = 0; i < list.Count; i++) {
+
+                Node<T> node = list[i];
+                if (node.getParent() != null) continue;
+                results.Add( getZNode( node, binder ) );
+            }
+
+            return results;
+        }
+
+        private zNode getZNode( Node<T> node, INodeBinder binder ) {
+
+            zNode x = new zNode();
+
+            String name = binder.GetName( node.getNode() );
+            if (strUtil.IsNullOrEmpty( name )) name = node.getNode().Name;
+
+            x.name = name;
+            x.url = binder.GetUrl( node.getNode() );
+            x.open = binder.IsOpen( node.getNode() );
+            x.target = binder.GetTarget( node.getNode() );
+
+            if (node.getChildren().Count>0) {
+
+                foreach (Node<T> sub in node.getChildren()) {
+                    zNode subZ = getZNode( sub, binder );
+                    x.AddSub( subZ );
+                }
+
+            }
+
+            return x;
         }
 
         /// <summary>

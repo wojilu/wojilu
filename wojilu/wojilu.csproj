@@ -737,6 +737,7 @@
     <Compile Include="Web\Utils\HtmlFilter.cs" />
     <Compile Include="Web\Utils\Uploader.cs" />
     <Compile Include="Data\Cache\cdbx.cs" />
+    <Compile Include="_wojilu\zNode.cs" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include="Microsoft.Net.Client.3.5">

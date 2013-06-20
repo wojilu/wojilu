@@ -78,6 +78,7 @@
     <Content Include="framework\views\Admin\Upgrade\CommentImport\Index.html" />
     <Content Include="framework\views\Admin\Upgrade\Photo\Index.html" />
     <Content Include="framework\views\Common\Admin\AppBase\ThemeList.html" />
+    <Content Include="framework\views\Common\Page\SideBar.html" />
     <Content Include="framework\views\Connect\confirmUserInfo.html" />
     <Content Include="framework\views\Content\Admin\Common\Post\Trans.html" />
     <Content Include="framework\views\Content\Admin\Export\Index.html" />
@@ -103,6 +104,9 @@
     <Content Include="framework\views\Demo\Editor\TextareaDemo.html" />
     <Content Include="framework\views\Demo\Editor\Uparsedemo.html" />
     <Content Include="framework\views\Demo\Menu\Multi.html" />
+    <Content Include="framework\views\Demo\Tree\Data.html" />
+    <Content Include="framework\views\Demo\Tree\Index.html" />
+    <Content Include="framework\views\Demo\Tree\Simple.html" />
     <Content Include="framework\views\Demo\Valid\Editor.html" />
     <Content Include="framework\views\Demo\Valid\HtmlPost.html" />
     <Content Include="framework\views\Main\connectLogin.html" />
