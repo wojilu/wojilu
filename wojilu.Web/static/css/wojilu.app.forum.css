@@ -141,12 +141,19 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#d2ebf9', end
         td.fbPosts {width:12%; text-align:center; }
         td.fbLastUpdate {width:26%; color:#666;font-family:arial;}
         .fblastTitle {background:url("../skin/site/new/doc.png") no-repeat left center;padding-left:18px;
-     width:200px; 
-     overflow: hidden;     
-     white-space:nowrap;
-     text-overflow:ellipsis; 
-                      
-}
+            width:200px; 
+            overflow: hidden;     
+            white-space:nowrap;
+            text-overflow:ellipsis;                       
+         }
+
+    /***** 横排的版块 ****/
+    .hforumBoard {border-bottom:1px solid #d7e0e7;}
+    .hforumList { }
+    .hfbHeader {background:url("../skin/site/new/forum-title-bg.jpg");height:41px;border-bottom:1px solid #d7e0e7;font-weight:bold;}
+    .hfbContainer {margin:0px 10px 10px 10px; padding-left:20px;}
+    .hforumBoardOne {float:left;margin:10px 0px;width:280px;height:70px;border-collapse:collapse;}
+    .hfbLogo {width:50px;text-align:center}
 
 /************************** 主题列表页 **************************************/
 
