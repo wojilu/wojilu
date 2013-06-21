@@ -1,0 +1,20 @@
+﻿#postContainer {}
+
+#postSidebar{	 padding-top:10px; padding-bottom:50px;}
+	#postSidebar h3 {margin:20px;}
+	#postSidebar div {margin:5px 20px;}
+
+#postMain{ width:100%; margin:0px; padding:0px 0px 30px 0px; }
+#postMain {}
+    .page-inner { padding:20px;}
+	#postMain h4.postTitle{	font-size:18px; font-family:Microsoft YaHei, Calibri; margin:5px; margin-top:15px; text-align:center}
+	#postMain .postInfo {	margin:10px 5px 10px 5px;font-size:12px;color:#666;  text-align:center}
+	#postMain .postContent {	margin:5px 5px 5px 5px; font-size:14px; line-height:150%;}
+	#postMain img {max-width:630px;}
+
+#row-inner {border:0px blue solid;margin-left:20px;}
+
+#post-sidebar-wrap {width:250px;float:left;}
+#post-main-wrap {width:690px;float:left;}
+
+
