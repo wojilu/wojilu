@@ -388,6 +388,11 @@ namespace wojilu.Web.Controller.Common {
 
             // 4) 传统链接
             set( "tree", tree.RenderList( "mytree", true, binder, data.Id ) );
+
+            // 5) 当前菜单的url
+            Page homePage = relativeList.Count == 0 ? data : tree.GetAllOrdered()[0];
+            ctx.SetItem( "_moduleUrl", to( Show, homePage.Id ) );
+
         }
 
 

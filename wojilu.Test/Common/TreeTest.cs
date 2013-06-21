@@ -164,5 +164,22 @@ namespace wojilu.Test.Common {
         public string Bind( INode node ) {
             return string.Format( "<option value=\"{0}\">{1}</option>" + Environment.NewLine, node.Id, node.Name );
         }
+
+
+        public bool IsOpen( INode node ) {
+            return true;
+        }
+
+        public string GetTarget( INode node ) {
+            return "";
+        }
+
+        public string GetUrl( INode node ) {
+            return "";
+        }
+
+        public string GetName( INode node ) {
+            return node.Name;
+        }
     }
 }
