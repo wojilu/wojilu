@@ -2,7 +2,7 @@
 .userAvatar li {margin:5px;}
 
 
-img.blogPic{cursor: url("~img/cursor/zoomout.cur"), pointer; border:1px #ccc solid; padding:3px;}
+img.blogPic{cursor: url("~img/cursor/zoomout.cur"), pointer; border:1px #ccc solid; padding:3px;max-width:170px;max-height:300px;}
 img.blogPicM{cursor: url("~img/cursor/zoomin2.cur"), pointer; margin:10px 0px 10px 15px;}
 
 div.mpicWrap { border:1px #ccc solid; background:#f2f2f2;}
@@ -26,7 +26,7 @@ div.picTool span a { background:#f2f2f2;}
         <div class="blogItem" style="border-bottom:1px #ccc dotted; margin:5px 20px 5px 20px; padding:10px; font-size:14px;">
             <div style="float:left;padding-right:10px;"><a href="#{m.UserLink}"><img src="#{m.UserFace}" style="border:1px #ddd solid; padding:3px;width:48px;" /></a></div>
             <div style="float:left;width:460px; ">
-                <div style=" line-height:150%;"><a href="#{m.UserLink}">#{m.UserName}</a>：#{m.Content}</div>
+                <div style=" line-height:150%;word-break: break-all;word-wrap: break-word;"><a href="#{m.UserLink}">#{m.UserName}</a>：#{m.Content}</div>
 		        <!-- BEGIN pic -->
 		        <div><img class="blogPic" src="#{blog.PicSmall}" pic="#{blog.PicMedium}" /></div>
 		        <div class="hide mpicWrap">

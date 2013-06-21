@@ -224,7 +224,7 @@ namespace wojilu.Web.Controller.Microblogs {
         private static void bindPicInfo( IBlock block, Microblog blog ) {
             IBlock picBlock = block.GetBlock( "pic" );
             if (strUtil.HasText( blog.Pic )) {
-                picBlock.Set( "blog.PicSmall", blog.PicSmall );
+                picBlock.Set( "blog.PicSmall", blog.PicSx );
                 picBlock.Set( "blog.PicMedium", blog.PicMedium );
                 picBlock.Set( "blog.PicOriginal", blog.PicOriginal );
                 picBlock.Next();

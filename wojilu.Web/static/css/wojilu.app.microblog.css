@@ -39,7 +39,7 @@ div.mblogOne {border-bottom:1px #ccc dotted;margin:10px 10px 30px 10px}
 .mbTool .frmUpdate {color:#b27a57;}
 
 /**************************************/
-img.blogPic{cursor: url("../img/cursor/zoomout.cur"), pointer; border:1px #ddd solid; padding:3px;}
+img.blogPic{cursor: url("../img/cursor/zoomout.cur"), pointer; border:1px #ddd solid; padding:3px;max-width:170px;max-height:300px;}
 img.blogPicM{cursor: url("../img/cursor/zoomin2.cur"), pointer; margin:10px 0px 10px 15px; width:450px;}
 
 div.mpicWrap { border:1px #ddd solid; background:#f2f2f2;}

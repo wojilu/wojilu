@@ -53,7 +53,7 @@ namespace wojilu.Common.Microblogs.Domain {
                     return sys.Path.GetAvatarOriginal( this.Pic );
                 }
                 else {
-                    return sys.Path.GetPhotoThumb( this.Pic, ThumbnailType.Medium );
+                    return sys.Path.GetPhotoThumb( this.Pic, "m" );
                 }
             }
         }
@@ -65,7 +65,7 @@ namespace wojilu.Common.Microblogs.Domain {
                     return sys.Path.GetAvatarThumb( this.Pic, ThumbnailType.Big );
                 }
                 else {
-                    return sys.Path.GetPhotoThumb( this.Pic, ThumbnailType.Big );
+                    return sys.Path.GetPhotoThumb( this.Pic, "b" );
                 }
             }
         }
@@ -77,7 +77,6 @@ namespace wojilu.Common.Microblogs.Domain {
                     return sys.Path.GetAvatarOriginal( this.Pic );
                 }
                 else {
-
                     return sys.Path.GetPhotoOriginal( this.Pic );
                 }
             }
@@ -90,7 +89,19 @@ namespace wojilu.Common.Microblogs.Domain {
                     return sys.Path.GetAvatarThumb( this.Pic, ThumbnailType.Medium );
                 }
                 else {
-                    return sys.Path.GetPhotoThumb( this.Pic, ThumbnailType.Small );
+                    return sys.Path.GetPhotoThumb( this.Pic, "s" );
+                }
+            }
+        }
+
+        [NotSave]
+        public String PicSx {
+            get {
+                if (isUserAvatar()) {
+                    return sys.Path.GetAvatarThumb( this.Pic, ThumbnailType.Medium );
+                }
+                else {
+                    return sys.Path.GetPhotoThumb( this.Pic, "sx" );
                 }
             }
         }
