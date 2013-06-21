@@ -219,16 +219,15 @@ blockquote .quote-user {font-size:12px; margin-left:0px; color:#666; padding:5px
     border-bottom: 1px solid rgba(0, 0, 0, 0.32);
     box-shadow: 0 0 4px rgba(0, 0, 0, 0.35);
     height:42px; 
-    /*  原来首页用户导航条的格式
-    position: static !important;   */
-    /* 让首页用户导航条前端固定*/
-    /* 对于其他浏览器 */
+    /*  原来首页用户导航条的格式*/
+    position: static !important;
+
+    /* 让首页用户导航条前端固定
     position:fixed;
     top:0px;
-    /* 对于 IE6 */
     _position: absolute;
     _top: expression(documentElement.scrollTop);
-    
+    */
     width: 100%;
     z-index: 888;
 }
