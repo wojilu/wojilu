@@ -59,6 +59,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AppService.cs" />
+    <Compile Include="Class1.cs" />
     <Compile Include="OpenService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="UserHomeEasyInstaller.cs" />
