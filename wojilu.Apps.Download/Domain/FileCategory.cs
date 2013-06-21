@@ -25,7 +25,8 @@ namespace wojilu.Apps.Download.Domain {
         public int OrderId { get; set; }
 
         public int IsThumbView { get; set; } // 前台是否按缩略图模式浏览
-
+        
+        public string Description{get; set;}
         [NotSerialize]
         public String ThumbIcon {
             get { return IsThumbView == 1 ? "<img src=\"" + strUtil.Join( sys.Path.Img, "img.gif" ) + "\" />" : ""; }
