@@ -76,7 +76,10 @@
     <Content Include="framework\views\Admin\Sys\ConnectAdmin\Edit.html" />
     <Content Include="framework\views\Admin\Sys\ConnectAdmin\Index.html" />
     <Content Include="framework\views\Admin\Upgrade\CommentImport\Index.html" />
+    <Content Include="framework\views\Admin\Upgrade\Layout\Layout.html" />
     <Content Include="framework\views\Admin\Upgrade\Photo\Index.html" />
+    <Content Include="framework\views\Admin\Upgrade\Start\Index.html" />
+    <Content Include="framework\views\Admin\Upgrade\Start\UpdateTable.html" />
     <Content Include="framework\views\Common\Admin\AppBase\ThemeList.html" />
     <Content Include="framework\views\Common\Page\SideBar.html" />
     <Content Include="framework\views\Connect\confirmUserInfo.html" />
@@ -325,7 +328,7 @@
     <Content Include="framework\views\Content\Admin\Section\Video\AdminList.html" />
     <Content Include="framework\views\Content\Admin\Section\Video\AdminSectionShow.html" />
     <Content Include="framework\views\Content\Admin\Section\Video\Edit.html" />
-    <Content Include="framework\views\Content\Admin\Update\Index.html" />
+    <Content Include="framework\views\Admin\Upgrade\ContentUpdate\Index.html" />
     <Content Include="framework\views\Content\Binder\Excerpt.html" />
     <Content Include="framework\views\Content\Binder\Img.html" />
     <Content Include="framework\views\Content\Binder\List.html" />

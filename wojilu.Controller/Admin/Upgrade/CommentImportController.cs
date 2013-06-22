@@ -18,6 +18,8 @@ namespace wojilu.Web.Controller.Admin.Upgrade {
             set( "lnkImportBlog", to( BeginImportBlog ) );
             set( "lnkImportPhoto", to( BeginImportPhoto ) );
 
+            set( "lnkImportDownload", to( BeginImportDownload ) );
+
         }
 
         public void BeginImportPage() {
@@ -34,6 +36,15 @@ namespace wojilu.Web.Controller.Admin.Upgrade {
 
         public void BeginImportBlog() {
             new ImportHelper<BlogPostComment, BlogPost>().Import();
+            echoAjaxOk();
+        }
+
+        public void BeginImportDownload() {
+
+            Type dCommentType = ObjectContext.GetType( "wojilu.Apps.Download.Domain.FileComment" );
+            Type dTargetType = ObjectContext.GetType( "wojilu.Apps.Download.Domain.FileItem" );
+
+            new ImportRawHelper().Import( dCommentType, dTargetType );
             echoAjaxOk();
         }
 

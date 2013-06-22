@@ -7,19 +7,46 @@ using wojilu.DI;
 using wojilu.Web.Mvc;
 using wojilu.Common.AppBase.Interface;
 using wojilu.Members.Users.Domain;
+using System.Collections;
 
 namespace wojilu.Web.Controller.Admin.Upgrade {
+
+
+    
 
     public class ImportHelper<TComment, TTarget>
         where TComment : IEntity
         where TTarget : IEntity {
 
-        private static readonly ILog logger = LogManager.GetLogger( "ImportHelper" );
 
         public void Import() {
 
-            List<TComment> clist = db.findAll<TComment>();
-            foreach (TComment x in clist) {
+            new ImportRawHelper().Import( typeof( TComment ), typeof( TTarget ) );
+        }
+
+    }
+
+
+    public class ImportRawHelper {
+
+
+        private static readonly ILog logger = LogManager.GetLogger( "ImportHelper" );
+
+        private Type commentType;
+        private Type targetType;
+
+
+        public void Import( Type commentType, Type targetType ) {
+
+            this.commentType = commentType;
+            this.targetType = targetType;
+
+        }
+
+        private void importPrivate() {
+            IList clist = ndb.findAll( commentType );
+
+            foreach (IComment x in clist) {
 
                 // 如果已经导入，那么就删除已有的OpenComment
                 OpenComment oc = hasImport( x );
@@ -35,18 +62,17 @@ namespace wojilu.Web.Controller.Admin.Upgrade {
 
                 logTransInfo( x, comment );
             }
-
         }
 
         private void deleteTransLog( OpenComment oc ) {
             OpenCommentTrans.deleteBatch( "OpenCommentId=" + oc.Id );
         }
 
-        private OpenComment hasImport( TComment x ) {
+        private OpenComment hasImport( IComment x ) {
 
             OpenCommentTrans trans = OpenCommentTrans.find( "CommentId=:cid and CommentType=:ctype" )
                 .set( "cid", x.Id )
-                .set( "ctype", typeof( TComment ).FullName )
+                .set( "ctype", commentType.FullName )
                 .first();
 
             if (trans == null) return null;
@@ -61,7 +87,7 @@ namespace wojilu.Web.Controller.Admin.Upgrade {
             service.Delete( x );
         }
 
-        private void logTransInfo( TComment x, OpenComment comment ) {
+        private void logTransInfo( IComment x, OpenComment comment ) {
 
             OpenCommentTrans trans = new OpenCommentTrans();
             trans.CommentId = x.Id;
@@ -71,9 +97,7 @@ namespace wojilu.Web.Controller.Admin.Upgrade {
             trans.insert();
         }
 
-        private OpenComment getOpenComment( TComment obj ) {
-
-            IComment x = obj as IComment;
+        private OpenComment getOpenComment( IComment x ) {
 
             OpenComment comment = new OpenComment();
             comment.AppId = x.AppId;
@@ -86,18 +110,18 @@ namespace wojilu.Web.Controller.Admin.Upgrade {
             comment.Ip = x.Ip;
             comment.Created = x.Created;
 
-            comment.ParentId = getParentId( obj );
+            comment.ParentId = getParentId( x );
 
-            IEntity p = ndb.findById( typeof( TTarget ), x.RootId );
+            IEntity p = ndb.findById( targetType, x.RootId );
             if (p == null) {
                 comment.TargetDataId = 0;
-                comment.TargetDataType = typeof( TTarget ).FullName;
+                comment.TargetDataType = targetType.FullName;
                 comment.TargetTitle = "--null-";
                 comment.TargetUserId = 0;
             }
             else {
                 comment.TargetDataId = p.Id;
-                comment.TargetDataType = typeof( TTarget ).FullName;
+                comment.TargetDataType = targetType.FullName;
                 comment.TargetTitle = getTitle( p );
                 comment.TargetUserId = getCreatorId( p );
             }
@@ -124,9 +148,7 @@ namespace wojilu.Web.Controller.Admin.Upgrade {
             return user.Id;
         }
 
-        private int getParentId( TComment obj ) {
-
-            IComment x = obj as IComment;
+        private int getParentId( IComment x ) {
 
             if (x.ParentId <= 0) return 0;
 
@@ -146,7 +168,8 @@ namespace wojilu.Web.Controller.Admin.Upgrade {
 
         private int getOldParentId( int id ) {
 
-            TComment p = db.findById<TComment>( id );
+            Object p = ndb.findById( commentType, id );
+
             if (p == null) return 0;
 
             IComment comment = p as IComment;
@@ -157,6 +180,7 @@ namespace wojilu.Web.Controller.Admin.Upgrade {
 
             return getOldParentId( comment.ParentId );
         }
+
 
 
     }

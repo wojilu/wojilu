@@ -86,7 +86,10 @@
     <Compile Include="Admin\AppThemeController.cs" />
     <Compile Include="Admin\CommentController.cs" />
     <Compile Include="Admin\Sys\ConnectAdminController.cs" />
+    <Compile Include="Admin\Upgrade\ContentUpdateController.cs" />
+    <Compile Include="Admin\Upgrade\LayoutController.cs" />
     <Compile Include="Admin\Upgrade\PhotoController.cs" />
+    <Compile Include="Admin\Upgrade\StartController.cs" />
     <Compile Include="ConnectController.cs" />
     <Compile Include="Content\Admin\CommentController.cs" />
     <Compile Include="Content\Admin\ExportController.cs" />
