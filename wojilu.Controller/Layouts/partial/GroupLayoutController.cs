@@ -136,13 +136,12 @@ namespace wojilu.Web.Controller.Layouts {
 
         private String getJoinCmd( Group group ) {
 
-            //String lnkJoin = to( new Groups.MemberController().JoinGroup );
             String lnkJoin = to( new Groups.JoinController().Index );
             String lnkQuit = to( new Groups.JoinController().Quit );
 
 
-            String joinStr = string.Format( "<span href='{0}' class='frmBox cmd'><img src=\"{1}\" /> {2}</span>", lnkJoin, strUtil.Join( sys.Path.Img, "add.gif" ), lang( "joinGroup" ) );
-            String quitStr = string.Format( "<span href='{0}' class='frmBox cmd'>{1} {2}</span>", lnkQuit, ForumLocationUtil.separator, lang( "quitGroup" ) );
+            String joinStr = string.Format( "<span href='{0}' class='frmBox btn btn-mini'><i class='icon-plus'></i> {1}</span>", lnkJoin, lang( "joinGroup" ) );
+            String quitStr = string.Format( "<span href='{0}' class='frmBox btn btn-mini'><i class='icon-off'></i> {1}</span>", lnkQuit, lang( "quitGroup" ) );
 
             int status = mgrService.MemberStatus( (User)ctx.viewer.obj, group.Id );
 
