@@ -12,44 +12,43 @@ using System.Collections;
 namespace wojilu.Web.Controller.Admin.Upgrade {
 
 
-    
-
     public class ImportHelper<TComment, TTarget>
         where TComment : IEntity
         where TTarget : IEntity {
 
+        public void Import( int startId, int endId ) {
 
-        public void Import() {
-
-            new ImportRawHelper().Import( typeof( TComment ), typeof( TTarget ) );
+            new ImportRawHelper().Import( typeof( TComment ), typeof( TTarget ), startId, endId );
         }
-
     }
 
 
     public class ImportRawHelper {
-
 
         private static readonly ILog logger = LogManager.GetLogger( "ImportHelper" );
 
         private Type commentType;
         private Type targetType;
 
-
-        public void Import( Type commentType, Type targetType ) {
+        public void Import( Type commentType, Type targetType, int startId, int endId ) {
 
             this.commentType = commentType;
             this.targetType = targetType;
 
+            importPrivate( startId, endId );
         }
 
-        private void importPrivate() {
-            IList clist = ndb.findAll( commentType );
+        private void importPrivate( int startId, int endId ) {
+
+            IList clist = ndb.find( commentType, "Id>=" + startId + " and Id<=" + endId + " order by Id asc" ).list();
+
+            logger.Info( "old comment count=" + clist.Count );
 
             foreach (IComment x in clist) {
 
                 // 如果已经导入，那么就删除已有的OpenComment
                 OpenComment oc = hasImport( x );
+
                 if (oc != null) {
                     deleteOpenComment( oc );
                     deleteTransLog( oc );
@@ -152,7 +151,11 @@ namespace wojilu.Web.Controller.Admin.Upgrade {
 
             if (x.ParentId <= 0) return 0;
 
-            int parentId = getOldParentId( x.ParentId );
+            // 旧版数据
+            if (x.ParentId == x.RootId) return 0;
+
+            CommentLevel level = new CommentLevel { Count = 1 };
+            int parentId = getOldParentId( x.ParentId, level );
 
             OpenCommentTrans trans = OpenCommentTrans.find( "CommentId=:cid and CommentType=:ctype" )
                 .set( "cid", parentId )
@@ -166,7 +169,7 @@ namespace wojilu.Web.Controller.Admin.Upgrade {
             return trans.OpenCommentId;
         }
 
-        private int getOldParentId( int id ) {
+        private int getOldParentId( int id, CommentLevel level ) {
 
             Object p = ndb.findById( commentType, id );
 
@@ -178,10 +181,17 @@ namespace wojilu.Web.Controller.Admin.Upgrade {
             if (comment.ParentId == 0) return id;
             if (comment.ParentId == id) return id;
 
-            return getOldParentId( comment.ParentId );
+            level.Count = level.Count + 1;
+
+            if (level.Count > 5) return 0;
+
+            return getOldParentId( comment.ParentId, level );
         }
 
-
-
     }
+
+    public class CommentLevel {
+        public int Count { get; set; }
+    }
+
 }
