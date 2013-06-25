@@ -69,6 +69,11 @@ namespace wojilu.Web.Mvc {
         public String ViewDir { get { return _viewDir; } }
 
         /// <summary>
+        /// mvc框架的版本号
+        /// </summary>
+        public String Version { get { return _version; } }
+
+        /// <summary>
         /// 是否解析appId，默认解析，即将 Mycontroller16/List.aspx 中的16解析成appId
         /// </summary>
         public Boolean IsParseAppId { get { return _isParseAppId; } }
@@ -195,6 +200,8 @@ namespace wojilu.Web.Mvc {
         private String _urlExt;
         private String _viewExt;
         private String _viewDir;
+        private String _version;
+
         private Boolean _isParseAppId;
         private Boolean _isCacheView;
         private Boolean _isActionCache;
@@ -229,6 +236,8 @@ namespace wojilu.Web.Mvc {
             _urlExt = getUrlExt( dic );
             _viewExt = getViewExt( dic );
             _viewDir = getViewDir( dic );
+            _version = getVersionDir( dic );
+
             _filterList = getValueList( dic, "filter" );
             _tagWhiteList = getValueList( dic, "tagWhiteList" );
 
@@ -243,7 +252,6 @@ namespace wojilu.Web.Mvc {
             dic.TryGetValue( "subdomainWildcardType", out _subdomainWildcardType );
 
         }
-
 
         private List<String> getValueList( Dictionary<String, String> dic, String keyName ) {
 
@@ -313,6 +321,13 @@ namespace wojilu.Web.Mvc {
 
             if (!ext.StartsWith( "." )) return "." + ext;
             return ext;
+        }
+
+        private string getVersionDir( Dictionary<String, String> dic ) {
+            String version;
+            dic.TryGetValue( "version", out version );
+            if (strUtil.IsNullOrEmpty( version )) return "1.9";
+            return version;
         }
 
         private String getUrlExt( Dictionary<String, String> dic ) {

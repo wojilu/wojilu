@@ -56,6 +56,7 @@ namespace wojilu.Web.GlobalApp {
             if (req == null) {
                 StringBuilder sb = new StringBuilder();
                 sb.AppendLine( "ex.Message=" + ex.Message );
+                sb.AppendLine( "ex.Version=" + MvcConfig.Instance.Version );
                 sb.AppendLine( "ex.Source=" + getExSource( ex ) );
                 sb.AppendLine( "ex.StackTrace=" + getExStackTrace( ex, exLast ) );
                 return sb;
@@ -64,6 +65,7 @@ namespace wojilu.Web.GlobalApp {
                 StringBuilder sb = new StringBuilder();
                 sb.AppendLine( "url=" + req.Url.ToString() );
                 sb.AppendLine( "ex.Message=" + ex.Message );
+                sb.AppendLine( "ex.Version=" + MvcConfig.Instance.Version );
                 appendPostValues( "ex.PostedValue=", req.Form, sb );
                 sb.AppendLine( "ex.Source=" + getExSource( ex ) );
                 sb.AppendLine( "ex.StackTrace=" + getExStackTrace( ex, exLast ) );
