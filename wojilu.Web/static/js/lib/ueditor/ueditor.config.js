@@ -23,7 +23,7 @@ window._wbar = {
         ['source', '|',
         'bold', 'italic', 'forecolor', 'backcolor', 'underline', 'strikethrough', 'superscript', '|',
         'link', 'unlink', 'anchor',
-        'horizontal', '|', 'undo', 'redo', 
+        'insertcode', '|', 'undo', 'redo', 
         'removeformat', 'autotypeset', 'pasteplain'],
 
         ['fontfamily', 'fontsize', 'insertorderedlist', 'insertunorderedlist', '|',

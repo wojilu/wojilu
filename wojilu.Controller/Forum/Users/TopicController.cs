@@ -154,7 +154,7 @@ namespace wojilu.Web.Controller.Forum.Users {
             List<ForumCategory> categories = categoryService.GetByBoard( id );
             if (categories.Count > 0) {
                 categories.Insert( 0, new ForumCategory( 0, alang( "plsSelectCategory" ) ) );
-                set( "Category", Html.DropList( categories, "CategoryId", "Name", "Id", ctx.PostInt( "CategoryId" ) ) );
+                set( "Category", "<div id=\"forum-form-cat\">"+ Html.DropList( categories, "CategoryId", "Name", "Id", ctx.PostInt( "CategoryId" ) ) + "</div>" );
             }
             else {
                 set( "Category", string.Empty );

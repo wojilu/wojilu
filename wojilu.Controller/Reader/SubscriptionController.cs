@@ -37,9 +37,9 @@ namespace wojilu.Web.Controller.Reader {
         public void Show( int id ) {
 
             Subscription s = subscriptionService.GetById( id );
-            if (s == null) {
+            if (s == null || s.FeedSource == null) {
                 echo( lang( "exDataNotFound" ) );
-                return;                    
+                return;
             }
 
             ctx.Page.Title = s.Name;

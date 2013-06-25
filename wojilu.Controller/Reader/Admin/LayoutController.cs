@@ -34,6 +34,9 @@ namespace wojilu.Web.Controller.Reader.Admin {
             List<Subscription> slist = subscribeService.GetByApp( ctx.app.Id );
 
             foreach (FeedCategory category in categories) {
+
+                if (category == null) continue;
+
                 cblock.Set( "category.Title", category.Name );
                 cblock.Set( "category.Id", category.Id );
                 cblock.Set( "category.Url", to( new CategoryController().Show, category.Id ) );
@@ -41,6 +44,9 @@ namespace wojilu.Web.Controller.Reader.Admin {
                 IBlock fblock = cblock.GetBlock( "list" );
                 List<Subscription> feeds = subscribeService.GetByCategoryId( slist, category.Id );
                 foreach (Subscription f in feeds) {
+
+                    if (f == null || f.FeedSource == null) continue;
+
                     fblock.Set( "feed.Title", f.Name );
                     fblock.Set( "feed.Id", f.FeedSource.Id );
                     fblock.Set( "feed.ItemCount", f.FeedSource.EntryCount );

@@ -81,9 +81,15 @@ namespace wojilu.Web.Controller.Photo {
 
         private void bindPhotoPosts( int id ) {
             PhotoAlbum album = albumService.GetByIdWithDefault( id, ctx.owner.Id );
-            ctx.Page.Title = album.Name;
+
+            String albumName = "";
+            if (album != null) {
+                albumName = album.Name;
+            }
+
+            ctx.Page.Title = albumName;
             set( "appLink", to( Index ) );
-            set( "album.Name", album.Name );
+            set( "album.Name", albumName );
 
             DataPage<PhotoPost> postPage = postService.GetPostPageByAlbum( ctx.owner.Id, ctx.app.Id, id, 12 );
             List<PostVo> volist = PostVo.Fill( postPage.Results );

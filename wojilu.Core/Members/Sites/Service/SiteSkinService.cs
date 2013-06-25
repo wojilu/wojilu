@@ -96,6 +96,7 @@ namespace wojilu.Members.Sites.Service {
 
         public Boolean IsUserCustom() {
             SiteSkin current = GetCurrent();
+            if (current == null) return true;
             return current.Name.Equals( customName );
         }
 

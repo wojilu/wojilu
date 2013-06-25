@@ -225,7 +225,7 @@ namespace wojilu.Web.Controller.Forum {
             formBlock.Set( "regLink", t2( new RegisterController().Register ) );
 
             String categoryHtml = "";
-            if (categories.Count > 0) categoryHtml = Html.DropList( categories, "CategoryId", "Name", "Id", 0 );
+            if (categories.Count > 0) categoryHtml = "<div id=\"forum-form-cat\">" + Html.DropList( categories, "CategoryId", "Name", "Id", 0 ) + "</div>";
             formBlock.Set( "Category", categoryHtml );
 
             formBlock.Next();

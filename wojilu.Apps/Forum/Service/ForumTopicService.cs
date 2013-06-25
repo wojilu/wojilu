@@ -69,6 +69,7 @@ namespace wojilu.Apps.Forum.Service {
             ForumPost post = ForumPost.findById( postId );
             if (post == null) return null;
             ForumTopic topic = GetById( post.TopicId );
+            if (topic == null) return null;
             if (topic.Status == (int)TopicStatus.Delete) return null;
             return topic;
         }

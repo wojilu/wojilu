@@ -35,7 +35,9 @@ namespace wojilu.Apps.Reader.Service {
 
         private static String getFeedIds( List<Subscription> list ) {
             String result = "";
+            if ( result==null || list.Count == 0) return result;
             foreach (Subscription myfeed in list) {
+                if (myfeed == null || myfeed.FeedSource == null) continue;
                 result += myfeed.FeedSource.Id + ",";
             }
             return result.TrimEnd( ',' );

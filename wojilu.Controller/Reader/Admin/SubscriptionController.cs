@@ -154,6 +154,8 @@ namespace wojilu.Web.Controller.Reader.Admin {
             IBlock block = getBlock( "list" );
             foreach (Subscription sf in list) {
 
+                if (sf == null || sf.FeedSource == null) continue;
+
                 block.Set( "feed.Id", sf.Id );
                 block.Set( "feed.OrderId", sf.OrderId );
                 block.Set( "feed.Name", sf.Name );
