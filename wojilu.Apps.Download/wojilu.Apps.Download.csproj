@@ -59,7 +59,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Controller\Admin\CategoryController.cs" />
-    <Compile Include="Controller\Admin\FileCommentImportController.cs" />
     <Compile Include="Controller\Admin\DownloadController.cs" />
     <Compile Include="Controller\Admin\FileController.cs" />
     <Compile Include="Controller\Admin\LayoutController.cs" />
@@ -84,7 +83,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="views\Admin\FileCommentImport\Index.html" />
     <Content Include="views\Download\Admin\Category\Add.html" />
     <Content Include="views\Download\Admin\Category\Edit.html" />
     <Content Include="views\Download\Admin\Category\List.html" />

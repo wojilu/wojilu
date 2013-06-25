@@ -231,7 +231,7 @@ namespace wojilu.Web.Controller.Layouts {
             if (app.IsStop == 1) {
                 return ("<span class='stop'>" + icon + " " + app.Name + "</span>");
             }
-            return string.Format( "<a href='{1}' class='frmLink' loadto='adminMainBody' nolayout=1>{2} {0}</a>", app.Name, alink.ToAppAdmin( Site.Instance, app ), icon );
+            return string.Format( "<a href='{1}'>{2} {0}</a>", app.Name, alink.ToAppAdmin( Site.Instance, app ), icon );
         }
     }
 
