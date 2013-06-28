@@ -50,7 +50,7 @@ namespace wojilu.Web.Mvc {
             StringBuilder builder = new StringBuilder();
             for (int i = 0; i < items.Length; i++) {
                 Boolean isChk = IsValueChecked( arrSelectValue, items[i] );
-                builder.AppendFormat( "<label class=\"checkbox\" id=\"lbl-{0}{4}\"><input type=\"checkbox\" id=\"{0}{4}\" name=\"{0}\" value=\"{1}\" {2}/> {1}</label> ", chkName, items[i], isChk ? "checked=\"checked\"" : "", i );
+                builder.AppendFormat( "<label class=\"checkbox\" id=\"lbl-{0}{3}\"><input type=\"checkbox\" id=\"{0}{3}\" name=\"{0}\" value=\"{1}\" {2}/> {1}</label> ", chkName, items[i], isChk ? "checked=\"checked\"" : "", i );
             }
             return builder.ToString();
         }
