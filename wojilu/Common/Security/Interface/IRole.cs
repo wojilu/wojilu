@@ -1,4 +1,4 @@
-/*
+О╩©/*
  * Copyright 2010 www.wojilu.com
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -20,7 +20,7 @@ using System.Collections;
 namespace wojilu.Common.Security {
 
     /// <summary>
-    /// ╫ги╚╫с©з
+    /// Х╖▓Х┴╡Ф▌╔Е▐ё
     /// </summary>
     public interface IRole {
 

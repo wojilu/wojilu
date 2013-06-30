@@ -1,4 +1,4 @@
-/*
+ï»¿/*
  * Copyright 2010 www.wojilu.com
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -25,7 +25,7 @@ namespace wojilu.Common.Onlines {
 
 
     /// <summary>
-    /// Ìá¹©ÔÚÏß×´Ì¬µÄ¸÷ÀàÊı¾İ
+    /// æä¾›åœ¨çº¿çŠ¶æ€çš„å„ç±»æ•°æ®
     /// </summary>
     public class OnlineService {
 
@@ -65,7 +65,7 @@ namespace wojilu.Common.Onlines {
         }
 
         /// <summary>
-        /// ×îĞÂµÇÂ¼ÓÃ»§
+        /// æœ€æ–°ç™»å½•ç”¨æˆ·
         /// </summary>
         /// <param name="count"></param>
         /// <returns></returns>
@@ -89,7 +89,7 @@ namespace wojilu.Common.Onlines {
         }
 
         /// <summary>
-        /// ×îĞÂËùÓĞÓÃ»§
+        /// æœ€æ–°æ‰€æœ‰ç”¨æˆ·
         /// </summary>
         /// <param name="count"></param>
         /// <returns></returns>

@@ -1,4 +1,4 @@
-/*
+ï»¿/*
  * Copyright (c) 2010, www.wojilu.com. All rights reserved.
  */
 
@@ -137,7 +137,7 @@ namespace wojilu.Web.Controller.Users.Admin.Friends {
         private void bindFriends( DataPage<FriendShip> list ) {
             bindFriendList( list, ctx.owner.Id );
 
-            // ÐÞ¸ÄÀà±ð
+            // ä¿®æ”¹ç±»åˆ«
             List<FriendCategory> categories = FriendCategory.GetByOwner( ctx.owner.Id );
             dropList( "FriendCategory", categories, "Name=Id", 0 );
             set( "saveCategoryLink", to( SaveCategory ) );
@@ -163,7 +163,7 @@ namespace wojilu.Web.Controller.Users.Admin.Friends {
             String friendDescription = strUtil.CutString( ctx.Post( "friendDescription" ), 250 );
 
             if (categoryId <= 0) {
-                echoError( "ÇëÑ¡Ôñ·ÖÀà»ò´´½¨ÐÂµÄ·ÖÀà" );
+                echoError( "è¯·é€‰æ‹©åˆ†ç±»æˆ–åˆ›å»ºæ–°çš„åˆ†ç±»" );
                 return;
             }
 

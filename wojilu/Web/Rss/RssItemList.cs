@@ -1,4 +1,4 @@
-/*
+ï»¿/*
  * Copyright 2010 www.wojilu.com
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -21,7 +21,7 @@ using System.Reflection;
 namespace wojilu.Web {
 
     /// <summary>
-    /// rss Êı¾İÁĞ±í
+    /// rss æ•°æ®åˆ—è¡¨
     /// </summary>
     public class RssItemList : CollectionBase {
 

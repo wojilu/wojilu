@@ -1,4 +1,4 @@
-/*
+ï»¿/*
  * Copyright 2010 www.wojilu.com
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -19,7 +19,7 @@ using System.Collections;
 namespace wojilu.Reflection {
 
     /// <summary>
-    /// ÊôĞÔ´¦ÀíÆ÷¹¤¾ß
+    /// å±æ€§å¤„ç†å™¨å·¥å…·
     /// </summary>
     public interface IAccessorUtil {
         IDictionary GetAccessorList();

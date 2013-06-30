@@ -1,4 +1,4 @@
-/*
+ï»¿/*
  * Copyright (c) 2010, www.wojilu.com. All rights reserved.
  */
 
@@ -98,11 +98,11 @@ namespace wojilu.Web.Controller.Forum {
             IBlock hBlock = getBlock( "hotPick" );
             IBlock pBlock = getBlock( "pickList" );
 
-            // °ó¶¨µÚÒ»¸ö
+            // ç»‘å®šç¬¬ä¸€ä¸ª
             if (list.Count == 0) return;
             bindPick( list[0], hBlock, 1 );
 
-            // °ó¶¨ÁÐ±í
+            // ç»‘å®šåˆ—è¡¨
             if (list.Count == 1) return;
             for (int i = 1; i < list.Count; i++) {
                 bindPick( list[i], pBlock, i + 1 );

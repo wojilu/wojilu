@@ -1,4 +1,4 @@
-/*
+ï»¿/*
  * Copyright 2010 www.wojilu.com
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -21,7 +21,7 @@ using System.Text;
 namespace wojilu.Web.Mvc.Utils {
 
     /// <summary>
-    /// ºÏ²¢ action ºÍ layout µÄÄÚÈİ
+    /// åˆå¹¶ action å’Œ layout çš„å†…å®¹
     /// </summary>
     public class HtmlCombiner {
 

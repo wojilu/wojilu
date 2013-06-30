@@ -1,4 +1,4 @@
-/*
+ï»¿/*
  * Copyright 2010 www.wojilu.com
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -20,7 +20,7 @@ using System.Collections;
 namespace wojilu.ORM {
 
     /// <summary>
-    /// ²éÑ¯ÊôĞÔµÈ¸½¼şĞÅÏ¢
+    /// æŸ¥è¯¢å±æ€§ç­‰é™„ä»¶ä¿¡æ¯
     /// </summary>
     [Serializable]
     public class Includer {

@@ -1,4 +1,4 @@
-/*
+ï»¿/*
  * Copyright (c) 2010, www.wojilu.com. All rights reserved.
  */
 
@@ -181,14 +181,14 @@ namespace wojilu.Web.Controller.Content.Admin {
 
         //--------------------------------------------------------------------------------------------------
 
-        // »ñÈ¡µ±Ç°appÊ×Ò³µÄÊı¾İ¡¢ÅÅ°æ²¼¾Ö¡¢ÑùÊ½£¬´æ´¢ÎªÆ¤·ô
+        // è·å–å½“å‰appé¦–é¡µçš„æ•°æ®ã€æ’ç‰ˆå¸ƒå±€ã€æ ·å¼ï¼Œå­˜å‚¨ä¸ºçš®è‚¤
         public void Snapshot() {
 
             ContentApp app = ctx.app.obj as ContentApp;
 
             PortalMockSkin s = new PortalMockSkin();
-            s.Style = app.Style; // ÑùÊ½
-            s.Layout = app.Layout; // ÅÅ°æ²¼¾Ö
+            s.Style = app.Style; // æ ·å¼
+            s.Layout = app.Layout; // æ’ç‰ˆå¸ƒå±€
             s.Sections = new List<PortalMockSection>();
 
             List<ContentSection> sections = sectionService.GetByApp( app.Id );

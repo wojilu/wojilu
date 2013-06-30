@@ -1,4 +1,4 @@
-/*
+ï»¿/*
  * Copyright 2010 www.wojilu.com
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -22,7 +22,7 @@ using System.Web;
 namespace wojilu.Web.Handler {
 
     /// <summary>
-    /// ÍøÒ³²»´æÔÚµÄ´¦ÀíÆ÷
+    /// ç½‘é¡µä¸å­˜åœ¨çš„å¤„ç†å™¨
     /// </summary>
     public class PageNotFoundHandler : IHttpHandler {
 

@@ -1,4 +1,4 @@
-/*
+﻿/*
  * Copyright 2010 www.wojilu.com
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -21,7 +21,7 @@ using System.Text;
 namespace wojilu.Web.Mvc {
 
     /// <summary>
-    /// mvc �쳣
+    /// mvc 异常
     /// </summary>
     public class MvcException : Exception {
 

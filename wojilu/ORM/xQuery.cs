@@ -1,4 +1,4 @@
-/*
+ï»¿/*
  * Copyright 2010 www.wojilu.com
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -22,7 +22,7 @@ using System.Text;
 namespace wojilu.ORM {
 
     /// <summary>
-    /// ·ºÐÍ²éÑ¯¶ÔÏó
+    /// æ³›åž‹æŸ¥è¯¢å¯¹è±¡
     /// </summary>
     /// <typeparam name="T"></typeparam>
     public class xQuery<T> {
@@ -34,10 +34,10 @@ namespace wojilu.ORM {
         }
 
         /// <summary>
-        /// ¸ø²éÑ¯Ìõ¼þÖÐµÄ²ÎÊý¸³Öµ
+        /// ç»™æŸ¥è¯¢æ¡ä»¶ä¸­çš„å‚æ•°èµ‹å€¼
         /// </summary>
-        /// <param name="name">²ÎÊýÃû³Æ</param>
-        /// <param name="val">²ÎÊýÖµ</param>
+        /// <param name="name">å‚æ•°åç§°</param>
+        /// <param name="val">å‚æ•°å€¼</param>
         /// <returns></returns>
         public xQuery<T> set( String name, Object val ) {
             _q.set( name, val );
@@ -45,7 +45,7 @@ namespace wojilu.ORM {
         }
 
         /// <summary>
-        /// ·µ»Ø²éÑ¯µÄËùÓÐ½á¹û
+        /// è¿”å›žæŸ¥è¯¢çš„æ‰€æœ‰ç»“æžœ
         /// </summary>
         /// <returns></returns>
         public List<T> list() {
@@ -53,7 +53,7 @@ namespace wojilu.ORM {
         }
 
         /// <summary>
-        /// ·µ»Ø·ûºÏ²éÑ¯Ìõ¼þµÄÇ° n Ìõ½á¹û
+        /// è¿”å›žç¬¦åˆæŸ¥è¯¢æ¡ä»¶çš„å‰ n æ¡ç»“æžœ
         /// </summary>
         /// <param name="count"></param>
         /// <returns></returns>
@@ -63,7 +63,7 @@ namespace wojilu.ORM {
         }
 
         /// <summary>
-        /// ·µ»Ø·ûºÏ²éÑ¯Ìõ¼þµÄµÚÒ»Ìõ½á¹û
+        /// è¿”å›žç¬¦åˆæŸ¥è¯¢æ¡ä»¶çš„ç¬¬ä¸€æ¡ç»“æžœ
         /// </summary>
         /// <returns></returns>
         public T first() {
@@ -72,7 +72,7 @@ namespace wojilu.ORM {
         }
 
         /// <summary>
-        /// Í³¼Æ·ûºÏ²éÑ¯Ìõ¼þµÄ½á¹ûÊýÁ¿
+        /// ç»Ÿè®¡ç¬¦åˆæŸ¥è¯¢æ¡ä»¶çš„ç»“æžœæ•°é‡
         /// </summary>
         /// <returns></returns>
         public int count() {
@@ -80,7 +80,7 @@ namespace wojilu.ORM {
         }
 
         /// <summary>
-        /// (±¾·½·¨²»½¨ÒéÊ¹ÓÃ)Ö»²éÑ¯Ö¸¶¨µÄÊôÐÔ£¬±¾À´ÓÃÓÚÌá¸ßÐÔÄÜ£¬µ«ºÍ»º´æ»áÆð³åÍ»¡£
+        /// (æœ¬æ–¹æ³•ä¸å»ºè®®ä½¿ç”¨)åªæŸ¥è¯¢æŒ‡å®šçš„å±žæ€§ï¼Œæœ¬æ¥ç”¨äºŽæé«˜æ€§èƒ½ï¼Œä½†å’Œç¼“å­˜ä¼šèµ·å†²çªã€‚
         /// </summary>
         /// <param name="propertyString"></param>
         /// <returns></returns>
@@ -90,7 +90,7 @@ namespace wojilu.ORM {
         }
 
         /// <summary>
-        /// ½«ËùÓÐ½á¹û¶ÔÏóµÄÄ³¸öÊµÌåÊôÐÔ·â×°³É¼¯ºÏ·µ»Ø
+        /// å°†æ‰€æœ‰ç»“æžœå¯¹è±¡çš„æŸä¸ªå®žä½“å±žæ€§å°è£…æˆé›†åˆè¿”å›ž
         /// </summary>
         /// <param name="propertyName"></param>
         /// <returns></returns>
@@ -100,7 +100,7 @@ namespace wojilu.ORM {
         }
 
         /// <summary>
-        /// »ñÈ¡ËùÓÐ½á¹ûµÄÄ³¸öÊôÐÔµÄ×Ö·û´®¼¯ºÏ£¬±ÈÈç get( "Id" ) ·µ»Ø "2, 7, 16, 25"
+        /// èŽ·å–æ‰€æœ‰ç»“æžœçš„æŸä¸ªå±žæ€§çš„å­—ç¬¦ä¸²é›†åˆï¼Œæ¯”å¦‚ get( "Id" ) è¿”å›ž "2, 7, 16, 25"
         /// </summary>
         /// <param name="propertyName"></param>
         /// <returns></returns>

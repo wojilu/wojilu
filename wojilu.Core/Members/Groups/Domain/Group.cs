@@ -1,4 +1,4 @@
-/*
+ï»¿/*
  * Copyright (c) 2010, www.wojilu.com. All rights reserved.
  */
 
@@ -51,7 +51,7 @@ namespace wojilu.Members.Groups.Domain {
         public int IsLock { get; set; }
         public int IsSystemHide { get; set; }
 
-        public int IsCloseJoinCmd { get; set; } // ÊÇ·ñÒş²ØÉêÇë¼ÓÈëÃüÁî¡£
+        public int IsCloseJoinCmd { get; set; } // æ˜¯å¦éšè—ç”³è¯·åŠ å…¥å‘½ä»¤ã€‚
 
         [LongText]
         public String Security { get; set; }

@@ -1,4 +1,4 @@
-/*
+ï»¿/*
  * Copyright 2010 www.wojilu.com
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -21,27 +21,27 @@ using System.Text;
 namespace wojilu.Web.Handler {
 
     /// <summary>
-    /// ÑéÖ¤ÂëÀàĞÍ
+    /// éªŒè¯ç ç±»å‹
     /// </summary>
     public class ValidationType {
 
         /// <summary>
-        /// Êı×Ö
+        /// æ•°å­—
         /// </summary>
         public static readonly int Digit = 0;
 
         /// <summary>
-        /// Ó¢ÎÄ×ÖÄ¸
+        /// è‹±æ–‡å­—æ¯
         /// </summary>
         public static readonly int Letter = 1;
 
         /// <summary>
-        /// Êı×ÖºÍÓ¢ÎÄ×ÖÄ¸
+        /// æ•°å­—å’Œè‹±æ–‡å­—æ¯
         /// </summary>
         public static readonly int DigitAndLetter = 2;
 
         /// <summary>
-        /// ÖĞÎÄ
+        /// ä¸­æ–‡
         /// </summary>
         public static readonly int Chinese = 3;
 
@@ -49,22 +49,22 @@ namespace wojilu.Web.Handler {
     }
 
     /// <summary>
-    /// ÑéÖ¤ÂëÄ¬ÈÏÖµ
+    /// éªŒè¯ç é»˜è®¤å€¼
     /// </summary>
     public class ValidationDefault {
 
         /// <summary>
-        /// Ó¢ÎÄ»ò×ÖÄ¸ÑéÖ¤ÂëµÄÄ¬ÈÏ³¤¶È
+        /// è‹±æ–‡æˆ–å­—æ¯éªŒè¯ç çš„é»˜è®¤é•¿åº¦
         /// </summary>
         public static readonly int Length = 6;
 
         /// <summary>
-        /// ÖĞÎÄÑéÖ¤ÂëµÄÄ¬ÈÏ³¤¶È
+        /// ä¸­æ–‡éªŒè¯ç çš„é»˜è®¤é•¿åº¦
         /// </summary>
         public static readonly int ChineseLength = 2;
 
         /// <summary>
-        /// Ä¬ÈÏµÄÑéÖ¤ÂëÀàĞÍ
+        /// é»˜è®¤çš„éªŒè¯ç ç±»å‹
         /// </summary>
         public static readonly int Type = ValidationType.Digit;
 

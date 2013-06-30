@@ -1,4 +1,4 @@
-/*
+ï»¿/*
  * Copyright (c) 2010, www.wojilu.com. All rights reserved.
  */
 
@@ -159,8 +159,8 @@ namespace wojilu.Web.Controller.Photo.Admin {
                 block.Set( "data.ImgThumbUrl", post.ImgThumbUrl );
                 block.Set( "data.EditLink", to( new PostController().Edit, post.Id ) );
 
-                String lblCover = string.Format( "<a href=\"{0}\" class=\"putCmd\">ÉèÎª×¨¼­·âÃæ</a>", to( SetCover, post.Id ) );
-                if (post.DataUrl.Equals( album.Logo )) lblCover = "<span class=\"currentCover\">·âÃæ</span>";
+                String lblCover = string.Format( "<a href=\"{0}\" class=\"putCmd\">è®¾ä¸ºä¸“è¾‘å°é¢</a>", to( SetCover, post.Id ) );
+                if (post.DataUrl.Equals( album.Logo )) lblCover = "<span class=\"currentCover\">å°é¢</span>";
 
                 block.Set( "data.SetCoverLink", lblCover );
 

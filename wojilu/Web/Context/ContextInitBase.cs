@@ -1,4 +1,4 @@
-/*
+ï»¿/*
  * Copyright 2010 www.wojilu.com
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -23,33 +23,33 @@ using wojilu.Web.Mvc;
 namespace wojilu.Web.Context {
 
     /// <summary>
-    /// ÉÏÏÂÎÄ³õÊ¼»¯Æ÷£¬Ë³ĞòÊÇ£ºInitViewer -> InitOwner -> InitController -> InitPermission -> InitApp
+    /// ä¸Šä¸‹æ–‡åˆå§‹åŒ–å™¨ï¼Œé¡ºåºæ˜¯ï¼šInitViewer -> InitOwner -> InitController -> InitPermission -> InitApp
     /// </summary>
     public abstract class ContextInitBase {
 
         /// <summary>
-        /// ³õÊ¼»¯µ±Ç°µÄ app
+        /// åˆå§‹åŒ–å½“å‰çš„ app
         /// </summary>
         /// <param name="ctx"></param>
         public virtual void InitApp( MvcContext ctx ) {
         }
 
         /// <summary>
-        /// ³õÊ¼»¯µ±Ç°·ÃÎÊÕß
+        /// åˆå§‹åŒ–å½“å‰è®¿é—®è€…
         /// </summary>
         /// <param name="ctx"></param>
         public virtual void InitViewer( MvcContext ctx ) {
         }
 
         /// <summary>
-        /// ³õÊ¼»¯µ±Ç°±»·ÃÎÊÕß
+        /// åˆå§‹åŒ–å½“å‰è¢«è®¿é—®è€…
         /// </summary>
         /// <param name="ctx"></param>
         public virtual void InitOwner( MvcContext ctx ) {
         }
 
         /// <summary>
-        /// ³õÊ¼»¯µ±Ç° controller
+        /// åˆå§‹åŒ–å½“å‰ controller
         /// </summary>
         /// <param name="ctx"></param>
         public virtual void InitController( MvcContext ctx ) {
@@ -64,7 +64,7 @@ namespace wojilu.Web.Context {
         }
 
         /// <summary>
-        /// ³õÊ¼»¯È¨ÏŞ¼ì²é
+        /// åˆå§‹åŒ–æƒé™æ£€æŸ¥
         /// </summary>
         /// <param name="ctx"></param>
         public virtual void InitPermission( MvcContext ctx ) {

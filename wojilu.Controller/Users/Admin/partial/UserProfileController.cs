@@ -1,4 +1,4 @@
-/*
+ï»¿/*
  * Copyright (c) 2010, www.wojilu.com. All rights reserved.
  */
 
@@ -102,11 +102,11 @@ namespace wojilu.Web.Controller.Users.Admin {
 
             if (m.IsEmailConfirmed == EmailConfirm.Confirmed) {
 
-                confirmTip = string.Format( "<img src=\"{0}\"/> ÓÊÏäÒÑ¼¤»î", strUtil.Join( sys.Path.Img, "ok.gif" ) );
+                confirmTip = string.Format( "<img src=\"{0}\"/> é‚®ç®±å·²æ¿€æ´»", strUtil.Join( sys.Path.Img, "ok.gif" ) );
             }
             else if (config.Instance.Site.EnableEmail) {
                 KeyIncomeRule rule = currencyService.GetKeyIncomeRulesByAction( 18 );
-                confirmTip = string.Format( "<img src=\"{3}\"/> ÌáĞÑ£ºÄúµÄÓÊÏäÉĞÎ´¼¤»î¡£¼¤»î<span class=\"red\">¿É½±Àø{0}{1}</span>£»<br/><span class=\"left20\">Çë²é¿´ÄúµÄÓÊÏä(°üÀ¨À¬»øÏä)ÊÇ·ñÓĞ¼¤»îÓÊ¼ş£¬Èç¹ûÃ»ÓĞ£¬Çë <a href=\"{2}\" target=\"_blank\">µã»÷´Ë´¦</a> ÖØ·¢¼¤»îÓÊ¼ş</span>",
+                confirmTip = string.Format( "<img src=\"{3}\"/> æé†’ï¼šæ‚¨çš„é‚®ç®±å°šæœªæ¿€æ´»ã€‚æ¿€æ´»<span class=\"red\">å¯å¥–åŠ±{0}{1}</span>ï¼›<br/><span class=\"left20\">è¯·æŸ¥çœ‹æ‚¨çš„é‚®ç®±(åŒ…æ‹¬åƒåœ¾ç®±)æ˜¯å¦æœ‰æ¿€æ´»é‚®ä»¶ï¼Œå¦‚æœæ²¡æœ‰ï¼Œè¯· <a href=\"{2}\" target=\"_blank\">ç‚¹å‡»æ­¤å¤„</a> é‡å‘æ¿€æ´»é‚®ä»¶</span>",
                     rule.Income, rule.CurrencyUnit, Link.To( Site.Instance, new Common.ActivationController().SendEmailLogin ),
                     strUtil.Join( sys.Path.Img, "info.gif")
                     );

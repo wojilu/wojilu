@@ -1,4 +1,4 @@
-/*
+ï»¿/*
  * Copyright (c) 2010, www.wojilu.com. All rights reserved.
  */
 
@@ -16,14 +16,14 @@ namespace wojilu.Common.Msg.Domain {
         public int ReceiverId { get; set; }
 
         /// <summary>
-        /// ½ÓÊÕÕßµÄÀàĞÍ£¬Í¨³£ÊÇUser£¬Ò²¿ÉÒÔÊÇSiteµÈÆäËûIMember¶ÔÏó
+        /// æ¥æ”¶è€…çš„ç±»å‹ï¼Œé€šå¸¸æ˜¯Userï¼Œä¹Ÿå¯ä»¥æ˜¯Siteç­‰å…¶ä»–IMemberå¯¹è±¡
         /// </summary>
         public String ReceiverType { get; set; }
 
         public User Creator { get; set; }
 
         /// <summary>
-        /// NotificationType µÄÃ¶¾ÙÖµ
+        /// NotificationType çš„æšä¸¾å€¼
         /// </summary>
         public int Type { get; set; }
 

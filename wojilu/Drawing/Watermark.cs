@@ -1,4 +1,4 @@
-/*
+﻿/*
  * Copyright 2010 www.wojilu.com
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -25,12 +25,12 @@ using System.Drawing.Imaging;
 namespace wojilu.Drawing {
 
     /// <summary>
-    /// ˮӡ����
+    /// 水印工具
     /// </summary>
     public class Watermark {
 
         /// <summary>
-        /// ��ԭʼͼƬ����ͼƬˮӡ֮��洢
+        /// 将原始图片添加图片水印之后存储
         /// </summary>
         /// <param name="srcPath"></param>
         /// <param name="savePath"></param>
@@ -119,7 +119,7 @@ namespace wojilu.Drawing {
         }
 
         /// <summary>
-        /// ��ԭʼͼƬ��������ˮӡ֮��洢
+        /// 将原始图片添加文字水印之后存储
         /// </summary>
         /// <param name="srcPath"></param>
         /// <param name="savePath"></param>

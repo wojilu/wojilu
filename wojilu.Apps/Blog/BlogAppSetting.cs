@@ -1,4 +1,4 @@
-/*
+Ôªø/*
  * Copyright (c) 2010, www.wojilu.com. All rights reserved.
  */
 
@@ -8,7 +8,7 @@ using wojilu.Config;
 namespace wojilu.Apps.Blog {
 
     /// <summary>
-    /// ≤©øÕ≈‰÷√
+    /// ÂçöÂÆ¢ÈÖçÁΩÆ
     /// </summary>
     public class BlogAppSetting : SettingBase<BlogAppSetting> {
 
@@ -49,7 +49,7 @@ namespace wojilu.Apps.Blog {
 
         public String BlogStarColumnName {
             get {
-                if (strUtil.IsNullOrEmpty( _blogStarColumnName )) return "≤©øÕ÷Æ–«";
+                if (strUtil.IsNullOrEmpty( _blogStarColumnName )) return "ÂçöÂÆ¢‰πãÊòü";
                 return _blogStarColumnName;
             }
             set { _blogStarColumnName = value; }

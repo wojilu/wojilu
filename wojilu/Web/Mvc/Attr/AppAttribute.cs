@@ -1,4 +1,4 @@
-/*
+ï»¿/*
  * Copyright 2010 www.wojilu.com
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -19,7 +19,7 @@ using System;
 namespace wojilu.Web.Mvc.Attr {
 
     /// <summary>
-    /// Ö¸Ã÷µ±Ç°¿ØÖÆÆ÷ËùÊôµÄ app
+    /// æŒ‡æ˜å½“å‰æ§åˆ¶å™¨æ‰€å±çš„ app
     /// </summary>
     [Serializable, AttributeUsage( AttributeTargets.Class )]
     public class AppAttribute : Attribute {

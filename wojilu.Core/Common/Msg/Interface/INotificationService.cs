@@ -1,4 +1,4 @@
-/*
+ï»¿/*
  * Copyright (c) 2010, www.wojilu.com. All rights reserved.
  */
 
@@ -20,27 +20,27 @@ namespace wojilu.Common.Msg.Interface {
         void ReadAll( int receiverId, String receiverType );
 
         /// <summary>
-        /// ÏòÓÃ»§(User)·¢ËÍÍ¨Öª
+        /// å‘ç”¨æˆ·(User)å‘é€é€šçŸ¥
         /// </summary>
-        /// <param name="receiverId">½ÓÊÕUserµÄId</param>
-        /// <param name="msg">Í¨ÖªÄÚÈİ</param>
+        /// <param name="receiverId">æ¥æ”¶Userçš„Id</param>
+        /// <param name="msg">é€šçŸ¥å†…å®¹</param>
         void send( int receiverId, String msg );
 
         /// <summary>
-        /// ÏòÓÃ»§(User)·¢ËÍÍ¨Öª
+        /// å‘ç”¨æˆ·(User)å‘é€é€šçŸ¥
         /// </summary>
-        /// <param name="receiverId">½ÓÊÕUserµÄId</param>
-        /// <param name="msg">Í¨ÖªÄÚÈİ</param>
-        /// <param name="type">NotificationTypeµÄÃ¶¾ÙÖµ</param>
+        /// <param name="receiverId">æ¥æ”¶Userçš„Id</param>
+        /// <param name="msg">é€šçŸ¥å†…å®¹</param>
+        /// <param name="type">NotificationTypeçš„æšä¸¾å€¼</param>
         void send( int receiverId, String msg, int type );
 
         /// <summary>
-        /// ÏòÄ³ÖÖIMember¶ÔÏó·¢ËÍÍ¨Öª
+        /// å‘æŸç§IMemberå¯¹è±¡å‘é€é€šçŸ¥
         /// </summary>
-        /// <param name="receiverId">½ÓÊÕÓÃ»§µÄId</param>
-        /// <param name="receiverType">½ÓÊÕÕßµÄÀàĞÍType.FullName£¬±ÈÈçSite£¬UserµÈ</param>
-        /// <param name="msg">Í¨ÖªÄÚÈİ</param>
-        /// <param name="type">NotificationTypeµÄÃ¶¾ÙÖµ</param>
+        /// <param name="receiverId">æ¥æ”¶ç”¨æˆ·çš„Id</param>
+        /// <param name="receiverType">æ¥æ”¶è€…çš„ç±»å‹Type.FullNameï¼Œæ¯”å¦‚Siteï¼ŒUserç­‰</param>
+        /// <param name="msg">é€šçŸ¥å†…å®¹</param>
+        /// <param name="type">NotificationTypeçš„æšä¸¾å€¼</param>
         void send( int receiverId, String receiverType, String msg, int type );
 
         void sendFriendRequest( int senderId, int receiverId, String msg );

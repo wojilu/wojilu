@@ -1,4 +1,4 @@
-/*
+ï»¿/*
  * Copyright 2010 www.wojilu.com
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -24,7 +24,7 @@ using System.Reflection;
 namespace wojilu.Web.GlobalApp {
 
     /// <summary>
-    /// ¼¯ÖĞ´¦ÀíÏµÍ³ÖĞËùÓĞµÄÒì³£ÈÕÖ¾
+    /// é›†ä¸­å¤„ç†ç³»ç»Ÿä¸­æ‰€æœ‰çš„å¼‚å¸¸æ—¥å¿—
     /// </summary>
     public class AppGlobalLogger : AppGlobalHelper {
 

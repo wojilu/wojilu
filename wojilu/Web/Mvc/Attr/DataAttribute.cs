@@ -1,4 +1,4 @@
-/*
+ï»¿/*
  * Copyright 2010 www.wojilu.com
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -22,7 +22,7 @@ using wojilu.Web.Context;
 namespace wojilu.Web.Mvc.Attr {
 
     /// <summary>
-    /// ¼ì²éµ±Ç°Êı¾İÊÇ·ñ´æÔÚ 
+    /// æ£€æŸ¥å½“å‰æ•°æ®æ˜¯å¦å­˜åœ¨ 
     /// </summary>
     [Serializable, AttributeUsage( AttributeTargets.Method )]
     public class DataAttribute : System.Attribute, IActionFilter {

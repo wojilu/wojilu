@@ -1,4 +1,4 @@
-/*
+ï»¿/*
  * Copyright 2010 www.wojilu.com
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -20,7 +20,7 @@ using System.Text.RegularExpressions;
 namespace wojilu.ORM {
 
     /// <summary>
-    /// ÕıÔò±í´ïÊ½Åú×¢£¬ÑéÖ¤ÊôĞÔµÄ¶ÔÏóÊÇ·ñ·ûºÏÖ¸¶¨µÄÕıÔò±í´ïÊ½
+    /// æ­£åˆ™è¡¨è¾¾å¼æ‰¹æ³¨ï¼ŒéªŒè¯å±æ€§çš„å¯¹è±¡æ˜¯å¦ç¬¦åˆæŒ‡å®šçš„æ­£åˆ™è¡¨è¾¾å¼
     /// </summary>
     [Serializable]
     public class PatternAttribute : ValidationAttribute {

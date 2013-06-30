@@ -1,4 +1,4 @@
-/*
+ï»¿/*
  * Copyright (c) 2010, www.wojilu.com. All rights reserved.
  */
 
@@ -70,11 +70,11 @@ namespace wojilu.Web.Controller.Blog {
 
                 if (obj.IsPic == 1) {
                     block.Set( "obj.PicLink", string.Format( "<div class=\"linePic\"><a href=\"{0}\" target=\"_blank\"><img src=\"{1}\"/></a></div>", obj.PicO, obj.PicM ) );
-                    block.Set( "obj.DownloadLink", string.Format( "<a href=\"{0}\" class=\"left10 lnkDown\">²é¿´Ô­Í¼</a>", obj.PicO ) );
+                    block.Set( "obj.DownloadLink", string.Format( "<a href=\"{0}\" class=\"left10 lnkDown\">æŸ¥çœ‹åŽŸå›¾</a>", obj.PicO ) );
                 }
                 else {
                     block.Set( "obj.PicLink", "" );
-                    block.Set( "obj.DownloadLink", string.Format( "<a href=\"{0}\" class=\"left10 lnkDown\">ÏÂÔØ¸½¼þ</a>", to( DownloadAttachment, obj.Id ) ) );
+                    block.Set( "obj.DownloadLink", string.Format( "<a href=\"{0}\" class=\"left10 lnkDown\">ä¸‹è½½é™„ä»¶</a>", to( DownloadAttachment, obj.Id ) ) );
                 }
 
                 block.Set( "obj.FileName", obj.FileName );

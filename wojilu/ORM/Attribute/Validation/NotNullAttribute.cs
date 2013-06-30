@@ -1,4 +1,4 @@
-/*
+ï»¿/*
  * Copyright 2010 www.wojilu.com
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -20,7 +20,7 @@ using System.Reflection;
 namespace wojilu.ORM {
 
     /// <summary>
-    /// ¼ì²é¶ÔÏóÊôĞÔÊÇ·ñÒÑ¾­¸³Öµ£¬Èç¹ûÊÇ×Ö·û´®ÀàĞÍ£¬emptyµÄ×Ö·û´®Ò²ÊÇ²»ºÏ·¨µÄ
+    /// æ£€æŸ¥å¯¹è±¡å±æ€§æ˜¯å¦å·²ç»èµ‹å€¼ï¼Œå¦‚æœæ˜¯å­—ç¬¦ä¸²ç±»å‹ï¼Œemptyçš„å­—ç¬¦ä¸²ä¹Ÿæ˜¯ä¸åˆæ³•çš„
     /// </summary>
     [Serializable]
     public class NotNullAttribute : ValidationAttribute {

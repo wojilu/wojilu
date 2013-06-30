@@ -1,4 +1,4 @@
-/*
+ï»¿/*
  * Copyright 2010 www.wojilu.com
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -20,7 +20,7 @@ using System;
 namespace wojilu.Web.Mvc.Attr {
 
     /// <summary>
-    /// ±ØĞëµÇÂ¼²ÅÄÜ·ÃÎÊµ±Ç° action 
+    /// å¿…é¡»ç™»å½•æ‰èƒ½è®¿é—®å½“å‰ action 
     /// </summary>
     [Serializable, AttributeUsage( AttributeTargets.Method )]
     public class LoginAttribute : System.Attribute {

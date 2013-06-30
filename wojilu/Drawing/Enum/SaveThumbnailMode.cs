@@ -1,4 +1,4 @@
-/*
+ï»¿/*
  * Copyright 2010 www.wojilu.com
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -19,7 +19,7 @@ using System;
 namespace wojilu.Drawing {
 
     /// <summary>
-    /// ËõÂÔÍ¼ËõĞ¡·½Ê½(×Ô¶¯¡¢¸ù¾İ¿í¶È¡¢¸ù¾İ¸ß¶È¡¢¸ù¾İ¿í¸ß¡¢²ÃÇĞ)
+    /// ç¼©ç•¥å›¾ç¼©å°æ–¹å¼(è‡ªåŠ¨ã€æ ¹æ®å®½åº¦ã€æ ¹æ®é«˜åº¦ã€æ ¹æ®å®½é«˜ã€è£åˆ‡)
     /// </summary>
     public enum SaveThumbnailMode {
         Auto,

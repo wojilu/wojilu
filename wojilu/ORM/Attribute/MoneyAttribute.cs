@@ -1,4 +1,4 @@
-/*
+ï»¿/*
  * Copyright 2010 www.wojilu.com
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -19,8 +19,8 @@ using System;
 namespace wojilu.ORM {
 
     /// <summary>
-    /// »õ±ÒÅú×¢£¬¿ÉÒÔ±£´æ»õ±ÒÀàĞÍÊı¾İ¡£
-    /// ´ËÅú×¢Ö»ÄÜÓÃÔÚdotnetµÄdecimalÊı¾İÀàĞÍÉÏ¡£Êı¾İ¿â´æ´¢µÄÊ±ºò£¬Ê¹ÓÃµÄ¾«¶ÈÎª£º×ÜÎ»Êı19, Ğ¡Êıµãºó4Î»
+    /// è´§å¸æ‰¹æ³¨ï¼Œå¯ä»¥ä¿å­˜è´§å¸ç±»å‹æ•°æ®ã€‚
+    /// æ­¤æ‰¹æ³¨åªèƒ½ç”¨åœ¨dotnetçš„decimalæ•°æ®ç±»å‹ä¸Šã€‚æ•°æ®åº“å­˜å‚¨çš„æ—¶å€™ï¼Œä½¿ç”¨çš„ç²¾åº¦ä¸ºï¼šæ€»ä½æ•°19, å°æ•°ç‚¹å4ä½
     /// </summary>
     [Serializable, AttributeUsage( AttributeTargets.Property )]
     public class MoneyAttribute : Attribute {

@@ -1,4 +1,4 @@
-/*
+ï»¿/*
  * Copyright 2010 www.wojilu.com
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -72,10 +72,10 @@ namespace wojilu.Web.Mvc.Processors {
             ControllerBase controller = ControllerFactory.FindLayoutController( path, ctx );
             if (controller == null) return actionContent;
 
-            ctx.controller.utils.addHidedLayouts( controller ); // ½«controllerÖĞÌáµ½ĞèÒªÒş²ØµÄ¿ØÖÆÆ÷Òş²Ø
+            ctx.controller.utils.addHidedLayouts( controller ); // å°†controllerä¸­æåˆ°éœ€è¦éšè—çš„æ§åˆ¶å™¨éšè—
             if (ctx.controller.utils.isHided( controller.GetType() )) return actionContent;
 
-            // ¼ì²é»º´æ
+            // æ£€æŸ¥ç¼“å­˜
             ActionCacheChecker ci = ActionCacheChecker.InitLayout( ctx, controller );
             Object cacheContent = ci.GetCache();
             if (cacheContent != null) {

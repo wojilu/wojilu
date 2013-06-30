@@ -1,4 +1,4 @@
-/*
+ï»¿/*
  * Copyright 2010 www.wojilu.com
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -18,7 +18,7 @@
 namespace wojilu.Web.Context {
 
     /// <summary>
-    /// Ä¬ÈÏµÄ³õÊ¼»¯Æ÷£¬Ö»³õÊ¼»¯ÁËµ±Ç° controller
+    /// é»˜è®¤çš„åˆå§‹åŒ–å™¨ï¼Œåªåˆå§‹åŒ–äº†å½“å‰ controller
     /// </summary>
     public class ContextInitDefault : ContextInitBase {
     }

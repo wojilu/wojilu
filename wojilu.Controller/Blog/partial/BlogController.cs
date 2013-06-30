@@ -1,4 +1,4 @@
-/*
+ï»¿/*
  * Copyright (c) 2010, www.wojilu.com. All rights reserved.
  */
 
@@ -58,7 +58,7 @@ namespace wojilu.Web.Controller.Blog {
 
             String replies = post.Replies > 0 ?
                 string.Format( "<a href=\"{0}\">{1}(<span class=\"blogItemReviews\">{2}</span>)</a>", postLink + "#comments", lang( "comment" ), post.Replies ) :
-                string.Format( "<a href=\"{0}\">·¢±íÆÀÂÛ</a>", postLink + "#comments" );
+                string.Format( "<a href=\"{0}\">å‘è¡¨è¯„è®º</a>", postLink + "#comments" );
             listBlock.Set( "blogpost.ReplyCount", replies );
 
 

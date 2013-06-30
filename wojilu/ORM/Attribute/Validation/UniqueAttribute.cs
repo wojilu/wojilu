@@ -1,4 +1,4 @@
-/*
+ï»¿/*
  * Copyright 2010 www.wojilu.com
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -21,7 +21,7 @@ using wojilu.Log;
 namespace wojilu.ORM {
 
     /// <summary>
-    /// Î¨Ò»ĞÔÑéÖ¤Åú×¢£¬ÑéÖ¤¶ÔÏóµÄÊôĞÔÖµÊÇ·ñÔÚËùÓĞ¶ÔÏóÖĞÊÇÎ¨Ò»µÄ
+    /// å”¯ä¸€æ€§éªŒè¯æ‰¹æ³¨ï¼ŒéªŒè¯å¯¹è±¡çš„å±æ€§å€¼æ˜¯å¦åœ¨æ‰€æœ‰å¯¹è±¡ä¸­æ˜¯å”¯ä¸€çš„
     /// </summary>
     [Serializable]
     public class UniqueAttribute : ValidationAttribute {

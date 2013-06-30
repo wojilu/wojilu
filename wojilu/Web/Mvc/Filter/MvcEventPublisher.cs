@@ -1,4 +1,4 @@
-/*
+ï»¿/*
  * Copyright 2010 www.wojilu.com
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -22,7 +22,7 @@ using wojilu.Web.Context;
 namespace wojilu.Web.Mvc {
 
     /// <summary>
-    /// mvc ´¦ÀíÁ÷³ÌÖĞµÄÊÂ¼ş·¢²¼Õß
+    /// mvc å¤„ç†æµç¨‹ä¸­çš„äº‹ä»¶å‘å¸ƒè€…
     /// </summary>
     public class MvcEventPublisher {
 

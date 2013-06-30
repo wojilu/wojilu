@@ -1,4 +1,4 @@
-/*
+ï»¿/*
  * Copyright (c) 2010, www.wojilu.com. All rights reserved.
  */
 
@@ -33,7 +33,7 @@ namespace wojilu.Web.Controller.Common.Admin {
         public virtual IMenuService menuService { get; set; }
 
         public virtual void log( String msg, IMenu menu ) {
-            // ÓÉ×ÓÀà¼Ì³ĞÈ¥ÊµÏÖ
+            // ç”±å­ç±»ç»§æ‰¿å»å®ç°
         }
 
         private Tree<IMenu> _tree;

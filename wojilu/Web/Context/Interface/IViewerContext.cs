@@ -1,4 +1,4 @@
-/*
+ï»¿/*
  * Copyright 2010 www.wojilu.com
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -21,19 +21,19 @@ using wojilu.Members.Interface;
 namespace wojilu.Web.Context {
 
     /// <summary>
-    /// µ±Ç°·ÃÎÊÕßµÄ½Ó¿Ú
+    /// å½“å‰è®¿é—®è€…çš„æ¥å£
     /// </summary>
     public interface IViewerContext {
 
         int Id { get; set; }
 
         /// <summary>
-        /// µ±Ç°·ÃÎÊÕß
+        /// å½“å‰è®¿é—®è€…
         /// </summary>
         IUser obj { get; set; }
 
         /// <summary>
-        /// ·¢ËÍÕ¾ÄÚË½ĞÅ
+        /// å‘é€ç«™å†…ç§ä¿¡
         /// </summary>
         /// <param name="ownerName"></param>
         /// <param name="title"></param>
@@ -42,48 +42,48 @@ namespace wojilu.Web.Context {
         Result SendMsg( String ownerName, String title, String body );
 
         /// <summary>
-        /// ¼ÓÎªºÃÓÑ
+        /// åŠ ä¸ºå¥½å‹
         /// </summary>
         /// <param name="ownerId"></param>
         /// <param name="msg"></param>
         Result AddFriend( int ownerId, String msg );
 
         /// <summary>
-        /// ¼ìË÷ÒşË½ÅäÖÃ£¬µ±Ç° viewer ¶Ô owner µÄÄ³¸öitemÊÇ·ñ¾ßÓĞ·ÃÎÊÈ¨ÏŞ
+        /// æ£€ç´¢éšç§é…ç½®ï¼Œå½“å‰ viewer å¯¹ owner çš„æŸä¸ªitemæ˜¯å¦å…·æœ‰è®¿é—®æƒé™
         /// </summary>
-        /// <param name="owner">±»·ÃÎÊÕß</param>
+        /// <param name="owner">è¢«è®¿é—®è€…</param>
         /// <param name="item"></param>
         /// <returns></returns>
         Boolean HasPrivacyPermission( IMember owner, String item );
 
         /// <summary>
-        /// ÊÇ·ñÍøÕ¾¹ÜÀíÔ±
+        /// æ˜¯å¦ç½‘ç«™ç®¡ç†å‘˜
         /// </summary>
         /// <returns></returns>
         Boolean IsAdministrator();
 
         /// <summary>
-        /// ÊÇ·ñÊÇµ±Ç°·ÃÎÊµÄownerµÄ¹ÜÀíÔ±
+        /// æ˜¯å¦æ˜¯å½“å‰è®¿é—®çš„ownerçš„ç®¡ç†å‘˜
         /// </summary>
         /// <returns></returns>
         Boolean IsOwnerAdministrator( IMember owner );
 
         /// <summary>
-        /// ÊÇ·ñ¹Ø×¢ÁËÄ³ÈË
+        /// æ˜¯å¦å…³æ³¨äº†æŸäºº
         /// </summary>
         /// <param name="ownerId"></param>
         /// <returns></returns>
         Boolean IsFollowing( int ownerId );
 
         /// <summary>
-        /// ºÍÄ³ÈËÊÇ·ñÊÇÅóÓÑ
+        /// å’ŒæŸäººæ˜¯å¦æ˜¯æœ‹å‹
         /// </summary>
         /// <param name="ownerId"></param>
         /// <returns></returns>
         Boolean IsFriend( int ownerId );
 
         /// <summary>
-        /// ÊÇ·ñÒÑ¾­µÇÂ¼
+        /// æ˜¯å¦å·²ç»ç™»å½•
         /// </summary>
         Boolean IsLogin { get; set; }
 

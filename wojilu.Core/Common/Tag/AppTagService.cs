@@ -1,4 +1,4 @@
-/*
+ï»¿/*
  * Copyright (c) 2010, www.wojilu.com. All rights reserved.
  */
 
@@ -19,7 +19,7 @@ namespace wojilu.Common.Tags {
         }
 
         /// <summary>
-        /// ±£´æÄ³¸ö app µÄ tag ĞÅÏ¢£¬±ÈÈçÔÚ ForumTag ÖĞ±£´æ
+        /// ä¿å­˜æŸä¸ª app çš„ tag ä¿¡æ¯ï¼Œæ¯”å¦‚åœ¨ ForumTag ä¸­ä¿å­˜
         /// </summary>
         /// <param name="app"></param>
         /// <param name="tagString"></param>

@@ -1,4 +1,4 @@
-/*
+ï»¿/*
  * Copyright 2010 www.wojilu.com
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -19,7 +19,7 @@ using System;
 namespace wojilu.Common.Security {
 
     /// <summary>
-    /// ÍøÕ¾ÓÃ»§µÄ½ÇÉ«·Ö×éÃ¶¾Ù(¹ÜÀí×éºÍÆÕÍ¨×é)
+    /// ç½‘ç«™ç”¨æˆ·çš„è§’è‰²åˆ†ç»„æšä¸¾(ç®¡ç†ç»„å’Œæ™®é€šç»„)
     /// </summary>
     public class RoleGroup {
 

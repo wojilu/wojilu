@@ -1,4 +1,4 @@
-/*
+ï»¿/*
  * Copyright 2010 www.wojilu.com
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -20,7 +20,7 @@ namespace wojilu.ORM {
 
 
     /// <summary>
-    /// email Åú×¢£¬ÑéÖ¤¶ÔÏóµÄÊôĞÔÊÇ·ñÊÇºÏ·¨µÄ email
+    /// email æ‰¹æ³¨ï¼ŒéªŒè¯å¯¹è±¡çš„å±æ€§æ˜¯å¦æ˜¯åˆæ³•çš„ email
     /// </summary>
     [Serializable]
     public class EmailAttribute : PatternAttribute {

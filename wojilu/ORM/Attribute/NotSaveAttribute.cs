@@ -1,4 +1,4 @@
-/*
+ï»¿/*
  * Copyright 2010 www.wojilu.com
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -19,7 +19,7 @@ using System;
 namespace wojilu.ORM {
 
     /// <summary>
-    /// ORMÔÚ±£´æÊı¾İµÄÊ±ºò£¬»áºöÂÔ´òÉÏ NotSave Åú×¢µÄÊôĞÔ
+    /// ORMåœ¨ä¿å­˜æ•°æ®çš„æ—¶å€™ï¼Œä¼šå¿½ç•¥æ‰“ä¸Š NotSave æ‰¹æ³¨çš„å±æ€§
     /// </summary>
     [Serializable, AttributeUsage( AttributeTargets.Property | AttributeTargets.Class )]
     public class NotSaveAttribute : Attribute {

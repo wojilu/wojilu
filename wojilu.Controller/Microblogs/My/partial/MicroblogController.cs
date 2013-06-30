@@ -1,4 +1,4 @@
-/*
+ï»¿/*
  * Copyright (c) 2010, www.wojilu.com. All rights reserved.
  */
 
@@ -50,15 +50,15 @@ namespace wojilu.Web.Controller.Microblogs.My {
             set( "followUrl", to( new wojilu.Web.Controller.Microblogs.MicroblogController().Follow ) );
             set( "cancelUrl", to( new wojilu.Web.Controller.Microblogs.MicroblogController().CancelFollow ) );
 
-            if (ctx.viewer.IsLogin == false) return "<div id=\"lblFollow\"><span>¼Ó¹Ø×¢</span></div>";
+            if (ctx.viewer.IsLogin == false) return "<div id=\"lblFollow\"><span>åŠ å…³æ³¨</span></div>";
             if (ctx.viewer.Id == user.Id) return "";
             if (ctx.viewer.IsFriend( user.Id ))
-                return "<div id=\"cmdCancelFollow\"><span id=\"followed\">ÒÑÊÇºÃÓÑ</span></div>";
+                return "<div id=\"cmdCancelFollow\"><span id=\"followed\">å·²æ˜¯å¥½å‹</span></div>";
 
             if (ctx.viewer.IsFollowing( user.Id ))
-                return "<div id=\"cmdCancelFollow\"><span id=\"followed\">ÒÑ¹Ø×¢</span><span id=\"cancelFollow\">È¡Ïû¹Ø×¢</span></div>";
+                return "<div id=\"cmdCancelFollow\"><span id=\"followed\">å·²å…³æ³¨</span><span id=\"cancelFollow\">å–æ¶ˆå…³æ³¨</span></div>";
 
-            return "<div id=\"cmdFollow\"><span>¼Ó¹Ø×¢</span></div>";
+            return "<div id=\"cmdFollow\"><span>åŠ å…³æ³¨</span></div>";
         }
 
         private void bindStats( User user ) {

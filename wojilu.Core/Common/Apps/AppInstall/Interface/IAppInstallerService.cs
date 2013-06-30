@@ -1,4 +1,4 @@
-/*
+ï»¿/*
  * Copyright (c) 2010, www.wojilu.com. All rights reserved.
  */
 
@@ -14,12 +14,12 @@ namespace wojilu.Common.AppInstall {
     public interface IAppInstallerService {
 
         /// <summary>
-        /// °²×°Ä³¸öapp
+        /// å®‰è£…æŸä¸ªapp
         /// </summary>
-        /// <param name="appType">±ØĞëÊÂÏÈIAppµÄÀàĞÍ£¬±ÈÈçForumApp</param>
+        /// <param name="appType">å¿…é¡»äº‹å…ˆIAppçš„ç±»å‹ï¼Œæ¯”å¦‚ForumApp</param>
         /// <param name="owner"></param>
         /// <param name="creator"></param>
-        /// <param name="appName">appÃû³Æ</param>
+        /// <param name="appName">appåç§°</param>
         /// <returns></returns>
         IMemberApp Install( Type appType, IMember owner, User creator, String appName );
 

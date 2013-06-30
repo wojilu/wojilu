@@ -1,4 +1,4 @@
-/*
+ï»¿/*
  * Copyright 2010 www.wojilu.com
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -39,11 +39,11 @@ namespace wojilu.Web.Mvc.Processors {
 
             ContextInitBase initor = getContextInit();
 
-            initor.InitViewer( ctx );       // ³õÊ¼»¯µ±Ç°µÇÂ¼ÓÃ»§(·ÃÎÊÕß) 
-            initor.InitOwner( ctx );       // ³õÊ¼»¯µ±Ç°±»·ÃÎÊ¶ÔÏó(site»ògroup»òuser)
-            initor.InitController( ctx );  // ³õÊ¼»¯¿ØÖÆÆ÷
-            initor.InitPermission( ctx ); // ³õÊ¼»¯È¨ÏŞ¼ì²é
-            initor.InitApp( ctx );                 // ³õÊ¼»¯µ±Ç°app
+            initor.InitViewer( ctx );       // åˆå§‹åŒ–å½“å‰ç™»å½•ç”¨æˆ·(è®¿é—®è€…) 
+            initor.InitOwner( ctx );       // åˆå§‹åŒ–å½“å‰è¢«è®¿é—®å¯¹è±¡(siteæˆ–groupæˆ–user)
+            initor.InitController( ctx );  // åˆå§‹åŒ–æ§åˆ¶å™¨
+            initor.InitPermission( ctx ); // åˆå§‹åŒ–æƒé™æ£€æŸ¥
+            initor.InitApp( ctx );                 // åˆå§‹åŒ–å½“å‰app
         }
 
         private ContextInitBase getContextInit() {

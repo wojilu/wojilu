@@ -1,4 +1,4 @@
-/*
+ï»¿/*
  * Copyright 2010 www.wojilu.com
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -24,7 +24,7 @@ using wojilu.Web.Mvc;
 namespace wojilu.Common.Onlines {
 
     /// <summary>
-    /// Ìá¹©ÔÚÏß×´Ì¬µÄ¸÷ÀàÊı¾İ
+    /// æä¾›åœ¨çº¿çŠ¶æ€çš„å„ç±»æ•°æ®
     /// </summary>
     public class OnlineService {
 

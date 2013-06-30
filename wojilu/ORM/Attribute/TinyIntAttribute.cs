@@ -1,4 +1,4 @@
-/*
+ï»¿/*
  * Copyright 2010 www.wojilu.com
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -19,7 +19,7 @@ using System;
 namespace wojilu.ORM {
 
     /// <summary>
-    /// Ğ¡ĞÍÕûÊıÅú×¢£¬±êÊ¶´ËÊôĞÔ¶ÔÓ¦µÄÊı¾İÁĞÎªĞ¡ĞÍÕûÊı
+    /// å°å‹æ•´æ•°æ‰¹æ³¨ï¼Œæ ‡è¯†æ­¤å±æ€§å¯¹åº”çš„æ•°æ®åˆ—ä¸ºå°å‹æ•´æ•°
     /// </summary>
     [Serializable, AttributeUsage( AttributeTargets.Property )]
     public class TinyIntAttribute : Attribute {

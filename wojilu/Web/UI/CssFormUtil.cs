@@ -1,4 +1,4 @@
-/*
+ï»¿/*
  * Copyright 2010 www.wojilu.com
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -22,7 +22,7 @@ using wojilu.Web.Context;
 namespace wojilu.Web.UI {
 
     /// <summary>
-    /// css ±íµ¥¹¤¾ß
+    /// css è¡¨å•å·¥å…·
     /// </summary>
     public class CssFormUtil {
 
@@ -148,7 +148,7 @@ namespace wojilu.Web.UI {
 
         }
 
-        // background-repeat ±ØĞëÔÚ background ºóÃæ£¬·ñÔòÒ³Ãæ²»Æğ×÷ÓÃ
+        // background-repeat å¿…é¡»åœ¨ background åé¢ï¼Œå¦åˆ™é¡µé¢ä¸èµ·ä½œç”¨
         private static Dictionary<String, String> resetOrder( Dictionary<String, String> cssValues ) {
 
             Dictionary<String, String> dic = new Dictionary<String, String>();

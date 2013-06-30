@@ -1,4 +1,4 @@
-/*
+ï»¿/*
  * Copyright 2010 www.wojilu.com
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -18,7 +18,7 @@ using System;
 namespace wojilu.ORM {
 
     /// <summary>
-    /// html ÎÄ±¾Åú×¢£¬±íÃ÷´ËÊôĞÔÔÊĞí½ÓÊÜ html ·ç¸ñµÄÎÄ±¾
+    /// html æ–‡æœ¬æ‰¹æ³¨ï¼Œè¡¨æ˜æ­¤å±æ€§å…è®¸æ¥å— html é£æ ¼çš„æ–‡æœ¬
     /// </summary>
     [Serializable, AttributeUsage( AttributeTargets.Property )]
     public class HtmlTextAttribute : Attribute {

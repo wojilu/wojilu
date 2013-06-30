@@ -1,4 +1,4 @@
-/*
+ï»¿/*
  * Copyright 2010 www.wojilu.com
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -22,7 +22,7 @@ using wojilu.Common.Security;
 namespace wojilu.Members.Interface {
 
     /// <summary>
-    /// IMember ½Ó¿Ú£¬¿ÉÒÔÊÇÍøÕ¾¡¢ÓÃ»§»òÈº×éµÈ
+    /// IMember æ¥å£ï¼Œå¯ä»¥æ˜¯ç½‘ç«™ã€ç”¨æˆ·æˆ–ç¾¤ç»„ç­‰
     /// </summary>
     public interface IMember {
 

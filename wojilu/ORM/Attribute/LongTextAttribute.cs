@@ -1,4 +1,4 @@
-/*
+ï»¿/*
  * Copyright 2010 www.wojilu.com
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -18,7 +18,7 @@ using System;
 namespace wojilu.ORM {
 
     /// <summary>
-    /// ³¤ÎÄ±¾Åú×¢£¬±êÊ¶´ËÊôĞÔ¶ÔÓ¦µÄÊı¾İÁĞÔÊĞí½ÓÊÜ³¤ÎÄ±¾×Ö·û´®
+    /// é•¿æ–‡æœ¬æ‰¹æ³¨ï¼Œæ ‡è¯†æ­¤å±æ€§å¯¹åº”çš„æ•°æ®åˆ—å…è®¸æ¥å—é•¿æ–‡æœ¬å­—ç¬¦ä¸²
     /// </summary>
     [Serializable, AttributeUsage( AttributeTargets.Property )]
     public class LongTextAttribute : Attribute {

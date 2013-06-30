@@ -1,4 +1,4 @@
-/*
+ï»¿/*
  * Copyright (c) 2010, www.wojilu.com. All rights reserved.
  */
 
@@ -26,7 +26,7 @@ namespace wojilu.Web.Controller.Layouts {
 
                 String lk = string.Format( "<img src=\"{0}lock.gif\"/> ", sys.Path.Img );
 
-                //siteAdminCmd += string.Format( "<a href=\"{0}\" class=\"quickCmd\">²É¼¯</a> ", Link.T2( ctx.viewer.obj, new Users.Admin.Spiders.ArticleController().List, 0 ) );
+                //siteAdminCmd += string.Format( "<a href=\"{0}\" class=\"quickCmd\">é‡‡é›†</a> ", Link.T2( ctx.viewer.obj, new Users.Admin.Spiders.ArticleController().List, 0 ) );
 
                 if (AdminSecurityUtils.HasSession( ctx ))
                     siteAdminCmd += string.Format( "<a href='{0}'>{2}{1}</a>", Link.To( Site.Instance, new Admin.MainController().Welcome ), lang( "siteAdmin" ), lk );
@@ -56,7 +56,7 @@ namespace wojilu.Web.Controller.Layouts {
             int nCount = ((User)ctx.viewer.obj).MicroblogAtUnread;
 
             if (nCount > 0) {
-                return string.Format( "<div class=\"NewNotificationCount\"><a href=\"{1}\">{0}ÌõatÎÒµÄÎ¢²©</a></div>", nCount, Link.To( ctx.viewer.obj, new Microblogs.My.MicroblogController().Atme ) );
+                return string.Format( "<div class=\"NewNotificationCount\"><a href=\"{1}\">{0}æ¡atæˆ‘çš„å¾®åš</a></div>", nCount, Link.To( ctx.viewer.obj, new Microblogs.My.MicroblogController().Atme ) );
             }
 
 

@@ -1,4 +1,4 @@
-/*
+ï»¿/*
  * Copyright 2010 www.wojilu.com
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -26,7 +26,7 @@ using wojilu.DI;
 namespace wojilu.Web.Jobs {
 
     /// <summary>
-    /// ¼Æ»®ÈÎÎñÆô¶¯Æ÷
+    /// è®¡åˆ’ä»»åŠ¡å¯åŠ¨å™¨
     /// </summary>
     public class WebJobStarter {
 

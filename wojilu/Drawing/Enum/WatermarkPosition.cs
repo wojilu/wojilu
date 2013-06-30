@@ -1,4 +1,4 @@
-/*
+ï»¿/*
  * Copyright 2010 www.wojilu.com
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -21,7 +21,7 @@ using System.Text;
 namespace wojilu.Drawing {
 
     /// <summary>
-    /// Ë®Ó¡Î»ÖÃ(ÉÏÃæ×ó²¿¡¢ÉÏÃæÖĞ²¿¡¢ÉÏÃæÓÒ²¿¡¢ÏÂÃæ×ó²¿¡¢ÏÂÃæÖĞ²¿¡¢ÏÂÃæÓÒ²¿)
+    /// æ°´å°ä½ç½®(ä¸Šé¢å·¦éƒ¨ã€ä¸Šé¢ä¸­éƒ¨ã€ä¸Šé¢å³éƒ¨ã€ä¸‹é¢å·¦éƒ¨ã€ä¸‹é¢ä¸­éƒ¨ã€ä¸‹é¢å³éƒ¨)
     /// </summary>
     public enum WatermarkPosition {
         TopLeft,

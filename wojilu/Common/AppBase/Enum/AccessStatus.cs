@@ -1,4 +1,4 @@
-/*
+ï»¿/*
  * Copyright 2010 www.wojilu.com
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -18,7 +18,7 @@ using System;
 namespace wojilu.Common.AppBase {
 
     /// <summary>
-    /// ÊÇ·ñ¿É·ÃÎÊµÄÃ¶¾Ù(¹«¿ª¡¢ºÃÓÑ¡¢Ë½ÈË)
+    /// æ˜¯å¦å¯è®¿é—®çš„æšä¸¾(å…¬å¼€ã€å¥½å‹ã€ç§äºº)
     /// </summary>
     public enum AccessStatus {
         Public,

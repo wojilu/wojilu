@@ -1,4 +1,4 @@
-/*
+﻿/*
  * Copyright (c) 2010, www.wojilu.com. All rights reserved.
  */
 
@@ -106,9 +106,9 @@ namespace wojilu.Web.Controller.Users.Admin {
 
             Notification nf = notificationService.GetById( id );
 
-            // �����������޷�ֱ�ӱ��Ϊ�Ѷ��ģ�����ͨ������Ľ��ܻ�ܾ���ȷ����
+            // 好友邀请是无法直接标记为已读的，必须通过下面的接受或拒绝明确操作
             if (nf.Type == NotificationType.Friend && (nf.Creator != null && nf.Creator.Id > 0)) {
-                echoText( "��ѡ����׼��ܾ�" );
+                echoText( "请选择批准或拒绝" );
             }
             else {
                 notificationService.Read( id );

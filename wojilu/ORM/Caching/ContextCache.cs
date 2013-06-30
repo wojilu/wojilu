@@ -1,4 +1,4 @@
-/*
+ï»¿/*
  * Copyright 2010 www.wojilu.com
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -23,7 +23,7 @@ using wojilu.Data;
 namespace wojilu.ORM.Caching {
 
     /// <summary>
-    /// Ò»¼¶»º´æ(ÉÏÏÂÎÄ»º´æ)
+    /// ä¸€çº§ç¼“å­˜(ä¸Šä¸‹æ–‡ç¼“å­˜)
     /// </summary>
     public class ContextCache {
 

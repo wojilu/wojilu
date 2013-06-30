@@ -1,4 +1,4 @@
-/*
+ï»¿/*
  * Copyright 2010 www.wojilu.com
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -23,7 +23,7 @@ using wojilu.Reflection;
 namespace wojilu.ORM {
 
     /// <summary>
-    /// ÊµÌåÀàÄ³¸öÊôĞÔµÄÔªÊı¾İĞÅÏ¢
+    /// å®ä½“ç±»æŸä¸ªå±æ€§çš„å…ƒæ•°æ®ä¿¡æ¯
     /// </summary>
     [Serializable]
     public class EntityPropertyInfo {
@@ -36,87 +36,87 @@ namespace wojilu.ORM {
         }
 
         /// <summary>
-        /// ÊôĞÔÃû³Æ
+        /// å±æ€§åç§°
         /// </summary>
         public String Name { get; set; }
 
         /// <summary>
-        /// ¶ÔÓ¦µÄÊı¾İÁĞÃû
+        /// å¯¹åº”çš„æ•°æ®åˆ—å
         /// </summary>
         public String ColumnName { get; set; }
 
         /// <summary>
-        /// ÊôĞÔµÄÀàĞÍ£¬±ÈÈçÊÇint£¬»¹ÊÇstringµÈµÈ
+        /// å±æ€§çš„ç±»å‹ï¼Œæ¯”å¦‚æ˜¯intï¼Œè¿˜æ˜¯stringç­‰ç­‰
         /// </summary>
         public Type Type { get; set; }
 
         /// <summary>
-        /// ÊôĞÔĞÅÏ¢(ÏµÍ³×Ô´øµÄÔªÊı¾İ)
+        /// å±æ€§ä¿¡æ¯(ç³»ç»Ÿè‡ªå¸¦çš„å…ƒæ•°æ®)
         /// </summary>
         public PropertyInfo Property { get; set; }
 
         /// <summary>
-        /// ±¾ÊôĞÔËùÊôµÄÊµÌåÀàĞÅÏ¢£¬±ÈÈçBlogÓĞÒ»¸öÊôĞÔTitle£¬ÔòTitleÕâ¸öÊôĞÔµÄParentEntityInfo¾ÍÊÇBlog
+        /// æœ¬å±æ€§æ‰€å±çš„å®ä½“ç±»ä¿¡æ¯ï¼Œæ¯”å¦‚Blogæœ‰ä¸€ä¸ªå±æ€§Titleï¼Œåˆ™Titleè¿™ä¸ªå±æ€§çš„ParentEntityInfoå°±æ˜¯Blog
         /// </summary>
         public EntityInfo ParentEntityInfo { get; set; }
 
         /// <summary>
-        /// µ±±¾ÊôĞÔÊÇÊµÌåÊôĞÔÊ±£¬´ËÊµÌåÊôĞÔµÄĞÅÏ¢¡£±ÈÈçBlogµÄÊµÌåÊôĞÔCategoryµÄEntityInfo¡£Èç¹û²»ÊÇÊµÌåÊôĞÔ£¬ÔòÎªnull
+        /// å½“æœ¬å±æ€§æ˜¯å®ä½“å±æ€§æ—¶ï¼Œæ­¤å®ä½“å±æ€§çš„ä¿¡æ¯ã€‚æ¯”å¦‚Blogçš„å®ä½“å±æ€§Categoryçš„EntityInfoã€‚å¦‚æœä¸æ˜¯å®ä½“å±æ€§ï¼Œåˆ™ä¸ºnull
         /// </summary>
         public EntityInfo EntityInfo { get; set; }
 
         /// <summary>
-        /// ÊÇ·ñ±£´æµ½Êı¾İ¿â(ÊÇ·ñ´òÉÏÁËNotSaveÅú×¢)
+        /// æ˜¯å¦ä¿å­˜åˆ°æ•°æ®åº“(æ˜¯å¦æ‰“ä¸Šäº†NotSaveæ‰¹æ³¨)
         /// </summary>
         public Boolean SaveToDB { get; set; }
 
         /// <summary>
-        /// ÊÇ·ñÊÇÁĞ±íÀàĞÍ£¬ÁĞ±íÀàĞÍ²»»á±£´æµ½Êı¾İ¿â
+        /// æ˜¯å¦æ˜¯åˆ—è¡¨ç±»å‹ï¼Œåˆ—è¡¨ç±»å‹ä¸ä¼šä¿å­˜åˆ°æ•°æ®åº“
         /// </summary>
         public Boolean IsList { get; set; }
 
         /// <summary>
-        /// ÊÇ·ñÊÇÊµÌåÀàÊôĞÔ
+        /// æ˜¯å¦æ˜¯å®ä½“ç±»å±æ€§
         /// </summary>
         public Boolean IsEntity { get; set; }
 
         /// <summary>
-        /// ÊÇ·ñÊÇ³éÏóÀàĞÍÊµÌå
+        /// æ˜¯å¦æ˜¯æŠ½è±¡ç±»å‹å®ä½“
         /// </summary>
         public Boolean IsAbstractEntity { get; set; }
 
         /// <summary>
-        /// µ±Ç°ÊôĞÔµÄ ColumnAttribute
+        /// å½“å‰å±æ€§çš„ ColumnAttribute
         /// </summary>
         public ColumnAttribute SaveAttribute { get; set; }
 
         /// <summary>
-        /// µ±Ç°ÊôĞÔµÄ LongTextAttribute
+        /// å½“å‰å±æ€§çš„ LongTextAttribute
         /// </summary>
         public LongTextAttribute LongTextAttribute { get; set; }
 
         /// <summary>
-        /// µ±Ç°ÊôĞÔµÄ MoneyAttribute
+        /// å½“å‰å±æ€§çš„ MoneyAttribute
         /// </summary>
         public MoneyAttribute MoneyAttribute { get; set; }
 
         /// <summary>
-        /// µ±Ç°ÊôĞÔµÄ DecimalAttribute
+        /// å½“å‰å±æ€§çš„ DecimalAttribute
         /// </summary>
         public DecimalAttribute DecimalAttribute { get; set; }
 
         /// <summary>
-        /// µ±Ç°ÊôĞÔµÄ DefaultAttribute
+        /// å½“å‰å±æ€§çš„ DefaultAttribute
         /// </summary>
         public DefaultAttribute DefaultAttribute { get; set; }
 
         /// <summary>
-        /// µ±Ç°ÊôĞÔµÄ ValidationAttribute µÄÁĞ±í
+        /// å½“å‰å±æ€§çš„ ValidationAttribute çš„åˆ—è¡¨
         /// </summary>
         public List<ValidationAttribute> ValidationAttributes { get; set; }
 
         /// <summary>
-        /// µ±Ç°ÊôĞÔµÄ¸³Öµ/È¡ÖµÆ÷£¬¿ÉÒÔ±ÜÃâ·´ÉäµÄµÍĞ§
+        /// å½“å‰å±æ€§çš„èµ‹å€¼/å–å€¼å™¨ï¼Œå¯ä»¥é¿å…åå°„çš„ä½æ•ˆ
         /// </summary>
         internal IPropertyAccessor PropertyAccessor { get; set; }
 
@@ -150,7 +150,7 @@ namespace wojilu.ORM {
         }
 
         /// <summary>
-        /// »ñÈ¡objµÄµ±Ç°ÊôĞÔµÄÖµ
+        /// è·å–objçš„å½“å‰å±æ€§çš„å€¼
         /// </summary>
         /// <param name="target"></param>
         /// <returns></returns>
@@ -159,7 +159,7 @@ namespace wojilu.ORM {
         }
 
         /// <summary>
-        /// ¸øobjµÄµ±Ç°ÊôĞÔ¸³Öµ
+        /// ç»™objçš„å½“å‰å±æ€§èµ‹å€¼
         /// </summary>
         /// <param name="target"></param>
         /// <param name="value"></param>
@@ -168,7 +168,7 @@ namespace wojilu.ORM {
         }
 
         /// <summary>
-        /// ÊÇ·ñÊÇ³¤ÎÄ±¾
+        /// æ˜¯å¦æ˜¯é•¿æ–‡æœ¬
         /// </summary>
         public Boolean IsLongText {
             get {
@@ -178,7 +178,7 @@ namespace wojilu.ORM {
         }
 
         /// <summary>
-        /// »ñÈ¡ÊôĞÔµÄlabel(ÓÃÔÚ±íµ¥ÖĞ)
+        /// è·å–å±æ€§çš„label(ç”¨åœ¨è¡¨å•ä¸­)
         /// </summary>
         public String Label {
             get {

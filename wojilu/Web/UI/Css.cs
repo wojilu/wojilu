@@ -1,4 +1,4 @@
-/*
+ï»¿/*
  * Copyright 2010 www.wojilu.com
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -22,7 +22,7 @@ using wojilu.Serialization;
 namespace wojilu.Web.UI {
 
     /// <summary>
-    /// css ×ª»»Æ÷
+    /// css è½¬æ¢å™¨
     /// </summary>
     public class Css {
 

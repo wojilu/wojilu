@@ -1,4 +1,4 @@
-/*
+ï»¿/*
  * Copyright (c) 2010, www.wojilu.com. All rights reserved.
  */
 
@@ -32,7 +32,7 @@ namespace wojilu.Web.Controller.Content.Admin {
             if (app.GetSettingsObj().EnableSubmit == 1) {
                 String slnk = string.Format( "<li style=\"width:100px;\"><a href=\"{0}\" class=\"frmLink\" loadTo=\"adminPortalContainer\" nolayout=3>{1}</a><span></span></li>",
                     to( new SubmitSettingController().List ),
-                    "Í¶µİÔ±¹ÜÀí" );
+                    "æŠ•é€’å‘˜ç®¡ç†" );
                 set( "submitterLink", slnk );
             }
             else {

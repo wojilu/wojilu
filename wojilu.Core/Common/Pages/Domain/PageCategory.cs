@@ -1,4 +1,4 @@
-/*
+ï»¿/*
  * Copyright (c) 2010, www.wojilu.com. All rights reserved.
  */
 
@@ -14,17 +14,17 @@ namespace wojilu.Common.Pages.Domain {
     public class OpenStatus {
 
         /// <summary>
-        /// ¹Ø±Õ±à¼­
+        /// å…³é—­ç¼–è¾‘
         /// </summary>
         public static readonly int Close = 0;
 
         /// <summary>
-        /// ÍêÈ«¿ª·Å£¬ÈÎºÎ×¢²áÓÃ»§¶¼¿ÉÒÔ±à¼­
+        /// å®Œå…¨å¼€æ”¾ï¼Œä»»ä½•æ³¨å†Œç”¨æˆ·éƒ½å¯ä»¥ç¼–è¾‘
         /// </summary>
         public static readonly int Open = 1;
 
         /// <summary>
-        /// Ö»ÓĞ±»ÌôÑ¡µÄÈË(±à¼­)¿ÉÒÔ±à¼­
+        /// åªæœ‰è¢«æŒ‘é€‰çš„äºº(ç¼–è¾‘)å¯ä»¥ç¼–è¾‘
         /// </summary>
         public static readonly int Editor = 2;
     }
@@ -47,9 +47,9 @@ namespace wojilu.Common.Pages.Domain {
         public DateTime Created { get; set; }
         public int DataCount { get; set; }
 
-        public int IsShowWiki { get; set; } // ÊÇ·ñÏÔÊ¾wiki´ÊÌõÍ³¼ÆĞÅÏ¢
-        public int OpenStatus { get; set; } // ¿ª·Å×´Ì¬£¬¼ûOpenStatus
-        public String EditorIds { get; set; } // ÔÊĞí±à¼­µÄÓÃ»§Ãûµ¥£¬µ± OpenStatus==2 µÄÊ±ºòÆğ×÷ÓÃ
+        public int IsShowWiki { get; set; } // æ˜¯å¦æ˜¾ç¤ºwikiè¯æ¡ç»Ÿè®¡ä¿¡æ¯
+        public int OpenStatus { get; set; } // å¼€æ”¾çŠ¶æ€ï¼Œè§OpenStatus
+        public String EditorIds { get; set; } // å…è®¸ç¼–è¾‘çš„ç”¨æˆ·åå•ï¼Œå½“ OpenStatus==2 çš„æ—¶å€™èµ·ä½œç”¨
 
 
         public void updateOrderId() {

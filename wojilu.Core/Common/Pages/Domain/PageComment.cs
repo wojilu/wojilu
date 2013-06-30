@@ -1,4 +1,4 @@
-/*
+ï»¿/*
  * Copyright (c) 2010, www.wojilu.com. All rights reserved.
  */
 
@@ -52,7 +52,7 @@ namespace wojilu.Common.Pages.Domain {
             myfeed.Creator = this.Member;
             myfeed.DataType = this.GetTargetType().FullName;
 
-            String tt = "{*actor*} ÆÀÂÛÁËÎÄÕÂ {*target*}";
+            String tt = "{*actor*} è¯„è®ºäº†æ–‡ç«  {*target*}";
 
             myfeed.TitleTemplate = tt;
             myfeed.TitleData = getTitleData( lnkTarget );
@@ -83,10 +83,10 @@ namespace wojilu.Common.Pages.Domain {
 
             int receiverId = post.OwnerId;
 
-            // ×Ô¼ºµÄ»Ø¸´²»ÓÃ¸ø×Ô¼º·¢Í¨Öª
+            // è‡ªå·±çš„å›å¤ä¸ç”¨ç»™è‡ªå·±å‘é€šçŸ¥
             if (this.Member != null && (this.Member.Id == receiverId)) return;
 
-            String msg = this.Author + " ÆÀÂÛÁËÎÄÕÂ <a href=\"" + lnkTarget + "\">" + post.Title + "</a>";
+            String msg = this.Author + " è¯„è®ºäº†æ–‡ç«  <a href=\"" + lnkTarget + "\">" + post.Title + "</a>";
 
             NotificationService nfService = new NotificationService();
             nfService.send( receiverId, post.OwnerType, msg, NotificationType.Comment );
@@ -95,12 +95,12 @@ namespace wojilu.Common.Pages.Domain {
 
         }
 
-        // ¸øËùÓĞ¹±Ï×Õß·¢ËÍÍ¨Öª
+        // ç»™æ‰€æœ‰è´¡çŒ®è€…å‘é€é€šçŸ¥
         private void sendToEditors( String lnkTarget, Page post, NotificationService nfService ) {
             List<int> editorIds = GetEditorIds( post.Id );
             foreach (int eId in editorIds) {
                 if (this.Member != null && (this.Member.Id == eId)) continue;
-                String cmsg = this.Author + " ÆÀÂÛÁËÄú²ÎÓë¹ıµÄÒ³Ãæ <a href=\"" + lnkTarget + "\">" + post.Title + "</a>";
+                String cmsg = this.Author + " è¯„è®ºäº†æ‚¨å‚ä¸è¿‡çš„é¡µé¢ <a href=\"" + lnkTarget + "\">" + post.Title + "</a>";
                 nfService.send( eId, cmsg );
             }
         }

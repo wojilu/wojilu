@@ -1,4 +1,4 @@
-/*
+ï»¿/*
  * Copyright (c) 2010, www.wojilu.com. All rights reserved.
  */
 
@@ -41,7 +41,7 @@ namespace wojilu.Web.Controller.Users.Admin {
 
             Boolean isMessageClose = Component.IsClose( typeof( MessageApp ) );
             if (isMessageClose) {
-                echo( "¶Ô²»Æğ£¬±¾¹¦ÄÜÒÑ¾­Í£ÓÃ" );
+                echo( "å¯¹ä¸èµ·ï¼Œæœ¬åŠŸèƒ½å·²ç»åœç”¨" );
             }
         }
 

@@ -1,4 +1,4 @@
-/*
+ï»¿/*
  * Copyright (c) 2010, www.wojilu.com. All rights reserved.
  */
 
@@ -47,7 +47,7 @@ namespace wojilu.Web.Controller.Microblogs {
 
             Microblog blog = microblogService.GetById( id );
             if (blog == null) {
-                echoText( "<div class=\"strong red\">±¾Êı¾İÒÑ±»É¾³ı£¬ÎŞ·¨ÆÀÂÛ</div>" );
+                echoText( "<div class=\"strong red\">æœ¬æ•°æ®å·²è¢«åˆ é™¤ï¼Œæ— æ³•è¯„è®º</div>" );
                 return;
             }
 
@@ -59,7 +59,7 @@ namespace wojilu.Web.Controller.Microblogs {
             String moreInfo = "";
             if (restCount > 0) {
                 String lnk = to( new MicroblogController().Show, id );
-                moreInfo = string.Format( "ºóÃæ»¹ÓĞ{0}ÌõÆÀÂÛ£¬<a id=\"moreLink\" href=\"{1}\" to=\"{1}\" target=\"_blank\">µã»÷²é¿´>></a>", restCount, lnk );
+                moreInfo = string.Format( "åé¢è¿˜æœ‰{0}æ¡è¯„è®ºï¼Œ<a id=\"moreLink\" href=\"{1}\" to=\"{1}\" target=\"_blank\">ç‚¹å‡»æŸ¥çœ‹>></a>", restCount, lnk );
             }
 
             set( "moreLink", moreInfo );
@@ -117,7 +117,7 @@ namespace wojilu.Web.Controller.Microblogs {
 
         }
 
-        // µ¯´°ÖĞµÄ»Ø¸´´°¿Ú
+        // å¼¹çª—ä¸­çš„å›å¤çª—å£
         public void Reply( int id ) {
             int parentId = ctx.GetInt( "parentId" );
             set( "c.ParentId", parentId );
@@ -129,7 +129,7 @@ namespace wojilu.Web.Controller.Microblogs {
             set( "content", content );
         }
 
-        // ±£´æµ¯´°ÖĞµÄÆÀÂÛ£¬Ã»ÓĞ×ª·¢
+        // ä¿å­˜å¼¹çª—ä¸­çš„è¯„è®ºï¼Œæ²¡æœ‰è½¬å‘
         [HttpPost, DbTransaction]
         public void SaveComment( int id ) {
 
@@ -152,7 +152,7 @@ namespace wojilu.Web.Controller.Microblogs {
 
         }
 
-        // Î¢²©ÏÂµÄÖ±½ÓÆÀÂÛ£¬´ø×ª·¢
+        // å¾®åšä¸‹çš„ç›´æ¥è¯„è®ºï¼Œå¸¦è½¬å‘
         [HttpPost, DbTransaction]
         public void SaveReply( ) {
 
@@ -176,7 +176,7 @@ namespace wojilu.Web.Controller.Microblogs {
 
                 Microblog blog = new Microblog();
                 blog.Content = content;
-                blog.ParentId = rootId; // ×ª·¢Î¢²©
+                blog.ParentId = rootId; // è½¬å‘å¾®åš
                 blog.User = ctx.viewer.obj as User;
                 blog.Ip = ctx.Ip;
 

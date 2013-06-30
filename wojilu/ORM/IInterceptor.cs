@@ -1,4 +1,4 @@
-/*
+ï»¿/*
  * Copyright 2010 www.wojilu.com
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -19,7 +19,7 @@ using System;
 namespace wojilu.ORM {
 
     /// <summary>
-    /// À¹½ØÆ÷½Ó¿Ú£¬ÓÃ»§¿ÉÒÔÍ¨¹ı×Ô¶¨ÒåÀ¹½ØÆ÷£¬ÔÚ²åÈëÇ°»ò²åÈëºóµÈ¶¯×÷ÖĞ×¢Èë×Ô¼ºµÄ´¦ÀíÂß¼­
+    /// æ‹¦æˆªå™¨æ¥å£ï¼Œç”¨æˆ·å¯ä»¥é€šè¿‡è‡ªå®šä¹‰æ‹¦æˆªå™¨ï¼Œåœ¨æ’å…¥å‰æˆ–æ’å…¥åç­‰åŠ¨ä½œä¸­æ³¨å…¥è‡ªå·±çš„å¤„ç†é€»è¾‘
     /// </summary>
     public interface IInterceptor {
 

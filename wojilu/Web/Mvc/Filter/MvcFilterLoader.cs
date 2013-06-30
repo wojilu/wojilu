@@ -1,4 +1,4 @@
-/*
+ï»¿/*
  * Copyright 2010 www.wojilu.com
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -23,7 +23,7 @@ using wojilu.Web.Mvc.Interface;
 namespace wojilu.Web.Mvc {
 
     /// <summary>
-    /// mvc ¹ýÂËÆ÷µÄ¼ÓÔØÆ÷
+    /// mvc è¿‡æ»¤å™¨çš„åŠ è½½å™¨
     /// </summary>
     public class MvcFilterLoader {
 

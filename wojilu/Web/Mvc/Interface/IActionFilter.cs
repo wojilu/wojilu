@@ -1,4 +1,4 @@
-/*
+ï»¿/*
  * Copyright 2010 www.wojilu.com
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -22,7 +22,7 @@ using wojilu.Web.Context;
 namespace wojilu.Web.Mvc.Interface {
 
     /// <summary>
-    /// action ¹ıÂËÆ÷½Ó¿Ú
+    /// action è¿‡æ»¤å™¨æ¥å£
     /// </summary>
     public interface IActionFilter {
 
@@ -30,7 +30,7 @@ namespace wojilu.Web.Mvc.Interface {
         void AfterAction( ControllerBase controller );
 
         /// <summary>
-        /// ¹ıÂËÆ÷µÄË³Ğò£¬´ÓĞ¡µ½´óÅÅÁĞ
+        /// è¿‡æ»¤å™¨çš„é¡ºåºï¼Œä»å°åˆ°å¤§æ’åˆ—
         /// </summary>
         int Order { get; set; }
 

@@ -1,4 +1,4 @@
-/*
+ï»¿/*
  * Copyright 2010 www.wojilu.com
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -23,12 +23,12 @@ using System.Drawing.Drawing2D;
 namespace wojilu.Drawing {
 
     /// <summary>
-    /// ÑéÖ¤Âë¹¤¾ß
+    /// éªŒè¯ç å·¥å…·
     /// </summary>
     public class ValidationCode {
 
         /// <summary>
-        /// ´´½¨ÑéÖ¤Âë£¬·µ»ØÒ»¸ö Image ¶ÔÏó
+        /// åˆ›å»ºéªŒè¯ç ï¼Œè¿”å›ä¸€ä¸ª Image å¯¹è±¡
         /// </summary>
         /// <param name="code"></param>
         /// <param name="width"></param>

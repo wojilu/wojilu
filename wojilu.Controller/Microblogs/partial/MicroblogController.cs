@@ -1,4 +1,4 @@
-/*
+ï»¿/*
  * Copyright (c) 2010, www.wojilu.com. All rights reserved.
  */
 
@@ -75,7 +75,7 @@ namespace wojilu.Web.Controller.Microblogs {
 
         private string getAdminBlogCmd() {
             if (ctx.viewer.IsLogin == false) return "";
-            if (ctx.viewer.Id == ctx.owner.Id) return string.Format( "<a href=\"{0}\" id=\"addBlogLink\">ÎÒÒª·¢Î¢²©</a>", to( new Microblogs.My.MicroblogController().Home ) );
+            if (ctx.viewer.Id == ctx.owner.Id) return string.Format( "<a href=\"{0}\" id=\"addBlogLink\">æˆ‘è¦å‘å¾®åš</a>", to( new Microblogs.My.MicroblogController().Home ) );
             return "";
         }
 
@@ -84,15 +84,15 @@ namespace wojilu.Web.Controller.Microblogs {
             set( "followUrl", to( Follow ) );
             set( "cancelUrl", to( CancelFollow ) );
 
-            if (ctx.viewer.IsLogin == false) return "<div id=\"lblFollow\"><span>¼Ó¹Ø×¢</span></div>";
+            if (ctx.viewer.IsLogin == false) return "<div id=\"lblFollow\"><span>åŠ å…³æ³¨</span></div>";
             if (ctx.viewer.Id == user.Id) return "";
             if (ctx.viewer.IsFriend( user.Id ))
-                return "<div id=\"cmdCancelFollow\"><span id=\"followed\">ÒÑÊÇºÃÓÑ</span></div>";
+                return "<div id=\"cmdCancelFollow\"><span id=\"followed\">å·²æ˜¯å¥½å‹</span></div>";
 
             if (ctx.viewer.IsFollowing( user.Id ))
-                return "<div id=\"cmdCancelFollow\"><span id=\"followed\">ÒÑ¹Ø×¢</span><span id=\"cancelFollow\">È¡Ïû¹Ø×¢</span></div>";
+                return "<div id=\"cmdCancelFollow\"><span id=\"followed\">å·²å…³æ³¨</span><span id=\"cancelFollow\">å–æ¶ˆå…³æ³¨</span></div>";
 
-            return "<div id=\"cmdFollow\"><span>¼Ó¹Ø×¢</span></div>";
+            return "<div id=\"cmdFollow\"><span>åŠ å…³æ³¨</span></div>";
         }
 
         private void bindStats( User user ) {
@@ -135,7 +135,7 @@ namespace wojilu.Web.Controller.Microblogs {
 
                 String deleteCmd = "";
                 if (ctx.viewer.Id == ctx.owner.Id || ctx.viewer.IsAdministrator()) {
-                    deleteCmd = string.Format( "<a href=\"{0}\" class=\"ajaxDeleteCmd\" removeId=\"commentItem{1}\">É¾³ı</a>",
+                    deleteCmd = string.Format( "<a href=\"{0}\" class=\"ajaxDeleteCmd\" removeId=\"commentItem{1}\">åˆ é™¤</a>",
                         to( new My.MicroblogCommentsController().Delete, c.Id ),
                         c.Id );
                 }
@@ -161,38 +161,38 @@ namespace wojilu.Web.Controller.Microblogs {
 
             block.Set( "blog.Content", getBlogContent( blog ) );
 
-            bindUserInfo( block, blog, showUserFace ); // ÓÃ»§ĞÅÏ¢
-            bindRepost( block, blog ); // ×ª·¢ĞÅÏ¢
-            bindPicInfo( block, blog ); // Í¼Æ¬ĞÅÏ¢
-            bindVideoInfo( block, blog ); // ÊÓÆµĞÅÏ¢
+            bindUserInfo( block, blog, showUserFace ); // ç”¨æˆ·ä¿¡æ¯
+            bindRepost( block, blog ); // è½¬å‘ä¿¡æ¯
+            bindPicInfo( block, blog ); // å›¾ç‰‡ä¿¡æ¯
+            bindVideoInfo( block, blog ); // è§†é¢‘ä¿¡æ¯
 
-            // ÆÀÂÛÊı
+            // è¯„è®ºæ•°
             String replies = blog.Replies > 0 ? "(" + blog.Replies + ")" : "";
             block.Set( "blog.Replies", replies );
 
-            // ×ª·¢Êı
+            // è½¬å‘æ•°
             String reposts = blog.Reposts > 0 ? "(" + blog.Reposts + ")" : "";
             block.Set( "blog.Reposts", reposts );
 
             block.Set( "blog.CommentsLink", to( new MicroblogCommentsController().Show, blog.Id ) );
             block.Set( "blog.ForwardUrl", to( Forward, blog.Id ) );
-            block.Set( "blog.FavoriteCmd", getFavoriteCmd( blog, isFavorite ) ); // ÊÕ²ØÃüÁî
+            block.Set( "blog.FavoriteCmd", getFavoriteCmd( blog, isFavorite ) ); // æ”¶è—å‘½ä»¤
 
-            // É¾³ıÃüÁî
+            // åˆ é™¤å‘½ä»¤
             String deleteCmd = "";
             if (ctx.viewer.Id == blog.User.Id) {
-                deleteCmd = string.Format( "<a href=\"{0}\" class=\"left10 ajaxDeleteCmd\" removeId=\"mblog{1}\">É¾³ı</a>", to( new Microblogs.My.MicroblogController().Delete, blog.Id ), blog.Id );
+                deleteCmd = string.Format( "<a href=\"{0}\" class=\"left10 ajaxDeleteCmd\" removeId=\"mblog{1}\">åˆ é™¤</a>", to( new Microblogs.My.MicroblogController().Delete, blog.Id ), blog.Id );
             }
             block.Set( "blog.DeleteCmd", deleteCmd );
         }
 
         private void bindRepost( IBlock block, Microblog blog ) {
-            // ×ª·¢µÄÄÚÈİ
+            // è½¬å‘çš„å†…å®¹
             if (blog.ParentId > 0) {
 
                 Microblog parent = microblogService.GetById( blog.ParentId );
                 if (parent == null) {
-                    block.Set( "blog.ForwardContent", "<div class=\"mblogSingle\">´ËÎ¢²©ÒÑ±»Ô­×÷ÕßÉ¾³ı</div>" );
+                    block.Set( "blog.ForwardContent", "<div class=\"mblogSingle\">æ­¤å¾®åšå·²è¢«åŸä½œè€…åˆ é™¤</div>" );
                 }
                 else {
                     block.Set( "blog.ForwardContent", loadHtml( Single, blog.ParentId ) );
@@ -250,7 +250,7 @@ namespace wojilu.Web.Controller.Microblogs {
         //--------------------------------------------------------------------------------------------------
 
 
-        // ×ª·¢µÄ¸½¼ş
+        // è½¬å‘çš„é™„ä»¶
         [NonVisit]
         public void Single( int id ) {
 
@@ -273,7 +273,7 @@ namespace wojilu.Web.Controller.Microblogs {
         private string getBlogContent( Microblog blog ) {
             if (blog.ParentId <= 0) return blog.Content;
 
-            String content = strUtil.HasText( blog.Content ) ? blog.Content : "×ª·¢Î¢²©";
+            String content = strUtil.HasText( blog.Content ) ? blog.Content : "è½¬å‘å¾®åš";
 
             return content;
         }
@@ -281,10 +281,10 @@ namespace wojilu.Web.Controller.Microblogs {
         private string getFavoriteCmd( Microblog blog, Boolean isFavorite ) {
 
             if (isFavorite) {
-                return string.Format( "<span class=\"cancelFavorite link left10 right10\" to=\"{0}\">È¡ÏûÊÕ²Ø</span>", to( CancelFavorite, blog.Id ) );
+                return string.Format( "<span class=\"cancelFavorite link left10 right10\" to=\"{0}\">å–æ¶ˆæ”¶è—</span>", to( CancelFavorite, blog.Id ) );
             }
 
-            return string.Format( "<span class=\"addFavorite link left10 right10\" to=\"{0}\">ÊÕ²Ø</span>", to( SaveFavorite, blog.Id ) );
+            return string.Format( "<span class=\"addFavorite link left10 right10\" to=\"{0}\">æ”¶è—</span>", to( SaveFavorite, blog.Id ) );
         }
 
 

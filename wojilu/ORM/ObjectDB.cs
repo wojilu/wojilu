@@ -1,4 +1,4 @@
-/*
+ï»¿/*
  * Copyright 2010 www.wojilu.com
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -26,7 +26,7 @@ using wojilu.ORM.Operation;
 namespace wojilu.ORM {
 
     /// <summary>
-    /// Êı¾İ·ÃÎÊ¹¤¾ß
+    /// æ•°æ®è®¿é—®å·¥å…·
     /// </summary>
     internal class ObjectDB {
 

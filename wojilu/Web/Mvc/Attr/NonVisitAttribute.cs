@@ -1,4 +1,4 @@
-/*
+ï»¿/*
  * Copyright 2010 www.wojilu.com
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -20,7 +20,7 @@ using System.Text;
 namespace wojilu.Web.Mvc.Attr {
 
     /// <summary>
-    /// µ±Ç° action ½ûÖ¹Ö±½Ó·ÃÎÊ£¬Ö»ÓÃÓÚ´úÂë¼äµ÷ÓÃ
+    /// å½“å‰ action ç¦æ­¢ç›´æ¥è®¿é—®ï¼Œåªç”¨äºä»£ç é—´è°ƒç”¨
     /// </summary>
     [Serializable, AttributeUsage( AttributeTargets.Method )]
     public class NonVisitAttribute : System.Attribute {

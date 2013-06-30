@@ -1,4 +1,4 @@
-/*
+ï»¿/*
  * Copyright 2010 www.wojilu.com
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -24,7 +24,7 @@ using wojilu.Net;
 namespace wojilu.Common.Onlines {
 
     /// <summary>
-    /// ÔÚÏßÓÃ»§ĞÅÏ¢·â×°
+    /// åœ¨çº¿ç”¨æˆ·ä¿¡æ¯å°è£…
     /// </summary>
     [NotSave]
     public class OnlineUser : CacheObject, IComparable {

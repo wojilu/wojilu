@@ -1,4 +1,4 @@
-/*
+ï»¿/*
  * Copyright 2010 www.wojilu.com
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -24,7 +24,7 @@ using wojilu.Data;
 namespace wojilu.Web.Mvc.Attr {
 
     /// <summary>
-    /// ÔÚµ±Ç° action ÉÏÆôÓÃÊı¾İ¿âÊÂÎñ£¬Ö§³Ö¶àÊı¾İ¿âÊÂÎñ
+    /// åœ¨å½“å‰ action ä¸Šå¯ç”¨æ•°æ®åº“äº‹åŠ¡ï¼Œæ”¯æŒå¤šæ•°æ®åº“äº‹åŠ¡
     /// </summary>
     [Serializable, AttributeUsage( AttributeTargets.Method )]
     public class DbTransactionAttribute : Attribute, IActionFilter {

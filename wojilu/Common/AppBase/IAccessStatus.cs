@@ -1,4 +1,4 @@
-/*
+ï»¿/*
  * Copyright 2010 www.wojilu.com
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -20,7 +20,7 @@ using System.Text;
 namespace wojilu.Common.AppBase {
 
     /// <summary>
-    /// ÉèÖÃÁË·ÃÎÊ¿ØÖÆµÄ¶ÔÏó½Ó¿Ú
+    /// è®¾ç½®äº†è®¿é—®æ§åˆ¶çš„å¯¹è±¡æ¥å£
     /// </summary>
     public interface IAccessStatus {
 

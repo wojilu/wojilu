@@ -1,4 +1,4 @@
-/*
+ï»¿/*
  * Copyright 2010 www.wojilu.com
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -20,7 +20,7 @@ using wojilu.Members.Interface;
 namespace wojilu.Web.Context {
 
     /// <summary>
-    /// µ±Ç°±»·ÃÎÊÕßµÄ½Ó¿Ú
+    /// å½“å‰è¢«è®¿é—®è€…çš„æ¥å£
     /// </summary>
     public interface IOwnerContext {
         int Id { get; set; }

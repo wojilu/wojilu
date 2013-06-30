@@ -1,4 +1,4 @@
-/*
+ï»¿/*
  * Copyright (c) 2010, www.wojilu.com. All rights reserved.
  */
 
@@ -86,7 +86,7 @@ namespace wojilu.Web.Controller.Content.Section {
 
         private static String getPageSeparator( String content ) {
             if (content.IndexOf( staticPageSeparator ) > 20) return staticPageSeparator;
-            if (content.IndexOf( staticPageSeparator.ToUpper() ) > 20) return staticPageSeparator.ToUpper(); //¾ÀÕıIEµÄbug
+            if (content.IndexOf( staticPageSeparator.ToUpper() ) > 20) return staticPageSeparator.ToUpper(); //çº æ­£IEçš„bug
             if (content.IndexOf( "<hr />" ) > 20) return "<hr />";
             return null;
         }
@@ -112,7 +112,7 @@ namespace wojilu.Web.Controller.Content.Section {
             return content;
         }
 
-        // ½«ĞèÒª·­Ò³µÄ url ·ÅÈëÉÏÏÂÎÄ£¬
+        // å°†éœ€è¦ç¿»é¡µçš„ url æ”¾å…¥ä¸Šä¸‹æ–‡ï¼Œ
         private void setPagedUrls( ContentPost post, int pageCount ) {
             if (pageCount <= 1) return;
 

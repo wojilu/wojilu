@@ -1,4 +1,4 @@
-/*
+ï»¿/*
  * Copyright 2010 www.wojilu.com
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -19,7 +19,7 @@ using System;
 namespace wojilu.Common.AppBase {
 
     /// <summary>
-    /// ×¢²áÓÃ»§µÄ×´Ì¬(´ıÉóºË¡¢É¾³ı¡¢ÖÃ¶¥¡¢ÍÆ¼ö¡¢ÆÕÍ¨)
+    /// æ³¨å†Œç”¨æˆ·çš„çŠ¶æ€(å¾…å®¡æ ¸ã€åˆ é™¤ã€ç½®é¡¶ã€æ¨èã€æ™®é€š)
     /// </summary>
     public class MemberStatus {
 

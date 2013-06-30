@@ -1,4 +1,4 @@
-/*
+ï»¿/*
  * Copyright 2010 www.wojilu.com
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -21,16 +21,16 @@ using System.Text;
 namespace wojilu.Serialization {
 
     /// <summary>
-    /// json ·´ĞòÁĞ»¯¹¤¾ß
+    /// json ååºåˆ—åŒ–å·¥å…·
     /// </summary>
     public class JsonParser {
 
         /// <summary>
-        /// ½âÎö×Ö·û´®£¬·µ»Ø¶ÔÏó¡£
-        /// ¸ù¾İ json µÄ²»Í¬£¬¿ÉÄÜ·µ»ØÕûÊı(int)¡¢²¼¶ûÀàĞÍ(bool)¡¢×Ö·û´®(string)¡¢Ò»°ã¶ÔÏó(Dictionary&lt;string, object&gt;)¡¢Êı×é(List&lt;object&gt;)µÈ²»Í¬ÀàĞÍ
+        /// è§£æå­—ç¬¦ä¸²ï¼Œè¿”å›å¯¹è±¡ã€‚
+        /// æ ¹æ® json çš„ä¸åŒï¼Œå¯èƒ½è¿”å›æ•´æ•°(int)ã€å¸ƒå°”ç±»å‹(bool)ã€å­—ç¬¦ä¸²(string)ã€ä¸€èˆ¬å¯¹è±¡(Dictionary&lt;string, object&gt;)ã€æ•°ç»„(List&lt;object&gt;)ç­‰ä¸åŒç±»å‹
         /// </summary>
         /// <param name="src"></param>
-        /// <returns>¸ù¾İ json µÄ²»Í¬£¬¿ÉÄÜ·µ»ØÕûÊı(int)¡¢²¼¶ûÀàĞÍ(bool)¡¢×Ö·û´®(string)¡¢Ò»°ã¶ÔÏó(Dictionary&lt;string, object&gt;)¡¢Êı×é(List&lt;object&gt;)µÈ²»Í¬ÀàĞÍ</returns>
+        /// <returns>æ ¹æ® json çš„ä¸åŒï¼Œå¯èƒ½è¿”å›æ•´æ•°(int)ã€å¸ƒå°”ç±»å‹(bool)ã€å­—ç¬¦ä¸²(string)ã€ä¸€èˆ¬å¯¹è±¡(Dictionary&lt;string, object&gt;)ã€æ•°ç»„(List&lt;object&gt;)ç­‰ä¸åŒç±»å‹</returns>
         public static Object Parse( String src ) {
 
             if (strUtil.IsNullOrEmpty( src )) return null;

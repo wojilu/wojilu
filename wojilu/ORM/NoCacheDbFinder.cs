@@ -1,4 +1,4 @@
-/*
+ï»¿/*
  * Copyright 2010 www.wojilu.com
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -22,7 +22,7 @@ using System.Text;
 namespace wojilu.ORM {
 
     /// <summary>
-    /// ÈÆ¹ı»º´æ£¬Ö±½Ó·ÃÎÊÊı¾İ¿â
+    /// ç»•è¿‡ç¼“å­˜ï¼Œç›´æ¥è®¿é—®æ•°æ®åº“
     /// </summary>
     public class NoCacheDbFinder {
 

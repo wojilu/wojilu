@@ -1,4 +1,4 @@
-/*
+ï»¿/*
  * Copyright (c) 2010, www.wojilu.com. All rights reserved.
  */
 
@@ -7,7 +7,7 @@ using System;
 namespace wojilu.Common.AppBase {
 
     /// <summary>
-    /// Çø¿éÅäÖÃÁ´½Ó½Ó¿Ú
+    /// åŒºå—é…ç½®é“¾æ¥æ¥å£
     /// </summary>
     public interface IPageSettingLink {
 

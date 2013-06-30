@@ -1,4 +1,4 @@
-/*
+ï»¿/*
  * Copyright (c) 2010, www.wojilu.com. All rights reserved.
  */
 
@@ -169,7 +169,7 @@ namespace wojilu.Web.Controller.Common.Admin {
 
             String lnk = string.Format( "<a href=\"{0}\" class=\"frmBox\" title=\"{1}\"><img src=\"" + addGif + "\"> ", to( NewApp, app.Id ), lang( "appAddTip" ) );
 
-            addInfo += "<li><div><strong>" + lnk + app.Name + "</a></strong><span class=\"note\">(»ù±¾ÐÍ)</span></div></li>";
+            addInfo += "<li><div><strong>" + lnk + app.Name + "</a></strong><span class=\"note\">(åŸºæœ¬åž‹)</span></div></li>";
 
             foreach (AppInstaller a in childApps) {
 

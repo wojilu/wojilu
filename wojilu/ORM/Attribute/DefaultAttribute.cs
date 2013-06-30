@@ -1,4 +1,4 @@
-/*
+ï»¿/*
  * Copyright 2010 www.wojilu.com
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -19,7 +19,7 @@ using System;
 namespace wojilu.ORM {
 
     /// <summary>
-    /// Ä¬ÈÏÖµÅú×¢£¬µ±ÊôĞÔÃ»ÓĞ±»¸³ÖµµÄÊ±ºò£¬ÏµÍ³Ê¹ÓÃ´ËÄ¬ÈÏÖµ´æÈëÊı¾İ¿â
+    /// é»˜è®¤å€¼æ‰¹æ³¨ï¼Œå½“å±æ€§æ²¡æœ‰è¢«èµ‹å€¼çš„æ—¶å€™ï¼Œç³»ç»Ÿä½¿ç”¨æ­¤é»˜è®¤å€¼å­˜å…¥æ•°æ®åº“
     /// </summary>
     [Serializable, AttributeUsage( AttributeTargets.Property )]
     public class DefaultAttribute : Attribute {

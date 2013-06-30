@@ -1,4 +1,4 @@
-/*
+ï»¿/*
  * Copyright 2010 www.wojilu.com
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -18,7 +18,7 @@ using System;
 namespace wojilu.ORM {
 
     /// <summary>
-    /// ±íÃû³ÆÅú×¢£¬ÓÃÓÚ±êÊ¶¶ÔÏóÔÚÊı¾İ¿âÖĞ¶ÔÓ¦µÄ±íÃû³Æ
+    /// è¡¨åç§°æ‰¹æ³¨ï¼Œç”¨äºæ ‡è¯†å¯¹è±¡åœ¨æ•°æ®åº“ä¸­å¯¹åº”çš„è¡¨åç§°
     /// </summary>
     [Serializable, AttributeUsage( AttributeTargets.Class )]
     public class TableAttribute : Attribute {

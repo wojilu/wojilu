@@ -1,4 +1,4 @@
-/*
+ï»¿/*
  * Copyright 2010 www.wojilu.com
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -24,7 +24,7 @@ using System.Web;
 namespace wojilu {
 
     /// <summary>
-    /// Ä³¸öÓïÑÔ°üÅäÖÃÎÄ¼şµÄÄÚÈİ£¬°üÀ¨Ò»¸öÃû³ÆºÍÒ»¸öÓïÑÔ°üµÄ Dictionary
+    /// æŸä¸ªè¯­è¨€åŒ…é…ç½®æ–‡ä»¶çš„å†…å®¹ï¼ŒåŒ…æ‹¬ä¸€ä¸ªåç§°å’Œä¸€ä¸ªè¯­è¨€åŒ…çš„ Dictionary
     /// </summary>
     public class LanguageSetting {
 
@@ -46,7 +46,7 @@ namespace wojilu {
         }
 
         /// <summary>
-        /// ¸ù¾İ key »ñÈ¡ÓïÑÔÖµ
+        /// æ ¹æ® key è·å–è¯­è¨€å€¼
         /// </summary>
         /// <param name="key"></param>
         /// <returns></returns>
@@ -63,7 +63,7 @@ namespace wojilu {
         }
 
         /// <summary>
-        /// »ñÈ¡ÓïÑÔµÄ¼üÖµ¶Ô Dictionary
+        /// è·å–è¯­è¨€çš„é”®å€¼å¯¹ Dictionary
         /// </summary>
         /// <returns></returns>
         public Dictionary<String, String> getLangMap() {

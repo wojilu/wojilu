@@ -1,4 +1,4 @@
-/*
+ï»¿/*
  * Copyright 2010 www.wojilu.com
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -20,7 +20,7 @@ using System.Collections.Generic;
 namespace wojilu.Web.Mvc.Routes {
 
     /// <summary>
-    /// ËùÓĞÂ·ÓÉÊı¾İ
+    /// æ‰€æœ‰è·¯ç”±æ•°æ®
     /// </summary>
     public class RouteSetting {
 

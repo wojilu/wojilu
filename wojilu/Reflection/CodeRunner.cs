@@ -1,4 +1,4 @@
-/*
+ï»¿/*
  * Copyright 2010 www.wojilu.com
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -26,7 +26,7 @@ using wojilu.IO;
 namespace wojilu.Reflection {
 
     /// <summary>
-    /// ´úÂëÖ´ĞĞÆ÷£¬¿ÉÒÔÖ±½ÓÔËĞĞ´úÂë£¬Êä³ö½á¹û
+    /// ä»£ç æ‰§è¡Œå™¨ï¼Œå¯ä»¥ç›´æ¥è¿è¡Œä»£ç ï¼Œè¾“å‡ºç»“æœ
     /// </summary>
     public class CodeRunner {
 

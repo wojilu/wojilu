@@ -1,4 +1,4 @@
-/*
+﻿/*
  * Copyright 2010 www.wojilu.com
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -19,7 +19,7 @@ using System;
 namespace wojilu.Common.AppBase {
 
     /// <summary>
-    /// ϵͳ�Ƽ�״̬(��ǰֻ�Ƽ�һ��״̬)
+    /// 系统推荐状态(当前只推荐一种状态)
     /// </summary>
     public class SystemPickStatus {
         public static readonly int Picked = 0;

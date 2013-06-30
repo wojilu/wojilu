@@ -1,4 +1,4 @@
-/*
+﻿/*
  * Copyright 2010 www.wojilu.com
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -19,7 +19,7 @@ using System;
 namespace wojilu.Common.Security {
 
     /// <summary>
-    /// action �ӿ�
+    /// action 接口
     /// </summary>
     public interface IAction {
 

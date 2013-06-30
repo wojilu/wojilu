@@ -1,4 +1,4 @@
-/*
+ï»¿/*
  * Copyright (c) 2010, www.wojilu.com. All rights reserved.
  */
 
@@ -52,7 +52,7 @@ namespace wojilu.Web.Controller.Users.Admin {
         public override void CheckPermission() {
             Boolean isSkinClose = Component.IsClose( typeof( SkinApp ) );
             if (isSkinClose) {
-                echo( "¶Ô²»Æğ£¬±¾¹¦ÄÜÒÑ¾­Í£ÓÃ" );
+                echo( "å¯¹ä¸èµ·ï¼Œæœ¬åŠŸèƒ½å·²ç»åœç”¨" );
             }
         }
 

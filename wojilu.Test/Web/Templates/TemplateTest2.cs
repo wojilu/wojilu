@@ -1,4 +1,4 @@
-using System;
+ï»¿using System;
 using wojilu.Web;
 using NUnit.Framework;
 using System.Collections;
@@ -16,7 +16,7 @@ namespace wojilu.Test.Web.Templates {
 
 		public void Test() {
 			//TReg.Init();
-			Console.WriteLine( "Ä£°å´¦Àí¡­¡­" );
+			Console.WriteLine( "æ¨¡æ¿å¤„ç†â€¦â€¦" );
 			SpeedUtil.Start();
             loopThird();
 			SpeedUtil.Stop();
@@ -117,10 +117,10 @@ namespace wojilu.Test.Web.Templates {
 			Template loopTemplate = new Template();
 			loopTemplate.InitContent( looppage );
 
-			// ¸øÑ­»·¿éÉèÖµ
+			// ç»™å¾ªç¯å—è®¾å€¼
             IBlock loopBlock = loopTemplate.GetBlock( "newphotos" );
 			for( int i=0;i<5;i++ ) {
-				loopBlock.Set( "Title", "Ò»°Ùº½µÄÊ«Æª"+i );
+				loopBlock.Set( "Title", "ä¸€ç™¾èˆªçš„è¯—ç¯‡"+i );
 				loopBlock.Set( "CreateTime", DateTime.Now.ToString() );
 				loopBlock.Next();
 			}
@@ -146,10 +146,10 @@ namespace wojilu.Test.Web.Templates {
 
 //            SyyLoopBlock loopBlock = loopTemplate.GetBlock( "newphotos" );
 
-//            // ¸øÑ­»·¿éÉèÖµ
+//            // ç»™å¾ªç¯å—è®¾å€¼
 //            //LoopBlock loopBlock = loopTemplate.GetBlock( "newphotos" );
 //            for (int i = 0 ; i < 5 ; i++) {
-//                loopBlock.Set( "Title", "Ò»°Ùº½µÄÊ«Æª" + i );
+//                loopBlock.Set( "Title", "ä¸€ç™¾èˆªçš„è¯—ç¯‡" + i );
 //                loopBlock.Set( "CreateTime", DateTime.Now.ToString() );
 //                loopBlock.Next();
 //            }
@@ -172,8 +172,8 @@ namespace wojilu.Test.Web.Templates {
 			Template t = new Template();
 			t.InitContent( a );
 
-			t.Set( "Title", "Ò»°Ùº½µÄÊ«Æª" );
-			t.Set( "CreateTime", "½ñÄêµÄÊ±¼ä " + DateTime.Now );
+			t.Set( "Title", "ä¸€ç™¾èˆªçš„è¯—ç¯‡" );
+			t.Set( "CreateTime", "ä»Šå¹´çš„æ—¶é—´ " + DateTime.Now );
 
 			Console.WriteLine( t );
 			SpeedUtil.Stop();
@@ -192,8 +192,8 @@ namespace wojilu.Test.Web.Templates {
 //            SyyTemplate t = new SyyTemplate();
 //            t.InitContent( a );
 
-//            t.Set( "Title", "Ò»°Ùº½µÄÊ«Æª" );
-//            t.Set( "CreateTime", "½ñÄêµÄÊ±¼ä " + DateTime.Now );
+//            t.Set( "Title", "ä¸€ç™¾èˆªçš„è¯—ç¯‡" );
+//            t.Set( "CreateTime", "ä»Šå¹´çš„æ—¶é—´ " + DateTime.Now );
 
 //            Console.WriteLine( t );
 //            timer.Stop();

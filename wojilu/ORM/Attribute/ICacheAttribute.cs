@@ -1,4 +1,4 @@
-/*
+ï»¿/*
  * Copyright 2010 www.wojilu.com
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -18,7 +18,7 @@ using System;
 namespace wojilu.ORM {
 
     /// <summary>
-    /// »º´æÅú×¢µÄ½Ó¿Ú
+    /// ç¼“å­˜æ‰¹æ³¨çš„æ¥å£
     /// </summary>
     public interface ICacheAttribute {
 

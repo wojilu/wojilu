@@ -1,4 +1,4 @@
-/*
+ï»¿/*
  * Copyright 2010 www.wojilu.com
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -23,7 +23,7 @@ using wojilu.ORM;
 namespace wojilu.Common.Security {
 
     /// <summary>
-    /// ½ÇÉ«´úÀí¶ÔÏó£¬¶ÔÏóÁÙÊ±×ª»»Ê¹ÓÃ
+    /// è§’è‰²ä»£ç†å¯¹è±¡ï¼Œå¯¹è±¡ä¸´æ—¶è½¬æ¢ä½¿ç”¨
     /// </summary>
     public class RoleProxy : IRole {
 

@@ -1,4 +1,4 @@
-/*
+ï»¿/*
  * Copyright (c) 2010, www.wojilu.com. All rights reserved.
  */
 
@@ -11,80 +11,80 @@ namespace wojilu.Common.Skins {
         int Id { get; set; }
 
         /// <summary>
-        /// ´´½¨ÈË»ò×Ô¶¨ÒåÈË
+        /// åˆ›å»ºäººæˆ–è‡ªå®šä¹‰äºº
         /// </summary>
         int MemberId { get; set; }
 
         /// <summary>
-        /// Ãû³Æ
+        /// åç§°
         /// </summary>
         String Name { get; set; }
 
         /// <summary>
-        /// ×Ô¶¨ÒåÑùÊ½±íÄÚÈİ
+        /// è‡ªå®šä¹‰æ ·å¼è¡¨å†…å®¹
         /// </summary>
         String Body { get; set; }
 
         /// <summary>
-        /// ¼ò½é
+        /// ç®€ä»‹
         /// </summary>
         String Description { get; set; }
 
         /// <summary>
-        /// ÑùÊ½±íÂ·¾¶(´æ´¢µÄÊÇÏà¶ÔÂ·¾¶£¬ÍêÕûÂ·¾¶ÇëÊ¹ÓÃGetSkinPath·½·¨)
+        /// æ ·å¼è¡¨è·¯å¾„(å­˜å‚¨çš„æ˜¯ç›¸å¯¹è·¯å¾„ï¼Œå®Œæ•´è·¯å¾„è¯·ä½¿ç”¨GetSkinPathæ–¹æ³•)
         /// </summary>
         String StylePath { get; set; }
 
         /// <summary>
-        /// ½ØÆÁĞ§¹ûµÄËõÂÔÍ¼Â·¾¶(´æ´¢µÄÊÇÏà¶ÔÂ·¾¶£¬ÍêÕûÂ·¾¶ÇëÊ¹ÓÃGetThumbPath·½·¨)
+        /// æˆªå±æ•ˆæœçš„ç¼©ç•¥å›¾è·¯å¾„(å­˜å‚¨çš„æ˜¯ç›¸å¯¹è·¯å¾„ï¼Œå®Œæ•´è·¯å¾„è¯·ä½¿ç”¨GetThumbPathæ–¹æ³•)
         /// </summary>
         String ThumbUrl { get; set; }
 
         /// <summary>
-        /// µã»÷Êı
+        /// ç‚¹å‡»æ•°
         /// </summary>
         int Hits { get; set; }
 
         /// <summary>
-        /// ÆÀÂÛÊı
+        /// è¯„è®ºæ•°
         /// </summary>
         int Replies { get; set; }
 
         /// <summary>
-        /// Ê¹ÓÃÈËÊı
+        /// ä½¿ç”¨äººæ•°
         /// </summary>
         int MemberCount { get; set; }
 
         /// <summary>
-        /// ×´Ì¬(Ô¤ÁôµÄÊôĞÔ)
+        /// çŠ¶æ€(é¢„ç•™çš„å±æ€§)
         /// </summary>
         int Status { get; set; }
 
         /// <summary>
-        /// ´´½¨Ê±¼ä
+        /// åˆ›å»ºæ—¶é—´
         /// </summary>
         DateTime CreateTime { get; set; }
 
         /// <summary>
-        /// ½ØÆÁĞ§¹ûÍ¼Æ¬µÄÂ·¾¶
+        /// æˆªå±æ•ˆæœå›¾ç‰‡çš„è·¯å¾„
         /// </summary>
         /// <returns></returns>
         String GetScreenShotPath();
 
         /// <summary>
-        /// ·µ»ØÑùÊ½±íµÄÍêÕûÂ·¾¶
+        /// è¿”å›æ ·å¼è¡¨çš„å®Œæ•´è·¯å¾„
         /// </summary>
         /// <returns></returns>
         String GetSkinPath();
 
         /// <summary>
-        /// ·µ»ØËõÂÔÍ¼µÄÍêÕûÂ·¾¶
+        /// è¿”å›ç¼©ç•¥å›¾çš„å®Œæ•´è·¯å¾„
         /// </summary>
         /// <returns></returns>
         String GetThumbPath();
 
         /// <summary>
-        /// »ñÈ¡ÑùÊ½ÄÚÈİ£¬Èç¹û×Ô¶¨ÒåÁË£¬·µ»Ø×Ô¶¨ÒåÄÚÈİ£»·ñÔò·µ»ØÑùÊ½±íÄÚÈİ
+        /// è·å–æ ·å¼å†…å®¹ï¼Œå¦‚æœè‡ªå®šä¹‰äº†ï¼Œè¿”å›è‡ªå®šä¹‰å†…å®¹ï¼›å¦åˆ™è¿”å›æ ·å¼è¡¨å†…å®¹
         /// </summary>
         /// <returns></returns>
         String GetSkinContent();

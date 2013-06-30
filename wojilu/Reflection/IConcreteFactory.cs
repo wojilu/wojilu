@@ -1,4 +1,4 @@
-/*
+﻿/*
  * Copyright 2010 www.wojilu.com
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -19,7 +19,7 @@ using wojilu;
 namespace wojilu.Reflection {
 
     /// <summary>
-    /// CodeDom �еĶ��󹤳�
+    /// CodeDom 中的对象工厂
     /// </summary>
     public interface IConcreteFactory {
         IEntity New();

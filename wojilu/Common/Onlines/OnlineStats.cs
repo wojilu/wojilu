@@ -1,4 +1,4 @@
-/*
+ï»¿/*
  * Copyright 2010 www.wojilu.com
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -21,7 +21,7 @@ using System.Text;
 namespace wojilu.Common.Onlines {
 
     /// <summary>
-    /// ÔÚÏß×´Ì¬Êı¾İ
+    /// åœ¨çº¿çŠ¶æ€æ•°æ®
     /// </summary>
     public class OnlineStats {
 
@@ -44,8 +44,8 @@ namespace wojilu.Common.Onlines {
             get { return _memberCount; }
         }
 
-        // 1) ĞÂÓÃ»§µÇÂ¼µÄÊ±ºò(+1)
-        // 2) ÓÃ»§(+1)->ÓÎ¿Í(×¢Ïú»á-1)->ÓÃ»§(µÇÂ¼»á+1)
+        // 1) æ–°ç”¨æˆ·ç™»å½•çš„æ—¶å€™(+1)
+        // 2) ç”¨æˆ·(+1)->æ¸¸å®¢(æ³¨é”€ä¼š-1)->ç”¨æˆ·(ç™»å½•ä¼š+1)
         public void AddMemberCount() {
 
             lock (objLock) {
@@ -53,9 +53,9 @@ namespace wojilu.Common.Onlines {
             }
         }
 
-        // 1) ×¢ÏúµÄÊ±ºò-1
-        // 2) ÓÃÆäËû¿Í»§¶Ë£¬Í¬Ò»ÕËºÅµÇÂ¼-1
-        // 3) ³¬Ê±£¬ÓÉÏµÍ³×Ô¶¯Çå³ı-1
+        // 1) æ³¨é”€çš„æ—¶å€™-1
+        // 2) ç”¨å…¶ä»–å®¢æˆ·ç«¯ï¼ŒåŒä¸€è´¦å·ç™»å½•-1
+        // 3) è¶…æ—¶ï¼Œç”±ç³»ç»Ÿè‡ªåŠ¨æ¸…é™¤-1
         public void SubtractMemberCount() {
 
             lock (objLock) {

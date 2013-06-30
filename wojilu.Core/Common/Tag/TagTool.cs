@@ -1,4 +1,4 @@
-/*
+﻿/*
  * Copyright (c) 2010, www.wojilu.com. All rights reserved.
  */
 
@@ -36,7 +36,7 @@ namespace wojilu.Common.Tags {
 
 
         /// <summary>
-        /// �ö��ŷֿ���ʾ
+        /// 用逗号分开显示
         /// </summary>
         public String TextString {
             get {

@@ -1,4 +1,4 @@
-/*
+﻿/*
  * Copyright (c) 2010, www.wojilu.com. All rights reserved.
  */
 
@@ -47,7 +47,7 @@ namespace wojilu.Web.Controller.Layouts {
 
             Page.Keywords = ctx.owner.obj.Name;
             User user = ctx.owner.obj as User;
-            Page.Description = ctx.owner.obj.Name + "�Ŀռ� " + user.Title;
+            Page.Description = ctx.owner.obj.Name + "的空间 " + user.Title;
 
             bindCommon();
 
@@ -67,7 +67,7 @@ namespace wojilu.Web.Controller.Layouts {
 
         private void bindSpaceName() {
             User user = ctx.owner.obj as User;
-            String spaceName = strUtil.IsNullOrEmpty( user.Title ) ? user.Name + " �Ŀռ�" : user.Title;
+            String spaceName = strUtil.IsNullOrEmpty( user.Title ) ? user.Name + " 的空间" : user.Title;
 
             set( "spaceName", spaceName );
         }

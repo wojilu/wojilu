@@ -1,4 +1,4 @@
-/*
+ï»¿/*
  * Copyright 2010 www.wojilu.com
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -18,7 +18,7 @@ using System;
 namespace wojilu.ORM {
 
     /// <summary>
-    /// label Åú×¢£¬ÓÃÓÚ±íµ¥´úÂëµÄ×Ô¶¯Éú³É
+    /// label æ‰¹æ³¨ï¼Œç”¨äºè¡¨å•ä»£ç çš„è‡ªåŠ¨ç”Ÿæˆ
     /// </summary>
     [Serializable, AttributeUsage( AttributeTargets.Class )]
     public class LabelAttribute : Attribute {

@@ -1,4 +1,4 @@
-/*
+ï»¿/*
  * Copyright 2010 www.wojilu.com
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -19,7 +19,7 @@ using wojilu.Reflection;
 namespace wojilu {
 
     /// <summary>
-    /// ·â×°ÁË·´ÉäµÄ³£ÓÃ²Ù×÷·½·¨
+    /// å°è£…äº†åå°„çš„å¸¸ç”¨æ“ä½œæ–¹æ³•
     /// </summary>
     public class rft : ReflectionUtil {
     }

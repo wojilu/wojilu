@@ -1,4 +1,4 @@
-/*
+ï»¿/*
  * Copyright 2010 www.wojilu.com
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -19,7 +19,7 @@ using System;
 namespace wojilu.ORM {
 
     /// <summary>
-    /// ÔÚ json ĞòÁĞ»¯µÄÊ±ºò£¬´òÉÏ NotSerialize Åú×¢µÄÊôĞÔ»á±»ºöÂÔ
+    /// åœ¨ json åºåˆ—åŒ–çš„æ—¶å€™ï¼Œæ‰“ä¸Š NotSerialize æ‰¹æ³¨çš„å±æ€§ä¼šè¢«å¿½ç•¥
     /// </summary>
     [Serializable, AttributeUsage( AttributeTargets.Property )]
     public class NotSerializeAttribute : Attribute {

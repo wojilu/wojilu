@@ -1,4 +1,4 @@
-/*
+ï»¿/*
  * Copyright 2010 www.wojilu.com
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -22,14 +22,14 @@ using System;
 namespace wojilu {
 
     /// <summary>
-    /// ÍøÕ¾µÄÅäÖÃĞÅÏ¢
+    /// ç½‘ç«™çš„é…ç½®ä¿¡æ¯
     /// </summary>
     public class config {
 
         private SiteSetting _siteSetting;
 
         /// <summary>
-        /// ÍøÕ¾µÄÅäÖÃĞÅÏ¢
+        /// ç½‘ç«™çš„é…ç½®ä¿¡æ¯
         /// </summary>
         public SiteSetting Site {
             get { return _siteSetting; }

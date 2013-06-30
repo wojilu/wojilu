@@ -1,4 +1,4 @@
-/*
+ï»¿/*
  * Copyright (c) 2010, www.wojilu.com. All rights reserved.
  */
 
@@ -8,13 +8,13 @@ using wojilu.Config;
 namespace wojilu.Common.Microblogs {
 
     /// <summary>
-    /// Î¢²©ÅäÖÃ
+    /// å¾®åšé…ç½®
     /// </summary>
     public class MicroblogAppSetting : SettingBase<MicroblogAppSetting> {
 
         private int _microblogContentMax;
         /// <summary>
-        /// Î¢²©ÄÚÈİ×ÖÊı×î¸ßÏŞÖÆ
+        /// å¾®åšå†…å®¹å­—æ•°æœ€é«˜é™åˆ¶
         /// </summary>
         public int MicroblogContentMax {
             get {
@@ -28,7 +28,7 @@ namespace wojilu.Common.Microblogs {
 
         private int _microblogPageSize;
         /// <summary>
-        /// Î¢²©ÄÚÈİ×ÖÊı×î¸ßÏŞÖÆ
+        /// å¾®åšå†…å®¹å­—æ•°æœ€é«˜é™åˆ¶
         /// </summary>
         public int MicroblogPageSize {
             get {

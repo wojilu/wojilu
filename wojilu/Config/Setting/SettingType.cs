@@ -1,4 +1,4 @@
-/*
+ï»¿/*
  * Copyright 2010 www.wojilu.com
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -19,7 +19,7 @@ using System;
 namespace wojilu.Config {
 
     /// <summary>
-    /// ÅäÖÃÏîµÄÊı¾İÀàĞÍ
+    /// é…ç½®é¡¹çš„æ•°æ®ç±»å‹
     /// </summary>
     public enum SettingType {
 

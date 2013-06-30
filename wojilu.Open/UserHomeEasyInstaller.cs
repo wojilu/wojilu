@@ -1,4 +1,4 @@
-/*
+ï»¿/*
  * Copyright (c) 2010, www.wojilu.com. All rights reserved.
  */
 
@@ -41,18 +41,18 @@ namespace wojilu.Open {
             IMemberApp memberApp =  createApp( user );
             createLayout();
 
-            this.createSection( "ÎÒµÄÍ·Ïñ", 12, 14, "11" );
-            this.createSection( "ÎÒµÄĞÅÏ¢", 5, 10, "11" );
-            this.createSection( "×î½ü·Ã¿Í", 8, 13, "11" );
+            this.createSection( "æˆ‘çš„å¤´åƒ", 12, 14, "11" );
+            this.createSection( "æˆ‘çš„ä¿¡æ¯", 5, 10, "11" );
+            this.createSection( "æœ€è¿‘è®¿å®¢", 8, 13, "11" );
 
 
-            this.createSection( "ÎÒµÄ×´Ì¬", 13, 15, "12" );
-            this.createSection( "ÎÒµÄ¶¯Ì¬", 7, 12, "12" );
-            this.createSection( "ÎÒµÄ²©¿Í", 11, 17, "12" );
-            this.createSection( "ÁôÑÔ°å", 14, 16, "12" );
+            this.createSection( "æˆ‘çš„çŠ¶æ€", 13, 15, "12" );
+            this.createSection( "æˆ‘çš„åŠ¨æ€", 7, 12, "12" );
+            this.createSection( "æˆ‘çš„åšå®¢", 11, 17, "12" );
+            this.createSection( "ç•™è¨€æ¿", 14, 16, "12" );
 
-            this.createSection( "ÎÒµÄºÃÓÑ", 9, 13, "13" );
-            this.createSection( "ÎÒµÄÍ¼Æ¬", 10, 3, "13" );
+            this.createSection( "æˆ‘çš„å¥½å‹", 9, 13, "13" );
+            this.createSection( "æˆ‘çš„å›¾ç‰‡", 10, 3, "13" );
 
             return memberApp;
         }
@@ -60,7 +60,7 @@ namespace wojilu.Open {
         private IMemberApp createApp( User user ) {
 
 
-            UserApp ua = AppService.addApp( user, "Ö÷Ò³", 4, "wojilu.Apps.Content.Domain.ContentApp", true );
+            UserApp ua = AppService.addApp( user, "ä¸»é¡µ", 4, "wojilu.Apps.Content.Domain.ContentApp", true );
 
             this.app = ContentApp.findById( ua.AppOid );
 

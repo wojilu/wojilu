@@ -1,4 +1,4 @@
-/*
+ï»¿/*
  * Copyright (c) 2010, www.wojilu.com. All rights reserved.
  */
 
@@ -14,28 +14,28 @@ namespace wojilu.Common.Msg.Interface {
     public interface IMessageService {
 
         /// <summary>
-        /// ÒÔÍøÕ¾µÄÃûÒå¸øÓÃ»§·¢ËÍÕ¾ÄÚ¶ÌĞÅ
+        /// ä»¥ç½‘ç«™çš„åä¹‰ç»™ç”¨æˆ·å‘é€ç«™å†…çŸ­ä¿¡
         /// </summary>
-        /// <param name="title">¶ÌĞÅ±êÌâ</param>
-        /// <param name="body">¶ÌĞÅÄÚÈİ</param>
-        /// <param name="receiver">½ÓÊÕÕß</param>
+        /// <param name="title">çŸ­ä¿¡æ ‡é¢˜</param>
+        /// <param name="body">çŸ­ä¿¡å†…å®¹</param>
+        /// <param name="receiver">æ¥æ”¶è€…</param>
         void SiteSend( String title, String body, User receiver );
 
         /// <summary>
-        /// ÒÔÍøÕ¾µÄÃûÒå¸ø¶à¸öÓÃ»§·¢ËÍÕ¾ÄÚ¶ÌĞÅ
+        /// ä»¥ç½‘ç«™çš„åä¹‰ç»™å¤šä¸ªç”¨æˆ·å‘é€ç«™å†…çŸ­ä¿¡
         /// </summary>
-        /// <param name="title">¶ÌĞÅ±êÌâ</param>
-        /// <param name="body">¶ÌĞÅÄÚÈİ</param>
-        /// <param name="receiver">½ÓÊÕÕßÁĞ±í</param>
+        /// <param name="title">çŸ­ä¿¡æ ‡é¢˜</param>
+        /// <param name="body">çŸ­ä¿¡å†…å®¹</param>
+        /// <param name="receiver">æ¥æ”¶è€…åˆ—è¡¨</param>
         void SiteSend( String title, String body, List<User> receivers );
 
         /// <summary>
-        /// ·¢ËÍÕ¾ÄÚ¶ÌĞÅ
+        /// å‘é€ç«™å†…çŸ­ä¿¡
         /// </summary>
-        /// <param name="sender">·¢ËÍÈËUser</param>
-        /// <param name="rawReceiver">½ÓÊÕÈËµÄÓÃ»§Ãû£¨¶à¸öÓÃ»§ÃûÓÃ¶ººÅ·Ö¿ª£©</param>
-        /// <param name="msgTitle">¶ÌĞÅ±êÌâ</param>
-        /// <param name="msgBody">¶ÌĞÅÄÚÈİ</param>
+        /// <param name="sender">å‘é€äººUser</param>
+        /// <param name="rawReceiver">æ¥æ”¶äººçš„ç”¨æˆ·åï¼ˆå¤šä¸ªç”¨æˆ·åç”¨é€—å·åˆ†å¼€ï¼‰</param>
+        /// <param name="msgTitle">çŸ­ä¿¡æ ‡é¢˜</param>
+        /// <param name="msgBody">çŸ­ä¿¡å†…å®¹</param>
         /// <returns></returns>
         Result SendMsg( User sender, String rawReceiver, String msgTitle, String msgBody );
 

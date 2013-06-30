@@ -1,4 +1,4 @@
-/*
+ï»¿/*
  * Copyright 2010 www.wojilu.com
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -26,7 +26,7 @@ using wojilu.Caching;
 namespace wojilu.Web.Mvc {
 
     /// <summary>
-    /// wojilu mvc µÄºËĞÄ´¦ÀíÆ÷£º´¦Àí¿Í»§¶ËÇëÇó£¬½«½á¹û·µ»Ø
+    /// wojilu mvc çš„æ ¸å¿ƒå¤„ç†å™¨ï¼šå¤„ç†å®¢æˆ·ç«¯è¯·æ±‚ï¼Œå°†ç»“æœè¿”å›
     /// </summary>
     public class CoreHandler : IHttpHandler, IRequiresSessionState {        
 

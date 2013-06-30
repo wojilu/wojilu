@@ -1,4 +1,4 @@
-/*
+ï»¿/*
  * Copyright 2010 www.wojilu.com
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -25,12 +25,12 @@ using wojilu.Web.Context;
 namespace wojilu.Web.Mvc {
 
     /// <summary>
-    /// Ìá¹©³£ÓÃµÄ html ¿Ø¼ş£¬±ÈÈçµ¥Ñ¡ÁĞ±í¡¢¶àÑ¡ÁĞ±í¡¢ÏÂÀ­ÁĞ±íµÈ
+    /// æä¾›å¸¸ç”¨çš„ html æ§ä»¶ï¼Œæ¯”å¦‚å•é€‰åˆ—è¡¨ã€å¤šé€‰åˆ—è¡¨ã€ä¸‹æ‹‰åˆ—è¡¨ç­‰
     /// </summary>
     public class Html {
 
         /// <summary>
-        /// ÑéÖ¤Âë¿Ø¼ş(°üÀ¨Ò»¸öinput  + ÓÒ²àµÄÒ»¸öÑéÖ¤Âë + µã»÷Ë¢ĞÂ»úÖÆ)
+        /// éªŒè¯ç æ§ä»¶(åŒ…æ‹¬ä¸€ä¸ªinput  + å³ä¾§çš„ä¸€ä¸ªéªŒè¯ç  + ç‚¹å‡»åˆ·æ–°æœºåˆ¶)
         /// </summary>
         public static Captcha Captcha {
             get { return new wojilu.Web.Mvc.Captcha(); }
@@ -38,11 +38,11 @@ namespace wojilu.Web.Mvc {
 
 
         /// <summary>
-        /// ¶àÑ¡¿ò(ÓÃÊı×éÌî³ä)
+        /// å¤šé€‰æ¡†(ç”¨æ•°ç»„å¡«å……)
         /// </summary>
-        /// <param name="items">Ìî³äÁĞ±íµÄ×Ö·ûÊı×é</param>
-        /// <param name="chkName">¿Ø¼şÃû³Æ</param>
-        /// <param name="sValue">Ñ¡¶¨µÄÖµ£¬¶à¸öÑ¡ÖµÖ®¼äÓÃÓ¢ÎÄ¶ººÅ·Ö¿ª£¬±ÈÈç "2, 6, 13"</param>
+        /// <param name="items">å¡«å……åˆ—è¡¨çš„å­—ç¬¦æ•°ç»„</param>
+        /// <param name="chkName">æ§ä»¶åç§°</param>
+        /// <param name="sValue">é€‰å®šçš„å€¼ï¼Œå¤šä¸ªé€‰å€¼ä¹‹é—´ç”¨è‹±æ–‡é€—å·åˆ†å¼€ï¼Œæ¯”å¦‚ "2, 6, 13"</param>
         /// <returns></returns>
         public static String CheckBoxList( String[] items, String chkName, Object sValue ) {
             String selectValue = cvt.ToNotNull( sValue );
@@ -56,11 +56,11 @@ namespace wojilu.Web.Mvc {
         }
 
         /// <summary>
-        /// ¶àÑ¡¿ò(ÓÃ Dictionary Ìî³ä)
+        /// å¤šé€‰æ¡†(ç”¨ Dictionary å¡«å……)
         /// </summary>
-        /// <param name="dic">Ìî³äÁĞ±íµÄ Dictionary</param>
-        /// <param name="chkName">¿Ø¼şÃû³Æ</param>
-        /// <param name="sValue">Ñ¡¶¨µÄÖµ£¬¶à¸öÑ¡ÖµÖ®¼äÓÃÓ¢ÎÄ¶ººÅ·Ö¿ª£¬±ÈÈç "2, 6, 13"</param>
+        /// <param name="dic">å¡«å……åˆ—è¡¨çš„ Dictionary</param>
+        /// <param name="chkName">æ§ä»¶åç§°</param>
+        /// <param name="sValue">é€‰å®šçš„å€¼ï¼Œå¤šä¸ªé€‰å€¼ä¹‹é—´ç”¨è‹±æ–‡é€—å·åˆ†å¼€ï¼Œæ¯”å¦‚ "2, 6, 13"</param>
         /// <returns></returns>
         public static String CheckBoxList( Dictionary<String, string> dic, String chkName, Object sValue ) {
 
@@ -80,13 +80,13 @@ namespace wojilu.Web.Mvc {
         }
 
         /// <summary>
-        /// ¶àÑ¡¿ò(ÓÃ¶ÔÏóÁĞ±íÌî³ä)
+        /// å¤šé€‰æ¡†(ç”¨å¯¹è±¡åˆ—è¡¨å¡«å……)
         /// </summary>
-        /// <param name="list">Ìî³ä¶àÑ¡ÁĞ±íµÄ¶ÔÏóÁĞ±í</param>
-        /// <param name="chkName">¿Ø¼şÃû³Æ</param>
-        /// <param name="textField">¶ÔÏóµÄÊôĞÔÃû³Æ(ÓÃÓÚÑ¡¿òÖĞÎÄ±¾²¿·Ö)</param>
-        /// <param name="valueField">¶ÔÏóµÄÊôĞÔÃû³Æ(ÓÃÓÚÑ¡¿òÖĞÖµ)</param>
-        /// <param name="sValue">Ñ¡¶¨µÄÖµ£¬¶à¸öÑ¡ÖµÖ®¼äÓÃÓ¢ÎÄ¶ººÅ·Ö¿ª£¬±ÈÈç "2, 6, 13"</param>
+        /// <param name="list">å¡«å……å¤šé€‰åˆ—è¡¨çš„å¯¹è±¡åˆ—è¡¨</param>
+        /// <param name="chkName">æ§ä»¶åç§°</param>
+        /// <param name="textField">å¯¹è±¡çš„å±æ€§åç§°(ç”¨äºé€‰æ¡†ä¸­æ–‡æœ¬éƒ¨åˆ†)</param>
+        /// <param name="valueField">å¯¹è±¡çš„å±æ€§åç§°(ç”¨äºé€‰æ¡†ä¸­å€¼)</param>
+        /// <param name="sValue">é€‰å®šçš„å€¼ï¼Œå¤šä¸ªé€‰å€¼ä¹‹é—´ç”¨è‹±æ–‡é€—å·åˆ†å¼€ï¼Œæ¯”å¦‚ "2, 6, 13"</param>
         /// <returns></returns>
         public static String CheckBoxList( IList list, String chkName, String textField, String valueField, Object sValue ) {
             String selectValue = cvt.ToNotNull( sValue );
@@ -105,11 +105,11 @@ namespace wojilu.Web.Mvc {
         //-----------------------------------------------------------------------------------------------------------------
 
         /// <summary>
-        /// ÏÂÀ­¿Ø¼ş(ÓÃÊı×éÌî³ä)
+        /// ä¸‹æ‹‰æ§ä»¶(ç”¨æ•°ç»„å¡«å……)
         /// </summary>
-        /// <param name="items">Ìî³äÏÂÀ­¿òµÄ×Ö·ûÊı×é</param>
-        /// <param name="dropName">¿Ø¼şÃû³Æ</param>
-        /// <param name="val">Ñ¡¶¨µÄÖµ</param>
+        /// <param name="items">å¡«å……ä¸‹æ‹‰æ¡†çš„å­—ç¬¦æ•°ç»„</param>
+        /// <param name="dropName">æ§ä»¶åç§°</param>
+        /// <param name="val">é€‰å®šçš„å€¼</param>
         /// <returns></returns>
         public static String DropList( String[] items, String dropName, Object val ) {
             StringBuilder builder = new StringBuilder();
@@ -127,11 +127,11 @@ namespace wojilu.Web.Mvc {
         }
 
         /// <summary>
-        /// ÏÂÀ­¿Ø¼ş(ÓÃ Dictionary Ìî³ä)
+        /// ä¸‹æ‹‰æ§ä»¶(ç”¨ Dictionary å¡«å……)
         /// </summary>
-        /// <param name="dic">Ìî³äÏÂÀ­¿òµÄDictionary</param>
-        /// <param name="dropName">¿Ø¼şÃû³Æ</param>
-        /// <param name="val">Ñ¡¶¨µÄÖµ</param>
+        /// <param name="dic">å¡«å……ä¸‹æ‹‰æ¡†çš„Dictionary</param>
+        /// <param name="dropName">æ§ä»¶åç§°</param>
+        /// <param name="val">é€‰å®šçš„å€¼</param>
         /// <returns></returns>
         public static String DropList( Dictionary<String, string> dic, String dropName, Object val ) {
             StringBuilder builder = new StringBuilder();
@@ -147,13 +147,13 @@ namespace wojilu.Web.Mvc {
         }
 
         /// <summary>
-        /// ÏÂÀ­¿Ø¼ş(ÓÃ¶ÔÏóÁĞ±íÌî³ä)
+        /// ä¸‹æ‹‰æ§ä»¶(ç”¨å¯¹è±¡åˆ—è¡¨å¡«å……)
         /// </summary>
-        /// <param name="list">Ìî³äÏÂÀ­¿òµÄ¶ÔÏóÁĞ±í</param>
-        /// <param name="dropName">¿Ø¼şÃû³Æ</param>
-        /// <param name="textField">¶ÔÏóµÄÊôĞÔÃû³Æ(ÓÃÓÚÑ¡¿òÖĞÎÄ±¾²¿·Ö)</param>
-        /// <param name="valueField">¶ÔÏóµÄÊôĞÔÃû³Æ(ÓÃÓÚÑ¡¿òÖĞÖµ)</param>
-        /// <param name="val">Ñ¡¶¨µÄÖµ</param>
+        /// <param name="list">å¡«å……ä¸‹æ‹‰æ¡†çš„å¯¹è±¡åˆ—è¡¨</param>
+        /// <param name="dropName">æ§ä»¶åç§°</param>
+        /// <param name="textField">å¯¹è±¡çš„å±æ€§åç§°(ç”¨äºé€‰æ¡†ä¸­æ–‡æœ¬éƒ¨åˆ†)</param>
+        /// <param name="valueField">å¯¹è±¡çš„å±æ€§åç§°(ç”¨äºé€‰æ¡†ä¸­å€¼)</param>
+        /// <param name="val">é€‰å®šçš„å€¼</param>
         /// <returns></returns>
         public static String DropList( IList list, String dropName, String textField, String valueField, Object val ) {
             StringBuilder builder = new StringBuilder();
@@ -176,11 +176,11 @@ namespace wojilu.Web.Mvc {
         //-----------------------------------------------------------------------------------------------------------------
 
         /// <summary>
-        /// ¶à¸öµ¥Ñ¡µÄÁĞ±í(ÓÃ×Ö·ûÊı×éÌî³ä)
+        /// å¤šä¸ªå•é€‰çš„åˆ—è¡¨(ç”¨å­—ç¬¦æ•°ç»„å¡«å……)
         /// </summary>
-        /// <param name="items">Ìî³äÁĞ±íµÄ×Ö·ûÊı×é</param>
-        /// <param name="radioName">¿Ø¼şÃû³Æ</param>
-        /// <param name="val">Ñ¡¶¨µÄÖµ</param>
+        /// <param name="items">å¡«å……åˆ—è¡¨çš„å­—ç¬¦æ•°ç»„</param>
+        /// <param name="radioName">æ§ä»¶åç§°</param>
+        /// <param name="val">é€‰å®šçš„å€¼</param>
         /// <returns></returns>
         public static String RadioList( String[] items, String radioName, Object val ) {
             StringBuilder builder = new StringBuilder();
@@ -196,11 +196,11 @@ namespace wojilu.Web.Mvc {
         }
 
         /// <summary>
-        /// ¶à¸öµ¥Ñ¡µÄÁĞ±í(ÓÃ Dictionary Ìî³ä)
+        /// å¤šä¸ªå•é€‰çš„åˆ—è¡¨(ç”¨ Dictionary å¡«å……)
         /// </summary>
-        /// <param name="dic">Ìî³äÁĞ±íµÄ Dictionary</param>
-        /// <param name="radioName">¿Ø¼şÃû³Æ</param>
-        /// <param name="val">Ñ¡¶¨µÄÖµ</param>
+        /// <param name="dic">å¡«å……åˆ—è¡¨çš„ Dictionary</param>
+        /// <param name="radioName">æ§ä»¶åç§°</param>
+        /// <param name="val">é€‰å®šçš„å€¼</param>
         /// <returns></returns>
         public static String RadioList( Dictionary<String, String> dic, String radioName, Object val ) {
             StringBuilder builder = new StringBuilder();
@@ -215,13 +215,13 @@ namespace wojilu.Web.Mvc {
         }
 
         /// <summary>
-        /// ¶à¸öµ¥Ñ¡µÄÁĞ±í(ÓÃ¶ÔÏóÁĞ±íÌî³ä)
+        /// å¤šä¸ªå•é€‰çš„åˆ—è¡¨(ç”¨å¯¹è±¡åˆ—è¡¨å¡«å……)
         /// </summary>
-        /// <param name="list">Ìî³äµ¥Ñ¡ÁĞ±íµÄ¶ÔÏóÁĞ±í</param>
-        /// <param name="radioName">¿Ø¼şÃû³Æ</param>
-        /// <param name="textField">¶ÔÏóµÄÊôĞÔÃû³Æ(ÓÃÓÚÑ¡¿òÖĞÎÄ±¾²¿·Ö)</param>
-        /// <param name="valueField">¶ÔÏóµÄÊôĞÔÃû³Æ(ÓÃÓÚÑ¡¿òÖĞÖµ)</param>
-        /// <param name="val">Ñ¡¶¨µÄÖµ</param>
+        /// <param name="list">å¡«å……å•é€‰åˆ—è¡¨çš„å¯¹è±¡åˆ—è¡¨</param>
+        /// <param name="radioName">æ§ä»¶åç§°</param>
+        /// <param name="textField">å¯¹è±¡çš„å±æ€§åç§°(ç”¨äºé€‰æ¡†ä¸­æ–‡æœ¬éƒ¨åˆ†)</param>
+        /// <param name="valueField">å¯¹è±¡çš„å±æ€§åç§°(ç”¨äºé€‰æ¡†ä¸­å€¼)</param>
+        /// <param name="val">é€‰å®šçš„å€¼</param>
         /// <returns></returns>
         public static String RadioList( IList list, String radioName, String textField, String valueField, Object val ) {
             StringBuilder builder = new StringBuilder();

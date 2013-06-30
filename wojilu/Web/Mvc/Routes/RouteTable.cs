@@ -1,4 +1,4 @@
-/*
+ï»¿/*
  * Copyright 2010 www.wojilu.com
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -24,7 +24,7 @@ using System.Text;
 namespace wojilu.Web.Mvc.Routes {
 
     /// <summary>
-    /// Â·ÓÉ±í
+    /// è·¯ç”±è¡¨
     /// </summary>
     public sealed class RouteTable {
 
@@ -61,7 +61,7 @@ namespace wojilu.Web.Mvc.Routes {
                 if (line.Trim().StartsWith( "//" )) continue;
 
                 if (line.Trim().Equals( furlSetting )) {
-                    return; // ÅäÖÃÒÑ¾­´æÔÚ£¬Ö±½Ó·µ»Ø
+                    return; // é…ç½®å·²ç»å­˜åœ¨ï¼Œç›´æ¥è¿”å›
                 }
 
                 if (line.Trim().StartsWith( "{owner}" )) {

@@ -1,4 +1,4 @@
-/*
+ï»¿/*
  * Copyright 2010 www.wojilu.com
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -19,7 +19,7 @@ using System;
 namespace wojilu.Reflection {
 
     /// <summary>
-    /// ÊôĞÔ²Ù×÷¹¤¾ß
+    /// å±æ€§æ“ä½œå·¥å…·
     /// </summary>
     public interface IPropertyAccessor {
         Object Get( Object target );

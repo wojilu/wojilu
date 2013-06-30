@@ -1,4 +1,4 @@
-/*
+ï»¿/*
  * Copyright (c) 2010, www.wojilu.com. All rights reserved.
  */
 
@@ -22,11 +22,11 @@ namespace wojilu.Web.Controller.Users.Admin {
         private void bindLayout() {
             set( "notificationUrl", to( new NotificationController().List ) );
 
-            // ÊÇ·ñÓĞÔÄ¶ÁÍøÕ¾Í¨ÖªµÄÈ¨ÏŞ£¿
+            // æ˜¯å¦æœ‰é˜…è¯»ç½‘ç«™é€šçŸ¥çš„æƒé™ï¼Ÿ
             String lnkSiteNf = "";
             if (ctx.viewer.obj.RoleId == SiteRole.Administrator.Id) {
                 String siteNfUrl = t2( new SiteNfController().List );
-                lnkSiteNf = string.Format( "<li id=\"tabSite\"><a href=\"{0}\">ÍøÕ¾Í¨Öª</a><span></span></li>", siteNfUrl );
+                lnkSiteNf = string.Format( "<li id=\"tabSite\"><a href=\"{0}\">ç½‘ç«™é€šçŸ¥</a><span></span></li>", siteNfUrl );
             }
 
             set( "lnkSiteNotification", lnkSiteNf );
@@ -84,8 +84,8 @@ namespace wojilu.Web.Controller.Users.Admin {
 
 
         private void bindUploadInfo() {
-            //¸½¼ş
-            set( "uploadLink", to( new UserUploadController().SaveMsgAttachment ) ); // ½ÓÊÜÉÏ´«µÄÍøÖ·
+            //é™„ä»¶
+            set( "uploadLink", to( new UserUploadController().SaveMsgAttachment ) ); // æ¥å—ä¸Šä¼ çš„ç½‘å€
             set( "authJson", AdminSecurityUtils.GetAuthCookieJson( ctx ) );
             set( "jsPath", sys.Path.DiskJs );
         }
@@ -138,14 +138,14 @@ namespace wojilu.Web.Controller.Users.Admin {
 
         private object getNextUrl( int id ) {
             Message nextMsg = msgService.GetNextMsg( ctx.owner.Id, id );
-            if (nextMsg == null) return "ÏÂÒ»·â(ÎŞ)";
-            return string.Format( "<a href=\"{0}\">ÏÂÒ»·â &raquo;</a>", to( Read, nextMsg.Id ) );
+            if (nextMsg == null) return "ä¸‹ä¸€å°(æ— )";
+            return string.Format( "<a href=\"{0}\">ä¸‹ä¸€å° &raquo;</a>", to( Read, nextMsg.Id ) );
         }
 
         private object getPrevUrl( int id ) {
             Message prevMsg = msgService.GetPrevMsg( ctx.owner.Id, id );
-            if (prevMsg == null) return "ÉÏÒ»·â(ÎŞ)";
-            return string.Format( "<a href=\"{0}\" class=\"right10\">&laquo; ÉÏÒ»·â</a>", to( Read, prevMsg.Id ) );
+            if (prevMsg == null) return "ä¸Šä¸€å°(æ— )";
+            return string.Format( "<a href=\"{0}\" class=\"right10\">&laquo; ä¸Šä¸€å°</a>", to( Read, prevMsg.Id ) );
         }
 
         private void bindAttachmentPanel( MessageData msgData ) {

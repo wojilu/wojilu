@@ -1,4 +1,4 @@
-/*
+ï»¿/*
  * Copyright 2010 www.wojilu.com
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -19,7 +19,7 @@ using System;
 namespace wojilu.Drawing {
 
     /// <summary>
-    /// ËõÂÔÍ¼´óĞ¡ÀàĞÍ(Ğ¡¡¢ÖĞµÈ¡¢´ó)
+    /// ç¼©ç•¥å›¾å¤§å°ç±»å‹(å°ã€ä¸­ç­‰ã€å¤§)
     /// </summary>
     public enum ThumbnailType {
         Small,

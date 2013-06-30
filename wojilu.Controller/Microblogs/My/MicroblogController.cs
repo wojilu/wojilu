@@ -1,4 +1,4 @@
-/*
+ï»¿/*
  * Copyright (c) 2010, www.wojilu.com. All rights reserved.
  */
 
@@ -64,7 +64,7 @@ namespace wojilu.Web.Controller.Microblogs.My {
 
         public void Home() {
 
-            Page.Title = "ÎÒµÄÎ¢²©";
+            Page.Title = "æˆ‘çš„å¾®åš";
 
 
             load( "publisher", Publisher );
@@ -120,7 +120,7 @@ namespace wojilu.Web.Controller.Microblogs.My {
 
             set( "savPicLink", to( new My.MbSaveController().SavePic ) );
 
-            // swfÉÏ´«¿çÓòÎÊÌâ
+            // swfä¸Šä¼ è·¨åŸŸé—®é¢˜
             set( "jsPath", sys.Path.DiskJs );
         }
 
@@ -128,7 +128,7 @@ namespace wojilu.Web.Controller.Microblogs.My {
 
             String videoUrl = ctx.Post( "videoUrl" );
             if (strUtil.IsNullOrEmpty( videoUrl )) {
-                echoError( "ÇëÌîĞ´ÍøÖ·" );
+                echoError( "è¯·å¡«å†™ç½‘å€" );
                 return;
             }
 
@@ -143,21 +143,21 @@ namespace wojilu.Web.Controller.Microblogs.My {
 
         public void Atme() {
 
-            Page.Title = "Ìáµ½ÎÒµÄÎ¢²©";
+            Page.Title = "æåˆ°æˆ‘çš„å¾®åš";
 
 
             load( "publisher", Publisher );
 
             set( "user.Name", ctx.owner.obj.Name );
 
-            // Ê¹ÓÃÍ¨ÓÃÊÓÍ¼ÎÄ¼ş
+            // ä½¿ç”¨é€šç”¨è§†å›¾æ–‡ä»¶
             DataPage<Microblog> list = matService.GetByUser( ctx.owner.Id, 20 );
             List<MicroblogVo> volist = mfService.CheckFavorite( list.Results, ctx.viewer.Id );
             ctx.SetItem( "_microblogVoList", volist );
             ctx.SetItem( "_showUserFace", true );
             load( "blogList", new wojilu.Web.Controller.Microblogs.MicroblogController().bindBlogs );
 
-            // ±ê¼ÇÎªÒÑ¶Á
+            // æ ‡è®°ä¸ºå·²è¯»
             User owner = ctx.owner.obj as User;
             if (owner.MicroblogAtUnread > 0 && ctx.viewer.Id == owner.Id) {
                 owner.MicroblogAtUnread = 0;
