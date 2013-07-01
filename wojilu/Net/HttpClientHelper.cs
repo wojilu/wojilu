@@ -31,7 +31,7 @@ namespace wojilu.Net {
 
         public String Upload( String apiUrl, Dictionary<String, String> parameters, Dictionary<String, String> headers, List<HttpFile> files, String userAgent ) {
 
-            if (files == null || files.Count == 0) return InvokeApi( apiUrl, "POST", ConstructQueryString( parameters ), headers );
+            if (files == null || files.Count == 0) return InvokeApi( apiUrl, "POST", ConstructQueryString( parameters ), headers, "", "", "", "" );
 
             string boundary = Guid.NewGuid().ToString();
             string header = string.Format( "--{0}", boundary );
@@ -57,10 +57,10 @@ namespace wojilu.Net {
             }
             sb.AppendLine( footer );
 
-            return InvokeApi( apiUrl, "POST", sbParams.ToString(), headers, boundary, sb.ToString(), userAgent );
+            return InvokeApi( apiUrl, "POST", sbParams.ToString(), headers, boundary, sb.ToString(), userAgent, "" );
         }
 
-        public String InvokeApi( String apiUrl, String httpMethod, String strQuery, Dictionary<String, String> headers, String boundary = "", String strFiles = "", String userAgent = "", String strEncoding = "" ) {
+        public String InvokeApi( String apiUrl, String httpMethod, String strQuery, Dictionary<String, String> headers, String boundary, String strFiles, String userAgent, String strEncoding ) {
 
             if (strUtil.IsNullOrEmpty( apiUrl )) throw new ArgumentNullException( "api url" );
             if (strUtil.IsNullOrEmpty( httpMethod )) throw new ArgumentNullException( "httpMethod" );
