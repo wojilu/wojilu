@@ -16,6 +16,7 @@
 
 using System;
 using System.Collections;
+using System.Collections.Generic;
 
 using wojilu.Data;
 using wojilu.ORM;
@@ -54,10 +55,9 @@ namespace wojilu.Reflection {
         }
 
         private static void cacheAccessor( MetaList metas ) {
-            foreach (DictionaryEntry entry in metas.ClassList) {
-
-                String str = entry.Key.ToString();
-                EntityInfo info = entry.Value as EntityInfo;
+            foreach (KeyValuePair<String, EntityInfo> kv in metas.ClassList) {
+                String str = kv.Key;
+                EntityInfo info = kv.Value;
                 foreach (EntityPropertyInfo ep in info.PropertyListAll) {
                     ep.PropertyAccessor = GetAccessor( info.Type.FullName, ep.Name, metas );
                     if (ep.PropertyAccessor == null) {

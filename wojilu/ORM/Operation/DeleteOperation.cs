@@ -53,7 +53,7 @@ namespace wojilu.ORM.Operation {
             rowAffected += deleteSingle( id, entityInfo );
             if (entityInfo.ChildEntityList.Count > 0) {
                 foreach (EntityInfo info in entityInfo.ChildEntityList) {
-                    rowAffected += deleteSingle( id, MappingClass.Instance.ClassList[info.Type.FullName] as EntityInfo );
+                    rowAffected += deleteSingle( id, Entity.GetInfo( info.Type.FullName ) );
                 }
             }
             if (entityInfo.Parent != null) {
@@ -77,7 +77,7 @@ namespace wojilu.ORM.Operation {
             }
 
             String deleteSql = new SqlBuilder( entityInfo ).GetDeleteSql( condition );
-            logger.Info(LoggerUtil.SqlPrefix+ "delete sql : " + deleteSql );
+            logger.Info( LoggerUtil.SqlPrefix + "delete sql : " + deleteSql );
 
             List<IInterceptor> ilist = MappingClass.Instance.InterceptorList;
             for (int i = 0; i < ilist.Count; i++) {
@@ -100,7 +100,7 @@ namespace wojilu.ORM.Operation {
 
 
         private static int Delete( Type t, String deleteCondition ) {
-            return DeleteBatch( deleteCondition, MappingClass.Instance.ClassList[t.FullName] as EntityInfo );
+            return DeleteBatch( deleteCondition, Entity.GetInfo( t.FullName ) );
         }
 
         private static int deleteSingle( int id, EntityInfo entityInfo ) {

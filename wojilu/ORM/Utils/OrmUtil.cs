@@ -47,7 +47,7 @@ namespace wojilu.ORM {
                 if (paramVal == null) {
                     setDefaultValue( cmd, info, entityInfo );
                 }
-                else if (info.Type.IsSubclassOf( typeof( IEntity ) ) || MappingClass.Instance.ClassList.Contains( info.Type.FullName )) {
+                else if (info.Type.IsSubclassOf( typeof( IEntity ) ) || MappingClass.Instance.ClassList.ContainsKey( info.Type.FullName )) {
                     setEntityId( cmd, info, paramVal );
                 }
                 else {
@@ -80,8 +80,8 @@ namespace wojilu.ORM {
 
         private static void setDefaultValue( IDbCommand cmd, EntityPropertyInfo info, EntityInfo entityInfo ) {
 
-            if (MappingClass.Instance.ClassList.Contains( info.Type.FullName )) {
-                DataFactory.SetParameter( cmd, info.ColumnName, -1 );
+            if (MappingClass.Instance.ClassList.ContainsKey( info.Type.FullName )) {
+                DataFactory.SetParameter( cmd, info.ColumnName, 0 );
             }
             else if (info.Type == typeof( DateTime )) {
                 if (entityInfo.DbType == DatabaseType.Access) {

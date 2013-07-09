@@ -28,17 +28,28 @@ namespace wojilu.Data {
     /// </summary>
     public class MysqlFactory : DbFactoryBase {
 
+        private static IMysqlHelper GetMysqlHelper() {
+            return MysqlHelperLoader.GetHelper();
+        }
+
+        public static Type mySqlCommandType {
+            get { return GetMysqlHelper().GetMySqlCommandType(); }
+        }
+
+        public static Type mySqlConnectionType {
+            get { return GetMysqlHelper().GetMySqlConnectionType(); }
+        }
 
         public override IDbConnection GetConnection( String connectionString ) {
-            return getMySqlConnection( connectionString );
+            return GetMysqlHelper().GetMySqlConnection( connectionString );
         }
 
         public override IDbCommand GetCommand( String CommandText ) {
             base.checkOpen();
-            IDbCommand cmd = getMySqlCommand();
+            IDbCommand cmd = GetMysqlHelper().GetMySqlCommand();
             cmd.Connection = cn;
             cmd.CommandText = CommandText;
-            setTransaction( cmd );
+            base.setTransaction( cmd );
             return cmd;
         }
 
@@ -52,52 +63,27 @@ namespace wojilu.Data {
 
         public override Object SetParameter( IDbCommand cmd, String parameterName, Object parameterValue ) {
 
+            if (parameterValue == null) return parameterValue;
+
             parameterValue = base.processValue( parameterValue );
             parameterName = new MysqlDialect().GetParameterAdder( parameterName );
 
-            IDbDataParameter parameter = getMySqlParameter( parameterName, parameterValue );
+            IDbDataParameter parameter = GetMysqlHelper().GetMySqlParameter( parameterName, parameterValue );
             cmd.Parameters.Add( parameter );
 
             return parameterValue;
+
         }
 
         public override DbDataAdapter GetAdapter() {
-            return getMySqlDataAdapter( cmd );
+            return GetMysqlHelper().GetMySqlDataAdapter( cmd );
         }
 
         public override DbDataAdapter GetAdapter( String CommandText ) {
-            return getMySqlDataAdapter( GetCommand( CommandText ) );
+            return GetMysqlHelper().GetMySqlDataAdapter( GetCommand( CommandText ) );
         }
 
-        //-----------------------------------
 
-        private static IDbCommand getMySqlCommand() {
-            return (rft.GetInstance( mySqlCommandType ) as IDbCommand);
-        }
-
-        private static IDbConnection getMySqlConnection( String connectionString ) {
-            return (rft.GetInstance( mySqlConnectionType, new object[] { connectionString } ) as IDbConnection);
-        }
-
-        private static DbDataAdapter getMySqlDataAdapter( Object cmd ) {
-            return (rft.GetInstance( mySqlDataAssembly.GetType( "MySql.Data.MySqlClient.MySqlDataAdapter" ), new object[] { cmd } ) as DbDataAdapter);
-        }
-
-        private static IDbDataParameter getMySqlParameter( String parameterName, Object parameterValue ) {
-            return (rft.GetInstance( mySqlDataAssembly.GetType( "MySql.Data.MySqlClient.MySqlParameter" ), new object[] { parameterName, parameterValue } ) as IDbDataParameter);
-        }
-
-        public static Type mySqlCommandType {
-            get { return mySqlDataAssembly.GetType( "MySql.Data.MySqlClient.MySqlCommand" ); }
-        }
-
-        public static Type mySqlConnectionType {
-            get { return mySqlDataAssembly.GetType( "MySql.Data.MySqlClient.MySqlConnection" ); }
-        }
-
-        public static Assembly mySqlDataAssembly {
-            get { return Assembly.Load( "MySql.Data" ); }
-        }
 
     }
 

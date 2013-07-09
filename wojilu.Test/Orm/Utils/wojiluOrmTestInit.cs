@@ -54,8 +54,8 @@ namespace wojilu.Test.Orm.Utils {
 
         public static void ClearTables() {
 
-            foreach (DictionaryEntry entry in MappingClass.Instance.ClassList) {
-                EntityInfo ei = entry.Value as EntityInfo;
+            foreach (KeyValuePair<String, EntityInfo> kv in MappingClass.Instance.ClassList) {
+                EntityInfo ei = kv.Value;
                 string deleteTable = string.Format( "drop table {0}", ei.TableName );
 
                 wojilu.Data.EasyDB.Execute( deleteTable, wojilu.Data.DbContext.getConnection( ei ) );

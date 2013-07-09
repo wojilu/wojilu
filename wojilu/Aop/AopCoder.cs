@@ -26,6 +26,7 @@ using System.Text;
 
 using Microsoft.CSharp;
 using wojilu.DI;
+using wojilu.Reflection;
 
 namespace wojilu.Aop {
 
@@ -493,59 +494,6 @@ namespace wojilu.Aop {
         private static String getReturnType( Type t ) {
             return strUtil.GetGenericTypeWithArgs( t );
         }
-
-        public static Assembly CompileCode( String code, IDictionary asmList ) {
-
-            Boolean generateAopAssembly = false;
-
-            CodeDomProvider provider = new CSharpCodeProvider();
-            CompilerParameters options = new CompilerParameters();
-            options.GenerateExecutable = false;
-            options.CompilerOptions = "/optimize";
-            if (generateAopAssembly) {
-                options.GenerateInMemory = false;
-                options.OutputAssembly = Path.Combine( PathHelper.GetBinDirectory(), "__wojilu.aop.dll" );
-            }
-            else {
-                options.GenerateInMemory = true;
-            }
-            Hashtable tblReferencedAsms = new Hashtable();
-            Assembly executingAssembly = Assembly.GetExecutingAssembly();
-            tblReferencedAsms[executingAssembly.FullName] = executingAssembly.Location;
-            logger.Info( executingAssembly.FullName + "__" + executingAssembly.Location );
-            addReferencedAsms( tblReferencedAsms, executingAssembly.GetReferencedAssemblies() );
-            foreach (DictionaryEntry entry in asmList) {
-                Assembly asm = entry.Value as Assembly;
-                tblReferencedAsms[asm.FullName] = asm.Location;
-                logger.Info( asm.FullName + "__" + asm.Location );
-                addReferencedAsms( tblReferencedAsms, asm.GetReferencedAssemblies() );
-            }
-            foreach (DictionaryEntry entry in tblReferencedAsms) {
-                options.ReferencedAssemblies.Add( entry.Value.ToString() );
-            }
-            CompilerResults results = provider.CompileAssemblyFromSource( options, new String[] { code } );
-            if (results.Errors.Count > 0) {
-                StringBuilder builder = new StringBuilder();
-                foreach (CompilerError error in results.Errors) {
-                    builder.Append( error.ErrorText );
-                    builder.Append( "\n" );
-                }
-                logger.Fatal( code );
-                throw new Exception( builder.ToString() );
-            }
-            return results.CompiledAssembly;
-        }
-
-        private static void addReferencedAsms( Hashtable tblReferencedAsms, AssemblyName[] assemblyName ) {
-            foreach (AssemblyName name in assemblyName) {
-                if (tblReferencedAsms[name.FullName] == null) {
-                    Assembly assembly = Assembly.Load( name );
-                    tblReferencedAsms[name.FullName] = assembly.Location;
-                    logger.Info( name.FullName + "__" + assembly.Location );
-                }
-            }
-        }
-
 
     }
 

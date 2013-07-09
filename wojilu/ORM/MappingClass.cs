@@ -36,9 +36,9 @@ namespace wojilu.ORM {
 
         private static readonly ILog logger = LogManager.GetLogger( typeof( MappingClass ) );
 
-        private IDictionary _assemblyList = new Hashtable();
-        private IDictionary _classList = new Hashtable();
-        private IDictionary _typeList = new Hashtable();
+        private Dictionary<String, Assembly> _assemblyList = new Dictionary<String, Assembly>();
+        private Dictionary<String, EntityInfo> _classList = new Dictionary<String, EntityInfo>();
+        private Dictionary<String, Type> _typeList = new Dictionary<String, Type>();
         private IDictionary _factoryList;
 
         private List<IInterceptor> _interceptorList = new List<IInterceptor>();
@@ -47,7 +47,7 @@ namespace wojilu.ORM {
         /// <summary>
         /// ORM需要加载的所有程序集
         /// </summary>
-        public IDictionary AssemblyList {
+        public Dictionary<String, Assembly> AssemblyList {
             get { return _assemblyList; }
             set { _assemblyList = value; }
         }
@@ -55,7 +55,7 @@ namespace wojilu.ORM {
         /// <summary>
         /// 所有需要持久化的实体的 EntityInfo(每个EntityInfo包括类型、映射的表名等信息)
         /// </summary>
-        public IDictionary ClassList {
+        public Dictionary<String, EntityInfo> ClassList {
             get { return _classList; }
             set { _classList = value; }
         }
@@ -63,7 +63,7 @@ namespace wojilu.ORM {
         /// <summary>
         /// 所有需要持久化的实体的类型(type)
         /// </summary>
-        public IDictionary TypeList {
+        public Dictionary<String, Type> TypeList {
             get { return _typeList; }
             set { _typeList = value; }
         }
@@ -209,10 +209,10 @@ namespace wojilu.ORM {
         }
 
 
-        private static IDictionary FinishPropertyInfo( IDictionary mapClassList ) {
-            foreach (DictionaryEntry entry in mapClassList) {
+        private static IDictionary FinishPropertyInfo( Dictionary<String, EntityInfo> mapClassList ) {
+            foreach (KeyValuePair<String, EntityInfo> kv in mapClassList) {
 
-                EntityInfo info = entry.Value as EntityInfo;
+                EntityInfo info = kv.Value;
 
                 foreach (EntityPropertyInfo ep in info.SavedPropertyList) {
 
@@ -220,7 +220,7 @@ namespace wojilu.ORM {
                     //    ep.EntityInfo = mapClassList[ep.Type.FullName] as EntityInfo;
                     //}
 
-                    if (mapClassList.Contains( ep.Type.FullName ) && ep.SaveToDB) {
+                    if (mapClassList.ContainsKey( ep.Type.FullName ) && ep.SaveToDB) {
                         ep.EntityInfo = mapClassList[ep.Type.FullName] as EntityInfo;
                         ep.IsEntity = true;
                         info.EntityPropertyList.Add( ep );

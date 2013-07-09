@@ -33,7 +33,7 @@ namespace wojilu {
         /// <param name="typeFullName">类型的全名</param>
         /// <returns>返回一个 IEntity 持久化对象</returns>
         public static IEntity New( String typeFullName ) {
-            IConcreteFactory factory = (IConcreteFactory)MappingClass.Instance.FactoryList[typeFullName];
+            IConcreteFactory factory = MappingClass.Instance.FactoryList[typeFullName] as IConcreteFactory;
             return factory == null ? null : factory.New();
         }
 
@@ -43,7 +43,9 @@ namespace wojilu {
         /// <param name="t"></param>
         /// <returns></returns>
         public static EntityInfo GetInfo( Type t ) {
-            return MappingClass.Instance.ClassList[t.FullName] as EntityInfo;
+            EntityInfo x;
+            MappingClass.Instance.ClassList.TryGetValue( t.FullName, out x );
+            return x;
         }
 
         /// <summary>
@@ -52,7 +54,9 @@ namespace wojilu {
         /// <param name="typeFullName">类型全名，包括namespace，但不包括程序集</param>
         /// <returns></returns>
         public static EntityInfo GetInfo( String typeFullName ) {
-            return MappingClass.Instance.ClassList[typeFullName] as EntityInfo;
+            EntityInfo x;
+            MappingClass.Instance.ClassList.TryGetValue( typeFullName, out x );
+            return x;
         }
 
         /// <summary>
@@ -70,7 +74,9 @@ namespace wojilu {
         /// <param name="typeFullName"></param>
         /// <returns></returns>
         public static Type GetType( String typeFullName ) {
-            return MappingClass.Instance.TypeList[typeFullName] as Type;
+            Type x;
+            MappingClass.Instance.TypeList.TryGetValue( typeFullName, out x );
+            return x;
         }
 
 

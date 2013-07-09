@@ -15,16 +15,12 @@
  */
 
 using System;
-using System.CodeDom.Compiler;
 using System.Collections;
-using System.IO;
+using System.Collections.Generic;
 using System.Reflection;
 using System.Text;
-using Microsoft.CSharp;
 
-using wojilu.Data;
 using wojilu.ORM;
-using wojilu.IO;
 
 namespace wojilu.Reflection {
 
@@ -47,14 +43,15 @@ namespace wojilu.Reflection {
         public static IDictionary GetAccessorList( MetaList metaList ) {
             if (_accessorList == null) {
 
-                IDictionary classList = metaList.ClassList;
-                IDictionary asmList = metaList.AssemblyList;
+                Dictionary<String, EntityInfo> classList = metaList.ClassList;
+                Dictionary<String, Assembly> asmList = metaList.AssemblyList;
 
-                Assembly assembly = CompileCode( GetAccessorCode( classList ), asmList );
+                Assembly assembly = CodeDomHelper.CompileCode( GetAccessorCode( classList ), asmList, null );
                 _accessorList = (assembly.CreateInstance( "wojilu.Reflection.CodeDomAccessorUtil" ) as IAccessorUtil).GetAccessorList();
 
-                foreach (DictionaryEntry entry in classList) {
-                    String typeFullName = entry.Key.ToString();
+                foreach (KeyValuePair<String, EntityInfo> kv in classList) {
+
+                    String typeFullName = kv.Key;
                     IConcreteFactory factory = assembly.CreateInstance( getConcreteFactoryName( typeFullName ) ) as IConcreteFactory;
                     _concreteFactoryList[typeFullName] = factory;
                 }
@@ -141,61 +138,6 @@ namespace wojilu.Reflection {
             builder.Append( "}" );
             return builder.ToString();
         }
-
-
-        public static Assembly CompileCode( String code, IDictionary asmList ) {
-
-            //logger.Info( code );
-            CodeDomProvider provider = new CSharpCodeProvider();
-            CompilerParameters options = new CompilerParameters();
-            options.GenerateExecutable = false;
-            options.CompilerOptions = "/optimize";
-            if (strUtil.HasText( DbConfig.Instance.MetaDLL )) {
-                options.GenerateInMemory = false;
-                options.OutputAssembly = Path.Combine( PathTool.GetBinDirectory(), "_wojilu.accessor.dll" );
-            }
-            else {
-                options.GenerateInMemory = true;
-            }
-            Hashtable tblReferencedAsms = new Hashtable();
-            Assembly executingAssembly = Assembly.GetExecutingAssembly();
-            tblReferencedAsms[executingAssembly.FullName] = executingAssembly.Location;
-            logger.Info( executingAssembly.FullName + "__" + executingAssembly.Location );
-            addReferencedAsms( tblReferencedAsms, executingAssembly.GetReferencedAssemblies() );
-            foreach (DictionaryEntry entry in asmList) {
-                Assembly asm = entry.Value as Assembly;
-                tblReferencedAsms[asm.FullName] = asm.Location;
-                logger.Info( asm.FullName + "__" + asm.Location );
-                addReferencedAsms( tblReferencedAsms, asm.GetReferencedAssemblies() );
-            }
-            foreach (DictionaryEntry entry in tblReferencedAsms) {
-                options.ReferencedAssemblies.Add( entry.Value.ToString() );
-            }
-            CompilerResults results = provider.CompileAssemblyFromSource( options, new String[] { code } );
-            if (results.Errors.Count > 0) {
-                StringBuilder builder = new StringBuilder();
-                foreach (CompilerError error in results.Errors) {
-                    builder.Append( error.ErrorText );
-                    builder.Append( "\n" );
-                }
-                logger.Fatal( code );
-                throw new Exception( builder.ToString() );
-            }
-            return results.CompiledAssembly;
-        }
-
-
-
-        private static void addReferencedAsms( Hashtable tblReferencedAsms, AssemblyName[] assemblyName ) {
-            foreach (AssemblyName name in assemblyName) {
-                if (tblReferencedAsms[name.FullName] == null) {
-                    Assembly assembly = Assembly.Load( name );
-                    tblReferencedAsms[name.FullName] = assembly.Location;
-                    logger.Info( name.FullName + "__" + assembly.Location );
-                }
-            }
-        }
-
 
         private static String getAccessorName( String typeFullName, String propertyName ) {
             return String.Format( "{0}_{1}", typeFullName.Replace( ".", "" ), propertyName );

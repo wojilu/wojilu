@@ -11,9 +11,9 @@ namespace wojilu.Web.Mvc {
 
     internal class ControllerFactoryCompiler {
 
-        internal static Dictionary<String, IControllerFactory> GetCompiledFactory() {            
+        internal static Dictionary<String, IControllerFactory> GetCompiledFactory() {
 
-            Assembly asm = CodeDomPropertyAccessor.CompileCode( getControllerFactoryCode(), ObjectContext.Instance.AssemblyList );
+            Assembly asm = CodeDomHelper.CompileCode( getControllerFactoryCode(), ObjectContext.Instance.AssemblyList, null );
 
             Dictionary<String, IControllerFactory> factories = new Dictionary<String, IControllerFactory>();
 

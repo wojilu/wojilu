@@ -18,6 +18,7 @@ using System;
 using System.Collections.Generic;
 using System.Reflection;
 using wojilu.DI;
+using wojilu.Reflection;
 
 namespace wojilu.Aop {
 
@@ -252,7 +253,7 @@ namespace wojilu.Aop {
 
             Dictionary<Type, ObservedType> observers = loadObservers();
             String proxyCode = AopCoder.GetProxyClassCode( observers );
-            return AopCoder.CompileCode( proxyCode, ObjectContext.Instance.AssemblyList );
+            return CodeDomHelper.CompileCode( proxyCode, ObjectContext.Instance.AssemblyList, null );
         }
 
         private static Dictionary<Type, ObservedType> loadObservers() {

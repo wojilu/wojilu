@@ -179,8 +179,7 @@ namespace wojilu.ORM {
                 if (Type.BaseType.IsAbstract || OrmHelper.IsEntityBase( Type.BaseType )) {// 1029
                     return null;
                 }
-
-                return (MappingClass.Instance.ClassList[Type.BaseType.FullName] as EntityInfo);
+                return Entity.GetInfo( Type.BaseType.FullName );
             }
         }
 

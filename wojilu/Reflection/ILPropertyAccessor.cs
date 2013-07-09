@@ -17,6 +17,7 @@
 
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using System.Reflection;
 using System.Reflection.Emit;
 
@@ -162,8 +163,8 @@ namespace wojilu.Reflection {
 
         public static void Init() {
             Clear();
-            foreach (DictionaryEntry entry in MappingClass.Instance.ClassList) {
-                CacheAccessor( ((EntityInfo)entry.Value).Type );
+            foreach (KeyValuePair<String, EntityInfo> kv in MappingClass.Instance.ClassList) {
+                CacheAccessor( kv.Value.Type );
             }
         }
 

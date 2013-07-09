@@ -73,7 +73,7 @@ namespace wojilu {
 
         public String Editor { get { return StaticPath.Instance.Editor; } }
         public String Img { get { return StaticPath.Instance.Img; } }
-        public String ImgStar { get { return strUtil.Join( Img, "Star/" ); } }
+        public String ImgStar { get { return strUtil.Join( Img, "star/" ); } }
         public String Js { get { return StaticPath.Instance.Js; } }
         public String Skin { get { return StaticPath.Instance.Skin; } }
         public String Css { get { return StaticPath.Instance.Css; } }

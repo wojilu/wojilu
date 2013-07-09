@@ -25,7 +25,7 @@ namespace wojilu.Data {
 
     internal class MySqlTableBuilder : TableBuilderBase {
 
-        protected override void addColumn_PrimaryKey( EntityInfo entity, StringBuilder sb, IDictionary clsList ) {
+        protected override void addColumn_PrimaryKey( EntityInfo entity, StringBuilder sb, Dictionary<String, EntityInfo> clsList ) {
 
             sb.Append( " Id int unsigned not null auto_increment primary key, " );
 
@@ -34,10 +34,10 @@ namespace wojilu.Data {
         protected override void addColumn_Int( StringBuilder sb, EntityPropertyInfo ep, String columnName ) {
             sb.Append( columnName );
             if (ep.Property.IsDefined( typeof( TinyIntAttribute ), false )) {
-                sb.Append( " tinyint unsigned default 0, " );
+                sb.Append( " tinyint default 0, " );
             }
             else {
-                sb.Append( " int unsigned default 0, " );
+                sb.Append( " int default 0, " );
             }
         }
 
