@@ -1,15 +1,16 @@
 ﻿<div class="row">
     <div class="span12 forum-search-row">
-        <div class="span5">
+        <div class="span4">
 		    <form method="get" action="#{searchAction}" class="form-search form-inline" style="margin:10px 30px;">
                 <div class="input-append">
                     <img src="~static/skin/site/new/search.png" />
-		            <input type="text" name="q" class="search-query input-small" style="width:200px;" /><input type="submit" class="btn btn-primary" value="搜" />
+		            <input type="text" name="q" class="search-query input-small" style="width:160px;" /><input type="submit" class="btn btn-primary" value="搜" />
                 </div>
 		    </form>
         </div>
-        <div class="span6 pull-right">
+        <div class="span7 pull-right">
             <div class="pull-right" style="margin:15px 15px 15px 0px;">
+                #{lnkNotice}
                 <a href="#{lnkTopic}" target="_blank"><i class="icon-file"></i> :{newTopic}</a>
 		        <a href="#{lnkPost}" target="_blank"><i class="icon-play-circle"></i> :{newPosts}</a>		        
 		        <a href="#{lnkMyPost}" target="_blank"><i class="icon-edit"></i> :{myPosts}</a>

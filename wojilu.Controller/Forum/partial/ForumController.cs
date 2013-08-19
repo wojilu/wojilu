@@ -30,7 +30,9 @@ namespace wojilu.Web.Controller.Forum {
             //bindOnlineUsers( onlineUsers );
         }
 
-        private void bindMyPosts() {
+        protected virtual void bindMyPosts() {
+
+            set( "lnkNotice", "" );
 
             set( "lnkMyTopic", to( new RecentController().MyTopic ) );
             set( "lnkMyPost", to( new RecentController().MyPost ) );
