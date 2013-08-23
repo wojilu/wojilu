@@ -11969,7 +11969,25 @@ wojilu.ui.xmenu = function() {
     });
 };
 
-wojilu.ui.tab = function() { wojilu.tool.makeTab( '.otherTab', 'currentTab', 'otherTab' );};
+wojilu.ui.tab = function() { wojilu.tool.makeTab( '.tabList', 'currentTab', 'otherTab' );};
+
+wojilu.ui.makeTab = function(tabMap) {
+	var href = window.location.href.toLowerCase();
+	logger.info( href );
+	for (var key in tabMap) {
+		logger.info( key );
+		if (href.indexOf(key.toLowerCase()) > -1) {
+			logger.info( '#' + tabMap[key] );
+			$('#' + tabMap[key]).addClass('currentTab');
+			return;
+		}
+	}
+	var defaultTab = tabMap['--'];
+	if( defaultTab ) {
+		$('#'+defaultTab).addClass( 'currentTab' );
+		logger.info( '#'+defaultTab );
+	}
+};
 
 wojilu.ui.pageReturn = function() {
 	$( '.btnReturn' ).click( function() {history.back();} );

@@ -1,36 +1,21 @@
-﻿<script type="text/javascript">
-<!--
-_run( function() {
+﻿<script>
 
-	var href = window.location.href;
+_run(function () {
 
-	if( href.indexOf( 'Friends')>-1 || href.indexOf( 'Blog/Index')>-1 )
-		$('#tabFriends').addClass( 'currentTab' );
-		
-	else if( href.indexOf( 'Add' )>-1 )
-		$('#tabAdd').addClass( 'currentTab' );
-		
-	else if( href.indexOf( 'Draft' )>-1 )
-		$('#tabDraft').addClass( 'currentTab' );
-		
-	else if( href.indexOf( 'Trash' )>-1 )
-		$('#tabTrash').addClass( 'currentTab' );
-		
-	else if( href.indexOf( 'Category')>-1 )
-		$('#tabCat').addClass( 'currentTab' );
-		
-	else if( href.indexOf( 'Blogroll')>-1 )
-		$('#tabBlogroll').addClass( 'currentTab' );
-		
-	else if( href.indexOf( 'Setting')>-1 )
-		$('#tabSetting').addClass( 'currentTab' );
-		
-	else
-		$('#tabMy').addClass( 'currentTab' );
-
+    wojilu.ui.makeTab({
+        'Friends': 'tabFriends',
+        'Blog/Index': 'tabFriends',
+        'Add': 'tabAdd',
+        'Draft': 'tabDraft',
+        'Trash': 'tabTrash',
+        'Category': 'tabCat',
+        'Blogroll': 'tabBlogroll',
+        'Setting': 'tabSetting',
+        '--': 'tabMy'
+    });
 
 });
-//-->
+
 </script>
 
 <div style="padding:10px 5px 10px 10px;">

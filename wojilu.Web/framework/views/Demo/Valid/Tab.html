@@ -23,7 +23,7 @@
 
 <script>
 _run( function() {
-    wojilu.tool.makeTab('.tabList', 'currentTab', '');
+    wojilu.tool.makeTab('.tabList', 'currentTab');
 });
 </script>
     
@@ -52,15 +52,50 @@ _run( function() {
     </pre>
     
 
-    <div class="strong" style="margin-top:40px;">自动设置当前tab(js代码)</div>
-    <div style="color:Red;margin-left:10px;">如下js代码不是必须的。它只是帮你自动设置当前tab，你完全可以通过上面的 currentTab 手动设置</div>
-    <pre class="brush: html;">
+    <div class="strong" style="margin-top:40px;">js设置当前tab：方法1</div>
+    <div style="color:Red;margin-left:10px;">下面是自动设置，优点是简单。缺点是只能将一个url和tab对应。</div>
+    <pre class="brush: javascript;">
 &lt;script&gt;
 _run( function() {
-    wojilu.tool.makeTab('.tabList', 'currentTab', '');
+    // 参数说明：第一个参数是tab的容器，第二个参数是当前tab的class
+    wojilu.tool.makeTab('.tabList', 'currentTab');
+
+    // 或者使用 wojilu.ui.tab(); 
+    // 效果一样，只不过将 .tabList 和 currentTab 写死了
 });
 &lt;/script&gt;
-    </pre>    
+    </pre>
+
+    <div class="strong" style="margin-top:40px;">js设置当前tab：方法2</div>
+    <div style="color:Red;margin-left:10px;">说明：相比上面的自动设置，本方法更加灵活；可以将多个url和tab对应。</div>
+<div>html代码</div>
+<pre class="brush: html;">
+&lt;ul class="tabList"&gt;
+    &lt;li id="tabFriends" class="firstTab"&gt;&lt;a href=""&gt;tab1&lt;/a&gt;&lt;span&gt;&lt;/span&gt;&lt;/li&gt;
+    &lt;li id="tabMy"&gt;&lt;a href=""&gt;tab2&lt;/a&gt;&lt;span&gt;&lt;/span&gt; &lt;/li&gt;
+    &lt;li id="tabAdd" style="width:90px;"&gt;&lt;a href=""&gt;tab3&lt;/a&gt;&lt;span&gt;&lt;/span&gt;&lt;/li&gt;
+    &lt;div style="clear:both;"&gt;&lt;/div&gt;
+&lt;/ul&gt;
+</pre>
+<div>js脚本</div>
+    <pre class="brush: javascript;">
+&lt;script&gt;
+_run( function() {
+    // 映射说明：下面的 wojilu.ui.makeTab( {...} ) 示例表示——
+    // 凡是url中有Add单词的，都映射到 #tabAdd
+    // 凡是url众有Friends或Blog/Index的，都映射到 tabFriends
+    // ……其余类推；
+    // 没有特定指明的，映射到 #tabMy（不区分大小写）
+    wojilu.ui.makeTab({
+        'Friends': 'tabFriends',
+        'Blog/Index': 'tabFriends',
+        'Add': 'tabAdd',
+        'Draft': 'tabDraft',
+        '--': 'tabMy'
+    });
+});
+&lt;/script&gt;
+    </pre>
     </div>
 
 </div>
