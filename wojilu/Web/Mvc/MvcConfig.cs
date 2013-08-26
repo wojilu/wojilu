@@ -65,8 +65,24 @@ namespace wojilu.Web.Mvc {
 
         /// <summary>
         /// 视图文件所在目录。默认值是 /framework/views/ ，也可以在 mvc.config 中添加 viewsDir 项自定义
+        /// 如果定义了 viewsDirList，则使用 viewsDirList 替换本项值
         /// </summary>
-        public String ViewDir { get { return _viewDir; } }
+        public String ViewDir {
+            get {
+                if (this.ViewDirList.Count > 0) return this.ViewDirList[0];
+                return _viewDir;
+            }
+        }
+
+        /// <summary>
+        /// 视图文件所在目录列表。默认值是 /framework/views/ ，也可以在 mvc.config 设置 viewsDirList ，可以添加多个目录
+        /// </summary>
+        public List<String> ViewDirList { get { return _viewDirList; } }
+
+        /// <summary>
+        /// 视图(模板)过滤器，用于判断：哪些viewsDir应该使用
+        /// </summary>
+        public List<String> ViewsFilter { get { return _viewsFilter; } }
 
         /// <summary>
         /// mvc框架的版本号
@@ -141,14 +157,22 @@ namespace wojilu.Web.Mvc {
         public List<String> TagWhitelist { get { return _tagWhiteList; } }
 
 
-        //------------------------------------------------------------------------------------------------------------------------------
+        //-----------------------------------------------------------------------------------
 
         /// <summary>
         /// 获取网站发生错误时报错的模板路径，默认是 /framework/views/error.html
         /// </summary>
         /// <returns></returns>
         public String GetErrorTemplatePath() {
-            return strUtil.Join( this.ViewDir, "error" ) + this.ViewExt;
+            return strUtil.Join( this.ViewDir, GetErrorTemplateFile() ) + this.ViewExt;
+        }
+
+        /// <summary>
+        /// 获取网站发生错误时报错的模板文件名，不包括路径，也不包括后缀名。默认是 error
+        /// </summary>
+        /// <returns></returns>
+        public String GetErrorTemplateFile() {
+            return "error";
         }
 
         /// <summary>
@@ -156,7 +180,15 @@ namespace wojilu.Web.Mvc {
         /// </summary>
         /// <returns></returns>
         public String GetMsgTemplatePath() {
-            return strUtil.Join( this.ViewDir, "msg" ) + this.ViewExt;
+            return strUtil.Join( this.ViewDir, GetMsgTemplateFile() ) + this.ViewExt;
+        }
+
+        /// <summary>
+        /// 获取反馈信息(通常使用echo方法时使用)的模板文件名，不包括路径，也不包括后缀名。默认是 msg
+        /// </summary>
+        /// <returns></returns>
+        public String GetMsgTemplateFile() {
+            return "msg";
         }
 
         /// <summary>
@@ -164,7 +196,15 @@ namespace wojilu.Web.Mvc {
         /// </summary>
         /// <returns></returns>
         public String GetMsgBoxTemplatePath() {
-            return strUtil.Join( this.ViewDir, "msgbox" ) + this.ViewExt;
+            return strUtil.Join( this.ViewDir, GetMsgBoxTemplateFile() ) + this.ViewExt;
+        }
+
+        /// <summary>
+        /// 获取弹窗的模板文件名，不包括路径，也不包括后缀名。默认是 msgbox
+        /// </summary>
+        /// <returns></returns>
+        public String GetMsgBoxTemplateFile() {
+            return "msgbox";
         }
 
         /// <summary>
@@ -172,7 +212,15 @@ namespace wojilu.Web.Mvc {
         /// </summary>
         /// <returns></returns>
         public String GetForwardTemplatePath() {
-            return strUtil.Join( this.ViewDir, "forward" ) + this.ViewExt;
+            return strUtil.Join( this.ViewDir, GetForwardTemplateFile() ) + this.ViewExt;
+        }
+
+        /// <summary>
+        /// 获取页面跳转的模板文件名，不包括路径，也不包括后缀名。默认是 forward
+        /// </summary>
+        /// <returns></returns>
+        public String GetForwardTemplateFile() {
+            return "forward";
         }
 
         /// <summary>
@@ -189,7 +237,8 @@ namespace wojilu.Web.Mvc {
             return results;
         }
 
-        //------------------------------------------------------------------------------------------------------------------------------
+        //-----------------------------------------------------------------------------------
+
 
         private String _routeConfigPath;
 
@@ -201,6 +250,10 @@ namespace wojilu.Web.Mvc {
         private String _viewExt;
         private String _viewDir;
         private String _version;
+
+        private List<String> _viewDirList;
+        private List<String> _viewsFilter;
+
 
         private Boolean _isParseAppId;
         private Boolean _isCacheView;
@@ -237,6 +290,9 @@ namespace wojilu.Web.Mvc {
             _viewExt = getViewExt( dic );
             _viewDir = getViewDir( dic );
             _version = getVersionDir( dic );
+
+            _viewDirList = getViewDirList( getValueList( dic, "viewsDirList" ) );
+            _viewsFilter = getValueList( dic, "viewsFilter" );
 
             _filterList = getValueList( dic, "filter" );
             _tagWhiteList = getValueList( dic, "tagWhiteList" );
@@ -311,6 +367,23 @@ namespace wojilu.Web.Mvc {
             if (viewsDir.StartsWith( cfgHelper.FrameworkRoot ) == false)
                 viewsDir = strUtil.Join( cfgHelper.FrameworkRoot, viewsDir );
             return viewsDir;
+        }
+
+        private List<String> getViewDirList( List<String> rDirs ) {
+
+            List<String> list = new List<String>();
+            foreach (String x in rDirs) {
+                if (strUtil.IsNullOrEmpty( x )) continue;
+
+                if (x.StartsWith( cfgHelper.FrameworkRoot ) == false) {
+                    list.Add( strUtil.Join( cfgHelper.FrameworkRoot, x ) );
+                }
+                else {
+                    list.Add( x );
+                }
+            }
+
+            return list;
         }
 
         private String getViewExt( Dictionary<String, String> dic ) {

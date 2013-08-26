@@ -38,6 +38,10 @@ namespace wojilu.Web {
             return _isTemplateExist;
         }
 
+        public void NoTemplates( String templateList ) {
+            _isTemplateExist = false;
+            _templatePath = templateList;
+        }
 
         public Template() {
         }
@@ -91,6 +95,9 @@ namespace wojilu.Web {
             CurrentRequest.setItem( loadedTemplates, tplList );
         }
 
+        public static Boolean ContainsCache( String templatePath ) {
+            return templates.ContainsKey( templatePath );
+        }
 
         private String getTemplateContent( String templatePath ) {
 

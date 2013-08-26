@@ -141,18 +141,20 @@ namespace wojilu.Web.GlobalApp {
 
         protected String getXHtmlTemplate() {
 
-            String exPath = PathHelper.Map( MvcConfig.Instance.GetErrorTemplatePath() );
-            if (file.Exists( exPath )) return file.Read( exPath );
+            MvcViews v = new MvcViews();
+            Template t = v.getTemplateByFileName( MvcConfig.Instance.GetErrorTemplateFile() );
+            if (t.IsTemplateExist()) return t.getTemplateString();
 
             return getDefaultXHtmlTemplate();
         }
 
         private static string getDefaultXHtmlTemplate() {
             StringBuilder sb = new StringBuilder();
-            sb.AppendLine( "<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Transitional//EN\" \"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd\">" );
-            sb.AppendLine( "<html xmlns=\"http://www.w3.org/1999/xhtml\">" );
+            sb.AppendLine( "<!DOCTYPE html>" );
+            sb.AppendLine( "<html>" );
             sb.AppendLine( "<head>" );
-            sb.AppendLine( "<meta http-equiv=\"Content-Type\" content=\"text/html; charset=utf-8\" />" );
+            sb.AppendLine( "<meta charset=\"utf-8\">" );
+            sb.AppendLine( "<meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">" );
             sb.AppendLine( "<title>#{pageTitle}</title>" );
             sb.AppendLine( "<style>" );
             sb.AppendLine( "body {font-size:14px;line-height:150%;font-family:verdana;}" );

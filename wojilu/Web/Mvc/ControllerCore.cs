@@ -198,42 +198,18 @@ namespace wojilu.Web.Mvc {
             setCurrentView( getTemplateByAction( "Layout" ) );
         }
 
+        //------------------------------------------------------------------------------------------
+
         /// <summary>
         /// 根据 action 名称获取模板对象
         /// </summary>
         /// <param name="action"></param>
         /// <returns></returns>
         public Template getTemplateByAction( String action ) {
-            return new Template( getTemplatePathByAction( action ) );
+            MvcViews x = new MvcViews();
+            x.setController( this.controller );
+            return x.getTemplateByAction( action );
         }
-
-        private String getControllerDir() {
-
-            String pathRaw = strUtil.GetTypeFullName( controller.GetType() );
-
-            // 去掉根目录
-            String result = trimRootNamespace( pathRaw ).TrimStart( '.' );
-
-            // 换成路径分隔符
-            result = result.Replace( '.', '/' );
-
-            String pathRoot = MvcConfig.Instance.ViewDir;
-
-            result = strUtil.Join( pathRoot, result );
-            result = strUtil.TrimEnd( result, "Controller" );
-
-            return result;
-        }
-
-        private String trimRootNamespace( String pathRaw ) {
-
-            foreach (String ns in MvcConfig.Instance.RootNamespace) {
-                if (pathRaw.StartsWith( ns )) return strUtil.TrimStart( pathRaw, ns );
-            }
-
-            return pathRaw;
-        }
-
 
         /// <summary>
         /// 根据文件名称获取模板对象，文件名必须从视图 view 的根目录算起
@@ -241,16 +217,9 @@ namespace wojilu.Web.Mvc {
         /// <param name="fileName"></param>
         /// <returns></returns>
         public Template getTemplateByFileName( String fileName ) {
-            return new Template( getTemplatePathByFile( fileName ) );
-        }
-
-        /// <summary>
-        /// 获取某 action 的模板文件的绝对路径(包括模板的后缀名)
-        /// </summary>
-        /// <param name="action"></param>
-        /// <returns></returns>
-        public String getTemplatePathByAction( String action ) {
-            return PathHelper.Map( getControllerDir() + "/" + action + MvcConfig.Instance.ViewExt );
+            MvcViews x = new MvcViews();
+            x.setController( this.controller );
+            return x.getTemplateByFileName( fileName );
         }
 
         /// <summary>
@@ -259,7 +228,10 @@ namespace wojilu.Web.Mvc {
         /// <param name="fileName"></param>
         /// <returns></returns>
         public String getTemplatePathByFile( String fileName ) {
-            return PathHelper.Map( strUtil.Join( MvcConfig.Instance.ViewDir, fileName ) + MvcConfig.Instance.ViewExt );
+
+            MvcViews x = new MvcViews();
+            x.setController( this.controller );
+            return x.getTemplateByFileName( fileName ).getTemplatePath();
         }
 
         //------------------------------------------------------------------------------------------

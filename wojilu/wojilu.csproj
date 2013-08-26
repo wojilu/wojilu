@@ -120,6 +120,12 @@
     <Compile Include="Reflection\CodeDomHelper.cs" />
     <Compile Include="Serialization\TypedDeserializeHelper.cs" />
     <Compile Include="Web\HttpMethod.cs" />
+    <Compile Include="Web\Mvc\Views\IViewsFilter.cs" />
+    <Compile Include="Web\Mvc\Views\IViewsPath.cs" />
+    <Compile Include="Web\Mvc\Views\MvcViews.cs" />
+    <Compile Include="Web\Mvc\Views\ViewsFilterLoader.cs" />
+    <Compile Include="Web\Mvc\Views\ControllerViewsPath.cs" />
+    <Compile Include="Web\Mvc\Views\FileViewsPath.cs" />
     <Compile Include="Web\Templates\TemplateException.cs" />
     <Compile Include="Web\Utils\AvatarNetSaver.cs" />
     <Compile Include="_wojilu\Exception.cs" />

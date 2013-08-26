@@ -312,7 +312,7 @@ namespace wojilu.Web.Context {
         /// </summary>
         /// <param name="msg"></param>
         public void endMsgByView( String msg ) {
-            endMsgByView( msg, MvcConfig.Instance.GetMsgTemplatePath() );
+            endMsgByView( msg, MvcConfig.Instance.GetMsgTemplateFile() );
         }
 
         /// <summary>
@@ -320,7 +320,7 @@ namespace wojilu.Web.Context {
         /// </summary>
         /// <param name="msg"></param>
         public void endMsgBox( String msg ) {
-            endMsgByView( msg, MvcConfig.Instance.GetMsgBoxTemplatePath() );
+            endMsgByView( msg, MvcConfig.Instance.GetMsgBoxTemplateFile() );
         }
 
         /// <summary>
@@ -328,32 +328,37 @@ namespace wojilu.Web.Context {
         /// </summary>
         /// <param name="msg"></param>
         public void endMsgForward( String msg ) {
-            endMsgByView( msg, MvcConfig.Instance.GetForwardTemplatePath() );
+            endMsgByView( msg, MvcConfig.Instance.GetForwardTemplateFile() );
         }
 
         /// <summary>
         /// 根据指定模板显示信息，然后结束下面的流程
         /// </summary>
         /// <param name="msg"></param>
-        /// <param name="templatePath">模板路径</param>
-        public void endMsgByView( String msg, String templatePath ) {
+        /// <param name="templateFileName">模板路径</param>
+        public void endMsgByView( String msg, String templateFileName ) {
 
-            ITemplate msgView = getMsgTemplate( msg, templatePath );
+            ITemplate msgView = getMsgTemplate( msg, templateFileName );
             this.setCurrentOutputString( msgView.ToString() );
             this.end();
         }
 
-        public ITemplate getMsgTemplate( String msg, String templatePath ) {
+        public ITemplate getMsgTemplate( String msg, String templateFileName ) {
 
-            String viewsPath = PathHelper.Map( templatePath );
+            Template msgView = getTemplate( templateFileName );
 
-            Template msgView = new Template( viewsPath );
             msgView.Set( "siteName", config.Instance.Site.SiteName );
             msgView.Set( "siteUrl", SystemInfo.SiteRoot );
             msgView.Set( "msg", msg );
             this.setGlobalVariable( msgView );
 
             return msgView;
+        }
+
+        private Template getTemplate( String templateFileName ) {
+            MvcViews v = new MvcViews();
+            v.setController( _currentController );
+            return v.getTemplateByFileName( templateFileName );
         }
 
 
