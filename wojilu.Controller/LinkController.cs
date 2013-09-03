@@ -24,7 +24,7 @@ namespace wojilu.Web.Controller {
 
         [Login]
         public void MyHome() {
-            redirectDirect( Link.To( ctx.viewer.obj, new wojilu.Web.Controller.Users.Admin.FeedController().My, 0 ) );
+            redirectDirect( Link.To( ctx.viewer.obj, new wojilu.Web.Controller.Users.Admin.HomeController().Index, 0 ) );
         }
 
         [Login]

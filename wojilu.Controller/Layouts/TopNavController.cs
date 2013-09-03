@@ -161,7 +161,7 @@ _run( function() {
 
             dic.Add( "viewerName", user.Name );
             dic.Add( "viewerPicSmall", user.PicSmall );
-            dic.Add( "viewerFeeds", Link.To( user, new FeedController().My, -1 ) );
+            dic.Add( "viewerFeeds", Link.To( user, new HomeController().Index, -1 ) );
 
             dic.Add( "viewerSpace", toUser( user ) );
             dic.Add( "viewerMicroblogHome", Link.To( user, new Microblogs.My.MicroblogController().Home ) );

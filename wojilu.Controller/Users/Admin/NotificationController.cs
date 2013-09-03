@@ -59,7 +59,7 @@ namespace wojilu.Web.Controller.Users.Admin {
 
         public void List() {
 
-            set( "myHomeLink", to( new FeedController().My, 0 ) );
+            set( "myHomeLink", to( new HomeController().Index, 0 ) );
             set( "lnkReadAll", to( ReadAll ) );
 
             User owner = ctx.owner.obj as User;

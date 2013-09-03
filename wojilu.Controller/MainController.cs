@@ -253,7 +253,7 @@ namespace wojilu.Web.Controller {
 
                 welcomeBlock.Set( "user.Name", ctx.viewer.obj.Name );
                 welcomeBlock.Set( "user.LogoutLink", t2( new MainController().Logout ) );
-                welcomeBlock.Set( "user.HomeLink", Link.To( ctx.viewer.obj, new FeedController().My, -1 ) );
+                welcomeBlock.Set( "user.HomeLink", Link.To( ctx.viewer.obj, new HomeController().Index, -1 ) );
                 welcomeBlock.Set( "user.SpaceLink", toUser( ctx.viewer.obj ) );
                 welcomeBlock.Next();
             }
