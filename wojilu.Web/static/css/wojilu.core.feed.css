@@ -4,7 +4,7 @@
 
 
 
-div.mblogOne {border-bottom:1px #ccc dotted;margin:10px 10px 30px 10px}
+div.mblogOne {border-bottom:1px #ccc dotted;margin:10px 10px 20px 10px}
 
 .mbStats {width2:90%;margin:20px 10px;}
 .mbStats td {padding:0px 10px; text-align:center;}
@@ -24,6 +24,8 @@ div.mblogOne {border-bottom:1px #ccc dotted;margin:10px 10px 30px 10px}
 #cmdCancelFollow { width:130px; border:1px #ccc solid; padding:4px 10px;background:#f2f2f2; }
 #cmdCancelFollow span#followed {background:url("../img/oks.gif") no-repeat; background-position:0px 2px; padding-left:15px;margin-right:20px;}
 #cmdCancelFollow span#cancelFollow {cursor:pointer; color:#333}
+
+.feed-item-title { font-weight:bold; margin-bottom:5px;}
 
 .mbTool {color:#b9b5d2;}
 .mbTool span.link{color:#b27a57;}

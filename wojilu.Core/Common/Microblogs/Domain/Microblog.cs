@@ -16,6 +16,9 @@ namespace wojilu.Common.Microblogs.Domain {
     [Serializable]
     public class Microblog : ObjectBase<Microblog>, IAppData {
 
+        public String DataType { get; set; }
+        public int DataId { get; set; }
+
 
         public User User { get; set; }
 

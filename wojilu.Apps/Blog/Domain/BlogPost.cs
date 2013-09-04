@@ -96,6 +96,14 @@ namespace wojilu.Apps.Blog.Domain {
         public Type GetAppType() {
             return typeof( BlogApp );
         }
+
+        [NotSave]
+        public String SummaryInfo {
+            get {
+                if (strUtil.HasText( this.Abstract )) return this.Abstract;
+                return strUtil.ParseHtml( this.Content, 200 );
+            }
+        }
     }
 }
 

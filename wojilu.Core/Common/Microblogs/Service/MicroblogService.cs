@@ -109,6 +109,19 @@ namespace wojilu.Common.Microblogs.Service {
             return ids;
         }
 
+        public virtual void Add( User creator, String msg, String dataType, int dataId, String ip ) {
+
+            Microblog x = new Microblog();
+            x.User = creator;
+            x.Content = msg;
+            x.Ip = ip;
+
+            x.DataType = dataType;
+            x.DataId = dataId;
+
+            this.Insert( x, 0 );
+        }
+
         public virtual void Insert( Microblog blog ) {
 
             blog.Content = strUtil.SubString( blog.Content, MicroblogAppSetting.Instance.MicroblogContentMax );
@@ -151,7 +164,7 @@ namespace wojilu.Common.Microblogs.Service {
                 }
             }
 
-            if (result.IsValid) addFeedInfo( blog );
+            //if (result.IsValid) addFeedInfo( blog );
 
         }
 

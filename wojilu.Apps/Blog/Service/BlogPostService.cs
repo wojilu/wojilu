@@ -27,6 +27,7 @@ using wojilu.Common.Money.Interface;
 
 using wojilu.Apps.Blog.Domain;
 using wojilu.Apps.Blog.Interface;
+using wojilu.Common.Microblogs.Service;
 
 namespace wojilu.Apps.Blog.Service {
 
@@ -265,15 +266,13 @@ namespace wojilu.Apps.Blog.Service {
         }
 
         private void addFeedInfo( BlogPost data ) {
+
             String lnkPost = alink.ToAppData( data );
-            String blog = string.Format( "<a href=\"{0}\">{1}</a>", lnkPost, data.Title );
 
-            Dictionary<string, object> dic = new Dictionary<string, object>();
-            dic.Add( "blog", blog );
-            String templateData = Json.ToString( dic );
+            String msg = string.Format( "<div class=\"feed-item-title\">写了博客 <a href=\"{0}\">{1}</a></div>", lnkPost, data.Title );
+            msg += string.Format( "<div class=\"feed-item-body\">{0}</div>", data.SummaryInfo );
 
-            TemplateBundle tplBundle = TemplateBundle.GetBlogTemplateBundle();
-            new FeedService().publishUserAction( data.Creator, typeof( BlogPost ).FullName, tplBundle.Id, templateData, "", data.Ip );
+            new MicroblogService().Add( data.Creator, msg, typeof( BlogPost ).FullName, data.Id, data.Ip );
         }
 
 

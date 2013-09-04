@@ -213,7 +213,7 @@ namespace wojilu.Web.Controller.Microblogs {
 
                 ufBlock.Next();
 
-                block.Set( "userNameInfo", string.Format( "<a href=\"{0}\">{1}</a>: ", alink.ToUserMicroblog( blog.User ), blog.User.Name ) );
+                block.Set( "userNameInfo", string.Format( "<a href=\"{0}\">{1}</a>", alink.ToUserMicroblog( blog.User ), blog.User.Name ) );
             }
             else {
                 block.Set( "userNameInfo", "" );
