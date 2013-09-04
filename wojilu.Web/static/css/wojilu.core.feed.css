@@ -25,7 +25,7 @@ div.mblogOne {border-bottom:1px #ccc dotted;margin:10px 10px 20px 10px}
 #cmdCancelFollow span#followed {background:url("../img/oks.gif") no-repeat; background-position:0px 2px; padding-left:15px;margin-right:20px;}
 #cmdCancelFollow span#cancelFollow {cursor:pointer; color:#333}
 
-.feed-item-title { font-weight:bold; margin-bottom:5px;}
+.feed-item-title { font-weight:bold; margin-bottom:5px; color:#333;}
 
 .mbTool {color:#b9b5d2;}
 .mbTool span.link{color:#b27a57;}
@@ -33,10 +33,10 @@ div.mblogOne {border-bottom:1px #ccc dotted;margin:10px 10px 20px 10px}
 .mbTool .frmUpdate {color:#b27a57;}
 
 /**************************************/
-img.blogPic{cursor: url("../img/cursor/zoomout.cur"), pointer; border:1px #ddd solid; padding:3px;max-width:170px;max-height:300px;}
+img.blogPic{cursor: url("../img/cursor/zoomout.cur"), pointer; border:1px #ddd solid; padding:3px;max-width:170px;max-height:300px; margin-top:5px;}
 img.blogPicM{cursor: url("../img/cursor/zoomin2.cur"), pointer; margin:10px 0px 10px 15px; max-width:400px;}
 
-div.mpicWrap { border:1px #ddd solid; background:#f2f2f2;}
+div.mpicWrap { border:1px #ddd solid; background:#f2f2f2; margin-top:5px;}
 
 div.picTool { margin:10px 0px 0px 10px;}
 div.picTool span { color:#005eac; margin-right:5px;margin-left:5px; padding-left:12px;}

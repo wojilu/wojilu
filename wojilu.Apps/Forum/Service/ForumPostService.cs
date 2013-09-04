@@ -32,6 +32,7 @@ using wojilu.Members.Sites.Domain;
 using wojilu.Members.Users.Domain;
 using wojilu.Members.Users.Interface;
 using wojilu.Members.Users.Service;
+using wojilu.Common.Microblogs.Service;
 
 
 namespace wojilu.Apps.Forum.Service {
@@ -246,15 +247,14 @@ namespace wojilu.Apps.Forum.Service {
         }
 
         private void addFeedInfo( ForumPost data ) {
+
             String lnkPost = alink.ToAppData( data );
-            String post = string.Format( "<a href=\"{0}\">{1}</a>", lnkPost, data.Title );
 
-            Dictionary<string, object> dic = new Dictionary<string, object>();
-            dic.Add( "post", post );
-            String templateData = Json.ToString( dic );
+            String msg = string.Format( "<div class=\"feed-item-title\">回复了论坛帖子 <a href=\"{0}\">{1}</a></div>", lnkPost, data.Title );
+            msg += string.Format( "<div class=\"feed-item-body\">{0}</div>", strUtil.ParseHtml( data.Content, 200 ) );
 
-            TemplateBundle tplBundle = TemplateBundle.GetForumPostTemplateBundle();
-            feedService.publishUserAction( data.Creator, typeof( ForumPost ).FullName, tplBundle.Id, templateData, "", data.Ip );
+            new MicroblogService().Add( data.Creator, msg, typeof( ForumTopic ).FullName, data.Id, data.Ip );
+
         }
 
         private void addNotification( ForumPost post ) {
