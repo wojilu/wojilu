@@ -190,6 +190,14 @@
         $('.loadingInfo').html('');
         btnSubmit.attr('disabled', false);
     };
+	
+    function resizeParent() {
+        var width = $(document).width();
+        var height = parseInt( $(document).height() );
+		var parentIframeId = wojilu.tool.getCurrentFrmId();
+        window.parent.wojilu.tool.resizeFrame( parentIframeId, height );
+    };
+
 
     // 提交评论到服务器
     var postComment = function (btnSubmit, objX) {
@@ -237,6 +245,7 @@
                 appendComment(cmContent, parentId, objX);
                 txtCommentBody.val('');
                 addReplyCount();
+				resizeParent();
             }
             else {
                 alert(data.Msg);
