@@ -23,6 +23,7 @@ using wojilu.Common.Feeds.Interface;
 using wojilu.Members.Users.Interface;
 using wojilu.Apps.Photo.Interface;
 using wojilu.Web.Controller.Admin;
+using wojilu.Common.Microblogs.Service;
 
 namespace wojilu.Web.Controller.Photo.Admin {
 
@@ -57,6 +58,7 @@ namespace wojilu.Web.Controller.Photo.Admin {
             set( "authJson", AdminSecurityUtils.GetAuthCookieJson( ctx ) );
             String uploadUrl = strUtil.Join( ctx.url.SiteUrl, to( SaveUpload ) );
             set( "uploadLink", uploadUrl );
+            set( "feedLink", to( AddFeed ) );
 
 
             IList albumList = albumService.GetListByApp( ctx.app.Id );
@@ -127,7 +129,7 @@ namespace wojilu.Web.Controller.Photo.Admin {
             Result result = Uploader.SaveImg( file );
             if (result.HasErrors) {
                 errors.Join( result );
-                echoText( result.ErrorsText );
+                echoError( result );
             }
             else {
                 PhotoPost post = newPost( Path.GetFileNameWithoutExtension( file.FileName ), result.Info.ToString(), albumId, systemCategoryId );
@@ -139,15 +141,24 @@ namespace wojilu.Web.Controller.Photo.Admin {
                 user.Pins = PhotoPost.count( "OwnerId=" + user.Id );
                 user.update( "Pins" );
 
-                // feed
-                String photoHtml = string.Format( "<a href='{0}'><img src='{1}'/></a> ", alink.ToAppData( post ), post.ImgThumbUrl );
+                Dictionary<String, int> dic = new Dictionary<String, int>();
+                dic.Add( "Id", post.Id );
 
-                String templateData = string.Format( "photoCount: {0}, photos: \"{1}\" ", 1, photoHtml );
-                templateData = "{" + templateData + "}";
-                TemplateBundle tplBundle = TemplateBundle.GetPhotoTemplateBundle();
-                feedService.publishUserAction( (User)ctx.viewer.obj, typeof( PhotoPost ).FullName, tplBundle.Id, templateData, "", ctx.Ip );
-                echoAjaxOk();
+                echoJsonMsg( "ok", true, dic );
             }
+        }
+
+        [HttpPost, DbTransaction]
+        public void AddFeed() {
+            String ids = ctx.PostIdList( "ids" );
+            int albumId = ctx.PostInt( "albumId" );
+
+            if (strUtil.IsNullOrEmpty( ids )) return;
+
+            List<PhotoPost> posts = PhotoPost.find( "Id in (" + ids + ")" ).list();
+            addFeedInfo( posts, albumId );
+
+            echoAjaxOk();
         }
 
         // 普通上传(批量)
@@ -208,18 +219,26 @@ namespace wojilu.Web.Controller.Photo.Admin {
             user.update( "Pins" );
 
             // feed消息
+            addFeedInfo( imgs, albumId );
+
+            echoRedirectPart( lang( "opok" ), to( new MyController().My ), 1 );
+        }
+
+        private void addFeedInfo( List<PhotoPost> imgs, int albumId ) {
             int photoCount = imgs.Count;
             String photoHtml = "";
             foreach (PhotoPost post in imgs) {
-                photoHtml += string.Format( "<a href='{0}'><img src='{1}'/></a> ", alink.ToAppData( post ), post.ImgThumbUrl );
+                photoHtml += string.Format( "<a href=\"{0}\" class=\"feed-pic-item\"><img src=\"{1}\"/></a> ", alink.ToAppData( post ), post.ImgThumbUrl );
             }
 
-            String templateData = string.Format( "photoCount: {0}, photos: \"{1}\" ", photoCount, photoHtml );
-            templateData = "{" + templateData + "}";
-            TemplateBundle tplBundle = TemplateBundle.GetPhotoTemplateBundle();
-            feedService.publishUserAction( (User)ctx.viewer.obj, typeof( PhotoPost ).FullName, tplBundle.Id, templateData, "", ctx.Ip );
+            PhotoAlbum album = db.find<PhotoAlbum>( "Id=" + albumId ).first();
 
-            echoRedirectPart( lang( "opok" ), to( new MyController().My ), 1 );
+            String lnkAlbum = to( new wojilu.Web.Controller.Photo.PhotoController().Album, albumId );
+
+            String msg = string.Format( "<div class=\"feed-item-title\">上传了{0}张图片到专辑 <a href=\"{1}\">{2}</a></div>", photoCount, lnkAlbum, album.Name );
+            msg += string.Format( "<div class=\"feed-item-body\">{0}</div>", photoHtml );
+
+            new MicroblogService().Add( imgs[0].Creator, msg, typeof( PhotoPost ).FullName, imgs[0].Id, ctx.Ip );
         }
 
         private PhotoPost newPost( String photoName, String imgPath, int albumId, int systemCategoryId ) {

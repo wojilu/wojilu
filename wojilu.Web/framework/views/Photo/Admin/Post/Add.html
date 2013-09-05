@@ -31,6 +31,9 @@
 
 <script type="text/javascript">
 <!--
+
+var arrIds = [];
+
 _run( function() {
 	$('#uploadPhotoForm').submit( function() {
 		var catid = $('#SystemCategoryId').val();
@@ -71,13 +74,19 @@ _run( function() {
 
         // 每个文件上传成功之后在这里处理。data是服务端返回的数据。
         cfg.onUploadSuccess = function (file, data, response) {
-            if( data != 'ok' ) {
-                cfg.errors += data + '<br/>';
-                cfg.errorCount += 1;
-            }
-            else {
-                cfg.validCount += 1;
-            }          
+
+            var obj = eval( '('+data+')');
+
+            if( wojilu.str.isJson( obj ) ) {
+                if( obj.IsValid ) {
+                    arrIds.push( obj.Info.Id );
+                    cfg.validCount += 1;
+                }
+                else {
+                    cfg.errors += obj.Msg + '<br/>';
+                    cfg.errorCount += 1;
+                }    
+            }        
         };
 
         cfg.onQueueComplete = function (data) {
@@ -91,6 +100,15 @@ _run( function() {
             cfg.errors = '';
             cfg.validCount = 0;
             cfg.errorCount = 0;
+
+            // 发送feed信息
+            $.post( '#{feedLink}'.toAjax(), {ids:arrIds.join(','), albumId:$('#PhotoAlbumId').val()}, function(data) {
+                if( data=='ok') {
+                }
+                else {
+                    logger.info( data );
+                }
+            });
 
         };
 
