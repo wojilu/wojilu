@@ -39,6 +39,8 @@ namespace wojilu.Web.Controller.Open {
             set( "thisDataTitle", ctx.Get( "dataTitle" ) );
             set( "thisDataUserId", ctx.GetInt( "dataUserId" ) );
             set( "thisAppId", ctx.GetInt( "appId" ) );
+            set( "thisFeedId", ctx.GetInt( "feedId" ) );
+            set( "thisRenumId", ctx.Get( "renumId" ) );
 
             DataPage<OpenComment> datas = commentService.GetByDataDesc( dataType, dataId, pageSize );
             int replies = commentService.GetReplies( dataId, dataType, url );
@@ -259,6 +261,7 @@ namespace wojilu.Web.Controller.Open {
             c.TargetUserId = ctx.PostInt( "dataUserId" );
 
             c.AppId = ctx.PostInt( "appId" );
+            c.FeedId = ctx.PostInt( "feedId" );
 
             c.Ip = ctx.Ip;
             c.Author = userName;

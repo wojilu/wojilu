@@ -12823,27 +12823,26 @@ wojilu.ui.frmUpdate = function(ele) {
 		var frmUrl = $(this).attr( 'href' ).toAjaxFrame();
 		var loadTo = $(this).attr( 'loadTo' );
 		var divLoad = $( '#' + loadTo );		
-        var isHidden = ( divLoad.css( 'display' ) == 'none' );
-        
-        var txt;
-        if( isHidden ) {
-            txt = $(this).text();
-		    $(this).attr( 'txt', txt );
-        }
-        else {
-            txt = $(this).attr( 'txt' );
-        }
-        
-        var txtHidden = $(this).attr( 'txtHidden' );
-        if( !txtHidden ) txtHidden = txt;
+        var isHidden = ( divLoad.css( 'display' ) == 'none' );		
 		
-		if( isHidden==false  ) {
-		    divLoad.hide();
-		    $(this).text( txt );
-		    return;
+		if( isHidden ) {		
+			var txtHidden = $(this).attr( 'txtHidden' );
+			if( txtHidden ) {
+				var htmlInfo = $($(this).wrapInner('<span></span>').html()).hide();
+				$(this).after( htmlInfo );				
+				$(this).html( txtHidden );
+			}
 		}
-		
-		$(this).text( txtHidden );
+		else {
+			var txtHidden = $(this).attr( 'txtHidden' );
+			if( txtHidden ) {
+				var htmlInfo = $(this).next().show();
+				$(this).html( htmlInfo.html() );
+				htmlInfo.remove();
+			}
+			divLoad.hide();
+			return;
+		}
 		
 		var xwidth = divLoad.parent().width();
         

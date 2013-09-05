@@ -42,6 +42,8 @@ namespace wojilu.Common.Comments {
 
         public int AppId { get; set; }
 
+        public int FeedId { get; set; }
+
         public int ParentId { get; set; }
         public int AtId { get; set; } // 被at的评论，不是被at的作者
 

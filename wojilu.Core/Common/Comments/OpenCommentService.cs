@@ -6,6 +6,7 @@ using wojilu.Common.Msg.Service;
 using wojilu.Members.Users.Domain;
 using wojilu.Common.Msg.Enum;
 using wojilu.Common.AppBase.Interface;
+using wojilu.Common.Microblogs.Domain;
 
 namespace wojilu.Common.Comments {
 
@@ -368,19 +369,32 @@ namespace wojilu.Common.Comments {
         private static void updateTargetReplies( OpenComment c, int replies ) {
             Type targetType = Entity.GetType( c.TargetDataType );
             ICommentTarget target = ndb.findById( targetType, c.TargetDataId ) as ICommentTarget;
-            if (target == null) return;
-            target.Replies = replies;
-            db.update( target );
+            if (target != null) {
+                target.Replies = replies;
+                db.update( target );
+            }
 
-            if (c.AppId <= 0) return;
-            Type appType = target.GetAppType();
-            if (appType == null) return;
+            // feed replies
+            if (c.FeedId > 0) {
+                Microblog mblog = Microblog.findById( c.FeedId );
+                if (mblog != null) {
+                    mblog.Replies = replies;
+                    mblog.update();
+                }
+            }
 
-            ICommentApp app = ndb.findById( appType, c.AppId ) as ICommentApp;
-            if (app == null) return;
-            int appCount = OpenComment.count( "AppId=" + c.AppId + " and TargetDataType='" + c.TargetDataType + "'" );
-            app.CommentCount = appCount;
-            db.update( app );
+            if (c.AppId > 0) {
+                Type appType = target.GetAppType();
+                if (appType != null) {
+
+                    ICommentApp app = ndb.findById( appType, c.AppId ) as ICommentApp;
+                    if (app != null) {
+                        int appCount = OpenComment.count( "AppId=" + c.AppId + " and TargetDataType='" + c.TargetDataType + "'" );
+                        app.CommentCount = appCount;
+                        db.update( app );
+                    }
+                }
+            }
         }
 
         private static void clearRootTargetRepliesByData( int dataId, string dataType ) {

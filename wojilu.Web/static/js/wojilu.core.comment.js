@@ -234,7 +234,8 @@
             dataType: objX.thisDataType,
             dataUserId: objX.thisDataUserId,
             dataId: objX.thisDataId,
-            appId: objX.thisAppId
+            appId: objX.thisAppId,
+			feedId: objX.thisFeedId
         };
 
         loadBegin(ctxForm);
@@ -244,7 +245,7 @@
             if ('ok' == data) {
                 appendComment(cmContent, parentId, objX);
                 txtCommentBody.val('');
-                addReplyCount();
+                addReplyCount(objX);
 				resizeParent();
             }
             else {
@@ -267,14 +268,19 @@
     }
 
     // 绑定所有评论数量(在当前页和父页面)
-    function bindReplyCount( replies ) {
+    function bindReplyCount( replies, objX ) {
         $('#replies').text( replies );
-        $('#contentReplies', window.parent.document ).text( replies );
+		if( objX.thisRenumId ) {
+			$('#'+objX.thisRenumId, window.parent.document ).text( replies );
+		}
+		else {
+			$('#contentReplies', window.parent.document ).text( replies );
+		}
     }
 
-    function addReplyCount() {
+    function addReplyCount(objX) {
         var replies = parseInt( $('#replies').text() ); 
-        bindReplyCount( replies + 1 );
+        bindReplyCount( replies + 1,objX );
     }
 
     function bindUserInfo( objX ) {
@@ -288,7 +294,7 @@
     function bindCommentEvent( objX ) {
 
         bindUserInfo( objX );
-        bindReplyCount( objX.replies );
+        bindReplyCount( objX.replies, objX );
 
         bindReplyEvent( objX );
         bindSubReplyEvent( objX );

@@ -10,12 +10,13 @@ using System.Collections.Generic;
 using wojilu.Drawing;
 using wojilu.Common.AppBase.Interface;
 using wojilu.Common.Microblogs.Interface;
+using wojilu.Common.Comments;
 
 namespace wojilu.Common.Microblogs.Domain {
 
 
     [Serializable]
-    public class Microblog : ObjectBase<Microblog>, IAppData, ILike {
+    public class Microblog : ObjectBase<Microblog>, IAppData, ILike, ICommentTarget {
 
         public String DataType { get; set; }
         public int DataId { get; set; }
@@ -151,6 +152,11 @@ namespace wojilu.Common.Microblogs.Domain {
         public int AccessStatus { get { return 0; } set { } }
 
         #endregion
+
+
+        public Type GetAppType() {
+            return null;
+        }
     }
 
 }

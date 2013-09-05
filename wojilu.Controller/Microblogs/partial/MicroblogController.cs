@@ -167,17 +167,20 @@ namespace wojilu.Web.Controller.Microblogs {
             bindVideoInfo( block, blog ); // 视频信息
 
             // 评论数
-            String replies = blog.Replies > 0 ? "(" + blog.Replies + ")" : "";
-            block.Set( "blog.Replies", replies );
+            //String replies = blog.Replies > 0 ? "(" + blog.Replies + ")" : "";
+            //block.Set( "blog.Replies", replies );
+
+            block.Set( "blog.StrReplies", blog.Replies == 0 ? "" : string.Format( "<span class=\"feed-replies\">(<span class=\"feed-replies-num\" id=\"renum{1}\">{0}</span>)</span>", blog.Replies, blog.Id ) );
+
             block.Set( "blog.StrLikes", blog.Likes == 0 ? "" : string.Format( "<span class=\"feed-likes\">(<span class=\"feed-likes-num\">{0}</span>)</span>", blog.Likes ) );
             block.Set( "blog.SaveLikeLink", to( SaveLike, blog.Id ) );
-                
+
 
             // 转发数
             String reposts = blog.Reposts > 0 ? "(" + blog.Reposts + ")" : "";
             block.Set( "blog.Reposts", reposts );
 
-            block.Set( "blog.CommentsLink", to( new MicroblogCommentsController().Show, blog.Id ) );
+            block.Set( "blog.CommentsLink", getCommentUrl( blog ) );
             block.Set( "blog.ForwardUrl", to( Forward, blog.Id ) );
             block.Set( "blog.FavoriteCmd", getFavoriteCmd( blog, isFavorite ) ); // 收藏命令
 
@@ -187,6 +190,18 @@ namespace wojilu.Web.Controller.Microblogs {
                 deleteCmd = string.Format( "<a href=\"{0}\" class=\"left10 ajaxDeleteCmd\" removeId=\"mblog{1}\">删除</a>", to( new Microblogs.My.MicroblogController().Delete, blog.Id ), blog.Id );
             }
             block.Set( "blog.DeleteCmd", deleteCmd );
+        }
+
+        private string getCommentUrl( Microblog x ) {
+
+            String dataType = strUtil.IsNullOrEmpty( x.DataType ) ? typeof( Microblog ).FullName : x.DataType;
+            int dataId = x.DataId <= 0 ? x.Id : x.DataId;
+
+            return t2( new wojilu.Web.Controller.Open.CommentController().List )
+                + "?dataType=" + dataType
+                + "&dataId=" + dataId
+                + "&dataUserId=" + x.Creator.Id
+                + "&feedId=" + x.Id;
         }
 
         private void bindRepost( IBlock block, Microblog blog ) {
