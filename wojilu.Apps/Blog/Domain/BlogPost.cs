@@ -12,11 +12,12 @@ using wojilu.Common.Jobs;
 using wojilu.Common.AppBase.Interface;
 using wojilu.Common;
 using wojilu.Common.Comments;
+using wojilu.Common.Microblogs.Interface;
 
 namespace wojilu.Apps.Blog.Domain {
 
     [Serializable]
-    public class BlogPost : ObjectBase<BlogPost>, IAppData, IShareData, IHits, ICommentTarget {
+    public class BlogPost : ObjectBase<BlogPost>, IAppData, IShareData, IHits, ICommentTarget, ILike {
 
         public IShareInfo GetShareInfo() {
             return new BlogPostFeed( this );
@@ -60,6 +61,7 @@ namespace wojilu.Apps.Blog.Domain {
         public int IsTop { get; set; }
 
         public int Replies { get; set; }
+        public int Likes { get; set; }
 
         [TinyInt]
         public int SaveStatus { get; set; }

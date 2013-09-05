@@ -9,12 +9,13 @@ using wojilu.Members.Users.Domain;
 using System.Collections.Generic;
 using wojilu.Drawing;
 using wojilu.Common.AppBase.Interface;
+using wojilu.Common.Microblogs.Interface;
 
 namespace wojilu.Common.Microblogs.Domain {
 
 
     [Serializable]
-    public class Microblog : ObjectBase<Microblog>, IAppData {
+    public class Microblog : ObjectBase<Microblog>, IAppData, ILike {
 
         public String DataType { get; set; }
         public int DataId { get; set; }
@@ -32,6 +33,7 @@ namespace wojilu.Common.Microblogs.Domain {
 
         public int Replies { get; set; }
         public int Reposts { get; set; } // 转发数量
+        public int Likes { get; set; }
 
         public DateTime Created { get; set; }
 

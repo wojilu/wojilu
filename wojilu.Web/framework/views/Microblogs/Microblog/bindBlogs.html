@@ -50,12 +50,16 @@
 		        <div style="margin-bottom:10px">			
 		        <table style="width:100%;">
 		            <tr>
-		                <td style="width:220px; vertical-align:top;" class="note">
+		                <td style="width1:220px; vertical-align:top;" class="note">
 		                    <a href="#{blog.ShowLink}" style="color:#666;">#{blog.Created}</a> 
 		                    <span class="left15">通过网页</span></td>
 		                <td style="text-align:right; " class="mbTool">
-		                    <a class="frmBox right10" href="#{blog.ForwardUrl}" title="转发到我的微博" xwidth="420">转发#{blog.Reposts}</a>|
-		                    <span class="favCmd">#{blog.FavoriteCmd}|</span>
+                            <span class="feed-like-wrap link" data-id="#{blog.Id}" data-link="#{blog.SaveLikeLink}">赞#{blog.StrLikes}</span>
+                            <span class="feed-cmd-separator">|</span> 
+		                    <a class="frmBox right10" href="#{blog.ForwardUrl}" title="转发到我的微博" xwidth="420">转发#{blog.Reposts}</a>
+                            <span class="feed-cmd-separator">|</span> 
+		                    <span class="favCmd">#{blog.FavoriteCmd}</span>
+                            <span class="feed-cmd-separator">|</span> 
 		                    <span class="left10 frmUpdate link" href="#{blog.CommentsLink}" loadTo="commentList#{blog.Id}" txtHidden="_{hideComment}">_{comment}#{blog.Replies}</span>
 		                    #{blog.DeleteCmd}	
 		                </td>

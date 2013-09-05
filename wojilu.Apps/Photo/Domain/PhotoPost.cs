@@ -16,11 +16,12 @@ using wojilu.Common.AppBase.Interface;
 using wojilu.Common;
 using wojilu.Common.Comments;
 using wojilu.Apps.Photo.Helper;
+using wojilu.Common.Microblogs.Interface;
 
 namespace wojilu.Apps.Photo.Domain {
 
     [Serializable]
-    public class PhotoPost : ObjectBase<PhotoPost>, IAppData, IShareData, IHits, ICommentTarget {
+    public class PhotoPost : ObjectBase<PhotoPost>, IAppData, IShareData, IHits, ICommentTarget, ILike {
 
         public int AppId { get; set; }
         public int SysCategoryId { get; set; }

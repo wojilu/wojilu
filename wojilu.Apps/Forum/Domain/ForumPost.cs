@@ -11,11 +11,12 @@ using wojilu.Apps.Forum.Interface;
 using wojilu.Common.Tags;
 using wojilu.Common;
 using wojilu.Common.AppBase.Interface;
+using wojilu.Common.Microblogs.Interface;
 
 namespace wojilu.Apps.Forum.Domain {
 
     [Serializable]
-    public class ForumPost : ObjectBase<ForumPost>, IPost, IAppData, IShareData, IHits {
+    public class ForumPost : ObjectBase<ForumPost>, IPost, IAppData, IShareData, IHits, ILike {
 
         public int AppId { get; set; }
         public int ForumBoardId { get; set; }
@@ -52,6 +53,7 @@ namespace wojilu.Apps.Forum.Domain {
 
         public int Status { get; set; }
         public int Hits { get; set; }
+        public int Likes { get; set; }
 
         [Column( Length = 40 )]
         public String Ip { get; set; }

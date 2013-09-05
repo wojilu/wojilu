@@ -11,11 +11,12 @@ using wojilu.Common.Tags;
 using wojilu.Common;
 using wojilu.Common.AppBase;
 using wojilu.Common.AppBase.Interface;
+using wojilu.Common.Microblogs.Interface;
 
 namespace wojilu.Apps.Forum.Domain {
 
     [Serializable]
-    public class ForumTopic : ObjectBase<ForumTopic>, IPost, IAppData, IShareData, ISort, IHits {
+    public class ForumTopic : ObjectBase<ForumTopic>, IPost, IAppData, IShareData, ISort, IHits, ILike {
 
         public User Creator { get; set; }
         public String CreatorUrl { get; set; }
@@ -70,6 +71,7 @@ namespace wojilu.Apps.Forum.Domain {
         public DateTime Replied { get; set; }
         public int Replies { get; set; }
         public int LastReById { get; set; }
+        public int Likes { get; set; }
 
         // 原始存储的值
         public String RepliedUserFriendUrl { get; set; } 

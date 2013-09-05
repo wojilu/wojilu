@@ -266,6 +266,61 @@ namespace wojilu.Web.Controller.Microblogs {
         //------------------------------------------------------------------------------------------------
 
         [HttpPost, DbTransaction]
+        public void SaveLike( int mid ) {
+
+            if (ctx.viewer.IsLogin == false) {
+                echoJsonMsg( "请先登录", false, "" );
+                return;
+            }
+
+            if (mid <= 0) {
+                echoText( "mid=" + mid );
+                return;
+            }
+
+            Microblog microblog = Microblog.findById( mid );
+            if (microblog == null) {
+                echoText( "microblog is null. mid=" + mid );
+                return;
+            }
+
+            // 检查是否已经like
+            MicroblogLike flike = MicroblogLike.find( "UserId=" + ctx.viewer.Id + " and MicroblogId=" + mid ).first();
+            if (flike != null) {
+                echoText( "您已经赞过" );
+                return;
+            }
+
+            microblog.Likes = microblog.Likes + 1;
+            microblog.update();
+
+            MicroblogLike microblogLike = new MicroblogLike();
+            microblogLike.User = ctx.viewer.obj as User;
+            microblogLike.Microblog = microblog;
+            microblogLike.Ip = ctx.Ip;
+            microblogLike.insert();
+
+            // target likes
+            if (strUtil.HasText( microblog.DataType )) {
+
+                Type targetType = Entity.GetType( microblog.DataType );
+                if (targetType != null) {
+                    ILike target = ndb.findById( targetType, microblog.DataId ) as ILike;
+                    if (target != null) {
+                        target.Likes = microblog.Likes;
+                        db.update( target );
+                    }
+
+                }
+
+            }
+
+            echoAjaxOk();
+        }
+
+        //------------------------------------------------------------------------------------------------
+
+        [HttpPost, DbTransaction]
         public void Follow() {
 
             if (ctx.viewer.IsLogin == false) errors.Add( "请先登录" );

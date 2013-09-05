@@ -51,6 +51,33 @@
         $('#bntClose').click( function() {
             $(this).parent().parent().toggle('fast');
         });
+		
+        // -------------------------------------------------------------------------
+
+        $('.feed-like-wrap').live('click', function () {
+
+            var feedId = $(this).attr('data-id');
+            var _this = $(this);
+
+			var url = $(this).attr( 'data-link' ).toAjax();
+            $.post(url, { 'feedId': feedId }, function (data) {
+                if (data != 'ok') {
+                    alert(data);
+                    return;
+                }
+
+                var num = $('.feed-likes-num', _this);
+                if (!num || num.length == 0) {
+                    _this.append('<span class="feed-likes">(<span class="feed-likes-num">1</span>)</span>');
+                }
+                else {
+                    var newNum = parseInt(num.text()) + 1;
+                    num.text(newNum);
+                }
+            });
+
+
+        });
 
         // -------------------------------------------------------------------------
         $('.addFavorite').click( function() {

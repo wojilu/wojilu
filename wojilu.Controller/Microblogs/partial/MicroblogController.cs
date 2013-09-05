@@ -169,6 +169,9 @@ namespace wojilu.Web.Controller.Microblogs {
             // 评论数
             String replies = blog.Replies > 0 ? "(" + blog.Replies + ")" : "";
             block.Set( "blog.Replies", replies );
+            block.Set( "blog.StrLikes", blog.Likes == 0 ? "" : string.Format( "<span class=\"feed-likes\">(<span class=\"feed-likes-num\">{0}</span>)</span>", blog.Likes ) );
+            block.Set( "blog.SaveLikeLink", to( SaveLike, blog.Id ) );
+                
 
             // 转发数
             String reposts = blog.Reposts > 0 ? "(" + blog.Reposts + ")" : "";
