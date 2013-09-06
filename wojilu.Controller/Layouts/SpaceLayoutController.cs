@@ -22,6 +22,8 @@ using wojilu.Members.Sites.Domain;
 using wojilu.Web.Mvc.Attr;
 using System.Collections.Generic;
 using wojilu.Common;
+using wojilu.Common.Microblogs.Service;
+using wojilu.Common.Microblogs.Interface;
 
 namespace wojilu.Web.Controller.Layouts {
 
@@ -32,6 +34,7 @@ namespace wojilu.Web.Controller.Layouts {
         public IVisitorService visitorService { get; set; }
         public IMenuService menuService { get; set; }
         public ISiteSkinService siteSkinService { get; set; }
+        public IMicroblogService microblogService { get; set; }
 
         public SpaceLayoutController() {
             skinService = new SkinService();
@@ -39,6 +42,7 @@ namespace wojilu.Web.Controller.Layouts {
             visitorService = new VisitorService();
             menuService = new UserMenuService();
             siteSkinService = new SiteSkinService();
+            microblogService = new MicroblogService();
         }
 
         public override void Layout() {
@@ -107,13 +111,18 @@ namespace wojilu.Web.Controller.Layouts {
             User owner = ctx.owner.obj as User;
 
             set( "owner.Name", owner.Name );
-            set( "owner.Pic", owner.PicSmall );
+            set( "owner.Pic", owner.PicM );
 
             set( "owner.EditProfile", Link.To( owner, new UserProfileController().Profile ) );
             set( "owner.EditContact", Link.To( owner, new UserProfileController().Contact ) );
             set( "owner.EditInterest", Link.To( owner, new UserProfileController().Interest ) );
             set( "owner.EditPic", Link.To( owner, new UserProfileController().Face ) );
             set( "owner.EditPwd", Link.To( owner, new UserProfileController().Pwd ) );
+
+            int microblogCount = microblogService.CountByUser( owner.Id );
+            set( "user.MicroblogCount", microblogCount );
+
+            bindStats( owner );
 
 
             IList userAppList = userAppService.GetByMember( ctx.owner.Id );
@@ -158,6 +167,16 @@ namespace wojilu.Web.Controller.Layouts {
             }
 
 
+        }
+
+        private void bindStats( User user ) {
+            set( "user.FollowingCount", (user.FriendCount + user.FollowingCount) );
+            set( "user.FollowersCount", (user.FollowersCount + user.FriendCount) );
+
+            set( "user.FollowingLink", t2( new Users.FriendController().FollowingList ) );
+            set( "user.FollowerLink", t2( new Users.FriendController().FollowerList ) );
+
+            set( "user.HomeLink", t2( new Users.Admin.HomeController().Index, user.Id ) );
         }
 
         private void visitSpace() {

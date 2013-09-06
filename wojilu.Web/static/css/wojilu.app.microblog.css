@@ -33,9 +33,12 @@ div.mblogOne {border-bottom:1px #ccc dotted;margin:10px 10px 30px 10px}
 #cmdCancelFollow span#followed {background:url("../img/oks.gif") no-repeat; background-position:0px 2px; padding-left:15px;margin-right:20px;}
 #cmdCancelFollow span#cancelFollow {cursor:pointer; color:#333}
 
+.mb-delete { font-weight:normal; font-size:12px;}
+.mb-delete a { color:#aaa;}
 .feed-item-title { font-weight:bold; margin-bottom:5px; color:#333;}
 .feed-pic-item {display:block;float:left;width:120px;height:120px;border:1px solid #ccc;margin:0px 10px 10px 0px; text-align:center;padding:5px;}
 .feed-pic-item img {max-width:116px; max-height:116px;}
+.feed-cmd-separator {margin-left:5px;margin-right:5px;}
 
 
 .mbTool {color:#b9b5d2;}

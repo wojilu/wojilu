@@ -218,11 +218,6 @@ namespace wojilu.Web.Controller.Users.Admin {
             set( "user.MLink", to( Index, user.Id ) );
             set( "user.Signature", user.Signature );
             set( "user.Description", user.Profile.Description );
-
-            int microblogCount = microblogService.CountByUser( user.Id );
-            set( "user.MicroblogCount", microblogCount );
-
-            bindStats( user );
         }
 
         private String getFullUrl( String url ) {
@@ -247,13 +242,7 @@ namespace wojilu.Web.Controller.Users.Admin {
             return "<div id=\"cmdFollow\"><span>加关注</span></div>";
         }
 
-        private void bindStats( User user ) {
-            set( "user.FollowingCount", (user.FriendCount + user.FollowingCount) );
-            set( "user.FollowersCount", (user.FollowersCount + user.FriendCount) );
 
-            set( "user.FollowingLink", t2( new Users.FriendController().FollowingList ) );
-            set( "user.FollowerLink", t2( new Users.FriendController().FollowerList ) );
-        }
 
         private void bindUsers( List<User> users, String blockName ) {
 

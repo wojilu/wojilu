@@ -184,7 +184,7 @@ namespace wojilu.Web.Controller.Microblogs {
             // 删除命令
             String deleteCmd = "";
             if (ctx.viewer.Id == blog.User.Id) {
-                deleteCmd = string.Format( "<a href=\"{0}\" class=\"left10 ajaxDeleteCmd\" removeId=\"mblog{1}\">删除</a>", to( new Microblogs.My.MicroblogController().Delete, blog.Id ), blog.Id );
+                deleteCmd = string.Format( "<a href=\"{0}\" class=\"left10 ajaxDeleteCmd\" removeId=\"mblog{1}\">x</a>", to( new Microblogs.My.MicroblogController().Delete, blog.Id ), blog.Id );
             }
             block.Set( "blog.DeleteCmd", deleteCmd );
         }

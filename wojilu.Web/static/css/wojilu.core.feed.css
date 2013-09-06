@@ -1,15 +1,13 @@
 ﻿
 
+
+
 #addBlogLink {background:url("../img/talk.gif") no-repeat 0px 2px; padding-left:15px; }
 
 
 
 div.mblogOne {border-bottom:1px #ccc dotted;margin:10px 10px 20px 10px}
 
-.mbStats {width2:90%;margin:20px 10px;}
-.mbStats td {padding:0px 10px; text-align:center;}
-
-.mbStatsNo {font-size:20px; font-weight:bold;width2:33%; }
 
 .mbMainWrap {float:left;border-right:1px dotted #ccc;background:#fff;width:72%;}
 
@@ -25,9 +23,12 @@ div.mblogOne {border-bottom:1px #ccc dotted;margin:10px 10px 20px 10px}
 #cmdCancelFollow span#followed {background:url("../img/oks.gif") no-repeat; background-position:0px 2px; padding-left:15px;margin-right:20px;}
 #cmdCancelFollow span#cancelFollow {cursor:pointer; color:#333}
 
+.mb-delete { font-weight:normal; font-size:12px;}
+.mb-delete a { color:#aaa;}
 .feed-item-title { font-weight:bold; margin-bottom:5px; color:#333;}
 .feed-pic-item {display:block;float:left;width:120px;height:120px;border:1px solid #ccc;margin:0px 10px 10px 0px; text-align:center;padding:5px;}
 .feed-pic-item img {max-width:116px; max-height:116px;}
+.feed-cmd-separator {margin-left:5px;margin-right:5px;}
 
 .mbTool {color:#b9b5d2;}
 .mbTool span.link{color:#b27a57;}
