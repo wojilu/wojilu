@@ -163,6 +163,7 @@
             var picUrl = $( '#picUrl' ).val();
             var videoId = $( '#videoId' ).val();
             var srcType = $('#srcType' ).val();
+			var returnUrl = $('#returnUrl').val();
 
             if( wojilu.str.isNull( mycontent ) ) {			
                 $('#loading').html( '' );
@@ -217,7 +218,12 @@
                         }, 2000 );
                     }
                     else {
-                        wojilu.tool.getRootParent().wojilu.tool.forward( msg.ForwardUrl,0);
+						if( returnUrl ) {
+							wojilu.tool.getRootParent().wojilu.tool.forward( returnUrl,0);
+						}
+						else {
+							wojilu.tool.getRootParent().wojilu.tool.forward( msg.ForwardUrl,0);
+						}
                     }
                 }
                 else {

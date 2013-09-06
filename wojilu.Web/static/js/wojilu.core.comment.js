@@ -17,6 +17,8 @@
                 $('.btnComment', clonedForm).after('<input name="parentId" type="hidden" value="' + $(this).attr('data-ParentId') + '" />');
                 bindSubmitEvent(objX);
             }
+			
+			resizeParent();
             return false;
 
         });
@@ -60,6 +62,8 @@
             txtBody.focus().val(atAuthorInfo);
 
             bindSubmitEvent(objX);
+			
+			resizeParent();
 
             return false;
         });
@@ -235,6 +239,7 @@
             dataUserId: objX.thisDataUserId,
             dataId: objX.thisDataId,
             appId: objX.thisAppId,
+			ownerId: objX.thisOwnerId,
 			feedId: objX.thisFeedId
         };
 

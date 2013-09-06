@@ -32,33 +32,8 @@ namespace wojilu.Web.Controller.Microblogs.My {
 
         public void My() {
 
-            load( "publisher", new Microblogs.My.MicroblogController().Publisher );
+            content( loadHtml( new wojilu.Web.Controller.Users.Admin.HomeController().Comment ) );
 
-
-            DataPage<MicroblogComment> list = commentService.GetPageByUser( ctx.owner.Id, 25 );
-
-            IBlock block = getBlock( "list" );
-
-            foreach (MicroblogComment c in list.Results) {
-
-                if (c.Root == null) continue;
-
-                block.Set( "c.UserName", c.User.Name );
-                block.Set( "c.UserFace", c.User.PicSmall );
-                block.Set( "c.UserLink", toUser( c.User ) );
-                block.Set( "c.UserName", c.User.Name );
-
-                block.Set( "c.Created", c.Created );
-                block.Set( "c.Content", c.Content );
-
-                block.Set( "c.Microblog", strUtil.CutString( c.Root.Content, 20 ) );
-                block.Set( "c.MicroblogLink", to( new wojilu.Web.Controller.Microblogs.MicroblogController().Show, c.Root.Id ) );
-
-                block.Next();
-
-            }
-
-            set( "page", list.PageBar );
         }
 
         [HttpDelete, DbTransaction]

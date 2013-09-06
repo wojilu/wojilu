@@ -38,6 +38,7 @@ namespace wojilu.Web.Controller.Open {
             set( "thisDataId", dataId );
             set( "thisDataTitle", ctx.Get( "dataTitle" ) );
             set( "thisDataUserId", ctx.GetInt( "dataUserId" ) );
+            set( "thisOwnerId", ctx.GetInt( "ownerId" ) );
             set( "thisAppId", ctx.GetInt( "appId" ) );
             set( "thisFeedId", ctx.GetInt( "feedId" ) );
             set( "thisRenumId", ctx.Get( "renumId" ) );
@@ -260,6 +261,7 @@ namespace wojilu.Web.Controller.Open {
             c.TargetTitle = ctx.Post( "dataTitle" );
             c.TargetUserId = ctx.PostInt( "dataUserId" );
 
+            c.OwnerId = ctx.PostInt( "ownerId" );
             c.AppId = ctx.PostInt( "appId" );
             c.FeedId = ctx.PostInt( "feedId" );
 

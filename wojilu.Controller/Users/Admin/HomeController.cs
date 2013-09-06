@@ -16,6 +16,7 @@ using wojilu.Common.Microblogs.Interface;
 using wojilu.Web.Controller.Admin;
 using wojilu.Common;
 using wojilu.Common.Microblogs;
+using wojilu.Common.Comments;
 
 namespace wojilu.Web.Controller.Users.Admin {
 
@@ -26,9 +27,9 @@ namespace wojilu.Web.Controller.Users.Admin {
         public IFollowerService followService { get; set; }
         public IVisitorService visitorService { get; set; }
         public MicroblogFavoriteService mfService { get; set; }
-        public MicroblogCommentService commentService { get; set; }
         public MicroblogAtService matService { get; set; }
         public MicroblogFavoriteService favoriteService { get; set; }
+        public IOpenCommentService commentService { get; set; }
 
         public IVideoSpider videoSpider { get; set; }
 
@@ -39,9 +40,9 @@ namespace wojilu.Web.Controller.Users.Admin {
             followService = new FollowerService();
             visitorService = new VisitorService();
             mfService = new MicroblogFavoriteService();
-            commentService = new MicroblogCommentService();
             matService = new MicroblogAtService();
             videoSpider = new WojiluVideoSpider();
+            commentService = new OpenCommentService();
         }
 
         public override void Layout() {
@@ -125,6 +126,7 @@ namespace wojilu.Web.Controller.Users.Admin {
 
 
             load( "publisher", Publisher );
+            set( "homeLink", to( Index, ctx.owner.Id ) );
 
             set( "user.Name", ctx.owner.obj.Name );
 
@@ -148,6 +150,7 @@ namespace wojilu.Web.Controller.Users.Admin {
         public void Favorite() {
 
             load( "publisher", Publisher );
+            set( "homeLink", to( Index, ctx.owner.Id ) );
 
             DataPage<Microblog> list = favoriteService.GetBlogPage( ctx.owner.Id, 25 );
 
@@ -158,32 +161,37 @@ namespace wojilu.Web.Controller.Users.Admin {
             load( "flist", new wojilu.Web.Controller.Microblogs.MicroblogController().bindBlogs );
 
             set( "page", list.PageBar );
-
         }
-
 
         public void Comment() {
 
             load( "publisher", Publisher );
+            set( "homeLink", to( Index, ctx.owner.Id ) );
 
-            DataPage<MicroblogComment> list = commentService.GetPageByUser( ctx.owner.Id, 25 );
+            DataPage<OpenComment> list = commentService.GetByMicroblogOwnerId( ctx.owner.Id );
 
             IBlock block = getBlock( "list" );
 
-            foreach (MicroblogComment c in list.Results) {
+            foreach (OpenComment c in list.Results) {
 
-                if (c.Root == null) continue;
-
-                block.Set( "c.UserName", c.User.Name );
-                block.Set( "c.UserFace", c.User.PicSmall );
-                block.Set( "c.UserLink", toUser( c.User ) );
-                block.Set( "c.UserName", c.User.Name );
+                block.Set( "c.UserName", c.Member.Name );
+                block.Set( "c.UserFace", c.Member.PicSmall );
+                block.Set( "c.UserLink", toUser( c.Member ) );
+                block.Set( "c.UserName", c.Member.Name );
 
                 block.Set( "c.Created", c.Created );
                 block.Set( "c.Content", c.Content );
 
-                block.Set( "c.Microblog", strUtil.CutString( c.Root.Content, 20 ) );
-                block.Set( "c.MicroblogLink", to( new wojilu.Web.Controller.Microblogs.MicroblogController().Show, c.Root.Id ) );
+                Microblog blog = microblogService.GetById( c.FeedId );
+                if (blog == null) {
+                    block.Set( "c.Microblog", "--" );
+                    block.Set( "c.MicroblogLink", "#" );
+                }
+                else {
+
+                    block.Set( "c.Microblog", blog.Content );
+                    block.Set( "c.MicroblogLink", to( new wojilu.Web.Controller.Microblogs.MicroblogController().Show, c.FeedId ) );
+                }
 
                 block.Next();
 
@@ -196,7 +204,7 @@ namespace wojilu.Web.Controller.Users.Admin {
         private void bindUserInfo( User user ) {
             set( "siteName", config.Instance.Site.SiteName );
             set( "microblogHomeLink", getFullUrl( alink.ToMicroblog() ) );
-            //set( "homeLink", to( Home ) );
+            set( "homeLink", to( Index, user.Id ) );
             set( "favoriteLink", to( Favorite ) );
             set( "atmeLink", to( Atme ) );
             set( "myCommentLink", to( Comment ) );
@@ -207,7 +215,7 @@ namespace wojilu.Web.Controller.Users.Admin {
 
             set( "user.PicBig", user.PicM );
             set( "user.Link", getFullUrl( toUser( user ) ) );
-            set( "user.MLink", getFullUrl( alink.ToUserMicroblog( user ) ) );
+            set( "user.MLink", to( Index, user.Id ) );
             set( "user.Signature", user.Signature );
             set( "user.Description", user.Profile.Description );
 

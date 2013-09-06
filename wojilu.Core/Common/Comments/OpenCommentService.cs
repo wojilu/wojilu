@@ -66,6 +66,28 @@ namespace wojilu.Common.Comments {
             clearRootTargetRepliesByUrl( url );
         }
 
+        public virtual DataPage<OpenComment> GetByMicroblogOwnerId( int ownerId ) {
+
+            int pageSize = 20;
+
+            DataPage<OpenComment> datas = OpenComment.findPage( "OwnerId=" + ownerId + " and FeedId>0 and ParentId=0", pageSize );
+
+            datas.Results = addSubList( datas.Results, true );
+
+            return datas;
+        }
+
+        public virtual DataPage<OpenComment> GetByDataAndOwnerId( string dataType, int ownerId ) {
+
+            int pageSize = 20;
+
+            DataPage<OpenComment> datas = OpenComment.findPage( "TargetDataType='" + strUtil.SqlClean( dataType, 50 ) + "' and OwnerId=" + ownerId + " and ParentId=0", pageSize );
+
+            datas.Results = addSubList( datas.Results, true );
+
+            return datas;
+        }
+
         public DataPage<OpenComment> GetByDataDesc( String dataType, int dataId ) {
             return GetByDataDesc( dataType, dataId, -1 );
         }

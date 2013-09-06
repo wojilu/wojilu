@@ -40,8 +40,12 @@ namespace wojilu.Common.Comments {
         public String TargetTitle { get; set; }
         public int TargetUserId { get; set; }
 
+        public int OwnerId { get; set; }
         public int AppId { get; set; }
 
+        /// <summary>
+        /// 所属的微博Id，可以将replies同步到微博的replies
+        /// </summary>
         public int FeedId { get; set; }
 
         public int ParentId { get; set; }

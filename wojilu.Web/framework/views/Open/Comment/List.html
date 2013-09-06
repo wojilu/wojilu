@@ -1,9 +1,13 @@
 ﻿<div id="commentWrap">
 <div><a name="commentTop"></a></div>
 <style>
-    .commentPublishTableWrap { width: 92%;background:#f6f6f6;margin:10px 10px 10px 15px; padding:10px; border-radius:5px; box-shadow:0px 1px 8px rgba(0,0,0,0.3); }
-    .commentPublishTable { width:98%; }
-.commentItem {width:100%; margin: 8px; border-bottom: 1px #ccc solid;padding-bottom:10px;}
+.commentPublishTableWrap { width: 90%;background:#f6f6f6;margin:10px 10px 10px 5px; padding:10px; border-radius:5px; box-shadow:0px 1px 8px rgba(0,0,0,0.3); }
+.commentPublishTable { width:98%; }
+
+#commentListWrap {width:95%; border:0px solid blue;}
+
+.commentItem {width:100%; margin: 8px 5px 8px 0px; border-bottom: 1px #ccc solid;padding-bottom:10px;}
+.commentItem:last-child { border-bottom: none;  }
 .commentSubItem {border-bottom: 0px; border-top:1px solid #ccc; padding-bottom:0px; padding-top:8px;}
 .fL { float: left; }
 .commentItem img { border-radius:4px;}
@@ -16,7 +20,7 @@
 </style>
 
 
-    <div style="margin:15px;">
+    <div style="margin:15px 0px;">
         <span style="font-size:16px;font-weight:bold;">评论列表</span> (共 <span id="replies"></span> 条)
         <a href="#{deleteAllLink}" class="left10 ajaxDeleteCmd #{deleteAllHideClass}" removeId="commentListWrapInner" data-callback="clearReplyCount"><img src="~img/delete.gif" /> 删除所有评论</a>    
     </div>
@@ -88,7 +92,7 @@
                         <td class="cmUserFace avs">#{c.UserFace}</td>
                         <td class="cmItemMain">
                             <div><span class="strong">#{c.UserName}</span></div>
-                            <div id="replySubContent#{c.Id}" style="width:420px;">#{c.Content}</div>
+                            <div id="replySubContent#{c.Id}" style="width:100%;">#{c.Content}</div>
                             <div style="color:#666;margin-top:2px;">(#{c.Created})  <span class="hide link left5">支持</span>
                             <span class="hide link left5">收藏</span>
                             <span class="link lnkSubReply left5" data-ParentId="#{c.ParentId}" data-AtId="#{c.Id}" data-Author="#{c.AuthorText}">回复</span>
@@ -149,6 +153,7 @@
             thisDataType: '#{thisDataType}',
             thisDataUserId: #{thisDataUserId},
             thisDataId: #{thisDataId},
+            thisOwnerId: #{thisOwnerId},
             thisAppId: #{thisAppId},
             thisFeedId: #{thisFeedId}
 

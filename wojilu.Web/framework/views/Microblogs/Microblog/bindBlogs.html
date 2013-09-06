@@ -60,7 +60,7 @@
                             <span class="feed-cmd-separator">|</span> 
 		                    <span class="favCmd">#{blog.FavoriteCmd}</span>
                             <span class="feed-cmd-separator">|</span> 
-		                    <span class="left10 frmUpdate link" href="#{blog.CommentsLink}&renumId=renum#{blog.Id}" loadTo="commentList#{blog.Id}" txtHidden="_{hideComment}">_{comment}#{blog.StrReplies}</span>
+		                    <span class="left10 frmUpdate link" id="comment-cmd-#{blog.Id}" href="#{blog.CommentsLink}&renumId=renum#{blog.Id}" loadTo="commentList#{blog.Id}" txtHidden="_{hideComment}">_{comment}#{blog.StrReplies}</span>
 		                    #{blog.DeleteCmd}	
 		                </td>
 		            </tr>

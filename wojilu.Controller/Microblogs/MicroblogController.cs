@@ -92,15 +92,10 @@ namespace wojilu.Web.Controller.Microblogs {
                 return;
             }
 
+            set( "blog.Id", id );
+
             // 详细内容：使用通用视图文件
             loadCommonView( blog );
-
-            // 评论列表
-            DataPage<MicroblogComment> comments = commentService.GetComments( id, 20 );
-            IBlock cblock = getBlock( "comments" );
-            bindComments( cblock, comments.Results );
-            String pager = comments.PageCount > 1 ? comments.PageBar : "";
-            set( "page", pager );
 
             // 评论表单
             target( new MicroblogCommentsController().SaveReply );

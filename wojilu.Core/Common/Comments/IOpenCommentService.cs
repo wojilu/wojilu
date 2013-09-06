@@ -16,6 +16,9 @@ namespace wojilu.Common.Comments {
         void DeleteAll( string url, int dataId, string dataType );
         void DeleteBatch( string ids );
 
+        DataPage<OpenComment> GetByMicroblogOwnerId( int ownerId );
+        DataPage<OpenComment> GetByDataAndOwnerId( string dataType, int ownerId );
+
         List<OpenComment> GetByApp( Type type, int appId, int listCount );
 
         DataPage<OpenComment> GetByDataAsc( string dataType, int dataId );
@@ -34,6 +37,7 @@ namespace wojilu.Common.Comments {
         int GetRepliesByUrl( string url );
 
         Result Import( OpenComment c );
+
 
 
     }

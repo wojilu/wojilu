@@ -7,15 +7,23 @@
 <!-- BEGIN list -->
 
     <tr>
-        <td rowspan="2" style="width:60px;"><a href="c.UserLink"><img src="#{c.UserFace}" style="padding:3px; border:1px #eee solid;" /></a></td>
-        <td style="height:25px;"><a href="c.UserLink">#{c.UserName}</a> <span class="note">回复</span> <a href="#{c.MicroblogLink}">#{c.Microblog}</a></td>
-        <td rowspan="2" style="vertical-align:top;width:40px; text-align:right;"><a href="#{c.MicroblogLink}">回复</a></td>
+        <td rowspan="2" style="width:60px; vertical-align:top;"><a href="c.UserLink"><img src="#{c.UserFace}" style="padding:3px; border:1px #eee solid;" /></a></td>
+        <td style="font-size:14px;">
+        <div>评论人：<a href="c.UserLink"><strong>#{c.UserName}</strong></a> <span class="note font12">#{c.Created}</span></div>
+        <div>评论内容：<div style=" font-weight:bold;background:#f2f2f2;  border-radius:5px; padding:5px; margin:5px; ">#{c.Content}</div></div>
+        </td>
+        <td rowspan="2" style="vertical-align:top;width:70px; text-align:right;"><a href="#{c.MicroblogLink}">查看或回复</a></td>
     </tr>
     <tr>
-        <td style="vertical-align:top; font-size:14px;">#{c.Content}<span style="color:#aaa; font-size:12px;margin-left:10px;">at #{c.Created}</span></td>
+        <td style="vertical-align:top; font-size:14px;">原微博：<div style=" font-size:12px; background:#f2f2f2;  border-radius:5px; padding:5px; margin:5px; color:#666;">#{c.Microblog}<div class="clear"></div></div></td>
     </tr>
     <tr><td colspan="3" style="height:20px;"><div style="border-bottom:1px #ccc dotted;"></div></td></tr>
 <!-- END list -->
 </table>
 <div>#{page}</div>
 </div>
+<script>
+    _run(function () {
+        $('#returnUrl').val('#{homeLink}');
+    });
+</script>

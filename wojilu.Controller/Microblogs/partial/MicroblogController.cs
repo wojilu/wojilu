@@ -119,35 +119,35 @@ namespace wojilu.Web.Controller.Microblogs {
         }
 
 
-        private void bindComments( IBlock cblock, List<MicroblogComment> clist ) {
+        //private void bindComments( IBlock cblock, List<MicroblogComment> clist ) {
 
-            foreach (MicroblogComment c in clist) {
+        //    foreach (MicroblogComment c in clist) {
 
-                cblock.Set( "user.Face", c.User.PicSmall );
-                cblock.Set( "user.Link", toUser( c.User ) );
-                cblock.Set( "user.Name", c.User.Name );
-                cblock.Set( "comment.Id", c.Id );
-                cblock.Set( "comment.RootId", c.Root.Id );
-                cblock.Set( "comment.Content", c.Content );
-                cblock.Set( "comment.Created", c.Created );
-                cblock.Set( "comment.Indent", 10 );
-                cblock.Set( "comment.ReplyUrl", to( new MicroblogCommentsController().Reply, c.Root.Id ) + "?parentId=" + c.Id );
+        //        cblock.Set( "user.Face", c.User.PicSmall );
+        //        cblock.Set( "user.Link", toUser( c.User ) );
+        //        cblock.Set( "user.Name", c.User.Name );
+        //        cblock.Set( "comment.Id", c.Id );
+        //        cblock.Set( "comment.RootId", c.Root.Id );
+        //        cblock.Set( "comment.Content", c.Content );
+        //        cblock.Set( "comment.Created", c.Created );
+        //        cblock.Set( "comment.Indent", 10 );
+        //        cblock.Set( "comment.ReplyUrl", to( new MicroblogCommentsController().Reply, c.Root.Id ) + "?parentId=" + c.Id );
 
-                String deleteCmd = "";
-                if (ctx.viewer.Id == ctx.owner.Id || ctx.viewer.IsAdministrator()) {
-                    deleteCmd = string.Format( "<a href=\"{0}\" class=\"ajaxDeleteCmd\" removeId=\"commentItem{1}\">删除</a>",
-                        to( new My.MicroblogCommentsController().Delete, c.Id ),
-                        c.Id );
-                }
-                cblock.Set( "comment.DeleteCmd", deleteCmd );
+        //        String deleteCmd = "";
+        //        if (ctx.viewer.Id == ctx.owner.Id || ctx.viewer.IsAdministrator()) {
+        //            deleteCmd = string.Format( "<a href=\"{0}\" class=\"ajaxDeleteCmd\" removeId=\"commentItem{1}\">删除</a>",
+        //                to( new My.MicroblogCommentsController().Delete, c.Id ),
+        //                c.Id );
+        //        }
+        //        cblock.Set( "comment.DeleteCmd", deleteCmd );
 
-                cblock.Next();
-            }
+        //        cblock.Next();
+        //    }
 
-            if (clist.Count > 0) {
-                ctx.SetItem( "lastComment", clist[clist.Count - 1] );
-            }
-        }
+        //    if (clist.Count > 0) {
+        //        ctx.SetItem( "lastComment", clist[clist.Count - 1] );
+        //    }
+        //}
 
         //--------------------------------------------------------------------------------------------------
 
@@ -167,9 +167,6 @@ namespace wojilu.Web.Controller.Microblogs {
             bindVideoInfo( block, blog ); // 视频信息
 
             // 评论数
-            //String replies = blog.Replies > 0 ? "(" + blog.Replies + ")" : "";
-            //block.Set( "blog.Replies", replies );
-
             block.Set( "blog.StrReplies", blog.Replies == 0 ? "" : string.Format( "<span class=\"feed-replies\">(<span class=\"feed-replies-num\" id=\"renum{1}\">{0}</span>)</span>", blog.Replies, blog.Id ) );
 
             block.Set( "blog.StrLikes", blog.Likes == 0 ? "" : string.Format( "<span class=\"feed-likes\">(<span class=\"feed-likes-num\">{0}</span>)</span>", blog.Likes ) );
@@ -199,7 +196,10 @@ namespace wojilu.Web.Controller.Microblogs {
 
             return t2( new wojilu.Web.Controller.Open.CommentController().List )
                 + "?dataType=" + dataType
+                + "&ownerId=" + x.User.Id
                 + "&dataId=" + dataId
+                + "&dataTitle=(微博" + x.Created.ToShortDateString() + ")" + strUtil.ParseHtml( x.Content, 25 )
+                + "&url=" + alink.ToAppData( x )
                 + "&dataUserId=" + x.Creator.Id
                 + "&feedId=" + x.Id;
         }

@@ -950,7 +950,6 @@
     <Content Include="framework\views\Microblogs\MicroblogComments\Show.html" />
     <Content Include="framework\views\Microblogs\Microblog\Layout.html" />
     <Content Include="framework\views\Microblogs\My\MbSave\SavePicIE.html" />
-    <Content Include="framework\views\Microblogs\My\MicroblogComments\My.html" />
     <Content Include="framework\views\Microblogs\Main\List.html" />
     <Content Include="framework\views\Microblogs\My\Microblog\Publisher.html" />
     <Content Include="framework\views\Photo\Admin\My\Layout.html" />
