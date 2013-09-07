@@ -24,27 +24,26 @@ namespace wojilu.Web.Controller.Admin.Upgrade {
 
         public void BeginImportPage() {
 
-            new ImportHelper<PageComment, Page>().Import( ctx.PostInt( "startId" ), ctx.PostInt( "endId" ) );
-
+            //new ImportHelper<PageComment, Page>().Import( ctx.PostInt( "startId" ), ctx.PostInt( "endId" ) );
             echoAjaxOk();
         }
 
         public void BeginImportPhoto() {
             //new ImportHelper<PhotoPostComment, PhotoPost>().Import( ctx.PostInt( "startId" ), ctx.PostInt( "endId" ) );
-            //echoAjaxOk();
+            echoAjaxOk();
         }
 
         public void BeginImportBlog() {
             //new ImportHelper<BlogPostComment, BlogPost>().Import( ctx.PostInt( "startId" ), ctx.PostInt( "endId" ) );
-            //echoAjaxOk();
+            echoAjaxOk();
         }
 
         public void BeginImportDownload() {
 
-            Type dCommentType = ObjectContext.GetType( "wojilu.Apps.Download.Domain.FileComment" );
-            Type dTargetType = ObjectContext.GetType( "wojilu.Apps.Download.Domain.FileItem" );
+            //Type dCommentType = ObjectContext.GetType( "wojilu.Apps.Download.Domain.FileComment" );
+            //Type dTargetType = ObjectContext.GetType( "wojilu.Apps.Download.Domain.FileItem" );
 
-            new ImportRawHelper().Import( dCommentType, dTargetType, ctx.PostInt( "startId" ), ctx.PostInt( "endId" ) );
+            //new ImportRawHelper().Import( dCommentType, dTargetType, ctx.PostInt( "startId" ), ctx.PostInt( "endId" ) );
             echoAjaxOk();
         }
 

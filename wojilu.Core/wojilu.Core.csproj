@@ -96,10 +96,7 @@
     <Compile Include="Common\Apps\AppInstall\Domain\AppInstallerStatus.cs" />
     <Compile Include="Common\Apps\AppInstall\Domain\AppMemberShip.cs" />
     <Compile Include="Common\Apps\AppInstall\Interface\IAppInstallerService.cs" />
-    <Compile Include="Common\Comments\CommentService.cs" />
-    <Compile Include="Common\Comments\ICommentService.cs" />
     <Compile Include="Common\Comments\ICommentTarget.cs" />
-    <Compile Include="Common\Comments\IFeedComment.cs" />
     <Compile Include="Common\Comments\IOpenCommentService.cs" />
     <Compile Include="Common\Comments\OpenCommentCount.cs" />
     <Compile Include="Common\Comments\OpenCommentService.cs" />
@@ -256,7 +253,6 @@
     <Compile Include="Members\Groups\Service\GroupAppService.cs" />
     <Compile Include="Members\Sites\Service\SiteAppService.cs" />
     <Compile Include="Members\Users\Service\UserAppService.cs" />
-    <Compile Include="Common\Comments\CommentAdminService.cs" />
     <Compile Include="Common\Visitor\IDataVisitor.cs" />
     <Compile Include="Common\Visitor\VisitorService.cs" />
     <Compile Include="Members\Groups\Domain\GroupSkin.cs" />
@@ -290,7 +286,6 @@
     <Compile Include="Common\Msg\Service\NotificationService.cs" />
     <Compile Include="Common\Feeds\Service\ShareService.cs" />
     <Compile Include="Common\Skins\ISkin.cs" />
-    <Compile Include="Common\Pages\Domain\PageComment.cs" />
     <Compile Include="Members\Users\Service\LoginService.cs" />
     <Compile Include="Members\Users\UserInitHelper.cs" />
     <Compile Include="Members\Users\Utils\LoginUtil.cs" />

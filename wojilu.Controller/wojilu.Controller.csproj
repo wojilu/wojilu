@@ -266,12 +266,9 @@
     <Compile Include="Common\Installers\NewsInstaller.cs" />
     <Compile Include="Common\Installers\PortalInstaller.cs" />
     <Compile Include="Common\Installers\UserHomeInstaller.cs" />
-    <Compile Include="Common\CommentAdminController.cs" />
     <Compile Include="Common\CategoryBaseController.cs" />
-    <Compile Include="Common\CommentController.cs" />
     <Compile Include="Common\Jobs\StatsJob.cs" />
     <Compile Include="Common\ObjectBaseController.cs" />
-    <Compile Include="Common\PageCommentController.cs" />
     <Compile Include="Common\Jobs\InviteFriendsJob.cs" />
     <Compile Include="Content\Admin\Common\AttachmentController.cs" />
     <Compile Include="Content\Admin\Section\PostImgController.cs" />
