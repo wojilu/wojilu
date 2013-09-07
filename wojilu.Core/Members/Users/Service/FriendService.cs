@@ -42,8 +42,6 @@ namespace wojilu.Members.Users.Service {
             recountFriends( newRegUser.Id );
             recountFriends( friendId );
 
-            addFeedInfo( ship, ship.Ip );
-
             addNotificationWhenApproved( newRegUser, friendId );
         }
 
@@ -159,32 +157,9 @@ namespace wojilu.Members.Users.Service {
             new FollowerService().DeleteFollow( userId, friendId );
             new FollowerService().DeleteFollow( friendId, userId );
 
-            addFeedInfo( ship, ship.Ip );
-
             User user = userService.GetById( userId );
 
             addNotificationWhenApproved( user, friendId );
-        }
-
-
-        private void addFeedInfo( FriendShip ship, String ip ) {
-
-            addFrinedFeedInfo( ship.User, ship.Friend, ip );
-            addFrinedFeedInfo( ship.Friend, ship.User, ip );
-        }
-
-        private static void addFrinedFeedInfo( User user, User friend, String ip ) {
-            String userLink = Link.ToMember( friend );
-
-            String lnkInfo = string.Format( "<a href=\"{0}\">{1}</a>", userLink, friend.Name );
-
-            Dictionary<string, object> dic = new Dictionary<string, object>();
-            dic.Add( "friend", lnkInfo );
-            dic.Add( "friendId", friend.Id );
-            String templateData = Json.ToString( dic );
-
-            TemplateBundle tplBundle = TemplateBundle.GetFriendsTemplateBundle();
-            new FeedService().publishUserAction( user, typeof( FriendShip ).FullName, tplBundle.Id, templateData, "", ip );
         }
 
         public virtual void Refuse( int userId, int friendId ) {

@@ -13,7 +13,7 @@ namespace wojilu.Common.Microblogs.Interface {
 
     public interface IMicroblogService {
 
-        IFeedService feedService { get; set; }
+        void Add( User creator, String msg, String dataType, int dataId, String ip );
 
         Microblog GetById( int id );
         Microblog GetFirst( int userId );

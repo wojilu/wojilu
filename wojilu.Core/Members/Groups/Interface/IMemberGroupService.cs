@@ -6,16 +6,16 @@ using System;
 using System.Collections.Generic;
 
 using wojilu.Members.Groups.Domain;
-using wojilu.Common.Feeds.Interface;
 using wojilu.Members.Users.Domain;
 using wojilu.Members.Users.Interface;
 using wojilu.Common.Msg.Interface;
+using wojilu.Common.Microblogs.Interface;
 
 namespace wojilu.Members.Groups.Interface {
 
     public interface IMemberGroupService {
 
-        IFeedService feedService { get; set; }
+        IMicroblogService microblogService { get; set; }
         IUserService userService { get; set; }
         IMessageService msgService { get; set; }
 

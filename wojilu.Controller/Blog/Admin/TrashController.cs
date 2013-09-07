@@ -30,7 +30,6 @@ namespace wojilu.Web.Controller.Blog.Admin {
         public IBlogCategoryService categoryService { get; set; }
         public IBlogPostService postService { get; set; }
 
-        public IFeedService feedService { get; set; }
         public IFriendService friendService { get; set; }
 
         public TrashController() {
@@ -38,7 +37,6 @@ namespace wojilu.Web.Controller.Blog.Admin {
             blogService = new BlogService();
             postService = new BlogPostService();
             categoryService = new BlogCategoryService();
-            feedService = new FeedService();
             friendService = new FriendService();
         }
 

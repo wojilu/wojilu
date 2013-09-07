@@ -6,15 +6,16 @@ using System;
 using System.Collections.Generic;
 
 using wojilu.Web;
-using wojilu.Members.Users.Service;
 using wojilu.Apps.Blog.Domain;
 using wojilu.Members.Users.Interface;
 using wojilu.Common;
+using wojilu.Common.Microblogs.Interface;
 
 namespace wojilu.Apps.Blog.Interface {
 
     public interface IBlogPostService {
 
+        IMicroblogService microblogService { get; set; }
         IFriendService friendService { get; set; }
 
         void AddHits( BlogPost post );

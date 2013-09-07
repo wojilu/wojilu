@@ -5,7 +5,6 @@
 using System;
 using System.Collections.Generic;
 
-using wojilu.Common.Money.Service;
 using wojilu.Apps.Forum.Domain;
 using wojilu.Members.Users.Interface;
 using wojilu.Members.Users.Domain;
@@ -13,6 +12,7 @@ using wojilu.Members.Interface;
 using wojilu.Common.AppBase.Interface;
 using wojilu.Common.Money.Interface;
 using wojilu.Common;
+using wojilu.Common.Microblogs.Interface;
 
 namespace wojilu.Apps.Forum.Interface {
 
@@ -25,6 +25,7 @@ namespace wojilu.Apps.Forum.Interface {
         IForumLogService logService { get; set; }
         IUserService userService { get; set; }
         IUserIncomeService incomeService { get; set; }
+        IMicroblogService microblogService { get; set; }
 
         ForumTopic GetByPost( int postId );
         ForumTopic GetById( int id, IMember owner );

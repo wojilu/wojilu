@@ -4,18 +4,16 @@
 
 using System;
 using System.Collections.Generic;
+
 using wojilu.Apps.Forum.Domain;
-using wojilu.Common.Money.Service;
 using wojilu.Common.Msg.Interface;
 using wojilu.Members.Users.Interface;
-using wojilu.Common.Feeds.Service;
-using wojilu.Common.Msg.Service;
 using wojilu.Members.Users.Domain;
 using wojilu.Members.Interface;
 using wojilu.Common.AppBase.Interface;
-using wojilu.Common.Feeds.Interface;
 using wojilu.Common.Money.Interface;
 using wojilu.Common;
+using wojilu.Common.Microblogs.Interface;
 
 namespace wojilu.Apps.Forum.Interface {
 
@@ -32,7 +30,7 @@ namespace wojilu.Apps.Forum.Interface {
         IUserService userService { get; set; }
 
         INotificationService notificationService { get; set; }
-        IFeedService feedService { get; set; }
+        IMicroblogService microblogService { get; set; }
         IUserIncomeService incomeService { get; set; }
 
         void AddHits( ForumPost post );

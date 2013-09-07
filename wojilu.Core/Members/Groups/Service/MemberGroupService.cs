@@ -7,9 +7,6 @@ using System.Collections.Generic;
 
 using wojilu.Web.Mvc;
 
-using wojilu.Common.Feeds.Domain;
-using wojilu.Common.Feeds.Interface;
-using wojilu.Common.Feeds.Service;
 using wojilu.Common.Msg.Interface;
 using wojilu.Common.Msg.Service;
 
@@ -18,6 +15,8 @@ using wojilu.Members.Groups.Interface;
 using wojilu.Members.Users.Domain;
 using wojilu.Members.Users.Interface;
 using wojilu.Members.Users.Service;
+using wojilu.Common.Microblogs.Service;
+using wojilu.Common.Microblogs.Interface;
 
 namespace wojilu.Members.Groups.Service {
 
@@ -25,12 +24,12 @@ namespace wojilu.Members.Groups.Service {
 
         public virtual IMessageService msgService { get; set; }
         public virtual IUserService userService { get; set; }
-        public virtual IFeedService feedService { get; set; }
+        public virtual IMicroblogService microblogService { get; set; }
 
         public MemberGroupService() {
             msgService = new MessageService();
             userService = new UserService();
-            feedService = new FeedService();
+            microblogService = new MicroblogService();
         }
 
         public virtual Result JoinGroup( User user, Group group, String joinReason, String ip ) {
@@ -152,14 +151,19 @@ namespace wojilu.Members.Groups.Service {
         }
 
         private void addFeedInfo( GroupUser relation, String ip ) {
-            Feed feed = new Feed();
-            feed.Creator = relation.Member;
-            feed.DataType = typeof( Group ).FullName;
 
-            feed.TitleTemplate = "{*actor*} " + lang.get( "joinedGroup" ) + " {*group*}";
-            feed.TitleData = getTitleData( relation.Group );
-            feed.Ip = ip;
-            feedService.publishUserAction( feed );
+            User user = relation.Member;
+            Group g = relation.Group;
+
+            String msg = string.Format( "<div class=\"feed-item-group\"><div class=\"feed-item-title\">我加入了小组 <a href=\"{0}\">{1}</a></div>", Link.ToMember( g ), g.Name );
+
+            if (strUtil.HasText( g.Description )) {
+                msg += string.Format( "<div class=\"feed-item-body\"><span class=\"feed-item-label\">小组简介</span>：{0}</div>", g.Description );
+            }
+            msg += string.Format( "<div class=\"feed-item-pic\"><img src=\"{0}\"/></div>", g.LogoSmall );
+            msg += "</div>";
+
+            microblogService.Add( relation.Member, msg, typeof( Group ).FullName, relation.Group.Id, ip );
         }
 
         private String getTitleData( Group g ) {

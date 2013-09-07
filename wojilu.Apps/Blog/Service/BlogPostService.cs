@@ -10,8 +10,6 @@ using wojilu.Web.Mvc;
 
 using wojilu.Common;
 using wojilu.Common.AppBase;
-using wojilu.Common.Feeds.Domain;
-using wojilu.Common.Feeds.Service;
 using wojilu.Common.Jobs;
 using wojilu.Common.MemberApp.Interface;
 using wojilu.Common.Tags;
@@ -28,6 +26,7 @@ using wojilu.Common.Money.Interface;
 using wojilu.Apps.Blog.Domain;
 using wojilu.Apps.Blog.Interface;
 using wojilu.Common.Microblogs.Service;
+using wojilu.Common.Microblogs.Interface;
 
 namespace wojilu.Apps.Blog.Service {
 
@@ -35,10 +34,12 @@ namespace wojilu.Apps.Blog.Service {
 
         public virtual IFriendService friendService { get; set; }
         public virtual IUserIncomeService incomeService { get; set; }
+        public virtual IMicroblogService microblogService { get; set; }
 
         public BlogPostService() {
             friendService = new FriendService();
             incomeService = new UserIncomeService();
+            microblogService = new MicroblogService();
         }
 
         public virtual void AddHits( BlogPost post ) {
@@ -272,7 +273,7 @@ namespace wojilu.Apps.Blog.Service {
             String msg = string.Format( "<div class=\"feed-item-title\">写了博客 <a href=\"{0}\">{1}</a></div>", lnkPost, data.Title );
             msg += string.Format( "<div class=\"feed-item-body\">{0}</div>", data.SummaryInfo );
 
-            new MicroblogService().Add( data.Creator, msg, typeof( BlogPost ).FullName, data.Id, data.Ip );
+            microblogService.Add( data.Creator, msg, typeof( BlogPost ).FullName, data.Id, data.Ip );
         }
 
 

@@ -18,11 +18,9 @@ namespace wojilu.Common.Msg.Service {
 
     public class FeedbackService : IFeedbackService {
 
-        public virtual IFeedService feedService { get; set; }
         public virtual INotificationService nfService { get; set; }
 
         public FeedbackService() {
-            feedService = new FeedService();
             nfService = new NotificationService();
         }
 
@@ -38,7 +36,6 @@ namespace wojilu.Common.Msg.Service {
         public virtual void Insert( Feedback f ) {
             Result result = db.insert( f );
             if (result.IsValid) {
-                addFeedInfo( f );
                 addNotification( f );
             }
         }
@@ -73,27 +70,8 @@ namespace wojilu.Common.Msg.Service {
             String feedbackReplyInfo = lang.get( "feedbackReplyInfo" );
             String spaceLink = "<a href=\"" + Link.ToMember( f.Target ) + "\">" + f.Target.Name + "</a>";
             String msg = string.Format( feedbackReplyInfo, f.Creator.Name, spaceLink );
-            //String msg = f.Creator.Name + "回复了你在 <a href=\"" + Link.ToMember( f.Target ) + "\">" + f.Target.Name + "的空间</a> 的留言";
 
             nfService.send( receiverId, typeof( User ).FullName, msg, NotificationType.Comment );
-        }
-
-        private void addFeedInfo( Feedback f ) {
-            Feed feed = new Feed();
-            feed.Creator = f.Creator;
-            feed.DataType = typeof( Feedback ).FullName;
-
-            String feedbackFeed = lang.get( "feedbackFeed" );
-            String tt = string.Format( feedbackFeed, "{*actor*}", "{*user*}" );
-            feed.TitleTemplate = tt;
-            //feed.TitleTemplate = "{*actor*} 在 {*user*} 的空间留了言";
-
-            feed.TitleData = "{user:\"<a href='" + Link.ToMember( f.Target ) + "'>" + f.Target.Name + "</a>\"}";
-            feed.BodyGeneral = strUtil.CutString( f.Content, 100 );
-
-            feed.Ip = f.Ip;
-
-            feedService.publishUserAction( feed );
         }
 
         public virtual DataPage<Feedback> GetPageList( int userId ) {

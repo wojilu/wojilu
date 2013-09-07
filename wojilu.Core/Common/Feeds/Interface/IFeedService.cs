@@ -17,7 +17,6 @@ namespace wojilu.Common.Feeds.Interface {
         IFriendService friendService { get; set; }
 
         Feed GetById( int id );
-        //Feed GetByIdWithComments( int id );
         IEntity GetData( int id );
 
         DataPage<Feed> GetAll( String dataType, int pageSize );
@@ -47,10 +46,6 @@ namespace wojilu.Common.Feeds.Interface {
         TemplateBundle registerTemplateBundle( List<OneLineStoryTemplate> oneLineStoryTemplates, List<ShortStoryTemplate> shortStoryTemplates, List<ActionLink> actionLinks );
 
         void ClearFeeds();
-
-        //void Comment( FeedComment comment, String feedLink, String targetType );
-        //void CommentAppend( User user, IEntity parent, String content, String ip );
-
 
         void SetCommentCount( IEntity target );
 

@@ -62,7 +62,6 @@ namespace wojilu.Members.Users.Service {
 
             Follower f = this.Follow( userId, targetId );
             if (f != null) {
-                addFeedInfo( f );
                 addNotification( f );
             }
         }
@@ -71,25 +70,6 @@ namespace wojilu.Members.Users.Service {
             int receiverId = f.Target.Id;
             String msg = "<a href='" + Link.ToMember( f.User ) + "'>" + f.User.Name + "</a> " + lang.get( "followedYou" );
             new NotificationService().send( receiverId, typeof( User ).FullName, msg, NotificationType.Follow );
-        }
-
-        private void addFeedInfo( Follower f ) {
-            Feed feed = new Feed();
-            feed.Creator = f.User;
-            feed.DataType = typeof( Follower ).FullName;
-            feed.TitleTemplate = "{*actor*} " + lang.get( "follow" ) + " {*friend*}";
-
-            String userLink = Link.ToMember( f.Target );
-
-            Dictionary<string, object> dic = new Dictionary<string, object>();
-            String flnk = string.Format( "<a href=\"{0}\">{1}</a>", userLink, f.Target.Name );
-            dic.Add( "friend", flnk );
-            dic.Add( "friendId", f.Target.Id );
-            String templateData = Json.ToString( dic );
-
-            feed.TitleData = templateData;
-
-            new FeedService().publishUserAction( feed );
         }
 
         //----------------------------------------------------------------------------------------------------------

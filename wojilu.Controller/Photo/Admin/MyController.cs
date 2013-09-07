@@ -25,7 +25,6 @@ namespace wojilu.Web.Controller.Photo.Admin {
     [App( typeof( PhotoApp ) )]
     public class MyController : ControllerBase {
 
-        public IFeedService feedService { get; set; }
         public IFriendService friendService { get; set; }
 
         public IPhotoPostService postService { get; set; }
@@ -36,7 +35,6 @@ namespace wojilu.Web.Controller.Photo.Admin {
 
             base.HideLayout( typeof( Photo.LayoutController ) );
 
-            feedService = new FeedService();
             friendService = new FriendService();
 
             postService = new PhotoPostService();

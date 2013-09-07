@@ -5,14 +5,12 @@
 using System;
 using System.Collections.Generic;
 
-using wojilu.Common.Feeds.Interface;
 using wojilu.Common.Msg.Domain;
 
 namespace wojilu.Common.Msg.Interface {
 
     public interface IFeedbackService {
 
-        IFeedService feedService { get; set; }
         INotificationService nfService { get; set; }
 
         Feedback GetById( int id );

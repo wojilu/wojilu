@@ -13,15 +13,9 @@ namespace wojilu.Common.Microblogs.Service {
 
     public class MicroblogCommentService {
 
-        //        void InsertComment( MicroblogComment c, String miniblogLink );
-
-        //------------------------------------------------------------------------------------------------------------------
-
-        public virtual IFeedService feedService { get; set; }
         public virtual INotificationService nfService { get; set; }
 
         public MicroblogCommentService() {
-            feedService = new FeedService();
             nfService = new NotificationService();
         }
 
@@ -36,7 +30,6 @@ namespace wojilu.Common.Microblogs.Service {
         public virtual void InsertComment( MicroblogComment c, String microblogLink ) {
 
             saveComment( c );
-            copyCommentCountToFeed( c );
 
             int receiverId = addNotificationToRoot( c, microblogLink );
             addNotificationToParent( c, microblogLink, receiverId );
@@ -45,10 +38,6 @@ namespace wojilu.Common.Microblogs.Service {
 
         private static void saveComment( MicroblogComment c ) {
             db.insert( c );
-        }
-
-        private void copyCommentCountToFeed( MicroblogComment c ) {
-            feedService.SetCommentCount( c.Root );
         }
 
         private int addNotificationToRoot( MicroblogComment c, String microblogLink ) {

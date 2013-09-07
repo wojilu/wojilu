@@ -4,20 +4,24 @@
 
 using System;
 
-using wojilu.Apps;
 using wojilu.Web.Mvc;
-using wojilu.Web.Mvc.Attr;
 
 using wojilu.Web.Controller.Common;
 using wojilu.Members.Users.Domain;
 using wojilu.Common.Microblogs.Domain;
 using wojilu.Common.Microblogs.Service;
-using wojilu.Members.Sites.Domain;
+using wojilu.Common.Microblogs.Interface;
 
 namespace wojilu.Web.Controller.Users {
 
 
     public class ProfileController : ControllerBase {
+
+        public virtual IMicroblogService microblogService { get; set; }
+
+        public ProfileController() {
+            microblogService = new MicroblogService();
+        }
 
         public void Main() {
 
@@ -26,7 +30,7 @@ namespace wojilu.Web.Controller.Users {
             User user = ctx.owner.obj as User;
             load( "userMenu", UserMenu );
 
-            Microblog blog = new MicroblogService().GetFirst( user.Id );
+            Microblog blog = microblogService.GetFirst( user.Id );
 
             if (blog != null) {
                 String lnkMore = alink.ToUserMicroblog( user );

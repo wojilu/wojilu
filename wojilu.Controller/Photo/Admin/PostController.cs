@@ -16,14 +16,12 @@ using wojilu.Apps.Photo.Service;
 
 using wojilu.Members.Users.Service;
 using wojilu.Members.Users.Domain;
-using wojilu.Common.Feeds.Service;
-using wojilu.Common.Feeds.Domain;
 using wojilu.Common.Tags;
-using wojilu.Common.Feeds.Interface;
 using wojilu.Members.Users.Interface;
 using wojilu.Apps.Photo.Interface;
 using wojilu.Web.Controller.Admin;
 using wojilu.Common.Microblogs.Service;
+using wojilu.Common.Microblogs.Interface;
 
 namespace wojilu.Web.Controller.Photo.Admin {
 
@@ -33,24 +31,24 @@ namespace wojilu.Web.Controller.Photo.Admin {
 
         private static readonly ILog logger = LogManager.GetLogger( typeof( PhotoController ) );
 
-        public IFeedService feedService { get; set; }
-        public IFriendService friendService { get; set; }
+        public virtual IFriendService friendService { get; set; }
 
-        public IPhotoPostService postService { get; set; }
-        public IPhotoAlbumService albumService { get; set; }
-        public IPhotoSysCategoryService categoryService { get; set; }
+        public virtual IPhotoPostService postService { get; set; }
+        public virtual IPhotoAlbumService albumService { get; set; }
+        public virtual IPhotoSysCategoryService categoryService { get; set; }
+        public virtual IMicroblogService microblogService { get; set; }
 
         public PostController() {
 
             base.HideLayout( typeof( Photo.LayoutController ) );
 
-            feedService = new FeedService();
             friendService = new FriendService();
 
             postService = new PhotoPostService();
             albumService = new PhotoAlbumService();
 
             categoryService = new PhotoSysCategoryService();
+            microblogService = new MicroblogService();
         }
 
         public void Add() {
@@ -238,7 +236,7 @@ namespace wojilu.Web.Controller.Photo.Admin {
             String msg = string.Format( "<div class=\"feed-item-title\">上传了{0}张图片到专辑 <a href=\"{1}\">{2}</a></div>", photoCount, lnkAlbum, album.Name );
             msg += string.Format( "<div class=\"feed-item-body\">{0}</div>", photoHtml );
 
-            new MicroblogService().Add( imgs[0].Creator, msg, typeof( PhotoPost ).FullName, imgs[0].Id, ctx.Ip );
+            microblogService.Add( imgs[0].Creator, msg, typeof( PhotoPost ).FullName, imgs[0].Id, ctx.Ip );
         }
 
         private PhotoPost newPost( String photoName, String imgPath, int albumId, int systemCategoryId ) {

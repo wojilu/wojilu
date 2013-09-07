@@ -7,26 +7,27 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Text;
 
-using wojilu.Common.Feeds.Domain;
-using wojilu.Common.Feeds.Interface;
-using wojilu.Common.Feeds.Service;
 using wojilu.Common.Money.Domain;
 using wojilu.Common.Money.Interface;
 using wojilu.Common.Money.Service;
 using wojilu.Common.Polls.Domain;
 
 using wojilu.Members.Users.Domain;
+using wojilu.Common.Microblogs.Service;
+using wojilu.Common.Microblogs.Interface;
 
 namespace wojilu.Common.Polls.Service {
 
-    public class PollBaseService<TP, TR> where TP : PollBase where TR : PollResultBase  {
+    public class PollBaseService<TP, TR>
+        where TP : PollBase
+        where TR : PollResultBase {
 
         public virtual IUserIncomeService incomeService { get; set; }
-        public virtual IFeedService feedService { get; set; }
+        public virtual IMicroblogService microblogService { get; set; }
 
         public PollBaseService() {
             incomeService = new UserIncomeService();
-            feedService = new FeedService();
+            microblogService = new MicroblogService();
         }
 
         public virtual void AddHits( TP poll ) {
@@ -57,16 +58,11 @@ namespace wojilu.Common.Polls.Service {
 
             TP poll = getPoll( pr );
 
-            Feed feed = new Feed();
-            feed.Creator = pr.User;
-            feed.DataType = typeof( TP ).FullName;
-            feed.TitleTemplate = "{*actor*} " + lang.get( "hasvoted" ) + " {*poll*}";
-            //feed.TitleData = "{poll : '<a href=\"" + lnkpost + "\">" + JSON.Encode( poll.Title ) + "</a>'}";
-            feed.TitleData = getTitleData( lnkpost, poll );
+            User user = pr.User;
 
-            feed.Ip = pr.Ip;
+            String msg = string.Format( "<div class=\"feed-item-poll\"><div class=\"feed-item-title\">我参与了投票 <img src=\"{2}\"/> <a href=\"{0}\">{1}</a></div>", lnkpost, poll.Title, strUtil.Join( sys.Path.Img, "poll.gif" ) );
 
-            feedService.publishUserAction( feed );
+            microblogService.Add( user, msg, typeof( TP ).FullName, poll.Id, pr.Ip );
         }
 
         private string getTitleData( string lnkpost, TP poll ) {
@@ -82,21 +78,12 @@ namespace wojilu.Common.Polls.Service {
 
         private void addPubFeedInfo( TP poll, String lnkPost ) {
 
-            String templateData = getTitleData( lnkPost, poll );
+            User user = poll.Creator;
 
-            Feed feed = new Feed();
+            String msg = string.Format( "<div class=\"feed-item-poll\"><div class=\"feed-item-title\">我发起了投票 <img src=\"{2}\"/> <a href=\"{0}\">{1}</a></div>", lnkPost, poll.Title, strUtil.Join( sys.Path.Img, "poll.gif" ) );
 
-            String strPollFeed = lang.get( "strPollFeed" );
-            String tt = string.Format( strPollFeed, "{*actor*}", "{*poll*}" );
-            feed.TitleTemplate = tt;
+            microblogService.Add( user, msg, typeof( TP ).FullName, poll.Id, poll.Ip );
 
-            feed.TitleData = templateData;
-            feed.Creator = poll.Creator;
-            feed.DataType = typeof( TP ).FullName;
-
-            feed.Ip = poll.Ip;
-
-            feedService.publishUserAction( feed );
         }
 
         private static TP getPoll( TR pr ) {
@@ -114,7 +101,7 @@ namespace wojilu.Common.Polls.Service {
             foreach (IEntity d in posts) ids += d.Id + ",";
             ids = ids.TrimEnd( ',' );
             String typeFullName = posts[0].GetType().FullName;
-            return GetByTopicIds( ids, typeFullName ); 
+            return GetByTopicIds( ids, typeFullName );
         }
 
         public virtual List<TP> GetByTopicIds( String ids, String typeFullName ) {
@@ -198,7 +185,7 @@ namespace wojilu.Common.Polls.Service {
         }
 
         public virtual Result Insert( TP poll ) {
-            return db.insert(poll);
+            return db.insert( poll );
         }
 
         private void updatePollResult( TR pr ) {

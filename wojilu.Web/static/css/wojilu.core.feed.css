@@ -30,6 +30,11 @@ div.mblogOne {border-bottom:1px #ccc dotted;margin:10px 10px 20px 10px}
 .feed-pic-item img {max-width:116px; max-height:116px;}
 .feed-cmd-separator {margin-left:5px;margin-right:5px;}
 
+.feed-item-label {font-weight:bold;}
+.feed-item-pic {margin-top:5px;}
+.feed-item-group img{border:1px solid #ccc;padding:3px;}
+.feed-item-group .feed-item-body {font-size:12px; color:#666;}
+
 .mbTool {color:#b9b5d2;}
 .mbTool span.link{color:#b27a57;}
 .mbTool a{color:#b27a57;}

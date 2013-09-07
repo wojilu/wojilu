@@ -30,14 +30,11 @@ namespace wojilu.Common.Microblogs.Service {
 
     public class MicroblogService : IMicroblogService {
 
-
-        public virtual IFeedService feedService { get; set; }
         public virtual INotificationService nfService { get; set; }
         public virtual IFriendService friendService { get; set; }
         public virtual IFollowerService followerService { get; set; }
 
         public MicroblogService() {
-            feedService = new FeedService();
             nfService = new NotificationService();
             friendService = new FriendService();
             followerService = new FollowerService();
@@ -193,40 +190,6 @@ namespace wojilu.Common.Microblogs.Service {
                 u.update( "MicroblogAtUnread" );
 
             }
-        }
-
-        private void addFeedInfo( Microblog log ) {
-            Feed feed = new Feed();
-            feed.Creator = log.User;
-            feed.DataType = typeof( Microblog ).FullName;
-            feed.DataId = log.Id;
-
-            feed.Ip = log.Ip;
-
-            // 转发微博信息
-            String pbody = "";
-            if (log.ParentId > 0) {
-                Microblog parent = GetById( log.ParentId );
-                if (parent == null) {
-                    pbody = " [被转微博已被原作者删除]";
-                }
-                else {
-                    pbody = ": [转]" + parent.Content;
-                }
-            }
-
-            feed.TitleTemplate = "{*actor*} :" + strUtil.SubString( log.Content + pbody, 230 );
-
-            if (strUtil.HasText( log.Pic )) {
-
-                Dictionary<String, String> data = new Dictionary<string, string>();
-                data.Add( "pic", "<img src=\"" + log.PicSmall + "\" />" );
-
-                feed.BodyTemplate = "{*pic*}";
-                feed.BodyData = Json.ToString( data );
-            }
-
-            feedService.publishUserAction( feed );
         }
 
         //----------------------------------------------------------------------------

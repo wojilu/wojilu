@@ -18,8 +18,6 @@ using wojilu.Common.AppBase;
 using wojilu.Common.Money.Domain;
 using wojilu.Common.Money.Service;
 using wojilu.Common.Money.Interface;
-using wojilu.Common.Feeds.Domain;
-using wojilu.Common.Feeds.Service;
 using wojilu.Common.Msg.Interface;
 using wojilu.Common.Msg.Service;
 
@@ -33,6 +31,7 @@ using wojilu.Members.Groups.Domain;
 using wojilu.Apps.Forum.Domain;
 using wojilu.Apps.Forum.Interface;
 using wojilu.Common.Microblogs.Service;
+using wojilu.Common.Microblogs.Interface;
 
 namespace wojilu.Apps.Forum.Service {
 
@@ -46,6 +45,7 @@ namespace wojilu.Apps.Forum.Service {
         public virtual IUserService userService { get; set; }
         public virtual IUserIncomeService incomeService { get; set; }
         public virtual IMessageService msgService { get; set; }
+        public virtual IMicroblogService microblogService { get; set; }
 
         public ForumTopicService() {
             forumService = new ForumService();
@@ -56,6 +56,7 @@ namespace wojilu.Apps.Forum.Service {
             logService = new ForumLogService();
             incomeService = new UserIncomeService();
             msgService = new MessageService();
+            microblogService = new MicroblogService();
         }
 
         public virtual ForumTopic GetById_ForAdmin( int id ) {
@@ -457,7 +458,7 @@ namespace wojilu.Apps.Forum.Service {
             String msg = string.Format( "<div class=\"feed-item-title\">发表了论坛主题 <a href=\"{0}\">{1}</a></div>", lnkPost, data.Title );
             msg += string.Format( "<div class=\"feed-item-body\">{0}</div>", strUtil.ParseHtml( data.Content, 200 ) );
 
-            new MicroblogService().Add( data.Creator, msg, typeof( ForumTopic ).FullName, data.Id, data.Ip );
+            microblogService.Add( data.Creator, msg, typeof( ForumTopic ).FullName, data.Id, data.Ip );
 
         }
 
