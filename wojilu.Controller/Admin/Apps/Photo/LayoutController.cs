@@ -30,7 +30,7 @@ namespace wojilu.Web.Controller.Admin.Apps.Photo {
             set( "listLink", to( new MainController().Index, -1 ) );
             set( "pickedLink", to( new PostAdminController().Picked ) );
             set( "trashLink", to( new PostAdminController().Trash ) );
-            set( "commentLink", to( new CommentController().List ) + "?type=" + typeof( PhotoPostComment ).FullName );
+            set( "commentLink", to( new CommentController().List ) );
 
             int trashCount = photoService.GetSystemDeleteCount();
             set( "trashCount", trashCount );

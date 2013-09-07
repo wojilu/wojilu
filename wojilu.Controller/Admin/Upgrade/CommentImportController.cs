@@ -30,8 +30,8 @@ namespace wojilu.Web.Controller.Admin.Upgrade {
         }
 
         public void BeginImportPhoto() {
-            new ImportHelper<PhotoPostComment, PhotoPost>().Import( ctx.PostInt( "startId" ), ctx.PostInt( "endId" ) );
-            echoAjaxOk();
+            //new ImportHelper<PhotoPostComment, PhotoPost>().Import( ctx.PostInt( "startId" ), ctx.PostInt( "endId" ) );
+            //echoAjaxOk();
         }
 
         public void BeginImportBlog() {

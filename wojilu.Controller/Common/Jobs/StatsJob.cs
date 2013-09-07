@@ -46,7 +46,6 @@ namespace wojilu.Web.Controller.Common.Jobs {
 
             foreach (PhotoApp app in photos) {
                 photoService.UpdateCount( app );
-                photoService.UpdateCommentCount( app );
                 DbContext.closeConnectionAll();
             }
 

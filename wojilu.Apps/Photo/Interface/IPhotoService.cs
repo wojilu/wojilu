@@ -8,7 +8,6 @@ namespace wojilu.Apps.Photo.Interface {
 
         PhotoApp GetByUser( int userId );
 
-        void UpdateCommentCount( PhotoApp app );
         void UpdateCount( PhotoApp app );
 
         List<PhotoApp> GetAppAll();

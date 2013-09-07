@@ -95,9 +95,6 @@
     <Compile Include="Content\Domain\ContentCustomTemplate.cs" />
     <Compile Include="Content\Domain\ContentPoll.cs" />
     <Compile Include="Content\Domain\ContentPollResult.cs" />
-    <Compile Include="Content\Domain\ContentPostComment.cs">
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Include="Content\Domain\ContentImg.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -353,9 +350,6 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Photo\Domain\PhotoAlbum.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Photo\Domain\PhotoPostComment.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Photo\Domain\PhotoPost.cs">
