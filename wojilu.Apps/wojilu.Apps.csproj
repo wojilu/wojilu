@@ -231,7 +231,6 @@
     <Compile Include="Photo\Service\PhotoLikeService.cs" />
     <Compile Include="Photo\Service\PhotoService.cs" />
     <Compile Include="Poll\Domain\PollApp.cs" />
-    <Compile Include="Poll\Domain\PollComment.cs" />
     <Compile Include="Poll\Domain\PollData.cs" />
     <Compile Include="Poll\Domain\PollDataResult.cs" />
     <Compile Include="Poll\Service\PollDataService.cs" />

@@ -370,7 +370,6 @@
     <Compile Include="Photo\Admin\PostController.cs" />
     <Compile Include="Photo\PhotoCommentController.cs" />
     <Compile Include="Poll\Admin\partial\PollController.cs" />
-    <Compile Include="Poll\PollCommentController.cs" />
     <Compile Include="Poll\Admin\PollController.cs" />
     <Compile Include="Poll\PollController.cs" />
     <Compile Include="Poll\Utils\PollValidator.cs" />

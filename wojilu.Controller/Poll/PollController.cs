@@ -225,6 +225,7 @@ namespace wojilu.Web.Controller.Poll {
                 + "&dataType=" + typeof( PollData ).FullName
                 + "&dataTitle=" + post.Title
                 + "&dataUserId=" + post.Creator.Id
+                + "&appId=" + post.AppId
                 + "&dataId=" + post.Id;
         }
 
