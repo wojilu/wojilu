@@ -19,20 +19,6 @@ namespace wojilu.Apps.Blog.Service {
             return BlogApp.findAll();
         }
 
-        public virtual void UpdateCommentCount( IApp blogApp ) {
-
-            BlogApp blog = blogApp as BlogApp;
-            int count = BlogPostComment.find( "AppId=" + blog.Id ).count();
-            blog.CommentCount = count;
-            blog.update( "CommentCount" );
-        }
-
-        public virtual void UpdateCommentCount( int appId ) {
-
-            BlogApp blogApp = BlogApp.findById( appId );
-            this.UpdateCommentCount( blogApp );
-        }
-
         public virtual void UpdateCount( BlogApp blog ) {
 
             int count = BlogPost.count( "AppId=" + blog.Id );

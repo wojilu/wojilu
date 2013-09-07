@@ -76,8 +76,6 @@
     <Compile Include="Blog\BlogAppSetting.cs" />
     <Compile Include="Blog\Interface\IBlogSysCategoryService.cs" />
     <Compile Include="Blog\Interface\IBlogPickService.cs" />
-    <Compile Include="Blog\Service\BlogCommentService.cs" />
-    <Compile Include="Blog\Interface\IBlogCommentService.cs" />
     <Compile Include="Blog\Interface\IBlogPostService.cs" />
     <Compile Include="Blog\Interface\IBlogService.cs" />
     <Compile Include="Blog\Interface\IPickedService.cs" />
@@ -178,9 +176,6 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Blog\Domain\BlogColumn.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Blog\Domain\BlogPostComment.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Blog\Domain\BlogPost.cs">

@@ -38,11 +38,9 @@ namespace wojilu.Web.Controller.Common.Jobs {
             List<BlogApp> blogs = blogService.GetBlogAppAll();
             List<PhotoApp> photos = photoService.GetAppAll();
             List<Tag> tags = Tag.findAll();
-            //List<User> users = db.findAll<User>();
 
             foreach (BlogApp blog in blogs) {
                 blogService.UpdateCount( blog );
-                blogService.UpdateCommentCount( blog );
                 DbContext.closeConnectionAll(); // 每执行一个app即关闭，以免超时
             }
 

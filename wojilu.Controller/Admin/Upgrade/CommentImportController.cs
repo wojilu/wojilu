@@ -35,8 +35,8 @@ namespace wojilu.Web.Controller.Admin.Upgrade {
         }
 
         public void BeginImportBlog() {
-            new ImportHelper<BlogPostComment, BlogPost>().Import( ctx.PostInt( "startId" ), ctx.PostInt( "endId" ) );
-            echoAjaxOk();
+            //new ImportHelper<BlogPostComment, BlogPost>().Import( ctx.PostInt( "startId" ), ctx.PostInt( "endId" ) );
+            //echoAjaxOk();
         }
 
         public void BeginImportDownload() {

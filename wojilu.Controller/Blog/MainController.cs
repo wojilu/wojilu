@@ -74,7 +74,7 @@ namespace wojilu.Web.Controller.Blog {
             set( "listLink", to( new wojilu.Web.Controller.Admin.Apps.Blog.MainController().Index, 0 ) );
             set( "pickedLink", to( new wojilu.Web.Controller.Admin.Apps.Blog.BlogPickController().Index ) );
             set( "trashLink", to( new wojilu.Web.Controller.Admin.Apps.Blog.TrashController().Trash ) );
-            set( "commentLink", to( new wojilu.Web.Controller.Admin.Apps.Blog.CommentController().List ) + "?type=" + typeof( BlogPostComment ).FullName );
+            set( "commentLink", to( new wojilu.Web.Controller.Admin.Apps.Blog.CommentController().List ) );
             set( "categoryLink", to( new wojilu.Web.Controller.Admin.Apps.Blog.SysCategoryController().List ) );
             set( "settingLink", to( new wojilu.Web.Controller.Admin.Apps.Blog.SettingController().Index ) );
             set( "fileLink", to( new wojilu.Web.Controller.Admin.Apps.Blog.BlogFileController().Index, 0 ) );

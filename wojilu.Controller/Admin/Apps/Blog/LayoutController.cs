@@ -27,7 +27,7 @@ namespace wojilu.Web.Controller.Admin.Apps.Blog {
             set( "listLink", to( new MainController().Index, 0 ) );
             set( "pickedLink", to( new BlogPickController().Index ) );
             set( "trashLink", to( new TrashController().Trash ) );
-            set( "commentLink", to( new CommentController().List )+"?type=" + typeof(BlogPostComment).FullName );
+            set( "commentLink", to( new CommentController().List ) );
 
             int trashCount = sysblogService.GetSystemDeleteCount();
             set( "trashCount", trashCount );
