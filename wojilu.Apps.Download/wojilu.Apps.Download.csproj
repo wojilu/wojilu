@@ -59,6 +59,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Controller\Admin\CategoryController.cs" />
+    <Compile Include="Controller\Admin\CommentController.cs" />
     <Compile Include="Controller\Admin\DownloadController.cs" />
     <Compile Include="Controller\Admin\FileController.cs" />
     <Compile Include="Controller\Admin\LayoutController.cs" />
@@ -69,12 +70,10 @@
     <Compile Include="Controller\Admin\LangController.cs" />
     <Compile Include="Controller\CategoryController.cs" />
     <Compile Include="Controller\DownloadController.cs" />
-    <Compile Include="Controller\FileCommentController.cs" />
     <Compile Include="Controller\FileController.cs" />
     <Compile Include="Controller\LayoutController.cs" />
     <Compile Include="Controller\Location.cs" />
     <Compile Include="Domain\DownloadApp.cs" />
-    <Compile Include="Domain\FileComment.cs" />
     <Compile Include="Domain\FileItem.cs" />
     <Compile Include="Domain\FileCategory.cs" />
     <Compile Include="Domain\FileLang.cs" />

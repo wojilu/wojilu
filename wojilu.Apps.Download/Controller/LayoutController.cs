@@ -21,6 +21,7 @@ namespace wojilu.Web.Controller.Download {
             set( "lnkLicense", to( new Admin.LicenseController().List ) );
             set( "lnkPlatform", to( new Admin.PlatformController().List ) );
             set( "lnkLang", to( new Admin.LangController().List ) );
+            set( "lnkComment", to( new Admin.CommentController().List ) );
 
 
             set( "adminCheckUrl", t2( new SecurityController().CanAppAdmin, app.Id ) + "?appType=" + typeof( DownloadApp ).FullName );

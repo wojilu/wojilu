@@ -9,6 +9,16 @@ using wojilu.Web.Mvc.Attr;
 namespace wojilu.Web.Controller.Download {
 
     [App( typeof( DownloadApp ) )]
+    public class FileItemController : ControllerBase {
+
+        public void Show( int id ) {
+            redirectDirect( to( new FileController().Show, id ) );
+        }
+
+    }
+
+
+    [App( typeof( DownloadApp ) )]
     public class FileController : ControllerBase {
 
         public void Show( int id ) {
@@ -77,6 +87,7 @@ namespace wojilu.Web.Controller.Download {
                 + "&dataType=" + typeof( FileItem ).FullName
                 + "&dataTitle=" + post.Title
                 + "&dataUserId=" + post.Creator.Id
+                + "&appId=" + post.AppId
                 + "&dataId=" + post.Id;
         }
 
