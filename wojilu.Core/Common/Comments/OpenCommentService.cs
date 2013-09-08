@@ -397,12 +397,10 @@ namespace wojilu.Common.Comments {
             }
 
             // feed replies
-            if (c.FeedId > 0) {
-                Microblog mblog = Microblog.findById( c.FeedId );
-                if (mblog != null) {
-                    mblog.Replies = replies;
-                    mblog.update();
-                }
+            Microblog mblog = getFeed( c );
+            if (mblog != null) {
+                mblog.Replies = replies;
+                mblog.update();
             }
 
             if (c.AppId > 0) {
@@ -416,6 +414,18 @@ namespace wojilu.Common.Comments {
                         db.update( app );
                     }
                 }
+            }
+        }
+
+        private static Microblog getFeed( OpenComment c ) {
+            if (c.FeedId > 0) {
+                return Microblog.findById( c.FeedId );
+            }
+            else {
+                return Microblog.find( "DataId=:id and DataType=:dtype" )
+                    .set( "id", c.TargetDataId )
+                    .set( "dtype", c.TargetDataType )
+                    .first();
             }
         }
 
