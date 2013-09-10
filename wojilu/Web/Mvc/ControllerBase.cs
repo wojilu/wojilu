@@ -505,6 +505,15 @@ namespace wojilu.Web.Mvc {
         }
 
         /// <summary>
+        /// 显示信息，并发出 http 状态码 (HttpStatus.BadRequest_400 等等)
+        /// </summary>
+        /// <param name="msg"></param>
+        /// <param name="httpStatusCode"></param>
+        public void echoStatus( String msg, String httpStatusCode ) {
+            ctx.utils.endMsg( msg, httpStatusCode );
+        }
+
+        /// <summary>
         /// 将对象序列化，然后输出到客户端(ContentType="application/json")，不再输出布局页面
         /// </summary>
         /// <param name="msg"></param>
@@ -532,7 +541,7 @@ namespace wojilu.Web.Mvc {
         }
 
         /// <summary>
-        /// 将字符串 ok 显示到客户端
+        /// 将字符串 ok 显示到客户端，等效于echoText( "ok" )
         /// </summary>
         protected void echoAjaxOk() {
             echoText( "ok" );
