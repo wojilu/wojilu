@@ -30,6 +30,7 @@ using wojilu.Members.Users.Interface;
 using wojilu.Members.Users.Service;
 using wojilu.Common.Microblogs.Service;
 using wojilu.Common.Microblogs.Interface;
+using wojilu.Common.Microblogs;
 
 
 namespace wojilu.Apps.Forum.Service {
@@ -244,14 +245,39 @@ namespace wojilu.Apps.Forum.Service {
             return result;
         }
 
+        public virtual Result InsertNoNotification( ForumPost post, User creator, IMember owner, IApp app ) {
+
+            post.AppId = app.Id;
+            post.Creator = creator;
+            post.CreatorUrl = creator.Url;
+            post.OwnerId = owner.Id;
+            post.OwnerUrl = owner.Url;
+            post.OwnerType = owner.GetType().FullName;
+            post.EditTime = DateTime.Now;
+
+            Result result = db.insert( post );
+
+            if (result.IsValid) {
+
+                updateCount( post, creator, owner, app );
+
+                String msg = string.Format( "回复帖子 <a href=\"{0}\">{1}</a>，得到奖励", alink.ToAppData( post ), post.Title );
+                incomeService.AddIncome( creator, UserAction.Forum_ReplyTopic.Id, msg );
+                addFeedInfo( post );
+
+            }
+            return result;
+        }
+
         private void addFeedInfo( ForumPost data ) {
 
+            // 回复论坛帖子：不再加入feed中
             String lnkPost = alink.ToAppData( data );
 
-            String msg = string.Format( "<div class=\"feed-item-title\">回复了论坛帖子 <a href=\"{0}\">{1}</a></div>", lnkPost, data.Title );
-            msg += string.Format( "<div class=\"feed-item-body\"><div class=\"feed-item-quote\">{0}</div></div>", strUtil.ParseHtml( data.Content, 200 ) );
+            //String msg = string.Format( "<div class=\"feed-item-title\">回复了论坛帖子 <a href=\"{0}\">{1}</a></div>", lnkPost, data.Title );
+            //msg += string.Format( "<div class=\"feed-item-body\"><div class=\"feed-item-quote\">{0}</div></div>", strUtil.ParseHtml( data.Content, MicroblogAppSetting.Instance.MicroblogContentMax ) );
 
-            microblogService.Add( data.Creator, msg, typeof( ForumTopic ).FullName, data.Id, data.Ip );
+            //microblogService.Add( data.Creator, msg, typeof( ForumPost ).FullName, data.Id, data.Ip );
 
         }
 

@@ -14,16 +14,18 @@ using wojilu.Common.Comments;
 
 namespace wojilu.Common.Microblogs.Domain {
 
-
     [Serializable]
     public class Microblog : ObjectBase<Microblog>, IAppData, ILike, ICommentTarget {
 
-        public String DataType { get; set; }
-        public int DataId { get; set; }
 
-
+        /// <summary>
+        /// 微博作者
+        /// </summary>
         public User User { get; set; }
 
+        /// <summary>
+        /// 转发微博
+        /// </summary>
         public int ParentId { get; set; } // 转发微博
 
         [LongText]
@@ -40,16 +42,44 @@ namespace wojilu.Common.Microblogs.Domain {
 
         public int SaveStatus { get; set; }
 
+        //-----------------------------------------------------------
+
+        /// <summary>
+        /// 根据 DataType 和 DataId 加载 OpenComment；
+        /// 以及根据它和 target 同步 likes 等信息
+        /// </summary>
+        public String DataType { get; set; }
+
+        /// <summary>
+        /// 根据 DataType 和 DataId 加载 OpenComment；
+        /// 以及根据它和 target 同步 likes 等信息
+        /// </summary>
+        public int DataId { get; set; }
+
         //-------------------------------------------------------------------
 
-        public String PageUrl { get; set; } // 数据的来源网址，比如视频的播放页面
+        /// <summary>
+        /// 视频：播放页面
+        /// </summary>
+        public String PageUrl { get; set; }
+
+        /// <summary>
+        /// 视频：flash网址
+        /// </summary>
         public String FlashUrl { get; set; }
-        public String PicUrl { get; set; } // 外站的图片，比如视频截图
+
+        /// <summary>
+        /// 视频：缩略图
+        /// </summary>
+        public String PicUrl { get; set; }
 
 
         //-------------------------------------------------------------------
 
-        public String Pic { get; set; } // 存储在服务器上的上传的图片
+        /// <summary>
+        /// 上传的图片
+        /// </summary>
+        public String Pic { get; set; }
 
 
         [NotSave]

@@ -19,16 +19,16 @@ namespace wojilu.Common.Comments {
             nfService = new NotificationService();
         }
 
-        public OpenComment GetById( int id ) {
+        public virtual OpenComment GetById( int id ) {
             return db.findById<OpenComment>( id );
         }
 
-        public DataPage<OpenComment> GetPageAll( String condition ) {
+        public virtual DataPage<OpenComment> GetPageAll( String condition ) {
             return OpenComment.findPage( condition );
         }
 
 
-        public void Delete( OpenComment c ) {
+        public virtual void Delete( OpenComment c ) {
             if (c == null) return;
             db.delete( c );
             deleteSubComments( c );
@@ -40,13 +40,13 @@ namespace wojilu.Common.Comments {
             db.deleteBatch<OpenComment>( "ParentId=" + c.Id );
         }
 
-        public void DeleteBatch( String ids ) {
+        public virtual void DeleteBatch( String ids ) {
             if (strUtil.IsNullOrEmpty( ids )) return;
             if (cvt.IsIdListValid( ids ) == false) throw new ArgumentException( "id list" );
             db.deleteBatch<OpenComment>( "Id in (" + ids + ")" );
         }
 
-        public void DeleteAll( string url, int dataId, string dataType ) {
+        public virtual void DeleteAll( string url, int dataId, string dataType ) {
 
             if (dataId > 0 && strUtil.HasText( dataType )) {
                 deleteAllByData( dataId, dataType );
@@ -88,11 +88,11 @@ namespace wojilu.Common.Comments {
             return datas;
         }
 
-        public DataPage<OpenComment> GetByDataDesc( String dataType, int dataId ) {
+        public virtual DataPage<OpenComment> GetByDataDesc( String dataType, int dataId ) {
             return GetByDataDesc( dataType, dataId, -1 );
         }
 
-        public DataPage<OpenComment> GetByDataDesc( String dataType, int dataId, int pageSize ) {
+        public virtual DataPage<OpenComment> GetByDataDesc( String dataType, int dataId, int pageSize ) {
 
             if (pageSize <= 0 || pageSize > 500) pageSize = 20;
 
@@ -103,7 +103,7 @@ namespace wojilu.Common.Comments {
             return datas;
         }
 
-        public DataPage<OpenComment> GetByDataAsc( String dataType, int dataId ) {
+        public virtual DataPage<OpenComment> GetByDataAsc( String dataType, int dataId ) {
 
             DataPage<OpenComment> datas = OpenComment.findPage( "TargetDataType='" + strUtil.SqlClean( dataType, 50 ) + "' and TargetDataId=" + dataId + " and ParentId=0 order by Id asc" );
 
@@ -112,7 +112,7 @@ namespace wojilu.Common.Comments {
             return datas;
         }
 
-        public DataPage<OpenComment> GetByUrlDesc( String url ) {
+        public virtual DataPage<OpenComment> GetByUrlDesc( String url ) {
 
             DataPage<OpenComment> datas = OpenComment.findPage( "TargetUrl='" + strUtil.SqlClean( url, 50 ) + "' and ParentId=0" );
 
@@ -121,7 +121,7 @@ namespace wojilu.Common.Comments {
             return datas;
         }
 
-        public DataPage<OpenComment> GetByUrlAsc( String url ) {
+        public virtual DataPage<OpenComment> GetByUrlAsc( String url ) {
 
             DataPage<OpenComment> datas = OpenComment.findPage( "TargetUrl='" + strUtil.SqlClean( url, 50 ) + "' and ParentId=0 order by Id asc" );
 
@@ -131,7 +131,7 @@ namespace wojilu.Common.Comments {
         }
 
 
-        public List<OpenComment> GetByApp( Type type, int appId, int listCount ) {
+        public virtual List<OpenComment> GetByApp( Type type, int appId, int listCount ) {
 
             if (listCount <= 0) listCount = 7;
 
@@ -186,7 +186,7 @@ namespace wojilu.Common.Comments {
 
         //----------------------------------------------------------------------------------------------
 
-        public Result Create( OpenComment c ) {
+        public virtual Result Create( OpenComment c ) {
 
             Result result = c.insert();
             if (result.IsValid) {
@@ -202,7 +202,7 @@ namespace wojilu.Common.Comments {
         }
 
         // 只是导入，并不发送通知
-        public Result Import( OpenComment c ) {
+        public virtual Result Import( OpenComment c ) {
 
             Result result = c.insert();
             if (result.IsValid) {
@@ -288,7 +288,7 @@ namespace wojilu.Common.Comments {
         }
 
 
-        public List<OpenComment> GetMore( int parentId, int startId, int replyPageSize, string sort ) {
+        public virtual List<OpenComment> GetMore( int parentId, int startId, int replyPageSize, string sort ) {
 
             String condition = "";
 
@@ -304,7 +304,7 @@ namespace wojilu.Common.Comments {
 
         //------------------------------------------------------------------------------------------------------------
 
-        public int GetReplies( int dataId, String dataType, String url ) {
+        public virtual int GetReplies( int dataId, String dataType, String url ) {
 
             if (dataId > 0 && strUtil.HasText( dataType )) {
                 return GetRepliesByData( dataId, dataType );
@@ -314,14 +314,14 @@ namespace wojilu.Common.Comments {
             }
         }
 
-        public int GetRepliesByUrl( String url ) {
+        public virtual int GetRepliesByUrl( String url ) {
             OpenCommentCount objCount = OpenCommentCount.find( "TargetUrl=:url" )
                 .set( "url", url )
                 .first();
             return objCount == null ? 0 : objCount.Replies;
         }
 
-        public int GetRepliesByData( int dataId, String dataType ) {
+        public virtual int GetRepliesByData( int dataId, String dataType ) {
             OpenCommentCount objCount = OpenCommentCount.find( "DataType=:dtype and DataId=" + dataId )
                 .set( "dtype", dataType )
                 .first();
@@ -388,9 +388,14 @@ namespace wojilu.Common.Comments {
             objCount.insert();
         }
 
-        private static void updateTargetReplies( OpenComment c, int replies ) {
+        public virtual IEntity GetTarget( OpenComment c ) {
             Type targetType = Entity.GetType( c.TargetDataType );
-            ICommentTarget target = ndb.findById( targetType, c.TargetDataId ) as ICommentTarget;
+            return ndb.findById( targetType, c.TargetDataId );
+        }
+
+        private void updateTargetReplies( OpenComment c, int replies ) {
+            //Type targetType = Entity.GetType( c.TargetDataType );
+            ICommentTarget target = GetTarget( c ) as ICommentTarget;
             if (target != null) {
                 target.Replies = replies;
                 db.update( target );
@@ -403,7 +408,7 @@ namespace wojilu.Common.Comments {
                 mblog.update();
             }
 
-            if (c.AppId > 0) {
+            if (c.AppId > 0 && target != null) {
                 Type appType = target.GetAppType();
                 if (appType != null) {
 

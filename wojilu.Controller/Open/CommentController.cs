@@ -228,7 +228,7 @@ namespace wojilu.Web.Controller.Open {
             return string.Format( lang( "contentLength" ), config.Instance.Site.CommentLength );
         }
 
-        [HttpPost]
+        [HttpPost, DbTransaction]
         public void Create() {
 
             String userName;
@@ -285,7 +285,7 @@ namespace wojilu.Web.Controller.Open {
             }
         }
 
-        [HttpDelete]
+        [HttpDelete, DbTransaction]
         public void Delete( int id ) {
 
             OpenComment c = commentService.GetById( id );
@@ -303,7 +303,7 @@ namespace wojilu.Web.Controller.Open {
             echoAjaxOk();
         }
 
-        [HttpDelete]
+        [HttpDelete, DbTransaction]
         public void DeleteAll() {
             String url = ctx.Get( "url" );
             url = strUtil.SqlClean( url, 50 );

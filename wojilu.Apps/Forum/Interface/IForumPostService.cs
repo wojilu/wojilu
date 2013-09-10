@@ -48,6 +48,9 @@ namespace wojilu.Apps.Forum.Interface {
         List<ForumPost> GetRecentByApp( int appId, int count );
 
         Result Insert( ForumPost post, User creator, IMember owner, IApp app );
+        Result InsertNoNotification( ForumPost post, User creator, IMember owner, IApp app );
+
+
         void Restore( String choice );
         void SetPostCredit( ForumPost post, int currencyId, int currencyValue, String reason, User viewer );
         void UnBanPost( ForumPost post, User user, int appId, String ip );

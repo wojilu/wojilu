@@ -16,6 +16,9 @@ using wojilu.Members.Users.Domain;
 using wojilu.Web.Controller.Common;
 using wojilu.Web.Controller.Users;
 using wojilu.Common.Microblogs;
+using wojilu.Common.Comments;
+using wojilu.Members.Sites.Domain;
+using wojilu.Members.Interface;
 
 namespace wojilu.Web.Controller.Microblogs {
 
@@ -25,7 +28,7 @@ namespace wojilu.Web.Controller.Microblogs {
         public IFollowerService followService { get; set; }
         public IVisitorService visitorService { get; set; }
         public MicroblogFavoriteService mfService { get; set; }
-        public MicroblogCommentService commentService { get; set; }
+        public IOpenCommentService commentService { get; set; }
         public MicroblogAtService matService { get; set; }
         public UserTagService userTagService { get; set; }
 
@@ -34,7 +37,7 @@ namespace wojilu.Web.Controller.Microblogs {
             followService = new FollowerService();
             visitorService = new VisitorService();
             mfService = new MicroblogFavoriteService();
-            commentService = new MicroblogCommentService();
+            commentService = new OpenCommentService();
             matService = new MicroblogAtService();
             userTagService = new UserTagService();
         }
@@ -209,14 +212,32 @@ namespace wojilu.Web.Controller.Microblogs {
         }
 
 
-        private void saveComment( Microblog tblog, String content ) {
-            MicroblogComment c = new MicroblogComment();
-            c.Root = tblog;
-            c.Content = content;
-            c.User = ctx.viewer.obj as User;
-            c.Ip = ctx.Ip;
+        private void saveComment( Microblog oBlog, String content ) {
 
-            commentService.InsertComment( c, to( new MicroblogController().Show, tblog.Id ) );
+            User creator = oBlog.Creator;
+            IMember owner = User.findById( oBlog.OwnerId );
+
+            OpenComment c = new OpenComment();
+            c.Content = content;
+            c.TargetUrl = Link.To( oBlog.User, Show, oBlog.Id );
+
+            c.TargetDataType = oBlog.DataType;
+            c.TargetDataId = oBlog.DataId;
+            c.TargetTitle = string.Format( "(微博{0}){1}", oBlog.Created.ToShortDateString(), strUtil.ParseHtml( oBlog.Content, 25 ) );
+            c.TargetUserId = oBlog.User.Id;
+
+            c.OwnerId = owner.Id;
+            c.AppId = 0;
+            c.FeedId = oBlog.Id;
+
+            c.Ip = oBlog.Ip;
+            c.Author = creator.Name;
+            c.ParentId = 0;
+            c.AtId = 0;
+
+            c.Member = creator;
+
+            commentService.Create( c );
         }
 
         [HttpPost, DbTransaction]

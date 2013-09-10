@@ -1,4 +1,4 @@
-/*
+﻿/*
  * Copyright (c) 2010, www.wojilu.com. All rights reserved.
  */
 
@@ -22,6 +22,10 @@ namespace wojilu.Apps.Forum.Domain {
         public int ForumBoardId { get; set; }
 
         public int TopicId { get; set; }
+
+        /// <summary>
+        /// 只有主题本身对应的帖子，ParentId才是0
+        /// </summary>
         public int ParentId { get; set; }
 
         public User Creator { get; set; }

@@ -161,6 +161,10 @@
     <Compile Include="Content\Service\ContentSectionTypeService.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Forum\Sync\CommentObserver.cs" />
+    <Compile Include="Forum\Sync\PostObserver.cs" />
+    <Compile Include="Forum\Sync\TopicObserver.cs" />
+    <Compile Include="Forum\Domain\CommentSync.cs" />
     <Compile Include="Photo\Domain\PhotoInfo.cs" />
     <Compile Include="Photo\Helper\PhotoInfoHelper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">

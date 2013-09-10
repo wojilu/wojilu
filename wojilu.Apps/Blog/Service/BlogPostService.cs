@@ -27,6 +27,7 @@ using wojilu.Apps.Blog.Domain;
 using wojilu.Apps.Blog.Interface;
 using wojilu.Common.Microblogs.Service;
 using wojilu.Common.Microblogs.Interface;
+using wojilu.Common.Microblogs;
 
 namespace wojilu.Apps.Blog.Service {
 
@@ -271,7 +272,7 @@ namespace wojilu.Apps.Blog.Service {
             String lnkPost = alink.ToAppData( data );
 
             String msg = string.Format( "<div class=\"feed-item-title\">写了博客 <a href=\"{0}\">{1}</a></div>", lnkPost, data.Title );
-            msg += string.Format( "<div class=\"feed-item-body\">{0}</div>", data.SummaryInfo );
+            msg += string.Format( "<div class=\"feed-item-body\">{0}</div>", strUtil.SubString( data.SummaryInfo, MicroblogAppSetting.Instance.MicroblogContentMax ) );
 
             microblogService.Add( data.Creator, msg, typeof( BlogPost ).FullName, data.Id, data.Ip );
         }

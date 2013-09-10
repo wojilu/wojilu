@@ -31,7 +31,10 @@ namespace wojilu.Common.Comments {
         /// </summary>
         public static readonly int subCacheSize = 8;
 
-        public String TargetUrl { get; set; }// 通知中的原始 url，供用户点击
+        /// <summary>
+        /// 通知中的原始 url，供用户点击
+        /// </summary>
+        public String TargetUrl { get; set; }
 
         // 筛选加载的过滤标准
         public String TargetDataType { get; set; }
@@ -40,7 +43,14 @@ namespace wojilu.Common.Comments {
         public String TargetTitle { get; set; }
         public int TargetUserId { get; set; }
 
+        /// <summary>
+        /// 评论所属的 owner，和 appId 一起，供查询、筛选用
+        /// </summary>
         public int OwnerId { get; set; }
+
+        /// <summary>
+        /// target所属App的Id。可以将replies同步到此App的所有Replies中
+        /// </summary>
         public int AppId { get; set; }
 
         /// <summary>
@@ -48,7 +58,11 @@ namespace wojilu.Common.Comments {
         /// </summary>
         public int FeedId { get; set; }
 
+        /// <summary>
+        /// 在targetData下面直接回复的，parentId=0；如果是点击某个评论后面的“回复”，则parentId>0
+        /// </summary>
         public int ParentId { get; set; }
+
         public int AtId { get; set; } // 被at的评论，不是被at的作者
 
         public User Member { get; set; }

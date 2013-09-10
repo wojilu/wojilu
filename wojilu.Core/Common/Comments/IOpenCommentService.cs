@@ -9,6 +9,7 @@ namespace wojilu.Common.Comments {
         INotificationService nfService { get; set; }
 
         OpenComment GetById( int id );
+        IEntity GetTarget( OpenComment c );
 
         Result Create( OpenComment c );
 

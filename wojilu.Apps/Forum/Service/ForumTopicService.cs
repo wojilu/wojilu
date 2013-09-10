@@ -32,6 +32,7 @@ using wojilu.Apps.Forum.Domain;
 using wojilu.Apps.Forum.Interface;
 using wojilu.Common.Microblogs.Service;
 using wojilu.Common.Microblogs.Interface;
+using wojilu.Common.Microblogs;
 
 namespace wojilu.Apps.Forum.Service {
 
@@ -456,7 +457,7 @@ namespace wojilu.Apps.Forum.Service {
             String lnkPost = alink.ToAppData( data );
 
             String msg = string.Format( "<div class=\"feed-item-title\">发表了论坛主题 <a href=\"{0}\">{1}</a></div>", lnkPost, data.Title );
-            msg += string.Format( "<div class=\"feed-item-body\">{0}</div>", strUtil.ParseHtml( data.Content, 200 ) );
+            msg += string.Format( "<div class=\"feed-item-body\">{0}</div>", strUtil.ParseHtml( data.Content, MicroblogAppSetting.Instance.MicroblogContentMax ) );
 
             microblogService.Add( data.Creator, msg, typeof( ForumTopic ).FullName, data.Id, data.Ip );
 

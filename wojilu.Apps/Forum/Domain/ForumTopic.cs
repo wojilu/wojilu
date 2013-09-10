@@ -12,11 +12,12 @@ using wojilu.Common;
 using wojilu.Common.AppBase;
 using wojilu.Common.AppBase.Interface;
 using wojilu.Common.Microblogs.Interface;
+using wojilu.Common.Comments;
 
 namespace wojilu.Apps.Forum.Domain {
 
     [Serializable]
-    public class ForumTopic : ObjectBase<ForumTopic>, IPost, IAppData, IShareData, ISort, IHits, ILike {
+    public class ForumTopic : ObjectBase<ForumTopic>, IPost, IAppData, IShareData, ISort, IHits, ILike, ICommentTarget {
 
         public User Creator { get; set; }
         public String CreatorUrl { get; set; }
@@ -127,6 +128,10 @@ namespace wojilu.Apps.Forum.Domain {
 
         public void updateOrderId() {
             db.update( this, "OrderId" );
+        }
+
+        public Type GetAppType() {
+            return typeof( ForumApp );
         }
 
     }
