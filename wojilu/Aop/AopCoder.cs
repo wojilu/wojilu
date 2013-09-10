@@ -443,7 +443,7 @@ namespace wojilu.Aop {
             ParameterInfo[] args = methodInfo.GetParameters();
             int i = 1;
             foreach (ParameterInfo x in args) {
-                str += string.Format( "{0} x{1},", x.ParameterType.FullName, i );
+                str += string.Format( "{0} x{1},", strUtil.GetGenericTypeWithArgs( x.ParameterType ), i );
                 i++;
             }
             return str.Trim().TrimEnd( ',' );
@@ -470,7 +470,7 @@ namespace wojilu.Aop {
             ParameterInfo[] args = methodInfo.GetParameters();
             int i = 1;
             foreach (ParameterInfo x in args) {
-                str += string.Format( "typeof({0}),", x.ParameterType.FullName );
+                str += string.Format( "typeof({0}),", strUtil.GetGenericTypeWithArgs( x.ParameterType ) );
                 i++;
             }
             return str.Trim().TrimEnd( ',' );
@@ -481,7 +481,7 @@ namespace wojilu.Aop {
             ParameterInfo[] args = methodInfo.GetParameters();
             int i = 0;
             foreach (ParameterInfo x in args) {
-                str += "(" + x.ParameterType.FullName + ")args[" + i + "],";
+                str += "(" + strUtil.GetGenericTypeWithArgs( x.ParameterType ) + ")args[" + i + "],";
                 i++;
             }
             return str.Trim().TrimEnd( ',' );
