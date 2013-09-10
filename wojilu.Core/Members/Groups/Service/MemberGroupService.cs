@@ -160,7 +160,7 @@ namespace wojilu.Members.Groups.Service {
             if (strUtil.HasText( g.Description )) {
                 msg += string.Format( "<div class=\"feed-item-body\"><span class=\"feed-item-label\">小组简介</span>：{0}</div>", g.Description );
             }
-            msg += string.Format( "<div class=\"feed-item-pic\"><img src=\"{0}\"/></div>", g.LogoSmall );
+            msg += string.Format( "<div class=\"feed-item-pic\"><a href=\"{1}\"><img src=\"{0}\"/></a></div>", g.LogoSmall, Link.ToMember( g ) );
             msg += "</div>";
 
             microblogService.Add( relation.Member, msg, typeof( Group ).FullName, relation.Group.Id, ip );

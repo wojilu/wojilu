@@ -35,6 +35,14 @@ namespace wojilu.Common.Microblogs.Service {
 
         //------------------------------------------------------------------------------------------
 
+        public virtual DataPage<Microblog> GetPageAllByUser( int userId, int pageSize ) {
+
+            if (userId <= 0) return GetPageAll( pageSize );
+
+            DataPage<Microblog> list = Microblog.findPage( "UserId=" + userId + " and " + showCondition(), pageSize );
+            return list;
+        }
+
         public virtual DataPage<Microblog> GetPageAll( int pageSize ) {
 
             DataPage<Microblog> list = Microblog.findPage( showCondition(), pageSize );

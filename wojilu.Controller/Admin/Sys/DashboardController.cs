@@ -16,6 +16,9 @@ using wojilu.Members.Users.Interface;
 using wojilu.Members.Sites.Service;
 using wojilu.Members.Sites.Domain;
 using wojilu.Web.Controller.Photo;
+using wojilu.Common.Microblogs.Domain;
+using wojilu.Common.Microblogs.Interface;
+using wojilu.Common.Microblogs.Service;
 
 namespace wojilu.Web.Controller.Admin.Sys {
 
@@ -23,10 +26,16 @@ namespace wojilu.Web.Controller.Admin.Sys {
 
         public IUserService userService { get; set; }
         public IMemberAppService siteAppService { get; set; }
+        public IMicroblogService microblogService { get; set; }
+        public MicroblogFavoriteService mfService { get; set; }
+        public SysMicroblogService sysMicroblogService { get; set; }
 
         public DashboardController() {
             userService = new UserService();
             siteAppService = new SiteAppService();
+            microblogService = new MicroblogService();
+            mfService = new MicroblogFavoriteService();
+            sysMicroblogService = new SysMicroblogService();
         }
 
         public void Links() {
@@ -89,7 +98,21 @@ namespace wojilu.Web.Controller.Admin.Sys {
         }
 
         public void Index() {
-            Home( -1 );
+            Feed( -1 );
+        }
+
+        public void Feed( int id ) {
+            view( "Feed" );
+            bindUsers();
+
+            DataPage<Microblog> list = sysMicroblogService.GetPageAllByUser( id, 50 );
+            List<MicroblogVo> volist = mfService.CheckFavorite( list.Results, 0 );
+
+            ctx.SetItem( "_microblogVoList", volist );
+            ctx.SetItem( "_showUserFace", true );
+            load( "blogList", new wojilu.Web.Controller.Microblogs.MicroblogController().bindBlogs );
+
+            set( "page", list.PageBar );
         }
 
         public void Home( int id ) {

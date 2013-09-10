@@ -16,10 +16,12 @@ namespace wojilu.Web.Controller.Admin.Mb {
 
         public IMicroblogService microblogService { get; set; }
         public SysMicroblogService sysMicroblogService { get; set; }
+        public MicroblogFavoriteService mfService { get; set; }
 
         public MicroblogController() {
             microblogService = new MicroblogService();
             sysMicroblogService = new SysMicroblogService();
+            mfService = new MicroblogFavoriteService();
         }
 
         public override void Layout() {
@@ -39,6 +41,27 @@ namespace wojilu.Web.Controller.Admin.Mb {
 
             MicroblogAppSetting.Save( ctx.PostValue<MicroblogAppSetting>( "x" ) );
             echoRedirectPart( lang( "opok" ) );
+        }
+
+
+        public void Index() {
+            HideLayout( typeof( MicroblogController ) );
+            Feed( -1 );
+        }
+
+        public void Feed( int id ) {
+            view( "Feed" );
+
+            set( "lnkMicroblogAdmin", to( List ) );
+
+            DataPage<Microblog> list = sysMicroblogService.GetPageAllByUser( id, 50 );
+            List<MicroblogVo> volist = mfService.CheckFavorite( list.Results, 0 );
+
+            ctx.SetItem( "_microblogVoList", volist );
+            ctx.SetItem( "_showUserFace", true );
+            load( "blogList", new wojilu.Web.Controller.Microblogs.MicroblogController().bindBlogs );
+
+            set( "page", list.PageBar );
         }
 
 

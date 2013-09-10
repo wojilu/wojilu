@@ -72,9 +72,11 @@
     <Content Include="crossdomain.xml" />
     <Content Include="favicon.ico" />
     <Content Include="framework\views\Admin\AppTheme\Index.html" />
+    <Content Include="framework\views\Admin\Mb\Microblog\Feed.html" />
     <Content Include="framework\views\Admin\Sys\ConnectAdmin\Add.html" />
     <Content Include="framework\views\Admin\Sys\ConnectAdmin\Edit.html" />
     <Content Include="framework\views\Admin\Sys\ConnectAdmin\Index.html" />
+    <Content Include="framework\views\Admin\Sys\Dashboard\Feed.html" />
     <Content Include="framework\views\Admin\Upgrade\CommentImport\Index.html" />
     <Content Include="framework\views\Admin\Upgrade\Layout\Layout.html" />
     <Content Include="framework\views\Admin\Upgrade\Photo\Index.html" />
@@ -212,7 +214,6 @@
     <Content Include="framework\views\Admin\SiteSkin\Layout.html" />
     <Content Include="framework\views\Admin\SiteSkin\List.html" />
     <Content Include="framework\views\Admin\Sys\Dashboard\Home.html" />
-    <Content Include="framework\views\Admin\Sys\Dashboard\Index.html" />
     <Content Include="framework\views\Admin\Sys\Dashboard\Links.html" />
     <Content Include="framework\views\Admin\Sys\FooterMenu\Add.html" />
     <Content Include="framework\views\Admin\Sys\FooterMenu\Edit.html" />
