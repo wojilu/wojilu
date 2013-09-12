@@ -17,11 +17,10 @@ namespace wojilu.Common.Msg.Interface {
         List<Feedback> GetRecent( int count, int userId );
         DataPage<Feedback> GetPageList( int userId );
 
-        void Insert( Feedback f );
-        void Reply( Feedback parent, Feedback feedback );
-
         void Delete( Feedback f );
 
+        void Insert( Feedback feedback, String lnkReplyList );
+        void Reply( Feedback parent, Feedback feedback, String lnkReplyList );
     }
 
 }

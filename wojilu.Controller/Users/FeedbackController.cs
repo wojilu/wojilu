@@ -50,21 +50,26 @@ namespace wojilu.Web.Controller.Users {
 
             if (f.IsPrivate == 1) {
                 sendMsg( f );
-                String postContent = "<span>" + lang( "feedbackPrivate" ) + "</span>";
-                echoJsonMsg( postContent, true, "" );
-                //actionContent( MvcUtil.renderValidatorJson( postContent, true ) );
+
+                String postContent = "<div style=\"color:red;margin-left:10px;\">说明：私信发送成功！此处不会公开显示。</div>";
+                Dictionary<String, Object> dic = new Dictionary<string, object>();
+                dic.Add( "IsValid", true );
+                dic.Add( "Info", "formResult" );
+                dic.Add( "Msg", postContent );
+
+                echoJson( dic );
+
                 return;
             }
             else {
 
-                feedbackService.Insert( f );
+                feedbackService.Insert( f, t2( List ) );
 
                 List<Feedback> flist = new List<Feedback>();
                 flist.Add( f );
                 ctx.SetItem( "feedbackList", flist );
 
                 String postContent = loadHtml( bindList );
-                //echoJsonMsg( postContent, true, "formResult" );
 
                 Dictionary<String, Object> dic = new Dictionary<string, object>();
                 dic.Add( "IsValid", true );
@@ -115,9 +120,9 @@ namespace wojilu.Web.Controller.Users {
                 return;
             }
 
-            feedbackService.Reply( parent, f );
+            feedbackService.Reply( parent, f, t2( List ) );
 
-            echoToParent( lang( "opok" ) );
+            echoToParent( lang( "opok" ), t2( List ) );
 
         }
 

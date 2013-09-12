@@ -9,11 +9,18 @@ using wojilu.Apps.Blog.Domain;
 using wojilu.Apps.Blog.Interface;
 using wojilu.Common.Jobs;
 using wojilu.Common.AppBase.Interface;
+using wojilu.Members.Users.Domain;
 
 namespace wojilu.Apps.Blog.Service {
 
 
     public class BlogService : IBlogService {
+
+        public virtual BlogApp GetFirstByUser( int ownerId ) {
+            return BlogApp.find( "OwnerId=" + ownerId + " and OwnerType=:OwnerType" )
+                .set( "OwnerType", typeof( User ).FullName )
+                .first();
+        }
 
         public virtual List<BlogApp> GetBlogAppAll() {
             return BlogApp.findAll();

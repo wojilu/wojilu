@@ -17,6 +17,11 @@ namespace wojilu.Web.Controller.Users {
 
         public UserVo( User user ) {
 
+            this.RegisterDay = user.Created.ToShortDateString();
+            this.LastLoginDay = user.LastLoginTime.ToShortDateString();
+            this.Credit = user.Credit.ToString();
+            this.FollowerCount = user.FollowersCount.ToString();
+
             this.Name = user.Name;
             this.Gender = AppResource.Gender.GetName( user.Gender );
             this.Birthday = user.BirthMonth + "-" + user.BirthDay + "";
@@ -52,6 +57,12 @@ namespace wojilu.Web.Controller.Users {
             this.Eat = user.Profile.Eat;
             this.Book = user.Profile.Book;
         }
+
+        public String RegisterDay { get; set; }
+        public String LastLoginDay { get; set; }
+
+        public String Credit { get; set; }
+        public String FollowerCount { get; set; }
 
         public String Name {get;set;}
         public String Gender { get; set; }

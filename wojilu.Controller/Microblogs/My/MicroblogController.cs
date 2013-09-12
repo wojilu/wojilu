@@ -175,7 +175,7 @@ namespace wojilu.Web.Controller.Microblogs.My {
                 throw new NullReferenceException( lang( "exDataNotFound" ) );
             }
 
-            if (blog.User.Id != ctx.viewer.Id || !ctx.viewer.IsAdministrator()) {
+            if (blog.User.Id != ctx.viewer.Id && !ctx.viewer.IsAdministrator()) {
                 echoError( lang( "exNoPermission" ) );
                 return;
             }

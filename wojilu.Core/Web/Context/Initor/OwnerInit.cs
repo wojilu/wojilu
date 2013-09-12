@@ -85,6 +85,14 @@ namespace wojilu.Web.Context.Initor {
 
         private void updateRoute_ByOwnerMenus( MvcContext ctx, IMember owner ) {
 
+            Boolean homepageCustom = false;
+
+            if (owner.GetType() == typeof( User )) {
+                // 如果禁止主页自定义
+                if (!homepageCustom) {
+                    return;
+                }
+            }
 
             List<IMenu> list = InitHelperFactory.GetHelper( ctx ).GetMenus( ctx.owner.obj );
 

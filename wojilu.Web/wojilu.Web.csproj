@@ -127,6 +127,9 @@
     <Content Include="framework\views\Users\Admin\UserProfile\AddEmail.html" />
     <Content Include="framework\views\Users\Admin\UserProfile\BindAccount.html" />
     <Content Include="framework\views\Users\Admin\UserProfile\NeedUserPic.html" />
+    <Content Include="framework\views\Users\Home\Index.html" />
+    <Content Include="framework\views\Users\Home\Feed.html" />
+    <Content Include="framework\views\Users\Home\Layout.html" />
     <Content Include="static\js\lib\jquery.infinitescroll.min.js" />
     <Content Include="static\js\lib\jquery.masonry.min.js" />
     <Content Include="static\js\lib\require-jquery-wojilu.js" />
@@ -920,7 +923,6 @@
     <Content Include="framework\views\Content\Admin\Common\Post\Add.html" />
     <Content Include="framework\views\Content\Admin\SectionSetting\Edit.html" />
     <Content Include="framework\views\Content\Binder\Focus.html" />
-    <Content Include="framework\views\Content\Binder\副本 MyFace.html" />
     <Content Include="framework\views\Content\Post\Show.html" />
     <Content Include="framework\views\Content\Section\Show.html" />
     <Content Include="framework\views\Forum\Moderators\Topic\Category.html" />

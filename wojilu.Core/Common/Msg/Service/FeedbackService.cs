@@ -33,33 +33,32 @@ namespace wojilu.Common.Msg.Service {
             return db.find<Feedback>( "Target.Id=" + userId + "" ).list( count );
         }
 
-        public virtual void Insert( Feedback f ) {
+        public virtual void Insert( Feedback f, String lnkReplyList ) {
             Result result = db.insert( f );
             if (result.IsValid) {
-                addNotification( f );
+                addNotification( f, lnkReplyList );
             }
         }
 
-        public virtual void Reply( Feedback parent, Feedback feedback ) {
+        public virtual void Reply( Feedback parent, Feedback feedback, String lnkReplyList ) {
 
-            this.Insert( feedback );
-            addNotificationToParentCreator( parent, feedback );
+            this.Insert( feedback, lnkReplyList );
+            addNotificationToParentCreator( parent, feedback, lnkReplyList );
         }
 
-        private void addNotification( Feedback f ) {
+        private void addNotification( Feedback f, String lnkReplyList ) {
 
             int receiverId = f.Target.Id;
             if (f.Creator.Id == receiverId) return;
 
             String feedbackInfo = lang.get( "feedbackInfo" );
-            String spaceLink = "<a href=\"" + Link.ToMember( f.Target ) + "\">" + lang.get( "yourSpace" ) + "</a>";
+            String spaceLink = "<a href=\"" + lnkReplyList + "\">" + lang.get( "yourSpace" ) + "</a>";
             String msg = string.Format( feedbackInfo, f.Creator.Name, spaceLink );
-            //String msg = f.Creator.Name + " 给 <a href=\"" + Link.ToMember( f.Target ) + "\">" + lang.get( "yourSpace" ) + "</a> 留了言";
 
             nfService.send( receiverId, typeof( User ).FullName, msg, NotificationType.Comment );
         }
 
-        private void addNotificationToParentCreator( Feedback parent, Feedback f ) {
+        private void addNotificationToParentCreator( Feedback parent, Feedback f, String lnkReplyList ) {
 
             int receiverId = parent.Creator.Id;
             if (f.Creator.Id == receiverId) return;
@@ -68,7 +67,7 @@ namespace wojilu.Common.Msg.Service {
             if (receiverId == f.Target.Id) return;
 
             String feedbackReplyInfo = lang.get( "feedbackReplyInfo" );
-            String spaceLink = "<a href=\"" + Link.ToMember( f.Target ) + "\">" + f.Target.Name + "</a>";
+            String spaceLink = "<a href=\"" + lnkReplyList + "\">" + f.Target.Name + "</a>";
             String msg = string.Format( feedbackReplyInfo, f.Creator.Name, spaceLink );
 
             nfService.send( receiverId, typeof( User ).FullName, msg, NotificationType.Comment );

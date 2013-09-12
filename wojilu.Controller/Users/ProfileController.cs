@@ -30,17 +30,18 @@ namespace wojilu.Web.Controller.Users {
             User user = ctx.owner.obj as User;
             load( "userMenu", UserMenu );
 
-            Microblog blog = microblogService.GetFirst( user.Id );
+            //Microblog blog = microblogService.GetFirst( user.Id );
 
-            if (blog != null) {
-                String lnkMore = alink.ToUserMicroblog( user );
-                String more = "<a href='" + lnkMore + "'>" + lang( "more" ) + "...</a>";
-                String logcontent = blog.Content + " <span class='left10'>" + more + "</span>";
+            //if (blog != null) {
+            //    String lnkMore = alink.ToUserMicroblog( user );
+            //    String more = "<a href='" + lnkMore + "'>" + lang( "more" ) + "...</a>";
+            //    String logcontent = blog.Content + " <span class='left10'>" + more + "</span>";
 
-                set( "microblog", logcontent );
-            }
-            else
-                set( "microblog", "" );
+            //    set( "microblog", logcontent );
+            //}
+            //else {
+            //    set( "microblog", "" );
+            //}
 
             UserVo uservo = new UserVo( user );
 

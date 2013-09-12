@@ -446,6 +446,7 @@
     <Compile Include="Admin\Spiders\Utils\LogCacher.cs" />
     <Compile Include="Admin\Spiders\LogController.cs" />
     <Compile Include="Admin\Spiders\TemplateController.cs" />
+    <Compile Include="Users\HomeController.cs" />
     <Compile Include="Users\UserUploadController.cs" />
     <Compile Include="Users\Admin\Utils\FeedType.cs" />
     <Compile Include="Microblogs\My\MbSaveController.cs" />
