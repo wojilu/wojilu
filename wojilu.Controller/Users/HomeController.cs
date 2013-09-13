@@ -72,17 +72,31 @@ namespace wojilu.Web.Controller.Users {
             DataPage<Microblog> list = microblogService.GetPageList( ctx.owner.obj.Id, MicroblogAppSetting.Instance.MicroblogPageSize );
             List<MicroblogVo> volist = mfService.CheckFavorite( list.Results, ctx.viewer.Id );
 
-            if (list.PageCount == 1) {
+            if (list.PageCount <= 1) {
                 set( "lnkFeed", to( Feed ) );
+                set( "feedMoreStyle", "display:none;" );
             }
             else {
                 set( "lnkFeed", PageHelper.AppendNo( to( Feed ), 2 ) );
+                set( "feedMoreStyle", "" );
             }
 
             ctx.SetItem( "_microblogVoList", volist );
             ctx.SetItem( "_showUserFace", false );
             load( "blogList", new Microblogs.MicroblogController().bindBlogs );
-            set( "page", list.PageBar );
+
+            if (list.RecordCount == 0) {
+                set( "page1", list.PageBar );
+                set( "page2", "对不起，还动态消息" );
+            }
+            else if (list.PageCount > 1) {
+                set( "page1", list.PageBar );
+                set( "page2", list.PageBar );
+            }
+            else {
+                set( "page1", list.PageBar );
+                set( "page2", "" );
+            }
         }
 
         public void Feed() {
