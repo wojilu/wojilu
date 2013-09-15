@@ -49,6 +49,7 @@ namespace wojilu.Web.Controller.Users {
 
         public override void Layout() {
             load( "userMenu", new ProfileController().UserMenu );
+            bindProfile();
             bindUserLinkList();
             bindVisitorList();
             bindFriendList();
@@ -108,6 +109,10 @@ namespace wojilu.Web.Controller.Users {
             User user = ctx.owner.obj as User;
             UserVo uservo = new UserVo( user );
             bind( "user", uservo );
+
+            int microblogCount = microblogService.CountByUser( user.Id );
+            set( "user.MicroblogCount", microblogCount );
+
         }
 
         public void Blog() {

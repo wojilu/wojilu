@@ -55,6 +55,8 @@ namespace wojilu.Web.Controller.Layouts {
 
             bindCommon();
 
+            loadSiteHeader();
+
             loadHeader();
 
             bindSpaceName();
@@ -67,6 +69,11 @@ namespace wojilu.Web.Controller.Layouts {
             set( "skinContent", skinContent );
 
             set( "customSkinLink", to( new Users.Admin.SkinController().CustomBg ) );
+        }
+
+        private void loadSiteHeader() {
+            load( "siteTopNav", new TopNavController().IndexNew );
+            load( "siteHeader", new TopNavController().Header );
         }
 
         private void bindSpaceName() {

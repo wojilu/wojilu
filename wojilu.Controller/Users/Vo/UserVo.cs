@@ -10,6 +10,7 @@ using wojilu.Drawing;
 using wojilu.Members.Users.Domain;
 using wojilu.Members.Sites.Domain;
 using wojilu.Common.Resource;
+using wojilu.Web.Mvc;
 
 namespace wojilu.Web.Controller.Users {
 
@@ -17,10 +18,13 @@ namespace wojilu.Web.Controller.Users {
 
         public UserVo( User user ) {
 
+            this.Url = Link.ToMember( user );
+
             this.RegisterDay = user.Created.ToShortDateString();
             this.LastLoginDay = user.LastLoginTime.ToShortDateString();
             this.Credit = user.Credit.ToString();
             this.FollowerCount = user.FollowersCount.ToString();
+            this.FollowingCount = user.FollowingCount.ToString();
 
             this.Name = user.Name;
             this.Gender = AppResource.Gender.GetName( user.Gender );
@@ -58,11 +62,14 @@ namespace wojilu.Web.Controller.Users {
             this.Book = user.Profile.Book;
         }
 
+        public String Url { get; set; }
+
         public String RegisterDay { get; set; }
         public String LastLoginDay { get; set; }
 
         public String Credit { get; set; }
         public String FollowerCount { get; set; }
+        public String FollowingCount { get; set; }
 
         public String Name {get;set;}
         public String Gender { get; set; }
