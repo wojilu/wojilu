@@ -11,7 +11,7 @@ define([], function() {
 
     function initBackTop() {
 
-        $('body').append('<div id="backTop"><span>回顶部</span></div>');
+        $('body').append('<div id="backTop"></div>');
 
         $(window).scroll(function () {
             if ($(window).scrollTop() >= 300) {

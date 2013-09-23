@@ -60,6 +60,8 @@ namespace wojilu.Web.Controller.Users.Admin {
             set( "viewer.FaceUrl", to( Face ) );
             set( "viewer.PwdUrl", to( Pwd ) );
 
+            set( "viewer.LogoutUrl", to( new wojilu.Web.Controller.MainController().Logout ) );
+
             Boolean isUserPrivacyClose = Component.IsClose( typeof( UserPrivacy ) );
             if (isUserPrivacyClose) {
                 set( "viewer.PrivacyLink", "#" );
@@ -69,6 +71,9 @@ namespace wojilu.Web.Controller.Users.Admin {
                 set( "viewer.PrivacyLink", to( Privacy ) );
                 set( "privacyLinkStyle", "" );
             }
+        }
+
+        public void Index() {
         }
 
         public void BindAccount() {

@@ -104,6 +104,16 @@ namespace wojilu.Web.Controller.Users {
             bindFeedList();
         }
 
+        public void SendMsg() {
+
+            HideLayout( typeof( HomeController ) );
+
+            String lnk = Link.To( ctx.viewer.obj, new Users.Admin.MsgController().CreateOk );
+            set( "ActionLink", lnk );
+            set( "receiver", ctx.owner.obj.Name );
+            set( "returnUrl", Link.ToMember( ctx.owner.obj ) );
+        }
+
         private void bindProfile() {
 
             User user = ctx.owner.obj as User;
@@ -147,6 +157,25 @@ namespace wojilu.Web.Controller.Users {
             set( "lnkFriend", to( new FriendController().FriendList ) );
             set( "lnkVisitor", to( new VisitorController().Index ) );
             set( "lnkProfile", to( new ProfileController().Main ) );
+
+            set( "lnkMsg", to( SendMsg ) );
+
+            set( "lnkFollower", to( new FriendController().FollowerList ) );
+            set( "lnkFollowing", to( new FriendController().FollowingList ) );
+
+            set( "lnkFollow", to( new FriendController().Follow, ctx.owner.Id ) );
+            set( "lnkUnFollow", to( new FriendController().DeleteFollow, ctx.owner.Id ) );
+
+
+            if (ctx.viewer.IsFollowing( ctx.owner.Id )) {
+                set( "followDisplay", "display:none" );
+                set( "followedDisplay", "" );
+            }
+            else {
+                set( "followDisplay", "" );
+                set( "followedDisplay", "display:none" );
+            }
+
         }
 
         private void bindFeedback() {
@@ -168,8 +197,6 @@ namespace wojilu.Web.Controller.Users {
                 block.Next();
             }
         }
-
-
 
         private void bindVisitorList() {
 

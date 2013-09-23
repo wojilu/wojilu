@@ -39,6 +39,9 @@ namespace wojilu.Web.Controller.Users.Admin {
 
             User user = ctx.owner.obj as User;
 
+            set( "mCount", getCountString( user.MsgNewCount ) );
+            set( "nCount", getCountString( user.NewNotificationCount ) );
+
             MessageStats stats = msgService.GetStats( user );
             set( "msg.NewCount", getCountString( stats.New ) );
             set( "msg.AllCount", getCountString( stats.All ) );

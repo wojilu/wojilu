@@ -105,6 +105,8 @@ namespace wojilu.Web.Controller.Layouts {
             set( "lostPage", Link.To( Site.Instance, new MainController().lost ) );
             bindCommon();
 
+            loadSiteHeader();
+
             object isLoadAdminSidebar = ctx.GetItem( "_loadAdminSidebar" );
             if (isLoadAdminSidebar != null && (Boolean)isLoadAdminSidebar == false)
                 set( "adminMain", "#{layout_content}" );

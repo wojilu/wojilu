@@ -14,6 +14,7 @@ using wojilu.Members.Sites.Domain;
 using wojilu.Members.Users.Domain;
 using wojilu.Common.MemberApp.Interface;
 using System.Collections.Generic;
+using wojilu.Common.Msg.Service;
 
 namespace wojilu.Web.Controller.Layouts {
 
@@ -22,7 +23,7 @@ namespace wojilu.Web.Controller.Layouts {
         private String getAdminCmd() {
             String siteAdminCmd = "";
 
-            if( SiteRole.IsInAdminGroup( ctx.viewer.obj.RoleId) ) {
+            if (SiteRole.IsInAdminGroup( ctx.viewer.obj.RoleId )) {
 
                 String lk = string.Format( "<img src=\"{0}lock.gif\"/> ", sys.Path.Img );
 
@@ -34,6 +35,11 @@ namespace wojilu.Web.Controller.Layouts {
                     siteAdminCmd += string.Format( "<a href='{0}'>{2}{1}</a>", Link.To( Site.Instance, new Admin.MainController().Login ), lang( "siteAdmin" ), lk );
             }
             return siteAdminCmd;
+        }
+
+        private object getNewMsgCountAll() {
+            User viewer = (User)ctx.viewer.obj;
+            return viewer.MsgNewCount + viewer.NewNotificationCount + viewer.MicroblogAtUnread;
         }
 
         private String getMsgCount() {
@@ -59,13 +65,23 @@ namespace wojilu.Web.Controller.Layouts {
                 return string.Format( "<div class=\"NewNotificationCount\"><a href=\"{1}\">{0}条at我的微博</a></div>", nCount, Link.To( ctx.viewer.obj, new Microblogs.My.MicroblogController().Atme ) );
             }
 
-
             return "";
         }
 
+        private string getSiteNotification() {
 
+            if (ctx.viewer.obj.Id != SiteRole.Administrator.Id) return "";
 
-        private void bindUserAppList(  IBlock ablock, IList userAppList ) {
+            int newCount = new NotificationService().GetUnReadCount( Site.Instance.Id, typeof( Site ).FullName );
+            if (newCount <= 0) return "";
+
+            User user = (User)ctx.viewer.obj;
+
+            String lnk = Link.To( user, new Users.Admin.SiteNfController().List );
+            return string.Format( "<a href=\"{0}\">通知(<span id=\"siteNotificationText\">{1}</span>)</a>", lnk, newCount );
+        }
+
+        private void bindUserAppList( IBlock ablock, IList userAppList ) {
             IBlock block = ablock.GetBlock( "apps" );
             foreach (IMemberApp app in userAppList) {
                 block.Set( "app.NameAndUrl", getNameAndUrl( app ) );

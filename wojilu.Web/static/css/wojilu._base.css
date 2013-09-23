@@ -278,6 +278,4 @@ blockquote .quote-user {font-size:12px; margin-left:0px; color:#666; padding:5px
 .footer{background:url(../skin/site/new/footer-bg.jpg); text-align:center; height:78px;margin-top:0px;padding-top:0px;}
 .footer-inner {padding-top:10px;}
 
-#backTop { display:none;position: fixed; bottom: 20px; right: 20px; z-index:1999 ; width: 71px;cursor:pointer;}
-#backTop span { display: block; width: 71px; height: 24px; padding-top: 48px; background: url("../img/m/backTop.gif") no-repeat; text-align: center; color: #777; }
-#backTop span:hover { background: url("../img/m/backTop.gif") no-repeat -88px 0px; }
+#backTop { display:none;position: fixed; bottom: 20px; right: 20px; z-index:1999 ; width: 50px;height: 50px;cursor:pointer;background: url("../img/m/top.png") no-repeat;}

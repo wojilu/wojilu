@@ -195,6 +195,28 @@ namespace wojilu.Web.Controller.Users.Admin {
         [HttpPost, DbTransaction]
         public void Create() {
 
+            Result result = createMsg();
+            if (result.IsValid) {
+                echoRedirectPart( lang( "opok" ), to( Sent ), 1 );
+            }
+            else {
+                echoError( result );
+            }
+        }
+
+        [HttpPost, DbTransaction]
+        public void CreateOk() {
+
+            Result result = createMsg();
+            if (result.IsValid) {
+                echoRedirect( lang( "opok" ), ctx.Post( "returnUrl" ) );
+            }
+            else {
+                echoError( result );
+            }
+        }
+
+        private Result createMsg() {
             User user = ctx.owner.obj as User;
 
             String receiverName = ctx.Post( "ToName" );
@@ -202,12 +224,7 @@ namespace wojilu.Web.Controller.Users.Admin {
             int[] ids = cvt.ToIntArray( ctx.Post( "attachmentIds" ) );
 
             Result result = msgService.SendMsg( user, receiverName, ctx.Post( "Title" ), ctx.PostHtml( "Content" ), replyId, ids );
-            if (result.IsValid) {
-                echoRedirectPart( lang( "opok" ), to( Sent ), 1 );
-            }
-            else {
-                echoError( result );
-            }
+            return result;
         }
         //-------------------------------------------------------------------------------------------------
 

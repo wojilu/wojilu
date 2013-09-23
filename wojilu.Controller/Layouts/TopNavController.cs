@@ -196,12 +196,16 @@ _run( function() {
             dic.Add( "viewerTemplateUrl", Link.To( user, new Users.Admin.SkinController().My ) );
 
             dic.Add( "viewerMsg", Link.To( user, new MsgController().Index ) );
+
             dic.Add( "viewerNewMsgCount", this.getMsgCount() );
             dic.Add( "viewerNewNotificationCount", this.getNewNotificationCount() );
             dic.Add( "viewerNewMicroblogAtCount", this.getNewMicroblogAtCount() );
-
             dic.Add( "viewerSiteNotification", getSiteNotification() );
 
+            // 放在上面几个count的后面，因为要先CheckSiteMsg
+            dic.Add( "viewerNewMsgCountAll", getNewMsgCountAll() );
+
+            dic.Add( "viewerProfileIndexUrl", Link.To( user, new UserProfileController().Index ) );
             dic.Add( "viewerProfileUrl", Link.To( user, new UserProfileController().Profile ) );
             dic.Add( "viewerBindUrl", Link.To( user, new UserProfileController().BindAccount ) );
             dic.Add( "viewerContactLink", Link.To( user, new UserProfileController().Contact ) );
@@ -240,6 +244,8 @@ _run( function() {
             return dic;
         }
 
+
+
         private Dictionary<String, object> getOnlineDic() {
 
             OnlineStats o = OnlineStats.Instance;
@@ -269,18 +275,6 @@ _run( function() {
         }
 
 
-        private string getSiteNotification() {
-
-            if (ctx.viewer.obj.Id != SiteRole.Administrator.Id) return "";
-
-            int newCount = new NotificationService().GetUnReadCount( Site.Instance.Id, typeof( Site ).FullName );
-            if (newCount <= 0) return "";
-
-            User user = (User)ctx.viewer.obj;
-
-            String lnk = Link.To( user, new Users.Admin.SiteNfController().List );
-            return string.Format( "<a href=\"{0}\">通知(<span id=\"siteNotificationText\">{1}</span>)</a>", lnk, newCount );
-        }
 
         //-------------------------------------------------------------------------------------------------------------
 

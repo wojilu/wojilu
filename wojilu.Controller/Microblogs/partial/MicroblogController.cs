@@ -12,6 +12,7 @@ using wojilu.Web.Mvc.Attr;
 using System.Text;
 using wojilu.Members.Sites.Domain;
 using wojilu.Common;
+using wojilu.Web.Context;
 
 namespace wojilu.Web.Controller.Microblogs {
 
@@ -161,7 +162,7 @@ namespace wojilu.Web.Controller.Microblogs {
 
             block.Set( "blog.Content", getBlogContent( blog ) );
 
-            bindUserInfo( block, blog, showUserFace ); // 用户信息
+            bindUserInfo( block, ctx, blog, showUserFace ); // 用户信息
             bindRepost( block, blog ); // 转发信息
             bindPicInfo( block, blog ); // 图片信息
             bindVideoInfo( block, blog ); // 视频信息
@@ -182,11 +183,16 @@ namespace wojilu.Web.Controller.Microblogs {
             block.Set( "blog.FavoriteCmd", getFavoriteCmd( blog, isFavorite ) ); // 收藏命令
 
             // 删除命令
+            String deleteCmd = getDeleteCmd( ctx, blog );
+            block.Set( "blog.DeleteCmd", deleteCmd );
+        }
+
+        private static String getDeleteCmd( MvcContext ctx, Microblog blog ) {
             String deleteCmd = "";
             if (ctx.viewer.Id == blog.User.Id || ctx.viewer.IsAdministrator()) {
-                deleteCmd = string.Format( "<a href=\"{0}\" class=\"left10 ajaxDeleteCmd\" removeId=\"mblog{1}\">x</a>", to( new Microblogs.My.MicroblogController().Delete, blog.Id ), blog.Id );
+                deleteCmd = string.Format( "<a href=\"{0}\" class=\"left10 ajaxDeleteCmd\" removeId=\"mblog{1}\">x</a>", Link.To( new Microblogs.My.MicroblogController().Delete, blog.Id ), blog.Id );
             }
-            block.Set( "blog.DeleteCmd", deleteCmd );
+            return deleteCmd;
         }
 
         private string getCommentUrl( Microblog x ) {
@@ -221,13 +227,17 @@ namespace wojilu.Web.Controller.Microblogs {
             }
         }
 
-        private static void bindUserInfo( IBlock block, Microblog blog, Boolean showUserFace ) {
+        private static void bindUserInfo( IBlock block, MvcContext ctx, Microblog blog, Boolean showUserFace ) {
             IBlock ufBlock = block.GetBlock( "userFace" );
             if (showUserFace) {
 
                 ufBlock.Set( "blog.UserName", blog.User.Name );
                 ufBlock.Set( "blog.UserFace", blog.User.PicSmall );
                 ufBlock.Set( "blog.UserLink", alink.ToUserMicroblog( blog.User ) );
+                ufBlock.Set( "userNameInfo", string.Format( "<a href=\"{0}\">{1}</a>", alink.ToUserMicroblog( blog.User ), blog.User.Name ) );
+
+                String deleteCmd = getDeleteCmd( ctx, blog );
+                ufBlock.Set( "blog.DeleteCmd", deleteCmd );
 
                 ufBlock.Next();
 
