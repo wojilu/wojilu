@@ -634,10 +634,18 @@ namespace wojilu.Web.Mvc {
         }
 
         /// <summary>
-        /// 将 json 信息 {Msg:"ok", IsValid:true, Info:""} 显示给客户端
+        /// 将 json 信息 {"Msg":"ok", "IsValid":true, "Info":""} 显示给客户端
         /// </summary>
         protected void echoJsonOk() {
             echoJsonMsg( "ok", true, "" );
+        }
+
+        /// <summary>
+        /// 将 json 信息 {"Msg": msg, "IsValid":true, "Info":""} 显示给客户端
+        /// </summary>
+        /// <param name="msg"></param>
+        protected void echoJsonOk( String msg ) {
+            echoJsonMsg( msg, true, "" );
         }
 
         private void setJsonContentType() {
