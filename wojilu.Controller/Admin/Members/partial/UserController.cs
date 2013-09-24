@@ -217,8 +217,8 @@ namespace wojilu.Web.Controller.Admin.Members {
             String email = ctx.Get( "email" );
             set( "s.Email", email );
             if (strUtil.HasText( email )) {
-                name = strUtil.SqlClean( email, 30 );
-                condition += string.Format( "and Email='{0}' ", name );
+                name = strUtil.SqlClean( email, 15 );
+                condition += string.Format( "and Email like '%{0}%' ", name );
             }
 
             return strUtil.TrimStart( condition.Trim(), "and" );

@@ -217,7 +217,7 @@ _run( function() {
             dic.Add( "viewerInviteLink", Link.To( user, new Users.Admin.InviteController().Index ) );
 
             dic.Add( "uploadAvatarLink", Link.To( user, new Users.Admin.UserProfileController().NeedUserPic ) );
-            dic.Add( "confirmEmailLink", Link.To( user, new Common.ActivationController().SendEmailButton ) );
+            dic.Add( "confirmEmailLink", Link.To( Site.Instance, new Common.ActivationController().SendEmailButton ) );
 
             dic.Add( "viewerFriends", Link.To( user, new Users.Admin.Friends.FriendController().List, 0 ) );
             dic.Add( "viewerCurrency", Link.To( user, new Users.Admin.CreditController().My ) );
