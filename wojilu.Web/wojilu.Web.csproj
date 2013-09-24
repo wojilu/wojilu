@@ -125,6 +125,7 @@
     <Content Include="framework\views\Users\Admin\UserProfile\NeedUserPic.html" />
     <Content Include="framework\views\Users\Home\Index.html" />
     <Content Include="framework\views\Users\Home\Feed.html" />
+    <Content Include="framework\views\Users\Home\Info.html" />
     <Content Include="framework\views\Users\Home\Layout.html" />
     <Content Include="static\js\lib\jquery.infinitescroll.min.js" />
     <Content Include="static\js\lib\jquery.masonry.min.js" />

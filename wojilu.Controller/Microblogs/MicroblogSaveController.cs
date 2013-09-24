@@ -108,6 +108,10 @@ namespace wojilu.Web.Controller.Microblogs {
             ctx.SetItem( "_microblogVoList", volist );
             ctx.SetItem( "_showUserFace", true );
 
+            if (ctx.Post( "fromPage" ) != "microblogPage") {
+                ctx.SetItem( "__showType", "feed" );
+            }
+
             return loadHtml( new Microblogs.MicroblogController().bindBlogs );
         }
 

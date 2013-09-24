@@ -123,7 +123,7 @@ namespace wojilu.Web.Controller.Microblogs {
                 String vpic = strUtil.HasText( blog.PicUrl ) ? blog.PicUrl : strUtil.Join( sys.Path.Img, "/big/novideopic.png" );
 
                 vBlock.Set( "blog.FlashPic", vpic );
-                vBlock.Set( "blog.ShowLink", Link.To( blog.User, new MicroblogController().Show, blog.Id ) );
+                vBlock.Set( "blog.ShowLink", MbLink.ToBlog( blog.User, blog.Id ) );
                     
                 vBlock.Next();
             }

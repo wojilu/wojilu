@@ -163,6 +163,7 @@
             var picUrl = $( '#picUrl' ).val();
             var videoId = $( '#videoId' ).val();
             var srcType = $('#srcType' ).val();
+			var fromPage = $('#fromPage' ).val();
 			var returnUrl = $('#returnUrl').val();
 
             if( wojilu.str.isNull( mycontent ) ) {			
@@ -175,7 +176,7 @@
             btn.attr( 'disabled', 'disabled' );
             
             var url = pubUrl.toAjax();
-            $.post( url, { 'Content':mycontent, 'PicUrl':picUrl, 'videoId':videoId, 'srcType':srcType }, function( data ) {
+            $.post( url, { 'Content':mycontent, 'PicUrl':picUrl, 'videoId':videoId, 'srcType':srcType, 'fromPage':fromPage }, function( data ) {
 
                 btn.attr( 'disabled', false );
                 

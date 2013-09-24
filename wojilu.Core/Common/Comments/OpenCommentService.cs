@@ -389,12 +389,16 @@ namespace wojilu.Common.Comments {
         }
 
         public virtual IEntity GetTarget( OpenComment c ) {
+
+            if (strUtil.IsNullOrEmpty( c.TargetDataType )) return null;
+            if (c.TargetDataId <= 0) return null;
+
             Type targetType = Entity.GetType( c.TargetDataType );
+            if (targetType == null) return null;
             return ndb.findById( targetType, c.TargetDataId );
         }
 
         private void updateTargetReplies( OpenComment c, int replies ) {
-            //Type targetType = Entity.GetType( c.TargetDataType );
             ICommentTarget target = GetTarget( c ) as ICommentTarget;
             if (target != null) {
                 target.Replies = replies;

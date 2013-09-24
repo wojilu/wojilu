@@ -101,10 +101,10 @@ namespace wojilu.Web.Controller.Microblogs {
             loadCommonView( blog );
 
             // 评论表单
-            target( new MicroblogCommentsController().SaveReply );
-            set( "c.RootId", id );
-            set( "c.ParentId", 0 );
-            set( "viewer.PicSmall", ctx.viewer.obj.PicSmall );
+            //target( new MicroblogCommentsController().SaveReply );
+            //set( "c.RootId", id );
+            //set( "c.ParentId", 0 );
+            //set( "viewer.PicSmall", ctx.viewer.obj.PicSmall );
         }
 
 
@@ -219,10 +219,12 @@ namespace wojilu.Web.Controller.Microblogs {
 
             OpenComment c = new OpenComment();
             c.Content = content;
-            c.TargetUrl = Link.To( oBlog.User, Show, oBlog.Id );
+            c.TargetUrl = MbLink.ToBlog( oBlog.User, oBlog.Id );
 
-            c.TargetDataType = oBlog.DataType;
-            c.TargetDataId = oBlog.DataId;
+            c.TargetDataType = oBlog.GetType().FullName;
+            c.TargetDataId = oBlog.Id;
+
+
             c.TargetTitle = string.Format( "(微博{0}){1}", oBlog.Created.ToShortDateString(), strUtil.ParseHtml( oBlog.Content, 25 ) );
             c.TargetUserId = oBlog.User.Id;
 

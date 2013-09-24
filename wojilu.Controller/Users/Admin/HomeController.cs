@@ -77,6 +77,7 @@ namespace wojilu.Web.Controller.Users.Admin {
             DataPage<Microblog> list = microblogService.GetFollowingPage( ctx.owner.obj.Id, MicroblogAppSetting.Instance.MicroblogPageSize );
             List<MicroblogVo> volist = mfService.CheckFavorite( list.Results, ctx.viewer.Id );
 
+            ctx.SetItem( "__showType", "feed" );
             ctx.SetItem( "_microblogVoList", volist );
             ctx.SetItem( "_showUserFace", true );
             load( "blogList", new wojilu.Web.Controller.Microblogs.MicroblogController().bindBlogs );
@@ -190,7 +191,7 @@ namespace wojilu.Web.Controller.Users.Admin {
                 else {
 
                     block.Set( "c.Microblog", blog.Content );
-                    block.Set( "c.MicroblogLink", to( new wojilu.Web.Controller.Microblogs.MicroblogController().Show, c.FeedId ) );
+                    block.Set( "c.MicroblogLink", wojilu.Web.Controller.Microblogs.MbLink.ToBlog( blog.User, c.FeedId ) );
                 }
 
                 block.Next();

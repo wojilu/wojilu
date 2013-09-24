@@ -107,8 +107,6 @@ namespace wojilu.Web.Controller.Microblogs {
 
         private void loadCommonView( Microblog blog ) {
 
-
-
             List<Microblog> list = new List<Microblog>();
             list.Add( blog );
             List<MicroblogVo> volist = mfService.CheckFavorite( list, ctx.viewer.Id );
@@ -116,39 +114,7 @@ namespace wojilu.Web.Controller.Microblogs {
             ctx.SetItem( "_microblogVoList", volist );
             ctx.SetItem( "_showUserFace", false );
             load( "blogList", bindBlogs );
-
         }
-
-
-        //private void bindComments( IBlock cblock, List<MicroblogComment> clist ) {
-
-        //    foreach (MicroblogComment c in clist) {
-
-        //        cblock.Set( "user.Face", c.User.PicSmall );
-        //        cblock.Set( "user.Link", toUser( c.User ) );
-        //        cblock.Set( "user.Name", c.User.Name );
-        //        cblock.Set( "comment.Id", c.Id );
-        //        cblock.Set( "comment.RootId", c.Root.Id );
-        //        cblock.Set( "comment.Content", c.Content );
-        //        cblock.Set( "comment.Created", c.Created );
-        //        cblock.Set( "comment.Indent", 10 );
-        //        cblock.Set( "comment.ReplyUrl", to( new MicroblogCommentsController().Reply, c.Root.Id ) + "?parentId=" + c.Id );
-
-        //        String deleteCmd = "";
-        //        if (ctx.viewer.Id == ctx.owner.Id || ctx.viewer.IsAdministrator()) {
-        //            deleteCmd = string.Format( "<a href=\"{0}\" class=\"ajaxDeleteCmd\" removeId=\"commentItem{1}\">删除</a>",
-        //                to( new My.MicroblogCommentsController().Delete, c.Id ),
-        //                c.Id );
-        //        }
-        //        cblock.Set( "comment.DeleteCmd", deleteCmd );
-
-        //        cblock.Next();
-        //    }
-
-        //    if (clist.Count > 0) {
-        //        ctx.SetItem( "lastComment", clist[clist.Count - 1] );
-        //    }
-        //}
 
         //--------------------------------------------------------------------------------------------------
 
@@ -158,7 +124,12 @@ namespace wojilu.Web.Controller.Microblogs {
             block.Set( "blog.Id", blog.Id );
             block.Set( "blog.Created", blog.Created );
 
-            block.Set( "blog.ShowLink", Link.To( blog.User, Show, blog.Id ) );
+            if (ctx.GetItemString( "__showType" ) == "feed") {
+                block.Set( "blog.ShowLink", Link.To( blog.User, new Users.HomeController().Info, blog.Id ) );
+            }
+            else {
+                block.Set( "blog.ShowLink", Link.To( blog.User, Show, blog.Id ) );
+            }
 
             block.Set( "blog.Content", getBlogContent( blog ) );
 
@@ -205,7 +176,7 @@ namespace wojilu.Web.Controller.Microblogs {
                 + "&ownerId=" + x.User.Id
                 + "&dataId=" + dataId
                 + "&dataTitle=(微博" + x.Created.ToShortDateString() + ")" + strUtil.ParseHtml( x.Content, 25 )
-                + "&url=" + alink.ToAppData( x )
+                + "&url=" + MbLink.ToBlog( x.User, x.Id )
                 + "&dataUserId=" + x.Creator.Id
                 + "&feedId=" + x.Id;
         }
@@ -288,7 +259,12 @@ namespace wojilu.Web.Controller.Microblogs {
             set( "blog.UserLink", toUser( blog.User ) );
             set( "blog.Content", blog.Content );
 
-            set( "blog.ShowLink", Link.To( blog.User, new MicroblogController().Show, id ) );
+            if (ctx.GetItemString( "__showType" ) == "feed") {
+                set( "blog.ShowLink", Link.To( blog.User, new Users.HomeController().Info, blog.Id ) );
+            }
+            else {
+                set( "blog.ShowLink", Link.To( blog.User, Show, blog.Id ) );
+            }
 
             set( "blog.Replies", blog.Replies );
             set( "blog.Reposts", blog.Reposts );
