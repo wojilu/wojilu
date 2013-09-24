@@ -359,9 +359,14 @@ namespace wojilu.Web.Controller.Users.Admin {
 
             if (ctx.HasErrors) { echoError(); return; }
 
-            userService.UpdateEmail( user, email );
+            userService.UpdateEmailAndResetConfirmStatus( user, email );
 
-            echoToParentPart( lang( "opok" ) );
+            if (config.Instance.Site.EnableEmail) {
+                echoToParent( lang( "opok" ), to( new Common.ActivationController().SendEmailButton ) );
+            }
+            else {
+                echoToParentPart( lang( "opok" ) );
+            }
         }
 
         public void Pwd() {
