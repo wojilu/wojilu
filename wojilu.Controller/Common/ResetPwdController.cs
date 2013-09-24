@@ -90,23 +90,13 @@ namespace wojilu.Web.Controller.Common {
             }
             else {
                 resetService.Insert( userReset );
-                showJson( lang( "resetSendok" ) );
+                echoRedirect( lang( "resetSendok" ), ctx.url.SiteAndAppPath );
             }
 
         }
 
         private void showError() {
-            echoJson( errors.ErrorsJson );
-        }
-
-        private void showJson( String msg ) {
-
-            StringBuilder builder = new StringBuilder();
-            builder.Append( "{\"IsValid\":true, Msg:\"" );
-            builder.Append( msg );
-            builder.Append( "\"}" );
-
-            echoJson( builder.ToString() );
+            echoError( errors );
         }
 
         [NonVisit]
