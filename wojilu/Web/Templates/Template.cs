@@ -96,7 +96,9 @@ namespace wojilu.Web {
         }
 
         public static Boolean ContainsCache( String templatePath ) {
-            return templates.ContainsKey( templatePath );
+            String tpl;
+            templates.TryGetValue( templatePath, out tpl);
+            return strUtil.HasText( tpl );
         }
 
         private String getTemplateContent( String templatePath ) {
