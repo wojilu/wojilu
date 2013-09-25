@@ -124,11 +124,11 @@ namespace wojilu.Web.Controller.Microblogs {
             block.Set( "blog.Id", blog.Id );
             block.Set( "blog.Created", blog.Created );
 
-            if (ctx.GetItemString( "__showType" ) == "feed") {
-                block.Set( "blog.ShowLink", Link.To( blog.User, new Users.HomeController().Info, blog.Id ) );
+            if (ctx.GetItemString( "_showType" ) == "microblog") {
+                block.Set( "blog.ShowLink", MbLink.ToShowMicroblog( blog.User, blog.Id ) );
             }
             else {
-                block.Set( "blog.ShowLink", Link.To( blog.User, Show, blog.Id ) );
+                block.Set( "blog.ShowLink", MbLink.ToShowFeed( blog.User, blog.Id ) );
             }
 
             block.Set( "blog.Content", getBlogContent( blog ) );
@@ -161,7 +161,7 @@ namespace wojilu.Web.Controller.Microblogs {
         private static String getDeleteCmd( MvcContext ctx, Microblog blog ) {
             String deleteCmd = "";
             if (ctx.viewer.Id == blog.User.Id || ctx.viewer.IsAdministrator()) {
-                deleteCmd = string.Format( "<a href=\"{0}\" class=\"left10 ajaxDeleteCmd\" removeId=\"mblog{1}\">x</a>", Link.To( new Microblogs.My.MicroblogController().Delete, blog.Id ), blog.Id );
+                deleteCmd = string.Format( "<a href=\"{0}\" class=\"left10 ajaxDeleteCmd\" removeId=\"mblog{1}\">x</a>", Link.To( new Microblogs.MicroblogSaveController().Delete, blog.Id ), blog.Id );
             }
             return deleteCmd;
         }
@@ -176,7 +176,7 @@ namespace wojilu.Web.Controller.Microblogs {
                 + "&ownerId=" + x.User.Id
                 + "&dataId=" + dataId
                 + "&dataTitle=(微博" + x.Created.ToShortDateString() + ")" + strUtil.ParseHtml( x.Content, 25 )
-                + "&url=" + MbLink.ToBlog( x.User, x.Id )
+                + "&url=" + MbLink.ToShow( x.User, x.Id )
                 + "&dataUserId=" + x.Creator.Id
                 + "&feedId=" + x.Id;
         }
@@ -259,11 +259,11 @@ namespace wojilu.Web.Controller.Microblogs {
             set( "blog.UserLink", toUser( blog.User ) );
             set( "blog.Content", blog.Content );
 
-            if (ctx.GetItemString( "__showType" ) == "feed") {
-                set( "blog.ShowLink", Link.To( blog.User, new Users.HomeController().Info, blog.Id ) );
+            if (ctx.GetItemString( "_showType" ) == "microblog") {
+                set( "blog.ShowLink", MbLink.ToShowMicroblog( blog.User, blog.Id ) );
             }
             else {
-                set( "blog.ShowLink", Link.To( blog.User, Show, blog.Id ) );
+                set( "blog.ShowLink", MbLink.ToShowFeed( blog.User, blog.Id ) );
             }
 
             set( "blog.Replies", blog.Replies );

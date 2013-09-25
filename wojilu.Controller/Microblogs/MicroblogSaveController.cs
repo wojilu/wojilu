@@ -108,8 +108,8 @@ namespace wojilu.Web.Controller.Microblogs {
             ctx.SetItem( "_microblogVoList", volist );
             ctx.SetItem( "_showUserFace", true );
 
-            if (ctx.Post( "fromPage" ) != "microblogPage") {
-                ctx.SetItem( "__showType", "feed" );
+            if (ctx.Post( "fromPage" ) == "microblogPage") {
+                ctx.SetItem( "_showType", "microblog" );
             }
 
             return loadHtml( new Microblogs.MicroblogController().bindBlogs );
@@ -129,6 +129,33 @@ namespace wojilu.Web.Controller.Microblogs {
             blog.PicUrl = mvt.PicUrl;
         }
 
+
+        [HttpDelete, DbTransaction]
+        public void Delete( int id ) {
+
+            Microblog blog = microblogService.GetById( id );
+            if (blog == null) {
+                throw new NullReferenceException( lang( "exDataNotFound" ) );
+            }
+
+            if (hasPermission( blog ) == false) {
+                echoError( lang( "exNoPermission" ) );
+                return;
+            }
+
+            microblogService.Delete( blog );
+
+            echoAjaxOk();
+        }
+
+        private bool hasPermission( Microblog blog ) {
+
+            if (ctx.viewer.IsLogin == false) return false;
+
+            if (blog.User.Id == ctx.viewer.Id) return true;
+            if (ctx.viewer.IsAdministrator()) return true;
+            return false;
+        }
 
 
     }

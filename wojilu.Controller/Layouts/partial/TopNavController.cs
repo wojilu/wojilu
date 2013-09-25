@@ -15,6 +15,7 @@ using wojilu.Members.Users.Domain;
 using wojilu.Common.MemberApp.Interface;
 using System.Collections.Generic;
 using wojilu.Common.Msg.Service;
+using wojilu.Web.Controller.Microblogs;
 
 namespace wojilu.Web.Controller.Layouts {
 
@@ -62,7 +63,7 @@ namespace wojilu.Web.Controller.Layouts {
             int nCount = ((User)ctx.viewer.obj).MicroblogAtUnread;
 
             if (nCount > 0) {
-                return string.Format( "<div class=\"NewNotificationCount\"><a href=\"{1}\">{0}条at我的微博</a></div>", nCount, Link.To( ctx.viewer.obj, new Microblogs.My.MicroblogController().Atme ) );
+                return string.Format( "<div class=\"NewNotificationCount\"><a href=\"{1}\">{0}条at我的微博</a></div>", nCount, MbLink.ToAt( ctx.viewer.obj ) );
             }
 
             return "";

@@ -36,25 +36,25 @@ namespace wojilu.Web.Controller.Microblogs.My {
 
         }
 
-        [HttpDelete, DbTransaction]
-        public void Delete( int id ) {
+        //[HttpDelete, DbTransaction]
+        //public void Delete( int id ) {
 
-            if (hasPermission()==false) {
-                echoText( lang( "exNoPermission" ) );
-                return;
-            }
+        //    if (hasPermission() == false) {
+        //        echoText( lang( "exNoPermission" ) );
+        //        return;
+        //    }
 
-            MicroblogComment c = MicroblogComment.findById( id );
-            if (c == null) {
-                echoText( lang( "exDataNotFound" ) );
-                return;
-            }
+        //    MicroblogComment c = MicroblogComment.findById( id );
+        //    if (c == null) {
+        //        echoText( lang( "exDataNotFound" ) );
+        //        return;
+        //    }
 
-            c.delete();
+        //    c.delete();
 
-            echoAjaxOk();
+        //    echoAjaxOk();
 
-        }
+        //}
 
         private bool hasPermission() {
             if (ctx.viewer.IsAdministrator()) return true;

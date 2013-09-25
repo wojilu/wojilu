@@ -80,6 +80,7 @@ namespace wojilu.Web.Controller.Microblogs.My {
 
             ctx.SetItem( "_microblogVoList", volist );
             ctx.SetItem( "_showUserFace", true );
+            ctx.SetItem( "_showType", "microblog" );
             load( "blogList", new wojilu.Web.Controller.Microblogs.MicroblogController().bindBlogs );
 
             set( "page", list.PageBar );
@@ -100,6 +101,7 @@ namespace wojilu.Web.Controller.Microblogs.My {
 
             ctx.SetItem( "_microblogVoList", volist );
             ctx.SetItem( "_showUserFace", true );
+            ctx.SetItem( "_showType", "microblog" );
             load( "blogList", new wojilu.Web.Controller.Microblogs.MicroblogController().bindBlogs );
 
             set( "page", list.PageBar );
@@ -155,6 +157,7 @@ namespace wojilu.Web.Controller.Microblogs.My {
             List<MicroblogVo> volist = mfService.CheckFavorite( list.Results, ctx.viewer.Id );
             ctx.SetItem( "_microblogVoList", volist );
             ctx.SetItem( "_showUserFace", true );
+            ctx.SetItem( "_showType", "microblog" );
             load( "blogList", new wojilu.Web.Controller.Microblogs.MicroblogController().bindBlogs );
 
             // 标记为已读
@@ -165,24 +168,6 @@ namespace wojilu.Web.Controller.Microblogs.My {
             }
 
             set( "page", list.PageBar );
-        }
-
-        [HttpDelete, DbTransaction]
-        public void Delete( int id ) {
-
-            Microblog blog = microblogService.GetById( id );
-            if (blog == null) {
-                throw new NullReferenceException( lang( "exDataNotFound" ) );
-            }
-
-            if (blog.User.Id != ctx.viewer.Id && !ctx.viewer.IsAdministrator()) {
-                echoError( lang( "exNoPermission" ) );
-                return;
-            }
-
-            microblogService.Delete( blog );
-
-            echoAjaxOk();
         }
 
     }

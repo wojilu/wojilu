@@ -81,6 +81,7 @@ namespace wojilu.Web.Controller.Microblogs {
 
             ctx.SetItem( "_microblogVoList", volist );
             ctx.SetItem( "_showUserFace", false );
+            ctx.SetItem( "_showType", "microblog" );
             load( "blogList", bindBlogs );
 
             set( "page", list.PageBar );
@@ -219,7 +220,7 @@ namespace wojilu.Web.Controller.Microblogs {
 
             OpenComment c = new OpenComment();
             c.Content = content;
-            c.TargetUrl = MbLink.ToBlog( oBlog.User, oBlog.Id );
+            c.TargetUrl = MbLink.ToShowFeed( oBlog.User, oBlog.Id );
 
             c.TargetDataType = oBlog.GetType().FullName;
             c.TargetDataId = oBlog.Id;

@@ -71,8 +71,6 @@ namespace wojilu.Web.Controller.Users {
 
         private void bindFeedList() {
 
-            ctx.SetItem( "__showType", "feed" );
-
             DataPage<Microblog> list = microblogService.GetPageList( ctx.owner.obj.Id, MicroblogAppSetting.Instance.MicroblogPageSize );
             List<MicroblogVo> volist = mfService.CheckFavorite( list.Results, ctx.viewer.Id );
 
@@ -108,7 +106,6 @@ namespace wojilu.Web.Controller.Users {
         }
 
         public void Info( int id ) {
-            ctx.SetItem( "__showType", "feed" );
             set( "lnkList", to( Feed ) );
             load( "blogBody", new Microblogs.MicroblogController().Show, id );
         }

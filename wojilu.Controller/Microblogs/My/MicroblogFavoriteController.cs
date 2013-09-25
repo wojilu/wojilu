@@ -32,6 +32,7 @@ namespace wojilu.Web.Controller.Microblogs.My {
             List<MicroblogVo> volist = favoriteService.CheckFavorite( list.Results, ctx.viewer.Id );
             ctx.SetItem( "_microblogVoList", volist );
             ctx.SetItem( "_showUserFace", true );
+            ctx.SetItem( "_showType", "microblog" );
             load( "flist", new wojilu.Web.Controller.Microblogs.MicroblogController().bindBlogs );
 
             set( "page", list.PageBar );
