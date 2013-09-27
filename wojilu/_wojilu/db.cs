@@ -358,7 +358,7 @@ namespace wojilu {
         //-------------------------------------------------------------------------
 
         /// <summary>
-        /// 根据 sql 语句查询，返回一个 IDataReader
+        /// 根据 sql 语句查询 T 所在的数据库，返回一个 IDataReader
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="sql"></param>
@@ -368,7 +368,16 @@ namespace wojilu {
         }
 
         /// <summary>
-        /// 根据 sql 语句查询，返回单行单列数据
+        /// 根据 sql 语句查询默认数据库，返回一个 IDataReader
+        /// </summary>
+        /// <param name="sql"></param>
+        /// <returns></returns>
+        public static IDataReader RunReader( String sql ) {
+            return db.getCommand( sql ).ExecuteReader( CommandBehavior.CloseConnection );
+        }
+
+        /// <summary>
+        /// 根据 sql 语句查询 T 所在的数据库，返回单行单列数据
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="sql"></param>
@@ -378,7 +387,19 @@ namespace wojilu {
         }
 
         /// <summary>
-        /// 执行 sql 语句
+        /// 根据 sql 语句查询默认数据库，返回单行单列数据
+        /// </summary>
+        /// <param name="sql"></param>
+        /// <returns></returns>
+        public static Object RunScalar( String sql ) {
+            IDbCommand cmd = db.getCommand( sql );
+            Object ret = cmd.ExecuteScalar();
+            cmd.Connection.Close();
+            return ret;
+        }
+
+        /// <summary>
+        /// 在 T 类型对应的数据库上，执行 sql 语句。同时根据类型 T 自动更新缓存
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="sql"></param>
@@ -389,7 +410,17 @@ namespace wojilu {
         }
 
         /// <summary>
-        /// 根据 sql 语句查询，返回一个 DataTable
+        /// 在默认数据库上，执行 sql 语句。不会更新缓存
+        /// </summary>
+        /// <param name="sql"></param>
+        public static void RunSql( String sql ) {
+            IDbCommand cmd = db.getCommand( sql );
+            cmd.ExecuteNonQuery();
+            cmd.Connection.Close();
+        }
+
+        /// <summary>
+        /// 根据 sql 语句查询 T 所在的数据库，返回一个 DataTable
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="sql"></param>
@@ -398,6 +429,20 @@ namespace wojilu {
             DataTable dataTable = new DataTable();
             DataFactory.GetAdapter( sql, DbContext.getConnection( typeof( T ) ) ).Fill( dataTable );
             return dataTable;
+        }
+
+        /// <summary>
+        /// 根据 sql 语句，查询默认数据库，返回一个 DataTable
+        /// </summary>
+        /// <param name="sql"></param>
+        /// <returns></returns>
+        public static DataTable RunTable( String sql ) {
+            using (IDbConnection cn = db.getConnection()) {
+                DataTable dataTable = new DataTable();
+                System.Data.Common.DbDataAdapter adapter = DataFactory.GetAdapter( sql, cn );
+                adapter.Fill( dataTable );
+                return dataTable;
+            }
         }
 
         //--------------------------------------------------------------------------------
@@ -431,7 +476,7 @@ namespace wojilu {
         }
 
         /// <summary>
-        /// 获取一个数据库 Command
+        /// 获取一个数据库 Command。如果尚未打开connection，则自动打开。
         /// </summary>
         /// <param name="CommandText"></param>
         /// <param name="cn"></param>
@@ -442,7 +487,7 @@ namespace wojilu {
         }
 
         /// <summary>
-        /// 获取一个数据库 Command
+        /// 获取一个数据库 Command。如果尚未打开connection，则自动打开。
         /// </summary>
         /// <returns></returns>
         public static IDbCommand getCommand( String dbName, String commandText ) {
@@ -451,7 +496,7 @@ namespace wojilu {
         }
 
         /// <summary>
-        /// 获取一个数据库 Command
+        /// 获取一个数据库 Command。如果尚未打开connection，则自动打开。
         /// </summary>
         /// <param name="cn"></param>
         /// <param name="commandText"></param>
@@ -461,7 +506,7 @@ namespace wojilu {
         }
 
         /// <summary>
-        /// 获取一个数据库 Command
+        /// 获取一个数据库 Command。如果尚未打开connection，则自动打开。
         /// </summary>
         /// <param name="dataType"></param>
         /// <param name="commandText"></param>
