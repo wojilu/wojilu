@@ -69,6 +69,11 @@ namespace wojilu.Web.Controller.Microblogs {
 
         public void Index() {
 
+            if (ctx.viewer.IsLogin) {
+                redirectDirect( Link.To( ctx.viewer.obj, new Microblogs.My.MicroblogController().Home ) );
+                return;
+            }
+
             ctx.Page.Title = MicroblogAppSetting.Instance.MetaTitle;
             ctx.Page.Keywords = MicroblogAppSetting.Instance.MetaKeywords;
             ctx.Page.Description = MicroblogAppSetting.Instance.MetaDescription;
