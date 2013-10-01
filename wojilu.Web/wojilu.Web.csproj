@@ -71,6 +71,9 @@
     <Content Include="framework\views\Admin\Ad\Edit.aspx" />
     <Content Include="framework\views\Admin\Ad\Index.aspx" />
     <Content Include="framework\views\Admin\AppConfig\App.aspx" />
+    <Content Include="framework\views\Admin\Members\User\ApproveUserPic.html" />
+    <Content Include="framework\views\Admin\Members\User\EditName.html" />
+    <Content Include="framework\views\Admin\Members\User\EditUrl.html" />
     <Content Include="framework\views\Admin\AppConfig\EditComponent.aspx" />
     <Content Include="framework\views\Admin\AppConfig\EditStatus.aspx" />
     <Content Include="framework\views\Admin\Apps\Blog\BlogFile\Index.aspx" />
