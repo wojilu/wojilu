@@ -50,6 +50,8 @@ namespace wojilu.Web.Controller.Admin.Members {
 
                 block.Set( "user.Ip", u.LastLoginIp );
 
+                block.Set( "user.PicStatus", u.IsPicError == 1 ? "x" : "" );
+
                 block.Next();
             }
 
@@ -162,6 +164,8 @@ namespace wojilu.Web.Controller.Admin.Members {
                     condition += "and IsEmailConfirmed=" + (int)EmailConfirm.UnConfirmed;
                 else if (filter == "EmailError")
                     condition += "and IsEmailConfirmed=" + (int)EmailConfirm.EmailError;
+                else if (filter == "AvatarError")
+                    condition += "and IsPicError=1";
                 else if (filter == "bind")
                     condition += "and IsBind=1";
 
@@ -252,7 +256,8 @@ namespace wojilu.Web.Controller.Admin.Members {
             set( "userIds", idsStr );
         }
 
-        //-----------------------------------------------------------------------------------------------------
+        //----------------------------------------------------------------------------
+
 
         private Boolean isEmailValid( User user ) {
 

@@ -283,7 +283,7 @@
         for (var i = 0; i < nav.userAppList.length; i++) { appHtml += '<li>' + nav.userAppList[i] + '</li>'; }
         $('#feedItem').after(appHtml);
 
-        if (ctx.viewer.HasPic == false && ctx.viewer.IsAlertUserPic) {
+        if (ctx.viewer.IsAlertUserPic) {
             var cUrl = wojilu.tool.getRootParent(window).location.href.toLowerCase();
             if (cUrl.indexOf('needuserpic') < 0 && cUrl.indexOf('done') < 0) {
                 wojilu.tool.forwardPage(nav.uploadAvatarLink, 0);

@@ -1,4 +1,4 @@
-/*
+﻿/*
  * Copyright (c) 2010, www.wojilu.com. All rights reserved.
  */
 
@@ -123,7 +123,7 @@ _run( function() {
                 viewer.Add( "HasPic", user.HasUploadPic() );
                 viewer.Add( "EmailConfirm", user.IsEmailConfirmed == 1 );
                 viewer.Add( "IsAlertActivation", isAlertActivation );
-                viewer.Add( "IsAlertUserPic", config.Instance.Site.AlertUserPic );
+                viewer.Add( "IsAlertUserPic", user.IsPicAlert() );
 
                     Dictionary<String, object> objViewer = new Dictionary<string, object>();
                     objViewer.Add( "Id", user.Id );
@@ -216,7 +216,7 @@ _run( function() {
 
             dic.Add( "viewerInviteLink", Link.To( user, new Users.Admin.InviteController().Index ) );
 
-            dic.Add( "uploadAvatarLink", Link.To( user, new Users.Admin.UserProfileController().NeedUserPic ) );
+            dic.Add( "uploadAvatarLink", Link.To( user, new Users.Admin.AvatarController().NeedUserPic ) );
             dic.Add( "confirmEmailLink", Link.To( Site.Instance, new Common.ActivationController().SendEmailButton ) );
 
             dic.Add( "viewerFriends", Link.To( user, new Users.Admin.Friends.FriendController().List, 0 ) );

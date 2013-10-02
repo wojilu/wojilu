@@ -76,6 +76,7 @@ _run( function() {
 		<li><a href="#{userListLink}?filter=Confirmed">_{Confirmed}</a></li>
 		<li><a href="#{userListLink}?filter=EmailError">_{EmailError}</a></li>
 		<li><a href="#{userListLink}?filter=UnSendEmail">_{UnSendEmail}</a></li>
+        <li><a href="#{userListLink}?filter=AvatarError">头像不符要求</a></li>
         <li><a href="#{userListLink}?filter=bind">已绑定第三方帐号</a></li>	
 		</ul>
 		</span>
@@ -111,9 +112,9 @@ _run( function() {
 
 <table cellspacing="1" cellpadding="3" border="0" style="width: 100%;" id="dataAdminList" data-action="#{OperationUrl}">
 <tr class="adminBar">
-<td colspan="10" style=" padding-left:15px;">
+<td colspan="11" style=" padding-left:15px;">
 
-        <span class="btnCmd" cmd="approve">通过审核</span>
+        <span class="btnCmd" cmd="approve">通过审核</span>        
 		<span class="btnCmd" cmd="pick">_{recommend}</span>
 		<span class="btnCmd" cmd="unpick">_{cancelRecomment}</span>
 		| 
@@ -133,7 +134,7 @@ _run( function() {
 		</ul></span>
 		
 		<a href="#{resetPwdLink}" id="lnkResetPwd" class="lnkMsg"><img src="~img/key.gif"/>_{resetPwd}</a>
-		
+		<a href="#{errorPicLink}" class="lnkMsg left10"><img src="~img/user.gif"/> 头像审核</a>
 </td>
 <td align="center" ><span class="btnCmd" cmd="deletetrue"><img src="~img/delete.gif" /> _{deleteTrue}</span></td>
 </tr>
@@ -142,6 +143,7 @@ _run( function() {
 		<td align="center">_{id}</td>
 		<td align="center">_{status}</td>
 		<td>_{role}</td>
+        <td align="center">头像</td>
 		<td>_{nickName}/_{realName}</td>
 		<td></td>
 		<td></td>
@@ -158,6 +160,7 @@ _run( function() {
 		<td align="center">#{user.Id}</td>
 		<td align="center">#{statusIcon}</td>
 		<td>#{user.RoleName}</td>
+        <td align="center">#{user.PicStatus}</td>
 		<td><a href="#{user.Url}" target="_blank">#{user.Name}</a>#{user.RealNameInfo}</td>
 		<td><div class="user-ip hide">#{user.Ip}</div></td>
 		<td>#{user.IsEmailConfirm}</td>
@@ -168,7 +171,7 @@ _run( function() {
 		</td>
 	</tr>
 	<!-- END list -->
-	<tr><td colspan="11" class="adminPage">
+	<tr><td colspan="12" class="adminPage">
 	
 		<table style="width: 100%">
 			<tr>

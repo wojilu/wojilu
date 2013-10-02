@@ -15,10 +15,11 @@ using wojilu.Common;
 using wojilu.Common.Resource;
 using wojilu.Common.Security;
 using wojilu.Web;
+using System.Collections.Generic;
 
 namespace wojilu.Members.Users.Domain {
 
-    [Table("Users")]
+    [Table( "Users" )]
     [Serializable]
     public class User : ObjectBase<User>, IUser, IShareData, IHits {
 
@@ -68,7 +69,7 @@ namespace wojilu.Members.Users.Domain {
         public int BirthMonth { get; set; }
         public int BirthDay { get; set; }
 
-        public int getAge () {
+        public int getAge() {
             return DateTime.Now.Year - BirthYear;
         }
 
@@ -124,6 +125,11 @@ namespace wojilu.Members.Users.Domain {
             }
             set { _pic = value; }
         }
+
+        /// <summary>
+        /// 头像在审核之后，是否不符要求。
+        /// </summary>
+        public int IsPicError { get; set; }
 
         public int RoleId {
             get {
@@ -249,20 +255,27 @@ namespace wojilu.Members.Users.Domain {
         /// 显示的名称：UserName用户名，RealName真实姓名
         /// </summary>
         [NotSave]
-        public string DisplayName
-        {
-            get
-            {
-                if (config.Instance.Site.UserDisplayName == Config.UserDisplayNameType.RealName && String.IsNullOrEmpty(this.RealName) != true)
+        public string DisplayName {
+            get {
+                if (config.Instance.Site.UserDisplayName == Config.UserDisplayNameType.RealName && String.IsNullOrEmpty( this.RealName ) != true)
                     return this.RealName;
                 else if (config.Instance.Site.UserDisplayName == Config.UserDisplayNameType.Name)
                     return this.Name;
-                else if (String.IsNullOrEmpty(this.RealName) != true)
+                else if (String.IsNullOrEmpty( this.RealName ) != true)
                     return this.RealName;
                 else
                     return this.Name;
             }
         }
+
+        public Boolean IsPicAlert() {
+
+            if (config.Instance.Site.AlertUserPic == false) return false;
+            if (HasUploadPic() == false) return true;
+            return IsPicError == 1;
+        }
+
     }
+
 }
 

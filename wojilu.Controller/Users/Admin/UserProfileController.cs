@@ -3,7 +3,6 @@
  */
 
 using System;
-using System.Web;
 using System.Collections;
 using System.Collections.Generic;
 
@@ -18,14 +17,13 @@ using wojilu.Members.Users.Service;
 using wojilu.Members.Users.Interface;
 using wojilu.Common.MemberApp.Interface;
 using wojilu.Web.Context;
+
+using wojilu.OAuth;
+
+using wojilu.Common;
 using wojilu.Members.Sites.Domain;
 using wojilu.Common.Money.Interface;
 using wojilu.Common.Money.Service;
-using wojilu.Common.Msg.Interface;
-using wojilu.Common.Msg.Service;
-using wojilu.Common.Money.Domain;
-using wojilu.Common;
-using wojilu.OAuth;
 
 namespace wojilu.Web.Controller.Users.Admin {
 
@@ -114,46 +112,7 @@ namespace wojilu.Web.Controller.Users.Admin {
 
         }
 
-        //----------------------------------------------------------------------------------------------------------
-
-
-        public void NeedUserPic() {
-
-            HideLayout( typeof( wojilu.Web.Controller.LayoutController ) );
-            HideLayout( typeof( wojilu.Web.Controller.Users.Admin.LayoutController ) );
-            HideLayout( typeof( wojilu.Web.Controller.Users.Admin.UserProfileController ) );
-
-            target( SaveUserPic );
-
-            User user = ctx.owner.obj as User;
-            bindFace( user );
-            set( "redirectUrl", ctx.web.PathReferrer );
-        }
-
-        public void SaveUserPic() {
-
-            User user = ctx.owner.obj as User;
-
-            Result result = AvatarUploader.Save( ctx.GetFileSingle(), user.Id );
-            if (result.HasErrors) {
-                echoError( result );
-                return;
-            }
-
-            if (user.Pic != UserFactory.Guest.Pic) {
-                AvatarUploader.Delete( user.Pic );
-            }
-
-            userService.UpdateAvatar( user, result.Info.ToString() );
-
-            // 页面跳转
-            String redirectUrl = ctx.Post( "redirectUrl" );
-            String msg = "感谢上传！";
-
-            echoRedirect( msg, sys.Url.SiteUrl );
-
-        }
-
+        //-----------------------------------------------------------------------------------
 
         public void Face() {
 
@@ -189,7 +148,7 @@ namespace wojilu.Web.Controller.Users.Admin {
         }
 
 
-        //----------------------------------------------------------------------------------------------------------
+        //-----------------------------------------------------------------------------------
 
         public void Interest() {
             target( InterestSave );
@@ -204,7 +163,8 @@ namespace wojilu.Web.Controller.Users.Admin {
             db.update( user.Profile );
             echoRedirect( lang( "opok" ) );
         }
-        //----------------------------------------------------------------------------------------------------------
+
+        //-----------------------------------------------------------------------------------
 
 
         public void Tag() {
@@ -294,7 +254,7 @@ namespace wojilu.Web.Controller.Users.Admin {
             echoRedirect( lang( "opok" ) );
         }
 
-        //----------------------------------------------------------------------------------------------------------
+        //-----------------------------------------------------------------------------------
 
         public void AddEmail() {
             target( CreateEmail );
@@ -403,7 +363,7 @@ namespace wojilu.Web.Controller.Users.Admin {
             echoRedirect( lang( "opok" ) );
         }
 
-        //----------------------------------------------------------------------------------------------------------
+        //-----------------------------------------------------------------------------------
 
         public void Privacy() {
 
@@ -530,7 +490,8 @@ namespace wojilu.Web.Controller.Users.Admin {
 
         }
 
-        //----------------------------------------------------------------------------------------------------------
+        //-----------------------------------------------------------------------------------
+
 
 
         internal void SaveInterest( User m ) {

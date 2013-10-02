@@ -213,6 +213,7 @@
     <Compile Include="Members\Users\Domain\Security\UserPermission.cs" />
     <Compile Include="Members\Users\Domain\Security\UserPrivacy.cs" />
     <Compile Include="Members\Users\Domain\Skin\SkinApp.cs" />
+    <Compile Include="Members\Users\Domain\UserErrorPic.cs" />
     <Compile Include="Members\Users\Domain\UserHome.cs" />
     <Compile Include="Members\Users\Domain\UserLinks.cs" />
     <Compile Include="Members\Users\Interface\IUserTagService.cs" />
@@ -235,6 +236,7 @@
     <Compile Include="Members\Users\Service\BlacklistService.cs" />
     <Compile Include="Members\Users\Interface\IBlacklistService.cs" />
     <Compile Include="Members\Users\Service\InviteService.cs" />
+    <Compile Include="Members\Users\Interface\IUserErrorPicService.cs" />
     <Compile Include="Members\Users\Service\Jobs\SpaceVisitJob.cs" />
     <Compile Include="Members\Users\Service\Jobs\SpaceVisitJobItem.cs" />
     <Compile Include="Members\Users\Service\Jobs\VisitItem.cs" />
@@ -246,6 +248,7 @@
     <Compile Include="Common\Menus\MenuServiceBase.cs" />
     <Compile Include="Members\Sites\Service\SiteMenuService.cs" />
     <Compile Include="Members\Users\Service\SysUserService.cs" />
+    <Compile Include="Members\Users\Service\UserErrorPicService.cs" />
     <Compile Include="Members\Users\Service\UserLogService.cs" />
     <Compile Include="Members\Users\Service\UserMenuService.cs" />
     <Compile Include="Members\Groups\Service\GroupMenuService.cs" />

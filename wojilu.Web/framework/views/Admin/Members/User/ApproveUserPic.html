@@ -1,0 +1,43 @@
+﻿
+<div style="margin:30px 50px;">
+
+    <div style="font-size:22px; border-bottom:1px solid #ccc; padding:10px; margin-bottom:15px;">审核用户头像</div>
+
+	<form action="#{ActionLink}" method="post" class="ajaxPostForm" style="padding-left:15px;">
+
+        <div>用户名：<strong>#{userList}</strong></div>
+
+        <div style="margin-top:10px;">请填写审核信息</div>
+        <div>
+        <textarea name="Msg" style="width: 380px; height:60px;"></textarea>
+        <span class="valid border"></span></div>
+
+        <div>状态：
+            <label><input type="radio" name="IsPass" id="chkPass" value="1" /> 通过</label>
+            <label class="left10"><input type="radio" name="IsPass" id="chkUnPass" value="0" checked="checked" /> 不通过</label>
+        </div>
+
+        <div style="margin-top:10px;">
+		    <input name="mybtn" type="submit" value="提交" class="btn">&nbsp;
+		    <input name="Button1" type="button" value="_{return}" class="btnReturn" />
+		    <input name="UserIds" type="hidden" value="#{userIds}" />
+        </div>
+
+
+
+	</form>	
+
+
+</div>
+
+<script>
+    _run(function () {
+        $('#chkPass').click(function () {
+            $('textarea[name=Msg]').val('头像审核通过');
+        });
+
+        $('#chkUnPass').click(function () {
+            $('textarea[name=Msg]').val('头像不够美观、大方');
+        });
+    });
+</script>

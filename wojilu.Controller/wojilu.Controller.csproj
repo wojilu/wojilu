@@ -232,6 +232,7 @@
     <Compile Include="Photo\Caching\Actions\PhotoMainLayoutCache.cs" />
     <Compile Include="Photo\Caching\PhotoMainPageCache.cs" />
     <Compile Include="Photo\PhotoHelper.cs" />
+    <Compile Include="Users\Admin\AvatarController.cs" />
     <Compile Include="Users\Admin\Friends\SecurityController.cs" />
     <Compile Include="Users\Admin\HomeController.cs" />
     <Compile Include="Users\Admin\partial\MsgController.cs" />

@@ -47,6 +47,7 @@ namespace wojilu.Web.Controller.Admin.Members {
         public IMessageService msgService { get; set; }
         public IAdminLogService<SiteLog> logService { get; set; }
         public IConfirmEmail confirmEmail { get; set; }
+        public IUserErrorPicService errorPicService { get; set; }
 
         public UserController() {
             userService = new UserService();
@@ -54,6 +55,7 @@ namespace wojilu.Web.Controller.Admin.Members {
             msgService = new MessageService();
             logService = new SiteLogService();
             confirmEmail = new ConfirmEmail();
+            errorPicService = new UserErrorPicService();
         }
 
         public void Index() {
@@ -68,6 +70,7 @@ namespace wojilu.Web.Controller.Admin.Members {
             set( "sendConfirmEmailLink", to( SendConfirmMail ) );
 
             set( "resetPwdLink", to( ResetPwd ) );
+            set( "errorPicLink", to( ApproveUserPic ) );
 
             List<SiteRole> roles = roleService.GetAllRoles();
             List<SiteRole> roles2 = roleService.GetRolesWithotGuest();
@@ -95,16 +98,21 @@ namespace wojilu.Web.Controller.Admin.Members {
 
             String cmd = ctx.Post( "action" );
             String action = "";
-            if ("pick" == cmd)
+            if ("pick" == cmd) {
                 action = "set Status=" + MemberStatus.Pick;
-            else if ("unpick" == cmd)
+            }
+            else if ("unpick" == cmd) {
                 action = "set Status=" + MemberStatus.Normal;
-            else if ("approve" == cmd)
+            }
+            else if ("approve" == cmd) {
                 action = "set Status=" + MemberStatus.Normal;
-            else if ("delete" == cmd)
+            }
+            else if ("delete" == cmd) {
                 action = "set Status=" + MemberStatus.Deleted;
-            else if ("undelete" == cmd)
+            }
+            else if ("undelete" == cmd) {
                 action = "set Status=" + MemberStatus.Normal;
+            }
             else if ("deletetrue" == cmd) {
                 User.deleteBatch( condition );
                 redirect( Index );
@@ -120,7 +128,7 @@ namespace wojilu.Web.Controller.Admin.Members {
             content( "ok" );
         }
 
-        //-----------------------------------------------------------------------------------------------------
+        //----------------------------------------------------------------------------
 
 
         public void Edit( int id ) {
@@ -140,7 +148,7 @@ namespace wojilu.Web.Controller.Admin.Members {
         }
 
 
-        //-----------------------------------------------------------------------------------------------------
+        //----------------------------------------------------------------------------
 
         public void ResetPwd() {
             set( "ActionLink", to( SavePwd ) + "?id=" + ctx.GetIdList( "id" ) );
@@ -199,7 +207,7 @@ namespace wojilu.Web.Controller.Admin.Members {
                 echoRedirectPart( lang( "pwdUpdatedAndSentError" ), to( Index ) );
         }
 
-        //-----------------------------------------------------------------------------------------------------
+        //----------------------------------------------------------------------------
 
         public void SendMsg() {
             set( "ActionLink", to( SaveMsg ) + "?id=" + ctx.GetIdList( "id" ) );
@@ -294,6 +302,47 @@ namespace wojilu.Web.Controller.Admin.Members {
 
         private Result sendEmail( User user, string title, string msg ) {
             return MailClient.Init().Send( user.Email, title, msg );
+        }
+
+        public void ApproveUserPic() {
+            set( "ActionLink", to( SaveApprovePic ) + "?id=" + ctx.GetIdList( "id" ) );
+            String idsStr = ctx.GetIdList( "id" );
+            List<User> users = userService.GetByIds( idsStr );
+            bindReceiverList( users, idsStr );
+        }
+
+        public void SaveApprovePic() {
+            String ids = ctx.PostIdList( "UserIds" );
+            String reviewMsg = validPicMsg();
+
+            if (ctx.HasErrors) {
+                run( ApproveUserPic );
+                return;
+            }
+
+            int isPass = ctx.PostInt( "IsPass" );
+            if (isPass == 0) {
+                errorPicService.ApproveError( ids, reviewMsg );
+            }
+            else {
+                errorPicService.ApproveOk( ids, reviewMsg );
+            }
+
+            echoRedirectPart( "审核成功", to( Index ) );
+        }
+
+        private string validPicMsg() {
+            String idsStr = ctx.PostIdList( "UserIds" );
+            List<User> users = userService.GetByIds( idsStr );
+            if (users.Count == 0) {
+                errors.Add( lang( "exNoReceiver" ) );
+                return null;
+            }
+
+            String msg = strUtil.CutString( ctx.Post( "Msg" ), 200 );
+            if (strUtil.IsNullOrEmpty( msg )) errors.Add( "请填写审核原因" );
+
+            return msg;
         }
 
 

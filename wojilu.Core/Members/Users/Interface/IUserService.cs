@@ -1,4 +1,4 @@
-/*
+﻿/*
  * Copyright (c) 2010, www.wojilu.com. All rights reserved.
  */
 
@@ -80,10 +80,27 @@ namespace wojilu.Members.Users.Interface {
 
         void UpdateAvatar( User user, String newPic );
 
-
+        /// <summary>
+        /// 根据用户名检索(使用 like %% 检索)
+        /// </summary>
+        /// <param name="name"></param>
+        /// <returns></returns>
         List<User> SearchByName( String name );
 
 
 
+        /// <summary>
+        /// 保存图像、不会增加积分、不会发送邮件鼓励；给管理员发通知
+        /// </summary>
+        /// <param name="user"></param>
+        /// <param name="p"></param>
+        void UpdateAvatarWhenError( User user, string newPic );
+
+        /// <summary>
+        /// 仅仅保存图像。不会增加积分、不会发送邮件鼓励、不给管理员发通知
+        /// </summary>
+        /// <param name="user"></param>
+        /// <param name="newPic"></param>
+        void UpdateAvatarOnly( User user, string newPic );
     }
 }

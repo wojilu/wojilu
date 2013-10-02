@@ -26,18 +26,19 @@ namespace wojilu.Members.Users.Service {
 
     public class UserService : IUserService {
 
-        public UserService() {
-            currencyService = new CurrencyService();
-            roleService = new SiteRoleService();
-            userIncomeService = new UserIncomeService();
-
-            hashTool = new HashTool();
-        }
-
         public virtual ICurrencyService currencyService { get; set; }
         public virtual ISiteRoleService roleService { get; set; }
         public virtual IUserIncomeService userIncomeService { get; set; }
         public virtual IHashTool hashTool { get; set; }
+        public virtual INotificationService ntService { get; set; }
+
+        public UserService() {
+            currencyService = new CurrencyService();
+            roleService = new SiteRoleService();
+            userIncomeService = new UserIncomeService();
+            ntService = new NotificationService();
+            hashTool = new HashTool();
+        }
 
         //----------------------------------------------------------------------
 
@@ -463,6 +464,31 @@ namespace wojilu.Members.Users.Service {
                 addIncomeAndSendMsg( user );
             }
 
+        }
+
+        /// <summary>
+        /// 保存图像、不会增加积分、不会发送邮件鼓励；给管理员发通知
+        /// </summary>
+        /// <param name="user"></param>
+        /// <param name="newPic"></param>
+        public virtual void UpdateAvatarWhenError( User user, String newPic ) {
+
+            user.Pic = newPic;
+            db.update( user, "Pic" );
+
+            String msg = string.Format( "用户 <a href=\"{0}\">{1}</a> 更新了头像，等待管理员审核", Link.ToMember( user ), user.Name );
+            ntService.send( 0, typeof( Site ).FullName, msg, wojilu.Common.Msg.Enum.NotificationType.Normal );
+
+        }
+
+        /// <summary>
+        /// 仅仅保存图像。不会增加积分、不会发送邮件鼓励、不给管理员发通知
+        /// </summary>
+        /// <param name="user"></param>
+        /// <param name="newPic"></param>
+        public virtual void UpdateAvatarOnly( User user, String newPic ) {
+            user.Pic = newPic;
+            db.update( user, "Pic" );
         }
 
         private void addIncomeAndSendMsg( User user ) {

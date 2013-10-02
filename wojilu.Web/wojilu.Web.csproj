@@ -69,6 +69,7 @@
     <Content Include="favicon.ico" />
     <Content Include="framework\views\Admin\AppTheme\Index.html" />
     <Content Include="framework\views\Admin\Mb\Microblog\Feed.html" />
+    <Content Include="framework\views\Admin\Members\User\ApproveUserPic.html" />
     <Content Include="framework\views\Admin\Sys\ConnectAdmin\Add.html" />
     <Content Include="framework\views\Admin\Sys\ConnectAdmin\Edit.html" />
     <Content Include="framework\views\Admin\Sys\ConnectAdmin\Index.html" />
@@ -115,6 +116,7 @@
     <Content Include="framework\views\Open\Admin\CommentBase\List.html" />
     <Content Include="framework\views\Open\CommentList\Index.html" />
     <Content Include="framework\views\Users\Admin\Home\Atme.html" />
+    <Content Include="framework\views\Users\Admin\Avatar\Layout.html" />
     <Content Include="framework\views\Users\Admin\Home\Index.html" />
     <Content Include="framework\views\Users\Admin\Home\Layout.html" />
     <Content Include="framework\views\Users\Admin\Home\Favorite.html" />
@@ -122,9 +124,11 @@
     <Content Include="framework\views\Users\Admin\Home\Publisher.html" />
     <Content Include="framework\views\Users\Admin\UserProfile\AddEmail.html" />
     <Content Include="framework\views\Users\Admin\UserProfile\BindAccount.html" />
-    <Content Include="framework\views\Users\Admin\UserProfile\NeedUserPic.html" />
+    <Content Include="framework\views\Users\Admin\Avatar\uploadFirst.html" />
     <Content Include="framework\views\Users\Home\Index.html" />
     <Content Include="framework\views\Users\Home\Feed.html" />
+    <Content Include="framework\views\Users\Admin\Avatar\uploadWaiting.html" />
+    <Content Include="framework\views\Users\Admin\Avatar\uploadWaitingApprove.html" />
     <Content Include="framework\views\Users\Home\Info.html" />
     <Content Include="framework\views\Users\Home\Layout.html" />
     <Content Include="static\js\lib\jquery.infinitescroll.min.js" />
