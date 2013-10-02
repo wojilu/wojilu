@@ -321,8 +321,9 @@ namespace wojilu.Web.Controller.Admin.Members {
             }
 
             int isPass = ctx.PostInt( "IsPass" );
+            int isDelete = ctx.PostIsCheck( "IsDelete" );
             if (isPass == 0) {
-                errorPicService.ApproveError( ids, reviewMsg, ctx.PostIsCheck( "IsNextAutoPass" ) );
+                errorPicService.ApproveError( ids, reviewMsg, ctx.PostIsCheck( "IsNextAutoPass" ), isDelete );
             }
             else {
                 errorPicService.ApproveOk( ids, reviewMsg );

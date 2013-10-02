@@ -7,7 +7,7 @@ namespace wojilu.Members.Users.Interface {
         void AddLog( User user, string ip );
         void AddLogAndPass( User user, string ip );
 
-        void ApproveError( string ids, string reviewMsg, int isNextApprove );
+        void ApproveError( string ids, string reviewMsg, int isNextApprove, int isDelete );
         void ApproveOk( string ids, string reviewMsg );
 
         int CheckErrorCount( User user );

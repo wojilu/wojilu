@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using wojilu.Members.Users.Domain;
 using wojilu.Members.Users.Interface;
+using wojilu.Web.Utils;
 
 namespace wojilu.Members.Users.Service {
 
@@ -72,7 +73,7 @@ namespace wojilu.Members.Users.Service {
         /// <param name="ids"></param>
         /// <param name="reviewMsg"></param>
         /// <param name="isNextApprove">下次上传是否前置审核</param>
-        public void ApproveError( String ids, String reviewMsg, int isNextApprove ) {
+        public void ApproveError( String ids, String reviewMsg, int isNextApprove, int isDelete ) {
 
             List<User> userList = getUserList( ids );
 
@@ -88,8 +89,22 @@ namespace wojilu.Members.Users.Service {
                 log.IsNextAutoPass = isNextApprove;
                 log.insert();
 
+                if (isDelete == 1 ) {
+                    deleteUserPic( user );
+                }
+
             }
 
+        }
+
+        private void deleteUserPic( User user ) {
+
+            if (user.Pic != UserFactory.Guest.Pic) {
+                AvatarUploader.Delete( user.Pic );
+            }
+
+            user.Pic = "";
+            user.update();
         }
 
         /// <summary>
