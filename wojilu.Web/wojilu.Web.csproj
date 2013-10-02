@@ -70,6 +70,8 @@
     <Content Include="framework\views\Admin\AppTheme\Index.html" />
     <Content Include="framework\views\Admin\Mb\Microblog\Feed.html" />
     <Content Include="framework\views\Admin\Members\User\ApproveUserPic.html" />
+    <Content Include="framework\views\Admin\Members\User\EditName.html" />
+    <Content Include="framework\views\Admin\Members\User\EditUrl.html" />
     <Content Include="framework\views\Admin\Sys\ConnectAdmin\Add.html" />
     <Content Include="framework\views\Admin\Sys\ConnectAdmin\Edit.html" />
     <Content Include="framework\views\Admin\Sys\ConnectAdmin\Index.html" />

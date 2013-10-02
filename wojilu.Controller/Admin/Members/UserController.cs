@@ -136,15 +136,69 @@ namespace wojilu.Web.Controller.Admin.Members {
             target( UpdateProfile, id );
             User m = User.findById( id );
             bindProfile( m );
-
+            set( "lnkEditName", to( EditName, id ) );
+            set( "lnkEditUrl", to( EditUrl, id ) );
         }
 
+        [HttpPost, DbTransaction]
         public void UpdateProfile( int id ) {
             User m = User.findById( id );
             UserProfileController.SaveProfile( m, ctx );
             db.update( m );
             db.update( m.Profile );
             echoRedirectPart( lang( "opok" ) );
+        }
+
+        //--------------------------------------
+
+        public void EditName( int id ) {
+            target( UpdateName, id );
+            User m = User.findById( id );
+            set( "userName", m.Name );
+        }
+
+        [HttpPost,DbTransaction]
+        public void UpdateName( int id ) {
+
+            String newName = strUtil.SubString( ctx.Post( "userName" ), 20 );
+            if (strUtil.IsNullOrEmpty( newName )) {
+                echoError( "请填写用户名" );
+                return;
+            }
+
+            User m = User.findById( id );
+            m.Name = newName;
+            m.update();
+            echoToParentPart( lang( "opok" ) );
+        }
+
+        //--------------------------------------
+
+        public void EditUrl( int id ) {
+            target( UpdateUrl, id );
+            User m = User.findById( id );
+            set( "userUrl", m.Url );
+        }
+
+        [HttpPost, DbTransaction]
+        public void UpdateUrl( int id ) {
+
+            String newUrl = strUtil.SubString( ctx.Post( "userUrl" ), 50 );
+            if (strUtil.IsNullOrEmpty( newUrl )) {
+                echoError( "请填写个性网址" );
+                return;
+            }
+
+            User m = User.findById( id );
+            m.Url = newUrl;
+            m.update();
+
+            // UserApp
+            UserApp.updateBatch( "OwnerUrl='" + newUrl + "'", "OwnerId=" + id );
+            UserApp.updateBatch( "CreatorUrl='" + newUrl + "'", "OwnerId=" + id );
+            UserMenu.updateBatch( "OwnerUrl='" + newUrl + "'", "OwnerId=" + id );
+
+            echoToParentPart( lang( "opok" ) );
         }
 
 
