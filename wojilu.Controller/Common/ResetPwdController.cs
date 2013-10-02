@@ -59,14 +59,14 @@ namespace wojilu.Web.Controller.Common {
             }
 
             if (ctx.HasErrors) {
-                showError();
+                echoError();
                 return;
             }
 
             User user = userService.GetByMail( email );
             if (user == null) {
                 errors.Add( lang( "exUserNotFoundByEmail" ) );
-                showError();
+                echoError();
                 return;
             }
             ctx.SetItem( "User", user );
@@ -86,17 +86,13 @@ namespace wojilu.Web.Controller.Common {
             Result sentResult = mail.Send( email, title, body );
             if (sentResult.HasErrors) {
                 errors.Add( lang( "exResetSend" ) );
-                showError();
+                echoError();
             }
             else {
                 resetService.Insert( userReset );
                 echoRedirect( lang( "resetSendok" ), ctx.url.SiteAndAppPath );
             }
 
-        }
-
-        private void showError() {
-            echoError( errors );
         }
 
         [NonVisit]
