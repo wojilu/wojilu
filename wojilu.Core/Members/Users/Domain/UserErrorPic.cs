@@ -33,7 +33,10 @@ namespace wojilu.Members.Users.Domain {
         /// </summary>
         public int IsPass { get; set; }
 
-
+        /// <summary>
+        /// 用户下次上传，必须通过审核才能访问网站
+        /// </summary>
+        public int IsNextAutoPass { get; set; }
 
 
 

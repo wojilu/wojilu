@@ -322,7 +322,7 @@ namespace wojilu.Web.Controller.Admin.Members {
 
             int isPass = ctx.PostInt( "IsPass" );
             if (isPass == 0) {
-                errorPicService.ApproveError( ids, reviewMsg );
+                errorPicService.ApproveError( ids, reviewMsg, ctx.PostIsCheck( "IsNextAutoPass" ) );
             }
             else {
                 errorPicService.ApproveOk( ids, reviewMsg );

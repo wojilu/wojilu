@@ -139,7 +139,13 @@ namespace wojilu.Web.Controller.Users.Admin {
             }
 
             // 增加日志
-            errorPicService.AddLog( user, ctx.Ip );
+            UserErrorPic lastLog = errorPicService.GetLastLog( user );
+            if (lastLog.IsNextAutoPass == 1) {
+                errorPicService.AddLogAndPass( user, ctx.Ip );
+            }
+            else {
+                errorPicService.AddLog( user, ctx.Ip );
+            }
 
             // 2) 保存图像、不会增加积分、不会发送邮件鼓励；给管理员发通知
             userService.UpdateAvatarWhenError( user, result.Info.ToString() );

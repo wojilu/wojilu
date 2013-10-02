@@ -36,6 +36,11 @@ namespace wojilu.Members.Users.Service {
             return x.ReviewMsg;
         }
 
+        public UserErrorPic GetLastLog( User user ) {
+
+            return UserErrorPic.find( "UserId=" + user.Id + " and ReviewMsg<>'' order by Id desc" ).first();
+        }
+
         /// <summary>
         /// 用户重新上传，增加日志，等待审核
         /// </summary>
@@ -49,12 +54,25 @@ namespace wojilu.Members.Users.Service {
             log.insert();
         }
 
+        public void AddLogAndPass( User user, string ip ) {
+            user.IsPicError = 0;
+            user.update();
+
+            UserErrorPic log = new UserErrorPic();
+            log.UserId = user.Id;
+            log.Ip = ip;
+            log.IsPass = 1;
+            log.ReviewMsg = "auto pass";
+            log.insert();
+        }
+
         /// <summary>
         /// 管理员审核没有通过，将日志增加到数据库
         /// </summary>
         /// <param name="ids"></param>
         /// <param name="reviewMsg"></param>
-        public void ApproveError( String ids, String reviewMsg ) {
+        /// <param name="isNextApprove">下次上传是否前置审核</param>
+        public void ApproveError( String ids, String reviewMsg, int isNextApprove ) {
 
             List<User> userList = getUserList( ids );
 
@@ -67,6 +85,7 @@ namespace wojilu.Members.Users.Service {
                 log.UserId = user.Id;
                 log.Ip = "";
                 log.ReviewMsg = reviewMsg;
+                log.IsNextAutoPass = isNextApprove;
                 log.insert();
 
             }
