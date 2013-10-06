@@ -144,12 +144,15 @@ namespace wojilu.Web.Mvc {
 
             String[] arrItem = controller.Split( RouteTool.Separator );
             StringBuilder builder = new StringBuilder();
+            Boolean isAppendAppId = false;
             for (int i = 0; i < arrItem.Length; i++) {
 
-                if (i == 0 && appId > 0) {
+                if (strUtil.IsNullOrEmpty( arrItem[i] )) continue;
+                if (isAppendAppId == false && appId > 0) {
                     builder.Append( arrItem[i] );
                     builder.Append( appId );
                     builder.Append( MvcConfig.Instance.UrlSeparator );
+                    isAppendAppId = true;
                 }
                 else {
                     builder.Append( arrItem[i] );
