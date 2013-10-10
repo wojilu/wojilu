@@ -271,14 +271,11 @@ namespace wojilu.Apps.Forum.Service {
 
         private void addFeedInfo( ForumPost data ) {
 
-            // 回复论坛帖子：不再加入feed中
             String lnkPost = alink.ToAppData( data );
 
-            //String msg = string.Format( "<div class=\"feed-item-title\">回复了论坛帖子 <a href=\"{0}\">{1}</a></div>", lnkPost, data.Title );
-            //msg += string.Format( "<div class=\"feed-item-body\"><div class=\"feed-item-quote\">{0}</div></div>", strUtil.ParseHtml( data.Content, MicroblogAppSetting.Instance.MicroblogContentMax ) );
-
-            //microblogService.Add( data.Creator, msg, typeof( ForumPost ).FullName, data.Id, data.Ip );
-
+            String summary = strUtil.ParseHtml( data.Content, MicroblogAppSetting.Instance.MicroblogContentMax );
+            String msg = MbTemplate.GetFeed( "回复了论坛帖子", data.Title, lnkPost, summary, null );
+            microblogService.AddSimplePrivate( data.Creator, msg, typeof( ForumPost ).FullName, data.Id, data.Ip );
         }
 
         private void addNotification( ForumPost post ) {

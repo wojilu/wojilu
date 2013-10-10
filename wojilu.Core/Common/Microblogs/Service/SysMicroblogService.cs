@@ -13,7 +13,7 @@ namespace wojilu.Common.Microblogs.Service {
     public class SysMicroblogService {
 
         private static String showCondition() {
-            return " SaveStatus=" + SaveStatus.Normal;
+            return " (SaveStatus=" + SaveStatus.Normal + " or SaveStatus=" + SaveStatus.Private + ")";
         }
         public List<Microblog> GetRecent( int count ) {
             if (count <= 0) count = 10;

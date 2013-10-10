@@ -16,6 +16,9 @@ using wojilu.Common.Msg.Service;
 using wojilu.Members.Users.Domain;
 using wojilu.Members.Users.Enum;
 using wojilu.Members.Users.Interface;
+using wojilu.Common.Microblogs;
+using wojilu.Common.Microblogs.Interface;
+using wojilu.Common.Microblogs.Service;
 
 namespace wojilu.Members.Users.Service {
 
@@ -41,6 +44,8 @@ namespace wojilu.Members.Users.Service {
 
             recountFriends( newRegUser.Id );
             recountFriends( friendId );
+
+            addFeedInfo( ship, ship.Ip );
 
             addNotificationWhenApproved( newRegUser, friendId );
         }
@@ -78,8 +83,9 @@ namespace wojilu.Members.Users.Service {
 
                 // 顺带添加关注
                 FollowerService followService = new FollowerService();
-                if (followService.IsFollowing( userId, friendId ) == false)
-                    followService.Follow( userId, friendId );
+                if (followService.IsFollowing( userId, friendId ) == false) {
+                    followService.Follow( userId, friendId, ip );
+                }
             }
             return result;
         }
@@ -157,9 +163,29 @@ namespace wojilu.Members.Users.Service {
             new FollowerService().DeleteFollow( userId, friendId );
             new FollowerService().DeleteFollow( friendId, userId );
 
+            addFeedInfo( ship, ship.Ip );
+
             User user = userService.GetById( userId );
 
             addNotificationWhenApproved( user, friendId );
+        }
+
+        private void addFeedInfo( FriendShip ship, String ip ) {
+
+            addFrinedFeedInfo( ship.User, ship.Friend, ship.Id, ip );
+            addFrinedFeedInfo( ship.Friend, ship.User, ship.Id, ip );
+        }
+
+        private static void addFrinedFeedInfo( User user, User friend, int id, String ip ) {
+
+            String userLink = Link.ToMember( friend );
+            String lnkInfo = string.Format( "<a href=\"{0}\">{1}</a>", userLink, friend.Name );
+
+            String actionName = string.Format( "和 {0} 成为朋友", lnkInfo );
+
+            String msg = MbTemplate.GetFeed( actionName, null, userLink, null, friend.PicSX );
+            IMicroblogService microblogService = ObjectContext.Create<IMicroblogService>( typeof( MicroblogService ) );
+            microblogService.AddSimplePrivate( user, msg, typeof( FriendShip ).FullName, id, ip );
         }
 
         public virtual void Refuse( int userId, int friendId ) {
@@ -265,7 +291,7 @@ namespace wojilu.Members.Users.Service {
 
         }
 
-        public virtual void DeleteFriend( int userId, int fid ) {
+        public virtual void DeleteFriend( int userId, int fid, String ip ) {
 
             FollowerService followService = new FollowerService();
 
@@ -273,7 +299,9 @@ namespace wojilu.Members.Users.Service {
             FriendShip ship = db.find<FriendShip>( condition ).first();
             if (ship != null) {
                 db.delete( ship );
-                if (followService.IsFollowing( userId, fid ) == false) followService.Follow( userId, fid );
+                if (followService.IsFollowing( userId, fid ) == false) {
+                    followService.Follow( userId, fid, ip );
+                }
                 recountFriends( userId );
                 recountFriends( fid );
 
@@ -284,7 +312,9 @@ namespace wojilu.Members.Users.Service {
             ship = db.find<FriendShip>( condition ).first();
             if (ship != null) {
                 db.delete( ship );
-                if (followService.IsFollowing( fid, userId ) == false) followService.Follow( fid, userId );
+                if (followService.IsFollowing( fid, userId ) == false) {
+                    followService.Follow( fid, userId, ip );
+                }
                 recountFriends( userId );
                 recountFriends( fid );
 

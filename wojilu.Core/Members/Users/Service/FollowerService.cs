@@ -14,6 +14,9 @@ using wojilu.Common.Feeds.Service;
 
 using wojilu.Members.Users.Domain;
 using wojilu.Members.Users.Interface;
+using wojilu.Common.Microblogs;
+using wojilu.Common.Microblogs.Interface;
+using wojilu.Common.Microblogs.Service;
 
 namespace wojilu.Members.Users.Service {
 
@@ -36,7 +39,7 @@ namespace wojilu.Members.Users.Service {
             return f != null;
         }
 
-        public virtual Follower Follow( int userId, int targetId ) {
+        public virtual Follower Follow( int userId, int targetId, String ip ) {
 
             if (userId <= 0) return null;
             if (targetId <= 0) return null;
@@ -50,6 +53,7 @@ namespace wojilu.Members.Users.Service {
             Follower f = new Follower();
             f.User = user;
             f.Target = target;
+            f.Ip = ip;
             db.insert( f );
 
             recountUsers( userId );
@@ -58,12 +62,19 @@ namespace wojilu.Members.Users.Service {
             return f;
         }
 
-        public virtual void FollowWithFeedNotification( int userId, int targetId ) {
+        public virtual void FollowWithFeedNotification( int userId, int targetId, String ip ) {
 
-            Follower f = this.Follow( userId, targetId );
+            Follower f = this.Follow( userId, targetId, ip );
             if (f != null) {
+                addFeedInfo( f );
                 addNotification( f );
             }
+        }
+
+        private void addFeedInfo( Follower f ) {
+            String msg = MbTemplate.GetFeed( "¹Ø×¢ÁË", f.Target.Name, Link.ToMember( f.Target ), "", f.Target.PicSX );
+            IMicroblogService microblogService = ObjectContext.Create<IMicroblogService>( typeof( MicroblogService ) );
+            microblogService.AddSimplePrivate( f.User, msg, typeof( Follower ).FullName, f.Target.Id, f.Ip );
         }
 
         private void addNotification( Follower f ) {

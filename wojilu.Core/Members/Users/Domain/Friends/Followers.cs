@@ -18,6 +18,9 @@ namespace wojilu.Members.Users.Domain {
 
         public DateTime Created { get; set; }
 
+
+        public String Ip { get; set; }
+
     }
 
 }

@@ -43,7 +43,7 @@ namespace wojilu.Members.Users.Interface {
 
         void Refuse( int userId, int friendId );
 
-        void DeleteFriend( int userId, int fid );
+        void DeleteFriend( int userId, int fid, String ip );
         void DeleteFriendByBlacklist( int userId, int fid );
         void CancelAddFriend( int userId, int fid );
 

@@ -59,6 +59,8 @@ namespace wojilu.Apps.Forum.Interface {
         void AddHits( ForumTopic topic );
         int CountReply( int topicId );
 
+        void AddFeedInfo( ForumTopic data );
+
         Result CreateTopic( ForumTopic topic, User user, IMember owner, IApp app );
         Result CreateTopicOther( int forumId, String title, String content, Type dataType, User user, IMember owner, IApp app );
 

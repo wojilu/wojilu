@@ -54,8 +54,6 @@ namespace wojilu.Common.Microblogs {
         public String MetaKeywords { get; set; }
         public String MetaDescription { get; set; }
 
-
-
     }
 }
 

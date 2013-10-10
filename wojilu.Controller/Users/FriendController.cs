@@ -120,7 +120,7 @@ namespace wojilu.Web.Controller.Users {
 
         [HttpDelete, DbTransaction]
         public void DeleteFriend( int targetId ) {
-            friendService.DeleteFriend( ctx.viewer.Id, targetId );
+            friendService.DeleteFriend( ctx.viewer.Id, targetId, ctx.Ip );
             echoRedirect( lang( "opok" ) );
         }
 
@@ -159,7 +159,7 @@ namespace wojilu.Web.Controller.Users {
                 return;
             }
 
-            followService.FollowWithFeedNotification( ctx.viewer.Id, targetId );
+            followService.FollowWithFeedNotification( ctx.viewer.Id, targetId, ctx.Ip );
 
             echoToParent( lang( "opok" ) );
         }

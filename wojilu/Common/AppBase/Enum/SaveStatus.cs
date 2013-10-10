@@ -30,6 +30,12 @@ namespace wojilu.Common.AppBase {
         public static readonly int Delete = 2;
         public static readonly int SysDelete = 3;
 
+        /// <summary>
+        /// 私有数据，不公开显示
+        /// </summary>
+        public static readonly int Private = 4;
+
+
     }
 
 }

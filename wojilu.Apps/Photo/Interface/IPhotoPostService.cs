@@ -56,6 +56,8 @@ namespace wojilu.Apps.Photo.Interface {
 
         Boolean IsPin( int userId, PhotoPost x );
         void SavePin( PhotoPost x, PhotoPost postedPhoto, String tagList );
+
+        String GetFeedMsg( List<PhotoPost> imgs );
     }
 
 }

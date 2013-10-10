@@ -13,15 +13,20 @@ using wojilu.Common.Msg.Enum;
 using wojilu.Common.Msg.Interface;
 using wojilu.Common.Feeds.Interface;
 using wojilu.Members.Users.Domain;
+using wojilu.Common.Microblogs;
+using wojilu.Common.Microblogs.Interface;
+using wojilu.Common.Microblogs.Service;
 
 namespace wojilu.Common.Msg.Service {
 
     public class FeedbackService : IFeedbackService {
 
         public virtual INotificationService nfService { get; set; }
+        public virtual IMicroblogService microblogService { get; set; }
 
         public FeedbackService() {
             nfService = new NotificationService();
+            microblogService = new MicroblogService();
         }
 
         public virtual Feedback GetById( int id ) {
@@ -37,7 +42,14 @@ namespace wojilu.Common.Msg.Service {
             Result result = db.insert( f );
             if (result.IsValid) {
                 addNotification( f, lnkReplyList );
+                addFeedInfo( f, lnkReplyList );
             }
+        }
+
+        private void addFeedInfo( Feedback f, string lnkReplyList ) {
+            String actionName = string.Format( "在 <a href=\"{0}\">{1}</a> 的空间留了言", lnkReplyList, f.Target.Name );
+            String msg = MbTemplate.GetFeed( actionName, null, lnkReplyList, f.Content, f.Target.PicM );
+            microblogService.AddSimple( f.Creator, msg, typeof( Feedback ).FullName, f.Id, f.Ip );
         }
 
         public virtual void Reply( Feedback parent, Feedback feedback, String lnkReplyList ) {

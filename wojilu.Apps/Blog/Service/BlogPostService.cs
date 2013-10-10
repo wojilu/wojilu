@@ -204,7 +204,7 @@ namespace wojilu.Apps.Blog.Service {
 
                 updateAppCount( post );
                 TagService.SaveDataTag( post, post.Tags );
-                addFeedInfo( post );
+                AddFeedInfo( post );
 
             }
 
@@ -254,7 +254,7 @@ namespace wojilu.Apps.Blog.Service {
                 incomeService.AddIncome( post.Creator, UserAction.Blog_CreatePost.Id, msg );
                 updateAppCount( post );
                 TagService.SaveDataTag( post, post.Tags );
-                addFeedInfo( post );
+                AddFeedInfo( post );
             }
 
             return result;
@@ -267,14 +267,18 @@ namespace wojilu.Apps.Blog.Service {
             app.update( "BlogCount" );
         }
 
-        private void addFeedInfo( BlogPost data ) {
+        public void AddFeedInfo( BlogPost data ) {
 
+            String msg = GetFeedMsg( data );
+
+            microblogService.AddSimple( data.Creator, msg, typeof( BlogPost ).FullName, data.Id, data.Ip );
+        }
+
+        public virtual String GetFeedMsg( BlogPost data ) {
             String lnkPost = alink.ToAppData( data );
+            String summary = strUtil.SubString( data.SummaryInfo, MicroblogAppSetting.Instance.MicroblogContentMax );
 
-            String msg = string.Format( "<div class=\"feed-item-title\">写了博客 <a href=\"{0}\">{1}</a></div>", lnkPost, data.Title );
-            msg += string.Format( "<div class=\"feed-item-body\">{0}</div>", strUtil.SubString( data.SummaryInfo, MicroblogAppSetting.Instance.MicroblogContentMax ) );
-
-            microblogService.Add( data.Creator, msg, typeof( BlogPost ).FullName, data.Id, data.Ip );
+            return MbTemplate.GetFeed( "写了博客", data.Title, lnkPost, summary, null );
         }
 
 
@@ -302,7 +306,7 @@ namespace wojilu.Apps.Blog.Service {
             if (result.IsValid) {
                 updateAppCount( post );
                 TagService.SaveDataTag( post, post.Tags );
-                addFeedInfo( post );
+                AddFeedInfo( post );
             }
             return result;
         }

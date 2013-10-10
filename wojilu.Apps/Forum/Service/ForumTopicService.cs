@@ -447,20 +447,20 @@ namespace wojilu.Apps.Forum.Service {
                 incomeService.AddIncome( user, UserAction.Forum_CreateTopic.Id, msg );
             }
 
-            addFeedInfo( topic );
+            AddFeedInfo( topic );
 
             return result;
         }
 
-        private void addFeedInfo( ForumTopic data ) {
+        public virtual void AddFeedInfo( ForumTopic data ) {
+            String msg = GetFeedMsg( data );
+            microblogService.AddSimple( data.Creator, msg, typeof( ForumTopic ).FullName, data.Id, data.Ip );
+        }
 
+        public virtual String GetFeedMsg( ForumTopic data ) {
             String lnkPost = alink.ToAppData( data );
-
-            String msg = string.Format( "<div class=\"feed-item-title\">发表了论坛主题 <a href=\"{0}\">{1}</a></div>", lnkPost, data.Title );
-            msg += string.Format( "<div class=\"feed-item-body\">{0}</div>", strUtil.ParseHtml( data.Content, MicroblogAppSetting.Instance.MicroblogContentMax ) );
-
-            microblogService.Add( data.Creator, msg, typeof( ForumTopic ).FullName, data.Id, data.Ip );
-
+            String summary = strUtil.ParseHtml( data.Content, MicroblogAppSetting.Instance.MicroblogContentMax );
+            return MbTemplate.GetFeed( "发表了论坛主题", data.Title, lnkPost, summary, null );
         }
 
         public virtual Result Update( ForumTopic topic, User user, IMember owner ) {
@@ -686,7 +686,7 @@ namespace wojilu.Apps.Forum.Service {
         }
 
         //--------------------------------------- admin -----------------------------------------
-        
+
         public virtual void AdminUpdate( String action, String condition ) {
             db.updateBatch<ForumTopic>( action, condition );
         }
@@ -769,7 +769,7 @@ namespace wojilu.Apps.Forum.Service {
             makeLog( av );
         }
 
-        public virtual void MakeMove( int targetForumId, AdminValue av) {
+        public virtual void MakeMove( int targetForumId, AdminValue av ) {
 
             av.ActionId = ForumLogAction.MoveTopic;
 

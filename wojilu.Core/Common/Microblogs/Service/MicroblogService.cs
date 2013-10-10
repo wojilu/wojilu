@@ -119,6 +119,50 @@ namespace wojilu.Common.Microblogs.Service {
             this.Insert( x, 0 );
         }
 
+        /// <summary>
+        /// 纯粹插入数据库，不检查表情、at用户、不处理tag；不处理转发
+        /// </summary>
+        /// <param name="creator"></param>
+        /// <param name="msg"></param>
+        /// <param name="dataType"></param>
+        /// <param name="dataId"></param>
+        /// <param name="ip"></param>
+        public virtual void AddSimple( User creator, String msg, String dataType, int dataId, String ip ) {
+
+            Microblog x = new Microblog();
+            x.User = creator;
+            x.Content = msg;
+            x.Ip = ip;
+
+            x.DataType = dataType;
+            x.DataId = dataId;
+
+            x.insert();
+        }
+
+        /// <summary>
+        /// 不展示在信息流中的数据，可以供管理员和自己查看，但朋友看不到
+        /// </summary>
+        /// <param name="creator"></param>
+        /// <param name="msg"></param>
+        /// <param name="dataType"></param>
+        /// <param name="dataId"></param>
+        /// <param name="ip"></param>
+        public virtual void AddSimplePrivate( User creator, String msg, String dataType, int dataId, String ip ) {
+
+            Microblog x = new Microblog();
+            x.User = creator;
+            x.Content = msg;
+            x.Ip = ip;
+
+            x.DataType = dataType;
+            x.DataId = dataId;
+
+            x.SaveStatus = SaveStatus.Private;
+
+            x.insert();
+        }
+
         public virtual void Insert( Microblog blog ) {
 
             blog.Content = strUtil.SubString( blog.Content, MicroblogAppSetting.Instance.MicroblogContentMax );

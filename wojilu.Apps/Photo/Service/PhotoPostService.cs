@@ -25,6 +25,8 @@ using wojilu.Apps.Photo.Interface;
 using wojilu.Drawing;
 using System.Drawing;
 using wojilu.Apps.Photo.Helper;
+using wojilu.Members.Interface;
+using wojilu.Common.Microblogs;
 
 namespace wojilu.Apps.Photo.Service {
 
@@ -40,6 +42,26 @@ namespace wojilu.Apps.Photo.Service {
             pickedService = new PickedService();
             incomeService = new UserIncomeService();
             followerService = new FollowerService();
+        }
+
+        public virtual String GetFeedMsg( List<PhotoPost> imgs ) {
+
+            int photoCount = imgs.Count;
+            String photoHtml = "";
+            foreach (PhotoPost post in imgs) {
+                photoHtml += string.Format( "<a href=\"{0}\" class=\"feed-pic-item\"><img src=\"{1}\"/></a> ", alink.ToAppData( post ), post.ImgThumbUrl );
+            }
+
+            PhotoPost data = imgs[0];
+            int albumId = data.PhotoAlbum.Id;
+
+            PhotoAlbum album = db.find<PhotoAlbum>( "Id=" + albumId ).first();
+            IMember owner = (IMember)ndb.findById( ObjectContext.GetType( data.OwnerType ), data.OwnerId );
+            String lnkAlbum = Link.To( owner, "/Photo/Photo", "Album", albumId, data.AppId );
+            String actionName = string.Format( "上传了{0}张图片到专辑", photoCount );
+
+            // msg
+            return MbTemplate.GetFeed( actionName, album.Name, lnkAlbum, photoHtml, null );
         }
 
         public virtual DataPage<PhotoPost> GetPostPage( int ownerId, int appId, int pageSize ) {

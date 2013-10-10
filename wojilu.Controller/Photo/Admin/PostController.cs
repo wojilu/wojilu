@@ -22,6 +22,7 @@ using wojilu.Apps.Photo.Interface;
 using wojilu.Web.Controller.Admin;
 using wojilu.Common.Microblogs.Service;
 using wojilu.Common.Microblogs.Interface;
+using wojilu.Common.Microblogs;
 
 namespace wojilu.Web.Controller.Photo.Admin {
 
@@ -223,20 +224,8 @@ namespace wojilu.Web.Controller.Photo.Admin {
         }
 
         private void addFeedInfo( List<PhotoPost> imgs, int albumId ) {
-            int photoCount = imgs.Count;
-            String photoHtml = "";
-            foreach (PhotoPost post in imgs) {
-                photoHtml += string.Format( "<a href=\"{0}\" class=\"feed-pic-item\"><img src=\"{1}\"/></a> ", alink.ToAppData( post ), post.ImgThumbUrl );
-            }
-
-            PhotoAlbum album = db.find<PhotoAlbum>( "Id=" + albumId ).first();
-
-            String lnkAlbum = to( new wojilu.Web.Controller.Photo.PhotoController().Album, albumId );
-
-            String msg = string.Format( "<div class=\"feed-item-title\">上传了{0}张图片到专辑 <a href=\"{1}\">{2}</a></div>", photoCount, lnkAlbum, album.Name );
-            msg += string.Format( "<div class=\"feed-item-body\">{0}</div>", photoHtml );
-
-            microblogService.Add( imgs[0].Creator, msg, typeof( PhotoPost ).FullName, imgs[0].Id, ctx.Ip );
+            String msg = postService.GetFeedMsg( imgs );
+            microblogService.AddSimple( imgs[0].Creator, msg, typeof( PhotoPost ).FullName, imgs[0].Id, ctx.Ip );
         }
 
         private PhotoPost newPost( String photoName, String imgPath, int albumId, int systemCategoryId ) {

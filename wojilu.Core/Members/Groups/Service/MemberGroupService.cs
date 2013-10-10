@@ -17,6 +17,7 @@ using wojilu.Members.Users.Interface;
 using wojilu.Members.Users.Service;
 using wojilu.Common.Microblogs.Service;
 using wojilu.Common.Microblogs.Interface;
+using wojilu.Common.Microblogs;
 
 namespace wojilu.Members.Groups.Service {
 
@@ -155,15 +156,27 @@ namespace wojilu.Members.Groups.Service {
             User user = relation.Member;
             Group g = relation.Group;
 
-            String msg = string.Format( "<div class=\"feed-item-group\"><div class=\"feed-item-title\">我加入了小组 <a href=\"{0}\">{1}</a></div>", Link.ToMember( g ), g.Name );
+            String msg = GetFeedMsgByJoin( g );
 
-            if (strUtil.HasText( g.Description )) {
-                msg += string.Format( "<div class=\"feed-item-body\"><span class=\"feed-item-label\">小组简介</span>：{0}</div>", g.Description );
-            }
-            msg += string.Format( "<div class=\"feed-item-pic\"><a href=\"{1}\"><img src=\"{0}\"/></a></div>", g.LogoSmall, Link.ToMember( g ) );
-            msg += "</div>";
+            microblogService.AddSimple( relation.Member, msg, typeof( Group ).FullName, relation.Group.Id, ip );
+        }
 
-            microblogService.Add( relation.Member, msg, typeof( Group ).FullName, relation.Group.Id, ip );
+        public virtual String GetFeedMsgByJoin( Group g ) {
+            return GetFeedMsg( g, "加入了小组" );
+        }
+
+        public virtual String GetFeedMsgByCreate( Group g ) {
+            return GetFeedMsg( g, "创建了小组" );
+        }
+
+        public virtual String GetFeedMsg( Group g, String actionName ) {
+
+            String summary = "<span class=\"feed-item-label\">小组简介</span>：" + g.Description;
+
+            String pic = g.HasLogo() ? g.LogoSmall : null;
+            String msg = MbTemplate.GetFeed( actionName, g.Name, Link.ToMember( g ), summary, pic );
+
+            return string.Format( "<div class=\"feed-item-group\">{0}</div>", msg );
         }
 
         private String getTitleData( Group g ) {
@@ -189,6 +202,15 @@ namespace wojilu.Members.Groups.Service {
             db.insert( gu );
 
             recountMembers( group );
+
+            addFeedInfoByCreate( user, group, ip );
+        }
+
+        private void addFeedInfoByCreate( User user, Group g, String ip ) {
+
+            String msg = GetFeedMsgByCreate( g );
+
+            microblogService.Add( user, msg, typeof( Group ).FullName, g.Id, ip );
         }
 
         public virtual void ApproveUser( Group group, String userIds ) {

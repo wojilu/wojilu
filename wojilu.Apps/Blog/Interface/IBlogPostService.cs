@@ -42,6 +42,7 @@ namespace wojilu.Apps.Blog.Interface {
         List<IBinderValue> GetTopNew( int count );
         DataPage<BlogPost> GetTrash( int appId, int pageSize );
 
+        void AddFeedInfo( BlogPost data );
         Result Insert( BlogPost post );
         Result InsertDraft( BlogPost blogPost );
         Result PublishDraft( BlogPost post );

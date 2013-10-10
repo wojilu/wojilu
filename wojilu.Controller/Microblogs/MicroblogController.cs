@@ -349,7 +349,7 @@ namespace wojilu.Web.Controller.Microblogs {
                 return;
             }
 
-            followService.Follow( ctx.viewer.Id, ctx.owner.Id );
+            followService.Follow( ctx.viewer.Id, ctx.owner.Id, ctx.Ip );
             echoAjaxOk();
         }
 

@@ -97,6 +97,10 @@ namespace wojilu.Members.Groups.Domain {
             return "group";
         }
 
+        public Boolean HasLogo() {
+            return strUtil.HasText( this.Logo );
+        }
+
     }
 }
 

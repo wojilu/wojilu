@@ -14,8 +14,8 @@ namespace wojilu.Members.Users.Interface {
         IFriendService friendService { get; set; }
         IUserService userService { get; set; }
 
-        Follower Follow( int userId, int targetId );
-        void FollowWithFeedNotification( int userId, int targetId );
+        Follower Follow( int userId, int targetId, String ip );
+        void FollowWithFeedNotification( int userId, int targetId, String ip );
 
         DataPage<User> GetFollowingPage( int userId );
         DataPage<User> GetFollowingPage( int userId, int pageSize );

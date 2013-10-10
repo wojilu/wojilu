@@ -110,6 +110,7 @@
     <Compile Include="Common\Comments\OpenComment.cs" />
     <Compile Include="Common\Microblogs\Domain\MicroblogLike.cs" />
     <Compile Include="Common\Microblogs\Interface\ILike.cs" />
+    <Compile Include="Common\Microblogs\MbTemplate.cs" />
     <Compile Include="Common\Themes\ITheme.cs" />
     <Compile Include="Common\Microblogs\MicroblogAppSetting.cs" />
     <Compile Include="Common\Microblogs\Service\SysMicroblogCommentService.cs" />

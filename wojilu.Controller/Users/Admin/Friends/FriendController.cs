@@ -264,7 +264,7 @@ namespace wojilu.Web.Controller.Users.Admin.Friends {
 
         [HttpDelete, DbTransaction]
         public void Delete( int id ) {
-            friendService.DeleteFriend( ctx.owner.obj.Id, id );
+            friendService.DeleteFriend( ctx.owner.obj.Id, id, ctx.Ip );
             echoRedirectPart( lang( "opok" ) );
         }
 
