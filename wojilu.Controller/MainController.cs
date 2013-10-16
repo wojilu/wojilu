@@ -46,6 +46,13 @@ namespace wojilu.Web.Controller {
 
         }
 
+        public void xtest() {
+            set( "welcomeMsg", "hello world!" );
+        }
+
+        public void xx() {
+        }
+
         public void Index() {
             redirect( new SiteInitController().Index );
         }

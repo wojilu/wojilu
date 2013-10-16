@@ -99,6 +99,18 @@ namespace wojilu.Web.Mvc {
             _title = title;
         }
 
+        public void SetTitle( String title ) {
+            _title = title;
+        }
+
+        public void SetKeywords( String keywords ) {
+            _keywords = keywords;
+        }
+
+        public void SetDescription( String description ) {
+            _description = description;
+        }
+
         /// <summary>
         /// 将多个值放到 title 中
         /// </summary>

@@ -20,6 +20,9 @@ using System.Text;
 using wojilu.IO;
 using wojilu.Web.Templates.Parser;
 using wojilu.Web.Templates.Tokens;
+using wojilu.Web.Templates;
+using System.Reflection;
+using wojilu.Reflection;
 
 namespace wojilu.Web {
 
@@ -31,6 +34,11 @@ namespace wojilu.Web {
         private static readonly ILog logger = LogManager.GetLogger( typeof( Template ) );
 
         public static readonly String loadedTemplates = "loadedTemplates";
+
+        private static Dictionary<String, String> templates = new Dictionary<String, String>();
+        private static Dictionary<String, ITemplateResult> _compiledResults = new Dictionary<String, ITemplateResult>();
+        private object objLockCode = new object();
+        private object objLockReadFile = new object();
 
         private String _templateContent;
 
@@ -56,9 +64,7 @@ namespace wojilu.Web {
         }
 
 
-        private static Dictionary<String, String> templates = new Dictionary<String, String>();
 
-        private object objLockReadFile = new object();
 
         private void InitPath( String templatePath ) {
 
@@ -97,7 +103,7 @@ namespace wojilu.Web {
 
         public static Boolean ContainsCache( String templatePath ) {
             String tpl;
-            templates.TryGetValue( templatePath, out tpl);
+            templates.TryGetValue( templatePath, out tpl );
             return strUtil.HasText( tpl );
         }
 
@@ -164,10 +170,12 @@ namespace wojilu.Web {
         /// </summary>
         /// <returns></returns>
         public override String ToString() {
+            return ToStringBuilder().ToString();
+        }
 
-            if (strUtil.IsNullOrEmpty( _templateContent )) return "";
-
-            return base.ToString();
+        public StringBuilder ToStringBuilder() {
+            if (strUtil.IsNullOrEmpty( _templateContent )) return new StringBuilder();
+            return this.Compile().GetResult();
         }
 
         /// <summary>
@@ -178,12 +186,73 @@ namespace wojilu.Web {
             return _templateContent;
         }
 
+
+        public ITemplateResult Compile() {
+
+            String oContent = this.getTemplateString();
+
+            if (_compiledResults.ContainsKey( oContent ) == false) {
+
+                lock (objLockCode) {
+
+                    if (_compiledResults.ContainsKey( oContent ) == false) {
+
+                        String clsName = "__templatePage_" + Guid.NewGuid().ToString().Replace( "-", "" );
+
+                        _compiledResults[oContent] = compileCode( clsName );
+
+                    }
+
+                }
+
+            }
+
+            ITemplateResult t = _compiledResults[oContent];
+            t.SetData( new ViewData( this ) );
+            return t;
+        }
+
+        private ITemplateResult compileCode( String clsName ) {
+            String code = this.GetCode( clsName );
+
+            Assembly asm;
+            try {
+                asm = CodeDomHelper.CompileCode( code, ObjectContext.Instance.AssemblyList, getTempDllPath2( clsName ) );
+            }
+            catch (Exception ex) {
+                throw new TemplateCompileException( "模板编译错误", ex );
+            }
+
+            return asm.CreateInstance( "wojilu." + clsName ) as ITemplateResult;
+
+        }
+
+        // 在内存中编译，不生成实体dll
+        private String getTempDllPath2( String clsName ) {
+            return "";
+        }
+
+        // 在 wojilu.Web/__template/中生成dll
+        private String getTempDllPath1( String clsName ) {
+
+            String templatePath = "../__template/";
+
+            String absPath = System.IO.Path.Combine( PathHelper.GetBinDirectory(), templatePath );
+
+            if (System.IO.Directory.Exists( absPath ) == false) {
+                System.IO.Directory.CreateDirectory( absPath );
+            }
+
+            return templatePath + clsName;
+        }
+
         /// <summary>
         /// 清空所有缓存
         /// </summary>
         public static void Reset() {
             templates.Clear();
             TemplateParser.Reset();
+            _compiledResults.Clear();
         }
 
     }

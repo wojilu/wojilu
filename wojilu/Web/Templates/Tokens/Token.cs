@@ -31,9 +31,9 @@ namespace wojilu.Web.Templates.Tokens {
         public String getValue() { return _value; }
         public void setValue( String value ) { _value = value; }
 
-        //public String getVarString() {
-        //    return TemplateUtil.getVarString( this.getName() );
-        //}
+        private int _tokenType = TokenType.String;
+        public int getType() { return _tokenType; }
+        public void setType( int tokenType ) { _tokenType = tokenType; }
 
         public abstract void appendData( StringBuilder sb, ContentBlock block, BlockData blockdata );
 

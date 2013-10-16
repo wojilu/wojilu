@@ -17,24 +17,13 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using wojilu.Web.Context;
 
-namespace wojilu.Members.Interface {
+namespace wojilu.Web.Templates {
 
-    /// <summary>
-    /// 注册用户的接口
-    /// </summary>
-    public interface IUser : IMember {
-
-        
-        String Pwd { get; set; }
-        int RoleId { get; set; }
-        String PicSmall { get; }
-
-        String Email { get; set; }
-        int Gender { get; set; }
-
-        Boolean IsLogin { get; set; }
-
+    public interface ITemplateResult {
+        void SetData( ViewData viewData );
+        StringBuilder GetResult();
     }
 
 }

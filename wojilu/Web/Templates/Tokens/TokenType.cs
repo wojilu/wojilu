@@ -18,23 +18,16 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace wojilu.Members.Interface {
+namespace wojilu.Web.Templates.Tokens {
 
-    /// <summary>
-    /// 注册用户的接口
-    /// </summary>
-    public interface IUser : IMember {
+    public class TokenType {
 
-        
-        String Pwd { get; set; }
-        int RoleId { get; set; }
-        String PicSmall { get; }
+        public static readonly int String = 0;
+        public static readonly int Var = 1;
+        public static readonly int Block = 2;
+        public static readonly int Code = 3;
+        public static readonly int Function = 4;
 
-        String Email { get; set; }
-        int Gender { get; set; }
-
-        Boolean IsLogin { get; set; }
 
     }
-
 }

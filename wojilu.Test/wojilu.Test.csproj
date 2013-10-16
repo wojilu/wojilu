@@ -85,6 +85,7 @@
     <Compile Include="Platform\PhotoTest.cs" />
     <Compile Include="Platform\TagTest.cs" />
     <Compile Include="Web\Mvc\RouteTestNew.cs" />
+    <Compile Include="Web\Templates\TemplateNew.cs" />
     <Compile Include="Web\Utils\PlatformTemplateTest.cs" />
     <Compile Include="Platform\RankTest.cs" />
     <Compile Include="Common\HashTest.cs" />

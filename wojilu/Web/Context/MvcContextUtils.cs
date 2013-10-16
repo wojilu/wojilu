@@ -286,7 +286,7 @@ namespace wojilu.Web.Context {
         /// <param name="msg"></param>
         /// <param name="httpStatusCode">可以为null</param>
         public void endMsg( String msg, String httpStatusCode ) {
-            if (httpStatusCode != null) {
+            if (strUtil.HasText( httpStatusCode )) {
                 this.ctx.web.ResponseStatus( httpStatusCode );
             }
 
@@ -303,6 +303,21 @@ namespace wojilu.Web.Context {
         /// </summary>
         /// <param name="msg"></param>
         public void endMsgByText( String msg ) {
+            this.setCurrentOutputString( msg );
+            this.end();
+        }
+
+        /// <summary>
+        /// 显示信息(不带模板)，然后结束下面的流程。并发出 http 状态码(可选)
+        /// </summary>
+        /// <param name="msg"></param>
+        /// <param name="httpStatusCode"></param>
+        public void endMsgByText( String msg, String httpStatusCode ) {
+
+            if (strUtil.HasText( httpStatusCode )) {
+                this.ctx.web.ResponseStatus( httpStatusCode );
+            }
+
             this.setCurrentOutputString( msg );
             this.end();
         }
@@ -382,6 +397,8 @@ namespace wojilu.Web.Context {
             tpl.Set( "path.js", sys.Path.Js );
             tpl.Set( "path.static", sys.Path.Static );
             tpl.Set( "path.skin", sys.Path.Skin );
+
+            tpl.Bind( "__ctx", ctx );
         }
 
 

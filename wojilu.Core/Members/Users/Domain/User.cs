@@ -275,6 +275,9 @@ namespace wojilu.Members.Users.Domain {
             return IsPicError == 1;
         }
 
+        [NotSave]
+        public Boolean IsLogin { get; set; }
+
     }
 
 }

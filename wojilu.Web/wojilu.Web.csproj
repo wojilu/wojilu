@@ -115,6 +115,8 @@
     <Content Include="framework\views\Demo\Valid\HtmlPost.html" />
     <Content Include="framework\views\Main\connectLogin.html" />
     <Content Include="framework\views\Main\LoginBox.html" />
+    <Content Include="framework\views\Main\xtest.html" />
+    <Content Include="framework\views\Main\xx.html" />
     <Content Include="framework\views\Open\Admin\CommentBase\List.html" />
     <Content Include="framework\views\Open\CommentList\Index.html" />
     <Content Include="framework\views\Users\Admin\Home\Atme.html" />
@@ -1072,6 +1074,7 @@
     <Folder Include="framework\views\Microblogs\My\Layout\" />
     <Folder Include="framework\views\Poll\Admin\Layout\" />
     <Folder Include="framework\views\Users\Admin\Microblogs\" />
+    <Folder Include="Properties\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="framework\config\log.config">

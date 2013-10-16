@@ -27,6 +27,7 @@ using wojilu.Web.Mvc;
 using wojilu.Web.Mvc.Routes;
 using wojilu.Web.Utils;
 using wojilu.Web.Mock;
+using System.Text;
 
 namespace wojilu.Web.Context {
 
@@ -654,6 +655,10 @@ namespace wojilu.Web.Context {
             return Validator.Validate( target );
         }
 
+        public Result Validate( IEntity target, String actionType ) {
+            return Validator.Validate( target, actionType );
+        }
+
         /// <summary>
         /// 获取客户端post的数据，并自动赋值到对象各属性，最后进行验证
         /// </summary>
@@ -747,7 +752,7 @@ namespace wojilu.Web.Context {
 
             IEntity entity = obj as IEntity;
             if (entity != null) {
-                Result result = Validate( entity );
+                Result result = Validate( entity, "update" );
                 if (result.HasErrors) errors.Join( result );
             }
 
@@ -867,6 +872,22 @@ namespace wojilu.Web.Context {
                 if (_link == null) _link = new CtxLink( this );
                 return _link;
             }
+        }
+
+        public void load( StringBuilder sb, aAction action ) {
+            sb.Append( this.controller.loadHtml( action ) );
+        }
+
+        public void load( StringBuilder sb, aActionWithId action, int id ) {
+            sb.Append( this.controller.loadHtml( action, id ) );
+        }
+
+        public void load( StringBuilder sb, String controller, String action ) {
+            sb.Append( this.controller.loadHtml( controller, action ) );
+        }
+
+        public void load( StringBuilder sb, String controller, String action, int id ) {
+            sb.Append( this.controller.loadHtml( controller, action, id ) );
         }
 
     }

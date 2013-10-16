@@ -32,6 +32,7 @@ namespace wojilu.Web.Templates.Parser {
         public override Token getToken() {
             StringToken token = new StringToken();
             token.setValue( this.sb.ToString() );
+            token.setType( TokenType.String );
             return token;
         }
 
@@ -62,6 +63,13 @@ namespace wojilu.Web.Templates.Parser {
         private Boolean shouldBack() {
             if (charSrc.isBlock()) return true;
             if (this.charSrc.isBlockEnd()) return true;
+
+            if (this.charSrc.isCode()) return true;
+            if (this.charSrc.isCodeEnd()) return true;
+
+
+            if (this.charSrc.isFunction()) return true;
+            //if (this.charSrc.isFunctionEnd()) return true;
 
             VarLabelParsed objVar = VarLabel.GetVarLabelValue( charSrc );
             if (objVar != null) return true;

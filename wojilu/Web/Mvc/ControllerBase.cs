@@ -517,7 +517,7 @@ namespace wojilu.Web.Mvc {
         /// 将对象序列化，然后输出到客户端(ContentType="application/json")，不再输出布局页面
         /// </summary>
         /// <param name="msg"></param>
-        protected void echoJson( Object obj ) {
+        public void echoJson( Object obj ) {
             setJsonContentType();
             echoText( Json.ToString( obj ) );
         }
@@ -526,7 +526,7 @@ namespace wojilu.Web.Mvc {
         /// 将json字符串直接输出到客户端(ContentType="application/json")，不再输出布局页面
         /// </summary>
         /// <param name="msg"></param>
-        protected void echoJson( String jsonString ) {
+        public void echoJson( String jsonString ) {
             setJsonContentType();
             echoText( jsonString );
         }
@@ -1045,32 +1045,7 @@ namespace wojilu.Web.Mvc {
         /// <param name="action"></param>
         /// <returns></returns>
         public String loadHtml( aAction action ) {
-
-            String result;
-
-            if (isSameType( action.Method )) {
-
-                String actionName = action.Method.Name;
-                Template originalView = utils.getCurrentView();
-
-                setView( action.Method );
-                action();
-
-                Template resultView = utils.getCurrentView();
-                utils.setCurrentView( originalView );
-                result = resultView.ToString();
-            }
-            else {
-
-                String actionName = action.Method.Name;
-                ControllerBase otherController = ControllerFactory.FindController( action.Method.DeclaringType, ctx );
-                otherController.view( actionName );
-                otherController.utils.runAction( actionName );
-                result = otherController.utils.getActionResult();
-
-            }
-
-            return result;
+            return ControllerRunner.Run( ctx, action );
         }
 
         /// <summary>
@@ -1080,34 +1055,7 @@ namespace wojilu.Web.Mvc {
         /// <param name="id"></param>
         /// <returns></returns>
         public String loadHtml( aActionWithId action, int id ) {
-
-            String result;
-
-            if (isSameType( action.Method )) {
-
-                String actionName = action.Method.Name;
-                Template originalView = utils.getCurrentView();
-
-                setView( action.Method );
-
-                action( id );
-
-                Template resultView = utils.getCurrentView();
-                utils.setCurrentView( originalView );
-                result = resultView.ToString();
-            }
-            else {
-
-                //ControllerBase targetController = action.Target as ControllerBase;
-                //ControllerFactory.InjectController( targetController, ctx );
-                //targetController.view( action.Method.Name );
-                //action( id );
-                //result = targetController.utils.getCurrentView().ToString();
-
-                result = ControllerRunner.Run( ctx, action, id );
-            }
-
-            return result;
+            return ControllerRunner.Run( ctx, action, id );
         }
 
         /// <summary>
@@ -1129,12 +1077,6 @@ namespace wojilu.Web.Mvc {
                 action();
             }
             else {
-
-                //ControllerBase mycontroller = ControllerFactory.FindController( action.Method.DeclaringType, ctx );
-                //mycontroller.view( action.Method.Name );
-                //action.Method.Invoke( mycontroller, null );
-                //actionContent( mycontroller.utils.getActionResult() );
-
                 content( ControllerRunner.Run( ctx, action ) );
             }
         }
@@ -1159,43 +1101,7 @@ namespace wojilu.Web.Mvc {
                 action( id );
             }
             else {
-
-                //ControllerBase mycontroller = ControllerFactory.FindController( action.Method.DeclaringType, ctx );
-                //mycontroller.view( action.Method.Name );
-                //action.Method.Invoke( mycontroller, new object[] { id } );
-                //actionContent( mycontroller.utils.getActionResult() );
-
                 content( ControllerRunner.Run( ctx, action, id ) );
-            }
-        }
-
-
-
-        /// <summary>
-        /// 运行其他 action，并将运行结果作为当前 action 的内容
-        /// </summary>
-        /// <param name="controllerType">被运行的 action 所属的 controller 类型</param>
-        /// <param name="actionName">action 名称</param>
-        /// <param name="args">需要的参数</param>
-        protected void run( String controllerFullTypeName, String actionName, params object[] args ) {
-
-            Type controllerType = ObjectContext.Instance.TypeList[controllerFullTypeName];
-
-            if (controllerType == base.GetType()) {
-
-                view( actionName );
-
-                MethodInfo method = ActionRunner.getActionMethod( this, actionName );
-                if (method == null) {
-                    throw new Exception( "action " + wojilu.lang.get( "exNotFound" ) );
-                }
-                else {
-                    method.Invoke( this, args );
-                }
-
-            }
-            else {
-                content( ControllerRunner.Run( ctx, controllerFullTypeName, actionName, args ) );
             }
         }
 

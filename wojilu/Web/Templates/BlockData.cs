@@ -21,7 +21,7 @@ using System.Text;
 namespace wojilu.Web.Templates {
 
     // 包括1行数据，即一个Dictionary + 多个Block引用
-    internal class BlockData {
+    public class BlockData {
 
 
         public BlockData( Dictionary<String, Object> vars ) {

@@ -203,7 +203,7 @@ namespace wojilu.Test.Web.Templates {
 	}
 
 
-    class ViewData {
+    class VoData {
         private string _Name;
 
         public string Name {

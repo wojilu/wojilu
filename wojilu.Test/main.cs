@@ -15,7 +15,8 @@ namespace wojilu.Test {
 
         public static void Main( String[] args ) {
 
-            new QQWeiboTest().test();
+            //new QQWeiboTest().test();
+            new wojilu.Test.Web.Templates.TemplateNew().testCode();
 
         }
 

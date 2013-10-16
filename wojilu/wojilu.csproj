@@ -119,6 +119,9 @@
     <Compile Include="OAuth\OAuthUserProfile.cs" />
     <Compile Include="Reflection\CodeDomHelper.cs" />
     <Compile Include="Serialization\TypedDeserializeHelper.cs" />
+    <Compile Include="View\v.cs" />
+    <Compile Include="View\path.cs" />
+    <Compile Include="View\page.cs" />
     <Compile Include="Web\HttpMethod.cs" />
     <Compile Include="Web\Mvc\Views\IViewsFilter.cs" />
     <Compile Include="Web\Mvc\Views\IViewsPath.cs" />
@@ -126,7 +129,15 @@
     <Compile Include="Web\Mvc\Views\ViewsFilterLoader.cs" />
     <Compile Include="Web\Mvc\Views\ControllerViewsPath.cs" />
     <Compile Include="Web\Mvc\Views\FileViewsPath.cs" />
-    <Compile Include="Web\Templates\TemplateException.cs" />
+    <Compile Include="Web\Templates\ITemplateResult.cs" />
+    <Compile Include="Web\Templates\Parser\CodeParser.cs" />
+    <Compile Include="Web\Templates\Parser\FunctionParser.cs" />
+    <Compile Include="Web\Templates\Exceptions\TemplateException.cs" />
+    <Compile Include="Web\Templates\Tokens\CodeToken.cs" />
+    <Compile Include="Web\Templates\Tokens\FunctionToken.cs" />
+    <Compile Include="Web\Templates\Tokens\TokenType.cs" />
+    <Compile Include="Web\Templates\Tokens\VarInfo.cs" />
+    <Compile Include="Web\Templates\ViewData.cs" />
     <Compile Include="Web\Utils\AvatarNetSaver.cs" />
     <Compile Include="_wojilu\Exception.cs" />
     <Compile Include="Web\Mvc\ActionCache.cs" />
@@ -772,7 +783,18 @@
       <Install>false</Install>
     </BootstrapperPackage>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Compile Include="View\html.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="View\ctx.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="View\link.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="View\url.cs" />
+  </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PreBuildEvent>
