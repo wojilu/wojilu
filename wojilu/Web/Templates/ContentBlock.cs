@@ -56,7 +56,7 @@ namespace wojilu.Web {
 
             map.Add( "page.header", "System.Web.HttpContext.Current.Response.AppendHeader" );
             map.Add( "page.status", "ctx.web.ResponseStatus" );
-            
+
             map.Add( "page.go(", "return goUrl(sb," );
             map.Add( "page.exit(", "return exitMsg(sb," );
             map.Add( "page.exitText(", "return exitText(sb," );
@@ -233,7 +233,7 @@ namespace wojilu.Web {
                         }
                     }
                     else if (x.getType() == TokenType.Function) {
-                        funcList.Add( x.getValue() );
+                        funcList.Add( replaceCode( x.getValue() ) );
 
                     }
                     else if (x.getType() == TokenType.Block) {

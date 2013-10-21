@@ -1045,7 +1045,7 @@ namespace wojilu.Web.Mvc {
         /// <param name="action"></param>
         /// <returns></returns>
         public String loadHtml( aAction action ) {
-            return ControllerRunner.Run( ctx, action );
+            return ControllerRunner.Run( this, action );
         }
 
         /// <summary>
@@ -1055,7 +1055,7 @@ namespace wojilu.Web.Mvc {
         /// <param name="id"></param>
         /// <returns></returns>
         public String loadHtml( aActionWithId action, int id ) {
-            return ControllerRunner.Run( ctx, action, id );
+            return ControllerRunner.Run( this, action, id );
         }
 
         /// <summary>
@@ -1072,13 +1072,7 @@ namespace wojilu.Web.Mvc {
                 return;
             }
 
-            if (isSameType( action.Method )) {
-                setView( action.Method );
-                action();
-            }
-            else {
-                content( ControllerRunner.Run( ctx, action ) );
-            }
+            content( ControllerRunner.Run( this, action ) );
         }
 
         /// <summary>
@@ -1096,30 +1090,8 @@ namespace wojilu.Web.Mvc {
                 return;
             }
 
-            if (isSameType( action.Method )) {
-                setView( action.Method );
-                action( id );
-            }
-            else {
-                content( ControllerRunner.Run( ctx, action, id ) );
-            }
+            content( ControllerRunner.Run( this, action, id ) );
         }
-
-        private Boolean isSameType( MethodInfo method ) {
-            Boolean result = this.GetType() == method.DeclaringType || this.GetType().IsSubclassOf( method.DeclaringType );
-            return result;
-        }
-
-        private void setView( MethodInfo method ) {
-            if (this.GetType().IsSubclassOf( method.DeclaringType )) {
-                String filePath = MvcUtil.getParentViewPath( method, ctx.route.getRootNamespace( method.DeclaringType.FullName ) );
-                this.utils.setCurrentView( this.utils.getTemplateByFileName( filePath ) );
-            }
-            else {
-                view( method.Name );
-            }
-        }
-
 
         //------------------------------------------------------------------------
 

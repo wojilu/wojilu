@@ -48,6 +48,7 @@ namespace wojilu.Web.Mvc {
         /// </summary>
         /// <param name="tpl">模板对象</param>
         public void setCurrentView( Template tpl ) {
+            if (tpl == null) throw new NullReferenceException( "setCurrentView" );
             _currentView = tpl;
             this.ctx.utils.setGlobalVariable( tpl );
             if (this.getAppLang() != null) tpl.Bind( "alang", getAppLang().getLangMap() );
