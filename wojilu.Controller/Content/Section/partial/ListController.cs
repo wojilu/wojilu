@@ -31,6 +31,7 @@ namespace wojilu.Web.Controller.Content.Section {
 
 
         private void bindSectionPosts( IList posts ) {
+            bind( "list", posts );
             IBlock block = getBlock( "list" );
             foreach (ContentPost post in posts) {
 

@@ -52,7 +52,7 @@ namespace wojilu.Web.Templates {
         }
 
         public bool isCodeEnd() {
-            if (this.charList.Length < this.index + 4) return false;
+            if (this.charList.Length < this.index + 2) return false;
             return this.charList[index] == '%' &&
                 this.charList[index + 1] == '>';
         }
@@ -161,7 +161,7 @@ namespace wojilu.Web.Templates {
         }
 
         public Boolean isEnd() {
-            return (this.index >= this.charList.Length - 1);
+            return (this.index > this.charList.Length - 1);
         }
 
 

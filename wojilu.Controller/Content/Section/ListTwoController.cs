@@ -35,6 +35,7 @@ namespace wojilu.Web.Controller.Content.Section {
                 throw new Exception( lang( "exDataNotFound" ) + "=>page section:" + sectionId );
             }
 
+            set( "sectionId", sectionId );
             List<ContentPost> posts = postService.GetBySection( sectionId );
             bindSectionShow( s, posts );
         }

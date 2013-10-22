@@ -20,7 +20,7 @@ using System.Text;
 
 namespace wojilu.Web.Templates.Tokens {
 
-    internal abstract class Token {
+    public abstract class Token {
 
         private String _name;
         private String _value;

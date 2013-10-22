@@ -353,9 +353,7 @@ aa
             Console.WriteLine( "-----------------------------------------------------------------" );
             Console.WriteLine( result );
 
-            string target = @"第一个listing<div>我是标题1<br/>我是内容1</div><div>我是标题2<br/>我是内容2</div>
-第二个listing2<div>我是2标题1<br/>我是2内容1</div><div>我是2标题2<br/>我是2内容2</div>
-第三个listing3<div>我是3标题1<br/>我是3内容1</div><div>我是3标题2<br/>我是3内容2</div>";
+            string target = @"第一个listing<div>我是标题1<br/>我是内容1</div><div>我是标题2<br/>我是内容2</div>第二个listing2<div>我是2标题1<br/>我是2内容1</div><div>我是2标题2<br/>我是2内容2</div>第三个listing3<div>我是3标题1<br/>我是3内容1</div><div>我是3标题2<br/>我是3内容2</div>";
 
             Assert.AreEqual( target, result );
 

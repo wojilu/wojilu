@@ -39,7 +39,7 @@ namespace wojilu.Web {
 
         internal BlockToken _thisToken;
 
-        internal List<Token> getTokens() {
+        public List<Token> getTokens() {
             return _thisToken.getTokens();
         }
 
@@ -462,6 +462,8 @@ namespace wojilu.Web {
         /// <param name="lbl"></param>
         /// <param name="objList"></param>
         public void BindList( String listName, String lbl, System.Collections.IList objList ) {
+
+            this.Bind( listName, objList );
 
             wojilu.Web.IBlock block = this.GetBlock( listName ) as wojilu.Web.IBlock;
             if (block == null) return;

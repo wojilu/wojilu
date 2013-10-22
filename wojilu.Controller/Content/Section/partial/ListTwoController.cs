@@ -19,6 +19,7 @@ namespace wojilu.Web.Controller.Content.Section {
         private void bindSectionShow( ContentSection section, List<ContentPost> posts ) {
             set( "m.Title", section.Title );
             IBlock block = getBlock( "list" );
+            bind( "list", posts );
             foreach (ContentPost post in posts) {
                 BinderUtils.bindPostSingle( block, post, ctx );
 

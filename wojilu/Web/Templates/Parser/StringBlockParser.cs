@@ -43,11 +43,10 @@ namespace wojilu.Web.Templates.Parser {
             while (true) {
 
                 if (charSrc.isEnd()) {
-                    sb.Append( this.charSrc.current() );
                     return;
                 }
 
-                else if (shouldBack()) {
+                if (shouldBack()) {
                     this.charSrc.back();
                     return;
                 }
@@ -69,7 +68,6 @@ namespace wojilu.Web.Templates.Parser {
 
 
             if (this.charSrc.isFunction()) return true;
-            //if (this.charSrc.isFunctionEnd()) return true;
 
             VarLabelParsed objVar = VarLabel.GetVarLabelValue( charSrc );
             if (objVar != null) return true;

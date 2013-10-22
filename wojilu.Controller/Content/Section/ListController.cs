@@ -68,6 +68,7 @@ namespace wojilu.Web.Controller.Content.Section {
 
             IList posts = postService.GetBySection( sectionId, s.ListCount );
             bindSectionPosts( posts );
+            set( "sectionId", sectionId );
         }
 
         public void Show( int id ) {

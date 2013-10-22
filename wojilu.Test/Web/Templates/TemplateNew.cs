@@ -8,6 +8,7 @@ using wojilu.Reflection;
 using System.Reflection;
 using wojilu.Web.Templates;
 using wojilu.Test.Common.Jsons;
+using wojilu.Web.Templates.Tokens;
 
 
 namespace wojilu {
@@ -39,9 +40,177 @@ namespace wojilu.Test.Web.Templates {
     [TestFixture]
     public class TemplateNew {
 
+        [Test]
+        public void testString() {
 
 
+            //-----------------------------------------------------
+            String html = @"z";
+            wojilu.Web.Template tpl = new Template().InitContent( html ) as Template;
 
+            List<Token> tokens = tpl.getTokens();
+            Assert.AreEqual( 1, tokens.Count );
+
+            Token x = tokens[0];
+            Assert.AreEqual( TokenType.String, x.getType() );
+            Assert.AreEqual( "z", x.getValue() );
+
+            //-----------------------------------------------------
+            html = @""; // 空字符串不进行解析
+            tpl = new Template().InitContent( html ) as Template;
+
+            tokens = tpl.getTokens();
+            Assert.AreEqual( 0, tokens.Count );
+
+            //-----------------------------------------------------
+            html = @"   "; // 空字符串不进行解析
+            tpl = new Template().InitContent( html ) as Template;
+
+            tokens = tpl.getTokens();
+            Assert.AreEqual( 0, tokens.Count );
+
+            //-----------------------------------------------------
+            html = @"zz";
+            tpl = new Template().InitContent( html ) as Template;
+
+            tokens = tpl.getTokens();
+            Assert.AreEqual( 1, tokens.Count );
+
+            x = tokens[0];
+            Assert.AreEqual( TokenType.String, x.getType() );
+            Assert.AreEqual( "zz", x.getValue() );
+
+            //-----------------------------------------------------
+            html = @" z";
+            tpl = new Template().InitContent( html ) as Template;
+
+            tokens = tpl.getTokens();
+            Assert.AreEqual( 1, tokens.Count );
+
+            x = tokens[0];
+            Assert.AreEqual( TokenType.String, x.getType() );
+            Assert.AreEqual( " z", x.getValue() );
+
+            //-----------------------------------------------------
+            html = @"z ";
+            tpl = new Template().InitContent( html ) as Template;
+
+            tokens = tpl.getTokens();
+            Assert.AreEqual( 1, tokens.Count );
+
+            x = tokens[0];
+            Assert.AreEqual( TokenType.String, x.getType() );
+            Assert.AreEqual( "z ", x.getValue() );
+
+            //-----------------------------------------------------
+            html = @" z ";
+            tpl = new Template().InitContent( html ) as Template;
+
+            tokens = tpl.getTokens();
+            Assert.AreEqual( 1, tokens.Count );
+
+            x = tokens[0];
+            Assert.AreEqual( TokenType.String, x.getType() );
+            Assert.AreEqual( " z ", x.getValue() );
+        }
+
+        [Test]
+        public void testCodeToken() {
+
+            String html = @"<%%>";
+
+            wojilu.Web.Template tpl = new Template().InitContent( html ) as Template;
+
+            List<Token> tokens = tpl.getTokens();
+            Assert.AreEqual( 1, tokens.Count );
+
+            Token x = tokens[0];
+            Assert.AreEqual( TokenType.Code, x.getType() );
+            Assert.AreEqual( "", x.getValue() );
+
+            //-----------------------------------------------------
+            html = @"<% %>";
+            tpl = new Template().InitContent( html ) as Template;
+
+            tokens = tpl.getTokens();
+            Assert.AreEqual( 1, tokens.Count );
+
+            x = tokens[0];
+            Assert.AreEqual( TokenType.Code, x.getType() );
+            Assert.AreEqual( " ", x.getValue() );
+
+            //-----------------------------------------------------
+            html = @"<%  %>";
+            tpl = new Template().InitContent( html ) as Template;
+
+            tokens = tpl.getTokens();
+            Assert.AreEqual( 1, tokens.Count );
+
+            x = tokens[0];
+            Assert.AreEqual( TokenType.Code, x.getType() );
+            Assert.AreEqual( "  ", x.getValue() );
+
+            //-----------------------------------------------------
+            html = @" <%%>";
+            tpl = new Template().InitContent( html ) as Template;
+
+            tokens = tpl.getTokens();
+            Assert.AreEqual( 2, tokens.Count );
+
+            x = tokens[1];
+            Assert.AreEqual( TokenType.Code, x.getType() );
+            Assert.AreEqual( "", x.getValue() );
+
+            //-----------------------------------------------------
+            html = @"<%%> ";
+            tpl = new Template().InitContent( html ) as Template;
+
+            tokens = tpl.getTokens();
+            Assert.AreEqual( 2, tokens.Count );
+
+            x = tokens[0];
+            Assert.AreEqual( TokenType.Code, x.getType() );
+            Assert.AreEqual( "", x.getValue() );
+
+            //-----------------------------------------------------
+            html = @"x<%%>y";
+            tpl = new Template().InitContent( html ) as Template;
+
+            tokens = tpl.getTokens();
+            Assert.AreEqual( 3, tokens.Count );
+
+            x = tokens[0];
+            Assert.AreEqual( TokenType.String, x.getType() );
+            Assert.AreEqual( "x", x.getValue() );
+
+            Token n = tokens[1];
+            Assert.AreEqual( TokenType.Code, n.getType() );
+            Assert.AreEqual( "", n.getValue() );
+
+            Token y = tokens[2];
+            Assert.AreEqual( TokenType.String, y.getType() );
+            Assert.AreEqual( "y", y.getValue() );
+
+
+            //-----------------------------------------------------
+            html = @"x<% %>y";
+            tpl = new Template().InitContent( html ) as Template;
+
+            tokens = tpl.getTokens();
+            Assert.AreEqual( 3, tokens.Count );
+
+            x = tokens[0];
+            Assert.AreEqual( TokenType.String, x.getType() );
+            Assert.AreEqual( "x", x.getValue() );
+
+            n = tokens[1];
+            Assert.AreEqual( TokenType.Code, n.getType() );
+            Assert.AreEqual( " ", n.getValue() );
+
+            y = tokens[2];
+            Assert.AreEqual( TokenType.String, y.getType() );
+            Assert.AreEqual( "y", y.getValue() );
+        }
 
 
 
@@ -209,7 +378,7 @@ public String getUser( String title, int count ) {
             wojilu.Web.Template tpl = new Template().InitContent( html ) as Template;
 
             // 必须使用 Bind
-            tpl.Bind( "ulist", getUserList() );            
+            tpl.Bind( "ulist", getUserList() );
 
             // 不能使用BindList，因为这是传统区块模式
             //tpl.BindList( "ulist", "x", getUserList() );
