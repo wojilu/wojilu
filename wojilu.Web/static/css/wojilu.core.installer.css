@@ -38,10 +38,10 @@ h1 {text-align:center; color:#666; font-size:28px; font-weight:bold; font-family
     .titleNo { font-size:28px; font-weight:bold; font-style:italic; margin-right:10px;}
 
 /*********************配置主体********************/
-#xSlidePanel { position:relative; overflow:hidden;height:350px;width:801px; margin:auto; margin-bottom:20px;}
+#xSlidePanel { position:relative; overflow:hidden;height:380px;width:801px; margin:auto; margin-bottom:20px;}
     .step { position:absolute;width:800px; background:#fff;}
         .stepPanel {height:230px; padding:10px; }
-        .btnStepPanel {height:120px;text-align:center; padding:5px;}
+        .btnStepPanel {height:120px;text-align:center; padding:5px;margin-top:10px;}
         .btnStepPanel .btnPrev { margin-right:15px;}
         
         #btn-wrap1 {width:120px; margin:auto;}

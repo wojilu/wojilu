@@ -83,7 +83,8 @@
 
                     </li>
                     
-                </ul>            
+                </ul>
+                <div style="font-size:12px; margin:10px;">表前缀 <input type="text" id="tablePrefix" style="width:60px;" /> <span class="note">(可以不填写)</span></div>   
             </td></tr>            
         </table>
 

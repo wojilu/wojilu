@@ -58,7 +58,7 @@ namespace wojilu.Web.Controller {
             set( "setUserAndAppLink", to( setUserAndApp ) );
 
             if (ctx.HasErrors) {
-                set( "writeFileMsg", string.Format( "<div class=\"warning\">【错误提醒】在安装之前，您必须让网站根目录允许写入权限，<strong>否则无法正常安装</strong>。正确设置方法，请 <a href=\"http://www.wojilu.com/tag/%E5%86%99%E6%9D%83%E9%99%90\" target=\"_blank\">参考此处</a><br/>" +
+                set( "writeFileMsg", String.Format( "<div class=\"warning\">【错误提醒】在安装之前，您必须让网站根目录允许写入权限，<strong>否则无法正常安装</strong>。正确设置方法，请 <a href=\"http://www.wojilu.com/tag/%E5%86%99%E6%9D%83%E9%99%90\" target=\"_blank\">参考此处</a><br/>" +
                     "{0}</div>", errors.ErrorsHtml ) );
             }
             else {
@@ -75,6 +75,7 @@ namespace wojilu.Web.Controller {
             String dbType = ctx.Post( "dbType" );
             String dbName = ctx.Post( "dbName" );
             String connectionStr = ctx.Post( "connectionStr" );
+            String tablePrefix = ctx.Post( "tablePrefix" );
 
             String connectionString = createConnectionString( dbType, dbName, connectionStr );
 
@@ -88,6 +89,7 @@ namespace wojilu.Web.Controller {
             t.InitContent( strConfig );
             t.Set( "connectionString", connectionString );
             t.Set( "dbType", dbType );
+            t.Set( "tablePrefix", tablePrefix );
 
             String fileName = "/config/orm.config";
             String filePath = strUtil.Join( cfgHelper.FrameworkRoot, fileName );
@@ -144,7 +146,7 @@ namespace wojilu.Web.Controller {
             echoAjaxOk();
         }
 
-        private void updateSiteName( string siteName ) {
+        private void updateSiteName( String siteName ) {
             if (strUtil.IsNullOrEmpty( siteName )) return;
             config.Instance.Site.SiteName = siteName;
             config.Instance.Site.Update( "SiteName", siteName );
@@ -328,7 +330,7 @@ namespace wojilu.Web.Controller {
 
         //----------------------------------------------------------------------------------
 
-        private string getConfigTemplate() {
+        private String getConfigTemplate() {
 
             return @"{ 
     ConnectionStringTable:{
@@ -345,6 +347,8 @@ namespace wojilu.Web.Controller {
      
     AssemblyList : [""wojilu.Core"",""wojilu.Apps"",""wojilu.Apps.Download""],
 
+    TablePrefix : ""#{tablePrefix}"",
+
     // 是否启用二级二级缓存
     ApplicationCache:true,
     
@@ -356,7 +360,7 @@ namespace wojilu.Web.Controller {
 
         }
 
-        private string createConnectionString( string dbType, String dbName, string connectionStr ) {
+        private String createConnectionString( String dbType, String dbName, String connectionStr ) {
 
             if ("access".Equals( dbType )) {
 
@@ -365,7 +369,7 @@ namespace wojilu.Web.Controller {
                     return null;
                 }
                 else {
-                    return string.Format( "Provider=Microsoft.Jet.OLEDB.4.0;Data Source={0}", dbName );
+                    return String.Format( "Provider=Microsoft.Jet.OLEDB.4.0;Data Source={0}", dbName );
                 }
             }
 
@@ -410,7 +414,7 @@ namespace wojilu.Web.Controller {
 
         }
 
-        private string clearStrLine( string connectionStr ) {
+        private String clearStrLine( String connectionStr ) {
             if (strUtil.IsNullOrEmpty( connectionStr )) {
                 errors.Add( "请填写数据库连接字符串" );
                 return "";

@@ -30,6 +30,7 @@
         var dbType = $('input[name=dbType]:checked').val();
         var dbName;
         var connectionStr;
+        var tablePrefix = $('#tablePrefix').val();
 
         if (dbType == 'access') {
             dbName = $('input[name=accessName]').val();
@@ -56,7 +57,8 @@
         var postData = {
             dbType: dbType,
             dbName: dbName,
-            connectionStr: connectionStr
+            connectionStr: connectionStr,
+            tablePrefix: tablePrefix
         };
         
         var btn = $(this);
