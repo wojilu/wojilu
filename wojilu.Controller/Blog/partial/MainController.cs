@@ -45,6 +45,8 @@ namespace wojilu.Web.Controller.Blog {
         private void bindLink( IBlock tpl, String lbl, object obj ) {
 
             BlogPost post = obj as BlogPost;
+            if (post == null) return;
+
             String userLink = toUser( post.CreatorUrl );
 
             String userFace = "";
