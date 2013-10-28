@@ -1,4 +1,4 @@
-/*
+﻿/*
  * Copyright (c) 2010, www.wojilu.com. All rights reserved.
  */
 
@@ -73,23 +73,23 @@ namespace wojilu.Members.Users.Domain {
             return DateTime.Now.Year - BirthYear;
         }
 
-        public int FriendCount { get; set; } // 好友�
+        public int FriendCount { get; set; } // 好友数
         public int MemberCount { get; set; }
-        public int FollowingCount { get; set; } // 关注的人�
-        public int FollowersCount { get; set; } // 粉丝�
+        public int FollowingCount { get; set; } // 关注的人数
+        public int FollowersCount { get; set; } // 粉丝数
 
         public int Credit { get; set; } // cache from [UserIncome] KeyCurrency
 
         public int LoginCount { get; set; }
         public int LoginDay { get; set; }
-        public int MsgCount { get; set; } // 短消息数�
+        public int MsgCount { get; set; } // 短消息数量
 
-        public int MsgNewCount { get; set; } // 未读短信�
-        public int NewNotificationCount { get; set; } // 未读通知�
-        public int PostCount { get; set; } // 论坛帖子�
+        public int MsgNewCount { get; set; } // 未读短信数
+        public int NewNotificationCount { get; set; } // 未读通知数
+        public int PostCount { get; set; } // 论坛帖子数
 
-        public int MicroblogAt { get; set; } // 微博at提到的数�
-        public int MicroblogAtUnread { get; set; } // (未读)微博at提到的数�
+        public int MicroblogAt { get; set; } // 微博at提到的数量
+        public int MicroblogAtUnread { get; set; } // (未读)微博at提到的数量
 
         public int Pins { get; set; }
         public int Likes { get; set; }
@@ -127,7 +127,7 @@ namespace wojilu.Members.Users.Domain {
         }
 
         /// <summary>
-        /// 头像在审核之后，是否不符要求�
+        /// 头像在审核之后，是否不符要求
         /// </summary>
         public int IsPicError { get; set; }
 
@@ -227,7 +227,7 @@ namespace wojilu.Members.Users.Domain {
             //return null;
         }
 
-        // TODO 个人空间所具有的角�
+        // TODO 个人空间所具有的角色
         public IList GetRoles() {
             return new ArrayList();
         }
@@ -240,7 +240,7 @@ namespace wojilu.Members.Users.Domain {
             return null;
         }
 
-        // �null object 模式下保存真实的ID
+        // 在 null object 模式下保存真实的ID
         private int _realId;
         [NotSave]
         public int RealId {
@@ -275,7 +275,6 @@ namespace wojilu.Members.Users.Domain {
             return IsPicError == 1;
         }
 
-        }
 
         [NotSave]
         public Boolean IsLogin { get; set; }
@@ -283,4 +282,3 @@ namespace wojilu.Members.Users.Domain {
     }
 
 }
-

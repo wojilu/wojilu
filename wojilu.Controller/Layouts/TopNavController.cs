@@ -275,19 +275,6 @@ _run( function() {
         }
 
 
-        private string getSiteNotification() {
-
-            if (ctx.viewer.obj.Id != SiteRole.Administrator.Id) return "";
-
-            int newCount = new NotificationService().GetUnReadCount( Site.Instance.Id, typeof( Site ).FullName );
-            if (newCount <= 0) return "";
-
-            User user = (User)ctx.viewer.obj;
-
-            String lnk = Link.To( user, new Users.Admin.SiteNfController().List );
-            return string.Format( "<a href=\"{0}\">通知(<span id=\"siteNotificationText\">{1}</span>)</a>", lnk, newCount );
-        }
-
         //-------------------------------------------------------------------------------------------------------------
 
         public void Header() {
