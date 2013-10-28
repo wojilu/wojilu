@@ -212,6 +212,12 @@ namespace wojilu.Web.Mvc {
             return x.getTemplateByAction( action );
         }
 
+        public Template getTemplateByAction( MethodInfo actionMethod ) {
+            MvcViews x = new MvcViews();
+            x.setController( this.controller );
+            return x.getTemplateByAction( actionMethod );
+        }
+
         /// <summary>
         /// 根据文件名称获取模板对象，文件名必须从视图 view 的根目录算起
         /// </summary>

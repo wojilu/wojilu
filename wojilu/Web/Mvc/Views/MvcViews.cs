@@ -18,6 +18,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using wojilu.Web.Context;
+using System.Reflection;
 
 namespace wojilu.Web.Mvc {
 
@@ -42,8 +43,21 @@ namespace wojilu.Web.Mvc {
         /// <returns></returns>
         public Template getTemplateByAction( String action ) {
             ControllerViewsPath x = new ControllerViewsPath();
+
+            // TODO 检查action是否属于controller，如果是继承来的，则获取基类
             x.setController( this._controller );
             x.setAction( action );
+
+            return getTemplateByPath( x );
+        }
+
+        public Template getTemplateByAction( MethodInfo actionMethod ) {
+            ControllerViewsPath x = new ControllerViewsPath();
+
+            // TODO 检查action是否属于controller，如果是继承来的，则获取基类
+            x.setController( this._controller );
+            x.setMethod( actionMethod );
+
             return getTemplateByPath( x );
         }
 

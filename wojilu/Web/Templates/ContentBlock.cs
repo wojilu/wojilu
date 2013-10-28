@@ -366,13 +366,17 @@ namespace wojilu.Web {
         /// <param name="obj">被绑定的对象</param>
         public void Bind( String lbl, Object obj ) {
 
-            if (this.bindOtherFunc != null)
+            if (this.bindOtherFunc != null) {
                 bindOtherFunc( this, lbl, obj );
+            }
 
+            bindPrivate( lbl, obj );
+        }
+
+        private void bindPrivate( String lbl, Object obj ) {
             if (this.bindFunc != null && !(obj is IDictionary)) {
                 bindFunc( this, cvt.ToInt( rft.GetPropertyValue( obj, "Id" ) ) );
             }
-
 
             _blockData.getDic()[lbl] = obj;
         }
@@ -463,7 +467,7 @@ namespace wojilu.Web {
         /// <param name="objList"></param>
         public void BindList( String listName, String lbl, System.Collections.IList objList ) {
 
-            this.Bind( listName, objList );
+            this.bindPrivate( listName, objList );
 
             wojilu.Web.IBlock block = this.GetBlock( listName ) as wojilu.Web.IBlock;
             if (block == null) return;

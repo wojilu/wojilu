@@ -38,6 +38,8 @@ namespace wojilu.Web.Controller.Admin.Sys {
 
             FooterMenu data = obj as FooterMenu;
 
+            if (data == null) return;
+
             tpl.Set( "data.Link", lnkFull( data.Link ) );
             tpl.Set( "data.LinkEdit", to( Edit, data.Id ) );
             tpl.Set( "data.LinkDelete", to( Delete, data.Id ) );

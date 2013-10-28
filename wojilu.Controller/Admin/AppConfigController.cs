@@ -67,6 +67,7 @@ namespace wojilu.Web.Controller.Admin {
 
         private void bindAppAdminLink( IBlock block, String lbl, object obj ) {
             AppInstaller installer = obj as AppInstaller;
+            if (installer == null) return;
             block.Set( "app.StatusAdminName", "修改" );
             block.Set( "app.StatusAdminLink", to( EditStatus, installer.Id ) );
 

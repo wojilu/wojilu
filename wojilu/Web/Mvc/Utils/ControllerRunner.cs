@@ -26,7 +26,7 @@ namespace wojilu.Web.Mvc.Utils {
             // 如果是当前controller，则直接调用；因为必须允许内部成员变量共享
             if (Object.ReferenceEquals( thisController, targetController )) {
                 Template originalView = thisController.utils.getCurrentView();
-                thisController.view( action.Method.Name );
+                thisController.view( action.Method );
                 action();
                 String result = thisController.utils.getActionResult();
                 thisController.utils.setCurrentView( originalView );

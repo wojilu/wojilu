@@ -18,6 +18,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using wojilu.Web.Context;
+using System.Reflection;
 
 namespace wojilu.Web.Mvc {
 
@@ -26,8 +27,15 @@ namespace wojilu.Web.Mvc {
         private ControllerBase _controller;
         private String _action;
 
+        private MethodInfo _method;
+
         public void setAction( String aAction ) {
             this._action = aAction;
+        }
+
+        public void setMethod( MethodInfo method ) {
+            this._method = method;
+            this._action = method.Name;
         }
 
         public string getPath( String viewsDir ) {
@@ -64,7 +72,10 @@ namespace wojilu.Web.Mvc {
         }
 
         private String getControllerDirNoViewsDir() {
-            String pathRaw = strUtil.GetTypeFullName( _controller.GetType() );
+
+            Type declaringController = _method != null ? this._method.DeclaringType : _controller.GetType();
+
+            String pathRaw = strUtil.GetTypeFullName( declaringController );
 
             // 去掉根目录
             String result = trimRootNamespace( pathRaw ).TrimStart( '.' );

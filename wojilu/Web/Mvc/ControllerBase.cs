@@ -138,6 +138,27 @@ namespace wojilu.Web.Mvc {
         }
 
         /// <summary>
+        /// 手动指定当前 action 的视图文件(指定视图文件之后，默认的模板将被忽略)
+        /// </summary>
+        /// <param name="action"></param>
+        public void view( aAction action ) {
+            view( action.Method );
+        }
+
+        /// <summary>
+        /// 手动指定当前 action 的视图文件(指定视图文件之后，默认的模板将被忽略)
+        /// </summary>
+        /// <param name="action"></param>
+        public void view( aActionWithId action ) {
+            view( action.Method );
+        }
+
+        internal void view( MethodInfo actionMethod ) {
+            if (actionMethod == null) throw new ArgumentNullException( "actionViewName" );
+            utils.setCurrentView( utils.getTemplateByAction( actionMethod ) );
+        }
+
+        /// <summary>
         /// 自定义当前视图模的内容(自定义内容之后，默认的模板将被忽略)
         /// </summary>
         /// <param name="templateContent">模板的内容</param>
