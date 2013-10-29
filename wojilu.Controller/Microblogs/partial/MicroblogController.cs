@@ -204,15 +204,29 @@ namespace wojilu.Web.Controller.Microblogs {
 
                 ufBlock.Set( "blog.UserName", blog.User.Name );
                 ufBlock.Set( "blog.UserFace", blog.User.PicSmall );
-                ufBlock.Set( "blog.UserLink", alink.ToUserMicroblog( blog.User ) );
-                ufBlock.Set( "userNameInfo", string.Format( "<a href=\"{0}\">{1}</a>", alink.ToUserMicroblog( blog.User ), blog.User.Name ) );
+
+                if (ctx.GetItemString( "_showType" ) == "microblog") {
+                    ufBlock.Set( "blog.UserLink", alink.ToUserMicroblog( blog.User ) );
+                    ufBlock.Set( "userNameInfo", string.Format( "<a href=\"{0}\">{1}</a>", alink.ToUserMicroblog( blog.User ), blog.User.Name ) );
+                }
+                else {
+                    ufBlock.Set( "blog.UserLink", Link.ToMember( blog.User ) );
+                    ufBlock.Set( "userNameInfo", string.Format( "<a href=\"{0}\">{1}</a>", Link.ToMember( blog.User ), blog.User.Name ) );
+                }
 
                 String deleteCmd = getDeleteCmd( ctx, blog );
                 ufBlock.Set( "blog.DeleteCmd", deleteCmd );
 
                 ufBlock.Next();
 
-                block.Set( "userNameInfo", string.Format( "<a href=\"{0}\">{1}</a>", alink.ToUserMicroblog( blog.User ), blog.User.Name ) );
+                if (ctx.GetItemString( "_showType" ) == "microblog") {
+                    block.Set( "userNameInfo", string.Format( "<a href=\"{0}\">{1}</a>", alink.ToUserMicroblog( blog.User ), blog.User.Name ) );
+                }
+                else {
+                    block.Set( "userNameInfo", string.Format( "<a href=\"{0}\">{1}</a>", Link.ToMember( blog.User ), blog.User.Name ) );
+                }
+
+
             }
             else {
                 block.Set( "userNameInfo", "" );
