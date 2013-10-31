@@ -64,14 +64,10 @@ namespace wojilu.Web.Mvc {
         public String ViewExt { get { return _viewExt; } }
 
         /// <summary>
-        /// 视图文件所在目录。默认值是 /framework/views/ ，也可以在 mvc.config 中添加 viewsDir 项自定义
-        /// 如果定义了 viewsDirList，则使用 viewsDirList 替换本项值
+        /// 视图文件的默认目录，一些不需要区分客户端的模板，比如激活邮件模板等等需要用到。默认值是 /framework/views/
         /// </summary>
         public String ViewDir {
-            get {
-                if (this.ViewDirList.Count > 0) return this.ViewDirList[0];
-                return _viewDir;
-            }
+            get { return _viewDir; }
         }
 
         /// <summary>
