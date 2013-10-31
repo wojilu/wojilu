@@ -128,6 +128,13 @@ namespace wojilu.Web.Utils.Tags {
             dic.Add( "th", "" );
             dic.Add( "td", "width,valign,align" );
 
+            dic.Add( "h1", "" );
+            dic.Add( "h2", "" );
+            dic.Add( "h3", "" );
+            dic.Add( "h4", "" );
+            dic.Add( "h5", "" );
+            dic.Add( "h6", "" );
+
             dic.Add( "object", "data,type,width,height,classid,codebase,align,pluginspage" );
             dic.Add( "param", "name,value" );
             dic.Add( "embed", "src,bgcolor,name,align,quality,pluginspage,type,width,height,allowFullScreen,allowScriptAccess" );
