@@ -62,7 +62,7 @@ namespace wojilu.Common.Polls.Service {
 
             String msg = string.Format( "<div class=\"feed-item-poll\"><div class=\"feed-item-title\">我参与了投票 <img src=\"{2}\"/> <a href=\"{0}\">{1}</a></div>", lnkpost, poll.Title, strUtil.Join( sys.Path.Img, "poll.gif" ) );
 
-            microblogService.Add( user, msg, typeof( TP ).FullName, poll.Id, pr.Ip );
+            microblogService.AddSimple( user, msg, typeof( TP ).FullName, poll.Id, pr.Ip );
         }
 
         private string getTitleData( string lnkpost, TP poll ) {
@@ -82,7 +82,7 @@ namespace wojilu.Common.Polls.Service {
 
             String msg = string.Format( "<div class=\"feed-item-poll\"><div class=\"feed-item-title\">我发起了投票 <img src=\"{2}\"/> <a href=\"{0}\">{1}</a></div>", lnkPost, poll.Title, strUtil.Join( sys.Path.Img, "poll.gif" ) );
 
-            microblogService.Add( user, msg, typeof( TP ).FullName, poll.Id, poll.Ip );
+            microblogService.AddSimple( user, msg, typeof( TP ).FullName, poll.Id, poll.Ip );
 
         }
 

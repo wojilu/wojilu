@@ -210,7 +210,7 @@ namespace wojilu.Members.Groups.Service {
 
             String msg = GetFeedMsgByCreate( g );
 
-            microblogService.Add( user, msg, typeof( Group ).FullName, g.Id, ip );
+            microblogService.AddSimple( user, msg, typeof( Group ).FullName, g.Id, ip );
         }
 
         public virtual void ApproveUser( Group group, String userIds ) {
