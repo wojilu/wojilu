@@ -85,26 +85,40 @@ namespace wojilu.Web.Context.Initor {
 
         private void updateRoute_ByOwnerMenus( MvcContext ctx, IMember owner ) {
 
+            String cleanUrlWithoutOwner = ctx.route.getCleanUrlWithoutOwner( ctx );
+
+            if (isHomePath( cleanUrlWithoutOwner )) {
+
+                if (isCustomHome( owner ) == false) {
+                    return;
+                }
+
+                List<IMenu> list = InitHelperFactory.GetHelper( ctx ).GetMenus( ctx.owner.obj );
+                updateRoute_Menu( ctx, list, "default" );
+                ctx.utils.setIsHome( true );
+
+            }
+            else {
+                List<IMenu> list = InitHelperFactory.GetHelper( ctx ).GetMenus( ctx.owner.obj );
+                updateRoute_Menu( ctx, list, cleanUrlWithoutOwner );
+            }
+        }
+
+        private Boolean isHomePath( String cleanUrlWithoutOwner ) {
+            if (cleanUrlWithoutOwner == string.Empty) return true;
+            if (strUtil.EqualsIgnoreCase( cleanUrlWithoutOwner, "default" )) return true;
+            return false;
+        }
+
+        private Boolean isCustomHome( IMember owner ) {
+
             Boolean homepageCustom = false;
 
             if (owner.GetType() == typeof( User )) {
-                // 如果禁止主页自定义
-                if (!homepageCustom) {
-                    return;
-                }
+                return homepageCustom;
             }
 
-            List<IMenu> list = InitHelperFactory.GetHelper( ctx ).GetMenus( ctx.owner.obj );
-
-            String cleanUrlWithoutOwner = ctx.route.getCleanUrlWithoutOwner( ctx );
-            if (cleanUrlWithoutOwner == string.Empty || strUtil.EqualsIgnoreCase( cleanUrlWithoutOwner, "default" )) {
-
-                updateRoute_Menu( ctx, list, "default" );
-                ctx.utils.setIsHome( true );
-            }
-            else {
-                updateRoute_Menu( ctx, list, cleanUrlWithoutOwner );
-            }
+            return true;
         }
 
         private void updateRoute_Menu( MvcContext ctx, List<IMenu> list, String cleanUrlWithoutOwner ) {
