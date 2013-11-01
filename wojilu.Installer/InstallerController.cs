@@ -104,46 +104,70 @@ namespace wojilu.Web.Controller {
         [HttpPost]
         public void setUserAndApp() {
 
-            // 1）初始化网站基本信息
-            SiteInitHelper initHelper = ObjectContext.Create<SiteInitHelper>();
-            if (initHelper.HasInit() == false) {
-                initHelper.InitSite();
+            try {
+
+                // 1）初始化网站基本信息
+                SiteInitHelper initHelper = ObjectContext.Create<SiteInitHelper>();
+                if (initHelper.HasInit() == false) {
+                    initHelper.InitSite();
+                }
+
+                // 2）创建用户
+                String name = ctx.Post( "name" );
+                String email = ctx.Post( "email" );
+                String pwd = ctx.Post( "pwd" );
+                String pageUrl = ctx.Post( "url" );
+
+                User user = new User();
+                user.Name = name;
+                user.Pwd = pwd;
+                user.Email = email;
+                user.Url = strUtil.IsNullOrEmpty( pageUrl ) ? "admin" : pageUrl;
+
+                user = userService.Register( user, ctx );
+                if (ctx.HasErrors) {
+                    echoText( errors.ErrorsText );
+                    return;
+                }
+
+                RegHelper.CheckUserSpace( user, ctx );
+                loginService.Login( user, LoginTime.Forever, ctx.Ip, ctx );
+
+                // 3）初始化owner/viewer
+                initOwner( ctx );
+                initViewer( ctx, user );
+
+                // 4) 网站名称
+                String siteName = ctx.Post( "siteName" );
+                updateSiteName( siteName );
+
+                // 5）安装app
+                int siteType = ctx.PostInt( "siteType" );
+                initSiteApp( siteType, user );
+
+                echoAjaxOk();
+            }
+            catch (Exception ex) {
+
+                logger.Fatal( "安装出错。错误信息如下：" + Environment.NewLine +
+                    "Message=" + ex.Message + Environment.NewLine +
+                    "Source=" + ex.Source + Environment.NewLine +
+                    "StackTrace=" + Environment.NewLine + ex.StackTrace + Environment.NewLine
+                    );
+
+                echoText( "安装出错，请检查/framework/log/下日志" );
+
             }
 
-            // 2）创建用户
-            String name = ctx.Post( "name" );
-            String email = ctx.Post( "email" );
-            String pwd = ctx.Post( "pwd" );
-            String pageUrl = ctx.Post( "url" );
+        }
 
-            User user = new User();
-            user.Name = name;
-            user.Pwd = pwd;
-            user.Email = email;
-            user.Url = strUtil.IsNullOrEmpty( pageUrl ) ? "admin" : pageUrl;
+        private static String getExSource( Exception ex ) {
 
-            user = userService.Register( user, ctx );
-            if (ctx.HasErrors) {
-                echoText( errors.ErrorsText );
-                return;
-            }
+            if (strUtil.HasText( ex.Source )) return ex.Source;
 
-            RegHelper.CheckUserSpace( user, ctx );
-            loginService.Login( user, LoginTime.Forever, ctx.Ip, ctx );
+            if (ex.InnerException != null) return ex.InnerException.Source;
 
-            // 3）初始化owner/viewer
-            initOwner( ctx );
-            initViewer( ctx, user );
-
-            // 4) 网站名称
-            String siteName = ctx.Post( "siteName" );
-            updateSiteName( siteName );
-
-            // 5）安装app
-            int siteType = ctx.PostInt( "siteType" );
-            initSiteApp( siteType, user );
-
-            echoAjaxOk();
+            return "";
         }
 
         private void updateSiteName( String siteName ) {
