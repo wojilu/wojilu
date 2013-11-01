@@ -138,6 +138,7 @@ namespace wojilu.Web.Controller.Admin.Members {
             bindProfile( m );
             set( "lnkEditName", to( EditName, id ) );
             set( "lnkEditUrl", to( EditUrl, id ) );
+            set( "lnkEditEmail", to( EditEmail, id ) );
         }
 
         [HttpPost, DbTransaction]
@@ -201,6 +202,29 @@ namespace wojilu.Web.Controller.Admin.Members {
             echoToParentPart( lang( "opok" ) );
         }
 
+        //--------------------------------------
+
+        public void EditEmail( int id ) {
+            target( UpdateEmail, id );
+            User m = User.findById( id );
+            set( "userEmail", m.Email );
+        }
+
+        [HttpPost, DbTransaction]
+        public void UpdateEmail( int id ) {
+
+            String userEmail = strUtil.SubString( ctx.Post( "userEmail" ), RegPattern.EmailLength );
+
+            if (strUtil.IsNullOrEmpty( userEmail ) || RegPattern.IsMatch( userEmail, RegPattern.Email ) == false) {
+                echoError( lang( "exUserMail" ) );
+                return;
+            }
+
+            User m = User.findById( id );
+            m.Email = userEmail;
+            m.update();
+            echoToParentPart( lang( "opok" ) );
+        }
 
         //----------------------------------------------------------------------------
 

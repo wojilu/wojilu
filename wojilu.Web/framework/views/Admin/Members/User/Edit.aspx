@@ -22,7 +22,12 @@
                     <a href="#{lnkEditUrl}" class="frmBox left10" title="修改个性网址"><img src="~img/edit.gif" /> 修改</a>
                     </td>
 				</tr>
-
+				<tr>
+					<td class="tdLeft">Email</td>
+					<td>#{m.Email}
+                    <a href="#{lnkEditEmail}" class="frmBox left10" title="修改email"><img src="~img/edit.gif" /> 修改</a>
+                    </td>
+				</tr>
 				<tr>
 					<td class="tdLeft">_{userId}</td>
 					<td>#{m.Id}</td>

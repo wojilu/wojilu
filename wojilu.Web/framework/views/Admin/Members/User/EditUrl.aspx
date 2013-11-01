@@ -9,7 +9,7 @@
     </div>
 
     <div>
-        <button style="submit" class="btn">_{submit}</button>
+        <button type="submit" class="btn">_{submit}</button>
         <button type="button" class="btnCancel">_{cancel}</button>
     </div>
 

@@ -324,6 +324,8 @@ namespace wojilu.Web.Controller.Admin.Members {
 
             set( "m.Url", m.Url );
 
+            bind( "m", m );
+
             String kv = "Name=Value";
             dropList( "Year", AppResource.GetInts( 1910, 2009 ), kv, m.BirthYear );
             dropList( "Month", AppResource.GetInts( 1, 12 ), kv, m.BirthMonth );

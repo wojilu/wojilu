@@ -163,6 +163,7 @@
     <Content Include="framework\views\Admin\Members\User\SendConfirmMail.aspx" />
     <Content Include="framework\views\Admin\Members\User\SendEmail.aspx" />
     <Content Include="framework\views\Admin\Members\User\SendMsg.aspx" />
+    <Content Include="framework\views\Admin\Members\User\EditEmail.aspx" />
     <Content Include="framework\views\Admin\Security\AppRole\Index.aspx" />
     <Content Include="framework\views\Admin\Security\Layout\Layout.aspx" />
     <Content Include="framework\views\Admin\Security\PermissionBack\AdminIndex.aspx" />
