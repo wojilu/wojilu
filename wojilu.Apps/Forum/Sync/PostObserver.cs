@@ -18,6 +18,7 @@ using wojilu.Common.Microblogs.Domain;
 using wojilu.Members.Interface;
 using wojilu.Members.Users.Domain;
 using wojilu.Web.Mvc;
+using wojilu.Apps.Forum.Interface;
 
 namespace wojilu.Apps.Forum.Sync {
 
@@ -88,6 +89,11 @@ namespace wojilu.Apps.Forum.Sync {
             c.Member = creator;
 
             Result result = commentService.CreateNoNotification( c );
+
+            // 修复comment额外的replies更新
+            IForumTopicService topicService = ObjectContext.Create<IForumTopicService>( typeof( ForumTopicService ) );
+            topic.Replies = topicService.CountReply( post.TopicId );
+            topic.update( "Replies" );
 
             // 同步表
             CommentSync x = new CommentSync();
