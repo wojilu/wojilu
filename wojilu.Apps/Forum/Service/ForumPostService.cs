@@ -315,7 +315,6 @@ namespace wojilu.Apps.Forum.Service {
             if (parentUser == null) return;
 
             int parentReceiverId = parent.Creator.Id;
-            parentReceiverId = parent.Creator.Id;
             int topicReceiverId = topic.Creator.Id;
             if (parentReceiverId == creator.Id || parentReceiverId == topicReceiverId) return;
 

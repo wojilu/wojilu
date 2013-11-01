@@ -201,6 +201,20 @@ namespace wojilu.Common.Comments {
 
         }
 
+        public virtual Result CreateNoNotification( OpenComment c ) {
+
+            Result result = c.insert();
+            if (result.IsValid) {
+                updateParentReplies( c );
+                updateRootTargetReplies( c );
+                return result;
+            }
+            else {
+                return result;
+            }
+
+        }
+
         // 只是导入，并不发送通知
         public virtual Result Import( OpenComment c ) {
 

@@ -87,7 +87,7 @@ namespace wojilu.Apps.Forum.Sync {
 
             c.Member = creator;
 
-            Result result = commentService.Create( c );
+            Result result = commentService.CreateNoNotification( c );
 
             // 同步表
             CommentSync x = new CommentSync();

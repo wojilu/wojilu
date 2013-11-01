@@ -12,6 +12,7 @@ namespace wojilu.Common.Comments {
         IEntity GetTarget( OpenComment c );
 
         Result Create( OpenComment c );
+        Result CreateNoNotification( OpenComment c );
 
         void Delete( OpenComment c );
         void DeleteAll( string url, int dataId, string dataType );
