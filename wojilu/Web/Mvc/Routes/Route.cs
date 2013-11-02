@@ -44,7 +44,7 @@ namespace wojilu.Web.Mvc.Routes {
         public String ownerType { get { return _ownerType; } }
         public String controller { get { return _controller; } }
         public String action { get { return _action; } }
-        public int appId { get { return _appId; } }
+        public int appId { get { return getAppId(); } }
         public int page { get { return _page; } }
         public String query { get { return _query; } }
 
@@ -63,7 +63,7 @@ namespace wojilu.Web.Mvc.Routes {
         private String getAction() { return _action; }
         public void setAction( String action ) { _action = action; }
 
-        private int getAppId() { return _appId; }
+        private int getAppId() { return _appId <= 0 ? 1 : _appId; }
         public void setAppId( int appId ) { _appId = appId; }
 
         private int getPage() { return _page; }

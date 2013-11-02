@@ -150,7 +150,9 @@ namespace wojilu.Web.Mvc {
                 if (strUtil.IsNullOrEmpty( arrItem[i] )) continue;
                 if (isAppendAppId == false && appId > 0) {
                     builder.Append( arrItem[i] );
-                    builder.Append( appId );
+                    if (appId > 1) {
+                        builder.Append( appId );
+                    }
                     builder.Append( MvcConfig.Instance.UrlSeparator );
                     isAppendAppId = true;
                 }
