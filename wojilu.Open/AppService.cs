@@ -31,8 +31,7 @@ namespace wojilu.Open {
             }
 
             if (menus.Contains( "home" )) {
-                UserHomeEasyInstaller installer = new UserHomeEasyInstaller();
-                installer.Install( user, wojilu.Common.AppBase.AccessStatus.Public );
+                addMenu( user, "主页", Link.ToMember( user ), true );
             }
 
             if (menus.Contains( "blog" )) {
@@ -74,7 +73,7 @@ namespace wojilu.Open {
 
 
         public static UserApp addApp( User user, String name, int appInfoId, String appTypeFullName ) {
-            return addApp( user, name, appInfoId, appTypeFullName, false );                
+            return addApp( user, name, appInfoId, appTypeFullName, false );
         }
 
         public static UserApp addApp( User user, String name, int appInfoId, String appTypeFullName, Boolean isDefault ) {

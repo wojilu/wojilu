@@ -65,7 +65,7 @@ namespace wojilu.Web.Controller.Helpers {
             }
 
             if (menus.Contains( "home" )) {
-                new UserHomeInstaller().Install( ctx, user, wojilu.lang.get( "homepage" ), wojilu.Common.AppBase.AccessStatus.Public );
+                addMenu( user, "主页", Link.ToMember( user ), true );
             }
 
             if (menus.Contains( "blog" )) {
@@ -85,11 +85,6 @@ namespace wojilu.Web.Controller.Helpers {
                 IMenu menu = getMenu( user, "微博", alink.ToUserMicroblog( user ), ctx );
                 menuService.Insert( menu, user, user );
             }
-
-            //if (menus.Contains( "share" )) {
-            //    IMenu menu = getMenu( user, "转帖", lnkToUser( new Users.ShareController().Index ), ctx );
-            //    menuService.Insert( menu, user, user );
-            //}
 
             if (menus.Contains( "friend" )) {
                 IMenu menu = getMenu( user, "好友", lnkToUser( user, new Users.FriendController().FriendList ), ctx );
@@ -117,6 +112,24 @@ namespace wojilu.Web.Controller.Helpers {
             }
 
         }
+
+        public static void addMenu( User user, String name, String path, Boolean isDefault ) {
+
+            UserMenu m = new UserMenu();
+            m.Name = name;
+            m.RawUrl = path;
+
+            m.Creator = user;
+            m.OwnerId = user.Id;
+            m.OwnerUrl = user.Url;
+
+            if (isDefault) {
+                m.Url = "default";
+            }
+
+            m.insert();
+        }
+
 
         private static String lnkToUser( User user, aAction action ) {
             return Link.To( user, action, 0 );
