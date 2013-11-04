@@ -50,6 +50,7 @@ namespace wojilu.Web.Mvc {
 
         private static List<ProcessorBase> initProcessor() {
             List<ProcessorBase> list = new List<ProcessorBase>();
+            list.Add( new UrlRewriteProcessor() );
             list.Add( new RouteProcessor() );
             list.Add( new InitContextProcessor() );
             list.Add( new ActionMethodChecker() );

@@ -60,6 +60,9 @@ namespace wojilu.Web.Mvc.Routes {
 
             logger.Info( "RecognizePath begin, clearnUrl=" + cleanUrl );
 
+            Route x = LinkMap.Parse( cleanUrl );
+            if (x != null) return x;
+
             if (cleanUrl.StartsWith( "/" )) cleanUrl = strUtil.TrimStart( cleanUrl, "/" );
 
             String[] arrPathRow = cleanUrl.Split( Separator );

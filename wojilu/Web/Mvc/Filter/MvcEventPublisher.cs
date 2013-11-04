@@ -33,6 +33,8 @@ namespace wojilu.Web.Mvc {
 
         public event EventHandler<MvcEventArgs> Begin_ProcessMvc;
 
+        public event EventHandler<MvcEventArgs> Begin_UrlRewrite;
+
         public event EventHandler<MvcEventArgs> Begin_ParseRoute;
         public event EventHandler<MvcEventArgs> Begin_InitContext;
 
@@ -53,6 +55,11 @@ namespace wojilu.Web.Mvc {
         public virtual void BeginProcessMvc( MvcContext ctx ) {
             EventHandler<MvcEventArgs> handler = this.Begin_ProcessMvc;
             if (handler != null) handler( this, new MvcEventArgs( "BeginProcessMvc", ctx ) );
+        }
+
+        public virtual void BeginUrlRewrite( MvcContext ctx ) {
+            EventHandler<MvcEventArgs> handler = this.Begin_UrlRewrite;
+            if (handler != null) handler( this, new MvcEventArgs( "BeginUrlRewrite", ctx ) );
         }
 
         public virtual void BeginParseRoute( MvcContext ctx ) {

@@ -123,6 +123,8 @@
     <Compile Include="View\path.cs" />
     <Compile Include="View\page.cs" />
     <Compile Include="Web\HttpMethod.cs" />
+    <Compile Include="Web\Mvc\LinkMap.cs" />
+    <Compile Include="Web\Mvc\Processors\UrlRewriteProcessor.cs" />
     <Compile Include="Web\Mvc\Views\IViewsFilter.cs" />
     <Compile Include="Web\Mvc\Views\IViewsPath.cs" />
     <Compile Include="Web\Mvc\Views\MvcViews.cs" />

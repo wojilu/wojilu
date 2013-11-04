@@ -1,22 +1,28 @@
 ﻿<%@ Application Language="C#" %>
+<%@ Import Namespace="wojilu.Web" %>
+<%@ Import Namespace="wojilu.Web.Mvc" %>
+<%@ Import Namespace="wojilu.Web.Jobs" %>
+<%@ Import Namespace="wojilu.Web.GlobalApp" %>
 
 <script RunAt="server">
 
     void Application_Start( object sender, EventArgs e ) {
-        wojilu.Web.SystemInfo.Init();
-        wojilu.Web.Mvc.MvcFilterLoader.Init();
-        wojilu.Web.Jobs.WebJobStarter.Init();
+        
+        SystemInfo.Init();
+        MvcFilterLoader.Init();
+        WebJobStarter.Init();
+        
     }
 
     void Application_Error( object sender, EventArgs e ) {
-        wojilu.Web.GlobalApp.AppGlobalHelper gh = wojilu.Web.GlobalApp.AppGlobalHelper.New( sender );
+        AppGlobalHelper gh = AppGlobalHelper.New( sender );
         gh.LogError( true );
         gh.MailError();
         gh.ClearError();
     }
 
     void Application_BeginRequest( object sender, EventArgs e ) {
-        wojilu.Web.SystemInfo.UpdateSessionId();
+        SystemInfo.UpdateSessionId();
     }
     
 </script>

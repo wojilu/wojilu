@@ -140,7 +140,7 @@ namespace wojilu.Web.Mvc {
 
         //-----------------------------------------------------------------------------------------
 
-        private static String addAppId( String controller, int appId ) {
+        public static String addAppId( String controller, int appId ) {
 
             String[] arrItem = controller.Split( RouteTool.Separator );
             StringBuilder builder = new StringBuilder();

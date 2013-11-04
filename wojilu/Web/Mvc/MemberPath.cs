@@ -65,7 +65,7 @@ namespace wojilu.Web.Mvc {
 
         //------------------------------------------------------------------------------------------------
 
-        internal static OwnerInfo getOwnerInfo( String[] arrPathRow ) {
+        public static OwnerInfo getOwnerInfo( String[] arrPathRow ) {
 
             if (arrPathRow.Length < 2) return null;
 

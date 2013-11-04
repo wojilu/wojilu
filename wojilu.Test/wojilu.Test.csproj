@@ -84,6 +84,7 @@
     <Compile Include="Common\PathUtilTest.cs" />
     <Compile Include="Platform\PhotoTest.cs" />
     <Compile Include="Platform\TagTest.cs" />
+    <Compile Include="Web\Mvc\LinkTest.cs" />
     <Compile Include="Web\Mvc\RouteTestNew.cs" />
     <Compile Include="Web\Templates\TemplateNew.cs" />
     <Compile Include="Web\Utils\PlatformTemplateTest.cs" />

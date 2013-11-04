@@ -51,6 +51,10 @@ namespace wojilu.Web.Mvc {
         }
 
         public static String To( IMember member, String controller, String action, int id, int appId ) {
+
+            String x = LinkMap.To( member, controller, action, id, appId );
+            if (x != null) return x;  
+
             String ownerPath = LinkHelper.GetMemberPathPrefix( member );
             return LinkHelper.AppendApp( appId, controller, action, id, ownerPath );
         }
@@ -64,16 +68,28 @@ namespace wojilu.Web.Mvc {
         }
 
         public static String To( IMember member, aActionWithId action, int id ) {
+
+            String x = LinkMap.To( member, action, id, 0 );
+            if (x != null) return x;    
+
             String ownerPath = LinkHelper.GetMemberPathPrefix( member );
             return LinkHelper.AppendApp( -1, LinkHelper.GetController( action.Target.GetType() ), action.Method.Name, id, ownerPath );
         }
 
         public static String To( IMember member, aActionWithId action, int id, int appId ) {
+
+            String x = LinkMap.To( member, action, id, appId );
+            if (x != null) return x;          
+
             String ownerPath = LinkHelper.GetMemberPathPrefix( member );
             return LinkHelper.AppendApp( appId, LinkHelper.GetController( action.Target.GetType() ), action.Method.Name, id, ownerPath );
         }
 
         public static String To( String memberType, String memberUrl, aActionWithId action, int id, int appId ) {
+
+            String x = LinkMap.To( memberType, memberUrl, action, id, appId );
+            if (x != null) return x;  
+
             String ownerPath = LinkHelper.GetMemberPathPrefix( memberType, memberUrl );
             return LinkHelper.AppendApp( appId, LinkHelper.GetController( action.Target.GetType() ), action.Method.Name, id, ownerPath );
         }

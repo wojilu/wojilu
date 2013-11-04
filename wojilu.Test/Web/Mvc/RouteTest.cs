@@ -734,42 +734,42 @@ home/{userName}/{controller}/{action};requirements:{controller=letter,action=let
     }
 
 
-    /// <summary>
-    /// 路由中获取 owner 类型(只有当本类型存在，才可以在路由中启用owner)
-    /// </summary>
-    public class User : IMember {
+    ///// <summary>
+    ///// 路由中获取 owner 类型(只有当本类型存在，才可以在路由中启用owner)
+    ///// </summary>
+    //public class User : IMember {
 
-        // 路由中开头的值
-        public string GetUrl() { return "space"; }
+    //    // 路由中开头的值
+    //    public string GetUrl() { return "space"; }
 
-        public int Id { get; set; }
-        public string Name { get; set; }
-        public string Url { get; set; }
-        public int TemplateId { get; set; }
-        public int Status { get; set; }
-        public DateTime Created { get; set; }
-        public System.Collections.IList GetRoles() { return new ArrayList(); }
-        public wojilu.Common.Security.IRole GetAdminRole() { return null; }
-        public wojilu.Common.Security.IRole GetUserRole( IMember user ) { return null; }
-    }
+    //    public int Id { get; set; }
+    //    public string Name { get; set; }
+    //    public string Url { get; set; }
+    //    public int TemplateId { get; set; }
+    //    public int Status { get; set; }
+    //    public DateTime Created { get; set; }
+    //    public System.Collections.IList GetRoles() { return new ArrayList(); }
+    //    public wojilu.Common.Security.IRole GetAdminRole() { return null; }
+    //    public wojilu.Common.Security.IRole GetUserRole( IMember user ) { return null; }
+    //}
 
-    /// <summary>
-    /// 路由中获取 owner 类型(只有当本类型存在，才可以在路由中启用owner)
-    /// </summary>
-    public class Group : IMember {
+    ///// <summary>
+    ///// 路由中获取 owner 类型(只有当本类型存在，才可以在路由中启用owner)
+    ///// </summary>
+    //public class Group : IMember {
 
-        // 路由中开头的值
-        public string GetUrl() { return "group"; }
+    //    // 路由中开头的值
+    //    public string GetUrl() { return "group"; }
 
-        public int Id { get; set; }
-        public string Name { get; set; }
-        public string Url { get; set; }
-        public int TemplateId { get; set; }
-        public int Status { get; set; }
-        public DateTime Created { get; set; }
-        public System.Collections.IList GetRoles() { return new ArrayList(); }
-        public wojilu.Common.Security.IRole GetAdminRole() { return null; }
-        public wojilu.Common.Security.IRole GetUserRole( IMember user ) { return null; }
-    }
+    //    public int Id { get; set; }
+    //    public string Name { get; set; }
+    //    public string Url { get; set; }
+    //    public int TemplateId { get; set; }
+    //    public int Status { get; set; }
+    //    public DateTime Created { get; set; }
+    //    public System.Collections.IList GetRoles() { return new ArrayList(); }
+    //    public wojilu.Common.Security.IRole GetAdminRole() { return null; }
+    //    public wojilu.Common.Security.IRole GetUserRole( IMember user ) { return null; }
+    //}
 
 }

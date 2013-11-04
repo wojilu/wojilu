@@ -34,10 +34,17 @@ namespace wojilu.Web.Mvc {
 
             if (data == null) return "";
 
+            // 1) html
             if (ctx != null && ctx.IsMock && ctx.GetItem( "_makeHtml" ) != null) return HtmlLink.ToAppData( data );
 
             String controllerPath = getAppDataController( data.GetType().FullName, data.AppId );
 
+            // 2) link map
+            String x = LinkMap.To( data.OwnerType, data.OwnerUrl, controllerPath, "Show", data.Id, data.AppId );
+            if (x != null) return x;
+
+
+            // 3)
             return To( data, controllerPath, "Show", data.Id );
         }
 
@@ -50,7 +57,7 @@ namespace wojilu.Web.Mvc {
 
             String appNamespace = arrItem[arrItem.Length - 3];
             String appName = strUtil.TrimEnd( appNamespace, "App" );
-            String controllerName = strUtil.TrimStart( typeName, appName ) + "Controller";
+            String controllerName = strUtil.TrimStart( typeName, appName );
 
             return appName + MvcConfig.Instance.UrlSeparator + controllerName;
         }
@@ -64,12 +71,19 @@ namespace wojilu.Web.Mvc {
             get { return sys.Path.Root; }
         }
 
-        //----------------------------------------------------------------------------------------------------------------
+        //-----------------------------------------------------------------------------------------
 
         public static String ToUserAppFull( IMemberApp app ) {
 
             String strApp = strUtil.TrimEnd( app.AppInfo.TypeName, "App" );
 
+            // 1) link map
+            String controller = strApp + "/" + strApp;
+            String x = LinkMap.To( app.OwnerType, app.OwnerUrl, controller, "Index", app.Id );
+            if (x != null) return x;
+
+
+            // 2) 
             if (MvcConfig.Instance.IsUrlToLower) {
                 strApp = strApp.ToLower();
             }
@@ -94,9 +108,18 @@ namespace wojilu.Web.Mvc {
         /// <returns></returns>
         public static String ToApp( IApp app, MvcContext ctx ) {
 
+
+            // 1) html
             if (ctx != null && ctx.IsMock && ctx.GetItem( "_makeHtml" ) != null) return HtmlLink.ToApp( app );
 
             String appName = strUtil.TrimEnd( app.GetType().Name, "App" );
+
+            // 2) link map
+            String controller = appName + "/" + appName;
+            String x = LinkMap.To( app.OwnerType, app.OwnerUrl, controller, "Index", app.Id );
+            if (x != null) return x;
+
+            // 3)
             String ret = getAppLink( app.OwnerType, app.OwnerUrl, appName, app.Id );
             if (MvcConfig.Instance.IsUrlToLower) {
                 return ret.ToLower();
@@ -109,7 +132,7 @@ namespace wojilu.Web.Mvc {
             String result = LinkHelper.GetMemberPathPrefix( ownerTypeFull, ownerUrl );
 
             result = LinkHelper.Join( result, appName );
-            if (appId > 0) result = result + appId;
+            if (appId > 1) result = result + appId;
 
             result = LinkHelper.Join( result, appName );
             if (MvcConfig.Instance.IsUrlToLower) {

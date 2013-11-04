@@ -20,7 +20,7 @@ using System.Text;
 
 namespace wojilu.Web.Mvc {
 
-    internal class OwnerInfo {
+    public class OwnerInfo {
 
         public String Owner { get; set; }
         public String OwnerType { get; set; }
