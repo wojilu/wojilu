@@ -304,11 +304,7 @@ namespace wojilu.Web.Controller {
                 set( "siteName", config.Instance.Site.SiteName );
             }
             else if (config.Instance.Site.EnableEmail) {
-
-                if (config.Instance.Site.LoginType == LoginType.Open) {
-                    loginService.Login( user, LoginTime.Forever, ctx.Ip, ctx );
-                }
-
+                loginService.Login( user, LoginTime.Forever, ctx.Ip, ctx );
                 redirectUrl( to( Done ) + "?email=" + user.Email );
 
             }

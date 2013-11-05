@@ -176,13 +176,6 @@ namespace wojilu.Web.Controller {
                 return;
             }
 
-            // 需要激活才能登录
-            if (member.IsEmailConfirmed == 0 && config.Instance.Site.LoginType == LoginType.ActivationEmail) {
-                ActivationController.AllowSendActivationEmail( ctx, member.Id );
-                redirect( new ActivationController().SendEmailButton );
-                return;
-            }
-
             LoginTime expiration;
             if (ctx.PostIsCheck( "RememberMe" ) == 1)
                 expiration = LoginTime.Forever;

@@ -46,20 +46,6 @@ namespace wojilu.Config {
         public static readonly int CloseUnlessInvite = 2;
     }
 
-    public class LoginType {
-
-        /// <summary>
-        /// 注册之后自动登录
-        /// </summary>
-        public static readonly int Open = 0;
-
-        /// <summary>
-        /// 注册之后并不自动登录；必须激活才能登录
-        /// </summary>
-        public static readonly int ActivationEmail = 1;
-
-    }
-
     /// <summary>
     /// (网站页面顶部的)用户导航栏的显示状态
     /// </summary>
@@ -163,7 +149,7 @@ namespace wojilu.Config {
         public Boolean UserNeedApprove { get; set; }
 
         /// <summary>
-        /// 对尚未激活的用户，是否提醒他激活
+        /// 对尚未激活的用户，是否必须激活才能登录
         /// </summary>
         public Boolean AlertActivation { get; set; }
 
@@ -183,11 +169,6 @@ namespace wojilu.Config {
         public int RegisterType { get; set; }
 
         /// <summary>
-        /// 登录限制(1)注册之后自动登录 (2)必须激活才能登录)
-        /// </summary>
-        public int LoginType { get; set; }
-
-        /// <summary>
         /// 顶部用户栏状态(1)显示 (2)隐藏 (3)在关闭注册之后隐藏
         /// </summary>
         public int TopNavDisplay { get; set; }
@@ -199,7 +180,6 @@ namespace wojilu.Config {
         /// </summary>
         public String UserInitApp {
             get {
-                //if (strUtil.IsNullOrEmpty( _initApp )) return "home, blog, photo";
                 if (strUtil.IsNullOrEmpty( _initApp )) return "";
                 return _initApp;
             }

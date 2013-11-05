@@ -33,17 +33,6 @@ namespace wojilu.Web.Controller.Common {
             }
         }
 
-        public static void AllowSendActivationEmail( MvcContext ctx, int userId ) {
-            ctx.web.SessionSet( "__ReSendActivationEmail", userId );
-        }
-
-        public static int IsAllowSendActivationEmail( MvcContext ctx ) {
-
-            if (ctx.web.SessionGet( "__ReSendActivationEmail" ) == null) return 0;
-
-            return (int)ctx.web.SessionGet( "__ReSendActivationEmail" );
-        }
-
         //-----------------------------------------------------------------------------
 
         // 重发激活邮件之前的验证：请输入用户名和密码form
@@ -51,7 +40,6 @@ namespace wojilu.Web.Controller.Common {
 
             if (ctx.viewer.IsLogin) {
 
-                AllowSendActivationEmail( ctx, ctx.viewer.Id );
                 redirect( SendEmailButton );
                 return;
             }
@@ -76,7 +64,6 @@ namespace wojilu.Web.Controller.Common {
                 return;
             }
 
-            AllowSendActivationEmail( ctx, userId );
             redirect( SendEmailButton );
         }
 
@@ -124,7 +111,7 @@ namespace wojilu.Web.Controller.Common {
                 return;
             }
 
-            int userId = IsAllowSendActivationEmail( ctx );
+            int userId = ctx.viewer.Id;
 
             if (userId <= 0) {
                 redirect( SendEmailLogin );
@@ -164,7 +151,7 @@ namespace wojilu.Web.Controller.Common {
                 return;
             }
 
-            int userId = IsAllowSendActivationEmail( ctx );
+            int userId = ctx.viewer.Id;
 
             if (userId <= 0) {
                 redirect( SendEmailLogin );

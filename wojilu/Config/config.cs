@@ -93,7 +93,6 @@ namespace wojilu {
             _siteSetting.IsInstall = cvt.ToBool( getVal( dic, "IsInstall" ) );
 
             _siteSetting.RegisterType = cvt.ToInt( getVal( dic, "RegisterType" ) );
-            _siteSetting.LoginType = cvt.ToInt( getVal( dic, "LoginType" ) );
             _siteSetting.TopNavDisplay = cvt.ToInt( getVal( dic, "TopNavDisplay" ) );
 
             _siteSetting.NeedLogin = cvt.ToBool( getVal( dic, "NeedLogin" ) );

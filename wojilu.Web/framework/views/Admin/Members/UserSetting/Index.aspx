@@ -1,4 +1,13 @@
-﻿
+﻿<%@ Page Language="C#" %>
+<%@ Import Namespace="System" %>
+<%@ Import Namespace="System.Collections.Generic" %>
+<%@ Import Namespace="System.Data" %>
+<%@ Import Namespace="System.IO" %>
+<%@ Import Namespace="System.Text" %>
+<%@ Import Namespace="wojilu" %>
+<%@ Import Namespace="wojilu.View" %>
+<%@ Import Namespace="wojilu.Web.Controller.Admin" %>
+
 <div class="formPanel" style="margin:10px 20px;">
 	
 	
@@ -10,8 +19,19 @@
 			</tr>
 			<tr>
 				<td class="ltd">登录限制</td>
-				<td>#{loginType}</td>
+				<td> 
+
+                <% if (config.Instance.Site.EnableEmail == false) { %>
+                    <label><input name="AlertActivation" type="checkbox" disabled="disabled" #{needAlertActivation} /> 必须激活之后才可以登录</label>
+                    <a href="<%=link.to( new SiteConfigController().Email ) %>" target="_blank" style="color:red;">请先开启邮件服务(点击此处)，才能使用本功能</a>
+                <%}
+                   else { %>
+                   <label><input name="AlertActivation" type="checkbox" #{needAlertActivation} /> 必须激活之后才可以登录</label>
+                <%} %>
+                
+                </td>
 			</tr>
+
             <tr><td colspan="2">&nbsp;</td></tr>
 
 			<tr>
@@ -77,10 +97,7 @@
 			</tr>
 			
 			<tr><td colspan="2">&nbsp;</td></tr>
-			<tr>
-				<td class="ltd">Email激活提醒</td>
-				<td><label><input name="AlertActivation" type="checkbox" #{needAlertActivation} /> 提醒用户email激活<span class="note">(激活的奖励分在“货币和积分”中设置)</span></label></td>
-			</tr>
+
 			<tr>
 				<td class="ltd">上传头像提醒</td>
 				<td><label><input name="AlertUserPic" type="checkbox" #{needAlertUserPic} /> 提醒用户上传头像<span class="note">(上传头像的奖励分在“货币和积分”中设置)</span></label></td>

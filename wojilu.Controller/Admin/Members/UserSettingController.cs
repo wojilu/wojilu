@@ -22,7 +22,6 @@ namespace wojilu.Web.Controller.Admin.Members {
 
         public void Index() {
 
-
             target( UserSave );
 
             set( "needLoginChecked", config.Instance.Site.NeedLogin ? "checked=\"checked\"" : "" );
@@ -32,18 +31,13 @@ namespace wojilu.Web.Controller.Admin.Members {
             set( "needAlertUserPic", config.Instance.Site.AlertUserPic ? "checked=\"checked\"" : "" );
 
             set( "site.UserSendConfirmEmailInterval", config.Instance.Site.UserSendConfirmEmailInterval );
-            set( "confirmEmailEditLink", to( new Admin.Sys.ViewsFileController().Edit ) + "?file=Common/emailConfirmMsg.html" );
+            set( "confirmEmailEditLink", to( new Admin.Sys.ViewsFileController().Edit ) + "?file=Common/emailConfirmMsg" + MvcConfig.Instance.ViewExt );
 
             Dictionary<string, string> dic = new Dictionary<string, string>();
             dic.Add( "开放注册", RegisterType.Open.ToString() );
             dic.Add( "关闭注册", RegisterType.Close.ToString() );
             dic.Add( "只有受邀请用户才可以注册", RegisterType.CloseUnlessInvite.ToString() );
             radioList( "registerType", dic, config.Instance.Site.RegisterType.ToString() );
-
-            Dictionary<string, string> dicLogin = new Dictionary<string, string>();
-            dicLogin.Add( "注册成功即可登录", LoginType.Open.ToString() );
-            dicLogin.Add( "必须激活之后才可以登录", LoginType.ActivationEmail.ToString() );
-            radioList( "loginType", dicLogin, config.Instance.Site.LoginType.ToString() );
 
             Dictionary<string, string> dicNav = new Dictionary<string, string>();
             dicNav.Add( "显示", TopNavDisplay.Show.ToString() );
@@ -78,7 +72,6 @@ namespace wojilu.Web.Controller.Admin.Members {
             int confirmEmailInterval = ctx.PostInt( "confirmEmailInterval" );
 
             int registerType = ctx.PostInt( "registerType" );
-            int loginType = ctx.PostInt( "loginType" );
             int topNavDisplay = ctx.PostInt( "topNavDisplay" );
 
             int UserNameLengthMin = ctx.PostInt( "UserNameLengthMin" );
@@ -125,7 +118,6 @@ namespace wojilu.Web.Controller.Admin.Members {
                 config.Instance.Site.AlertUserPic = alertUserPic; config.Instance.Site.Update( "AlertUserPic", alertUserPic );
 
                 config.Instance.Site.RegisterType = registerType; config.Instance.Site.Update( "RegisterType", registerType );
-                config.Instance.Site.LoginType = loginType; config.Instance.Site.Update( "LoginType", loginType );
                 config.Instance.Site.TopNavDisplay = topNavDisplay; config.Instance.Site.Update( "TopNavDisplay", topNavDisplay );
 
                 config.Instance.Site.UserSendConfirmEmailInterval = confirmEmailInterval;

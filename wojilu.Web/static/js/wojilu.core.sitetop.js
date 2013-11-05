@@ -292,8 +292,11 @@
         }
 
         if (ctx.viewer.EmailConfirm == false && ctx.viewer.IsAlertActivation) {
-            $('#confirmEmailPanel').show();
-            $('#confirmEmailLink').attr('href', nav.confirmEmailLink);
+            var cUrl = wojilu.tool.getRootParent(window).location.href.toLowerCase();
+            if (cUrl.indexOf('activation') < 0 ) {
+                wojilu.tool.forwardPage('/Common/Activation/SendEmailButton.aspx', 0);
+                return;
+            }
         }
 
         if ($.browser.msie && $.browser.version == "6.0") {
