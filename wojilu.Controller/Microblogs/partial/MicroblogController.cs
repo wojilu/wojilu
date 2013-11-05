@@ -169,7 +169,7 @@ namespace wojilu.Web.Controller.Microblogs {
         private string getCommentUrl( Microblog x ) {
 
             String dataType = strUtil.IsNullOrEmpty( x.DataType ) ? typeof( Microblog ).FullName : x.DataType;
-            int dataId = x.DataId <= 0 ? x.Id : x.DataId;
+            int dataId = getDataId( x );
 
             return t2( new wojilu.Web.Controller.Open.CommentController().List )
                 + "?dataType=" + dataType
@@ -179,6 +179,17 @@ namespace wojilu.Web.Controller.Microblogs {
                 + "&url=" + MbLink.ToShow( x.User, x.Id )
                 + "&dataUserId=" + x.Creator.Id
                 + "&feedId=" + x.Id;
+        }
+
+        private int getDataId( Microblog x ) {
+
+            if (x.DataType != null && x.DataType.Equals( typeof( Microblog ).FullName )) {
+                return x.Id;
+            }
+
+            if (x.DataId <= 0) return x.Id;
+
+            return x.DataId;
         }
 
         private void bindRepost( IBlock block, Microblog blog ) {
