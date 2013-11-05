@@ -283,22 +283,6 @@
         for (var i = 0; i < nav.userAppList.length; i++) { appHtml += '<li>' + nav.userAppList[i] + '</li>'; }
         $('#feedItem').after(appHtml);
 
-        if (ctx.viewer.IsAlertUserPic) {
-            var cUrl = wojilu.tool.getRootParent(window).location.href.toLowerCase();
-            if (cUrl.indexOf('needuserpic') < 0 && cUrl.indexOf('done') < 0) {
-                wojilu.tool.forwardPage(nav.uploadAvatarLink, 0);
-                return;
-            }
-        }
-
-        if (ctx.viewer.EmailConfirm == false && ctx.viewer.IsAlertActivation) {
-            var cUrl = wojilu.tool.getRootParent(window).location.href.toLowerCase();
-            if (cUrl.indexOf('activation') < 0 ) {
-                wojilu.tool.forwardPage('/Common/Activation/SendEmailButton.aspx', 0);
-                return;
-            }
-        }
-
         if ($.browser.msie && $.browser.version == "6.0") {
             $('#ntBox').css('left', '-60px').css('top', '9px');
         }
@@ -309,6 +293,24 @@
 
         wojilu.ui.httpMethod('#navbar-inner');
         if($.browser.msie && $.browser.version=="6.0") wojilu.ui.resetDropMenu('#navbar-inner');
+        
+        if (ctx.viewer.EmailConfirm == false && ctx.viewer.IsAlertActivation) {
+            var cUrl = wojilu.tool.getRootParent(window).location.href.toLowerCase();
+            if (cUrl.indexOf('activation') < 0 && cUrl.indexOf('register') < 0 ) {
+                wojilu.tool.forwardPage('/Common/Activation/SendEmailButton.aspx', 0);
+                return;
+            }
+            return;
+        }
+        
+        if (ctx.viewer.IsAlertUserPic) {
+            var cUrl = wojilu.tool.getRootParent(window).location.href.toLowerCase();
+            if ( cUrl.indexOf('done') < 0 && cUrl.indexOf('register') < 0) {
+                wojilu.tool.forwardPage(nav.uploadAvatarLink, 0);
+                return;
+            }
+        }
+
     };
     
     //----------------------------------------------------------------------------------
