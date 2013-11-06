@@ -63,8 +63,20 @@ namespace wojilu.Web.Context.Initor {
 
             IApp app = getAppById( appType, appId, ctx.owner.obj );
             if (app == null) {
-                ctx.utils.setAppContext( context );
-                ctx.utils.endMsg( lang.get( "exAppNotFound" ) + ": appType=" + appType, HttpStatus.NotFound_404 );
+
+                if (appId == 1) {
+
+                    context.setAppType( appType );
+                    ctx.utils.setAppContext( context );
+                    return;
+
+
+                }
+                else {
+
+                    ctx.utils.setAppContext( context );
+                    ctx.utils.endMsg( lang.get( "exAppNotFound" ) + ": appType=" + appType, HttpStatus.NotFound_404 );
+                }
             }
             else {
 
