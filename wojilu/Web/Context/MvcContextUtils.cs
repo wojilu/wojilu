@@ -391,12 +391,20 @@ namespace wojilu.Web.Context {
             tpl.Set( "jsVersion", MvcConfig.Instance.JsVersion );
             tpl.Set( "cssVersion", MvcConfig.Instance.CssVersion );
 
+            // ~/
             tpl.Set( "path", sys.Path.Root );
+
             tpl.Set( "path.img", sys.Path.Img );
             tpl.Set( "path.css", sys.Path.Css );
             tpl.Set( "path.js", sys.Path.Js );
             tpl.Set( "path.static", sys.Path.Static );
             tpl.Set( "path.skin", sys.Path.Skin );
+
+            tpl.Set( "patha.img", sys.Path.Img );
+            tpl.Set( "patha.css", sys.Path.Css );
+            tpl.Set( "patha.js", sys.Path.Js );
+            tpl.Set( "patha.static", sys.Path.Static );
+            tpl.Set( "patha.skin", sys.Path.Skin );
 
             tpl.Bind( "__ctx", ctx );
         }

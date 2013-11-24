@@ -68,6 +68,7 @@ namespace wojilu.Web.Templates {
             dic.Add( "#{^}", CommonVar );
             dic.Add( "_{^}", "lang" );
             dic.Add( ":{^}", "alang" );
+            dic.Add( "~/^/", "patha" );
             dic.Add( "~^/", "path" );
 
             return dic;
@@ -111,10 +112,34 @@ namespace wojilu.Web.Templates {
             int postfixIndex = strToCheck.IndexOf( varLabel.Postfix );
             if (postfixIndex >= 0) {
                 // 注意，这里可能返回String.Empty
-                return strToCheck.Substring( 0, postfixIndex ); 
+                String ret = strToCheck.Substring( 0, postfixIndex );
+                return checkPathVar( varLabel, ret );
             }
 
             return null;
+        }
+
+        private static String checkPathVar( VarLabel varLabel, String ret ) {
+
+            if (strUtil.IsNullOrEmpty( ret )) return ret;
+
+            if (varLabel.Prefix == "~" || varLabel.Prefix == "~/") {
+
+                //if (ret.StartsWith( "/" )) {
+                //    ret = ret.TrimStart( '/' );
+                //}
+
+                // ~img/,~js/, ~static/...只允许26个英文字母
+                for (int i = 0; i < ret.Length; i++) {
+                    if ("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ".IndexOf( ret[i] ) < 0) {
+                        return null;
+                    }
+                }
+
+                return ret;
+
+            }
+            return ret;
         }
 
         private static String getStringToCheck( VarLabel varLabel, int index, char[] charList ) {
