@@ -30,7 +30,7 @@ namespace wojilu.ORM {
     [Serializable]
     public class EntityInfo {
 
- 
+
         private Assembly _assembly;
 
         private List<EntityInfo> _childEntityList = new List<EntityInfo>();
@@ -200,13 +200,6 @@ namespace wojilu.ORM {
         }
 
 
-        private static String addPrefixToTableName( String tableName ) {
-            if (strUtil.HasText( DbConfig.Instance.TablePrefix )) {
-                tableName = tableName.Replace( "[", "" ).Replace( "]", "" );
-                tableName = DbConfig.Instance.TablePrefix + tableName;
-            }
-            return tableName;
-        }
 
         internal void AddPropertyToHashtable( EntityPropertyInfo p ) {
             _propertyHashTable[p.Name] = p;
@@ -240,7 +233,7 @@ namespace wojilu.ORM {
             info.Name = t.Name;
             info.FullName = t.FullName;
 
-            info.TableName = addPrefixToTableName( GetTableName( t ) );
+            info.TableName = GetTableName( t );
             info.Database = getDatabase( t );
 
             checkCustomMapping( info );
@@ -345,9 +338,26 @@ namespace wojilu.ORM {
         private static String GetTableName( Type t ) {
             TableAttribute attribute = ReflectionUtil.GetAttribute( t, typeof( TableAttribute ) ) as TableAttribute;
             if (attribute == null) {
-                return t.Name;
+                return addPrefixToTableName( t.Name );
             }
-            return attribute.TableName;
+
+            String tblName = strUtil.IsNullOrEmpty( attribute.TableName ) ? t.Name : attribute.TableName;
+
+            if (attribute.IsSkipTablePrefix) {
+                return tblName;
+            }
+            else {
+                return addPrefixToTableName( tblName );
+            }
+        }
+
+
+        private static String addPrefixToTableName( String tableName ) {
+            if (strUtil.HasText( DbConfig.Instance.TablePrefix )) {
+                tableName = tableName.Replace( "[", "" ).Replace( "]", "" );
+                tableName = DbConfig.Instance.TablePrefix + tableName;
+            }
+            return tableName;
         }
 
 

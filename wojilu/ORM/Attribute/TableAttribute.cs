@@ -24,18 +24,23 @@ namespace wojilu.ORM {
     public class TableAttribute : Attribute {
 
         private String _tableName;
+        private Boolean _isSkipTablePrefix = false;
+
+        public TableAttribute( ) {
+        }
 
         public TableAttribute( String tableName ) {
             _tableName = tableName;
         }
 
         public String TableName {
-            get {
-                return _tableName;
-            }
-            set {
-                _tableName = value;
-            }
+            get { return _tableName; }
+            set { _tableName = value; }
+        }
+
+        public Boolean IsSkipTablePrefix {
+            get { return _isSkipTablePrefix; }
+            set { _isSkipTablePrefix = value; }
         }
 
     }
