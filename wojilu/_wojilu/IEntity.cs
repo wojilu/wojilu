@@ -30,7 +30,7 @@ namespace wojilu {
         /// <summary>
         /// 每一个持久化对象，都具有一个 Id 属性
         /// </summary>
-        int Id { get; set; }
+        long Id { get; set; }
 
         /// <summary>
         /// 获取属性的值(并非通过反射，速度较快)

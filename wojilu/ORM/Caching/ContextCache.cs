@@ -47,7 +47,7 @@ namespace wojilu.ORM.Caching {
             }
         }
 
-        public static void Remove( String typeFullName, int id ) {
+        public static void Remove( String typeFullName, long id ) {
             String objectKey = CacheKey.getObject( typeFullName, id );
             Remove( objectKey );
         }

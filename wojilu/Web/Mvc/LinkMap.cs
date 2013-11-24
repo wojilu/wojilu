@@ -42,7 +42,7 @@ namespace wojilu.Web.Mvc {
         //-------------------------------------------------------------------------
 
 
-        public static String To( IMember member, aActionWithId action, int id, int appId ) {
+        public static String To( IMember member, aActionWithId action, long id, long appId ) {
             String ownerPath = LinkHelper.GetMemberPathPrefix( member );
             String url = toPrivate( action, id );
             if (url == null) return null;
@@ -50,7 +50,7 @@ namespace wojilu.Web.Mvc {
             return appendExt( strUtil.Join( ownerPath, url ) );
         }
 
-        public static string To( string memberType, string memberUrl, aActionWithId action, int id, int appId ) {
+        public static string To( string memberType, string memberUrl, aActionWithId action, long id, long appId ) {
             String ownerPath = LinkHelper.GetMemberPathPrefix( memberType, memberUrl );
             String url = toPrivate( action, id );
             if (url == null) return null;
@@ -58,7 +58,7 @@ namespace wojilu.Web.Mvc {
             return appendExt( strUtil.Join( ownerPath, url ) );
         }
 
-        public static String To( IMember member, aAction action, int appId ) {
+        public static String To( IMember member, aAction action, long appId ) {
             String ownerPath = LinkHelper.GetMemberPathPrefix( member );
             String url = toPrivate( action );
             if (url == null) return null;
@@ -66,7 +66,7 @@ namespace wojilu.Web.Mvc {
             return appendExt( strUtil.Join( ownerPath, url ) );
         }
 
-        public static String To( IMember member, String aController, String action, int id, int appId ) {
+        public static String To( IMember member, String aController, String action, long id, long appId ) {
 
             String ownerPath = LinkHelper.GetMemberPathPrefix( member );
             String url = toPrivate( aController, action, id );
@@ -75,7 +75,7 @@ namespace wojilu.Web.Mvc {
             return appendExt( strUtil.Join( ownerPath, url ) );
         }
 
-        public static String To( IMember member, String aController, String action, int appId ) {
+        public static String To( IMember member, String aController, String action, long appId ) {
             String ownerPath = LinkHelper.GetMemberPathPrefix( member );
             String url = toPrivate( aController, action );
             if (url == null) return null;
@@ -83,7 +83,7 @@ namespace wojilu.Web.Mvc {
             return appendExt( strUtil.Join( ownerPath, url ) );
         }
 
-        public static string To( string memberType, string memberUrl, String aController, String action, int appId ) {
+        public static string To( string memberType, string memberUrl, String aController, String action, long appId ) {
             String ownerPath = LinkHelper.GetMemberPathPrefix( memberType, memberUrl );
             String url = toPrivate( aController, action );
             if (url == null) return null;
@@ -92,7 +92,7 @@ namespace wojilu.Web.Mvc {
 
         }
 
-        public static string To( string memberType, string memberUrl, String aController, String action, int id, int appId ) {
+        public static string To( string memberType, string memberUrl, String aController, String action, long id, long appId ) {
             String ownerPath = LinkHelper.GetMemberPathPrefix( memberType, memberUrl );
             String url = toPrivate( aController, action, id );
             if (url == null) return null;
@@ -103,11 +103,11 @@ namespace wojilu.Web.Mvc {
 
         //-------------------------------------------------------------------------
 
-        public static String To( String aController, String action, int id ) {
+        public static String To( String aController, String action, long id ) {
             return appendExt( toPrivate( aController, action, id ) );
         }
 
-        private static String toPrivate( String aController, String action, int id ) {
+        private static String toPrivate( String aController, String action, long id ) {
             Dictionary<String, String> map = getMap();
             if (map.Count == 0) return null;
 
@@ -116,7 +116,7 @@ namespace wojilu.Web.Mvc {
             return getLinkActionString( map, aController, actionName, id );
         }
 
-        private static string getLinkActionString( Dictionary<String, String> map, String aController, String actionName, int id ) {
+        private static string getLinkActionString( Dictionary<String, String> map, String aController, String actionName, long id ) {
             foreach (String aNamespace in MvcConfig.Instance.RootNamespace) {
 
                 String controller = strUtil.Join( aNamespace, aController.Replace( "/", "." ), "." );
@@ -130,13 +130,13 @@ namespace wojilu.Web.Mvc {
         }
 
 
-        public static String To( aActionWithId action, int id ) {
+        public static String To( aActionWithId action, long id ) {
 
             return appendExt( toPrivate( action, id ) );
 
         }
 
-        private static String toPrivate( aActionWithId action, int id ) {
+        private static String toPrivate( aActionWithId action, long id ) {
             Dictionary<String, String> map = getMap();
             if (map.Count == 0) return null;
 
@@ -157,7 +157,7 @@ namespace wojilu.Web.Mvc {
             return url;
         }
 
-        private static string getLinkActionStr( Dictionary<String, String> map, String controller, String actionName, int id ) {
+        private static string getLinkActionStr( Dictionary<String, String> map, String controller, String actionName, long id ) {
 
             String strControllerAndAction = controller + "." + actionName;
 

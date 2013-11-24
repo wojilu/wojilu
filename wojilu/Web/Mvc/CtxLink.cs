@@ -33,7 +33,7 @@ namespace wojilu.Web.Mvc {
     [MvcLink]
     public class CtxLink {
 
-        private int _appId;
+        private long _appId;
         private IMember _owner;
 
         public CtxLink( MvcContext ctx ) {
@@ -45,15 +45,15 @@ namespace wojilu.Web.Mvc {
             return To( action, _appId );
         }
 
-        public String To( aAction action, int appId ) {
+        public String To( aAction action, long appId ) {
             return Link.To( _owner, getController( action.Target.GetType() ), action.Method.Name, -1, appId );
         }
 
-        public String To( aActionWithId action, int id ) {
+        public String To( aActionWithId action, long id ) {
             return To( action, id, _appId );
         }
 
-        public String To( aActionWithId action, int id, int appId ) {
+        public String To( aActionWithId action, long id, long appId ) {
             return Link.To( _owner, getController( action.Target.GetType() ), action.Method.Name, id, appId );
         }
 
@@ -63,7 +63,7 @@ namespace wojilu.Web.Mvc {
             return Link.To( _owner, getController( action.Target.GetType() ), action.Method.Name, 0, 0 );
         }
 
-        public String T2( aActionWithId action, int id ) {
+        public String T2( aActionWithId action, long id ) {
             return Link.To( _owner, getController( action.Target.GetType() ), action.Method.Name, id, 0 );
         }
 

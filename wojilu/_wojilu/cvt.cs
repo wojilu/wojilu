@@ -27,6 +27,43 @@ namespace wojilu {
     /// </summary>
     public class cvt {
 
+        public static Boolean IsLong( String str ) {
+
+            if (strUtil.IsNullOrEmpty( str )) {
+                return false;
+            }
+
+            if (str.StartsWith( "-" )) {
+                str = str.Substring( 1, str.Length - 1 );
+            }
+
+            if (str.Length > 19) {
+                return false;
+            }
+
+            char[] chArray = str.ToCharArray();
+            foreach (char ch in chArray) {
+                if (!char.IsDigit( ch )) {
+                    return false;
+                }
+            }
+
+            return true;
+        }
+
+        public static Int64 ToLong( Object objInt ) {
+
+            if ((objInt != null) && IsLong( objInt.ToString() )) {
+                Int64 result;
+                Int64.TryParse( objInt.ToString(), out result );
+                return result;
+            }
+            return 0;
+        }
+
+
+
+
         /// <summary>
         /// 判断字符串是否是小数或整数
         /// </summary>
@@ -371,6 +408,31 @@ namespace wojilu {
                 if (i < ids.Length - 1) builder.Append( ',' );
             }
             return builder.ToString();
+        }
+
+        public static String ToString( long[] ids ) {
+
+            if (ids == null || ids.Length == 0) return "";
+            StringBuilder builder = new StringBuilder();
+            for (int i = 0; i < ids.Length; i++) {
+                builder.Append( ids[i] );
+                if (i < ids.Length - 1) builder.Append( ',' );
+            }
+            return builder.ToString();
+        }
+
+        public static long[] ToLongArray( String myids ) {
+
+            if (strUtil.IsNullOrEmpty( myids )) return new long[] { };
+
+            String[] arrIds = myids.Split( ',' );
+            long[] Ids = new long[arrIds.Length];
+            for (int i = 0; i < arrIds.Length; i++) {
+                long oneID = ToLong( arrIds[i].Trim() );
+                Ids[i] = oneID;
+            }
+
+            return Ids;
         }
 
         /// <summary>

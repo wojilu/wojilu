@@ -110,7 +110,7 @@ namespace wojilu.ORM.Caching {
                 CacheTime.updateObject( obj ); // 加入缓存的时候，设置最新 timestamp
             }
 
-            List<int> ids = new List<int>();
+            List<long> ids = new List<long>();
             foreach (IEntity obj in objList) ids.Add( obj.Id );
             addToApplication( key, ids );
             CacheTime.updateList( key );
@@ -119,7 +119,7 @@ namespace wojilu.ORM.Caching {
         //-------------------------------------------------------查询-----------------------------------------------------------
 
         // 内部调用，需要查询一级缓存
-        private IEntity findOnePrivate( Type t, int id ) {
+        private IEntity findOnePrivate( Type t, long id ) {
 
             String key = CacheKey.getObject( t, id );
             IEntity result = ContextPool.Instance.FindOne( t, id );
@@ -132,7 +132,7 @@ namespace wojilu.ORM.Caching {
         }
 
 
-        public IEntity FindOne( Type t, int id ) {
+        public IEntity FindOne( Type t, long id ) {
 
             String key = CacheKey.getObject( t, id );
 
@@ -250,7 +250,7 @@ namespace wojilu.ORM.Caching {
             return appCache.Get( key );
         }
 
-        public void Delete( Type t, int id ) {
+        public void Delete( Type t, long id ) {
             appCache.Remove( CacheKey.getObject( t.FullName, id ) );
             logger.Debug( "Delete=>" + t.FullName + id );
             CacheTime.updateTable( t );

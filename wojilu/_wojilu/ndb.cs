@@ -33,7 +33,7 @@ namespace wojilu {
         /// <param name="t">对象的类型</param>
         /// <param name="id">对象的 id</param>
         /// <returns></returns>
-        public static IEntity findById( Type t, int id ) {
+        public static IEntity findById( Type t, long id ) {
 
             if (id < 0) return null;
 
@@ -148,7 +148,7 @@ namespace wojilu {
         /// <param name="t"></param>
         /// <param name="objId">对象 id</param>
         /// <returns>返回受影响的行数</returns>
-        public static int delete( Type t, int objId ) {
+        public static int delete( Type t, long objId ) {
             int num = ObjectDB.Delete( t, objId );
             ObjectPool.Delete( t, objId );
             return num;

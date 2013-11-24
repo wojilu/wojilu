@@ -23,11 +23,11 @@ namespace wojilu.ORM.Caching {
 
     internal class CacheKey {
 
-        public static String getObject( Type t, int id ) {
+        public static String getObject( Type t, long id ) {
             return getObject( t.FullName, id );
         }
 
-        public static String getObject( String typeFullName, int id ) {
+        public static String getObject( String typeFullName, long id ) {
             return "__object_" + typeFullName + "_" + id.ToString();
         }
 

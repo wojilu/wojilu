@@ -32,7 +32,7 @@ namespace wojilu.Web.Mvc {
             return To( null, action, -1 );
         }
 
-        public static String To( aActionWithId action, int id ) {
+        public static String To( aActionWithId action, long id ) {
             return To( null, action, id, -1 );
         }
 
@@ -40,17 +40,17 @@ namespace wojilu.Web.Mvc {
             return To( null, controller, action, -1 );
         }
 
-        public static String To( String controller, String action, int id ) {
+        public static String To( String controller, String action, long id ) {
             return To( null, controller, action, id );
         }
 
         //-------------------------------------------------------------
 
-        public static String To( IMember member, String controller, String action, int id ) {
+        public static String To( IMember member, String controller, String action, long id ) {
             return To( member, controller, action, id, -1 );
         }
 
-        public static String To( IMember member, String controller, String action, int id, int appId ) {
+        public static String To( IMember member, String controller, String action, long id, long appId ) {
 
             String x = LinkMap.To( member, controller, action, id, appId );
             if (x != null) return x;  
@@ -63,11 +63,11 @@ namespace wojilu.Web.Mvc {
             return To( member, LinkHelper.GetController( action.Target.GetType() ), action.Method.Name, -1, -1 );
         }
 
-        public static String To( IMember member, aAction action, int appId ) {
+        public static String To( IMember member, aAction action, long appId ) {
             return To( member, LinkHelper.GetController( action.Target.GetType() ), action.Method.Name, -1, appId );
         }
 
-        public static String To( IMember member, aActionWithId action, int id ) {
+        public static String To( IMember member, aActionWithId action, long id ) {
 
             String x = LinkMap.To( member, action, id, 0 );
             if (x != null) return x;    
@@ -76,7 +76,7 @@ namespace wojilu.Web.Mvc {
             return LinkHelper.AppendApp( -1, LinkHelper.GetController( action.Target.GetType() ), action.Method.Name, id, ownerPath );
         }
 
-        public static String To( IMember member, aActionWithId action, int id, int appId ) {
+        public static String To( IMember member, aActionWithId action, long id, long appId ) {
 
             String x = LinkMap.To( member, action, id, appId );
             if (x != null) return x;          
@@ -85,7 +85,7 @@ namespace wojilu.Web.Mvc {
             return LinkHelper.AppendApp( appId, LinkHelper.GetController( action.Target.GetType() ), action.Method.Name, id, ownerPath );
         }
 
-        public static String To( String memberType, String memberUrl, aActionWithId action, int id, int appId ) {
+        public static String To( String memberType, String memberUrl, aActionWithId action, long id, long appId ) {
 
             String x = LinkMap.To( memberType, memberUrl, action, id, appId );
             if (x != null) return x;  

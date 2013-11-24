@@ -28,6 +28,7 @@ namespace wojilu.Common.AppBase {
         public static readonly int Top = 2;
         public static readonly int Approving = -2;
         public static readonly int Deleted = -1;
+        public static readonly int UnApproved = -3;
 
     }
 

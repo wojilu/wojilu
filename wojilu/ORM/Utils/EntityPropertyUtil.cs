@@ -67,7 +67,7 @@ namespace wojilu.ORM {
                     IDataRecord record = rd;
                     Fill_EntityProperty_Ids( record, state.Includer.EntityPropertyList, ref hashtable );
 
-                    int id = Convert.ToInt32( record["Id"] );
+                    long id = Convert.ToInt64( record["Id"] );
                     Object cache = ObjectPool.FindOne( state.EntityInfo.Type, id );
 
                     if (cache != null) {
@@ -180,7 +180,7 @@ namespace wojilu.ORM {
 
 
 
-        public static String getPropertyObjectKey( String propertyName, int objId ) {
+        public static String getPropertyObjectKey( String propertyName, long objId ) {
             return (propertyName + "_" + objId);
         }
 

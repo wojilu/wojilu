@@ -83,7 +83,7 @@ namespace wojilu.ORM.Caching {
         //-------------------------------------------------------查询-----------------------------------------------------------
 
 
-        public static IEntity FindOne( Type t, int id ) {
+        public static IEntity FindOne( Type t, long id ) {
             foreach (IObjectPool pool in pools) {
                 IEntity result = pool.FindOne( t, id );
                 if (result != null) {
@@ -161,7 +161,7 @@ namespace wojilu.ORM.Caching {
             return Delete( obj.GetType(), obj.Id );
         }
 
-        public static int Delete( Type t, int id ) {
+        public static int Delete( Type t, long id ) {
             foreach (IObjectPool pool in pools) {
                 pool.Delete( t, id );
             }

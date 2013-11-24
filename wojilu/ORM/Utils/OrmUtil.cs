@@ -97,7 +97,7 @@ namespace wojilu.ORM {
         }
 
         private static void setEntityId( IDbCommand cmd, EntityPropertyInfo info, Object paramVal ) {
-            int id = ((IEntity)paramVal).Id;
+            long id = ((IEntity)paramVal).Id;
             DataFactory.SetParameter( cmd, info.ColumnName, id );
         }
 

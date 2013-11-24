@@ -30,7 +30,7 @@ namespace wojilu.Web.Mvc {
             return strUtil.Join( strA, strB, MvcConfig.Instance.UrlSeparator );
         }
 
-        public static String AppendApp( int appId, String controller, String action, int id, String result ) {
+        public static String AppendApp( long appId, String controller, String action, long id, String result ) {
 
             if (controller.EndsWith( "Controller" )) controller = strUtil.TrimEnd( controller, "Controller" );
 
@@ -46,7 +46,7 @@ namespace wojilu.Web.Mvc {
             return result;
         }
 
-        public static String AppendApp( int appId, String controller, String action, String param, String result ) {
+        public static String AppendApp( long appId, String controller, String action, String param, String result ) {
 
             if (controller.EndsWith( "Controller" )) controller = strUtil.TrimEnd( controller, "Controller" );
 
@@ -140,7 +140,7 @@ namespace wojilu.Web.Mvc {
 
         //-----------------------------------------------------------------------------------------
 
-        public static String addAppId( String controller, int appId ) {
+        public static String addAppId( String controller, long appId ) {
 
             String[] arrItem = controller.Split( RouteTool.Separator );
             StringBuilder builder = new StringBuilder();

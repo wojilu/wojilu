@@ -366,7 +366,7 @@ namespace wojilu.Web.Mvc {
             return getChildren( list, 0, 0, getItemString );
         }
 
-        private static String getChildren( IList list, int parentId, int depth, GetNodeString getItemString ) {
+        private static String getChildren( IList list, long parentId, int depth, GetNodeString getItemString ) {
             String result = "";
 
             foreach (INode node in list) {

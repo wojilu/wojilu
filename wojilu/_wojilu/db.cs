@@ -57,7 +57,7 @@ namespace wojilu {
         /// <typeparam name="T"></typeparam>
         /// <param name="id"></param>
         /// <returns></returns>
-        public static T findById<T>( int id ) where T : IEntity {
+        public static T findById<T>( long id ) where T : IEntity {
 
             if (id < 0) return default( T );
 
@@ -298,7 +298,7 @@ namespace wojilu {
         /// <typeparam name="T"></typeparam>
         /// <param name="id">对象的 id</param>
         /// <returns>返回受影响的行数</returns>
-        public static int delete<T>( int id ) where T : IEntity {
+        public static int delete<T>( long id ) where T : IEntity {
             int num = ObjectDB.Delete( typeof( T ), id );
             ObjectPool.Delete( typeof( T ), id );
             return num;

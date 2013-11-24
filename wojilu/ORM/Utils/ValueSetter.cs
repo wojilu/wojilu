@@ -16,7 +16,7 @@ namespace wojilu.ORM.Utils {
         /// <param name="obj"></param>
         /// <param name="ep"></param>
         /// <param name="propertyValue"></param>
-        public static void setEntityByCheckNull( IEntity obj, EntityPropertyInfo ep, Object propertyValue, int realUserId ) {
+        public static void setEntityByCheckNull( IEntity obj, EntityPropertyInfo ep, Object propertyValue, long realUserId ) {
 
 
             if (propertyValue == null && rft.IsInterface( ep.Type, typeof( IUser ) )) {
@@ -30,7 +30,7 @@ namespace wojilu.ORM.Utils {
 
         }
 
-        private static IEntity getNullUser( int realUserId ) {
+        private static IEntity getNullUser( long realUserId ) {
 
             IUserFactory userFactory = CurrentRequest.getItem( "_user_factory" ) as IUserFactory;
             if (userFactory == null) return null;

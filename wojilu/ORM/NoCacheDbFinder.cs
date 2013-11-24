@@ -33,7 +33,7 @@ namespace wojilu.ORM {
             return db.getResults<T>( list );
         }
 
-        public T findById<T>( int id ) {
+        public T findById<T>( long id ) {
             if (id < 0) return default( T );
             Object obj = ObjectDB.FindById( id, new ObjectInfo(typeof(T))  );
             return (T)obj;

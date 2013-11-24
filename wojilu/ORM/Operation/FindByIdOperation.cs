@@ -29,7 +29,7 @@ namespace wojilu.ORM.Operation {
 
         private static readonly ILog logger = LogManager.GetLogger( typeof( FindByIdOperation ) );
 
-        public static IEntity FindById( int id, ObjectInfo state ) {
+        public static IEntity FindById( long id, ObjectInfo state ) {
 
 
             if (id < 0) return null;
@@ -44,7 +44,7 @@ namespace wojilu.ORM.Operation {
             return findById_Private( id, state );
         }
 
-        private static IEntity findById_Private( int id, ObjectInfo state ) {
+        private static IEntity findById_Private( long id, ObjectInfo state ) {
 
             if (id < 0) return null;
 
@@ -79,7 +79,7 @@ namespace wojilu.ORM.Operation {
         }
 
         // TODO: performance
-        private static IEntity findByIdFromChild( int id, EntityInfo entityInfo ) {
+        private static IEntity findByIdFromChild( long id, EntityInfo entityInfo ) {
             foreach (EntityInfo ei in entityInfo.ChildEntityList) {
                 IEntity result = ObjectDB.FindById( id, new ObjectInfo( ei ) );
                 if (result != null) return result;
@@ -97,7 +97,7 @@ namespace wojilu.ORM.Operation {
                 includer.Include( SqlBuilder.GetIncludeProperty( includer.SelectedProperty ) );
         }
 
-        private static IEntity setEntityProperty( IEntity obj, int id, ObjectInfo state ) {
+        private static IEntity setEntityProperty( IEntity obj, long id, ObjectInfo state ) {
 
             if (obj == null)
                 return null;
@@ -110,7 +110,7 @@ namespace wojilu.ORM.Operation {
                 IEntity propertyValue = obj.get( ep.Name ) as IEntity;
                 if (propertyValue == null) continue;
 
-                int pid = propertyValue.Id;
+                long pid = propertyValue.Id;
                 if (pid <= 0) continue;
 
 

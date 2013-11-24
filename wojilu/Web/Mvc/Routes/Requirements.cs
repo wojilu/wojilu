@@ -49,7 +49,7 @@ namespace wojilu.Web.Mvc.Routes {
 
             // 预置规则
             if (pattern.Equals( "letter" )) return strUtil.IsLetter( val );
-            if (pattern.Equals( "int" )) return cvt.IsInt( val );
+            if (pattern.Equals( "int" )) return cvt.IsLong( val );
             if (pattern.Equals( "page" )) return isPageNumber( val );
             if (pattern.Equals( "ownertype" )) return MemberPath.IsValidOwnerType( val );
 

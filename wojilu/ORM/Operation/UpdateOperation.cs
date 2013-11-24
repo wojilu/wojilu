@@ -100,7 +100,7 @@ namespace wojilu.ORM.Operation {
                 String columnName = entityInfo.GetColumnName( arrPropertyName[i] );
                 DataFactory.SetParameter( cmd, columnName, parameterValue );
             }
-            int id = obj.Id;
+            long id = obj.Id;
             DataFactory.SetParameter( cmd, "Id", id );
             cmd.ExecuteNonQuery();
 

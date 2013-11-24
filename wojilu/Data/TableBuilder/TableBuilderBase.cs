@@ -111,10 +111,12 @@ namespace wojilu.Data {
         protected virtual void addColumn_PrimaryKey( EntityInfo entity, StringBuilder sb, Dictionary<String, EntityInfo> clsList ) {
             // 不是自动编号
             if (!DbConfig.Instance.IsAutoId || isAddIdentityKey( entity.Type ) == false) {
-                sb.Append( " Id int primary key default 0, " );
+                //sb.Append( " Id int primary key default 0, " );
+                sb.Append( " Id bigint primary key default 0, " );
             }
             else {
-                sb.Append( " Id int identity(1,1) primary key, " );
+                //sb.Append( " Id int identity(1,1) primary key, " );
+                sb.Append( " Id bigint identity(1,1) primary key, " );
             }
         }
 
@@ -219,7 +221,7 @@ namespace wojilu.Data {
 
         protected virtual void addColumn_entity( StringBuilder sb, String columnName ) {
             sb.Append( columnName );
-            sb.Append( " int default 0, " );
+            sb.Append( " bigint default 0, " );
         }
 
 

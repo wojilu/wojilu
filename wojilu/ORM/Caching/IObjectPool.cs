@@ -32,7 +32,7 @@ namespace wojilu.ORM.Caching {
          void AddCount( Type t, String condition, int count );
          void AddSqlList( String sql, IList objList );
 
-         IEntity FindOne( Type t, int id );
+         IEntity FindOne( Type t, long id );
          IList FindAll( Type t );
          IList FindByQuery( ConditionInfo condition );
          IList FindByQuery( Type type, String _queryString, Dictionary<String, Object> _namedParameters );
@@ -41,7 +41,7 @@ namespace wojilu.ORM.Caching {
          int FindCount( Type t );
          int FindCount( Type t, String condition );
 
-         void Delete( Type t, int id );
+         void Delete( Type t, long id );
 
    }
 

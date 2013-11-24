@@ -27,29 +27,29 @@ namespace wojilu.Web.Mvc.Routes {
     /// </summary>
     public class Route {
 
-        private int _id;
+        private long _id;
         private String _owner;
         private String _ownerType;
         private String _controller;
         private String _action;
-        private int _appId;
+        private long _appId;
         private int _page;
         private String _query;
         private String _clearUrl;
 
         private Dictionary _items = new Dictionary();
 
-        public int id { get { return _id; } }
+        public long id { get { return _id; } }
         public String owner { get { return _owner; } }
         public String ownerType { get { return _ownerType; } }
         public String controller { get { return _controller; } }
         public String action { get { return _action; } }
-        public int appId { get { return getAppId(); } }
+        public long appId { get { return getAppId(); } }
         public int page { get { return _page; } }
         public String query { get { return _query; } }
 
-        private int getId() { return _id; }
-        public void setId( int id ) { _id = id; }
+        private long getId() { return _id; }
+        public void setId( long id ) { _id = id; }
 
         private String getOwner() { return _owner; }
         public void setOwner( String owner ) { _owner = owner; }
@@ -63,8 +63,8 @@ namespace wojilu.Web.Mvc.Routes {
         private String getAction() { return _action; }
         public void setAction( String action ) { _action = action; }
 
-        private int getAppId() { return _appId <= 0 ? 1 : _appId; }
-        public void setAppId( int appId ) { _appId = appId; }
+        private long getAppId() { return _appId <= 0 ? 1 : _appId; }
+        public void setAppId( long appId ) { _appId = appId; }
 
         private int getPage() { return _page; }
         public void setPage( int page ) { _page = page; }
@@ -80,7 +80,7 @@ namespace wojilu.Web.Mvc.Routes {
             return result == null ? null : result.ToString();
         }
 
-        public void setItem( String key, int val ) {
+        public void setItem( String key, long val ) {
             _items.Set( key, val );
         }
 

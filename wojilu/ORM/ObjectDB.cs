@@ -33,7 +33,7 @@ namespace wojilu.ORM {
 
         private static readonly ILog logger = LogManager.GetLogger( typeof( ObjectDB ) );
 
-        public static IEntity FindById( int id, ObjectInfo state ) {
+        public static IEntity FindById( long id, ObjectInfo state ) {
             return FindByIdOperation.FindById( id, state );
         }
 
@@ -77,7 +77,7 @@ namespace wojilu.ORM {
             return DeleteOperation.Delete( obj );
         }
 
-        public static int Delete( Type t, int id ) {
+        public static int Delete( Type t, long id ) {
             return DeleteOperation.Delete( t, id );
         }
 

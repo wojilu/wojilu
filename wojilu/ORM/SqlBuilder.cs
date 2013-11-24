@@ -63,7 +63,7 @@ namespace wojilu.ORM {
             return sql;
         }
 
-        public String GetFindById( int id, String propertyString ) {
+        public String GetFindById( long id, String propertyString ) {
             String columnString = getColumnsByProperty( propertyString );
             String sql = String.Format( "select {0} from {1} where Id={2}", columnString, _entityInfo.TableName, id );
             logger.Info( String.Format( "{0}[{1}_FindById] {2}", LoggerUtil.SqlPrefix, _entityInfo.Name, sql ) );

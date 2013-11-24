@@ -45,17 +45,17 @@ namespace wojilu {
     [Serializable]
     public class ObjectBase<T> : IEntity, IComparable where T : ObjectBase<T> {
 
-        private int _id;
+        private long _id;
 
         /// <summary>
         /// 对象的 id
         /// </summary>
-        public int Id {
+        public long Id {
             get { return _id; }
             set { this.setId( value ); _id = value; }
         }
 
-        protected virtual void setId( int id ) {
+        protected virtual void setId( long id ) {
         }
 
         private ExtData _extData;
@@ -84,7 +84,7 @@ namespace wojilu {
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        public static T findById( int id ) { return db.findById<T>( id ); }
+        public static T findById( long id ) { return db.findById<T>( id ); }
 
         /// <summary>
         /// 统计所有的数据量
@@ -170,7 +170,7 @@ namespace wojilu {
         /// </summary>
         /// <param name="id"></param>
         /// <returns>返回受影响的行数</returns>
-        public static int delete( int id ) { return db.delete<T>( id ); }
+        public static int delete( long id ) { return db.delete<T>( id ); }
 
         /// <summary>
         /// 批量删除对象
