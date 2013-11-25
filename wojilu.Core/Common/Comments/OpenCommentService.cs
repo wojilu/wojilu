@@ -256,7 +256,7 @@ namespace wojilu.Common.Comments {
         private void sendNotificationToRoot(List<long> sentIds, OpenComment c) {
 
             if (c.Member != null && c.Member.Id == c.TargetUserId) return; // 不用给自己发通知
-            int receiverId = c.TargetUserId;
+            long receiverId = c.TargetUserId;
             if (sentIds.Contains( receiverId )) return; // 已经发过，不用重发
 
             String msg = c.Author + " 回复了你的 <a href=\"" + c.TargetUrl + "\">" + c.TargetTitle + "</a> ";

@@ -23,12 +23,12 @@ namespace wojilu.Apps.Blog.Domain {
             return new BlogPostFeed( this );
         }
 
-        public int OwnerId { get; set; }
+        public long OwnerId { get; set; }
         public String OwnerType { get; set; }
         [Column( Length = 50 )]
         public String OwnerUrl { get; set; }
 
-        public int AppId { get; set; }
+        public long AppId { get; set; }
         public int SysCategoryId { get; set; }
 
         public User Creator { get; set; }

@@ -90,14 +90,14 @@ namespace wojilu.Apps.Content.Service {
 
         //---------------------------------------------------------------------------------------------
 
-        private ContentPost GetById( int postId ) {
+        private ContentPost GetById(long postId) {
             ContentPost post = db.findById<ContentPost>( postId );
             if (post == null) return null;
             if (post.SaveStatus != SaveStatus.Normal) return null;
             return post;
         }
 
-        public virtual ContentPost GetById( int id, int ownerId ) {
+        public virtual ContentPost GetById(long id, long ownerId) {
             ContentPost post = GetById( id );
             if (post == null) return null;
             if (post.OwnerId != ownerId) return null;
@@ -141,7 +141,7 @@ namespace wojilu.Apps.Content.Service {
                 .set( "tname", typeof( ContentPost ).FullName )
                 .list( count );
 
-            List<int> ids = new List<int>();
+            List<long> ids = new List<long>();
             foreach (DataTagShip x in list) {
                 if (ids.Contains( x.DataId )) continue;
                 ids.Add( x.DataId );
@@ -158,7 +158,7 @@ namespace wojilu.Apps.Content.Service {
             return GetByIds( strIds );
         }
 
-        private void getPostIds( List<int> ids, List<DataTagShip> list, ContentPost post ) {
+        private void getPostIds(List<long> ids, List<DataTagShip> list, ContentPost post) {
             foreach (DataTagShip dt in list) {
                 if (ids.Contains( dt.DataId ) == false && dt.DataId != post.Id) ids.Add( dt.DataId );
             }
@@ -167,12 +167,12 @@ namespace wojilu.Apps.Content.Service {
         //---------------------------------------------------------------------------------------------
 
 
-        public virtual List<ContentPost> GetBySection( int sectionId ) {
+        public virtual List<ContentPost> GetBySection(long sectionId) {
             ContentSection s = ContentSection.findById( sectionId );
             return this.GetBySection( sectionId, s.ListCount );
         }
 
-        public virtual List<ContentPost> GetBySection( int sectionId, int count ) {
+        public virtual List<ContentPost> GetBySection(long sectionId, int count) {
 
             List<ContentPostSection> psList = ContentPostSection
                 .find( "SectionId=" + sectionId + " and SaveStatus=" + SaveStatus.Normal + " order by PostId desc" )
@@ -186,7 +186,7 @@ namespace wojilu.Apps.Content.Service {
             return populatePost( psList );
         }
 
-        public virtual List<ContentPost> GetTopBySectionAndCategory( int sectionId, int categoryId, int count ) {
+        public virtual List<ContentPost> GetTopBySectionAndCategory(long sectionId, long categoryId, int count) {
 
             List<ContentPost> xlist = GetBySection( sectionId, count );
 
@@ -200,7 +200,7 @@ namespace wojilu.Apps.Content.Service {
             return list;
         }
 
-        public virtual int CountBySection( int sectionId ) {
+        public virtual int CountBySection(long sectionId) {
             int count = ContentPostSection.count( "SectionId=" + sectionId + " and SaveStatus=" + SaveStatus.Normal );
             // 兼容旧版
             if (count == 0) {
@@ -211,7 +211,7 @@ namespace wojilu.Apps.Content.Service {
             }
         }
 
-        public virtual List<ContentPost> GetAllBySection( int sectionId ) {
+        public virtual List<ContentPost> GetAllBySection(long sectionId) {
             List<ContentPost> xResult = ContentPostSection
                 .find( "SectionId=" + sectionId + " and SaveStatus=" + SaveStatus.Normal + " order by PostId desc" )
                 .listChildren<ContentPost>( "Post" );
@@ -225,7 +225,7 @@ namespace wojilu.Apps.Content.Service {
             }
         }
 
-        public virtual ContentPost GetFirstPost( int appId, int sectionId ) {
+        public virtual ContentPost GetFirstPost(long appId, long sectionId) {
             ContentPostSection xResult = ContentPostSection
                 .find( "SectionId=" + sectionId + " and SaveStatus=" + SaveStatus.Normal + " order by PostId desc" )
                 .first();
@@ -238,7 +238,7 @@ namespace wojilu.Apps.Content.Service {
             return xResult.Post;
         }
 
-        public virtual List<ContentPost> GetTopBySectionAndCategory( int sectionId, int categoryId ) {
+        public virtual List<ContentPost> GetTopBySectionAndCategory(long sectionId, long categoryId) {
             ContentSection s = ContentSection.findById( sectionId );
 
             return GetTopBySectionAndCategory( sectionId, categoryId, s.ListCount );
@@ -246,34 +246,34 @@ namespace wojilu.Apps.Content.Service {
 
         //--------------------------------------------------------------------------------------------------------------
 
-        public virtual DataPage<ContentPost> GetPageByCreator( int creatorId, IMember owner, int appId ) {
+        public virtual DataPage<ContentPost> GetPageByCreator(long creatorId, IMember owner, long appId) {
             String condition = string.Format( "CreatorId={0} and OwnerId={1} and OwnerType='{2}' and AppId={3} and SaveStatus={4}", creatorId, owner.Id, owner.GetType().FullName, appId, SaveStatus.Normal );
             return ContentPost.findPage( condition );
         }
 
-        public virtual int CountByCreator( int creatorId, IMember owner, int appId ) {
+        public virtual int CountByCreator(long creatorId, IMember owner, long appId) {
             String condition = string.Format( "CreatorId={0} and OwnerId={1} and OwnerType='{2}' and AppId={3} and SaveStatus={4}", creatorId, owner.Id, owner.GetType().FullName, appId, SaveStatus.Normal );
             return ContentPost.count( condition );
         }
 
-        public virtual int CountByApp( int appId ) {
+        public virtual int CountByApp(long appId) {
             return ContentPost.count( "AppId=" + appId + " and SaveStatus=" + SaveStatus.Normal );
         }
 
-        public virtual List<ContentPost> GetRecentPost( int appId, int count, int typeId ) {
+        public virtual List<ContentPost> GetRecentPost(long appId, int count, int typeId) {
             return ContentPost.find( "AppId=" + appId + " and CategoryId=" + typeId + " and SaveStatus=" + SaveStatus.Normal ).list( count );
         }
 
-        public virtual List<ContentPost> GetRankPost( int appId, int count, int typeId ) {
+        public virtual List<ContentPost> GetRankPost(long appId, int count, int typeId) {
             return ContentPost.find( "AppId=" + appId + " and CategoryId=" + typeId + " and SaveStatus=" + SaveStatus.Normal + " order by Hits desc, Replies desc, Id desc" ).list( count );
         }
 
 
-        public virtual List<ContentPost> GetByApp( int appId ) {
+        public virtual List<ContentPost> GetByApp(long appId) {
             return ContentPost.find( "AppId=" + appId + " and SaveStatus=" + SaveStatus.Normal + " order by Id desc" ).list();
         }
 
-        public virtual DataPage<ContentPost> GetByApp( int appId, int pageSize ) {
+        public virtual DataPage<ContentPost> GetByApp(long appId, int pageSize) {
             return ContentPost.findPage( "AppId=" + appId + " and SaveStatus=" + SaveStatus.Normal + " order by Id desc", pageSize );
         }
 
@@ -282,17 +282,17 @@ namespace wojilu.Apps.Content.Service {
         }
 
 
-        public virtual DataPage<ContentPost> GetBySearch( int appId, String key, int pageSize ) {
+        public virtual DataPage<ContentPost> GetBySearch(long appId, string key, int pageSize) {
             return ContentPost.findPage( "AppId=" + appId + " and Title like '%" + key + "%' and SaveStatus=" + SaveStatus.Normal + " order by Id desc", pageSize );
         }
 
         //--------------------------------------------------------------------------------------------------
 
-        public virtual DataPage<ContentPost> GetPageBySection( int sectionId ) {
+        public virtual DataPage<ContentPost> GetPageBySection(long sectionId) {
             return GetPageBySection( sectionId, 20 );
         }
 
-        public virtual DataPage<ContentPost> GetPageBySection( int sectionId, int pageSize ) {
+        public virtual DataPage<ContentPost> GetPageBySection(long sectionId, int pageSize) {
             DataPage<ContentPostSection> list = ContentPostSection.findPage( "SectionId=" + sectionId + " and SaveStatus=" + SaveStatus.Normal + " order by PostId desc", pageSize );
             DataPage<ContentPost> xResult = list.Convert<ContentPost>( populatePost( list.Results ) );
 
@@ -306,12 +306,12 @@ namespace wojilu.Apps.Content.Service {
         }
 
         // 用在 AdminList 中
-        public virtual DataPage<ContentPost> GetPageBySectionAndCategory( int sectionId, int categoryId ) {
+        public virtual DataPage<ContentPost> GetPageBySectionAndCategory(long sectionId, long categoryId) {
             return GetPageBySectionAndCategory( sectionId, categoryId, 20 );
         }
 
         // 用在 AdminList 中
-        public virtual DataPage<ContentPost> GetPageBySectionAndCategory( int sectionId, int categoryId, int pageSize ) {
+        public virtual DataPage<ContentPost> GetPageBySectionAndCategory(long sectionId, long categoryId, int pageSize) {
             // TODO
             //if (categoryId > 0) {
             //    return db.findPage<ContentPost>( "PageSection.Id=" + sectionId + " and CategoryId=" + categoryId + " and SaveStatus=" + SaveStatus.Normal, pageSize );
@@ -399,7 +399,7 @@ namespace wojilu.Apps.Content.Service {
             ContentPostSection.updateBatch( "SaveStatus=" + SaveStatus.Delete, "PostId=" + post.Id );
         }
 
-        public virtual void Restore( int id ) {
+        public virtual void Restore(long id) {
             ContentPost post = ContentPost.findById( id );
             if (post == null) return;
             post.SaveStatus = SaveStatus.Normal;
@@ -408,7 +408,7 @@ namespace wojilu.Apps.Content.Service {
             ContentPostSection.updateBatch( "SaveStatus=" + SaveStatus.Normal, "PostId=" + post.Id );
         }
 
-        public virtual void DeleteSys( int postId ) {
+        public virtual void DeleteSys(long postId) {
             ContentPost post = ContentPost.findById( postId );
             if (post == null) return;
             post.SaveStatus = SaveStatus.SysDelete;

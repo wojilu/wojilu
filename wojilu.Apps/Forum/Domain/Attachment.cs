@@ -17,16 +17,16 @@ namespace wojilu.Apps.Forum.Domain {
     [Serializable]
     public class Attachment : ObjectBase<Attachment>, ISort {
 
-        public int AppId { get; set; }
-        public int TopicId { get; set; }
+        public long AppId { get; set; }
+        public long TopicId { get; set; }
 
         // TODO: 将来支持回复帖子也可以上传附件
-        public int PostId { get; set; } 
+        public long PostId { get; set; } 
 
         [Column( Name="FileGuid", Length=40 )]
         public String Guid { get; set; }
 
-        public int OwnerId { get; set; }
+        public long OwnerId { get; set; }
         public String OwnerType { get; set; }
         public String OwnerUrl { get; set; }
 

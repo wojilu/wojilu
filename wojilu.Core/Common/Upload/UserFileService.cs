@@ -17,7 +17,7 @@ namespace wojilu.Common.Upload {
 
         private static readonly ILog logger = LogManager.GetLogger( typeof( UserFileService ) );
 
-        public UserFile GetById( int id ) {
+        public UserFile GetById(long id) {
             return UserFile.findById( id );
         }
 
@@ -97,7 +97,7 @@ namespace wojilu.Common.Upload {
             return attachment.insert();
         }
 
-        public Result Delete( int id ) {
+        public Result Delete(long id) {
 
             Result result = new Result();
 

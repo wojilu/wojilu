@@ -21,22 +21,22 @@ namespace wojilu.Apps.Forum.Domain {
             this.Security = ForumPermission.GetDefaultPermission();
         }
 
-        public ForumBoard( int id ) {
+        public ForumBoard(long id) {
             Id = id;
             this.Security = ForumPermission.GetDefaultPermission();
         }
 
         public int pkid { get; set; }
 
-        public int OwnerId { get; set; }
+        public long OwnerId { get; set; }
         public String OwnerType { get; set; }
         public String OwnerUrl { get; set; }
 
         public User Creator { get; set; }
         public String CreatorUrl { get; set; }
 
-        public int AppId { get; set; }
-        public int ParentId { get; set; }
+        public long AppId { get; set; }
+        public long ParentId { get; set; }
         public int OrderId { get; set; }
 
         [NotNull( Lang = "exName" )]

@@ -53,7 +53,7 @@ namespace wojilu.Apps.Photo.Service {
             }
 
             PhotoPost data = imgs[0];
-            int albumId = data.PhotoAlbum.Id;
+            long albumId = data.PhotoAlbum.Id;
 
             PhotoAlbum album = db.find<PhotoAlbum>( "Id=" + albumId ).first();
             IMember owner = (IMember)ndb.findById( ObjectContext.GetType( data.OwnerType ), data.OwnerId );
@@ -64,26 +64,26 @@ namespace wojilu.Apps.Photo.Service {
             return MbTemplate.GetFeed( actionName, album.Name, lnkAlbum, photoHtml, null );
         }
 
-        public virtual DataPage<PhotoPost> GetPostPage( int ownerId, int appId, int pageSize ) {
+        public virtual DataPage<PhotoPost> GetPostPage(long ownerId, long appId, int pageSize) {
             return db.findPage<PhotoPost>( "OwnerId=" + ownerId + " and AppId=" + appId, pageSize );
         }
 
-        public virtual DataPage<PhotoPost> GetPostPageByAlbum( int ownerId, int appId, int albumId, int pageSize ) {
+        public virtual DataPage<PhotoPost> GetPostPageByAlbum(long ownerId, long appId, long albumId, int pageSize) {
             if (albumId == 0) {
                 return db.findPage<PhotoPost>( "OwnerId=" + ownerId + " and PhotoAlbum.Id=" + albumId, pageSize );
             }
             return db.findPage<PhotoPost>( "OwnerId=" + ownerId + " and AppId=" + appId + " and PhotoAlbum.Id=" + albumId, pageSize );
         }
 
-        private PhotoPost GetById( int id ) {
+        private PhotoPost GetById(long id) {
             return db.findById<PhotoPost>( id );
         }
 
-        public virtual PhotoPost GetById_Admin( int id ) {
+        public virtual PhotoPost GetById_Admin(long id) {
             return db.findById<PhotoPost>( id );
         }
 
-        public virtual PhotoPost GetById( int id, int ownerId ) {
+        public virtual PhotoPost GetById(long id, long ownerId) {
             PhotoPost post = GetById( id );
             if (post == null) return null;
             if (post.OwnerId != ownerId) return null;
@@ -94,7 +94,7 @@ namespace wojilu.Apps.Photo.Service {
             return post;
         }
 
-        public virtual DataPage<PhotoPost> GetSingle( int ownerId, int id ) {
+        public virtual DataPage<PhotoPost> GetSingle(long ownerId, long id) {
 
 
             DataPage<PhotoPost> list = new DataPage<PhotoPost>();
@@ -115,15 +115,15 @@ namespace wojilu.Apps.Photo.Service {
             return list;
         }
 
-        private int getPreCount( int ownerId, int albumId, int id ) {
+        private int getPreCount(long ownerId, long albumId, long id) {
             return db.count<PhotoPost>( "OwnerId=" + ownerId + " and CategoryId=" + albumId + " and Id>" + id );
         }
 
-        public virtual int GetCountByUser( int userId ) {
+        public virtual int GetCountByUser(long userId) {
             return db.count<PhotoPost>( "OwnerId=" + userId + " and SaveStatus=" + SaveStatus.Normal );
         }
 
-        private int GetPostCount( int ownerId, int albumId ) {
+        private int GetPostCount(long ownerId, long albumId) {
             return db.count<PhotoPost>( "OwnerId=" + ownerId + " and CategoryId=" + albumId );
         }
 
@@ -147,7 +147,7 @@ namespace wojilu.Apps.Photo.Service {
             HitsJob.Add( post );
         }
 
-        public virtual DataPage<PhotoPost> GetFriendsPhoto( int userId, int friendId ) {
+        public virtual DataPage<PhotoPost> GetFriendsPhoto(long userId, long friendId) {
 
             String condition;
             if (friendId > 0)
@@ -163,29 +163,29 @@ namespace wojilu.Apps.Photo.Service {
             return db.findPage<PhotoPost>( condition );
         }
 
-        public virtual List<IBinderValue> GetMyNew( int count, int userId ) {
+        public virtual List<IBinderValue> GetMyNew(int count, long userId) {
             return SysPhotoService.populatePhoto( GetNew( userId, count ) );
         }
 
-        public virtual DataPage<PhotoPost> GetByUser( int userId, int pageSize ) {
+        public virtual DataPage<PhotoPost> GetByUser(long userId, int pageSize) {
             return PhotoPost.findPage( "OwnerId=" + userId, pageSize );
         }
 
-        public virtual DataPage<PhotoPost> GetShowByUser( int userId, int pageSize ) {
+        public virtual DataPage<PhotoPost> GetShowByUser(long userId, int pageSize) {
             return PhotoPost.findPage( "SysCategoryId>0 and  SaveStatus=" + SaveStatus.Normal + " and OwnerId=" + userId, pageSize );
         }
 
-        public virtual DataPage<PhotoPost> GetShowByUser( int userId, int categoryId, int pageSize ) {
+        public virtual DataPage<PhotoPost> GetShowByUser(long userId, long categoryId, int pageSize) {
             return PhotoPost.findPage( "SysCategoryId>0 and CategoryId=" + categoryId + " and SaveStatus=" + SaveStatus.Normal + " and OwnerId=" + userId, pageSize );
         }
 
-        public virtual void UpdateAlbum( int categoryId, String ids, int ownerId, int appId ) {
+        public virtual void UpdateAlbum(long categoryId, string ids, long ownerId, long appId) {
 
             String condition = string.Format( "Id in ({0}) and OwnerId={1}", ids, ownerId );
             db.updateBatch<PhotoPost>( "set CategoryId=" + categoryId + ", AppId=" + appId, condition );
         }
 
-        public virtual void DeleteTrue( String ids, int ownerId ) {
+        public virtual void DeleteTrue(string ids, long ownerId) {
             if (cvt.IsIdListValid( ids ) == false) return;
             String condition = string.Format( "Id in ({0}) and OwnerId={1}", ids, ownerId );
             List<PhotoPost> list = db.find<PhotoPost>( condition ).list();
@@ -226,7 +226,7 @@ namespace wojilu.Apps.Photo.Service {
             }
         }
 
-        private bool isRootExits( int rootId ) {
+        private bool isRootExits(long rootId) {
             return this.GetById_Admin( rootId ) != null;
         }
 
@@ -296,7 +296,7 @@ namespace wojilu.Apps.Photo.Service {
             post.update();
         }
 
-        public virtual Result CreatePost( Result uploadResult, String photoName, int albumId, MvcContext ctx ) {
+        public virtual Result CreatePost(Result uploadResult, string photoName, long albumId, MvcContext ctx) {
 
             String path = uploadResult.Info.ToString();
             if (strUtil.IsNullOrEmpty( photoName )) {
@@ -324,7 +324,7 @@ namespace wojilu.Apps.Photo.Service {
             return result;
         }
 
-        private PhotoAlbum getAlbum( int albumId, User user ) {
+        private PhotoAlbum getAlbum(long albumId, User user) {
             PhotoAlbum album;
             if (albumId > 0) {
                 album = getAlbumById( albumId );
@@ -338,11 +338,11 @@ namespace wojilu.Apps.Photo.Service {
             return album;
         }
 
-        private PhotoAlbum getAlbumById( int albumId ) {
+        private PhotoAlbum getAlbumById(long albumId) {
             return db.findById<PhotoAlbum>( albumId );
         }
 
-        private PhotoAlbum getDefaultPhotoAlbum( int userId ) {
+        private PhotoAlbum getDefaultPhotoAlbum(long userId) {
             return db.find<PhotoAlbum>( "IsDefault=1 and OwnerId=" + userId ).first();
         }
 
@@ -357,7 +357,7 @@ namespace wojilu.Apps.Photo.Service {
             return album;
         }
 
-        private PhotoAlbum createDefaultAlbum( User user, int appId ) {
+        private PhotoAlbum createDefaultAlbum(User user, long appId) {
             PhotoAlbum album = new PhotoAlbum();
             album.Name = alang.get( typeof( PhotoApp ), "defaultAlbum" );
             album.IsDefault = 1;
@@ -368,7 +368,7 @@ namespace wojilu.Apps.Photo.Service {
             return album;
         }
 
-        private int getDefaultPhotoAppId( int userId ) {
+        private long getDefaultPhotoAppId(long userId) {
             PhotoApp photo = db.find<PhotoApp>( "OwnerId=" + userId ).first();
             if (photo == null) {
                 throw new Exception( "the photo app is not found" );
@@ -393,11 +393,11 @@ namespace wojilu.Apps.Photo.Service {
             db.update( album, "DataCount" );
         }
 
-        public List<PhotoPost> GetByAlbum( int albumId, int count ) {
+        public List<PhotoPost> GetByAlbum(long albumId, int count) {
             return PhotoPost.find( "CategoryId=" + albumId + " and SaveStatus=" + SaveStatus.Normal ).list( count );
         }
 
-        public List<PhotoPost> GetNew( int userId, int count ) {
+        public List<PhotoPost> GetNew(long userId, int count) {
             if (count <= 0) count = 10;
             return db.find<PhotoPost>( "Creator.Id=" + userId + " and SysCategoryId>0 and AppId>0 and SaveStatus=" + SaveStatus.Normal ).list( count );
         }
@@ -407,13 +407,13 @@ namespace wojilu.Apps.Photo.Service {
             return db.find<PhotoPost>( "SysCategoryId>0 and SaveStatus=" + SaveStatus.Normal ).list( count );
         }
 
-        public DataPage<PhotoPost> GetFollowing( int userId, int pageSize ) {
+        public DataPage<PhotoPost> GetFollowing(long userId, int pageSize) {
             String ids = followerService.GetFollowingIds( userId );
             ids = strUtil.HasText( ids ) ? ids + "," + userId : userId.ToString();
             return PhotoPost.findPage( "OwnerId in (" + ids + ") and SaveStatus=" + SaveStatus.Normal, pageSize );
         }
 
-        public bool IsPin( int userId, PhotoPost x ) {
+        public bool IsPin(long userId, PhotoPost x) {
 
             String condition = "OwnerId=" + userId + " and ";
             condition += x.RootId > 0

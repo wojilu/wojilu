@@ -9,9 +9,9 @@ namespace wojilu.Apps.Forum.Domain {
 
         public User User { get; set; }
 
-        public int PostId { get; set; }
+        public long PostId { get; set; }
 
-        public int CurrencyId { get; set; }
+        public long CurrencyId { get; set; }
         public int Income { get; set; }
 
         public String Reason { get; set; }

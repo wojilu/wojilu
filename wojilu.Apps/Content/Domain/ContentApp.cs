@@ -23,7 +23,7 @@ namespace wojilu.Apps.Content.Domain {
                  + "#row1_column2 {width:48%;margin:5px;}";
         }
 
-        public int OwnerId { get; set; }
+        public long OwnerId { get; set; }
         public String OwnerUrl { get; set; }
         public String OwnerType { get; set; }
 
@@ -39,9 +39,9 @@ namespace wojilu.Apps.Content.Domain {
         [LongText]
         public String SkinStyle { get; set; }
 
-        private int _skinId;
+        private long _skinId;
         // 皮肤
-        public int SkinId {
+        public long SkinId {
             get {
                 if (_skinId == 0) return 1;
                 return _skinId;

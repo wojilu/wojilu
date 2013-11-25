@@ -10,14 +10,14 @@ namespace wojilu.Apps.Forum.Interface {
 
     public interface IPost {
 
-        int Id { get; set; }
+        long Id { get; set; }
         String Title { get; set; }
 
         User Creator { get; set; }
-        int OwnerId { get; set; }
+        long OwnerId { get; set; }
         String OwnerType { get; set; }
 
-        int AppId { get; set; }
+        long AppId { get; set; }
 
         DateTime Created { get; set; }
         int Hits { get; set; }

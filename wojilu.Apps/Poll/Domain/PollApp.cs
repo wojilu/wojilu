@@ -15,7 +15,7 @@ namespace wojilu.Apps.Poll.Domain {
     [Serializable]
     public class PollApp : ObjectBase<PollApp>, IApp, IAccessStatus, ICommentApp {
 
-        public int OwnerId { get; set; }
+        public long OwnerId { get; set; }
         public String OwnerUrl { get; set; }
         public String OwnerType { get; set; }
 

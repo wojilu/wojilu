@@ -13,7 +13,7 @@ namespace wojilu.Apps.Forum.Service {
 
     public class ForumLogService : IForumLogService {
 
-        public virtual void Add( User user, int appId, String msg, String ip ) {
+        public virtual void Add(User user, long appId, string msg, string ip) {
 
             ForumLog log = new ForumLog();
             log.UserId = user.Id;
@@ -25,7 +25,7 @@ namespace wojilu.Apps.Forum.Service {
             db.insert( log );
         }
 
-        public virtual Result AddPost( User user, int appId, int postId, int actionId, String ip ) {
+        public virtual Result AddPost(User user, long appId, long postId, long actionId, string ip) {
 
             ForumLog log = new ForumLog();
             log.UserId = user.Id;
@@ -39,18 +39,18 @@ namespace wojilu.Apps.Forum.Service {
             return db.insert( log );
         }
 
-        public virtual Result AddTopic( User user, int appId, int topicId, int actionId, String reason, String ip ) {
+        public virtual Result AddTopic(User user, long appId, long topicId, long actionId, string reason, string ip) {
             ForumLog log = createLog( user, appId, topicId, actionId, ip );
             log.Msg = reason;
             return db.insert( log );
         }
 
-        public Result AddTopic( User user, int appId, int topicId, int actionId, String ip ) {
+        public Result AddTopic(User user, long appId, long topicId, long actionId, string ip) {
             ForumLog log = createLog( user, appId, topicId, actionId, ip );
             return db.insert( log );
         }
 
-        private static ForumLog createLog( User user, int appId, int topicId, int actionId, String ip ) {
+        private static ForumLog createLog(User user, long appId, long topicId, long actionId, string ip) {
             ForumLog log = new ForumLog();
             log.UserId = user.Id;
             log.UserName = user.Name;
@@ -62,15 +62,15 @@ namespace wojilu.Apps.Forum.Service {
             return log;
         }
 
-        public virtual DataPage<ForumLog> FindPage( int appId ) {
+        public virtual DataPage<ForumLog> FindPage(long appId) {
             return db.findPage<ForumLog>( "AppId=" + appId );
         }
 
-        public virtual ForumLog GetByDeletedTopicId( int topicId ) {
+        public virtual ForumLog GetByDeletedTopicId(long topicId) {
             return db.find<ForumLog>( "TopicId=" + topicId + " and ActionId=" + ForumLogAction.Delete ).first();
         }
 
-        public virtual ForumLog GetByDeletedPostId( int postId ) {
+        public virtual ForumLog GetByDeletedPostId(long postId) {
             return db.find<ForumLog>( "PostId="+postId+" and ActionId=" + ForumLogAction.Delete ).first();
         }
 

@@ -50,7 +50,7 @@ moveRow( 'up', 7 )=>4,5,6,7*
 
             if (rowId <= 0) return;
 
-            int appId = app.Id;
+            long appId = app.Id;
             List<string> list = new List<string>();
             string[] rowList = app.RowList;
 

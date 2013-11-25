@@ -14,20 +14,20 @@ namespace wojilu.Apps.Content.Service {
 
     public class ContentSectionService : IContentSectionService {
 
-        public virtual List<ContentSection> GetByApp( int appId ) {
+        public virtual List<ContentSection> GetByApp(long appId) {
             return db.find<ContentSection>( "AppId=" + appId + " order by OrderId asc, Id asc" ).list();
         }
 
-        public virtual List<ContentSection> GetInputSectionsByApp( int appId ) {
+        public virtual List<ContentSection> GetInputSectionsByApp(long appId) {
             return db.find<ContentSection>( "AppId=" + appId + " and ServiceId=0 order by OrderId asc, Id asc" ).list();
         }
 
 
-        public virtual ContentSection GetById( int id ) {
+        public virtual ContentSection GetById(long id) {
             return db.findById<ContentSection>( id );
         }
 
-        public virtual ContentSection GetById( int id, int appId ) {
+        public virtual ContentSection GetById(long id, long appId) {
             ContentSection s = GetById( id );
             if (s.AppId != appId) return null;
             return s;
@@ -43,7 +43,7 @@ namespace wojilu.Apps.Content.Service {
             return results;
         }
 
-        public virtual String GetSectionIdsByPost( int postId ) {
+        public virtual string GetSectionIdsByPost(long postId) {
 
             List<ContentPostSection> list = ContentPostSection.find( "PostId=" + postId ).list();
 
@@ -75,11 +75,11 @@ namespace wojilu.Apps.Content.Service {
             ContentPost.updateBatch( "SaveStatus=" + SaveStatus.Delete + ", SectionId=0", "SectionId=" + section.Id );
         }
 
-        public virtual int Count( int appId, int rowId ) {
+        public virtual int Count(long appId, int rowId) {
             return db.count<ContentSection>( "AppId=" + appId + " and RowId=" + rowId );
         }
 
-        public virtual void CombineSections( int sectionId, int targetSectionId ) {
+        public virtual void CombineSections(long sectionId, long targetSectionId) {
 
             ContentSection target = GetById( targetSectionId );
             if (strUtil.HasText( target.CombineIds ) && isInIds( target, sectionId ) == false) {
@@ -91,7 +91,7 @@ namespace wojilu.Apps.Content.Service {
             target.update( "CombineIds" );
         }
 
-        private Boolean isInIds( ContentSection target, int sectionId ) {
+        private bool isInIds(ContentSection target, long sectionId) {
 
             int[] arrIds = cvt.ToIntArray( target.CombineIds );
             for (int i = 0; i < arrIds.Length; i++) {
@@ -100,10 +100,10 @@ namespace wojilu.Apps.Content.Service {
             return false;
         }
 
-        public virtual void RemoveSection( int sectionId, int fromSectionId ) {
+        public virtual void RemoveSection(long sectionId, long fromSectionId) {
             ContentSection from = GetById( fromSectionId );
             if (strUtil.IsNullOrEmpty( from.CombineIds )) return;
-            if (isInIds( from, sectionId ) == false) return;
+            if (isInIds( @from, sectionId ) == false) return;
 
             int[] arrIds = cvt.ToIntArray( from.CombineIds );
             String result = "";

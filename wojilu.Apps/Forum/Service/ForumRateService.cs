@@ -23,7 +23,7 @@ namespace wojilu.Apps.Forum.Service {
             return db.find<ForumRateLog>( "PostId=" + postId + " and UserId=" + userId ).first();
         }
 
-        public virtual void Insert( int postId, User operateUser, int currencyId, int income, String reason ) {
+        public virtual void Insert(long postId, User operateUser, long currencyId, int income, string reason) {
 
             ForumRateLog log = new ForumRateLog();
 

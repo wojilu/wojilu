@@ -28,16 +28,16 @@ namespace wojilu.Apps.Forum.Service {
         //--------------------------------------------------------------------------------------------------
 
 
-        public virtual List<ForumBoard> GetBoardAll( int forumId, Boolean isLogin ) {
+        public virtual List<ForumBoard> GetBoardAll(long forumId, bool isLogin) {
             List<ForumBoard> results = this.getBoardsByApp( forumId, isLogin );
             return results;
         }
 
-        public virtual ForumBoard GetById( int id, IMember owner ) {
+        public virtual ForumBoard GetById(long id, IMember owner) {
             return this.GetById( id, owner.Id, owner.GetType().FullName );
         }
 
-        public virtual ForumBoard GetById( int id, int ownerId, String typeFullName ) {
+        public virtual ForumBoard GetById(long id, long ownerId, string typeFullName) {
             ForumBoard board = db.findById<ForumBoard>( id );
             if (board == null) return null;
 
@@ -47,16 +47,16 @@ namespace wojilu.Apps.Forum.Service {
             return board;
         }
         
-        private List<ForumBoard> getBoardsByApp( int appId ) {
+        private List<ForumBoard> getBoardsByApp(long appId) {
             return db.find<ForumBoard>( "AppId=" + appId ).list();
         }
 
-        private List<ForumBoard> getBoardsByApp( int appId, Boolean isLogin ) {
+        private List<ForumBoard> getBoardsByApp(long appId, bool isLogin) {
             if (isLogin) return db.find<ForumBoard>( "AppId=" + appId + " order by OrderId desc, Id asc" ).list();
             return db.find<ForumBoard>( "AppId=" + appId + " order by OrderId desc, Id asc" ).list();
         }
 
-        public virtual Boolean HasChildren( int boardId ) {
+        public virtual bool HasChildren(long boardId) {
             return ForumBoard.count( "ParentId=" + boardId ) > 0;
         }
 
@@ -77,11 +77,11 @@ namespace wojilu.Apps.Forum.Service {
             this.UpdateStats( fbTarget );
         }
 
-        public virtual int CountPost( int forumBoardId ) {
+        public virtual int CountPost(long forumBoardId) {
             return db.find<ForumPost>( "ForumBoardId=" + forumBoardId + " and " + TopicStatus.GetShowCondition() ).count();
         }
 
-        public virtual int CountTopic( int forumBoardId ) {
+        public virtual int CountTopic(long forumBoardId) {
             return db.find<ForumTopic>( "ForumBoardId=" + forumBoardId + " and " + TopicStatus.GetShowCondition() ).count();
         }
 
@@ -158,7 +158,7 @@ namespace wojilu.Apps.Forum.Service {
             db.delete( category );
         }
 
-        public virtual void DeletePostCount( int boardId, IMember owner ) {
+        public virtual void DeletePostCount(long boardId, IMember owner) {
             ForumBoard board = this.GetById( boardId, owner );
             board.Posts--;
             board.update();

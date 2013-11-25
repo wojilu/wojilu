@@ -16,7 +16,7 @@ namespace wojilu.Apps.Photo.Domain {
     [Serializable]
     public class PhotoApp : ObjectBase<PhotoApp>, IApp, IAccessStatus, ICommentApp {
 
-        public int OwnerId { get; set; }
+        public long OwnerId { get; set; }
         public String OwnerUrl { get; set; }
 
         [NotSave]

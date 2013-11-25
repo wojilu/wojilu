@@ -15,12 +15,12 @@ namespace wojilu.Apps.Forum.Interface {
 
         void ClearSecurity( ForumBoard fb );
         void Combine( ForumBoard fbSrc, ForumBoard fbTarget );
-        List<ForumBoard> GetBoardAll( int forumId, Boolean isLogin );
-        ForumBoard GetById( int id, IMember owner );
-        Boolean HasChildren( int boardId );
+        List<ForumBoard> GetBoardAll(long forumId, bool isLogin);
+        ForumBoard GetById(long id, IMember owner);
+        bool HasChildren(long boardId);
 
-        int CountPost( int forumBoardId );
-        int CountTopic( int forumBoardId );
+        int CountPost(long forumBoardId);
+        int CountTopic(long forumBoardId);
 
         Result Insert( ForumBoard fb );
 
@@ -35,9 +35,9 @@ namespace wojilu.Apps.Forum.Interface {
         void DeleteLogo( ForumBoard board );
 
 
-        void DeletePostCount( int forumBoardId, IMember owner );
+        void DeletePostCount(long forumBoardId, IMember owner);
 
-        ForumBoard GetById( int id, int ownerId, String typeFullName );
+        ForumBoard GetById(long id, long ownerId, string typeFullName);
 
     }
 

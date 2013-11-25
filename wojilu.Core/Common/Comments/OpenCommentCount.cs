@@ -10,7 +10,7 @@ namespace wojilu.Common.Comments {
         public int Replies { get; set; }
 
         public String DataType { get; set; }
-        public int DataId { get; set; }
+        public long DataId { get; set; }
 
     }
 

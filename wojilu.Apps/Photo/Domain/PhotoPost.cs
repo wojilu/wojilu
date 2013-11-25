@@ -23,13 +23,13 @@ namespace wojilu.Apps.Photo.Domain {
     [Serializable]
     public class PhotoPost : ObjectBase<PhotoPost>, IAppData, IShareData, IHits, ICommentTarget, ILike {
 
-        public int AppId { get; set; }
-        public int SysCategoryId { get; set; }
+        public long AppId { get; set; }
+        public long SysCategoryId { get; set; }
 
         [Column( Name = "CategoryId" )]
         public PhotoAlbum PhotoAlbum { get; set; }
 
-        public int OwnerId { get; set; }
+        public long OwnerId { get; set; }
         public String OwnerType { get; set; }
         [Column( Length = 50 )]
         public String OwnerUrl { get; set; }
@@ -64,8 +64,8 @@ namespace wojilu.Apps.Photo.Domain {
         public String SrcUrl { get; set; } // 来源网址
         public String SrcTool { get; set; } // 采集工具
 
-        public int ParentId { get; set; } // 转采来源 parent
-        public int RootId { get; set; } // 转采来源 root
+        public long ParentId { get; set; } // 转采来源 parent
+        public long RootId { get; set; } // 转采来源 root
 
         //--------------------------------------------------------------------
 

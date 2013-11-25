@@ -23,13 +23,13 @@ namespace wojilu.Apps.Content.Domain {
         [Column( Length = 20 )]
         public String CreatorUrl { get; set; }
 
-        public int OwnerId { get; set; }
+        public long OwnerId { get; set; }
         public String OwnerType { get; set; }
         [Column( Length = 50 )]
         public String OwnerUrl { get; set; }
 
-        public int AppId { get; set; }
-        public int CategoryId { get; set; } // wojilu.Apps.Content.Enum.PostCategory
+        public long AppId { get; set; }
+        public long CategoryId { get; set; } // wojilu.Apps.Content.Enum.PostCategory
         public int OrderId { get; set; }
 
         // 缓存第一个section信息
@@ -184,7 +184,7 @@ namespace wojilu.Apps.Content.Domain {
 
 
         [NotSave]
-        public int SectionId {
+        public long SectionId {
             get {
                 if (this.PageSection == null) return 0;
                 return this.PageSection.Id;

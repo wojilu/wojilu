@@ -15,7 +15,7 @@ namespace wojilu.Apps.Forum.Interface {
         List<ForumRateLog> GetByPost( int postId );
         ForumRateLog GetByPostAndOperator( int userId, int postId );
 
-        void Insert( int postId, User operateUser, int currencyId, int income, String reason );
+        void Insert(long postId, User operateUser, long currencyId, int income, string reason);
 
         Boolean HasRate( int operatorId, int postId );
 

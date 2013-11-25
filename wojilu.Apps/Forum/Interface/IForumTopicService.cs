@@ -27,42 +27,42 @@ namespace wojilu.Apps.Forum.Interface {
         IUserIncomeService incomeService { get; set; }
         IMicroblogService microblogService { get; set; }
 
-        ForumTopic GetByPost( int postId );
-        ForumTopic GetById( int id, IMember owner );
-        ForumTopic GetById_ForAdmin( int id );
+        ForumTopic GetByPost(long postId);
+        ForumTopic GetById(long id, IMember owner);
+        ForumTopic GetById_ForAdmin(long id);
         List<ForumTopic> GetByIds( String idList );
 
-        DataPage<ForumTopic> FindPickedPage( int boardId, int pageSize );
-        DataPage<ForumTopic> FindPollPage( int boardId, int pageSize );
-        DataPage<ForumTopic> FindTopicPage( int boardId, int pageSize, int categoryId, String sort, String time );
+        DataPage<ForumTopic> FindPickedPage(long boardId, int pageSize);
+        DataPage<ForumTopic> FindPollPage(long boardId, int pageSize);
+        DataPage<ForumTopic> FindTopicPage(long boardId, int pageSize, long categoryId, string sort, string time);
 
-        List<ForumTopic> GetByApp( int appId, int count );
-        DataPage<ForumTopic> GetDeletedPage( int appId );
-        List<ForumTopic> getMergedStickyList( List<ForumTopic> globalStickyList, int boardId, int page );
+        List<ForumTopic> GetByApp(long appId, int count);
+        DataPage<ForumTopic> GetDeletedPage(long appId);
+        List<ForumTopic> getMergedStickyList(List<ForumTopic> globalStickyList, long boardId, int page);
         List<IBinderValue> GetNewGroupTopic( int count );
         List<IBinderValue> GetNewSiteTopic( int count );
         ForumTopic GetNext( ForumTopic topic );
-        DataPage<ForumTopic> GetPageByApp( int appId, int pageSize );
-        ForumPost GetPostByTopic( int topicId );
+        DataPage<ForumTopic> GetPageByApp(long appId, int pageSize);
+        ForumPost GetPostByTopic(long topicId);
         ForumTopic GetPre( ForumTopic topic );
-        List<ForumTopic> GetStickyList( int boardId );
-        List<ForumTopic> getSubstractStickyList( List<ForumTopic> globalStickyList, int boardId );
+        List<ForumTopic> GetStickyList(long boardId);
+        List<ForumTopic> getSubstractStickyList(List<ForumTopic> globalStickyList, long boardId);
 
-        int GetBoardPage( int topicId, int boardId, int pageSize );
-        int GetPostPage( int postId, int topicId, int pageSize );
+        int GetBoardPage(long topicId, long boardId, int pageSize);
+        int GetPostPage(long postId, long topicId, int pageSize);
 
 
-        void AddAuthorIncome( String condition, int actionId, String actionName );
-        void SubstractAuthorIncome( String condition, int actionId, String actionName );
+        void AddAuthorIncome(string condition, long actionId, string actionName);
+        void SubstractAuthorIncome(string condition, long actionId, string actionName);
         void SubstractTopicReward( ForumTopic topic, int postValue );
 
         void AddHits( ForumTopic topic );
-        int CountReply( int topicId );
+        int CountReply(long topicId);
 
         void AddFeedInfo( ForumTopic data );
 
         Result CreateTopic( ForumTopic topic, User user, IMember owner, IApp app );
-        Result CreateTopicOther( int forumId, String title, String content, Type dataType, User user, IMember owner, IApp app );
+        Result CreateTopicOther(long forumId, string title, string content, Type dataType, User user, IMember owner, IApp app);
 
         Result Update( ForumTopic topic, User user, IMember owner );
         void UpdateReply( ForumTopic topic );
@@ -73,24 +73,24 @@ namespace wojilu.Apps.Forum.Interface {
         void DeleteListTrue( String choice, User user, String ip );
         void DeleteToTrash( ForumTopic topic, User creator, String ip );
         void DeleteTrue( ForumTopic topic, User user, String ip );
-        void DeletePostCount( int topicId, IMember owner );
+        void DeletePostCount(long topicId, IMember owner);
 
-        DataPage<ForumTopic> GetByUserAndApp( int appId, int userId, int pageSize );
-        DataPage<ForumTopic> GetByUser( int userId, int pageSize );
-        DataPage<ForumTopic> GetPickedByApp( int appId, int count );
+        DataPage<ForumTopic> GetByUserAndApp(long appId, long userId, int pageSize);
+        DataPage<ForumTopic> GetByUser(long userId, int pageSize);
+        DataPage<ForumTopic> GetPickedByApp(long appId, int count);
 
-        List<ForumTopic> GetByAppAndReplies( int appId, int count );
-        List<ForumTopic> GetByAppAndReplies( int appId, int count, int days );
-        List<ForumTopic> GetByAppAndViews( int appId, int count );
+        List<ForumTopic> GetByAppAndReplies(long appId, int count);
+        List<ForumTopic> GetByAppAndReplies(long appId, int count, int days);
+        List<ForumTopic> GetByAppAndViews(long appId, int count);
 
-        DataPage<ForumTopic> Search( int appId, string key, int pageSize );
+        DataPage<ForumTopic> Search(long appId, string key, int pageSize);
 
 
         void Lock( ForumTopic topic, User user, String ip );
         void UnLock( ForumTopic topic, User user, String ip );
         void Restore( String choice );
-        void StickyMoveUp( int topicId );
-        void StickyMoveDown( int topicId );
+        void StickyMoveUp(long topicId);
+        void StickyMoveDown(long topicId);
 
         void AdminUpdate( String action, String condition );
 
@@ -113,7 +113,7 @@ namespace wojilu.Apps.Forum.Interface {
         void MakeGlobalSticky( AdminValue adminValue );
         void MakeGloablStickyUndo( AdminValue adminValue );
 
-        void MakeMove( int p, AdminValue adminValue );
+        void MakeMove(long p, AdminValue adminValue);
     }
 
 }

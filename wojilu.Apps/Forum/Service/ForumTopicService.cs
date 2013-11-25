@@ -60,15 +60,15 @@ namespace wojilu.Apps.Forum.Service {
             microblogService = new MicroblogService();
         }
 
-        public virtual ForumTopic GetById_ForAdmin( int id ) {
+        public virtual ForumTopic GetById_ForAdmin(long id) {
             return GetById( id );
         }
 
-        private ForumTopic GetById( int id ) {
+        private ForumTopic GetById(long id) {
             return db.findById<ForumTopic>( id );
         }
 
-        public virtual ForumTopic GetByPost( int postId ) {
+        public virtual ForumTopic GetByPost(long postId) {
             ForumPost post = ForumPost.findById( postId );
             if (post == null) return null;
             ForumTopic topic = GetById( post.TopicId );
@@ -77,7 +77,7 @@ namespace wojilu.Apps.Forum.Service {
             return topic;
         }
 
-        public virtual ForumTopic GetById( int id, IMember owner ) {
+        public virtual ForumTopic GetById(long id, IMember owner) {
 
             ForumTopic topic = GetById( id );
             if (topic == null) return null;
@@ -88,12 +88,12 @@ namespace wojilu.Apps.Forum.Service {
             return topic;
         }
 
-        public virtual int GetBoardPage( int topicId, int boardId, int pageSize ) {
+        public virtual int GetBoardPage(long topicId, long boardId, int pageSize) {
             int count = ForumTopic.count( "Id>=" + topicId + " and ForumBoardId=" + boardId + " and " + TopicStatus.GetShowCondition() );
             return getPage( count, pageSize );
         }
 
-        public virtual int GetPostPage( int postId, int topicId, int pageSize ) {
+        public virtual int GetPostPage(long postId, long topicId, int pageSize) {
 
             int count = ForumPost.count( "Id<=" + postId + " and TopicId=" + topicId + " and " + TopicStatus.GetShowCondition() );
             return getPage( count, pageSize );
@@ -110,33 +110,33 @@ namespace wojilu.Apps.Forum.Service {
 
         }
 
-        public virtual List<ForumTopic> GetByApp( int appId, int count ) {
+        public virtual List<ForumTopic> GetByApp(long appId, int count) {
             return ForumTopic.find( "AppId=" + appId + " and " + TopicStatus.GetShowCondition() ).list( count );
         }
 
-        public virtual DataPage<ForumTopic> GetPageByApp( int appId, int pageSize ) {
+        public virtual DataPage<ForumTopic> GetPageByApp(long appId, int pageSize) {
             return ForumTopic.findPage( "AppId=" + appId + " and " + TopicStatus.GetShowCondition(), pageSize );
         }
 
-        public virtual DataPage<ForumTopic> GetByUserAndApp( int appId, int userId, int pageSize ) {
+        public virtual DataPage<ForumTopic> GetByUserAndApp(long appId, long userId, int pageSize) {
             if (userId <= 0 || appId <= 0) return DataPage<ForumTopic>.GetEmpty();
             return ForumTopic.findPage( "AppId=" + appId + " and CreatorId=" + userId + " and " + TopicStatus.GetShowCondition(), pageSize );
         }
 
-        public virtual DataPage<ForumTopic> GetByUser( int userId, int pageSize ) {
+        public virtual DataPage<ForumTopic> GetByUser(long userId, int pageSize) {
             if (userId <= 0) return DataPage<ForumTopic>.GetEmpty();
             return ForumTopic.findPage( "CreatorId=" + userId + " and OwnerType='" + typeof( Site ).FullName + "' and " + TopicStatus.GetShowCondition(), pageSize );
         }
 
-        public virtual DataPage<ForumTopic> GetPickedByApp( int appId, int pageSize ) {
+        public virtual DataPage<ForumTopic> GetPickedByApp(long appId, int pageSize) {
             return ForumTopic.findPage( "AppId=" + appId + " and IsPicked=1 and " + TopicStatus.GetShowCondition(), pageSize );
         }
 
-        public virtual List<ForumTopic> GetByAppAndReplies( int appId, int count ) {
+        public virtual List<ForumTopic> GetByAppAndReplies(long appId, int count) {
             return ForumTopic.find( "AppId=" + appId + " and " + TopicStatus.GetShowCondition() + " order by Replies desc, Id desc" ).list( count );
         }
 
-        public virtual List<ForumTopic> GetByAppAndReplies( int appId, int count, int days ) {
+        public virtual List<ForumTopic> GetByAppAndReplies(long appId, int count, int days) {
 
             EntityInfo ei = Entity.GetInfo( typeof( User ) );
 
@@ -148,12 +148,12 @@ namespace wojilu.Apps.Forum.Service {
             return ForumTopic.find( "AppId=" + appId + " and " + TopicStatus.GetShowCondition() + dc + " order by Replies desc, Id desc" ).list( count );
         }
 
-        public virtual List<ForumTopic> GetByAppAndViews( int appId, int count ) {
+        public virtual List<ForumTopic> GetByAppAndViews(long appId, int count) {
             return ForumTopic.find( "AppId=" + appId + " and " + TopicStatus.GetShowCondition() + " order by Hits desc, Id desc" ).list( count );
         }
 
 
-        public virtual DataPage<ForumTopic> GetDeletedPage( int appId ) {
+        public virtual DataPage<ForumTopic> GetDeletedPage(long appId) {
             return db.findPage<ForumTopic>( "AppId=" + appId + " and Status=" + TopicStatus.Delete );
         }
 
@@ -227,7 +227,7 @@ namespace wojilu.Apps.Forum.Service {
 
         //------------------------------------------------------------------------------------------------------
 
-        public virtual ForumPost GetPostByTopic( int topicId ) {
+        public virtual ForumPost GetPostByTopic(long topicId) {
             return db.find<ForumPost>( "TopicId=" + topicId + " and ParentId=0" ).first();
         }
 
@@ -245,11 +245,11 @@ namespace wojilu.Apps.Forum.Service {
 
         //------------------------------------------------------------------------------------------------------
 
-        public virtual List<ForumTopic> GetStickyList( int boardId ) {
+        public virtual List<ForumTopic> GetStickyList(long boardId) {
             return db.find<ForumTopic>( "ForumBoardId=" + boardId + " and Status=" + TopicStatus.Sticky + " order by OrderId desc, Id desc" ).list();
         }
 
-        public virtual List<ForumTopic> getSubstractStickyList( List<ForumTopic> globalStickyList, int boardId ) {
+        public virtual List<ForumTopic> getSubstractStickyList(List<ForumTopic> globalStickyList, long boardId) {
             List<ForumTopic> boardStickyList = GetStickyList( boardId );
             if (globalStickyList == null || globalStickyList.Count == 0) return boardStickyList;
 
@@ -261,7 +261,7 @@ namespace wojilu.Apps.Forum.Service {
             return results;
         }
 
-        public virtual List<ForumTopic> getMergedStickyList( List<ForumTopic> globalStickyList, int boardId, int page ) {
+        public virtual List<ForumTopic> getMergedStickyList(List<ForumTopic> globalStickyList, long boardId, int page) {
             List<ForumTopic> boardStickyList = page <= 1 ? GetStickyList( boardId ) : null;
             return mergeStickyList( globalStickyList, boardStickyList );
         }
@@ -285,14 +285,14 @@ namespace wojilu.Apps.Forum.Service {
             return false;
         }
 
-        public virtual void StickyMoveUp( int topicId ) {
+        public virtual void StickyMoveUp(long topicId) {
 
             ForumTopic topic = db.findById<ForumTopic>( topicId );
             List<ForumTopic> stickyList = GetStickyList( topic.ForumBoard.Id );
             new SortUtil<ForumTopic>( topic, stickyList ).MoveUp();
         }
 
-        public virtual void StickyMoveDown( int topicId ) {
+        public virtual void StickyMoveDown(long topicId) {
 
             ForumTopic topic = db.findById<ForumTopic>( topicId );
             List<ForumTopic> stickyList = GetStickyList( topic.ForumBoard.Id );
@@ -301,17 +301,17 @@ namespace wojilu.Apps.Forum.Service {
 
         //--------------------------------------------------------------------------------
 
-        public virtual DataPage<ForumTopic> FindPickedPage( int boardId, int pageSize ) {
+        public virtual DataPage<ForumTopic> FindPickedPage(long boardId, int pageSize) {
             return db.findPage<ForumTopic>( getCondition( boardId ) + " and IsPicked=1 order by Replied desc, Id desc", pageSize );
         }
 
-        public virtual DataPage<ForumTopic> FindPollPage( int boardId, int pageSize ) {
+        public virtual DataPage<ForumTopic> FindPollPage(long boardId, int pageSize) {
             String pollTypeName = typeof( ForumPoll ).FullName;
             return db.findPage<ForumTopic>( getCondition( boardId ) + " and TypeName='" + pollTypeName + "' order by Replied desc, Id desc", pageSize );
         }
 
 
-        public virtual DataPage<ForumTopic> FindTopicPage( int boardId, int pageSize, int categoryId, String sort, String time ) {
+        public virtual DataPage<ForumTopic> FindTopicPage(long boardId, int pageSize, long categoryId, string sort, string time) {
 
             String condition = getCondition( boardId );
 
@@ -358,14 +358,14 @@ namespace wojilu.Apps.Forum.Service {
             return t;
         }
 
-        private String getCondition( int boardId ) {
+        private string getCondition(long boardId) {
             return string.Format( "ForumBoardId={0} and Status={1}", boardId, TopicStatus.Normal );
         }
 
         //--------------------------------------------------------------------------------
 
 
-        public virtual int CountReply( int topicId ) {
+        public virtual int CountReply(long topicId) {
             return ForumPost.find( "TopicId=" + topicId + " and Status<>" + TopicStatus.Delete ).count() - 1;
         }
 
@@ -375,7 +375,7 @@ namespace wojilu.Apps.Forum.Service {
             return saveToDb( topic, user, app );
         }
 
-        public virtual Result CreateTopicOther( int forumId, String title, String content, Type dataType, User user, IMember owner, IApp app ) {
+        public virtual Result CreateTopicOther(long forumId, string title, string content, Type dataType, User user, IMember owner, IApp app) {
             ForumTopic topic = new ForumTopic();
             topic.ForumBoard = new ForumBoard( forumId );
             topic.Title = title;
@@ -407,7 +407,7 @@ namespace wojilu.Apps.Forum.Service {
             return post;
         }
 
-        private static void populateData( ForumTopic topic, User user, IMember owner, int appId ) {
+        private static void populateData(ForumTopic topic, User user, IMember owner, long appId) {
             topic.AppId = appId;
             topic.Creator = user;
             topic.CreatorUrl = user.Url;
@@ -587,7 +587,7 @@ namespace wojilu.Apps.Forum.Service {
 
 
             // 作者的帖子数
-            int creatorId = topic.Creator.Id;
+            long creatorId = topic.Creator.Id;
             userService.DeletePostCount( creatorId );
 
             // 帖子本身和tag
@@ -603,7 +603,7 @@ namespace wojilu.Apps.Forum.Service {
             }
 
             // 相关的附件
-            int postId = postByTopic.Id;
+            long postId = postByTopic.Id;
             AttachmentService.DeleteByPost( postId );
 
             // 更新板块的统计
@@ -668,7 +668,7 @@ namespace wojilu.Apps.Forum.Service {
             }
         }
 
-        public virtual void DeletePostCount( int topicId, IMember owner ) {
+        public virtual void DeletePostCount(long topicId, IMember owner) {
             ForumTopic topic = GetById( topicId, owner );
             topic.Replies--;
             db.update( topic );
@@ -769,7 +769,7 @@ namespace wojilu.Apps.Forum.Service {
             makeLog( av );
         }
 
-        public virtual void MakeMove( int targetForumId, AdminValue av ) {
+        public virtual void MakeMove(long targetForumId, AdminValue av) {
 
             av.ActionId = ForumLogAction.MoveTopic;
 
@@ -861,14 +861,14 @@ namespace wojilu.Apps.Forum.Service {
 
         //--------------------------------------- income -----------------------------------------
 
-        public virtual void AddAuthorIncome( String condition, int actionId, String actionName ) {
+        public virtual void AddAuthorIncome(string condition, long actionId, string actionName) {
             List<ForumTopic> topics = db.find<ForumTopic>( condition ).list();
             foreach (ForumTopic topic in topics) {
                 String msg = string.Format( "帖子被{0} <a href=\"{1}\">{2}</a>", actionName, alink.ToAppData( topic ), topic.Title ); incomeService.AddIncome( topic.Creator, actionId, msg );
             }
         }
 
-        public virtual void SubstractAuthorIncome( String condition, int actionId, String actionName ) {
+        public virtual void SubstractAuthorIncome(string condition, long actionId, string actionName) {
             List<ForumTopic> topics = db.find<ForumTopic>( condition ).list();
             foreach (ForumTopic topic in topics) {
                 String msg = string.Format( "帖子被{0} <a href=\"{1}\">{2}</a>", actionName, alink.ToAppData( topic ), topic.Title );
@@ -892,7 +892,7 @@ namespace wojilu.Apps.Forum.Service {
 
         //--------------------------------------------------------------------------------
 
-        public virtual DataPage<ForumTopic> Search( int appId, string key, int pageSize ) {
+        public virtual DataPage<ForumTopic> Search(long appId, string key, int pageSize) {
             if (strUtil.IsNullOrEmpty( key )) return DataPage<ForumTopic>.GetEmpty();
             String q = strUtil.SqlClean( key, 10 );
             return ForumTopic.findPage( "AppId=" + appId + " and Title like '%" + q + "%' and " + TopicStatus.GetShowCondition(), pageSize );

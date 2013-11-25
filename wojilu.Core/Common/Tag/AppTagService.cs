@@ -25,7 +25,7 @@ namespace wojilu.Common.Tags {
         /// <param name="tagString"></param>
         /// <param name="userId"></param>
         /// <returns></returns>
-        public static Boolean Insert( IApp app, String tagString, int userId ) {
+        public static bool Insert(IApp app, string tagString, long userId) {
             Result result = new Result();
             if (strUtil.IsNullOrEmpty( tagString )) {
                 return false;
@@ -37,7 +37,7 @@ namespace wojilu.Common.Tags {
             return true;
         }
 
-        private static Tag getTag( String strTag, int userId ) {
+        private static Tag getTag(string strTag, long userId) {
             Tag tag = TagService.GetTag( strTag );
             if (tag == null) {
                 tag = new Tag();

@@ -59,7 +59,7 @@ namespace wojilu.Apps.Forum.Domain {
         }
 
         public void addNotification( String creator, String creatorLink ) {
-            int receiverId = this.post.Creator.Id;
+            long receiverId = this.post.Creator.Id;
 
             String shareYourInfo = alang.get( typeof( ForumApp ), "shareYourInfo" );
             String strCreator = "<a href=\"" + creatorLink + "\">" + creator + "</a>";

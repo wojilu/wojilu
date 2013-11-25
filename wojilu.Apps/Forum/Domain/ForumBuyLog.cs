@@ -6,9 +6,9 @@ namespace wojilu.Apps.Forum.Domain {
 
     public class ForumBuyLog : ObjectBase<ForumBuyLog> {
 
-        public int UserId { get; set; }
+        public long UserId { get; set; }
 
-        public int TopicId { get; set; }
+        public long TopicId { get; set; }
 
         public DateTime Created { get; set; }
 

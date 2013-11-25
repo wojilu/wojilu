@@ -10,23 +10,23 @@ namespace wojilu.Apps.Reader.Interface {
 
     public interface ISubscriptionService {
 
-        List<Subscription> GetByApp( int appId );
-        List<Subscription> GetByCategoryId( List<Subscription> subscriptionList, int categoryId );
-        List<Subscription> GetByCategoryId( int categoryId );
+        List<Subscription> GetByApp(long appId);
+        List<Subscription> GetByCategoryId(List<Subscription> subscriptionList, long categoryId);
+        List<Subscription> GetByCategoryId(long categoryId);
 
 
-        Subscription GetByFeedAndUser( int feedId, int ownerId );
+        Subscription GetByFeedAndUser(long feedId, long ownerId);
 
-        String GetFeedIdsByAppId( int appId );
-        String GetFeedIdsByCategoryId( int categoryId );
+        string GetFeedIdsByAppId(long appId);
+        string GetFeedIdsByCategoryId(long categoryId);
 
         List<FeedSource> GetFeeds( List<Subscription> subscriptionList );
 
 
 
-        DataPage<Subscription> GetPage( int feedId );
+        DataPage<Subscription> GetPage(long feedId);
 
-        Subscription GetById( int id );
+        Subscription GetById(long id);
 
         void Update( Subscription subscription );
 

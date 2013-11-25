@@ -32,7 +32,7 @@ namespace wojilu.Common.Polls.Domain {
         [NotNull( Lang = "exTitle" )]
         public String Title { get; set; }
 
-        public int TopicId { get; set; }
+        public long TopicId { get; set; }
 
         [LongText]
         public String Question { get; set; }

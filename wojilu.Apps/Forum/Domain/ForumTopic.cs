@@ -22,11 +22,11 @@ namespace wojilu.Apps.Forum.Domain {
         public User Creator { get; set; }
         public String CreatorUrl { get; set; }
 
-        public int OwnerId { get; set; }
+        public long OwnerId { get; set; }
         public String OwnerType { get; set; }
         public String OwnerUrl { get; set; }
 
-        public int AppId { get; set; }
+        public long AppId { get; set; }
         public ForumBoard ForumBoard { get; set; }
         public ForumCategory Category { get; set; }
 

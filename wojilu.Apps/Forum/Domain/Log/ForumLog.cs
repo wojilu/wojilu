@@ -12,21 +12,21 @@ namespace wojilu.Apps.Forum.Domain {
     [Serializable]
     public class ForumLog : ObjectBase<ForumLog> {
 
-        public int UserId { get; set; }
+        public long UserId { get; set; }
 
         public String UserName { get; set; }
 
         public String UserUrl { get; set; }
 
-        public int ActionId { get; set; }
+        public long ActionId { get; set; }
 
-        public int AppId { get; set; }
+        public long AppId { get; set; }
 
         public String Msg { get; set; }
 
-        public int PostId { get; set; }
+        public long PostId { get; set; }
 
-        public int TopicId { get; set; }
+        public long TopicId { get; set; }
 
         public DateTime Created { get; set; }
 

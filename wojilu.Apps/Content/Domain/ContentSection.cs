@@ -15,7 +15,7 @@ namespace wojilu.Apps.Content.Domain {
 
         public static readonly int DefaultPostCount = 10;
 
-        public int AppId { get; set; }
+        public long AppId { get; set; }
         public int OrderId { get; set; }
 
         public int RowId { get; set; }
@@ -52,8 +52,8 @@ namespace wojilu.Apps.Content.Domain {
         public String SectionType { get; set; }
 
 
-        public int ServiceId { get; set; } // 调用哪个服务对象
-        public int TemplateId { get; set; } // 数据源对应的模板
+        public long ServiceId { get; set; } // 调用哪个服务对象
+        public long TemplateId { get; set; } // 数据源对应的模板
 
         /// <summary>
         /// 需要给服务对象传递的参数(序列化的原始字符串，从0开始) 

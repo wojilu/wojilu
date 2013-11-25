@@ -59,7 +59,7 @@ namespace wojilu.Apps.Blog.Domain {
         }
 
         public void addNotification( String creator, String creatorLink ) {
-            int receiverId = this.post.OwnerId;
+            long receiverId = this.post.OwnerId;
 
             //String msg = "<a href=\"" + creatorLink + "\">" + creator + "</a> 分享了你的日志 <a href=\"" + alink.ToAppData( post ) + "\">" + post.Title + "</a>";
 

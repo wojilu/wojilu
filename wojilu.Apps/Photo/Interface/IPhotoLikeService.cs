@@ -6,11 +6,11 @@ namespace wojilu.Apps.Photo.Interface {
 
     public interface IPhotoLikeService {
 
-        bool IsLiked( int userId, int id );
+        bool IsLiked(long userId, long id);
 
-        PhotoLike GetOne( int userId, int postId );
+        PhotoLike GetOne(long userId, long postId);
 
-        DataPage<PhotoPost> GetByUser( int userId, int pageSize );
+        DataPage<PhotoPost> GetByUser(long userId, int pageSize);
 
         void Like( User user, PhotoPost post );
         void UnLike( User user, PhotoPost post );

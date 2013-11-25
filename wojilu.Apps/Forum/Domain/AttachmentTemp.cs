@@ -17,7 +17,7 @@ namespace wojilu.Apps.Forum.Domain {
     [Serializable]
     public class AttachmentJson {
 
-        public int Id { get; set; }
+        public long Id { get; set; }
         public String Name { get; set; }
         public String Description { get; set; }
         public String Type { get; set; }
@@ -65,12 +65,12 @@ namespace wojilu.Apps.Forum.Domain {
         }
 
 
-        public int AppId { get; set; }
+        public long AppId { get; set; }
 
         [Column( Name = "FileGuid", Length = 40 )]
         public String Guid { get; set; }
 
-        public int OwnerId { get; set; }
+        public long OwnerId { get; set; }
         public String OwnerType { get; set; }
         public String OwnerUrl { get; set; }
 

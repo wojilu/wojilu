@@ -102,7 +102,7 @@ namespace wojilu.Apps.Forum.Sync {
             x.insert();
         }
 
-        private int getFeedId( ForumTopic topic ) {
+        private long getFeedId(ForumTopic topic) {
 
             Microblog mblog = Microblog.find( "DataId=:id and DataType=:dtype" )
                     .set( "id", topic.Id )

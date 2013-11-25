@@ -28,7 +28,7 @@ namespace wojilu.Apps.Forum.Domain {
         public static readonly int GlobalSticky = 16;
         public static readonly int GlobalUnSticky = 17;
 
-        public static String GetLable( int actionId ) {
+        public static string GetLable(long actionId) {
 
 
             if (actionId == 1) return get( "logSticky" );

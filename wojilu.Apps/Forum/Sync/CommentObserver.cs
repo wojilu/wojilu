@@ -88,7 +88,7 @@ namespace wojilu.Apps.Forum.Sync {
             objSync.insert();
         }
 
-        private int getParentId( OpenComment comment, ForumTopic topic ) {
+        private long getParentId(OpenComment comment, ForumTopic topic) {
 
             ForumPost post = postService.GetPostByTopic( topic.Id );
 

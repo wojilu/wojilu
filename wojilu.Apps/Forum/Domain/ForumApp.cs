@@ -26,7 +26,7 @@ namespace wojilu.Apps.Forum.Domain {
         }
 
 
-        public int OwnerId { get; set; }
+        public long OwnerId { get; set; }
         public String OwnerType { get; set; }
         public String OwnerUrl { get; set; }
 

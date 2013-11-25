@@ -68,7 +68,7 @@ namespace wojilu.Apps.Photo.Domain {
         }
 
         public void addNotification( String creator, String creatorLink ) {
-            int receiverId = this.post.OwnerId;
+            long receiverId = this.post.OwnerId;
             String msg = "<a href=\"" + creatorLink + "\">" + creator + "</a> " + alang.get( typeof(PhotoApp), "shareYourPhoto" ) + " <a href=\"" + alink.ToAppData( post ) + "\">" + post.Title + "</a>";
 
             new NotificationService().send( receiverId, post.OwnerType, msg, NotificationType.Share );

@@ -10,25 +10,25 @@ namespace wojilu.Apps.Content.Interface {
 
     public interface IContentSectionService {
 
-        ContentSection GetById( int sectionId );
-        ContentSection GetById( int id, int appId );
+        ContentSection GetById(long sectionId);
+        ContentSection GetById(long id, long appId);
 
-        List<ContentSection> GetByApp( int appId );
-        List<ContentSection> GetInputSectionsByApp( int appId );
+        List<ContentSection> GetByApp(long appId);
+        List<ContentSection> GetInputSectionsByApp(long appId);
         List<ContentSection> GetByRowColumn( List<ContentSection> list, int rowId, int columnId );
 
         void Insert( ContentSection section );
         void Update( ContentSection section );
         void Delete( ContentSection section );
 
-        int Count( int appId, int rowId );
+        int Count(long appId, int rowId);
 
         List<ContentSection> GetForCombine( ContentSection section );
-        void CombineSections( int sectionId, int targetSectionId );
-        void RemoveSection( int sectionId, int fromSectionId );
+        void CombineSections(long sectionId, long targetSectionId);
+        void RemoveSection(long sectionId, long fromSectionId);
 
 
-        String GetSectionIdsByPost( int postId );
+        string GetSectionIdsByPost(long postId);
 
     }
 

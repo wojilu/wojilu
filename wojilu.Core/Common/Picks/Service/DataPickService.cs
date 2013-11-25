@@ -19,7 +19,7 @@ namespace wojilu.Common.Picks {
     public class DataPickService<TData, TPick> where TData : IAppData where TPick : DataPickBase, new() {
 
         // 返回所有经过“编辑、删除、固定”的帖子
-        public List<MergedData> GetAll( IList allTopicList, int appId ) {
+        public List<MergedData> GetAll(IList allTopicList, long appId) {
 
             List<TData> allTopics = allTopicList as List<TData>;
 
@@ -122,12 +122,12 @@ namespace wojilu.Common.Picks {
 
         //------------------------------固定-------------------------------------
 
-        public String GetIndexIds( int appId ) {
+        public string GetIndexIds(long appId) {
             String condition = "IsPin=1";
             return db.find<TPick>( addAppId( condition, appId ) ).get( "PinIndex" );
         }
 
-        public String GetIndexIds( int appId, int index ) {
+        public string GetIndexIds(long appId, int index) {
             String condition = "IsPin=1 and PinIndex<>" + index;
             return db.find<TPick>( addAppId( condition, appId ) ).get( "PinIndex" );
         }
@@ -200,7 +200,7 @@ namespace wojilu.Common.Picks {
 
         //------------------------------编辑-------------------------------------
 
-        public void EditTopic( int appId, int topicId, String title, String link, String summary ) {
+        public void EditTopic(long appId, long topicId, string title, string link, string summary) {
 
             TPick x = GetEditTopic( appId, topicId );
 
@@ -252,7 +252,7 @@ namespace wojilu.Common.Picks {
         }
 
 
-        public TPick GetEditTopic(long appId, int topicId) {
+        public TPick GetEditTopic(long appId, long topicId) {
 
             String condition = "  IsEdit=1 and EditId=" + topicId;
 

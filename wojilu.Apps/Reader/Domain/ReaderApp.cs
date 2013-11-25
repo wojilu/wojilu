@@ -13,7 +13,7 @@ namespace wojilu.Apps.Reader.Domain {
     [Serializable]
     public class ReaderApp : ObjectBase<ReaderApp>, IApp, IAccessStatus, IHits {
 
-        public int OwnerId { get; set; }
+        public long OwnerId { get; set; }
         public String OwnerUrl { get; set; }
         public String OwnerType { get; set; }
 

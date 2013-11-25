@@ -11,7 +11,7 @@ namespace wojilu.Common.Comments {
     // 在子评论中回复某人：1)@xxx人  2)增加atId 3)增加atContent
 
     public class CommentDto {
-        public int Id { get; set; }
+        public long Id { get; set; }
         public String UserName { get; set; }
         public String UserFace { get; set; }
         public String AuthorText { get; set; }
@@ -38,32 +38,32 @@ namespace wojilu.Common.Comments {
 
         // 筛选加载的过滤标准
         public String TargetDataType { get; set; }
-        public int TargetDataId { get; set; }
+        public long TargetDataId { get; set; }
 
         public String TargetTitle { get; set; }
-        public int TargetUserId { get; set; }
+        public long TargetUserId { get; set; }
 
         /// <summary>
         /// 评论所属的 owner，和 appId 一起，供查询、筛选用
         /// </summary>
-        public int OwnerId { get; set; }
+        public long OwnerId { get; set; }
 
         /// <summary>
         /// target所属App的Id。可以将replies同步到此App的所有Replies中
         /// </summary>
-        public int AppId { get; set; }
+        public long AppId { get; set; }
 
         /// <summary>
         /// 所属的微博Id，可以将replies同步到微博的replies
         /// </summary>
-        public int FeedId { get; set; }
+        public long FeedId { get; set; }
 
         /// <summary>
         /// 在targetData下面直接回复的，parentId=0；如果是点击某个评论后面的“回复”，则parentId>0
         /// </summary>
-        public int ParentId { get; set; }
+        public long ParentId { get; set; }
 
-        public int AtId { get; set; } // 被at的评论，不是被at的作者
+        public long AtId { get; set; } // 被at的评论，不是被at的作者
 
         public User Member { get; set; }
 

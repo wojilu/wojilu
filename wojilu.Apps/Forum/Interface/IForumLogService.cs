@@ -10,15 +10,15 @@ namespace wojilu.Apps.Forum.Interface {
 
     public interface IForumLogService {
 
-        void Add( User user, int appId, String msg, String ip );
-        Result AddPost( User user, int appId, int postId, int actionId, String ip );
-        Result AddTopic( User user, int appId, int topicId, int actionId, String reason, String ip );
+        void Add(User user, long appId, string msg, string ip);
+        Result AddPost(User user, long appId, long postId, long actionId, string ip);
+        Result AddTopic(User user, long appId, long topicId, long actionId, string reason, string ip);
 
-        DataPage<ForumLog> FindPage( int appId );
-        ForumLog GetByDeletedPostId( int postId );
-        ForumLog GetByDeletedTopicId( int topicId );
+        DataPage<ForumLog> FindPage(long appId);
+        ForumLog GetByDeletedPostId(long postId);
+        ForumLog GetByDeletedTopicId(long topicId);
 
-        Result AddTopic( User user, int appId, int topicId, int actionId, String ip );
+        Result AddTopic(User user, long appId, long topicId, long actionId, string ip);
     }
 
 }

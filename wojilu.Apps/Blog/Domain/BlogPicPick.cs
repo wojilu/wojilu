@@ -8,7 +8,7 @@ namespace wojilu.Apps.Blog.Domain {
 
     public class BlogPicPick : ObjectBase<BlogPicPick> {
 
-        public int FileId { get; set; }
+        public long FileId { get; set; }
 
         public BlogPost BlogPost { get; set; }
 

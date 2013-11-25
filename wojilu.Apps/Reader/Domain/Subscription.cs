@@ -20,7 +20,7 @@ namespace wojilu.Apps.Reader.Domain {
 
         public User User { get; set; }
         public int OrderId { get; set; }
-        public int AppId { get; set; }
+        public long AppId { get; set; }
 
         [CacheCount( "UserCount" )]
         public FeedSource FeedSource { get; set; }

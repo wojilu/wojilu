@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using wojilu.Apps.Photo.Domain;
 using wojilu.Members.Users.Interface;
 using wojilu.Common;
+using wojilu.Web.Context;
 
 namespace wojilu.Apps.Photo.Interface {
 
@@ -17,44 +18,44 @@ namespace wojilu.Apps.Photo.Interface {
 
         void AddtHits( PhotoPost post );
 
-        PhotoPost GetById( int id, int ownerId );
-        PhotoPost GetById_Admin( int id );
+        PhotoPost GetById(long id, long ownerId);
+        PhotoPost GetById_Admin(long id);
 
-        int GetCountByUser( int userId );
+        int GetCountByUser(long userId);
         PhotoPost GetFirst( PhotoPost post );
-        List<IBinderValue> GetMyNew( int count, int userId );
+        List<IBinderValue> GetMyNew(int count, long userId);
         PhotoPost GetNext( PhotoPost post );
         PhotoPost GetPre( PhotoPost post );
 
-        List<PhotoPost> GetByAlbum( int albumId, int count );
-        List<PhotoPost> GetNew( int userId, int count );
+        List<PhotoPost> GetByAlbum(long albumId, int count);
+        List<PhotoPost> GetNew(long userId, int count);
         List<PhotoPost> GetNew( int count );
 
-        DataPage<PhotoPost> GetFriendsPhoto( int userId, int friendId );
-        DataPage<PhotoPost> GetSingle( int ownerId, int id );
-        DataPage<PhotoPost> GetPostPage( int ownerId, int appId, int pageSize );
-        DataPage<PhotoPost> GetPostPageByAlbum( int ownerId, int appId, int albumId, int pageSize );
-        DataPage<PhotoPost> GetByUser( int userId, int pageSize );
-        DataPage<PhotoPost> GetFollowing( int userId, int pageSize );
+        DataPage<PhotoPost> GetFriendsPhoto(long userId, long friendId);
+        DataPage<PhotoPost> GetSingle(long ownerId, long id);
+        DataPage<PhotoPost> GetPostPage(long ownerId, long appId, int pageSize);
+        DataPage<PhotoPost> GetPostPageByAlbum(long ownerId, long appId, long albumId, int pageSize);
+        DataPage<PhotoPost> GetByUser(long userId, int pageSize);
+        DataPage<PhotoPost> GetFollowing(long userId, int pageSize);
 
-        DataPage<PhotoPost> GetShowByUser( int userId, int pageSize );
-        DataPage<PhotoPost> GetShowByUser( int userId, int categoryId, int pageSize );
+        DataPage<PhotoPost> GetShowByUser(long userId, int pageSize);
+        DataPage<PhotoPost> GetShowByUser(long userId, long categoryId, int pageSize);
 
-        Result CreatePost( Result uploadResult, String photoName, int albumId, wojilu.Web.Context.MvcContext ctx );
+        Result CreatePost(Result uploadResult, string photoName, long albumId, MvcContext ctx);
         Result CreatePost( PhotoPost post, PhotoApp app );
 
         Result Update( PhotoPost post );
-        void UpdateAlbum( int categoryId, String ids, int ownerId, int appId );
+        void UpdateAlbum(long categoryId, string ids, long ownerId, long appId);
 
 
-        void DeleteTrue( String ids, int ownerId );
+        void DeleteTrue(string ids, long ownerId);
         Boolean CanDeleteImg( PhotoPost post );
         void DeletePosts( String ids, List<PhotoPost> list );
 
         void CreatePostTemp( PhotoPost post );
 
 
-        Boolean IsPin( int userId, PhotoPost x );
+        bool IsPin(long userId, PhotoPost x);
         void SavePin( PhotoPost x, PhotoPost postedPhoto, String tagList );
 
         String GetFeedMsg( List<PhotoPost> imgs );

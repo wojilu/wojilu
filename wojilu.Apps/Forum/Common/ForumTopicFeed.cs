@@ -60,7 +60,7 @@ namespace wojilu.Apps.Forum.Domain {
         }
 
         public void addNotification( String creator, String creatorLink ) {
-            int receiverId = this.topic.Creator.Id;
+            long receiverId = this.topic.Creator.Id;
 
             //String msg = "<a href=\"" + creatorLink + "\">" + creator + "</a> 分享了你的帖子 <a href=\"" + alink.ToAppData( topic ) + "\">" + topic.Title + "</a>";
             String shareYourInfo = alang.get( typeof( ForumApp ), "shareYourInfo" );

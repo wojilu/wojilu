@@ -10,7 +10,7 @@ namespace wojilu.Apps.Forum.Domain {
         public String CreatorName { get; set; }
         public String CreatorUrl { get; set; }
 
-        public int PostId { get; set; }
+        public long PostId { get; set; }
         public String PostTitle { get; set; }
         public String PostType { get; set; }
 
