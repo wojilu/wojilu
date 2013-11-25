@@ -45,7 +45,7 @@ namespace wojilu.Web.Controller.Admin.Apps.Photo {
             bindList( "categories", "c", categories, bindCatLink );
         }
 
-        private void bindCatLink( IBlock tpl, int id ) {
+        private void bindCatLink( IBlock tpl, long id ) {
             tpl.Set( "c.LinkCategory", to( new MainController().Index, id ) );
         }
 

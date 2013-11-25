@@ -33,6 +33,6 @@ namespace wojilu.Web {
     /// </summary>
     /// <param name="tpl"></param>
     /// <param name="id"></param>
-    public delegate void bindFunction( IBlock tpl, int id );
+    public delegate void bindFunction( IBlock tpl, long id );
 
 }

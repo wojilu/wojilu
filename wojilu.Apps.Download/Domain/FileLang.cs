@@ -33,11 +33,11 @@ namespace wojilu.Apps.Download.Domain {
             return list;
         }
 
-        public static FileLang GetById( int id ) {
+        public static FileLang GetById( long id ) {
             return cdb.findById<FileLang>( id );
         }
 
-        public static String GetName( int id ) {
+        public static String GetName( long id ) {
             return cdb.findById<FileLang>( id ).Name;
         }
 

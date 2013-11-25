@@ -38,7 +38,7 @@ namespace wojilu.Web.Controller.Admin.Sys {
             bindList( "list", "d", list, bindLink );
         }
 
-        private void bindLink( IBlock tpl, int id ) {
+        private void bindLink( IBlock tpl, long id ) {
             tpl.Set( "d.PageLink", to( new PageController().List, id ) );
             tpl.Set( "d.LinkEdit", to( Edit, id ) );
             tpl.Set( "d.LinkDelete", to( Delete, id ) );

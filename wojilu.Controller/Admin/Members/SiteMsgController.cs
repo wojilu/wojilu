@@ -34,7 +34,7 @@ namespace wojilu.Web.Controller.Admin.Members {
             set( "page", list.PageBar );
         }
 
-        protected void editCmd( IBlock tpl, int id ) {
+        protected void editCmd( IBlock tpl, long id ) {
             tpl.Set( "msg.EditLink", to( Edit, id ) );
             tpl.Set( "msg.DeleteLink", to( Delete, id ) );
         }

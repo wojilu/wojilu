@@ -11,16 +11,16 @@ using wojilu.Common.AppBase;
 namespace wojilu.Apps.Download.Domain {
 
     public class ViewCat {
-        public int Id { get; set; }
+        public long Id { get; set; }
         public String Name { get; set; }
-        public int ParentId { get; set; }
+        public long ParentId { get; set; }
     }
 
 
 
     public class FileCategory : CacheObject, ISort, IComparable {
 
-        public int ParentId { get; set; }
+        public long ParentId { get; set; }
 
         public int OrderId { get; set; }
 
@@ -49,7 +49,7 @@ namespace wojilu.Apps.Download.Domain {
 
         //-----------------------------------------------------------------------------------
 
-        public static FileCategory GetById( int id ) {
+        public static FileCategory GetById( long id ) {
             return cdb.findById<FileCategory>( id );
         }
 
@@ -104,7 +104,7 @@ namespace wojilu.Apps.Download.Domain {
             return jsons;
         }
 
-        public static List<FileCategory> GetByParentId( int parentId ) {
+        public static List<FileCategory> GetByParentId( long parentId ) {
             List<FileCategory> list = GetAll();
 
             List<FileCategory> results = new List<FileCategory>();
@@ -116,16 +116,16 @@ namespace wojilu.Apps.Download.Domain {
         }
 
 
-        public static string GetName( int id ) {
+        public static string GetName( long id ) {
             return cdb.findById<FileCategory>( id ).Name;
         }
 
-        public static string GetParentName( int id ) {
+        public static string GetParentName( long id ) {
             FileCategory c = cdb.findById<FileCategory>( id );
             return cdb.findById<FileCategory>( c.ParentId ).Name;
         }
 
-        public static int GetParentId( int id ) {
+        public static long GetParentId( long id ) {
             FileCategory c = cdb.findById<FileCategory>( id );
             return c.ParentId;
         }

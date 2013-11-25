@@ -45,7 +45,7 @@ namespace wojilu.Web.Controller.Admin.Apps.Photo {
             set( "sortAction", to( SaveSort ) );
         }
 
-        private void bindLink( IBlock tpl, int id ) {
+        private void bindLink( IBlock tpl, long id ) {
             tpl.Set( "category.LinkEdit", to( Edit, id ) );
             tpl.Set( "category.LinkDelete", to( Delete, id ) );
         }

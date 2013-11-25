@@ -11,7 +11,7 @@ namespace wojilu.Web.Controller.Download {
     [App( typeof( DownloadApp ) )]
     public class FileItemController : ControllerBase {
 
-        public void Show( int id ) {
+        public void Show( long id ) {
             redirectDirect( to( new FileController().Show, id ) );
         }
 
@@ -21,7 +21,7 @@ namespace wojilu.Web.Controller.Download {
     [App( typeof( DownloadApp ) )]
     public class FileController : ControllerBase {
 
-        public void Show( int id ) {
+        public void Show( long id ) {
 
             FileItem f = FileItem.findById( id );
 
@@ -65,14 +65,14 @@ namespace wojilu.Web.Controller.Download {
 
         }
 
-        private void bindTopList( int categoryId ) {
+        private void bindTopList( long categoryId ) {
             List<FileItem> currentTops = FileItem.GetTops( categoryId );
             List<FileItem> allTops = FileItem.GetTops();
             bindList( "ctops", "data", currentTops, bindLink );
             bindList( "atops", "data", allTops, bindLink );
         }
 
-        private void bindLink( IBlock block, int id ) {
+        private void bindLink( IBlock block, long id ) {
             block.Set( "data.Link", to( Show, id ) );
         }
 
@@ -92,11 +92,11 @@ namespace wojilu.Web.Controller.Download {
         }
 
 
-        public void Download( int id ) {
+        public void Download( long id ) {
             FileItem f = FileItem.findById( id );
             FileItem.AddDownloads( f );
 
-            int urlno = ctx.GetLong( "url" );
+            long urlno = ctx.GetLong( "url" );
             if (urlno == 1 && strUtil.HasText( f.Url )) {
                 redirectUrl( f.Url );
             }

@@ -56,7 +56,7 @@ namespace wojilu.Web.Controller.Admin {
             set( "page", list.PageBar );
         }
 
-        private void bindLink( IBlock block, int id ) {
+        private void bindLink( IBlock block, long id ) {
             block.Set( "r.DeleteLink", to( ResourceDelete, id ) );
         }
 

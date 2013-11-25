@@ -14,7 +14,7 @@ namespace wojilu.Web.Controller.Download {
             return catLocation + " " + separator + " " + fileLink;
         }
 
-        public static String GetCategory( MvcContext ctx, int categoryId ) {
+        public static String GetCategory( MvcContext ctx, long categoryId ) {
 
             FileCategory cat = FileCategory.GetById( categoryId );
             if (cat.ParentId == 0) {
@@ -33,7 +33,7 @@ namespace wojilu.Web.Controller.Download {
 
         public static String GetSubCategories( MvcContext ctx, FileCategory c ) {
 
-            int rootId = c.Id;
+            long rootId = c.Id;
             if (c.ParentId > 0) rootId = c.ParentId;
 
             StringBuilder sb = new StringBuilder();

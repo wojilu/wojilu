@@ -26,7 +26,7 @@ namespace wojilu.Apps.Download.Domain {
 
         //---------------------------------------------------------------
 
-        public static Platform GetById( int id ) {
+        public static Platform GetById( long id ) {
             return cdb.findById<Platform>( id );
         }
 

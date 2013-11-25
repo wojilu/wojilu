@@ -23,7 +23,7 @@ namespace wojilu.Web.Controller.Download.Admin {
             bindList( "list", "data", list, bindLink );
         }
 
-        private void bindLink( IBlock block, int id ) {
+        private void bindLink( IBlock block, long id ) {
             block.Set( "data.LinkEdit", to( Edit, id ) );
             block.Set( "data.LinkDelete", to( Delete, id ) );
         }
@@ -31,7 +31,7 @@ namespace wojilu.Web.Controller.Download.Admin {
         [HttpPost]
         public virtual void SaveSort() {
 
-            int id = ctx.PostLong( "id" );
+            long id = ctx.PostLong( "id" );
             String cmd = ctx.Post( "cmd" );
 
             Platform data = Platform.GetById( id );
@@ -73,7 +73,7 @@ namespace wojilu.Web.Controller.Download.Admin {
             echoToParentPart( lang( "opok" ) );
         }
 
-        public void Edit( int id ) {
+        public void Edit( long id ) {
             target( Update, id );
 
             Platform pf = Platform.GetById( id );
@@ -81,7 +81,7 @@ namespace wojilu.Web.Controller.Download.Admin {
         }
 
         [HttpPost]
-        public void Update( int id ) {
+        public void Update( long id ) {
 
             string name = ctx.Post( "Name" );
             if (strUtil.IsNullOrEmpty( name )) {
@@ -97,7 +97,7 @@ namespace wojilu.Web.Controller.Download.Admin {
         }
 
         [HttpDelete]
-        public void Delete( int id ) {
+        public void Delete( long id ) {
 
             Platform f = Platform.GetById( id );
             if (f != null) {

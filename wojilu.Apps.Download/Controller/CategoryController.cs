@@ -11,7 +11,7 @@ namespace wojilu.Web.Controller.Download {
     [App( typeof( DownloadApp ) )]
     public class CategoryController : ControllerBase {
 
-        public void Show( int id ) {
+        public void Show( long id ) {
 
 
             FileCategory c = FileCategory.GetById( id );
@@ -45,7 +45,7 @@ namespace wojilu.Web.Controller.Download {
             set( "page", list.PageBar );
         }
 
-        private void bindLink( IBlock block, int id ) {
+        private void bindLink( IBlock block, long id ) {
             block.Set( "f.ShowLink", to( new FileController().Show, id ) );
         }
 

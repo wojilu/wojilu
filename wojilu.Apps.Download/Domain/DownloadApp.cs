@@ -7,7 +7,7 @@ namespace wojilu.Apps.Download.Domain {
 
     public class DownloadApp : ObjectBase<DownloadApp>, IApp {
 
-        public int OwnerId { get; set; }
+        public long OwnerId { get; set; }
         public String OwnerUrl { get; set; }
         public String OwnerType { get; set; }
 

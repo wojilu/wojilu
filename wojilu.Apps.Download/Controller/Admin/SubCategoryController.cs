@@ -46,7 +46,7 @@ namespace wojilu.Web.Controller.Download.Admin {
         }
 
 
-        public void ListSub( int id ) {
+        public void ListSub( long id ) {
             FileCategory cat = FileCategory.GetById( id );
             set( "cat.Name", cat.Name );
             set( "addLink", to( Add, id ) );
@@ -99,9 +99,9 @@ namespace wojilu.Web.Controller.Download.Admin {
 
 
         [HttpPost]
-        public virtual void SaveSort( int parentId ) {
+        public virtual void SaveSort( long parentId ) {
 
-            int id = ctx.PostLong( "id" );
+            long id = ctx.PostLong( "id" );
             String cmd = ctx.Post( "cmd" );
 
             FileCategory acategory = FileCategory.GetById( id );
@@ -127,7 +127,7 @@ namespace wojilu.Web.Controller.Download.Admin {
         //------------------------------------------------------------------------------------------------------
 
 
-        public void Add( int id ) {
+        public void Add( long id ) {
             target( Create );
 
             List<FileCategory> cats = FileCategory.GetRootList();
@@ -152,7 +152,7 @@ namespace wojilu.Web.Controller.Download.Admin {
         }
 
 
-        public void Edit( int id ) {
+        public void Edit( long id ) {
 
             FileCategory cat = FileCategory.GetById( id );
             bind( cat );
@@ -167,7 +167,7 @@ namespace wojilu.Web.Controller.Download.Admin {
         }
 
         [HttpPost]
-        public void Update( int id ) {
+        public void Update( long id ) {
             FileCategory c = FileCategory.GetById( id );
 
             FileCategory cat = ctx.PostValue( c ) as FileCategory;
@@ -184,7 +184,7 @@ namespace wojilu.Web.Controller.Download.Admin {
         }
 
         [HttpDelete]
-        public void Delete( int id ) {
+        public void Delete( long id ) {
             FileCategory f = FileCategory.GetById( id );
             if (f != null) {
                 f.delete();

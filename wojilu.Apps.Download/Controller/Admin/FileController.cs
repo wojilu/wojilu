@@ -24,7 +24,7 @@ namespace wojilu.Web.Controller.Download.Admin {
             set( "page", pages.PageBar );
         }
 
-        public void Category( int id ) {
+        public void Category( long id ) {
 
             FileCategory cat = FileCategory.GetById( id );
             if (cat.IsThumbView == 1) {
@@ -41,7 +41,7 @@ namespace wojilu.Web.Controller.Download.Admin {
             set( "page", pages.PageBar );
         }
 
-        private void bindLink( IBlock block, int id ) {
+        private void bindLink( IBlock block, long id ) {
             block.Set( "data.LinkEdit", to( Edit, id ) );
             block.Set( "data.LinkDelete", to( Delete, id ) );
             block.Set( "data.PreviewPicLink", to( new UploadController().PreviewPic, id ) );
@@ -119,7 +119,7 @@ namespace wojilu.Web.Controller.Download.Admin {
             redirect( List );
         }
 
-        public void Edit( int id ) {
+        public void Edit( long id ) {
 
             target( Update, id );
 
@@ -142,7 +142,7 @@ namespace wojilu.Web.Controller.Download.Admin {
         }
 
         [HttpPost, DbTransaction]
-        public void Update( int id ) {
+        public void Update( long id ) {
 
             FileItem f = FileItem.findById( id );
             f = ctx.PostValue( f ) as FileItem;
@@ -153,7 +153,7 @@ namespace wojilu.Web.Controller.Download.Admin {
         }
 
         [HttpDelete, DbTransaction]
-        public void Delete( int id ) {
+        public void Delete( long id ) {
             FileItem f = FileItem.findById( id );
             FileItem.DeleteFile( f );
             redirect( List );

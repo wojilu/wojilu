@@ -57,7 +57,7 @@ namespace wojilu.Web.Controller.Admin.Apps.Blog {
 
         }
 
-        private void bindLink( IBlock tpl, int id ) {
+        private void bindLink( IBlock tpl, long id ) {
             tpl.Set( "c.LinkCategory", to( new MainController().Index, id ) );
         }
 

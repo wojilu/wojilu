@@ -22,7 +22,7 @@ namespace wojilu.Web.Controller.Admin.Sys {
             return strUtil.Join( ctx.url.SiteUrl, to( new wojilu.Web.Controller.Common.PageController().Show, id ) );
         }
 
-        private void bindCategoryLink( IBlock tpl, int id ) {
+        private void bindCategoryLink( IBlock tpl, long id ) {
             tpl.Set( "data.LinkByCategory", to( List, id ) );
         }
 
