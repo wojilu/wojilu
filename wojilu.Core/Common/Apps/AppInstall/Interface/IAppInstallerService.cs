@@ -24,11 +24,11 @@ namespace wojilu.Common.AppInstall {
         IMemberApp Install( Type appType, IMember owner, User creator, String appName );
 
         List<AppInstaller> GetAll();
-        List<AppInstaller> GetByCategory( int categoryId );
+        List<AppInstaller> GetByCategory(long categoryId);
         List<AppInstaller> GetUserDataAdmin();
 
-        AppInstaller GetById( int id );
-        AppInstaller GetApprovedById( int id, Type ownerType );
+        AppInstaller GetById(long id);
+        AppInstaller GetApprovedById(long id, Type ownerType);
 
         List<AppInstaller> GetByOwnerType( Type ownerType );
         AppInstaller GetByType( Type appType );

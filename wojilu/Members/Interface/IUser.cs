@@ -27,7 +27,7 @@ namespace wojilu.Members.Interface {
 
         
         String Pwd { get; set; }
-        int RoleId { get; set; }
+        long RoleId { get; set; }
         String PicSmall { get; }
 
         String Email { get; set; }

@@ -151,7 +151,7 @@ namespace wojilu.Members.Users.Service {
         //----------------------------------------------------------------------
 
 
-        public virtual void DeletePostCount( int creatorId ) {
+        public virtual void DeletePostCount( long creatorId ) {
             if (creatorId <= 0) return;
             User user = GetById( creatorId );
             if (user == null) return;
@@ -383,7 +383,7 @@ namespace wojilu.Members.Users.Service {
         }
 
 
-        public virtual List<User> GetRankedToMakeFriends( int count, List<int> ids ) {
+        public virtual List<User> GetRankedToMakeFriends( int count, List<long> ids ) {
 
             List<User> results = new List<User>();
             List<User> list = db.find<User>( "status>=0 order by Credit desc, Hits desc, Id desc" ).list( count );
@@ -493,7 +493,7 @@ namespace wojilu.Members.Users.Service {
 
         private void addIncomeAndSendMsg( User user ) {
 
-            int actionId = UserAction.User_UpdateAvatar.Id;
+            long actionId = UserAction.User_UpdateAvatar.Id;
             KeyIncomeRule rule = currencyService.GetKeyIncomeRulesByAction( actionId );
 
             int creditValue = rule.Income;
@@ -512,7 +512,7 @@ namespace wojilu.Members.Users.Service {
 
         //-------------------------------------------------------------
 
-        public virtual User GetById( int id ) {
+        public virtual User GetById( long id ) {
             return User.findById( id );
         }
 
@@ -568,7 +568,7 @@ namespace wojilu.Members.Users.Service {
             return user != null;
         }
 
-        public virtual Boolean IsEmailExist( int userId, String email ) {
+        public virtual Boolean IsEmailExist( long userId, String email ) {
             if (strUtil.IsNullOrEmpty( email )) throw new ArgumentNullException( "email" );
             User user = User.find( "Email=:email and IsEmailConfirmed=" + EmailConfirm.Confirmed + " and Id<>" + userId ).set( "email", email ).first();
             return user != null;

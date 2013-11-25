@@ -27,7 +27,7 @@ namespace wojilu.Common.Security {
     /// </summary>
     public class RoleProxy : IRole {
 
-        public int Id { get; set; }
+        public long Id { get; set; }
         public String Name { get; set; }
         public IRole Role { get; set; }
 

@@ -274,7 +274,7 @@ namespace wojilu.Config {
         /// <summary>
         /// 网站当前皮肤的ID
         /// </summary>
-        public int SkinId { get; set; }
+        public long SkinId { get; set; }
 
         /// <summary>
         /// 用户密码是否采用16位的md5加密方式(默认为否，用于兼容旧的系统)

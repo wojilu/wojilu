@@ -18,11 +18,11 @@ namespace wojilu.Members.Users.Domain {
     [Serializable]
     public class UserApp : ObjectBase<UserApp>, IMemberApp {
 
-        public int OwnerId { get; set; }
+        public long OwnerId { get; set; }
         public String OwnerUrl { get; set; }
 
-        public int AppInfoId { get; set; }
-        public int AppOid { get; set; }
+        public long AppInfoId { get; set; }
+        public long AppOid { get; set; }
         public User Creator { get; set; }
         public String CreatorUrl { get; set; }
 

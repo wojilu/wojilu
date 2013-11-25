@@ -15,7 +15,7 @@ namespace wojilu.Common.Money.Domain {
     public class KeyIncomeRule : CacheObject {
 
 
-        public static KeyIncomeRule GetByAction( int actionId ) {
+        public static KeyIncomeRule GetByAction(long actionId) {
             List<KeyIncomeRule> list = cdb.findAll<KeyIncomeRule>();
             foreach (KeyIncomeRule rule in list) {
                 if (rule.ActionId == actionId) {
@@ -25,7 +25,7 @@ namespace wojilu.Common.Money.Domain {
             return null;
         }
 
-        public int ActionId { get; set; }
+        public long ActionId { get; set; }
 
         private String _actionName;
         [NotSave]

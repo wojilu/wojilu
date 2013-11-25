@@ -32,26 +32,26 @@ namespace wojilu.Members.Groups.Interface {
         List<Group> FindCreateGroups( User user, int count );
         List<Group> FindJoinedGroups( User user, int count );
 
-        List<Group> GetJoinedGroup( int userId, int count );
-        String GetJoinedGroupIds( int userId );
+        List<Group> GetJoinedGroup(long userId, int count);
+        string GetJoinedGroupIds(long userId);
 
-        List<Group> GetGroupByFriends( int userId, int count );
-        List<User> GetNewMember( int groupId, int count );
-        List<User> GetOfficer( int groupId );
-        GroupRole GetUserRole( User user, int groupId );
+        List<Group> GetGroupByFriends(long userId, int count);
+        List<User> GetNewMember(long groupId, int count);
+        List<User> GetOfficer(long groupId);
+        GroupRole GetUserRole(User user, long groupId);
 
-        DataPage<Group> GetGroupByUser( int userId );
-        DataPage<GroupUser> GetMembersAll( int gid );
-        DataPage<GroupUser> GetMembersAll( int groupId, int roleId );
-        DataPage<GroupUser> GetMembersApproved( int gid );
+        DataPage<Group> GetGroupByUser(long userId);
+        DataPage<GroupUser> GetMembersAll(long gid);
+        DataPage<GroupUser> GetMembersAll(long groupId, long roleId);
+        DataPage<GroupUser> GetMembersApproved(long gid);
 
-        Boolean IsGroupFounder( int userId, int groupId );
-        Boolean IsGroupMember( int userId, int groupId );
-        Boolean IsGroupOfficer( int userId, int groupId );
-        Boolean IsGroupApproving( int userId, int groupId );
+        bool IsGroupFounder(long userId, long groupId);
+        bool IsGroupMember(long userId, long groupId);
+        bool IsGroupOfficer(long userId, long groupId);
+        bool IsGroupApproving(long userId, long groupId);
 
 
-        int MemberStatus( User user, int groupId );
+        long MemberStatus(User user, long groupId);
 
         void DeleteUser( Group group, String userIds );
 

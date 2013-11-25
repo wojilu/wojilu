@@ -11,11 +11,11 @@ namespace wojilu.OAuth {
 
     public class UserConnectService : IUserConnectService {
 
-        public virtual UserConnect GetById( int id ) {
+        public virtual UserConnect GetById(long id) {
             return UserConnect.findById( id );
         }
 
-        public virtual bool HasBind( int userId, String typeFullName ) {
+        public virtual bool HasBind(long userId, string typeFullName) {
             UserConnect x = GetConnectInfo( userId, typeFullName );
             return x != null;
         }
@@ -60,7 +60,7 @@ namespace wojilu.OAuth {
             return x;
         }
 
-        public virtual UserConnect GetConnectInfo( int userId, String connectType ) {
+        public virtual UserConnect GetConnectInfo(long userId, string connectType) {
 
             return UserConnect.find( "UserId=:userId and ConnectType=:ctype" )
                 .set( "userId", userId )
@@ -68,7 +68,7 @@ namespace wojilu.OAuth {
                 .first();
         }
 
-        public virtual Result UnBind( int userId, String connectType ) {
+        public virtual Result UnBind(long userId, string connectType) {
 
             Result result = new Result();
             
@@ -116,7 +116,7 @@ namespace wojilu.OAuth {
                 .count() == 1;
         }
 
-        public virtual Result Sync( int userId, String connectType, int isSync ) {
+        public virtual Result Sync(long userId, string connectType, int isSync) {
 
             Result result = new Result();
 

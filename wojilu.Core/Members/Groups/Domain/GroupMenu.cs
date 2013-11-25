@@ -22,7 +22,7 @@ namespace wojilu.Members.Groups.Domain {
 
         public int OrderId { get; set; }
 
-        public int OwnerId { get; set; }
+        public long OwnerId { get; set; }
         public String OwnerUrl { get; set; }
 
         [NotSave]
@@ -31,7 +31,7 @@ namespace wojilu.Members.Groups.Domain {
             set { }
         }
 
-        public int ParentId { get; set; }
+        public long ParentId { get; set; }
 
         public String RawUrl { get; set; }
 

@@ -22,7 +22,7 @@ namespace wojilu.Members.Groups.Domain {
         public GroupCategory Category { get; set; }
 
         public User Creator { get; set; }
-        public int TemplateId { get; set; }
+        public long TemplateId { get; set; }
 
         public String Name { get; set; }
         public String Url { get; set; }

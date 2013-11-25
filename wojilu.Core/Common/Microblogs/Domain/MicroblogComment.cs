@@ -21,7 +21,7 @@ namespace wojilu.Common.Microblogs.Domain {
         [CacheCount( "Replies" )]
         public Microblog Root { get; set; }
 
-        public int ParentId { get; set; }
+        public long ParentId { get; set; }
 
         [LongText]
         public String Content { get; set; }

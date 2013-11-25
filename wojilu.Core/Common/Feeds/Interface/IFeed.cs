@@ -13,7 +13,7 @@ namespace wojilu.Common.Feeds.Interface {
 
     public interface IFeed {
 
-        int Id { get; set; }
+        long Id { get; set; }
 
         User Creator { get; set; }
         String DataType { get; set; }

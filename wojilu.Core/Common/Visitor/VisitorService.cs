@@ -27,7 +27,7 @@ namespace wojilu.Common.Visitors {
             this.visitor = v as IDataVisitor;
         }
 
-        public IDataVisitor Visit( int visitorId, IAppData target ) {
+        public IDataVisitor Visit( long visitorId, IAppData target ) {
 
             if (target.Creator.Id == visitorId) return null;
             if (hasVisit( visitorId, target.Id )) return null;
@@ -40,11 +40,11 @@ namespace wojilu.Common.Visitors {
             return visitor;
         }
 
-        private Boolean hasVisit( int visitorId, int targetId ) {
+        private Boolean hasVisit( long visitorId, long targetId ) {
             return ndb.count( thisType(), "VisitorId=" + visitorId + " and TargetId=" + targetId ) > 0;
         }
 
-        public List<IUser> GetRecent( int targetId, int count ) {
+        public List<IUser> GetRecent( long targetId, int count ) {
             IList visitorList = ndb.find( thisType(), "TargetId=" + targetId ).list( count );
             return populateUser( visitorList );
         }

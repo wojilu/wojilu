@@ -133,7 +133,7 @@ namespace wojilu.Data {
 
         //------------------------------------------------------------------------------
 
-        internal static CacheObject FindById( Type t, int id ) {
+        internal static CacheObject FindById( Type t, long id ) {
 
             IList list = GetObjectsByName( t );
             if (list.Count > 0) {
@@ -156,7 +156,7 @@ namespace wojilu.Data {
             IList results = new ArrayList();
             String[] arrItem = ids.Split( ',' );
             foreach (String strId in arrItem) {
-                int id = cvt.ToInt( strId );
+                long id = cvt.ToLong( strId );
                 if (id < 0) continue;
                 CacheObject obj = FindById( t, id );
                 if (obj != null) results.Add( obj );
@@ -280,7 +280,7 @@ namespace wojilu.Data {
             Serialize( t, list );
         }
 
-        private static int getNextId( IList list ) {
+        private static long getNextId( IList list ) {
             if (list.Count == 0) return 1;
             CacheObject preObject = list[list.Count - 1] as CacheObject;
             return preObject.Id + 1;
@@ -395,14 +395,14 @@ namespace wojilu.Data {
         }
 
         // TODO 优化
-        private static void deleteOldValueIdMap( NameValueCollection valueCollection, int oid ) {
+        private static void deleteOldValueIdMap( NameValueCollection valueCollection, long oid ) {
             foreach (String key in valueCollection.AllKeys) {
 
                 String val = valueCollection[key];
                 String[] arrItem = val.Split( ',' );
                 StringBuilder result = new StringBuilder();
                 foreach (String strId in arrItem) {
-                    int id = cvt.ToInt( strId );
+                    long id = cvt.ToLong( strId );
                     if (id == oid) continue;
                     result.Append( strId );
                     result.Append( "," );
@@ -438,13 +438,13 @@ namespace wojilu.Data {
         }
 
 
-        private static void addIdIndex( String typeFullName, int oid, int index ) {
+        private static void addIdIndex( String typeFullName, long oid, int index ) {
             String key = getIdIndexMapKey( typeFullName );
             IDictionary indexMap = GetIdIndexMap( key );
             indexMap[oid] = index;
             UpdateIdIndexMap( key, indexMap );
         }
-        private static void deleteIdIndex( String typeFullName, int oid ) {
+        private static void deleteIdIndex( String typeFullName, long oid ) {
 
             String key = getIdIndexMapKey( typeFullName );
 
@@ -459,7 +459,7 @@ namespace wojilu.Data {
             UpdateIdIndexMap( key, indexMap );
         }
 
-        private static int getIndex( String typeFullName, int oid ) {
+        private static int getIndex( String typeFullName, long oid ) {
             int result = -1;
             Object objIndex = GetIdIndexMap( getIdIndexMapKey( typeFullName ) )[oid];
             if (objIndex != null) {

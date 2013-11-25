@@ -10,7 +10,7 @@ namespace wojilu.Members.Groups.Interface {
 
         Result Invite( User inviter, string receiver, Group group, string msg, string inviteUrl );
 
-        DataPage<GroupInvite> GetPage( int groupId );
+        DataPage<GroupInvite> GetPage( long groupId );
 
         IMemberGroupService mgrService { get; set; }
         IMessageService msgService { get; set; }

@@ -12,7 +12,7 @@ namespace wojilu.Common.Tags {
     [Serializable]
     public class Tag : ObjectBase<Tag> {
 
-        public int CreatorId { get; set; }
+        public long CreatorId { get; set; }
 
         [Column( Length = 50 )]
         public String Name { get; set; }

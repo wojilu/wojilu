@@ -26,7 +26,7 @@ namespace wojilu.Web.Context {
     public interface IAppContext {
 
         Type getAppType();
-        int Id { get; set; }
+        long Id { get; set; }
 
         /// <summary>
         /// 当前 app 的名称

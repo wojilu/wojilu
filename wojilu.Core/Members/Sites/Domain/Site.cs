@@ -29,13 +29,13 @@ namespace wojilu.Members.Sites.Domain {
 
         public Site() { }
 
-        public int Id { get; set; }
+        public long Id { get; set; }
         public String Name {
             get { return config.Instance.Site.SiteName; }
             set { }
         }
         public String Url { get; set; }
-        public int TemplateId { get; set; }
+        public long TemplateId { get; set; }
 
 
         public IList Menus {

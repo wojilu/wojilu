@@ -23,7 +23,7 @@ namespace wojilu.Common.AppBase {
     /// 可排序对象接口
     /// </summary>
     public interface ISort {
-        int Id { get; set; }
+        long Id { get; set; }
         int OrderId { get; set; }
         void updateOrderId();
     }
@@ -60,7 +60,7 @@ namespace wojilu.Common.AppBase {
         /// </summary>
         public void MoveUp() {
 
-            int dataId = data.Id;
+            long dataId = data.Id;
 
             for (int i = 0; i < list.Count; i++) {
 
@@ -90,7 +90,7 @@ namespace wojilu.Common.AppBase {
         /// </summary>
         public void MoveDown() {
 
-            int dataId = data.Id;
+            long dataId = data.Id;
 
             for (int i = 0; i < list.Count; i++) {
 
@@ -116,13 +116,13 @@ namespace wojilu.Common.AppBase {
 
         }
 
-        private Boolean isNextData( int i, int dataId ) {
+        private Boolean isNextData( int i, long dataId ) {
             if (i == 0) return false;
             if (list[i - 1].Id == dataId) return true;
             return false;
         }
 
-        private Boolean isPrevData( int i, int dataId ) {
+        private Boolean isPrevData( int i, long dataId ) {
             if (i > list.Count - 2) return false;
             if (list[i + 1].Id == dataId) return true;
             return false;

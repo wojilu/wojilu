@@ -35,7 +35,7 @@ namespace wojilu.Common.Money.Domain {
         public static UserAction User_UpdateAvatar { get { return GetById( 17 ); } }
         public static UserAction User_ConfirmEmail { get { return GetById( 18 ); } }
 
-        public static UserAction GetById( int id ) {
+        public static UserAction GetById(long id) {
             return cdb.findById<UserAction>( id ) ;
         }
 

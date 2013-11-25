@@ -13,10 +13,10 @@ namespace wojilu.Common.MemberApp.Interface {
 
         AppInstaller AppInfo { get; }
 
-        int AppInfoId { get; set; }
-        int AppOid { get; set; }
+        long AppInfoId { get; set; }
+        long AppOid { get; set; }
 
-        int OwnerId { get; set; }
+        long OwnerId { get; set; }
         String OwnerType { get; set; }
         String OwnerUrl { get; set; }
 

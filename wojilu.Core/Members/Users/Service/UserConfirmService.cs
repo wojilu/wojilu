@@ -84,7 +84,7 @@ namespace wojilu.Members.Users.Service {
 
         private void addIncomeAndMsg( User user ) {
 
-            int actionId = UserAction.User_ConfirmEmail.Id;
+            long actionId = UserAction.User_ConfirmEmail.Id;
 
             String msgTitle = "感谢您邮件激活";
             userIncomeService.AddIncome( user, actionId, msgTitle ); // 给用户增加收入
@@ -93,7 +93,7 @@ namespace wojilu.Members.Users.Service {
             msgService.SiteSend( msgTitle, msgBody, user ); // 给用户发送站内私信
         }
 
-        private String getMsgBody( User user, int actionId ) {
+        private string getMsgBody(User user, long actionId) {
 
             KeyIncomeRule rule = currencyService.GetKeyIncomeRulesByAction( actionId ); // 获取当前操作action收入规则。这里获取的是中心货币，你也可以使用 GetRulesByAction(actionId) 获取其他所有货币的收入规则
             int creditValue = rule.Income; // 收入的值

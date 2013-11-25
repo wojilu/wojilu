@@ -8,7 +8,7 @@ namespace wojilu.Common.Pages.Domain {
 
     public class PageHistory : ObjectBase<PageHistory> {
 
-        public int PageId { get; set; }
+        public long PageId { get; set; }
         public DateTime Updated { get; set; }
         public String EditReason { get; set; }
         public User EditUser { get; set; } // 编辑人

@@ -17,7 +17,7 @@ namespace wojilu.Members.Users.Service {
     /// </summary>
     public class VisitorService : IVisitorService {
 
-        public virtual void Visit( int visitorId, User target ) {
+        public virtual void Visit( long visitorId, User target ) {
 
             // 记录最近访客
             SpaceVisitJob.Visit( visitorId, target.Id );
@@ -32,7 +32,7 @@ namespace wojilu.Members.Users.Service {
             return populateUser( visitorList );
         }
 
-        public virtual DataPage<User> GetPage( int targetId, int pageSize ) {
+        public virtual DataPage<User> GetPage( long targetId, int pageSize ) {
             DataPage<SpaceVisitor> visitorList = db.findPage<SpaceVisitor>( "TargetId=" + targetId + " and VisitorId>0", pageSize );
             List<User> users = populateUser( visitorList.Results );
 

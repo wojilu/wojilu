@@ -14,7 +14,7 @@ namespace wojilu.Members.Groups.Service {
 
     public class GroupFriendService : IGroupFriendService {
 
-        public virtual List<Group> GetFriends( int groupId, int count ) {
+        public virtual List<Group> GetFriends(long groupId, int count) {
             List<GroupFriends> list = db.find<GroupFriends>( "Group.Id=" + groupId ).list( count );
             return populate( list );
         }
@@ -28,7 +28,7 @@ namespace wojilu.Members.Groups.Service {
             return results;
         }
 
-        public virtual DataPage<Group> GetPage( int groupId, int pageSize ) {
+        public virtual DataPage<Group> GetPage(long groupId, int pageSize) {
 
             DataPage<GroupFriends> list = db.findPage<GroupFriends>( "Group.Id=" + groupId, pageSize );
             DataPage<Group> page = new DataPage<Group>( list );
@@ -45,7 +45,7 @@ namespace wojilu.Members.Groups.Service {
 
             if (friend == null) throw new Exception( lang.get( "exFriendGroupNotFound" ) );
 
-            GroupFriends gf = GetFriend( group.Id, friend.Id );
+            GroupFriends gf = GetFriend( @group.Id, friend.Id );
             if (gf != null) {
                 return new Result( lang.get( "exFriendGroupAdded" ) );
             }
@@ -57,7 +57,7 @@ namespace wojilu.Members.Groups.Service {
             return db.insert( friends );
         }
 
-        public virtual GroupFriends GetFriend( int groupId, int friendId ) {
+        public virtual GroupFriends GetFriend(long groupId, long friendId) {
             return db.find<GroupFriends>( "Group.Id=" + groupId + " and Friend.Id=" + friendId ).first();
         }
 

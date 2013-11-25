@@ -11,12 +11,12 @@ namespace wojilu.OAuth.Connects {
     // 避免腾讯微博和QQ都绑定状态下的重复发布
     public class QQWeiboJobHelper {
 
-        public static void AddQQWeiboSyncItem( int blogId ) {
+        public static void AddQQWeiboSyncItem(long blogId) {
             String key = getItemKey( blogId );
             Caching.CacheManager.GetApplicationCache().Put( key, blogId );
         }
 
-        public static Boolean IsQQWeiboSync( int blogId ) {
+        public static bool IsQQWeiboSync(long blogId) {
             String key = getItemKey( blogId );
             Object syncItem = Caching.CacheManager.GetApplicationCache().Get( key );
             if (syncItem == null) return false;
@@ -25,7 +25,7 @@ namespace wojilu.OAuth.Connects {
             return true;
         }
 
-        private static String getItemKey( int blogId ) {
+        private static string getItemKey(long blogId) {
             return "__microblog_sync_qq_t_" + blogId;
         }
 

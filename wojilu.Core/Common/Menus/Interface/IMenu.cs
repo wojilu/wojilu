@@ -12,12 +12,12 @@ namespace wojilu.Common.Menus.Interface {
 
     public interface IMenu : ISort, INode {
 
-        new int Id { get; set; }
+        new long Id { get; set; }
 
         String Style { get; set; }
         int OpenNewWindow { get; set; }
 
-        int OwnerId { get; set; }
+        long OwnerId { get; set; }
         String OwnerUrl { get; set; }
         String OwnerType { get; set; }
 

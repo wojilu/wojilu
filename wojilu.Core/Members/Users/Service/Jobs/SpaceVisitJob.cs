@@ -9,7 +9,7 @@ namespace wojilu.Members.Users.Service {
 
     public class SpaceVisitJob {
 
-        public static void Visit( int visitorId, int targetId ) {
+        public static void Visit( long visitorId, long targetId ) {
 
             if (visitorId <= 0) return;
             if (visitorId == targetId) return;
@@ -30,12 +30,12 @@ namespace wojilu.Members.Users.Service {
 
         }
 
-        private static VisitItem findFromCache( int visitorId, int targetId ) {
+        private static VisitItem findFromCache( long visitorId, long targetId ) {
             List<VisitItem> results = cdb.findByName<VisitItem>( getName( visitorId, targetId ) );
             return results.Count == 0 ? null : results[0];
         }
 
-        private static String getName( int visitorId, int targetId ) {
+        private static String getName( long visitorId, long targetId ) {
             return visitorId + "_" + targetId;
         }
 

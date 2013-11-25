@@ -117,7 +117,7 @@ namespace wojilu.Common.Msg.Service {
             updateNewMsgCount( receiver );
         }
 
-        private Message sendSiteMsg( String title, String body, User receiver, int siteMsgId ) {
+        private Message sendSiteMsg(string title, string body, User receiver, long siteMsgId) {
             MessageData data = new MessageData();
             data.SenderName = lang.get( "site" );
             data.Title = title;
@@ -224,7 +224,7 @@ namespace wojilu.Common.Msg.Service {
         private Result getReceivers( String rawReceiver, User sender ) {
             Result result = new Result();
             List<User> list = new List<User>();
-            List<int> ids = new List<int>();
+            List<long> ids = new List<long>();
             string[] strArray = rawReceiver.Trim().Split( separator );
             for (int i = 0; i < strArray.Length; i++) {
 

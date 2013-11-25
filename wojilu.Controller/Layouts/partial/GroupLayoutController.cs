@@ -143,7 +143,7 @@ namespace wojilu.Web.Controller.Layouts {
             String joinStr = string.Format( "<span href='{0}' class='frmBox btn btn-mini'><i class='icon-plus'></i> {1}</span>", lnkJoin, lang( "joinGroup" ) );
             String quitStr = string.Format( "<span href='{0}' class='frmBox btn btn-mini'><i class='icon-off'></i> {1}</span>", lnkQuit, lang( "quitGroup" ) );
 
-            int status = mgrService.MemberStatus( (User)ctx.viewer.obj, group.Id );
+            int status = mgrService.MemberStatus( (User)ctx.viewer.obj, @group.Id );
 
             String cmd = "";
             if (status == GroupRole.Member.Id || status == GroupRole.Administrator.Id)

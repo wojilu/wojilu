@@ -60,7 +60,7 @@ namespace wojilu.Common.Msg.Service {
 
         private void addNotification( Feedback f, String lnkReplyList ) {
 
-            int receiverId = f.Target.Id;
+            long receiverId = f.Target.Id;
             if (f.Creator.Id == receiverId) return;
 
             String feedbackInfo = lang.get( "feedbackInfo" );
@@ -72,7 +72,7 @@ namespace wojilu.Common.Msg.Service {
 
         private void addNotificationToParentCreator( Feedback parent, Feedback f, String lnkReplyList ) {
 
-            int receiverId = parent.Creator.Id;
+            long receiverId = parent.Creator.Id;
             if (f.Creator.Id == receiverId) return;
 
             // 不给空间主人发两遍

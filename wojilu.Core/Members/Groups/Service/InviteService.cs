@@ -28,7 +28,7 @@ namespace wojilu.Members.Groups.Service {
             mgrService = new MemberGroupService();
         }
 
-        public virtual DataPage<GroupInvite> GetPage( int groupId ) {
+        public virtual DataPage<GroupInvite> GetPage( long groupId ) {
 
             return GroupInvite.findPage( "OwnerId=" + groupId );
         }
@@ -72,7 +72,7 @@ namespace wojilu.Members.Groups.Service {
         }
 
 
-        private Result getReceivers( String rawReceiver, int groupId ) {
+        private Result getReceivers( String rawReceiver, long groupId ) {
 
             Result result = new Result();
             if (strUtil.IsNullOrEmpty( rawReceiver )) {

@@ -26,7 +26,7 @@ namespace wojilu.Common.Microblogs.Domain {
         /// <summary>
         /// 转发微博
         /// </summary>
-        public int ParentId { get; set; } // 转发微博
+        public long ParentId { get; set; } // 转发微博
 
         [LongText]
         public String Content { get; set; }
@@ -54,7 +54,7 @@ namespace wojilu.Common.Microblogs.Domain {
         /// 根据 DataType 和 DataId 加载 OpenComment；
         /// 以及根据它和 target 同步 likes 等信息
         /// </summary>
-        public int DataId { get; set; }
+        public long DataId { get; set; }
 
         //-------------------------------------------------------------------
 
@@ -158,7 +158,7 @@ namespace wojilu.Common.Microblogs.Domain {
         #region IAppData 成员
 
         [NotSave]
-        public int AppId { get { return 0; } set { } }
+        public long AppId { get { return 0; } set { } }
 
         [NotSave]
         public User Creator { get { return this.User; } set { this.User = value; } }
@@ -167,7 +167,7 @@ namespace wojilu.Common.Microblogs.Domain {
         public string CreatorUrl { get { return this.User.Url; } set { } }
 
         [NotSave]
-        public int OwnerId { get { return this.User.Id; } set { } }
+        public long OwnerId { get { return this.User.Id; } set { } }
 
         [NotSave]
         public string OwnerType { get { return typeof( User ).FullName; } set { } }

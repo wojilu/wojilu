@@ -39,7 +39,7 @@ namespace wojilu.Members.Sites.Domain {
             return _starHtml;
         }
 
-        public static SiteRank GetById( int id ) {
+        public static SiteRank GetById(long id) {
             SiteRank siteRank = new SiteRank().findById( id ) as SiteRank;
             if (siteRank == null) return GetNullRank();
             return siteRank;

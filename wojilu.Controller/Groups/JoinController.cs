@@ -36,10 +36,10 @@ namespace wojilu.Web.Controller.Groups {
             if (group.IsCloseJoinCmd == 1) {
                 showError( "对不起，成员已满，不再接受申请" );
             }
-            else if (mgrService.IsGroupApproving( ctx.viewer.Id, group.Id )) {
+            else if (mgrService.IsGroupApproving( ctx.viewer.Id, @group.Id )) {
                 showError( "正在审核，请耐心等待" );
             }
-            else if (mgrService.IsGroupMember( ctx.viewer.Id, group.Id )) {
+            else if (mgrService.IsGroupMember( ctx.viewer.Id, @group.Id )) {
                 showError( "已经是成员，请勿重复操作" );
             }
         }
@@ -55,11 +55,11 @@ namespace wojilu.Web.Controller.Groups {
                 showError( "对不起，成员已满，不再接受申请" );
                 return;
             }
-            else if (mgrService.IsGroupApproving( ctx.viewer.Id, group.Id )) {
+            else if (mgrService.IsGroupApproving( ctx.viewer.Id, @group.Id )) {
                 showError( "正在审核，请耐心等待" );
                 return;
             }
-            else if (mgrService.IsGroupMember( ctx.viewer.Id, group.Id )) {
+            else if (mgrService.IsGroupMember( ctx.viewer.Id, @group.Id )) {
                 showError( "已经是成员，请勿重复操作" );
                 return;
             }
@@ -90,7 +90,7 @@ namespace wojilu.Web.Controller.Groups {
 
             Group group = ctx.owner.obj as Group;
 
-            if (mgrService.IsGroupMember( ctx.viewer.Id, group.Id )==false) {
+            if (mgrService.IsGroupMember( ctx.viewer.Id, @group.Id )==false) {
                 showError( "不是成员，无法退出" );
                 return;
             }
@@ -145,7 +145,7 @@ namespace wojilu.Web.Controller.Groups {
 
             if (gi.Status == 1) return "邀请不存在"; // 邀请只能用一次。比如：受邀用户捣乱，管理员将其删除。此用户不能再利用旧的邀请码直接进入。
 
-            if (mgrService.IsGroupMember( ctx.viewer.Id, group.Id )) return "您已经是成员";
+            if (mgrService.IsGroupMember( ctx.viewer.Id, @group.Id )) return "您已经是成员";
 
             return null;
         }

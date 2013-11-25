@@ -20,7 +20,7 @@ namespace wojilu.Common.Feeds.Domain {
 
         [CacheCount( "Replies" )]
         public Share Root { get; set; }
-        public int ParentId { get; set; }
+        public long ParentId { get; set; }
 
         [LongText]
         public String Content { get; set; }

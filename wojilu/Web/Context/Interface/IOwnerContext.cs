@@ -23,7 +23,7 @@ namespace wojilu.Web.Context {
     /// 当前被访问者的接口
     /// </summary>
     public interface IOwnerContext {
-        int Id { get; set; }
+        long Id { get; set; }
         IMember obj { get; set; }
     }
 

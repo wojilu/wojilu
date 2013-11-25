@@ -34,11 +34,11 @@ namespace wojilu.Members.Sites.Service {
 
         public String GetSkin( int querySkinId, String cssVersion ) {
 
-            int skinId = (querySkinId == 0 ? getDefaultSkinId() : querySkinId);
+            long skinId = (querySkinId == 0 ? getDefaultSkinId() : querySkinId);
             return getSkin( skinId, cssVersion );
         }
 
-        private String getSkin( int skinId, String cssVersion ) {
+        private string getSkin(long skinId, string cssVersion) {
             SiteSkin skin = GetById( skinId );
 
             if (skin == null) skin = GetById( 1 );
@@ -53,9 +53,9 @@ namespace wojilu.Members.Sites.Service {
             return result;
         }
 
-        private int getDefaultSkinId() {
+        private long getDefaultSkinId() {
 
-            int id = config.Instance.Site.SkinId;
+            long id = config.Instance.Site.SkinId;
 
             if (id == 0) {
 
@@ -84,7 +84,7 @@ namespace wojilu.Members.Sites.Service {
         }
 
 
-        public SiteSkin GetById( int skinId ) {
+        public SiteSkin GetById(long skinId) {
             return cdb.findById<SiteSkin>( skinId );
         }
 

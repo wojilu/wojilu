@@ -22,7 +22,7 @@ namespace wojilu.Members.Groups.Domain {
             this.StylePath = style;
         }
 
-        public int MemberId {get;set;}
+        public long MemberId { get; set; }
 
         public String Name {get;set; }
         public String Description {get;set;}

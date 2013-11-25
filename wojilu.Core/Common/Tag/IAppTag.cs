@@ -9,7 +9,7 @@ namespace wojilu.Common.AppBase.Interface {
 
     public interface IAppTag {
 
-        int AppId { get; set; }
+        long AppId { get; set; }
         Tag Tag { get; set; }
 
         int PostCount { get; set; }

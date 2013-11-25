@@ -16,8 +16,8 @@ namespace wojilu.Members.Users.Service {
             this.IsUpdated = false;
         }
 
-        public int VisitorId { get; set; }
-        public int TargetId { get; set; }
+        public long VisitorId { get; set; }
+        public long TargetId { get; set; }
         public DateTime VisitTime { get; set; }
         public Boolean IsUpdated { get; set; }
     }

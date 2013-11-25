@@ -23,7 +23,7 @@ namespace wojilu.Common {
     /// </summary>
     public interface IHits {
 
-        int Id { get; set; }
+        long Id { get; set; }
         int Hits { get; set; }
     }
 

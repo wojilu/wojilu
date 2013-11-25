@@ -43,11 +43,11 @@ namespace wojilu.Common.Money.Service {
             return results;
         }
 
-        public virtual Currency GetCurrencyById( int currencyId ) {
+        public virtual Currency GetCurrencyById(long currencyId) {
             return cdb.findById<Currency>( currencyId );
         }
 
-        public virtual ICurrency GetICurrencyById( int currencyId ) {
+        public virtual ICurrency GetICurrencyById(long currencyId) {
             if (currencyId == KeyCurrency.Instance.Id) {
                 return KeyCurrency.Instance;
             }
@@ -63,7 +63,7 @@ namespace wojilu.Common.Money.Service {
 
         //----------------------------------- 收入规则 --------------------------------------------
 
-        public virtual IncomeRule GetRuleByActionAndCurrency( int actionId, int currencyId ) {
+        public virtual IncomeRule GetRuleByActionAndCurrency(long actionId, long currencyId) {
 
             List<IncomeRule> rules = cdb.findAll<IncomeRule>();
             foreach (IncomeRule r in rules) {
@@ -79,7 +79,7 @@ namespace wojilu.Common.Money.Service {
             return rule;
         }
 
-        public virtual List<IncomeRule> GetRulesByAction( int actionId ) {
+        public virtual List<IncomeRule> GetRulesByAction(long actionId) {
 
             List<Currency> clist = GetCurrencyAll();
             List<IncomeRule> results = new List<IncomeRule>();
@@ -88,7 +88,7 @@ namespace wojilu.Common.Money.Service {
             return results;
         }
 
-        public virtual List<IncomeRule> GetIncomeRules( int currencyId ) {
+        public virtual List<IncomeRule> GetIncomeRules(long currencyId) {
 
             List<UserAction> actions = cdb.findAll<UserAction>();
             List<IncomeRule> results = new List<IncomeRule>();
@@ -97,7 +97,7 @@ namespace wojilu.Common.Money.Service {
             return results;
         }
 
-        public virtual List<IncomeRule> GetSavedRules( int currencyId ) {
+        public virtual List<IncomeRule> GetSavedRules(long currencyId) {
             List<IncomeRule> list = cdb.findAll<IncomeRule>();
             List<IncomeRule> results = new List<IncomeRule>();
             foreach (IncomeRule rule in list) {
@@ -125,7 +125,7 @@ namespace wojilu.Common.Money.Service {
 
         //---------------------------------- (中心货币的)收入规则操作 ---------------------------------------------
 
-        public virtual KeyIncomeRule GetKeyIncomeRulesByAction( int actionId ) {
+        public virtual KeyIncomeRule GetKeyIncomeRulesByAction(long actionId) {
             List<KeyIncomeRule> savedRules = cdb.findAll<KeyIncomeRule>();
             foreach (KeyIncomeRule r in savedRules) {
                 if (r.ActionId == actionId) return r;
@@ -164,11 +164,11 @@ namespace wojilu.Common.Money.Service {
 
 
 
-        public virtual IncomeRule GetRuleById( int ruleId ) {
+        public virtual IncomeRule GetRuleById(long ruleId) {
             return new IncomeRule().findById( ruleId ) as IncomeRule;
         }
 
-        public virtual KeyIncomeRule GetKeyRuleById( int ruleId ) {
+        public virtual KeyIncomeRule GetKeyRuleById(long ruleId) {
             return new KeyIncomeRule().findById( ruleId ) as KeyIncomeRule;
         }
     }

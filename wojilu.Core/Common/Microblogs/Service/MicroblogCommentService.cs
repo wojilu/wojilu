@@ -19,11 +19,11 @@ namespace wojilu.Common.Microblogs.Service {
             nfService = new NotificationService();
         }
 
-        public List<MicroblogComment> GetTop( int id, int count ) {
+        public List<MicroblogComment> GetTop(long id, int count) {
             return MicroblogComment.find( "RootId=" + id ).list( count );
         }
 
-        public virtual DataPage<MicroblogComment> GetComments( int id, int pageSize ) {
+        public virtual DataPage<MicroblogComment> GetComments(long id, int pageSize) {
             return MicroblogComment.findPage( "RootId=" + id, pageSize );
         }
 
@@ -31,7 +31,7 @@ namespace wojilu.Common.Microblogs.Service {
 
             saveComment( c );
 
-            int receiverId = addNotificationToRoot( c, microblogLink );
+            long receiverId = addNotificationToRoot( c, microblogLink );
             addNotificationToParent( c, microblogLink, receiverId );
         }
 
@@ -40,11 +40,11 @@ namespace wojilu.Common.Microblogs.Service {
             db.insert( c );
         }
 
-        private int addNotificationToRoot( MicroblogComment c, String microblogLink ) {
+        private long addNotificationToRoot( MicroblogComment c, String microblogLink ) {
 
             Microblog root = c.Root;
 
-            int receiverId = root.User.Id;
+            long receiverId = root.User.Id;
             if (c.User.Id == receiverId) return 0;
 
             String blogTitle = strUtil.ParseHtml( root.Content, 30 );
@@ -54,13 +54,13 @@ namespace wojilu.Common.Microblogs.Service {
             return receiverId;
         }
 
-        private void addNotificationToParent( MicroblogComment c, String microblogLink, int sentId ) {
+        private void addNotificationToParent(MicroblogComment c, string microblogLink, long sentId) {
 
             if (c.ParentId == 0) return;
 
             MicroblogComment parent = MicroblogComment.findById( c.ParentId );
 
-            int receiverId = parent.User.Id;
+            long receiverId = parent.User.Id;
             if (c.User.Id == receiverId) return;
 
             if (receiverId == sentId) return;

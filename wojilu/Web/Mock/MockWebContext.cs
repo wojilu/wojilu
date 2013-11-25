@@ -1,4 +1,4 @@
-/*
+﻿/*
  * Copyright 2010 www.wojilu.com
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -148,10 +148,10 @@ namespace wojilu.Web {
 
         public int UserId( String cookieName ) { return -1; }
 
-        public void UserLogin( int userId, String userName, LoginTime expiration ) { }
-        public void UserLogin( String cookieName, int userId, String userName, LoginTime expiration ) { }
-        public void UserLogin( int userId, String userName, DateTime expiration ) { }
-        public void UserLogin( String cookieName, int userId, String userName, DateTime expiration ) { }
+        public void UserLogin(long userId, string userName, LoginTime expiration) { }
+        public void UserLogin(string cookieName, long userId, string userName, LoginTime expiration) { }
+        public void UserLogin(long userId, string userName, DateTime expiration) { }
+        public void UserLogin(string cookieName, long userId, string userName, DateTime expiration) { }
 
         public void setUserId( int userId ) {
             _userId = userId;

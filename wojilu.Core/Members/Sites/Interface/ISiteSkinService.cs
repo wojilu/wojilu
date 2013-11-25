@@ -12,7 +12,7 @@ namespace wojilu.Members.Sites.Interface {
 
     public interface ISiteSkinService {
 
-        SiteSkin GetById( int id );
+        SiteSkin GetById(long id);
 
         List<SiteSkin> GetSysAll();
 

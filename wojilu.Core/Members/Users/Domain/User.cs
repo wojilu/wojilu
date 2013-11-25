@@ -28,7 +28,7 @@ namespace wojilu.Members.Users.Domain {
         }
 
         public User() { }
-        public User( int id ) { Id = id; }
+        public User( long id ) { Id = id; }
 
         [Column( Length = 20 )]
         public String Name { get; set; }
@@ -41,12 +41,12 @@ namespace wojilu.Members.Users.Domain {
         public String Title { get; set; }
         public String Url { get; set; }
 
-        public int ProfileId { get; set; }
+        public long ProfileId { get; set; }
         public int GroupId { get; set; }
 
         // 网站对用户的分类，待扩展功能
         public int CategoryId { get; set; }
-        public int TemplateId { get; set; }
+        public long TemplateId { get; set; }
 
         public String Email { get; set; }
         public String QQ { get; set; }
@@ -107,14 +107,14 @@ namespace wojilu.Members.Users.Domain {
         public String Security { get; set; }
         public DateTime Created { get; set; }
 
-        public int RankId { get; set; }
+        public long RankId { get; set; }
 
         public int IsEmailConfirmed { get; set; } // 是否邮件激活了
 
         public int IsBind { get; set; } // 是否绑定过第三方帐号
         public int LoginType { get; set; } // 登录类型(本地登录为空，第三方登录的值是 UserConnect.Id)
 
-        private int _roleId;
+        private long _roleId;
         private String _pic;
 
         [Column( Length = 150 )]
@@ -131,7 +131,7 @@ namespace wojilu.Members.Users.Domain {
         /// </summary>
         public int IsPicError { get; set; }
 
-        public int RoleId {
+        public long RoleId {
             get {
                 if (this.Id > 0 && _roleId == 0) {
                     _roleId = SiteRole.NormalMember.Id;
@@ -241,9 +241,9 @@ namespace wojilu.Members.Users.Domain {
         }
 
         // 在 null object 模式下保存真实的ID
-        private int _realId;
+        private long _realId;
         [NotSave]
-        public int RealId {
+        public long RealId {
             get {
                 if (_realId <= 0) return this.Id;
                 return _realId;

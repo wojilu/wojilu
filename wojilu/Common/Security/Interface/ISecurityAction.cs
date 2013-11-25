@@ -25,12 +25,12 @@ namespace wojilu.Common.Security {
     /// </summary>
     public interface ISecurityAction {
 
-        int Id { get; set; }
+        long Id { get; set; }
         String Name { get; set; }
         String Url { get; set; }
 
         IList findAll();
-        ISecurityAction GetById( int id );
+        ISecurityAction GetById( long id );
         void insert();
         Result update();
         void delete();

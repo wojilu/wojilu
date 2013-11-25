@@ -13,7 +13,7 @@ namespace wojilu.Common.Msg.Domain {
     [Serializable]
     public class Notification : ObjectBase<Notification> {
 
-        public int ReceiverId { get; set; }
+        public long ReceiverId { get; set; }
 
         /// <summary>
         /// 接收者的类型，通常是User，也可以是Site等其他IMember对象

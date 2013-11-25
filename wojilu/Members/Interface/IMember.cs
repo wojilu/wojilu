@@ -26,10 +26,10 @@ namespace wojilu.Members.Interface {
     /// </summary>
     public interface IMember {
 
-        int Id { get; set; }
+        long Id { get; set; }
         String Name { get; set; }
         String Url { get; set; }
-        int TemplateId { get; set; }
+        long TemplateId { get; set; }
         int Status { get; set; }
         DateTime Created { get; set; }
 

@@ -44,7 +44,7 @@ namespace wojilu.Common.Microblogs.Service {
             return " and SaveStatus=" + SaveStatus.Normal;
         }
 
-        public virtual int CountByUser( int userId ) {
+        public virtual int CountByUser(long userId) {
             return Microblog.count( "UserId=" + userId + showCondition() );
         }
 
@@ -58,27 +58,27 @@ namespace wojilu.Common.Microblogs.Service {
             return SysMicroblogService.populatePost( GetByUser( count, userId ) );
         }
 
-        public virtual Microblog GetById( int id ) {
+        public virtual Microblog GetById(long id) {
             return Microblog.findById( id );
         }
 
-        public virtual Microblog GetFirst( int userId ) {
+        public virtual Microblog GetFirst(long userId) {
             return Microblog.find( "User.Id=" + userId + showCondition() ).first();
         }
 
-        public virtual List<Microblog> GetCurrent( int count, int userId ) {
+        public virtual List<Microblog> GetCurrent(int count, long userId) {
             if (count <= 0) count = 1;
             return Microblog.find( "User.Id=" + userId + showCondition() ).list( count );
         }
 
-        public virtual DataPage<Microblog> GetPageList( int userId, int pageSize ) {
+        public virtual DataPage<Microblog> GetPageList(long userId, int pageSize) {
 
             DataPage<Microblog> list = Microblog.findPage( "UserId=" + userId + showCondition(), pageSize );
             return list;
         }
 
 
-        public virtual DataPage<Microblog> GetFollowingPage( int ownerId, int pageSize ) {
+        public virtual DataPage<Microblog> GetFollowingPage(long ownerId, int pageSize) {
 
             String followingIds = getFriendAndFollowingIds( ownerId );
 
@@ -86,7 +86,7 @@ namespace wojilu.Common.Microblogs.Service {
 
         }
 
-        public virtual DataPage<Microblog> GetFollowingPage( int ownerId, string searchKey ) {
+        public virtual DataPage<Microblog> GetFollowingPage(long ownerId, string searchKey) {
 
             String followingIds = getFriendAndFollowingIds( ownerId );
             searchKey = strUtil.SqlClean( searchKey, 10 );
@@ -96,7 +96,7 @@ namespace wojilu.Common.Microblogs.Service {
 
         }
 
-        private String getFriendAndFollowingIds( int userId ) {
+        private string getFriendAndFollowingIds(long userId) {
             String friendIds = friendService.FindFriendsIds( userId );
             String followingIds = followerService.GetFollowingIds( userId );
 
@@ -106,7 +106,7 @@ namespace wojilu.Common.Microblogs.Service {
             return ids;
         }
 
-        public virtual void Add( User creator, String msg, String dataType, int dataId, String ip ) {
+        public virtual void Add(User creator, string msg, string dataType, long dataId, string ip) {
 
             Microblog x = new Microblog();
             x.User = creator;
@@ -127,7 +127,7 @@ namespace wojilu.Common.Microblogs.Service {
         /// <param name="dataType"></param>
         /// <param name="dataId"></param>
         /// <param name="ip"></param>
-        public virtual void AddSimple( User creator, String msg, String dataType, int dataId, String ip ) {
+        public virtual void AddSimple(User creator, string msg, string dataType, long dataId, string ip) {
 
             Microblog x = new Microblog();
             x.User = creator;
@@ -148,7 +148,7 @@ namespace wojilu.Common.Microblogs.Service {
         /// <param name="dataType"></param>
         /// <param name="dataId"></param>
         /// <param name="ip"></param>
-        public virtual void AddSimplePrivate( User creator, String msg, String dataType, int dataId, String ip ) {
+        public virtual void AddSimplePrivate(User creator, string msg, string dataType, long dataId, string ip) {
 
             Microblog x = new Microblog();
             x.User = creator;

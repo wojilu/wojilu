@@ -29,8 +29,8 @@ namespace wojilu.Common.MemberApp.Interface {
         IMemberApp FindById( int userAppId, int userId );
         IList GetAppInfos( int memberId );
         IMemberApp GetByApp( IApp app );
-        IMemberApp GetByApp( Type t, int appId );
-        IList GetByMember( int memberId );
+        IMemberApp GetByApp(Type t, long appId);
+        IList GetByMember(long memberId);
 
         void Start( IMemberApp app, String rawAppUrl );
         void Stop( IMemberApp app, String rawAppUrl );

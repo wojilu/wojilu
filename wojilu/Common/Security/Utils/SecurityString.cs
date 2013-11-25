@@ -32,10 +32,10 @@ namespace wojilu.Common.Security {
 
         public Type RoleType { get; set; }
         public String TypeFullName { get; set; }
-        public int RoleId { get; set; }
-        public int[] ActionIds { get; set; }
+        public long RoleId { get; set; }
+        public long[] ActionIds { get; set; }
 
-        public SecurityString( String typeFullName, int roleId, IList actions ) {
+        public SecurityString(string typeFullName, long roleId, IList actions) {
 
             Type roleType = Entity.GetType( typeFullName );
             if (roleType == null || !rft.IsInterface( roleType, typeof( IRole ) )) return;
@@ -43,7 +43,7 @@ namespace wojilu.Common.Security {
             if (roleId < 0) return;
             if (actions == null) return;
 
-            int[] aids = new int[actions.Count];
+            long[] aids = new long[actions.Count];
             for (int i = 0; i < actions.Count; i++) {
                 aids[i] = ((ISecurityAction)actions[i]).Id;
             }
@@ -73,7 +73,7 @@ namespace wojilu.Common.Security {
             int roleId = cvt.ToInt( arrItem[1].Trim() );
             if (roleId < 0) return;
 
-            int[] Ids = cvt.ToIntArray( arrItem[2].Trim().Replace( '_', ',' ) );
+            long[] Ids = cvt.ToLongArray( arrItem[2].Trim().Replace( '_', ',' ) );
             foreach (int intOne in Ids) {
                 if (intOne <= 0) return;
             }
@@ -95,7 +95,7 @@ namespace wojilu.Common.Security {
             return GetRoleKey( this.TypeFullName, this.RoleId );
         }
 
-        public static String GetRoleKey( String typeFullName, int roleId ) {
+        public static string GetRoleKey(string typeFullName, long roleId) {
             return String.Format( "{0}_{1}", typeFullName, roleId );
         }
 

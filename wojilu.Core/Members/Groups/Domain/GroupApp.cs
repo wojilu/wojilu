@@ -16,11 +16,11 @@ namespace wojilu.Members.Groups.Domain {
     public class GroupApp : ObjectBase<GroupApp>, IMemberApp {
 
 
-        private int _OwnerId;
+        private long _OwnerId;
         private String _OwnerUrl;
 
-        private int _AppInfoId;
-        private int _AppOid;
+        private long _AppInfoId;
+        private long _AppOid;
 
         private User _Creator;
         private String _CreatorUrl;
@@ -31,7 +31,7 @@ namespace wojilu.Members.Groups.Domain {
         private int _AccessStatus;
         private DateTime _Created;
 
-        public int OwnerId {
+        public long OwnerId {
             get { return _OwnerId; }
             set { _OwnerId = value; }
         }
@@ -48,7 +48,7 @@ namespace wojilu.Members.Groups.Domain {
         }
 
 
-        public int AppInfoId {
+        public long AppInfoId {
             get { return _AppInfoId; }
             set { _AppInfoId = value; }
         }
@@ -58,7 +58,7 @@ namespace wojilu.Members.Groups.Domain {
             get { return new AppInstallerService().GetById( AppInfoId ); }
         }
 
-        public int AppOid {
+        public long AppOid {
             get { return _AppOid; }
             set { _AppOid = value; }
         }

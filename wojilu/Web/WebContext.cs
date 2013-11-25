@@ -1,4 +1,4 @@
-/*
+﻿/*
  * Copyright 2010 www.wojilu.com
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -139,18 +139,18 @@ namespace wojilu.Web {
             return cvt.ToInt( ticket.UserData );
         }
 
-        public void UserLogin( int userId, String userName, DateTime expiration ) {
+        public void UserLogin(long userId, string userName, DateTime expiration) {
             UserLogin( FormsAuthentication.FormsCookieName, userId, userName, expiration );
         }
-        public void UserLogin( int userId, String userName, LoginTime expiration ) {
+        public void UserLogin(long userId, string userName, LoginTime expiration) {
             UserLogin( FormsAuthentication.FormsCookieName, userId, userName, expiration );
         }
 
-        public void UserLogin( String cookieName, int userId, String userName, LoginTime expiration ) {
+        public void UserLogin(string cookieName, long userId, string userName, LoginTime expiration) {
             UserLogin( cookieName, userId, userName, getExpiration( expiration ) );
         }
 
-        public void UserLogin( String cookieName, int userId, String userName, DateTime expiration ) {
+        public void UserLogin( String cookieName, long userId, String userName, DateTime expiration ) {
 
             Boolean isPersistent = (expiration.Subtract( DateTime.Now ).Days >= 1) ? true : false;
 

@@ -93,7 +93,7 @@ namespace wojilu.Common.AppInstall {
             return results;
         }
 
-        public virtual List<AppInstaller> GetByCategory( int categoryId ) {
+        public virtual List<AppInstaller> GetByCategory(long categoryId) {
             List<AppInstaller> all = this.GetAll();
             List<AppInstaller> results = new List<AppInstaller>();
             foreach (AppInstaller info in all) {
@@ -111,13 +111,13 @@ namespace wojilu.Common.AppInstall {
             return results;
         }
 
-        public virtual AppInstaller GetApprovedById( int id, Type ownerType ) {
+        public virtual AppInstaller GetApprovedById(long id, Type ownerType) {
             AppInstaller a = cdb.findById<AppInstaller>( id );
             if (a != null && a.Status != AppInstallerStatus.Stop.Id) return null;
             return a;
         }
 
-        public virtual AppInstaller GetById( int id ) {
+        public virtual AppInstaller GetById(long id) {
             return cdb.findById<AppInstaller>( id );
         }
 

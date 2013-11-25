@@ -25,7 +25,7 @@ namespace wojilu.Common.Pages.Service {
                 .list();
         }
 
-        public virtual PageCategory GetCategoryById( int categoryId, IMember owner ) {
+        public virtual PageCategory GetCategoryById(long categoryId, IMember owner) {
             PageCategory category = db.findById<PageCategory>( categoryId );
             if (category != null) {
                 if (category.OwnerType != owner.GetType().FullName || category.OwnerId != owner.Id) return null;
@@ -33,7 +33,7 @@ namespace wojilu.Common.Pages.Service {
             return category;
         }
 
-        public virtual Page GetPostById( int id, IMember owner ) {
+        public virtual Page GetPostById(long id, IMember owner) {
             Page page = db.findById<Page>( id );
             if (page != null) {
                 if (page.OwnerType != owner.GetType().FullName || page.OwnerId != owner.Id) return null;
@@ -41,7 +41,7 @@ namespace wojilu.Common.Pages.Service {
             return page;
         }
 
-        public virtual List<Page> GetPosts( IMember owner, int categoryId ) {
+        public virtual List<Page> GetPosts(IMember owner, long categoryId) {
 
             if (categoryId <= 0) {
                 return db.find<Page>( "OwnerId=:oid and OwnerType=:otype order by OrderId desc, Id asc" )
@@ -72,17 +72,17 @@ namespace wojilu.Common.Pages.Service {
 
         }
 
-        public virtual DataPage<PageHistory> GetHistoryPage( int pageId, IMember owner, int pageSize ) {
+        public virtual DataPage<PageHistory> GetHistoryPage(long pageId, IMember owner, int pageSize) {
             Page p = GetPostById( pageId, owner );
             if (p == null) return DataPage<PageHistory>.GetEmpty();
             return PageHistory.findPage( "PageId=" + pageId, pageSize );
         }
 
-        public virtual List<int> GetEditorIds( int pageId ) {
+        public virtual List<long> GetEditorIds(long pageId) {
 
             List<PageHistory> list = PageHistory.find( "PageId=" + pageId ).list();
 
-            List<int> users = new List<int>();
+            List<long> users = new List<long>();
             foreach (PageHistory ph in list) {
                 if (users.Contains( ph.EditUser.Id )) continue;
                 users.Add( ph.EditUser.Id );
@@ -92,7 +92,7 @@ namespace wojilu.Common.Pages.Service {
         }
 
 
-        public virtual PageHistory GetHistory( int id ) {
+        public virtual PageHistory GetHistory(long id) {
 
             PageHistory ph = PageHistory.findById( id );
             return ph;
@@ -139,7 +139,7 @@ namespace wojilu.Common.Pages.Service {
             p.delete();
         }
 
-        public virtual void UpdateCategory( string ids, int categoryId ) {
+        public virtual void UpdateCategory(string ids, long categoryId) {
 
             db.updateBatch<Page>( "CategoryId=" + categoryId, "Id in (" + ids + ")" );
         }

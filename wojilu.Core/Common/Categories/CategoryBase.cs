@@ -16,14 +16,14 @@ namespace wojilu.Common.Categories {
 
         protected CategoryBase() { }
 
-        public int OwnerId { get; set; }
+        public long OwnerId { get; set; }
 
         [Column( Length = 150 )]
         public String OwnerUrl { get; set; }
 
-        public int AppId { get; set; }
+        public long AppId { get; set; }
         public int OrderId { get; set; }
-        public int ParentId { get; set; }
+        public long ParentId { get; set; }
 
         [Column( Length = 50 )]
         [NotNull( Lang = "exName" )]
@@ -38,7 +38,7 @@ namespace wojilu.Common.Categories {
         public int DataCount { get; set; }
         public DateTime Created { get; set; }
 
-        public List<CategoryBase> GetByAppId( int appId ) {
+        public List<CategoryBase> GetByAppId( long appId ) {
             return db.find<CategoryBase>( "AppId=" + appId + " order by Id" ).list();
         }
 

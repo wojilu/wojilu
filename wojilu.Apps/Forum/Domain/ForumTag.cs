@@ -13,7 +13,7 @@ namespace wojilu.Apps.Forum.Domain {
     [Serializable]
     public class ForumTag : ObjectBase<ForumTag>, IAppTag {
 
-        public int AppId { get; set; }
+        public long AppId { get; set; }
         public Tag Tag { get; set; }
         public int PostCount { get; set; }
         public DateTime Created { get; set; }

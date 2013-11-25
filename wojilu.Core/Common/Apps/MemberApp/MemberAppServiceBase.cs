@@ -1,4 +1,4 @@
-/*
+﻿/*
  * Copyright (c) 2010, www.wojilu.com. All rights reserved.
  */
 
@@ -102,14 +102,14 @@ namespace wojilu.Common.MemberApp {
             return GetByApp( app.GetType(), app.Id );
         }
 
-        public IMemberApp GetByApp( Type t, int appId ) {
+        public IMemberApp GetByApp(Type t, long appId) {
             AppInstaller appInfo = appInfoService.GetByType( t );
             String c = "AppInfoId=" + appInfo.Id + " and AppOid=" + appId;
             return ndb.find( thisType(), c ).first() as IMemberApp;
             //return getObj().find( string.Concat( new object[] { "AppInfoId=", appInfo.Id, " and AppOid=", appId } ) ).first() as IUserApp;
         }
 
-        public IList GetByMember( int memberId ) {
+        public IList GetByMember(long memberId) {
 
             if (memberId < 0) {
                 return new ArrayList();

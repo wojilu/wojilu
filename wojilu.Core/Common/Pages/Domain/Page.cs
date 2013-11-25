@@ -19,7 +19,7 @@ namespace wojilu.Common.Pages.Domain {
     [Serializable]
     public class Page : ObjectBase<Page>, IAppData, INode, IShareData, ISort, ICommentTarget {
 
-        public int OwnerId { get; set; }
+        public long OwnerId { get; set; }
         public String OwnerType { get; set; }
         public String OwnerUrl { get; set; }
 
@@ -85,7 +85,7 @@ namespace wojilu.Common.Pages.Domain {
         // IAppData接口(用于comment)
 
         [NotSave]
-        public int AppId { get; set; }
+        public long AppId { get; set; }
         [NotSave]
         public int AccessStatus { get; set; }
         [NotSave]
@@ -94,7 +94,7 @@ namespace wojilu.Common.Pages.Domain {
         public String CreatorUrl { get; set; }
 
         // tree 接口
-        public int ParentId { get; set; }
+        public long ParentId { get; set; }
 
         [NotSave]
         public String Name {

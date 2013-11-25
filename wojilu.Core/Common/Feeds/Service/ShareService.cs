@@ -192,7 +192,7 @@ namespace wojilu.Common.Feeds.Service {
         private void addNotificationToRoot( ShareComment c, String shareLink ) {
             Share root = c.Root;
 
-            int receiverId = root.Creator.Id;
+            long receiverId = root.Creator.Id;
             if (c.User.Id == receiverId) return;
 
             String msg = c.User.Name + " " + lang.get( "commentYour" ) + " <a href=\"" + shareLink + "\">" + lang.get( "share" ) + "</a>";
@@ -204,7 +204,7 @@ namespace wojilu.Common.Feeds.Service {
 
             ShareComment parent = ShareComment.findById( c.ParentId );
 
-            int receiverId = parent.User.Id;
+            long receiverId = parent.User.Id;
             if (c.User.Id == receiverId) return;
 
             //String msg = c.User.Name + " 回复了你的分享 <a href=\"" + shareLink + "\">评论</a>";

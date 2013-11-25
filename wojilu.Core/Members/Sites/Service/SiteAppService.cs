@@ -1,4 +1,4 @@
-/*
+﻿/*
  * Copyright (c) 2010, www.wojilu.com. All rights reserved.
  */
 
@@ -135,12 +135,12 @@ namespace wojilu.Members.Sites.Service {
         }
 
 
-        public IMemberApp GetByApp( Type t, int appId ) {
+        public IMemberApp GetByApp(Type t, long appId) {
             AppInstaller appInfo = appInfoService.GetByType( t );
             return GetByApp( appInfo.Id, appId );
         }
 
-        public IMemberApp GetByApp( int appInfoId, int appId ) {
+        public IMemberApp GetByApp(long appInfoId, long appId) {
             IList list = new SiteApp().findAll();
             foreach (IMemberApp app in list) {
                 if ((app.AppInfoId == appInfoId) && (app.AppOid == appId)) {
@@ -150,7 +150,7 @@ namespace wojilu.Members.Sites.Service {
             return null;
         }
 
-        public IList GetByMember( int memberId ) {
+        public IList GetByMember(long memberId) {
             if (memberId < 0) {
                 return new ArrayList();
             }

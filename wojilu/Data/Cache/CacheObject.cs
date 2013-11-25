@@ -28,7 +28,7 @@ namespace wojilu.Data {
     [Serializable]
     public class CacheObject {
 
-        private int _id;
+        private long _id;
         private String _name;
 
         private ExtData _extData;
@@ -47,7 +47,7 @@ namespace wojilu.Data {
         /// <summary>
         /// 对象的 id
         /// </summary>
-        public int Id {
+        public long Id {
             get { return _id; }
             set { _id = value; }
         }
@@ -65,7 +65,7 @@ namespace wojilu.Data {
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        public CacheObject findById( int id ) {
+        public CacheObject findById( long id ) {
             return MemoryDB.FindById( this.GetType(), id );
         }
 

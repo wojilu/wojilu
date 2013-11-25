@@ -48,7 +48,7 @@ namespace wojilu.Web.Mvc {
             return To( data, controllerPath, "Show", data.Id );
         }
 
-        private static String getAppDataController( String typeFullName, int appId ) {
+        private static String getAppDataController( String typeFullName, long appId ) {
 
             String typeName = strUtil.GetTypeName( typeFullName );
 
@@ -62,7 +62,7 @@ namespace wojilu.Web.Mvc {
             return appName + MvcConfig.Instance.UrlSeparator + controllerName;
         }
 
-        private static String To( IAppData data, String controller, String action, int id ) {
+        private static string To(IAppData data, string controller, string action, long id) {
             String ownerPath = LinkHelper.GetMemberPathPrefix( data.OwnerType, data.OwnerUrl );
             return LinkHelper.AppendApp( data.AppId, controller, action, id, ownerPath );
         }
@@ -127,7 +127,7 @@ namespace wojilu.Web.Mvc {
             return ret;
         }
 
-        private static String getAppLink( String ownerTypeFull, String ownerUrl, String appName, int appId ) {
+        private static string getAppLink(string ownerTypeFull, string ownerUrl, string appName, long appId) {
 
             String result = LinkHelper.GetMemberPathPrefix( ownerTypeFull, ownerUrl );
 

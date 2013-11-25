@@ -15,8 +15,8 @@ namespace wojilu.Common.Money.Domain {
     public class UserIncome : ObjectBase<UserIncome>, IComparable {
 
 
-        public int UserId { get; set; }
-        public int CurrencyId { get; set; }
+        public long UserId { get; set; }
+        public long CurrencyId { get; set; }
         public int Income { get; set; }
 
         [NotSave]

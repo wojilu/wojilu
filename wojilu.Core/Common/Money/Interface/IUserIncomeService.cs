@@ -19,18 +19,18 @@ namespace wojilu.Common.Money.Interface {
         ICurrencyService currencyService { get; set; }
         SiteRoleService roleService { get; set; }
 
-        Boolean HasEnoughKeyIncome( int userId, int income );
+        bool HasEnoughKeyIncome(long userId, int income);
 
-        void AddIncome( User user, int currencyId, int income, String msg );
-        void AddIncome( User user, int actionId, String msg );
-        void AddIncomeReverse( User user, int actionId, String msg );
-        void AddKeyIncome( User user, int income, String msg );
-        void AddKeyIncome( int userId, int income, String msg );
+        void AddIncome(User user, long currencyId, int income, string msg);
+        void AddIncome(User user, long actionId, string msg);
+        void AddIncomeReverse(User user, long actionId, string msg);
+        void AddKeyIncome(User user, int income, string msg);
+        void AddKeyIncome(long userId, int income, string msg);
 
         IList GetIncomeList( String userIds );
-        UserIncome GetUserIncome( int userId, int currencyId );
-        List<UserIncome> GetUserIncome( int userId );
-        DataPage<UserIncomeLog> GetUserIncomeLog( int userId, int currencyId );
+        UserIncome GetUserIncome(long userId, long currencyId);
+        List<UserIncome> GetUserIncome(long userId);
+        DataPage<UserIncomeLog> GetUserIncomeLog(long userId, long currencyId);
 
         void InitUserIncome( User user );
         void InsertIncome( UserIncome income );

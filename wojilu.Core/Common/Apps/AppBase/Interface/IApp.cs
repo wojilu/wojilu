@@ -9,9 +9,9 @@ namespace wojilu.Common.AppBase.Interface {
 
     public interface IApp {
 
-        int Id { get; set; }
+        long Id { get; set; }
 
-        int OwnerId { get; set; }
+        long OwnerId { get; set; }
         String OwnerUrl { get; set; }
         String OwnerType { get; set; }
 

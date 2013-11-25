@@ -8,7 +8,7 @@ namespace wojilu.Common.Money.Domain {
 
     public interface ICurrency {
 
-        int Id { get; set; }
+        long Id { get; set; }
         String Guid { get; set; }
 
         String Name { get; set; }

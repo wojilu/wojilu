@@ -25,7 +25,7 @@ namespace wojilu.Members.Users.Domain {
         public int CatId {get;set;}
         public int TypeId {get;set;}
 
-        public int MemberId {get;set;}
+        public long MemberId { get; set; }
         public String MemberName {get;set;}
         public String MemberUrl {get;set; }
 

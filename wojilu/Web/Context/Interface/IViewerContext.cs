@@ -25,7 +25,7 @@ namespace wojilu.Web.Context {
     /// </summary>
     public interface IViewerContext {
 
-        int Id { get; set; }
+        long Id { get; set; }
 
         /// <summary>
         /// 当前访问者
@@ -46,7 +46,7 @@ namespace wojilu.Web.Context {
         /// </summary>
         /// <param name="ownerId"></param>
         /// <param name="msg"></param>
-        Result AddFriend( int ownerId, String msg );
+        Result AddFriend(long ownerId, string msg);
 
         /// <summary>
         /// 检索隐私配置，当前 viewer 对 owner 的某个item是否具有访问权限
@@ -73,14 +73,14 @@ namespace wojilu.Web.Context {
         /// </summary>
         /// <param name="ownerId"></param>
         /// <returns></returns>
-        Boolean IsFollowing( int ownerId );
+        bool IsFollowing(long ownerId);
 
         /// <summary>
         /// 和某人是否是朋友
         /// </summary>
         /// <param name="ownerId"></param>
         /// <returns></returns>
-        Boolean IsFriend( int ownerId );
+        bool IsFriend(long ownerId);
 
         /// <summary>
         /// 是否已经登录

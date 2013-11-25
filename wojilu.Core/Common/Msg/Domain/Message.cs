@@ -24,7 +24,7 @@ namespace wojilu.Common.Msg.Domain {
         public int IsReply { get; set; }
         public int IsDelete { get; set; }
 
-        public int SiteMsgId { get; set; }
+        public long SiteMsgId { get; set; }
 
 
         [NotSave]

@@ -10,10 +10,10 @@ namespace wojilu.Common.Upload {
 
     public class UserFile : ObjectBase<UserFile> {
 
-        public int DataId { get; set; }
+        public long DataId { get; set; }
         public String DataType { get; set; }
 
-        public int OwnerId { get; set; }
+        public long OwnerId { get; set; }
         public String OwnerType { get; set; }
         public String OwnerUrl { get; set; }
 

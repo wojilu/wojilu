@@ -12,7 +12,7 @@ namespace wojilu.Common.Money.Domain {
     [Serializable]
     public class IncomeRule : CacheObject {
 
-        public int ActionId { get; set; }
+        public long ActionId { get; set; }
 
         public int Income { get; set; }
 
@@ -30,7 +30,7 @@ namespace wojilu.Common.Money.Domain {
             }
         }
 
-        public int CurrencyId { get; set; }
+        public long CurrencyId { get; set; }
 
 
         [NotSave, NotSerialize]

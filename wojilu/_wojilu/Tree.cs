@@ -40,7 +40,7 @@ namespace wojilu {
         /// <summary>
         /// 上级节点的 Id
         /// </summary>
-        int ParentId { get; set; }
+        long ParentId { get; set; }
     }
 
     /// <summary>
@@ -211,7 +211,7 @@ namespace wojilu {
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        public Node<T> FindById( int id ) {
+        public Node<T> FindById( long id ) {
             return getById( id );
         }
 

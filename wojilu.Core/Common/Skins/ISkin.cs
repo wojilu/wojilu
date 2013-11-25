@@ -8,12 +8,12 @@ namespace wojilu.Common.Skins {
 
     public interface ISkin {
 
-        int Id { get; set; }
+        long Id { get; set; }
 
         /// <summary>
         /// 创建人或自定义人
         /// </summary>
-        int MemberId { get; set; }
+        long MemberId { get; set; }
 
         /// <summary>
         /// 名称

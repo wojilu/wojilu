@@ -25,7 +25,7 @@ namespace wojilu.Members.Users.Interface {
 
         void AddPostCount( User user );
         void ConfirmEmailIsError( User user );
-        void DeletePostCount( int creatorId );
+        void DeletePostCount( long creatorId );
 
         int GetUserCount();
         User GetCurrent();
@@ -33,7 +33,7 @@ namespace wojilu.Members.Users.Interface {
         DataPage<User> GetAll( int pageSize );
         DataPage<User> GetAllValid( int pageSize );
 
-        User GetById( int id );
+        User GetById( long id );
         List<User> GetByIds( String idsStr );
         User GetByMail( String email );
         User GetByName( String name );
@@ -49,7 +49,7 @@ namespace wojilu.Members.Users.Interface {
         List<User> GetPickedList( int count );
         List<User> GetRanked( String sortBy, int count );
         List<User> GetRanked( int count );
-        List<User> GetRankedToMakeFriends( int count, List<int> ids );
+        List<User> GetRankedToMakeFriends( int count, List<long> ids );
         List<User> GetUnSendConfirmEmailUsers();
         DataPage<User> SearchBy( String condition, int pageSize );
 
@@ -59,7 +59,7 @@ namespace wojilu.Members.Users.Interface {
         User IsNameEmailPwdCorrect( String nameOrEmail, String pwd );
         Boolean IsPwdCorrect( User user, String pwd );
         Boolean IsEmailExist( string email );
-        Boolean IsEmailExist( int userId, string email );
+        Boolean IsEmailExist( long userId, string email );
 
         String HashPwd( String pwd, String salt );
 

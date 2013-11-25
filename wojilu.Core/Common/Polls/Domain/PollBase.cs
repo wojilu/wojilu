@@ -17,9 +17,9 @@ namespace wojilu.Common.Polls.Domain {
     [Serializable]
     public abstract class PollBase : ObjectBase<PollBase>, IAppData {
 
-        public int AppId { get; set; }
+        public long AppId { get; set; }
 
-        public int OwnerId { get; set; }
+        public long OwnerId { get; set; }
         public String OwnerType { get; set; }
         public String OwnerUrl { get; set; }
 

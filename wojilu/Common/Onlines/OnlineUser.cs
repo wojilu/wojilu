@@ -29,7 +29,7 @@ namespace wojilu.Common.Onlines {
     [NotSave]
     public class OnlineUser : CacheObject, IComparable {
 
-        public int UserId { get; set; }
+        public long UserId { get; set; }
         public String UserName { get; set; }
         public String UserUrl { get; set; }
         public String UserPicUrl { get; set; }

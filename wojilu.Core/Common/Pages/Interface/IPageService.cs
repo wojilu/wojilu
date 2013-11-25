@@ -13,11 +13,11 @@ namespace wojilu.Common.Pages.Interface {
 
         void AddHits( Page data );
 
-        PageCategory GetCategoryById( int categoryId, IMember owner );
+        PageCategory GetCategoryById(long categoryId, IMember owner);
         List<PageCategory> GetCategories( IMember owner );
 
-        Page GetPostById( int id, IMember owner );
-        List<Page> GetPosts( IMember owner, int categoryId );
+        Page GetPostById(long id, IMember owner);
+        List<Page> GetPosts(IMember owner, long categoryId);
 
         int GetPagesCount( IMember owner );
 
@@ -27,13 +27,13 @@ namespace wojilu.Common.Pages.Interface {
 
         void Delete( Page p );
 
-        DataPage<PageHistory> GetHistoryPage( int pageId, IMember owner, int pageSize );
+        DataPage<PageHistory> GetHistoryPage(long pageId, IMember owner, int pageSize);
 
 
-        PageHistory GetHistory( int id );
-        List<int> GetEditorIds( int pageId );
+        PageHistory GetHistory(long id);
+        List<long> GetEditorIds(long pageId);
 
-        void UpdateCategory( string ids, int categoryId );
+        void UpdateCategory(string ids, long categoryId);
     }
 
 }

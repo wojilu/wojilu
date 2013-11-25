@@ -9,10 +9,10 @@ namespace wojilu.Web.Context {
 
     public class OwnerContext : IOwnerContext {
 
-        private int _Id;
+        private long _Id;
         private IMember _obj;
 
-        public int Id {
+        public long Id {
             get { return _Id; }
             set { _Id = value; }
         }

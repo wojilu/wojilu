@@ -58,7 +58,7 @@ namespace wojilu.Common.Pages.Domain {
 
         public void addNotification( String creator, String creatorLink ) {
 
-            int receiverId = this.post.OwnerId;
+            long receiverId = this.post.OwnerId;
             if (this.post.OwnerType == typeof( Site ).FullName) return; 
             
             String lnkCreator = "<a href=\"" + creatorLink + "\">" + creator + "</a>";

@@ -19,7 +19,7 @@ namespace wojilu.Members.Groups.Domain {
             Name = name;
         }
 
-        public int Id { get; set; }
+        public long Id { get; set; }
         public String Name { get; set; }
 
         [NotSave, NotSerialize]
@@ -42,7 +42,9 @@ namespace wojilu.Members.Groups.Domain {
             return _all;
         }        
 
-        public static GroupRole GetById( int id ) {
+        public static GroupRole GetById(long gid)
+        {
+            int id = (int) gid;
             return GetAll()[id] as GroupRole;
         }
 
@@ -59,7 +61,7 @@ namespace wojilu.Members.Groups.Domain {
 
 
         // 用户加入群组之后的初始角色
-        public static int GetInitRoleByGroup( Group g ) {
+        public static long GetInitRoleByGroup(Group g) {
 
             if (g.AccessStatus == GroupAccessStatus.Open) return GroupRole.Member.Id;
             if (g.AccessStatus == GroupAccessStatus.Closed) return GroupRole.Approving.Id;

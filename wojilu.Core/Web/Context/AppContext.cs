@@ -31,7 +31,7 @@ namespace wojilu.Web.Context {
 
         public ISecurity SecurityObject { get; set; }
 
-        private int _Id;
+        private long _Id;
         private IMenu _menu;
         private object _obj;
         private String _url;
@@ -43,7 +43,7 @@ namespace wojilu.Web.Context {
             ctx = wctx;
         }
 
-        public int Id {
+        public long Id {
             get { return this._Id; }
             set { this._Id = value; }
         }

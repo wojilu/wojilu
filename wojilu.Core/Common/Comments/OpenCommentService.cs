@@ -232,7 +232,7 @@ namespace wojilu.Common.Comments {
 
         private void sendNotifications( OpenComment c ) {
 
-            List<int> sentIds = new List<int>();
+            List<long> sentIds = new List<long>();
 
             if (c.ParentId > 0) {
                 OpenComment p = OpenComment.findById( c.ParentId );
@@ -253,7 +253,7 @@ namespace wojilu.Common.Comments {
             }
         }
 
-        private void sendNotificationToRoot( List<int> sentIds, OpenComment c ) {
+        private void sendNotificationToRoot(List<long> sentIds, OpenComment c) {
 
             if (c.Member != null && c.Member.Id == c.TargetUserId) return; // 不用给自己发通知
             int receiverId = c.TargetUserId;
@@ -265,9 +265,9 @@ namespace wojilu.Common.Comments {
             sentIds.Add( receiverId );
         }
 
-        private void sendNotificationsTo( List<int> sentIds, OpenComment comment, OpenComment c ) {
+        private void sendNotificationsTo(List<long> sentIds, OpenComment comment, OpenComment c) {
 
-            int receiverId = comment.Member.Id;
+            long receiverId = comment.Member.Id;
             if (c.Member != null && c.Member.Id == receiverId) return; // 不用给自己发通知
             if (sentIds.Contains( receiverId )) return; // 已经发过，不用重发
 

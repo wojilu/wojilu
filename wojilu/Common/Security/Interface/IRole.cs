@@ -24,7 +24,7 @@ namespace wojilu.Common.Security {
     /// </summary>
     public interface IRole {
 
-        int Id { get; set; }
+        long Id { get; set; }
         String Name { get; set; }
 
         IRole Role { get; set; }

@@ -13,13 +13,13 @@ namespace wojilu.Members.Users.Interface {
         IFriendService friendService { get; set; }
         IUserService userService { get; set; }
 
-        Blacklist GetById( int id, int ownerId );
-        DataPage<Blacklist> GetPage( int ownerId, int pageSize );
+        Blacklist GetById(long id, long ownerId);
+        DataPage<Blacklist> GetPage(long ownerId, int pageSize);
 
-        bool IsBlack( int ownerId, int targetId );
+        bool IsBlack(long ownerId, long targetId);
 
-        Result Create( int ownerId, string targetUserName );
-        Result Delete( int id, int ownerId );
+        Result Create(long ownerId, string targetUserName);
+        Result Delete(long id, long ownerId);
 
     }
 

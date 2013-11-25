@@ -14,22 +14,22 @@ namespace wojilu.Members.Users.Interface {
         IFriendService friendService { get; set; }
         IUserService userService { get; set; }
 
-        Follower Follow( int userId, int targetId, String ip );
-        void FollowWithFeedNotification( int userId, int targetId, String ip );
+        Follower Follow(long userId, long targetId, string ip);
+        void FollowWithFeedNotification(long userId, long targetId, string ip);
 
-        DataPage<User> GetFollowingPage( int userId );
-        DataPage<User> GetFollowingPage( int userId, int pageSize );
-        DataPage<User> GetFollowersPage( int targetId );
+        DataPage<User> GetFollowingPage(long userId);
+        DataPage<User> GetFollowingPage(long userId, int pageSize);
+        DataPage<User> GetFollowersPage(long targetId);
 
-        List<User> GetRecentFollowers( int targetId, int count );
-        List<User> GetRecentFollowing( int userId, int count );
-        List<User> GetRecentFriendsAndFollowers( int targetId, int count );
+        List<User> GetRecentFollowers(long targetId, int count);
+        List<User> GetRecentFollowing(long userId, int count);
+        List<User> GetRecentFriendsAndFollowers(long targetId, int count);
 
-        String GetFollowingIds( int userId );
+        string GetFollowingIds(long userId);
 
-        Boolean IsFollowing( int userId, int targetId );
+        bool IsFollowing(long userId, long targetId);
 
-        Result DeleteFollow( int userId, int targetId );
+        Result DeleteFollow(long userId, long targetId);
 
     }
 

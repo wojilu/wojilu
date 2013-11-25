@@ -11,15 +11,15 @@ namespace wojilu.Common.Money.Domain {
     [Serializable]
     public class UserIncomeLog : ObjectBase<UserIncomeLog> {
 
-        public int AppId { get; set; }
+        public long AppId { get; set; }
 
-        public int ActionId { get; set; }
+        public long ActionId { get; set; }
 
-        public int UserId { get; set; }
+        public long UserId { get; set; }
 
-        public int DataId { get; set; }
+        public long DataId { get; set; }
 
-        public int CurrencyId { get; set; }
+        public long CurrencyId { get; set; }
 
         public int Income { get; set; }
 
@@ -27,7 +27,7 @@ namespace wojilu.Common.Money.Domain {
         public String Note { get; set; }
 
 
-        public int OperatorId { get; set; }
+        public long OperatorId { get; set; }
 
         public String OperatorName { get; set; }
 

@@ -18,38 +18,38 @@ namespace wojilu.Members.Users.Interface {
         INotificationService notificationService { get; set; }
         IUserService userService { get; set; }
 
-        Result CanAddFriend( int userId, int targetId );
-        Result AddFriend( int userId, int friendId, String msg, String ip );
-        void AddInviteFriend( User user, int friendId );
+        Result CanAddFriend( long userId, long targetId );
+        Result AddFriend( long userId, long friendId, String msg, String ip );
+        void AddInviteFriend( User user, long friendId );
 
-        void Approve( int userId, int friendId );
+        void Approve( long userId, long friendId );
 
-        List<User> FindFriends( int userId, int count );
-        List<User> FindFriendsByFriends( int userId, int count );
-        List<int> FindFriendsIdList( int userId );
-        String FindFriendsIds( int userId );
+        List<User> FindFriends( long userId, int count );
+        List<User> FindFriendsByFriends( long userId, int count );
+        List<long> FindFriendsIdList(long userId);
+        String FindFriendsIds( long userId );
 
-        List<FriendShip> GetFriendsAll( int userId );
-        DataPage<User> GetFriendsPage( int userId );
-        DataPage<User> GetFriendsPage( int userId, int pageSize );
+        List<FriendShip> GetFriendsAll( long userId );
+        DataPage<User> GetFriendsPage( long userId );
+        DataPage<User> GetFriendsPage( long userId, int pageSize );
 
-        DataPage<FriendShip> GetPageByCategory( int userId, int categoryId, int pageSize );
-        DataPage<FriendShip> GetPageBySearch( int ownerId, string friendName, int pageSize );
+        DataPage<FriendShip> GetPageByCategory( long userId, long categoryId, int pageSize );
+        DataPage<FriendShip> GetPageBySearch( long ownerId, string friendName, int pageSize );
 
-        List<User> GetRecentActive( int count, int userId );
+        List<User> GetRecentActive( int count, long userId );
 
-        Boolean IsFriend( int userId, int fid );
-        Boolean IsWaitingFriendApproving( int userId, int fid );
+        Boolean IsFriend( long userId, long fid );
+        Boolean IsWaitingFriendApproving( long userId, long fid );
 
-        void Refuse( int userId, int friendId );
+        void Refuse( long userId, long friendId );
 
-        void DeleteFriend( int userId, int fid, String ip );
-        void DeleteFriendByBlacklist( int userId, int fid );
-        void CancelAddFriend( int userId, int fid );
+        void DeleteFriend( long userId, long fid, String ip );
+        void DeleteFriendByBlacklist( long userId, long fid );
+        void CancelAddFriend( long userId, long fid );
 
 
 
-        void UpdateCategory( int ownerId, int friendId, int categoryId, string friendDescription );
+        void UpdateCategory( long ownerId, long friendId, long categoryId, string friendDescription );
 
     }
 

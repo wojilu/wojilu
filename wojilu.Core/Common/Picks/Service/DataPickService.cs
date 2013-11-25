@@ -157,11 +157,11 @@ namespace wojilu.Common.Picks {
         }
 
 
-        public Result AddPinPost( int appId, int index, String title, String link, String summary ) {
+        public Result AddPinPost(long appId, int index, string title, string link, string summary) {
             return this.AddPinPost( appId, index, title, link, summary, 0 );
         }
 
-        public Result AddPinPost( int appId, int index, String title, String link, String summary, int topicId ) {
+        public Result AddPinPost(long appId, int index, string title, string link, string summary, long topicId) {
 
             Result ret = new Result();
 
@@ -183,7 +183,7 @@ namespace wojilu.Common.Picks {
             return x.insert();
         }
 
-        private bool hasPosition( int appId, int index ) {
+        private bool hasPosition(long appId, int index) {
 
             return GetPinPostByIndex( appId, index ) == null;
         }
@@ -244,7 +244,7 @@ namespace wojilu.Common.Picks {
 
 
 
-        public TPick GetPinPostByIndex( int appId, int index ) {
+        public TPick GetPinPostByIndex(long appId, int index) {
 
             String condition = " IsPin=1 and PinIndex=" + index;
 
@@ -252,7 +252,7 @@ namespace wojilu.Common.Picks {
         }
 
 
-        public TPick GetEditTopic( int appId, int topicId ) {
+        public TPick GetEditTopic(long appId, int topicId) {
 
             String condition = "  IsEdit=1 and EditId=" + topicId;
 
@@ -271,14 +271,14 @@ namespace wojilu.Common.Picks {
 
         //------------------------------删除-------------------------------------
 
-        public DataPage<TPick> GetDeleteList( int appId ) {
+        public DataPage<TPick> GetDeleteList(long appId) {
 
             String condition = "IsDelete=1";
 
             return db.findPage<TPick>( addAppId( condition, appId ), 10 );
         }
 
-        public void RestoreTopic( int appId, int topicId ) {
+        public void RestoreTopic(long appId, long topicId) {
 
             String condition = "IsDelete=1 and DeleteId=" + topicId;
 
@@ -287,7 +287,7 @@ namespace wojilu.Common.Picks {
             if (x != null) x.delete();
         }
 
-        public void DeleteTopic( int appId, int topicId ) {
+        public void DeleteTopic(long appId, long topicId) {
 
             TData topic = (TData)ndb.findById( typeof( TData ), topicId );
 
@@ -303,7 +303,7 @@ namespace wojilu.Common.Picks {
         }
 
 
-        public void DeletePinPost( int appId, int index ) {
+        public void DeletePinPost(long appId, int index) {
 
             TPick x = GetPinPostByIndex( appId, index );
             if (x == null) throw new NullReferenceException( "DeletePinedPost" );
@@ -334,11 +334,11 @@ namespace wojilu.Common.Picks {
 
         //-------------------------------------------------------------------
 
-        private List<TPick> getCustomList( int appId ) {
+        private List<TPick> getCustomList(long appId) {
             return db.find<TPick>( addAppId( "", appId ) ).list();
         }
 
-        private String addAppId( String str, int appId ) {
+        private string addAppId(string str, long appId) {
             if (appId <= 0) return str;
 
             if (strUtil.HasText( str )) {

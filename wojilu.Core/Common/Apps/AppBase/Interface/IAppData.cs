@@ -10,14 +10,14 @@ namespace wojilu.Common.AppBase.Interface {
 
     public interface IAppData {
 
-        int Id { get; set; }
-        int AppId { get; set; }
+        long Id { get; set; }
+        long AppId { get; set; }
 
         User Creator { get; set; }
         String CreatorUrl { get; set; }
         DateTime Created { get; set; }
 
-        int OwnerId { get; set; }
+        long OwnerId { get; set; }
         String OwnerType { get; set; }
         String OwnerUrl { get; set; }
 

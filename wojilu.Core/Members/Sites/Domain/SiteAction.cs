@@ -32,7 +32,7 @@ namespace wojilu.Members.Sites.Domain {
         public String Url { get; set; }
         public String Format { get; set; }
 
-        public ISecurityAction GetById( int id ) {
+        public ISecurityAction GetById( long id ) {
             return this.findById( id ) as ISecurityAction;
         }
 

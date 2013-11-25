@@ -56,7 +56,7 @@ namespace wojilu.Common.Menus {
             return results;
         }
 
-        public IMenu FindById( int ownerId, int menuId ) {
+        public IMenu FindById(long ownerId, long menuId) {
             return ndb.find( t, "OwnerId=" + ownerId + " and Id=" + menuId ).first() as IMenu;
         }
 
@@ -72,7 +72,7 @@ namespace wojilu.Common.Menus {
             return populateMenu( list );
         }
 
-        private IList GetList( int ownerId ) {
+        private IList GetList(long ownerId) {
             if (ownerId < 0) return new ArrayList();
             return ndb.find( t, "OwnerId=" + ownerId + " order by OrderId desc, Id asc" ).list();
         }

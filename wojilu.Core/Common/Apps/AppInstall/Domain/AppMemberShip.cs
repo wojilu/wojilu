@@ -17,7 +17,7 @@ namespace wojilu.Common.AppInstall {
     // 如果 AppInstaller 的 Status==2 ，则表示使用本表自定义
     public class AppMemberShip : CacheObject {
 
-        public int AppInstallerId { get; set; }
+        public long AppInstallerId { get; set; }
         public String MemberTypeName { get; set; }
 
         [NotSave]
@@ -30,7 +30,7 @@ namespace wojilu.Common.AppInstall {
 
         //--------------------------------------------
 
-        public static String GetStatusName( int installerId ) {
+        public static string GetStatusName(long installerId) {
 
             List<AppMemberShip> list = cdb.findBy<AppMemberShip>( "AppInstallerId", installerId );
 
@@ -43,7 +43,7 @@ namespace wojilu.Common.AppInstall {
 
         }
 
-        public static String GetStatusTypeValue( int installerId ) {
+        public static string GetStatusTypeValue(long installerId) {
 
             List<AppMemberShip> list = cdb.findBy<AppMemberShip>( "AppInstallerId", installerId );
 
@@ -57,7 +57,7 @@ namespace wojilu.Common.AppInstall {
         }
         //--------------------------------------------
 
-        public static Boolean IsAppStop( int installId, Type ownerType ) {
+        public static bool IsAppStop(long installId, Type ownerType) {
 
             List<AppMemberShip> list = cdb.findAll<AppMemberShip>();
 

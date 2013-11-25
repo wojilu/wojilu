@@ -5,16 +5,16 @@ namespace wojilu.OAuth {
 
     public interface IUserConnectService {
 
-        UserConnect GetById( int id );
+        UserConnect GetById(long id);
 
-        bool HasBind( int userId, string typeFullName );
+        bool HasBind(long userId, string typeFullName);
         Result Create( User user, string connectType, AccessToken token );
 
-        UserConnect GetConnectInfo( int userId, string connectType );
+        UserConnect GetConnectInfo(long userId, string connectType);
         UserConnect GetConnectInfo( string connectUid, string connectType );
 
-        Result UnBind( int userId, string connectType );
-        Result Sync( int userId, string connectType, int isSync );
+        Result UnBind(long userId, string connectType);
+        Result Sync(long userId, string connectType, int isSync);
 
 
     }

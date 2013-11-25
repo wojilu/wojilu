@@ -42,7 +42,7 @@ namespace wojilu.Web.Context.Initor {
 
             IAppContext context = new AppContext();
 
-            int appId = ctx.route.appId;
+            long appId = ctx.route.appId;
             context.Id = appId; // ID
 
             Type appType = ctx.controller.utils.getAppType();
@@ -92,7 +92,7 @@ namespace wojilu.Web.Context.Initor {
             }
         }
 
-        private static IApp getAppById( Type appType, int appId, IMember owner ) {
+        private static IApp getAppById(Type appType, long appId, IMember owner) {
 
             IApp app = ndb.findById( appType, appId ) as IApp;
 

@@ -8,21 +8,21 @@ namespace wojilu.Common.Picks {
 
     public interface IPickPost {
 
-        int AppId { get; set; }
+        long AppId { get; set; }
 
         string Title { get; set; }// 支持 html
         string Summary { get; set; } // 支持 html
         string Link { get; set; }// 自定义 link
 
         int IsDelete { get; set; }  // 是否被删除
-        int DeleteId { get; set; }  // 被删除的Id
+        long DeleteId { get; set; }  // 被删除的Id
 
         int IsEdit { get; set; } // 是否编辑过
-        int EditId { get; set; } // 被编辑的帖子，就不再重复显示了
+        long EditId { get; set; } // 被编辑的帖子，就不再重复显示了
 
         int IsPin { get; set; } // 是否固定
         int PinIndex { get; set; } // 固定的位置
-        int PinTopicId { get; set; } // 被固定的topic
+        long PinTopicId { get; set; } // 被固定的topic
 
     }
 

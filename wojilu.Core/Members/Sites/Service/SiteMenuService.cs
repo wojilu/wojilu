@@ -55,7 +55,7 @@ namespace wojilu.Members.Sites.Service {
             return list;
         }
 
-        public IMenu FindById( int ownerId, int menuId ) {
+        public IMenu FindById(long ownerId, long menuId) {
             List<SiteMenu> menus = cdb.findAll<SiteMenu>();
             foreach (SiteMenu menu in menus) {
                 if (menu.OwnerId == ownerId && menu.Id == menuId)

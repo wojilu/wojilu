@@ -63,7 +63,7 @@ namespace wojilu.Members.Users.Domain {
         }
 
         public void addNotification( String creator, String creatorLink ) {
-            int receiverId = this.user.Id;
+            long receiverId = this.user.Id;
 
             String msg = string.Format( lang.get( "shareNotification" ), "<a href='" + creatorLink + "'>" + creator + "</a>" );
             //String msg = "<a href='" + creatorLink + "'>" + creator + "</a> 将你分享给了好友";

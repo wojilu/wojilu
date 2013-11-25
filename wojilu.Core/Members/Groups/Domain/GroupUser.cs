@@ -19,7 +19,7 @@ namespace wojilu.Members.Groups.Domain {
 
         public int PostCount { get; set; }
         public int TopicCount { get; set; }
-        public int Status { get; set; }
+        public long Status { get; set; }
 
         public String Msg { get; set; }
 

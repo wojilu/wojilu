@@ -123,7 +123,7 @@ namespace wojilu.Config {
             }
         }
 
-        private static String GetInputName( int settingId ) {
+        private static String GetInputName( long settingId ) {
             return ("SettingValue" + settingId);
         }
 

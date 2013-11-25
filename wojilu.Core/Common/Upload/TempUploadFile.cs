@@ -16,12 +16,12 @@ namespace wojilu.Common.Upload {
     [Serializable]
     public class TempUploadFile : ObjectBase<TempUploadFile> {
 
-        public int AppId { get; set; }
+        public long AppId { get; set; }
 
         [Column( Name = "FileGuid", Length = 40 )]
         public String Guid { get; set; }
 
-        public int OwnerId { get; set; }
+        public long OwnerId { get; set; }
         public String OwnerType { get; set; }
         public String OwnerUrl { get; set; }
 

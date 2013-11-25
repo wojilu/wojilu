@@ -23,7 +23,7 @@ namespace wojilu.Config {
     /// </summary>
     public interface ISetting {
 
-        int Id { get; set; }
+        long Id { get; set; }
 
         String DataType { get; set; }
 

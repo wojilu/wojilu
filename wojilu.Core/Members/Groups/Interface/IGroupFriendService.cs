@@ -12,10 +12,10 @@ namespace wojilu.Members.Groups.Interface {
     public interface IGroupFriendService {
 
         Result AddFriend( IMember group, String name );
-        GroupFriends GetFriend( int groupId, int friendId );
-        List<Group> GetFriends( int groupId, int count );
+        GroupFriends GetFriend(long groupId, long friendId);
+        List<Group> GetFriends(long groupId, int count);
 
-        DataPage<Group> GetPage( int groupId, int pageSize );
+        DataPage<Group> GetPage(long groupId, int pageSize);
 
         void Delete( GroupFriends gf );
 

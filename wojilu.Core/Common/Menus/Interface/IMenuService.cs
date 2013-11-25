@@ -17,7 +17,7 @@ namespace wojilu.Common.Menus.Interface {
         Type GetMemberType();
         IMenu New();
 
-        IMenu FindById( int ownerId, int menuId );
+        IMenu FindById(long ownerId, long menuId);
         List<IMenu> GetList( IMember owner );
         List<IMenu> GetRootList( IMember owner );
         List<IMenu> GetByParent( IMenu m );

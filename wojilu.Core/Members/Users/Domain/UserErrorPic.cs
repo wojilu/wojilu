@@ -19,7 +19,7 @@ namespace wojilu.Members.Users.Domain {
         public static readonly int StatusWaitingApprove = 2;
         public static readonly int StatusOk = 3;
 
-        public int UserId { get; set; }
+        public long UserId { get; set; }
         public DateTime Created { get; set; }
         public String Ip { get; set; }
 

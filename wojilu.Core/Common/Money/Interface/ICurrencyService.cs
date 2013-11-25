@@ -12,21 +12,21 @@ namespace wojilu.Common.Money.Interface {
     public interface ICurrencyService {
 
         List<Currency> GetCurrencyAll();
-        Currency GetCurrencyById( int currencyId );
+        Currency GetCurrencyById(long currencyId);
         List<ICurrency> GetICurrencyAll();
-        ICurrency GetICurrencyById( int currencyId );
+        ICurrency GetICurrencyById(long currencyId);
         List<ICurrency> GetForumRateCurrency();
 
 
         List<KeyIncomeRule> GetKeyIncomeRules();
-        KeyIncomeRule GetKeyIncomeRulesByAction( int actionId );
-        KeyIncomeRule GetKeyRuleById( int ruleId );
+        KeyIncomeRule GetKeyIncomeRulesByAction(long actionId);
+        KeyIncomeRule GetKeyRuleById(long ruleId);
 
-        IncomeRule GetRuleById( int ruleId );
-        IncomeRule GetRuleByActionAndCurrency( int actionId, int currencyId );
-        List<IncomeRule> GetRulesByAction( int actionId );
-        List<IncomeRule> GetIncomeRules( int currencyId );
-        List<IncomeRule> GetSavedRules( int currencyId );
+        IncomeRule GetRuleById(long ruleId);
+        IncomeRule GetRuleByActionAndCurrency(long actionId, long currencyId);
+        List<IncomeRule> GetRulesByAction(long actionId);
+        List<IncomeRule> GetIncomeRules(long currencyId);
+        List<IncomeRule> GetSavedRules(long currencyId);
 
         List<UserAction> GetUserActions();
 

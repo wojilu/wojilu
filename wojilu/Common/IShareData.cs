@@ -23,7 +23,7 @@ namespace wojilu.Common {
     /// </summary>
     public interface IShareData {
 
-        int Id { get; set; }
+        long Id { get; set; }
 
         IShareInfo GetShareInfo();
     }

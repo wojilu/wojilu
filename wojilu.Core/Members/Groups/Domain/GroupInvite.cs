@@ -8,7 +8,7 @@ namespace wojilu.Members.Groups.Domain {
 
     public class GroupInvite : ObjectBase<GroupInvite> {
 
-        public int OwnerId { get; set; }
+        public long OwnerId { get; set; }
 
         public User Inviter { get; set; }
 
