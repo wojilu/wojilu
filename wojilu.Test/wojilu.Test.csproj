@@ -58,6 +58,8 @@
     <Compile Include="Aop\NewAopService.cs" />
     <Compile Include="Aop\ObservedObject.cs" />
     <Compile Include="Aop\TComplexObject.cs" />
+    <Compile Include="Data\MemoryDBGeneric.cs" />
+    <Compile Include="Data\MemoryDBTest.cs" />
     <Compile Include="Jsons\JsonDeserializeTyped.cs" />
     <Compile Include="Common\rftTest.cs" />
     <Compile Include="Data\CacheObjectTest.cs" />

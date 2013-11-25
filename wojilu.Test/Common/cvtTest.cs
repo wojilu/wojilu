@@ -99,6 +99,29 @@ namespace wojilu.Test.Common {
         }
 
         [Test]
+        public void testLong()
+        {
+            // Int64.MaxValue=9223 37203 68547 75807
+
+            Assert.IsTrue( cvt.IsLong( "235" ) );
+            Assert.IsTrue( cvt.IsLong( "0" ) );
+            Assert.IsTrue( cvt.IsLong( "-235" ) );
+            Assert.IsFalse( cvt.IsLong( "fdd" ) );
+
+            Assert.IsTrue( cvt.IsLong( "354656982" ) );
+            Assert.IsTrue( cvt.IsLong( "-1354656982" ) );
+
+            Int64 maxValue = 9223372036854775807;
+            Assert.IsTrue( cvt.IsLong( maxValue.ToString() ) );
+            Assert.IsFalse( cvt.IsLong( "19223372036854775807" ) );
+
+            String idStr = "66677854129116241";
+            long[] ids = cvt.ToLongArray( idStr );
+            Assert.AreEqual( 1, ids.Length );
+            Assert.AreEqual( 66677854129116241, ids[0] );
+        }
+
+        [Test]
         public void testToString() {
 
             int[] arr = new int[5];

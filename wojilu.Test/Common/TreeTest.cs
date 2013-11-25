@@ -150,9 +150,9 @@ namespace wojilu.Test.Common {
 
 
     public class Node : INode {
-        public int Id { get; set; }
+        public long Id { get; set; }
         public string Name { get; set; }
-        public int ParentId { get; set; }
+        public long ParentId { get; set; }
 
         public string Title {
             get { return this.Name + this.Id + "....."; }

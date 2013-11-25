@@ -69,7 +69,7 @@ namespace wojilu.Web.Controller {
         // 初始化当前app
         private ContentApp initApp( MvcContext ctx, IMemberApp mapp ) {
             IAppContext context = new AppContext();
-            int appId = mapp.AppOid;
+            long appId = mapp.AppOid;
             context.Id = appId;
 
             ContentApp app = ContentApp.findById( appId );

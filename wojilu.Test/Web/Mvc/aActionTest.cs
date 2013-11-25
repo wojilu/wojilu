@@ -13,7 +13,7 @@ namespace wojilu.Test.Web.Mvc {
             Console.WriteLine( "myAction" );
         }
 
-        public void myActionWithId( int id ) {
+        public void myActionWithId( long id ) {
             Console.WriteLine( "myActionWithId+"+id );
         }
 
@@ -33,7 +33,7 @@ namespace wojilu.Test.Web.Mvc {
 
         }
 
-        private void testAction( object obj, int id ) {
+        private void testAction( object obj, long id ) {
 
             aAction action = obj as aAction;
             if (action != null) {

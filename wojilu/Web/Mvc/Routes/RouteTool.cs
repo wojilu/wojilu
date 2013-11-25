@@ -252,8 +252,8 @@ namespace wojilu.Web.Mvc.Routes {
             if (result.getItem( "query" ) != null) result.setQuery( result.getItem( "query" ) );
             if (result.getItem( "owner" ) != null) result.setOwner( result.getItem( "owner" ) );
             if (result.getItem( "ownertype" ) != null) result.setOwnerType( result.getItem( "ownertype" ) );
-            if (result.getItem( "id" ) != null) result.setId( cvt.ToInt( result.getItem( "id" ) ) );
-            if (result.getItem( "appid" ) != null) result.setAppId( cvt.ToInt( result.getItem( "appid" ) ) );
+            if (result.getItem( "id" ) != null) result.setId( cvt.ToLong( result.getItem( "id" ) ) );
+            if (result.getItem( "appid" ) != null) result.setAppId( cvt.ToLong( result.getItem( "appid" ) ) );
 
             int page = 1;
             if (result.getItem( "page" ) != null) {

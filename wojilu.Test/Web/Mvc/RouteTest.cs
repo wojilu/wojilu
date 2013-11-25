@@ -731,6 +731,25 @@ home/{userName}/{controller}/{action};requirements:{controller=letter,action=let
             //Assert.AreEqual( "lisi", rt2.getItem( "userName" ) );
         }
 
+        [Test]
+        public void testLong() {
+
+            string routecfg = @"
+~/{controller}/{id}/{action};
+";
+
+            RouteTable.GetRoutes().Clear();
+            RouteTable.Init( routecfg );
+
+
+            Route result = RouteTool.RecognizePath( "blog/163304481793130496/show" );
+
+            Assert.AreEqual( "blog", result.controller );
+            Assert.AreEqual( "show", result.action );
+            Assert.AreEqual( 163304481793130496, result.id );
+            Assert.AreEqual( 1, result.page );
+        }
+
     }
 
 
@@ -771,5 +790,7 @@ home/{userName}/{controller}/{action};requirements:{controller=letter,action=let
     //    public wojilu.Common.Security.IRole GetAdminRole() { return null; }
     //    public wojilu.Common.Security.IRole GetUserRole( IMember user ) { return null; }
     //}
+
+
 
 }

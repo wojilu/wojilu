@@ -43,7 +43,7 @@ namespace wojilu.ORM {
 
                 try {
                     if (ep.IsEntity || ep.IsAbstractEntity) {
-                        setEntityPropertyValueById( obj, state, ep, rd.GetInt32( i ) );
+                        setEntityPropertyValueById( obj, state, ep, rd.GetInt64( i ) );
                     }
                     else {
                         ep.SetValue( obj, getReaderValue( rd, i, fdvalue, ep.Type ) );
@@ -61,7 +61,7 @@ namespace wojilu.ORM {
             return obj;
         }
 
-        private static void setEntityPropertyValueById( IEntity obj, ObjectInfo state, EntityPropertyInfo property, int pid ) {
+        private static void setEntityPropertyValueById( IEntity obj, ObjectInfo state, EntityPropertyInfo property, long pid ) {
 
             if (!property.IsAbstractEntity) {
                 IEntity objValue = Entity.New( property.Type.FullName );

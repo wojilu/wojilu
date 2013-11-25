@@ -406,6 +406,34 @@ namespace wojilu.Test.Common.Jsons {
             Console.WriteLine( str );
 
         }
+
+        [Test]
+        public void testInt64() {
+
+            var c = new MyComputer();
+            c.Id = 1;
+            c.ParentId = 12;
+            c.Name = "hahahaha";
+
+            string strJson = JsonString.ConvertObject( c );
+
+            Console.WriteLine( strJson );
+
+            Assert.AreEqual( "{ \"Id\":1, \"Name\":\"hahahaha\", \"ParentId\":12 }", strJson );
+
+            c = new MyComputer();
+            c.Id = 26677854129116241;
+            c.ParentId = 36677854129116241;
+            c.Name = "hahahaha";
+
+            strJson = JsonString.ConvertObject( c );
+
+            Console.WriteLine( strJson );
+
+            Assert.AreEqual( "{ \"Id\":26677854129116241, \"Name\":\"hahahaha\", \"ParentId\":36677854129116241 }", strJson );
+
+        }
+
     }
 
     public class AdminMenuGroup {

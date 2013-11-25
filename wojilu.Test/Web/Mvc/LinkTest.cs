@@ -391,8 +391,8 @@ namespace wojilu.Test.Web.Mvc {
 
         public void Index() { }
         public void List() { }
-        public void Show( int id ) { }
-        public void Product( int id ) { }
+        public void Show( long id ) { }
+        public void Product( long id ) { }
 
         public void Add() { }
     }
@@ -401,8 +401,8 @@ namespace wojilu.Test.Web.Mvc {
 
         public void Index() { }
         public void List() { }
-        public void Show( int id ) { }
-        public void Product( int id ) { }
+        public void Show( long id ) { }
+        public void Product( long id ) { }
     }
 
 
@@ -423,8 +423,8 @@ namespace wojilu.Test.Web.Mvc.Blog {
 
         public void Index() { }
         public void List() { }
-        public void Show( int id ) { }
-        public void Product( int id ) { }
+        public void Show( long id ) { }
+        public void Product( long id ) { }
 
         public void Add() { }
     }
@@ -438,8 +438,8 @@ namespace wojilu.Test.Web.Mvc.Admin {
 
         public void Index() { }
         public void List() { }
-        public void Show( int id ) { }
-        public void Product( int id ) { }
+        public void Show( long id ) { }
+        public void Product( long id ) { }
 
         public void Add() { }
     }
@@ -452,8 +452,8 @@ namespace wojilu.Test.Web.Mvc.Admin.Users {
 
         public void Index() { }
         public void List() { }
-        public void Show( int id ) { }
-        public void Address( int id ) { }
+        public void Show( long id ) { }
+        public void Address( long id ) { }
 
         public void Add() { }
     }

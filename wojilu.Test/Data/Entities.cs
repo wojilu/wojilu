@@ -97,4 +97,65 @@ namespace wojilu.Test.Data {
 
     }
 
+
+    //--------------------------------------------------------
+
+    public class Book : CacheObject {
+        public string Weather { get; set; }
+    }
+
+
+    public class MenuMock : CacheObject, IComparable, INode {
+
+        //public User Creator { get; set; }
+        public String Creator { get; set; }
+
+        public int OrderId { get; set; }
+
+        [NotSave]
+        public int OwnerId {
+            get { return 0; }
+            set { }
+        }
+
+        [NotSave]
+        public String OwnerUrl {
+            get { return ""; }
+            set { }
+        }
+
+        [NotSave]
+        public String OwnerType {
+            get { return "site"; }
+            set { }
+        }
+
+        public long ParentId { get; set; }
+        public String RawUrl { get; set; }
+        public String Url { get; set; }
+
+        public String Style { get; set; }
+
+        public DateTime Created { get; set; }
+        public int OpenNewWindow { get; set; }
+
+
+        public int CompareTo( object obj ) {
+
+            MenuMock menu = obj as MenuMock;
+
+            if (OrderId > menu.OrderId) return -1;
+            if (OrderId < menu.OrderId) return 1;
+            if (base.Id > menu.Id) return 1;
+            if (base.Id < menu.Id) return -1;
+            return 0;
+        }
+
+        public void updateOrderId() {
+            this.update();
+        }
+
+    }
+
+
 }

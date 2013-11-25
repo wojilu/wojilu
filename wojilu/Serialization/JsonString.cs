@@ -62,6 +62,7 @@ namespace wojilu.Serialization {
             if (rft.IsInterface( t, typeof( IDictionary ) )) return ConvertDictionary( (IDictionary)obj, isBreakline );
 
             if (t == typeof( int ) ||
+                t == typeof( long ) ||
                 t == typeof( decimal ) ||
                 t == typeof( double )) {
                 return obj.ToString();
@@ -365,6 +366,7 @@ namespace wojilu.Serialization {
 
         private static bool shouldPass( EntityPropertyInfo info ) {
             if (info.Type == typeof( int )) return false;
+            if (info.Type == typeof( long )) return false;
             if (info.Type == typeof( string )) return false;
             if (info.Type == typeof( decimal )) return false;
             if (info.Type == typeof( DateTime )) return false;

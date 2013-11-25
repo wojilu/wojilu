@@ -621,7 +621,7 @@ namespace wojilu.Test.Orm {
             art.IsDelete = 0;
             art.OrderId = 5;
             art.insert();
-            int id = art.Id;
+            long id = art.Id;
 
             art.Member = TMember.findById( 2 );
             art.Cat = TCat.findById( 10 );

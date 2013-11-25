@@ -142,7 +142,7 @@ namespace wojilu.Web.Controller {
                 updateSiteName( siteName );
 
                 // 5）安装app
-                int siteType = ctx.PostLong( "siteType" );
+                int siteType = ctx.PostInt( "siteType" );
                 initSiteApp( siteType, user );
 
                 echoAjaxOk();
@@ -410,7 +410,7 @@ namespace wojilu.Web.Controller {
                     return str;
                 }
                 catch (Exception ex) {
-                    errors.Add( ex.Message );
+                    errors.Add( ex.Message + " 请检查用户名或密码是否正确。" );
                     return null;
                 }
             }

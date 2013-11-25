@@ -90,4 +90,10 @@ namespace wojilu.Test.Common.Jsons {
         public List<String> Roles { get; set; }
     }
 
+    public class MyComputer {
+        public long Id { get; set; }
+        public long ParentId { get; set; }
+        public string Name { get; set; }
+    }
+
 }

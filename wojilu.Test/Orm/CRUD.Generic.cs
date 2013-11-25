@@ -673,7 +673,7 @@ wojilu.ORM.Query - [FindBy]select * from TAuthorCategory where (Id in (3,2,1)) o
             art.IsDelete = 0;
             art.OrderId = 5;
             art.insert();
-            int id = art.Id;
+            long id = art.Id;
 
             art.Member = TMember.findById( 2 );
             art.Cat = TCat.findById( 10 );

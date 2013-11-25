@@ -80,7 +80,7 @@ namespace wojilu.Serialization {
                 Object propertyValue = ReflectionUtil.GetPropertyValue( obj, info.Name );
                 if (propertyValue == null) continue;
 
-                if (info.PropertyType == typeof( int ) || info.PropertyType == typeof( decimal )) {
+                if (info.PropertyType == typeof( int ) || info.PropertyType == typeof( long ) || info.PropertyType == typeof( decimal )) {
                     builder.AppendFormat( "{0}:{1}", info.Name, propertyValue );
                 }
                 else if (info.PropertyType == typeof( Boolean )) {
