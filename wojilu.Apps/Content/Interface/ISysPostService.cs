@@ -9,7 +9,7 @@ namespace wojilu.Apps.Content.Interface {
 
     public interface ISysPostService {
 
-        ContentPost GetById_ForAdmin( int id );
+        ContentPost GetById_ForAdmin(long id);
         DataPage<ContentPost> GetPage();
         DataPage<ContentPost> GetPageTrash();
         int GetDeleteCount();

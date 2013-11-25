@@ -29,10 +29,10 @@ namespace wojilu.Web.Controller.Forum.Caching {
             return getCacheKey( ctx, getBoardId( ctx ) ) + ctx.route.page;
         }
 
-        private String getCacheKey( MvcContext ctx, int boardId ) {
+        private String getCacheKey( MvcContext ctx, long boardId ) {
 
             IMember owner = ctx.owner.obj;
-            int appId = ctx.app.Id;
+            long appId = ctx.app.Id;
 
             return owner.GetType().FullName + "_" + owner.Url.Replace( "/", "" ) + "_" + typeof( wojilu.Web.Controller.Forum.BoardController ).FullName + "_app" + appId + "_board" + boardId + "_p";
         }
@@ -111,7 +111,7 @@ namespace wojilu.Web.Controller.Forum.Caching {
             if ((ctx.owner.obj is Site) == false) return;
 
             // 1) board
-            int boardId = getBoardId( ctx );
+            long boardId = getBoardId( ctx );
             updateOneBoard( ctx, boardId );
 
             // 2) 如果有多个board，比如移动主题的时候(move topic)
@@ -122,7 +122,7 @@ namespace wojilu.Web.Controller.Forum.Caching {
 
         }
 
-        private void updateOneBoard( MvcContext ctx, int boardId ) {
+        private void updateOneBoard( MvcContext ctx, long boardId ) {
 
             if (boardId <= 0) {
                 logger.Error( "updateOneBoard, boardId=" + boardId );
@@ -131,7 +131,7 @@ namespace wojilu.Web.Controller.Forum.Caching {
 
 
             IMember owner = ctx.owner.obj;
-            int appId = ctx.app.Id;
+            long appId = ctx.app.Id;
 
             logger.Info( "updateOneBoard, boardId=" + boardId );
 
@@ -143,12 +143,12 @@ namespace wojilu.Web.Controller.Forum.Caching {
             }
         }
 
-        private static int getBoardId( MvcContext ctx ) {
+        private static long getBoardId( MvcContext ctx ) {
 
-            int bid = cvt.ToInt( ctx.GetItem( "boardId" ) );
+            long bid = cvt.ToLong( ctx.GetItem( "boardId" ) );
             if (bid > 0) return bid;
 
-            int boardId = ctx.GetInt( "boardId" );
+            long boardId = ctx.GetLong( "boardId" );
             if (boardId > 0) return boardId;
 
             if (ctx.route.id > 0) return ctx.route.id;

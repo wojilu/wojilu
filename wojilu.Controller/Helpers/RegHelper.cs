@@ -28,7 +28,7 @@ namespace wojilu.Web.Controller.Helpers {
             IInviteService inviteService = new InviteService();
             IFriendService friendService = new FriendService();
 
-            int friendId = ctx.PostInt( "friendId" );
+            long friendId = ctx.PostLong( "friendId" );
             if (friendId <= 0) return;
 
             String friendCode = ctx.Post( "friendCode" );

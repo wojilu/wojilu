@@ -68,7 +68,7 @@ namespace wojilu.Web.Controller.Users.Admin.Friends {
         }
 
         [HttpDelete]
-        public void Delete( int id ) {
+        public void Delete( long id ) {
 
             Result result = blacklistService.Delete( id, ctx.owner.Id );
             if (result.HasErrors ) {

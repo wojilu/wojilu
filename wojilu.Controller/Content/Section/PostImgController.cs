@@ -24,7 +24,7 @@ namespace wojilu.Web.Controller.Content.Section {
         }
 
 
-        public void SectionShow( int sectionId ) {
+        public void SectionShow( long sectionId ) {
 
             int postcat = PostCategory.Post;
             int imgcat = PostCategory.Img;
@@ -115,11 +115,11 @@ namespace wojilu.Web.Controller.Content.Section {
 
         }
 
-        public void List( int sectionId ) {
+        public void List( long sectionId ) {
             run( new ListController().List, sectionId );
         }
 
-        public void Show( int id ) {
+        public void Show( long id ) {
             run( new ListController().Show, id );
         }
 

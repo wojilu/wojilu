@@ -43,7 +43,7 @@ namespace wojilu.Web.Controller.Users {
 
             ctx.Page.Title = lang( "share" );
 
-            int userId = ctx.owner.Id;
+            long userId = ctx.owner.Id;
 
             DataPage<Share> list;
             if (userId > 0) {

@@ -213,7 +213,7 @@ namespace wojilu.Web.Controller.Content.Admin {
         }
 
 
-        public void MakeSection( int sectionId ) {
+        public void MakeSection( long sectionId ) {
 
             view( "MakeDone" );
 
@@ -227,7 +227,7 @@ namespace wojilu.Web.Controller.Content.Admin {
 
         }
 
-        public void MakeDetailBySection( int sectionId ) {
+        public void MakeDetailBySection( long sectionId ) {
 
             view( "MakeDone" );
 

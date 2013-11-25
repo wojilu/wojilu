@@ -54,7 +54,7 @@ namespace wojilu.Web.Controller.Forum {
         }
 
 
-        public void Picked( int id ) {
+        public void Picked( long id ) {
 
             view( "Index" );
 
@@ -74,7 +74,7 @@ namespace wojilu.Web.Controller.Forum {
             bindAll( id, stickyList, topicList, categories, isAdmin );
         }
 
-        public void Polls( int id ) {
+        public void Polls( long id ) {
 
             view( "Index" );
 
@@ -98,7 +98,7 @@ namespace wojilu.Web.Controller.Forum {
 
             this.fb = ctx.GetItem( "forumBoard" ) as ForumBoard;
             this.boardsPath = ctx.GetItem( "pathBoards" ) as List<ForumBoard>;
-            int id = fb.Id;
+            long id = fb.Id;
 
             IList adminCmds = SecurityHelper.GetTopicAdminCmds( (User)ctx.viewer.obj, fb, ctx );
             Boolean isAdmin = (adminCmds.Count > 0);

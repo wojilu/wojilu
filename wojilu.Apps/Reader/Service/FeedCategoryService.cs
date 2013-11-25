@@ -12,11 +12,11 @@ namespace wojilu.Apps.Reader.Service {
 
     public class FeedCategoryService : IFeedCategoryService {
 
-        public List<FeedCategory> GetByApp( int appId ) {
+        public List<FeedCategory> GetByApp(long appId) {
             return db.find<FeedCategory>( "AppId=" + appId + " order by OrderId desc, Id desc" ).list();
         }
 
-        public FeedCategory GetById( int categoryId ) {
+        public FeedCategory GetById(long categoryId) {
             return db.findById<FeedCategory>( categoryId );
         }
 

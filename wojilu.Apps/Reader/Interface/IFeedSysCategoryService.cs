@@ -11,7 +11,7 @@ namespace wojilu.Apps.Reader.Interface {
     public interface IFeedSysCategoryService {
 
         List<FeedSysCategory> GetAll();
-        FeedSysCategory GetById( int categoryId );
+        FeedSysCategory GetById(long categoryId);
     }
 
 }

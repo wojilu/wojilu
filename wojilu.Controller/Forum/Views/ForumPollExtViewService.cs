@@ -17,7 +17,7 @@ namespace wojilu.Apps.Forum.Views {
 
     public class ForumPollExtViewService : IExtViewService {
 
-        public String GetViewById( int topicId, String typeFullName, MvcContext ctx ) {
+        public String GetViewById( long topicId, String typeFullName, MvcContext ctx ) {
 
             PollBase poll = getByTopic( topicId );
             ctx.SetItem( "poll", poll );
@@ -25,7 +25,7 @@ namespace wojilu.Apps.Forum.Views {
             return ctx.controller.loadHtml( new PollController().Detail );
         }
 
-        private PollBase getByTopic( int topicId ) {
+        private PollBase getByTopic( long topicId ) {
             return db.find<ForumPoll>( "TopicId=" + topicId ).first();
         }
     }

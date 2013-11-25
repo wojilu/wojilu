@@ -75,7 +75,7 @@ namespace wojilu.Web.Controller.Forum.Admin {
             redirect( List );
         }
 
-        public void Edit( int id ) {
+        public void Edit( long id ) {
             view( "New" );
             ForumLink link = linkService.GetById( id, ctx.owner.obj );
             if (link == null) {
@@ -88,7 +88,7 @@ namespace wojilu.Web.Controller.Forum.Admin {
         }
 
         [HttpPost, DbTransaction]
-        public void Update( int id ) {
+        public void Update( long id ) {
 
             ForumLink link = linkService.GetById( id, ctx.owner.obj );
             if (link == null) {
@@ -114,7 +114,7 @@ namespace wojilu.Web.Controller.Forum.Admin {
         }
 
         [HttpDelete, DbTransaction]
-        public void Delete( int id ) {
+        public void Delete( long id ) {
 
             ForumLink link = linkService.GetById( id, ctx.owner.obj );
             if (link == null) {
@@ -129,7 +129,7 @@ namespace wojilu.Web.Controller.Forum.Admin {
         [HttpPost, DbTransaction]
         public void SaveSort() {
 
-            int id = ctx.PostInt( "id" );
+            long id = ctx.PostLong( "id" );
             String cmd = ctx.Post( "cmd" );
 
             ForumLink link = linkService.GetById( id, ctx.owner.obj );

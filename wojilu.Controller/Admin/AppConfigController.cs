@@ -89,7 +89,7 @@ namespace wojilu.Web.Controller.Admin {
         //---------------------------------------------------------------------------------------------
 
 
-        public void EditStatus( int id ) {
+        public void EditStatus( long id ) {
 
             target( UpdateStatus, id );
 
@@ -112,7 +112,7 @@ namespace wojilu.Web.Controller.Admin {
         }
 
         [HttpPost]
-        public void UpdateStatus( int id ) {
+        public void UpdateStatus( long id ) {
 
             AppInstaller installer = cdb.findById<AppInstaller>( id );
             if (installer == null) throw new NullReferenceException();
@@ -149,14 +149,14 @@ namespace wojilu.Web.Controller.Admin {
         }
 
 
-        public void EditComponent( int id ) {
+        public void EditComponent( long id ) {
             target( SaveComponent, id );
             Component c = cdb.findById<Component>( id );
             set( "c.Name", c.Name );
             radioList( "status", ComponentStatus.GetStatusList( c.TypeFullName ), "Name=Id", c.Status );
         }
 
-        public void SaveComponent( int id ) {
+        public void SaveComponent( long id ) {
             Component c = cdb.findById<Component>( id );
             c.Status = ctx.PostInt( "status" );
             c.update();

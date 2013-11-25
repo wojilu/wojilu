@@ -20,14 +20,14 @@ namespace wojilu.Common.MemberApp.Interface {
 
         IMemberApp New();
 
-        IMemberApp Add( User creator, IMember owner, String name, int appinfoId, AccessStatus accessStatus );
-        IMemberApp Add( User creator, String name, int appinfoId );
+        IMemberApp Add(User creator, IMember owner, string name, long appinfoId, AccessStatus accessStatus);
+        IMemberApp Add(User creator, string name, long appinfoId);
 
 
         void Delete( IMemberApp app, String rawAppUrl );
 
-        IMemberApp FindById( int userAppId, int userId );
-        IList GetAppInfos( int memberId );
+        IMemberApp FindById(long userAppId, long userId);
+        IList GetAppInfos(long memberId);
         IMemberApp GetByApp( IApp app );
         IMemberApp GetByApp(Type t, long appId);
         IList GetByMember(long memberId);
@@ -38,7 +38,7 @@ namespace wojilu.Common.MemberApp.Interface {
         void UpdateAccessStatus( IMemberApp app, AccessStatus accessStatus );
 
 
-        Boolean HasInstall( int ownerId, int appInfoId );
+        bool HasInstall(long ownerId, long appInfoId);
     }
 }
 

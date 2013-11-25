@@ -23,7 +23,7 @@ namespace wojilu.Web.Controller.Admin.Apps.Blog {
             pickService = new BlogPicService();
         }
 
-        public void Index( int typeId ) {
+        public void Index( long typeId ) {
 
             target( Admin );
 
@@ -76,7 +76,7 @@ namespace wojilu.Web.Controller.Admin.Apps.Blog {
             return "";
         }
 
-        private DataPage<UserFile> getByType( int id ) {
+        private DataPage<UserFile> getByType( long id ) {
 
             if (id == picType) return fileService.GetPicByType( typeof( BlogPost ) );
             if (id == fileType) return fileService.GetFileByType( typeof( BlogPost ) );
@@ -90,7 +90,7 @@ namespace wojilu.Web.Controller.Admin.Apps.Blog {
             return string.Format( "<a href='{0}' target='_blank'>{1}</a>", x.PathFull, "下载" );
         }
 
-        public void Delete( int id ) {
+        public void Delete( long id ) {
 
             fileService.Delete( id );
 

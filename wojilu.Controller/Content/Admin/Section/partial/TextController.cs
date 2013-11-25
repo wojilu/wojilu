@@ -14,7 +14,7 @@ namespace wojilu.Web.Controller.Content.Admin.Section {
     public partial class TextController : ControllerBase, IPageAdminSection {
 
 
-        private void bindSectionShow( int sectionId, ContentPost textPost ) {
+        private void bindSectionShow( long sectionId, ContentPost textPost ) {
             String content = textPost == null ? "" : textPost.Content;
             set( "post.Content", content );
 

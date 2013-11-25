@@ -277,7 +277,7 @@ namespace wojilu.Apps.Content.Service {
             return ContentPost.findPage( "AppId=" + appId + " and SaveStatus=" + SaveStatus.Normal + " order by Id desc", pageSize );
         }
 
-        public virtual DataPage<ContentPost> GetTrashByApp( int appId, int pageSize ) {
+        public virtual DataPage<ContentPost> GetTrashByApp(long appId, int pageSize) {
             return ContentPost.findPage( "AppId=" + appId + " and SaveStatus=" + SaveStatus.Delete + " order by Id desc", pageSize );
         }
 

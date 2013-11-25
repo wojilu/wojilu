@@ -229,7 +229,7 @@ namespace wojilu.Web.Controller.Forum {
             return sb.ToString();
         }
 
-        private List<Attachment> getAttachByPost( List<Attachment> attachs, int postId ) {
+        private List<Attachment> getAttachByPost(List<Attachment> attachs, long postId) {
             List<Attachment> list = new List<Attachment>();
             foreach (Attachment attachment in attachs) {
                 if (attachment.PostId == postId) {

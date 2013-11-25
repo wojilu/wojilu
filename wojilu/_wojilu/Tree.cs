@@ -542,7 +542,7 @@ namespace wojilu {
         /// <param name="binder"></param>
         /// <param name="currentNodeId"></param>
         /// <returns></returns>
-        public String RenderList( String treeId, Boolean showChildren, INodeBinder binder, int currentNodeId ) {
+        public string RenderList(string treeId, bool showChildren, INodeBinder binder, long currentNodeId) {
 
             List<Node<T>> list = this.FindAllOrdered();
 

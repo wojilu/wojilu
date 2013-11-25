@@ -172,7 +172,7 @@ namespace wojilu.Apps.Forum.Service {
 
         //-----------------------------------------------------------
 
-        public virtual Boolean IsModerator( int appId, String userName ) {
+        public virtual bool IsModerator(long appId, string userName) {
 
             List<ForumBoard> boardList = ForumBoard.find( "AppId=" + appId ).list();
 

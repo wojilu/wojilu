@@ -84,7 +84,7 @@ namespace wojilu.Web.Controller.Blog.Admin {
 
             if (strUtil.IsNullOrEmpty( cmd )) return false;
 
-            int appId = ctx.app.Id;
+            long appId = ctx.app.Id;
 
             if (cmd.Equals( "undelete" )) {
                 postService.UnDelete( ids, appId );

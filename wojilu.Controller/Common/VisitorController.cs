@@ -50,7 +50,7 @@ namespace wojilu.Web.Controller.Common {
         }
 
         [HttpPut, DbTransaction]
-        public void Visit( int id ) {
+        public void Visit( long id ) {
 
             if (ctx.viewer.IsLogin == false) {
                 echoRedirect( lang( "exPlsLogin" ) );

@@ -16,14 +16,14 @@ namespace wojilu.Apps.Photo.Interface {
         List<PhotoPost> GetSysHits( int count );
         int GetSystemDeleteCount();
 
-        DataPage<PhotoPost> GetSysPostPage( int categoryId, int pageSize );
+        DataPage<PhotoPost> GetSysPostPage(long categoryId, int pageSize);
         DataPage<PhotoPost> GetSysPostTrashPage( int pageSize );
 
         DataPage<PhotoPost> GetShowRecent( int pageSize );
-        DataPage<PhotoPost> GetShowByCategory( int categoryId, int pageSize );
+        DataPage<PhotoPost> GetShowByCategory(long categoryId, int pageSize);
         DataPage<PhotoPost> GetShowHot( int pageSize );
 
-        List<PhotoPost> GetSysTop( int categoryId, int count );
+        List<PhotoPost> GetSysTop(long categoryId, int count);
 
         void SystemDelete( PhotoPost post );
         void SystemUnDelete( PhotoPost post );

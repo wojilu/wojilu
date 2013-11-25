@@ -26,7 +26,7 @@ namespace wojilu.Web.Controller.Blog {
             fileService = new UserFileService();
         }
 
-        public void Show( int id ) {
+        public void Show( long id ) {
 
             BlogPost post = postService.GetById( id, ctx.owner.Id );
             if (post == null) {
@@ -87,7 +87,7 @@ namespace wojilu.Web.Controller.Blog {
         }
 
 
-        public void DownloadAttachment( int id ) {
+        public void DownloadAttachment( long id ) {
 
             UserFile att = fileService.GetById( id );
             if (att == null) {

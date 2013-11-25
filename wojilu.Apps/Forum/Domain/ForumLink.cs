@@ -13,10 +13,10 @@ namespace wojilu.Apps.Forum.Domain {
     [Serializable]
     public class ForumLink : ObjectBase<ForumLink>, ISort {
 
-        public int OwnerId { get; set; }
+        public long OwnerId { get; set; }
         public String OwnerType { get; set; }
 
-        public int AppId { get; set; }
+        public long AppId { get; set; }
 
         public int OrderId { get; set; }
 

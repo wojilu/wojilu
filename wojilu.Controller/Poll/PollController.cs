@@ -44,7 +44,7 @@ namespace wojilu.Web.Controller.Poll {
             bindPollList( polls );
         }
 
-        public void Show( int id ) {
+        public void Show( long id ) {
             PollData poll = pollService.GetById( id );
 
             pollService.AddHits( poll );
@@ -156,7 +156,7 @@ namespace wojilu.Web.Controller.Poll {
         }
 
 
-        public void Vote( int pollId ) {
+        public void Vote( long pollId ) {
 
             PollData poll = pollService.GetById( pollId );
             if (poll == null) {
@@ -184,7 +184,7 @@ namespace wojilu.Web.Controller.Poll {
             echoRedirect( lang( "pollDone" ), url );
         }
 
-        public void Voter( int pollId ) {
+        public void Voter( long pollId ) {
 
             PollData poll = pollService.GetById( pollId );
             if (poll == null) {

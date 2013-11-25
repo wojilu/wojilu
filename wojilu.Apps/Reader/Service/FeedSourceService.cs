@@ -117,7 +117,7 @@ namespace wojilu.Apps.Reader.Service {
             return feedsrc;
         }
 
-        public FeedSource GetById( int feedId ) {
+        public FeedSource GetById(long feedId) {
             return db.findById<FeedSource>( feedId );
         }
 

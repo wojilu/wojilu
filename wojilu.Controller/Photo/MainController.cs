@@ -118,7 +118,7 @@ namespace wojilu.Web.Controller.Photo {
             }
         }
 
-        public void List( int categoryId ) {
+        public void List( long categoryId ) {
 
             set( "appLink", to( Index ) );
 

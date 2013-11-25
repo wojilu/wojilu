@@ -49,7 +49,7 @@ namespace wojilu.Web.Controller.Admin.Mb {
             Feed( -1 );
         }
 
-        public void Feed( int id ) {
+        public void Feed( long id ) {
             view( "Feed" );
 
             set( "lnkMicroblogAdmin", to( List ) );

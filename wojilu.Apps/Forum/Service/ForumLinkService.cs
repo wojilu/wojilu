@@ -14,13 +14,13 @@ namespace wojilu.Apps.Forum.Service {
 
     public class ForumLinkService : IForumLinkService {
 
-        public virtual List<ForumLink> GetByApp( int appId, int ownerId ) {
+        public virtual List<ForumLink> GetByApp(long appId, long ownerId) {
             return db.find<ForumLink>( "AppId=:appId and OwnerId=:ownerId order by OrderId desc, Id asc" )
                 .set( "appId", appId )
                 .set( "ownerId", ownerId ).list();
         }
 
-        public virtual ForumLink GetById( int id, IMember owner ) {
+        public virtual ForumLink GetById(long id, IMember owner) {
             return db.find<ForumLink>( "Id=:id and OwnerId=:ownerId and OwnerType=:type" )
                 .set( "id", id )
                 .set( "ownerId", owner.Id )

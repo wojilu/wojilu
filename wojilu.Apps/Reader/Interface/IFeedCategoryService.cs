@@ -10,8 +10,8 @@ namespace wojilu.Apps.Reader.Interface {
 
     public interface IFeedCategoryService {
 
-        List<FeedCategory> GetByApp( int appId );
-        FeedCategory GetById( int categoryId );
+        List<FeedCategory> GetByApp(long appId);
+        FeedCategory GetById(long categoryId);
     }
 
 }

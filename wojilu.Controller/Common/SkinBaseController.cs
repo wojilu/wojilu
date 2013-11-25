@@ -62,7 +62,7 @@ namespace wojilu.Web.Controller.Common {
 
 
         [HttpPut, Login]
-        public void SaveTemplate( int id ) {
+        public void SaveTemplate( long id ) {
             skinService.ApplySystemSkin( ctx.owner.obj, id );
             //redirect( My );
             echoRedirect( lang( "opok" ), My );
@@ -74,7 +74,7 @@ namespace wojilu.Web.Controller.Common {
             target( Create );
             set( "lnkList", to( My ) );
 
-            int skinId = ctx.owner.obj.TemplateId;
+            long skinId = ctx.owner.obj.TemplateId;
             String skinContent = skinService.GetSkinContent( skinId );
             set( "skinContent", skinContent );
         }
@@ -96,7 +96,7 @@ namespace wojilu.Web.Controller.Common {
         }
 
         [Login]
-        public void Edit( int id ) {
+        public void Edit( long id ) {
             target( Update, id );
             set( "lnkList", to( My ) );
 
@@ -111,7 +111,7 @@ namespace wojilu.Web.Controller.Common {
         }
 
         [HttpPut, Login, DbTransaction]
-        public void Update( int id ) {
+        public void Update( long id ) {
 
             // TODO 暂不支持直接修改css样式表
             //ISkin skin = skinService.GetById( id, ctx.owner.obj.Id );
@@ -130,7 +130,7 @@ namespace wojilu.Web.Controller.Common {
         }
 
         [HttpDelete, Login, DbTransaction]
-        public void Delete( int id ) {
+        public void Delete( long id ) {
             ISkin skin = skinService.GetById( id, ctx.owner.obj.Id );
             if (skin == null) {
                 echoRedirect( lang( "exDataNotFound" ) );
@@ -156,7 +156,7 @@ namespace wojilu.Web.Controller.Common {
             return skin;
         }
 
-        private String getSkinActionUrl( ISkin skin, int templateId ) {
+        private string getSkinActionUrl(ISkin skin, long templateId) {
 
             if (skin.MemberId == ctx.owner.obj.Id) {
                 if (skin.Id == templateId) {
@@ -174,7 +174,7 @@ namespace wojilu.Web.Controller.Common {
                 return string.Format( "<span href=\"{0}\" class=\"putCmd\">&raquo;" + lang( "apply" ) + "</span>", to( SaveTemplate, skin.Id ) );
         }
 
-        private object getPreviewUrl( int skinId ) {
+        private object getPreviewUrl( long skinId ) {
             return Link.ToMember(ctx.owner.obj) + "?skinId=" + skinId;
         }
 

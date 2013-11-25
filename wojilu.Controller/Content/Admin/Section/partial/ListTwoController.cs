@@ -16,7 +16,7 @@ namespace wojilu.Web.Controller.Content.Admin.Section {
     public partial class ListTwoController : ControllerBase, IPageAdminSection {
 
 
-        private void bindSectionShow( int sectionId, List<ContentPost> posts ) {
+        private void bindSectionShow( long sectionId, List<ContentPost> posts ) {
             set( "addUrl", to( new Common.PostController().Add, sectionId ) );
             set( "listUrl", to( new ListController().AdminList, sectionId ) );
             IBlock block = getBlock( "list" );

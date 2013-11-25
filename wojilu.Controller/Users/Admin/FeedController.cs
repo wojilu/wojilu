@@ -44,7 +44,7 @@ namespace wojilu.Web.Controller.Users.Admin {
         public override void Layout() {
         }
 
-        public virtual void My( int id ) {
+        public virtual void My( long id ) {
 
             feedService.ClearFeeds();
 
@@ -75,7 +75,7 @@ namespace wojilu.Web.Controller.Users.Admin {
             set( "friendsFrame", to( Friends ) );
             set( "followingFrame", to( Following ) );
 
-            String dataType = FeedType.GetByInt( id );
+            String dataType = FeedType.GetByInt( (int)id );
             bindFeeds( dataType );
 
             bindVisitorList();
@@ -111,7 +111,7 @@ namespace wojilu.Web.Controller.Users.Admin {
 
         private DataPage<Feed> getFeedList( String dataType ) {
 
-            int userId = ctx.GetInt( "uid" );
+            long userId = ctx.GetLong( "uid" );
             if (feedService.IsUserIdValid( userId, ctx.owner.Id )) {
                 return feedService.GetUserSelf( userId, dataType, 50 );
             }

@@ -15,7 +15,7 @@ namespace wojilu.Web.Controller.Content.Section {
 
     public partial class SlideController : ControllerBase, IPageSection {
 
-        private void bindSectionShow( int sectionId, List<ContentPost> posts, ContentPost first ) {
+        private void bindSectionShow( long sectionId, List<ContentPost> posts, ContentPost first ) {
 
             IBlock block = getBlock( "nav" );
 

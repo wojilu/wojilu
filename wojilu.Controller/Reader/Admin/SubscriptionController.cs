@@ -50,7 +50,7 @@ namespace wojilu.Web.Controller.Reader.Admin {
         [HttpPost, DbTransaction]
         public virtual void SaveSort() {
 
-            int id = ctx.PostInt( "id" );
+            long id = ctx.PostLong( "id" );
             String cmd = ctx.Post( "cmd" );
 
             Subscription subscription = subscriptionService.GetById( id );
@@ -94,7 +94,7 @@ namespace wojilu.Web.Controller.Reader.Admin {
                 return;
             }
 
-            int categoryId = ctx.PostInt( "CategoryId" );
+            long categoryId = ctx.PostLong( "CategoryId" );
             FeedCategory category = categoryService.GetById( categoryId );
             String name = ctx.Post( "Name" );
 
@@ -103,7 +103,7 @@ namespace wojilu.Web.Controller.Reader.Admin {
             redirect( Show, s.Id );
         }
 
-        public void Edit( int id ) {
+        public void Edit( long id ) {
 
             Subscription sf = subscriptionService.GetById( id );
             if (sf == null) {
@@ -117,7 +117,7 @@ namespace wojilu.Web.Controller.Reader.Admin {
         }
 
         [HttpPost, DbTransaction]
-        public void Update( int id ) {
+        public void Update( long id ) {
 
             Subscription sf = subscriptionService.GetById( id );
             if (sf == null) {
@@ -128,7 +128,7 @@ namespace wojilu.Web.Controller.Reader.Admin {
             sf.Name = ctx.Post( "Name" );
             //sf.OrderId = ctx.PostInt( "OrderId" );
 
-            int categoryId = ctx.PostInt( "CategoryId" );
+            long categoryId = ctx.PostLong( "CategoryId" );
             sf.Category = new FeedCategory( categoryId );
 
             subscriptionService.Update( sf );
@@ -137,7 +137,7 @@ namespace wojilu.Web.Controller.Reader.Admin {
         }
 
         [HttpDelete, DbTransaction]
-        public void Delete( int id ) {
+        public void Delete( long id ) {
 
             Subscription sf = subscriptionService.GetById( id );
             if (sf == null) {
@@ -178,7 +178,7 @@ namespace wojilu.Web.Controller.Reader.Admin {
 
 
 
-        public void Show( int id ) {
+        public void Show( long id ) {
 
             Subscription s = subscriptionService.GetById( id );
             DataPage<FeedEntry> list = entryService.GetPage( s.FeedSource.Id );

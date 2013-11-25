@@ -71,7 +71,7 @@ namespace wojilu.Apps.Forum.Domain {
 
         public String UpdateInfo { get; set; }
 
-        public int ViewId { get; set; }
+        public long ViewId { get; set; }
 
 
         [NotSave]

@@ -36,7 +36,7 @@ namespace wojilu.Web.Controller.Content.Admin.Section {
         }
 
 
-        public List<IPageSettingLink> GetSettingLink( int sectionId ) {
+        public List<IPageSettingLink> GetSettingLink( long sectionId ) {
             List<IPageSettingLink> links = new List<IPageSettingLink>();
 
             PageSettingLink lnk = new PageSettingLink();
@@ -53,27 +53,27 @@ namespace wojilu.Web.Controller.Content.Admin.Section {
             return links;
         }
 
-        public String GetEditLink( int postId ) {
+        public String GetEditLink( long postId ) {
             return to( new Common.PostController().Edit, postId );
         }
 
-        public String GetSectionIcon( int sectionId ) {
+        public String GetSectionIcon( long sectionId ) {
             return "";
         }
 
-        public void AdminSectionShow( int sectionId ) {
+        public void AdminSectionShow( long sectionId ) {
             List<ContentPost> posts = GetSectionPosts( sectionId );
             bindSectionShow( sectionId, posts );
         }
 
-        public void AdminList( int sectionId ) {
+        public void AdminList( long sectionId ) {
             ContentSection section = sectionService.GetById( sectionId, ctx.app.Id );
-            DataPage<ContentPost> posts = postService.GetPageBySectionAndCategory( section.Id, ctx.GetInt( "categoryId" ) );
+            DataPage<ContentPost> posts = postService.GetPageBySectionAndCategory( section.Id, ctx.GetLong( "categoryId" ) );
 
             bindAdminList( section, posts );
         }
 
-        public List<ContentPost> GetSectionPosts( int sectionId ) {
+        public List<ContentPost> GetSectionPosts( long sectionId ) {
             ContentSection s = sectionService.GetById( sectionId, ctx.app.Id );
             return postService.GetBySection( sectionId, s.ListCount );
         }

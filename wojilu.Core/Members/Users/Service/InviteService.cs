@@ -18,7 +18,7 @@ namespace wojilu.Members.Users.Service {
             userService = new UserService();
         }
 
-        public virtual String GetCodeByUser( int userId ) {
+        public virtual string GetCodeByUser(long userId) {
 
             UserInviteCode code = UserInviteCode.find( "User.Id=" + userId ).first();
 
@@ -30,7 +30,7 @@ namespace wojilu.Members.Users.Service {
             }
         }
 
-        private String createCode( int userId ) {
+        private string createCode(long userId) {
 
             UserInviteCode c = new UserInviteCode();
             c.User = new User( userId );
@@ -40,7 +40,7 @@ namespace wojilu.Members.Users.Service {
             return c.Code;
         }
 
-        public virtual Boolean IsCodeValid( int userId, String code ) {
+        public virtual bool IsCodeValid(long userId, string code) {
 
             UserInviteCode c = UserInviteCode.find( "User.Id=" + userId ).first();
             if (c == null) return false;
@@ -66,7 +66,7 @@ namespace wojilu.Members.Users.Service {
             return UserInvite.find( "Inviter.Id=" + inviter.Id + " and ReceiverMail=:mail" ).set( "mail", mail ).count() > 0;
         }
 
-        public virtual Result Validate( int friendId, String friendCode ) {
+        public virtual Result Validate(long friendId, string friendCode) {
 
             Result result = new Result();
 

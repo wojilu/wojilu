@@ -40,7 +40,7 @@ namespace wojilu.Web.Controller.Forum.Moderators {
 
 
         private Boolean boardError( ForumTopic topic ) {
-            if (ctx.GetInt( "boardId" ) != topic.ForumBoard.Id) {
+            if (ctx.GetLong( "boardId" ) != topic.ForumBoard.Id) {
                 echoRedirect( lang( "exNoPermission" ) + ": borad id error" );
                 return true;
             }
@@ -48,7 +48,7 @@ namespace wojilu.Web.Controller.Forum.Moderators {
         }
 
         private Boolean boardError( ForumPost post ) {
-            if (ctx.GetInt( "boardId" ) != post.ForumBoardId) {
+            if (ctx.GetLong( "boardId" ) != post.ForumBoardId) {
                 echoRedirect( lang( "exNoPermission" ) + ": borad id error" );
                 return true;
             }
@@ -58,7 +58,7 @@ namespace wojilu.Web.Controller.Forum.Moderators {
         //--------------------------------------------------------------------------
 
 
-        public void AddCredit( int id ) {
+        public void AddCredit( long id ) {
 
             String msg = "<div style=\"font-size:22px;color:red;font-weight:bold;margin-top:30px; text-align:center;\">{0}</div>";
 

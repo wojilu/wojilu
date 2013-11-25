@@ -12,8 +12,8 @@ namespace wojilu.Apps.Blog.Interface {
 
     public interface IBlogCategoryService {
 
-        List<BlogCategory> GetByApp( int appId );
-        BlogCategory GetById( int id, int ownerId );
+        List<BlogCategory> GetByApp(long appId);
+        BlogCategory GetById(long id, long ownerId);
         void Insert( BlogCategory category );
         void Delete( BlogCategory category );
 

@@ -19,7 +19,7 @@ namespace wojilu.Web.Controller.Content.Htmls {
             return PathHelper.Map( "/html/sidebar/" );
         }
 
-        public void Process( int appId ) {
+        public void Process( long appId ) {
 
             base.CheckDir();
 
@@ -32,7 +32,7 @@ namespace wojilu.Web.Controller.Content.Htmls {
             logger.Info( "make html done=>" + htmlPath );
         }
 
-        private string getPath( int appId ) {
+        private string getPath( long appId ) {
             return Path.Combine( GetDir(), appId + ".html" );
         }
 

@@ -19,7 +19,7 @@ namespace wojilu.Common.Msg.Domain {
         public User Creator { get; set; }
         public User Target { get; set; }
 
-        public int ParentId { get; set; }
+        public long ParentId { get; set; }
 
         [Column( Length = 50 )]
         public String AuthorName { get; set; }

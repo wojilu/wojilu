@@ -112,7 +112,7 @@ namespace wojilu.Web.Controller.Forum.Moderators {
 
         [HttpPost, DbTransaction]
         public void Move() {
-            int targetForumId = ctx.PostInt( "targetForum" );
+            long targetForumId = ctx.PostLong( "targetForum" );
             ForumBoard targetBoard = boardService.GetById( targetForumId, ctx.owner.obj );
             ctx.SetItem( "targetForumId", targetForumId );
 
@@ -133,7 +133,7 @@ namespace wojilu.Web.Controller.Forum.Moderators {
         [HttpPost, DbTransaction]
         public void SaveStickySort() {
 
-            int topicId = ctx.PostInt( "id" );
+            long topicId = ctx.PostLong( "id" );
             String cmd = ctx.Post( "cmd" );
             if (cmd == "up") {
                 topicService.StickyMoveUp( topicId );
@@ -153,7 +153,7 @@ namespace wojilu.Web.Controller.Forum.Moderators {
         [HttpPost, DbTransaction]
         public void SaveGlobalStickySort() {
 
-            int topicId = ctx.PostInt( "id" );
+            long topicId = ctx.PostLong( "id" );
             String cmd = ctx.Post( "cmd" );
             ForumApp app = ctx.app.obj as ForumApp;
 
@@ -175,7 +175,7 @@ namespace wojilu.Web.Controller.Forum.Moderators {
         [HttpPost, DbTransaction]
         public void Category() {
 
-            int categoryId = ctx.PostInt( "dropCategories" );
+            long categoryId = ctx.PostLong( "dropCategories" );
             ForumCategory category = categoryService.GetById( categoryId, ctx.owner.obj );
             if (category == null && categoryId > 0) {
                 echoText( "<h1>" + alang( "exCategoryNotFound" ) + "</h4>" );

@@ -169,7 +169,7 @@ namespace wojilu.Web.Controller.Microblogs {
         private string getCommentUrl( Microblog x ) {
 
             String dataType = strUtil.IsNullOrEmpty( x.DataType ) ? typeof( Microblog ).FullName : x.DataType;
-            int dataId = getDataId( x );
+            long dataId = getDataId( x );
 
             return t2( new wojilu.Web.Controller.Open.CommentController().List )
                 + "?dataType=" + dataType
@@ -181,7 +181,7 @@ namespace wojilu.Web.Controller.Microblogs {
                 + "&feedId=" + x.Id;
         }
 
-        private int getDataId( Microblog x ) {
+        private long getDataId( Microblog x ) {
 
             if (x.DataType != null && x.DataType.Equals( typeof( Microblog ).FullName )) {
                 return x.Id;
@@ -276,7 +276,7 @@ namespace wojilu.Web.Controller.Microblogs {
 
         // 转发的附件
         [NonVisit]
-        public void Single( int id ) {
+        public void Single( long id ) {
 
             Microblog blog = microblogService.GetById( id );
 

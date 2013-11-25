@@ -14,7 +14,7 @@ namespace wojilu.Web.Controller.Content.Section {
 
     public partial class TalkController : ControllerBase, IPageSection {
 
-        public String GetEditLink( int postId ) {
+        public String GetEditLink( long postId ) {
             return null;
         }
 

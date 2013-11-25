@@ -29,11 +29,11 @@ namespace wojilu.Common.Msg.Service {
             microblogService = new MicroblogService();
         }
 
-        public virtual Feedback GetById( int id ) {
+        public virtual Feedback GetById(long id) {
             return db.findById<Feedback>( id );
         }
 
-        public virtual List<Feedback> GetRecent( int count, int userId ) {
+        public virtual List<Feedback> GetRecent(int count, long userId) {
             if (count == 0) count = 10;
             return db.find<Feedback>( "Target.Id=" + userId + "" ).list( count );
         }
@@ -85,7 +85,7 @@ namespace wojilu.Common.Msg.Service {
             nfService.send( receiverId, typeof( User ).FullName, msg, NotificationType.Comment );
         }
 
-        public virtual DataPage<Feedback> GetPageList( int userId ) {
+        public virtual DataPage<Feedback> GetPageList(long userId) {
             return db.findPage<Feedback>( "Target.Id=" + userId + "" );
         }
 

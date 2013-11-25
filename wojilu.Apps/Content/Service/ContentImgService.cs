@@ -17,37 +17,37 @@ namespace wojilu.Apps.Content.Service {
 
         private static readonly int detailPageSize = 10;
 
-        public virtual List<ContentPost> GetByCategory( int sectionId, int categoryId, int appId ) {
+        public virtual List<ContentPost> GetByCategory(long sectionId, long categoryId, long appId) {
             return GetByCategory( sectionId, categoryId, appId, 2 );
         }
 
-        public virtual List<ContentPost> GetByCategory( int sectionId, int categoryId, int appId, int count ) {
+        public virtual List<ContentPost> GetByCategory(long sectionId, long categoryId, long appId, int count) {
             List<ContentPost> list = ContentPost.find( "AppId=" + appId + " and PageSection.Id=" + sectionId + " and CategoryId=" + categoryId + " and SaveStatus=" + SaveStatus.Normal + " order by Id desc" ).list( count );
             list.Sort();
             return list;
         }
 
-        public virtual ContentPost GetTopImg( int sectionId, int categoryId, int appId ) {
+        public virtual ContentPost GetTopImg(long sectionId, long categoryId, long appId) {
             return ContentPost.find( "AppId=" + appId + " and PageSection.Id=" + sectionId + " and CategoryId=" + categoryId + " and SaveStatus=" + SaveStatus.Normal + " order by Id desc" ).first();
         }
 
-        public virtual ContentImg GetImgById( int imgId ) {
+        public virtual ContentImg GetImgById(long imgId) {
             return db.findById<ContentImg>( imgId );
         }
 
-        public virtual List<ContentImg> GetImgList( int postId ) {
+        public virtual List<ContentImg> GetImgList(long postId) {
             return db.find<ContentImg>( "Post.Id=" + postId + " order by Id" ).list();
         }
 
-        public virtual int GetImgCount( int postId ) {
+        public virtual int GetImgCount(long postId) {
             return db.count<ContentImg>( "PostId=" + postId );
         }
 
-        public virtual DataPage<ContentImg> GetImgPage( int postId ) {
+        public virtual DataPage<ContentImg> GetImgPage(long postId) {
             return db.findPage<ContentImg>( "Post.Id=" + postId + " order by Id", detailPageSize );
         }
 
-        public virtual DataPage<ContentImg> GetImgPage( int postId, int currentPage ) {
+        public virtual DataPage<ContentImg> GetImgPage(long postId, int currentPage) {
             return db.findPage<ContentImg>( "Post.Id=" + postId + " order by Id", currentPage, detailPageSize );
         }
 

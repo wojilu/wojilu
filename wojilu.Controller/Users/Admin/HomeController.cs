@@ -64,7 +64,7 @@ namespace wojilu.Web.Controller.Users.Admin {
             set( "moreVisitors", to( new wojilu.Web.Controller.Users.VisitorController().Index ) );
         }
 
-        public void Index( int userId ) {
+        public void Index( long userId ) {
 
             load( "publisher", Publisher );
 

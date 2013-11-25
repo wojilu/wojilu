@@ -23,7 +23,7 @@ namespace wojilu.Web.Controller.Groups.Admin {
             set( "cfg.UrlExt", MvcConfig.Instance.UrlExt );
             set( "groupPath", MemberPath.GetPath( typeof( Group ).Name ) );
 
-            int categoryId = (ctx.PostInt( "Category" ) > 0) ? ctx.PostInt( "Category" ) : group.Category.Id;
+            long categoryId = (ctx.PostLong( "Category" ) > 0) ? ctx.PostLong( "Category" ) : group.Category.Id;
             dropList( "Category", GroupCategory.GetAll(), "Name=Id", categoryId );
             this.setAccessStatus();
 
@@ -75,7 +75,7 @@ namespace wojilu.Web.Controller.Groups.Admin {
             Group group = ctx.owner.obj as Group;
 
             int accessStatus = group.AccessStatus;
-            if (ctx.PostInt( "AccessStatus" ) > 0)
+            if (ctx.PostLong( "AccessStatus" ) > 0)
                 accessStatus = ctx.PostInt( "AccessStatus" );
 
             Dictionary<string, string> dic = new Dictionary<string, string>();

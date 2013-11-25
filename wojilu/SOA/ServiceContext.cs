@@ -28,13 +28,12 @@ namespace wojilu.SOA {
     /// 获取服务的工具类
     /// </summary>
     public class ServiceContext {
-
         /// <summary>
         /// 根据 id 获取服务
         /// </summary>
         /// <param name="serviceId"></param>
         /// <returns></returns>
-        public static Service Get( int serviceId ) {
+        public static Service Get(long serviceId) {
             return (new Service().findById( serviceId ) as Service);
         }
 
@@ -77,7 +76,7 @@ namespace wojilu.SOA {
         /// <param name="serviceParamValues">服务的参数</param>
         /// <param name="defaultValues">默认参数</param>
         /// <returns></returns>
-        public static IList GetData( int serviceId, Dictionary<String, String> serviceParamValues, Dictionary<String, String> defaultValues ) {
+        public static IList GetData(long serviceId, Dictionary<string, string> serviceParamValues, Dictionary<string, string> defaultValues) {
 
             ArrayList argList = new ArrayList();
 

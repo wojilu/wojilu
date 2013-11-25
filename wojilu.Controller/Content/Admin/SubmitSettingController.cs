@@ -92,7 +92,7 @@ namespace wojilu.Web.Controller.Content.Admin {
         }
 
         [HttpDelete]
-        public void DeleteUser( int id ) {
+        public void DeleteUser( long id ) {
 
             ContentSubmitter s = ContentSubmitter.findById( id );
             if (s == null) {

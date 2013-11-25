@@ -126,7 +126,7 @@ namespace wojilu.Web.Controller.Photo.Wf {
             PhotoBinder.BindPhotoList( this, list, u.Id );
         }
 
-        public void Category( int id ) {
+        public void Category( long id ) {
 
             setWaterfallView();
 

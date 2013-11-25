@@ -108,7 +108,7 @@ namespace wojilu.Apps.Forum.Interface {
 
         void DeleteList( AdminValue av );
 
-        void MakeCategory( int categoryId, AdminValue av );
+        void MakeCategory(long categoryId, AdminValue av);
 
         void MakeGlobalSticky( AdminValue adminValue );
         void MakeGloablStickyUndo( AdminValue adminValue );

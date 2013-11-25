@@ -69,7 +69,7 @@ namespace wojilu.Web.Controller.Common.Admin {
         [HttpPost, DbTransaction]
         public void SortMenu() {
 
-            int id = ctx.PostInt( "id" );
+            long id = ctx.PostLong( "id" );
             String cmd = ctx.Post( "cmd" );
 
             IMenu menu = menuService.FindById( ctx.owner.Id, id );
@@ -117,7 +117,7 @@ namespace wojilu.Web.Controller.Common.Admin {
         }
 
 
-        public void AddSubMenu( int id ) {
+        public void AddSubMenu( long id ) {
 
             target( SaveSubMenu, id );
 
@@ -156,7 +156,7 @@ namespace wojilu.Web.Controller.Common.Admin {
 
 
         [HttpPost, DbTransaction]
-        public void SaveSubMenu( int id ) {
+        public void SaveSubMenu( long id ) {
 
             IMenu menu = validateMenu( menuService.New() );
 
@@ -181,7 +181,7 @@ namespace wojilu.Web.Controller.Common.Admin {
         }
 
 
-        public void Edit( int id ) {
+        public void Edit( long id ) {
 
             IMenu menu = menuService.FindById( ctx.owner.Id, id );
             if (menu == null) {
@@ -208,7 +208,7 @@ namespace wojilu.Web.Controller.Common.Admin {
         }
 
         [HttpPost, DbTransaction]
-        public virtual void Update( int id ) {
+        public virtual void Update( long id ) {
 
             IMenu menu = menuService.FindById( ctx.owner.Id, id );
             if (menu == null) {
@@ -239,7 +239,7 @@ namespace wojilu.Web.Controller.Common.Admin {
         }
 
         [HttpDelete, DbTransaction]
-        public void Delete( int id ) {
+        public void Delete( long id ) {
             IMenu menu = menuService.FindById( ctx.owner.Id, id );
             if (menu == null) {
                 echoRedirect( lang( "exDataNotFound" ) );

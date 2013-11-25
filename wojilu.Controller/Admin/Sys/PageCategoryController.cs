@@ -47,7 +47,7 @@ namespace wojilu.Web.Controller.Admin.Sys {
         [HttpPost]
         public virtual void SaveSort() {
 
-            int id = ctx.PostInt( "id" );
+            long id = ctx.PostLong( "id" );
             String cmd = ctx.Post( "cmd" );
 
             PageCategory data = pageService.GetCategoryById( id, ctx.owner.obj );
@@ -102,7 +102,7 @@ namespace wojilu.Web.Controller.Admin.Sys {
 
 
 
-        public void Edit( int id ) {
+        public void Edit( long id ) {
             target( Update, id );
             PageCategory data = pageService.GetCategoryById( id, ctx.owner.obj );
             if (data == null) {
@@ -148,7 +148,7 @@ namespace wojilu.Web.Controller.Admin.Sys {
         }
 
 
-        private string getUserName( int id, List<User> users ) {
+        private string getUserName( long id, List<User> users ) {
             foreach (User u in users) {
                 if (u.Id == id) return u.Name;
             }
@@ -156,7 +156,7 @@ namespace wojilu.Web.Controller.Admin.Sys {
         }
 
         [HttpPost, DbTransaction]
-        public void Update( int id ) {
+        public void Update( long id ) {
 
             PageCategory data = pageService.GetCategoryById( id, ctx.owner.obj );
             if (data == null) {
@@ -207,7 +207,7 @@ namespace wojilu.Web.Controller.Admin.Sys {
         }
 
         [HttpDelete, DbTransaction]
-        public void Delete( int id ) {
+        public void Delete( long id ) {
 
             PageCategory data = pageService.GetCategoryById( id, ctx.owner.obj );
             if (data == null) { echoRedirect( lang( "exDataNotFound" ) ); return; }
@@ -219,7 +219,7 @@ namespace wojilu.Web.Controller.Admin.Sys {
         private PageCategory validate( PageCategory data ) {
 
             int orderid = ctx.PostInt( "OrderId" );
-            int parentid = ctx.PostInt( "ParentId" );
+            long parentid = ctx.PostLong( "ParentId" );
             String name = ctx.Post( "Name" );
             String description = ctx.Post( "Description" );
             String logo = ctx.Post( "Logo" );

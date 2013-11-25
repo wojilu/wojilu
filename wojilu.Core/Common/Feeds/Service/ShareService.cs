@@ -28,11 +28,11 @@ namespace wojilu.Common.Feeds.Service {
             nfService = new NotificationService();
         }
 
-        public virtual Share GetById( int id ) {
+        public virtual Share GetById(long id) {
             return Share.findById( id );
         }
 
-        public virtual Share GetByIdWithComments( int id ) {
+        public virtual Share GetByIdWithComments(long id) {
             Share share = Share.findById( id );
             if (share != null) {
                 List<ShareComment> list = ShareComment.find( "RootId=" + id + " order by Id" ).list();
@@ -41,7 +41,7 @@ namespace wojilu.Common.Feeds.Service {
             return share;
         }
 
-        public virtual Result Delete( int id ) {
+        public virtual Result Delete(long id) {
             Share share = GetById( id );
             Result result = new Result();
             if (share == null) {
@@ -55,7 +55,7 @@ namespace wojilu.Common.Feeds.Service {
             }
         }
 
-        private void deleteFeedByShare( int id ) {
+        private void deleteFeedByShare(long id) {
 
             Feed feed = Feed.find( "DataType=:type and DataId=:id" )
                 .set( "type", typeof( Share ).FullName )
@@ -69,7 +69,7 @@ namespace wojilu.Common.Feeds.Service {
             return Share.findPage( "" );
         }
 
-        public virtual ShareComment GetCommentById( int id ) {
+        public virtual ShareComment GetCommentById(long id) {
             return ShareComment.findById( id );
         }
 
@@ -100,18 +100,18 @@ namespace wojilu.Common.Feeds.Service {
             return share.insert();
         }
 
-        public virtual List<Share> GetByUser( int count, int userId ) {
+        public virtual List<Share> GetByUser(int count, long userId) {
             if (count <= 0) count = 5;
             return Share.find( "Creator.Id=" + userId ).list( count );
         }
 
-        public virtual DataPage<Share> GetPageByUser( int userId, int pageSize ) {
+        public virtual DataPage<Share> GetPageByUser(long userId, int pageSize) {
             DataPage<Share> list = Share.findPage( "CreatorId=" + userId, pageSize );
             mergeCommentsPrivate( list.Results );
             return list;
         }
 
-        public virtual DataPage<Share> GetFriendsPage( int userId, int pageSize ) {
+        public virtual DataPage<Share> GetFriendsPage(long userId, int pageSize) {
 
             String friendIds = fs.FindFriendsIds( userId );
             if (strUtil.IsNullOrEmpty( friendIds )) return DataPage<Share>.GetEmpty();

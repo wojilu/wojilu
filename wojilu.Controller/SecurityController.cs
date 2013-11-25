@@ -57,7 +57,7 @@ namespace wojilu.Web.Controller {
                 checkGroupPermission();
         }
 
-        public void CanAppAdmin( int appId ) {
+        public void CanAppAdmin( long appId ) {
 
             if (ctx.viewer.IsLogin == false) {
                 echoText( "no" );

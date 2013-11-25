@@ -74,7 +74,7 @@ namespace wojilu.Web.Context.Initor {
             }
         }
 
-        private User getViewerById( int id ) {
+        private User getViewerById(long id) {
 
             if (id <= 0) return UserFactory.Guest;
 

@@ -100,10 +100,10 @@ namespace wojilu.Common.Comments {
     // 临时数据迁移对象
     public class OpenCommentTrans : ObjectBase<OpenCommentTrans> {
 
-        public int CommentId { get; set; }
+        public long CommentId { get; set; }
         public String CommentType { get; set; }
 
-        public int OpenCommentId { get; set; }
+        public long OpenCommentId { get; set; }
         public DateTime Created { get; set; }
 
 

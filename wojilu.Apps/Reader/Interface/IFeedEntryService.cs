@@ -11,10 +11,10 @@ namespace wojilu.Apps.Reader.Interface {
         FeedEntry GetByLink( String entryLink );
 
 
-        DataPage<FeedEntry> GetPage( int feedId );
+        DataPage<FeedEntry> GetPage(long feedId);
         DataPage<FeedEntry> GetPage( String feedIds );
 
-        FeedEntry GetById( int id );
+        FeedEntry GetById(long id);
 
         void AddHits( FeedEntry entry );
     }

@@ -70,7 +70,7 @@ namespace wojilu.Web.Controller.Blog.Admin {
 
             BlogPost data = new BlogPost();
             BlogCategory category = new BlogCategory();
-            category.Id = ctx.PostInt( "CategoryId" );
+            category.Id = ctx.PostLong( "CategoryId" );
             data.Category = category;
             data.Title = ctx.Post( "Title" );
             data.Abstract = ctx.Post( "Abstract" );
@@ -100,7 +100,7 @@ namespace wojilu.Web.Controller.Blog.Admin {
             populatePost( data );
 
             // 附件处理
-            int[] ids = cvt.ToIntArray( ctx.Post( "attachmentIds" ) );
+            long[] ids = cvt.ToLongArray( ctx.Post( "attachmentIds" ) );
 
             Result result = postService.Insert( data, ids );
             if (result.IsValid) {
@@ -117,7 +117,7 @@ namespace wojilu.Web.Controller.Blog.Admin {
 
         //-------------------------------- edit&save -------------------------------------------
 
-        public void Edit( int id ) {
+        public void Edit( long id ) {
 
             target( Update, id );
 
@@ -188,7 +188,7 @@ namespace wojilu.Web.Controller.Blog.Admin {
         }
 
         [HttpPost, DbTransaction]
-        public void Update( int id ) {
+        public void Update( long id ) {
 
             BlogPost post = postService.GetById( id, ctx.owner.Id );
             if (post == null) {

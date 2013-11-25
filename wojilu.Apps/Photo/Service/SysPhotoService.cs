@@ -22,7 +22,7 @@ namespace wojilu.Apps.Photo.Service {
             pickedService = new PickedService();
             postService = new PhotoPostService();
         }
-        public virtual DataPage<PhotoPost> GetSysPostPage( int categoryId, int pageSize ) {
+        public virtual DataPage<PhotoPost> GetSysPostPage(long categoryId, int pageSize) {
 
             if (categoryId <= 0) {
                 return db.findPage<PhotoPost>( "SaveStatus=" + SaveStatus.Normal, pageSize );
@@ -83,7 +83,7 @@ namespace wojilu.Apps.Photo.Service {
             return db.count<PhotoPost>( "SaveStatus=" + SaveStatus.SysDelete );
         }
 
-        public virtual List<PhotoPost> GetSysTop( int categoryId, int count ) {
+        public virtual List<PhotoPost> GetSysTop(long categoryId, int count) {
             if (count <= 0) count = 10;
             return db.find<PhotoPost>( "SaveStatus=" + SaveStatus.Normal + " and SysCategoryId=" + categoryId ).list( count );
         }
@@ -152,7 +152,7 @@ namespace wojilu.Apps.Photo.Service {
             return PhotoPost.findPage( "SysCategoryId>0 and SaveStatus=" + SaveStatus.Normal, pageSize );
         }
 
-        public DataPage<PhotoPost> GetShowByCategory( int categoryId, int pageSize ) {
+        public DataPage<PhotoPost> GetShowByCategory(long categoryId, int pageSize) {
 
             return db.findPage<PhotoPost>( "SaveStatus=" + SaveStatus.Normal + " and SysCategoryId=" + categoryId, pageSize );
         }

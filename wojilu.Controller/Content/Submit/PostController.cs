@@ -52,7 +52,7 @@ namespace wojilu.Web.Controller.Content.Submit {
             }
         }
 
-        public void Show( int id ) {
+        public void Show( long id ) {
             ContentTempPost p = tempPostService.GetById( id );
             if (p == null) {
                 echo( lang( "exDataNotFound" ) );
@@ -75,7 +75,7 @@ namespace wojilu.Web.Controller.Content.Submit {
 
         //----------------------------------------------------------------------
 
-        public void SubmitPost( int sectionId ) {
+        public void SubmitPost( long sectionId ) {
 
             ContentSection s = sectionService.GetById( sectionId, ctx.app.Id );
             set( "section.Name", s.Title );
@@ -83,7 +83,7 @@ namespace wojilu.Web.Controller.Content.Submit {
             target( SavePost, sectionId );
         }
 
-        public void SavePost( int sectionId ) {
+        public void SavePost( long sectionId ) {
 
             if (shouldApprove( ctx.viewer.obj ) ) {
                 saveTempPost( sectionId, null );
@@ -115,7 +115,7 @@ namespace wojilu.Web.Controller.Content.Submit {
 
         //----------------------------------------------------------------------
 
-        public void SubmitVideo( int sectionId ) {
+        public void SubmitVideo( long sectionId ) {
             target( SaveVideo, sectionId );
 
             ContentSection s = sectionService.GetById( sectionId, ctx.app.Id );
@@ -123,7 +123,7 @@ namespace wojilu.Web.Controller.Content.Submit {
             set( "section.Name", s.Title );
         }
 
-        public void SaveVideo( int sectionId ) {
+        public void SaveVideo( long sectionId ) {
 
             if (shouldApprove( ctx.viewer.obj ) ) {
                 saveTempPost( sectionId, typeof( ContentVideo ) );
@@ -212,7 +212,7 @@ namespace wojilu.Web.Controller.Content.Submit {
         }
 
 
-        private void saveTempPost( int sectionId, Type postType ) {
+        private void saveTempPost( long sectionId, Type postType ) {
 
             ContentTempPost post = new ContentTempPost();
             post.Creator = (User)ctx.viewer.obj;

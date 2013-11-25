@@ -13,11 +13,11 @@ namespace wojilu.Web.Controller.Common.Feeds {
     [Serializable]
     public class FeedView : IFeed {
 
-        public int Id { get; set; }
+        public long Id { get; set; }
 
         public User Creator { get; set; }
         public String DataType { get; set; }
-        public int DataId { get; set; }
+        public long DataId { get; set; }
 
         public int Replies { get; set; }
 

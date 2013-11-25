@@ -175,7 +175,7 @@ namespace wojilu.Web.Controller.Users.Admin {
             set( "urlExt", MvcConfig.Instance.UrlExt );
             set( "groupPath", MemberPath.GetPath( typeof( Group ).Name ) );
 
-            int categoryId = (ctx.PostInt( "Category" ) > 0) ? ctx.PostInt( "Category" ) : 1;
+            long categoryId = (ctx.PostLong( "Category" ) > 0) ? ctx.PostLong( "Category" ) : 1;
             dropList( "Category", GroupCategory.GetAll(), "Name=Id", categoryId );
 
             setAccessStatus();
@@ -219,7 +219,7 @@ namespace wojilu.Web.Controller.Users.Admin {
             }
 
             String name = ctx.Post( "Name" );
-            int categoryId = ctx.PostInt( "Category" );
+            long categoryId = ctx.PostLong( "Category" );
             int accessStats = ctx.PostInt( "AccessStatus" );
             String description = ctx.Post( "Description" );
             String url = ctx.Post( "FriendUrl" );
@@ -244,11 +244,11 @@ namespace wojilu.Web.Controller.Users.Admin {
             Group group = result.Info as Group;
             new GroupUtil().CreateAppAndMenu( group, ctx );
 
-            run( showStepTwo, group.Id );
+            run( showStepTwo, @group.Id );
         }
 
         [NonVisit]
-        public void showStepTwo( int id ) {
+        public void showStepTwo( long id ) {
 
             if (isEnableUserCreateGroup() == false) {
                 echoError( "禁止创建群组" );
@@ -267,7 +267,7 @@ namespace wojilu.Web.Controller.Users.Admin {
                 return;
             }
 
-            int newGroupId = ctx.PostInt( "newGroupId" );
+            long newGroupId = ctx.PostLong( "newGroupId" );
             if (newGroupId <= 0) { errors.Add( lang( "exGroupNull" ) ); run( New ); return; }
 
             Group group = groupService.GetById( newGroupId );
@@ -275,7 +275,7 @@ namespace wojilu.Web.Controller.Users.Admin {
 
             HttpFile postedFile = ctx.GetFileSingle();
             Result result = GroupHelper.SaveGroupLogo( postedFile, group.Url );
-            if (result.HasErrors) { errors.Join( result ); run( showStepTwo, group.Id ); return; }
+            if (result.HasErrors) { errors.Join( result ); run( showStepTwo, @group.Id ); return; }
 
             group.Logo = result.Info.ToString();
             groupService.UpdateLogo( group );

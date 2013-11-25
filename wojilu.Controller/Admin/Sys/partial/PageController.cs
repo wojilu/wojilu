@@ -18,7 +18,7 @@ namespace wojilu.Web.Controller.Admin.Sys {
     public partial class PageController : ControllerBase {
 
 
-        private String plink( int id ) {
+        private String plink( long id ) {
             return strUtil.Join( ctx.url.SiteUrl, to( new wojilu.Web.Controller.Common.PageController().Show, id ) );
         }
 
@@ -78,7 +78,7 @@ namespace wojilu.Web.Controller.Admin.Sys {
 
         //--------------------------------------------------------------------------
 
-        private void golist( int categoryId ) {
+        private void golist( long categoryId ) {
             echoRedirect( lang( "opok" ), to( List, categoryId ) );
         }
 

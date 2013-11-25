@@ -14,8 +14,8 @@ using System.Drawing;
 namespace wojilu.Web.Controller.Admin.Upgrade {
 
     public class ThumbParam {
-        public int StartId;
-        public int EndId;
+        public long StartId;
+        public long EndId;
         public int OnlyComputerSize;
     }
 
@@ -40,8 +40,8 @@ namespace wojilu.Web.Controller.Admin.Upgrade {
             msgList = new List<string>();
 
             ThumbParam obj = new ThumbParam();
-            obj.StartId = ctx.PostInt( "startId" );
-            obj.EndId = ctx.PostInt( "endId" );
+            obj.StartId = ctx.PostLong( "startId" );
+            obj.EndId = ctx.PostLong( "endId" );
 
             try {
                 new Thread( makeUserFace ).Start( obj );
@@ -61,8 +61,8 @@ namespace wojilu.Web.Controller.Admin.Upgrade {
             msgList = new List<string>();
 
             ThumbParam obj = new ThumbParam();
-            obj.StartId = ctx.PostInt( "startId" );
-            obj.EndId = ctx.PostInt( "endId" );
+            obj.StartId = ctx.PostLong( "startId" );
+            obj.EndId = ctx.PostLong( "endId" );
             obj.OnlyComputerSize = ctx.PostInt( "onlyComputerSize" );
 
             try {
@@ -240,7 +240,7 @@ namespace wojilu.Web.Controller.Admin.Upgrade {
             msgList.Add( msg );
         }
 
-        private static int lastId = 0;
+        private static long lastId = 0;
         private static List<String> msgList;
 
 

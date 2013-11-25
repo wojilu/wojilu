@@ -11,7 +11,7 @@ namespace wojilu.Common.Msg.Interface {
 
     public interface ISiteMessageService {
 
-        MessageSite GetById( int id );
+        MessageSite GetById(long id);
         DataPage<MessageSite> GetPage( int pageSize );
 
         Result Insert( MessageSite msg );

@@ -102,7 +102,7 @@ namespace wojilu.Web.Controller.Users.Admin {
         }
 
         [HttpPost, DbTransaction]
-        public void Read( int id ) {
+        public void Read( long id ) {
 
             Notification nf = notificationService.GetById( id );
 
@@ -118,7 +118,7 @@ namespace wojilu.Web.Controller.Users.Admin {
         }
 
         [HttpPut, DbTransaction]
-        public void ApproveFriend( int id ) {
+        public void ApproveFriend( long id ) {
 
             Notification nf = notificationService.GetById( id );
 
@@ -129,7 +129,7 @@ namespace wojilu.Web.Controller.Users.Admin {
         }
 
         [HttpPut, DbTransaction]
-        public void RefuseFriend( int id ) {
+        public void RefuseFriend( long id ) {
             Notification nf = notificationService.GetById( id );
             friendService.Refuse( ctx.owner.Id, nf.Creator.Id );
             notificationService.Read( id );

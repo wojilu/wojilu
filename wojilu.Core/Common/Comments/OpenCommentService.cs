@@ -19,7 +19,7 @@ namespace wojilu.Common.Comments {
             nfService = new NotificationService();
         }
 
-        public virtual OpenComment GetById( int id ) {
+        public virtual OpenComment GetById(long id) {
             return db.findById<OpenComment>( id );
         }
 
@@ -46,7 +46,7 @@ namespace wojilu.Common.Comments {
             db.deleteBatch<OpenComment>( "Id in (" + ids + ")" );
         }
 
-        public virtual void DeleteAll( string url, int dataId, string dataType ) {
+        public virtual void DeleteAll(string url, long dataId, string dataType) {
 
             if (dataId > 0 && strUtil.HasText( dataType )) {
                 deleteAllByData( dataId, dataType );
@@ -56,7 +56,7 @@ namespace wojilu.Common.Comments {
             }
         }
 
-        private void deleteAllByData( int dataId, string dataType ) {
+        private void deleteAllByData(long dataId, string dataType) {
             db.deleteBatch<OpenComment>( "TargetDataType='" + strUtil.SqlClean( dataType, 50 ) + "' and TargetDataId=" + dataId );
             clearRootTargetRepliesByData( dataId, dataType );
         }
@@ -66,7 +66,7 @@ namespace wojilu.Common.Comments {
             clearRootTargetRepliesByUrl( url );
         }
 
-        public virtual DataPage<OpenComment> GetByMicroblogOwnerId( int ownerId ) {
+        public virtual DataPage<OpenComment> GetByMicroblogOwnerId(long ownerId) {
 
             int pageSize = 20;
 
@@ -77,7 +77,7 @@ namespace wojilu.Common.Comments {
             return datas;
         }
 
-        public virtual DataPage<OpenComment> GetByDataAndOwnerId( string dataType, int ownerId ) {
+        public virtual DataPage<OpenComment> GetByDataAndOwnerId(string dataType, long ownerId) {
 
             int pageSize = 20;
 
@@ -88,11 +88,11 @@ namespace wojilu.Common.Comments {
             return datas;
         }
 
-        public virtual DataPage<OpenComment> GetByDataDesc( String dataType, int dataId ) {
+        public virtual DataPage<OpenComment> GetByDataDesc(string dataType, long dataId) {
             return GetByDataDesc( dataType, dataId, -1 );
         }
 
-        public virtual DataPage<OpenComment> GetByDataDesc( String dataType, int dataId, int pageSize ) {
+        public virtual DataPage<OpenComment> GetByDataDesc(string dataType, long dataId, int pageSize) {
 
             if (pageSize <= 0 || pageSize > 500) pageSize = 20;
 
@@ -103,7 +103,7 @@ namespace wojilu.Common.Comments {
             return datas;
         }
 
-        public virtual DataPage<OpenComment> GetByDataAsc( String dataType, int dataId ) {
+        public virtual DataPage<OpenComment> GetByDataAsc(string dataType, long dataId) {
 
             DataPage<OpenComment> datas = OpenComment.findPage( "TargetDataType='" + strUtil.SqlClean( dataType, 50 ) + "' and TargetDataId=" + dataId + " and ParentId=0 order by Id asc" );
 
@@ -131,7 +131,7 @@ namespace wojilu.Common.Comments {
         }
 
 
-        public virtual List<OpenComment> GetByApp( Type type, int appId, int listCount ) {
+        public virtual List<OpenComment> GetByApp(Type type, long appId, int listCount) {
 
             if (listCount <= 0) listCount = 7;
 
@@ -302,7 +302,7 @@ namespace wojilu.Common.Comments {
         }
 
 
-        public virtual List<OpenComment> GetMore( int parentId, int startId, int replyPageSize, string sort ) {
+        public virtual List<OpenComment> GetMore(long parentId, long startId, int replyPageSize, string sort) {
 
             String condition = "";
 
@@ -318,7 +318,7 @@ namespace wojilu.Common.Comments {
 
         //------------------------------------------------------------------------------------------------------------
 
-        public virtual int GetReplies( int dataId, String dataType, String url ) {
+        public virtual int GetReplies(long dataId, string dataType, string url) {
 
             if (dataId > 0 && strUtil.HasText( dataType )) {
                 return GetRepliesByData( dataId, dataType );
@@ -335,7 +335,7 @@ namespace wojilu.Common.Comments {
             return objCount == null ? 0 : objCount.Replies;
         }
 
-        public virtual int GetRepliesByData( int dataId, String dataType ) {
+        public virtual int GetRepliesByData(long dataId, string dataType) {
             OpenCommentCount objCount = OpenCommentCount.find( "DataType=:dtype and DataId=" + dataId )
                 .set( "dtype", dataType )
                 .first();
@@ -452,7 +452,7 @@ namespace wojilu.Common.Comments {
             }
         }
 
-        private static void clearRootTargetRepliesByData( int dataId, string dataType ) {
+        private static void clearRootTargetRepliesByData(long dataId, string dataType) {
 
             OpenCommentCount objCount = OpenCommentCount.find( "DataType=:dtype and DataId=" + dataId )
                 .set( "dtype", dataType )

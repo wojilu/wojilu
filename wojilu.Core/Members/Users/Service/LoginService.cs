@@ -32,7 +32,7 @@ namespace wojilu.Members.Users.Service {
         }
 
         // 从第三方带骨
-        public virtual void Login( User user, int userConnectId, LoginTime expiration, String ip, MvcContext ctx ) {
+        public virtual void Login(User user, long userConnectId, LoginTime expiration, string ip, MvcContext ctx) {
 
             logger.Info( "userConnectId=" + userConnectId );
 

@@ -42,7 +42,7 @@ namespace wojilu.Web.Controller.Content.Admin {
 
         }
 
-        public void Apply( int id ) {
+        public void Apply( long id ) {
 
             ContentApp app = ctx.app.obj as ContentApp;
             app.SkinId = id;

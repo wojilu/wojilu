@@ -195,7 +195,7 @@ namespace wojilu.Web.Controller.Users {
         }
 
 
-        public void Tag( int id ) {
+        public void Tag( long id ) {
 
             Page.Title = "根据tag搜索用户";
             target( Tag, 0 );

@@ -7,8 +7,8 @@ namespace wojilu.Apps.Content.Domain {
 
     public class ContentDigg : ObjectBase<ContentDigg> {
 
-        public int UserId { get; set; }
-        public int PostId { get; set; }
+        public long UserId { get; set; }
+        public long PostId { get; set; }
 
         public DateTime Created { get; set; }
         public String Ip { get; set; }

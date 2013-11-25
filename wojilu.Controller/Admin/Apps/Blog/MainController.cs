@@ -45,7 +45,7 @@ namespace wojilu.Web.Controller.Admin.Apps.Blog {
         }
 
         // TODO 搜索功能：根据作者、根据时间(最近一个月)、根据阅读量、根据评论数、
-        public void Index( int id ) {
+        public void Index( long id ) {
 
             target( Admin );
 
@@ -99,7 +99,7 @@ namespace wojilu.Web.Controller.Admin.Apps.Blog {
 
             String ids = ctx.PostIdList( "choice" );
             String cmd = ctx.Post( "action" );
-            int categoryId = ctx.PostInt( "categoryId" );
+            long categoryId = ctx.PostLong( "categoryId" );
 
             String condition = string.Format( "Id in ({0}) ", ids );
 
@@ -148,7 +148,7 @@ namespace wojilu.Web.Controller.Admin.Apps.Blog {
 
 
         [HttpDelete, DbTransaction]
-        public void Delete( int id ) {
+        public void Delete( long id ) {
 
             BlogPost post = postService.GetById_ForAdmin( id );
             if (post == null) {

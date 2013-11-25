@@ -16,11 +16,11 @@ namespace wojilu.Members.Groups.Domain {
         public GroupCategory() {
         }
 
-        public GroupCategory( int id ) {
+        public GroupCategory(long id) {
             this.Id = id;
         }
 
-        public GroupCategory( int id, int parentId, String name ) {
+        public GroupCategory(long id, long parentId, string name) {
             this.Id = id;
             this.ParentId = parentId;
             this.Name = name;

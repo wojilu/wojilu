@@ -25,7 +25,7 @@ namespace wojilu.Apps.Blog.Service {
         }
 
 
-        public virtual BlogSysCategory GetById( int id ) {
+        public virtual BlogSysCategory GetById(long id) {
             return db.findById<BlogSysCategory>( id );
         }
 

@@ -16,7 +16,7 @@ namespace wojilu.Web.Controller.Admin.Upgrade {
         where TComment : IEntity
         where TTarget : IEntity {
 
-        public void Import( int startId, int endId ) {
+        public void Import( long startId, long endId ) {
 
             new ImportRawHelper().Import( typeof( TComment ), typeof( TTarget ), startId, endId );
         }
@@ -30,7 +30,7 @@ namespace wojilu.Web.Controller.Admin.Upgrade {
         private Type commentType;
         private Type targetType;
 
-        public void Import( Type commentType, Type targetType, int startId, int endId ) {
+        public void Import(Type commentType, Type targetType, long startId, long endId) {
 
             this.commentType = commentType;
             this.targetType = targetType;
@@ -38,7 +38,7 @@ namespace wojilu.Web.Controller.Admin.Upgrade {
             importPrivate( startId, endId );
         }
 
-        private void importPrivate( int startId, int endId ) {
+        private void importPrivate(long startId, long endId) {
 
             IList clist = ndb.find( commentType, "Id>=" + startId + " and Id<=" + endId + " order by Id asc" ).list();
 
@@ -137,7 +137,7 @@ namespace wojilu.Web.Controller.Admin.Upgrade {
             return obj.ToString();
         }
 
-        private int getCreatorId( IEntity p ) {
+        private long getCreatorId( IEntity p ) {
 
             if (p == null) return 0;
 
@@ -147,7 +147,7 @@ namespace wojilu.Web.Controller.Admin.Upgrade {
             return user.Id;
         }
 
-        private int getParentId( IComment x ) {
+        private long getParentId( IComment x ) {
 
             if (x.ParentId <= 0) return 0;
 
@@ -155,7 +155,7 @@ namespace wojilu.Web.Controller.Admin.Upgrade {
             if (x.ParentId == x.RootId) return 0;
 
             CommentLevel level = new CommentLevel { Count = 1 };
-            int parentId = getOldParentId( x.ParentId, level );
+            long parentId = getOldParentId( x.ParentId, level );
 
             OpenCommentTrans trans = OpenCommentTrans.find( "CommentId=:cid and CommentType=:ctype" )
                 .set( "cid", parentId )
@@ -169,7 +169,7 @@ namespace wojilu.Web.Controller.Admin.Upgrade {
             return trans.OpenCommentId;
         }
 
-        private int getOldParentId( int id, CommentLevel level ) {
+        private long getOldParentId( long id, CommentLevel level ) {
 
             Object p = ndb.findById( commentType, id );
 

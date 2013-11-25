@@ -44,11 +44,12 @@ namespace wojilu.Web.Mvc.Utils {
         /// <summary>
         /// 运行某 action
         /// </summary>
-        /// <param name="ctx"></param>
+        /// <param name="thisController"></param>
         /// <param name="action"></param>
         /// <param name="id"></param>
+        /// <param name="ctx"></param>
         /// <returns></returns>
-        public static String Run( ControllerBase thisController, aActionWithId action, int id ) {
+        public static string Run(ControllerBase thisController, aActionWithId action, long id) {
 
             ControllerBase targetController = action.Target as ControllerBase;
 

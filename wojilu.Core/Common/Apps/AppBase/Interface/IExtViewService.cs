@@ -11,7 +11,7 @@ using wojilu.Members.Users.Domain;
 namespace wojilu.Common.AppBase.Interface {
 
     public interface IExtViewService {
-        String GetViewById( int topicId, String typeFullName, MvcContext ctx );
+        string GetViewById(long topicId, string typeFullName, MvcContext ctx);
 
     }
 

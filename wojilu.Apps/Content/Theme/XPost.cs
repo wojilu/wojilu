@@ -15,7 +15,7 @@ namespace wojilu.Apps.Content.Domain {
         public String Content { get; set; }
         public String Summary { get; set; }
 
-        public int CategoryId { get; set; }
+        public long CategoryId { get; set; }
 
         public String Pic { get; set; }
         public String SourceLink { get; set; }

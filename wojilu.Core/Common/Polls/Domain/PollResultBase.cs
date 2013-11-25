@@ -11,7 +11,7 @@ namespace wojilu.Common.Polls.Domain {
     [Serializable]
     public abstract class PollResultBase : ObjectBase<PollResultBase> {
 
-        public int PollId { get; set; }
+        public long PollId { get; set; }
 
         [Column( Name = "MemberId" )]
         public User User { get; set; }

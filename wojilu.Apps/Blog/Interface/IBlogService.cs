@@ -17,7 +17,7 @@ namespace wojilu.Apps.Blog.Interface {
         void UpdateCount( BlogApp blog );
 
 
-        BlogApp GetFirstByUser( int ownerId );
+        BlogApp GetFirstByUser(long ownerId);
     }
 
 }

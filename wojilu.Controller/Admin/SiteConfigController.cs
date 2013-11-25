@@ -93,8 +93,8 @@ namespace wojilu.Web.Controller.Admin {
             config.Instance.Site.ValidationLength = ValidationLength; config.Instance.Site.Update( "ValidationLength", ValidationLength );
             config.Instance.Site.ValidationChineseLength = ValidationChineseLength; config.Instance.Site.Update( "ValidationChineseLength", ValidationChineseLength );
 
-            Boolean RegisterNeedImgValidateion = ctx.PostInt( "RegisterNeedImgValidateion" ) == 1 ? true : false;
-            Boolean LoginNeedImgValidation = ctx.PostInt( "LoginNeedImgValidation" ) == 1 ? true : false;
+            Boolean RegisterNeedImgValidateion = ctx.PostLong( "RegisterNeedImgValidateion" ) == 1 ? true : false;
+            Boolean LoginNeedImgValidation = ctx.PostLong( "LoginNeedImgValidation" ) == 1 ? true : false;
 
             config.Instance.Site.RegisterNeedImgValidateion = RegisterNeedImgValidateion; config.Instance.Site.Update( "RegisterNeedImgValidateion", RegisterNeedImgValidateion );
             config.Instance.Site.LoginNeedImgValidation = LoginNeedImgValidation; config.Instance.Site.Update( "LoginNeedImgValidation", LoginNeedImgValidation );
@@ -298,7 +298,7 @@ namespace wojilu.Web.Controller.Admin {
 
         [HttpPost, DbTransaction]
         public void EmailEnableSave() {
-            Boolean EnableEmail = ctx.PostInt( "EnableEmail" ) == 1 ? true : false;
+            Boolean EnableEmail = ctx.PostLong( "EnableEmail" ) == 1 ? true : false;
             config.Instance.Site.EnableEmail = EnableEmail; config.Instance.Site.Update( "EnableEmail", EnableEmail );
             echoRedirect( lang( "opok" ) );
         }
@@ -309,7 +309,7 @@ namespace wojilu.Web.Controller.Admin {
             String SmtpUrl = ctx.Post( "SmtpUrl" );
             String SmtpUser = ctx.Post( "SmtpUser" );
             String SmtpPwd = ctx.Post( "SmtpPwd" );
-            Boolean SmtpEnableSsl = ctx.PostInt( "SmtpEnableSsl" ) == 1 ? true : false;
+            Boolean SmtpEnableSsl = ctx.PostLong( "SmtpEnableSsl" ) == 1 ? true : false;
 
             //if (strUtil.IsNullOrEmpty( SmtpUrl )) errors.Add( lang( "exServer" ) );
             //if (strUtil.IsNullOrEmpty( SmtpUser )) errors.Add( lang( "exUserName" ) );

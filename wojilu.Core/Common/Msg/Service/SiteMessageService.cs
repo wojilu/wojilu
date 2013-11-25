@@ -12,7 +12,7 @@ namespace wojilu.Common.Msg.Service {
 
     public class SiteMessageService : ISiteMessageService {
 
-        public MessageSite GetById( int id ) {
+        public MessageSite GetById(long id) {
             return MessageSite.findById( id );
         }
 

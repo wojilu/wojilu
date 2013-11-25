@@ -8,22 +8,22 @@ namespace wojilu.Web.Controller.Content.Admin.Section {
 
     public class NullSectionAdmin : IPageAdminSection {
 
-        public void AdminSectionShow( int sectionId ) {
+        public void AdminSectionShow( long sectionId ) {
         }
 
-        public List<IPageSettingLink> GetSettingLink( int sectionId ) {
+        public List<IPageSettingLink> GetSettingLink( long sectionId ) {
             return new List<IPageSettingLink>();
         }
 
-        public string GetEditLink( int postId ) {
+        public string GetEditLink( long postId ) {
             return "#";
         }
 
-        public string GetSectionIcon( int sectionId ) {
+        public string GetSectionIcon( long sectionId ) {
             return "";
         }
 
-        public List<ContentPost> GetSectionPosts( int sectionId ) {
+        public List<ContentPost> GetSectionPosts( long sectionId ) {
             return new List<ContentPost>();
         }
 

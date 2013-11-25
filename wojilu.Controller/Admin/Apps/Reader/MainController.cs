@@ -60,7 +60,7 @@ namespace wojilu.Web.Controller.Admin.Apps.Reader {
         [HttpPost, DbTransaction]
         public virtual void SaveSort() {
 
-            int id = ctx.PostInt( "id" );
+            long id = ctx.PostLong( "id" );
             String cmd = ctx.Post( "cmd" );
 
             FeedSource target = srcService.GetById( id );
@@ -103,7 +103,7 @@ namespace wojilu.Web.Controller.Admin.Apps.Reader {
                 return;
             }
 
-            int categoryId = ctx.PostInt( "CategoryId" );
+            long categoryId = ctx.PostLong( "CategoryId" );
             FeedSysCategory category = categoryService.GetById( categoryId );
             String name = ctx.Post( "Name" );
 
@@ -116,7 +116,7 @@ namespace wojilu.Web.Controller.Admin.Apps.Reader {
                 redirect( Index );
         }
 
-        public void Edit( int id ) {
+        public void Edit( long id ) {
 
             FeedSource f = feedService.GetById( id );
             if (f == null) {
@@ -134,12 +134,12 @@ namespace wojilu.Web.Controller.Admin.Apps.Reader {
             set( "feed.Title", f.Title );
             set( "feed.Name", f.Name );
             set( "feed.RssLink", f.FeedLink );
-            int selected = f.Category == null ? 0 : f.Category.Id;
+            long selected = f.Category == null ? 0 : f.Category.Id;
             dropList( "CategoryId", categories, "Name=Id", selected );
         }
 
         [HttpPost, DbTransaction]
-        public void Update( int id ) {
+        public void Update( long id ) {
 
             FeedSource f = feedService.GetById( id );
             if (f == null) {
@@ -148,7 +148,7 @@ namespace wojilu.Web.Controller.Admin.Apps.Reader {
             }
 
             f.Name = ctx.Post( "Name" );
-            int categoryId = ctx.PostInt( "CategoryId" );
+            long categoryId = ctx.PostLong( "CategoryId" );
             f.Category = new FeedSysCategory( categoryId );
 
             feedService.Update( f );
@@ -157,7 +157,7 @@ namespace wojilu.Web.Controller.Admin.Apps.Reader {
         }
 
         [HttpDelete, DbTransaction]
-        public void Delete( int id ) {
+        public void Delete( long id ) {
 
             FeedSource f = feedService.GetById( id );
             if (f == null) {

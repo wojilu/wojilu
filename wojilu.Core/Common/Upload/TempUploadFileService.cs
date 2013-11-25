@@ -58,7 +58,7 @@ namespace wojilu.Common.Upload {
         }
 
 
-        public virtual Result DeleteTempFile( int id ) {
+        public virtual Result DeleteTempFile(long id) {
 
             TempUploadFile tfile = TempUploadFile.findById( id );
             if (tfile == null) {

@@ -26,7 +26,7 @@ namespace wojilu.Web.Controller.Content {
             post.OwnerType = ctx.owner.obj.GetType().FullName;
 
             post.AppId = ctx.app.Id;
-            post.CategoryId = ctx.GetInt( "categoryId" );
+            post.CategoryId = ctx.GetLong( "categoryId" );
 
             SetPostValue( post, ctx );
 
@@ -43,7 +43,7 @@ namespace wojilu.Web.Controller.Content {
             post.OwnerType = ctx.owner.obj.GetType().FullName;
 
             post.AppId = section.AppId;
-            post.CategoryId = ctx.GetInt( "categoryId" );
+            post.CategoryId = ctx.GetLong( "categoryId" );
 
             post.PageSection = section;
 
@@ -108,7 +108,7 @@ namespace wojilu.Web.Controller.Content {
             return post;
         }
 
-        public static ContentSection SetSectionValueAndValidate( int layoutId, MvcContext ctx ) {
+        public static ContentSection SetSectionValueAndValidate( long layoutId, MvcContext ctx ) {
             ContentSection section = new ContentSection();
             section.AppId = ctx.app.Id;
 
@@ -119,17 +119,17 @@ namespace wojilu.Web.Controller.Content {
 
             section.RowId = rowId;
             section.ColumnId = columnId;
-            if (ctx.PostInt( "serviceType" ) == 0) {
-                int serviceId = ctx.PostInt( "serviceId" );
+            if (ctx.PostLong( "serviceType" ) == 0) {
+                long serviceId = ctx.PostLong( "serviceId" );
                 section.ServiceId = serviceId;
-                section.TemplateId = ctx.PostInt( "templateId" );
+                section.TemplateId = ctx.PostLong( "templateId" );
             }
             section.SectionType = ctx.Post( "SectionType" );
             validateSectionPrivate( section, ctx );
             return section;
         }
 
-        public static ContentSection PopulateFeed( int layoutId, MvcContext ctx ) {
+        public static ContentSection PopulateFeed( long layoutId, MvcContext ctx ) {
             
             ContentSection section = new ContentSection();
             section.AppId = ctx.app.Id;
@@ -150,7 +150,7 @@ namespace wojilu.Web.Controller.Content {
         private static void validateSectionPrivate( ContentSection section, MvcContext ctx ) {
             section.Title = ctx.Post( "Title" );
             section.MoreLink = strUtil.CutString( ctx.PostHtml( "MoreLink" ), 250 );
-            section.TemplateId = ctx.PostInt( "templateId" );
+            section.TemplateId = ctx.PostLong( "templateId" );
 
             if (strUtil.IsNullOrEmpty( section.Title )) {
                 ctx.errors.Add( lang.get( "exName" ) );

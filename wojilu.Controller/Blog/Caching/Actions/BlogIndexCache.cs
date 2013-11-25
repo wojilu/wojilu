@@ -25,7 +25,7 @@ namespace wojilu.Web.Controller.Blog.Caching {
         private String getCacheKey( MvcContext ctx ) {
 
             User owner = ctx.owner.obj as User;
-            int appId = ctx.app.Id;
+            long appId = ctx.app.Id;
 
             return "__action_"+ typeof( User ).FullName + "_" + owner.Url + "_blogapp" + appId;
 
@@ -52,7 +52,7 @@ namespace wojilu.Web.Controller.Blog.Caching {
         public override void AfterAction( MvcContext ctx ) {
 
             User owner = ctx.owner.obj as User;
-            int appId = ctx.app.Id;
+            long appId = ctx.app.Id;
 
 
             String key = getCacheKey( ctx );
@@ -64,7 +64,7 @@ namespace wojilu.Web.Controller.Blog.Caching {
             //CacheManager.GetApplicationCache().Put( key, content );
         }
 
-        //private static String getHomeCache( int appId, User owner ) {
+        //private static String getHomeCache( long appId, User owner ) {
         //    MvcContext ctx = MockContext.GetOne( owner, typeof( BlogApp ), appId );
         //    String content = ControllerRunner.Run( ctx, new wojilu.Web.Controller.Blog.BlogController().Index );
 

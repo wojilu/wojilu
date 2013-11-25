@@ -33,7 +33,7 @@ namespace wojilu.Web.Controller.Content.Section {
             imgService = new ContentImgService();
         }
 
-        public void SectionShow( int sectionId ) {
+        public void SectionShow( long sectionId ) {
             ContentSection s = sectionService.GetById( sectionId, ctx.app.Id );
             if (s == null) {
                 throw new Exception( lang( "exDataNotFound" ) + "=>page section:" + sectionId );
@@ -43,7 +43,7 @@ namespace wojilu.Web.Controller.Content.Section {
             bindSectionShow( s, posts );
         }
 
-        public void Show( int postId ) {
+        public void Show( long postId ) {
             ContentPost post = postService.GetById( postId, ctx.owner.Id );
             if (post == null) {
                 echoRedirect( lang( "exDataNotFound" ) );
@@ -57,7 +57,7 @@ namespace wojilu.Web.Controller.Content.Section {
         }
 
 
-        public void List( int sectionId ) {
+        public void List( long sectionId ) {
 
             ContentSection section = sectionService.GetById( sectionId, ctx.app.Id );
             if (section == null) {

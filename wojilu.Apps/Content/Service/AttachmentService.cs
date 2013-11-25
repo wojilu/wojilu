@@ -40,11 +40,11 @@ namespace wojilu.Apps.Content.Service {
             return result;
         }
 
-        public virtual List<ContentAttachment> GetAttachmentsByPost( int postId ) {
+        public virtual List<ContentAttachment> GetAttachmentsByPost(long postId) {
             return ContentAttachment.find( "PostId=" + postId + " order by OrderId desc, Id asc" ).list();
         }
 
-        public virtual ContentAttachment GetById( int id, String guid ) {
+        public virtual ContentAttachment GetById(long id, string guid) {
             ContentAttachment a = db.findById<ContentAttachment>( id );
             if (a != null && a.Guid != guid) {
                 return null;
@@ -52,7 +52,7 @@ namespace wojilu.Apps.Content.Service {
             return a;
         }
 
-        public virtual ContentAttachment GetById( int id ) {
+        public virtual ContentAttachment GetById(long id) {
             return ContentAttachment.findById( id );
         }
 
@@ -151,7 +151,7 @@ namespace wojilu.Apps.Content.Service {
 
         }
 
-        public virtual void UpdateAtachments( int[] arrAttachmentIds, ContentPost post ) {
+        public virtual void UpdateAtachments(long[] arrAttachmentIds, ContentPost post) {
 
             if (post == null || arrAttachmentIds.Length == 0) return;
 
@@ -180,7 +180,7 @@ namespace wojilu.Apps.Content.Service {
 
         //--------------------------------------------------------------------------------------------------------------
 
-        public virtual void Delete( int id ) {
+        public virtual void Delete(long id) {
             ContentAttachment at = ContentAttachment.findById( id );
             if (at == null) return;
 
@@ -200,7 +200,7 @@ namespace wojilu.Apps.Content.Service {
         }
 
 
-        public virtual void DeleteTempAttachment( int id ) {
+        public virtual void DeleteTempAttachment(long id) {
 
             ContentAttachmentTemp at = ContentAttachmentTemp.findById( id );
             if (at == null) return;
@@ -211,7 +211,7 @@ namespace wojilu.Apps.Content.Service {
         }
 
 
-        public virtual void DeleteByPost( int postId ) {
+        public virtual void DeleteByPost(long postId) {
             List<ContentAttachment> attachments = this.GetAttachmentsByPost( postId );
             foreach (ContentAttachment attachment in attachments) {
                 Img.DeleteImgAndThumb( attachment.FileUrl );

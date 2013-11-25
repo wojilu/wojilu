@@ -14,7 +14,7 @@ namespace wojilu.Web.Controller.Admin {
             List( 0 );
         }
 
-        public void List( int id ) {
+        public void List( long id ) {
             view( "Index" );
 
             set( "item.IndexUrl", to( Index ) );
@@ -74,7 +74,7 @@ namespace wojilu.Web.Controller.Admin {
 
         }
 
-        public void Add( int categoryId ) {
+        public void Add( long categoryId ) {
 
             target( Create );
 
@@ -104,7 +104,7 @@ namespace wojilu.Web.Controller.Admin {
             echoToParentPart( lang( "opok" ) );
         }
 
-        public void Edit( int id ) {
+        public void Edit( long id ) {
             target( Update, id );
 
             AdItem item = AdItem.findById( id );
@@ -122,7 +122,7 @@ namespace wojilu.Web.Controller.Admin {
         }
 
         [HttpPost, DbTransaction]
-        public void Update( int id ) {
+        public void Update( long id ) {
 
             AdItem item = AdItem.findById( id );
             if (item == null) {
@@ -156,7 +156,7 @@ namespace wojilu.Web.Controller.Admin {
         }
 
         [HttpPost, DbTransaction]
-        public void Stop( int id ) {
+        public void Stop( long id ) {
 
 
             AdItem item = AdItem.findById( id );
@@ -172,7 +172,7 @@ namespace wojilu.Web.Controller.Admin {
         }
 
         [HttpPost, DbTransaction]
-        public void Start( int id ) {
+        public void Start( long id ) {
 
 
             AdItem item = AdItem.findById( id );
@@ -188,7 +188,7 @@ namespace wojilu.Web.Controller.Admin {
         }
 
         [HttpDelete, DbTransaction]
-        public void Delete( int id ) {
+        public void Delete( long id ) {
 
             AdItem item = AdItem.findById( id );
             if (item == null) {

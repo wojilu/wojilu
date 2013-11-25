@@ -89,7 +89,7 @@ namespace wojilu.Web.Controller.Admin.Apps.Reader {
         //    echoToParent( lang("opok") );
         //}
 
-        //public void Edit( int id ) {
+        //public void Edit( long id ) {
 
         //    target( Update, id );
 
@@ -103,7 +103,7 @@ namespace wojilu.Web.Controller.Admin.Apps.Reader {
         //}
 
         //[HttpPost, DbTransaction]
-        //public void Update( int id ) {
+        //public void Update( long id ) {
 
         //    PhotoSysCategory c = categoryService.GetById( id );
         //    if (c == null) {
@@ -124,7 +124,7 @@ namespace wojilu.Web.Controller.Admin.Apps.Reader {
         //}
 
         //[HttpDelete, DbTransaction]
-        //public void Delete( int id ) {
+        //public void Delete( long id ) {
 
         //    PhotoSysCategory c = categoryService.GetById( id );
         //    if (c == null) {

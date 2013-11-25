@@ -172,7 +172,7 @@ namespace wojilu.Web.Controller.Users {
 
         private void updateDataInfo( UserFile uFile ) {
 
-            int dataId = ctx.PostInt( "dataId" );
+            long dataId = ctx.PostLong( "dataId" );
             String dataType = ctx.Post( "dataType" );
 
             if (dataId <= 0 || strUtil.IsNullOrEmpty( dataType )) return;
@@ -185,7 +185,7 @@ namespace wojilu.Web.Controller.Users {
         }
 
         [Login, DbTransaction]
-        public void DeleteUserFile( int id ) {
+        public void DeleteUserFile( long id ) {
 
             Result result = fileService.Delete( id );
 
@@ -228,7 +228,7 @@ namespace wojilu.Web.Controller.Users {
         }
 
         [Login, HttpPost, DbTransaction]
-        public void DeleteMsgAttachment( int id ) {
+        public void DeleteMsgAttachment( long id ) {
 
             Result result = attachmentService.Delete( id );
 

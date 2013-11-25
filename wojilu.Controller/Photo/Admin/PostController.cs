@@ -80,16 +80,16 @@ namespace wojilu.Web.Controller.Photo.Admin {
             set( "jsPath", sys.Path.DiskJs );
         }
 
-        public void NewPost( int albumId ) {
+        public void NewPost( long albumId ) {
 
             if (albumId <= 0) {
-                albumId = ctx.PostInt( "PhotoAlbumId" );
+                albumId = ctx.PostLong( "PhotoAlbumId" );
             }
 
             PhotoAlbum album = albumService.GetById( albumId, ctx.owner.Id );
             if (album == null) { echo( lang( "exDataNotFound" ) + ": albumId=" + albumId ); return; }
 
-            int systemCategoryId = ctx.PostInt( "SystemCategoryId" );
+            long systemCategoryId = ctx.PostLong( "SystemCategoryId" );
             if (systemCategoryId <= 0) {
                 errors.Add( alang( "exSysCategoryRequire" ) );
                 run( Add );
@@ -113,8 +113,8 @@ namespace wojilu.Web.Controller.Photo.Admin {
         // flash上传(逐个保存)
         public void SaveUpload() {
 
-            int albumId = ctx.PostInt( "PhotoAlbumId" );
-            int systemCategoryId = ctx.PostInt( "SystemCategoryId" );
+            long albumId = ctx.PostLong( "PhotoAlbumId" );
+            long systemCategoryId = ctx.PostLong( "SystemCategoryId" );
 
             if (ctx.HasUploadFiles == false) {
                 echoText( lang( "exPlsUpload" ) );
@@ -140,7 +140,7 @@ namespace wojilu.Web.Controller.Photo.Admin {
                 user.Pins = PhotoPost.count( "OwnerId=" + user.Id );
                 user.update( "Pins" );
 
-                Dictionary<String, int> dic = new Dictionary<String, int>();
+                Dictionary<String, long> dic = new Dictionary<String, long>();
                 dic.Add( "Id", post.Id );
 
                 echoJsonMsg( "ok", true, dic );
@@ -150,7 +150,7 @@ namespace wojilu.Web.Controller.Photo.Admin {
         [HttpPost, DbTransaction]
         public void AddFeed() {
             String ids = ctx.PostIdList( "ids" );
-            int albumId = ctx.PostInt( "albumId" );
+            long albumId = ctx.PostLong( "albumId" );
 
             if (strUtil.IsNullOrEmpty( ids )) return;
 
@@ -164,8 +164,8 @@ namespace wojilu.Web.Controller.Photo.Admin {
         [HttpPost, DbTransaction]
         public void Create() {
 
-            int albumId = ctx.PostInt( "PhotoAlbumId" );
-            int systemCategoryId = ctx.PostInt( "SystemCategoryId" );
+            long albumId = ctx.PostLong( "PhotoAlbumId" );
+            long systemCategoryId = ctx.PostLong( "SystemCategoryId" );
 
             if (albumId <= 0) {
                 errors.Add( alang( "exAlbumSelect" ) );
@@ -223,12 +223,12 @@ namespace wojilu.Web.Controller.Photo.Admin {
             echoRedirectPart( lang( "opok" ), to( new MyController().My ), 1 );
         }
 
-        private void addFeedInfo( List<PhotoPost> imgs, int albumId ) {
+        private void addFeedInfo( List<PhotoPost> imgs, long albumId ) {
             String msg = postService.GetFeedMsg( imgs );
             microblogService.AddSimple( imgs[0].Creator, msg, typeof( PhotoPost ).FullName, imgs[0].Id, ctx.Ip );
         }
 
-        private PhotoPost newPost( String photoName, String imgPath, int albumId, int systemCategoryId ) {
+        private PhotoPost newPost( String photoName, String imgPath, long albumId, long systemCategoryId ) {
 
             PhotoAlbum album = new PhotoAlbum();
             album.Id = albumId;
@@ -252,7 +252,7 @@ namespace wojilu.Web.Controller.Photo.Admin {
             return photo;
         }
 
-        public void Edit( int id ) {
+        public void Edit( long id ) {
 
             PhotoPost post = postService.GetById( id, ctx.owner.Id );
             if (post == null) { echoRedirect( lang( "exDataNotFound" ) ); return; }
@@ -284,15 +284,15 @@ namespace wojilu.Web.Controller.Photo.Admin {
         }
 
         [HttpPost, DbTransaction]
-        public void Update( int id ) {
+        public void Update( long id ) {
 
             PhotoPost post = postService.GetById( id, ctx.owner.Id );
             if (post == null) { echoRedirect( lang( "exDataNotFound" ) ); return; }
 
             PhotoAlbum album = new PhotoAlbum();
-            album.Id = ctx.PostInt( "PhotoAlbumId" );
+            album.Id = ctx.PostLong( "PhotoAlbumId" );
 
-            post.SysCategoryId = ctx.PostInt( "SystemCategoryId" );
+            post.SysCategoryId = ctx.PostLong( "SystemCategoryId" );
             post.Title = ctx.Post( "Title" );
             post.PhotoAlbum = album;
             post.Description = ctx.Post( "Description" );

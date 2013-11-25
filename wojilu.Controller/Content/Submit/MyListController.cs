@@ -40,7 +40,7 @@ namespace wojilu.Web.Controller.Content.Submit {
 
         }
 
-        private String getRoleName( int submitCount ) {
+        private String getRoleName( long submitCount ) {
 
             ContentApp app = ctx.app.obj as ContentApp;
             ContentSubmitterRole sr = app.GetSubmitterRoleObj();
@@ -90,7 +90,7 @@ namespace wojilu.Web.Controller.Content.Submit {
 
         }
 
-        public void DeleteApproved( int id ) {
+        public void DeleteApproved( long id ) {
             ContentPost p = postService.GetById( id, ctx.owner.Id);
             if (p == null) {
                 echoError( lang( "exDataNotFound" ) );
@@ -101,7 +101,7 @@ namespace wojilu.Web.Controller.Content.Submit {
             redirect();
         }
 
-        public void Delete( int id ) {
+        public void Delete( long id ) {
 
             ContentTempPost p = tpostService.GetById( id );
             if (p == null) {

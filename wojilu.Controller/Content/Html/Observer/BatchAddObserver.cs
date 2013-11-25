@@ -21,7 +21,7 @@ namespace wojilu.Web.Controller.Content.Htmls {
             List<ContentPost> xList = HtmlHelper.GetPostListFromContext( ctx );
             if (xList == null || xList.Count == 0) return;
 
-            List<int> ids = new List<int>();
+            List<long> ids = new List<long>();
             foreach (ContentPost x in xList) {
                 ids.Add( x.Id );
             }

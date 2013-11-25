@@ -90,7 +90,7 @@ _run( function() {
             set( "navUrl", t2( Nav ) );
         }
 
-        private string getEmailConfirmCredit( int actionId ) {
+        private string getEmailConfirmCredit( long actionId ) {
             // 获取当前操作action收入规则。
             // 这里获取的是中心货币，你也可以使用 GetRulesByAction(actionId) 获取其他所有货币的收入规则
             KeyIncomeRule rule = currencyService.GetKeyIncomeRulesByAction( actionId );

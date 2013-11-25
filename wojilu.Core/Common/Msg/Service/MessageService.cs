@@ -28,12 +28,12 @@ namespace wojilu.Common.Msg.Service {
         private static readonly char[] separator = new char[] { ',', '，', '、', '/', '|' };
 
 
-        public virtual Message GetPrevMsg( int receiverId, int msgId ) {
+        public virtual Message GetPrevMsg(long receiverId, long msgId) {
             Message msg = db.find<Message>( "Id<" + msgId + " and Receiver.Id=" + receiverId + " and IsDelete=0 order by Id desc" ).first();
             return msg;
         }
 
-        public virtual Message GetNextMsg( int receiverId, int msgId ) {
+        public virtual Message GetNextMsg(long receiverId, long msgId) {
             Message msg = db.find<Message>( "Id>" + msgId + " and Receiver.Id=" + receiverId + " and IsDelete=0 order by Id asc" ).first();
             return msg;
         }
@@ -51,11 +51,11 @@ namespace wojilu.Common.Msg.Service {
 
         public virtual Result SendMsg( User sender, String rawReceiver, String msgTitle, String msgBody ) {
 
-            return SendMsg( sender, rawReceiver, msgTitle, msgBody, 0, new int[] { } );
+            return SendMsg( sender, rawReceiver, msgTitle, msgBody, 0, new long[] { } );
         }
 
 
-        public virtual Result SendMsg( User sender, String rawReceiver, String msgTitle, String msgBody, int replyId, int[] attachmentIds ) {
+        public virtual Result SendMsg(User sender, string rawReceiver, string msgTitle, string msgBody, long replyId, long[] attachmentIds) {
 
             Result result = this.isValid( rawReceiver, msgTitle, msgBody );
             if (result.HasErrors) return result;
@@ -76,7 +76,7 @@ namespace wojilu.Common.Msg.Service {
             return this.saveEveryMsg( info, messageData );
         }
 
-        private static void updateReplyStatus( int replyId ) {
+        private static void updateReplyStatus(long replyId) {
 
             if (replyId <= 0) return;
 
@@ -88,7 +88,7 @@ namespace wojilu.Common.Msg.Service {
         }
 
 
-        private void saveAttachments( MessageData messageData, int[] attachmentIds ) {
+        private void saveAttachments(MessageData messageData, long[] attachmentIds) {
 
             if (attachmentIds == null || attachmentIds.Length == 0) return;
 
@@ -170,12 +170,12 @@ namespace wojilu.Common.Msg.Service {
             db.update( receiver, "MsgNewCount" );
         }
 
-        public virtual DataPage<Message> GetPageAll( int receiverId ) {
+        public virtual DataPage<Message> GetPageAll(long receiverId) {
             return db.findPage<Message>( "Receiver.Id=" + receiverId + " and IsDelete=0" );
         }
 
         // 搜索: 发信人是key的所有我的邮件
-        public virtual DataPage<Message> SearchByUser( int receiverId, string senderName ) {
+        public virtual DataPage<Message> SearchByUser(long receiverId, string senderName) {
 
             User sender = User.find( "Name=:name" ).set( "name", senderName ).first();
             if (sender == null) return DataPage<Message>.GetEmpty();
@@ -185,7 +185,7 @@ namespace wojilu.Common.Msg.Service {
 
 
         // 搜索: 收信人是key的所有已发邮件
-        public virtual DataPage<MessageData> SearchByReceiver( int senderId, string receiverName ) {
+        public virtual DataPage<MessageData> SearchByReceiver(long senderId, string receiverName) {
 
             User receiver = User.find( "Name=:name" ).set( "name", receiverName ).first();
             if (receiver == null) return DataPage<MessageData>.GetEmpty();
@@ -195,29 +195,29 @@ namespace wojilu.Common.Msg.Service {
             return db.findPage<MessageData>( condition + " and SenderId=" + senderId );
         }
 
-        public virtual DataPage<MessageData> GetPageSent( int senderId ) {
+        public virtual DataPage<MessageData> GetPageSent(long senderId) {
             return db.findPage<MessageData>( "Sender.Id=" + senderId + " and IsDelete=0" );
         }
 
-        public virtual DataPage<Message> GetPageTrash( int receiverId ) {
+        public virtual DataPage<Message> GetPageTrash(long receiverId) {
             return db.findPage<Message>( "Receiver.Id=" + receiverId + " and IsDelete=1" );
         }
 
-        public virtual Message GetById( int receiverId, int id ) {
+        public virtual Message GetById(long receiverId, long id) {
             Message msg = db.find<Message>( "Id=" + id + " and Receiver.Id=" + receiverId + " and IsDelete=0" ).first();
             return msg;
         }
 
-        public virtual MessageData GetDataById( int senderId, int id ) {
+        public virtual MessageData GetDataById(long senderId, long id) {
             return db.find<MessageData>( "Sender.Id=" + senderId + " and Id=" + id ).first();
         }
 
 
-        public virtual DataPage<Message> GetNewMsg( int receiverId ) {
+        public virtual DataPage<Message> GetNewMsg(long receiverId) {
             return db.findPage<Message>( "Receiver.Id=" + receiverId + " and IsRead=0 and IsDelete=0" );
         }
 
-        public virtual List<Message> GetNewMsg( int receiverId, int count ) {
+        public virtual List<Message> GetNewMsg(long receiverId, int count) {
             return db.find<Message>( "Receiver.Id=" + receiverId + " and IsRead=0 and IsDelete=0" ).list( count );
         }
 

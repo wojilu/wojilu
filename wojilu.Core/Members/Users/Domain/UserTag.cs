@@ -7,7 +7,7 @@ namespace wojilu.Members.Users.Domain {
     public class UserTag : ObjectBase<UserTag> {
 
 
-        public int CreatorId { get; set; }
+        public long CreatorId { get; set; }
 
         public String Name { get; set; }
         public DateTime Created { get; set; }

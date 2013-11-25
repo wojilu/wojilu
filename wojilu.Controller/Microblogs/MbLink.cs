@@ -19,7 +19,7 @@ namespace wojilu.Web.Controller.Microblogs {
         /// <param name="owner"></param>
         /// <param name="id"></param>
         /// <returns></returns>
-        public static String ToShow( IMember owner, int id ) {
+        public static string ToShow(IMember owner, long id) {
 
             if (isMicroblogOnly == 0) {
                 return ToShowFeed( owner, id );
@@ -35,7 +35,7 @@ namespace wojilu.Web.Controller.Microblogs {
         /// <param name="owner"></param>
         /// <param name="id"></param>
         /// <returns></returns>
-        public static String ToShowFeed( IMember owner, int id ) {
+        public static string ToShowFeed(IMember owner, long id) {
             return Link.To( owner, new Users.HomeController().Info, id );
         }
 
@@ -45,7 +45,7 @@ namespace wojilu.Web.Controller.Microblogs {
         /// <param name="owner"></param>
         /// <param name="id"></param>
         /// <returns></returns>
-        public static String ToShowMicroblog( IMember owner, int id ) {
+        public static string ToShowMicroblog(IMember owner, long id) {
             return Link.To( owner, new Microblogs.MicroblogController().Show, id );
         }
 

@@ -12,11 +12,11 @@ namespace wojilu.Apps.Forum.Interface {
 
     public interface IForumCategoryService {
 
-        List<ForumCategory> GetByBoard( int forumBoardId );
-        ForumCategory GetById( int id, IMember owner );
-        List<ForumCategory> GetDropList( int boardId );
+        List<ForumCategory> GetByBoard(long forumBoardId);
+        ForumCategory GetById(long id, IMember owner);
+        List<ForumCategory> GetDropList(long boardId);
 
-        int CountByBoard( int boardId );
+        int CountByBoard(long boardId);
 
         Result Insert( ForumCategory category );
         Result Update( ForumCategory category );

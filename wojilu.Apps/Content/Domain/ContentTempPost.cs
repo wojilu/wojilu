@@ -10,11 +10,11 @@ namespace wojilu.Apps.Content.Domain {
     public class ContentTempPost : ObjectBase<ContentTempPost> {
 
 
-        public int OwnerId { get; set; }
+        public long OwnerId { get; set; }
         public String OwnerType { get; set; }
         public User Creator { get; set; }
-        public int AppId { get; set; }
-        public int SectionId { get; set; }
+        public long AppId { get; set; }
+        public long SectionId { get; set; }
 
 
         public String Title { get; set; }

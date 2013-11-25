@@ -14,7 +14,7 @@ namespace wojilu.Web.Controller.Content.Admin.Section {
 
     public partial class TalkController : ControllerBase, IPageAdminSection {
         
-        private void bindSectionShow( int sectionId, List<ContentPost> posts ) {
+        private void bindSectionShow( long sectionId, List<ContentPost> posts ) {
             set( "addUrl", to( Add, sectionId ) );
             set( "listUrl", to( AdminList, sectionId ) );
             IBlock block = getBlock( "list" );
@@ -50,7 +50,7 @@ namespace wojilu.Web.Controller.Content.Admin.Section {
             set( "section.Id", section.Id.ToString() );
         }
 
-        private void bindEditInfo( int postId, ContentPost post ) {
+        private void bindEditInfo( long postId, ContentPost post ) {
             set( "section.Name", post.SectionName );
             set( "section.Id", post.SectionId );
             set( "post.Author", post.Author );

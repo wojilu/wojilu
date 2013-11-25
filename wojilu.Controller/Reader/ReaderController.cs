@@ -59,7 +59,7 @@ namespace wojilu.Web.Controller.Reader {
         }
 
 
-        public void Users( int feedId ) {
+        public void Users( long feedId ) {
 
             FeedSource feed = feedService.GetById( feedId );
             DataPage<Subscription> list = subscriptionService.GetPage( feedId );

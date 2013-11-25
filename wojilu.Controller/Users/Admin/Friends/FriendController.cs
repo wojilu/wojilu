@@ -129,7 +129,7 @@ namespace wojilu.Web.Controller.Users.Admin.Friends {
             return strUtil.SqlClean( ctx.Get( "q" ), 20 );
         }
 
-        public void List( int categoryId ) {
+        public void List( long categoryId ) {
             DataPage<FriendShip> list = friendService.GetPageByCategory( ctx.owner.Id, categoryId, 20 );
             bindFriends( list );
         }
@@ -158,8 +158,8 @@ namespace wojilu.Web.Controller.Users.Admin.Friends {
         [HttpPost, DbTransaction]
         public void SaveCategory() {
 
-            int friendId = ctx.PostInt( "friendId" );
-            int categoryId = ctx.PostInt( "categoryId" );
+            long friendId = ctx.PostLong( "friendId" );
+            long categoryId = ctx.PostLong( "categoryId" );
             String friendDescription = strUtil.CutString( ctx.Post( "friendDescription" ), 250 );
 
             if (categoryId <= 0) {
@@ -192,9 +192,9 @@ namespace wojilu.Web.Controller.Users.Admin.Friends {
 
         public void More() {
 
-            int userId = ctx.owner.Id;
+            long userId = ctx.owner.Id;
 
-            List<int> friendIds = friendService.FindFriendsIdList( userId );
+            List<long> friendIds = friendService.FindFriendsIdList( userId );
 
             List<User> flist = friendService.FindFriendsByFriends( userId, 20 );
             List<User> usertops = userService.GetRankedToMakeFriends( 20, friendIds );
@@ -205,7 +205,7 @@ namespace wojilu.Web.Controller.Users.Admin.Friends {
             bindFriends( onlines, "online" );
         }
 
-        public List<User> GetRecentToMakeFriends( int userId, int count, List<int> friendIds ) {
+        public List<User> GetRecentToMakeFriends(long userId, int count, List<long> friendIds) {
             List<OnlineUser> all = OnlineService.GetAll();
 
             String ids = "";
@@ -263,13 +263,13 @@ namespace wojilu.Web.Controller.Users.Admin.Friends {
         }
 
         [HttpDelete, DbTransaction]
-        public void Delete( int id ) {
+        public void Delete( long id ) {
             friendService.DeleteFriend( ctx.owner.obj.Id, id, ctx.Ip );
             echoRedirectPart( lang( "opok" ) );
         }
 
         [HttpDelete, DbTransaction]
-        public void DeleteFollowing( int id ) {
+        public void DeleteFollowing( long id ) {
             followService.DeleteFollow( ctx.owner.obj.Id, id );
             echoRedirectPart( lang( "opok" ) );
         }
@@ -291,7 +291,7 @@ namespace wojilu.Web.Controller.Users.Admin.Friends {
             set( "page", list.PageBar );
         }
 
-        private void bindFriendList( DataPage<FriendShip> list, int userId ) {
+        private void bindFriendList( DataPage<FriendShip> list, long userId ) {
 
             IBlock block = getBlock( "list" );
             List<FriendShip> friends = list.Results;
@@ -343,7 +343,7 @@ namespace wojilu.Web.Controller.Users.Admin.Friends {
             set( "page", list.PageBar );
         }
 
-        private FriendCategory getCategory( List<FriendCategory> cats, int categoryId ) {
+        private FriendCategory getCategory( List<FriendCategory> cats, long categoryId ) {
             if (categoryId <= 0) return null;
             foreach (FriendCategory c in cats) {
                 if (c.Id == categoryId) return c;

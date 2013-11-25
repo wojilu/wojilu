@@ -96,7 +96,7 @@ namespace wojilu.Web.Controller.Download {
             FileItem f = FileItem.findById( id );
             FileItem.AddDownloads( f );
 
-            int urlno = ctx.GetInt( "url" );
+            int urlno = ctx.GetLong( "url" );
             if (urlno == 1 && strUtil.HasText( f.Url )) {
                 redirectUrl( f.Url );
             }

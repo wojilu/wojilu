@@ -36,7 +36,7 @@ namespace wojilu.Web.Controller.Forum.Edits {
         }
 
 
-        public void Edit( int id ) {
+        public void Edit( long id ) {
 
             ForumPost post = postService.GetById( id, ctx.owner.obj );
             ForumBoard board = getTree().GetById( post.ForumBoardId );
@@ -51,7 +51,7 @@ namespace wojilu.Web.Controller.Forum.Edits {
         }
 
         [HttpPost, DbTransaction]
-        public void Update( int id ) {
+        public void Update( long id ) {
 
             ForumPost post = postService.GetById( id, ctx.owner.obj );
             ForumBoard board = boardService.GetById( post.ForumBoardId, ctx.owner.obj );

@@ -13,7 +13,7 @@ namespace wojilu.Members.Sites.Service {
 
     public interface ISiteRoleService {
 
-        SiteRole GetById( int id );
+        SiteRole GetById(long id);
         void InsertSiteRole( SiteRole role );
         void UpdateSiteRole( SiteRole role );
         void DeleteSiteRole( SiteRole role );
@@ -26,8 +26,8 @@ namespace wojilu.Members.Sites.Service {
 
 
         List<SiteRank> GetRankAll();
-        SiteRank GetRankById( int id );
-        SiteRank GetRankByCredit( int credit );
+        SiteRank GetRankById(long id);
+        SiteRank GetRankByCredit(long credit);
         SiteRank GetNextRank( SiteRank rank );
         SiteRank GetPreRank( SiteRank rank );
         void InsertRank( SiteRank rank );
@@ -36,7 +36,7 @@ namespace wojilu.Members.Sites.Service {
 
 
         List<SiteRankOther> GetRankOther();
-        SiteRankOther GetRankOtherById( int id );
+        SiteRankOther GetRankOtherById(long id);
         void UpdateRankByOther( SiteRankOther otherRank );
 
 

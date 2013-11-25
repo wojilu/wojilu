@@ -13,11 +13,11 @@ namespace wojilu.Apps.Blog.Service {
 
     public class BlogCategoryService : IBlogCategoryService {
 
-        public virtual List<BlogCategory> GetByApp( int appId ) {
+        public virtual List<BlogCategory> GetByApp(long appId) {
             return db.find<BlogCategory>( "AppId=" + appId + " order by OrderId desc, Id asc" ).list();
         }
 
-        public virtual BlogCategory GetById( int id, int ownerId ) {
+        public virtual BlogCategory GetById(long id, long ownerId) {
             BlogCategory result = db.findById<BlogCategory>( id );
             if (result.OwnerId != ownerId ) return null;
             return result;

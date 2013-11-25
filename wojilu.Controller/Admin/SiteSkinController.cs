@@ -45,13 +45,13 @@ namespace wojilu.Web.Controller.Admin {
 
         }
 
-        public void ResourceList( int typeId ) {
+        public void ResourceList(long typeId) {
 
             target( ResourceSave, typeId );
 
-            set( "resourceTypeName", ResourceType.GetTypeName( typeId ) );
+            set( "resourceTypeName", ResourceType.GetTypeName( (int)typeId ) );
 
-            DataPage<Resource> list = Resource.GetPage( typeId, 50 );
+            DataPage<Resource> list = Resource.GetPage( (int)typeId, 50 );
             bindList( "list", "r", list.Results, bindLink );
             set( "page", list.PageBar );
         }
@@ -61,7 +61,7 @@ namespace wojilu.Web.Controller.Admin {
         }
 
         [HttpDelete, DbTransaction]
-        public void ResourceDelete( int id ) {
+        public void ResourceDelete( long id ) {
 
             Resource r = Resource.findById( id );
             if (r == null) {
@@ -71,11 +71,11 @@ namespace wojilu.Web.Controller.Admin {
 
             Resource.Delete( r );
 
-            redirect( ResourceList, r.TypeId );
+            redirect( typeId => ResourceList(typeId), r.TypeId );
         }
 
         [HttpPost, DbTransaction]
-        public void ResourceSave( int typeId ) {
+        public void ResourceSave( long typeId ) {
 
             HttpFile postedFile = ctx.GetFileSingle();
             Result result = Uploader.SaveImg( postedFile );
@@ -85,7 +85,7 @@ namespace wojilu.Web.Controller.Admin {
             }
 
             Resource r = new Resource();
-            r.TypeId = typeId;
+            r.TypeId = (int)typeId;
             r.Url = result.Info.ToString();
 
             String name = ctx.Post( "Name" );
@@ -94,7 +94,7 @@ namespace wojilu.Web.Controller.Admin {
 
             r.insert();
 
-            redirect( ResourceList, typeId );
+            redirect( typeId1 => ResourceList(typeId1), typeId );
         }
 
         //------------------------------------------------------------------------------------------------
@@ -212,7 +212,7 @@ namespace wojilu.Web.Controller.Admin {
             }
         }
 
-        private String getApplyCmd( int id ) {
+        private String getApplyCmd( long id ) {
 
             if (config.Instance.Site.SkinId == id) {
                 return "<span class=\"currentSkin\">" + lang( "currentSkin" ) + "</span>";
@@ -223,7 +223,7 @@ namespace wojilu.Web.Controller.Admin {
         }
 
         [HttpPut]
-        public void Apply( int id ) {
+        public void Apply( long id ) {
 
             SiteSkin skin = skinService.GetById( id );
             if (skin == null) {

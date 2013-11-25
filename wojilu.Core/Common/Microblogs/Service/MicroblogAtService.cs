@@ -7,7 +7,7 @@ namespace wojilu.Common.Microblogs.Service {
 
     public class MicroblogAtService {
 
-        public DataPage<Microblog> GetByUser( int userId, int pageSize ) {
+        public DataPage<Microblog> GetByUser(long userId, int pageSize) {
 
             DataPage<MicroblogAt> list = MicroblogAt.findPage( "UserId=" + userId, pageSize );
             return list.Convert<Microblog>( getResults( list.Results ) );

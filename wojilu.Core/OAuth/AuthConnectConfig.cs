@@ -84,7 +84,7 @@ namespace wojilu.OAuth {
             return xlist;
         }
 
-        public static AuthConnectConfig GetById( int id ) {
+        public static AuthConnectConfig GetById(long id) {
 
             List<AuthConnectConfig> xlist = GetAll();
 

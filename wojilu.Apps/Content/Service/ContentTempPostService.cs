@@ -9,32 +9,32 @@ namespace wojilu.Apps.Content.Service {
 
     public class ContentTempPostService {
 
-        public int GetSubmitCount( int creatorId, IMember owner, int appId ) {
+        public int GetSubmitCount(long creatorId, IMember owner, long appId) {
             String condition = string.Format( "CreatorId={0} and AppId={1} and OwnerId={2} and OwnerType='{3}' ", creatorId, appId, owner.Id, owner.GetType().FullName );
             return ContentTempPost.count( condition );
         }
 
-        public DataPage<ContentTempPost> GetByCreator( int creatorId, IMember owner, int appId ) {
+        public DataPage<ContentTempPost> GetByCreator(long creatorId, IMember owner, long appId) {
             String condition = string.Format( "CreatorId={0} and AppId={1} and OwnerId={2} and OwnerType='{3}' ", creatorId, appId, owner.Id, owner.GetType().FullName );
             return ContentTempPost.findPage( condition );
         }
 
-        public int CountByCreator( int creatorId, IMember owner, int appId ) {
+        public int CountByCreator(long creatorId, IMember owner, long appId) {
             String condition = string.Format( "CreatorId={0} and AppId={1} and OwnerId={2} and OwnerType='{3}' ", creatorId, appId, owner.Id, owner.GetType().FullName );
             return ContentTempPost.count( condition );
         }
 
-        public int GetSubmitCount( IMember owner, int appId ) {
+        public int GetSubmitCount(IMember owner, long appId) {
             String condition = string.Format( "AppId={0} and OwnerId={1} and OwnerType='{2}' and Status={3}", appId, owner.Id, owner.GetType().FullName, PostSubmitStatus.Normal );
             return ContentTempPost.count( condition );
         }
 
-        public DataPage<ContentTempPost> GetPage( IMember owner, int appId ) {
+        public DataPage<ContentTempPost> GetPage(IMember owner, long appId) {
             String condition = string.Format( "AppId={0} and OwnerId={1} and OwnerType='{2}' and Status={3}", appId, owner.Id, owner.GetType().FullName, PostSubmitStatus.Normal );
             return ContentTempPost.findPage( condition );
         }
 
-        public ContentTempPost GetById( int id ) {
+        public ContentTempPost GetById(long id) {
             return ContentTempPost.findById( id );
         }
 

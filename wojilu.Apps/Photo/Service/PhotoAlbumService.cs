@@ -15,18 +15,18 @@ namespace wojilu.Apps.Photo.Service {
     public class PhotoAlbumService : IPhotoAlbumService {
 
 
-        public virtual PhotoAlbum GetById( int albumId ) {
+        public virtual PhotoAlbum GetById(long albumId) {
             return db.findById<PhotoAlbum>( albumId );
         }
 
-        public virtual PhotoAlbum GetById( int id, int ownerId ) {
+        public virtual PhotoAlbum GetById(long id, long ownerId) {
             PhotoAlbum album = GetById( id );
             if (album == null) return null;
             if (album.OwnerId != ownerId) return null;
             return album;
         }
 
-        public virtual PhotoAlbum GetByIdWithDefault( int id, int ownerId ) {
+        public virtual PhotoAlbum GetByIdWithDefault(long id, long ownerId) {
             PhotoAlbum album = GetById( id );
             if (album == null) {
                 return getDefaultAlbum( ownerId );
@@ -36,18 +36,18 @@ namespace wojilu.Apps.Photo.Service {
             return album;
         }
 
-        private PhotoAlbum getDefaultAlbum( int ownerId ) {
+        private PhotoAlbum getDefaultAlbum(long ownerId) {
             PhotoAlbum album = new PhotoAlbum();
             album.Name = alang.get( typeof(PhotoApp), "defaultAlbum" );
             album.OwnerId = ownerId;
             return album;
         }
 
-        public virtual List<PhotoAlbum> GetListByApp( int appId ) {
+        public virtual List<PhotoAlbum> GetListByApp(long appId) {
             return db.find<PhotoAlbum>( "AppId=" + appId + " order by OrderId desc, Id asc" ).list();
         }
 
-        public virtual List<PhotoAlbum> GetListByUser( int ownerId ) {
+        public virtual List<PhotoAlbum> GetListByUser(long ownerId) {
             return db.find<PhotoAlbum>( "OwnerId=" + ownerId + " order by OrderId desc, Id asc" ).list();
         }
 

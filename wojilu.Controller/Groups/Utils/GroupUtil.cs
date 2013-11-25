@@ -41,7 +41,7 @@ namespace wojilu.Web.Controller.Groups {
         public void CreateAppAndMenu( Group group, MvcContext ctx ) {
             
             // 添加程序
-            IMemberApp forumApp = appService.Add( (User)ctx.viewer.obj, group, lang.get( "groupBoard" ), 1, AccessStatus.Public );
+            IMemberApp forumApp = appService.Add( (User)ctx.viewer.obj, @group, lang.get( "groupBoard" ), 1, AccessStatus.Public );
 
             // 论坛
             ForumApp app = forumService.GetById( forumApp.AppOid );

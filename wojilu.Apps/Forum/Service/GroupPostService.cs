@@ -30,7 +30,7 @@ namespace wojilu.Apps.Forum.Service {
             return db.findPage<ForumTopic>( "OwnerType='" + t() + "' " + condition );
         }
 
-        public virtual List<ForumTopic> GetMyTopic( int userId, String groupIds, int count ) {
+        public virtual List<ForumTopic> GetMyTopic(long userId, string groupIds, int count) {
 
             if (count <= 0) count = 10;
 
@@ -44,7 +44,7 @@ namespace wojilu.Apps.Forum.Service {
             return db.findBySql<ForumTopic>( sql );
         }
 
-        public virtual DataPage<ForumTopic> GetMyTopicPage( int userId, String groupIds, int count ) {
+        public virtual DataPage<ForumTopic> GetMyTopicPage(long userId, string groupIds, int count) {
 
             if (count <= 0) count = 10;
 

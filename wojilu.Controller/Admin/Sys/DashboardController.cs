@@ -101,7 +101,7 @@ namespace wojilu.Web.Controller.Admin.Sys {
             Feed( -1 );
         }
 
-        public void Feed( int id ) {
+        public void Feed( long id ) {
             view( "Feed" );
             bindUsers();
 
@@ -115,7 +115,7 @@ namespace wojilu.Web.Controller.Admin.Sys {
             set( "page", list.PageBar );
         }
 
-        public void Home( int id ) {
+        public void Home( long id ) {
 
             view( "Home" );
 

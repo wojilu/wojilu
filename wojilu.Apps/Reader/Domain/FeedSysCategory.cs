@@ -17,7 +17,7 @@ namespace wojilu.Apps.Reader.Domain {
         public FeedSysCategory() {
         }
 
-        public FeedSysCategory( int id ) {
+        public FeedSysCategory( long id ) {
             this.Id = id;
         }
 

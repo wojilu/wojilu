@@ -12,11 +12,11 @@ namespace wojilu.Web.Controller.Photo {
 
     public class PhotoBinder {
 
-        public static void BindPhotoList( ControllerBase controller, DataPage<PhotoPost> list, int userId ) {
+        public static void BindPhotoList(ControllerBase controller, DataPage<PhotoPost> list, long userId) {
 
             IBlock block = controller.getBlock( "list" );
 
-            List<int> likedIds = GetLikedIds( list.Results, userId );
+            List<long> likedIds = GetLikedIds( list.Results, userId );
 
             foreach (PhotoPost x in list.Results) {
                 PhotoBinder.BindPostSingle( controller.ctx, block, x, likedIds );
@@ -26,9 +26,9 @@ namespace wojilu.Web.Controller.Photo {
             controller.set( "page", list.PageBar );
         }
 
-        public static List<int> GetLikedIds( List<PhotoPost> list, int userId ) {
+        public static List<long> GetLikedIds(List<PhotoPost> list, long userId) {
 
-            List<int> ids = new List<int>();
+            List<long> ids = new List<long>();
 
             if (list.Count == 0) return ids;
 
@@ -49,13 +49,13 @@ namespace wojilu.Web.Controller.Photo {
 
 
 
-        public static void BindPostSingleFull( MvcContext ctx, IBlock block, PhotoPost x, List<int> likedIds ) {
+        public static void BindPostSingleFull(MvcContext ctx, IBlock block, PhotoPost x, List<long> likedIds) {
             BindPostSingle( ctx, block, x, likedIds );
 
             block.Set( "x.SrcInfo", getSrcInfo( x ) );
         }
 
-        public static void BindPostSingle( MvcContext ctx, IBlock block, PhotoPost x, List<int> likedIds ) {
+        public static void BindPostSingle(MvcContext ctx, IBlock block, PhotoPost x, List<long> likedIds) {
 
             block.Set( "x.Link", PhotoLink.ToPost( x.Id ) );
             block.Set( "x.Title", x.Title );

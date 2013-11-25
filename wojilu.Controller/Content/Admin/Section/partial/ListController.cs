@@ -16,7 +16,7 @@ namespace wojilu.Web.Controller.Content.Admin.Section {
     public partial class ListController : ControllerBase, IPageAdminSection {
 
 
-        private void bindSectionShow( int sectionId, IList posts ) {
+        private void bindSectionShow( long sectionId, IList posts ) {
 
             set( "addUrl", to( new Common.PostController().Add, sectionId ) );
             set( "listUrl", to( AdminList, sectionId ) );

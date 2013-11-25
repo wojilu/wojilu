@@ -322,7 +322,7 @@ namespace wojilu.Common.Tags {
             }
         }
 
-        public static void DeleteTag( int tagId ) {
+        public static void DeleteTag(long tagId) {
 
             Tag tag = Tag.findById( tagId );
             if (tag == null) return;
@@ -331,7 +331,7 @@ namespace wojilu.Common.Tags {
             tag.delete();
         }
 
-        public static void DeleteDataTag( int dataTagId ) {
+        public static void DeleteDataTag(long dataTagId) {
 
             DataTagShip dt = DataTagShip.findById( dataTagId );
             if (dt == null) return;

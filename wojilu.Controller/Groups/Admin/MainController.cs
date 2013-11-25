@@ -41,7 +41,7 @@ namespace wojilu.Web.Controller.Groups.Admin {
 
             //String target = ctx.Post( "Name" );
             //String url = ctx.Post( "Url" );
-            int categoryId = ctx.PostInt( "Category" );
+            long categoryId = ctx.PostLong( "Category" );
             int accessId = ctx.PostInt( "AccessStatus" );
             String description = ctx.Post( "Description" );
 
@@ -102,7 +102,7 @@ namespace wojilu.Web.Controller.Groups.Admin {
 
 
 
-        public void Members( int roleId ) {
+        public void Members( long roleId ) {
 
             IBlock block = getBlock( "list" );
 

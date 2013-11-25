@@ -124,7 +124,7 @@ namespace wojilu.Web.Controller.Forum {
 
         }
 
-        private String getTadayTopics( int todayPosts ) {
+        private String getTadayTopics( long todayPosts ) {
             if (todayPosts > 0) {
                 return string.Format( "<span class=\"todayInfo left5\">(" + alang( "today" ) + ":<span class=\"todayPosts\">{0}</span>)</span>", todayPosts );
             }

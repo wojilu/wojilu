@@ -81,7 +81,7 @@ namespace wojilu.Web.Controller.Admin.Apps.Blog {
 
             String ids = ctx.PostIdList( "choice" );
             String cmd = ctx.Post( "action" );
-            int categoryId = ctx.PostInt( "categoryId" );
+            long categoryId = ctx.PostLong( "categoryId" );
 
             String condition = string.Format( "Id in ({0}) ", ids );
 
@@ -124,7 +124,7 @@ namespace wojilu.Web.Controller.Admin.Apps.Blog {
 
 
         [HttpPut, DbTransaction]
-        public void UnDelete( int id ) {
+        public void UnDelete( long id ) {
 
             BlogPost post = postService.GetById_ForAdmin( id );
             if (post == null) { echoRedirect( lang( "exDataNotFound" ) ); return; }

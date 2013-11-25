@@ -254,9 +254,9 @@ namespace wojilu.Web.Controller.Content.Admin {
         public String SectionType { get; set; }
         public String Title { get; set; }
 
-        public int CustomTemplateId { get; set; }
-        public int ServiceId { get; set; }
-        public int TemplateId { get; set; }
+        public long CustomTemplateId { get; set; }
+        public long ServiceId { get; set; }
+        public long TemplateId { get; set; }
         public String ServiceParams { get; set; }
 
 
@@ -264,9 +264,9 @@ namespace wojilu.Web.Controller.Content.Admin {
     }
     public class PortalMockPost {
 
-        public int CategoryId { get; set; }
+        public long CategoryId { get; set; }
         public int OrderId { get; set; }
-        public int SectionId { get; set; }
+        public long SectionId { get; set; }
         public String TypeName { get; set; }
 
         public String Title { get; set; }

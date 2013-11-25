@@ -94,7 +94,7 @@ namespace wojilu.Web.Controller.Users.Admin {
         }
 
 
-        private String getCountString( int count ) {
+        private String getCountString( long count ) {
             if (count == 0) {
                 return "";
             }
@@ -110,7 +110,7 @@ namespace wojilu.Web.Controller.Users.Admin {
         }
 
 
-        private void bindMsgDetail( int id, MessageData msgData, IMember dataSender ) {
+        private void bindMsgDetail( long id, MessageData msgData, IMember dataSender ) {
 
             String senderUrl = "";
             String replyButton = "";
@@ -139,13 +139,13 @@ namespace wojilu.Web.Controller.Users.Admin {
             return strUtil.Join( ctx.url.SiteAndAppPath, url );
         }
 
-        private object getNextUrl( int id ) {
+        private object getNextUrl( long id ) {
             Message nextMsg = msgService.GetNextMsg( ctx.owner.Id, id );
             if (nextMsg == null) return "下一封(无)";
             return string.Format( "<a href=\"{0}\">下一封 &raquo;</a>", to( Read, nextMsg.Id ) );
         }
 
-        private object getPrevUrl( int id ) {
+        private object getPrevUrl( long id ) {
             Message prevMsg = msgService.GetPrevMsg( ctx.owner.Id, id );
             if (prevMsg == null) return "上一封(无)";
             return string.Format( "<a href=\"{0}\" class=\"right10\">&laquo; 上一封</a>", to( Read, prevMsg.Id ) );

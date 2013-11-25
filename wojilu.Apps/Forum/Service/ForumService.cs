@@ -57,7 +57,7 @@ namespace wojilu.Apps.Forum.Service {
             db.update( forum, "Security" );
         }
 
-        public virtual ForumApp GetById( int id ) {
+        public virtual ForumApp GetById(long id) {
             return db.findById<ForumApp>( id ) as ForumApp;
         }
 
@@ -67,13 +67,13 @@ namespace wojilu.Apps.Forum.Service {
             return StickyTopic.GetForumTopic( forum.StickyTopic, forum );
         }
 
-        public virtual void StickyMoveUp( ForumApp forum, int topicId ) {
+        public virtual void StickyMoveUp(ForumApp forum, long topicId) {
             String json = StickyTopic.MoveUp( forum.StickyTopic, topicId );
             forum.StickyTopic = json;
             db.update( forum, "StickyTopic" );
         }
 
-        public virtual void StickyMoveDown( ForumApp forum, int topicId ) {
+        public virtual void StickyMoveDown(ForumApp forum, long topicId) {
             String json = StickyTopic.MoveDown( forum.StickyTopic, topicId );
             forum.StickyTopic = json;
             db.update( forum, "StickyTopic" );

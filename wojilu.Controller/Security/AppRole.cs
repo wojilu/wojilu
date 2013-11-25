@@ -12,13 +12,13 @@ namespace wojilu.Web.Controller.Security {
 
     public class AppRole : CacheObject {
 
-        public int AppId { get; set; }
-        public int RoleId { get; set; }
+        public long AppId { get; set; }
+        public long RoleId { get; set; }
         public String RoleType { get; set; }
 
         //---------------------------------------------------------------------------------
 
-        public static Boolean IsRoleInApp( int roleId, String roleType, int appId ) {
+        public static bool IsRoleInApp(long roleId, string roleType, long appId) {
             IList configAll = new AppRole().findAll();
             foreach (AppRole ac in configAll) {
 
@@ -40,7 +40,7 @@ namespace wojilu.Web.Controller.Security {
         }
         //---------------------------------------------------------------------------------
 
-        public static void InitSiteFront( int appId ) {
+        public static void InitSiteFront( long appId ) {
 
             AppRole guest = new AppRole();
             guest.AppId = appId;

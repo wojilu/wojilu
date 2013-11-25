@@ -53,11 +53,11 @@ namespace wojilu.Web.Controller.Blog.Admin {
             getListString( -1 );
         }
 
-        public void ListByCategory( int id ) {
+        public void ListByCategory( long id ) {
             getListString( id );
         }
 
-        private void getListString( int categoryId ) {
+        private void getListString( long categoryId ) {
             view( "List" );
             target( Admin );
 
@@ -78,7 +78,7 @@ namespace wojilu.Web.Controller.Blog.Admin {
 
 
 
-        private void bindCategoryName( int categoryId ) {
+        private void bindCategoryName( long categoryId ) {
             String categoryName = "";
             if (categoryId > 0) {
                 BlogCategory category = categoryService.GetById( categoryId, ctx.owner.obj.Id );
@@ -122,7 +122,7 @@ namespace wojilu.Web.Controller.Blog.Admin {
         }
 
         private void setCategoryDropList() {
-            int appId = ctx.app.Id;
+            long appId = ctx.app.Id;
             List<BlogCategory> categories = categoryService.GetByApp( ctx.app.Id );
             BlogCategory category = new BlogCategory();
             category.Id = -1;
@@ -144,14 +144,14 @@ namespace wojilu.Web.Controller.Blog.Admin {
 
             String ids = ctx.PostIdList( "choice" );
             String cmd = ctx.Post( "action" );
-            int categoryId = ctx.PostInt( "categoryId" );
+            long categoryId = ctx.PostLong( "categoryId" );
 
             if (strUtil.IsNullOrEmpty( cmd )) {
                 echoErrorCmd();
                 return;
             }
 
-            int appId = ctx.app.Id;
+            long appId = ctx.app.Id;
 
             Boolean cmdValid = true;
 

@@ -32,7 +32,7 @@ namespace wojilu.Members.Sites.Service {
             return getSkin( config.Instance.Site.SkinId, MvcConfig.Instance.CssVersion );
         }
 
-        public String GetSkin( int querySkinId, String cssVersion ) {
+        public string GetSkin(long querySkinId, string cssVersion) {
 
             long skinId = (querySkinId == 0 ? getDefaultSkinId() : querySkinId);
             return getSkin( skinId, cssVersion );

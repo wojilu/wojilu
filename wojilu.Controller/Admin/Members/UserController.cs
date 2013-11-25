@@ -119,7 +119,7 @@ namespace wojilu.Web.Controller.Admin.Members {
                 return;
             }
             else if ("category" == cmd) {
-                int roleId = ctx.PostInt( "categoryId" );
+                long roleId = ctx.PostLong( "categoryId" );
                 action = "set RoleId=" + roleId;
             }
 
@@ -131,7 +131,7 @@ namespace wojilu.Web.Controller.Admin.Members {
         //----------------------------------------------------------------------------
 
 
-        public void Edit( int id ) {
+        public void Edit( long id ) {
 
             target( UpdateProfile, id );
             User m = User.findById( id );
@@ -142,7 +142,7 @@ namespace wojilu.Web.Controller.Admin.Members {
         }
 
         [HttpPost, DbTransaction]
-        public void UpdateProfile( int id ) {
+        public void UpdateProfile( long id ) {
             User m = User.findById( id );
             UserProfileController.SaveProfile( m, ctx );
             db.update( m );
@@ -152,14 +152,14 @@ namespace wojilu.Web.Controller.Admin.Members {
 
         //--------------------------------------
 
-        public void EditName( int id ) {
+        public void EditName( long id ) {
             target( UpdateName, id );
             User m = User.findById( id );
             set( "userName", m.Name );
         }
 
         [HttpPost,DbTransaction]
-        public void UpdateName( int id ) {
+        public void UpdateName( long id ) {
 
             String newName = strUtil.SubString( ctx.Post( "userName" ), 20 );
             if (strUtil.IsNullOrEmpty( newName )) {
@@ -175,14 +175,14 @@ namespace wojilu.Web.Controller.Admin.Members {
 
         //--------------------------------------
 
-        public void EditUrl( int id ) {
+        public void EditUrl( long id ) {
             target( UpdateUrl, id );
             User m = User.findById( id );
             set( "userUrl", m.Url );
         }
 
         [HttpPost, DbTransaction]
-        public void UpdateUrl( int id ) {
+        public void UpdateUrl( long id ) {
 
             String newUrl = strUtil.SubString( ctx.Post( "userUrl" ), 50 );
             if (strUtil.IsNullOrEmpty( newUrl )) {
@@ -204,14 +204,14 @@ namespace wojilu.Web.Controller.Admin.Members {
 
         //--------------------------------------
 
-        public void EditEmail( int id ) {
+        public void EditEmail( long id ) {
             target( UpdateEmail, id );
             User m = User.findById( id );
             set( "userEmail", m.Email );
         }
 
         [HttpPost, DbTransaction]
-        public void UpdateEmail( int id ) {
+        public void UpdateEmail( long id ) {
 
             String userEmail = strUtil.SubString( ctx.Post( "userEmail" ), RegPattern.EmailLength );
 

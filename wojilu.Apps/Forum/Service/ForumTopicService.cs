@@ -762,7 +762,7 @@ namespace wojilu.Apps.Forum.Service {
             makeLog( av );
         }
 
-        public virtual void MakeCategory( int categoryId, AdminValue av ) {
+        public virtual void MakeCategory(long categoryId, AdminValue av) {
             av.ActionId = ForumLogAction.SetCategory;
             String action = string.Format( "set CategoryId=" + categoryId );
             ForumTopic.updateBatch( action, av.Condition );

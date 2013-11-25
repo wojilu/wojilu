@@ -81,7 +81,7 @@ namespace wojilu.Web.Controller.Users {
             }
         }
 
-        public void Reply( int id ) {
+        public void Reply( long id ) {
 
             checkFeedbackPermission();
             if (ctx.HasErrors) {
@@ -100,7 +100,7 @@ namespace wojilu.Web.Controller.Users {
         }
 
         [HttpPost, Login]
-        public void SaveReply( int id ) {
+        public void SaveReply( long id ) {
 
             checkFeedbackPermission();
             if (ctx.HasErrors) {
@@ -168,7 +168,7 @@ namespace wojilu.Web.Controller.Users {
         }
 
         [HttpDelete, Login]
-        public void Delete( int id ) {
+        public void Delete( long id ) {
 
             if (!hasAdminPermission()) {
                 echo( lang( "exNoPermission" ) );
@@ -208,7 +208,7 @@ namespace wojilu.Web.Controller.Users {
             return ctx.viewer.Id == ctx.owner.Id && ctx.owner.obj is User;
         }
 
-        private Feedback validate( int parentId ) {
+        private Feedback validate( long parentId ) {
 
             Feedback f = new Feedback();
             f.Creator = (User)ctx.viewer.obj;

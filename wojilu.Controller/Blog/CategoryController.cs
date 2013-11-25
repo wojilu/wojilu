@@ -24,7 +24,7 @@ namespace wojilu.Web.Controller.Blog {
             categoryService = new BlogCategoryService();
         }
 
-        public void Show( int id ) {
+        public void Show( long id ) {
 
             BlogCategory category = categoryService.GetById( id, ctx.owner.Id );
             if (category == null) {

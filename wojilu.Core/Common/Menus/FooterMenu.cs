@@ -37,7 +37,7 @@ namespace wojilu.Common.Menus {
             return list;
         }
 
-        public static FooterMenu GetById( int id ) {
+        public static FooterMenu GetById(long id) {
             return cdb.findById<FooterMenu>( id );
         }
 

@@ -11,8 +11,8 @@ namespace wojilu.Apps.Forum.Interface {
 
     public interface IForumLinkService {
 
-        List<ForumLink> GetByApp( int appId, int ownerId );
-        ForumLink GetById( int id, IMember owner );
+        List<ForumLink> GetByApp(long appId, long ownerId);
+        ForumLink GetById(long id, IMember owner);
 
         Result Insert( ForumLink link );
         Result Update( ForumLink link );

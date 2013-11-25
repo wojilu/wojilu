@@ -33,7 +33,7 @@ namespace wojilu.Apps.Content.Service {
             return list;
         }
 
-        public virtual ContentSectionTemplate GetById( int id ) {
+        public virtual ContentSectionTemplate GetById(long id) {
             return cdb.findById<ContentSectionTemplate>( id ) ;
         }
 

@@ -129,14 +129,14 @@ namespace wojilu.Web {
             }
         }
 
-        public int UserId() {
+        public long UserId() {
             return UserId( FormsAuthentication.FormsCookieName );
         }
 
-        public int UserId( String cookieName ) {
+        public long UserId(string cookieName) {
             FormsAuthenticationTicket ticket = getTicket( cookieName );
             if (ticket == null) return -1;
-            return cvt.ToInt( ticket.UserData );
+            return cvt.ToLong( ticket.UserData );
         }
 
         public void UserLogin(long userId, string userName, DateTime expiration) {

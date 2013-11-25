@@ -239,7 +239,7 @@ namespace wojilu.Web.Controller.Common.Installers {
             return createPost( s, title, titleHome, content, imgUrl, videoUrl, categoryId, width, height );
         }
 
-        protected ContentPost createPost( ContentSection s, String title, String titleHome, String content, String imgUrl, String videoUrl, int categoryId, int width, int height ) {
+        protected ContentPost createPost( ContentSection s, String title, String titleHome, String content, String imgUrl, String videoUrl, long categoryId, int width, int height ) {
 
             IMember o = this.owner;
             User u = this.user;
@@ -371,7 +371,7 @@ namespace wojilu.Web.Controller.Common.Installers {
         /// <param name="templateId"></param>
         /// <param name="layoutStr"></param>
         /// <returns></returns>
-        protected ContentSection createSectionMashup( String title, int serviceId, int templateId, String layoutStr ) {
+        protected ContentSection createSectionMashup( String title, long serviceId, long templateId, String layoutStr ) {
 
             ContentSection section = new ContentSection();
 

@@ -23,7 +23,7 @@ namespace wojilu.Web.Controller.Reader {
             entryService = new FeedEntryService();
         }
 
-        public void Show( int id ) {
+        public void Show( long id ) {
 
             FeedEntry item = entryService.GetById( id );
 

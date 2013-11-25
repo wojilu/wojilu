@@ -16,7 +16,7 @@ namespace wojilu.Apps.Reader.Service {
             return db.find<FeedSysCategory>( " order by OrderId desc, Id desc" ).list();
         }
 
-        public FeedSysCategory GetById( int categoryId ) {
+        public FeedSysCategory GetById(long categoryId) {
             return db.findById<FeedSysCategory>( categoryId );
         }
 

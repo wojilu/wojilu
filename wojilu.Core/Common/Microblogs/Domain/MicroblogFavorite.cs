@@ -7,7 +7,7 @@ namespace wojilu.Common.Microblogs.Domain {
 
     public class MicroblogFavorite : ObjectBase<MicroblogFavorite> {
 
-        public int UserId { get; set; }
+        public long UserId { get; set; }
         public Microblog Microblog { get; set; }
 
         public DateTime Created { get; set; }

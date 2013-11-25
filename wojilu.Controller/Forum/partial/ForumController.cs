@@ -207,7 +207,7 @@ namespace wojilu.Web.Controller.Forum {
 
         //------------------------------------------------------------------------------------
 
-        private String getTadayTopics( int todayPosts ) {
+        private String getTadayTopics( long todayPosts ) {
             if (todayPosts > 0) {
                 return string.Format( "<span class=\"note left5\">(" + alang( "today" ) + ":{0})</span>", todayPosts );
             }

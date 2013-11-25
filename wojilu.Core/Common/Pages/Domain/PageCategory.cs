@@ -32,14 +32,14 @@ namespace wojilu.Common.Pages.Domain {
     [Serializable]
     public class PageCategory : ObjectBase<PageCategory>, ISort {
 
-        public int OwnerId { get; set; }
+        public long OwnerId { get; set; }
         public String OwnerType { get; set; }
         public String OwnerUrl { get; set; }
 
         public User Creator { get; set; }
 
         public int OrderId { get; set; }
-        public int ParentId { get; set; }
+        public long ParentId { get; set; }
 
         public String Name { get; set; }
         public String Description { get; set; }

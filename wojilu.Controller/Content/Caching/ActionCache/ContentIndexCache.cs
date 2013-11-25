@@ -22,13 +22,13 @@ namespace wojilu.Web.Controller.Content.Caching {
 
             if ((owner is Site) == false) return null;
 
-            int appId = ctx.app.Id;
+            long appId = ctx.app.Id;
 
             return getCacheKey( owner, appId );
 
         }
 
-        private String getCacheKey( IMember owner, int appId ) {
+        private String getCacheKey( IMember owner, long appId ) {
             return owner.GetType().FullName + "_" + owner.Url + "_" + typeof( wojilu.Web.Controller.Content.ContentController ).FullName + "_" + appId;
         }
 

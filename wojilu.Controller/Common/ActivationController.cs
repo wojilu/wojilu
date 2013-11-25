@@ -58,7 +58,7 @@ namespace wojilu.Web.Controller.Common {
         [HttpPost]
         public void SendEmailLoginCheck() {
 
-            int userId = userIsValid();
+            long userId = userIsValid();
             if (userId <= 0) {
                 run( SendEmailLogin );
                 return;
@@ -67,7 +67,7 @@ namespace wojilu.Web.Controller.Common {
             redirect( SendEmailButton );
         }
 
-        private int userIsValid() {
+        private long userIsValid() {
 
 
             if (Html.Captcha.CheckError( ctx )) {
@@ -111,7 +111,7 @@ namespace wojilu.Web.Controller.Common {
                 return;
             }
 
-            int userId = ctx.viewer.Id;
+            long userId = ctx.viewer.Id;
 
             if (userId <= 0) {
                 redirect( SendEmailLogin );
@@ -130,7 +130,7 @@ namespace wojilu.Web.Controller.Common {
         }
 
         [HttpPost, DbTransaction]
-        public void CheckEmailExist( int userId ) {
+        public void CheckEmailExist( long userId ) {
 
             String email = ctx.Post( "Email" );
 
@@ -151,7 +151,7 @@ namespace wojilu.Web.Controller.Common {
                 return;
             }
 
-            int userId = ctx.viewer.Id;
+            long userId = ctx.viewer.Id;
 
             if (userId <= 0) {
                 redirect( SendEmailLogin );

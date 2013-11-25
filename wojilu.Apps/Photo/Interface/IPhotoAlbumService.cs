@@ -10,11 +10,11 @@ namespace wojilu.Apps.Photo.Interface {
 
     public interface IPhotoAlbumService {
 
-        PhotoAlbum GetById( int albumId );
-        PhotoAlbum GetById( int id, int ownerId );
-        PhotoAlbum GetByIdWithDefault( int id, int ownerId );
-        List<PhotoAlbum> GetListByApp( int appId );
-        List<PhotoAlbum> GetListByUser( int ownerId );
+        PhotoAlbum GetById(long albumId);
+        PhotoAlbum GetById(long id, long ownerId);
+        PhotoAlbum GetByIdWithDefault(long id, long ownerId);
+        List<PhotoAlbum> GetListByApp(long appId);
+        List<PhotoAlbum> GetListByUser(long ownerId);
 
         Result Create( PhotoAlbum album );
         Result Update( PhotoAlbum album );

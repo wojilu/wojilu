@@ -11,7 +11,7 @@ namespace wojilu.Apps.Blog.Interface {
     public interface IBlogSysCategoryService {
 
         List<BlogSysCategory> GetAll();
-        BlogSysCategory GetById( int id );
+        BlogSysCategory GetById(long id);
         List<BlogSysCategory> GetForDroplist();
 
     }

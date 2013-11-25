@@ -37,7 +37,7 @@ namespace wojilu.Web.Controller.Microblogs.My {
         }
 
         //[HttpDelete, DbTransaction]
-        //public void Delete( int id ) {
+        //public void Delete( long id ) {
 
         //    if (hasPermission() == false) {
         //        echoText( lang( "exNoPermission" ) );

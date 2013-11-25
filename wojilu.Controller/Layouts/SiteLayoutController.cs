@@ -99,7 +99,7 @@ namespace wojilu.Web.Controller.Layouts {
 
 
         private void bindSiteSkin() {
-            String skinContent = siteSkinService.GetSkin( ctx.GetInt( "skinId" ), MvcConfig.Instance.CssVersion );
+            String skinContent = siteSkinService.GetSkin( ctx.GetLong( "skinId" ), MvcConfig.Instance.CssVersion );
             set( "siteSkinContent", skinContent );
         }
 

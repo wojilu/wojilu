@@ -8,34 +8,34 @@ namespace wojilu.Common.Comments {
 
         INotificationService nfService { get; set; }
 
-        OpenComment GetById( int id );
+        OpenComment GetById(long id);
         IEntity GetTarget( OpenComment c );
 
         Result Create( OpenComment c );
         Result CreateNoNotification( OpenComment c );
 
         void Delete( OpenComment c );
-        void DeleteAll( string url, int dataId, string dataType );
+        void DeleteAll(string url, long dataId, string dataType);
         void DeleteBatch( string ids );
 
-        DataPage<OpenComment> GetByMicroblogOwnerId( int ownerId );
-        DataPage<OpenComment> GetByDataAndOwnerId( string dataType, int ownerId );
+        DataPage<OpenComment> GetByMicroblogOwnerId(long ownerId);
+        DataPage<OpenComment> GetByDataAndOwnerId(string dataType, long ownerId);
 
-        List<OpenComment> GetByApp( Type type, int appId, int listCount );
+        List<OpenComment> GetByApp(Type type, long appId, int listCount);
 
-        DataPage<OpenComment> GetByDataAsc( string dataType, int dataId );
-        DataPage<OpenComment> GetByDataDesc( string dataType, int dataId );
-        DataPage<OpenComment> GetByDataDesc( string dataType, int dataId, int pageSize );
+        DataPage<OpenComment> GetByDataAsc(string dataType, long dataId);
+        DataPage<OpenComment> GetByDataDesc(string dataType, long dataId);
+        DataPage<OpenComment> GetByDataDesc(string dataType, long dataId, int pageSize);
 
         DataPage<OpenComment> GetByUrlAsc( string url );
         DataPage<OpenComment> GetByUrlDesc( string url );
 
         DataPage<OpenComment> GetPageAll( string condition );
 
-        List<OpenComment> GetMore( int parentId, int startId, int replyPageSize, string sort );
+        List<OpenComment> GetMore(long parentId, long startId, int replyPageSize, string sort);
 
-        int GetReplies( int dataId, string dataType, string url );
-        int GetRepliesByData( int dataId, string dataType );
+        int GetReplies(long dataId, string dataType, string url);
+        int GetRepliesByData(long dataId, string dataType);
         int GetRepliesByUrl( string url );
 
         Result Import( OpenComment c );

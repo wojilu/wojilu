@@ -45,9 +45,9 @@ namespace wojilu.Web.Controller.Content.Admin.Common {
             HideLayout( typeof( wojilu.Web.Controller.Content.LayoutController ) );
         }
 
-        public void Add( int sectionId ) {
+        public void Add( long sectionId ) {
 
-            target( to( Create ) + "?categoryId=" + ctx.GetInt( "categoryId" ) + "&fromList=" + ctx.GetInt( "fromList" ) );
+            target( to( Create ) + "?categoryId=" + ctx.GetLong( "categoryId" ) + "&fromList=" + ctx.GetLong( "fromList" ) );
 
             List<ContentSection> sections = sectionService.GetInputSectionsByApp( ctx.app.Id );
             checkboxList( "postSection", sections, "Title=Id", 0 );
@@ -56,8 +56,8 @@ namespace wojilu.Web.Controller.Content.Admin.Common {
 
             set( "sectionId", sectionId );
 
-            set( "width", ctx.GetInt( "width" ) );
-            set( "height", ctx.GetInt( "height" ) );
+            set( "width", ctx.GetLong( "width" ) );
+            set( "height", ctx.GetLong( "height" ) );
 
             set( "uploadLink", to( new AttachmentController().SaveFlashFile ) ); // 接受上传的网址
             set( "imgUploadLink", to( SavePic ) ); //图片上传
@@ -98,7 +98,7 @@ namespace wojilu.Web.Controller.Content.Admin.Common {
 
         }
 
-        public void DeleteTempPic( int id ) {
+        public void DeleteTempPic( long id ) {
 
             TempUploadFileService uploadService = new TempUploadFileService();
             Result result = uploadService.DeleteTempFile( id );
@@ -124,7 +124,7 @@ namespace wojilu.Web.Controller.Content.Admin.Common {
             String sectionIds = ctx.PostIdList( "postSection" );
             if (strUtil.IsNullOrEmpty( sectionIds )) errors.Add( "请选择区块" );
 
-            int[] arrAttachmentIds = cvt.ToIntArray( ctx.PostIdList( "attachmentIds" ) );
+            long[] arrAttachmentIds = cvt.ToLongArray( ctx.PostIdList( "attachmentIds" ) );
 
             // 图片默认值处理
             if (strUtil.HasText( post.ImgLink )) {
@@ -149,7 +149,7 @@ namespace wojilu.Web.Controller.Content.Admin.Common {
             postService.Insert( post, sectionIds, ctx.Post( "TagList" ) );
             attachService.UpdateAtachments( arrAttachmentIds, post );
 
-            if (ctx.GetInt( "fromList" ) > 0) {
+            if (ctx.GetLong( "fromList" ) > 0) {
                 echoRedirectPart( lang( "opok" ), to( List, 0 ), 1 );
             }
             else {
@@ -161,12 +161,12 @@ namespace wojilu.Web.Controller.Content.Admin.Common {
 
         //--------------------------------------------------------------------------------------------------------
 
-        public void EditImg( int postId ) {
+        public void EditImg( long postId ) {
             view( "Edit" );
             this.Edit( postId );
         }
 
-        public void Edit( int postId ) {
+        public void Edit( long postId ) {
 
             ContentPost post = postService.GetById( postId, ctx.owner.Id );
             if (post == null) {
@@ -174,7 +174,7 @@ namespace wojilu.Web.Controller.Content.Admin.Common {
                 return;
             }
 
-            target( to( Update, postId ) + "?categoryId=" + ctx.GetInt( "categoryId" ) );
+            target( to( Update, postId ) + "?categoryId=" + ctx.GetLong( "categoryId" ) );
 
             bindEditInfo( post );
 
@@ -237,7 +237,7 @@ namespace wojilu.Web.Controller.Content.Admin.Common {
             set( "attachmentAdminLink", to( new AttachmentController().AdminList, post.Id ) );
         }
 
-        public void DeletePostPic( int id ) {
+        public void DeletePostPic( long id ) {
 
             ContentPost post = postService.GetById( id, ctx.owner.Id );
             if (post == null) {
@@ -251,7 +251,7 @@ namespace wojilu.Web.Controller.Content.Admin.Common {
 
 
         [HttpPost, DbTransaction]
-        public void Update( int postId ) {
+        public void Update( long postId ) {
             ContentPost post = postService.GetById( postId, ctx.owner.Id );
             if (post == null) {
                 echoError( lang( "exDataNotFound" ) );
@@ -284,7 +284,7 @@ namespace wojilu.Web.Controller.Content.Admin.Common {
 
         //--------------------------------------------------------------------------------------------------------
 
-        public void List( int sectionId ) {
+        public void List( long sectionId ) {
 
             set( "addUrl", to( Add, 0 ) );
             set( "OperationUrl", to( SaveAdmin ) );
@@ -373,7 +373,7 @@ namespace wojilu.Web.Controller.Content.Admin.Common {
 
         public void SaveTag() {
 
-            int postId = ctx.PostInt( "postId" );
+            long postId = ctx.PostLong( "postId" );
             String tagValue = ctx.Post( "tagValue" );
 
             if (strUtil.IsNullOrEmpty( tagValue )) {
@@ -389,12 +389,12 @@ namespace wojilu.Web.Controller.Content.Admin.Common {
             echoAjaxOk();
         }
 
-        public void EditTitleStyle( int id ) {
+        public void EditTitleStyle( long id ) {
             target( UpdateTitleStyle, id );
             load( "TextStyle", new FormController().TextStyle );
         }
 
-        public void UpdateTitleStyle( int id ) {
+        public void UpdateTitleStyle( long id ) {
 
             String titleStyle = strUtil.SqlClean( FormController.GetTitleStyle( ctx ), 100 );
 
@@ -528,7 +528,7 @@ namespace wojilu.Web.Controller.Content.Admin.Common {
         }
 
         [HttpDelete, DbTransaction]
-        public void Delete( int postId ) {
+        public void Delete( long postId ) {
             ContentPost post = postService.GetById( postId, ctx.owner.Id );
             if (post == null) {
                 echo( lang( "exDataNotFound" ) );
@@ -542,7 +542,7 @@ namespace wojilu.Web.Controller.Content.Admin.Common {
         }
 
         [HttpPut, DbTransaction]
-        public void Restore( int id ) {
+        public void Restore( long id ) {
 
             postService.Restore( id );
             ContentPost post = postService.GetById( id, ctx.owner.Id );
@@ -551,7 +551,7 @@ namespace wojilu.Web.Controller.Content.Admin.Common {
         }
 
         [HttpDelete, DbTransaction]
-        public void DeleteSys( int postId ) {
+        public void DeleteSys( long postId ) {
             postService.DeleteSys( postId );
 
 

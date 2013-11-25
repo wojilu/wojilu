@@ -110,7 +110,7 @@ namespace wojilu.Web.Controller.Admin.Spiders {
             return sb;
         }
 
-        private String getTemplateName( int id, List<SpiderTemplate> dataSrc ) {
+        private String getTemplateName( long id, List<SpiderTemplate> dataSrc ) {
             foreach (SpiderTemplate t in dataSrc) {
                 if (t.Id == id) {
                     return t.SiteName;
@@ -123,7 +123,7 @@ namespace wojilu.Web.Controller.Admin.Spiders {
         [HttpPost, DbTransaction]
         public virtual void SaveSort() {
 
-            int id = ctx.PostInt( "id" );
+            long id = ctx.PostLong( "id" );
             String cmd = ctx.Post( "cmd" );
 
             SpiderImport s = importService.GetById( id );
@@ -144,7 +144,7 @@ namespace wojilu.Web.Controller.Admin.Spiders {
             }
         }
 
-        public void Show( int id ) {
+        public void Show( long id ) {
             SpiderImport item = importService.GetById( id );
 
             List<SpiderTemplate> dataSrc = templateService.GetAll();
@@ -159,7 +159,7 @@ namespace wojilu.Web.Controller.Admin.Spiders {
 
         }
 
-        public void DoRefresh( int id ) {
+        public void DoRefresh( long id ) {
 
             set( "processLink", to( Process, id ) );
 
@@ -172,13 +172,13 @@ namespace wojilu.Web.Controller.Admin.Spiders {
         }
 
         [HttpPost]
-        public void Process( int id ) {
+        public void Process( long id ) {
             StringBuilder sb = LogCacher.GetImportLog( "log" + ctx.viewer.Id );
             echoText( sb.ToString() );
         }
 
         [HttpPost, DbTransaction]
-        public void Start( int id ) {
+        public void Start( long id ) {
             SpiderImport item = importService.GetById( id );
             item.IsDelete = 0;
             item.update( "IsDelete" );
@@ -186,7 +186,7 @@ namespace wojilu.Web.Controller.Admin.Spiders {
         }
 
         [HttpPost, DbTransaction]
-        public void Stop( int id ) {
+        public void Stop( long id ) {
             SpiderImport item = importService.GetById( id );
             item.IsDelete = 1;
             item.update( "IsDelete" );
@@ -194,13 +194,13 @@ namespace wojilu.Web.Controller.Admin.Spiders {
         }
 
         [HttpDelete, DbTransaction]
-        public void Delete( int id ) {
+        public void Delete( long id ) {
             SpiderImport item = importService.GetById( id );
             item.delete();
             redirect( List );
         }
 
-        public void Add( int id ) {
+        public void Add( long id ) {
 
             if (id > 0) {
                 SpiderImport item = importService.GetById( id );
@@ -239,7 +239,7 @@ namespace wojilu.Web.Controller.Admin.Spiders {
         [HttpPost, DbTransaction]
         public void Save() {
 
-            int id = ctx.PostInt( "Id" );
+            long id = ctx.PostLong( "Id" );
             int isApprove = ctx.PostInt( "isApprove" );
             String name = ctx.Post( "name" );
             String srcIds = ctx.PostIdList( "srcIds" );

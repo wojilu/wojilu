@@ -19,7 +19,7 @@ namespace wojilu.Common.AppBase {
         private static readonly ILog logger = LogManager.GetLogger( typeof( ExtObject ) );
 
         // 参数 ctx 提供当前登录用户信息和link
-        public static String GetExtView( int id, String typeFullName, String extTypeFullName, MvcContext ctx ) {
+        public static string GetExtView(long id, string typeFullName, string extTypeFullName, MvcContext ctx) {
             IExtViewService viewService = getExtDataService( extTypeFullName );
             if (viewService == null) throw new NotImplementedException( "not implemented view service:" + getServiceTypeName( extTypeFullName ) );
             logger.Info( "view service name: " + viewService.GetType().FullName );

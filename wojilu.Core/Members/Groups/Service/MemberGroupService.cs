@@ -483,7 +483,7 @@ namespace wojilu.Members.Groups.Service {
             return GroupRole.GetById( relation.Status );
         }
 
-        public virtual long MemberStatus(User user, long groupId) {
+        public virtual long MemberStatus( User user, long groupId ) {
             GroupUser relation = db.find<GroupUser>( getCondition( groupId, user.Id ) ).first();
             if (relation == null) return -1;
             return relation.Status;

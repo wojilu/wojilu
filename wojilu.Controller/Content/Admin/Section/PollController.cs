@@ -31,7 +31,7 @@ namespace wojilu.Web.Controller.Content.Admin.Section {
             sectionService = new ContentSectionService();
         }
 
-        public List<IPageSettingLink> GetSettingLink( int sectionId ) {
+        public List<IPageSettingLink> GetSettingLink( long sectionId ) {
 
             List<IPageSettingLink> links = new List<IPageSettingLink>();
 
@@ -43,15 +43,15 @@ namespace wojilu.Web.Controller.Content.Admin.Section {
             return links;
         }
 
-        public String GetEditLink( int postId ) {
+        public String GetEditLink( long postId ) {
             return to( new Common.PollController().Edit, postId );
         }
 
-        public String GetSectionIcon( int sectionId ) {
+        public String GetSectionIcon( long sectionId ) {
             return BinderUtils.iconPoll;
         }
 
-        public void AdminSectionShow( int sectionId ) {
+        public void AdminSectionShow( long sectionId ) {
 
             set( "section.Id", sectionId );
             set( "addLink", to( new Admin.Common.PollController().Add, sectionId ) );
@@ -79,7 +79,7 @@ namespace wojilu.Web.Controller.Content.Admin.Section {
 
         }
 
-        public List<ContentPost> GetSectionPosts( int sectionId ) {
+        public List<ContentPost> GetSectionPosts( long sectionId ) {
             ContentSection section = sectionService.GetById( sectionId, ctx.app.Id );
             return postService.GetBySection( sectionId, section.ListCount );
         }

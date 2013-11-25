@@ -10,7 +10,7 @@ namespace wojilu.Web.Controller.Admin.Spiders {
 
     public class ImportState {
 
-        public int TemplateId { get; set; }
+        public long TemplateId { get; set; }
         public StringBuilder Log { get; set; }
 
     }

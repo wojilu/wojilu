@@ -44,7 +44,7 @@ namespace wojilu.Web.Controller.Admin {
             Home( -1 );
         }
 
-        public void Home( int id ) {
+        public void Home( long id ) {
 
             view( "Home" );
 
@@ -59,10 +59,10 @@ namespace wojilu.Web.Controller.Admin {
         }
 
 
-        private DataPage<Feed> getFeeds( int id ) {
+        private DataPage<Feed> getFeeds( long id ) {
 
-            String dataType = FeedType.GetByInt( id );
-            int userId = ctx.GetInt( "userId" );
+            String dataType = FeedType.GetByInt( (int)id );
+            long userId = ctx.GetLong( "userId" );
             User user = userService.GetById( userId );
 
             if (user != null) {
@@ -131,7 +131,7 @@ namespace wojilu.Web.Controller.Admin {
         }
 
         private String getTypeLink( Type t ) {
-            int userId = ctx.GetInt( "userId" );
+            long userId = ctx.GetLong( "userId" );
             if (userId <= 0)
                 return to( Home, FeedType.Get( t ) );
             return to( Home, FeedType.Get( t ) ) + "?userId=" + userId;
@@ -188,7 +188,7 @@ namespace wojilu.Web.Controller.Admin {
         }
 
         [HttpDelete]
-        public void DeleteFeed( int id ) {
+        public void DeleteFeed( long id ) {
             feedService.DeleteOne( id );
             echoAjaxOk();
         }

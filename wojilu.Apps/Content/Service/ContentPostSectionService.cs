@@ -7,11 +7,11 @@ namespace wojilu.Apps.Content.Service {
 
     public class ContentPostSectionService {
 
-        public List<ContentPostSection> GetByPost( int postId ) {
+        public List<ContentPostSection> GetByPost(long postId) {
             return ContentPostSection.find( "PostId=" + postId ).list();
         }
 
-        public ContentSection GetFirstSectionByPost( int postId ) {
+        public ContentSection GetFirstSectionByPost(long postId) {
 
             List<ContentPostSection> setions = GetByPost( postId );
             if (setions.Count == 0) return null;

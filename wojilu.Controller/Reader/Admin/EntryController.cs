@@ -23,7 +23,7 @@ namespace wojilu.Web.Controller.Reader.Admin {
             base.HideLayout( typeof( Reader.LayoutController ) );
         }
 
-        public void Show( int id ) {
+        public void Show( long id ) {
 
             FeedEntry item = entryService.GetById( id );
 

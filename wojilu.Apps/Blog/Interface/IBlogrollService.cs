@@ -12,9 +12,9 @@ namespace wojilu.Apps.Blog.Interface {
 
     public interface IBlogrollService {
 
-        List<Blogroll> GetByApp( int appId, int ownerId );
-        Blogroll GetById( int id, int appId );
-        void Insert( Blogroll roll, int ownerId, int appId );
+        List<Blogroll> GetByApp(long appId, long ownerId);
+        Blogroll GetById(long id, long appId);
+        void Insert(Blogroll roll, long ownerId, long appId);
         void Update( Blogroll roll );
         void Delete( Blogroll roll );
 

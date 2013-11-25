@@ -39,7 +39,7 @@ namespace wojilu.Web.Utils {
         /// <param name="postedFile"></param>
         /// <param name="userId"></param>
         /// <returns></returns>
-        public static Result Save( HttpFile postedFile, int userId ) {
+        public static Result Save(HttpFile postedFile, long userId) {
             return upload_private( sys.Path.DiskAvatar, postedFile, userId );
         }
 
@@ -72,7 +72,7 @@ namespace wojilu.Web.Utils {
         }
 
 
-        public static Result Save( String oPicAbsPath, int userId ) {
+        public static Result Save(string oPicAbsPath, long userId) {
 
             Result result = new Result();
 
@@ -88,7 +88,7 @@ namespace wojilu.Web.Utils {
             return savePicCommon( aSaver, userId, result, sys.Path.DiskAvatar );
         }
 
-        public static Result SaveRemote( string picUrl, int userId ) {
+        public static Result SaveRemote(string picUrl, long userId) {
 
             logger.Info( "picUrl:" + picUrl );
             logger.Info( "userId:" + userId );
@@ -98,7 +98,7 @@ namespace wojilu.Web.Utils {
             return savePicCommon( aSaver, userId, result, sys.Path.DiskAvatar );
         }
 
-        private static Result savePicCommon( AvatarSaver aSaver, int userId, Result result, String uploadPath ) {
+        private static Result savePicCommon(AvatarSaver aSaver, long userId, Result result, string uploadPath) {
 
             DateTime now = DateTime.Now;
             String strDir = getDirName( now );
@@ -143,7 +143,7 @@ namespace wojilu.Web.Utils {
             return result;
         }
 
-        private static Result upload_private( String uploadPath, HttpFile postedFile, int userId ) {
+        private static Result upload_private(string uploadPath, HttpFile postedFile, long userId) {
 
             logger.Info( "uploadPath:" + uploadPath + ", userId:" + userId );
 

@@ -89,7 +89,7 @@ namespace wojilu.Web.Controller.Admin.Groups {
         }
 
 
-        private void bindGroupFilter( int id, List<GroupCategory> categories ) {
+        private void bindGroupFilter( long id, List<GroupCategory> categories ) {
             //dropList( "categoryId", categories, "Name=Id", id );
 
             IBlock block = getBlock( "cfilterList" );
@@ -122,7 +122,7 @@ namespace wojilu.Web.Controller.Admin.Groups {
             return typeId;
         }
 
-        private DataPage<Group> getGroups( int categoryId, int typeId ) {
+        private DataPage<Group> getGroups( long categoryId, int typeId ) {
 
             String condition = "";
             if (categoryId > 0) condition = "CategoryId=" + categoryId;

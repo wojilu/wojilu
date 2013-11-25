@@ -28,7 +28,7 @@ namespace wojilu.Web.Controller.Reader {
             entryService = new FeedEntryService();
         }
 
-        public void Show( int id ) {
+        public void Show( long id ) {
 
             FeedCategory category = categoryService.GetById( id );
             bindCategory( category );
@@ -49,7 +49,7 @@ namespace wojilu.Web.Controller.Reader {
             bind( "c", category );
         }
 
-        private void bindItemList( int id, FeedCategory category, DataPage<FeedEntry> list ) {
+        private void bindItemList( long id, FeedCategory category, DataPage<FeedEntry> list ) {
             set( "feed.Title", category.Name );
             set( "feed.Link", to( Show, id ) );
             set( "LastRefreshTime", "" );

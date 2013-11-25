@@ -14,11 +14,11 @@ namespace wojilu.Apps.Forum.Service {
 
     public class ForumCategoryService : IForumCategoryService {
 
-        public virtual List<ForumCategory> GetByBoard( int forumBoardId ) {
+        public virtual List<ForumCategory> GetByBoard(long forumBoardId) {
             return db.find<ForumCategory>( "BoardId=" + forumBoardId + " order by OrderId desc, Id asc" ).list();
         }
 
-        public virtual ForumCategory GetById( int id, IMember owner ) {
+        public virtual ForumCategory GetById(long id, IMember owner) {
             return db.find<ForumCategory>( "Id=:id and OwnerId=:ownerId and OwnerType=:type" )
                 .set( "id", id )
                 .set( "ownerId", owner.Id )
@@ -26,7 +26,7 @@ namespace wojilu.Apps.Forum.Service {
                 .first();
         }
 
-        public virtual List<ForumCategory> GetDropList( int boardId ) {
+        public virtual List<ForumCategory> GetDropList(long boardId) {
             List<ForumCategory> results = this.GetByBoard( boardId );
             ForumCategory category = new ForumCategory();
             category.Name = alang.get( typeof( ForumApp ), "plsSelectCategory" );
@@ -42,7 +42,7 @@ namespace wojilu.Apps.Forum.Service {
             return db.update( category );
         }
 
-        public virtual int CountByBoard( int boardId ) {
+        public virtual int CountByBoard(long boardId) {
             return db.count<ForumCategory>( "BoardId=" + boardId );
         }
 

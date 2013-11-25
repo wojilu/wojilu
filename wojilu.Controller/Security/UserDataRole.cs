@@ -20,12 +20,12 @@ namespace wojilu.Web.Controller.Security {
         //---------------------------------------------------------------------------------
 
 
-        public static Boolean IsRoleInApp( int roleId, String appName ) {
-            int appId = getAppInfoId( appName );
+        public static Boolean IsRoleInApp( long roleId, String appName ) {
+            long appId = getAppInfoId( appName );
             return IsRoleInApp( roleId, appId );
         }
 
-        private static int getAppInfoId( String appName ) {
+        private static long getAppInfoId(string appName) {
             String appType = strUtil.Append( appName, "App" );
             AppInstaller appInfo = new AppInstallerService().GetByTypeName( appType );
             if (appInfo != null) return appInfo.Id;
@@ -33,7 +33,7 @@ namespace wojilu.Web.Controller.Security {
         }
 
 
-        public static Boolean IsRoleInApp( int roleId, int appInfoId ) {
+        public static bool IsRoleInApp(long roleId, long appInfoId) {
 
 
             IList configAll = new UserDataRole().findAll();

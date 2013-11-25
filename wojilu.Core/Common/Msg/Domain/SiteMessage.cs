@@ -15,13 +15,13 @@ namespace wojilu.Common.Msg.Domain {
     public class MessageSite : ObjectBase<MessageSite> {
 
         public MessageSite() { }
-        public MessageSite( int id ) {
+        public MessageSite(long id) {
             this.Id = id;
         }
 
         public User Creator { get; set; }
 
-        public int ReceiverRoleId { get; set; }
+        public long ReceiverRoleId { get; set; }
 
         [NotNull( Lang = "exTitle" )]
         public String Title { get; set; }

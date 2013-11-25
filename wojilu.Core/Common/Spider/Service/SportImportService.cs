@@ -12,23 +12,23 @@ namespace wojilu.Common.Spider.Service {
             return SpiderImport.find( "order by OrderId desc, Id asc" ).list();
         }
 
-        public SpiderImport GetById( int id ) {
+        public SpiderImport GetById(long id) {
             return SpiderImport.findById( id );
         }
 
-        public void Stop( int id ) {
+        public void Stop(long id) {
             SpiderImport s = SpiderImport.findById( id );
             s.IsDelete = 1;
             s.update( "IsDelete" );
         }
 
-        public void Start( int id ) {
+        public void Start(long id) {
             SpiderImport s = SpiderImport.findById( id );
             s.IsDelete = 0;
             s.update( "IsDelete" );
         }
 
-        public void Delete( int id ) {
+        public void Delete(long id) {
             SpiderImport s = SpiderImport.findById( id );
             s.IsDelete = 1;
             s.update( "IsDelete" );

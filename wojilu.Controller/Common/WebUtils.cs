@@ -67,12 +67,12 @@ namespace wojilu.Web.Controller.Common {
 
         public static String getFriendCmd( MvcContext ctx ) {
 
-            int targetId = ctx.owner.Id;
+            long targetId = ctx.owner.Id;
 
             return getFriendCmd( ctx, targetId );
         }
 
-        public static string getFriendCmd( MvcContext ctx, int targetId ) {
+        public static string getFriendCmd(MvcContext ctx, long targetId) {
 
             if (ctx.viewer.Id == targetId) return "";
             if (ctx.viewer.IsFriend( targetId )) return deleteFriendCmd( ctx, targetId );
@@ -81,11 +81,11 @@ namespace wojilu.Web.Controller.Common {
             return friendAndFollowCmd( ctx, targetId );
         }
 
-        private static String deleteFriendCmd( MvcContext ctx, int targetId ) {
+        private static string deleteFriendCmd(MvcContext ctx, long targetId) {
             return "<a href='" + ctx.link.T2( new FriendController().DeleteFriend, targetId ) + "' class=\"deleteCmd cmd\"><span>" + lang.get( "canelFriend" ) + "</span></a>";
         }
 
-        private static String waitingApprovingCmd( MvcContext ctx, int targetId ) {
+        private static string waitingApprovingCmd(MvcContext ctx, long targetId) {
 
             String cmd = "<span>" + lang.get( "inApproveFriend" ) + "...</span>";
             String delpic = string.Format( "<img src=\"{0}\" />", strUtil.Join( sys.Path.Img, "delete.gif" ) );
@@ -95,7 +95,7 @@ namespace wojilu.Web.Controller.Common {
             return cmd;
         }
 
-        private static String friendAndFollowCmd( MvcContext ctx, int targetId ) {
+        private static string friendAndFollowCmd(MvcContext ctx, long targetId) {
             String cmd = "<a href=\"" + ctx.link.T2( new FriendController().AddFriend, targetId ) + "\" class=\"frmBox cmd\" xwidth=\"500\" title=\"" + lang.get( "addAsFriend" ) + "\"><span>" + lang.get( "addAsFriend" ) + "</span></a>";
 
             if (ctx.viewer.IsFollowing( targetId )) {
@@ -107,7 +107,7 @@ namespace wojilu.Web.Controller.Common {
             return cmd;
         }
 
-        public static String getFollowCmd( MvcContext ctx, int targetId ) {
+        public static string getFollowCmd(MvcContext ctx, long targetId) {
 
             if (ctx.viewer.Id == targetId) return "";
 
@@ -120,7 +120,7 @@ namespace wojilu.Web.Controller.Common {
 
         }
 
-        private static Boolean isWaitingFriendApproving( int userId, int targetId ) {
+        private static bool isWaitingFriendApproving(long userId, long targetId) {
             FriendService friendService = new FriendService();
             return friendService.IsWaitingFriendApproving( userId, targetId );
         }

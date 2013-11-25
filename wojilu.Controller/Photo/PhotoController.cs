@@ -34,15 +34,15 @@ namespace wojilu.Web.Controller.Photo {
         }
 
 
-        public void Album( int id ) {
+        public void Album( long id ) {
             bindPhotoPosts( id );
         }
 
-        public void ViewBig( int id ) {
+        public void ViewBig( long id ) {
             bindPhotoPosts( id );
         }
 
-        public void Slider( int id ) {
+        public void Slider( long id ) {
 
             HideLayout( typeof( wojilu.Web.Controller.LayoutController ) );
             HideLayout( typeof( wojilu.Web.Controller.Photo.LayoutController ) );
@@ -79,7 +79,7 @@ namespace wojilu.Web.Controller.Photo {
             }
         }
 
-        private void bindPhotoPosts( int id ) {
+        private void bindPhotoPosts( long id ) {
             PhotoAlbum album = albumService.GetByIdWithDefault( id, ctx.owner.Id );
 
             String albumName = "";

@@ -11,7 +11,7 @@ namespace wojilu.Apps.Photo.Interface {
     public interface IPhotoSysCategoryService {
 
         List<PhotoSysCategory> GetAll();
-        PhotoSysCategory GetById( int id );
+        PhotoSysCategory GetById(long id);
         List<PhotoSysCategory> GetForDroplist();
 
     }

@@ -49,7 +49,7 @@ namespace wojilu.Common.Pages.Domain {
 
         public int IsShowHistory { get; set; } // 是否公开版本历史
 
-        public int UpdatingId { get; set; } // 正在编辑的用户
+        public long UpdatingId { get; set; } // 正在编辑的用户
         public DateTime UpdatingTime { get; set; } // 正在编辑的最后时间
 
         /// <summary>

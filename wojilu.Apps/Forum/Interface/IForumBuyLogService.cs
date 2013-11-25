@@ -15,9 +15,9 @@ namespace wojilu.Apps.Forum.Interface {
         IUserIncomeService incomeService { get; set; }
         IUserService userService { get; set; }
 
-        Result Buy( int buyerId, int creatorId, ForumTopic topic );
-        int GetBuyerCount( int topicId );
-        Boolean HasBuyed( int buyerId, ForumTopic topic );
+        Result Buy(long buyerId, long creatorId, ForumTopic topic);
+        int GetBuyerCount(long topicId);
+        bool HasBuyed(long buyerId, ForumTopic topic);
 
     }
 

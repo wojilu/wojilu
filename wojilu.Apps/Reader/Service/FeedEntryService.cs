@@ -13,7 +13,7 @@ namespace wojilu.Apps.Reader.Service {
 
     public class FeedEntryService : IFeedEntryService {
 
-        public FeedEntry GetById( int id ) {
+        public FeedEntry GetById(long id) {
             return db.findById<FeedEntry>( id );
         }
 
@@ -22,7 +22,7 @@ namespace wojilu.Apps.Reader.Service {
         }
 
 
-        public DataPage<FeedEntry> GetPage( int feedId ) {
+        public DataPage<FeedEntry> GetPage(long feedId) {
             return db.findPage<FeedEntry>( "FeedSource.Id=" + feedId + " order by PubDate desc, Id desc" );
         }
 

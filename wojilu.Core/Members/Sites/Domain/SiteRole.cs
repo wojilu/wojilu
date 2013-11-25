@@ -59,7 +59,7 @@ namespace wojilu.Members.Sites.Domain {
             return new SiteRole( DeletedUserId, lang.get( "deletedUserName" ) );
         }
 
-        public static Boolean IsInAdminGroup( int roleId ) {
+        public static bool IsInAdminGroup(long roleId) {
             SiteRole role = cdb.findById<SiteRole>( roleId );
             if (role == null) return false;
 

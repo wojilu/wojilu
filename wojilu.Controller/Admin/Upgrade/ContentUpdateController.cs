@@ -50,7 +50,7 @@ namespace wojilu.Web.Controller.Admin.Upgrade {
 
             if (x.PageSection == null || x.PageSection.Id <= 0) return;
 
-            int sectionId = x.PageSection.Id;
+            long sectionId = x.PageSection.Id;
 
             ContentPostSection ps = hasTrans( x, sectionId );
 
@@ -74,7 +74,7 @@ namespace wojilu.Web.Controller.Admin.Upgrade {
 
         }
 
-        private ContentPostSection hasTrans( ContentPost x, int sectionId ) {
+        private ContentPostSection hasTrans( ContentPost x, long sectionId ) {
 
             return ContentPostSection.find( "SectionId=" + sectionId + " and PostId=" + x.Id ).first();
 

@@ -78,7 +78,7 @@ namespace wojilu.Web.Controller.Admin.Groups {
             set( "SearchAction", to( PostAdmin ) );
         }
 
-        public void GroupAdmin( int id ) {
+        public void GroupAdmin( long id ) {
 
             set( "SearchAction", to( GroupAdmin, -1 ) );
             set( "categoryLink", to( GroupAdmin, 999 ) );
@@ -102,13 +102,13 @@ namespace wojilu.Web.Controller.Admin.Groups {
 
         //----------------------------------------------------------------------------------
 
-        public void SendMsg( int id ) {
+        public void SendMsg( long id ) {
             target( SaveMsg, id );
             Group g = groupService.GetById( id );
         }
 
         [HttpPost, DbTransaction]
-        public void SaveMsg( int id ) {
+        public void SaveMsg( long id ) {
 
             String msg = ctx.Post( "Content" );
 
@@ -124,7 +124,7 @@ namespace wojilu.Web.Controller.Admin.Groups {
             echoToParentPart( lang( "sentok" ) );
         }
 
-        private void sendMsg( int id, String msg, String type ) {
+        private void sendMsg( long id, String msg, String type ) {
             String title = type + ":" + strUtil.ParseHtml( msg, 20 );
             List<User> officers = mgrService.GetOfficer( id );
             foreach (User user in officers) {
@@ -132,12 +132,12 @@ namespace wojilu.Web.Controller.Admin.Groups {
             }
         }
 
-        public void Lock( int id ) {
+        public void Lock( long id ) {
             target( SaveLock, id );
         }
 
         [HttpPost, DbTransaction]
-        public void SaveLock( int id ) {
+        public void SaveLock( long id ) {
 
             String msg = ctx.Post( "Content" );
 
@@ -160,12 +160,12 @@ namespace wojilu.Web.Controller.Admin.Groups {
             echoToParentPart( cmdName + lang( "ok" ) );
         }
 
-        public void Hide( int id ) {
+        public void Hide( long id ) {
             target( SaveHide, id );
         }
 
         [HttpPost, DbTransaction]
-        public void SaveHide( int id ) {
+        public void SaveHide( long id ) {
 
             String msg = ctx.Post( "Content" );
 
@@ -189,7 +189,7 @@ namespace wojilu.Web.Controller.Admin.Groups {
 
         // TODO 连带删除下属成员关系、app等
         [HttpDelete, DbTransaction]
-        public void Delete( int id ) {
+        public void Delete( long id ) {
 
             Group g = groupService.GetById( id );
             groupService.Delete( id );

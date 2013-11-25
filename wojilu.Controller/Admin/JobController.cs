@@ -53,7 +53,7 @@ namespace wojilu.Web.Controller.Admin {
         }
 
         [HttpPost]
-        public void Stop( int id ) {
+        public void Stop( long id ) {
 
 
             WebJob job = cdb.findById<WebJob>( id );
@@ -71,7 +71,7 @@ namespace wojilu.Web.Controller.Admin {
         }
 
         [HttpPost]
-        public void Start( int id ) {
+        public void Start( long id ) {
 
             WebJob job = cdb.findById<WebJob>( id );
             if (job == null) {
@@ -86,7 +86,7 @@ namespace wojilu.Web.Controller.Admin {
             echoAjaxOk();
         }
 
-        public void Edit( int id ) {
+        public void Edit( long id ) {
             target( Update, id );
 
             WebJob job = cdb.findById<WebJob>( id );
@@ -99,7 +99,7 @@ namespace wojilu.Web.Controller.Admin {
         }
 
         [HttpPost]
-        public void Update( int id ) {
+        public void Update( long id ) {
 
             int Interval = ctx.PostInt( "Interval" );
             WebJob job = cdb.findById<WebJob>( id );

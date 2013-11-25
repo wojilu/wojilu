@@ -6,7 +6,7 @@ namespace wojilu.Apps.Photo.Interface {
 
     public interface IPhotoService {
 
-        PhotoApp GetByUser( int userId );
+        PhotoApp GetByUser(long userId);
 
         void UpdateCount( PhotoApp app );
 

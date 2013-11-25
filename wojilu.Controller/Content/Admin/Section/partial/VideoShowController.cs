@@ -17,7 +17,7 @@ namespace wojilu.Web.Controller.Content.Admin.Section {
     public partial class VideoShowController : ControllerBase, IPageAdminSection {
 
 
-        private void bindSectionShow( int sectionId, ContentPost video ) {
+        private void bindSectionShow( long sectionId, ContentPost video ) {
 
             int vWidth = 320;
             int vHeight = 240;

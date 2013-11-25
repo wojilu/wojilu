@@ -13,7 +13,7 @@ namespace wojilu.Members.Users.Interface {
     public interface IVisitorService {
 
         void Visit( long visitorId, User target );
-        List<User> GetRecent( int count, int targetId );
+        List<User> GetRecent(int count, long targetId);
 
         DataPage<User> GetPage( long targetId, int pageSize );
 

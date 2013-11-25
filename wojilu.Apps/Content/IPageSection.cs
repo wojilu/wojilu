@@ -13,11 +13,11 @@ namespace wojilu.Common.AppBase {
     /// </summary>
     public interface IPageAdminSection {
 
-        void AdminSectionShow( int sectionId );
-        List<IPageSettingLink> GetSettingLink( int sectionId );
-        String GetEditLink( int postId );
-        String GetSectionIcon( int sectionId );
-        List<ContentPost> GetSectionPosts( int sectionId );
+        void AdminSectionShow(long sectionId);
+        List<IPageSettingLink> GetSettingLink(long sectionId);
+        string GetEditLink(long postId);
+        string GetSectionIcon(long sectionId);
+        List<ContentPost> GetSectionPosts(long sectionId);
 
     }
 
@@ -26,7 +26,7 @@ namespace wojilu.Common.AppBase {
     /// </summary>
     public interface IPageSection {
 
-        void SectionShow( int sectionId );
+        void SectionShow(long sectionId);
 
     }
 

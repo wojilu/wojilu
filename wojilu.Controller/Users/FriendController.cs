@@ -95,7 +95,7 @@ namespace wojilu.Web.Controller.Users {
         //------------------------- friend --------------------------------------------
 
         [Login]
-        public void AddFriend( int targetId ) {
+        public void AddFriend( long targetId ) {
 
             Result result = friendService.CanAddFriend( ctx.viewer.Id, targetId );
             if (result.HasErrors) {
@@ -107,7 +107,7 @@ namespace wojilu.Web.Controller.Users {
         }
 
         [HttpPost, DbTransaction]
-        public void SaveFriend( int targetId ) {
+        public void SaveFriend( long targetId ) {
 
             Result result = ctx.viewer.AddFriend( targetId, strUtil.CutString( ctx.Post( "Msg" ), 100 ) );
             if (result.HasErrors) {
@@ -119,13 +119,13 @@ namespace wojilu.Web.Controller.Users {
         }
 
         [HttpDelete, DbTransaction]
-        public void DeleteFriend( int targetId ) {
+        public void DeleteFriend( long targetId ) {
             friendService.DeleteFriend( ctx.viewer.Id, targetId, ctx.Ip );
             echoRedirect( lang( "opok" ) );
         }
 
         [HttpDelete, DbTransaction]
-        public void CancelAddFriend( int targetId ) {
+        public void CancelAddFriend( long targetId ) {
             friendService.CancelAddFriend( ctx.viewer.Id, targetId );
             echoRedirect( lang( "opok" ) );
         }
@@ -133,7 +133,7 @@ namespace wojilu.Web.Controller.Users {
         //----------------------- follow ----------------------------------------------
 
         [Login]
-        public void AddFollow( int targetId ) {
+        public void AddFollow( long targetId ) {
 
             User f = userService.GetById( targetId );
             if (f == null) {
@@ -151,7 +151,7 @@ namespace wojilu.Web.Controller.Users {
         }
 
         [HttpPost, DbTransaction]
-        public void Follow( int targetId ) {
+        public void Follow( long targetId ) {
 
             checkFollowPermission( targetId );
             if (ctx.HasErrors) {
@@ -165,7 +165,7 @@ namespace wojilu.Web.Controller.Users {
         }
         
         [HttpDelete, DbTransaction]
-        public void DeleteFollow( int targetId ) {
+        public void DeleteFollow( long targetId ) {
 
             if (!ctx.viewer.IsLogin) {
                 echo( lang( "exPlsLogin" ) );
@@ -182,7 +182,7 @@ namespace wojilu.Web.Controller.Users {
             echoRedirect( lang( "opok" ) );
         }
 
-        private void checkFollowPermission( int targetId ) {
+        private void checkFollowPermission( long targetId ) {
             if (!ctx.viewer.IsLogin)
                 errors.Add( lang( "exPlsLogin" ) );
             else if (ctx.viewer.Id == targetId)

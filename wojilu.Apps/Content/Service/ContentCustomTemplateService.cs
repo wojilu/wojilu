@@ -11,7 +11,7 @@ namespace wojilu.Apps.Content.Service {
 
 
 
-        public ContentCustomTemplate GetById( int id, int ownerId ) {
+        public ContentCustomTemplate GetById(long id, long ownerId) {
 
             ContentCustomTemplate ct = ContentCustomTemplate.findById( id );
             if (ct == null) return null;

@@ -38,7 +38,7 @@ namespace wojilu.Web.Controller.Users.Admin {
             }
         }
 
-        private int ownerId() { return Site.Instance.Id; }
+        private long ownerId() { return Site.Instance.Id; }
         private String ownerType() { return typeof( Site ).FullName; }
 
         public void List() {
@@ -80,7 +80,7 @@ namespace wojilu.Web.Controller.Users.Admin {
         }
 
         [HttpPost, DbTransaction]
-        public void Read( int id ) {
+        public void Read( long id ) {
 
             Notification nf = notificationService.GetById( id );
             notificationService.Read( id );

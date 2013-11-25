@@ -43,7 +43,7 @@ namespace wojilu.Apps.Content.Interface {
         DataPage<ContentPost> GetByApp(long appId, int pageSize);
 
         DataPage<ContentPost> GetBySearch(long appId, string key, int pageSize);
-        DataPage<ContentPost> GetTrashByApp( int appId, int pageSize );
+        DataPage<ContentPost> GetTrashByApp(long appId, int pageSize);
 
         ContentPost GetFirstPost(long appId, long sectionId);
 

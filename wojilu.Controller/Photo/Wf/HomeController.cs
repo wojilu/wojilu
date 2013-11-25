@@ -78,7 +78,7 @@ namespace wojilu.Web.Controller.Photo.Wf {
             PhotoBinder.BindPhotoList( this, list, ctx.viewer.Id );
         }
 
-        public void Category( int categoryId ) {
+        public void Category( long categoryId ) {
 
             view( "Index" );
 
@@ -219,7 +219,7 @@ namespace wojilu.Web.Controller.Photo.Wf {
         //------------------------------------------------------------------------------------------
 
         [Data( typeof( PhotoPost ) )]
-        public void Post( int id ) {
+        public void Post( long id ) {
 
 
             PhotoPost x = ctx.Get<PhotoPost>();
@@ -241,7 +241,7 @@ namespace wojilu.Web.Controller.Photo.Wf {
 
             Boolean isLiked = likeService.IsLiked( ctx.viewer.Id, id );
 
-            List<int> ids = new List<int>();
+            List<long> ids = new List<long>();
             if (isLiked) {
                 ids.Add( id );
             }
@@ -287,7 +287,7 @@ namespace wojilu.Web.Controller.Photo.Wf {
 
             List<PhotoPost> list = postService.GetByAlbum( post.PhotoAlbum.Id, 9 );
             foreach (PhotoPost x in list) {
-                PhotoBinder.BindPostSingle( ctx, block, x, new List<int>() );
+                PhotoBinder.BindPostSingle( ctx, block, x, new List<long>() );
                 block.Next();
             }
 
@@ -297,7 +297,7 @@ namespace wojilu.Web.Controller.Photo.Wf {
             List<PhotoPost> list = postService.GetNew( 15 );
             IBlock block = getBlock( "xposts" );
             foreach (PhotoPost x in list) {
-                PhotoBinder.BindPostSingle( ctx, block, x, new List<int>() );
+                PhotoBinder.BindPostSingle( ctx, block, x, new List<long>() );
                 block.Next();
             }
         }
@@ -306,7 +306,7 @@ namespace wojilu.Web.Controller.Photo.Wf {
         //------------------------------------------------------------------------------------------
 
         [HttpPost, Login, Data( typeof( PhotoPost ) )]
-        public void Like( int postId ) {
+        public void Like( long postId ) {
 
             Boolean isLiked = likeService.IsLiked( ctx.viewer.Id, postId );
 
@@ -323,7 +323,7 @@ namespace wojilu.Web.Controller.Photo.Wf {
         }
 
         [HttpPost, Login, Data( typeof( PhotoPost ) )]
-        public void UnLike( int postId ) {
+        public void UnLike( long postId ) {
 
             Boolean isLiked = likeService.IsLiked( ctx.viewer.Id, postId );
 
@@ -341,7 +341,7 @@ namespace wojilu.Web.Controller.Photo.Wf {
         }
 
         [Login, Data( typeof( PhotoPost ) )]
-        public void Repin( int postId ) {
+        public void Repin( long postId ) {
 
             target( RepinSave, postId );
 
@@ -361,7 +361,7 @@ namespace wojilu.Web.Controller.Photo.Wf {
         }
 
         [HttpPost, Login, Data( typeof( PhotoPost ) )]
-        public void RepinSave( int postId ) {
+        public void RepinSave( long postId ) {
 
             PhotoPost x = ctx.Get<PhotoPost>();
             PhotoPost photo = getFormPosted();
@@ -373,7 +373,7 @@ namespace wojilu.Web.Controller.Photo.Wf {
 
             PhotoPost photo = new PhotoPost();
 
-            PhotoAlbum album = categoryService.GetById( ctx.PostInt( "categoryId" ) );
+            PhotoAlbum album = categoryService.GetById( ctx.PostLong( "categoryId" ) );
 
             photo.PhotoAlbum = album;
             photo.Description = ctx.Post( "description" );
@@ -419,7 +419,7 @@ namespace wojilu.Web.Controller.Photo.Wf {
             set( "cid", album.Id );
         }
 
-        private int getAlbumAppId( int userId ) {
+        private long getAlbumAppId( long userId ) {
             PhotoApp app = photoService.GetByUser( userId );
             if (app == null) return 0;
             return app.Id;

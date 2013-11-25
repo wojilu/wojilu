@@ -38,7 +38,7 @@ namespace wojilu.Web.Controller.Admin.Sys {
         [HttpPost, DbTransaction]
         public virtual void SaveSort() {
 
-            int id = ctx.PostInt( "id" );
+            long id = ctx.PostLong( "id" );
             String cmd = ctx.Post( "cmd" );
 
             AuthConnectConfig data = AuthConnectConfig.GetById( id );
@@ -83,14 +83,14 @@ namespace wojilu.Web.Controller.Admin.Sys {
             echoToParentPart( lang( "opok" ) );
         }
 
-        public void Edit( int id ) {
+        public void Edit( long id ) {
             AuthConnectConfig x = AuthConnectConfig.GetById( id );
             bind( "x", x );
             target( Update, id );
         }
 
         [HttpPost]
-        public void Update( int id ) {
+        public void Update( long id ) {
             AuthConnectConfig x = AuthConnectConfig.GetById( id );
             x = ctx.PostValue( x, "x" ) as AuthConnectConfig;
             validatePost( x );
@@ -113,7 +113,7 @@ namespace wojilu.Web.Controller.Admin.Sys {
         }
 
         [HttpPost]
-        public void Stop( int id ) {
+        public void Stop( long id ) {
             AuthConnectConfig x = AuthConnectConfig.GetById( id );
 
             if (x.IsStop == 1) {
@@ -130,7 +130,7 @@ namespace wojilu.Web.Controller.Admin.Sys {
 
 
         [HttpPost]
-        public void Pick( int id ) {
+        public void Pick( long id ) {
             AuthConnectConfig x = AuthConnectConfig.GetById( id );
 
             if (x.IsPick == 1) {
@@ -146,7 +146,7 @@ namespace wojilu.Web.Controller.Admin.Sys {
         }
 
         [HttpDelete]
-        public void Delete( int id ) {
+        public void Delete( long id ) {
             AuthConnectConfig x = AuthConnectConfig.GetById( id );
             x.delete();
             echoResult( null );

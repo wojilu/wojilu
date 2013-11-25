@@ -16,7 +16,7 @@ namespace wojilu.Web.Controller.Content.Admin.Section {
     public partial class NormalController : ControllerBase, IPageAdminSection {
 
 
-        private void bindSectionShow( int sectionId, int postcat, int imgcat, List<ContentPost> posts, ContentPost img ) {
+        private void bindSectionShow( long sectionId, int postcat, int imgcat, List<ContentPost> posts, ContentPost img ) {
 
             set( "postAddUrl", to( new Common.PostController().Add, sectionId ) + "?categoryId=" + postcat );
             set( "postListUrl", to( new ListController().AdminList, sectionId ) + "?categoryId=" + postcat );

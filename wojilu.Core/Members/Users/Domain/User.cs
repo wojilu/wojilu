@@ -112,7 +112,7 @@ namespace wojilu.Members.Users.Domain {
         public int IsEmailConfirmed { get; set; } // 是否邮件激活了
 
         public int IsBind { get; set; } // 是否绑定过第三方帐号
-        public int LoginType { get; set; } // 登录类型(本地登录为空，第三方登录的值是 UserConnect.Id)
+        public long LoginType { get; set; } // 登录类型(本地登录为空，第三方登录的值是 UserConnect.Id)
 
         private long _roleId;
         private String _pic;

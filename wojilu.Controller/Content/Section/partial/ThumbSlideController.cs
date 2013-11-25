@@ -15,7 +15,7 @@ namespace wojilu.Web.Controller.Content.Section {
     public partial class ThumbSlideController : ControllerBase, IPageSection {
 
 
-        private void bindSectionShow( int sectionId, List<ContentPost> posts, ContentPost first ) {
+        private void bindSectionShow( long sectionId, List<ContentPost> posts, ContentPost first ) {
             set( "sectionId", sectionId );
             IBlock block = getBlock( "nav" );
 

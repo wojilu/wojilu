@@ -34,7 +34,7 @@ namespace wojilu.Web.Controller.Reader {
 
 
 
-        public void Show( int id ) {
+        public void Show( long id ) {
 
             Subscription s = subscriptionService.GetById( id );
             if (s == null || s.FeedSource == null) {

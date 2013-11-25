@@ -55,7 +55,7 @@ namespace wojilu.Web.Controller.Admin.Apps.Photo {
         [HttpPost, DbTransaction]
         public virtual void SaveSort() {
 
-            int id = ctx.PostInt( "id" );
+            long id = ctx.PostLong( "id" );
             String cmd = ctx.Post( "cmd" );
 
             PhotoSysCategory target = categoryService.GetById( id );
@@ -96,7 +96,7 @@ namespace wojilu.Web.Controller.Admin.Apps.Photo {
             echoToParentPart( lang("opok") );
         }
 
-        public void Edit( int id ) {
+        public void Edit( long id ) {
 
             target( Update, id );
 
@@ -110,7 +110,7 @@ namespace wojilu.Web.Controller.Admin.Apps.Photo {
         }
 
         [HttpPost, DbTransaction]
-        public void Update( int id ) {
+        public void Update( long id ) {
 
             PhotoSysCategory c = categoryService.GetById( id );
             if (c == null) {
@@ -131,7 +131,7 @@ namespace wojilu.Web.Controller.Admin.Apps.Photo {
         }
 
         [HttpDelete, DbTransaction]
-        public void Delete( int id ) {
+        public void Delete( long id ) {
 
             PhotoSysCategory c = categoryService.GetById( id );
             if (c == null) {

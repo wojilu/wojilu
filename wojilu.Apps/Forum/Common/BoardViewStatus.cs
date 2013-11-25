@@ -18,7 +18,7 @@ namespace wojilu.Apps.Forum.Domain {
         private static List<BoardViewStatus> _allView = getAllView();
 
 
-        public static String GetDropList( String ctlName, int val ) {
+        public static String GetDropList( String ctlName, long val ) {
 
             return Html.RadioList( GetAll(), ctlName, "Name", "Id", val );
         }

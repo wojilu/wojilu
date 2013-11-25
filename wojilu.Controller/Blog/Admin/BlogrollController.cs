@@ -57,7 +57,7 @@ namespace wojilu.Web.Controller.Blog.Admin {
             }
         }
 
-        public void Edit( int id ) {
+        public void Edit( long id ) {
             Blogroll blogroll = rollService.GetById( id, ctx.app.Id );
             if (blogroll == null) {
                 echoRedirect( lang( "exDataNotFound" ) );
@@ -71,7 +71,7 @@ namespace wojilu.Web.Controller.Blog.Admin {
         }
 
         [HttpPost, DbTransaction]
-        public void Update( int id ) {
+        public void Update( long id ) {
             Blogroll blogroll = rollService.GetById( id, ctx.app.Id );
             blogroll = Validate( blogroll );
             if (errors.HasErrors) {
@@ -84,7 +84,7 @@ namespace wojilu.Web.Controller.Blog.Admin {
         }
 
         [HttpDelete, DbTransaction]
-        public void Delete( int id ) {
+        public void Delete( long id ) {
             Blogroll blogroll = rollService.GetById( id, ctx.app.Id );
             if (blogroll != null) {
                 rollService.Delete( blogroll );

@@ -20,7 +20,7 @@ namespace wojilu.Web.Controller.Photo {
             return string.Format( "/photo/home{0}", ext );
         }
 
-        public static String ToPost( int postId ) {
+        public static String ToPost( long postId ) {
             return string.Format( "/photo/post/{0}{1}", postId, ext );
         }
 
@@ -32,7 +32,7 @@ namespace wojilu.Web.Controller.Photo {
             return string.Format( "/photo/pick{0}", ext );
         }
 
-        public static String ToCategory( int categoryId ) {
+        public static String ToCategory( long categoryId ) {
             return string.Format( "/photo/category/{0}{1}", categoryId, ext );
         }
 
@@ -46,7 +46,7 @@ namespace wojilu.Web.Controller.Photo {
             return string.Format( "/photo/like/{0}{1}", u.Url, ext );
         }
 
-        public static String ToAlbumOne( String userFriendlyUrl, int albumId ) {
+        public static string ToAlbumOne(string userFriendlyUrl, long albumId) {
             return string.Format( "/photo/album/{0}/{1}{2}", userFriendlyUrl, albumId, ext );
         }
 

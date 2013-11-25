@@ -38,7 +38,7 @@ namespace wojilu.Web.Controller.Forum.Admin {
             bindRoleActions( f );
         }
 
-        public void BoardSetting( int id ) {
+        public void BoardSetting( long id ) {
             target( SaveBoardPermissionAll, id );
             ForumBoard board = boardService.GetById( id, ctx.owner.obj );
             if (board == null) { echoRedirect( alang( "exBoardNotFound" ) ); return; }
@@ -108,7 +108,7 @@ namespace wojilu.Web.Controller.Forum.Admin {
         }
 
         [HttpPost, DbTransaction]
-        public void SaveBoardPermissionAll( int id ) {
+        public void SaveBoardPermissionAll( long id ) {
 
             ForumBoard board = boardService.GetById( id, ctx.owner.obj );
             if (board == null) {
@@ -134,7 +134,7 @@ namespace wojilu.Web.Controller.Forum.Admin {
         }
 
         [HttpPost, DbTransaction]
-        public void BoardReset( int id ) {
+        public void BoardReset( long id ) {
             ForumBoard board = boardService.GetById( id, ctx.owner.obj );
             if (board == null) { echoRedirect( alang( "exBoardNotFound" ) ); return; }
 

@@ -30,7 +30,7 @@ namespace wojilu.Web.Controller.Content.Admin {
             return typeof( ListController ).FullName;
         }
 
-        public void Select( int id ) {
+        public void Select( long id ) {
 
             ContentSection section = sectionService.GetById( id, ctx.app.Id );
             if (section == null) {
@@ -50,7 +50,7 @@ namespace wojilu.Web.Controller.Content.Admin {
         }
 
         [HttpPost, DbTransaction]
-        public void UpdateTemplate( int id ) {
+        public void UpdateTemplate( long id ) {
 
             ContentSection section = sectionService.GetById( id, ctx.app.Id );
             if (section == null) {
@@ -58,9 +58,9 @@ namespace wojilu.Web.Controller.Content.Admin {
                 return;
             }
 
-            int tplId = section.TemplateId;
+            long tplId = section.TemplateId;
 
-            int templateId = ctx.PostInt( "templateId" );
+            long templateId = ctx.PostLong( "templateId" );
 
             if (templateId != tplId) {
                 section.TemplateId = templateId;

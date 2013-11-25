@@ -49,12 +49,12 @@ namespace wojilu.Web.Controller.Content.Htmls {
             return totalCount;
         }
 
-        public int ProcessSection( int sectionId ) {
+        public int ProcessSection( long sectionId ) {
             int recordCount = postService.CountBySection( sectionId );
             return ProcessAll( sectionId, recordCount );
         }
 
-        public int ProcessAll( int sectionId, int recordCount ) {
+        public int ProcessAll( long sectionId, int recordCount ) {
 
             CheckDir();
 
@@ -67,7 +67,7 @@ namespace wojilu.Web.Controller.Content.Htmls {
             return makeHtmlLoopAll( sectionId, lnkNormal, recordCount, pageSize );
         }
 
-        private int getPageSize( int appId ) {
+        private int getPageSize( long appId ) {
 
             ContentApp app = ContentApp.findById( appId );
             ContentSetting s = app.GetSettingsObj();

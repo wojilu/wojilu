@@ -58,7 +58,7 @@ namespace wojilu.Web.Controller {
             }
         }
 
-        public void Invite( int userId ) {
+        public void Invite( long userId ) {
 
             if (ctx.viewer.IsLogin) {
                 echo( "对不起，您已经登录" );
@@ -85,7 +85,7 @@ namespace wojilu.Web.Controller {
         }
 
         [HttpPost]
-        public void RegisterFriend( int friendId ) {
+        public void RegisterFriend( long friendId ) {
 
             if (ctx.viewer.IsLogin) {
                 echo( "对不起，您已经登录" );
@@ -265,7 +265,7 @@ namespace wojilu.Web.Controller {
 
             if (config.Instance.Site.RegisterType == RegisterType.CloseUnlessInvite) {
 
-                int friendId = ctx.PostInt( "friendId" );
+                long friendId = ctx.PostLong( "friendId" );
                 String friendCode = ctx.Post( "friendCode" );
                 Result result = inviteService.Validate( friendId, friendCode );
                 if (result.HasErrors) {
@@ -319,7 +319,7 @@ namespace wojilu.Web.Controller {
             set( "siteName", config.Instance.Site.SiteName );
         }
 
-        public void SendConfirmEmail( int userId ) {
+        public void SendConfirmEmail( long userId ) {
 
             User user = userService.GetById( userId );
             Result sent = confirmEmail.SendEmail( user, null, null );

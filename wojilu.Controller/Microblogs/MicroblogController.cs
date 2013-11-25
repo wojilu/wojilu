@@ -88,7 +88,7 @@ namespace wojilu.Web.Controller.Microblogs {
 
         }
 
-        public void Show( int id ) {
+        public void Show( long id ) {
 
             Microblog blog = microblogService.GetById( id );
             if (blog == null) {
@@ -132,7 +132,7 @@ namespace wojilu.Web.Controller.Microblogs {
         //------------------------------------------------------------------------------------------------
 
         [Login]
-        public void Forward( int id ) {
+        public void Forward( long id ) {
 
             Microblog blog = microblogService.GetById( id );
             if (blog == null) {
@@ -167,7 +167,7 @@ namespace wojilu.Web.Controller.Microblogs {
         }
 
         [HttpPost, DbTransaction]
-        public void Save( int id ) {
+        public void Save( long id ) {
 
             Microblog tblog = microblogService.GetById( id );
 
@@ -199,7 +199,7 @@ namespace wojilu.Web.Controller.Microblogs {
         }
 
 
-        private int getParentId( Microblog tblog ) {
+        private long getParentId( Microblog tblog ) {
             if (tblog.ParentId <= 0) return tblog.Id;
             return tblog.ParentId;
         }
@@ -244,7 +244,7 @@ namespace wojilu.Web.Controller.Microblogs {
         }
 
         [HttpPost, DbTransaction]
-        public void SaveFavorite( int id ) {
+        public void SaveFavorite( long id ) {
 
             if (ctx.viewer.IsLogin == false) {
                 echoJsonMsg( "请先登录", false, "" );
@@ -266,7 +266,7 @@ namespace wojilu.Web.Controller.Microblogs {
         }
 
         [HttpPost, DbTransaction]
-        public void CancelFavorite( int id ) {
+        public void CancelFavorite( long id ) {
 
             Microblog blog = microblogService.GetById( id );
             if (blog == null) {
@@ -285,7 +285,7 @@ namespace wojilu.Web.Controller.Microblogs {
         //------------------------------------------------------------------------------------------------
 
         [HttpPost, DbTransaction]
-        public void SaveLike( int mid ) {
+        public void SaveLike( long mid ) {
 
             if (ctx.viewer.IsLogin == false) {
                 echoJsonMsg( "请先登录", false, "" );

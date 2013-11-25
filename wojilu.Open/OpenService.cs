@@ -134,7 +134,7 @@ namespace wojilu.Open {
         /// <returns></returns>
         public String UserName( HttpContext context ) {
             WebContext webContext = new WebContext( context );
-            int userId = webContext.UserId();
+            long userId = webContext.UserId();
 
             User user = User.findById( userId );
             if (user == null) {

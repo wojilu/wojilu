@@ -34,7 +34,7 @@ namespace wojilu.Web.Controller.Content.Section {
         }
 
         [Data( typeof( ContentSection ) )]
-        public void List( int sectionId ) {
+        public void List( long sectionId ) {
 
             ContentSection section = ctx.Get<ContentSection>();
             ContentApp app = ctx.app.obj as ContentApp;
@@ -51,7 +51,7 @@ namespace wojilu.Web.Controller.Content.Section {
         }
 
 
-        private void bindListCommon( int sectionId, ContentSection section, ContentSetting s,
+        private void bindListCommon( long sectionId, ContentSection section, ContentSetting s,
             DataPage<ContentPost> posts ) {
             Page.Title = section.Title;
             if (s.ArticleListMode == ArticleListMode.Summary) view( "ListSummary" );
@@ -59,7 +59,7 @@ namespace wojilu.Web.Controller.Content.Section {
         }
 
 
-        public void SectionShow( int sectionId ) {
+        public void SectionShow( long sectionId ) {
 
             ContentSection s = sectionService.GetById( sectionId, ctx.app.Id );
             if (s == null) {
@@ -71,7 +71,7 @@ namespace wojilu.Web.Controller.Content.Section {
             set( "sectionId", sectionId );
         }
 
-        public void Show( int id ) {
+        public void Show( long id ) {
 
             ContentPost post = this.postService.GetById( id, ctx.owner.Id );
             if (post == null) {

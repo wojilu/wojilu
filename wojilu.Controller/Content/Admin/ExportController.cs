@@ -181,7 +181,7 @@ namespace wojilu.Web.Controller.Content.Admin {
             return list;
         }
 
-        private string getCustomTemplateBody( int id ) {
+        private string getCustomTemplateBody( long id ) {
 
             ContentCustomTemplate x = ContentCustomTemplate.findById( id );
             return x == null ? "" : x.Content;

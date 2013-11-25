@@ -48,7 +48,7 @@ namespace wojilu.Web.Controller.Admin.Sys {
         [HttpPost, DbTransaction]
         public virtual void SaveSort() {
 
-            int id = ctx.PostInt( "id" );
+            long id = ctx.PostLong( "id" );
             String cmd = ctx.Post( "cmd" );
 
             FooterMenu data = cdb.findById<FooterMenu>( id );
@@ -98,7 +98,7 @@ namespace wojilu.Web.Controller.Admin.Sys {
             echoToParentPart( lang( "opok" ) );
         }
 
-        public void Edit( int id ) {
+        public void Edit( long id ) {
             target( Update, id );
             FooterMenu data = FooterMenu.GetById( id );
             if (data == null) {
@@ -109,7 +109,7 @@ namespace wojilu.Web.Controller.Admin.Sys {
         }
 
         [HttpPost, DbTransaction]
-        public void Update( int id ) {
+        public void Update( long id ) {
 
             FooterMenu data = FooterMenu.GetById( id );
             if (data == null) {
@@ -131,7 +131,7 @@ namespace wojilu.Web.Controller.Admin.Sys {
 
 
         [HttpDelete, DbTransaction]
-        public void Delete( int id ) {
+        public void Delete( long id ) {
 
             FooterMenu data = FooterMenu.GetById( id );
             if (data == null) {

@@ -25,7 +25,7 @@ namespace wojilu.Web.Controller.Admin.Spiders {
             ImportState ts = param as ImportState;
 
             try {
-                List<int> ids = beginImportPrivate( ts );
+                List<long> ids = beginImportPrivate( ts );
                 JobManager.ImportPost( ids );
             }
             catch (Exception ex) {
@@ -39,9 +39,9 @@ namespace wojilu.Web.Controller.Admin.Spiders {
             }
         }
 
-        private static List<int> beginImportPrivate( ImportState ts ) {
+        private static List<long> beginImportPrivate( ImportState ts ) {
 
-            int id = ts.TemplateId;
+            long id = ts.TemplateId;
 
             SpiderImport item = SpiderImport.findById( id );
 
@@ -53,7 +53,7 @@ namespace wojilu.Web.Controller.Admin.Spiders {
             if (sections.Count == 0) throw new Exception( "导入的目标section不存在" );
 
             ContentSection section = null;
-            List<int> results = new List<int>();
+            List<long> results = new List<long>();
             for (int i = 0; i < articles.Count; i++) {
 
                 if (articleExist( articles[i] )) {
@@ -68,7 +68,7 @@ namespace wojilu.Web.Controller.Admin.Spiders {
                     importToTemp( articles[i], item, section, app );
                 }
                 else {
-                    int newArticleId = importDirect( articles[i], item, section, app );
+                    long newArticleId = importDirect( articles[i], item, section, app );
                     results.Add( newArticleId );
                 }
 
@@ -97,7 +97,7 @@ namespace wojilu.Web.Controller.Admin.Spiders {
         }
 
 
-        private static int importToTemp( SpiderArticle art, SpiderImport item, ContentSection section, ContentApp app ) {
+        private static long importToTemp( SpiderArticle art, SpiderImport item, ContentSection section, ContentApp app ) {
 
             ContentTempPost post = new ContentTempPost();
             post.Creator = item.Creator;
@@ -115,7 +115,7 @@ namespace wojilu.Web.Controller.Admin.Spiders {
             return post.Id;
         }
 
-        private static int importDirect( SpiderArticle art, SpiderImport item, ContentSection section, ContentApp app ) {
+        private static long importDirect( SpiderArticle art, SpiderImport item, ContentSection section, ContentApp app ) {
 
             ContentPostService postService = ObjectContext.Create<ContentPostService>();
 

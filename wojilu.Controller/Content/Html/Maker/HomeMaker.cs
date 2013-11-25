@@ -18,7 +18,7 @@ namespace wojilu.Web.Controller.Content.Htmls {
 
         private static readonly ILog logger = LogManager.GetLogger( typeof( HomeMaker ) );
 
-        private int appId;
+        private long appId;
 
         protected override string GetDir() {
             String staticDir = getAppDirName( appId );
@@ -30,7 +30,7 @@ namespace wojilu.Web.Controller.Content.Htmls {
             }
         }
 
-        public void Process( int appId ) {
+        public void Process( long appId ) {
 
             this.appId = appId;
             base.CheckDir();
@@ -42,17 +42,17 @@ namespace wojilu.Web.Controller.Content.Htmls {
             logger.Info( "make ContentApp html done =>" + htmlPath );
         }
 
-        private string getHomePageAbs( int appId ) {
+        private string getHomePageAbs( long appId ) {
             return PathHelper.Map( GetAppPath( appId ) );
         }
 
-        private static String getAppDirName( int appId ) {
+        private static String getAppDirName( long appId ) {
             ContentApp app = ContentApp.findById( appId );
             if (app == null) throw new Exception( "app not found: Content.AppId=" + appId );
             return HtmlLink.GetStaticDir( app );
         }
 
-        public static String GetAppPath( int appId ) {
+        public static String GetAppPath( long appId ) {
             ContentApp app = ContentApp.findById( appId );
             if (app == null) throw new Exception( "app not found: Content.AppId=" + appId );
             return HtmlLink.ToApp( app );

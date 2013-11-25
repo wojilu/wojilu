@@ -70,7 +70,7 @@ namespace wojilu.Web.Controller.Admin {
         }
 
         [HttpDelete]
-        public void Delete( int id ) {
+        public void Delete( long id ) {
 
             Result result = shareService.Delete( id );
             if (result.IsValid) {

@@ -34,7 +34,7 @@ namespace wojilu.Web.Controller.Forum.Admin {
             moderatorService = new ModeratorService();
         }
 
-        public void List( int boardId ) {
+        public void List( long boardId ) {
 
             ForumBoard board = boardService.GetById( boardId, ctx.owner.obj );
             if (board == null) {
@@ -62,7 +62,7 @@ namespace wojilu.Web.Controller.Forum.Admin {
         [HttpPost, DbTransaction]
         public void Create() {
 
-            int id = ctx.PostInt( "BoardId" );
+            long id = ctx.PostLong( "BoardId" );
             ForumBoard board = boardService.GetById( id, ctx.owner.obj );
             if (board == null) {
                 echoRedirect( alang( "exBoardNotFound" ) );
@@ -90,7 +90,7 @@ namespace wojilu.Web.Controller.Forum.Admin {
         }
 
         [HttpDelete, DbTransaction]
-        public void Delete( int id ) {
+        public void Delete( long id ) {
 
             ForumBoard board = boardService.GetById( id, ctx.owner.obj );
             if (board == null) {
@@ -100,7 +100,7 @@ namespace wojilu.Web.Controller.Forum.Admin {
 
             ctx.SetItem( "boardId", id );
 
-            int userId = ctx.GetInt( "m" );
+            long userId = ctx.GetLong( "m" );
             if (userId <= 0) {
                 echoRedirect( lang( "exUser" ) );
                 return;

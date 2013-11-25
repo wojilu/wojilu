@@ -12,12 +12,12 @@ namespace wojilu.Apps.Forum.Interface {
 
     public interface IForumRateService {
 
-        List<ForumRateLog> GetByPost( int postId );
-        ForumRateLog GetByPostAndOperator( int userId, int postId );
+        List<ForumRateLog> GetByPost(long postId);
+        ForumRateLog GetByPostAndOperator(long userId, long postId);
 
         void Insert(long postId, User operateUser, long currencyId, int income, string reason);
 
-        Boolean HasRate( int operatorId, int postId );
+        bool HasRate(long operatorId, long postId);
 
     }
 

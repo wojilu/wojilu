@@ -74,7 +74,7 @@ namespace wojilu.Web.Controller.Content {
         }
 
 
-        public void Show( int id ) {
+        public void Show( long id ) {
 
             ContentPost post = postService.GetById( id, ctx.owner.Id );
 
@@ -268,7 +268,7 @@ namespace wojilu.Web.Controller.Content {
 
 
         [HttpPost, DbTransaction]
-        public void DiggUp( int id ) {
+        public void DiggUp( long id ) {
 
             if (ctx.viewer.IsLogin == false) {
                 echoText( "必须登录才能操作，请先登录" );
@@ -303,7 +303,7 @@ namespace wojilu.Web.Controller.Content {
         }
 
         [HttpPost, DbTransaction]
-        public void DiggDown( int id ) {
+        public void DiggDown( long id ) {
 
             if (ctx.viewer.IsLogin == false) {
                 echoText( "必须登录才能操作，请先登录" );
@@ -393,7 +393,7 @@ namespace wojilu.Web.Controller.Content {
             return false;
         }
 
-        public void Stats( int id ) {
+        public void Stats( long id ) {
 
             Dictionary<String, String> dic = new Dictionary<String, String>();
             dic["hits"] = "0";

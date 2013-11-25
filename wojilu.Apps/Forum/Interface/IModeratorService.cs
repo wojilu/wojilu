@@ -23,7 +23,7 @@ namespace wojilu.Apps.Forum.Interface {
         String[] GetModeratorNames( ForumBoard fb );
         String GetModeratorJson( ForumBoard fb );
 
-        Boolean IsModerator( int appId, String memberName );
+        bool IsModerator(long appId, string memberName);
         Boolean IsModerator( ForumBoard fb, String memberName );
         Boolean IsModerator( ForumBoard fb, User user );
 

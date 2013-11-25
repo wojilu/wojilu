@@ -54,7 +54,7 @@ namespace wojilu.Web.Controller.Admin.Security {
         }
 
         [HttpDelete, DbTransaction]
-        public void Delete( int id ) {
+        public void Delete( long id ) {
 
             if (id == SiteRole.Administrator.Id || id == SiteRole.NormalMember.Id || id == SiteRole.Guest.Id) {
                 echoRedirect( lang( "exRoleDeleteForbidden" ) );
@@ -114,14 +114,14 @@ namespace wojilu.Web.Controller.Admin.Security {
         }
 
 
-        public void Rename( int id ) {
+        public void Rename( long id ) {
             target( UpdateName, id );
             SiteRole role = roleService.GetById( id );
             set( "r.Name", role.Name );
         }
 
         [HttpPost, DbTransaction]
-        public void UpdateName( int id ) {
+        public void UpdateName( long id ) {
             SiteRole role = roleService.GetById( id );
             String target = ctx.Post( "Name" );
             if (strUtil.IsNullOrEmpty( target )) {
@@ -174,7 +174,7 @@ namespace wojilu.Web.Controller.Admin.Security {
         }
 
         [HttpDelete, DbTransaction]
-        public void DeleteRank( int id ) {
+        public void DeleteRank( long id ) {
             SiteRank rank = roleService.GetRankById( id );
             if (rank != null) {
                 roleService.DeleteRank( rank );
@@ -187,7 +187,7 @@ namespace wojilu.Web.Controller.Admin.Security {
             }
         }
 
-        public void CreditEdit( int id ) {
+        public void CreditEdit( long id ) {
             target( UpdateCredit, id );
             SiteRank rank = roleService.GetRankById( id );
 
@@ -199,7 +199,7 @@ namespace wojilu.Web.Controller.Admin.Security {
         }
 
         [HttpPost, DbTransaction]
-        public void UpdateCredit( int id ) {
+        public void UpdateCredit( long id ) {
 
             SiteRank rank = roleService.GetRankById( id );
             int credit = ctx.PostInt( "Credit" );
@@ -235,7 +235,7 @@ namespace wojilu.Web.Controller.Admin.Security {
         }
 
 
-        public void RenameRank( int id ) {
+        public void RenameRank( long id ) {
             view( "Rename" );
             SiteRank rank = roleService.GetRankById( id );
             set( "r.Name", rank.Name );
@@ -243,7 +243,7 @@ namespace wojilu.Web.Controller.Admin.Security {
         }
 
         [HttpPost, DbTransaction]
-        public void UpdateRankName( int id ) {
+        public void UpdateRankName( long id ) {
             SiteRank rank = roleService.GetRankById( id );
             String target = ctx.Post( "Name" );
             if (strUtil.IsNullOrEmpty( target )) {
@@ -259,14 +259,14 @@ namespace wojilu.Web.Controller.Admin.Security {
         }
 
 
-        public void SetRankStar( int id ) {
+        public void SetRankStar( long id ) {
             target( UpdateRankStar, id );
             SiteRank rank = roleService.GetRankById( id );
             bindRankStar( rank );
         }
 
         [HttpPost, DbTransaction]
-        public void UpdateRankStar( int id ) {
+        public void UpdateRankStar( long id ) {
 
             String starPath = ctx.Post( "StarPath" );
             int starCount = ctx.PostInt( "StarCount" );
@@ -343,7 +343,7 @@ namespace wojilu.Web.Controller.Admin.Security {
         }
 
         [HttpPut, DbTransaction]
-        public void SetRanksByOther( int id ) {
+        public void SetRanksByOther( long id ) {
             SiteRankOther otherRank = roleService.GetRankOtherById( id );
             roleService.UpdateRankByOther( otherRank );
             log( SiteLogString.SetRanksByOther() );

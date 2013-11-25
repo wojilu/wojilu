@@ -60,7 +60,7 @@ namespace wojilu.Web.Controller.Admin.Credits {
             }
         }
 
-        public void EditCurrency( int currencyId ) {
+        public void EditCurrency( long currencyId ) {
 
             target( UpdateCurrency, currencyId  );
             Currency c = currencyService.GetCurrencyById( currencyId );
@@ -68,7 +68,7 @@ namespace wojilu.Web.Controller.Admin.Credits {
         }
 
         [HttpPost, DbTransaction]
-        public void UpdateCurrency( int currencyId ) {
+        public void UpdateCurrency( long currencyId ) {
             Currency c = currencyService.GetCurrencyById( currencyId );
             c = validate( c );
             if (errors.HasErrors) {
@@ -101,7 +101,7 @@ namespace wojilu.Web.Controller.Admin.Credits {
         }
 
         [HttpDelete, DbTransaction]
-        public void Delete( int currencyId ) {
+        public void Delete( long currencyId ) {
             currencyService.GetCurrencyById( currencyId ).delete();
             IList incomeRules = currencyService.GetIncomeRules( currencyId );
             foreach (IncomeRule rule in incomeRules) {

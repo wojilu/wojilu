@@ -65,7 +65,7 @@ namespace wojilu.Web.Controller.Poll.Admin {
             echoRedirect( lang( "opok" ), List );
         }
 
-        public void Show( int id ) {
+        public void Show( long id ) {
 
             PollData poll = pollService.GetById( id );
 

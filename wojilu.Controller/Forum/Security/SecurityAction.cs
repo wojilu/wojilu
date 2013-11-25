@@ -42,7 +42,7 @@ namespace wojilu.Web.Controller.Forum.Utils {
         }
 
 
-        public int Id { get; set; }
+        public long Id { get; set; }
         public string Name { get; set; }
 
         public IList findAll() { return SecurityAction.dbs; }
@@ -50,11 +50,11 @@ namespace wojilu.Web.Controller.Forum.Utils {
         public Result update() { return new Result(); }
         public void delete() { }
 
-        public ISecurityAction GetById( int id ) {
+        public ISecurityAction GetById(long id) {
             return this.findById( id ) as ISecurityAction;
         }
 
-        public SecurityAction findById( int id ) {
+        public SecurityAction findById(long id) {
             foreach (SecurityAction a in SecurityAction.dbs) {
                 if (a.Id == id) return a;
             }

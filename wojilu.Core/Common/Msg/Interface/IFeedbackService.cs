@@ -13,9 +13,9 @@ namespace wojilu.Common.Msg.Interface {
 
         INotificationService nfService { get; set; }
 
-        Feedback GetById( int id );
-        List<Feedback> GetRecent( int count, int userId );
-        DataPage<Feedback> GetPageList( int userId );
+        Feedback GetById(long id);
+        List<Feedback> GetRecent(int count, long userId);
+        DataPage<Feedback> GetPageList(long userId);
 
         void Delete( Feedback f );
 

@@ -118,7 +118,7 @@ namespace wojilu.Web.Controller.Admin.Apps.Content {
         }
 
         [HttpPut, DbTransaction]
-        public void UnDelete( int id ) {
+        public void UnDelete( long id ) {
 
             ContentPost post = postService.GetById_ForAdmin( id );
             if (post == null) { echoRedirect( lang( "exDataNotFound" ) ); return; }

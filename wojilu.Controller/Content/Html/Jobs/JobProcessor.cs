@@ -13,7 +13,7 @@ namespace wojilu.Web.Controller.Content.Htmls {
 
         private static readonly ILog logger = LogManager.GetLogger( typeof( JobProcessor ) );
 
-        public virtual void AfterPostAdd( int postId ) {
+        public virtual void AfterPostAdd( long postId ) {
 
             ContentPost post = ContentPost.findById( postId );
 
@@ -27,7 +27,7 @@ namespace wojilu.Web.Controller.Content.Htmls {
 
         }
 
-        public virtual void AfterPostDelete( int postId ) {
+        public virtual void AfterPostDelete( long postId ) {
 
             ContentPost post = ContentPost.findById( postId );
 
@@ -45,7 +45,7 @@ namespace wojilu.Web.Controller.Content.Htmls {
 
         }
 
-        public virtual void AfterPostUpdate( int postId ) {
+        public virtual void AfterPostUpdate( long postId ) {
 
             ContentPost post = ContentPost.findById( postId );
 
@@ -69,8 +69,8 @@ namespace wojilu.Web.Controller.Content.Htmls {
             int[] arrIds = cvt.ToIntArray( ids );
             if (arrIds.Length == 0) return;
 
-            List<int> appIds = new List<int>();
-            List<int> sectionIds = new List<int>();
+            List<long> appIds = new List<long>();
+            List<long> sectionIds = new List<long>();
             List<ContentPost> posts = new List<ContentPost>();
 
             // 1) 逐一生成详细页
@@ -96,12 +96,12 @@ namespace wojilu.Web.Controller.Content.Htmls {
             }
 
             // 2) 列表页
-            foreach (int x in sectionIds) {
+            foreach (long x in sectionIds) {
                 HtmlMaker.GetList().ProcessSection( x );
                 logger.Info( "[AfterImport] make html list done. sectionId=" + x );
             }
 
-            foreach (int appId in appIds) {
+            foreach (long appId in appIds) {
 
                 // 3) 生成首页
                 HtmlMaker.GetHome().Process( appId );
@@ -118,7 +118,7 @@ namespace wojilu.Web.Controller.Content.Htmls {
 
         }
 
-        private bool isAutoMakeHtml( int appId ) {
+        private bool isAutoMakeHtml( long appId ) {
 
             ContentApp app = ContentApp.findById( appId );
             if (app == null) return false;

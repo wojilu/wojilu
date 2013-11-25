@@ -63,7 +63,7 @@ namespace wojilu.Web.Controller.Forum {
             return _tree;
         }
 
-        public void Show( int id ) {
+        public void Show( long id ) {
 
             ForumPost post = postService.GetById( id, ctx.owner.obj );
             ForumBoard board = getTree().GetById( post.ForumBoardId );
@@ -106,7 +106,7 @@ namespace wojilu.Web.Controller.Forum {
         }
 
 
-        private void bindReplyList( DataPage<ForumPost> results, int currentPostId ) {
+        private void bindReplyList( DataPage<ForumPost> results, long currentPostId ) {
 
             IBlock block = getBlock( "replypost" );
             List<ForumPost> replyList = results.Results;

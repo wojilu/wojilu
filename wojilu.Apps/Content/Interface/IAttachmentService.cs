@@ -16,26 +16,26 @@ namespace wojilu.Apps.Content.Interface {
 
         void AddHits( ContentAttachment attachment );
 
-        ContentAttachment GetById( int id );
-        ContentAttachment GetById( int id, String guid );
-        List<ContentAttachment> GetAttachmentsByPost( int postId );
+        ContentAttachment GetById(long id);
+        ContentAttachment GetById(long id, string guid);
+        List<ContentAttachment> GetAttachmentsByPost(long postId);
 
         Result Create( ContentAttachment a, User user, IMember owner );
         Result CreateTemp( ContentAttachmentTemp a, User user, IMember owner );
 
-        void DeleteByPost( int id );
-        void DeleteTempAttachment( int id );
+        void DeleteByPost(long id);
+        void DeleteTempAttachment(long id);
         void CreateByTemp( String ids, ContentPost topic );
 
         void UpdateName( ContentAttachment attachment, string name );
         void UpdateFile( ContentAttachment attachment, String oldFilePath );
-        void Delete( int id );
+        void Delete(long id);
 
 
         Result SaveFile( HttpFile httpFile );
 
 
-        void UpdateAtachments( int[] arrAttachmentIds, ContentPost post );
+        void UpdateAtachments(long[] arrAttachmentIds, ContentPost post);
     }
 
 }

@@ -38,9 +38,9 @@ namespace wojilu.Web.Controller.Blog.Admin {
             redirect( new MyListController().My );
         }
 
-        public void Friends( int friendId ) {
+        public void Friends( long friendId ) {
 
-            int userId = ctx.viewer.Id;
+            long userId = ctx.viewer.Id;
             DataPage<BlogPost> list = postService.GetFriendsBlog( userId, friendId );
 
             bindFriendPosts( list );

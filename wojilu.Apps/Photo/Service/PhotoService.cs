@@ -15,7 +15,7 @@ namespace wojilu.Apps.Photo.Service {
             app.update( "PhotoCount" );
         }
 
-        public PhotoApp GetByUser( int userId ) {
+        public PhotoApp GetByUser(long userId) {
             return PhotoApp.find( "OwnerId=" + userId ).first();
         }
 

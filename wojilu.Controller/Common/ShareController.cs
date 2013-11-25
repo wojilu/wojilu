@@ -32,7 +32,7 @@ namespace wojilu.Web.Controller.Common {
         }
 
         [Login]
-        public void Add( int id ) {
+        public void Add( long id ) {
 
             target( Create, id );
 
@@ -59,7 +59,7 @@ namespace wojilu.Web.Controller.Common {
         }
 
         [Login, HttpPost, DbTransaction]
-        public void Create( int id ) {
+        public void Create( long id ) {
 
             User creator = (User)ctx.viewer.obj;
 

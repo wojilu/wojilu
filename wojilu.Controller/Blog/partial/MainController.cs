@@ -65,7 +65,7 @@ namespace wojilu.Web.Controller.Blog {
         }
 
 
-        private String getDropList( int val ) {
+        private String getDropList( long val ) {
             PropertyCollection plist = new PropertyCollection();
             plist.Add( new PropertyItem( lang( "title" ), 1 ) );
             plist.Add( new PropertyItem( lang( "author" ), 2 ) );

@@ -12,7 +12,7 @@ namespace wojilu.Apps.Content.Interface {
 
         List<ContentSectionTemplate> GetAll();
         List<ContentSectionTemplate> GetBy( String filterString );
-        ContentSectionTemplate GetById( int templateId );
+        ContentSectionTemplate GetById(long templateId);
 
     }
 

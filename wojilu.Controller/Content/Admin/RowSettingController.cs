@@ -21,7 +21,7 @@ namespace wojilu.Web.Controller.Content.Admin {
             sectionService = new ContentSectionService();
         }
 
-        public void ConfirmAddRow( int columnCount ) {
+        public void ConfirmAddRow( long columnCount ) {
             target( AddRow, columnCount );
             if (columnCount <= 0 || columnCount > 6) {
                 echo( "column count error" );
@@ -32,14 +32,14 @@ namespace wojilu.Web.Controller.Content.Admin {
         }
 
         [HttpPost, DbTransaction]
-        public void AddRow( int columnCount ) {
+        public void AddRow( long columnCount ) {
 
             ContentApp app = ctx.app.obj as ContentApp;
 
             app.Layout = app.Layout + "/" + columnCount;
 
             int row = app.RowList.Length;
-            String newStyle = getStyle( row, columnCount );
+            String newStyle = getStyle( row, (int)columnCount );
             String mergedStyle = CssFormUtil.mergeStyle( app.Style, newStyle );
 
             app.Style = mergedStyle;
@@ -68,23 +68,23 @@ namespace wojilu.Web.Controller.Content.Admin {
             }
         }
 
-        public void DeleteRow( int rowId ) {
+        public void DeleteRow( long rowId ) {
             target( DeleteRowSave, rowId );
             ContentApp article = ctx.app.obj as ContentApp;
-            if (sectionService.Count( ctx.app.Id, rowId ) > 0) {
+            if (sectionService.Count( ctx.app.Id, (int)rowId ) > 0) {
                 echo( alang( "exRemoveSectionFirst" ) );
             }
         }
 
         [HttpPost, DbTransaction]
-        public void DeleteRowSave( int rowId ) {
+        public void DeleteRowSave( long rowId ) {
             ContentApp app = ctx.app.obj as ContentApp;
-            if (sectionService.Count( ctx.app.Id, rowId ) > 0) {
+            if (sectionService.Count( ctx.app.Id, (int)rowId ) > 0) {
                 echoToParentPart( alang( "exRemoveSectionFirst" ) );
                 return;
             }
 
-            rowService.DeleteRow( app, rowId );
+            rowService.DeleteRow( app, (int)rowId );
             echoToParentPart( lang( "opok" ) );
         }
 

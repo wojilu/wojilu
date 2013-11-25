@@ -16,7 +16,7 @@ namespace wojilu.Apps.Blog.Service {
 
     public class SysBlogService : ISysBlogService {
 
-        public virtual List<BlogPost> GetByCategory( int categoryId, int count ) {
+        public virtual List<BlogPost> GetByCategory(long categoryId, int count) {
             return db.find<BlogPost>( "SaveStatus=" + SaveStatus.Normal + " and SysCategoryId=" + categoryId ).list( count );
         }
 
@@ -42,11 +42,11 @@ namespace wojilu.Apps.Blog.Service {
 
         //----------------------------
 
-        public List<BlogPost> GetSysNew( int categoryId, int count ) {
+        public List<BlogPost> GetSysNew(long categoryId, int count) {
             return db.find<BlogPost>( this.getCondition( categoryId ) ).list( count );
         }
 
-        private String getCondition( int categoryId ) {
+        private string getCondition(long categoryId) {
             String str = "SaveStatus=" + SaveStatus.Normal;
             if (categoryId > 0) {
                 str = "SysCategoryId=" + categoryId + " and " + str;
@@ -60,7 +60,7 @@ namespace wojilu.Apps.Blog.Service {
             return db.findPage<BlogPost>( "SaveStatus=" + SaveStatus.Normal + "" );
         }
 
-        public virtual DataPage<BlogPost> GetSysPageByCategory( int categoryId, int size ) {
+        public virtual DataPage<BlogPost> GetSysPageByCategory(long categoryId, int size) {
             if (categoryId <= 0) {
                 return db.findPage<BlogPost>( "SaveStatus=" + SaveStatus.Normal );
             }

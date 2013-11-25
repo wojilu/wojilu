@@ -33,14 +33,14 @@ namespace wojilu.Web.Controller.Admin.Credits {
             bindIncomeRule( currencyList, actions );
         }
 
-        public void EditKeyRule( int ruleId ) {
+        public void EditKeyRule( long ruleId ) {
             target( UpdateKeyRule, ruleId );
             KeyIncomeRule rule = currencyService.GetKeyRuleById( ruleId );
             bind( "rule", rule );
         }
 
         [HttpPost, DbTransaction]
-        public void UpdateKeyRule( int ruleId ) {
+        public void UpdateKeyRule( long ruleId ) {
             KeyIncomeRule rule = currencyService.GetKeyRuleById( ruleId );
             rule.Income = ctx.PostInt( "Income" );
             rule.update();
@@ -65,14 +65,14 @@ namespace wojilu.Web.Controller.Admin.Credits {
 
         //-----------------------------------------------------------------------------------
 
-        public void EditRule( int ruleId ) {
+        public void EditRule( long ruleId ) {
             target( UpdateRule, ruleId );
             IncomeRule rule = currencyService.GetRuleById( ruleId );
             bind( "rule", rule );
         }
 
         [HttpPost, DbTransaction]
-        public void UpdateRule( int ruleId ) {
+        public void UpdateRule( long ruleId ) {
             IncomeRule rule = currencyService.GetRuleById( ruleId );
             rule.Income = ctx.PostInt( "Income" );
             rule.update();
@@ -80,14 +80,14 @@ namespace wojilu.Web.Controller.Admin.Credits {
             echoToParentPart( lang( "saved" ) );
         }
 
-        public void EditInit( int currencyId ) {
+        public void EditInit( long currencyId ) {
             target( UpdateInit, currencyId );
             Currency c = currencyService.GetCurrencyById( currencyId );
             bind( "c", c );
         }
 
         [HttpPost, DbTransaction]
-        public void UpdateInit( int currencyId ) {
+        public void UpdateInit( long currencyId ) {
             Currency c = currencyService.GetCurrencyById( currencyId );
             c.InitValue = ctx.PostInt( "InitValue" );
             c.update();

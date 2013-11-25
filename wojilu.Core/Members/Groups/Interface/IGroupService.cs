@@ -22,16 +22,16 @@ namespace wojilu.Members.Groups.Interface {
 
         void AddHits( Group group );
 
-        Result Create( User creator, String name, String url, String description, int categoryId, int accessStats, MvcContext ctx );
+        Result Create(User creator, string name, string url, string description, long categoryId, int accessStats, MvcContext ctx);
 
 
-        Group GetById( int id );
+        Group GetById(long id);
         Group GetByName( String name );
         Group GetByUrl( String friendUrl );
 
         List<Group> GetHots( int count );
         List<Group> GetRecent( int count );
-        DataPage<Group> GetByCategory( int categoryId );
+        DataPage<Group> GetByCategory(long categoryId);
 
         List<Group> AdminGetRecent( int count );
         DataPage<Group> AdminSearchByCondition( String condition );
@@ -43,7 +43,7 @@ namespace wojilu.Members.Groups.Interface {
         void SystemHide( Group g );
         void UpdateLogo( Group group );
 
-        void Delete( int id );
+        void Delete(long id);
 
 
         Boolean IsNameReservedOrExist( String name );

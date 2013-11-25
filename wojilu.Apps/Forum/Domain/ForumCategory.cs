@@ -16,20 +16,20 @@ namespace wojilu.Apps.Forum.Domain {
 
         public ForumCategory() { }
 
-        public ForumCategory( int id ) {
+        public ForumCategory(long id) {
             base.Id = id;
         }
 
-        public ForumCategory( int id, String name ) {
+        public ForumCategory(long id, string name) {
             base.Id = id;
             this.Name = name;
         }
 
-        public int AppId { get; set; }
-        public int BoardId { get; set; }
+        public long AppId { get; set; }
+        public long BoardId { get; set; }
         public int OrderId { get; set; }
 
-        public int OwnerId { get; set; }
+        public long OwnerId { get; set; }
         public String OwnerType { get; set; }
 
         public User Creator { get; set; }

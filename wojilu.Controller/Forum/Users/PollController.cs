@@ -122,7 +122,7 @@ namespace wojilu.Web.Controller.Forum.Users {
             return ctx.viewer.Id == p.Creator.Id;
         }
 
-        public void GetPollResultHtml( int pollId ) {
+        public void GetPollResultHtml( long pollId ) {
             ForumPoll p = pollService.GetById( pollId );
             ctx.SetItem( "poll", p );
 
@@ -202,7 +202,7 @@ namespace wojilu.Web.Controller.Forum.Users {
 
         public void Add() {
 
-            int id = ctx.GetInt( "boardId" );
+            long id = ctx.GetLong( "boardId" );
             set( "ActionLink", to( Create ) + "?boardId=" + id );
             List<ForumBoard> pathboards = getTree().GetPath( id );
             bindAddForm( id, pathboards );
@@ -211,7 +211,7 @@ namespace wojilu.Web.Controller.Forum.Users {
         [HttpPost, DbTransaction]
         public void Create() {
 
-            int id = ctx.GetInt( "boardId" );
+            long id = ctx.GetLong( "boardId" );
             ForumBoard board = boardService.GetById( id, ctx.owner.obj );
 
             ForumPoll poll = new PollValidator<ForumPoll>().Validate( ctx );
@@ -226,7 +226,7 @@ namespace wojilu.Web.Controller.Forum.Users {
         }
 
         [HttpPost, DbTransaction]
-        public void Vote( int id ) {
+        public void Vote( long id ) {
 
             ForumPoll poll = pollService.GetById( id );
             if (poll == null) {
@@ -257,7 +257,7 @@ namespace wojilu.Web.Controller.Forum.Users {
             echoAjaxOk();
         }
 
-        public void Voter( int id ) {
+        public void Voter( long id ) {
 
             ForumPoll poll = pollService.GetById( id );
 
@@ -288,7 +288,7 @@ namespace wojilu.Web.Controller.Forum.Users {
             return board;
         }
 
-        private void bindAddForm( int id, List<ForumBoard> pathboards ) {
+        private void bindAddForm( long id, List<ForumBoard> pathboards ) {
 
             set( "location", ForumLocationUtil.GetPollAdd( pathboards, ctx ) );
             set( "optionCount", 5 );

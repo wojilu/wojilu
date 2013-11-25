@@ -51,7 +51,7 @@ namespace wojilu.Members.Groups.Interface {
         bool IsGroupApproving(long userId, long groupId);
 
 
-        long MemberStatus(User user, long groupId);
+        long MemberStatus( User user, long groupId );
 
         void DeleteUser( Group group, String userIds );
 

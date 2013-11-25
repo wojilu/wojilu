@@ -9,16 +9,16 @@ namespace wojilu.Common.Msg.Interface {
     public interface IMessageAttachmentService {
 
 
-        MessageAttachment GetById( int id );
-        List<MessageAttachment> GetByMsg( int msgDataId );
+        MessageAttachment GetById(long id);
+        List<MessageAttachment> GetByMsg(long msgDataId);
 
-        bool IsReceiver( int viewerId, MessageAttachment attachment );
-        bool IsSender( int viewerId, MessageAttachment attachment );
+        bool IsReceiver(long viewerId, MessageAttachment attachment);
+        bool IsSender(long viewerId, MessageAttachment attachment);
 
         Result SaveFile( HttpFile postedFile );
         void Insert( MessageAttachment attachment );
 
-        Result Delete( int id );
+        Result Delete(long id);
 
 
     }

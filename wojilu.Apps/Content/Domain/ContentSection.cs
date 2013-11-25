@@ -45,7 +45,7 @@ namespace wojilu.Apps.Content.Domain {
             set { _listCount = value; }
         }
 
-        public int CustomTemplateId { get; set; } // 自定义模板ID
+        public long CustomTemplateId { get; set; } // 自定义模板ID
 
 
         // 不使用 SOA ，直接使用controller产生内容

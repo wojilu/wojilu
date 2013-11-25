@@ -16,8 +16,8 @@ namespace wojilu.Apps.Forum.Interface {
         DataPage<ForumTopic> GetTopicAll( String condition );
         DataPage<ForumPost> GetPostAll( String condition );
 
-        List<ForumTopic> GetMyTopic( int userId, String groupIds, int count );
-        DataPage<ForumTopic> GetMyTopicPage( int userId, String groupIds, int count );
+        List<ForumTopic> GetMyTopic(long userId, string groupIds, int count);
+        DataPage<ForumTopic> GetMyTopicPage(long userId, string groupIds, int count);
 
     }
 

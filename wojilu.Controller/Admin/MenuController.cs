@@ -38,7 +38,7 @@ namespace wojilu.Web.Controller.Admin {
             return to( new Sys.DashboardController().Links );
         }
 
-        public override void Update( int id ) {
+        public override void Update( long id ) {
 
             base.Update( id );
 

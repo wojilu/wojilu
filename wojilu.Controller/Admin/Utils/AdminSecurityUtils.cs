@@ -33,7 +33,7 @@ namespace wojilu.Web.Controller.Admin {
 
         public static Boolean HasSession( MvcContext ctx ) {
 
-            int adminId = ctx.web.UserId( adminCookieName );
+            long adminId = ctx.web.UserId( adminCookieName );
             return adminId>0 && adminId == ctx.viewer.Id;
         }
 

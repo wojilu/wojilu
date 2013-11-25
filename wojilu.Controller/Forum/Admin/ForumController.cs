@@ -93,7 +93,7 @@ namespace wojilu.Web.Controller.Forum.Admin {
         [HttpPost, DbTransaction]
         public void SaveSort() {
 
-            int id = ctx.PostInt( "id" );
+            long id = ctx.PostLong( "id" );
             String cmd = ctx.Post( "cmd" );
 
             ForumBoard board = getTree().GetById( id );
@@ -129,7 +129,7 @@ namespace wojilu.Web.Controller.Forum.Admin {
             set( "ViewId", BoardViewStatus.GetDropList( "ViewId", 0 ) );
         }
 
-        public void AddSubBoard( int boardId ) {
+        public void AddSubBoard( long boardId ) {
 
             view( "AddBoard" );
 
@@ -205,7 +205,7 @@ namespace wojilu.Web.Controller.Forum.Admin {
 
         //-------------------------------------------------------------------------------                
 
-        public void EditBoard( int id ) {
+        public void EditBoard( long id ) {
 
             view( "AddBoard" );
             ForumBoard board = boardService.GetById( id, ctx.owner.obj );
@@ -223,7 +223,7 @@ namespace wojilu.Web.Controller.Forum.Admin {
         }
 
         [HttpPost, DbTransaction]
-        public void DeleteLogo( int id ) {
+        public void DeleteLogo( long id ) {
 
             ForumBoard board = boardService.GetById( id, ctx.owner.obj );
             if (board == null) {
@@ -235,7 +235,7 @@ namespace wojilu.Web.Controller.Forum.Admin {
             echoAjaxOk();
         }
 
-        public void EditCategory( int id ) {
+        public void EditCategory( long id ) {
 
             view( "AddCategory" );
             ForumBoard board = boardService.GetById( id, ctx.owner.obj );
@@ -249,7 +249,7 @@ namespace wojilu.Web.Controller.Forum.Admin {
         }
 
         [HttpPost, DbTransaction]
-        public void UpdateBoard( int id ) {
+        public void UpdateBoard( long id ) {
 
             ForumBoard board = boardService.GetById( id, ctx.owner.obj );
             if (board == null) {
@@ -287,7 +287,7 @@ namespace wojilu.Web.Controller.Forum.Admin {
         }
 
         [HttpPost, DbTransaction]
-        public void UpdateCategory( int id ) {
+        public void UpdateCategory( long id ) {
             ForumBoard board = boardService.GetById( id, ctx.owner.obj );
             if (board == null) {
                 echoRedirect( alang( "exCategoryNotFound" ) );
@@ -320,7 +320,7 @@ namespace wojilu.Web.Controller.Forum.Admin {
         //-------------------------------------------------------------------------------
 
         [HttpDelete, DbTransaction]
-        public void DeleteBoard( int id ) {
+        public void DeleteBoard( long id ) {
 
             ForumBoard board = boardService.GetById( id, ctx.owner.obj );
             if (board == null) {
@@ -339,7 +339,7 @@ namespace wojilu.Web.Controller.Forum.Admin {
         }
 
         [HttpDelete, DbTransaction]
-        public void DeleteCategory( int id ) {
+        public void DeleteCategory( long id ) {
 
             ForumBoard board = getTree().GetById( id );
             if (board == null) {
@@ -369,7 +369,7 @@ namespace wojilu.Web.Controller.Forum.Admin {
             bindTrashTopic( deletedPage );
         }
 
-        public void ViewDeletedTopic( int id ) {
+        public void ViewDeletedTopic( long id ) {
             ForumTopic topic = topicService.GetById_ForAdmin( id );
             bind( "t", topic );
 
@@ -391,7 +391,7 @@ namespace wojilu.Web.Controller.Forum.Admin {
             bindTrashPost( deletedPage );
         }
 
-        public void ViewDeletedPost( int id ) {
+        public void ViewDeletedPost( long id ) {
 
             ForumPost post = postService.GetById_ForAdmin( id );
             ForumTopic topic = topicService.GetById_ForAdmin( post.TopicId );
@@ -460,8 +460,8 @@ namespace wojilu.Web.Controller.Forum.Admin {
         [HttpPost, DbTransaction]
         public void SaveCombine() {
 
-            int srcId = ctx.PostInt( "ForumSource" );
-            int targetId = ctx.PostInt( "ForumTarget" );
+            long srcId = ctx.PostLong( "ForumSource" );
+            long targetId = ctx.PostLong( "ForumTarget" );
 
             ForumBoard srcBoard = boardService.GetById( srcId, ctx.owner.obj );
             ForumBoard targetBoard = boardService.GetById( targetId, ctx.owner.obj );

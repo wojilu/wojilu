@@ -51,7 +51,7 @@ namespace wojilu.Web.Controller.Blog.Admin {
         }
 
         [HttpDelete, DbTransaction]
-        public override void Delete( int id ) {
+        public override void Delete( long id ) {
 
             int count = postService.GetCountByCategory( id );
             if (count > 0) {

@@ -28,7 +28,7 @@ namespace wojilu.Web.Controller.Content.Section {
             sectionService = new ContentSectionService();
         }
 
-        public void SectionShow( int sectionId ) {
+        public void SectionShow( long sectionId ) {
 
             ContentSection s = sectionService.GetById( sectionId, ctx.app.Id );
             if (s == null) {
@@ -39,11 +39,11 @@ namespace wojilu.Web.Controller.Content.Section {
             bindSectionShow( s, video );
         }
 
-        public void List( int sectionId ) {
+        public void List( long sectionId ) {
             run( new VideoController().List, sectionId );
         }
 
-        public void Show( int id ) {
+        public void Show( long id ) {
             run( new VideoController().Show, id );
         }
 

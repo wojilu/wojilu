@@ -34,7 +34,7 @@ namespace wojilu.Web.Controller.Forum.Admin {
             logService = new ForumLogService();
         }
 
-        public void Admin( int boardId ) {
+        public void Admin( long boardId ) {
 
             ForumBoard board = boardService.GetById( boardId, ctx.owner.obj );
             if (board == null) {
@@ -89,7 +89,7 @@ namespace wojilu.Web.Controller.Forum.Admin {
             redirect( Admin, board.Id );
         }
 
-        public void Edit( int id ) {
+        public void Edit( long id ) {
             ForumCategory category = categoryService.GetById( id, ctx.owner.obj );
             if (category == null) {
                 echoRedirect( lang( "exDataNotFound" ) );
@@ -102,7 +102,7 @@ namespace wojilu.Web.Controller.Forum.Admin {
         }
 
         [HttpPost, DbTransaction]
-        public void Update( int id ) {
+        public void Update( long id ) {
             ForumCategory category = categoryService.GetById( id, ctx.owner.obj );
             if (category == null) {
                 echoRedirect( lang( "exDataNotFound" ) );
@@ -121,7 +121,7 @@ namespace wojilu.Web.Controller.Forum.Admin {
         }
 
         [HttpDelete, DbTransaction]
-        public void Delete( int id ) {
+        public void Delete( long id ) {
             ForumCategory category = categoryService.GetById( id, ctx.owner.obj );
             if (category == null) {
                 echoRedirect( lang( "exDataNotFound" ) );
@@ -132,9 +132,9 @@ namespace wojilu.Web.Controller.Forum.Admin {
         }
 
         [HttpPost, DbTransaction]
-        public void SaveSort( int boardId ) {
+        public void SaveSort( long boardId ) {
 
-            int id = ctx.PostInt( "id" );
+            long id = ctx.PostLong( "id" );
             String cmd = ctx.Post( "cmd" );
 
             ForumCategory category = categoryService.GetById( id, ctx.owner.obj );

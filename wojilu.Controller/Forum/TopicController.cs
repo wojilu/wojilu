@@ -82,7 +82,7 @@ namespace wojilu.Web.Controller.Forum {
             return _tree;
         }
 
-        public void Show( int id ) {
+        public void Show( long id ) {
 
 
             ForumTopic topic = topicService.GetById( id, ctx.owner.obj );
@@ -93,7 +93,7 @@ namespace wojilu.Web.Controller.Forum {
 
             topicService.AddHits( topic );
 
-            int userId = ctx.GetInt( "userId" );
+            long userId = ctx.GetLong( "userId" );
             bindPosts( id, topic, board, userId );
 
             set( "moderatorJson", moderatorService.GetModeratorJson( board ) );
@@ -101,7 +101,7 @@ namespace wojilu.Web.Controller.Forum {
             set( "tagAction", to( new Edits.TagController().SaveTag, topic.Id ) );
         }
 
-        private void bindPosts( int id, ForumTopic topic, ForumBoard board, int userId ) {
+        private void bindPosts( long id, ForumTopic topic, ForumBoard board, long userId ) {
             DataPage<ForumPost> list = postService.GetPageList( id, getPageSize( ctx.app.obj ), userId );
 
             ForumPost lastPost = getLastPost( list, topic.Id );
@@ -136,7 +136,7 @@ namespace wojilu.Web.Controller.Forum {
             set( "page", pager );
         }
 
-        private ForumPost getLastPost( DataPage<ForumPost> list, int topicId ) {
+        private ForumPost getLastPost(DataPage<ForumPost> list, long topicId) {
             ForumPost lastPost;
             if (list.Current == list.PageCount) {
                 lastPost = list.Results[list.Results.Count - 1];

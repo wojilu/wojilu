@@ -11,16 +11,16 @@ namespace wojilu.Apps.Content.Interface {
 
     public interface IContentImgService {
 
-        ContentImg GetImgById( int imgId );
-        ContentPost GetTopImg( int sectionId, int categoryId, int appId );
-        List<ContentImg> GetImgList( int postId );
-        DataPage<ContentImg> GetImgPage( int postId );
-        DataPage<ContentImg> GetImgPage( int postId, int currentPage );
+        ContentImg GetImgById(long imgId);
+        ContentPost GetTopImg(long sectionId, long categoryId, long appId);
+        List<ContentImg> GetImgList(long postId);
+        DataPage<ContentImg> GetImgPage(long postId);
+        DataPage<ContentImg> GetImgPage(long postId, int currentPage);
 
-        List<ContentPost> GetByCategory( int sectionId, int categoryId, int appId );
-        List<ContentPost> GetByCategory( int sectionId, int categoryId, int appId, int count );
+        List<ContentPost> GetByCategory(long sectionId, long categoryId, long appId);
+        List<ContentPost> GetByCategory(long sectionId, long categoryId, long appId, int count);
 
-        int GetImgCount( int postId );
+        int GetImgCount(long postId);
 
         void CreateImg( ContentImg img );
         void DeleteImgOne( ContentImg articleImg );

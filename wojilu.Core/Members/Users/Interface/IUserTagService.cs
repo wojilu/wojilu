@@ -6,14 +6,14 @@ namespace wojilu.Members.Users.Interface {
 
     public interface IUserTagService {
 
-        UserTag GetTagById( int id );
+        UserTag GetTagById(long id);
         UserTag GetTagByName( string tName );
-        UserTagShip GetById( int id );
+        UserTagShip GetById(long id);
 
-        List<UserTagShip> GetPage( int ownerId );
-        DataPage<User> GetPageByTag( int tagId );
+        List<UserTagShip> GetPage(long ownerId);
+        DataPage<User> GetPageByTag(long tagId);
 
-        void SaveTags( string tagList, int viewerId, User owner );
+        void SaveTags(string tagList, long viewerId, User owner);
 
         void DeleteUserTag( UserTagShip u );
 

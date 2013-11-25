@@ -23,7 +23,7 @@ namespace wojilu.Web.Controller.Forum.Edits {
 
 
         [HttpPost, DbTransaction]
-        public void SaveTag( int topicId ) {
+        public void SaveTag( long topicId ) {
 
             String tagValue = ctx.Post( "tagValue" );
 

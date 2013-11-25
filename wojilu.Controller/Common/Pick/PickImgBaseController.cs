@@ -55,7 +55,7 @@ namespace wojilu.Web.Controller.Common {
         }
 
 
-        public void Edit( int id ) {
+        public void Edit( long id ) {
             target( Update, id );
 
             T f = db.findById<T>( id );
@@ -68,7 +68,7 @@ namespace wojilu.Web.Controller.Common {
         }
 
         [HttpPost]
-        public void Update( int id ) {
+        public void Update( long id ) {
 
             T f = db.findById<T>( id );
             if (f == null) {
@@ -86,7 +86,7 @@ namespace wojilu.Web.Controller.Common {
         }
 
         [HttpDelete]
-        public void Delete( int id ) {
+        public void Delete( long id ) {
 
             T f = db.findById<T>( id );
             if (f == null) {

@@ -48,7 +48,7 @@ namespace wojilu.Web.Controller.Forum {
             return _tree;
         }
 
-        public void Show( int id ) {
+        public void Show( long id ) {
 
             String guid = ctx.Get( "id" );
 
@@ -87,7 +87,7 @@ namespace wojilu.Web.Controller.Forum {
 
             if (user == null || user.Id <= 0) return 0;
 
-            int currencyId = getDownloadCurrency();
+            long currencyId = getDownloadCurrency();
             if (currencyId <= 0) return 0;
 
             UserIncome income = incomeService.GetUserIncome( user.Id, currencyId );
@@ -96,14 +96,14 @@ namespace wojilu.Web.Controller.Forum {
 
         // 系统对下载设置的货币要求
         private int getDownloadRequirement() {
-            int currencyId = getDownloadCurrency();
+            long currencyId = getDownloadCurrency();
             if (currencyId <= 0) return 0;
             IncomeRule rule = currencyService.GetRuleByActionAndCurrency( UserAction.Forum_DownloadAttachment.Id, currencyId );
             return rule == null ? 0 : -rule.Income; // 负值转为正值
         }
 
         // 下载币
-        private int getDownloadCurrency() {
+        private long getDownloadCurrency() {
             Currency x = Currency.DownloadCurrency();
             return x == null ? 0 : x.Id;
         }

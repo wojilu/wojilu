@@ -31,7 +31,7 @@ namespace wojilu.Web.Controller.Content.Admin.Common {
             HideLayout( typeof( wojilu.Web.Controller.Content.LayoutController ) );
         }
 
-        public void AdminList( int postId ) {
+        public void AdminList( long postId ) {
             ContentPost post = postService.GetById( postId, ctx.owner.Id );
             if (post == null) {
                 echo( lang( "exDataNotFound" ) );
@@ -104,7 +104,7 @@ namespace wojilu.Web.Controller.Content.Admin.Common {
             return Uploader.IsImage( attachment.Type );
         }
 
-        public void SetPermission( int postId ) {
+        public void SetPermission( long postId ) {
 
             ContentPost post = postService.GetById( postId, ctx.owner.Id );
 
@@ -115,7 +115,7 @@ namespace wojilu.Web.Controller.Content.Admin.Common {
         }
 
         [HttpPost, DbTransaction]
-        public void SavePermission( int postId ) {
+        public void SavePermission( long postId ) {
 
             ContentPost post = postService.GetById( postId, ctx.owner.Id );
             int ischeck = ctx.PostIsCheck( "IsAttachmentLogin" );
@@ -125,9 +125,9 @@ namespace wojilu.Web.Controller.Content.Admin.Common {
 
 
         [HttpPost, DbTransaction]
-        public virtual void SaveSort( int postId ) {
+        public virtual void SaveSort( long postId ) {
 
-            int id = ctx.PostInt( "id" );
+            long id = ctx.PostLong( "id" );
             String cmd = ctx.Post( "cmd" );
 
             ContentAttachment data = attachService.GetById( id );
@@ -152,14 +152,14 @@ namespace wojilu.Web.Controller.Content.Admin.Common {
         }
 
 
-        public void Add( int postId ) {
+        public void Add( long postId ) {
 
             target( SaveAdd, postId );
         }
 
 
         [HttpPost, DbTransaction]
-        public void SaveAdd( int postId ) {
+        public void SaveAdd( long postId ) {
 
             ContentPost post = postService.GetById( postId, ctx.owner.Id );
             HttpFile postedFile = ctx.GetFileSingle();
@@ -217,7 +217,7 @@ namespace wojilu.Web.Controller.Content.Admin.Common {
         }
 
         [HttpPost, DbTransaction]
-        public void DeleteAttachment( int id ) {
+        public void DeleteAttachment( long id ) {
 
             attachService.Delete( id ); // 删除文件，并且删除附件在数据库中的临时记录
             echoAjaxOk();
@@ -226,9 +226,9 @@ namespace wojilu.Web.Controller.Content.Admin.Common {
 
         //--------------------------------------------------------------------------------------------------------------
 
-        public void Rename( int postId ) {
+        public void Rename( long postId ) {
 
-            int id = ctx.GetInt( "aid" );
+            long id = ctx.GetLong( "aid" );
             set( "ActionLink", to( SaveRename, postId ) + "?aid=" + id );
 
             ContentAttachment attachment = attachService.GetById( id );
@@ -241,10 +241,10 @@ namespace wojilu.Web.Controller.Content.Admin.Common {
         }
 
         [HttpPost, DbTransaction]
-        public void SaveRename( int postId ) {
+        public void SaveRename( long postId ) {
 
             ContentPost post = postService.GetById( postId, ctx.owner.Id );
-            int id = ctx.GetInt( "aid" );
+            long id = ctx.GetLong( "aid" );
 
             String name = ctx.Post( "Name" );
             if (strUtil.IsNullOrEmpty( name )) {
@@ -263,9 +263,9 @@ namespace wojilu.Web.Controller.Content.Admin.Common {
             echoToParentPart( lang( "opok" ) );
         }
 
-        public void Upload( int postId ) {
+        public void Upload( long postId ) {
 
-            int id = ctx.GetInt( "aid" );
+            long id = ctx.GetLong( "aid" );
 
             ContentAttachment attachment = attachService.GetById( id );
             if (attachment == null) {
@@ -277,10 +277,10 @@ namespace wojilu.Web.Controller.Content.Admin.Common {
         }
 
         [HttpPost, DbTransaction]
-        public void SaveUpload( int postId ) {
+        public void SaveUpload( long postId ) {
 
             ContentPost post = postService.GetById( postId, ctx.owner.Id );
-            int id = ctx.GetInt( "aid" );
+            long id = ctx.GetLong( "aid" );
 
             ContentAttachment attachment = attachService.GetById( id );
             if (attachment == null) {
@@ -310,10 +310,10 @@ namespace wojilu.Web.Controller.Content.Admin.Common {
         }
 
         [HttpDelete, DbTransaction]
-        public void Delete( int postId ) {
+        public void Delete( long postId ) {
 
             ContentPost post = postService.GetById( postId, ctx.owner.Id );
-            int id = ctx.GetInt( "aid" );
+            long id = ctx.GetLong( "aid" );
 
             ContentAttachment attachment = attachService.GetById( id );
             if (attachment == null) {

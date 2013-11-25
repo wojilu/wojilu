@@ -18,7 +18,7 @@ namespace wojilu.Web.Controller.Content.Htmls {
 
         public String Method { get; set; }
 
-        public int PostId { get; set; }
+        public long PostId { get; set; }
 
         public String Ids { get; set; }
     }

@@ -56,7 +56,7 @@ namespace wojilu.Web.Controller.Common.Admin {
 
         public void SortMenu() {
 
-            int id = ctx.PostInt( "id" );
+            long id = ctx.PostLong( "id" );
             String cmd = ctx.Post( "cmd" );
 
             IMemberApp app = getApp( id );
@@ -82,7 +82,7 @@ namespace wojilu.Web.Controller.Common.Admin {
 
         //----------------------------------------------------------------------------------------------------------------
 
-        public void ViewUrl( int id ) {
+        public void ViewUrl( long id ) {
 
             IMemberApp app = getApp( id );
 
@@ -93,13 +93,13 @@ namespace wojilu.Web.Controller.Common.Admin {
             set( "app.Url", url );
         }
 
-        public void Edit( int id ) {
+        public void Edit( long id ) {
             IMemberApp app = getApp( id );
             target( Update, id );
             bindAppEdit( app );
         }
 
-        public void NewApp( int id ) {
+        public void NewApp( long id ) {
 
             AppInstaller info = getAppInfo( id );
 
@@ -124,7 +124,7 @@ namespace wojilu.Web.Controller.Common.Admin {
 
         }
 
-        public void ThemeList( int appInstallerId ) {
+        public void ThemeList( long appInstallerId ) {
 
             AppInstaller info = getAppInfo( appInstallerId );
 
@@ -258,7 +258,7 @@ namespace wojilu.Web.Controller.Common.Admin {
         }
 
         [HttpPut, DbTransaction]
-        public void Start( int id ) {
+        public void Start( long id ) {
             IMemberApp app = getApp( id );
             String appUrl = UrlConverter.clearUrl( app, ctx );
 
@@ -271,7 +271,7 @@ namespace wojilu.Web.Controller.Common.Admin {
         private static readonly ILog logger = LogManager.GetLogger( typeof( AppBaseController ) );
 
         [HttpPut, DbTransaction]
-        public void Stop( int id ) {
+        public void Stop( long id ) {
             IMemberApp app = getApp( id );
             String appUrl = UrlConverter.clearUrl( app, ctx );
 
@@ -286,7 +286,7 @@ namespace wojilu.Web.Controller.Common.Admin {
         }
 
         [HttpPost, DbTransaction]
-        public void Update( int id ) {
+        public void Update( long id ) {
 
             IMemberApp app = getApp( id );
             String appUrl = UrlConverter.clearUrl( app, ctx );
@@ -302,7 +302,7 @@ namespace wojilu.Web.Controller.Common.Admin {
 
 
         [HttpDelete, DbTransaction]
-        public void Delete( int id ) {
+        public void Delete( long id ) {
 
             IMemberApp app = getApp( id );
             String appUrl = UrlConverter.clearUrl( app, ctx );
@@ -316,7 +316,7 @@ namespace wojilu.Web.Controller.Common.Admin {
 
         //-------------------------------------------------------------------------------------------
 
-        private IMemberApp getApp( int id ) {
+        private IMemberApp getApp( long id ) {
             IMemberApp app = userAppService.FindById( id, ctx.owner.Id );
             if (app == null) {
                 throw new Exception( lang( "exAppNotFound" ) );
@@ -324,7 +324,7 @@ namespace wojilu.Web.Controller.Common.Admin {
             return app;
         }
 
-        private AppInstaller getAppInfo( int appInfoId ) {
+        private AppInstaller getAppInfo( long appInfoId ) {
             AppInstaller appinfo = appinfoService.GetById( appInfoId );
             if (appinfo == null) {
                 throw new Exception( lang( "exAppNotFound" ) );

@@ -33,7 +33,7 @@ namespace wojilu.Web.Controller.Content.Common {
             pollService = new ContentPollService();
         }
 
-        public void List( int sectionId ) {
+        public void List( long sectionId ) {
 
             DataPage<ContentPost> list = topicService.GetPageBySection( sectionId );
             List<ContentPoll> polls = pollService.GetByTopicList( list.Results );
@@ -78,7 +78,7 @@ namespace wojilu.Web.Controller.Content.Common {
 
         //---------------------------------------------------------------------------------
 
-        public void Show( int id ) {
+        public void Show( long id ) {
 
             ContentPoll p = pollService.GetByTopicId( id );
             ctx.SetItem( "poll", p );
@@ -172,7 +172,7 @@ namespace wojilu.Web.Controller.Content.Common {
             return ctx.viewer.Id == p.Creator.Id;
         }
 
-        public void GetPollResultHtml( int pollId ) {
+        public void GetPollResultHtml( long pollId ) {
             ContentPoll p = pollService.GetById( pollId );
             ctx.SetItem( "poll", p );
 
@@ -246,7 +246,7 @@ namespace wojilu.Web.Controller.Content.Common {
         //----------------------------------------------------------------------------
 
         [Login, HttpPost, DbTransaction]
-        public void Vote( int id ) {
+        public void Vote( long id ) {
 
             ContentPoll poll = pollService.GetById( id );
             if (poll == null) {
@@ -277,7 +277,7 @@ namespace wojilu.Web.Controller.Content.Common {
             echoAjaxOk();
         }
 
-        public void Voter( int id ) {
+        public void Voter( long id ) {
 
             ContentPoll poll = pollService.GetById( id );
 

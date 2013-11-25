@@ -31,14 +31,14 @@ namespace wojilu.Web.Controller.Forum.Users {
 
         public void UploadForm() {
 
-            int boardId = ctx.GetInt( "boardId" );
+            long boardId = ctx.GetLong( "boardId" );
 
             set( "ActionLink", to( SaveUpload ) + "?boardId=" + boardId );
         }
 
         public void SaveUpload() {
 
-            int boardId = ctx.GetInt( "boardId" );
+            long boardId = ctx.GetLong( "boardId" );
             HttpFile postedFile = ctx.GetFileSingle();
 
             Result result = Uploader.SaveFileOrImage( postedFile );
@@ -74,7 +74,7 @@ namespace wojilu.Web.Controller.Forum.Users {
 
         public void SaveFlashUpload() {
 
-            int boardId = ctx.GetInt( "boardId" );
+            long boardId = ctx.GetLong( "boardId" );
             HttpFile postedFile = ctx.GetFileSingle();
 
             Result result = Uploader.SaveFileOrImage( postedFile );
@@ -96,7 +96,7 @@ namespace wojilu.Web.Controller.Forum.Users {
         }
 
         public void DeleteTempAttachment() {
-            int id = ctx.PostInt( "Id" );
+            long id = ctx.PostLong( "Id" );
             attachService.DeleteTempAttachment( id );
             echoAjaxOk();
         }

@@ -18,7 +18,7 @@ namespace wojilu.Web.Controller.Admin {
             themeService = new ThemeService();
         }
 
-        public void Index( int appInstallerId ) {
+        public void Index( long appInstallerId ) {
 
             AppInstaller installer = cdb.findById<AppInstaller>( appInstallerId );
             List<ITheme> themeList = themeService.GetThemeList( installer );
@@ -33,7 +33,7 @@ namespace wojilu.Web.Controller.Admin {
 
 
         [HttpDelete]
-        public void Delete( int appInstallerId ) {
+        public void Delete( long appInstallerId ) {
             String id = ctx.Get( "id" );
             AppInstaller installer = cdb.findById<AppInstaller>( appInstallerId );
 

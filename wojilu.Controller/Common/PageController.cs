@@ -20,7 +20,7 @@ using wojilu.Members.Users.Service;
 namespace wojilu.Web.Controller.Pages {
 
     public class PageController : ControllerBase {
-        public void Show( int id ) {
+        public void Show( long id ) {
             redirectDirect( to( new Common.PageController().Show, id ) );
         }
     }
@@ -42,7 +42,7 @@ namespace wojilu.Web.Controller.Common {
             nfService = new NotificationService();
         }
 
-        public void VersionList( int id ) {
+        public void VersionList( long id ) {
 
             Page data = pageService.GetPostById( id, ctx.owner.obj );
             if (data == null) {
@@ -76,7 +76,7 @@ namespace wojilu.Web.Controller.Common {
             set( "page", list.PageBar );
         }
 
-        public void VersionShow( int id ) {
+        public void VersionShow( long id ) {
 
             PageHistory ph = pageService.GetHistory( id );
             if (ph == null) {
@@ -99,7 +99,7 @@ namespace wojilu.Web.Controller.Common {
 
         }
 
-        public void Show( int id ) {
+        public void Show( long id ) {
 
             Page data = pageService.GetPostById( id, ctx.owner.obj );
             if (data == null) {
@@ -136,7 +136,7 @@ namespace wojilu.Web.Controller.Common {
                 + "&appId=0";
         }
 
-        private void bindWikiStats( int id, Page data ) {
+        private void bindWikiStats( long id, Page data ) {
             IBlock wiki = getBlock( "stats" );
             if (data.Category.IsShowWiki == 1) {
                 wiki.Bind( "post", data );
@@ -163,7 +163,7 @@ namespace wojilu.Web.Controller.Common {
             return false;
         }
 
-        private bool userIsEditor( int userId, string editorIds ) {
+        private bool userIsEditor( long userId, string editorIds ) {
             int[] arrIds = cvt.ToIntArray( editorIds );
             foreach (int id in arrIds) {
                 if (id == userId) return true;
@@ -171,7 +171,7 @@ namespace wojilu.Web.Controller.Common {
             return false;
         }
 
-        public void Add( int id ) {
+        public void Add( long id ) {
             PageCategory category = pageService.GetCategoryById( id, ctx.owner.obj );
             if (category == null) {
                 echo( lang( "exDataNotFound" ) );
@@ -187,7 +187,7 @@ namespace wojilu.Web.Controller.Common {
         }
 
         [HttpPost, DbTransaction]
-        public void Create( int id ) {
+        public void Create( long id ) {
 
             PageCategory category = pageService.GetCategoryById( id, ctx.owner.obj );
             if (category == null) {
@@ -228,7 +228,7 @@ namespace wojilu.Web.Controller.Common {
             data.Creator = (User)ctx.viewer.obj;
         }
 
-        public void Edit( int id ) {
+        public void Edit( long id ) {
 
             Page data = pageService.GetPostById( id, ctx.owner.obj );
             if (data == null) {
@@ -272,7 +272,7 @@ namespace wojilu.Web.Controller.Common {
         }
 
         [HttpPost, DbTransaction]
-        public void Cancel( int id ) {
+        public void Cancel( long id ) {
             Page data = pageService.GetPostById( id, ctx.owner.obj );
             if (data == null) {
                 echo( lang( "exDataNotFound" ) );
@@ -285,7 +285,7 @@ namespace wojilu.Web.Controller.Common {
         }
 
         [HttpPost, DbTransaction]
-        public void Ping( int id ) {
+        public void Ping( long id ) {
             Page data = pageService.GetPostById( id, ctx.owner.obj );
             if (data == null) {
                 echo( lang( "exDataNotFound" ) );
@@ -298,7 +298,7 @@ namespace wojilu.Web.Controller.Common {
         }
 
         [HttpPost, DbTransaction]
-        public void Update( int id ) {
+        public void Update( long id ) {
 
             Page data = pageService.GetPostById( id, ctx.owner.obj );
             if (data == null) {
@@ -327,9 +327,9 @@ namespace wojilu.Web.Controller.Common {
         // 发通知
         private void sendNotification( Page data, String pageLink ) {
 
-            List<int> editorIds = pageService.GetEditorIds( data.Id );
+            List<long> editorIds = pageService.GetEditorIds( data.Id );
 
-            foreach (int receiverId in editorIds) {
+            foreach (long receiverId in editorIds) {
 
                 if (ctx.viewer.Id == receiverId) continue;
 
@@ -400,9 +400,9 @@ namespace wojilu.Web.Controller.Common {
 
             public CtxLink link { get; set; }
 
-            private int currentNodeId;
+            private long currentNodeId;
 
-            public treeBinder( int nodeId ) {
+            public treeBinder( long nodeId ) {
                 currentNodeId = nodeId;
             }
 

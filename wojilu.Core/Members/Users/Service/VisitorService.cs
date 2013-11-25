@@ -26,7 +26,7 @@ namespace wojilu.Members.Users.Service {
             HitsJob.Add( target );
         }
 
-        public virtual List<User> GetRecent( int count, int targetId ) {
+        public virtual List<User> GetRecent(int count, long targetId) {
             if (count <= 0) count = 18;
             List<SpaceVisitor> visitorList = db.find<SpaceVisitor>( "TargetId=" + targetId + " and VisitorId>0" ).list( count );
             return populateUser( visitorList );

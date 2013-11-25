@@ -25,7 +25,7 @@ namespace wojilu.Web.Controller.Content.Admin {
         }
 
 
-        public void Edit( int sectionId ) {
+        public void Edit( long sectionId ) {
 
             ContentSection s = sectionService.GetById( sectionId, ctx.app.Id );
             if (s == null) {
@@ -68,7 +68,7 @@ namespace wojilu.Web.Controller.Content.Admin {
         //-------------------------------------------------------------------------------------------------------------------------
         
 
-        public void EditBinder( int sectionId ) {
+        public void EditBinder( long sectionId ) {
 
             ContentSection s = sectionService.GetById( sectionId, ctx.app.Id );
             if (s == null) {
@@ -116,7 +116,7 @@ namespace wojilu.Web.Controller.Content.Admin {
 
 
         [HttpPost, DbTransaction]
-        public void Save( int sectionId ) {
+        public void Save( long sectionId ) {
 
             ContentSection s = sectionService.GetById( sectionId, ctx.app.Id );
             if (s == null) {
@@ -169,7 +169,7 @@ namespace wojilu.Web.Controller.Content.Admin {
         }
 
         [HttpPut, DbTransaction]
-        public void Reset( int sectionId ) {
+        public void Reset( long sectionId ) {
 
             ContentSection s = sectionService.GetById( sectionId, ctx.app.Id );
             if (s == null) {
@@ -182,7 +182,7 @@ namespace wojilu.Web.Controller.Content.Admin {
             echoToParentPart( lang( "opok" ) );
         }
 
-        private String sectionNotFound( int id ) {
+        private String sectionNotFound( long id ) {
             return lang( "exDataNotFound" ) + ":ContentSection, id=" + id;
         }
 

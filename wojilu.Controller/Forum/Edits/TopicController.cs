@@ -30,7 +30,7 @@ namespace wojilu.Web.Controller.Forum.Edits {
             attachService = new AttachmentService();
         }
 
-        public void Edit( int id ) {
+        public void Edit( long id ) {
 
             target( Update, id );
 
@@ -51,7 +51,7 @@ namespace wojilu.Web.Controller.Forum.Edits {
         }
 
         [HttpPost, DbTransaction]
-        public void Update( int id ) {
+        public void Update( long id ) {
 
             ForumTopic topic = topicService.GetById( id, ctx.owner.obj );
             ForumBoard board = getTree().GetById( topic.ForumBoard.Id );
@@ -76,7 +76,7 @@ namespace wojilu.Web.Controller.Forum.Edits {
             List<ForumCategory> categories = categoryService.GetByBoard( board.Id );
             if (categories.Count > 0) {
                 categories.Insert( 0, new ForumCategory( 0, alang( "plsSelectCategory" ) ) );
-                int categoryId = topic.Category == null ? 0 : topic.Category.Id;
+                long categoryId = topic.Category == null ? 0 : topic.Category.Id;
                 set( "post.Category", Html.DropList( categories, "CategoryId", "Name", "Id", categoryId ) );
             }
             else {
@@ -86,7 +86,7 @@ namespace wojilu.Web.Controller.Forum.Edits {
 
         //------------------------------------------------------------------
 
-        public void EditQ( int id ) {
+        public void EditQ( long id ) {
 
             target( UpdateQ, id );
 
@@ -118,7 +118,7 @@ namespace wojilu.Web.Controller.Forum.Edits {
         }
 
         [HttpPost, DbTransaction]
-        public void UpdateQ( int id ) {
+        public void UpdateQ( long id ) {
 
             ForumTopic topic = topicService.GetById( id, ctx.owner.obj );
             ForumBoard board = getTree().GetById( topic.ForumBoard.Id );

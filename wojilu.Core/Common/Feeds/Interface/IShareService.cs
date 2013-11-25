@@ -11,14 +11,14 @@ namespace wojilu.Common.Feeds.Interface {
 
     public interface IShareService {
 
-        Share GetById( int id );
-        Share GetByIdWithComments( int id );
-        ShareComment GetCommentById( int id );
+        Share GetById(long id);
+        Share GetByIdWithComments(long id);
+        ShareComment GetCommentById(long id);
 
-        List<Share> GetByUser( int count, int userId );
+        List<Share> GetByUser(int count, long userId);
 
-        DataPage<Share> GetPageByUser( int userId, int pageSize );
-        DataPage<Share> GetFriendsPage( int userId, int pageSize );
+        DataPage<Share> GetPageByUser(long userId, int pageSize);
+        DataPage<Share> GetFriendsPage(long userId, int pageSize);
         DataPage<Share> GetPageAll();
 
         Result Create( Share share );
@@ -29,7 +29,7 @@ namespace wojilu.Common.Feeds.Interface {
         void InsertComment( ShareComment c, String shareLink, String parentShareLink );
 
 
-        Result Delete( int id );
+        Result Delete(long id);
     }
 
 }

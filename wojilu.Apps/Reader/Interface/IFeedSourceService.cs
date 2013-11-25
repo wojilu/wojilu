@@ -23,7 +23,7 @@ namespace wojilu.Apps.Reader.Interface {
 
         void DownloadBlogItems( FeedSource f );
         FeedSource GetByLink( String rssLink );
-        FeedSource GetById( int feedId );
+        FeedSource GetById(long feedId);
 
         List<FeedSource> GetUnRefreshedList( int minutes );
         DataPage<FeedSource> GetPage( int pageSize );

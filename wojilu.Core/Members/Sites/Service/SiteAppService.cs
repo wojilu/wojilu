@@ -37,7 +37,7 @@ namespace wojilu.Members.Sites.Service {
             return new SiteApp();
         }
 
-        public IMemberApp Add( User creator, String name, int appinfoId ) {
+        public IMemberApp Add(User creator, string name, long appinfoId) {
 
             //创建应用
             IApp app = AppFactory.Create( appinfoId, creator, AccessStatus.Public );
@@ -66,7 +66,7 @@ namespace wojilu.Members.Sites.Service {
         }
 
 
-        public IMemberApp Add( User creator, IMember owner, String name, int appinfoId, AccessStatus accessStatus ) {
+        public IMemberApp Add(User creator, IMember owner, string name, long appinfoId, AccessStatus accessStatus) {
 
             // 创建应用实例
             IApp app = AppFactory.Create( appinfoId, owner, accessStatus );
@@ -99,7 +99,7 @@ namespace wojilu.Members.Sites.Service {
             menuService.RemoveMenuByApp( app, rawAppUrl );
         }
 
-        public IMemberApp FindById( int userAppId, int userId ) {
+        public IMemberApp FindById(long userAppId, long userId) {
 
             IList list = new SiteApp().findAll();
             foreach (IMemberApp app in list) {
@@ -110,7 +110,7 @@ namespace wojilu.Members.Sites.Service {
             return null;
         }
 
-        public IList GetAppInfos( int memberId ) {
+        public IList GetAppInfos(long memberId) {
             IList byMember = this.GetByMember( memberId );
             IList addedList = new ArrayList();
             foreach (SiteApp app in byMember) {
@@ -205,7 +205,7 @@ namespace wojilu.Members.Sites.Service {
             ((SiteApp)app).update();
         }
 
-        public Boolean HasInstall( int ownerId, int appInfoId ) {
+        public bool HasInstall(long ownerId, long appInfoId) {
             IList apps = GetByMember( ownerId );
             foreach (IMemberApp app in apps) {
                 if (app.AppInfoId == appInfoId) return true;

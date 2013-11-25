@@ -7,12 +7,12 @@ namespace wojilu.Members.Users.Interface {
 
     public interface IInviteService {
 
-        string GetCodeByUser( int userId );
-        bool IsCodeValid( int userId, string code );
+        string GetCodeByUser(long userId);
+        bool IsCodeValid(long userId, string code);
 
         void AddMail( User inviter, List<string> mailList, string mailBody );
 
-        Result Validate( int friendId, string friendCode );
+        Result Validate(long friendId, string friendCode);
 
 
         List<UserInvite> GetUnSendEmail();

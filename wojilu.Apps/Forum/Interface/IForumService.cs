@@ -13,13 +13,13 @@ namespace wojilu.Apps.Forum.Interface {
         IForumBoardService fbService { get; set; }
         IModeratorService moderatorService { get; set; }
 
-        ForumApp GetById( int id );
+        ForumApp GetById(long id);
         List<ForumTopic> GetStickyTopics( ForumApp forum );
 
         void SetOnlineUser( ForumApp forum );
 
-        void StickyMoveDown( ForumApp forum, int topicId );
-        void StickyMoveUp( ForumApp forum, int topicId );
+        void StickyMoveDown(ForumApp forum, long topicId);
+        void StickyMoveUp(ForumApp forum, long topicId);
 
         void Update( ForumApp forum );
         void UpdateSecurity( ForumApp forum, String str );

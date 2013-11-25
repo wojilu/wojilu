@@ -36,7 +36,7 @@ namespace wojilu.Web.Controller.Content.Utils {
 
         //------------------------------------------------------------------------------------------
 
-        public static String toSection( int sectionId, MvcContext ctx ) {
+        public static String toSection( long sectionId, MvcContext ctx ) {
 
             if (HtmlHelper.IsMakeHtml( ctx )) {
                 return toSection( sectionId );
@@ -47,7 +47,7 @@ namespace wojilu.Web.Controller.Content.Utils {
         }
 
 
-        public static String toSection( int sectionId ) {
+        public static String toSection( long sectionId ) {
             return string.Format( "/html/list/{0}.html", sectionId );
         }
 

@@ -28,7 +28,7 @@ namespace wojilu.Web.Controller {
         }
 
         [Login]
-        public void NewMsg( int targetId ) {
+        public void NewMsg( long targetId ) {
             redirectDirect( Link.To( ctx.viewer.obj, new Users.Admin.MsgController().New, targetId ) );
         }
 

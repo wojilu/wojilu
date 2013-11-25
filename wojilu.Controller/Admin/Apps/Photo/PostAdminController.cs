@@ -75,7 +75,7 @@ namespace wojilu.Web.Controller.Admin.Apps.Photo {
 
             String ids = ctx.Post( "choice" );
             String cmd = ctx.Post( "action" );
-            int categoryId = ctx.PostInt( "categoryId" );
+            long categoryId = ctx.PostLong( "categoryId" );
 
             if (strUtil.IsNullOrEmpty( cmd ) || cvt.IsIdListValid( ids ) == false) {
                 content( lang( "exCmd" ) );

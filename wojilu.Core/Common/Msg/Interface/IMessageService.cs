@@ -39,28 +39,28 @@ namespace wojilu.Common.Msg.Interface {
         /// <returns></returns>
         Result SendMsg( User sender, String rawReceiver, String msgTitle, String msgBody );
 
-        Result SendMsg( User sender, String rawReceiver, String msgTitle, String msgBody, int replyId, int[] attachmentIds );
+        Result SendMsg(User sender, string rawReceiver, string msgTitle, string msgBody, long replyId, long[] attachmentIds);
         
 
         void ReadMsg( Message msg );
         void CheckSiteMsg( User user );
 
-        Message GetById( int receiverId, int id );
-        MessageData GetDataById( int senderId, int id );
+        Message GetById(long receiverId, long id);
+        MessageData GetDataById(long senderId, long id);
         MessageStats GetStats( User owner );
 
-        Message GetPrevMsg( int receiverId, int msgId );
-        Message GetNextMsg( int receiverId, int msgId );
+        Message GetPrevMsg(long receiverId, long msgId);
+        Message GetNextMsg(long receiverId, long msgId);
 
-        DataPage<Message> GetPageAll( int receiverId );
-        DataPage<MessageData> GetPageSent( int senderId );
-        DataPage<Message> GetPageTrash( int receiverId );
+        DataPage<Message> GetPageAll(long receiverId);
+        DataPage<MessageData> GetPageSent(long senderId);
+        DataPage<Message> GetPageTrash(long receiverId);
 
-        DataPage<Message> SearchByUser( int receiverId, string senderName );
-        DataPage<MessageData> SearchByReceiver( int senderId, string receiverName );
+        DataPage<Message> SearchByUser(long receiverId, string senderName);
+        DataPage<MessageData> SearchByReceiver(long senderId, string receiverName);
 
-        DataPage<Message> GetNewMsg( int receiverId );
-        List<Message> GetNewMsg( int receiverId, int count );
+        DataPage<Message> GetNewMsg(long receiverId);
+        List<Message> GetNewMsg(long receiverId, int count);
 
         Boolean AdminByAction( String action, User member, String choice );
 

@@ -195,7 +195,7 @@ namespace wojilu.Web.Controller.Users.Admin {
             echoRedirect( lang( "opok" ), Tag );
         }
 
-        public void DeleteTag( int id ) {
+        public void DeleteTag( long id ) {
             UserTagShip u = userTagService.GetById( id );
             if (u != null) {
                 userTagService.DeleteUserTag( u );
@@ -400,7 +400,7 @@ namespace wojilu.Web.Controller.Users.Admin {
         }
 
 
-        public void EditPermission( int id ) {
+        public void EditPermission( long id ) {
 
             Boolean isUserPrivacyClose = Component.IsClose( typeof( UserPrivacy ) );
             if (isUserPrivacyClose) {
@@ -428,7 +428,7 @@ namespace wojilu.Web.Controller.Users.Admin {
             set( "app.Id", info.Id );
         }
 
-        public void SavePermission( int id ) {
+        public void SavePermission( long id ) {
 
             Boolean isUserPrivacyClose = Component.IsClose( typeof( UserPrivacy ) );
             if (isUserPrivacyClose) {
@@ -444,7 +444,7 @@ namespace wojilu.Web.Controller.Users.Admin {
             echoToParentPart( lang( "opok" ) );
         }
 
-        private AppInstaller getAppInfo( int appInfoId ) {
+        private AppInstaller getAppInfo( long appInfoId ) {
             AppInstaller appinfo = appinfoService.GetById( appInfoId );
             if (appinfo == null) {
                 throw new Exception( lang( "exAppNotFound" ) );

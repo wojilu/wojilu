@@ -34,7 +34,7 @@ namespace wojilu.Web.Controller.Users.Admin {
             shareService = new ShareService();
         }
 
-        public void Index( int userId ) {
+        public void Index( long userId ) {
 
             set( "shareLink", to(Index, -1) );
             set( "myShareLink", to(Index, ctx.viewer.Id) );
@@ -57,7 +57,7 @@ namespace wojilu.Web.Controller.Users.Admin {
         }
 
 
-        public void Show( int id ) {
+        public void Show( long id ) {
 
             Share share = shareService.GetByIdWithComments( id );
             set( "shareListLink", to(Index, -1) );
@@ -171,7 +171,7 @@ namespace wojilu.Web.Controller.Users.Admin {
         }
 
         [HttpDelete]
-        public void Delete( int id ) {
+        public void Delete( long id ) {
 
             Result result = shareService.Delete( id );
             if (result.IsValid) {

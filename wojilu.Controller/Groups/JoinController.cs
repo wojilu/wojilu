@@ -105,7 +105,7 @@ namespace wojilu.Web.Controller.Groups {
         }
 
         [Login]
-        public void Invite( int id ) {
+        public void Invite( long id ) {
 
             String code = ctx.Get( "code" );
 

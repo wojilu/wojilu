@@ -24,7 +24,7 @@ namespace wojilu.Common.Skins {
             skinTool = skin;
         }
 
-        public String GetUserSkin( IMember user, int queryStringSkinId, String cssVersion ) {
+        public string GetUserSkin(IMember user, long queryStringSkinId, string cssVersion) {
 
             long skinId = getSkinId( user, queryStringSkinId );
             ISkin skin = GetById( skinId );
@@ -39,7 +39,7 @@ namespace wojilu.Common.Skins {
             return result;
         }
 
-        private long getSkinId( IMember user, int queryStringSkinId ) {
+        private long getSkinId( IMember user, long queryStringSkinId ) {
             long skinId = user.TemplateId;
             if (skinId == 0) {
                 long defaultSkinId = GetDefaultSkin().Id;

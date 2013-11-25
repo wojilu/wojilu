@@ -17,7 +17,7 @@ namespace wojilu.Members.Sites.Interface {
         List<SiteSkin> GetSysAll();
 
         String GetSkin();
-        String GetSkin( int querySkinId, String cssVersion );
+        string GetSkin(long querySkinId, string cssVersion);
 
 
 

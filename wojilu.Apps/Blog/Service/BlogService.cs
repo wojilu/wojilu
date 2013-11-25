@@ -16,7 +16,7 @@ namespace wojilu.Apps.Blog.Service {
 
     public class BlogService : IBlogService {
 
-        public virtual BlogApp GetFirstByUser( int ownerId ) {
+        public virtual BlogApp GetFirstByUser(long ownerId) {
             return BlogApp.find( "OwnerId=" + ownerId + " and OwnerType=:OwnerType" )
                 .set( "OwnerType", typeof( User ).FullName )
                 .first();

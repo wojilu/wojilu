@@ -22,7 +22,7 @@ namespace wojilu.Apps.Forum.Service {
             topicService = new ForumTopicService();
         }
 
-        public Result CreatePoll( ForumPoll poll, int boardId, IMember owner, IApp app ) {
+        public Result CreatePoll( ForumPoll poll, long boardId, IMember owner, IApp app ) {
 
             Result result = topicService.CreateTopicOther( boardId, poll.Title, poll.Question, typeof( ForumPoll ), poll.Creator, owner, app );
             if (result.IsValid == false) return result;

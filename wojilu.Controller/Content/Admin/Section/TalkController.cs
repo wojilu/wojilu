@@ -31,7 +31,7 @@ namespace wojilu.Web.Controller.Content.Admin.Section {
             sectionService = new ContentSectionService();
         }
 
-        public List<IPageSettingLink> GetSettingLink( int sectionId ) {
+        public List<IPageSettingLink> GetSettingLink( long sectionId ) {
             List<IPageSettingLink> links = new List<IPageSettingLink>();
 
             PageSettingLink lnk = new PageSettingLink();
@@ -47,38 +47,38 @@ namespace wojilu.Web.Controller.Content.Admin.Section {
             return links;
         }
 
-        public String GetEditLink( int postId ) {
+        public String GetEditLink( long postId ) {
             return to( Edit, postId );
         }
 
-        public String GetSectionIcon( int sectionId ) {
+        public String GetSectionIcon( long sectionId ) {
             return BinderUtils.iconTalk;
         }
 
-        public void AdminSectionShow( int sectionId ) {
+        public void AdminSectionShow( long sectionId ) {
             List<ContentPost> posts = GetSectionPosts( sectionId );
             bindSectionShow( sectionId, posts );
         }
 
-        public List<ContentPost> GetSectionPosts( int sectionId ) {
+        public List<ContentPost> GetSectionPosts( long sectionId ) {
             ContentSection s = sectionService.GetById( sectionId, ctx.app.Id );
             return postService.GetBySection( sectionId, s.ListCount );
         }
 
-        public void AdminList( int sectionId ) {
+        public void AdminList( long sectionId ) {
             ContentSection section = sectionService.GetById( sectionId, ctx.app.Id );
             DataPage<ContentPost> posts = postService.GetPageBySectionAndCategory( section.Id, 0 );
             bindAdminList( section, posts );
         }
 
-        public void Add( int sectionId ) {
+        public void Add( long sectionId ) {
             ContentSection section = sectionService.GetById( sectionId, ctx.app.Id );
             target( Create, sectionId );
             bindAddInfo( section );
         }
 
         [HttpPost, DbTransaction]
-        public void Create( int sectionId ) {
+        public void Create( long sectionId ) {
             ContentPost post = ContentValidator.SetValueBySection( sectionService.GetById( sectionId, ctx.app.Id ), ctx );
             ContentValidator.ValidateTalk( post, ctx );
             if (errors.HasErrors) {
@@ -95,7 +95,7 @@ namespace wojilu.Web.Controller.Content.Admin.Section {
             }
         }
 
-        public void Edit( int postId ) {
+        public void Edit( long postId ) {
             view( "Edit" );
             ContentPost post = postService.GetById( postId, ctx.owner.Id );
             if (post == null) {
@@ -108,7 +108,7 @@ namespace wojilu.Web.Controller.Content.Admin.Section {
         }
 
         [HttpPost, DbTransaction]
-        public void Update( int postId ) {
+        public void Update( long postId ) {
             ContentPost post = postService.GetById( postId, ctx.owner.Id );
             if (post == null) {
                 echo( lang( "exDataNotFound" ) );
@@ -130,7 +130,7 @@ namespace wojilu.Web.Controller.Content.Admin.Section {
         }
 
         [HttpDelete, DbTransaction]
-        public void Delete( int postId ) {
+        public void Delete( long postId ) {
             ContentPost post = postService.GetById( postId, ctx.owner.Id );
             if (post == null) {
                 echo( lang( "exDataNotFound" ) );

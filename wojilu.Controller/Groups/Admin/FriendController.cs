@@ -82,7 +82,7 @@ namespace wojilu.Web.Controller.Groups.Admin {
         }
 
         [HttpDelete, DbTransaction]
-        public void Delete( int id ) {
+        public void Delete( long id ) {
 
             GroupFriends gf = gfService.GetFriend( ctx.owner.Id, id );
             if (gf == null) {

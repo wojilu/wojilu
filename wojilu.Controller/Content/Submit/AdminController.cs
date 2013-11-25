@@ -103,19 +103,19 @@ namespace wojilu.Web.Controller.Content.Submit {
             tempPostService.NoPass( ids );
         }
 
-        public void Pass( int id ) {
+        public void Pass( long id ) {
             target( SavePass, id );
             ContentTempPost p = tempPostService.GetById( id );
             bind( "post", p );
         }
 
-        public void NoPass( int id ) {
+        public void NoPass( long id ) {
             target( SaveNoPass, id );
             ContentTempPost p = tempPostService.GetById( id );
             bind( "post", p );
         }
 
-        public void SavePass( int id ) {
+        public void SavePass( long id ) {
 
             String msg = ctx.Post( "msg" );
             ContentTempPost p = tempPostService.GetById( id );
@@ -133,7 +133,7 @@ namespace wojilu.Web.Controller.Content.Submit {
         }
 
 
-        public void SaveNoPass( int id ) {
+        public void SaveNoPass( long id ) {
             String desc = ctx.Post( "msg" );
             ContentTempPost p = tempPostService.GetById( id );
             if (p == null) {

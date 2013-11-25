@@ -27,7 +27,7 @@ namespace wojilu.Web.Controller.Content.Admin {
             templatelService = new ContentSectionTemplateService();
         }
 
-        public void Edit( int sectionId ) {
+        public void Edit( long sectionId ) {
 
             ContentSection section = sectionService.GetById( sectionId, ctx.app.Id );
             if (section == null) {
@@ -45,7 +45,7 @@ namespace wojilu.Web.Controller.Content.Admin {
         }
 
         [HttpPost, DbTransaction]
-        public void Update( int id ) {
+        public void Update( long id ) {
             ContentSection section = sectionService.GetById( id, ctx.app.Id );
             if (section == null) {
                 echoToParentPart( lang( "exDataNotFound" ) );
@@ -75,7 +75,7 @@ namespace wojilu.Web.Controller.Content.Admin {
         //-----------------------------------------------------------------------------------------------------
 
 
-        public void EditCount( int sectionId ) {
+        public void EditCount( long sectionId ) {
 
             ContentSection section = sectionService.GetById( sectionId, ctx.app.Id );
             if (section == null) {
@@ -96,7 +96,7 @@ namespace wojilu.Web.Controller.Content.Admin {
         }
 
         [HttpPost, DbTransaction]
-        public void SaveCount( int sectionId ) {
+        public void SaveCount( long sectionId ) {
 
             ContentSection s = sectionService.GetById( sectionId, ctx.app.Id );
             if (s == null) {
@@ -128,7 +128,7 @@ namespace wojilu.Web.Controller.Content.Admin {
 
         //-----------------------------------------------------------------------------------------------------
 
-        public void EditBinder( int id ) {
+        public void EditBinder( long id ) {
 
             ContentSection section = sectionService.GetById( id, ctx.app.Id );
             if (section == null) {
@@ -166,15 +166,15 @@ namespace wojilu.Web.Controller.Content.Admin {
 
 
         [HttpPost, DbTransaction]
-        public void UpdateBinder( int id ) {
+        public void UpdateBinder( long id ) {
             ContentSection section = sectionService.GetById( id, ctx.app.Id );
             if (section == null) {
                 echoToParentPart( lang( "exDataNotFound" ) );
                 return;
             }
 
-            int tplId = section.TemplateId;
-            int cTplId = section.CustomTemplateId;
+            long tplId = section.TemplateId;
+            long cTplId = section.CustomTemplateId;
 
             section = ContentValidator.ValidateSectionEdit( section, ctx );
             if (errors.HasErrors) {
@@ -218,7 +218,7 @@ namespace wojilu.Web.Controller.Content.Admin {
             sectionService.Update( section );
         }
 
-        private String sectionNotFound( int id ) {
+        private String sectionNotFound( long id ) {
             return lang( "exDataNotFound" ) + ":ContentSection, id=" + id;
         }
 

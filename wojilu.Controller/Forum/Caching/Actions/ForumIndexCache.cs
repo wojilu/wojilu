@@ -22,11 +22,11 @@ namespace wojilu.Web.Controller.Forum.Caching {
             IMember owner = ctx.owner.obj;
             if ((owner is Site) == false) return null;
 
-            int appId = ctx.app.Id;
+            long appId = ctx.app.Id;
             return getCacheKey( owner, appId );
         }
 
-        private String getCacheKey( IMember owner, int appId ) {
+        private String getCacheKey( IMember owner, long appId ) {
             return "__action_" + owner.GetType().FullName + "_" + owner.Url.Replace( "/", "" ) + "_" + typeof( wojilu.Web.Controller.Forum.ForumController ).FullName + "_" + appId;
         }
 

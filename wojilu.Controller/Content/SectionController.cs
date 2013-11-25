@@ -38,7 +38,7 @@ namespace wojilu.Web.Controller.Content {
         }
 
         [Data( typeof( ContentSection ) )]
-        public void Show( int sectionId ) {
+        public void Show( long sectionId ) {
             ContentSection section = sectionService.GetById( sectionId, ctx.app.Id );
             if (section == null) {
                 echo( lang( "exDataNotFound" ) );

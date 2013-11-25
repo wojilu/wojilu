@@ -31,12 +31,12 @@ namespace wojilu.Web.Controller.Content.Caching {
 
         private String getCacheKey( MvcContext ctx ) {
             IMember owner = ctx.owner.obj;
-            int appId = ctx.app.Id;
+            long appId = ctx.app.Id;
 
             return getCacheKey( owner, appId );
         }
 
-        private static string getCacheKey( IMember owner, int appId ) {
+        private static string getCacheKey( IMember owner, long appId ) {
             return owner.GetType().FullName + "_" + owner.Url + "_" + typeof( wojilu.Web.Controller.Content.Section.LayoutController ).FullName + ".Layout" + "_app" + appId;
         }
 
@@ -96,7 +96,7 @@ namespace wojilu.Web.Controller.Content.Caching {
 
             if ((owner is Site) == false) return;
 
-            int appId = ctx.app.Id;
+            long appId = ctx.app.Id;
 
             String key = getCacheKey( ctx );
 
@@ -129,7 +129,7 @@ namespace wojilu.Web.Controller.Content.Caching {
             }
         }
 
-        //private static String getLayoutCache( int appId, IMember owner ) {
+        //private static String getLayoutCache( long appId, IMember owner ) {
 
         //    MvcContext ctx = MockContext.GetOne( owner, typeof( ContentApp ), appId );
         //    String content = ControllerRunner.Run( ctx, new wojilu.Web.Controller.Content.Section.LayoutController().Layout );

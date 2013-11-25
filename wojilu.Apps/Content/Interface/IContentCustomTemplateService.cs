@@ -6,7 +6,7 @@ using wojilu.Apps.Content.Domain;
 namespace wojilu.Apps.Content.Interface {
 
     public interface IContentCustomTemplateService {
-        ContentCustomTemplate GetById( int id, int ownerId );
+        ContentCustomTemplate GetById(long id, long ownerId);
         void Insert( ContentCustomTemplate ct );
         void Update( ContentCustomTemplate ct );
     }

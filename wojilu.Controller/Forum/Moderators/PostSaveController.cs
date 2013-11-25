@@ -45,7 +45,7 @@ namespace wojilu.Web.Controller.Forum.Moderators {
 
         //------------------------------------ 版主管理：帖子评分 -----------------------------------------
 
-        public void SaveCredit( int id ) {
+        public void SaveCredit( long id ) {
 
             ForumPost post = postService.GetById( id, ctx.owner.obj );
             if (post == null) {
@@ -57,7 +57,7 @@ namespace wojilu.Web.Controller.Forum.Moderators {
 
             int rateMaxValue = ((ForumApp)ctx.app.obj).MaxRateValue;
 
-            int currencyId = ctx.PostInt( "CurrencyId" );
+            long currencyId = ctx.PostLong( "CurrencyId" );
             int currencyValue = ctx.PostInt( "CurrencyValue" );
             String reason = ctx.Post( "Reason" );
             User user = (User)ctx.viewer.obj;
@@ -75,7 +75,7 @@ namespace wojilu.Web.Controller.Forum.Moderators {
         //------------------------------------ admin -----------------------------------------
 
         [HttpPut, DbTransaction]
-        public void Ban( int id ) {
+        public void Ban( long id ) {
 
             ForumPost post = postService.GetById( id, ctx.owner.obj );
             if (post == null) {
@@ -89,7 +89,7 @@ namespace wojilu.Web.Controller.Forum.Moderators {
         }
 
         [HttpPut, DbTransaction]
-        public void UnBan( int id ) {
+        public void UnBan( long id ) {
 
             ForumPost post = postService.GetById( id, ctx.owner.obj );
             if (post == null) {
@@ -103,7 +103,7 @@ namespace wojilu.Web.Controller.Forum.Moderators {
         }
 
         [HttpPut, DbTransaction]
-        public void Lock( int id ) {
+        public void Lock( long id ) {
 
             ForumTopic topic = topicService.GetById( id, ctx.owner.obj );
             if (topic == null) {
@@ -117,7 +117,7 @@ namespace wojilu.Web.Controller.Forum.Moderators {
         }
 
         [HttpPut, DbTransaction]
-        public void UnLock( int id ) {
+        public void UnLock( long id ) {
 
             ForumTopic topic = topicService.GetById( id, ctx.owner.obj );
             if (topic == null) {
@@ -131,7 +131,7 @@ namespace wojilu.Web.Controller.Forum.Moderators {
         }
 
         [HttpDelete, DbTransaction]
-        public void DeletePost( int id ) {
+        public void DeletePost( long id ) {
 
             ForumPost post = postService.GetById( id, ctx.owner.obj );
             if (post == null) {
@@ -147,7 +147,7 @@ namespace wojilu.Web.Controller.Forum.Moderators {
             echoRedirect( lang( "opok" ), alink.ToAppData( topic ) );
         }
 
-        public void DeleteTopic( int id ) {
+        public void DeleteTopic( long id ) {
 
             ForumTopic topic = topicService.GetById( id, ctx.owner.obj );
             if (topic == null) {
@@ -171,7 +171,7 @@ namespace wojilu.Web.Controller.Forum.Moderators {
         private int getPageSize() { return 100; }
 
         private Boolean boardError( ForumTopic topic ) {
-            if (ctx.GetInt( "boardId" ) != topic.ForumBoard.Id) {
+            if (ctx.GetLong( "boardId" ) != topic.ForumBoard.Id) {
                 echoRedirect( lang( "exNoPermission" ) );
                 return true;
             }
@@ -179,7 +179,7 @@ namespace wojilu.Web.Controller.Forum.Moderators {
         }
 
         private Boolean boardError( ForumPost post ) {
-            if (ctx.GetInt( "boardId" ) != post.ForumBoardId) {
+            if (ctx.GetLong( "boardId" ) != post.ForumBoardId) {
                 echoRedirect( lang( "exNoPermission" ) );
                 return true;
             }

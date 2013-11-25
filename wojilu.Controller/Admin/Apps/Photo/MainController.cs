@@ -49,7 +49,7 @@ namespace wojilu.Web.Controller.Admin.Apps.Photo {
             tpl.Set( "c.LinkCategory", to( new MainController().Index, id ) );
         }
 
-        public void Index( int id ) {
+        public void Index( long id ) {
 
             DataPage<PhotoPost> list = photoService.GetSysPostPage( id, pageSize );
             bindList( "list", "photo", list.Results, bindLink );
@@ -66,7 +66,7 @@ namespace wojilu.Web.Controller.Admin.Apps.Photo {
 
             String ids = ctx.Post( "choice" );
             String cmd = ctx.Post( "action" );
-            int categoryId = ctx.PostInt( "categoryId" );
+            long categoryId = ctx.PostLong( "categoryId" );
 
             if (strUtil.IsNullOrEmpty( cmd ) || cvt.IsIdListValid( ids ) == false) {
                 content( lang( "exCmd" ) );

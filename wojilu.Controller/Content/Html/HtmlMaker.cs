@@ -81,7 +81,7 @@ namespace wojilu.Web.Controller.Content.Htmls {
         /// <param name="recordCount">总数据量</param>
         /// <param name="pageSize">每页数量</param>
         /// <returns></returns>
-        protected int makeHtmlLoopAll( int sectionIdOrAppId, String lnkNormal, int recordCount, int pageSize ) {
+        protected int makeHtmlLoopAll(long sectionIdOrAppId, string lnkNormal, int recordCount, int pageSize) {
 
             // 获得所有分页的url(aspx动态页面)
             List<String> lnks = PageHelper.GetPageLinks( lnkNormal, recordCount, pageSize );
@@ -94,7 +94,7 @@ namespace wojilu.Web.Controller.Content.Htmls {
             return lnks.Count;
         }
 
-        private void makeListPageSingle( int sectionIdOrAppId, String url ) {
+        private void makeListPageSingle( long sectionIdOrAppId, String url ) {
             int pageNo = PageHelper.GetPageNoByUrl( url ); // 当前页码
             String addr = url;
             String html = makeHtml( addr );
@@ -106,7 +106,7 @@ namespace wojilu.Web.Controller.Content.Htmls {
 
         //-----------------------------------------------------------
 
-        protected string GetListPath( int sectionIdOrAppId, int pageNo ) {
+        protected string GetListPath(long sectionIdOrAppId, int pageNo) {
 
             if (pageNo == 1) {
                 return Path.Combine( GetDir(), sectionIdOrAppId + ".html" );

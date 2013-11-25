@@ -105,7 +105,7 @@ namespace wojilu.Web.Controller.Users {
             bindFeedList();
         }
 
-        public void Info( int id ) {
+        public void Info( long id ) {
             set( "lnkList", to( Feed ) );
             load( "blogBody", new Microblogs.MicroblogController().Show, id );
         }

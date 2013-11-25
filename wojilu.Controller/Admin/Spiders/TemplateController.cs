@@ -64,7 +64,7 @@ namespace wojilu.Web.Controller.Admin.Spiders {
         [HttpPost, DbTransaction]
         public virtual void SaveSort() {
 
-            int id = ctx.PostInt( "id" );
+            long id = ctx.PostLong( "id" );
             String cmd = ctx.Post( "cmd" );
 
             SpiderTemplate s = templateService.GetById( id );
@@ -85,7 +85,7 @@ namespace wojilu.Web.Controller.Admin.Spiders {
             }
         }
 
-        public void DoRefresh( int id ) {
+        public void DoRefresh( long id ) {
 
             if (id <= 0) {
                 echoRedirect( "请先选择模板" );
@@ -110,7 +110,7 @@ namespace wojilu.Web.Controller.Admin.Spiders {
         }
 
         [HttpPost]
-        public void Process( int id ) {
+        public void Process( long id ) {
             StringBuilder sb = LogCacher.GetSpiderLog( "log" + ctx.viewer.Id );
             echoText( reverseText( sb.ToString() ) );
         }
@@ -126,24 +126,24 @@ namespace wojilu.Web.Controller.Admin.Spiders {
         }
 
         [HttpDelete, DbTransaction]
-        public void Delete( int id ) {
+        public void Delete( long id ) {
             templateService.Delete( id );
             redirect( List );
         }
 
         [HttpPost, DbTransaction]
-        public void Start( int id ) {
+        public void Start( long id ) {
             templateService.Start( id );
             echoAjaxOk();
         }
 
         [HttpPost, DbTransaction]
-        public void Stop( int id ) {
+        public void Stop( long id ) {
             templateService.Stop( id );
             echoAjaxOk();
         }
 
-        public void SetTemplate( int id ) {
+        public void SetTemplate( long id ) {
 
             target( GetList );
 
@@ -265,7 +265,7 @@ namespace wojilu.Web.Controller.Admin.Spiders {
         [HttpPost, DbTransaction]
         public void Save() {
 
-            int templateId = ctx.PostInt( "tid" );
+            long templateId = ctx.PostLong( "tid" );
 
             String listUrl = ctx.Post( "listUrl" );
 

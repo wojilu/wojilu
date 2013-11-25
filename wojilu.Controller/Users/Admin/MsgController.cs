@@ -121,7 +121,7 @@ namespace wojilu.Web.Controller.Users.Admin {
         //-------------------------------------------------------------------------------------------------
 
         [Login]
-        public void New( int id ) {
+        public void New( long id ) {
             target( Create );
 
             User receiver = userService.GetById( id );
@@ -141,7 +141,7 @@ namespace wojilu.Web.Controller.Users.Admin {
         }
 
         [Login]
-        public void Forward( int id ) {
+        public void Forward( long id ) {
 
             view( "New" );
             target( Create );
@@ -165,7 +165,7 @@ namespace wojilu.Web.Controller.Users.Admin {
         }
 
         [Login]
-        public void Reply( int id ) {
+        public void Reply( long id ) {
 
             view( "New" );
             target( Create );
@@ -220,8 +220,8 @@ namespace wojilu.Web.Controller.Users.Admin {
             User user = ctx.owner.obj as User;
 
             String receiverName = ctx.Post( "ToName" );
-            int replyId = ctx.PostInt( "replyId" );
-            int[] ids = cvt.ToIntArray( ctx.Post( "attachmentIds" ) );
+            long replyId = ctx.PostLong( "replyId" );
+            long[] ids = cvt.ToLongArray( ctx.Post( "attachmentIds" ) );
 
             Result result = msgService.SendMsg( user, receiverName, ctx.Post( "Title" ), ctx.PostHtml( "Content" ), replyId, ids );
             return result;
@@ -229,7 +229,7 @@ namespace wojilu.Web.Controller.Users.Admin {
         //-------------------------------------------------------------------------------------------------
 
         [Login]
-        public void Read( int id ) {
+        public void Read( long id ) {
 
             Message msg = msgService.GetById( ctx.owner.Id, id );
             if (msg == null) {
@@ -247,7 +247,7 @@ namespace wojilu.Web.Controller.Users.Admin {
             msgService.ReadMsg( msg );
         }
 
-        public void SentMsg( int id ) {
+        public void SentMsg( long id ) {
             view( "MyMsg" );
             MessageData data = msgService.GetDataById( ctx.owner.Id, id );
             if (data == null) {
@@ -263,7 +263,7 @@ namespace wojilu.Web.Controller.Users.Admin {
             set( "m.Content", data.Body );
         }
 
-        public void DownloadAttachment( int id ) {
+        public void DownloadAttachment( long id ) {
 
             MessageAttachment att = attachmentService.GetById( id );
             if (att == null) {
@@ -296,7 +296,7 @@ namespace wojilu.Web.Controller.Users.Admin {
         }
 
         [HttpDelete, DbTransaction]
-        public void Delete( int msgId ) {
+        public void Delete( long msgId ) {
 
             Message msg = msgService.GetById( ctx.owner.Id, msgId );
             if (msg == null) {

@@ -31,11 +31,11 @@ namespace wojilu.Common.MemberApp {
             return getObj().GetType();
         }
 
-        public IMemberApp Add( User creator, String name, int appinfoId ) {
+        public IMemberApp Add(User creator, string name, long appinfoId) {
             return Add( creator, creator, name, appinfoId, AccessStatus.Public );
         }
 
-        public IMemberApp Add( User creator, IMember owner, String name, int appinfoId, AccessStatus accessStatus ) {
+        public IMemberApp Add(User creator, IMember owner, string name, long appinfoId, AccessStatus accessStatus) {
 
             // 创建应用实例
             IApp app = AppFactory.Create( appinfoId, owner, accessStatus );
@@ -70,13 +70,13 @@ namespace wojilu.Common.MemberApp {
             menuService.RemoveMenuByApp( app, rawAppUrl );
         }
 
-        public IMemberApp FindById( int userAppId, int userId ) {
+        public IMemberApp FindById(long userAppId, long userId) {
             String c = "OwnerId=" + userId + " and Id=" + userAppId;
             return ndb.find( thisType(), c ).first() as IMemberApp;
             //return (getObj().find( string.Concat( new object[] { "OwnerId=", userId, " and Id=", userAppId } ) ).first() as IUserApp);
         }
 
-        public IList GetAppInfos( int memberId ) {
+        public IList GetAppInfos(long memberId) {
 
             IList byMember = this.GetByMember( memberId );
             IList addedList = new ArrayList();
@@ -159,7 +159,7 @@ namespace wojilu.Common.MemberApp {
             db.update( (IEntity)app, "IsStop" );
         }
 
-        public Boolean HasInstall( int ownerId, int appInfoId ) {
+        public bool HasInstall(long ownerId, long appInfoId) {
             IList apps = GetByMember( ownerId );
             foreach (IMemberApp app in apps) {
                 if (app.AppInfoId == appInfoId) return true;

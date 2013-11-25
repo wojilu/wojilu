@@ -21,7 +21,7 @@ namespace wojilu.Web.Controller.Content.Admin.Section {
 
     public partial class ImgController : ControllerBase, IPageAdminSection {
 
-        private void bindSectionShow( int sectionId, List<ContentPost> posts ) {
+        private void bindSectionShow( long sectionId, List<ContentPost> posts ) {
             set( "addUrl", to( AddListInfo, sectionId ) );
             set( "listUrl", to( AdminList, sectionId ) );
             IBlock block = getBlock( "list" );
@@ -49,7 +49,7 @@ namespace wojilu.Web.Controller.Content.Admin.Section {
             block.Set( "post.EditUrl", lnkEdit );
         }
 
-        private void bindAdminList( int sectionId, ContentSection section, DataPage<ContentPost> posts ) {
+        private void bindAdminList( long sectionId, ContentSection section, DataPage<ContentPost> posts ) {
             set( "moduleName", section.Title );
             set( "addUrl", to( AddListInfo, sectionId ) );
             IBlock block = getBlock( "list" );
@@ -67,7 +67,7 @@ namespace wojilu.Web.Controller.Content.Admin.Section {
         }
 
 
-        private void bindAddList( int postId, ContentPost post, List<ContentImg> imgList ) {
+        private void bindAddList( long postId, ContentPost post, List<ContentImg> imgList ) {
             set( "section.Name", post.SectionName );
             set( "post.EditListInfo", to( EditListInfo, postId ) );
             IBlock block = getBlock( "list" );
@@ -99,7 +99,7 @@ namespace wojilu.Web.Controller.Content.Admin.Section {
 
         }
 
-        private void bindListEdit( int postId, ContentPost post ) {
+        private void bindListEdit( long postId, ContentPost post ) {
 
             set( "section.Name", post.SectionName );
             set( "post.Title", post.Title );

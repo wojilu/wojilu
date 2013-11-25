@@ -14,7 +14,7 @@ namespace wojilu.Web.Controller.Content.Admin.Section {
 
     public partial class SlideController : ControllerBase, IPageAdminSection {
 
-        private void bindSectionShow( int sectionId, int imgcat, List<ContentPost> posts, ContentPost first ) {
+        private void bindSectionShow( long sectionId, int imgcat, List<ContentPost> posts, ContentPost first ) {
 
             set( "sectionId", sectionId );
             set( "addUrl", to( new Common.PostController().Add, sectionId ) + "?categoryId=" + imgcat );

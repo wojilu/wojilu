@@ -33,7 +33,7 @@ namespace wojilu.Common.Spider.Domain {
         /// <summary>
         /// 最后导入的文章id
         /// </summary>
-        public int LastImportId { get; set; }
+        public long LastImportId { get; set; }
 
 
 

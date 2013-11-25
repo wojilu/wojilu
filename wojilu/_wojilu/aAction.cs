@@ -27,7 +27,7 @@ namespace wojilu {
     /// 带整型参数的委托，主要用于mvc中的链接。
     /// </summary>
     /// <param name="id"></param>
-    public delegate void aActionWithId( int id );
+    public delegate void aActionWithId( long id );
 
     /// <summary>
     /// 带字符串参数的委托，主要用于mvc中的链接，本委托不常用。

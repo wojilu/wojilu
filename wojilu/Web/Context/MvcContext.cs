@@ -342,6 +342,13 @@ namespace wojilu.Web.Context {
         /// </summary>
         /// <param name="queryItemName"></param>
         /// <returns></returns>
+        public long GetLong(string queryItemName) {
+            if ((_context.get( queryItemName ) != null) && cvt.IsLong( _context.get( queryItemName ) )) {
+                return long.Parse( _context.get( queryItemName ) );
+            }
+            return 0;
+        }
+
         public int GetInt( String queryItemName ) {
             if ((_context.get( queryItemName ) != null) && cvt.IsInt( _context.get( queryItemName ) )) {
                 return int.Parse( _context.get( queryItemName ) );
@@ -492,6 +499,13 @@ namespace wojilu.Web.Context {
         /// </summary>
         /// <param name="postItem"></param>
         /// <returns></returns>
+        public long PostLong(string postItem) {
+            if ((_context.post( postItem ) != null) && cvt.IsLong( _context.post( postItem ) )) {
+                return long.Parse( _context.post( postItem ) );
+            }
+            return 0;
+        }
+
         public int PostInt( String postItem ) {
             if ((_context.post( postItem ) != null) && cvt.IsInt( _context.post( postItem ) )) {
                 return int.Parse( _context.post( postItem ) );

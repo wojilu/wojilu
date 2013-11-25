@@ -258,7 +258,7 @@ namespace wojilu.Web.Mvc {
         /// </summary>
         /// <param name="action"></param>
         /// <param name="id"></param>
-        protected void target( aActionWithId action, int id ) {
+        protected void target(aActionWithId action, long id) {
             set( "ActionLink", to( action, id ) );
         }
 
@@ -452,7 +452,7 @@ namespace wojilu.Web.Mvc {
         /// <param name="action"></param>
         /// <param name="id"></param>
         /// <returns>返回一个链接</returns>
-        public String to( aActionWithId action, int id ) {
+        public string to(aActionWithId action, long id) {
             return ctx.link.To( action, id );
         }
 
@@ -471,7 +471,7 @@ namespace wojilu.Web.Mvc {
         /// <param name="action"></param>
         /// <param name="id"></param>
         /// <returns></returns>
-        public String t2( aActionWithId action, int id ) {
+        public string t2(aActionWithId action, long id) {
             return ctx.link.T2( action, id );
         }
 
@@ -871,7 +871,7 @@ namespace wojilu.Web.Mvc {
         /// </summary>
         /// <param name="action"></param>
         /// <param name="id"></param>
-        public void redirect( aActionWithId action, int id ) {
+        public void redirect(aActionWithId action, long id) {
             redirectUrl( ctx.link.To( action, id ) );
         }
 
@@ -880,7 +880,7 @@ namespace wojilu.Web.Mvc {
         /// </summary>
         /// <param name="action"></param>
         /// <param name="id"></param>
-        public void redirect( String action, int id ) {
+        public void redirect(string action, long id) {
             redirectUrl( Link.To( ctx.owner.obj, LinkHelper.GetControllerName( base.GetType() ), action, id ) );
         }
 
@@ -1034,7 +1034,8 @@ namespace wojilu.Web.Mvc {
         /// </summary>
         /// <param name="sectionName">需要加载内容的位置</param>
         /// <param name="action">被加载的 action</param>
-        protected void load( String sectionName, aActionWithId action, int id ) {
+        /// <param name="id"></param>
+        protected void load(string sectionName, aActionWithId action, long id) {
             set( sectionName, loadHtml( action, id ) );
         }
 
@@ -1055,7 +1056,7 @@ namespace wojilu.Web.Mvc {
         /// <param name="action"></param>
         /// <param name="id"></param>
         /// <returns></returns>
-        public String loadHtml( String controller, String action, int id ) {
+        public string loadHtml(string controller, string action, long id) {
             return ControllerRunner.Run( ctx, controller, action, id );
         }
 
@@ -1075,7 +1076,7 @@ namespace wojilu.Web.Mvc {
         /// <param name="action"></param>
         /// <param name="id"></param>
         /// <returns></returns>
-        public String loadHtml( aActionWithId action, int id ) {
+        public string loadHtml(aActionWithId action, long id) {
             return ControllerRunner.Run( this, action, id );
         }
 
@@ -1101,7 +1102,7 @@ namespace wojilu.Web.Mvc {
         /// </summary>
         /// <param name="action"></param>
         /// <param name="id"></param>
-        protected void run( aActionWithId action, int id ) {
+        protected void run(aActionWithId action, long id) {
 
             if (ctx.utils.isAjax) {
                 if (ctx.HasErrors)

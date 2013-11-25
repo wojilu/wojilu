@@ -38,7 +38,7 @@ namespace wojilu.Web.Controller.Admin.Sys {
             set( "categoryLink", to( new PageCategoryController().List ) );
         }
 
-        public void List( int categoryId ) {
+        public void List( long categoryId ) {
 
             set( "addLink", to( Add, categoryId ) );
             set( "sortAction", to( SaveSort, categoryId ) );
@@ -54,7 +54,7 @@ namespace wojilu.Web.Controller.Admin.Sys {
         }
 
         [HttpPost]
-        public void TransPage( int categoryId ) {
+        public void TransPage( long categoryId ) {
             String ids = ctx.PostIdList( "ids" );
             if (strUtil.IsNullOrEmpty( ids )) {
                 echoText( "请先选择" );
@@ -87,9 +87,9 @@ namespace wojilu.Web.Controller.Admin.Sys {
 
 
         [HttpPost]
-        public virtual void SaveSort( int categoryId ) {
+        public virtual void SaveSort( long categoryId ) {
 
-            int id = ctx.PostInt( "id" );
+            long id = ctx.PostLong( "id" );
             String cmd = ctx.Post( "cmd" );
 
             Page data = pageService.GetPostById( id, ctx.owner.obj );
@@ -112,7 +112,7 @@ namespace wojilu.Web.Controller.Admin.Sys {
             }
         }
 
-        private List<Page> filterByParent( List<Page> list, int parentId ) {
+        private List<Page> filterByParent( List<Page> list, long parentId ) {
 
             List<Page> xlist = new List<Page>();
             foreach (Page x in list) {
@@ -124,7 +124,7 @@ namespace wojilu.Web.Controller.Admin.Sys {
         }
 
 
-        public void ViewUrl( int id ) {
+        public void ViewUrl( long id ) {
             Page p = pageService.GetPostById( id, ctx.owner.obj );
             set( "page.Title", p.Title );
             set( "page.Url", plink( id ) );
@@ -133,14 +133,14 @@ namespace wojilu.Web.Controller.Admin.Sys {
 
         //-----------------------------------------------------------------------------
 
-        public void Add( int id ) {
+        public void Add( long id ) {
             target( Create, id );
             PageCategory category = pageService.GetCategoryById( id, ctx.owner.obj );
             set( "category", category.Name );
         }
 
         [HttpPost, DbTransaction]
-        public void Create( int id ) {
+        public void Create( long id ) {
 
             Page data = validate( new Page() );
             if (ctx.HasErrors) { run( Add, id ); return; }
@@ -168,7 +168,7 @@ namespace wojilu.Web.Controller.Admin.Sys {
 
         //-----------------------------------------------------------------------------
 
-        public void AddSubPage( int id ) {
+        public void AddSubPage( long id ) {
             Page page = pageService.GetPostById( id, ctx.owner.obj );
             if (page == null) {
                 echoRedirect( lang( "exPageNotFound" ) );
@@ -180,7 +180,7 @@ namespace wojilu.Web.Controller.Admin.Sys {
         }
 
         [HttpPost, DbTransaction]
-        public void CreateSubPage( int id ) {
+        public void CreateSubPage( long id ) {
 
             Page page = pageService.GetPostById( id, ctx.owner.obj );
             if (page == null) {
@@ -205,7 +205,7 @@ namespace wojilu.Web.Controller.Admin.Sys {
 
         //-----------------------------------------------------------------------------
 
-        public void Edit( int id ) {
+        public void Edit( long id ) {
 
             target( Update, id );
 
@@ -221,7 +221,7 @@ namespace wojilu.Web.Controller.Admin.Sys {
         }
 
         [HttpPost, DbTransaction]
-        public void Update( int id ) {
+        public void Update( long id ) {
 
             Page data = pageService.GetPostById( id, ctx.owner.obj );
             if (data == null) {
@@ -232,7 +232,7 @@ namespace wojilu.Web.Controller.Admin.Sys {
             data = validate( data );
             if (ctx.HasErrors) { run( Edit, id ); return; }
 
-            int ParentId = ctx.PostInt( "ParentId" );
+            long ParentId = ctx.PostLong( "ParentId" );
             data.ParentId = ParentId;
 
             pageService.Update( data );
@@ -245,7 +245,7 @@ namespace wojilu.Web.Controller.Admin.Sys {
         //-----------------------------------------------------------------------------
 
         [HttpDelete, DbTransaction]
-        public void Delete( int id ) {
+        public void Delete( long id ) {
 
             Page data = pageService.GetPostById( id, ctx.owner.obj );
             if (data == null) {

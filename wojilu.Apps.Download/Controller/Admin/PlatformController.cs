@@ -31,7 +31,7 @@ namespace wojilu.Web.Controller.Download.Admin {
         [HttpPost]
         public virtual void SaveSort() {
 
-            int id = ctx.PostInt( "id" );
+            int id = ctx.PostLong( "id" );
             String cmd = ctx.Post( "cmd" );
 
             Platform data = Platform.GetById( id );

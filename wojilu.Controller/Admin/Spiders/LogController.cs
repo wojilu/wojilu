@@ -33,7 +33,7 @@ namespace wojilu.Web.Controller.Admin.Spiders {
             set( "page", logs.PageBar );
         }
 
-        public void Show( int id ) {
+        public void Show( long id ) {
 
             SpiderLog log = SpiderLog.findById( id );
             bind( "log", log );

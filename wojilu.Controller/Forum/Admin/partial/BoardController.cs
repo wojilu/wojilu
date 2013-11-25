@@ -85,7 +85,7 @@ namespace wojilu.Web.Controller.Forum.Admin {
 
         //------------------------------------------------------------------------------
 
-        private void bindAddSubBoard( int boardId, ForumBoard board ) {
+        private void bindAddSubBoard( long boardId, ForumBoard board ) {
             set( "lblForumAction", alang( "addSubBoard" ) );
 
             set( "Name", ctx.Post( "Name" ) );

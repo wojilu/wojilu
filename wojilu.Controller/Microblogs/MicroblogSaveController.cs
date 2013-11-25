@@ -117,7 +117,7 @@ namespace wojilu.Web.Controller.Microblogs {
 
         private void setVideoInfo( Microblog blog ) {
 
-            int videoId = ctx.PostInt( "videoId" );
+            long videoId = ctx.PostLong( "videoId" );
 
             if (videoId <= 0) return;
 
@@ -131,7 +131,7 @@ namespace wojilu.Web.Controller.Microblogs {
 
 
         [HttpDelete, DbTransaction]
-        public void Delete( int id ) {
+        public void Delete( long id ) {
 
             Microblog blog = microblogService.GetById( id );
             if (blog == null) {

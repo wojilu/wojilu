@@ -23,15 +23,15 @@ namespace wojilu.Web.Controller.Admin.Spiders {
 
         // 转换为字符串之后，jquery 可以直接使用 $("#multiple").val(["Multiple2", "Multiple3"]);
         private List<String> cvtToString( String ids ) {
-            int[] arrIds = cvt.ToIntArray( ids );
+            long[] arrIds = cvt.ToLongArray( ids );
             List<String> list = new List<string>();
-            foreach (int id in arrIds) {
+            foreach (long id in arrIds) {
                 list.Add( id.ToString() );
             }
             return list;
         }
 
-        public int Id { get; set; }
+        public long Id { get; set; }
         public String Name { get; set; }
         public List<String> DataSrcIds { get; set; }
         public List<String> TargetIds { get; set; }

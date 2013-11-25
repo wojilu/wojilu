@@ -38,70 +38,70 @@ namespace wojilu.Web.Controller.Forum {
         }
 
         [CacheAction( typeof( ForumBoardCache ) )]
-        public void Show( int id ) {
+        public void Show( long id ) {
             showPrivate( id );
         }
 
-        public void Category( int id ) {
+        public void Category( long id ) {
             view( "Show" );
-            ctx.SetItem( "forumCategory", ctx.GetInt("categoryId") );
+            ctx.SetItem( "forumCategory", ctx.GetLong("categoryId") );
             showPrivate( id );
         }
 
         //------------------------------------------
-        public void Views( int id ) {
+        public void Views( long id ) {
             view( "Show" );
             ctx.SetItem( "forumSort", "views" );
             showPrivate( id );
         }
-        public void Replies( int id ) {
+        public void Replies( long id ) {
             view( "Show" );
             ctx.SetItem( "forumSort", "replies" );
             showPrivate( id );
         }
-        public void Replied( int id ) {
+        public void Replied( long id ) {
             view( "Show" );
             ctx.SetItem( "forumSort", "replied" );
             showPrivate( id );
         }
-        public void Created( int id ) {
+        public void Created( long id ) {
             view( "Show" );
             ctx.SetItem( "forumSort", "created" );
             showPrivate( id );
         }
         //------------------------------------------
-        public void All( int id ) {
+        public void All( long id ) {
             view( "Show" );
             ctx.SetItem( "forumRecentTime", "all" );
             showPrivate( id );
         }
-        public void Day( int id ) {
+        public void Day( long id ) {
             view( "Show" );
             ctx.SetItem( "forumRecentTime", "day" );
             showPrivate( id );
         }
 
-        public void DayTwo( int id ) {
+        public void DayTwo( long id ) {
             view( "Show" );
             ctx.SetItem( "forumRecentTime", "day2" );
             showPrivate( id );
         }
-        public void Week( int id ) {
+        public void Week( long id ) {
             view( "Show" );
             ctx.SetItem( "forumRecentTime", "week" );
             showPrivate( id );
         }
-        public void Month( int id ) {
+        public void Month( long id ) {
             view( "Show" );
             ctx.SetItem( "forumRecentTime", "month" );
             showPrivate( id );
         }
-        public void MonthThree( int id ) {
+        public void MonthThree( long id ) {
             view( "Show" );
             ctx.SetItem( "forumRecentTime", "month3" );
             showPrivate( id );
         }
-        public void MonthSix( int id ) {
+        public void MonthSix( long id ) {
             view( "Show" );
             ctx.SetItem( "forumRecentTime", "month6" );
             showPrivate( id );
@@ -109,7 +109,7 @@ namespace wojilu.Web.Controller.Forum {
 
         //------------------------------------------
 
-        private void showPrivate( int id ) {
+        private void showPrivate( long id ) {
 
 
             this.boardsPath = getTree().GetPath( id );
@@ -139,7 +139,7 @@ namespace wojilu.Web.Controller.Forum {
 
         }
 
-        private Boolean hasPermission( int id ) {
+        private Boolean hasPermission( long id ) {
 
             this.boardsPath = getTree().GetPath( id );
 

@@ -62,7 +62,7 @@ namespace wojilu.Web.Controller.Admin.Members {
             MessageSite msg = new MessageSite();
             msg.Title = ctx.Post( "Title" );
             msg.Body = ctx.PostHtml( "Body" );
-            msg.ReceiverRoleId = ctx.PostInt( "siteRole" );
+            msg.ReceiverRoleId = ctx.PostLong( "siteRole" );
             msg.Creator = (User)ctx.viewer.obj;
 
             Result result = msgService.Insert( msg );
@@ -72,7 +72,7 @@ namespace wojilu.Web.Controller.Admin.Members {
                 echoError( result );
         }
 
-        public void Edit( int id ) {
+        public void Edit( long id ) {
             target( Update, id );
             MessageSite msg = msgService.GetById( id );
 
@@ -84,12 +84,12 @@ namespace wojilu.Web.Controller.Admin.Members {
         }
 
         [HttpPost, DbTransaction]
-        public void Update( int id ) {
+        public void Update( long id ) {
             MessageSite msg = msgService.GetById( id );
 
             msg.Title = ctx.Post( "Title" );
             msg.Body = ctx.PostHtml( "Body" );
-            msg.ReceiverRoleId = ctx.PostInt( "siteRole" );
+            msg.ReceiverRoleId = ctx.PostLong( "siteRole" );
 
             Result result = msgService.Update( msg );
             if (result.IsValid)
@@ -99,7 +99,7 @@ namespace wojilu.Web.Controller.Admin.Members {
         }
 
         [HttpDelete, DbTransaction]
-        public void Delete( int id ) {
+        public void Delete( long id ) {
             MessageSite msg = msgService.GetById( id );
             msgService.Delete( msg );
             redirect( Index );

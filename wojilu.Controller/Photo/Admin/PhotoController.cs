@@ -35,9 +35,9 @@ namespace wojilu.Web.Controller.Photo.Admin {
             redirect( new MyController().My );
         }
 
-        public void Friends( int friendId ) {
+        public void Friends( long friendId ) {
 
-            int userId = ctx.viewer.Id;
+            long userId = ctx.viewer.Id;
             DataPage<PhotoPost> list = postService.GetFriendsPhoto( userId, friendId );
 
             IBlock block = getBlock( "list" );

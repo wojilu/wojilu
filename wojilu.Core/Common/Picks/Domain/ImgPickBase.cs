@@ -12,7 +12,7 @@ namespace wojilu.Common.Picks {
 
     public abstract class ImgPickBase : ObjectBase<ImgPickBase> {
 
-        public int AppId { get; set; }
+        public long AppId { get; set; }
         public User Creator { get; set; }
 
         [NotNull( "请填写标题" )]

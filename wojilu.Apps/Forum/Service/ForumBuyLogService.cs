@@ -29,7 +29,7 @@ namespace wojilu.Apps.Forum.Service {
             incomeService = new UserIncomeService();
         }
 
-        public virtual Result Buy( int buyerId, int creatorId, ForumTopic topic ) {
+        public virtual Result Buy(long buyerId, long creatorId, ForumTopic topic) {
 
             if (topic == null) throw new ArgumentNullException( "ForumBuyLogService.Buy" );
 
@@ -59,11 +59,11 @@ namespace wojilu.Apps.Forum.Service {
             return result;
         }
 
-        public virtual int GetBuyerCount( int topicId ) {
+        public virtual int GetBuyerCount(long topicId) {
             return db.count<ForumBuyLog>( "TopicId=" + topicId );
         }
 
-        public virtual Boolean HasBuyed( int buyerId, ForumTopic topic ) {
+        public virtual bool HasBuyed(long buyerId, ForumTopic topic) {
             return (db.count<ForumBuyLog>( "TopicId=" + topic.Id + " and UserId=" + buyerId ) > 0);
         }
 

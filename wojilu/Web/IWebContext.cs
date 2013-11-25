@@ -75,14 +75,14 @@ namespace wojilu.Web {
         /// 获取当前登录用户的 userId，如果没有登录，则为-1
         /// </summary>
         /// <returns></returns>
-        int UserId();
+        long UserId();
 
         /// <summary>
         /// 获取使用自定义的cookie名称登录的 userId
         /// </summary>
         /// <param name="cookieName"></param>
         /// <returns></returns>
-        int UserId( String cookieName );
+        long UserId(string cookieName);
 
         /// <summary>
         /// 判断用户是否登录(默认cookie验证)

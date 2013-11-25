@@ -34,7 +34,7 @@ namespace wojilu.Apps.Content.Service {
             return list;
         }
 
-        public ContentPost GetById_ForAdmin( int id ) {
+        public ContentPost GetById_ForAdmin(long id) {
             return ContentPost.findById( id );
         }
 

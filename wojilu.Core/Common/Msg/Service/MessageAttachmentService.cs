@@ -13,7 +13,7 @@ namespace wojilu.Common.Msg.Service {
 
         private static readonly ILog logger = LogManager.GetLogger( typeof( MessageAttachmentService ) );
 
-        public bool IsReceiver( int viewerId, MessageAttachment attachment ) {
+        public bool IsReceiver(long viewerId, MessageAttachment attachment) {
 
             List<Message> msgList = Message.find( "MessageData.Id=" + attachment.MessageData.Id ).list();
             foreach (Message msg in msgList) {
@@ -22,18 +22,18 @@ namespace wojilu.Common.Msg.Service {
             return false;
         }
 
-        public bool IsSender( int viewerId, MessageAttachment attachment ) {
+        public bool IsSender(long viewerId, MessageAttachment attachment) {
             if (attachment.MessageData == null) return false;
             MessageData x = MessageData.findById( attachment.MessageData.Id );
             if (attachment.MessageData.Sender == null) return false;
             return attachment.MessageData.Sender.Id == viewerId;
         }
 
-        public MessageAttachment GetById( int id ) {
+        public MessageAttachment GetById(long id) {
             return MessageAttachment.findById( id );
         }
 
-        public List<MessageAttachment> GetByMsg( int msgDataId ) {
+        public List<MessageAttachment> GetByMsg(long msgDataId) {
             return MessageAttachment.find( "MessageData.Id=" + msgDataId + " order by Id asc" ).list();
         }
 
@@ -61,7 +61,7 @@ namespace wojilu.Common.Msg.Service {
             attachment.insert();
         }
 
-        public Result Delete( int id ) {
+        public Result Delete(long id) {
 
             Result result = new Result();
 

@@ -37,11 +37,11 @@ namespace wojilu.Web {
             return New( 0, null, url, sw );
         }
 
-        public static MockWebContext New( int userId, String url, StringWriter sw ) {
+        public static MockWebContext New(long userId, string url, StringWriter sw) {
             return New( userId, null, url, sw );
         }
 
-        public static MockWebContext New( int userId, String httpMethod, String url, StringWriter sw ) {
+        public static MockWebContext New(long userId, string httpMethod, string url, StringWriter sw) {
 
 
             // 构造request/response/httpContext
@@ -142,22 +142,22 @@ namespace wojilu.Web {
         public void UserLogout() { }
         public void UserLogout( String cookieName ) { }
 
-        public int UserId() {
+        public long UserId() {
             return _userId;
         }
 
-        public int UserId( String cookieName ) { return -1; }
+        public long UserId(string cookieName) { return -1; }
 
         public void UserLogin(long userId, string userName, LoginTime expiration) { }
         public void UserLogin(string cookieName, long userId, string userName, LoginTime expiration) { }
         public void UserLogin(long userId, string userName, DateTime expiration) { }
         public void UserLogin(string cookieName, long userId, string userName, DateTime expiration) { }
 
-        public void setUserId( int userId ) {
+        public void setUserId(long userId) {
             _userId = userId;
         }
 
-        private int _userId;
+        private long _userId;
 
         /*******************************************************************/
 

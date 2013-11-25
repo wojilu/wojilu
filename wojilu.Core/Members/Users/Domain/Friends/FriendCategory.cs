@@ -9,7 +9,7 @@ namespace wojilu.Members.Users.Domain {
     public class FriendCategory : CategoryBase {
 
 
-        public static List<FriendCategory> GetByOwner( int ownerId ) {
+        public static List<FriendCategory> GetByOwner(long ownerId) {
             return db.find<FriendCategory>( "OwnerId=" + ownerId + " order by orderId desc, Id asc" ).list();
         }
 

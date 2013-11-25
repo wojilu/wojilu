@@ -13,8 +13,8 @@ namespace wojilu.Apps.Blog.Domain {
 
         public int pkid { get; set; }
 
-        public int AppId { get; set; }
-        public int OwnerId { get; set; }
+        public long AppId { get; set; }
+        public long OwnerId { get; set; }
         public int OrderId { get; set; }
 
         public String Name { get; set; }

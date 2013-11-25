@@ -21,7 +21,7 @@ namespace wojilu.Web.Controller.Forum {
     public partial class TopicListController : ControllerBase {
 
 
-        private void bindAll( int id, List<ForumTopic> stickyList, DataPage<ForumTopic> topicList, List<ForumCategory> categories, Boolean isAdmin ) {
+        private void bindAll( long id, List<ForumTopic> stickyList, DataPage<ForumTopic> topicList, List<ForumCategory> categories, Boolean isAdmin ) {
 
             set( "slink", to( new BoardController().Show, id ) );
             set( "slinkReplied", to( new BoardController().Replied, id ) );
@@ -66,7 +66,7 @@ namespace wojilu.Web.Controller.Forum {
             }
         }
 
-        private void bindCategories( int id, List<ForumCategory> categories ) {
+        private void bindCategories( long id, List<ForumCategory> categories ) {
 
             IBlock panelBlock = getBlock( "categoryPanel" );
             if (categories.Count > 0) {
@@ -204,7 +204,7 @@ namespace wojilu.Web.Controller.Forum {
         //------------------------------------------------------------------------------------------------------
 
 
-        private void bindPagerAndForm( int id, DataPage<ForumTopic> topicList ) {
+        private void bindPagerAndForm( long id, DataPage<ForumTopic> topicList ) {
 
             IBlock formBlock = getBlock( "form" );
 
@@ -217,7 +217,7 @@ namespace wojilu.Web.Controller.Forum {
 
         }
 
-        private void bindFormNew( int boardId, IBlock formBlock, List<ForumCategory> categories ) {
+        private void bindFormNew( long boardId, IBlock formBlock, List<ForumCategory> categories ) {
 
             formBlock.Set( "ActionLink", to( new Users.TopicController().Create ) + "?boardId=" + boardId );
 
@@ -280,14 +280,14 @@ namespace wojilu.Web.Controller.Forum {
             builder.AppendFormat( "<a href=\"{0}\" target=\"_blank\">{1}</a> ", LinkUtil.appendListPage( PageHelper.AppendNo( url, i ), ctx ), i );
         }
 
-        private static int getPageCount( int replies, int pageSize ) {
+        private static int getPageCount( long replies, int pageSize ) {
 
-            int topicAndReplies = replies + 1;
-            int mod = topicAndReplies % pageSize;
+            long topicAndReplies = replies + 1;
+            long mod = topicAndReplies % pageSize;
             if (mod == 0) {
-                return (topicAndReplies / pageSize);
+                return (int)(topicAndReplies / pageSize);
             }
-            return ((topicAndReplies / pageSize) + 1);
+            return (int) ((topicAndReplies / pageSize) + 1);
         }
 
         //-------------------------------------------------------------------------------------------------------------------
@@ -295,7 +295,7 @@ namespace wojilu.Web.Controller.Forum {
         [NonVisit]
         public void Toolbar() {
 
-            int id = fb.Id;
+            long id = fb.Id;
 
             set( "newPostUrl", to( new Users.TopicController().NewTopic ) + "?boardId=" + id );
             set( "newPollUrl", to( new Users.PollController().Add ) + "?boardId=" + id );
@@ -306,7 +306,7 @@ namespace wojilu.Web.Controller.Forum {
         [NonVisit]
         public void AdminToolbar() {
 
-            int id = fb.Id;
+            long id = fb.Id;
 
             Moderators.TopicController t = new Forum.Moderators.TopicController();
             Moderators.TopicSaveController ts = new Forum.Moderators.TopicSaveController();
@@ -346,7 +346,7 @@ namespace wojilu.Web.Controller.Forum {
 
         }
 
-        private String urlto( aAction action, int id ) {
+        private string urlto(aAction action, long id) {
             return to( action ) + "?boardId=" + id;
         }
 

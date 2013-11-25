@@ -61,7 +61,7 @@ namespace wojilu.Web.Controller.Users.Admin {
 
         private static readonly int tempKeyCurrencyId = 99999999;
 
-        public void IncomeLog( int currencyId ) {
+        public void IncomeLog( long currencyId ) {
 
             User user = ctx.owner.obj as User;
 
@@ -75,7 +75,7 @@ namespace wojilu.Web.Controller.Users.Admin {
 
         private void bindCurrencyLink( IBlock block, String lbl, Object data ) {
             UserIncomeLog x = data as UserIncomeLog;
-            int currencyId = x.CurrencyId == 0 ? tempKeyCurrencyId : x.CurrencyId;
+            long currencyId = x.CurrencyId == 0 ? tempKeyCurrencyId : x.CurrencyId;
             block.Set( "x.CurrencyLink", to( IncomeLog, currencyId ) );
         }
 

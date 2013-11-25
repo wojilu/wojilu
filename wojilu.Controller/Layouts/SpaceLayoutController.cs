@@ -65,7 +65,7 @@ namespace wojilu.Web.Controller.Layouts {
             set( "sitelink", ctx.url.SiteAndAppPath );
 
             skinService.SetSkin( new SpaceSkin() );
-            String skinContent = skinService.GetUserSkin( ctx.owner.obj, ctx.GetInt( "skinId" ), MvcConfig.Instance.CssVersion );
+            String skinContent = skinService.GetUserSkin( ctx.owner.obj, ctx.GetLong( "skinId" ), MvcConfig.Instance.CssVersion );
             set( "skinContent", skinContent );
 
             set( "customSkinLink", to( new Users.Admin.SkinController().CustomBg ) );

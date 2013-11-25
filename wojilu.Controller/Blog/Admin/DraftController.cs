@@ -49,7 +49,7 @@ namespace wojilu.Web.Controller.Blog.Admin {
         }
 
 
-        public void EditDraft( int id ) {
+        public void EditDraft( long id ) {
 
             target( PublishDraft, id );
 
@@ -64,7 +64,7 @@ namespace wojilu.Web.Controller.Blog.Admin {
 
 
         [HttpPost, DbTransaction]
-        public void PublishDraft( int id ) {
+        public void PublishDraft( long id ) {
 
             BlogPost post = postService.GetById( id, ctx.owner.Id );
             if (post == null) {
@@ -120,11 +120,11 @@ namespace wojilu.Web.Controller.Blog.Admin {
 
             String ids = ctx.PostIdList( "choice" );
             String cmd = ctx.Post( "action" );
-            int categoryId = ctx.PostInt( "categoryId" );
+            long categoryId = ctx.PostLong( "categoryId" );
 
             if (strUtil.IsNullOrEmpty( cmd )) return false;
 
-            int appId = ctx.app.Id;
+            long appId = ctx.app.Id;
 
             if (cmd.Equals( "deletetrue" )) {
                 postService.DeleteTrue( ids, appId );
@@ -185,7 +185,7 @@ namespace wojilu.Web.Controller.Blog.Admin {
                 result = postService.InsertDraft( getDraftPost( new BlogPost() ) );
             }
             else {
-                result = postService.UpdateDraft( getDraftPost( postService.GetDraft( ctx.PostInt( "draftId" ) ) ) );
+                result = postService.UpdateDraft( getDraftPost( postService.GetDraft( ctx.PostLong( "draftId" ) ) ) );
             }
 
             if (result.IsValid) {
@@ -198,7 +198,7 @@ namespace wojilu.Web.Controller.Blog.Admin {
 
 
         private Boolean checkIsDraftNew() {
-            return ctx.PostInt( "draftId" ) <= 0;
+            return ctx.PostLong( "draftId" ) <= 0;
         }
 
         private BlogPost getDraftPost( BlogPost data ) {
@@ -208,7 +208,7 @@ namespace wojilu.Web.Controller.Blog.Admin {
             String body = ctx.PostHtml( "Content" );
             String tags = strUtil.SubString( ctx.Post( "TagList" ), 200 );
 
-            int categoryId = ctx.PostInt( "CategoryId" );
+            long categoryId = ctx.PostLong( "CategoryId" );
             int accessStatus = ctx.PostInt( "AccessStatus" );
             int isCloseComment = ctx.PostInt( "IsCloseComment" );
 

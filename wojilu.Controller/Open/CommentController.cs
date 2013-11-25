@@ -28,7 +28,7 @@ namespace wojilu.Web.Controller.Open {
             String url = ctx.Get( "url" );
             url = strUtil.SqlClean( url, 100 );
 
-            int dataId = ctx.GetInt( "dataId" );
+            long dataId = ctx.GetLong( "dataId" );
             String dataType = ctx.Get( "dataType" );
             int pageSize = ctx.GetInt( "pageSize" );
 
@@ -37,10 +37,10 @@ namespace wojilu.Web.Controller.Open {
             set( "thisDataType", dataType );
             set( "thisDataId", dataId );
             set( "thisDataTitle", ctx.Get( "dataTitle" ) );
-            set( "thisDataUserId", ctx.GetInt( "dataUserId" ) );
-            set( "thisOwnerId", ctx.GetInt( "ownerId" ) );
-            set( "thisAppId", ctx.GetInt( "appId" ) );
-            set( "thisFeedId", ctx.GetInt( "feedId" ) );
+            set( "thisDataUserId", ctx.GetLong( "dataUserId" ) );
+            set( "thisOwnerId", ctx.GetLong( "ownerId" ) );
+            set( "thisAppId", ctx.GetLong( "appId" ) );
+            set( "thisFeedId", ctx.GetLong( "feedId" ) );
             set( "thisRenumId", ctx.Get( "renumId" ) );
 
             DataPage<OpenComment> datas = commentService.GetByDataDesc( dataType, dataId, pageSize );
@@ -78,10 +78,10 @@ namespace wojilu.Web.Controller.Open {
         [HttpPost]
         public void MoreReply() {
 
-            int parentId = ctx.PostInt( "parentId" );
+            long parentId = ctx.PostLong( "parentId" );
             if (parentId <= 0) echoJson( "[]" );
 
-            int startId = ctx.PostInt( "startId" );
+            long startId = ctx.PostLong( "startId" );
             if (startId <= 0) echoJson( "[]" );
 
             List<OpenComment> moreList = commentService.GetMore( parentId, startId, OpenComment.subCacheSize, "desc" );
@@ -154,7 +154,7 @@ namespace wojilu.Web.Controller.Open {
             }
         }
 
-        private int getStartId( List<OpenComment> lists ) {
+        private long getStartId( List<OpenComment> lists ) {
             if (lists.Count == 0) return 0;
             return lists[lists.Count - 1].Id;
         }
@@ -257,19 +257,19 @@ namespace wojilu.Web.Controller.Open {
             c.Content = content;
             c.TargetUrl = ctx.Post( "url" );
             c.TargetDataType = ctx.Post( "dataType" );
-            c.TargetDataId = ctx.PostInt( "dataId" );
+            c.TargetDataId = ctx.PostLong( "dataId" );
             c.TargetTitle = ctx.Post( "dataTitle" );
-            c.TargetUserId = ctx.PostInt( "dataUserId" );
+            c.TargetUserId = ctx.PostLong( "dataUserId" );
 
-            c.OwnerId = ctx.PostInt( "ownerId" );
-            c.AppId = ctx.PostInt( "appId" );
-            c.FeedId = ctx.PostInt( "feedId" );
+            c.OwnerId = ctx.PostLong( "ownerId" );
+            c.AppId = ctx.PostLong( "appId" );
+            c.FeedId = ctx.PostLong( "feedId" );
 
             c.Ip = ctx.Ip;
             c.Author = userName;
             c.AuthorEmail = ctx.Post( "UserEmail" );
-            c.ParentId = ctx.PostInt( "ParentId" );
-            c.AtId = ctx.PostInt( "AtId" );
+            c.ParentId = ctx.PostLong( "ParentId" );
+            c.AtId = ctx.PostLong( "AtId" );
 
             if (ctx.viewer.IsLogin) {
                 c.Member = (User)ctx.viewer.obj;
@@ -286,7 +286,7 @@ namespace wojilu.Web.Controller.Open {
         }
 
         [HttpDelete, DbTransaction]
-        public void Delete( int id ) {
+        public void Delete( long id ) {
 
             OpenComment c = commentService.GetById( id );
             if (c == null) {
@@ -307,7 +307,7 @@ namespace wojilu.Web.Controller.Open {
         public void DeleteAll() {
             String url = ctx.Get( "url" );
             url = strUtil.SqlClean( url, 50 );
-            int dataId = ctx.GetInt( "dataId" );
+            long dataId = ctx.GetLong( "dataId" );
             String dataType = ctx.Get( "dataType" );
 
             if (checkAdminPermission( dataType, dataId ) == false) {
@@ -319,7 +319,7 @@ namespace wojilu.Web.Controller.Open {
             echoAjaxOk();
         }
 
-        private Boolean checkAdminPermission( string dataType, int dataId ) {
+        private Boolean checkAdminPermission( string dataType, long dataId ) {
 
             if (ctx.viewer.IsLogin == false) return false;
 
@@ -335,7 +335,7 @@ namespace wojilu.Web.Controller.Open {
             EntityInfo ei = Entity.GetInfo( obj );
             if (ei.GetProperty( "OwnerId" ) == null || ei.GetProperty( "OwnerType" ) == null) return false;
 
-            int ownerId = (int)obj.get( "OwnerId" );
+            long ownerId = (long)obj.get( "OwnerId" );
             String ownerType = obj.get( "OwnerType" ) as String;
             if (ownerId <= 0) return false;
 

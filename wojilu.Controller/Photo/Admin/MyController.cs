@@ -64,7 +64,7 @@ namespace wojilu.Web.Controller.Photo.Admin {
 
 
 
-        public void Category( int categoryId ) {
+        public void Category( long categoryId ) {
 
             view( "My" );
 
@@ -72,7 +72,7 @@ namespace wojilu.Web.Controller.Photo.Admin {
             bindPhotoList( posts, categoryId );
         }
 
-        private void bindPhotoList( DataPage<PhotoPost> posts, int categoryId ) {
+        private void bindPhotoList( DataPage<PhotoPost> posts, long categoryId ) {
 
 
             String albumName = "";
@@ -119,7 +119,7 @@ namespace wojilu.Web.Controller.Photo.Admin {
 
             String ids = ctx.Post( "choice" );
             String cmd = ctx.Post( "action" );
-            int categoryId = ctx.PostInt( "categoryId" );
+            long categoryId = ctx.PostLong( "categoryId" );
 
             if (strUtil.IsNullOrEmpty( cmd )) {
                 content( lang( "exCmd" ) );

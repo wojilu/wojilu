@@ -21,7 +21,7 @@ namespace wojilu.Web.Controller.Content.Admin {
 
     public partial class ContentSectionController : ControllerBase {
 
-        private void bindServiceInfo( int serviceId, Service service ) {
+        private void bindServiceInfo( long serviceId, Service service ) {
             set( "serviceId", serviceId );
             set( "service.Name", service.Name );
 
@@ -29,7 +29,7 @@ namespace wojilu.Web.Controller.Content.Admin {
             set( "templateType", TemplateUtil.getServiceTemplates( service.Note, "List", ctx, templateService ) );
         }
 
-        private void bindServiceThree( int serviceId, int templateId, Service service, ContentSectionTemplate template ) {
+        private void bindServiceThree( long serviceId, long templateId, Service service, ContentSectionTemplate template ) {
             set( "service.Id", serviceId );
             set( "service.Name", service.Name );
             set( "template.Id", templateId );

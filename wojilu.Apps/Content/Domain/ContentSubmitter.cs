@@ -10,8 +10,8 @@ namespace wojilu.Apps.Content.Domain {
     public class ContentSubmitter : ObjectBase<ContentSubmitter> {
 
         public User User { get; set; }
-        public int AppId { get; set; }
-        public int RoleId { get; set; }
+        public long AppId { get; set; }
+        public long RoleId { get; set; }
 
         public int PostCount { get; set; } // 投递文章数量
 
@@ -42,10 +42,10 @@ namespace wojilu.Apps.Content.Domain {
         public String AdvancedSubmitter { get; set; }
         public String Editor { get; set; }
 
-        public static int SubmitterValue = 0;
-        public static int AdvancedSubmitterValue = 1;
+        public static long SubmitterValue = 0;
+        public static long AdvancedSubmitterValue = 1;
 
-        public String getName( int roleId ) {
+        public String getName( long roleId ) {
             if (roleId == SubmitterValue) return this.Submitter;
             if (roleId == AdvancedSubmitterValue) return this.AdvancedSubmitter;
             return "";

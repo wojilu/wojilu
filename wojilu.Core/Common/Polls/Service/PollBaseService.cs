@@ -91,7 +91,7 @@ namespace wojilu.Common.Polls.Service {
         }
 
 
-        public virtual TP GetById( int id ) {
+        public virtual TP GetById(long id) {
             return db.findById<TP>( id );
         }
 
@@ -110,20 +110,20 @@ namespace wojilu.Common.Polls.Service {
              .list();
         }
 
-        public virtual TP GetByTopicId( int id ) {
+        public virtual TP GetByTopicId(long id) {
             return db.find<TP>( "TopicId=:id" )
                 .set( "id", id )
                 .first();
         }
 
-        public virtual TP GetByTopicId( List<TP> polls, int topicId ) {
+        public virtual TP GetByTopicId(List<TP> polls, long topicId) {
             foreach (TP p in polls) {
                 if (p.TopicId == topicId) return p;
             }
             return null;
         }
 
-        public void DeleteByTopicId( int id ) {
+        public void DeleteByTopicId(long id) {
 
             TP poll = this.GetByTopicId( id );
             if (poll != null) poll.delete();
@@ -176,11 +176,11 @@ namespace wojilu.Common.Polls.Service {
             return builder.ToString().TrimEnd( '/' );
         }
 
-        public virtual DataPage<TR> GetVoterList( int pollId ) {
+        public virtual DataPage<TR> GetVoterList(long pollId) {
             return db.findPage<TR>( "PollId=" + pollId );
         }
 
-        public virtual DataPage<TR> GetVoterList( int pollId, int pageSize ) {
+        public virtual DataPage<TR> GetVoterList(long pollId, int pageSize) {
             return db.findPage<TR>( "PollId=" + pollId, pageSize );
         }
 

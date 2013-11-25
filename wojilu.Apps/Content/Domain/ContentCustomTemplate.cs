@@ -13,7 +13,7 @@ namespace wojilu.Apps.Content.Domain {
         public String Description { get; set; }
 
         public User Creator { get; set; }
-        public int OwnerId { get; set; }
+        public long OwnerId { get; set; }
         public String OwnerType { get; set; }
         public String OwnerUrl { get; set; }
 

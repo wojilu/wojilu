@@ -12,14 +12,13 @@ using wojilu.Common.AppBase;
 namespace wojilu.Apps.Content.Service {
 
     public class ContentPollService : PollBaseService<ContentPoll, ContentPollResult> {
-
         /// <summary>
         /// 快速创建投票，没有其他SEO等高级数据
         /// </summary>
         /// <param name="sectionId"></param>
         /// <param name="poll"></param>
         /// <returns></returns>
-        public Result CreatePoll( int sectionId, ContentPoll poll ) {
+        public Result CreatePoll(long sectionId, ContentPoll poll) {
 
             // 1) insert post
             ContentPost post = new ContentPost();
@@ -64,8 +63,9 @@ namespace wojilu.Apps.Content.Service {
         /// <param name="sectionId"></param>
         /// <param name="poll"></param>
         /// <param name="post"></param>
+        /// <param name="tagList"></param>
         /// <returns></returns>
-        public Result CreatePoll( int sectionId, ContentPoll poll, ContentPost post, String tagList ) {
+        public Result CreatePoll(long sectionId, ContentPoll poll, ContentPost post, string tagList) {
 
             // 1) insert post
             post.TypeName = typeof( ContentPoll ).FullName;
@@ -87,7 +87,7 @@ namespace wojilu.Apps.Content.Service {
         }
 
 
-        private static void insertPostSectionShip( int sectionId, ContentPost post ) {
+        private static void insertPostSectionShip(long sectionId, ContentPost post) {
 
             // page section
             ContentSection section = new ContentSection();

@@ -93,7 +93,7 @@ namespace wojilu.Web.Controller.Groups {
 
         }
 
-        public void List( int id ) {
+        public void List( long id ) {
 
             ctx.Page.Title = "群组列表";
 

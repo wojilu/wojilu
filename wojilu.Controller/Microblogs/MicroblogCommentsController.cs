@@ -32,7 +32,7 @@
 
 
 //        [Login]
-//        public void Show( int id ) {
+//        public void Show( long id ) {
 
 //            commentList( id );
 //            commentForm( id );
@@ -40,7 +40,7 @@
 //            set( "blog.Id", id );
 //        }
 
-//        public void commentList( int id ) {
+//        public void commentList( long id ) {
 
 //            int thisPageCount = 10;
 //            List<MicroblogComment> comments = commentService.GetTop( id, thisPageCount );
@@ -66,7 +66,7 @@
 
 //        }
 
-//        public void commentForm( int id ) {
+//        public void commentForm( long id ) {
 //            target( SaveReply );
 //            set( "c.RootId", id );
 //            set( "viewer.PicSmall", ctx.viewer.obj.PicSmall );
@@ -118,7 +118,7 @@
 //        }
 
 //        // 弹窗中的回复窗口
-//        public void Reply( int id ) {
+//        public void Reply( long id ) {
 //            int parentId = ctx.GetInt( "parentId" );
 //            set( "c.ParentId", parentId );
 //            set( "c.RootId", id );
@@ -131,7 +131,7 @@
 
 //        // 保存弹窗中的评论，没有转发
 //        [HttpPost, DbTransaction]
-//        public void SaveComment( int id ) {
+//        public void SaveComment( long id ) {
 
 //            if (ctx.viewer.IsLogin == false) {
 //                echoRedirect( lang( "exPlsLogin" ) );

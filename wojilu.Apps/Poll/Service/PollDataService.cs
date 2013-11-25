@@ -16,12 +16,12 @@ namespace wojilu.Apps.Poll.Service {
 
 
 
-        public DataPage<PollData> GetPageByApp( int appId ) {
+        public DataPage<PollData> GetPageByApp(long appId) {
             return db.findPage<PollData>( "AppId=" + appId );
         }
 
 
-        public DataPage<PollData> GetFriendsPage( int userId ) {
+        public DataPage<PollData> GetFriendsPage(long userId) {
 
             FriendService fs = new FriendService();
             String fids = fs.FindFriendsIds( userId );
@@ -32,7 +32,7 @@ namespace wojilu.Apps.Poll.Service {
         }
 
 
-        public List<PollData> GetHots( int appId, int count ) {
+        public List<PollData> GetHots(long appId, int count) {
             return db.find<PollData>( "AppId="+appId+" order by VoteCount desc, Replies desc, Hits desc" ).list( count );
         }
 

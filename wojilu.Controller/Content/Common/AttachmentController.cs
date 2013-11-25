@@ -20,7 +20,7 @@ namespace wojilu.Web.Controller.Content.Common {
         }
 
 
-        public void Show( int id ) {
+        public void Show( long id ) {
 
             String guid = ctx.Get( "id" );
 

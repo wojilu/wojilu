@@ -30,7 +30,7 @@ namespace wojilu.Web.Controller.Content.Htmls {
         /// </summary>
         /// <param name="ctx"></param>
         /// <returns></returns>
-        public int ProcessAll( int appId ) {
+        public int ProcessAll( long appId ) {
 
             CheckDir();
 

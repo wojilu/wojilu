@@ -28,7 +28,7 @@ namespace wojilu.Web.Controller.Content.Section {
             sectionService = new ContentSectionService();
         }
 
-        public void SectionShow( int sectionId ) {
+        public void SectionShow( long sectionId ) {
             ContentSection s = sectionService.GetById( sectionId, ctx.app.Id );
             if (s == null) {
                 throw new Exception( lang( "exDataNotFound" ) + "=>page section:" + sectionId );
@@ -39,7 +39,7 @@ namespace wojilu.Web.Controller.Content.Section {
             bindSectionShow( s, posts );
         }
 
-        public void List( int sectionId ) {
+        public void List( long sectionId ) {
             ContentSection section = sectionService.GetById( sectionId, ctx.app.Id );
             if (section == null) {
                 echoRedirect( lang( "exDataNotFound" ) );
@@ -50,12 +50,12 @@ namespace wojilu.Web.Controller.Content.Section {
             ContentApp app = ctx.app.obj as ContentApp;
             ContentSetting s = app.GetSettingsObj();
 
-            DataPage<ContentPost> posts = postService.GetPageBySectionAndCategory( section.Id, ctx.GetInt( "categoryId" ), s.ListVideoPerPage );
+            DataPage<ContentPost> posts = postService.GetPageBySectionAndCategory( section.Id, ctx.GetLong( "categoryId" ), s.ListVideoPerPage );
 
             bindPosts( section, posts );
         }
 
-        public void Show( int id ) {
+        public void Show( long id ) {
 
             ContentPost post = postService.GetById( id, ctx.owner.Id );
 

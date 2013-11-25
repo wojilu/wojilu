@@ -13,7 +13,7 @@ namespace wojilu.Members.Sites.Service {
 
     public class SiteRoleService : ISiteRoleService {
 
-        public virtual SiteRole GetById( int id ) {
+        public virtual SiteRole GetById(long id) {
             return cdb.findById<SiteRole>( id );
         }
 
@@ -73,7 +73,7 @@ namespace wojilu.Members.Sites.Service {
             return cdb.findAll<SiteRank>();
         }
 
-        public virtual SiteRank GetRankById( int id ) {
+        public virtual SiteRank GetRankById(long id) {
             return cdb.findById<SiteRank>( id );
         }
 
@@ -89,7 +89,7 @@ namespace wojilu.Members.Sites.Service {
             rank.delete();
         }
 
-        public virtual SiteRank GetRankByCredit( int credit ) {
+        public virtual SiteRank GetRankByCredit(long credit) {
 
             List<SiteRank> ranks = GetRankAll();
 
@@ -147,7 +147,7 @@ namespace wojilu.Members.Sites.Service {
             return cdb.findAll<SiteRankOther>();
         }
 
-        public virtual SiteRankOther GetRankOtherById( int id ) {
+        public virtual SiteRankOther GetRankOtherById(long id) {
             return cdb.findById<SiteRankOther>( id );
         }
 

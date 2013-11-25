@@ -30,14 +30,14 @@ namespace wojilu.Web.Controller.Users.Admin {
             followService = new FollowerService();
         }
 
-        public void Show( int id ) {
+        public void Show( long id ) {
             set( "commentList", loadHtml( commentList, id ) );
             set( "commentForm", loadHtml( commentForm, id ) );
             set( "share.Id", id );
         }
 
         [NonVisit]
-        public void commentList( int id ) {
+        public void commentList( long id ) {
             Share share = shareService.GetByIdWithComments( id );
 
             if (share == null) {
@@ -49,7 +49,7 @@ namespace wojilu.Web.Controller.Users.Admin {
         }
 
         [NonVisit]
-        public void commentForm( int id ) {
+        public void commentForm( long id ) {
             target( SaveComment );
             set( "c.RootId", id );
             set( "viewer.PicSmall", ctx.viewer.obj.PicSmall );
@@ -106,8 +106,8 @@ namespace wojilu.Web.Controller.Users.Admin {
                 return;
             }
 
-            int rootId = ctx.PostInt( "rootId" );
-            int parentId = ctx.PostInt( "parentId" );
+            long rootId = ctx.PostLong( "rootId" );
+            long parentId = ctx.PostLong( "parentId" );
 
             //content = strUtil.CutString( content, Microblog.ContentLength );
 

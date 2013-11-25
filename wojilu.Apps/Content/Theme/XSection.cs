@@ -12,7 +12,7 @@ namespace wojilu.Apps.Content.Domain {
     public class XSection {
 
         [NotSave]
-        public int Id { get; set; }
+        public long Id { get; set; }
 
         //public int OrderId { get; set; }
         //public int RowId { get; set; }
@@ -26,10 +26,10 @@ namespace wojilu.Apps.Content.Domain {
         public int ListCount { get; set; }
 
         public String TypeFullName { get; set; }
-        public int TemplateId { get; set; }
+        public long TemplateId { get; set; }
         public String TemplateCustom { get; set; } // 自定义模板内容
 
-        public int ServiceId { get; set; }
+        public long ServiceId { get; set; }
         public String ServiceParams { get; set; }
 
         public String CssPath { get; set; }

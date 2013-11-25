@@ -22,7 +22,7 @@ namespace wojilu.Web.Controller.Photo {
             postService = new PhotoPostService();
         }
 
-        public void Show( int id ) {
+        public void Show( long id ) {
 
             PhotoPost post = postService.GetById( id, ctx.owner.Id );
             if (post == null) { echoRedirect( lang( "exDataNotFound" ) ); return; }

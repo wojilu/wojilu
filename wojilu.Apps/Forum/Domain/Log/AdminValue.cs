@@ -12,9 +12,9 @@ namespace wojilu.Apps.Forum.Domain {
     public class AdminValue {
 
         public String Ids { get; set; }
-        public int ActionId { get; set; }
+        public long ActionId { get; set; }
 
-        public int AppId { get; set; }
+        public long AppId { get; set; }
         public User User { get; set; }
 
         public String Reason { get; set; }

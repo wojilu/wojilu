@@ -116,7 +116,7 @@ namespace wojilu.Common.Polls.Domain {
         }
 
 
-        public Boolean CheckHasVote( int userId ) {
+        public bool CheckHasVote(long userId) {
 
             String typeName = this.GetType().FullName + "Result";
             Type t = ObjectContext.Instance.TypeList[typeName];

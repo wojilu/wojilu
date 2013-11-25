@@ -32,14 +32,14 @@ namespace wojilu.Web.Controller.Content.Section {
             sectionService = new ContentSectionService();
         }
 
-        public void SectionShow( int sectionId ) {
+        public void SectionShow( long sectionId ) {
 
             ContentSection s = sectionService.GetById( sectionId, ctx.app.Id );
             if (s == null) {
                 throw new Exception( lang( "exDataNotFound" ) + "=>page section:" + sectionId );
             }
 
-            int appId = ctx.app.Id;
+            long appId = ctx.app.Id;
             int postcat = PostCategory.Post;
             int imgcat = PostCategory.Img;
 
@@ -49,11 +49,11 @@ namespace wojilu.Web.Controller.Content.Section {
             bindSectionShow( posts, img );
         }
 
-        public void List( int sectionId ) {
+        public void List( long sectionId ) {
             run( new ListController().List, sectionId );
         }
 
-        public void Show( int id ) {
+        public void Show( long id ) {
             run( new ListController().Show, id );
         }
 

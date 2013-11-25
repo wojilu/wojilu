@@ -35,7 +35,7 @@ namespace wojilu.Common.Microblogs.Service {
 
         //------------------------------------------------------------------------------------------
 
-        public virtual DataPage<Microblog> GetPageAllByUser( int userId, int pageSize ) {
+        public virtual DataPage<Microblog> GetPageAllByUser(long userId, int pageSize) {
 
             if (userId <= 0) return GetPageAll( pageSize );
 
@@ -104,7 +104,7 @@ namespace wojilu.Common.Microblogs.Service {
 
         public virtual void DeleteSysBatch( string ids ) {
 
-            int[] arrIds = cvt.ToIntArray( ids );
+            long[] arrIds = cvt.ToLongArray( ids );
             if (arrIds.Length == 0) return;
 
             Microblog.updateBatch( "SaveStatus=" + SaveStatus.SysDelete, "id in (" + ids + ")" );
@@ -112,7 +112,7 @@ namespace wojilu.Common.Microblogs.Service {
 
 
         public void RestoreSysBatch( string ids ) {
-            int[] arrIds = cvt.ToIntArray( ids );
+            long[] arrIds = cvt.ToLongArray( ids );
             if (arrIds.Length == 0) return;
 
             Microblog.updateBatch( "SaveStatus=" + SaveStatus.Normal, "id in (" + ids + ")" );
@@ -124,7 +124,7 @@ namespace wojilu.Common.Microblogs.Service {
 
         public virtual void DeleteTrueBatch( string ids ) {
 
-            int[] arrIds = cvt.ToIntArray( ids );
+            long[] arrIds = cvt.ToLongArray( ids );
             if (arrIds.Length == 0) return;
 
             Microblog.deleteBatch( "id in (" + ids + ")" );

@@ -14,17 +14,17 @@ namespace wojilu.Apps.Blog.Service {
     public class BlogrollService : IBlogrollService {
 
 
-        public virtual List<Blogroll> GetByApp( int appId, int ownerId ) {
+        public virtual List<Blogroll> GetByApp(long appId, long ownerId) {
             return db.find<Blogroll>( "OwnerId=" + ownerId + " and AppId=" + appId + " order by OrderId desc" ).list();
         }
 
-        public virtual Blogroll GetById( int id, int appId ) {
+        public virtual Blogroll GetById(long id, long appId) {
             Blogroll blogroll = db.findById<Blogroll>( id );
             if ((blogroll != null) && (blogroll.AppId != appId)) return null;
             return blogroll;
         }
 
-        public virtual void Insert( Blogroll roll, int ownerId, int appId ) {
+        public virtual void Insert(Blogroll roll, long ownerId, long appId) {
             roll.AppId = appId;
             roll.OwnerId = ownerId;
             db.insert( roll );

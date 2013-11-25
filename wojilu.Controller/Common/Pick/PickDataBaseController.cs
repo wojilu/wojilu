@@ -122,13 +122,13 @@ namespace wojilu.Web.Controller.Common {
 
         // 1）编辑
         //-----------------------------------------------------------------------
-        public void EditPin( int index ) { // 广告编辑
+        public void EditPin( long index ) { // 广告编辑
 
             target( UpdatePin, index );
 
-            set( "indexIds", pickService.GetIndexIds( ctx.app.Id, index ) );
+            set( "indexIds", pickService.GetIndexIds( ctx.app.Id, (int)index ) );
 
-            TPick customPost = pickService.GetPinPostByIndex( ctx.app.Id, index );
+            TPick customPost = pickService.GetPinPostByIndex( ctx.app.Id, (int)index );
             if (customPost == null) throw new NullReferenceException( "EditPin" );
 
             set( "x.Title", strUtil.EncodeTextarea( customPost.Title ) );
@@ -138,7 +138,7 @@ namespace wojilu.Web.Controller.Common {
             set( "x.PinIndex", customPost.PinIndex );
         }
 
-        public void EditTopic( int topicId ) { // 普通topic编辑
+        public void EditTopic( long topicId ) { // 普通topic编辑
 
             target( UpdateTopic, topicId );
 
@@ -164,9 +164,9 @@ namespace wojilu.Web.Controller.Common {
         }
 
         [HttpPost]
-        public void UpdatePin( int index ) {
+        public void UpdatePin( long index ) {
 
-            TPick customPost = pickService.GetPinPostByIndex( ctx.app.Id, index );
+            TPick customPost = pickService.GetPinPostByIndex( ctx.app.Id, (int)index );
             if (customPost == null) throw new NullReferenceException( "UpdatePin " );
 
             pickService.EditPinPost( customPost, ctx.PostInt( "Index" ),
@@ -179,7 +179,7 @@ namespace wojilu.Web.Controller.Common {
         }
 
         [HttpPost]
-        public void UpdateTopic( int topicId ) {
+        public void UpdateTopic( long topicId ) {
 
             pickService.EditTopic( ctx.app.Id, topicId,
                 ctx.PostHtml( "Title" ),
@@ -221,7 +221,7 @@ namespace wojilu.Web.Controller.Common {
             }
         }
 
-        public void PinTopic( int topicId ) { // 主题pin
+        public void PinTopic( long topicId ) { // 主题pin
 
             target( SavePinTopic, topicId );
 
@@ -235,7 +235,7 @@ namespace wojilu.Web.Controller.Common {
         }
 
         [HttpPost]
-        public void SavePinTopic( int topicId ) {
+        public void SavePinTopic( long topicId ) {
 
             int idx = ctx.PostInt( "Index" );
             if (idx <= 0) {
@@ -260,22 +260,22 @@ namespace wojilu.Web.Controller.Common {
 
         // 3）删除与恢复
         //-----------------------------------------------------------------------
-        public void DeletePinConfirm( int index ) {
+        public void DeletePinConfirm( long index ) {
             target( DeletePin, index );
         }
 
         [HttpPost]
-        public void DeletePin( int index ) {
-            pickService.DeletePinPost( ctx.app.Id, index );
+        public void DeletePin( long index ) {
+            pickService.DeletePinPost( ctx.app.Id, (int)index );
             echoToParentPart( lang( "opok" ) );
         }
 
-        public void DeleteTopicConfirm( int topicId ) {
+        public void DeleteTopicConfirm( long topicId ) {
             target( DeleteTopic, topicId );
         }
 
         [HttpPost]
-        public void DeleteTopic( int topicId ) {
+        public void DeleteTopic( long topicId ) {
 
             pickService.DeleteTopic( ctx.app.Id, topicId );
 
@@ -307,7 +307,7 @@ namespace wojilu.Web.Controller.Common {
             set( "page", list.PageBar );
         }
 
-        public void Restore( int id ) {
+        public void Restore( long id ) {
 
             pickService.RestoreTopic( ctx.app.Id, id );
 
@@ -315,7 +315,7 @@ namespace wojilu.Web.Controller.Common {
 
         }
 
-        private TData getTopic( int topicId ) {
+        private TData getTopic( long topicId ) {
             if (topicId <= 0) return default( TData );
             return (TData)db.findById<TData>( topicId );
         }

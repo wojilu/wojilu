@@ -14,7 +14,7 @@ namespace wojilu.Common.AppBase {
 
     public class AppFactory {
 
-        public static IApp Create( int appInfoId, IMember owner, AccessStatus accessStatus ) {
+        public static IApp Create(long appInfoId, IMember owner, AccessStatus accessStatus) {
 
             return CreateApp( new AppInstallerService().GetById( appInfoId ), owner, accessStatus );
         }

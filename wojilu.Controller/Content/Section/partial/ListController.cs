@@ -58,7 +58,7 @@ namespace wojilu.Web.Controller.Content.Section {
         }
 
 
-        private void bindDetail( int id, ContentPost post ) {
+        private void bindDetail( long id, ContentPost post ) {
 
             String content;
 

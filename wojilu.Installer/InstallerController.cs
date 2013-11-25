@@ -142,7 +142,7 @@ namespace wojilu.Web.Controller {
                 updateSiteName( siteName );
 
                 // 5）安装app
-                int siteType = ctx.PostInt( "siteType" );
+                int siteType = ctx.PostLong( "siteType" );
                 initSiteApp( siteType, user );
 
                 echoAjaxOk();

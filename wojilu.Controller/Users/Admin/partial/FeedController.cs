@@ -31,7 +31,7 @@ namespace wojilu.Web.Controller.Users.Admin {
         }
 
         private String getTypeLink( Type t ) {
-            int userId = ctx.GetInt( "uid" );
+            long userId = ctx.GetLong( "uid" );
             if (userId <= 0)
                 return to( My, FeedType.Get( t ) );
             return to( My, FeedType.Get( t ) ) + "?uid=" + userId;

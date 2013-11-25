@@ -39,7 +39,7 @@ namespace wojilu.Web.Controller.Forum.Users {
 
         public void NewQ() {
 
-            int id = ctx.GetInt( "boardId" );
+            long id = ctx.GetLong( "boardId" );
 
             ForumBoard board = getTree().GetById( id );
             if (board == null) {
@@ -58,7 +58,7 @@ namespace wojilu.Web.Controller.Forum.Users {
 
         public void NewTopic() {
 
-            int id = ctx.GetInt( "boardId" );
+            long id = ctx.GetLong( "boardId" );
 
             ForumBoard board = getTree().GetById( id );
             if (board == null) {
@@ -81,7 +81,7 @@ namespace wojilu.Web.Controller.Forum.Users {
 
         }
 
-        private void bindAddForm( int id ) {
+        private void bindAddForm( long id ) {
             set( "ActionLink", to( Create ) + "?boardId=" + id );
             setCategory( id );
             set( "Title", ctx.Post( "Title" ) );
@@ -102,7 +102,7 @@ namespace wojilu.Web.Controller.Forum.Users {
                 return;
             }
 
-            int boardId = ctx.GetInt( "boardId" );
+            long boardId = ctx.GetLong( "boardId" );
 
             ForumBoard board = boardService.GetById( boardId, ctx.owner.obj );
             if (board == null) {
@@ -150,11 +150,11 @@ namespace wojilu.Web.Controller.Forum.Users {
             attachService.CreateByTemp( ids, topic );
         }
 
-        private void setCategory( int id ) {
+        private void setCategory( long id ) {
             List<ForumCategory> categories = categoryService.GetByBoard( id );
             if (categories.Count > 0) {
                 categories.Insert( 0, new ForumCategory( 0, alang( "plsSelectCategory" ) ) );
-                set( "Category", "<div id=\"forum-form-cat\">"+ Html.DropList( categories, "CategoryId", "Name", "Id", ctx.PostInt( "CategoryId" ) ) + "</div>" );
+                set( "Category", "<div id=\"forum-form-cat\">"+ Html.DropList( categories, "CategoryId", "Name", "Id", ctx.PostLong( "CategoryId" ) ) + "</div>" );
             }
             else {
                 set( "Category", string.Empty );
@@ -165,7 +165,7 @@ namespace wojilu.Web.Controller.Forum.Users {
             List<ForumCategory> categories = categoryService.GetByBoard( board.Id );
             if (categories.Count > 0) {
                 categories.Insert( 0, new ForumCategory( 0, alang( "plsSelectCategory" ) ) );
-                int categoryId = topic.Category == null ? 0 : topic.Category.Id;
+                long categoryId = topic.Category == null ? 0 : topic.Category.Id;
                 set( "post.Category", Html.DropList( categories, "CategoryId", "Name", "Id", categoryId ) );
             }
             else {

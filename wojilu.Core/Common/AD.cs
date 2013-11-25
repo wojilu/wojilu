@@ -25,7 +25,7 @@ namespace wojilu.Common {
     /// </summary>
     public class AdCategory : CacheObject {
 
-        public static String GetName( int id ) {
+        public static string GetName(long id) {
             AdCategory c = cdb.findById<AdCategory>( id );
             return c == null ? "" : c.Name;
         }

@@ -41,7 +41,7 @@ namespace wojilu.Web.Controller.Content.Htmls {
             cdb.insert( item );
         }
 
-        public static void ImportPost( List<int> ids ) {
+        public static void ImportPost(List<long> ids) {
 
             if (ids == null || ids.Count == 0) return;
 
