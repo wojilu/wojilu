@@ -12387,7 +12387,11 @@ wojilu.ui.valid = function() {
         if( rule=='password2' ) {
             var result = inputValue.search( arrRule['password'] );
             var form = validSpan.closest('form');
-            var isSame = ( inputValue==$( ':password', form[0] ).not(getTarget(validSpan)).val() );
+            
+            var pwdName1 = validSpan.attr( 'pwd1' );
+            var pwd1 = $('input[name='+pwdName1 +']',form);
+            var isSame = ( inputValue==pwd1.val() );
+            
             var pwdResult = (result==-1 || isSame==false)?-1:0;
             setMsg( pwdResult, validSpan, msg );
             return;

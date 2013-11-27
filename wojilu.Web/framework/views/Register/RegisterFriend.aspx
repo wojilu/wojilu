@@ -78,7 +78,7 @@ div.lgReginfo {padding:10px 0px 20px 20px;}
 		</tr>
 		<tr>
 			<td class="right">_{confirmPwd}</td>
-			<td><input name="Password2" type="password" value="#{m.Password2}"> <span class="valid" msg="_{confirmPwdNote}" show="true" rule="password2"></span></td>
+			<td><input name="Password2" type="password" value="#{m.Password2}"> <span class="valid" msg="_{confirmPwdNote}" show="true" rule="password2" pwd1="Password1"></span></td>
 		</tr>
 		<tr>
 			<td class="right">_{gender}</td>
