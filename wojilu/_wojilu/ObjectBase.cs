@@ -87,6 +87,14 @@ namespace wojilu {
         public static T findById( long id ) { return db.findById<T>( id ); }
 
         /// <summary>
+        /// 根据查询条件，只返回一条结果
+        /// </summary>
+        /// <param name="condition"></param>
+        /// <returns></returns>
+        public static T findOne( String condition ) { return db.findOne<T>( condition ); }
+
+
+        /// <summary>
         /// 统计所有的数据量
         /// </summary>
         /// <returns></returns>

@@ -72,6 +72,16 @@ namespace wojilu {
         }
 
         /// <summary>
+        /// 根据查询条件，只返回一条结果
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="condition"></param>
+        /// <returns></returns>
+        public static T findOne<T>( String condition ) where T : IEntity {
+            return find<T>( condition ).first();
+        }
+
+        /// <summary>
         /// 根据查询条件，返回一个查询对象。一般用于参数化查询。
         /// </summary>
         /// <typeparam name="T"></typeparam>
