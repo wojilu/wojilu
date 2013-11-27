@@ -427,7 +427,7 @@ namespace wojilu {
         /// <param name="dropName">下拉列表name</param>
         /// <param name="selectValue">当前选定的值</param>
         /// <returns></returns>
-        public String DropList( String dropName, int selectValue ) {
+        public String DropList( String dropName, long selectValue ) {
             return DropList( dropName, selectValue, 0, null );
         }
 
