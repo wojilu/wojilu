@@ -64,7 +64,7 @@ namespace wojilu.Web.Controller.Poll.Utils {
                 days = 0;
             }
 
-            T poll = (T)ObjectContext.CreateObject( typeof( T ) );
+            T poll = (T)ObjectContext.Create( typeof( T ) );
             poll.Title = title;
             poll.Question = question;
             poll.Answer = strAnswer;

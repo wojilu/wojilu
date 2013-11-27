@@ -61,7 +61,7 @@ namespace wojilu.Common {
                 if (kv.Value.IsAbstract) continue;
                 if (rft.IsInterface( kv.Value, typeof( IMemberAppService ) ) == false) continue;
 
-                IMemberAppService obj = ObjectContext.CreateObject( kv.Value ) as IMemberAppService;
+                IMemberAppService obj = ObjectContext.Create( kv.Value ) as IMemberAppService;
 
                 map.Add( obj.GetMemberType(), obj );
 
@@ -79,7 +79,7 @@ namespace wojilu.Common {
                 if (kv.Value.IsAbstract) continue;
                 if (rft.IsInterface( kv.Value, typeof( IMenuService ) ) == false) continue;
 
-                IMenuService obj = ObjectContext.CreateObject( kv.Value ) as IMenuService;
+                IMenuService obj = ObjectContext.Create( kv.Value ) as IMenuService;
 
                 map.Add( obj.GetMemberType(), obj );
 

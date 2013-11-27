@@ -21,10 +21,6 @@ namespace wojilu.Web.Controller.Blog {
     public partial class BlogController : ControllerBase {
 
         public IBlogPostService postService { get; set; }
-
-        public BlogController() {
-            postService = new BlogPostService();
-        }
         
         [CacheAction( typeof( BlogIndexCache ) )]
         public void Index() {

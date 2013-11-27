@@ -18,7 +18,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Reflection;
-
+using System.Text;
 using wojilu.Aop;
 using wojilu.DI;
 using wojilu.Reflection;
@@ -206,7 +206,13 @@ namespace wojilu {
 
             if (result == null) {
 
-                result = CreateObject( t );
+                MapItem mapItem = getMapItemByType( t );
+
+                if (mapItem == null) {
+                    mapItem = new MapItem();
+                    mapItem.TargetType = t;
+                }
+                result = createInstanceAndInject( mapItem );
 
                 Instance.ObjectsByType[t.FullName] = result;
 
@@ -215,6 +221,8 @@ namespace wojilu {
             return result;
         }
 
+        //-------------------------------------------------------------------------------
+
         /// <summary>
         /// 创建一个经过Aop和Ioc处理的对象，结果不是单例。
         /// 如果需要拦截，则创建代理子类；然后检测是否需要注入。
@@ -222,19 +230,7 @@ namespace wojilu {
         /// <typeparam name="T"></typeparam>
         /// <returns></returns>
         public static T Create<T>() {
-            return (T)CreateObject( typeof( T ) );
-        }
-
-        /// <summary>
-        /// 创建一个经过Aop和Ioc处理的对象，结果不是单例。
-        /// 如果需要拦截，则创建代理子类；然后检测是否需要注入。
-        /// </summary>
-        /// <param name="typeFullName"></param>
-        /// <returns></returns>
-        public static Object CreateObject( String typeFullName ) {
-            Type t = GetType( typeFullName );
-            if (t == null) return null;
-            return CreateObject( t );
+            return (T)CreateObject( typeof( T ), null );
         }
 
         /// <summary>
@@ -244,7 +240,9 @@ namespace wojilu {
         /// <param name="typeFullName"></param>
         /// <returns></returns>
         public static Object Create( String typeFullName ) {
-            return CreateObject( typeFullName );
+            Type t = GetType( typeFullName );
+            if (t == null) return null;
+            return CreateObject( t );
         }
 
         /// <summary>
@@ -263,7 +261,25 @@ namespace wojilu {
         /// </summary>
         /// <param name="targetType"></param>
         /// <returns></returns>
-        public static Object CreateObject( Type targetType ) {
+        private static Object CreateObject( Type targetType ) {
+            return CreateObject( targetType, null );
+        }
+
+        /// <summary>
+        /// 创建一个经过Aop和Ioc处理的对象，结果不是单例。
+        /// 如果需要拦截，则创建代理子类；然后检测是否需要注入。
+        /// </summary>
+        /// <param name="targetType"></param>
+        /// <param name="invokerName">如果是根据接口自动装配，</param>
+        /// <returns></returns>
+        private static Object CreateObject( Type targetType, Object invoker ) {
+
+            if (targetType == null) return null;
+
+            if (targetType.IsInterface) {
+                return CreateByInterface( targetType, invoker );
+            }
+
             Object objTarget = AopContext.CreateObjectBySub( targetType );
             Inject( objTarget );
             return objTarget;
@@ -293,31 +309,83 @@ namespace wojilu {
             return objTarget;
         }
 
+        //----------------------------------------------------------
+
         /// <summary>
-        /// 根据type，不从缓存(pool)中取，而是全新创建实例(有注入的就注入，没有注入的直接生成)，肯定不是单例
+        /// 根据接口创建实例。如果没有在MapItem中指定，则自动装配。
         /// </summary>
         /// <param name="t"></param>
+        /// <param name="invokerName">调用者，供map注入使用。要求在map中唯一，推荐当前对象或type</param>
         /// <returns></returns>
-        public static Object CreateObjectByIoc( Type t ) {
-            if (t == null) return null;
+        public static Object CreateByInterface( Type t, Object invoker ) {
 
-            MapItem mapItem = getMapItemByType( t );
-            if (mapItem == null)
-                return rft.GetInstance( t );
-            else
-                return createInstanceAndInject( mapItem );
+            var invokerName = getInvokerName( invoker );
+
+            // 根据map创建对象
+            if (strUtil.HasText( invokerName )) {
+
+                Object ret = ObjectContext.GetByName( invokerName );
+                if (ret != null) return ret;
+
+            }
+
+            // 自动装配
+            return getAutoWiredValue( t );
         }
 
-        /// <summary>
-        /// 根据type，不从缓存(pool)中取，而是全新创建实例(有注入的就注入，没有注入的直接生成)，肯定不是单例
-        /// </summary>
-        /// <param name="typeFullName"></param>
-        /// <returns></returns>
-        public static Object CreateObjectByIoc( String typeFullName ) {
-            Type t = GetType( typeFullName );
-            if (t == null) return null;
-            return CreateObjectByIoc( t );
+        private static string getInvokerName( object invoker ) {
+
+            if (invoker == null) return null;
+
+            // 1) string
+            if (invoker is String) {
+                return invoker.ToString();
+            }
+
+            // 2) type
+            Type type = invoker as Type;
+            if (type != null) {
+                return type.FullName;
+            }
+
+            // 3) object
+            return invoker.GetType().FullName;
         }
+
+        // 根据接口，获取自动绑定的值
+        private static Object getAutoWiredValue( Type interfaceType ) {
+
+            List<Type> typeList = GetTypeListByInterface( interfaceType );
+            if (typeList.Count == 0) {
+                return null; // 返回null
+            }
+            else if (typeList.Count == 1) {
+                return ObjectContext.Create( typeList[0], interfaceType );
+            }
+            else {
+                StringBuilder msg = new StringBuilder();
+                foreach (Type t in typeList) {
+                    msg.Append( t.FullName + "," );
+                }
+                throw new Exception( string.Format( "有多个接口实现，接口={0}，实现={1} 没有明确指定，无法自动注入。", interfaceType.FullName, msg ) );
+            }
+        }
+
+        // 根据接口获取实例
+        public static List<Type> GetTypeListByInterface( Type interfaceType ) {
+
+            List<Type> typeList = new List<Type>();
+            foreach (KeyValuePair<String, Type> kv in ObjectContext.Instance.TypeList) {
+
+                if (rft.IsInterface( kv.Value, interfaceType )) {
+                    typeList.Add( kv.Value );
+                }
+            }
+
+            return typeList;
+        }
+
+        //----------------------------------------------------------
 
 
         private static MapItem getMapItemByType( Type t ) {
@@ -330,18 +398,83 @@ namespace wojilu {
             return null;
         }
 
-        private static Object createInstanceAndInject( MapItem item ) {
-            Object currentObject = rft.GetInstance( item.TargetObject.GetType() );
-            Dictionary<String, String> maps = item.Map;
-            if (maps.Count > 0) {
-                foreach (KeyValuePair<String, String> entry in maps) {
-                    Object propertyValue = GetByName( entry.Value );
-                    if (propertyValue != null) {
-                        ReflectionUtil.SetPropertyValue( currentObject, entry.Key, propertyValue );
+
+        // IOC注入：检查对象的属性，根据配置注入，如果没有配置，则自动装配
+        private static Object createInstanceAndInject( MapItem mapItem ) {
+            return createInstanceAndInject( mapItem, null );
+        }
+
+        /// <summary>
+        /// IOC注入：检查对象的属性，根据配置注入，如果没有配置，则自动装配
+        /// </summary>
+        /// <param name="mapItem"></param>
+        /// <returns></returns>
+        private static Object createInstanceAndInject( MapItem mapItem, Object objTarget ) {
+
+            Type targetType = mapItem.TargetType;
+            if (targetType.IsAbstract) {
+                logger.Info( "type is abstract=>" + targetType.FullName );
+                return null;
+            }
+
+            if (objTarget == null) {
+                objTarget = rft.GetInstance( targetType );
+            }
+
+            logger.Info( "inject type=>" + targetType.FullName );
+
+            // 检查所有属性
+            PropertyInfo[] properties = targetType.GetProperties( BindingFlags.Public | BindingFlags.Instance );
+            foreach (PropertyInfo p in properties) {
+                if (!p.CanRead) continue;
+                if (!p.CanWrite) continue;
+
+                // 不是接口的跳过
+                if (!p.PropertyType.IsInterface) continue;
+
+
+                // 对接口进行注入检查
+                //-------------------------------------------------
+
+                // 如果有注入配置
+                Object mapValue = getMapValue( mapItem.Map, p );
+                if (mapValue != null) {
+                    p.SetValue( objTarget, mapValue, null );
+                }
+                // 如果没有注入
+                else {
+                    Object propertyValue = p.GetValue( objTarget, null );
+                    // 自动装配
+                    if (propertyValue == null) {
+
+                        logger.Info( "property=>" + targetType.Name + "." + p.Name );
+
+                        propertyValue = getAutoWiredValue( p.PropertyType );
+                        if (propertyValue != null) {
+                            p.SetValue( objTarget, propertyValue, null );
+                        }
+                        else {
+                            logger.Info( "property is null=>" + p.Name );
+                        }
                     }
                 }
+
+
             }
-            return currentObject;
+
+
+            return objTarget;
+        }
+
+        private static Object getMapValue( Dictionary<String, String> maps, PropertyInfo p ) {
+
+            if (maps == null || maps.Count == 0) return null;
+
+            foreach (KeyValuePair<String, String> entry in maps) {
+                Object x = GetByName( entry.Value );
+                if (x != null) return x;
+            }
+            return null;
         }
 
 
@@ -559,9 +692,8 @@ namespace wojilu {
             ctx.ObjectsByName = namedObjects;
         }
 
-
         /// <summary>
-        /// 根据容器配置，将依赖关系注入到已创建的对象中
+        /// 根据容器配置(IOC)，将依赖关系注入到已创建的对象中
         /// </summary>
         /// <param name="obj"></param>
         public static void Inject( Object obj ) {
@@ -570,33 +702,15 @@ namespace wojilu {
 
             Type t = obj.GetType();
 
-            Dictionary<String, MapItem> resolvedMap = ObjectContext.Instance.ResolvedMap;
-
-            foreach (KeyValuePair<String, MapItem> pair in resolvedMap) {
-
-                MapItem item = pair.Value;
-                if (item.Type.Equals( t.FullName ) == false) continue;
-
-                Dictionary<String, String> maps = item.Map;
-                if (maps.Count <= 0) return;
-
-                injectObjectSingle( obj, resolvedMap, maps );
-                return;
-
+            MapItem mapItem = getMapItemByType( t );
+            if (mapItem == null) {
+                mapItem = new MapItem();
+                mapItem.TargetType = t;
+                mapItem.TargetObject = obj;
             }
-        }
 
-        private static void injectObjectSingle( Object obj, Dictionary<String, MapItem> resolvedMap, Dictionary<String, String> maps ) {
-            foreach (KeyValuePair<String, String> entry in maps) {
+            createInstanceAndInject( mapItem, obj );
 
-                logger.Info( "------inject key:" + entry.Key );
-                MapItem referencedItem;
-                resolvedMap.TryGetValue( entry.Value, out referencedItem );
-                if (referencedItem != null) {
-                    ReflectionUtil.SetPropertyValue( obj, entry.Key, referencedItem.TargetObject );
-                }
-
-            }
         }
 
     }

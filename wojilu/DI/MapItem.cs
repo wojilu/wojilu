@@ -69,6 +69,20 @@ namespace wojilu.DI {
             set { _obj = value; }
         }
 
+        private Type _type;
+
+        [NotSave]
+        internal Type TargetType {
+            get {
+
+                if (_type != null) return _type;
+                if (TargetObject != null) return TargetObject.GetType();
+                return null;
+
+            }
+            set { _type = value; }
+        }
+
     }
 }
 

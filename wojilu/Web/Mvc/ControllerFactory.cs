@@ -96,8 +96,17 @@ namespace wojilu.Web.Mvc {
         public static ControllerBase FindController( Type controllerType, MvcContext ctx ) {
             if (controllerType == null) return null;
 
-            ControllerBase controller = ObjectContext.CreateObject( controllerType ) as ControllerBase;
+            ControllerBase controller = null;
+
+            try {
+                controller = ObjectContext.Create( controllerType ) as ControllerBase;
+            }
+            catch (Exception ex) {
+                throw new Exception( "创建控制器失败，controller=" + controllerType.FullName, ex );
+            }
+
             if (controller == null) return null;
+
             ObjectContext.InterceptProperty( controller );
             controller.setContext( ctx );
             setControllerAppInfo( controllerType, controller );

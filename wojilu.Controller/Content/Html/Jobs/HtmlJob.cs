@@ -33,7 +33,7 @@ namespace wojilu.Web.Controller.Content.Htmls {
 
             try {
 
-                Object p = ObjectContext.CreateObject( x.Name );
+                Object p = ObjectContext.Create( x.Name );
 
                 if (strUtil.HasText( x.Ids )) {
                     rft.CallMethod( p, x.Method, new object[] { x.Ids } );

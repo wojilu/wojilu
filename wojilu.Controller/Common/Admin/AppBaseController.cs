@@ -190,7 +190,7 @@ namespace wojilu.Web.Controller.Common.Admin {
                 // 主题ID
                 String themeId = ctx.Post( "themeId" );
 
-                IAppInstaller customInstaller = ObjectContext.CreateObject( appType ) as IAppInstaller;
+                IAppInstaller customInstaller = ObjectContext.Create( appType ) as IAppInstaller;
                 IMemberApp capp = customInstaller.Install( ctx, ctx.owner.obj, name, accs, themeId, "" );
                 intiAppPermission( capp );
 
@@ -207,7 +207,7 @@ namespace wojilu.Web.Controller.Common.Admin {
 
                 Type installerType = ObjectContext.GetType( info.InstallerType );
 
-                IAppInstaller customInstaller = ObjectContext.CreateObject( installerType ) as IAppInstaller;
+                IAppInstaller customInstaller = ObjectContext.Create( installerType ) as IAppInstaller;
                 IMemberApp capp = customInstaller.Install( ctx, ctx.owner.obj, name, accs, themeId, "" );
                 intiAppPermission( capp );
 

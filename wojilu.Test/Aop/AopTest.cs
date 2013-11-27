@@ -38,7 +38,7 @@ namespace wojilu.Test.Aop {
         [Test]
         public void testIocAndAop() {
 
-            TComplexObject obj = ObjectContext.CreateObject( typeof( TComplexObject ) ) as TComplexObject;
+            TComplexObject obj = ObjectContext.Create( typeof( TComplexObject ) ) as TComplexObject;
             obj.Save();
 
         }

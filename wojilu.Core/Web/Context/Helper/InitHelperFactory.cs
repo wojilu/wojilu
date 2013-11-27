@@ -23,7 +23,7 @@ namespace wojilu.Web.Context {
 
                 if (rft.IsInterface( kv.Value, typeof( IInitHelper ) ) == false) continue;
 
-                IInitHelper obj = ObjectContext.CreateObject( kv.Value ) as IInitHelper;
+                IInitHelper obj = ObjectContext.Create( kv.Value ) as IInitHelper;
 
                 map.Add( obj.GetMemberType().Name.ToLower(), obj );
 

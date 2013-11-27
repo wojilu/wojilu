@@ -56,7 +56,7 @@ namespace wojilu.Web.Mvc.Processors {
             List<ActionObserver> actionObservers = ControllerMeta.GetActionObservers( controller.GetType(), ctx.route.action );
             if (actionObservers != null) {
                 foreach (ActionObserver x in actionObservers) {
-                    ActionObserver ob = (ActionObserver)ObjectContext.CreateObject( x.GetType() );
+                    ActionObserver ob = (ActionObserver)ObjectContext.Create( x.GetType() );
                     obList.Add( ob );
                     Boolean isContinue = ob.BeforeAction( ctx );
                     if (!isContinue) return;
