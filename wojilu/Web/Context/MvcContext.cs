@@ -635,6 +635,18 @@ namespace wojilu.Web.Context {
         }
 
         /// <summary>
+        /// 从客户端提交的数据中获取某项的值，并转换成long
+        /// </summary>
+        /// <param name="postItem"></param>
+        /// <returns></returns>
+        public long ParamLong( String postItem ) {
+            if ((_context.param( postItem ) != null) && cvt.IsLong( _context.param( postItem ) )) {
+                return Int64.Parse( _context.param( postItem ) );
+            }
+            return 0;
+        }
+
+        /// <summary>
         /// 从客户端提交的数据中获取某项的值，并转换成 Decimal
         /// </summary>
         /// <param name="postItem"></param>

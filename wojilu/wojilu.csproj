@@ -92,6 +92,7 @@
     <Compile Include="Aop\MethodInvocation.cs" />
     <Compile Include="Aop\ObservedMethod.cs" />
     <Compile Include="Aop\ObservedType.cs" />
+    <Compile Include="Data\DbUtil.cs" />
     <Compile Include="Data\Factory\MysqlHelper.cs" />
     <Compile Include="Drawing\ThumbInfo.cs" />
     <Compile Include="Drawing\ThumbConfig.cs" />

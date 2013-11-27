@@ -84,10 +84,7 @@ namespace wojilu.Data {
         protected virtual Object processValue( Object parameterValue ) {
 
             if (parameterValue is DateTime) {
-                DateTime time = (DateTime)parameterValue;
-                if ((time < new DateTime( 1800, 1, 1 )) || (time > new DateTime( 9000, 1, 1 ))) {
-                    parameterValue = DateTime.Now;
-                }
+                parameterValue = DbUtil.ProcessDefaultTime( parameterValue );
             }
             else if (parameterValue is string) {
                 parameterValue = parameterValue.ToString().Trim();

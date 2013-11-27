@@ -353,6 +353,7 @@ namespace wojilu.Web.Utils {
             foreach (String ext in types) {
                 if (strUtil.IsNullOrEmpty( ext )) continue;
                 String extWithDot = ext.StartsWith( "." ) ? ext : "." + ext;
+                if (extWithDot.Equals( ".*" )) return true;
                 if (strUtil.EqualsIgnoreCase( Path.GetExtension( pfile.FileName ), extWithDot )) return true;
             }
 

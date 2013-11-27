@@ -167,6 +167,11 @@ namespace wojilu.Net {
                 catch (SmtpException ex) {
                     String info = "send mail to " + to + " : " + title;
                     logger.Error( "[" + info + "] error : " + ex.ToString() );
+
+                    logger.Error( "msg.AddressTo=" + to );
+                    logger.Error( "msg.Subject=" + message.Subject );
+                    logger.Error( "msg.Body=" + message.Body );
+
                     return false;
                 }
 

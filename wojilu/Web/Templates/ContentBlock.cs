@@ -336,6 +336,7 @@ namespace wojilu.Web {
 
             if (val == null) {
                 this.Set( lbl, "" );
+                return;
             }
 
             if (val is DateTime) {

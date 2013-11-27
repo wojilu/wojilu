@@ -124,7 +124,7 @@ namespace wojilu.ORM {
                     arrIds = _ep_ids[info.ColumnName].ToString().Trim().TrimEnd( ',' ).Split( ',' );
 
                 foreach (String strId in arrIds) {
-                    IEntity cacheObj = ObjectPool.FindOne( info.EntityInfo.Type, cvt.ToInt( strId ) );
+                    IEntity cacheObj = ObjectPool.FindOne( info.EntityInfo.Type, cvt.ToLong( strId ) );
                     if (cacheObj != null) {
                         hashtable[getPropertyObjectKey( info.Name, cacheObj.Id )] = cacheObj;
                     }
