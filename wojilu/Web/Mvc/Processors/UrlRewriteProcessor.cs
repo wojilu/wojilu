@@ -15,14 +15,22 @@ namespace wojilu.Web.Mvc.Processors {
 
             foreach (KeyValuePair<String, String> kv in LinkMap.GetShortUrlMap()) {
 
+                if (strUtil.IsNullOrEmpty( kv.Value )) continue;
+
                 String sPath = strUtil.Join( "", kv.Key );
                 sPath = strUtil.Append( sPath, MvcConfig.Instance.UrlExt );
 
                 if (ctx.url.PathAndQueryWithouApp.Equals( sPath )) {
 
-                    String newUrl = strUtil.Join( ctx.url.SiteAndAppPath, kv.Value );
+                    if (kv.Value.StartsWith( "http:" )) {
+                        ctx.web.Redirect( kv.Value );
+                        ctx.utils.end();
+                    }
+                    else {
+                        String newUrl = strUtil.Join( ctx.url.SiteAndAppPath, kv.Value );
+                        ctx.setUrl( newUrl );
+                    }
 
-                    ctx.setUrl( newUrl );
                 }
 
             }
