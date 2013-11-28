@@ -148,8 +148,10 @@ namespace wojilu.ORM {
                 map = loadByReflection();
                 EasyDB.SaveToFile( map, dllPath );
             }
-            else
+            else {
                 logger.Info( "load meta from cache" );
+            }
+
 
             checkMultiDB( map );
 
@@ -307,8 +309,9 @@ namespace wojilu.ORM {
             foreach (KeyValuePair<String, ConnectionString> kv in DbConfig.Instance.GetConnectionStringMap()) {
 
                 String connectionString = kv.Value.StringContent;
-                if (strUtil.IsNullOrEmpty( connectionString ))
+                if (strUtil.IsNullOrEmpty( connectionString )) {
                     throw new NotImplementedException( lang.get( "exConnectionString" ) + ":" + kv.Key );
+                }
 
                 DatabaseType dbtype = kv.Value.DbType;
 

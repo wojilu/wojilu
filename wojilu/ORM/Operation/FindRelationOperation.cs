@@ -45,7 +45,7 @@ namespace wojilu.ORM.Operation {
             ObjectInfo state = new ObjectInfo( throughType );
             String relationPropertyName = state.EntityInfo.GetRelationPropertyName( t );
             EntityPropertyInfo info = state.EntityInfo.FindRelationProperty( t );
-            String ids = ObjectDB.Find(state, relationPropertyName + ".Id=" + id ).get( info.Name + ".Id" );
+            String ids = ObjectDB.Find( state, relationPropertyName + ".Id=" + id ).get( info.Name + ".Id" );
             EntityPropertyInfo property = state.EntityInfo.GetProperty( relationPropertyName );
 
 
@@ -63,7 +63,7 @@ namespace wojilu.ORM.Operation {
             }
             catch (Exception exception) {
                 logger.Error( exception.Message );
-                throw exception;
+                throw new OrmException( exception.Message, exception );
             }
             finally {
                 OrmHelper.CloseDataReader( rd );

@@ -69,7 +69,7 @@ namespace wojilu.ORM.Operation {
             catch (Exception ex) {
                 logger.Error( ex.Message );
                 logger.Error( ex.StackTrace );
-                throw ex;
+                throw new OrmException( ex.Message, ex );
             }
             finally {
                 OrmHelper.CloseDataReader( record );

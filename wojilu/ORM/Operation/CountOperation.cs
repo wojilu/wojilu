@@ -44,14 +44,14 @@ namespace wojilu.ORM.Operation {
             else {
                 countSql = builder.GetCountSql( condition );
             }
-            logger.Info( LoggerUtil.SqlPrefix+"[Count(String condition) Sql]:" + countSql );
+            logger.Info( LoggerUtil.SqlPrefix + "[Count(String condition) Sql]:" + countSql );
             IDbCommand command = DataFactory.GetCommand( countSql, DbContext.getConnection( entityInfo ) );
             try {
                 result = cvt.ToInt( command.ExecuteScalar() );
             }
             catch (Exception exception) {
                 logger.Error( exception.Message );
-                throw exception;
+                throw new OrmException( exception.Message, exception );
             }
 
             return result;

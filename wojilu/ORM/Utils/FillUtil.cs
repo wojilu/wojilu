@@ -51,9 +51,10 @@ namespace wojilu.ORM {
 
                 }
                 catch (Exception ex) {
-                    logger.Error( ex.Message + "=" + ep.Name + "_" + ep.Type );
+                    String msg = string.Format( "{0}=>{1}_{2}", ex.Message, ep.Type.FullName, ep.Name );
+                    logger.Error( msg );
                     logger.Error( ex.StackTrace );
-                    throw ex;
+                    throw new OrmException( msg, ex );
                 }
 
             }

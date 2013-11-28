@@ -82,7 +82,7 @@ namespace wojilu.ORM {
                 logger.Error( "sql=>" + sql );
                 logger.Error( ex.Message );
                 logger.Error( ex.StackTrace );
-                throw ex;
+                throw new OrmException( ex.Message, ex );
             }
             finally {
                 OrmHelper.CloseDataReader( rd );
