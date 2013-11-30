@@ -34,10 +34,10 @@ namespace wojilu.Web.Controller.Microblogs {
         [Login, HttpPost, DbTransaction]
         public void Create() {
 
-            if (Component.IsClose( typeof( MicroblogApp ) )) {
-                content( "对不起，微博功能暂停运行" );
-                return;
-            }
+            //if (Component.IsClose( typeof( MicroblogApp ) )) {
+            //    content( "对不起，微博功能暂停运行" );
+            //    return;
+            //}
 
             String blogContent = ctx.Post( "Content" );
             if (strUtil.IsNullOrEmpty( blogContent )) {

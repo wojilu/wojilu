@@ -61,14 +61,12 @@ namespace wojilu.Web.Controller.Users.Admin {
 
             //load( "publish", new Microblogs.My.MbSaveController().Publish );
 
-            if (Component.IsClose( typeof( MicroblogApp ) )) {
-                set( "publish", "" );
-            }
-            else {
-
+            //if (Component.IsClose( typeof( MicroblogApp ) )) {
+            //    set( "publish", "" );
+            //}
+            //else {
                 load( "publish", new Microblogs.My.MicroblogController().Publisher );
-
-            }
+            //}
 
             bindFeedTypes();
 

@@ -12,10 +12,10 @@ namespace wojilu.Web.Controller.Microblogs {
 
         public override void CheckPermission() {
 
-            Boolean isMicroblogClose = Component.IsClose( typeof( MicroblogApp ) );
-            if (isMicroblogClose) {
-                echo( "对不起，本功能已经停用" );
-            }
+            //Boolean isMicroblogClose = Component.IsClose( typeof( MicroblogApp ) );
+            //if (isMicroblogClose) {
+            //    echo( "对不起，本功能已经停用" );
+            //}
         }
 
     }

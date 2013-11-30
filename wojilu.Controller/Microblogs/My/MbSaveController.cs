@@ -32,10 +32,10 @@ namespace wojilu.Web.Controller.Microblogs.My {
 
         public void Publish() {
 
-            if (Component.IsClose( typeof( MicroblogApp ) )) {
-                content( "" );
-                return;
-            }
+            //if (Component.IsClose( typeof( MicroblogApp ) )) {
+            //    content( "" );
+            //    return;
+            //}
 
 
             target( new MicroblogSaveController().Create );
