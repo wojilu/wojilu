@@ -15,13 +15,13 @@ namespace wojilu.Web.Controller.Groups.Admin {
 
     public class GLinkController : ControllerBase {
 
-        public IMemberAppService userAppService { get; set; }
+        public virtual IMemberAppService userAppService { get; set; }
 
         public GLinkController() {
             userAppService = new GroupAppService();
         }
 
-        public void Index() {
+        public virtual void Index() {
 
             set( "addMenu", to( new MenuController().AddMenu ) );
 

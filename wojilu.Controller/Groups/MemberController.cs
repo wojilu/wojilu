@@ -18,8 +18,8 @@ namespace wojilu.Web.Controller.Groups {
 
     public class MemberController : ControllerBase {
 
-        public IGroupService groupService { get; set; }
-        public IMemberGroupService mgrService { get; set; }
+        public virtual IGroupService groupService { get; set; }
+        public virtual IMemberGroupService mgrService { get; set; }
 
         public MemberController() {
             groupService = new GroupService();
@@ -28,7 +28,7 @@ namespace wojilu.Web.Controller.Groups {
         }
 
 
-        public void List() {
+        public virtual void List() {
 
             ctx.Page.Title = lang( "memberList" );
 

@@ -18,7 +18,7 @@ namespace wojilu.Web.Controller.Content.Htmls {
 
         private static readonly ILog logger = LogManager.GetLogger( typeof( HtmlJob ) );
 
-        public void Execute() {
+        public virtual void Execute() {
 
             
             List<HtmlJobItem> jobs = cdb.findAll<HtmlJobItem>();
@@ -56,7 +56,7 @@ namespace wojilu.Web.Controller.Content.Htmls {
             }
         }
 
-        public void End() {
+        public virtual void End() {
             DbContext.closeConnectionAll();
         }
     }

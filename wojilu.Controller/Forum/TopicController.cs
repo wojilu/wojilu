@@ -30,17 +30,17 @@ namespace wojilu.Web.Controller.Forum {
     [App( typeof( ForumApp ) )]
     public partial class TopicController : ControllerBase {
 
-        public IForumBoardService boardService { get; set; }
-        public IForumTopicService topicService { get; set; }
-        public IForumPostService postService { get; set; }
-        public IUserIncomeService incomeService { get; set; }
-        public IAttachmentService attachService { get; set; }
+        public virtual IForumBoardService boardService { get; set; }
+        public virtual IForumTopicService topicService { get; set; }
+        public virtual IForumPostService postService { get; set; }
+        public virtual IUserIncomeService incomeService { get; set; }
+        public virtual IAttachmentService attachService { get; set; }
 
-        public IUserService userService { get; set; }
-        public IForumRateService rateService { get; set; }
-        public ICurrencyService currencyService { get; set; }
-        public IForumBuyLogService buylogService { get; set; }
-        public IModeratorService moderatorService { get; set; }
+        public virtual IUserService userService { get; set; }
+        public virtual IForumRateService rateService { get; set; }
+        public virtual ICurrencyService currencyService { get; set; }
+        public virtual IForumBuyLogService buylogService { get; set; }
+        public virtual IModeratorService moderatorService { get; set; }
 
         public TopicController() {
             boardService = new ForumBoardService();
@@ -82,7 +82,7 @@ namespace wojilu.Web.Controller.Forum {
             return _tree;
         }
 
-        public void Show( long id ) {
+        public virtual void Show( long id ) {
 
 
             ForumTopic topic = topicService.GetById( id, ctx.owner.obj );

@@ -21,8 +21,8 @@ namespace wojilu.Web.Controller.Content.Admin.Common {
     [App( typeof( ContentApp ) )]
     public class AttachmentController : ControllerBase {
 
-        public IContentPostService postService { get; set; }
-        public IAttachmentService attachService { get; set; }
+        public virtual IContentPostService postService { get; set; }
+        public virtual IAttachmentService attachService { get; set; }
 
         public AttachmentController() {
             postService = new ContentPostService();
@@ -31,7 +31,7 @@ namespace wojilu.Web.Controller.Content.Admin.Common {
             HideLayout( typeof( wojilu.Web.Controller.Content.LayoutController ) );
         }
 
-        public void AdminList( long postId ) {
+        public virtual void AdminList( long postId ) {
             ContentPost post = postService.GetById( postId, ctx.owner.Id );
             if (post == null) {
                 echo( lang( "exDataNotFound" ) );
@@ -104,7 +104,7 @@ namespace wojilu.Web.Controller.Content.Admin.Common {
             return Uploader.IsImage( attachment.Type );
         }
 
-        public void SetPermission( long postId ) {
+        public virtual void SetPermission( long postId ) {
 
             ContentPost post = postService.GetById( postId, ctx.owner.Id );
 
@@ -115,7 +115,7 @@ namespace wojilu.Web.Controller.Content.Admin.Common {
         }
 
         [HttpPost, DbTransaction]
-        public void SavePermission( long postId ) {
+        public virtual void SavePermission( long postId ) {
 
             ContentPost post = postService.GetById( postId, ctx.owner.Id );
             int ischeck = ctx.PostIsCheck( "IsAttachmentLogin" );
@@ -152,14 +152,14 @@ namespace wojilu.Web.Controller.Content.Admin.Common {
         }
 
 
-        public void Add( long postId ) {
+        public virtual void Add( long postId ) {
 
             target( SaveAdd, postId );
         }
 
 
         [HttpPost, DbTransaction]
-        public void SaveAdd( long postId ) {
+        public virtual void SaveAdd( long postId ) {
 
             ContentPost post = postService.GetById( postId, ctx.owner.Id );
             HttpFile postedFile = ctx.GetFileSingle();
@@ -186,7 +186,7 @@ namespace wojilu.Web.Controller.Content.Admin.Common {
         }
         //--------------------------------------------------------------------------------------------------------------
 
-        public void SaveFlashFile() {
+        public virtual void SaveFlashFile() {
 
             HttpFile postedFile = ctx.GetFileSingle();
 
@@ -217,7 +217,7 @@ namespace wojilu.Web.Controller.Content.Admin.Common {
         }
 
         [HttpPost, DbTransaction]
-        public void DeleteAttachment( long id ) {
+        public virtual void DeleteAttachment( long id ) {
 
             attachService.Delete( id ); // 删除文件，并且删除附件在数据库中的临时记录
             echoAjaxOk();
@@ -226,7 +226,7 @@ namespace wojilu.Web.Controller.Content.Admin.Common {
 
         //--------------------------------------------------------------------------------------------------------------
 
-        public void Rename( long postId ) {
+        public virtual void Rename( long postId ) {
 
             long id = ctx.GetLong( "aid" );
             set( "ActionLink", to( SaveRename, postId ) + "?aid=" + id );
@@ -241,7 +241,7 @@ namespace wojilu.Web.Controller.Content.Admin.Common {
         }
 
         [HttpPost, DbTransaction]
-        public void SaveRename( long postId ) {
+        public virtual void SaveRename( long postId ) {
 
             ContentPost post = postService.GetById( postId, ctx.owner.Id );
             long id = ctx.GetLong( "aid" );
@@ -263,7 +263,7 @@ namespace wojilu.Web.Controller.Content.Admin.Common {
             echoToParentPart( lang( "opok" ) );
         }
 
-        public void Upload( long postId ) {
+        public virtual void Upload( long postId ) {
 
             long id = ctx.GetLong( "aid" );
 
@@ -277,7 +277,7 @@ namespace wojilu.Web.Controller.Content.Admin.Common {
         }
 
         [HttpPost, DbTransaction]
-        public void SaveUpload( long postId ) {
+        public virtual void SaveUpload( long postId ) {
 
             ContentPost post = postService.GetById( postId, ctx.owner.Id );
             long id = ctx.GetLong( "aid" );
@@ -310,7 +310,7 @@ namespace wojilu.Web.Controller.Content.Admin.Common {
         }
 
         [HttpDelete, DbTransaction]
-        public void Delete( long postId ) {
+        public virtual void Delete( long postId ) {
 
             ContentPost post = postService.GetById( postId, ctx.owner.Id );
             long id = ctx.GetLong( "aid" );

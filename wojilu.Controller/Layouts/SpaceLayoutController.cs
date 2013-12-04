@@ -29,12 +29,12 @@ namespace wojilu.Web.Controller.Layouts {
 
     public partial class SpaceLayoutController : ControllerBase {
 
-        public SkinService skinService { get; set; }
-        public IMemberAppService userAppService { get; set; }
-        public IVisitorService visitorService { get; set; }
-        public IMenuService menuService { get; set; }
-        public ISiteSkinService siteSkinService { get; set; }
-        public IMicroblogService microblogService { get; set; }
+        public virtual SkinService skinService { get; set; }
+        public virtual IMemberAppService userAppService { get; set; }
+        public virtual IVisitorService visitorService { get; set; }
+        public virtual IMenuService menuService { get; set; }
+        public virtual ISiteSkinService siteSkinService { get; set; }
+        public virtual IMicroblogService microblogService { get; set; }
 
         public SpaceLayoutController() {
             skinService = new SkinService();
@@ -92,7 +92,7 @@ namespace wojilu.Web.Controller.Layouts {
         }
 
         [NonVisit]
-        public void Header() {
+        public virtual void Header() {
 
             bindSpaceName();
             set( "spaceUrl", getSpaceUrl() );
@@ -100,7 +100,7 @@ namespace wojilu.Web.Controller.Layouts {
             bindNavList( list );
         }
 
-        public void AdminLayout() {
+        public virtual void AdminLayout() {
 
             set( "lostPage", Link.To( Site.Instance, new MainController().lost ) );
             bindCommon();
@@ -115,7 +115,7 @@ namespace wojilu.Web.Controller.Layouts {
         }
 
         [NonVisit]
-        public void AdminSidebar() {
+        public virtual void AdminSidebar() {
 
             User owner = ctx.owner.obj as User;
 

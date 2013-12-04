@@ -23,8 +23,8 @@ namespace wojilu.Web.Controller.Common {
 
     public class ShareController : ControllerBase {
 
-        public IShareService shareService { get; set; }
-        public IFeedService feedService { get; set; }
+        public virtual IShareService shareService { get; set; }
+        public virtual IFeedService feedService { get; set; }
 
         public ShareController() {
             shareService = new ShareService();
@@ -32,7 +32,7 @@ namespace wojilu.Web.Controller.Common {
         }
 
         [Login]
-        public void Add( long id ) {
+        public virtual void Add( long id ) {
 
             target( Create, id );
 
@@ -59,7 +59,7 @@ namespace wojilu.Web.Controller.Common {
         }
 
         [Login, HttpPost, DbTransaction]
-        public void Create( long id ) {
+        public virtual void Create( long id ) {
 
             User creator = (User)ctx.viewer.obj;
 

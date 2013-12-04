@@ -19,9 +19,9 @@ namespace wojilu.Web.Controller.Content.Section {
     [App( typeof( ContentApp ) )]
     public class PollController : ControllerBase, IPageSection {
 
-        public IContentPostService postService { get; set; }
-        public IContentSectionService sectionService { get; set; }
-        public ContentPollService pollService { get; set; }
+        public virtual IContentPostService postService { get; set; }
+        public virtual IContentSectionService sectionService { get; set; }
+        public virtual ContentPollService pollService { get; set; }
 
         public PollController() {
             postService = new ContentPostService();
@@ -29,7 +29,7 @@ namespace wojilu.Web.Controller.Content.Section {
             pollService = new ContentPollService();
         }
 
-        public void SectionShow( long sectionId ) {
+        public virtual void SectionShow( long sectionId ) {
 
             ContentSection section = sectionService.GetById( sectionId, ctx.app.Id );
             List<ContentPost> posts = postService.GetBySection( sectionId, section.ListCount );
@@ -45,7 +45,7 @@ namespace wojilu.Web.Controller.Content.Section {
             }
         }
 
-        public void List( long sectionId ) {
+        public virtual void List( long sectionId ) {
 
             ContentSection section = sectionService.GetById( sectionId, ctx.app.Id );
             if (section == null) {
@@ -57,7 +57,7 @@ namespace wojilu.Web.Controller.Content.Section {
             set( "pollList", loadHtml( new wojilu.Web.Controller.Content.Common.PollController().List, sectionId ) );
         }
 
-        public void Show( long id ) {
+        public virtual void Show( long id ) {
 
             ContentPost post = postService.GetById( id, ctx.owner.Id );
             ContentPoll poll = pollService.GetByTopicId( id );

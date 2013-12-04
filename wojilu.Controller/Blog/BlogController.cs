@@ -20,10 +20,10 @@ namespace wojilu.Web.Controller.Blog {
     [App( typeof( BlogApp ) )]
     public partial class BlogController : ControllerBase {
 
-        public IBlogPostService postService { get; set; }
+        public virtual IBlogPostService postService { get; set; }
         
         [CacheAction( typeof( BlogIndexCache ) )]
-        public void Index() {
+        public virtual void Index() {
 
             ctx.Page.Title = lang( "blog" );
 
@@ -48,7 +48,7 @@ namespace wojilu.Web.Controller.Blog {
 
         }
 
-        public void Rss() {
+        public virtual void Rss() {
 
             BlogApp app = ctx.app.obj as BlogApp;
             BlogSetting s = app.GetSettingsObj();

@@ -29,8 +29,8 @@ namespace wojilu.Web.Controller.Admin {
 
     public class SiteConfigController : ControllerBase {
 
-        public IAdminLogService<SiteLog> logService { get; set; }
-        public IAppInstallerService appService { get; set; }
+        public virtual IAdminLogService<SiteLog> logService { get; set; }
+        public virtual IAppInstallerService appService { get; set; }
 
         public SiteConfigController() {
             logService = new SiteLogService();
@@ -62,7 +62,7 @@ namespace wojilu.Web.Controller.Admin {
             logService.Add( (User)ctx.viewer.obj, msg, "", typeof( SiteSetting ).FullName, ctx.Ip );
         }
 
-        public void Drawing() {
+        public virtual void Drawing() {
 
             target( DrawingSave );
 
@@ -82,7 +82,7 @@ namespace wojilu.Web.Controller.Admin {
             set( "site.CheckRegisterNeedImgValidateion", chk3 );
         }
 
-        public void DrawingSave() {
+        public virtual void DrawingSave() {
 
 
             int validationType = ctx.PostInt( "validationType" );
@@ -105,7 +105,7 @@ namespace wojilu.Web.Controller.Admin {
 
         //---------------------------------------------------------------------------------------------
 
-        public void Logo() {
+        public virtual void Logo() {
 
             target( LogoSave );
 
@@ -122,7 +122,7 @@ namespace wojilu.Web.Controller.Admin {
         }
 
         [HttpPost, DbTransaction]
-        public void LogoSave() {
+        public virtual void LogoSave() {
 
             Result result = Uploader.SaveSiteLogo( ctx.GetFileSingle() );
 
@@ -144,7 +144,7 @@ namespace wojilu.Web.Controller.Admin {
         }
 
         [HttpDelete, DbTransaction]
-        public void DeleteLogo() {
+        public virtual void DeleteLogo() {
 
             if (strUtil.HasText( config.Instance.Site.SiteLogo )) {
 
@@ -161,7 +161,7 @@ namespace wojilu.Web.Controller.Admin {
 
         //--------------------------------------------------------------------------------------------------------------
 
-        public void Base() {
+        public virtual void Base() {
 
             target( BaseSave );
 
@@ -178,7 +178,7 @@ namespace wojilu.Web.Controller.Admin {
         }
 
         [HttpPost, DbTransaction]
-        public void BaseSave() {
+        public virtual void BaseSave() {
 
             String SiteName = ctx.Post( "SiteName" );
             String SiteUrl = ctx.Post( "SiteUrl" );
@@ -250,7 +250,7 @@ namespace wojilu.Web.Controller.Admin {
             echoRedirect( lang( "opok" ) );
         }
 
-        public void Close() {
+        public virtual void Close() {
 
             target( SaveClose );
             set( "closeChecked", config.Instance.Site.IsClose ? "checked=\"checked\"" : "" );
@@ -258,7 +258,7 @@ namespace wojilu.Web.Controller.Admin {
 
         }
 
-        public void SaveClose() {
+        public virtual void SaveClose() {
 
             Boolean isClose = ctx.PostIsCheck( "IsClose" ) == 1 ? true : false;
             String CloseReason = ctx.PostHtml( "CloseReason" );
@@ -282,7 +282,7 @@ namespace wojilu.Web.Controller.Admin {
 
         //--------------------------------------------------------------------------------------------------------------
 
-        public void Email() {
+        public virtual void Email() {
             target( EmailSave );
             set( "EmailEnableLink", to( EmailEnableSave ) );
 
@@ -297,14 +297,14 @@ namespace wojilu.Web.Controller.Admin {
         }
 
         [HttpPost, DbTransaction]
-        public void EmailEnableSave() {
+        public virtual void EmailEnableSave() {
             Boolean EnableEmail = ctx.PostLong( "EnableEmail" ) == 1 ? true : false;
             config.Instance.Site.EnableEmail = EnableEmail; config.Instance.Site.Update( "EnableEmail", EnableEmail );
             echoRedirect( lang( "opok" ) );
         }
 
         [HttpPost, DbTransaction]
-        public void EmailSave() {
+        public virtual void EmailSave() {
 
             String SmtpUrl = ctx.Post( "SmtpUrl" );
             String SmtpUser = ctx.Post( "SmtpUser" );
@@ -332,14 +332,14 @@ namespace wojilu.Web.Controller.Admin {
 
         //--------------------------------------------------------------------------------------------------------------
 
-        public void Filter() {
+        public virtual void Filter() {
             target( FilterSave );
             bind( "site", config.Instance.Site );
             set( "site.BadWordsStr", config.Instance.Site.GetValue( "BadWords" ) );
         }
 
         [HttpPost, DbTransaction]
-        public void FilterSave() {
+        public virtual void FilterSave() {
 
             String BadWordsStr = ctx.Post( "BadWords" );
             String BadWordsReplacement = ctx.Post( "BadWordsReplacement" );
@@ -357,7 +357,7 @@ namespace wojilu.Web.Controller.Admin {
 
         //--------------------------------------------------------------------------------------------------------------
 
-        public void BanIp() {
+        public virtual void BanIp() {
 
             target( SaveBanIp );
 
@@ -370,7 +370,7 @@ namespace wojilu.Web.Controller.Admin {
             set( "site.BannedIpInfo", config.Instance.Site.BannedIpInfo );
         }
 
-        public void SaveBanIp() {
+        public virtual void SaveBanIp() {
 
             String bannedIp = ctx.Post( "BannedIp" );
 

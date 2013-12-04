@@ -54,20 +54,20 @@ namespace wojilu.Web.Controller.Common.Admin {
             set( "listLink", to( Index ) );
         }
 
-        public void Index() {
+        public virtual void Index() {
         //    set( "addLink", to( AddMenu ) );
         //    set( "listLink", to( List ) );
         //    load( "list", List );
         //}
 
-        //public void List() {
+        //public virtual void List() {
             set( "sortAction", to( SortMenu ) );
             List<IMenu> menus = getTree().GetAllOrdered();
             bindMenus( menus );
         }
 
         [HttpPost, DbTransaction]
-        public void SortMenu() {
+        public virtual void SortMenu() {
 
             long id = ctx.PostLong( "id" );
             String cmd = ctx.Post( "cmd" );
@@ -117,7 +117,7 @@ namespace wojilu.Web.Controller.Common.Admin {
         }
 
 
-        public void AddSubMenu( long id ) {
+        public virtual void AddSubMenu( long id ) {
 
             target( SaveSubMenu, id );
 
@@ -132,7 +132,7 @@ namespace wojilu.Web.Controller.Common.Admin {
         }
 
         [HttpPost, DbTransaction]
-        public void Create() {
+        public virtual void Create() {
 
             IMenu menu = validateMenu( menuService.New() );
 
@@ -156,7 +156,7 @@ namespace wojilu.Web.Controller.Common.Admin {
 
 
         [HttpPost, DbTransaction]
-        public void SaveSubMenu( long id ) {
+        public virtual void SaveSubMenu( long id ) {
 
             IMenu menu = validateMenu( menuService.New() );
 
@@ -181,7 +181,7 @@ namespace wojilu.Web.Controller.Common.Admin {
         }
 
 
-        public void Edit( long id ) {
+        public virtual void Edit( long id ) {
 
             IMenu menu = menuService.FindById( ctx.owner.Id, id );
             if (menu == null) {
@@ -239,7 +239,7 @@ namespace wojilu.Web.Controller.Common.Admin {
         }
 
         [HttpDelete, DbTransaction]
-        public void Delete( long id ) {
+        public virtual void Delete( long id ) {
             IMenu menu = menuService.FindById( ctx.owner.Id, id );
             if (menu == null) {
                 echoRedirect( lang( "exDataNotFound" ) );

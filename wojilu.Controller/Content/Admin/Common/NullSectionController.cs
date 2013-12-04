@@ -8,7 +8,7 @@ namespace wojilu.Web.Controller.Content.Section {
 
     public class NullSectionController : ControllerBase, IPageSection {
 
-        public void SectionShow( long sectionId ) {
+        public virtual void SectionShow( long sectionId ) {
             content( "(section content not implemented)" );
         }
 

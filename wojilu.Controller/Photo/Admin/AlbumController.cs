@@ -21,8 +21,8 @@ namespace wojilu.Web.Controller.Photo.Admin {
     [App( typeof( PhotoApp ) )]
     public class AlbumController : ControllerBase {
 
-        public IPhotoAlbumService albumService { get; set; }
-        public IPhotoPostService postService { get; set; }
+        public virtual IPhotoAlbumService albumService { get; set; }
+        public virtual IPhotoPostService postService { get; set; }
 
         public AlbumController() {
             base.HideLayout( typeof( Photo.LayoutController ) );
@@ -30,7 +30,7 @@ namespace wojilu.Web.Controller.Photo.Admin {
             postService = new PhotoPostService();
         }
 
-        public void OrderList() {
+        public virtual void OrderList() {
 
             set( "addLink", to( Add ) );
             set( "sortAction", to( SaveSort ) );
@@ -48,7 +48,7 @@ namespace wojilu.Web.Controller.Photo.Admin {
             }
         }
 
-        public void List() {
+        public virtual void List() {
 
             set( "addLink", to( Add ) );
             set( "sortLink", to( OrderList ) );
@@ -113,13 +113,13 @@ namespace wojilu.Web.Controller.Photo.Admin {
 
         }
 
-        public void Add() {
+        public virtual void Add() {
             view( "Add" );
             target( Create );
         }
 
         [HttpPost, DbTransaction]
-        public void Create() {
+        public virtual void Create() {
 
             PhotoAlbum album = ctx.PostValue<PhotoAlbum>();
             if (ctx.HasErrors) {
@@ -141,7 +141,7 @@ namespace wojilu.Web.Controller.Photo.Admin {
             }
         }
 
-        public void Edit( long id ) {
+        public virtual void Edit( long id ) {
             PhotoAlbum album = albumService.GetById( id, ctx.owner.Id );
             if (album == null) { echoRedirect( lang( "exDataNotFound" ) ); return; }
 
@@ -172,7 +172,7 @@ namespace wojilu.Web.Controller.Photo.Admin {
         }
 
         [HttpPut, DbTransaction]
-        public void SetCover( long id ) {
+        public virtual void SetCover( long id ) {
 
             PhotoPost post = postService.GetById( id, ctx.owner.Id );
             if (post == null) { echoRedirect( lang( "exDataNotFound" ) ); return; }
@@ -186,7 +186,7 @@ namespace wojilu.Web.Controller.Photo.Admin {
         }
 
         [HttpPost, DbTransaction]
-        public void Update( long id ) {
+        public virtual void Update( long id ) {
             PhotoAlbum album = albumService.GetById( id, ctx.owner.Id );
             if (album == null) { echoRedirect( lang( "exDataNotFound" ) ); return; }
 
@@ -205,7 +205,7 @@ namespace wojilu.Web.Controller.Photo.Admin {
         }
 
         [HttpDelete, DbTransaction]
-        public void Delete( long id ) {
+        public virtual void Delete( long id ) {
             PhotoAlbum album = albumService.GetById( id, ctx.owner.Id );
             if (album == null) { echoRedirect( lang( "exDataNotFound" ) ); return; }
 

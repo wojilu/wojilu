@@ -11,7 +11,7 @@ namespace wojilu.Web.Controller.Download {
     [App( typeof( DownloadApp ) )]
     public class FileItemController : ControllerBase {
 
-        public void Show( long id ) {
+        public virtual void Show( long id ) {
             redirectDirect( to( new FileController().Show, id ) );
         }
 
@@ -21,7 +21,7 @@ namespace wojilu.Web.Controller.Download {
     [App( typeof( DownloadApp ) )]
     public class FileController : ControllerBase {
 
-        public void Show( long id ) {
+        public virtual void Show( long id ) {
 
             FileItem f = FileItem.findById( id );
 
@@ -92,7 +92,7 @@ namespace wojilu.Web.Controller.Download {
         }
 
 
-        public void Download( long id ) {
+        public virtual void Download( long id ) {
             FileItem f = FileItem.findById( id );
             FileItem.AddDownloads( f );
 

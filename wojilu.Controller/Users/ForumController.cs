@@ -15,9 +15,9 @@ namespace wojilu.Web.Controller.Users {
 
     public class ForumController : ControllerBase {
 
-        public IForumTopicService topicService { get; set; }
-        public IForumPostService postService { get; set; }
-        public IForumBoardService boardService { get; set; }
+        public virtual IForumTopicService topicService { get; set; }
+        public virtual IForumPostService postService { get; set; }
+        public virtual IForumBoardService boardService { get; set; }
 
         public ForumController() {
             topicService = new ForumTopicService();
@@ -29,7 +29,7 @@ namespace wojilu.Web.Controller.Users {
         }
 
 
-        public void Topic() {
+        public virtual void Topic() {
 
             if (ctx.viewer.HasPrivacyPermission( ctx.owner.obj, UserPermission.ForumTopic.ToString() ) == false) {
                 echo( lang( "exVisitNoPermission" ) );
@@ -43,7 +43,7 @@ namespace wojilu.Web.Controller.Users {
             set( "lnkPost", to( Post ) );
         }
 
-        public void Post() {
+        public virtual void Post() {
 
             if (ctx.viewer.HasPrivacyPermission( ctx.owner.obj, UserPermission.ForumTopic.ToString() ) == false) {
                 echo( lang( "exVisitNoPermission" ) );

@@ -11,7 +11,7 @@ namespace wojilu.Web.Controller.Forum.Users {
 
     public class SecurityController : ControllerBase {
 
-        public IForumBoardService boardService { get; set; }
+        public virtual IForumBoardService boardService { get; set; }
 
         public SecurityController() {
             boardService = new ForumBoardService();

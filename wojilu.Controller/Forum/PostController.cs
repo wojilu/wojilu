@@ -23,11 +23,11 @@ namespace wojilu.Web.Controller.Forum {
     [App( typeof( ForumApp ) )]
     public partial class PostController : ControllerBase {
 
-        public IAttachmentService attachService { get; set; }
-        public IForumBoardService boardService { get; set; }
-        public IForumPostService postService { get; set; }
-        public IForumTopicService topicService { get; set; }
-        public IModeratorService moderatorService { get; set; }
+        public virtual IAttachmentService attachService { get; set; }
+        public virtual IForumBoardService boardService { get; set; }
+        public virtual IForumPostService postService { get; set; }
+        public virtual IForumTopicService topicService { get; set; }
+        public virtual IModeratorService moderatorService { get; set; }
 
 
         public PostController() {
@@ -63,7 +63,7 @@ namespace wojilu.Web.Controller.Forum {
             return _tree;
         }
 
-        public void Show( long id ) {
+        public virtual void Show( long id ) {
 
             ForumPost post = postService.GetById( id, ctx.owner.obj );
             ForumBoard board = getTree().GetById( post.ForumBoardId );

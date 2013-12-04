@@ -11,7 +11,7 @@ namespace wojilu.Web.Controller.Download {
     [App( typeof( DownloadApp ) )]
     public class CategoryController : ControllerBase {
 
-        public void Show( long id ) {
+        public virtual void Show( long id ) {
 
 
             FileCategory c = FileCategory.GetById( id );
@@ -36,7 +36,7 @@ namespace wojilu.Web.Controller.Download {
         }
 
         [NonVisit]
-        public void List() {
+        public virtual void List() {
             FileCategory c = ctx.GetItem( "category" ) as FileCategory;
             if (c != null && c.IsThumbView == 1) view( "ThumbList" );
 

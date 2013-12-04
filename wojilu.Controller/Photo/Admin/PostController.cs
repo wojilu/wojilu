@@ -52,7 +52,7 @@ namespace wojilu.Web.Controller.Photo.Admin {
             microblogService = new MicroblogService();
         }
 
-        public void Add() {
+        public virtual void Add() {
 
             set( "authJson", AdminSecurityUtils.GetAuthCookieJson( ctx ) );
             String uploadUrl = strUtil.Join( ctx.url.SiteUrl, to( SaveUpload ) );
@@ -80,7 +80,7 @@ namespace wojilu.Web.Controller.Photo.Admin {
             set( "jsPath", sys.Path.DiskJs );
         }
 
-        public void NewPost( long albumId ) {
+        public virtual void NewPost( long albumId ) {
 
             if (albumId <= 0) {
                 albumId = ctx.PostLong( "PhotoAlbumId" );
@@ -111,7 +111,7 @@ namespace wojilu.Web.Controller.Photo.Admin {
         }
 
         // flash上传(逐个保存)
-        public void SaveUpload() {
+        public virtual void SaveUpload() {
 
             long albumId = ctx.PostLong( "PhotoAlbumId" );
             long systemCategoryId = ctx.PostLong( "SystemCategoryId" );
@@ -148,7 +148,7 @@ namespace wojilu.Web.Controller.Photo.Admin {
         }
 
         [HttpPost, DbTransaction]
-        public void AddFeed() {
+        public virtual void AddFeed() {
             String ids = ctx.PostIdList( "ids" );
             long albumId = ctx.PostLong( "albumId" );
 
@@ -162,7 +162,7 @@ namespace wojilu.Web.Controller.Photo.Admin {
 
         // 普通上传(批量)
         [HttpPost, DbTransaction]
-        public void Create() {
+        public virtual void Create() {
 
             long albumId = ctx.PostLong( "PhotoAlbumId" );
             long systemCategoryId = ctx.PostLong( "SystemCategoryId" );
@@ -252,7 +252,7 @@ namespace wojilu.Web.Controller.Photo.Admin {
             return photo;
         }
 
-        public void Edit( long id ) {
+        public virtual void Edit( long id ) {
 
             PhotoPost post = postService.GetById( id, ctx.owner.Id );
             if (post == null) { echoRedirect( lang( "exDataNotFound" ) ); return; }
@@ -284,7 +284,7 @@ namespace wojilu.Web.Controller.Photo.Admin {
         }
 
         [HttpPost, DbTransaction]
-        public void Update( long id ) {
+        public virtual void Update( long id ) {
 
             PhotoPost post = postService.GetById( id, ctx.owner.Id );
             if (post == null) { echoRedirect( lang( "exDataNotFound" ) ); return; }

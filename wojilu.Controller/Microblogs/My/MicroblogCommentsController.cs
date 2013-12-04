@@ -18,9 +18,9 @@ namespace wojilu.Web.Controller.Microblogs.My {
 
     public partial class MicroblogCommentsController : ControllerBase {
 
-        public IMicroblogService microblogService { get; set; }
-        public IFollowerService followService { get; set; }
-        public MicroblogCommentService commentService { get; set; }
+        public virtual IMicroblogService microblogService { get; set; }
+        public virtual IFollowerService followService { get; set; }
+        public virtual MicroblogCommentService commentService { get; set; }
 
         public MicroblogCommentsController() {
             microblogService = new MicroblogService();
@@ -30,14 +30,14 @@ namespace wojilu.Web.Controller.Microblogs.My {
             LayoutControllerType = typeof( MicroblogController );
         }
 
-        public void My() {
+        public virtual void My() {
 
             content( loadHtml( new wojilu.Web.Controller.Users.Admin.HomeController().Comment ) );
 
         }
 
         //[HttpDelete, DbTransaction]
-        //public void Delete( long id ) {
+        //public virtual void Delete( long id ) {
 
         //    if (hasPermission() == false) {
         //        echoText( lang( "exNoPermission" ) );

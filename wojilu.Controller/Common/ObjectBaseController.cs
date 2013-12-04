@@ -11,16 +11,16 @@ namespace wojilu.Web.Controller.Common {
 
     //public class ObjectBaseController<T> : ControllerBase where T : ObjectBase<T> {
 
-    //    public void Index() {
+    //    public virtual void Index() {
     //        List<T> list = db.findAll<T>();
     //        bindList( "list", "data", list );
     //    }
 
-    //    public void Add() {
+    //    public virtual void Add() {
     //        target( Create );
     //    }
 
-    //    public void Create() {
+    //    public virtual void Create() {
     //        T obj = ctx.PostValue<T>();
     //        db.insert( obj );
     //        redirect( Index );

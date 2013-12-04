@@ -12,14 +12,14 @@ namespace wojilu.Web.Controller.Admin.Upgrade {
 
         private static readonly ILog logger = LogManager.GetLogger( typeof( ContentUpdateController ) );
 
-        public void Index() {
+        public virtual void Index() {
 
             target( TransSection );
 
         }
 
         [HttpPost, DbTransaction]
-        public void TransSection() {
+        public virtual void TransSection() {
 
 
             runsql( "update ContentPostSection set SaveStatus=0" );

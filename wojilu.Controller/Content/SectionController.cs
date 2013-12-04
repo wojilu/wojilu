@@ -22,8 +22,8 @@ namespace wojilu.Web.Controller.Content {
     [App( typeof( ContentApp ) )]
     public class SectionController : ControllerBase {
 
-        public IContentPostService postService { get; set; }
-        public IContentSectionService sectionService { get; set; }
+        public virtual IContentPostService postService { get; set; }
+        public virtual IContentSectionService sectionService { get; set; }
 
         public SectionController() {
 
@@ -38,7 +38,7 @@ namespace wojilu.Web.Controller.Content {
         }
 
         [Data( typeof( ContentSection ) )]
-        public void Show( long sectionId ) {
+        public virtual void Show( long sectionId ) {
             ContentSection section = sectionService.GetById( sectionId, ctx.app.Id );
             if (section == null) {
                 echo( lang( "exDataNotFound" ) );

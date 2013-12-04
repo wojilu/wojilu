@@ -20,15 +20,15 @@ namespace wojilu.Web.Controller.Content.Section {
     [App( typeof( ContentApp ) )]
     public partial class VideoShowController : ControllerBase, IPageSection {
 
-        public IContentPostService postService { get; set; }
-        public IContentSectionService sectionService { get; set; }
+        public virtual IContentPostService postService { get; set; }
+        public virtual IContentSectionService sectionService { get; set; }
 
         public VideoShowController() {
             postService = new ContentPostService();
             sectionService = new ContentSectionService();
         }
 
-        public void SectionShow( long sectionId ) {
+        public virtual void SectionShow( long sectionId ) {
 
             ContentSection s = sectionService.GetById( sectionId, ctx.app.Id );
             if (s == null) {
@@ -39,11 +39,11 @@ namespace wojilu.Web.Controller.Content.Section {
             bindSectionShow( s, video );
         }
 
-        public void List( long sectionId ) {
+        public virtual void List( long sectionId ) {
             run( new VideoController().List, sectionId );
         }
 
-        public void Show( long id ) {
+        public virtual void Show( long id ) {
             run( new VideoController().Show, id );
         }
 

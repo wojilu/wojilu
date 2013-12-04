@@ -22,8 +22,8 @@ namespace wojilu.Web.Controller.Microblogs {
 
     public class MicroblogSaveController : ControllerBase {
 
-        public IMicroblogService microblogService { get; set; }
-        public IPhotoPostService postService { get; set; }
+        public virtual IMicroblogService microblogService { get; set; }
+        public virtual IPhotoPostService postService { get; set; }
 
         public MicroblogSaveController() {
             microblogService = new MicroblogService();
@@ -32,7 +32,7 @@ namespace wojilu.Web.Controller.Microblogs {
 
 
         [Login, HttpPost, DbTransaction]
-        public void Create() {
+        public virtual void Create() {
 
             //if (Component.IsClose( typeof( MicroblogApp ) )) {
             //    content( "对不起，微博功能暂停运行" );
@@ -131,7 +131,7 @@ namespace wojilu.Web.Controller.Microblogs {
 
 
         [HttpDelete, DbTransaction]
-        public void Delete( long id ) {
+        public virtual void Delete( long id ) {
 
             Microblog blog = microblogService.GetById( id );
             if (blog == null) {

@@ -20,11 +20,11 @@ namespace wojilu.Web.Controller.Forum {
     [App( typeof( ForumApp ) )]
     public partial class TopicListController : ControllerBase {
 
-        public IForumService forumService { get; set; }
-        public IForumTopicService topicService { get; set; }
-        public IForumBoardService boardService { get; set; }
-        public IForumCategoryService categoryService { get; set; }
-        public IModeratorService moderatorService { get; set; }
+        public virtual IForumService forumService { get; set; }
+        public virtual IForumTopicService topicService { get; set; }
+        public virtual IForumBoardService boardService { get; set; }
+        public virtual IForumCategoryService categoryService { get; set; }
+        public virtual IModeratorService moderatorService { get; set; }
 
         private ForumBoard fb;
         private List<ForumBoard> boardsPath;
@@ -54,7 +54,7 @@ namespace wojilu.Web.Controller.Forum {
         }
 
 
-        public void Picked( long id ) {
+        public virtual void Picked( long id ) {
 
             view( "Index" );
 
@@ -74,7 +74,7 @@ namespace wojilu.Web.Controller.Forum {
             bindAll( id, stickyList, topicList, categories, isAdmin );
         }
 
-        public void Polls( long id ) {
+        public virtual void Polls( long id ) {
 
             view( "Index" );
 
@@ -91,7 +91,7 @@ namespace wojilu.Web.Controller.Forum {
 
 
         [NonVisit]
-        public void Index() {
+        public virtual void Index() {
 
             set( "forumPath", "" );
             set( "topicTypeName", alang( "normalTopic" ) );

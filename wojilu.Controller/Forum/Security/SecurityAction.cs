@@ -45,16 +45,16 @@ namespace wojilu.Web.Controller.Forum.Utils {
         public long Id { get; set; }
         public string Name { get; set; }
 
-        public IList findAll() { return SecurityAction.dbs; }
-        public void insert() { }
-        public Result update() { return new Result(); }
-        public void delete() { }
+        public virtual IList findAll() { return SecurityAction.dbs; }
+        public virtual void insert() { }
+        public virtual Result update() { return new Result(); }
+        public virtual void delete() { }
 
-        public ISecurityAction GetById(long id) {
+        public virtual ISecurityAction GetById(long id) {
             return this.findById( id ) as ISecurityAction;
         }
 
-        public SecurityAction findById(long id) {
+        public virtual SecurityAction findById(long id) {
             foreach (SecurityAction a in SecurityAction.dbs) {
                 if (a.Id == id) return a;
             }

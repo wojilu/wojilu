@@ -42,12 +42,12 @@ namespace wojilu.Web.Controller.Admin.Members {
 
         private static readonly ILog logger = LogManager.GetLogger( typeof( UserController ) );
 
-        public IUserService userService { get; set; }
-        public ISiteRoleService roleService { get; set; }
-        public IMessageService msgService { get; set; }
-        public IAdminLogService<SiteLog> logService { get; set; }
-        public IConfirmEmail confirmEmail { get; set; }
-        public IUserErrorPicService errorPicService { get; set; }
+        public virtual IUserService userService { get; set; }
+        public virtual ISiteRoleService roleService { get; set; }
+        public virtual IMessageService msgService { get; set; }
+        public virtual IAdminLogService<SiteLog> logService { get; set; }
+        public virtual IConfirmEmail confirmEmail { get; set; }
+        public virtual IUserErrorPicService errorPicService { get; set; }
 
         public UserController() {
             userService = new UserService();
@@ -58,7 +58,7 @@ namespace wojilu.Web.Controller.Admin.Members {
             errorPicService = new UserErrorPicService();
         }
 
-        public void Index() {
+        public virtual void Index() {
 
             set( "userListLink", to( Index ) );
 
@@ -86,7 +86,7 @@ namespace wojilu.Web.Controller.Admin.Members {
         }
 
         [HttpPost, DbTransaction]
-        public void Operation() {
+        public virtual void Operation() {
             String userIds = ctx.PostIdList( "choice" );
 
             if (strUtil.IsNullOrEmpty( userIds )) {
@@ -131,7 +131,7 @@ namespace wojilu.Web.Controller.Admin.Members {
         //----------------------------------------------------------------------------
 
 
-        public void Edit( long id ) {
+        public virtual void Edit( long id ) {
 
             target( UpdateProfile, id );
             User m = User.findById( id );
@@ -142,7 +142,7 @@ namespace wojilu.Web.Controller.Admin.Members {
         }
 
         [HttpPost, DbTransaction]
-        public void UpdateProfile( long id ) {
+        public virtual void UpdateProfile( long id ) {
             User m = User.findById( id );
             UserProfileController.SaveProfile( m, ctx );
             db.update( m );
@@ -152,14 +152,14 @@ namespace wojilu.Web.Controller.Admin.Members {
 
         //--------------------------------------
 
-        public void EditName( long id ) {
+        public virtual void EditName( long id ) {
             target( UpdateName, id );
             User m = User.findById( id );
             set( "userName", m.Name );
         }
 
         [HttpPost,DbTransaction]
-        public void UpdateName( long id ) {
+        public virtual void UpdateName( long id ) {
 
             String newName = strUtil.SubString( ctx.Post( "userName" ), 20 );
             if (strUtil.IsNullOrEmpty( newName )) {
@@ -175,14 +175,14 @@ namespace wojilu.Web.Controller.Admin.Members {
 
         //--------------------------------------
 
-        public void EditUrl( long id ) {
+        public virtual void EditUrl( long id ) {
             target( UpdateUrl, id );
             User m = User.findById( id );
             set( "userUrl", m.Url );
         }
 
         [HttpPost, DbTransaction]
-        public void UpdateUrl( long id ) {
+        public virtual void UpdateUrl( long id ) {
 
             String newUrl = strUtil.SubString( ctx.Post( "userUrl" ), 50 );
             if (strUtil.IsNullOrEmpty( newUrl )) {
@@ -204,14 +204,14 @@ namespace wojilu.Web.Controller.Admin.Members {
 
         //--------------------------------------
 
-        public void EditEmail( long id ) {
+        public virtual void EditEmail( long id ) {
             target( UpdateEmail, id );
             User m = User.findById( id );
             set( "userEmail", m.Email );
         }
 
         [HttpPost, DbTransaction]
-        public void UpdateEmail( long id ) {
+        public virtual void UpdateEmail( long id ) {
 
             String userEmail = strUtil.SubString( ctx.Post( "userEmail" ), RegPattern.EmailLength );
 
@@ -228,7 +228,7 @@ namespace wojilu.Web.Controller.Admin.Members {
 
         //----------------------------------------------------------------------------
 
-        public void ResetPwd() {
+        public virtual void ResetPwd() {
             set( "ActionLink", to( SavePwd ) + "?id=" + ctx.GetIdList( "id" ) );
             String idsStr = ctx.GetIdList( "id" );
             List<User> users = userService.GetByIds( idsStr );
@@ -236,7 +236,7 @@ namespace wojilu.Web.Controller.Admin.Members {
         }
 
         [HttpPost, DbTransaction]
-        public void SavePwd() {
+        public virtual void SavePwd() {
 
             // 1、验证密码是否正确
             String pwd = ctx.Post( "Pwd" );
@@ -287,7 +287,7 @@ namespace wojilu.Web.Controller.Admin.Members {
 
         //----------------------------------------------------------------------------
 
-        public void SendMsg() {
+        public virtual void SendMsg() {
             set( "ActionLink", to( SaveMsg ) + "?id=" + ctx.GetIdList( "id" ) );
 
             String idsStr = ctx.GetIdList( "id" );
@@ -296,7 +296,7 @@ namespace wojilu.Web.Controller.Admin.Members {
         }
 
         [HttpPost, DbTransaction]
-        public void SaveMsg() {
+        public virtual void SaveMsg() {
 
             MsgInfo msgInfo = validateMsg( true );
 
@@ -309,7 +309,7 @@ namespace wojilu.Web.Controller.Admin.Members {
             echoRedirectPart( lang( "sentok" ), to( Index ) );
         }
 
-        public void SendEmail() {
+        public virtual void SendEmail() {
 
             if (config.Instance.Site.EnableEmail == false) {
                 echo( "对不起，邮件服务尚未开启，无法发送邮件" );
@@ -324,7 +324,7 @@ namespace wojilu.Web.Controller.Admin.Members {
             bindReceiverEmailList( users, ids );
         }
 
-        public void SendConfirmMail() {
+        public virtual void SendConfirmMail() {
 
             if (config.Instance.Site.EnableEmail == false) {
                 echo( "对不起，邮件服务尚未开启，无法发送邮件" );
@@ -346,7 +346,7 @@ namespace wojilu.Web.Controller.Admin.Members {
         }
 
         [HttpPost, DbTransaction]
-        public void SaveEmail() {
+        public virtual void SaveEmail() {
 
             if (config.Instance.Site.EnableEmail == false) {
                 echo( "对不起，邮件服务尚未开启，无法发送邮件" );
@@ -382,14 +382,14 @@ namespace wojilu.Web.Controller.Admin.Members {
             return MailClient.Init().Send( user.Email, title, msg );
         }
 
-        public void ApproveUserPic() {
+        public virtual void ApproveUserPic() {
             set( "ActionLink", to( SaveApprovePic ) + "?id=" + ctx.GetIdList( "id" ) );
             String idsStr = ctx.GetIdList( "id" );
             List<User> users = userService.GetByIds( idsStr );
             bindReceiverList( users, idsStr );
         }
 
-        public void SaveApprovePic() {
+        public virtual void SaveApprovePic() {
             String ids = ctx.PostIdList( "UserIds" );
             String reviewMsg = validPicMsg();
 

@@ -18,15 +18,15 @@ namespace wojilu.Web.Controller.Admin.Members {
 
     public class SiteMsgController : ControllerBase {
 
-        public ISiteMessageService msgService { get; set; }
-        public ISiteRoleService roleService { get; set; }
+        public virtual ISiteMessageService msgService { get; set; }
+        public virtual ISiteRoleService roleService { get; set; }
 
         public SiteMsgController() {
             msgService = new SiteMessageService();
             roleService = new SiteRoleService();
         }
 
-        public void Index() {
+        public virtual void Index() {
 
             set( "addLink", to( Add ) );
             DataPage<MessageSite> list = msgService.GetPage( 50 );
@@ -39,7 +39,7 @@ namespace wojilu.Web.Controller.Admin.Members {
             tpl.Set( "msg.DeleteLink", to( Delete, id ) );
         }
 
-        public void Add() {
+        public virtual void Add() {
             target( Create );
 
             List<SiteRole> roles = getRoles();
@@ -57,7 +57,7 @@ namespace wojilu.Web.Controller.Admin.Members {
         }
 
         [HttpPost, DbTransaction]
-        public void Create() {
+        public virtual void Create() {
 
             MessageSite msg = new MessageSite();
             msg.Title = ctx.Post( "Title" );
@@ -72,7 +72,7 @@ namespace wojilu.Web.Controller.Admin.Members {
                 echoError( result );
         }
 
-        public void Edit( long id ) {
+        public virtual void Edit( long id ) {
             target( Update, id );
             MessageSite msg = msgService.GetById( id );
 
@@ -84,7 +84,7 @@ namespace wojilu.Web.Controller.Admin.Members {
         }
 
         [HttpPost, DbTransaction]
-        public void Update( long id ) {
+        public virtual void Update( long id ) {
             MessageSite msg = msgService.GetById( id );
 
             msg.Title = ctx.Post( "Title" );
@@ -99,7 +99,7 @@ namespace wojilu.Web.Controller.Admin.Members {
         }
 
         [HttpDelete, DbTransaction]
-        public void Delete( long id ) {
+        public virtual void Delete( long id ) {
             MessageSite msg = msgService.GetById( id );
             msgService.Delete( msg );
             redirect( Index );

@@ -78,7 +78,7 @@ namespace wojilu.Web.Controller.Users.Admin {
 
         }
 
-        public String getStatusString( Message msg ) {
+        public virtual String getStatusString( Message msg ) {
 
             if (msg.IsReply == 1) return string.Format( "<span class='hasReply'>{0}</span>", lang( "replyed" ) );
             if (msg.IsRead == 1) return lang( "readed" );

@@ -27,11 +27,11 @@ namespace wojilu.Web.Controller.Blog.Admin {
     [App( typeof( BlogApp ) )]
     public class MyListController : ControllerBase {
 
-        public IBlogService blogService { get; set; }
-        public IBlogCategoryService categoryService { get; set; }
-        public IBlogPostService postService { get; set; }
+        public virtual IBlogService blogService { get; set; }
+        public virtual IBlogCategoryService categoryService { get; set; }
+        public virtual IBlogPostService postService { get; set; }
 
-        public IFriendService friendService { get; set; }
+        public virtual IFriendService friendService { get; set; }
 
         public MyListController() {
             blogService = new BlogService();
@@ -45,15 +45,15 @@ namespace wojilu.Web.Controller.Blog.Admin {
             bindList( "categories", "c", categories, bindLink );
         }
 
-        public void Index() {
+        public virtual void Index() {
             set( "myLinkUrl", to( My ) );
         }
 
-        public void My() {
+        public virtual void My() {
             getListString( -1 );
         }
 
-        public void ListByCategory( long id ) {
+        public virtual void ListByCategory( long id ) {
             getListString( id );
         }
 
@@ -140,7 +140,7 @@ namespace wojilu.Web.Controller.Blog.Admin {
 
 
         [HttpPost, DbTransaction]
-        public void Admin() {
+        public virtual void Admin() {
 
             String ids = ctx.PostIdList( "choice" );
             String cmd = ctx.Post( "action" );

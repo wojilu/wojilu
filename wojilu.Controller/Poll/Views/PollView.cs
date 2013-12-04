@@ -20,7 +20,7 @@ namespace wojilu.Apps.Poll.Views {
         public Boolean hasVote { get; set; }
         public int isVisible { get; set; }
 
-        public String GetBody( Boolean showQuestionDesciption ) {
+        public virtual String GetBody( Boolean showQuestionDesciption ) {
 
             StringBuilder builder = new StringBuilder();
             if (showQuestionDesciption) {

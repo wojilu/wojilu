@@ -8,7 +8,7 @@ namespace wojilu.Web.Controller.Common {
 
     public class FormController : ControllerBase {
 
-        public void TextStyle() {
+        public virtual void TextStyle() {
         }
 
         public static String GetTitleStyle( MvcContext ctx ) {

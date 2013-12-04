@@ -32,14 +32,14 @@ namespace wojilu.Web.Controller.Admin.Groups {
 
     public partial class GroupController : ControllerBase {
 
-        public IGroupPostService postService { get; set; }
-        public IGroupService groupService { get; set; }
-        public IMessageService msgService { get; set; }
-        public IMemberGroupService mgrService { get; set; }
-        public IUserService userService { get; set; }
-        public IAdminLogService<SiteLog> logService { get; set; }
-        public IForumTopicService topicService { get; set; }
-        public IForumPostService fpostService { get; set; }
+        public virtual IGroupPostService postService { get; set; }
+        public virtual IGroupService groupService { get; set; }
+        public virtual IMessageService msgService { get; set; }
+        public virtual IMemberGroupService mgrService { get; set; }
+        public virtual IUserService userService { get; set; }
+        public virtual IAdminLogService<SiteLog> logService { get; set; }
+        public virtual IForumTopicService topicService { get; set; }
+        public virtual IForumPostService fpostService { get; set; }
 
         public GroupController() {
             postService = new GroupPostService();
@@ -52,7 +52,7 @@ namespace wojilu.Web.Controller.Admin.Groups {
             fpostService = new ForumPostService();
         }
 
-        public void Index() {
+        public virtual void Index() {
 
             // 左侧：最新讨论帖子
             List<ForumPost> recentPots = postService.GetRecent( 50 );
@@ -70,7 +70,7 @@ namespace wojilu.Web.Controller.Admin.Groups {
 
         //----------------------------------------------------------------------------------
 
-        public void PostAdmin() {
+        public virtual void PostAdmin() {
             DataPage<ForumPost> posts = getPosts();
             IBlock pblock = getBlock( "posts" );
             bindPosts( posts.Results, pblock );
@@ -78,7 +78,7 @@ namespace wojilu.Web.Controller.Admin.Groups {
             set( "SearchAction", to( PostAdmin ) );
         }
 
-        public void GroupAdmin( long id ) {
+        public virtual void GroupAdmin( long id ) {
 
             set( "SearchAction", to( GroupAdmin, -1 ) );
             set( "categoryLink", to( GroupAdmin, 999 ) );
@@ -102,13 +102,13 @@ namespace wojilu.Web.Controller.Admin.Groups {
 
         //----------------------------------------------------------------------------------
 
-        public void SendMsg( long id ) {
+        public virtual void SendMsg( long id ) {
             target( SaveMsg, id );
             Group g = groupService.GetById( id );
         }
 
         [HttpPost, DbTransaction]
-        public void SaveMsg( long id ) {
+        public virtual void SaveMsg( long id ) {
 
             String msg = ctx.Post( "Content" );
 
@@ -132,12 +132,12 @@ namespace wojilu.Web.Controller.Admin.Groups {
             }
         }
 
-        public void Lock( long id ) {
+        public virtual void Lock( long id ) {
             target( SaveLock, id );
         }
 
         [HttpPost, DbTransaction]
-        public void SaveLock( long id ) {
+        public virtual void SaveLock( long id ) {
 
             String msg = ctx.Post( "Content" );
 
@@ -160,12 +160,12 @@ namespace wojilu.Web.Controller.Admin.Groups {
             echoToParentPart( cmdName + lang( "ok" ) );
         }
 
-        public void Hide( long id ) {
+        public virtual void Hide( long id ) {
             target( SaveHide, id );
         }
 
         [HttpPost, DbTransaction]
-        public void SaveHide( long id ) {
+        public virtual void SaveHide( long id ) {
 
             String msg = ctx.Post( "Content" );
 
@@ -189,7 +189,7 @@ namespace wojilu.Web.Controller.Admin.Groups {
 
         // TODO 连带删除下属成员关系、app等
         [HttpDelete, DbTransaction]
-        public void Delete( long id ) {
+        public virtual void Delete( long id ) {
 
             Group g = groupService.GetById( id );
             groupService.Delete( id );

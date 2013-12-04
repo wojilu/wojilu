@@ -21,8 +21,8 @@ namespace wojilu.Web.Controller.Users.Admin {
 
     public class SiteNfController : ControllerBase {
 
-        public INotificationService notificationService { get; set; }
-        public IFriendService friendService { get; set; }
+        public virtual INotificationService notificationService { get; set; }
+        public virtual IFriendService friendService { get; set; }
 
         public SiteNfController() {
             notificationService = new NotificationService();
@@ -41,7 +41,7 @@ namespace wojilu.Web.Controller.Users.Admin {
         private long ownerId() { return Site.Instance.Id; }
         private String ownerType() { return typeof( Site ).FullName; }
 
-        public void List() {
+        public virtual void List() {
 
             set( "lnkReadAll", to( ReadAll ) );
 
@@ -73,14 +73,14 @@ namespace wojilu.Web.Controller.Users.Admin {
         }
 
         [HttpPost, DbTransaction]
-        public void ReadAll() {
+        public virtual void ReadAll() {
 
             notificationService.ReadAll( ownerId(), ownerType() );
             echoAjaxOk();
         }
 
         [HttpPost, DbTransaction]
-        public void Read( long id ) {
+        public virtual void Read( long id ) {
 
             Notification nf = notificationService.GetById( id );
             notificationService.Read( id );

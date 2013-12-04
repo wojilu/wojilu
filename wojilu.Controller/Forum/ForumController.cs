@@ -23,13 +23,13 @@ namespace wojilu.Web.Controller.Forum {
     [App( typeof( ForumApp ) )]
     public partial class ForumController : ControllerBase {
 
-        public IForumBoardService boardService { get; set; }
-        public IForumService forumService { get; set; }
-        public IForumLinkService linkService { get; set; }
-        public IForumTopicService topicService { get; set; }
-        public IUserService userService { get; set; }
-        public IForumPostService postService { get; set; }
-        public IForumPickService pickService { get; set; }
+        public virtual IForumBoardService boardService { get; set; }
+        public virtual IForumService forumService { get; set; }
+        public virtual IForumLinkService linkService { get; set; }
+        public virtual IForumTopicService topicService { get; set; }
+        public virtual IUserService userService { get; set; }
+        public virtual IForumPostService postService { get; set; }
+        public virtual IForumPickService pickService { get; set; }
 
         public ForumController() {
             forumService = new ForumService();
@@ -43,7 +43,7 @@ namespace wojilu.Web.Controller.Forum {
 
         [CachePage( typeof( ForumIndexPageCache ) )]
         [CacheAction( typeof( ForumIndexCache ) )]
-        public void Index() {
+        public virtual void Index() {
 
             List<ForumBoard> categories = getTree().GetRoots();
             List<ForumLink> linkList = linkService.GetByApp( ctx.app.Id, ctx.owner.Id );
@@ -63,7 +63,7 @@ namespace wojilu.Web.Controller.Forum {
 
 
         [NonVisit]
-        public void TopList() {
+        public virtual void TopList() {
 
             ForumApp app = ctx.app.obj as ForumApp;
 

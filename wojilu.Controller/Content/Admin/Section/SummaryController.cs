@@ -25,9 +25,9 @@ namespace wojilu.Web.Controller.Content.Admin.Section {
     [App( typeof( ContentApp ) )]
     public partial class SummaryController : ControllerBase, IPageAdminSection {
 
-        public IContentPostService postService { get; set; }
-        public IContentSectionService sectionService { get; set; }
-        public IAttachmentService attachService { get; set; }
+        public virtual IContentPostService postService { get; set; }
+        public virtual IContentSectionService sectionService { get; set; }
+        public virtual IAttachmentService attachService { get; set; }
 
         public SummaryController() {
             postService = new ContentPostService();
@@ -36,7 +36,7 @@ namespace wojilu.Web.Controller.Content.Admin.Section {
         }
 
 
-        public List<IPageSettingLink> GetSettingLink( long sectionId ) {
+        public virtual List<IPageSettingLink> GetSettingLink( long sectionId ) {
             List<IPageSettingLink> links = new List<IPageSettingLink>();
 
             PageSettingLink lnk = new PageSettingLink();
@@ -53,15 +53,15 @@ namespace wojilu.Web.Controller.Content.Admin.Section {
             return links;
         }
 
-        public String GetEditLink( long postId ) {
+        public virtual String GetEditLink( long postId ) {
             return to( new Common.PostController().Edit, postId );
         }
 
-        public String GetSectionIcon( long sectionId ) {
+        public virtual String GetSectionIcon( long sectionId ) {
             return "";
         }
 
-        public void AdminSectionShow( long sectionId ) {
+        public virtual void AdminSectionShow( long sectionId ) {
             List<ContentPost> posts = GetSectionPosts( sectionId );
             bindSectionShow( sectionId, posts );
         }
@@ -86,7 +86,7 @@ namespace wojilu.Web.Controller.Content.Admin.Section {
 
 
 
-        public List<ContentPost> GetSectionPosts( long sectionId ) {
+        public virtual List<ContentPost> GetSectionPosts( long sectionId ) {
             ContentSection s = sectionService.GetById( sectionId, ctx.app.Id );
             return postService.GetBySection( sectionId, s.ListCount );
         }

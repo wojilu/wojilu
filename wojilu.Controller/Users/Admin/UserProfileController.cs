@@ -30,13 +30,13 @@ namespace wojilu.Web.Controller.Users.Admin {
 
     public partial class UserProfileController : ControllerBase {
 
-        public IUserService userService { get; set; }
-        public IMemberAppService userAppService { get; set; }
-        public IAppInstallerService appinfoService { get; set; }
-        public IUserTagService userTagService { get; set; }
+        public virtual IUserService userService { get; set; }
+        public virtual IMemberAppService userAppService { get; set; }
+        public virtual IAppInstallerService appinfoService { get; set; }
+        public virtual IUserTagService userTagService { get; set; }
 
-        public ICurrencyService currencyService { get; set; }
-        public IUserConnectService connectService { get; set; }
+        public virtual ICurrencyService currencyService { get; set; }
+        public virtual IUserConnectService connectService { get; set; }
 
         public UserProfileController() {
             userService = new UserService();
@@ -71,10 +71,10 @@ namespace wojilu.Web.Controller.Users.Admin {
             }
         }
 
-        public void Index() {
+        public virtual void Index() {
         }
 
-        public void BindAccount() {
+        public virtual void BindAccount() {
 
 
             List<AuthConnectConfig> list = AuthConnectConfig.GetAll();
@@ -114,7 +114,7 @@ namespace wojilu.Web.Controller.Users.Admin {
 
         //-----------------------------------------------------------------------------------
 
-        public void Face() {
+        public virtual void Face() {
 
             target( FaceSave );
             User user = ctx.owner.obj as User;
@@ -122,7 +122,7 @@ namespace wojilu.Web.Controller.Users.Admin {
         }
 
         [HttpPost, DbTransaction]
-        public void FaceSave() {
+        public virtual void FaceSave() {
 
             User user = ctx.owner.obj as User;
 
@@ -150,14 +150,14 @@ namespace wojilu.Web.Controller.Users.Admin {
 
         //-----------------------------------------------------------------------------------
 
-        public void Interest() {
+        public virtual void Interest() {
             target( InterestSave );
             User user = ctx.owner.obj as User;
             bindInterest( user );
         }
 
         [HttpPost, DbTransaction]
-        public void InterestSave() {
+        public virtual void InterestSave() {
             User user = ctx.owner.obj as User;
             SaveInterest( user );
             db.update( user.Profile );
@@ -167,7 +167,7 @@ namespace wojilu.Web.Controller.Users.Admin {
         //-----------------------------------------------------------------------------------
 
 
-        public void Tag() {
+        public virtual void Tag() {
             target( SaveTag );
 
             List<UserTagShip> us = userTagService.GetPage( ctx.owner.Id );
@@ -183,7 +183,7 @@ namespace wojilu.Web.Controller.Users.Admin {
         }
 
 
-        public void SaveTag() {
+        public virtual void SaveTag() {
 
             String tagList = strUtil.SubString( ctx.Post( "tagList" ), 30 );
             if (strUtil.IsNullOrEmpty( tagList )) {
@@ -195,7 +195,7 @@ namespace wojilu.Web.Controller.Users.Admin {
             echoRedirect( lang( "opok" ), Tag );
         }
 
-        public void DeleteTag( long id ) {
+        public virtual void DeleteTag( long id ) {
             UserTagShip u = userTagService.GetById( id );
             if (u != null) {
                 userTagService.DeleteUserTag( u );
@@ -209,14 +209,14 @@ namespace wojilu.Web.Controller.Users.Admin {
 
 
 
-        public void Profile() {
+        public virtual void Profile() {
             target( ProfileSave );
             User user = ctx.owner.obj as User;
             bindProfile( user );
         }
 
         [HttpPost, DbTransaction]
-        public void ProfileSave() {
+        public virtual void ProfileSave() {
             User user = ctx.owner.obj as User;
             SaveProfile( user, ctx );
             db.update( user );
@@ -224,7 +224,7 @@ namespace wojilu.Web.Controller.Users.Admin {
             echoRedirect( lang( "opok" ) );
         }
 
-        public void Contact() {
+        public virtual void Contact() {
             target( ContactSave );
             User user = ctx.owner.obj as User;
             bindContact( user );
@@ -246,7 +246,7 @@ namespace wojilu.Web.Controller.Users.Admin {
 
         }
 
-        public void ContactSave() {
+        public virtual void ContactSave() {
             User user = ctx.owner.obj as User;
             saveContact( user );
             db.update( user );
@@ -256,12 +256,12 @@ namespace wojilu.Web.Controller.Users.Admin {
 
         //-----------------------------------------------------------------------------------
 
-        public void AddEmail() {
+        public virtual void AddEmail() {
             target( CreateEmail );
         }
 
         [HttpPost]
-        public void CreateEmail() {
+        public virtual void CreateEmail() {
 
             User user = ctx.owner.obj as User;
             if (strUtil.HasText( user.Email )) {
@@ -287,14 +287,14 @@ namespace wojilu.Web.Controller.Users.Admin {
             echoResult( result );
         }
 
-        public void Email() {
+        public virtual void Email() {
             target( SaveEmail );
             User user = ctx.owner.obj as User;
             set( "userEmail", user.Email );
         }
 
         [HttpPost]
-        public void SaveEmail() {
+        public virtual void SaveEmail() {
 
             String pwd = ctx.Post( "Pwd" );
             String email = strUtil.CutString( ctx.Post( "Email" ), 30 );
@@ -329,7 +329,7 @@ namespace wojilu.Web.Controller.Users.Admin {
             }
         }
 
-        public void Pwd() {
+        public virtual void Pwd() {
             view( "Pwd" );
 
             User user = ctx.owner.obj as User;
@@ -339,7 +339,7 @@ namespace wojilu.Web.Controller.Users.Admin {
         }
 
         [HttpPost, DbTransaction]
-        public void PwdSave() {
+        public virtual void PwdSave() {
 
             String opwd = ctx.Post( "OldPwd" );
 
@@ -365,7 +365,7 @@ namespace wojilu.Web.Controller.Users.Admin {
 
         //-----------------------------------------------------------------------------------
 
-        public void Privacy() {
+        public virtual void Privacy() {
 
             Boolean isUserPrivacyClose = Component.IsClose( typeof( UserPrivacy ) );
             if (isUserPrivacyClose) {
@@ -400,7 +400,7 @@ namespace wojilu.Web.Controller.Users.Admin {
         }
 
 
-        public void EditPermission( long id ) {
+        public virtual void EditPermission( long id ) {
 
             Boolean isUserPrivacyClose = Component.IsClose( typeof( UserPrivacy ) );
             if (isUserPrivacyClose) {
@@ -428,7 +428,7 @@ namespace wojilu.Web.Controller.Users.Admin {
             set( "app.Id", info.Id );
         }
 
-        public void SavePermission( long id ) {
+        public virtual void SavePermission( long id ) {
 
             Boolean isUserPrivacyClose = Component.IsClose( typeof( UserPrivacy ) );
             if (isUserPrivacyClose) {
@@ -453,7 +453,7 @@ namespace wojilu.Web.Controller.Users.Admin {
         }
 
 
-        public void SavePrivacy() {
+        public virtual void SavePrivacy() {
 
             Boolean isUserPrivacyClose = Component.IsClose( typeof( UserPrivacy ) );
             if (isUserPrivacyClose) {

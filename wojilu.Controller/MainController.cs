@@ -28,11 +28,11 @@ namespace wojilu.Web.Controller {
 
         private static readonly ILog logger = LogManager.GetLogger( typeof( MainController ) );
 
-        public IUserService userService { get; set; }
-        public IUserConfirmService confirmService { get; set; }
-        public ILoginService loginService { get; set; }
-        public IFriendService friendService { get; set; }
-        public IInviteService inviteService { get; set; }
+        public virtual IUserService userService { get; set; }
+        public virtual IUserConfirmService confirmService { get; set; }
+        public virtual ILoginService loginService { get; set; }
+        public virtual IFriendService friendService { get; set; }
+        public virtual IInviteService inviteService { get; set; }
 
         public MainController() {
 
@@ -46,18 +46,18 @@ namespace wojilu.Web.Controller {
 
         }
 
-        public void xtest() {
+        public virtual void xtest() {
             set( "welcomeMsg", "hello world!" );
         }
 
-        public void xx() {
+        public virtual void xx() {
         }
 
-        public void Index() {
+        public virtual void Index() {
             redirect( new SiteInitController().Index );
         }
 
-        public void LoginBox() {
+        public virtual void LoginBox() {
 
             if (ctx.viewer.IsLogin) {
                 echo( "对不起，您已经登录" );
@@ -77,7 +77,7 @@ namespace wojilu.Web.Controller {
             set( "returnUrl", ctx.Get( "returnUrl" ) );
         }
 
-        public void Login() {
+        public virtual void Login() {
 
             if (ctx.viewer.IsLogin) {
                 echo( "对不起，您已经登录" );
@@ -114,7 +114,7 @@ namespace wojilu.Web.Controller {
             load( "connectLogin", connectLogin );
         }
 
-        public void connectLogin() {
+        public virtual void connectLogin() {
 
             IBlock block = getBlock( "connectWrap" );
             List<AuthConnectConfig> xlist = AuthConnectConfig.GetEnabledList();
@@ -128,14 +128,14 @@ namespace wojilu.Web.Controller {
         }
 
         [HttpPost, DbTransaction]
-        public void Logout() {
+        public virtual void Logout() {
             ctx.web.UserLogout();
             OnlineStats.Instance.SubtractMemberCount();
             echoRedirect( lang( "logoutok" ), ctx.url.SiteAndAppPath );
         }
 
         [HttpPost, DbTransaction]
-        public void CheckLogin() {
+        public virtual void CheckLogin() {
 
             if (ctx.viewer.IsLogin) {
                 echo( "对不起，您已经登录" );
@@ -188,7 +188,7 @@ namespace wojilu.Web.Controller {
         }
 
 
-        public void ConfirmEmail() {
+        public virtual void ConfirmEmail() {
 
             String code = ctx.Get( "c" );
 
@@ -238,12 +238,12 @@ namespace wojilu.Web.Controller {
             return returnUrl;
         }
 
-        public void lost() {
+        public virtual void lost() {
             HideLayout( typeof( LayoutController ) );
             content( "wojilu.lostPage" );
         }
 
-        public void LoginScript() {
+        public virtual void LoginScript() {
             HideLayout( typeof( LayoutController ) );
 
             IBlock welcomeBlock = getBlock( "welcome" );

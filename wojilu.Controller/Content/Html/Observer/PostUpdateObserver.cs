@@ -17,8 +17,8 @@ namespace wojilu.Web.Controller.Content.Htmls {
 
     public class PostUpdateObserver : ActionObserver {
 
-        public IContentImgService imgService { get; set; }
-        public IContentPostService postService { get; set; }
+        public virtual IContentImgService imgService { get; set; }
+        public virtual IContentPostService postService { get; set; }
 
         public PostUpdateObserver() {
             postService = new ContentPostService();

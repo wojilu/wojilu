@@ -23,7 +23,7 @@ namespace wojilu.Web.Controller.Content.Htmls {
             return PathHelper.Map( string.Format( "/html/{0}/{1}/{2}/", n.Year, n.Month, n.Day ) );
         }
 
-        public void Process( ContentPost post ) {
+        public virtual void Process( ContentPost post ) {
             _post = post;
 
             base.CheckDir();
@@ -50,7 +50,7 @@ namespace wojilu.Web.Controller.Content.Htmls {
             }
         }
 
-        public void Delete( ContentPost post ) {
+        public virtual void Delete( ContentPost post ) {
 
             _post = post;
 

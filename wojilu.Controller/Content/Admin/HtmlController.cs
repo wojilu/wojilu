@@ -23,8 +23,8 @@ namespace wojilu.Web.Controller.Content.Admin {
 
         private static readonly ILog logger = LogManager.GetLogger( typeof( HtmlController ) );
 
-        public IContentPostService postService { get; set; }
-        public IContentSectionService sectionService { get; set; }
+        public virtual IContentPostService postService { get; set; }
+        public virtual IContentSectionService sectionService { get; set; }
 
         public HtmlController() {
             postService = new ContentPostService();
@@ -37,7 +37,7 @@ namespace wojilu.Web.Controller.Content.Admin {
             }
         }
 
-        public void Index() {
+        public virtual void Index() {
 
             bindHtmlSetting();
 
@@ -83,7 +83,7 @@ namespace wojilu.Web.Controller.Content.Admin {
             set( "lnkEditAutoHtml", to( EditAutoHtml ) );
         }
 
-        public void EditAutoHtml() {
+        public virtual void EditAutoHtml() {
             target( SaveAutoHtml );
             ContentApp app = ctx.app.obj as ContentApp;
             ContentSetting s = app.GetSettingsObj();
@@ -92,7 +92,7 @@ namespace wojilu.Web.Controller.Content.Admin {
         }
 
         [HttpPost]
-        public void SaveAutoHtml() {
+        public virtual void SaveAutoHtml() {
 
             ContentApp app = ctx.app.obj as ContentApp;
             ContentSetting s = app.GetSettingsObj();
@@ -104,7 +104,7 @@ namespace wojilu.Web.Controller.Content.Admin {
             echoToParentPart( lang( "opok" ) );
         }
 
-        public void EditHtmlPath() {
+        public virtual void EditHtmlPath() {
 
             target( SaveHtmlPath );
 
@@ -120,7 +120,7 @@ namespace wojilu.Web.Controller.Content.Admin {
         }
 
         [HttpPost]
-        public void SaveHtmlPath() {
+        public virtual void SaveHtmlPath() {
 
             String htmlPath = strUtil.SubString( ctx.Post( "htmlPath" ), 30 );
             if (strUtil.IsNullOrEmpty( htmlPath )) {
@@ -152,7 +152,7 @@ namespace wojilu.Web.Controller.Content.Admin {
 
         private int htmlCount = 0;
 
-        public void MakeAll() {
+        public virtual void MakeAll() {
             view( "MakeDone" );
 
             MakeSectionAll();
@@ -168,12 +168,12 @@ namespace wojilu.Web.Controller.Content.Admin {
             htmlCount += 1;
         }
 
-        public void MakeHomePage() {
+        public virtual void MakeHomePage() {
             HtmlMaker.GetHome().Process( ctx.app.Id );
             echo( "生成首页成功" );
         }
 
-        public void MakeSectionAll() {
+        public virtual void MakeSectionAll() {
 
             view( "MakeDone" );
 
@@ -200,7 +200,7 @@ namespace wojilu.Web.Controller.Content.Admin {
             echo( "生成所有列表页成功，共 " + htmlCount + " 篇" );
         }
 
-        public void MakeDetailAll() {
+        public virtual void MakeDetailAll() {
 
             view( "MakeDone" );
 
@@ -213,7 +213,7 @@ namespace wojilu.Web.Controller.Content.Admin {
         }
 
 
-        public void MakeSection( long sectionId ) {
+        public virtual void MakeSection( long sectionId ) {
 
             view( "MakeDone" );
 
@@ -227,7 +227,7 @@ namespace wojilu.Web.Controller.Content.Admin {
 
         }
 
-        public void MakeDetailBySection( long sectionId ) {
+        public virtual void MakeDetailBySection( long sectionId ) {
 
             view( "MakeDone" );
 

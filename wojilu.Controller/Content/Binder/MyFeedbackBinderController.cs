@@ -17,7 +17,7 @@ namespace wojilu.Web.Controller.Content.Binder {
 
     public class MyFeedbackBinderController : ControllerBase, ISectionBinder {
 
-        public void Bind( ContentSection section, IList serviceData ) {
+        public virtual void Bind( ContentSection section, IList serviceData ) {
 
 
             set( "ActionLink", t2( new FeedbackController().Create ) );

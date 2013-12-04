@@ -20,15 +20,15 @@ namespace wojilu.Web.Controller.Content.Admin.Section {
     [App( typeof( ContentApp ) )]
     public partial class SlideController : ControllerBase, IPageAdminSection {
 
-        public IContentPostService postService { get; set; }
-        public IContentSectionService sectionService { get; set; }
+        public virtual IContentPostService postService { get; set; }
+        public virtual IContentSectionService sectionService { get; set; }
 
         public SlideController() {
             postService = new ContentPostService();
             sectionService = new ContentSectionService();
         }
 
-        public List<IPageSettingLink> GetSettingLink( long sectionId ) {
+        public virtual List<IPageSettingLink> GetSettingLink( long sectionId ) {
             List<IPageSettingLink> links = new List<IPageSettingLink>();
 
             PageSettingLink lnk = new PageSettingLink();
@@ -44,15 +44,15 @@ namespace wojilu.Web.Controller.Content.Admin.Section {
             return links;
         }
 
-        public String GetEditLink( long postId ) {
+        public virtual String GetEditLink( long postId ) {
             return to( new Common.PostController().Edit, postId );
         }
 
-        public String GetSectionIcon( long sectionId ) {
+        public virtual String GetSectionIcon( long sectionId ) {
             return BinderUtils.iconPic;
         }
 
-        public void AdminSectionShow( long sectionId ) {
+        public virtual void AdminSectionShow( long sectionId ) {
 
             int imgcat = PostCategory.Img;
             List<ContentPost> posts = GetSectionPosts( sectionId );
@@ -61,7 +61,7 @@ namespace wojilu.Web.Controller.Content.Admin.Section {
             bindSectionShow( sectionId, imgcat, posts, first );
         }
 
-        public List<ContentPost> GetSectionPosts( long sectionId ) {
+        public virtual List<ContentPost> GetSectionPosts( long sectionId ) {
             return this.postService.GetBySection( sectionId, 3 );
         }
 

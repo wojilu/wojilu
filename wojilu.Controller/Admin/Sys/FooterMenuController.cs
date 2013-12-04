@@ -22,12 +22,12 @@ namespace wojilu.Web.Controller.Admin.Sys {
 
     public class FooterMenuController : ControllerBase {
 
-        public IAdminLogService<SiteLog> logService { get; set; }
+        public virtual IAdminLogService<SiteLog> logService { get; set; }
         public FooterMenuController() {
             logService = new SiteLogService();
         }
 
-        public void List() {
+        public virtual void List() {
             List<FooterMenu> menus = FooterMenu.GetAll();
             bindList( "list", "data", menus, bindLink );
             set( "addLink", to( Add ) );
@@ -79,12 +79,12 @@ namespace wojilu.Web.Controller.Admin.Sys {
             return strUtil.Join( ctx.url.SiteUrl, link );
         }
 
-        public void Add() {
+        public virtual void Add() {
             target( Create );
         }
 
         [HttpPost, DbTransaction]
-        public void Create() {
+        public virtual void Create() {
 
             FooterMenu data = validate( new FooterMenu() );
             if (ctx.HasErrors) {
@@ -98,7 +98,7 @@ namespace wojilu.Web.Controller.Admin.Sys {
             echoToParentPart( lang( "opok" ) );
         }
 
-        public void Edit( long id ) {
+        public virtual void Edit( long id ) {
             target( Update, id );
             FooterMenu data = FooterMenu.GetById( id );
             if (data == null) {
@@ -109,7 +109,7 @@ namespace wojilu.Web.Controller.Admin.Sys {
         }
 
         [HttpPost, DbTransaction]
-        public void Update( long id ) {
+        public virtual void Update( long id ) {
 
             FooterMenu data = FooterMenu.GetById( id );
             if (data == null) {
@@ -131,7 +131,7 @@ namespace wojilu.Web.Controller.Admin.Sys {
 
 
         [HttpDelete, DbTransaction]
-        public void Delete( long id ) {
+        public virtual void Delete( long id ) {
 
             FooterMenu data = FooterMenu.GetById( id );
             if (data == null) {

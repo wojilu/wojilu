@@ -10,7 +10,7 @@ namespace wojilu.Web.Controller.Microblogs {
 
     public class LayoutController : ControllerBase {
 
-        public ISiteSkinService siteSkinService { get; set; }
+        public virtual ISiteSkinService siteSkinService { get; set; }
 
         public LayoutController() {
             siteSkinService = new SiteSkinService();

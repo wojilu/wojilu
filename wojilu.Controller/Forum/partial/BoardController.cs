@@ -35,7 +35,7 @@ namespace wojilu.Web.Controller.Forum {
         }
 
         [NonVisit]
-        public void List() {
+        public virtual void List() {
 
             ForumBoard fbCategory = ctx.GetItem( "currentBoard" ) as ForumBoard;
             List<ForumBoard> childForums = ctx.GetItem( "childForumBoards" ) as List<ForumBoard>;

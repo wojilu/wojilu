@@ -11,9 +11,9 @@ namespace wojilu.Web.Controller.Forum.Edits {
 
     public class SecurityController : ControllerBase {
 
-        public IForumBoardService boardService { get; set; }
-        public IForumTopicService topicService { get; set; }
-        public IForumPostService postService { get; set; }
+        public virtual IForumBoardService boardService { get; set; }
+        public virtual IForumTopicService topicService { get; set; }
+        public virtual IForumPostService postService { get; set; }
 
         public SecurityController() {
             boardService = new ForumBoardService();

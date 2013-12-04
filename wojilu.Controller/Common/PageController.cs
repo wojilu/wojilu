@@ -20,7 +20,7 @@ using wojilu.Members.Users.Service;
 namespace wojilu.Web.Controller.Pages {
 
     public class PageController : ControllerBase {
-        public void Show( long id ) {
+        public virtual void Show( long id ) {
             redirectDirect( to( new Common.PageController().Show, id ) );
         }
     }
@@ -32,9 +32,9 @@ namespace wojilu.Web.Controller.Common {
 
     public class PageController : ControllerBase {
 
-        public IPageService pageService { get; set; }
-        public IUserService userService { get; set; }
-        public INotificationService nfService { get; set; }
+        public virtual IPageService pageService { get; set; }
+        public virtual IUserService userService { get; set; }
+        public virtual INotificationService nfService { get; set; }
 
         public PageController() {
             pageService = new PageService();
@@ -42,7 +42,7 @@ namespace wojilu.Web.Controller.Common {
             nfService = new NotificationService();
         }
 
-        public void VersionList( long id ) {
+        public virtual void VersionList( long id ) {
 
             Page data = pageService.GetPostById( id, ctx.owner.obj );
             if (data == null) {
@@ -76,7 +76,7 @@ namespace wojilu.Web.Controller.Common {
             set( "page", list.PageBar );
         }
 
-        public void VersionShow( long id ) {
+        public virtual void VersionShow( long id ) {
 
             PageHistory ph = pageService.GetHistory( id );
             if (ph == null) {
@@ -99,7 +99,7 @@ namespace wojilu.Web.Controller.Common {
 
         }
 
-        public void Show( long id ) {
+        public virtual void Show( long id ) {
 
             Page data = pageService.GetPostById( id, ctx.owner.obj );
             if (data == null) {
@@ -171,7 +171,7 @@ namespace wojilu.Web.Controller.Common {
             return false;
         }
 
-        public void Add( long id ) {
+        public virtual void Add( long id ) {
             PageCategory category = pageService.GetCategoryById( id, ctx.owner.obj );
             if (category == null) {
                 echo( lang( "exDataNotFound" ) );
@@ -187,7 +187,7 @@ namespace wojilu.Web.Controller.Common {
         }
 
         [HttpPost, DbTransaction]
-        public void Create( long id ) {
+        public virtual void Create( long id ) {
 
             PageCategory category = pageService.GetCategoryById( id, ctx.owner.obj );
             if (category == null) {
@@ -228,7 +228,7 @@ namespace wojilu.Web.Controller.Common {
             data.Creator = (User)ctx.viewer.obj;
         }
 
-        public void Edit( long id ) {
+        public virtual void Edit( long id ) {
 
             Page data = pageService.GetPostById( id, ctx.owner.obj );
             if (data == null) {
@@ -272,7 +272,7 @@ namespace wojilu.Web.Controller.Common {
         }
 
         [HttpPost, DbTransaction]
-        public void Cancel( long id ) {
+        public virtual void Cancel( long id ) {
             Page data = pageService.GetPostById( id, ctx.owner.obj );
             if (data == null) {
                 echo( lang( "exDataNotFound" ) );
@@ -285,7 +285,7 @@ namespace wojilu.Web.Controller.Common {
         }
 
         [HttpPost, DbTransaction]
-        public void Ping( long id ) {
+        public virtual void Ping( long id ) {
             Page data = pageService.GetPostById( id, ctx.owner.obj );
             if (data == null) {
                 echo( lang( "exDataNotFound" ) );
@@ -298,7 +298,7 @@ namespace wojilu.Web.Controller.Common {
         }
 
         [HttpPost, DbTransaction]
-        public void Update( long id ) {
+        public virtual void Update( long id ) {
 
             Page data = pageService.GetPostById( id, ctx.owner.obj );
             if (data == null) {
@@ -366,7 +366,7 @@ namespace wojilu.Web.Controller.Common {
             }
         }
 
-        public void SideBar() {
+        public virtual void SideBar() {
 
             Page data = ctx.GetItem( "_currentPage" ) as Page;
             List<Page> relativeList = ctx.GetItem( "_relativeList" ) as List<Page>;
@@ -406,7 +406,7 @@ namespace wojilu.Web.Controller.Common {
                 currentNodeId = nodeId;
             }
 
-            public String Bind( INode node ) {
+            public virtual String Bind( INode node ) {
                 String lnk = link.T2( new PageController().Show, node.Id );
                 return "<a href=\"" + lnk + "\">" + node.Name + "</a>";
             }
@@ -419,15 +419,15 @@ namespace wojilu.Web.Controller.Common {
                 return x.IsCollapse == 1;
             }
 
-            public bool IsOpen( INode node ) {
+            public virtual bool IsOpen( INode node ) {
                 return !isCollapse( (Page)node );
             }
 
-            public string GetTarget( INode node ) {
+            public virtual string GetTarget( INode node ) {
                 return "_self";
             }
 
-            public string GetUrl( INode node ) {
+            public virtual string GetUrl( INode node ) {
 
                 Page x = node as Page;
                 if (x.IsTextNode == 1) return "";
@@ -435,7 +435,7 @@ namespace wojilu.Web.Controller.Common {
                 return link.T2( new PageController().Show, node.Id );
             }
 
-            public String GetName( INode node ) {
+            public virtual String GetName( INode node ) {
                 if (node.Id != currentNodeId) return node.Name;
                 String lnk = link.T2( new PageController().Show, node.Id );
                 return "<span class='currentNode'>" + node.Name + "</span>";

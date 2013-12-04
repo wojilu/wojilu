@@ -19,7 +19,7 @@ namespace wojilu.Web.Controller.Content.Htmls {
             return PathHelper.Map( "/html/sidebar/" );
         }
 
-        public void Process( long appId ) {
+        public virtual void Process( long appId ) {
 
             base.CheckDir();
 

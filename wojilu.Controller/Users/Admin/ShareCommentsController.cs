@@ -22,22 +22,22 @@ namespace wojilu.Web.Controller.Users.Admin {
 
     public partial class ShareCommentsController : ControllerBase {
 
-        public IShareService shareService { get; set; }
-        public IFollowerService followService { get; set; }
+        public virtual IShareService shareService { get; set; }
+        public virtual IFollowerService followService { get; set; }
 
         public ShareCommentsController() {
             shareService = new ShareService();
             followService = new FollowerService();
         }
 
-        public void Show( long id ) {
+        public virtual void Show( long id ) {
             set( "commentList", loadHtml( commentList, id ) );
             set( "commentForm", loadHtml( commentForm, id ) );
             set( "share.Id", id );
         }
 
         [NonVisit]
-        public void commentList( long id ) {
+        public virtual void commentList( long id ) {
             Share share = shareService.GetByIdWithComments( id );
 
             if (share == null) {
@@ -49,7 +49,7 @@ namespace wojilu.Web.Controller.Users.Admin {
         }
 
         [NonVisit]
-        public void commentForm( long id ) {
+        public virtual void commentForm( long id ) {
             target( SaveComment );
             set( "c.RootId", id );
             set( "viewer.PicSmall", ctx.viewer.obj.PicSmall );
@@ -93,7 +93,7 @@ namespace wojilu.Web.Controller.Users.Admin {
         }
 
         [HttpPost, DbTransaction]
-        public void SaveComment() {
+        public virtual void SaveComment() {
 
             if (ctx.viewer.IsLogin == false) {
                 echoRedirect( lang( "exPlsLogin" ) );

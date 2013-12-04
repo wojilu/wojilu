@@ -12,7 +12,7 @@ namespace wojilu.Web.Controller.Groups {
 
     public class ForbiddenController : ControllerBase {
 
-        public void Group() {
+        public virtual void Group() {
 
             HideLayout( typeof( wojilu.Web.Controller.LayoutController ) );
 

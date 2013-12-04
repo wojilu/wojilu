@@ -15,13 +15,13 @@ namespace wojilu.Web.Controller.Content {
     [App( typeof( ContentApp ) )]
     public class SidebarController : ControllerBase {
 
-        public IContentPostService postService { get; set; }
+        public virtual IContentPostService postService { get; set; }
 
         public SidebarController() {
             postService = new ContentPostService();
         }
 
-        public void Index() {
+        public virtual void Index() {
 
             ContentApp app = ctx.app.obj as ContentApp;
             ContentSetting s = app.GetSettingsObj();

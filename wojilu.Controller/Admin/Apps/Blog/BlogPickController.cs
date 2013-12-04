@@ -16,7 +16,7 @@ namespace wojilu.Web.Controller.Admin.Apps.Blog {
     [App( typeof( BlogApp ) )]
     public class BlogPickController : PickDataBaseController<BlogPost, BlogPick> {
 
-        public ISysBlogService postService { get; set; }
+        public virtual ISysBlogService postService { get; set; }
 
         public BlogPickController() {
             postService = new SysBlogService();

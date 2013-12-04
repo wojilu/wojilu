@@ -15,8 +15,8 @@ namespace wojilu.Web.Controller.Users.Admin {
 
     public class AvatarController : ControllerBase {
 
-        public IUserErrorPicService errorPicService { get; set; }
-        public IUserService userService { get; set; }
+        public virtual IUserErrorPicService errorPicService { get; set; }
+        public virtual IUserService userService { get; set; }
 
         public AvatarController() {
             userService = new UserService();
@@ -26,7 +26,7 @@ namespace wojilu.Web.Controller.Users.Admin {
         public override void Layout() {
         }
 
-        public void NeedUserPic() {
+        public virtual void NeedUserPic() {
 
             HideLayout( typeof( wojilu.Web.Controller.LayoutController ) );
             HideLayout( typeof( wojilu.Web.Controller.Users.Admin.LayoutController ) );
@@ -87,7 +87,7 @@ namespace wojilu.Web.Controller.Users.Admin {
 
         //----------------------------------------------------------
 
-        public void SaveUserPic() {
+        public virtual void SaveUserPic() {
 
 
             int uploadStatus = errorPicService.GetStatus( ctx.viewer.obj as User );

@@ -15,13 +15,13 @@ namespace wojilu.Web.Controller.Users {
 
     public class VisitorController : ControllerBase {
 
-        public IVisitorService visitorService { get; set; }
+        public virtual IVisitorService visitorService { get; set; }
 
         public VisitorController() {
             visitorService = new VisitorService();
         }
 
-        public void Index() {
+        public virtual void Index() {
 
             if (ctx.viewer.HasPrivacyPermission( ctx.owner.obj, UserPermission.RecentVisitor.ToString() ) == false) {
                 echo( lang( "exVisitNoPermission" ) );

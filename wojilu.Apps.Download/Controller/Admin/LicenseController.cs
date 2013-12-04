@@ -13,7 +13,7 @@ namespace wojilu.Web.Controller.Download.Admin {
     public class LicenseController : ControllerBase {
 
 
-        public void List() {
+        public virtual void List() {
 
             set( "addLink", to( Add ) );
             set( "sortAction", to( SaveSort ) );
@@ -54,12 +54,12 @@ namespace wojilu.Web.Controller.Download.Admin {
 
         }
 
-        public void Add() {
+        public virtual void Add() {
             target( Create );
         }
 
         [HttpPost]
-        public void Create() {
+        public virtual void Create() {
             string name = ctx.Post( "Name" );
             if (strUtil.IsNullOrEmpty( name )) {
                 echoError( "请填写名称" );
@@ -73,7 +73,7 @@ namespace wojilu.Web.Controller.Download.Admin {
             echoToParentPart( lang( "opok" ) );
         }
 
-        public void Edit( long id ) {
+        public virtual void Edit( long id ) {
             target( Update, id );
 
             LicenseType lt = LicenseType.GetById( id );
@@ -81,7 +81,7 @@ namespace wojilu.Web.Controller.Download.Admin {
         }
 
         [HttpPost]
-        public void Update( long id ) {
+        public virtual void Update( long id ) {
 
             string name = ctx.Post( "Name" );
             if (strUtil.IsNullOrEmpty( name )) {
@@ -97,7 +97,7 @@ namespace wojilu.Web.Controller.Download.Admin {
         }
 
         [HttpDelete]
-        public void Delete( long id ) {
+        public virtual void Delete( long id ) {
 
             LicenseType lt = LicenseType.GetById( id );
             if (lt != null) {

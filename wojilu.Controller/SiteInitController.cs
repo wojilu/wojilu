@@ -28,7 +28,7 @@ namespace wojilu.Web.Controller {
             siteInitHelper = ObjectContext.Create<SiteInitHelper>();
         }
 
-        public void Index() {
+        public virtual void Index() {
 
             if (isInit() == false) {
                 String view = loadHtml( InitData );
@@ -44,12 +44,12 @@ namespace wojilu.Web.Controller {
             }
         }
 
-        public void SelectDb() {
+        public virtual void SelectDb() {
             set( "link", to( Init ) );
         }
 
         [NonVisit]
-        public void InitData() {
+        public virtual void InitData() {
             set( "link", to( Init ) );
             set( "selectDbLink", to( SelectDb ) );
 
@@ -62,12 +62,12 @@ namespace wojilu.Web.Controller {
         }
 
         [NonVisit]
-        public void Register() {
+        public virtual void Register() {
             set( "link", to( new RegisterController().Register ) );
         }
 
         [NonVisit]
-        public void Initok() {
+        public virtual void Initok() {
 
             set( "addAppLink", to( new Admin.AppController().Select ) );
             set( "addMenuLink", to( new Admin.Sys.DashboardController().Links ) );
@@ -78,7 +78,7 @@ namespace wojilu.Web.Controller {
         }
 
         [HttpPost, DbTransaction]
-        public void Init() {
+        public virtual void Init() {
 
             Boolean isInit = siteInitHelper.InitSite();
 

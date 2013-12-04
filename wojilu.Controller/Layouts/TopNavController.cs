@@ -36,10 +36,10 @@ namespace wojilu.Web.Controller.Layouts {
 
     public partial class TopNavController : ControllerBase {
 
-        public IMemberAppService userAppService { get; set; }
-        public IMessageService msgService { get; set; }
+        public virtual IMemberAppService userAppService { get; set; }
+        public virtual IMessageService msgService { get; set; }
         private IMenuService menuService { get; set; }
-        public ICurrencyService currencyService { get; set; }
+        public virtual ICurrencyService currencyService { get; set; }
 
         public TopNavController() {
             userAppService = new UserAppService();
@@ -48,11 +48,11 @@ namespace wojilu.Web.Controller.Layouts {
             currencyService = new CurrencyService();
         }
 
-        public void IndexNew() {
+        public virtual void IndexNew() {
             Index();
         }
 
-        public void Index() {
+        public virtual void Index() {
 
             if (config.Instance.Site.TopNavDisplay == TopNavDisplay.Hide ||
                 (config.Instance.Site.RegisterType == RegisterType.Close &&
@@ -99,7 +99,7 @@ _run( function() {
 
         //------------------------------------------------------------------------------------------------------
 
-        public void Nav() {
+        public virtual void Nav() {
 
             // TODO 如果是在访问用户空间，则判断：是否好友、是否关注
             // 游客登录信息：已被 RenderHelper 拦截
@@ -277,7 +277,7 @@ _run( function() {
 
         //-------------------------------------------------------------------------------------------------------------
 
-        public void Header() {
+        public virtual void Header() {
 
             set( "site.Name", Site.Instance.Name );
             set( "site.Logo", config.Instance.Site.GetLogoHtml() );

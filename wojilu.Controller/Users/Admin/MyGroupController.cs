@@ -32,11 +32,11 @@ namespace wojilu.Web.Controller.Users.Admin {
 
     public class MyGroupController : ControllerBase {
 
-        public IGroupService groupService { get; set; }
-        public IMessageService msgService { get; set; }
-        public IMemberGroupService mgrService { get; set; }
-        public IInviteService inviteService { get; set; }
-        public IGroupPostService gpostService { get; set; }
+        public virtual IGroupService groupService { get; set; }
+        public virtual IMessageService msgService { get; set; }
+        public virtual IMemberGroupService mgrService { get; set; }
+        public virtual IInviteService inviteService { get; set; }
+        public virtual IGroupPostService gpostService { get; set; }
 
         public MyGroupController() {
             msgService = new MessageService();
@@ -73,7 +73,7 @@ namespace wojilu.Web.Controller.Users.Admin {
 
         }
 
-        public void My() {
+        public virtual void My() {
 
             List<Group> lists = mgrService.GetJoinedGroup( ctx.owner.Id, 10 );
 
@@ -92,18 +92,18 @@ namespace wojilu.Web.Controller.Users.Admin {
 
         }
 
-        public void GroupMy() {
+        public virtual void GroupMy() {
             DataPage<Group> lists = mgrService.GetGroupByUser( ctx.owner.Id );
             bindMyGroup( lists.Results, "list" );
             set( "page", lists.PageBar );
         }
 
-        public void GroupFriend() {
+        public virtual void GroupFriend() {
             List<Group> flist = mgrService.GetGroupByFriends( ctx.owner.Id, 20 );
             bindMyGroup( flist, "friends" );
         }
 
-        public void MyPost() {
+        public virtual void MyPost() {
 
             String ids = mgrService.GetJoinedGroupIds( ctx.owner.Id );
             DataPage<ForumTopic> topics = gpostService.GetMyTopicPage( ctx.owner.Id, ids, 20 );
@@ -162,7 +162,7 @@ namespace wojilu.Web.Controller.Users.Admin {
         //---------------------------------------------------------------------
 
 
-        public void New() {
+        public virtual void New() {
 
             if (isEnableUserCreateGroup() == false) {
                 echoError( "禁止创建群组" );
@@ -186,7 +186,7 @@ namespace wojilu.Web.Controller.Users.Admin {
         }
 
         [HttpPost, DbTransaction]
-        public void CheckNameExist() {
+        public virtual void CheckNameExist() {
 
             String name = ctx.Post( "Name" );
             if (groupService.IsNameReservedOrExist( name )) {
@@ -199,7 +199,7 @@ namespace wojilu.Web.Controller.Users.Admin {
         }
 
         [HttpPost, DbTransaction]
-        public void CheckUrlExist() {
+        public virtual void CheckUrlExist() {
 
             String url = ctx.Post( "FriendUrl" );
             if (groupService.IsUrlReservedOrExist( url )) {
@@ -211,7 +211,7 @@ namespace wojilu.Web.Controller.Users.Admin {
         }
 
         [HttpPost, DbTransaction]
-        public void StepTwo() {
+        public virtual void StepTwo() {
 
             if (isEnableUserCreateGroup() == false) {
                 echoError( "禁止创建群组" );
@@ -248,7 +248,7 @@ namespace wojilu.Web.Controller.Users.Admin {
         }
 
         [NonVisit]
-        public void showStepTwo( long id ) {
+        public virtual void showStepTwo( long id ) {
 
             if (isEnableUserCreateGroup() == false) {
                 echoError( "禁止创建群组" );
@@ -260,7 +260,7 @@ namespace wojilu.Web.Controller.Users.Admin {
         }
 
         [HttpPost, DbTransaction]
-        public void StepThree() {
+        public virtual void StepThree() {
 
             if (isEnableUserCreateGroup() == false) {
                 echoError( "禁止创建群组" );
@@ -284,7 +284,7 @@ namespace wojilu.Web.Controller.Users.Admin {
 
         }
 
-        public void SearchResult() {
+        public virtual void SearchResult() {
 
             String term = ctx.Post( "term" );
             List<Group> mygroups = this.groupService.Search( term );

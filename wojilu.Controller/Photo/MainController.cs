@@ -23,10 +23,10 @@ namespace wojilu.Web.Controller.Photo {
     [App( typeof( PhotoApp ) )]
     public class MainController : ControllerBase {
 
-        public ISysPhotoService photoService { get; set; }
-        public IPickedService PickedService { get; set; }
-        public IPhotoSysCategoryService categoryService { get; set; }
-        public IPhotoRankService rankService { get; set; }
+        public virtual ISysPhotoService photoService { get; set; }
+        public virtual IPickedService PickedService { get; set; }
+        public virtual IPhotoSysCategoryService categoryService { get; set; }
+        public virtual IPhotoRankService rankService { get; set; }
 
 
         public MainController() {
@@ -68,7 +68,7 @@ namespace wojilu.Web.Controller.Photo {
 
         [CachePage( typeof( PhotoMainPageCache ) )]
         [CacheAction( typeof( PhotoMainActionCache ) )]
-        public void Index() {
+        public virtual void Index() {
 
             ctx.Page.Title = lang( "photo" );
 
@@ -118,7 +118,7 @@ namespace wojilu.Web.Controller.Photo {
             }
         }
 
-        public void List( long categoryId ) {
+        public virtual void List( long categoryId ) {
 
             set( "appLink", to( Index ) );
 
@@ -130,7 +130,7 @@ namespace wojilu.Web.Controller.Photo {
             set( "page", list.PageBar );
         }
 
-        public void Recent() {
+        public virtual void Recent() {
 
             view( "List" );
 

@@ -17,11 +17,11 @@ namespace wojilu.Web.Controller.Content.Submit {
     [App( typeof( ContentApp ) )]
     public class AdminController : ControllerBase {
 
-        public IContentSectionService sectionService { get; set; }
-        public IContentPostService postService { get; set; }
-        public ContentTempPostService tempPostService { get; set; }
-        public INotificationService ntService { get; set; }
-        public IMessageService msgService { get; set; }
+        public virtual IContentSectionService sectionService { get; set; }
+        public virtual IContentPostService postService { get; set; }
+        public virtual ContentTempPostService tempPostService { get; set; }
+        public virtual INotificationService ntService { get; set; }
+        public virtual IMessageService msgService { get; set; }
 
         public AdminController() {
             sectionService = new ContentSectionService();
@@ -35,7 +35,7 @@ namespace wojilu.Web.Controller.Content.Submit {
             if (hasAdminPermission() == false) echo( "对不起，你没有管理权限" );
         }
 
-        public void Index() {
+        public virtual void Index() {
 
             set( "OperationUrl", to( SaveAdmin ) );
             set( "submintLink", to( new PostController().Index ) );
@@ -58,7 +58,7 @@ namespace wojilu.Web.Controller.Content.Submit {
         }
 
         [HttpPost, DbTransaction]
-        public void SaveAdmin() {
+        public virtual void SaveAdmin() {
 
             String ids = ctx.PostIdList( "choice" );
 
@@ -103,19 +103,19 @@ namespace wojilu.Web.Controller.Content.Submit {
             tempPostService.NoPass( ids );
         }
 
-        public void Pass( long id ) {
+        public virtual void Pass( long id ) {
             target( SavePass, id );
             ContentTempPost p = tempPostService.GetById( id );
             bind( "post", p );
         }
 
-        public void NoPass( long id ) {
+        public virtual void NoPass( long id ) {
             target( SaveNoPass, id );
             ContentTempPost p = tempPostService.GetById( id );
             bind( "post", p );
         }
 
-        public void SavePass( long id ) {
+        public virtual void SavePass( long id ) {
 
             String msg = ctx.Post( "msg" );
             ContentTempPost p = tempPostService.GetById( id );
@@ -133,7 +133,7 @@ namespace wojilu.Web.Controller.Content.Submit {
         }
 
 
-        public void SaveNoPass( long id ) {
+        public virtual void SaveNoPass( long id ) {
             String desc = ctx.Post( "msg" );
             ContentTempPost p = tempPostService.GetById( id );
             if (p == null) {

@@ -23,11 +23,11 @@ namespace wojilu.Web.Controller.Admin.Apps.Photo {
     [App( typeof( PhotoApp ) )]
     public partial class MainController : ControllerBase {
 
-        public ISysPhotoService photoService { get; set; }
-        public IPhotoPostService postService { get; set; }
-        public IPickedService pickedService { get; set; }
-        public IPhotoSysCategoryService categoryService { get; set; }
-        public IAdminLogService<SiteLog> logService { get; set; }
+        public virtual ISysPhotoService photoService { get; set; }
+        public virtual IPhotoPostService postService { get; set; }
+        public virtual IPickedService pickedService { get; set; }
+        public virtual IPhotoSysCategoryService categoryService { get; set; }
+        public virtual IAdminLogService<SiteLog> logService { get; set; }
 
         public MainController() {
             photoService = new SysPhotoService();
@@ -49,7 +49,7 @@ namespace wojilu.Web.Controller.Admin.Apps.Photo {
             tpl.Set( "c.LinkCategory", to( new MainController().Index, id ) );
         }
 
-        public void Index( long id ) {
+        public virtual void Index( long id ) {
 
             DataPage<PhotoPost> list = photoService.GetSysPostPage( id, pageSize );
             bindList( "list", "photo", list.Results, bindLink );
@@ -62,7 +62,7 @@ namespace wojilu.Web.Controller.Admin.Apps.Photo {
 
 
         [HttpPost, DbTransaction]
-        public void Admin() {
+        public virtual void Admin() {
 
             String ids = ctx.Post( "choice" );
             String cmd = ctx.Post( "action" );

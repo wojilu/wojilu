@@ -34,7 +34,7 @@ namespace wojilu.Apps.Poll.Views {
             return false;
         }
 
-        public PollView GetPollView() {
+        public virtual PollView GetPollView() {
 
             PollView view = new PollView();
             view.Question = poll.Question;
@@ -178,7 +178,7 @@ _run( function() {
             return list;
         }
 
-        public String GetJsonResult() {
+        public virtual String GetJsonResult() {
 
             int total = poll.VoteCount;
 

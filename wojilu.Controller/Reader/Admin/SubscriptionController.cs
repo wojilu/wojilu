@@ -21,10 +21,10 @@ namespace wojilu.Web.Controller.Reader.Admin {
     public class SubscriptionController : ControllerBase {
 
 
-        public IFeedCategoryService categoryService { get; set; }
-        public IFeedSourceService feedService { get; set; }
-        public ISubscriptionService subscriptionService { get; set; }
-        public IFeedEntryService entryService { get; set; }
+        public virtual IFeedCategoryService categoryService { get; set; }
+        public virtual IFeedSourceService feedService { get; set; }
+        public virtual ISubscriptionService subscriptionService { get; set; }
+        public virtual IFeedEntryService entryService { get; set; }
 
         public SubscriptionController() {
             categoryService = new FeedCategoryService();
@@ -37,7 +37,7 @@ namespace wojilu.Web.Controller.Reader.Admin {
         public override void Layout() {
         }
 
-        public void Index() {
+        public virtual void Index() {
 
             List<Subscription> list =subscriptionService.GetByApp( ctx.app.Id );
             bindSubscribeList( list );
@@ -73,7 +73,7 @@ namespace wojilu.Web.Controller.Reader.Admin {
         }
 
 
-        public void Add() {
+        public virtual void Add() {
 
             List<FeedCategory> categories = categoryService.GetByApp( ctx.app.Id );
             if (categories.Count == 0) {
@@ -86,7 +86,7 @@ namespace wojilu.Web.Controller.Reader.Admin {
         }
 
         [HttpPost, DbTransaction]
-        public void Create() {
+        public virtual void Create() {
 
             String rssLink = ctx.Post( "Link" );
             if (strUtil.IsNullOrEmpty( rssLink )) {
@@ -103,7 +103,7 @@ namespace wojilu.Web.Controller.Reader.Admin {
             redirect( Show, s.Id );
         }
 
-        public void Edit( long id ) {
+        public virtual void Edit( long id ) {
 
             Subscription sf = subscriptionService.GetById( id );
             if (sf == null) {
@@ -117,7 +117,7 @@ namespace wojilu.Web.Controller.Reader.Admin {
         }
 
         [HttpPost, DbTransaction]
-        public void Update( long id ) {
+        public virtual void Update( long id ) {
 
             Subscription sf = subscriptionService.GetById( id );
             if (sf == null) {
@@ -137,7 +137,7 @@ namespace wojilu.Web.Controller.Reader.Admin {
         }
 
         [HttpDelete, DbTransaction]
-        public void Delete( long id ) {
+        public virtual void Delete( long id ) {
 
             Subscription sf = subscriptionService.GetById( id );
             if (sf == null) {
@@ -178,7 +178,7 @@ namespace wojilu.Web.Controller.Reader.Admin {
 
 
 
-        public void Show( long id ) {
+        public virtual void Show( long id ) {
 
             Subscription s = subscriptionService.GetById( id );
             DataPage<FeedEntry> list = entryService.GetPage( s.FeedSource.Id );

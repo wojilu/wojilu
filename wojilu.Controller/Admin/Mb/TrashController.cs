@@ -10,13 +10,13 @@ namespace wojilu.Web.Controller.Admin.Mb {
 
     public class TrashController : ControllerBase {
 
-        public SysMicroblogService sysMicroblogService { get; set; }
+        public virtual ISysMicroblogService sysMicroblogService { get; set; }
 
         public TrashController() {
             sysMicroblogService = new SysMicroblogService();
         }
 
-        public void Index() {
+        public virtual void Index() {
 
             set( "OperationUrl", to( Admin ) );
 
@@ -34,7 +34,7 @@ namespace wojilu.Web.Controller.Admin.Mb {
         }
 
         [HttpPost, DbTransaction]
-        public void Admin() {
+        public virtual void Admin() {
 
             String ids = ctx.PostIdList( "choice" );
             String cmd = ctx.Post( "action" );

@@ -18,8 +18,8 @@ namespace wojilu.Web.Controller.Users {
 
     public class ForbiddenController :ControllerBase {
 
-        public IPhotoPostService photoPostService { get; set; }
-        public IBlogPostService blogPostService { get; set; }
+        public virtual IPhotoPostService photoPostService { get; set; }
+        public virtual IBlogPostService blogPostService { get; set; }
 
         public ForbiddenController() {
             photoPostService = new PhotoPostService();
@@ -27,7 +27,7 @@ namespace wojilu.Web.Controller.Users {
         }
 
 
-        public void User() {
+        public virtual void User() {
 
 
             HideLayout( typeof( wojilu.Web.Controller.LayoutController ) );

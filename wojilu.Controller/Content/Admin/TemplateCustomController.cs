@@ -14,9 +14,9 @@ namespace wojilu.Web.Controller.Content.Admin {
     [App( typeof( ContentApp ) )]
     public class TemplateCustomController : ControllerBase {
 
-        public IContentSectionService sectionService { get; set; }
-        public IContentCustomTemplateService ctService { get; set; }
-        public IContentSectionTemplateService templatelService { get; set; }
+        public virtual IContentSectionService sectionService { get; set; }
+        public virtual IContentCustomTemplateService ctService { get; set; }
+        public virtual IContentSectionTemplateService templatelService { get; set; }
 
         public TemplateCustomController() {
             sectionService = new ContentSectionService();
@@ -25,7 +25,7 @@ namespace wojilu.Web.Controller.Content.Admin {
         }
 
 
-        public void Edit( long sectionId ) {
+        public virtual void Edit( long sectionId ) {
 
             ContentSection s = sectionService.GetById( sectionId, ctx.app.Id );
             if (s == null) {
@@ -68,7 +68,7 @@ namespace wojilu.Web.Controller.Content.Admin {
         //-------------------------------------------------------------------------------------------------------------------------
         
 
-        public void EditBinder( long sectionId ) {
+        public virtual void EditBinder( long sectionId ) {
 
             ContentSection s = sectionService.GetById( sectionId, ctx.app.Id );
             if (s == null) {
@@ -116,7 +116,7 @@ namespace wojilu.Web.Controller.Content.Admin {
 
 
         [HttpPost, DbTransaction]
-        public void Save( long sectionId ) {
+        public virtual void Save( long sectionId ) {
 
             ContentSection s = sectionService.GetById( sectionId, ctx.app.Id );
             if (s == null) {
@@ -169,7 +169,7 @@ namespace wojilu.Web.Controller.Content.Admin {
         }
 
         [HttpPut, DbTransaction]
-        public void Reset( long sectionId ) {
+        public virtual void Reset( long sectionId ) {
 
             ContentSection s = sectionService.GetById( sectionId, ctx.app.Id );
             if (s == null) {

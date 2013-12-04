@@ -51,7 +51,7 @@ namespace wojilu.Web.Controller.Admin.Sys {
         public virtual void afterUpdate() {
         }
 
-        public void Index() {
+        public virtual void Index() {
 
             String absRootDir = PathHelper.Map( getRootPath() );
 
@@ -144,7 +144,7 @@ namespace wojilu.Web.Controller.Admin.Sys {
             return strUtil.TrimStart( rdir, absViewDir ).Replace( "\\", "/" ).TrimStart( '/' );
         }
 
-        public void Edit() {
+        public virtual void Edit() {
 
             target( Update );
 
@@ -228,7 +228,7 @@ namespace wojilu.Web.Controller.Admin.Sys {
             return false;
         }
 
-        public void ShowPic() {
+        public virtual void ShowPic() {
 
             String filePath = ctx.GetItem( "filePath" ).ToString();
             String ViewDir = ctx.GetItem( "ViewDir" ).ToString();
@@ -240,7 +240,7 @@ namespace wojilu.Web.Controller.Admin.Sys {
             set( "picUrl", picUrl );
         }
 
-        public void ShowFile() {
+        public virtual void ShowFile() {
 
             String filePath = ctx.GetItem( "filePath" ).ToString();
             String ViewDir = ctx.GetItem( "ViewDir" ).ToString();
@@ -274,7 +274,7 @@ namespace wojilu.Web.Controller.Admin.Sys {
         }
 
         [HttpPost]
-        public void Update() {
+        public virtual void Update() {
 
             String currentFile = ctx.Post( "file" );
             Result result = validateFile( currentFile );
@@ -329,7 +329,7 @@ namespace wojilu.Web.Controller.Admin.Sys {
         }
 
         [HttpPut]
-        public void Restore() {
+        public virtual void Restore() {
 
             String currentFile = ctx.Get( "file" );
             Result result = validateFile( currentFile );

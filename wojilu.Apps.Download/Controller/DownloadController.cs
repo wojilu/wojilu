@@ -11,7 +11,7 @@ namespace wojilu.Web.Controller.Download {
     [App( typeof( DownloadApp ) )]
     public class DownloadController : ControllerBase {
 
-        public void Index() {
+        public virtual void Index() {
 
             ctx.Page.Title = "资源下载";
 
@@ -26,7 +26,7 @@ namespace wojilu.Web.Controller.Download {
         }
 
         [NonVisit]
-        public void sidebar() {
+        public virtual void sidebar() {
 
             List<FileCategory> cats = FileCategory.GetRootList();
             bindCats( cats );

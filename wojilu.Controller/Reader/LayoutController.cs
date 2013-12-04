@@ -15,8 +15,8 @@ namespace wojilu.Web.Controller.Reader {
 
     public class LayoutController : ControllerBase {
 
-        public IFeedCategoryService categoryService { get; set; }
-        public ISubscriptionService subscribeService { get; set; }
+        public virtual IFeedCategoryService categoryService { get; set; }
+        public virtual ISubscriptionService subscribeService { get; set; }
 
         public LayoutController() {
             categoryService = new FeedCategoryService();

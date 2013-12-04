@@ -26,25 +26,25 @@ namespace wojilu.Apps.Poll.Views {
             get { return optionIndex + 1; }
         }
 
-        public void Init() {
+        public virtual void Init() {
             CheckBox = getBox();
             OptionString = getOptionString();
             ImgAndCountInfo = GetImgAndCountInfo();
         }
 
-        public void SetOptionCount( int optCount ) {
+        public virtual void SetOptionCount( int optCount ) {
             optionCount = optCount;
         }
 
-        public void SetOptionIndex( int optIndex ) {
+        public virtual void SetOptionIndex( int optIndex ) {
             optionIndex = optIndex;
         }
 
-        public void SetOptionString( String optString ) {
+        public virtual void SetOptionString( String optString ) {
             strOption = optString;
         }
 
-        public void SetPoll( PollBase mypoll ) {
+        public virtual void SetPoll( PollBase mypoll ) {
             poll = mypoll;
         }
 

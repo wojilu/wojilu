@@ -18,9 +18,9 @@ namespace wojilu.Web.Controller.Reader.Admin {
     [App( typeof( ReaderApp ) )]
     public class CategoryController : ControllerBase {
 
-        public IFeedCategoryService categoryService { get; set; }
-        public ISubscriptionService subscriptionService { get; set; }
-        public IFeedEntryService entryService { get; set; }
+        public virtual IFeedCategoryService categoryService { get; set; }
+        public virtual ISubscriptionService subscriptionService { get; set; }
+        public virtual IFeedEntryService entryService { get; set; }
 
         public CategoryController() {
             HideLayout( typeof( Reader.LayoutController ) );
@@ -32,7 +32,7 @@ namespace wojilu.Web.Controller.Reader.Admin {
         public override void Layout() {
         }
 
-        public void Show( long id ) {
+        public virtual void Show( long id ) {
 
             FeedCategory category = categoryService.GetById( id );
             bindCategory( category );

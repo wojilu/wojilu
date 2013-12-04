@@ -15,8 +15,8 @@ namespace wojilu.Web.Controller.Admin.Apps.Blog {
     [App( typeof( BlogApp ) )]
     public class LayoutController : ControllerBase {
 
-        public ISysBlogService sysblogService { get; set; }
-        public IBlogSysCategoryService categoryService { get; set; }
+        public virtual ISysBlogService sysblogService { get; set; }
+        public virtual IBlogSysCategoryService categoryService { get; set; }
 
         public LayoutController() {
             sysblogService = new SysBlogService();

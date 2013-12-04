@@ -22,8 +22,8 @@ namespace wojilu.Web.Controller.Admin.Sys {
 
     public class PageCategoryController : ControllerBase {
 
-        public IPageService pageService { get; set; }
-        public IUserService userService { get; set; }
+        public virtual IPageService pageService { get; set; }
+        public virtual IUserService userService { get; set; }
 
         public PageCategoryController() {
             pageService = new PageService();
@@ -31,7 +31,7 @@ namespace wojilu.Web.Controller.Admin.Sys {
             this.LayoutControllerType = typeof( PageController );
         }
 
-        public void List() {
+        public virtual void List() {
             target( Add );
             set( "sortAction", to( SaveSort ) );
             List<PageCategory> list = pageService.GetCategories( ctx.owner.obj );
@@ -66,7 +66,7 @@ namespace wojilu.Web.Controller.Admin.Sys {
             }
         }
 
-        public void Add() {
+        public virtual void Add() {
             target( Create );
 
             Dictionary<String, String> dic = getOptions();
@@ -84,7 +84,7 @@ namespace wojilu.Web.Controller.Admin.Sys {
         }
 
         [HttpPost, DbTransaction]
-        public void Create() {
+        public virtual void Create() {
             PageCategory data = validate( new PageCategory() );
             if (ctx.HasErrors) { run( Add ); return; }
 
@@ -102,7 +102,7 @@ namespace wojilu.Web.Controller.Admin.Sys {
 
 
 
-        public void Edit( long id ) {
+        public virtual void Edit( long id ) {
             target( Update, id );
             PageCategory data = pageService.GetCategoryById( id, ctx.owner.obj );
             if (data == null) {
@@ -156,7 +156,7 @@ namespace wojilu.Web.Controller.Admin.Sys {
         }
 
         [HttpPost, DbTransaction]
-        public void Update( long id ) {
+        public virtual void Update( long id ) {
 
             PageCategory data = pageService.GetCategoryById( id, ctx.owner.obj );
             if (data == null) {
@@ -207,7 +207,7 @@ namespace wojilu.Web.Controller.Admin.Sys {
         }
 
         [HttpDelete, DbTransaction]
-        public void Delete( long id ) {
+        public virtual void Delete( long id ) {
 
             PageCategory data = pageService.GetCategoryById( id, ctx.owner.obj );
             if (data == null) { echoRedirect( lang( "exDataNotFound" ) ); return; }

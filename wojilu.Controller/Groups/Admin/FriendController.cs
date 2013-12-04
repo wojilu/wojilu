@@ -19,8 +19,8 @@ namespace wojilu.Web.Controller.Groups.Admin {
 
     public class FriendController : ControllerBase {
 
-        public IGroupFriendService gfService { get; set; }
-        public IGroupService groupService { get; set; }
+        public virtual IGroupFriendService gfService { get; set; }
+        public virtual IGroupService groupService { get; set; }
         public IAdminLogService<GroupLog> logService { get; set; }
 
         public FriendController() {
@@ -29,7 +29,7 @@ namespace wojilu.Web.Controller.Groups.Admin {
             logService = new GroupLogService();
         }
 
-        public void Index() {
+        public virtual void Index() {
 
             DataPage<Group> list = gfService.GetPage( ctx.owner.Id, 20 );
 
@@ -48,12 +48,12 @@ namespace wojilu.Web.Controller.Groups.Admin {
 
         }
 
-        public void Add() {
+        public virtual void Add() {
             target( Create );
         }
 
         [HttpPost, DbTransaction]
-        public void Create() {
+        public virtual void Create() {
 
             String name = ctx.Post( "Name" );
             if (strUtil.IsNullOrEmpty( name )) {
@@ -82,7 +82,7 @@ namespace wojilu.Web.Controller.Groups.Admin {
         }
 
         [HttpDelete, DbTransaction]
-        public void Delete( long id ) {
+        public virtual void Delete( long id ) {
 
             GroupFriends gf = gfService.GetFriend( ctx.owner.Id, id );
             if (gf == null) {

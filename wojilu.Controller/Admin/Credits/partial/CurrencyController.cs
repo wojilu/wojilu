@@ -61,7 +61,7 @@ namespace wojilu.Web.Controller.Admin.Credits {
         }
 
 
-        public Currency validate( Currency c ) {
+        public virtual Currency validate( Currency c ) {
             String name = ctx.Post( "Name" );
             String strUnit = ctx.Post( "Unit" );
             if (strUtil.IsNullOrEmpty( name )) {

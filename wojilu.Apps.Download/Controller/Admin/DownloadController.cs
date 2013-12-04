@@ -11,7 +11,7 @@ namespace wojilu.Web.Controller.Download.Admin {
     [App( typeof( DownloadApp ) )]
     public class DownloadController : ControllerBase {
 
-        public void Index() {
+        public virtual void Index() {
             redirect( new FileController().List );
         }
 

@@ -14,7 +14,7 @@ namespace wojilu.Web.Controller {
     public class LangController : ControllerBase {
 
         [HttpPut, DbTransaction]
-        public void Switch() {
+        public virtual void Switch() {
 
             String langStr = ctx.Get( "lang" );
             ctx.web.CookieSetLang( langStr );

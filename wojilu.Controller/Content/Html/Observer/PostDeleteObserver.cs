@@ -21,7 +21,7 @@ namespace wojilu.Web.Controller.Content.Htmls {
 
         private static readonly ILog logger = LogManager.GetLogger( typeof( PostDeleteObserver ) );
 
-        public IContentPostService postService { get; set; }
+        public virtual IContentPostService postService { get; set; }
 
         public PostDeleteObserver() {
             postService = new ContentPostService();

@@ -22,10 +22,10 @@ namespace wojilu.Web.Controller.Admin.Security {
 
     public partial class PermissionBackController : ControllerBase {
 
-        public ISiteRoleService SiteRoleService { get; set; }
-        public IMemberAppService appService { get; set; }
-        public IAppInstallerService appInfoService { get; set; }
-        public IAdminLogService<SiteLog> logService { get; set; }
+        public virtual ISiteRoleService SiteRoleService { get; set; }
+        public virtual IMemberAppService appService { get; set; }
+        public virtual IAppInstallerService appInfoService { get; set; }
+        public virtual IAdminLogService<SiteLog> logService { get; set; }
 
         public PermissionBackController() {
 
@@ -37,7 +37,7 @@ namespace wojilu.Web.Controller.Admin.Security {
             logService = new SiteLogService();
         }
 
-        public void Index() {
+        public virtual void Index() {
 
             load( "generalAdmin", PermissionAdmin );
             load( "siteAppAdmin", AdminIndex );
@@ -46,7 +46,7 @@ namespace wojilu.Web.Controller.Admin.Security {
 
         //---------------------------------------------------------
 
-        public void PermissionAdmin() {
+        public virtual void PermissionAdmin() {
             target( SavePermissionAdminAll );
 
             SecurityTool tool = getSecurityTool();
@@ -55,7 +55,7 @@ namespace wojilu.Web.Controller.Admin.Security {
         }
 
         [HttpPost, DbTransaction]
-        public void SavePermissionAdminAll() {
+        public virtual void SavePermissionAdminAll() {
 
             string[] actionIds = ctx.web.postValuesByKey( typeof( SiteAdminOperation ).Name );
             getSecurityTool().SaveActionAll( actionIds );
@@ -65,7 +65,7 @@ namespace wojilu.Web.Controller.Admin.Security {
 
         //---------------------------------------------------------
 
-        public void AdminIndex() {
+        public virtual void AdminIndex() {
 
             target( SaveAppAdminRole );
 
@@ -78,7 +78,7 @@ namespace wojilu.Web.Controller.Admin.Security {
 
 
         [HttpPost, DbTransaction]
-        public void SaveAppAdminRole() {
+        public virtual void SaveAppAdminRole() {
 
             String appRoles = ctx.Post( "appRole" );
             AppAdminRole.DeleteAll();
@@ -110,7 +110,7 @@ namespace wojilu.Web.Controller.Admin.Security {
 
         //---------------------------------------------------------
 
-        public void UserDataAdmin() {
+        public virtual void UserDataAdmin() {
 
             target( SaveSecuritySetting );
 
@@ -122,7 +122,7 @@ namespace wojilu.Web.Controller.Admin.Security {
         }
 
         [HttpPost, DbTransaction]
-        public void SaveSecuritySetting() {
+        public virtual void SaveSecuritySetting() {
 
             String appRoles = ctx.Post( "appRole" );
             UserDataRole.DeleteAll();

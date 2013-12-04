@@ -15,7 +15,7 @@ namespace wojilu.Web.Controller.Admin.Spiders {
 
         private static readonly ILog logger = LogManager.GetLogger( typeof( ImportJob ) );
 
-        public void Execute() {
+        public virtual void Execute() {
 
             List<SpiderImport> items = SpiderImport.find( "IsDelete=0" ).list();
             DbContext.closeConnectionAll();
@@ -36,7 +36,7 @@ namespace wojilu.Web.Controller.Admin.Spiders {
 
         }
 
-        public void End() {
+        public virtual void End() {
             DbContext.closeConnectionAll();
         }
 

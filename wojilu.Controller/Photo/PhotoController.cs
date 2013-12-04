@@ -19,30 +19,30 @@ namespace wojilu.Web.Controller.Photo {
     [App( typeof( PhotoApp ) )]
     public class PhotoController : ControllerBase {
 
-        public IPhotoPostService postService { get; set; }
-        public IPhotoAlbumService albumService { get; set; }
+        public virtual IPhotoPostService postService { get; set; }
+        public virtual IPhotoAlbumService albumService { get; set; }
 
         public PhotoController() {
             postService = new PhotoPostService();
             albumService = new PhotoAlbumService();
         }
 
-        public void Index() {
+        public virtual void Index() {
             ctx.Page.Title = ctx.app.Name;
             List<PhotoAlbum> albumList = albumService.GetListByApp( ctx.app.Id );
             bindAlbumList( albumList );
         }
 
 
-        public void Album( long id ) {
+        public virtual void Album( long id ) {
             bindPhotoPosts( id );
         }
 
-        public void ViewBig( long id ) {
+        public virtual void ViewBig( long id ) {
             bindPhotoPosts( id );
         }
 
-        public void Slider( long id ) {
+        public virtual void Slider( long id ) {
 
             HideLayout( typeof( wojilu.Web.Controller.LayoutController ) );
             HideLayout( typeof( wojilu.Web.Controller.Photo.LayoutController ) );

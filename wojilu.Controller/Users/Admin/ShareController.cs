@@ -20,11 +20,11 @@ namespace wojilu.Web.Controller.Users.Admin {
 
     public class ShareController : ControllerBase {
 
-        public IFeedService feedService { get; set; }
-        public IFriendService friendService { get; set; }
-        public IFollowerService followService { get; set; }
+        public virtual IFeedService feedService { get; set; }
+        public virtual IFriendService friendService { get; set; }
+        public virtual IFollowerService followService { get; set; }
 
-        public IShareService shareService { get; set; }
+        public virtual IShareService shareService { get; set; }
 
         public ShareController() {
             feedService = new FeedService();
@@ -34,7 +34,7 @@ namespace wojilu.Web.Controller.Users.Admin {
             shareService = new ShareService();
         }
 
-        public void Index( long userId ) {
+        public virtual void Index( long userId ) {
 
             set( "shareLink", to(Index, -1) );
             set( "myShareLink", to(Index, ctx.viewer.Id) );
@@ -57,7 +57,7 @@ namespace wojilu.Web.Controller.Users.Admin {
         }
 
 
-        public void Show( long id ) {
+        public virtual void Show( long id ) {
 
             Share share = shareService.GetByIdWithComments( id );
             set( "shareListLink", to(Index, -1) );
@@ -140,7 +140,7 @@ namespace wojilu.Web.Controller.Users.Admin {
         // -----------------------------------------------------------------------------------------
 
         [HttpPost, DbTransaction]
-        public void SaveShare() {
+        public virtual void SaveShare() {
 
             String shareLink = ctx.Post( "shareLink" );
             String shareDescription = ctx.Post( "shareDescription" );
@@ -171,7 +171,7 @@ namespace wojilu.Web.Controller.Users.Admin {
         }
 
         [HttpDelete]
-        public void Delete( long id ) {
+        public virtual void Delete( long id ) {
 
             Result result = shareService.Delete( id );
             if (result.IsValid) {

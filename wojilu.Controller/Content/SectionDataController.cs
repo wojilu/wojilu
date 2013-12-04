@@ -25,10 +25,10 @@ namespace wojilu.Web.Controller.Content {
     public class SectionDataController : ControllerBase {
 
 
-        public IContentPostService postService { get; set; }
-        public IContentSectionService sectionService { get; set; }
-        public IContentSectionTemplateService TplService { get; set; }
-        public IContentCustomTemplateService ctService { get; set; }
+        public virtual IContentPostService postService { get; set; }
+        public virtual IContentSectionService sectionService { get; set; }
+        public virtual IContentSectionTemplateService TplService { get; set; }
+        public virtual IContentCustomTemplateService ctService { get; set; }
 
         public SectionDataController() {
 
@@ -38,7 +38,7 @@ namespace wojilu.Web.Controller.Content {
             ctService = new ContentCustomTemplateService();
         }
 
-        public void Show( long sectionId ) {
+        public virtual void Show( long sectionId ) {
 
             ContentSection section = sectionService.GetById( sectionId, ctx.app.Id );
 

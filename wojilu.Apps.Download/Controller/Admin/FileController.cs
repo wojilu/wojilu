@@ -14,7 +14,7 @@ namespace wojilu.Web.Controller.Download.Admin {
     [App( typeof( DownloadApp ) )]
     public class FileController : ControllerBase {
 
-        public void List() {
+        public virtual void List() {
 
             set( "addLink", to( Add ) );
             set( "lnkCateShow", to( new Admin.SubCategoryController().Files ) );
@@ -24,7 +24,7 @@ namespace wojilu.Web.Controller.Download.Admin {
             set( "page", pages.PageBar );
         }
 
-        public void Category( long id ) {
+        public virtual void Category( long id ) {
 
             FileCategory cat = FileCategory.GetById( id );
             if (cat.IsThumbView == 1) {
@@ -47,7 +47,7 @@ namespace wojilu.Web.Controller.Download.Admin {
             block.Set( "data.PreviewPicLink", to( new UploadController().PreviewPic, id ) );
         }
 
-        public void Add() {
+        public virtual void Add() {
 
             target( Create );
 
@@ -74,7 +74,7 @@ namespace wojilu.Web.Controller.Download.Admin {
 
 
         [HttpPost]
-        public void SaveUpload() {
+        public virtual void SaveUpload() {
 
 
             Result result = Uploader.SaveFile( ctx.GetFileSingle() );
@@ -94,7 +94,7 @@ namespace wojilu.Web.Controller.Download.Admin {
         }
 
         [HttpPost, DbTransaction]
-        public void Create() {
+        public virtual void Create() {
 
             FileItem fi = ctx.PostValue<FileItem>();
             if (ctx.HasErrors) {
@@ -119,7 +119,7 @@ namespace wojilu.Web.Controller.Download.Admin {
             redirect( List );
         }
 
-        public void Edit( long id ) {
+        public virtual void Edit( long id ) {
 
             target( Update, id );
 
@@ -142,7 +142,7 @@ namespace wojilu.Web.Controller.Download.Admin {
         }
 
         [HttpPost, DbTransaction]
-        public void Update( long id ) {
+        public virtual void Update( long id ) {
 
             FileItem f = FileItem.findById( id );
             f = ctx.PostValue( f ) as FileItem;
@@ -153,7 +153,7 @@ namespace wojilu.Web.Controller.Download.Admin {
         }
 
         [HttpDelete, DbTransaction]
-        public void Delete( long id ) {
+        public virtual void Delete( long id ) {
             FileItem f = FileItem.findById( id );
             FileItem.DeleteFile( f );
             redirect( List );

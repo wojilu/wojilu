@@ -14,7 +14,7 @@ namespace wojilu.Web.Controller.Common {
         public abstract IPageList GetPage();
 
 
-        public void Index() {
+        public virtual void Index() {
 
             set( "addUrl", to( Add ) );
 
@@ -35,12 +35,12 @@ namespace wojilu.Web.Controller.Common {
 
         }
 
-        public void Add() {
+        public virtual void Add() {
             target( Create );
         }
 
 
-        public void Create() {
+        public virtual void Create() {
 
             T f = ctx.PostValue<T>( "x" );
             f.AppId = ctx.app.Id;
@@ -55,7 +55,7 @@ namespace wojilu.Web.Controller.Common {
         }
 
 
-        public void Edit( long id ) {
+        public virtual void Edit( long id ) {
             target( Update, id );
 
             T f = db.findById<T>( id );
@@ -68,7 +68,7 @@ namespace wojilu.Web.Controller.Common {
         }
 
         [HttpPost]
-        public void Update( long id ) {
+        public virtual void Update( long id ) {
 
             T f = db.findById<T>( id );
             if (f == null) {
@@ -86,7 +86,7 @@ namespace wojilu.Web.Controller.Common {
         }
 
         [HttpDelete]
-        public void Delete( long id ) {
+        public virtual void Delete( long id ) {
 
             T f = db.findById<T>( id );
             if (f == null) {

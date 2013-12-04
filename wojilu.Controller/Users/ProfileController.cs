@@ -23,7 +23,7 @@ namespace wojilu.Web.Controller.Users {
             microblogService = new MicroblogService();
         }
 
-        public void Main() {
+        public virtual void Main() {
 
             ctx.Page.Title = "about";
 
@@ -69,7 +69,7 @@ namespace wojilu.Web.Controller.Users {
         }
 
 
-        public void UserMenu() {
+        public virtual void UserMenu() {
 
             User user = ctx.GetItem( "__owner" ) as User;
             if (user == null) {

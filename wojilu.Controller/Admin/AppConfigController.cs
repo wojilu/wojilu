@@ -17,15 +17,15 @@ namespace wojilu.Web.Controller.Admin {
 
     public class AppConfigController : ControllerBase {
 
-        public IThemeService themeService { get; set; }
-        public IAppInstallerService appService { get; set; }
+        public virtual IThemeService themeService { get; set; }
+        public virtual IAppInstallerService appService { get; set; }
 
         public AppConfigController() {
             themeService = new ThemeService();
             appService = new AppInstallerService();
         }
 
-        public void App() {
+        public virtual void App() {
 
             target( AppSave );
 
@@ -59,7 +59,7 @@ namespace wojilu.Web.Controller.Admin {
         }
 
 
-        public void AppSave() {
+        public virtual void AppSave() {
             String initApp = ctx.Post( "initApp" );
             config.Instance.Site.UserInitApp = initApp; config.Instance.Site.Update( "UserInitApp", initApp );
             echoRedirect( lang( "opok" ) );
@@ -89,7 +89,7 @@ namespace wojilu.Web.Controller.Admin {
         //---------------------------------------------------------------------------------------------
 
 
-        public void EditStatus( long id ) {
+        public virtual void EditStatus( long id ) {
 
             target( UpdateStatus, id );
 
@@ -112,7 +112,7 @@ namespace wojilu.Web.Controller.Admin {
         }
 
         [HttpPost]
-        public void UpdateStatus( long id ) {
+        public virtual void UpdateStatus( long id ) {
 
             AppInstaller installer = cdb.findById<AppInstaller>( id );
             if (installer == null) throw new NullReferenceException();
@@ -149,14 +149,14 @@ namespace wojilu.Web.Controller.Admin {
         }
 
 
-        public void EditComponent( long id ) {
+        public virtual void EditComponent( long id ) {
             target( SaveComponent, id );
             Component c = cdb.findById<Component>( id );
             set( "c.Name", c.Name );
             radioList( "status", ComponentStatus.GetStatusList( c.TypeFullName ), "Name=Id", c.Status );
         }
 
-        public void SaveComponent( long id ) {
+        public virtual void SaveComponent( long id ) {
             Component c = cdb.findById<Component>( id );
             c.Status = ctx.PostInt( "status" );
             c.update();

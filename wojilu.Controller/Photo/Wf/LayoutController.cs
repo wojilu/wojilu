@@ -15,7 +15,7 @@ namespace wojilu.Web.Controller.Photo.Wf {
 
     public class LayoutController : ControllerBase {
 
-        public IPhotoSysCategoryService sysCategoryService { get; set; }
+        public virtual IPhotoSysCategoryService sysCategoryService { get; set; }
 
         public LayoutController() {
             sysCategoryService = new PhotoSysCategoryService();

@@ -22,13 +22,13 @@ namespace wojilu.Web.Controller.Open {
 
 
 
-        public IOpenCommentService commentService { get; set; }
+        public virtual IOpenCommentService commentService { get; set; }
 
         public CommentListController() {
             commentService = new OpenCommentService();
         }
 
-        public void Index() {
+        public virtual void Index() {
 
             String condition = getCondition();
 

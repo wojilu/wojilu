@@ -25,15 +25,15 @@ namespace wojilu.Web.Controller.Content.Section {
     [App( typeof( ContentApp ) )]
     public partial class SummaryController : ControllerBase, IPageSection {
 
-        public IContentPostService postService { get; set; }
-        public IContentSectionService sectionService { get; set; }
+        public virtual IContentPostService postService { get; set; }
+        public virtual IContentSectionService sectionService { get; set; }
 
         public SummaryController() {
             postService = new ContentPostService();
             sectionService = new ContentSectionService();
         }
 
-        public void SectionShow( long sectionId ) {
+        public virtual void SectionShow( long sectionId ) {
 
             ContentSection s = sectionService.GetById( sectionId, ctx.app.Id );
             if (s == null) {
@@ -60,11 +60,11 @@ namespace wojilu.Web.Controller.Content.Section {
         }
 
 
-        public void List( long sectionId ) {
+        public virtual void List( long sectionId ) {
             run( new ListController().List, sectionId );
         }
 
-        public void Show( long id ) {
+        public virtual void Show( long id ) {
             run( new ListController().Show, id );
         }
 

@@ -45,7 +45,7 @@ namespace wojilu.Web.Controller.Content.Admin.Common {
             HideLayout( typeof( wojilu.Web.Controller.Content.LayoutController ) );
         }
 
-        public void Add( long sectionId ) {
+        public virtual void Add( long sectionId ) {
 
             target( to( Create ) + "?categoryId=" + ctx.GetLong( "categoryId" ) + "&fromList=" + ctx.GetLong( "fromList" ) );
 
@@ -70,7 +70,7 @@ namespace wojilu.Web.Controller.Content.Admin.Common {
 
         //--------------------------------------------------------------------------------------------------------
 
-        public void SavePic() {
+        public virtual void SavePic() {
 
             Dictionary<String, String> dic = new Dictionary<String, String>();
 
@@ -98,7 +98,7 @@ namespace wojilu.Web.Controller.Content.Admin.Common {
 
         }
 
-        public void DeleteTempPic( long id ) {
+        public virtual void DeleteTempPic( long id ) {
 
             TempUploadFileService uploadService = new TempUploadFileService();
             Result result = uploadService.DeleteTempFile( id );
@@ -116,7 +116,7 @@ namespace wojilu.Web.Controller.Content.Admin.Common {
         //--------------------------------------------------------------------------------------------------------
 
 
-        public void Create() {
+        public virtual void Create() {
 
             ContentPost post = ContentValidator.SetValue( ctx );
             ContentValidator.ValidateTitleBody( post, ctx );
@@ -161,12 +161,12 @@ namespace wojilu.Web.Controller.Content.Admin.Common {
 
         //--------------------------------------------------------------------------------------------------------
 
-        public void EditImg( long postId ) {
+        public virtual void EditImg( long postId ) {
             view( "Edit" );
             this.Edit( postId );
         }
 
-        public void Edit( long postId ) {
+        public virtual void Edit( long postId ) {
 
             ContentPost post = postService.GetById( postId, ctx.owner.Id );
             if (post == null) {
@@ -237,7 +237,7 @@ namespace wojilu.Web.Controller.Content.Admin.Common {
             set( "attachmentAdminLink", to( new AttachmentController().AdminList, post.Id ) );
         }
 
-        public void DeletePostPic( long id ) {
+        public virtual void DeletePostPic( long id ) {
 
             ContentPost post = postService.GetById( id, ctx.owner.Id );
             if (post == null) {
@@ -251,7 +251,7 @@ namespace wojilu.Web.Controller.Content.Admin.Common {
 
 
         [HttpPost, DbTransaction]
-        public void Update( long postId ) {
+        public virtual void Update( long postId ) {
             ContentPost post = postService.GetById( postId, ctx.owner.Id );
             if (post == null) {
                 echoError( lang( "exDataNotFound" ) );
@@ -284,7 +284,7 @@ namespace wojilu.Web.Controller.Content.Admin.Common {
 
         //--------------------------------------------------------------------------------------------------------
 
-        public void List( long sectionId ) {
+        public virtual void List( long sectionId ) {
 
             set( "addUrl", to( Add, 0 ) );
             set( "OperationUrl", to( SaveAdmin ) );
@@ -313,7 +313,7 @@ namespace wojilu.Web.Controller.Content.Admin.Common {
             target( Search );
         }
 
-        public void Trans() {
+        public virtual void Trans() {
 
             target( TransSave );
 
@@ -345,7 +345,7 @@ namespace wojilu.Web.Controller.Content.Admin.Common {
             bindList( "xlist", "x", xlist );
         }
 
-        public void TransSave() {
+        public virtual void TransSave() {
 
             String postIds = ctx.PostIdList( "srcIds" );
             String targetSectionIds = ctx.PostIdList( "dataTarget" );
@@ -371,7 +371,7 @@ namespace wojilu.Web.Controller.Content.Admin.Common {
             bindList( "cats", "x", sections );
         }
 
-        public void SaveTag() {
+        public virtual void SaveTag() {
 
             long postId = ctx.PostLong( "postId" );
             String tagValue = ctx.Post( "tagValue" );
@@ -389,12 +389,12 @@ namespace wojilu.Web.Controller.Content.Admin.Common {
             echoAjaxOk();
         }
 
-        public void EditTitleStyle( long id ) {
+        public virtual void EditTitleStyle( long id ) {
             target( UpdateTitleStyle, id );
             load( "TextStyle", new FormController().TextStyle );
         }
 
-        public void UpdateTitleStyle( long id ) {
+        public virtual void UpdateTitleStyle( long id ) {
 
             String titleStyle = strUtil.SqlClean( FormController.GetTitleStyle( ctx ), 100 );
 
@@ -405,7 +405,7 @@ namespace wojilu.Web.Controller.Content.Admin.Common {
             HtmlHelper.SetPostToContext( ctx, post );
         }
 
-        public void Trash() {
+        public virtual void Trash() {
 
             ContentApp app = ctx.app.obj as ContentApp;
             set( "app.Name", ctx.app.Name );
@@ -419,7 +419,7 @@ namespace wojilu.Web.Controller.Content.Admin.Common {
             target( Search );
         }
 
-        public void Search() {
+        public virtual void Search() {
 
             view( "List" );
 
@@ -440,7 +440,7 @@ namespace wojilu.Web.Controller.Content.Admin.Common {
         }
 
         [HttpPost, DbTransaction]
-        public void SaveAdmin() {
+        public virtual void SaveAdmin() {
 
             String ids = ctx.PostIdList( "choice" );
 
@@ -528,7 +528,7 @@ namespace wojilu.Web.Controller.Content.Admin.Common {
         }
 
         [HttpDelete, DbTransaction]
-        public void Delete( long postId ) {
+        public virtual void Delete( long postId ) {
             ContentPost post = postService.GetById( postId, ctx.owner.Id );
             if (post == null) {
                 echo( lang( "exDataNotFound" ) );
@@ -542,7 +542,7 @@ namespace wojilu.Web.Controller.Content.Admin.Common {
         }
 
         [HttpPut, DbTransaction]
-        public void Restore( long id ) {
+        public virtual void Restore( long id ) {
 
             postService.Restore( id );
             ContentPost post = postService.GetById( id, ctx.owner.Id );
@@ -551,7 +551,7 @@ namespace wojilu.Web.Controller.Content.Admin.Common {
         }
 
         [HttpDelete, DbTransaction]
-        public void DeleteSys( long postId ) {
+        public virtual void DeleteSys( long postId ) {
             postService.DeleteSys( postId );
 
 

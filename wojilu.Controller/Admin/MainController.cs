@@ -20,8 +20,8 @@ namespace wojilu.Web.Controller.Admin {
 
     public class MainController : ControllerBase {
 
-        public IUserService userService { get; set; }
-        public IAdminLogService<SiteLog> logService { get; set; }
+        public virtual IUserService userService { get; set; }
+        public virtual IAdminLogService<SiteLog> logService { get; set; }
 
         public MainController() {
 
@@ -33,7 +33,7 @@ namespace wojilu.Web.Controller.Admin {
             logService = new SiteLogService();
         }
 
-        public void Login() {
+        public virtual void Login() {
 
             HideLayout( typeof( wojilu.Web.Controller.LayoutController ) );
 
@@ -43,7 +43,7 @@ namespace wojilu.Web.Controller.Admin {
             set( "returnUrl", returnUrl );
         }
 
-        public void Welcome() {
+        public virtual void Welcome() {
 
             set( "dateTime", DateTime.Now.ToString( "D" ) + ", " +DateTime.Now.ToString( "dddd" )   );
 
@@ -58,7 +58,7 @@ namespace wojilu.Web.Controller.Admin {
 
 
         [HttpPost, DbTransaction]
-        public void CheckLogin() {
+        public virtual void CheckLogin() {
 
             if( SiteRole.IsInAdminGroup( ctx.viewer.obj.RoleId) ==false ) {
                 echoRedirect( lang( "exNoPermission" ) );
@@ -93,7 +93,7 @@ namespace wojilu.Web.Controller.Admin {
 
         }
 
-        public void Logout() {
+        public virtual void Logout() {
             AdminSecurityUtils.ClearSession( ctx );
             logService.Add( (User)ctx.viewer.obj, SiteLogString.Logout(), ctx.Ip, SiteLogCategory.Login );
             echoRedirect( lang( "logoutok" ), ctx.url.SiteAndAppPath );

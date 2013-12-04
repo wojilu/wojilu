@@ -15,7 +15,7 @@ namespace wojilu.Web.Controller.Admin.Sys {
 
     public class SystemEnvController : ControllerBase {
 
-        public void Index() {
+        public virtual void Index() {
             StringBuilder builder = new StringBuilder();
             //builder.Append( "<div style='margin:10px;padding:10px;'>" );
             //builder.Append( "计算机名：" );

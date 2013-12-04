@@ -20,15 +20,15 @@ namespace wojilu.Web.Controller.Content.Section {
     [App( typeof( ContentApp ) )]
     public partial class VideoController : ControllerBase, IPageSection {
 
-        public IContentPostService postService { get; set; }
-        public IContentSectionService sectionService { get; set; }
+        public virtual IContentPostService postService { get; set; }
+        public virtual IContentSectionService sectionService { get; set; }
 
         public VideoController() {
             postService = new ContentPostService();
             sectionService = new ContentSectionService();
         }
 
-        public void SectionShow( long sectionId ) {
+        public virtual void SectionShow( long sectionId ) {
             ContentSection s = sectionService.GetById( sectionId, ctx.app.Id );
             if (s == null) {
                 throw new Exception( lang( "exDataNotFound" ) + "=>page section:" + sectionId );
@@ -39,7 +39,7 @@ namespace wojilu.Web.Controller.Content.Section {
             bindSectionShow( s, posts );
         }
 
-        public void List( long sectionId ) {
+        public virtual void List( long sectionId ) {
             ContentSection section = sectionService.GetById( sectionId, ctx.app.Id );
             if (section == null) {
                 echoRedirect( lang( "exDataNotFound" ) );
@@ -55,7 +55,7 @@ namespace wojilu.Web.Controller.Content.Section {
             bindPosts( section, posts );
         }
 
-        public void Show( long id ) {
+        public virtual void Show( long id ) {
 
             ContentPost post = postService.GetById( id, ctx.owner.Id );
 

@@ -21,8 +21,8 @@ namespace wojilu.Web.Controller.Content.Admin {
     [App( typeof( ContentApp ) )]
     public class SubmitSettingController : ControllerBase {
 
-        public IUserService userService { get; set; }
-        public IMessageService msgService { get; set; }
+        public virtual IUserService userService { get; set; }
+        public virtual IMessageService msgService { get; set; }
 
         public SubmitSettingController() {
             userService = new UserService();
@@ -35,7 +35,7 @@ namespace wojilu.Web.Controller.Content.Admin {
         }
 
         // 记者和高级记者一览
-        public void List() {
+        public virtual void List() {
 
             ContentApp app = ctx.app.obj as ContentApp;
             ContentSubmitterRole roles = app.GetSubmitterRoleObj();
@@ -59,12 +59,12 @@ namespace wojilu.Web.Controller.Content.Admin {
         }
 
         // 添加正式记者
-        public void Add() {
+        public virtual void Add() {
             target( CreateSubmitter );
         }
 
         [HttpPost]
-        public void CreateSubmitter() {
+        public virtual void CreateSubmitter() {
 
             String name = strUtil.SqlClean( ctx.Post( "Name" ), 20 );
             if (strUtil.IsNullOrEmpty( name )) {
@@ -92,7 +92,7 @@ namespace wojilu.Web.Controller.Content.Admin {
         }
 
         [HttpDelete]
-        public void DeleteUser( long id ) {
+        public virtual void DeleteUser( long id ) {
 
             ContentSubmitter s = ContentSubmitter.findById( id );
             if (s == null) {
@@ -107,11 +107,11 @@ namespace wojilu.Web.Controller.Content.Admin {
         }
 
         // 见习记者一览
-        public void ListGuest() {
+        public virtual void ListGuest() {
         }
 
 
-        public void EditRole() {
+        public virtual void EditRole() {
 
             ContentApp app = ctx.app.obj as ContentApp;
             ContentSubmitterRole roles = app.GetSubmitterRoleObj();
@@ -127,7 +127,7 @@ namespace wojilu.Web.Controller.Content.Admin {
 
         }
 
-        public void SaveRole() {
+        public virtual void SaveRole() {
 
             ContentApp app = ctx.app.obj as ContentApp;
             ContentSubmitterRole roles = ctx.PostValue( app.GetSubmitterRoleObj() ) as ContentSubmitterRole;

@@ -5,7 +5,13 @@ using wojilu.Common.Microblogs.Domain;
 
 namespace wojilu.Common.Microblogs.Service {
 
-    public class SysMicroblogCommentService {
+    public interface ISysMicroblogCommentService {
+        DataPage<MicroblogComment> GetSysPage( int pageSize );
+        void DeleteTrueBatch( string ids );
+        DataPage<MicroblogComment> GetPageByCondition( string condition );
+    }
+
+    public class SysMicroblogCommentService : ISysMicroblogCommentService {
 
         public virtual DataPage<MicroblogComment> GetSysPage( int pageSize ) {
             return MicroblogComment.findPage( "", pageSize );

@@ -25,11 +25,11 @@ namespace wojilu.Web.Controller.Admin.Spiders {
 
     public class ImportController : ControllerBase {
 
-        public ISpiderTemplateService templateService { get; set; }
-        public ISportImportService importService { get; set; }
-        public ISpiderTool spiderTool { get; set; }
-        public IMemberAppService appService { get; set; }
-        public IUserService userService { get; set; }
+        public virtual ISpiderTemplateService templateService { get; set; }
+        public virtual ISportImportService importService { get; set; }
+        public virtual ISpiderTool spiderTool { get; set; }
+        public virtual IMemberAppService appService { get; set; }
+        public virtual IUserService userService { get; set; }
 
         public ImportController() {
             templateService = new SpiderTemplateService();
@@ -39,7 +39,7 @@ namespace wojilu.Web.Controller.Admin.Spiders {
             userService = new UserService();
         }
 
-        public void List() {
+        public virtual void List() {
 
             set( "addUrl", to( Add, 0 ) );
             set( "sortAction", to( SaveSort ) );
@@ -144,7 +144,7 @@ namespace wojilu.Web.Controller.Admin.Spiders {
             }
         }
 
-        public void Show( long id ) {
+        public virtual void Show( long id ) {
             SpiderImport item = importService.GetById( id );
 
             List<SpiderTemplate> dataSrc = templateService.GetAll();
@@ -159,7 +159,7 @@ namespace wojilu.Web.Controller.Admin.Spiders {
 
         }
 
-        public void DoRefresh( long id ) {
+        public virtual void DoRefresh( long id ) {
 
             set( "processLink", to( Process, id ) );
 
@@ -172,13 +172,13 @@ namespace wojilu.Web.Controller.Admin.Spiders {
         }
 
         [HttpPost]
-        public void Process( long id ) {
+        public virtual void Process( long id ) {
             StringBuilder sb = LogCacher.GetImportLog( "log" + ctx.viewer.Id );
             echoText( sb.ToString() );
         }
 
         [HttpPost, DbTransaction]
-        public void Start( long id ) {
+        public virtual void Start( long id ) {
             SpiderImport item = importService.GetById( id );
             item.IsDelete = 0;
             item.update( "IsDelete" );
@@ -186,7 +186,7 @@ namespace wojilu.Web.Controller.Admin.Spiders {
         }
 
         [HttpPost, DbTransaction]
-        public void Stop( long id ) {
+        public virtual void Stop( long id ) {
             SpiderImport item = importService.GetById( id );
             item.IsDelete = 1;
             item.update( "IsDelete" );
@@ -194,13 +194,13 @@ namespace wojilu.Web.Controller.Admin.Spiders {
         }
 
         [HttpDelete, DbTransaction]
-        public void Delete( long id ) {
+        public virtual void Delete( long id ) {
             SpiderImport item = importService.GetById( id );
             item.delete();
             redirect( List );
         }
 
-        public void Add( long id ) {
+        public virtual void Add( long id ) {
 
             if (id > 0) {
                 SpiderImport item = importService.GetById( id );
@@ -237,7 +237,7 @@ namespace wojilu.Web.Controller.Admin.Spiders {
         }
 
         [HttpPost, DbTransaction]
-        public void Save() {
+        public virtual void Save() {
 
             long id = ctx.PostLong( "Id" );
             int isApprove = ctx.PostInt( "isApprove" );

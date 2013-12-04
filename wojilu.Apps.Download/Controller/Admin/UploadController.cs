@@ -9,7 +9,7 @@ namespace wojilu.Web.Controller.Download.Admin {
 
     public class UploadController : ControllerBase {
 
-        public void PreviewPic( long id ) {
+        public virtual void PreviewPic( long id ) {
             target( SavePreviewPic, id );
 
             FileItem f = FileItem.findById( id );
@@ -22,7 +22,7 @@ namespace wojilu.Web.Controller.Download.Admin {
             
         }
 
-        public void SavePreviewPic( long id ) {
+        public virtual void SavePreviewPic( long id ) {
 
             if (ctx.HasUploadFiles==false) {
                 errors.Add( "请上传图片" );

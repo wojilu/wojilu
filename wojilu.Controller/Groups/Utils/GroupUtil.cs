@@ -28,9 +28,9 @@ namespace wojilu.Web.Controller.Groups {
 
     public class GroupUtil {
 
-        public IMemberAppService appService { get; set; }
-        public IMenuService menuService { get; set; }
-        public IForumService forumService { get; set; }
+        public virtual IMemberAppService appService { get; set; }
+        public virtual IMenuService menuService { get; set; }
+        public virtual IForumService forumService { get; set; }
 
         public GroupUtil() {
             appService = new GroupAppService();
@@ -38,7 +38,7 @@ namespace wojilu.Web.Controller.Groups {
             forumService = new ForumService();
         }
 
-        public void CreateAppAndMenu( Group group, MvcContext ctx ) {
+        public virtual void CreateAppAndMenu( Group group, MvcContext ctx ) {
             
             // 添加程序
             IMemberApp forumApp = appService.Add( (User)ctx.viewer.obj, @group, lang.get( "groupBoard" ), 1, AccessStatus.Public );

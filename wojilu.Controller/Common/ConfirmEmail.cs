@@ -21,15 +21,15 @@ namespace wojilu.Web.Controller.Common {
 
         private static readonly ILog logger = LogManager.GetLogger( typeof( ConfirmEmail ) );
 
-        public IUserConfirmService confirmService { get; set; }
-        public IUserService userService { get; set; }
+        public virtual IUserConfirmService confirmService { get; set; }
+        public virtual IUserService userService { get; set; }
 
         public ConfirmEmail() {
             confirmService = new UserConfirmService();
             userService = new UserService();
         }
 
-        public Result SendEmail( User user, String title, String msg ) {
+        public virtual Result SendEmail( User user, String title, String msg ) {
 
             if (strUtil.IsNullOrEmpty( title )) title = config.Instance.Site.SiteName + lang.get( "exAccountConfirm" );
             if (strUtil.IsNullOrEmpty( msg )) msg = GetEmailBody( user );
@@ -56,11 +56,11 @@ namespace wojilu.Web.Controller.Common {
             return sentResult;
         }
 
-        public String getTemplatePath() {
+        public virtual String getTemplatePath() {
             return "Common/emailConfirmMsg";
         }
 
-        public String GetEmailBody( User user ) {
+        public virtual String GetEmailBody( User user ) {
 
             String codeLink = logEmailConfirm( user );
 

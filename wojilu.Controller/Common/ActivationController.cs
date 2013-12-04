@@ -17,9 +17,9 @@ namespace wojilu.Web.Controller.Common {
     public class ActivationController : ControllerBase {
 
 
-        public IUserService userService { get; set; }
-        public IConfirmEmail confirmEmail { get; set; }
-        public IUserConfirmService confirmService { get; set; }
+        public virtual IUserService userService { get; set; }
+        public virtual IConfirmEmail confirmEmail { get; set; }
+        public virtual IUserConfirmService confirmService { get; set; }
 
         public ActivationController() {
             userService = new UserService();
@@ -36,7 +36,7 @@ namespace wojilu.Web.Controller.Common {
         //-----------------------------------------------------------------------------
 
         // 重发激活邮件之前的验证：请输入用户名和密码form
-        public void SendEmailLogin() {
+        public virtual void SendEmailLogin() {
 
             if (ctx.viewer.IsLogin) {
 
@@ -56,7 +56,7 @@ namespace wojilu.Web.Controller.Common {
         }
 
         [HttpPost]
-        public void SendEmailLoginCheck() {
+        public virtual void SendEmailLoginCheck() {
 
             long userId = userIsValid();
             if (userId <= 0) {
@@ -103,7 +103,7 @@ namespace wojilu.Web.Controller.Common {
         // 重发激活邮件的按钮：
         // 1)必须有验证码
         // 2)同时呈现email文本框，允许及时修改
-        public void SendEmailButton() {
+        public virtual void SendEmailButton() {
 
 
             if (hasActivation()) {
@@ -130,7 +130,7 @@ namespace wojilu.Web.Controller.Common {
         }
 
         [HttpPost, DbTransaction]
-        public void CheckEmailExist( long userId ) {
+        public virtual void CheckEmailExist( long userId ) {
 
             String email = ctx.Post( "Email" );
 
@@ -144,7 +144,7 @@ namespace wojilu.Web.Controller.Common {
 
 
         [HttpPost]
-        public void SendEmail() {
+        public virtual void SendEmail() {
 
             if (hasActivation()) {
                 echoError( "您已经激活" );
@@ -202,7 +202,7 @@ namespace wojilu.Web.Controller.Common {
 
         }
 
-        public void SendEmailDone() {
+        public virtual void SendEmailDone() {
 
             String email = ctx.Get( "email" );
             set( "email", email );

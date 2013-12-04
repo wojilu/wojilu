@@ -23,22 +23,22 @@ namespace wojilu.Web.Controller.Admin.Apps.Content {
     [App( typeof( ContentApp ) )]
     public partial class MainController : ControllerBase {
 
-        public ISysPostService postService { get; set; }
-        public IAdminLogService<SiteLog> logService { get; set; }
+        public virtual ISysPostService postService { get; set; }
+        public virtual IAdminLogService<SiteLog> logService { get; set; }
 
         public MainController() {
             postService = new SysPostService();
             logService = new SiteLogService();
         }
 
-        public void Index() {
+        public virtual void Index() {
 
             target( Admin );
             DataPage<ContentPost> list = postService.GetPage();
             bindPosts( list );
         }
 
-        public void Trash() {
+        public virtual void Trash() {
             target( Admin );
 
             DataPage<ContentPost> list = postService.GetPageTrash();
@@ -85,7 +85,7 @@ namespace wojilu.Web.Controller.Admin.Apps.Content {
 
 
         [HttpPost, DbTransaction]
-        public void Admin() {
+        public virtual void Admin() {
 
             String ids = ctx.Post( "choice" );
             String cmd = ctx.Post( "action" );
@@ -118,7 +118,7 @@ namespace wojilu.Web.Controller.Admin.Apps.Content {
         }
 
         [HttpPut, DbTransaction]
-        public void UnDelete( long id ) {
+        public virtual void UnDelete( long id ) {
 
             ContentPost post = postService.GetById_ForAdmin( id );
             if (post == null) { echoRedirect( lang( "exDataNotFound" ) ); return; }

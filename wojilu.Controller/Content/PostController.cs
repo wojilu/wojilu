@@ -29,10 +29,10 @@ namespace wojilu.Web.Controller.Content {
     [App( typeof( ContentApp ) )]
     public class PostController : ControllerBase {
 
-        public IContentPostService postService { get; set; }
-        public IContentSectionService sectionService { get; set; }
-        public ContentPostSectionService psService { get; set; }
-        public IAttachmentService attachmentService { get; set; }
+        public virtual IContentPostService postService { get; set; }
+        public virtual IContentSectionService sectionService { get; set; }
+        public virtual ContentPostSectionService psService { get; set; }
+        public virtual IAttachmentService attachmentService { get; set; }
 
         public PostController() {
             LayoutControllerType = typeof( Section.LayoutController );
@@ -47,7 +47,7 @@ namespace wojilu.Web.Controller.Content {
         public override void Layout() {
         }
 
-        public void Recent() {
+        public virtual void Recent() {
 
             DataPage<ContentPost> list = postService.GetByApp( ctx.app.Id, ContentSetting.ListRecentPageSize );
             bindPosts( list );
@@ -74,7 +74,7 @@ namespace wojilu.Web.Controller.Content {
         }
 
 
-        public void Show( long id ) {
+        public virtual void Show( long id ) {
 
             ContentPost post = postService.GetById( id, ctx.owner.Id );
 
@@ -268,7 +268,7 @@ namespace wojilu.Web.Controller.Content {
 
 
         [HttpPost, DbTransaction]
-        public void DiggUp( long id ) {
+        public virtual void DiggUp( long id ) {
 
             if (ctx.viewer.IsLogin == false) {
                 echoText( "必须登录才能操作，请先登录" );
@@ -303,7 +303,7 @@ namespace wojilu.Web.Controller.Content {
         }
 
         [HttpPost, DbTransaction]
-        public void DiggDown( long id ) {
+        public virtual void DiggDown( long id ) {
 
             if (ctx.viewer.IsLogin == false) {
                 echoText( "必须登录才能操作，请先登录" );
@@ -393,7 +393,7 @@ namespace wojilu.Web.Controller.Content {
             return false;
         }
 
-        public void Stats( long id ) {
+        public virtual void Stats( long id ) {
 
             Dictionary<String, String> dic = new Dictionary<String, String>();
             dic["hits"] = "0";

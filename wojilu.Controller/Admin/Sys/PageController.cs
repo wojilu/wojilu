@@ -23,8 +23,8 @@ namespace wojilu.Web.Controller.Admin.Sys {
 
     public partial class PageController : ControllerBase {
 
-        public IPageService pageService { get; set; }
-        public IAdminLogService<SiteLog> logService { get; set; }
+        public virtual IPageService pageService { get; set; }
+        public virtual IAdminLogService<SiteLog> logService { get; set; }
 
         public PageController() {
             pageService = new PageService();
@@ -38,7 +38,7 @@ namespace wojilu.Web.Controller.Admin.Sys {
             set( "categoryLink", to( new PageCategoryController().List ) );
         }
 
-        public void List( long categoryId ) {
+        public virtual void List( long categoryId ) {
 
             set( "addLink", to( Add, categoryId ) );
             set( "sortAction", to( SaveSort, categoryId ) );
@@ -54,7 +54,7 @@ namespace wojilu.Web.Controller.Admin.Sys {
         }
 
         [HttpPost]
-        public void TransPage( long categoryId ) {
+        public virtual void TransPage( long categoryId ) {
             String ids = ctx.PostIdList( "ids" );
             if (strUtil.IsNullOrEmpty( ids )) {
                 echoText( "请先选择" );
@@ -124,7 +124,7 @@ namespace wojilu.Web.Controller.Admin.Sys {
         }
 
 
-        public void ViewUrl( long id ) {
+        public virtual void ViewUrl( long id ) {
             Page p = pageService.GetPostById( id, ctx.owner.obj );
             set( "page.Title", p.Title );
             set( "page.Url", plink( id ) );
@@ -133,14 +133,14 @@ namespace wojilu.Web.Controller.Admin.Sys {
 
         //-----------------------------------------------------------------------------
 
-        public void Add( long id ) {
+        public virtual void Add( long id ) {
             target( Create, id );
             PageCategory category = pageService.GetCategoryById( id, ctx.owner.obj );
             set( "category", category.Name );
         }
 
         [HttpPost, DbTransaction]
-        public void Create( long id ) {
+        public virtual void Create( long id ) {
 
             Page data = validate( new Page() );
             if (ctx.HasErrors) { run( Add, id ); return; }
@@ -168,7 +168,7 @@ namespace wojilu.Web.Controller.Admin.Sys {
 
         //-----------------------------------------------------------------------------
 
-        public void AddSubPage( long id ) {
+        public virtual void AddSubPage( long id ) {
             Page page = pageService.GetPostById( id, ctx.owner.obj );
             if (page == null) {
                 echoRedirect( lang( "exPageNotFound" ) );
@@ -180,7 +180,7 @@ namespace wojilu.Web.Controller.Admin.Sys {
         }
 
         [HttpPost, DbTransaction]
-        public void CreateSubPage( long id ) {
+        public virtual void CreateSubPage( long id ) {
 
             Page page = pageService.GetPostById( id, ctx.owner.obj );
             if (page == null) {
@@ -205,7 +205,7 @@ namespace wojilu.Web.Controller.Admin.Sys {
 
         //-----------------------------------------------------------------------------
 
-        public void Edit( long id ) {
+        public virtual void Edit( long id ) {
 
             target( Update, id );
 
@@ -221,7 +221,7 @@ namespace wojilu.Web.Controller.Admin.Sys {
         }
 
         [HttpPost, DbTransaction]
-        public void Update( long id ) {
+        public virtual void Update( long id ) {
 
             Page data = pageService.GetPostById( id, ctx.owner.obj );
             if (data == null) {
@@ -245,7 +245,7 @@ namespace wojilu.Web.Controller.Admin.Sys {
         //-----------------------------------------------------------------------------
 
         [HttpDelete, DbTransaction]
-        public void Delete( long id ) {
+        public virtual void Delete( long id ) {
 
             Page data = pageService.GetPostById( id, ctx.owner.obj );
             if (data == null) {

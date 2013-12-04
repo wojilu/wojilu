@@ -13,116 +13,116 @@ namespace wojilu.Web.Controller {
     public class LinkController : ControllerBase {
 
         [Login]
-        public void MyMicroblog() {
+        public virtual void MyMicroblog() {
             redirectDirect( Link.To( ctx.viewer.obj, new wojilu.Web.Controller.Microblogs.My.MicroblogController().Home ) );
         }
 
         [Login]
-        public void MySpace() {
+        public virtual void MySpace() {
             redirectDirect( toUser( ctx.viewer.obj ) );
         }
 
         [Login]
-        public void MyHome() {
+        public virtual void MyHome() {
             redirectDirect( Link.To( ctx.viewer.obj, new wojilu.Web.Controller.Users.Admin.HomeController().Index, 0 ) );
         }
 
         [Login]
-        public void NewMsg( long targetId ) {
+        public virtual void NewMsg( long targetId ) {
             redirectDirect( Link.To( ctx.viewer.obj, new Users.Admin.MsgController().New, targetId ) );
         }
 
         //-----------------------------
 
         [Login]
-        public void MyFriends() {
+        public virtual void MyFriends() {
             redirectDirect( Link.To( ctx.viewer.obj, new wojilu.Web.Controller.Users.Admin.Friends.FriendController().List, 0 ) );
         }
 
         [Login]
-        public void MyMsg() {
+        public virtual void MyMsg() {
             redirectDirect( Link.To( ctx.viewer.obj, new wojilu.Web.Controller.Users.Admin.MsgController().Index ) );
         }
 
         [Login]
-        public void MyApp() {
+        public virtual void MyApp() {
             redirectDirect( Link.To( ctx.viewer.obj, new wojilu.Web.Controller.Users.Admin.AppController().Index ) );
         }
 
         [Login]
-        public void MyMenu() {
+        public virtual void MyMenu() {
             redirectDirect( Link.To( ctx.viewer.obj, new wojilu.Web.Controller.Users.Admin.MenuController().Index ) );
         }
 
 
         [Login]
-        public void MyProfile() {
+        public virtual void MyProfile() {
             redirectDirect( Link.To( ctx.viewer.obj, new wojilu.Web.Controller.Users.Admin.UserProfileController().Profile ) );
         }
 
 
         [Login]
-        public void MyPic() {
+        public virtual void MyPic() {
             redirectDirect( Link.To( ctx.viewer.obj, new wojilu.Web.Controller.Users.Admin.UserProfileController().Face ) );
         }
 
 
         [Login]
-        public void MyPwd() {
+        public virtual void MyPwd() {
             redirectDirect( Link.To( ctx.viewer.obj, new wojilu.Web.Controller.Users.Admin.UserProfileController().Pwd ) );
         }
 
 
         [Login]
-        public void MyContact() {
+        public virtual void MyContact() {
             redirectDirect( Link.To( ctx.viewer.obj, new wojilu.Web.Controller.Users.Admin.UserProfileController().Contact ) );
         }
 
 
         [Login]
-        public void MyInterest() {
+        public virtual void MyInterest() {
             redirectDirect( Link.To( ctx.viewer.obj, new wojilu.Web.Controller.Users.Admin.UserProfileController().Interest ) );
         }
 
 
         [Login]
-        public void MyTag() {
+        public virtual void MyTag() {
             redirectDirect( Link.To( ctx.viewer.obj, new wojilu.Web.Controller.Users.Admin.UserProfileController().Tag ) );
         }
 
 
         [Login]
-        public void MyPrivacy() {
+        public virtual void MyPrivacy() {
             redirectDirect( Link.To( ctx.viewer.obj, new wojilu.Web.Controller.Users.Admin.UserProfileController().Privacy ) );
         }
 
 
         [Login]
-        public void MyCredit() {
+        public virtual void MyCredit() {
             redirectDirect( Link.To( ctx.viewer.obj, new wojilu.Web.Controller.Users.Admin.CreditController().My ) );
         }
 
 
         [Login]
-        public void MyInvite() {
+        public virtual void MyInvite() {
             redirectDirect( Link.To( ctx.viewer.obj, new wojilu.Web.Controller.Users.Admin.InviteController().Index ) );
         }
 
 
         [Login]
-        public void MyGroup() {
+        public virtual void MyGroup() {
             redirectDirect( Link.To( ctx.viewer.obj, new wojilu.Web.Controller.Users.Admin.MyGroupController().My ) );
         }
 
 
         [Login]
-        public void MyNotification() {
+        public virtual void MyNotification() {
             redirectDirect( Link.To( ctx.viewer.obj, new wojilu.Web.Controller.Users.Admin.NotificationController().List ) );
         }
 
 
         [Login]
-        public void MySkin() {
+        public virtual void MySkin() {
             redirectDirect( Link.To( ctx.viewer.obj, new wojilu.Web.Controller.Users.Admin.SkinController().My ) );
         }
 

@@ -28,9 +28,9 @@ namespace wojilu.Web.Controller.Layouts {
 
     public partial class SiteLayoutController : ControllerBase {
 
-        public IMemberAppService siteAppService { get; set; }
-        public IAppInstallerService appInfoService { get; set; }
-        public ISiteSkinService siteSkinService { get; set; }
+        public virtual IMemberAppService siteAppService { get; set; }
+        public virtual IAppInstallerService appInfoService { get; set; }
+        public virtual ISiteSkinService siteSkinService { get; set; }
         private IMenuService menuService { get; set; }
 
         public SiteLayoutController() {
@@ -67,7 +67,7 @@ namespace wojilu.Web.Controller.Layouts {
             set( "customSkinLink", to( new Admin.SiteSkinController().CustomBg ) );
         }
 
-        public void AdminLayout() {
+        public virtual void AdminLayout() {
 
             if (strUtil.IsNullOrEmpty( Page.Title )) {
                 Page.Title = "wojilu " + lang( "adminTitle" );

@@ -11,13 +11,13 @@ namespace wojilu.Web.Controller.Admin.Mb {
 
     public class MbCommentController : ControllerBase {
 
-        public SysMicroblogCommentService commentService { get; set; }
+        public virtual ISysMicroblogCommentService commentService { get; set; }
 
         public MbCommentController() {
             commentService = new SysMicroblogCommentService();
         }
 
-        public void Index() {
+        public virtual void Index() {
             DataPage<MicroblogComment> list = commentService.GetSysPage( 30 );
             bindMbList( list );
         }
@@ -50,7 +50,7 @@ namespace wojilu.Web.Controller.Admin.Mb {
             set( "page", list.PageBar );
         }
 
-        public void Search() {
+        public virtual void Search() {
             view( "Index" );
             String searchType = ctx.Get( "t" );
             String key = getSearchKey();
@@ -91,7 +91,7 @@ namespace wojilu.Web.Controller.Admin.Mb {
 
 
         [HttpPost, DbTransaction]
-        public void Admin() {
+        public virtual void Admin() {
 
             String ids = ctx.PostIdList( "choice" );
             String cmd = ctx.Post( "action" );

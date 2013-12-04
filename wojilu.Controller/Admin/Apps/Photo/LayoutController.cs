@@ -17,8 +17,8 @@ namespace wojilu.Web.Controller.Admin.Apps.Photo {
     [App( typeof( PhotoApp ) )]
     public class LayoutController : ControllerBase {
 
-        public ISysPhotoService photoService { get; set; }
-        public IPhotoSysCategoryService categoryService { get; set; }
+        public virtual ISysPhotoService photoService { get; set; }
+        public virtual IPhotoSysCategoryService categoryService { get; set; }
 
         public LayoutController() {
             photoService = new SysPhotoService();

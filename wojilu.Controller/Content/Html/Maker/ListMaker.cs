@@ -20,8 +20,8 @@ namespace wojilu.Web.Controller.Content.Htmls {
 
         private static readonly ILog logger = LogManager.GetLogger( typeof( ListMaker ) );
 
-        public IContentPostService postService { get; set; }
-        public IContentSectionService sectionService { get; set; }
+        public virtual IContentPostService postService { get; set; }
+        public virtual IContentSectionService sectionService { get; set; }
 
         public ListMaker(  ) {
             postService = new ContentPostService();
@@ -32,7 +32,7 @@ namespace wojilu.Web.Controller.Content.Htmls {
             return PathHelper.Map( "/html/list/" );
         }
 
-        public int Process( ContentPost post ) {
+        public virtual int Process( ContentPost post ) {
 
             if (post == null) return 0;
 
@@ -49,12 +49,12 @@ namespace wojilu.Web.Controller.Content.Htmls {
             return totalCount;
         }
 
-        public int ProcessSection( long sectionId ) {
+        public virtual int ProcessSection( long sectionId ) {
             int recordCount = postService.CountBySection( sectionId );
             return ProcessAll( sectionId, recordCount );
         }
 
-        public int ProcessAll( long sectionId, int recordCount ) {
+        public virtual int ProcessAll( long sectionId, int recordCount ) {
 
             CheckDir();
 

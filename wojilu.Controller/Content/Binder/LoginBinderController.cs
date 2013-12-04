@@ -18,7 +18,7 @@ namespace wojilu.Web.Controller.Content.Binder {
 
     public class LoginBinderController : ControllerBase, ISectionBinder{
 
-        public void Bind( ContentSection section, IList serviceData ) {
+        public virtual void Bind( ContentSection section, IList serviceData ) {
 
             set( "loginScriptLink", t2( new MainController().LoginScript ) );
         }

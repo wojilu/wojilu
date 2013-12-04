@@ -21,9 +21,9 @@ namespace wojilu.Web.Controller.Photo {
     [App( typeof( PhotoApp ) )]
     public class LayoutController : ControllerBase {
 
-        public IPhotoAlbumService albumService { get; set; }
-        public IPhotoPostService postService { get; set; }
-        public IOpenCommentService commentService { get; set; }
+        public virtual IPhotoAlbumService albumService { get; set; }
+        public virtual IPhotoPostService postService { get; set; }
+        public virtual IOpenCommentService commentService { get; set; }
 
         public LayoutController() {
 

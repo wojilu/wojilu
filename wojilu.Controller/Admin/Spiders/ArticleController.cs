@@ -15,7 +15,7 @@ namespace wojilu.Web.Controller.Admin.Spiders {
     public class ArticleController : ControllerBase {
 
 
-        public void List( long id ) {
+        public virtual void List( long id ) {
 
             String condition = id > 0 ? "SpiderTemplateId=" + id : "";
 
@@ -49,14 +49,14 @@ namespace wojilu.Web.Controller.Admin.Spiders {
             set( "page", list.PageBar );
         }
 
-        public void Edit( long id ) {
+        public virtual void Edit( long id ) {
             target( Update, id );
             SpiderArticle article = SpiderArticle.findById( id );
             bind( "data", article );
         }
 
         [HttpPost, DbTransaction]
-        public void Update( long id ) {
+        public virtual void Update( long id ) {
             SpiderArticle article = SpiderArticle.findById( id );
             article = ctx.PostValue( article ) as SpiderArticle;
             article.update();
@@ -64,7 +64,7 @@ namespace wojilu.Web.Controller.Admin.Spiders {
         }
 
         [HttpPost, DbTransaction]
-        public void Admin() {
+        public virtual void Admin() {
             String ids = ctx.PostIdList( "choice" );
             String action = ctx.Post( "action" );
 
@@ -80,7 +80,7 @@ namespace wojilu.Web.Controller.Admin.Spiders {
             echoAjaxOk();
         }
 
-        public void Show( long id ) {
+        public virtual void Show( long id ) {
 
             SpiderArticle post = SpiderArticle.findById( id );
             bind( "post", post );
@@ -89,7 +89,7 @@ namespace wojilu.Web.Controller.Admin.Spiders {
         }
 
         [HttpPost, DbTransaction]
-        public void DoRefresh( long id ) {
+        public virtual void DoRefresh( long id ) {
 
             SpiderArticle post = SpiderArticle.findById( id );
 

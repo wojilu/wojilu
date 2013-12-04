@@ -28,45 +28,45 @@ namespace wojilu.Web.Controller.Forum.Moderators {
             if (strUtil.IsNullOrEmpty( ids )) echoToParent( lang( "plsSelect" ) );
         }
 
-        public void Sticky() {
+        public virtual void Sticky() {
             long id = ctx.GetLong( "boardId" );
             adminPrivate( id );
             set( "ActionLink", to( new TopicSaveController().Sticky ) + "?boardId=" + id + "&ids=" + ids );
         }
 
-        public void GlobalSticky() {
+        public virtual void GlobalSticky() {
             long id = ctx.GetLong( "boardId" );
             ForumApp app = ctx.app.obj as ForumApp;
             adminPrivate( id );
             set( "ActionLink", to( new TopicSaveController().GlobalSticky ) + "?boardId=" + id + "&ids=" + ids );
         }
 
-        public void Picked() {
+        public virtual void Picked() {
             long id = ctx.GetLong( "boardId" );
             adminPrivate( id );
             set( "ActionLink", to( new TopicSaveController().Pick ) + "?boardId=" + id + "&ids=" + ids );
         }
 
-        public void Lock() {
+        public virtual void Lock() {
             long id = ctx.GetLong( "boardId" );
             adminPrivate( id );
             set( "ActionLink", to( new TopicSaveController().Lock ) + "?boardId=" + id + "&ids=" + ids );
         }
 
-        public void Delete() {
+        public virtual void Delete() {
             long id = ctx.GetLong( "boardId" );
             adminPrivate( id );
             set( "ActionLink", to( new TopicSaveController().Delete ) + "?boardId=" + id + "&ids=" + ids );
         }
 
-        public void Highlight() {
+        public virtual void Highlight() {
             long id = ctx.GetLong( "boardId" );
             set( "ActionLink", to( new TopicSaveController().Highlight ) + "?boardId=" + id + "&ids=" + ids );
         }
 
         //---------------------------------------------------------------------------------
 
-        public void Category() {
+        public virtual void Category() {
 
             long id = ctx.GetLong( "boardId" );
             List<ForumCategory> categories = categoryService.GetByBoard( id );
@@ -79,7 +79,7 @@ namespace wojilu.Web.Controller.Forum.Moderators {
             bindList( "categories", "c", categories );
         }
 
-        public void SortSticky() {
+        public virtual void SortSticky() {
 
             long id = ctx.GetLong( "boardId" );
 
@@ -99,7 +99,7 @@ namespace wojilu.Web.Controller.Forum.Moderators {
 
 
 
-        public void GlobalSortSticky() {
+        public virtual void GlobalSortSticky() {
 
             ForumApp app = ctx.app.obj as ForumApp;
 
@@ -112,7 +112,7 @@ namespace wojilu.Web.Controller.Forum.Moderators {
         }
 
 
-        public void Move() {
+        public virtual void Move() {
             long id = ctx.GetLong( "boardId" );
             ForumApp app = ctx.app.obj as ForumApp;
 
@@ -153,11 +153,11 @@ namespace wojilu.Web.Controller.Forum.Moderators {
 
         //----------------------------------------------------------------------------------------------------
 
-        public IForumTopicService topicService { get; set; }
-        public IForumBoardService boardService { get; set; }
-        public IForumCategoryService categoryService { get; set; }
-        public IForumLogService logService { get; set; }
-        public IForumService forumService { get; set; }
+        public virtual IForumTopicService topicService { get; set; }
+        public virtual IForumBoardService boardService { get; set; }
+        public virtual IForumCategoryService categoryService { get; set; }
+        public virtual IForumLogService logService { get; set; }
+        public virtual IForumService forumService { get; set; }
 
         public TopicController() {
             boardService = new ForumBoardService();

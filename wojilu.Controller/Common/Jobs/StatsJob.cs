@@ -19,9 +19,9 @@ namespace wojilu.Web.Controller.Common.Jobs {
 
     public class StatsJob : IWebJobItem {
 
-        public IBlogService blogService { get; set; }
-        public IPhotoService photoService { get; set; }
-        public ISiteRoleService roleService { get; set; }
+        public virtual IBlogService blogService { get; set; }
+        public virtual IPhotoService photoService { get; set; }
+        public virtual ISiteRoleService roleService { get; set; }
 
         public StatsJob() {
             blogService = new BlogService();
@@ -29,7 +29,7 @@ namespace wojilu.Web.Controller.Common.Jobs {
             roleService = new SiteRoleService();
         }
 
-        public void Execute() {
+        public virtual void Execute() {
 
             // 4点多执行
             if (DateTime.Now.Hour <= 3 || DateTime.Now.Hour >= 5) return;
@@ -84,7 +84,7 @@ namespace wojilu.Web.Controller.Common.Jobs {
 
         }
 
-        public void End() {
+        public virtual void End() {
         }
 
     }

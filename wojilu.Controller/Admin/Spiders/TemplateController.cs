@@ -18,15 +18,15 @@ namespace wojilu.Web.Controller.Admin.Spiders {
 
     public class TemplateController : ControllerBase {
 
-        public ISpiderTemplateService templateService { get; set; }
-        public ISpiderTool spiderTool { get; set; }
+        public virtual ISpiderTemplateService templateService { get; set; }
+        public virtual ISpiderTool spiderTool { get; set; }
 
         public TemplateController() {
             templateService = new SpiderTemplateService();
             spiderTool = new SpiderTool();
         }
 
-        public void List() {
+        public virtual void List() {
 
 
             set( "addUrl", to( SetTemplate, 0 ) );
@@ -85,7 +85,7 @@ namespace wojilu.Web.Controller.Admin.Spiders {
             }
         }
 
-        public void DoRefresh( long id ) {
+        public virtual void DoRefresh( long id ) {
 
             if (id <= 0) {
                 echoRedirect( "请先选择模板" );
@@ -110,7 +110,7 @@ namespace wojilu.Web.Controller.Admin.Spiders {
         }
 
         [HttpPost]
-        public void Process( long id ) {
+        public virtual void Process( long id ) {
             StringBuilder sb = LogCacher.GetSpiderLog( "log" + ctx.viewer.Id );
             echoText( reverseText( sb.ToString() ) );
         }
@@ -126,24 +126,24 @@ namespace wojilu.Web.Controller.Admin.Spiders {
         }
 
         [HttpDelete, DbTransaction]
-        public void Delete( long id ) {
+        public virtual void Delete( long id ) {
             templateService.Delete( id );
             redirect( List );
         }
 
         [HttpPost, DbTransaction]
-        public void Start( long id ) {
+        public virtual void Start( long id ) {
             templateService.Start( id );
             echoAjaxOk();
         }
 
         [HttpPost, DbTransaction]
-        public void Stop( long id ) {
+        public virtual void Stop( long id ) {
             templateService.Stop( id );
             echoAjaxOk();
         }
 
-        public void SetTemplate( long id ) {
+        public virtual void SetTemplate( long id ) {
 
             target( GetList );
 
@@ -165,7 +165,7 @@ namespace wojilu.Web.Controller.Admin.Spiders {
 
 
         [HttpPost]
-        public void GetList() {
+        public virtual void GetList() {
 
             SpiderTemplate s = ctx.PostValue<SpiderTemplate>();
 
@@ -224,7 +224,7 @@ namespace wojilu.Web.Controller.Admin.Spiders {
         private static readonly ILog logger = LogManager.GetLogger( typeof( TemplateController ) );
 
         [HttpPost]
-        public void GetDetail() {
+        public virtual void GetDetail() {
 
             String newsUrl = ctx.Post( "detailUrl" );
 
@@ -263,7 +263,7 @@ namespace wojilu.Web.Controller.Admin.Spiders {
         }
 
         [HttpPost, DbTransaction]
-        public void Save() {
+        public virtual void Save() {
 
             long templateId = ctx.PostLong( "tid" );
 

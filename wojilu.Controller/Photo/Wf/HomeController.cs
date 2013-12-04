@@ -23,14 +23,14 @@ namespace wojilu.Web.Controller.Photo.Wf {
     [App( typeof( PhotoApp ) )]
     public class HomeController : ControllerBase {
 
-        public IUserService userService { get; set; }
-        public IPhotoAlbumService categoryService { get; set; }
-        public IPhotoPostService postService { get; set; }
-        public IPickedService pickedService { get; set; }
-        public IPhotoService photoService { get; set; }
-        public ISysPhotoService sysPostService { get; set; }
+        public virtual IUserService userService { get; set; }
+        public virtual IPhotoAlbumService categoryService { get; set; }
+        public virtual IPhotoPostService postService { get; set; }
+        public virtual IPickedService pickedService { get; set; }
+        public virtual IPhotoService photoService { get; set; }
+        public virtual ISysPhotoService sysPostService { get; set; }
 
-        public PhotoLikeService likeService { get; set; }
+        public virtual PhotoLikeService likeService { get; set; }
 
         public HomeController() {
             userService = new UserService();
@@ -47,7 +47,7 @@ namespace wojilu.Web.Controller.Photo.Wf {
         public override void Layout() {
         }
 
-        public void Index() {
+        public virtual void Index() {
 
             ctx.Page.Title = PhotoAppSetting.Instance.MetaTitle;
             ctx.Page.Keywords = PhotoAppSetting.Instance.MetaKeywords;
@@ -78,7 +78,7 @@ namespace wojilu.Web.Controller.Photo.Wf {
             PhotoBinder.BindPhotoList( this, list, ctx.viewer.Id );
         }
 
-        public void Category( long categoryId ) {
+        public virtual void Category( long categoryId ) {
 
             view( "Index" );
 
@@ -108,7 +108,7 @@ namespace wojilu.Web.Controller.Photo.Wf {
 
         }
 
-        public void Hot() {
+        public virtual void Hot() {
 
             view( "Index" );
 
@@ -138,7 +138,7 @@ namespace wojilu.Web.Controller.Photo.Wf {
         }
 
 
-        public void Pick() {
+        public virtual void Pick() {
 
             view( "Index" );
 
@@ -171,7 +171,7 @@ namespace wojilu.Web.Controller.Photo.Wf {
 
 
         [Login]
-        public void Add() {
+        public virtual void Add() {
 
             User u = ctx.viewer.obj as User;
 
@@ -186,7 +186,7 @@ namespace wojilu.Web.Controller.Photo.Wf {
 
 
         [Login]
-        public void Following() {
+        public virtual void Following() {
 
             view( "Index" );
 
@@ -219,7 +219,7 @@ namespace wojilu.Web.Controller.Photo.Wf {
         //------------------------------------------------------------------------------------------
 
         [Data( typeof( PhotoPost ) )]
-        public void Post( long id ) {
+        public virtual void Post( long id ) {
 
 
             PhotoPost x = ctx.Get<PhotoPost>();
@@ -263,7 +263,7 @@ namespace wojilu.Web.Controller.Photo.Wf {
             set( "thisUrl", commentUrl );
         }
 
-        public String getPreNextHtml( PhotoPost post ) {
+        public virtual String getPreNextHtml( PhotoPost post ) {
 
             PhotoPost prev = postService.GetPre( post );
             PhotoPost next = postService.GetNext( post );
@@ -306,7 +306,7 @@ namespace wojilu.Web.Controller.Photo.Wf {
         //------------------------------------------------------------------------------------------
 
         [HttpPost, Login, Data( typeof( PhotoPost ) )]
-        public void Like( long postId ) {
+        public virtual void Like( long postId ) {
 
             Boolean isLiked = likeService.IsLiked( ctx.viewer.Id, postId );
 
@@ -323,7 +323,7 @@ namespace wojilu.Web.Controller.Photo.Wf {
         }
 
         [HttpPost, Login, Data( typeof( PhotoPost ) )]
-        public void UnLike( long postId ) {
+        public virtual void UnLike( long postId ) {
 
             Boolean isLiked = likeService.IsLiked( ctx.viewer.Id, postId );
 
@@ -341,7 +341,7 @@ namespace wojilu.Web.Controller.Photo.Wf {
         }
 
         [Login, Data( typeof( PhotoPost ) )]
-        public void Repin( long postId ) {
+        public virtual void Repin( long postId ) {
 
             target( RepinSave, postId );
 
@@ -361,7 +361,7 @@ namespace wojilu.Web.Controller.Photo.Wf {
         }
 
         [HttpPost, Login, Data( typeof( PhotoPost ) )]
-        public void RepinSave( long postId ) {
+        public virtual void RepinSave( long postId ) {
 
             PhotoPost x = ctx.Get<PhotoPost>();
             PhotoPost photo = getFormPosted();
@@ -395,12 +395,12 @@ namespace wojilu.Web.Controller.Photo.Wf {
 
 
         [Login]
-        public void AlbumAdd() {
+        public virtual void AlbumAdd() {
             target( AlbumSave );
         }
 
         [Login]
-        public void AlbumSave() {
+        public virtual void AlbumSave() {
 
             PhotoAlbum album = ctx.PostValue<PhotoAlbum>();
             if (ctx.HasErrors) {

@@ -20,29 +20,29 @@ namespace wojilu.Web.Controller.Admin.Credits {
 
     public partial class CurrencyController : ControllerBase {
 
-        public ICurrencyService currencyService { get; set; }
-        public IAdminLogService<SiteLog> logService { get; set; }
+        public virtual ICurrencyService currencyService { get; set; }
+        public virtual IAdminLogService<SiteLog> logService { get; set; }
 
         public CurrencyController() {
             currencyService = new CurrencyService();
             logService = new SiteLogService();
         }
 
-        public void Index() {
+        public virtual void Index() {
             set( "addUrl", to( Add ) );
             KeyCurrency c = KeyCurrency.Instance;
             IList currencyAll = currencyService.GetCurrencyAll();
             bindCurrencyAll( c, currencyAll );
         }
 
-        public void EditKeyCurrency() {
+        public virtual void EditKeyCurrency() {
             target( UpdateKeyCurrency  );
             KeyCurrency c = KeyCurrency.Instance;
             bindKeyCurrencyEdit( c );
         }
 
         [HttpPost, DbTransaction]
-        public void UpdateKeyCurrency() {
+        public virtual void UpdateKeyCurrency() {
             KeyCurrency c = KeyCurrency.Instance;
             c.Name = ctx.Post( "Name" );
             c.Unit = ctx.Post( "Unit" );
@@ -60,7 +60,7 @@ namespace wojilu.Web.Controller.Admin.Credits {
             }
         }
 
-        public void EditCurrency( long currencyId ) {
+        public virtual void EditCurrency( long currencyId ) {
 
             target( UpdateCurrency, currencyId  );
             Currency c = currencyService.GetCurrencyById( currencyId );
@@ -68,7 +68,7 @@ namespace wojilu.Web.Controller.Admin.Credits {
         }
 
         [HttpPost, DbTransaction]
-        public void UpdateCurrency( long currencyId ) {
+        public virtual void UpdateCurrency( long currencyId ) {
             Currency c = currencyService.GetCurrencyById( currencyId );
             c = validate( c );
             if (errors.HasErrors) {
@@ -81,12 +81,12 @@ namespace wojilu.Web.Controller.Admin.Credits {
             }
         }
 
-        public void Add() {
+        public virtual void Add() {
             target( Create  );
         }
 
         [HttpPost, DbTransaction]
-        public void Create() {
+        public virtual void Create() {
             Currency currency = validate( null );
             if (errors.HasErrors) {
                 run( Add );
@@ -101,7 +101,7 @@ namespace wojilu.Web.Controller.Admin.Credits {
         }
 
         [HttpDelete, DbTransaction]
-        public void Delete( long currencyId ) {
+        public virtual void Delete( long currencyId ) {
             currencyService.GetCurrencyById( currencyId ).delete();
             IList incomeRules = currencyService.GetIncomeRules( currencyId );
             foreach (IncomeRule rule in incomeRules) {

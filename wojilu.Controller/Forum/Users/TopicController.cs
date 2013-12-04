@@ -15,11 +15,11 @@ namespace wojilu.Web.Controller.Forum.Users {
     [App( typeof( ForumApp ) )]
     public class TopicController : ControllerBase {
 
-        public IAttachmentService attachService { get; set; }
-        public IForumBoardService boardService { get; set; }
-        public IForumCategoryService categoryService { get; set; }
-        public IForumPostService postService { get; set; }
-        public IForumTopicService topicService { get; set; }
+        public virtual IAttachmentService attachService { get; set; }
+        public virtual IForumBoardService boardService { get; set; }
+        public virtual IForumCategoryService categoryService { get; set; }
+        public virtual IForumPostService postService { get; set; }
+        public virtual IForumTopicService topicService { get; set; }
 
         public TopicController() {
             boardService = new ForumBoardService();
@@ -37,7 +37,7 @@ namespace wojilu.Web.Controller.Forum.Users {
         }
 
 
-        public void NewQ() {
+        public virtual void NewQ() {
 
             long id = ctx.GetLong( "boardId" );
 
@@ -56,7 +56,7 @@ namespace wojilu.Web.Controller.Forum.Users {
 
         }
 
-        public void NewTopic() {
+        public virtual void NewTopic() {
 
             long id = ctx.GetLong( "boardId" );
 
@@ -95,7 +95,7 @@ namespace wojilu.Web.Controller.Forum.Users {
         }
 
         [HttpPost, DbTransaction]
-        public void Create() {
+        public virtual void Create() {
 
             if (ForumValidator.IsIntervalShort( ctx )) {
                 echoError( "对不起，您发布太快，请稍等一会儿再发布" );

@@ -31,9 +31,9 @@ namespace wojilu.Web.Controller.Users {
 
         private static readonly ILog logger = LogManager.GetLogger( typeof( UserUploadController ) );
 
-        public IPhotoPostService postService { get; set; }
-        public IMessageAttachmentService attachmentService { get; set; }
-        public UserFileService fileService { get; set; }
+        public virtual IPhotoPostService postService { get; set; }
+        public virtual IMessageAttachmentService attachmentService { get; set; }
+        public virtual UserFileService fileService { get; set; }
 
         public UserUploadController() {
             postService = new PhotoPostService();
@@ -42,7 +42,7 @@ namespace wojilu.Web.Controller.Users {
         }
 
         [Login]
-        public void MyPics() {
+        public virtual void MyPics() {
 
             String editorName = ctx.Get( "editor" );
             set( "editorName", editorName );
@@ -59,7 +59,7 @@ namespace wojilu.Web.Controller.Users {
         }
 
         [Login]
-        public void UploadForm() {
+        public virtual void UploadForm() {
 
             Boolean isFlash = ("normal".Equals( ctx.Get( "type" ) ) == false);
 
@@ -88,7 +88,7 @@ namespace wojilu.Web.Controller.Users {
         }
 
         [Login]
-        public void SavePic() {
+        public virtual void SavePic() {
 
             String editorName = ctx.Post( "editor" );
             set( "editorName", editorName );
@@ -140,7 +140,7 @@ namespace wojilu.Web.Controller.Users {
 
 
         [Login, DbTransaction]
-        public void SaveUserFile() {
+        public virtual void SaveUserFile() {
 
             Result result = fileService.SaveFile( ctx.GetFileSingle(), ctx.Ip, ctx.viewer.obj as User, ctx.owner.obj );
 
@@ -185,7 +185,7 @@ namespace wojilu.Web.Controller.Users {
         }
 
         [Login, DbTransaction]
-        public void DeleteUserFile( long id ) {
+        public virtual void DeleteUserFile( long id ) {
 
             Result result = fileService.Delete( id );
 
@@ -200,7 +200,7 @@ namespace wojilu.Web.Controller.Users {
         //----------------------------------------------------------------------------------------
 
         [Login]
-        public void SaveMsgAttachment() {
+        public virtual void SaveMsgAttachment() {
 
             Result result = attachmentService.SaveFile( ctx.GetFileSingle() );
 
@@ -228,7 +228,7 @@ namespace wojilu.Web.Controller.Users {
         }
 
         [Login, HttpPost, DbTransaction]
-        public void DeleteMsgAttachment( long id ) {
+        public virtual void DeleteMsgAttachment( long id ) {
 
             Result result = attachmentService.Delete( id );
 
@@ -245,7 +245,7 @@ namespace wojilu.Web.Controller.Users {
         //-----------------以下是编辑器上传功能-------------------------------------------------
 
 
-        public void GetAuthJson() {
+        public virtual void GetAuthJson() {
 
             ctx.web.ResponseContentType( "application/javascript" );
 
@@ -290,7 +290,7 @@ namespace wojilu.Web.Controller.Users {
 
 
         [Login]
-        public void GetRemotePic() {
+        public virtual void GetRemotePic() {
 
             string uri = ctx.Post( "upfile" );
             uri = uri.Replace( "&amp;", "&" );
@@ -350,7 +350,7 @@ namespace wojilu.Web.Controller.Users {
 
 
         [Login]
-        public void MyPicJson() {
+        public virtual void MyPicJson() {
 
             List<String> imgs = new List<String>();
             DataPage<PhotoPost> list = postService.GetByUser( ctx.viewer.Id, 15 );
@@ -363,7 +363,7 @@ namespace wojilu.Web.Controller.Users {
 
 
         [Login]
-        public void SaveEditorPic() {
+        public virtual void SaveEditorPic() {
 
             PhotoPost post = savePicPrivate();
 
@@ -387,7 +387,7 @@ namespace wojilu.Web.Controller.Users {
 
 
         [Login, DbTransaction]
-        public void SaveEditorFile() {
+        public virtual void SaveEditorFile() {
 
             Result result = fileService.SaveFile( ctx.GetFileSingle(), ctx.Ip, ctx.viewer.obj as User, ctx.owner.obj );
 

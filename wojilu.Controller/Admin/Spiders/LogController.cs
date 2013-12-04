@@ -13,7 +13,7 @@ namespace wojilu.Web.Controller.Admin.Spiders {
 
     public class LogController : ControllerBase {
 
-        public void List() {
+        public virtual void List() {
 
             set( "clearLogUrl", to( Clear ) );
             set( "OperationUrl", to( Admin ) );
@@ -33,14 +33,14 @@ namespace wojilu.Web.Controller.Admin.Spiders {
             set( "page", logs.PageBar );
         }
 
-        public void Show( long id ) {
+        public virtual void Show( long id ) {
 
             SpiderLog log = SpiderLog.findById( id );
             bind( "log", log );
         }
 
         [HttpPost, DbTransaction]
-        public void Admin() {
+        public virtual void Admin() {
             String ids = ctx.PostIdList( "choice" );
             String action = ctx.Post( "action" );
 
@@ -56,12 +56,12 @@ namespace wojilu.Web.Controller.Admin.Spiders {
             echoAjaxOk();
         }
 
-        public void Clear() {
+        public virtual void Clear() {
             target( ClearBegin );
         }
 
         [HttpPost, DbTransaction]
-        public void ClearBegin() {
+        public virtual void ClearBegin() {
             SpiderLog.deleteBatch( "1=1" );
             echoRedirect( lang( "opok" ), to( List ) );
         }

@@ -22,8 +22,8 @@ namespace wojilu.Web.Controller.Content {
 
         private static readonly ILog logger = LogManager.GetLogger( typeof( ContentController ) );
 
-        public IContentSectionService SectionService { get; set; }
-        public IContentCustomTemplateService ctService { get; set; }
+        public virtual IContentSectionService SectionService { get; set; }
+        public virtual IContentCustomTemplateService ctService { get; set; }
 
         public ContentController() {
             SectionService = new ContentSectionService();
@@ -32,7 +32,7 @@ namespace wojilu.Web.Controller.Content {
 
         [CachePage( typeof( ContentIndexPageCache ) )]
         [CacheAction( typeof( ContentIndexCache ) )]
-        public void Index() {
+        public virtual void Index() {
 
             ContentApp app = ctx.app.obj as ContentApp;
             ContentSetting setting = app.GetSettingsObj();

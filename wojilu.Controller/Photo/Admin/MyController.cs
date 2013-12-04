@@ -25,11 +25,11 @@ namespace wojilu.Web.Controller.Photo.Admin {
     [App( typeof( PhotoApp ) )]
     public class MyController : ControllerBase {
 
-        public IFriendService friendService { get; set; }
+        public virtual IFriendService friendService { get; set; }
 
-        public IPhotoPostService postService { get; set; }
-        public IPhotoAlbumService albumService { get; set; }
-        public IPhotoSysCategoryService categoryService { get; set; }
+        public virtual IPhotoPostService postService { get; set; }
+        public virtual IPhotoAlbumService albumService { get; set; }
+        public virtual IPhotoSysCategoryService categoryService { get; set; }
 
         public MyController() {
 
@@ -54,7 +54,7 @@ namespace wojilu.Web.Controller.Photo.Admin {
 
 
 
-        public void My() {
+        public virtual void My() {
 
 
             DataPage<PhotoPost> posts = postService.GetPostPage( ctx.owner.Id, ctx.app.Id, 20 );
@@ -64,7 +64,7 @@ namespace wojilu.Web.Controller.Photo.Admin {
 
 
 
-        public void Category( long categoryId ) {
+        public virtual void Category( long categoryId ) {
 
             view( "My" );
 
@@ -115,7 +115,7 @@ namespace wojilu.Web.Controller.Photo.Admin {
         }
 
         [HttpPost, DbTransaction]
-        public void Admin() {
+        public virtual void Admin() {
 
             String ids = ctx.Post( "choice" );
             String cmd = ctx.Post( "action" );

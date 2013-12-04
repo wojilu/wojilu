@@ -23,13 +23,13 @@ namespace wojilu.Web.Controller.Users.Admin {
     public class HomeController : ControllerBase {
 
 
-        public IMicroblogService microblogService { get; set; }
-        public IFollowerService followService { get; set; }
-        public IVisitorService visitorService { get; set; }
-        public MicroblogFavoriteService mfService { get; set; }
-        public MicroblogAtService matService { get; set; }
-        public MicroblogFavoriteService favoriteService { get; set; }
-        public IOpenCommentService commentService { get; set; }
+        public virtual IMicroblogService microblogService { get; set; }
+        public virtual IFollowerService followService { get; set; }
+        public virtual IVisitorService visitorService { get; set; }
+        public virtual MicroblogFavoriteService mfService { get; set; }
+        public virtual MicroblogAtService matService { get; set; }
+        public virtual MicroblogFavoriteService favoriteService { get; set; }
+        public virtual IOpenCommentService commentService { get; set; }
 
         public IVideoSpider videoSpider { get; set; }
 
@@ -64,7 +64,7 @@ namespace wojilu.Web.Controller.Users.Admin {
             set( "moreVisitors", to( new wojilu.Web.Controller.Users.VisitorController().Index ) );
         }
 
-        public void Index( long userId ) {
+        public virtual void Index( long userId ) {
 
             load( "publisher", Publisher );
 
@@ -85,7 +85,7 @@ namespace wojilu.Web.Controller.Users.Admin {
         }
 
 
-        public void Publisher() {
+        public virtual void Publisher() {
 
             target( new Microblogs.MicroblogSaveController().Create );
 
@@ -102,7 +102,7 @@ namespace wojilu.Web.Controller.Users.Admin {
             set( "jsPath", sys.Path.DiskJs );
         }
 
-        public void GetVideoInfo() {
+        public virtual void GetVideoInfo() {
 
             String videoUrl = ctx.Post( "videoUrl" );
             if (strUtil.IsNullOrEmpty( videoUrl )) {
@@ -120,7 +120,7 @@ namespace wojilu.Web.Controller.Users.Admin {
         }
 
 
-        public void Atme() {
+        public virtual void Atme() {
 
             Page.Title = "提到我的微博";
 
@@ -147,7 +147,7 @@ namespace wojilu.Web.Controller.Users.Admin {
             set( "page", list.PageBar );
         }
 
-        public void Favorite() {
+        public virtual void Favorite() {
 
             load( "publisher", Publisher );
             set( "homeLink", to( Index, ctx.owner.Id ) );
@@ -163,7 +163,7 @@ namespace wojilu.Web.Controller.Users.Admin {
             set( "page", list.PageBar );
         }
 
-        public void Comment() {
+        public virtual void Comment() {
 
             load( "publisher", Publisher );
             set( "homeLink", to( Index, ctx.owner.Id ) );

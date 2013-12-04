@@ -23,15 +23,15 @@ namespace wojilu.Web.Controller.Content.Admin.Section {
     [App( typeof( ContentApp ) )]
     public partial class VideoController : ControllerBase, IPageAdminSection {
 
-        public IContentPostService postService { get; set; }
-        public IContentSectionService sectionService { get; set; }
+        public virtual IContentPostService postService { get; set; }
+        public virtual IContentSectionService sectionService { get; set; }
 
         public VideoController() {
             postService = new ContentPostService();
             sectionService = new ContentSectionService();
         }
 
-        public List<IPageSettingLink> GetSettingLink( long sectionId ) {
+        public virtual List<IPageSettingLink> GetSettingLink( long sectionId ) {
             List<IPageSettingLink> links = new List<IPageSettingLink>();
 
             PageSettingLink lnk = new PageSettingLink();
@@ -48,32 +48,32 @@ namespace wojilu.Web.Controller.Content.Admin.Section {
             return links;
         }
 
-        public String GetEditLink( long postId ) {
+        public virtual String GetEditLink( long postId ) {
             return to( Edit, postId );
         }
 
-        public String GetSectionIcon( long sectionId ) {
+        public virtual String GetSectionIcon( long sectionId ) {
             return BinderUtils.iconVideo;
         }
 
-        public void AdminSectionShow( long sectionId ) {
+        public virtual void AdminSectionShow( long sectionId ) {
             List<ContentPost> posts = GetSectionPosts( sectionId );
             bindSectionShow( sectionId, posts );
         }
 
-        public List<ContentPost> GetSectionPosts( long sectionId ) {
+        public virtual List<ContentPost> GetSectionPosts( long sectionId ) {
             ContentSection s = sectionService.GetById( sectionId, ctx.app.Id );
             return postService.GetBySection( sectionId, s.ListCount );
         }
 
-        public void AdminList( long sectionId ) {
+        public virtual void AdminList( long sectionId ) {
             ContentSection section = sectionService.GetById( sectionId, ctx.app.Id );
             DataPage<ContentPost> posts = postService.GetPageBySectionAndCategory( section.Id, ctx.GetLong( "categoryId" ) );
             bindAdminList( sectionId, section, posts );
         }
 
 
-        public void Add( long sectionId ) {
+        public virtual void Add( long sectionId ) {
             ContentSection section = sectionService.GetById( sectionId, ctx.app.Id );
             target( to( Create, sectionId ) + "?categoryId=" + ctx.GetLong( "categoryId" ) );
             bindAddInfo( section );
@@ -83,7 +83,7 @@ namespace wojilu.Web.Controller.Content.Admin.Section {
 
 
         [HttpPost, DbTransaction]
-        public void Create( long sectionId ) {
+        public virtual void Create( long sectionId ) {
             ContentPost post = ContentValidator.SetValueBySection( sectionService.GetById( sectionId, ctx.app.Id ), ctx );
             ContentValidator.ValidateVideo( post, ctx );
             if (ctx.HasErrors) {
@@ -99,7 +99,7 @@ namespace wojilu.Web.Controller.Content.Admin.Section {
             }
         }
 
-        public void Edit( long postId ) {
+        public virtual void Edit( long postId ) {
             ContentPost post = postService.GetById( postId, ctx.owner.Id );
             if (post == null) {
                 echoToParentPart( lang( "exDataNotFound" ) );
@@ -111,7 +111,7 @@ namespace wojilu.Web.Controller.Content.Admin.Section {
         }
 
         [HttpPost, DbTransaction]
-        public void Update( long postId ) {
+        public virtual void Update( long postId ) {
             ContentPost post = postService.GetById( postId, ctx.owner.Id );
             if (post == null) {
                 echo( lang( "exDataNotFound" ) );
@@ -132,7 +132,7 @@ namespace wojilu.Web.Controller.Content.Admin.Section {
         }
 
         [HttpDelete, DbTransaction]
-        public void Delete( long postId ) {
+        public virtual void Delete( long postId ) {
             ContentPost post = postService.GetById( postId, ctx.owner.Id );
             if (post == null) {
                 echo( lang( "exDataNotFound" ) );

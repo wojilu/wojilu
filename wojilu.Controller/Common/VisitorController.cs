@@ -21,15 +21,15 @@ namespace wojilu.Web.Controller.Common {
 
     public class VisitorController : ControllerBase {
 
-        public wojilu.Common.Visitors.VisitorService visitorService { get; set; }
-        public IBlacklistService blacklistService { get; set; }
+        public virtual wojilu.Common.Visitors.IVisitorService visitorService { get; set; }
+        public virtual IBlacklistService blacklistService { get; set; }
 
         public VisitorController() {
             visitorService = new wojilu.Common.Visitors.VisitorService();
             blacklistService = new BlacklistService();
         }
 
-        public void List() {
+        public virtual void List() {
 
             IAppData post = ctx.GetItem( "visitTarget" ) as IAppData;
             IDataVisitor visitor = ctx.GetItem( "visitor" ) as IDataVisitor;
@@ -50,7 +50,7 @@ namespace wojilu.Web.Controller.Common {
         }
 
         [HttpPut, DbTransaction]
-        public void Visit( long id ) {
+        public virtual void Visit( long id ) {
 
             if (ctx.viewer.IsLogin == false) {
                 echoRedirect( lang( "exPlsLogin" ) );

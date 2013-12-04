@@ -13,13 +13,13 @@ namespace wojilu.Web.Controller.Forum {
     [App( typeof( ForumApp ) )]
     public class SearchController : ControllerBase {
 
-        public IForumTopicService topicService { get; set; }
+        public virtual IForumTopicService topicService { get; set; }
 
         public SearchController() {
             topicService = new ForumTopicService();
         }
 
-        public void Results() {
+        public virtual void Results() {
 
             String key = ctx.Get( "q" );
             set( "searchKey", key );

@@ -23,17 +23,17 @@ namespace wojilu.Web.Controller.Users {
 
     public class HomeController : ControllerBase {
 
-        public IMicroblogService microblogService { get; set; }
-        public IFollowerService followService { get; set; }
-        public IVisitorService visitorService { get; set; }
-        public MicroblogFavoriteService mfService { get; set; }
-        public IOpenCommentService commentService { get; set; }
-        public IFriendService friendService { get; set; }
+        public virtual IMicroblogService microblogService { get; set; }
+        public virtual IFollowerService followService { get; set; }
+        public virtual IVisitorService visitorService { get; set; }
+        public virtual MicroblogFavoriteService mfService { get; set; }
+        public virtual IOpenCommentService commentService { get; set; }
+        public virtual IFriendService friendService { get; set; }
 
-        public IPhotoPostService photoPostService { get; set; }
+        public virtual IPhotoPostService photoPostService { get; set; }
 
-        public IBlogService blogAppService { get; set; }
-        public IPhotoService photoAppService { get; set; }
+        public virtual IBlogService blogAppService { get; set; }
+        public virtual IPhotoService photoAppService { get; set; }
 
         public HomeController() {
             microblogService = new MicroblogService();
@@ -57,7 +57,7 @@ namespace wojilu.Web.Controller.Users {
             set( "lnkProfile", to( new ProfileController().Main ) );
         }
 
-        public void Index() {
+        public virtual void Index() {
 
             set( "user.Name", ctx.owner.obj.Name );
             bindUserLinkList();
@@ -101,16 +101,16 @@ namespace wojilu.Web.Controller.Users {
             }
         }
 
-        public void Feed() {
+        public virtual void Feed() {
             bindFeedList();
         }
 
-        public void Info( long id ) {
+        public virtual void Info( long id ) {
             set( "lnkList", to( Feed ) );
             load( "blogBody", new Microblogs.MicroblogController().Show, id );
         }
 
-        public void SendMsg() {
+        public virtual void SendMsg() {
 
             HideLayout( typeof( HomeController ) );
 
@@ -131,7 +131,7 @@ namespace wojilu.Web.Controller.Users {
 
         }
 
-        public void Blog() {
+        public virtual void Blog() {
             BlogApp app = blogAppService.GetFirstByUser( ctx.owner.Id );
             if (app == null) {
                 echoError( "app不存在" );
@@ -141,7 +141,7 @@ namespace wojilu.Web.Controller.Users {
             redirectDirect( lnkApp );
         }
 
-        public void Photo() {
+        public virtual void Photo() {
             PhotoApp app = photoAppService.GetByUser( ctx.owner.Id );
             if (app == null) {
                 echoError( "app不存在" );

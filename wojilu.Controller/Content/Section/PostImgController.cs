@@ -15,8 +15,8 @@ namespace wojilu.Web.Controller.Content.Section {
     [App( typeof( ContentApp ) )]
     public class PostImgController : ControllerBase, IPageSection {
 
-        public IContentPostService postService { get; set; }
-        public IContentImgService imgService { get; set; }
+        public virtual IContentPostService postService { get; set; }
+        public virtual IContentImgService imgService { get; set; }
 
         public PostImgController() {
             postService = new ContentPostService();
@@ -24,7 +24,7 @@ namespace wojilu.Web.Controller.Content.Section {
         }
 
 
-        public void SectionShow( long sectionId ) {
+        public virtual void SectionShow( long sectionId ) {
 
             int postcat = PostCategory.Post;
             int imgcat = PostCategory.Img;
@@ -115,11 +115,11 @@ namespace wojilu.Web.Controller.Content.Section {
 
         }
 
-        public void List( long sectionId ) {
+        public virtual void List( long sectionId ) {
             run( new ListController().List, sectionId );
         }
 
-        public void Show( long id ) {
+        public virtual void Show( long id ) {
             run( new ListController().Show, id );
         }
 

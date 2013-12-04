@@ -129,7 +129,7 @@ namespace wojilu.Web.Controller.Poll.Admin {
             set( "poll.ShowLink", to( Show, p.Id ) );
         }
 
-        public void sectionPollResult() {
+        public virtual void sectionPollResult() {
 
             PollData p = ctx.GetItem( "poll" ) as PollData;
 

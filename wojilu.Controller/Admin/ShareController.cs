@@ -13,8 +13,8 @@ namespace wojilu.Web.Controller.Admin {
 
     public class ShareController : ControllerBase {
 
-        public IShareService shareService { get; set; }
-        public IFeedService feedService { get; set; }
+        public virtual IShareService shareService { get; set; }
+        public virtual IFeedService feedService { get; set; }
 
         public ShareController() {
                 shareService = new ShareService();
@@ -22,7 +22,7 @@ namespace wojilu.Web.Controller.Admin {
         }
 
 
-        public void Index() {
+        public virtual void Index() {
 
             DataPage<Share> list = shareService.GetPageAll();
 
@@ -70,7 +70,7 @@ namespace wojilu.Web.Controller.Admin {
         }
 
         [HttpDelete]
-        public void Delete( long id ) {
+        public virtual void Delete( long id ) {
 
             Result result = shareService.Delete( id );
             if (result.IsValid) {

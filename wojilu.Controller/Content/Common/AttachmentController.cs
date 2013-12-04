@@ -11,8 +11,8 @@ namespace wojilu.Web.Controller.Content.Common {
 
     [App( typeof( ContentApp ) )]
     public class AttachmentController : ControllerBase {
-        public IContentPostService postService { get; set; }
-        public IAttachmentService attachmentService { get; set; }
+        public virtual IContentPostService postService { get; set; }
+        public virtual IAttachmentService attachmentService { get; set; }
 
         public AttachmentController() {
             postService = new ContentPostService();
@@ -20,7 +20,7 @@ namespace wojilu.Web.Controller.Content.Common {
         }
 
 
-        public void Show( long id ) {
+        public virtual void Show( long id ) {
 
             String guid = ctx.Get( "id" );
 

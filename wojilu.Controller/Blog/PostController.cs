@@ -18,15 +18,15 @@ namespace wojilu.Web.Controller.Blog {
     [App( typeof( BlogApp ) )]
     public partial class PostController : ControllerBase {
 
-        public IBlogPostService postService { get; set; }
-        public UserFileService fileService { get; set; }
+        public virtual IBlogPostService postService { get; set; }
+        public virtual IUserFileService fileService { get; set; }
 
         public PostController() {
             postService = new BlogPostService();
             fileService = new UserFileService();
         }
 
-        public void Show( long id ) {
+        public virtual void Show( long id ) {
 
             BlogPost post = postService.GetById( id, ctx.owner.Id );
             if (post == null) {
@@ -87,7 +87,7 @@ namespace wojilu.Web.Controller.Blog {
         }
 
 
-        public void DownloadAttachment( long id ) {
+        public virtual void DownloadAttachment( long id ) {
 
             UserFile att = fileService.GetById( id );
             if (att == null) {

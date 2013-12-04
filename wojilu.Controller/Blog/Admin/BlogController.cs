@@ -19,8 +19,8 @@ namespace wojilu.Web.Controller.Blog.Admin {
     [App( typeof( BlogApp ) )]
     public class BlogController : ControllerBase {
 
-        public IBlogPostService postService { get; set; }
-        public IFriendService friendService { get; set; }
+        public virtual IBlogPostService postService { get; set; }
+        public virtual IFriendService friendService { get; set; }
 
         public BlogController() {
 
@@ -34,11 +34,11 @@ namespace wojilu.Web.Controller.Blog.Admin {
             bindFriends( friends );
         }
 
-        public void Index() {
+        public virtual void Index() {
             redirect( new MyListController().My );
         }
 
-        public void Friends( long friendId ) {
+        public virtual void Friends( long friendId ) {
 
             long userId = ctx.viewer.Id;
             DataPage<BlogPost> list = postService.GetFriendsBlog( userId, friendId );

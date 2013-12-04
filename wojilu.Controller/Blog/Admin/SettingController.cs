@@ -13,14 +13,14 @@ namespace wojilu.Web.Controller.Blog.Admin {
     [App( typeof( BlogApp ) )]
     public class SettingController : ControllerBase {
 
-        public void Index() {
+        public virtual void Index() {
 
             target( Save );
             BlogApp app = ctx.app.obj as BlogApp;
             bindSettings( app.GetSettingsObj() );
         }
 
-        public void Save() {
+        public virtual void Save() {
 
             BlogSetting s = ctx.PostValue<BlogSetting>();
 
@@ -35,7 +35,7 @@ namespace wojilu.Web.Controller.Blog.Admin {
             echoRedirect( lang( "opok" ) );
         }
 
-        public void bindSettings( BlogSetting s ) {
+        public virtual void bindSettings( BlogSetting s ) {
 
             Dictionary<String, String> dic = new Dictionary<string, string>();
 

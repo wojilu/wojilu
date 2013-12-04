@@ -19,10 +19,10 @@ namespace wojilu.Web.Controller.Content.Admin {
     [App( typeof( ContentApp ) )]
     public partial class ContentController : ControllerBase {
 
-        public IContentSectionService sectionService { get; set; }
-        public IContentSectionTemplateService templatelService { get; set; }
-        public IContentPostService postService { get; set; }
-        public IContentCustomTemplateService ctService { get; set; }
+        public virtual IContentSectionService sectionService { get; set; }
+        public virtual IContentSectionTemplateService templatelService { get; set; }
+        public virtual IContentPostService postService { get; set; }
+        public virtual IContentCustomTemplateService ctService { get; set; }
 
         public ContentController() {
             sectionService = new ContentSectionService();
@@ -34,11 +34,11 @@ namespace wojilu.Web.Controller.Content.Admin {
         }
 
 
-        public void Index() {
+        public virtual void Index() {
             set( "indexLink", to( new Common.PostController().List, 0 ) );
         }
 
-        public void Home() {
+        public virtual void Home() {
 
             bindCmd();
 
@@ -65,7 +65,7 @@ namespace wojilu.Web.Controller.Content.Admin {
 
 
         [HttpPost, DbTransaction]
-        public void SaveLayout() {
+        public virtual void SaveLayout() {
             IList sections = sectionService.GetByApp( ctx.app.Id );
             string[] strArray = ctx.Get( "layout" ).Split( new char[] { '/' } );
             int orderId = 0;
@@ -83,7 +83,7 @@ namespace wojilu.Web.Controller.Content.Admin {
 
 
         [HttpPost, DbTransaction]
-        public void SaveResize() {
+        public virtual void SaveResize() {
 
             String colIds = ctx.Post( "colIds" );
             String widths = ctx.Post( "widths" );
@@ -149,14 +149,14 @@ namespace wojilu.Web.Controller.Content.Admin {
             }
         }
 
-        public void SetStyle() {
+        public virtual void SetStyle() {
             ContentApp app = ctx.app.obj as ContentApp;
             set( "styleContent", app.SkinStyle );
             target( SaveStyle );
         }
 
         [HttpPost, DbTransaction]
-        public void SaveStyle() {
+        public virtual void SaveStyle() {
             ContentApp app = ctx.app.obj as ContentApp;
             app.SkinStyle = ctx.Post( "Style" );
             app.update( "SkinStyle" );
@@ -182,7 +182,7 @@ namespace wojilu.Web.Controller.Content.Admin {
         //--------------------------------------------------------------------------------------------------
 
         // 获取当前app首页的数据、排版布局、样式，存储为皮肤
-        public void Snapshot() {
+        public virtual void Snapshot() {
 
             ContentApp app = ctx.app.obj as ContentApp;
 
@@ -214,7 +214,7 @@ namespace wojilu.Web.Controller.Content.Admin {
 
         }
 
-        public void ShowSnapshot() {
+        public virtual void ShowSnapshot() {
             Dictionary<string, object> dic = JsonParser.Parse( file.Read( PathHelper.Map( "/content.json" ) ) ) as Dictionary<string, object>;
             String str = dic["Style"].ToString();
             str += dic["Layout"] + "<br/>";

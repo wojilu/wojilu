@@ -14,7 +14,7 @@ namespace wojilu.Web.Controller.Content.Binder {
 
     public class MyFaceBinderController : ControllerBase, ISectionBinder {
 
-        public void Bind( ContentSection section, IList serviceData ) {
+        public virtual void Bind( ContentSection section, IList serviceData ) {
 
             User user = ctx.owner.obj as User;
 

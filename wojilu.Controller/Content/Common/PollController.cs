@@ -33,7 +33,7 @@ namespace wojilu.Web.Controller.Content.Common {
             pollService = new ContentPollService();
         }
 
-        public void List( long sectionId ) {
+        public virtual void List( long sectionId ) {
 
             DataPage<ContentPost> list = topicService.GetPageBySection( sectionId );
             List<ContentPoll> polls = pollService.GetByTopicList( list.Results );
@@ -78,14 +78,14 @@ namespace wojilu.Web.Controller.Content.Common {
 
         //---------------------------------------------------------------------------------
 
-        public void Show( long id ) {
+        public virtual void Show( long id ) {
 
             ContentPoll p = pollService.GetByTopicId( id );
             ctx.SetItem( "poll", p );
             actionContent( loadHtml( Detail ) );
         }
 
-        public void Detail() {
+        public virtual void Detail() {
 
             ContentPoll p = ctx.GetItem( "poll" ) as ContentPoll;
 
@@ -117,7 +117,7 @@ namespace wojilu.Web.Controller.Content.Common {
             load( "pollResult", pollResult );
         }
 
-        public void pollForm() {
+        public virtual void pollForm() {
 
             ContentPoll p = ctx.GetItem( "poll" ) as ContentPoll;
 
@@ -172,14 +172,14 @@ namespace wojilu.Web.Controller.Content.Common {
             return ctx.viewer.Id == p.Creator.Id;
         }
 
-        public void GetPollResultHtml( long pollId ) {
+        public virtual void GetPollResultHtml( long pollId ) {
             ContentPoll p = pollService.GetById( pollId );
             ctx.SetItem( "poll", p );
 
             echo( loadHtml( pollResult ) );
         }
 
-        public void pollResult() {
+        public virtual void pollResult() {
 
             ContentPoll p = ctx.GetItem( "poll" ) as ContentPoll;
 
@@ -246,7 +246,7 @@ namespace wojilu.Web.Controller.Content.Common {
         //----------------------------------------------------------------------------
 
         [Login, HttpPost, DbTransaction]
-        public void Vote( long id ) {
+        public virtual void Vote( long id ) {
 
             ContentPoll poll = pollService.GetById( id );
             if (poll == null) {
@@ -277,7 +277,7 @@ namespace wojilu.Web.Controller.Content.Common {
             echoAjaxOk();
         }
 
-        public void Voter( long id ) {
+        public virtual void Voter( long id ) {
 
             ContentPoll poll = pollService.GetById( id );
 

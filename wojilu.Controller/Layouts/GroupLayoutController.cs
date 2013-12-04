@@ -29,14 +29,14 @@ namespace wojilu.Web.Controller.Layouts {
 
     public partial class GroupLayoutController : ControllerBase {
 
-        public IMenuService groupMenuService { get; set; }
-        public IMemberAppService groupAppService { get; set; }
+        public virtual IMenuService groupMenuService { get; set; }
+        public virtual IMemberAppService groupAppService { get; set; }
 
-        public SkinService skinService { get; set; }
-        public IGroupService groupService { get; set; }
-        public IGroupFriendService gfService { get; set; }
-        public IMemberGroupService mgrService { get; set; }
-        public ISiteSkinService siteSkinService { get; set; }
+        public virtual SkinService skinService { get; set; }
+        public virtual IGroupService groupService { get; set; }
+        public virtual IGroupFriendService gfService { get; set; }
+        public virtual IMemberGroupService mgrService { get; set; }
+        public virtual ISiteSkinService siteSkinService { get; set; }
 
         public GroupLayoutController() {
 
@@ -79,7 +79,7 @@ namespace wojilu.Web.Controller.Layouts {
             set( "customSkinLink", to( new Groups.Admin.SkinController().CustomBg ) );
         }
 
-        public void AdminLayout() {
+        public virtual void AdminLayout() {
 
             load( "topNav", new TopNavController().Index );
             load( "header", new TopNavController().Header );

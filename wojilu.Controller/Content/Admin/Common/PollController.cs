@@ -40,7 +40,7 @@ namespace wojilu.Web.Controller.Content.Admin.Common {
         //------------------ admin ----------------------------------------------------------
 
         [Login]
-        public void Add( long sectionId ) {
+        public virtual void Add( long sectionId ) {
 
             set( "ActionLink", to( Create, sectionId ) );
 
@@ -58,7 +58,7 @@ namespace wojilu.Web.Controller.Content.Admin.Common {
         }
 
         [Login, HttpPost, DbTransaction]
-        public void Create( long sectionId ) {
+        public virtual void Create( long sectionId ) {
 
             ContentPost post = ContentValidator.SetValue( ctx );
 
@@ -75,7 +75,7 @@ namespace wojilu.Web.Controller.Content.Admin.Common {
         }
 
         [Login]
-        public void AdminList( long sectionId ) {
+        public virtual void AdminList( long sectionId ) {
 
             DataPage<ContentPost> list = topicService.GetPageBySection( sectionId, 10 );
             list.Results.ForEach( x => {
@@ -89,7 +89,7 @@ namespace wojilu.Web.Controller.Content.Admin.Common {
         }
 
         [Login, HttpDelete, DbTransaction]
-        public void Delete( long id ) {
+        public virtual void Delete( long id ) {
             ContentPost post = topicService.GetById( id, ctx.owner.Id );
             if (post != null) {
                 topicService.Delete( post );
@@ -101,7 +101,7 @@ namespace wojilu.Web.Controller.Content.Admin.Common {
             HtmlHelper.SetPostToContext( ctx, post );
         }
 
-        public void Edit( long postId ) {
+        public virtual void Edit( long postId ) {
 
             ContentPost post = topicService.GetById( postId, ctx.owner.Id );
             if (post == null) throw new NullReferenceException( "Edit Poll, ContentPost" );
@@ -121,7 +121,7 @@ namespace wojilu.Web.Controller.Content.Admin.Common {
         }
 
         [Login, HttpPost, DbTransaction]
-        public void Update( long postId ) {
+        public virtual void Update( long postId ) {
 
             ContentPost post = topicService.GetById( postId, ctx.owner.Id );
             if (post == null) {

@@ -11,7 +11,7 @@ namespace wojilu.Web.Controller.Admin.Apps.Forum {
 
     public class PostController : ControllerBase {
 
-        public void Index() {
+        public virtual void Index() {
             content( "" );
         }
 

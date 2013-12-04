@@ -8,11 +8,11 @@ namespace wojilu.Web.Controller.Admin.Upgrade {
 
     public class StartController : ControllerBase {
 
-        public void Index() {
+        public virtual void Index() {
         }
 
 
-        public void UpdateTable() {
+        public virtual void UpdateTable() {
 
             if (db.getDatabaseType() == "access") {
                 content( getAccessTableInfo() );
@@ -46,7 +46,7 @@ namespace wojilu.Web.Controller.Admin.Upgrade {
 ".Replace( "\n", "<br/>" ) + "</div>";
         }
 
-        public void SaveTable() {
+        public virtual void SaveTable() {
 
 
             String sql = @"if not EXISTS (SELECT * FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME='Page' AND COLUMN_NAME='IsCollapse') alter table Page add IsCollapse int;

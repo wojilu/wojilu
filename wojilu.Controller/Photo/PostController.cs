@@ -16,13 +16,13 @@ namespace wojilu.Web.Controller.Photo {
     [App( typeof( PhotoApp ) )]
     public class PostController : ControllerBase {
 
-        public IPhotoPostService postService { get; set; }
+        public virtual IPhotoPostService postService { get; set; }
 
         public PostController() {
             postService = new PhotoPostService();
         }
 
-        public void Show( long id ) {
+        public virtual void Show( long id ) {
 
             PhotoPost post = postService.GetById( id, ctx.owner.Id );
             if (post == null) { echoRedirect( lang( "exDataNotFound" ) ); return; }

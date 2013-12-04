@@ -18,10 +18,10 @@ namespace wojilu.Web.Controller.Users {
 
     public class FriendController : ControllerBase {
 
-        public IFollowerService followService { get; set; }
-        public IFriendService friendService { get; set; }
-        public IUserService userService { get; set; }
-        public IBlacklistService blacklistService { get; set; }
+        public virtual IFollowerService followService { get; set; }
+        public virtual IFriendService friendService { get; set; }
+        public virtual IUserService userService { get; set; }
+        public virtual IBlacklistService blacklistService { get; set; }
 
         public FriendController() {
             followService = new FollowerService();
@@ -39,7 +39,7 @@ namespace wojilu.Web.Controller.Users {
 
         //---------------------------------------------------------------------------------------------------------
 
-        public void FriendList() {
+        public virtual void FriendList() {
 
             if (ctx.viewer.HasPrivacyPermission( ctx.owner.obj, UserPermission.Friends.ToString() ) == false) {
                 echo( lang( "exVisitNoPermission" ) );
@@ -52,7 +52,7 @@ namespace wojilu.Web.Controller.Users {
             set( "page", list.PageBar );
         }
 
-        public void FollowingList() {
+        public virtual void FollowingList() {
 
             if (ctx.viewer.HasPrivacyPermission( ctx.owner.obj, UserPermission.Friends.ToString() ) == false) {
                 echo( lang( "exVisitNoPermission" ) );
@@ -66,7 +66,7 @@ namespace wojilu.Web.Controller.Users {
             set( "page", list.PageBar );
         }
 
-        public void FollowerList() {
+        public virtual void FollowerList() {
 
             if (ctx.viewer.HasPrivacyPermission( ctx.owner.obj, UserPermission.Friends.ToString() ) == false) {
                 echo( lang( "exVisitNoPermission" ) );
@@ -95,7 +95,7 @@ namespace wojilu.Web.Controller.Users {
         //------------------------- friend --------------------------------------------
 
         [Login]
-        public void AddFriend( long targetId ) {
+        public virtual void AddFriend( long targetId ) {
 
             Result result = friendService.CanAddFriend( ctx.viewer.Id, targetId );
             if (result.HasErrors) {
@@ -107,7 +107,7 @@ namespace wojilu.Web.Controller.Users {
         }
 
         [HttpPost, DbTransaction]
-        public void SaveFriend( long targetId ) {
+        public virtual void SaveFriend( long targetId ) {
 
             Result result = ctx.viewer.AddFriend( targetId, strUtil.CutString( ctx.Post( "Msg" ), 100 ) );
             if (result.HasErrors) {
@@ -119,13 +119,13 @@ namespace wojilu.Web.Controller.Users {
         }
 
         [HttpDelete, DbTransaction]
-        public void DeleteFriend( long targetId ) {
+        public virtual void DeleteFriend( long targetId ) {
             friendService.DeleteFriend( ctx.viewer.Id, targetId, ctx.Ip );
             echoRedirect( lang( "opok" ) );
         }
 
         [HttpDelete, DbTransaction]
-        public void CancelAddFriend( long targetId ) {
+        public virtual void CancelAddFriend( long targetId ) {
             friendService.CancelAddFriend( ctx.viewer.Id, targetId );
             echoRedirect( lang( "opok" ) );
         }
@@ -133,7 +133,7 @@ namespace wojilu.Web.Controller.Users {
         //----------------------- follow ----------------------------------------------
 
         [Login]
-        public void AddFollow( long targetId ) {
+        public virtual void AddFollow( long targetId ) {
 
             User f = userService.GetById( targetId );
             if (f == null) {
@@ -151,7 +151,7 @@ namespace wojilu.Web.Controller.Users {
         }
 
         [HttpPost, DbTransaction]
-        public void Follow( long targetId ) {
+        public virtual void Follow( long targetId ) {
 
             checkFollowPermission( targetId );
             if (ctx.HasErrors) {
@@ -165,7 +165,7 @@ namespace wojilu.Web.Controller.Users {
         }
         
         [HttpDelete, DbTransaction]
-        public void DeleteFollow( long targetId ) {
+        public virtual void DeleteFollow( long targetId ) {
 
             if (!ctx.viewer.IsLogin) {
                 echo( lang( "exPlsLogin" ) );

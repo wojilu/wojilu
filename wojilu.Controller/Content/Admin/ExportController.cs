@@ -15,22 +15,22 @@ namespace wojilu.Web.Controller.Content.Admin {
 
         private static readonly ILog logger = LogManager.GetLogger( typeof( ExportController ) );
 
-        public IContentSectionService sectionService { get; set; }
-        public IContentPostService postService { get; set; }
+        public virtual IContentSectionService sectionService { get; set; }
+        public virtual IContentPostService postService { get; set; }
 
         public ExportController() {
             sectionService = new ContentSectionService();
             postService = new ContentPostService();
         }
 
-        public void Index() {
+        public virtual void Index() {
 
             target( Export );
 
         }
 
         [HttpPost]
-        public void Export() {
+        public virtual void Export() {
 
             ContentTheme theme = new ContentTheme();
             theme.Name = ctx.Post( "Name" );

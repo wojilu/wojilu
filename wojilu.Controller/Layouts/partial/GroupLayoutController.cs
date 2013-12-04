@@ -84,7 +84,7 @@ namespace wojilu.Web.Controller.Layouts {
             }
         }
 
-        public string getCurrentClass( IMenu menu, String currentModuleUrl, String currentClass ) {
+        public virtual string getCurrentClass( IMenu menu, String currentModuleUrl, String currentClass ) {
 
             if (strUtil.IsNullOrEmpty( currentModuleUrl )) return "";
 
@@ -167,7 +167,7 @@ namespace wojilu.Web.Controller.Layouts {
         }
 
 
-        //public void bindGroupNav( IList list ) {
+        //public virtual void bindGroupNav( IList list ) {
 
         //    IBlock block = getBlock( "gnavLink" );
 

@@ -16,10 +16,10 @@ namespace wojilu.Web.Controller.Reader.Admin {
     [App( typeof( ReaderApp ) )]
     public class ReaderController : ControllerBase {
 
-        public IFeedCategoryService categoryService { get; set; }
-        public IFeedSourceService feedService { get; set; }
-        public ISubscriptionService subscriptionService { get; set; }
-        public IFeedEntryService entryService { get; set; }
+        public virtual IFeedCategoryService categoryService { get; set; }
+        public virtual IFeedSourceService feedService { get; set; }
+        public virtual ISubscriptionService subscriptionService { get; set; }
+        public virtual IFeedEntryService entryService { get; set; }
 
 
         public ReaderController() {
@@ -35,7 +35,7 @@ namespace wojilu.Web.Controller.Reader.Admin {
         public override void Layout() {
         }
 
-        public void Index() {
+        public virtual void Index() {
             String feedIds = subscriptionService.GetFeedIdsByAppId( ctx.app.Id );
             DataPage<FeedEntry> list = entryService.GetPage( feedIds );
             bindFeedItem( list );

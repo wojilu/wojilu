@@ -31,12 +31,12 @@ namespace wojilu.Web.Controller.Common.Installers {
 
     public abstract class CmsInstallerBase {
 
-        public AppInstallerService installerService { get; set; }
-        public IMemberAppService appService { get; set; }
-        public IMenuService menuService { get; set; }
-        public IContentSectionService sectionService { get; set; }
-        public IContentPostService postService { get; set; }
-        public IContentCustomTemplateService tplService { get; set; }
+        public virtual AppInstallerService installerService { get; set; }
+        public virtual IMemberAppService appService { get; set; }
+        public virtual IMenuService menuService { get; set; }
+        public virtual IContentSectionService sectionService { get; set; }
+        public virtual IContentPostService postService { get; set; }
+        public virtual IContentCustomTemplateService tplService { get; set; }
 
         protected User user;
         protected IMember owner;
@@ -95,7 +95,7 @@ namespace wojilu.Web.Controller.Common.Installers {
 </div>";
         }
 
-        public IMemberApp Install( MvcContext ctx, IMember owner, String appName, AccessStatus accessStatus, String themeId, String friendlyUrl ) {
+        public virtual IMemberApp Install( MvcContext ctx, IMember owner, String appName, AccessStatus accessStatus, String themeId, String friendlyUrl ) {
 
 
             this.ctx = ctx;

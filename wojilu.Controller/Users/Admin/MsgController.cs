@@ -21,10 +21,10 @@ namespace wojilu.Web.Controller.Users.Admin {
 
     public partial class MsgController : ControllerBase {
 
-        public IMessageService msgService { get; set; }
-        public IBlacklistService blacklistService { get; set; }
-        public IUserService userService { get; set; }
-        public IMessageAttachmentService attachmentService { get; set; }
+        public virtual IMessageService msgService { get; set; }
+        public virtual IBlacklistService blacklistService { get; set; }
+        public virtual IUserService userService { get; set; }
+        public virtual IMessageAttachmentService attachmentService { get; set; }
 
         public MsgController() {
             msgService = new MessageService();
@@ -47,7 +47,7 @@ namespace wojilu.Web.Controller.Users.Admin {
 
         //-------------------------------------------------------------------------------
 
-        public void Index() {
+        public virtual void Index() {
             set( "actionTitle", lang( "allMsg" ) );
             set( "adminAction", to( Admin ) );
 
@@ -58,7 +58,7 @@ namespace wojilu.Web.Controller.Users.Admin {
             bindList( msgService.GetPageAll( ctx.owner.Id ) );
         }
 
-        public void Sent() {
+        public virtual void Sent() {
             set( "adminAction", to( Admin ) );
             set( "actionTitle", lang( "sentMsg" ) );
 
@@ -72,7 +72,7 @@ namespace wojilu.Web.Controller.Users.Admin {
 
         //---------------------------------
 
-        public void Unread() {
+        public virtual void Unread() {
             set( "actionTitle", lang( "unreadMsg" ) );
             set( "adminAction", to( Admin ) );
 
@@ -80,7 +80,7 @@ namespace wojilu.Web.Controller.Users.Admin {
             bindList( newMsgs );
         }
 
-        public void Deleted() {
+        public virtual void Deleted() {
             set( "actionTitle", lang( "msgTrash" ) );
             set( "adminAction", to( Admin ) );
 
@@ -89,7 +89,7 @@ namespace wojilu.Web.Controller.Users.Admin {
 
         //-------------------------------------------------------------------------------------------------
 
-        public void SearchSender() {
+        public virtual void SearchSender() {
             view( "Index" );
 
             target( SearchSender );
@@ -103,7 +103,7 @@ namespace wojilu.Web.Controller.Users.Admin {
         }
 
 
-        public void SearchReceiver() {
+        public virtual void SearchReceiver() {
 
             view( "Sent" );
             set( "adminAction", to( Admin ) );
@@ -121,7 +121,7 @@ namespace wojilu.Web.Controller.Users.Admin {
         //-------------------------------------------------------------------------------------------------
 
         [Login]
-        public void New( long id ) {
+        public virtual void New( long id ) {
             target( Create );
 
             User receiver = userService.GetById( id );
@@ -141,7 +141,7 @@ namespace wojilu.Web.Controller.Users.Admin {
         }
 
         [Login]
-        public void Forward( long id ) {
+        public virtual void Forward( long id ) {
 
             view( "New" );
             target( Create );
@@ -165,7 +165,7 @@ namespace wojilu.Web.Controller.Users.Admin {
         }
 
         [Login]
-        public void Reply( long id ) {
+        public virtual void Reply( long id ) {
 
             view( "New" );
             target( Create );
@@ -193,7 +193,7 @@ namespace wojilu.Web.Controller.Users.Admin {
         }
 
         [HttpPost, DbTransaction]
-        public void Create() {
+        public virtual void Create() {
 
             Result result = createMsg();
             if (result.IsValid) {
@@ -205,7 +205,7 @@ namespace wojilu.Web.Controller.Users.Admin {
         }
 
         [HttpPost, DbTransaction]
-        public void CreateOk() {
+        public virtual void CreateOk() {
 
             Result result = createMsg();
             if (result.IsValid) {
@@ -229,7 +229,7 @@ namespace wojilu.Web.Controller.Users.Admin {
         //-------------------------------------------------------------------------------------------------
 
         [Login]
-        public void Read( long id ) {
+        public virtual void Read( long id ) {
 
             Message msg = msgService.GetById( ctx.owner.Id, id );
             if (msg == null) {
@@ -247,7 +247,7 @@ namespace wojilu.Web.Controller.Users.Admin {
             msgService.ReadMsg( msg );
         }
 
-        public void SentMsg( long id ) {
+        public virtual void SentMsg( long id ) {
             view( "MyMsg" );
             MessageData data = msgService.GetDataById( ctx.owner.Id, id );
             if (data == null) {
@@ -263,7 +263,7 @@ namespace wojilu.Web.Controller.Users.Admin {
             set( "m.Content", data.Body );
         }
 
-        public void DownloadAttachment( long id ) {
+        public virtual void DownloadAttachment( long id ) {
 
             MessageAttachment att = attachmentService.GetById( id );
             if (att == null) {
@@ -283,7 +283,7 @@ namespace wojilu.Web.Controller.Users.Admin {
         //-------------------------------------------------------------------------------------------------
 
         [HttpPost, DbTransaction]
-        public void Admin() {
+        public virtual void Admin() {
 
             User user = ctx.owner.obj as User;
 
@@ -296,7 +296,7 @@ namespace wojilu.Web.Controller.Users.Admin {
         }
 
         [HttpDelete, DbTransaction]
-        public void Delete( long msgId ) {
+        public virtual void Delete( long msgId ) {
 
             Message msg = msgService.GetById( ctx.owner.Id, msgId );
             if (msg == null) {

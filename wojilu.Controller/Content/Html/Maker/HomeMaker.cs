@@ -30,7 +30,7 @@ namespace wojilu.Web.Controller.Content.Htmls {
             }
         }
 
-        public void Process( long appId ) {
+        public virtual void Process( long appId ) {
 
             this.appId = appId;
             base.CheckDir();

@@ -27,11 +27,11 @@ namespace wojilu.Web.Controller {
 
         private static readonly ILog logger = LogManager.GetLogger( typeof( RegisterController ) );
 
-        public IUserService userService { get; set; }
-        public IUserConfirmService confirmService { get; set; }
+        public virtual IUserService userService { get; set; }
+        public virtual IUserConfirmService confirmService { get; set; }
         public IConfirmEmail confirmEmail { get; set; }
-        public ILoginService loginService { get; set; }
-        public IInviteService inviteService { get; set; }
+        public virtual ILoginService loginService { get; set; }
+        public virtual IInviteService inviteService { get; set; }
 
         public virtual IMemberAppService appService { get; set; }
         public virtual IMenuService menuService { get; set; }
@@ -58,7 +58,7 @@ namespace wojilu.Web.Controller {
             }
         }
 
-        public void Invite( long userId ) {
+        public virtual void Invite( long userId ) {
 
             if (ctx.viewer.IsLogin) {
                 echo( "对不起，您已经登录" );
@@ -85,7 +85,7 @@ namespace wojilu.Web.Controller {
         }
 
         [HttpPost]
-        public void RegisterFriend( long friendId ) {
+        public virtual void RegisterFriend( long friendId ) {
 
             if (ctx.viewer.IsLogin) {
                 echo( "对不起，您已经登录" );
@@ -110,7 +110,7 @@ namespace wojilu.Web.Controller {
             bindRegister();
         }
 
-        public void Register() {
+        public virtual void Register() {
 
             if (ctx.viewer.IsLogin) {
                 echo( "对不起，您已经登录" );
@@ -200,7 +200,7 @@ namespace wojilu.Web.Controller {
         }
 
         [HttpPost, DbTransaction]
-        public void CheckEmailExist() {
+        public virtual void CheckEmailExist() {
 
             String email = ctx.Post( "Email" );
 
@@ -213,7 +213,7 @@ namespace wojilu.Web.Controller {
         }
 
         [HttpPost, DbTransaction]
-        public void CheckUserExist() {
+        public virtual void CheckUserExist() {
 
             String name = ctx.Post( "Name" );
 
@@ -226,7 +226,7 @@ namespace wojilu.Web.Controller {
         }
 
         [HttpPost, DbTransaction]
-        public void CheckUrlExist() {
+        public virtual void CheckUrlExist() {
 
             String url = ctx.Post( "FriendUrl" );
             if (userService.IsUrlReservedOrExist( url )) {
@@ -240,7 +240,7 @@ namespace wojilu.Web.Controller {
 
         //--------------------------------------------------------------------------------
 
-        public void Done() {
+        public virtual void Done() {
 
             set( "email", ctx.Get( "email" ) );
             set( "domainName", config.Instance.Site.GetSmtpUserDomain() );
@@ -256,7 +256,7 @@ namespace wojilu.Web.Controller {
         }
 
         [HttpPost, DbTransaction]
-        public void SaveReg() {
+        public virtual void SaveReg() {
 
             if (ctx.viewer.IsLogin) {
                 echo( "您有帐号，并且已经登录" );
@@ -315,11 +315,11 @@ namespace wojilu.Web.Controller {
 
         }
 
-        public void needApproveMsg() {
+        public virtual void needApproveMsg() {
             set( "siteName", config.Instance.Site.SiteName );
         }
 
-        public void SendConfirmEmail( long userId ) {
+        public virtual void SendConfirmEmail( long userId ) {
 
             User user = userService.GetById( userId );
             Result sent = confirmEmail.SendEmail( user, null, null );
@@ -341,7 +341,7 @@ namespace wojilu.Web.Controller {
             return returnUrl;
         }
 
-        public User validateUser() {
+        public virtual User validateUser() {
 
             if (config.Instance.Site.RegisterNeedImgValidateion) Html.Captcha.CheckError( ctx );
 

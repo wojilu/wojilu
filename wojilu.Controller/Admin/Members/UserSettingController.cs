@@ -14,13 +14,13 @@ namespace wojilu.Web.Controller.Admin.Members {
 
     public class UserSettingController : ControllerBase {
 
-        public IAdminLogService<SiteLog> logService { get; set; }
+        public virtual IAdminLogService<SiteLog> logService { get; set; }
 
         public UserSettingController() {
             logService = new SiteLogService();
         }
 
-        public void Index() {
+        public virtual void Index() {
 
             target( UserSave );
 
@@ -58,7 +58,7 @@ namespace wojilu.Web.Controller.Admin.Members {
 
 
         [HttpPost, DbTransaction]
-        public void UserSave() {
+        public virtual void UserSave() {
 
             String UserPageKeywords = ctx.Post( "UserPageKeywords" );
             String UserPageDescription = ctx.Post( "UserPageDescription" );

@@ -24,9 +24,9 @@ namespace wojilu.Web.Controller.Content.Admin.Section {
     [App( typeof( ContentApp ) )]
     public partial class ImgController : ControllerBase, IPageAdminSection {
 
-        public IContentPostService postService { get; set; }
-        public IContentSectionService sectionService { get; set; }
-        public IContentImgService imgService { get; set; }
+        public virtual IContentPostService postService { get; set; }
+        public virtual IContentSectionService sectionService { get; set; }
+        public virtual IContentImgService imgService { get; set; }
 
         public ImgController() {
             postService = new ContentPostService();
@@ -34,7 +34,7 @@ namespace wojilu.Web.Controller.Content.Admin.Section {
             imgService = new ContentImgService();
         }
 
-        public List<IPageSettingLink> GetSettingLink( long sectionId ) {
+        public virtual List<IPageSettingLink> GetSettingLink( long sectionId ) {
             List<IPageSettingLink> links = new List<IPageSettingLink>();
 
             PageSettingLink lnk = new PageSettingLink();
@@ -50,25 +50,25 @@ namespace wojilu.Web.Controller.Content.Admin.Section {
             return links;
         }
 
-        public String GetEditLink( long postId ) {
+        public virtual String GetEditLink( long postId ) {
             return to( AddImgList, postId );
         }
 
-        public String GetSectionIcon( long sectionId ) {
+        public virtual String GetSectionIcon( long sectionId ) {
             return BinderUtils.iconPic;
         }
 
-        public void AdminSectionShow( long sectionId ) {
+        public virtual void AdminSectionShow( long sectionId ) {
             List<ContentPost> posts = GetSectionPosts( sectionId );
             bindSectionShow( sectionId, posts );
         }
 
-        public List<ContentPost> GetSectionPosts( long sectionId ) {
+        public virtual List<ContentPost> GetSectionPosts( long sectionId ) {
             ContentSection s = sectionService.GetById( sectionId, ctx.app.Id );
             return postService.GetBySection( sectionId, s.ListCount );
         }
 
-        public void AdminList( long sectionId ) {
+        public virtual void AdminList( long sectionId ) {
             ContentSection section = sectionService.GetById( sectionId, ctx.app.Id );
             DataPage<ContentPost> posts = postService.GetPageBySectionAndCategory( section.Id, ctx.GetLong( "categoryId" ) );
 
@@ -77,7 +77,7 @@ namespace wojilu.Web.Controller.Content.Admin.Section {
 
         //--------------------------------------------------------------------------------------------------------------------------
 
-        public void AddListInfo( long sectionId ) {
+        public virtual void AddListInfo( long sectionId ) {
             ContentSection section = sectionService.GetById( sectionId, ctx.app.Id );
             target( to( CreateListInfo, sectionId ) + "?categoryId=" + ctx.GetLong( "categoryId" ) );
             set( "section.Name", section.Title );
@@ -85,7 +85,7 @@ namespace wojilu.Web.Controller.Content.Admin.Section {
         }
 
         [HttpPost, DbTransaction]
-        public void CreateListInfo( long sectionId ) {
+        public virtual void CreateListInfo( long sectionId ) {
             ContentPost post = ContentValidator.SetValueBySection( sectionService.GetById( sectionId, ctx.app.Id ), ctx );
             if (strUtil.IsNullOrEmpty( post.Title )) {
                 errors.Add( lang( "exTitle" ) );
@@ -105,7 +105,7 @@ namespace wojilu.Web.Controller.Content.Admin.Section {
 
         //-------------------------------------------------------------
 
-        public void AddImgList( long postId ) {
+        public virtual void AddImgList( long postId ) {
 
             ContentPost post = postService.GetById( postId, ctx.owner.Id );
             if (post == null) {
@@ -131,7 +131,7 @@ namespace wojilu.Web.Controller.Content.Admin.Section {
 
 
         [HttpPost, DbTransaction]
-        public void CreateImgList( long postId ) {
+        public virtual void CreateImgList( long postId ) {
 
             ContentPost post = postService.GetById( postId, ctx.owner.Id );
             if (post == null) {
@@ -225,7 +225,7 @@ namespace wojilu.Web.Controller.Content.Admin.Section {
 
 
         [HttpPut, DbTransaction]
-        public void SetLogo( long postId ) {
+        public virtual void SetLogo( long postId ) {
 
             ContentPost post = postService.GetById( postId, ctx.owner.Id );
             if (post == null) {
@@ -249,7 +249,7 @@ namespace wojilu.Web.Controller.Content.Admin.Section {
 
         //--------------------------------------------------------------------------------------------------------------------------
 
-        public void EditListInfo( long postId ) {
+        public virtual void EditListInfo( long postId ) {
 
             view( "EditListInfo" );
             ContentPost post = postService.GetById( postId, ctx.owner.Id );
@@ -264,7 +264,7 @@ namespace wojilu.Web.Controller.Content.Admin.Section {
 
 
         [HttpPost, DbTransaction]
-        public void UpdateListInfo( long postId ) {
+        public virtual void UpdateListInfo( long postId ) {
             ContentPost post = postService.GetById( postId, ctx.owner.Id );
             if (post == null) {
                 echoRedirect( lang( "exDataNotFound" ) );
@@ -295,7 +295,7 @@ namespace wojilu.Web.Controller.Content.Admin.Section {
         //--------------------------------------------------------------------------------------------------------------------------
 
         [HttpDelete, DbTransaction]
-        public void Delete( long postId ) {
+        public virtual void Delete( long postId ) {
             ContentPost post = postService.GetById( postId, ctx.owner.Id );
             if (post == null) {
                 echoRedirect( lang( "exDataNotFound" ) );
@@ -308,7 +308,7 @@ namespace wojilu.Web.Controller.Content.Admin.Section {
         }
 
         [HttpDelete, DbTransaction]
-        public void DeleteImg( long postId ) {
+        public virtual void DeleteImg( long postId ) {
 
             ContentPost post = postService.GetById( postId, ctx.owner.Id );
             if (post == null) {

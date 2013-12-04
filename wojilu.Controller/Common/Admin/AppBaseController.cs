@@ -26,11 +26,11 @@ namespace wojilu.Web.Controller.Common.Admin {
 
     public partial class AppBaseController : ControllerBase {
 
-        public IAppInstallerService appinfoService { get; set; }
+        public virtual IAppInstallerService appinfoService { get; set; }
 
-        public IMemberAppService userAppService { get; set; }
-        public IMenuService menuService { get; set; }
-        public IThemeService themeService { get; set; }
+        public virtual IMemberAppService userAppService { get; set; }
+        public virtual IMenuService menuService { get; set; }
+        public virtual IThemeService themeService { get; set; }
 
         public AppBaseController() {
             appinfoService = new AppInstallerService();
@@ -48,13 +48,13 @@ namespace wojilu.Web.Controller.Common.Admin {
             set( "appListLink", to( Index ) );
         }
 
-        public void Index() {
+        public virtual void Index() {
             IList apps = userAppService.GetByMember( ctx.owner.Id );
             bindAppList( apps );
             set( "sortAction", to( SortMenu ) );
         }
 
-        public void SortMenu() {
+        public virtual void SortMenu() {
 
             long id = ctx.PostLong( "id" );
             String cmd = ctx.Post( "cmd" );
@@ -82,7 +82,7 @@ namespace wojilu.Web.Controller.Common.Admin {
 
         //----------------------------------------------------------------------------------------------------------------
 
-        public void ViewUrl( long id ) {
+        public virtual void ViewUrl( long id ) {
 
             IMemberApp app = getApp( id );
 
@@ -93,13 +93,13 @@ namespace wojilu.Web.Controller.Common.Admin {
             set( "app.Url", url );
         }
 
-        public void Edit( long id ) {
+        public virtual void Edit( long id ) {
             IMemberApp app = getApp( id );
             target( Update, id );
             bindAppEdit( app );
         }
 
-        public void NewApp( long id ) {
+        public virtual void NewApp( long id ) {
 
             AppInstaller info = getAppInfo( id );
 
@@ -124,7 +124,7 @@ namespace wojilu.Web.Controller.Common.Admin {
 
         }
 
-        public void ThemeList( long appInstallerId ) {
+        public virtual void ThemeList( long appInstallerId ) {
 
             AppInstaller info = getAppInfo( appInstallerId );
 
@@ -163,7 +163,7 @@ namespace wojilu.Web.Controller.Common.Admin {
 
 
         [HttpPost, DbTransaction]
-        public void Create() {
+        public virtual void Create() {
 
             int appInfoId = cvt.ToInt( ctx.Post( "appInfoId" ) );
             AppInstaller info = getAppInfo( appInfoId );
@@ -248,7 +248,7 @@ namespace wojilu.Web.Controller.Common.Admin {
             AppAdminRole.InitSiteAdmin( app.Id );
         }
 
-        public void Select() {
+        public virtual void Select() {
 
 
             bindHomePage();
@@ -258,7 +258,7 @@ namespace wojilu.Web.Controller.Common.Admin {
         }
 
         [HttpPut, DbTransaction]
-        public void Start( long id ) {
+        public virtual void Start( long id ) {
             IMemberApp app = getApp( id );
             String appUrl = UrlConverter.clearUrl( app, ctx );
 
@@ -271,7 +271,7 @@ namespace wojilu.Web.Controller.Common.Admin {
         private static readonly ILog logger = LogManager.GetLogger( typeof( AppBaseController ) );
 
         [HttpPut, DbTransaction]
-        public void Stop( long id ) {
+        public virtual void Stop( long id ) {
             IMemberApp app = getApp( id );
             String appUrl = UrlConverter.clearUrl( app, ctx );
 
@@ -286,7 +286,7 @@ namespace wojilu.Web.Controller.Common.Admin {
         }
 
         [HttpPost, DbTransaction]
-        public void Update( long id ) {
+        public virtual void Update( long id ) {
 
             IMemberApp app = getApp( id );
             String appUrl = UrlConverter.clearUrl( app, ctx );
@@ -302,7 +302,7 @@ namespace wojilu.Web.Controller.Common.Admin {
 
 
         [HttpDelete, DbTransaction]
-        public void Delete( long id ) {
+        public virtual void Delete( long id ) {
 
             IMemberApp app = getApp( id );
             String appUrl = UrlConverter.clearUrl( app, ctx );

@@ -23,9 +23,9 @@ namespace wojilu.Web.Controller.Content.Section {
     [App( typeof( ContentApp ) )]
     public partial class ImgController : ControllerBase, IPageSection {
 
-        public IContentPostService postService { get; set; }
-        public IContentSectionService sectionService { get; set; }
-        public IContentImgService imgService { get; set; }
+        public virtual IContentPostService postService { get; set; }
+        public virtual IContentSectionService sectionService { get; set; }
+        public virtual IContentImgService imgService { get; set; }
 
         public ImgController() {
             postService = new ContentPostService();
@@ -33,7 +33,7 @@ namespace wojilu.Web.Controller.Content.Section {
             imgService = new ContentImgService();
         }
 
-        public void SectionShow( long sectionId ) {
+        public virtual void SectionShow( long sectionId ) {
             ContentSection s = sectionService.GetById( sectionId, ctx.app.Id );
             if (s == null) {
                 throw new Exception( lang( "exDataNotFound" ) + "=>page section:" + sectionId );
@@ -43,7 +43,7 @@ namespace wojilu.Web.Controller.Content.Section {
             bindSectionShow( s, posts );
         }
 
-        public void Show( long postId ) {
+        public virtual void Show( long postId ) {
             ContentPost post = postService.GetById( postId, ctx.owner.Id );
             if (post == null) {
                 echoRedirect( lang( "exDataNotFound" ) );
@@ -57,7 +57,7 @@ namespace wojilu.Web.Controller.Content.Section {
         }
 
 
-        public void List( long sectionId ) {
+        public virtual void List( long sectionId ) {
 
             ContentSection section = sectionService.GetById( sectionId, ctx.app.Id );
             if (section == null) {

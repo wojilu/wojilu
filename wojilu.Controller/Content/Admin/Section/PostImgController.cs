@@ -15,15 +15,15 @@ namespace wojilu.Web.Controller.Content.Admin.Section {
     [App( typeof( ContentApp ) )]
     public class PostImgController : ControllerBase, IPageAdminSection {
 
-        public IContentPostService postService { get; set; }
-        public IContentImgService imgService { get; set; }
+        public virtual IContentPostService postService { get; set; }
+        public virtual IContentImgService imgService { get; set; }
 
         public PostImgController() {
             postService = new ContentPostService();
             imgService = new ContentImgService();
         }
 
-        public void AdminSectionShow( long sectionId ) {
+        public virtual void AdminSectionShow( long sectionId ) {
 
             int postcat = PostCategory.Post;
             int imgcat = PostCategory.Img;
@@ -40,7 +40,7 @@ namespace wojilu.Web.Controller.Content.Admin.Section {
             bindImgs( imgs );
         }
 
-        public List<ContentPost> GetSectionPosts( long sectionId ) {
+        public virtual List<ContentPost> GetSectionPosts( long sectionId ) {
 
             int postcat = PostCategory.Post;
             int imgcat = PostCategory.Img;
@@ -57,11 +57,11 @@ namespace wojilu.Web.Controller.Content.Admin.Section {
             return list;
         }
 
-        public String GetEditLink( long postId ) {
+        public virtual String GetEditLink( long postId ) {
             return to( new Common.PostController().Edit, postId );
         }
 
-        public String GetSectionIcon( long sectionId ) {
+        public virtual String GetSectionIcon( long sectionId ) {
             return "";
         }
 
@@ -141,7 +141,7 @@ namespace wojilu.Web.Controller.Content.Admin.Section {
 
         }
 
-        public List<IPageSettingLink> GetSettingLink( long sectionId ) {
+        public virtual List<IPageSettingLink> GetSettingLink( long sectionId ) {
 
             List<IPageSettingLink> links = new List<IPageSettingLink>();
 

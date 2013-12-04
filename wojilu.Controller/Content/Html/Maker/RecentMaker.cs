@@ -19,7 +19,7 @@ namespace wojilu.Web.Controller.Content.Htmls {
 
     public class RecentMaker : HtmlMaker {
 
-        public IContentPostService postService { get; set; }
+        public virtual IContentPostService postService { get; set; }
 
         public RecentMaker( ){
             postService = new ContentPostService();
@@ -30,7 +30,7 @@ namespace wojilu.Web.Controller.Content.Htmls {
         /// </summary>
         /// <param name="ctx"></param>
         /// <returns></returns>
-        public int ProcessAll( long appId ) {
+        public virtual int ProcessAll( long appId ) {
 
             CheckDir();
 

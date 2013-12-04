@@ -20,10 +20,10 @@ namespace wojilu.Web.Controller.Reader {
     public class SubscriptionController : ControllerBase {
 
 
-        public IFeedCategoryService categoryService { get; set; }
-        public IFeedSourceService feedService { get; set; }
-        public ISubscriptionService subscriptionService { get; set; }
-        public IFeedEntryService entryService { get; set; }
+        public virtual IFeedCategoryService categoryService { get; set; }
+        public virtual IFeedSourceService feedService { get; set; }
+        public virtual ISubscriptionService subscriptionService { get; set; }
+        public virtual IFeedEntryService entryService { get; set; }
 
         public SubscriptionController() {
             categoryService = new FeedCategoryService();
@@ -34,7 +34,7 @@ namespace wojilu.Web.Controller.Reader {
 
 
 
-        public void Show( long id ) {
+        public virtual void Show( long id ) {
 
             Subscription s = subscriptionService.GetById( id );
             if (s == null || s.FeedSource == null) {

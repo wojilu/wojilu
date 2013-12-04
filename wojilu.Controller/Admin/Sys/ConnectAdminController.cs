@@ -10,7 +10,7 @@ namespace wojilu.Web.Controller.Admin.Sys {
 
     public class ConnectAdminController : ControllerBase {
 
-        public void Index() {
+        public virtual void Index() {
 
             List<AuthConnectConfig> list = AuthConnectConfig.GetAll();
 
@@ -63,12 +63,12 @@ namespace wojilu.Web.Controller.Admin.Sys {
         }
 
 
-        public void Add() {
+        public virtual void Add() {
             target( Create );
         }
 
         [HttpPost]
-        public void Create() {
+        public virtual void Create() {
 
             AuthConnectConfig x = ctx.PostValue<AuthConnectConfig>( "x" );
             validatePost( x );
@@ -83,14 +83,14 @@ namespace wojilu.Web.Controller.Admin.Sys {
             echoToParentPart( lang( "opok" ) );
         }
 
-        public void Edit( long id ) {
+        public virtual void Edit( long id ) {
             AuthConnectConfig x = AuthConnectConfig.GetById( id );
             bind( "x", x );
             target( Update, id );
         }
 
         [HttpPost]
-        public void Update( long id ) {
+        public virtual void Update( long id ) {
             AuthConnectConfig x = AuthConnectConfig.GetById( id );
             x = ctx.PostValue( x, "x" ) as AuthConnectConfig;
             validatePost( x );
@@ -113,7 +113,7 @@ namespace wojilu.Web.Controller.Admin.Sys {
         }
 
         [HttpPost]
-        public void Stop( long id ) {
+        public virtual void Stop( long id ) {
             AuthConnectConfig x = AuthConnectConfig.GetById( id );
 
             if (x.IsStop == 1) {
@@ -130,7 +130,7 @@ namespace wojilu.Web.Controller.Admin.Sys {
 
 
         [HttpPost]
-        public void Pick( long id ) {
+        public virtual void Pick( long id ) {
             AuthConnectConfig x = AuthConnectConfig.GetById( id );
 
             if (x.IsPick == 1) {
@@ -146,7 +146,7 @@ namespace wojilu.Web.Controller.Admin.Sys {
         }
 
         [HttpDelete]
-        public void Delete( long id ) {
+        public virtual void Delete( long id ) {
             AuthConnectConfig x = AuthConnectConfig.GetById( id );
             x.delete();
             echoResult( null );

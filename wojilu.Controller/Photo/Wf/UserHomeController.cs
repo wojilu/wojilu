@@ -22,11 +22,11 @@ namespace wojilu.Web.Controller.Photo.Wf {
     [App( typeof( PhotoApp ) )]
     public class UserHomeController : ControllerBase {
 
-        public IUserService userService { get; set; }
-        public IPhotoAlbumService categoryService { get; set; }
-        public IPhotoPostService postService { get; set; }
-        public IPhotoSysCategoryService sysCategoryService { get; set; }
-        public PhotoLikeService likeService { get; set; }
+        public virtual IUserService userService { get; set; }
+        public virtual IPhotoAlbumService categoryService { get; set; }
+        public virtual IPhotoPostService postService { get; set; }
+        public virtual IPhotoSysCategoryService sysCategoryService { get; set; }
+        public virtual PhotoLikeService likeService { get; set; }
 
         public UserHomeController() {
             userService = new UserService();
@@ -104,7 +104,7 @@ namespace wojilu.Web.Controller.Photo.Wf {
             view( "/Photo/Wf/Home/Index" );
         }
 
-        public void Index() {
+        public virtual void Index() {
 
             setWaterfallView();
 
@@ -126,7 +126,7 @@ namespace wojilu.Web.Controller.Photo.Wf {
             PhotoBinder.BindPhotoList( this, list, u.Id );
         }
 
-        public void Category( long id ) {
+        public virtual void Category( long id ) {
 
             setWaterfallView();
 
@@ -155,7 +155,7 @@ namespace wojilu.Web.Controller.Photo.Wf {
             PhotoBinder.BindPhotoList( this, list, u.Id );
         }
 
-        public void Like() {
+        public virtual void Like() {
 
             setWaterfallView();
 
@@ -177,7 +177,7 @@ namespace wojilu.Web.Controller.Photo.Wf {
             PhotoBinder.BindPhotoList( this, list, ctx.viewer.Id );
         }
 
-        public void Album() {
+        public virtual void Album() {
 
             String userUrl = ctx.route.getItem( "user" );
             User u = userService.GetByUrl( userUrl );
@@ -213,7 +213,7 @@ namespace wojilu.Web.Controller.Photo.Wf {
             }
         }
 
-        public void Follower() {
+        public virtual void Follower() {
         }
 
     }

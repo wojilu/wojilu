@@ -12,13 +12,13 @@ namespace wojilu.Web.Controller.Admin {
 
     public class AppThemeController : ControllerBase {
 
-        public IThemeService themeService { get; set; }
+        public virtual IThemeService themeService { get; set; }
 
         public AppThemeController() {
             themeService = new ThemeService();
         }
 
-        public void Index( long appInstallerId ) {
+        public virtual void Index( long appInstallerId ) {
 
             AppInstaller installer = cdb.findById<AppInstaller>( appInstallerId );
             List<ITheme> themeList = themeService.GetThemeList( installer );
@@ -26,14 +26,14 @@ namespace wojilu.Web.Controller.Admin {
             bindList( "list", "x", themeList, bindThemes );
         }
 
-        public void bindThemes( IBlock block, String lbl, Object x ) {
+        public virtual void bindThemes( IBlock block, String lbl, Object x ) {
             ITheme theme = x as ITheme;
             block.Set( "x.data.delete", to( Delete, ctx.route.id ) + "?id=" + theme.Id );
         }
 
 
         [HttpDelete]
-        public void Delete( long appInstallerId ) {
+        public virtual void Delete( long appInstallerId ) {
             String id = ctx.Get( "id" );
             AppInstaller installer = cdb.findById<AppInstaller>( appInstallerId );
 

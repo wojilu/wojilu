@@ -21,10 +21,10 @@ namespace wojilu.Web.Controller.Users.Admin {
 
     public partial class FeedController : ControllerBase {
 
-        public IFeedService feedService { get; set; }
-        public IFriendService friendService { get; set; }
-        public IVisitorService visitorService { get; set; }
-        public IFollowerService followService { get; set; }
+        public virtual IFeedService feedService { get; set; }
+        public virtual IFriendService friendService { get; set; }
+        public virtual IVisitorService visitorService { get; set; }
+        public virtual IFollowerService followService { get; set; }
 
         public FeedController() {
             feedService = new FeedService();
@@ -142,12 +142,12 @@ namespace wojilu.Web.Controller.Users.Admin {
             return FeedUtils.mergeFeed( results );
         }
 
-        public void Friends() {
+        public virtual void Friends() {
             DataPage<User> friends = friendService.GetFriendsPage( ctx.owner.obj.Id, 6 );
             bindShareFriends( friends );
         }
 
-        public void Following() {
+        public virtual void Following() {
             DataPage<User> friends = followService.GetFollowingPage( ctx.owner.obj.Id, 6 );
             bindShareFollowing( friends );
         }

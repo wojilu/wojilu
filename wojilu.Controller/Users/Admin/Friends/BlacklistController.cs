@@ -22,14 +22,14 @@ namespace wojilu.Web.Controller.Users.Admin.Friends {
         // 访问脚印：谁来看过我+我看过谁；
         // 用户名、头像、微博、来访时间+访问时间
 
-        public IBlacklistService blacklistService { get; set; }
+        public virtual IBlacklistService blacklistService { get; set; }
 
         public BlacklistController() {
             base.LayoutControllerType = typeof( FriendController );
             blacklistService = new BlacklistService();
         }
 
-        public void Index() {
+        public virtual void Index() {
 
             set( "addLink", to( Add ) );
 
@@ -47,12 +47,12 @@ namespace wojilu.Web.Controller.Users.Admin.Friends {
             set( "page", list.PageBar );
         }
 
-        public void Add() {
+        public virtual void Add() {
             target( Create );
         }
 
         [HttpPost, DbTransaction]
-        public void Create() {
+        public virtual void Create() {
 
             String targetUserName = strUtil.CutString( ctx.Post( "UserName" ), 20 );
 
@@ -68,7 +68,7 @@ namespace wojilu.Web.Controller.Users.Admin.Friends {
         }
 
         [HttpDelete]
-        public void Delete( long id ) {
+        public virtual void Delete( long id ) {
 
             Result result = blacklistService.Delete( id, ctx.owner.Id );
             if (result.HasErrors ) {

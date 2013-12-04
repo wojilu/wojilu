@@ -16,14 +16,14 @@ namespace wojilu.Web.Controller.Blog.Admin {
 
     public class LayoutController : ControllerBase {
 
-        public IBlogCategoryService categoryService { get; set; }
+        public virtual IBlogCategoryService categoryService { get; set; }
 
         public LayoutController() {
             categoryService = new BlogCategoryService();
             base.HideLayout( typeof( Blog.LayoutController ) );
         }
 
-        public IMemberAppService getUserAppService() {
+        public virtual IMemberAppService getUserAppService() {
             return new UserAppService();
         }
 

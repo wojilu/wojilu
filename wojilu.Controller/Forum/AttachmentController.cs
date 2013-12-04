@@ -25,12 +25,12 @@ namespace wojilu.Web.Controller.Forum {
     [App( typeof( ForumApp ) )]
     public class AttachmentController : ControllerBase {
 
-        public IAttachmentService attachmentService { get; set; }
-        public IForumTopicService topicService { get; set; }
-        public IAttachmentService attachService { get; set; }
-        public IForumBoardService boardService { get; set; }
-        public ICurrencyService currencyService { get; set; }
-        public IUserIncomeService incomeService { get; set; }
+        public virtual IAttachmentService attachmentService { get; set; }
+        public virtual IForumTopicService topicService { get; set; }
+        public virtual IAttachmentService attachService { get; set; }
+        public virtual IForumBoardService boardService { get; set; }
+        public virtual ICurrencyService currencyService { get; set; }
+        public virtual IUserIncomeService incomeService { get; set; }
 
         public AttachmentController() {
             boardService = new ForumBoardService();
@@ -48,7 +48,7 @@ namespace wojilu.Web.Controller.Forum {
             return _tree;
         }
 
-        public void Show( long id ) {
+        public virtual void Show( long id ) {
 
             String guid = ctx.Get( "id" );
 

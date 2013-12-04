@@ -20,8 +20,8 @@ namespace wojilu.Web.Controller.Groups.Admin {
 
     public partial class MainController : ControllerBase {
 
-        public IGroupService groupService { get; set; }
-        public IMemberGroupService mgrService { get; set; }
+        public virtual IGroupService groupService { get; set; }
+        public virtual IMemberGroupService mgrService { get; set; }
         public IAdminLogService<GroupLog> logService { get; set; }
 
         public MainController() {
@@ -30,14 +30,14 @@ namespace wojilu.Web.Controller.Groups.Admin {
             logService = new GroupLogService();
         }
 
-        public void Index() {
+        public virtual void Index() {
             target( SaveInfo );
             Group group = ctx.owner.obj as Group;
             bindGroupInfo( group );
         }
 
         [HttpPost, DbTransaction]
-        public void SaveInfo() {
+        public virtual void SaveInfo() {
 
             //String target = ctx.Post( "Name" );
             //String url = ctx.Post( "Url" );
@@ -75,7 +75,7 @@ namespace wojilu.Web.Controller.Groups.Admin {
             }
         }
 
-        public void Logo() {
+        public virtual void Logo() {
             target( SaveLogo );
             Group group = ctx.owner.obj as Group;
             bindLogo( group );
@@ -83,7 +83,7 @@ namespace wojilu.Web.Controller.Groups.Admin {
 
 
         [HttpPost, DbTransaction]
-        public void SaveLogo() {
+        public virtual void SaveLogo() {
             Group group = ctx.owner.obj as Group;
 
             Result result = GroupHelper.SaveGroupLogo( ctx.GetFileSingle(), group.Url );
@@ -102,7 +102,7 @@ namespace wojilu.Web.Controller.Groups.Admin {
 
 
 
-        public void Members( long roleId ) {
+        public virtual void Members( long roleId ) {
 
             IBlock block = getBlock( "list" );
 
@@ -127,7 +127,7 @@ namespace wojilu.Web.Controller.Groups.Admin {
 
 
         [HttpPost, DbTransaction]
-        public void SaveMember() {
+        public virtual void SaveMember() {
 
             Group group = ctx.owner.obj as Group;
 
@@ -171,7 +171,7 @@ namespace wojilu.Web.Controller.Groups.Admin {
         }
 
 
-        public void AdminLog() {
+        public virtual void AdminLog() {
         }
 
     }

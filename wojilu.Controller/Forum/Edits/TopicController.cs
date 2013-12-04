@@ -16,11 +16,11 @@ namespace wojilu.Web.Controller.Forum.Edits {
     [App( typeof( ForumApp ) )]
     public class TopicController : ControllerBase {
 
-        public IAttachmentService attachService { get; set; }
-        public IForumBoardService boardService { get; set; }
-        public IForumCategoryService categoryService { get; set; }
-        public IForumPostService postService { get; set; }
-        public IForumTopicService topicService { get; set; }
+        public virtual IAttachmentService attachService { get; set; }
+        public virtual IForumBoardService boardService { get; set; }
+        public virtual IForumCategoryService categoryService { get; set; }
+        public virtual IForumPostService postService { get; set; }
+        public virtual IForumTopicService topicService { get; set; }
 
         public TopicController() {
             boardService = new ForumBoardService();
@@ -30,7 +30,7 @@ namespace wojilu.Web.Controller.Forum.Edits {
             attachService = new AttachmentService();
         }
 
-        public void Edit( long id ) {
+        public virtual void Edit( long id ) {
 
             target( Update, id );
 
@@ -51,7 +51,7 @@ namespace wojilu.Web.Controller.Forum.Edits {
         }
 
         [HttpPost, DbTransaction]
-        public void Update( long id ) {
+        public virtual void Update( long id ) {
 
             ForumTopic topic = topicService.GetById( id, ctx.owner.obj );
             ForumBoard board = getTree().GetById( topic.ForumBoard.Id );
@@ -86,7 +86,7 @@ namespace wojilu.Web.Controller.Forum.Edits {
 
         //------------------------------------------------------------------
 
-        public void EditQ( long id ) {
+        public virtual void EditQ( long id ) {
 
             target( UpdateQ, id );
 
@@ -118,7 +118,7 @@ namespace wojilu.Web.Controller.Forum.Edits {
         }
 
         [HttpPost, DbTransaction]
-        public void UpdateQ( long id ) {
+        public virtual void UpdateQ( long id ) {
 
             ForumTopic topic = topicService.GetById( id, ctx.owner.obj );
             ForumBoard board = getTree().GetById( topic.ForumBoard.Id );

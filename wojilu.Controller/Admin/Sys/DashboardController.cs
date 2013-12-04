@@ -24,11 +24,11 @@ namespace wojilu.Web.Controller.Admin.Sys {
 
     public class DashboardController : ControllerBase {
 
-        public IUserService userService { get; set; }
-        public IMemberAppService siteAppService { get; set; }
-        public IMicroblogService microblogService { get; set; }
-        public MicroblogFavoriteService mfService { get; set; }
-        public SysMicroblogService sysMicroblogService { get; set; }
+        public virtual IUserService userService { get; set; }
+        public virtual IMemberAppService siteAppService { get; set; }
+        public virtual IMicroblogService microblogService { get; set; }
+        public virtual IMicroblogFavoriteService mfService { get; set; }
+        public virtual ISysMicroblogService sysMicroblogService { get; set; }
 
         public DashboardController() {
             userService = new UserService();
@@ -38,7 +38,7 @@ namespace wojilu.Web.Controller.Admin.Sys {
             sysMicroblogService = new SysMicroblogService();
         }
 
-        public void Links() {
+        public virtual void Links() {
 
             set( "addMenu", to( new Admin.MenuController().AddMenu ) );
             set( "addFooterMenuLink", to( new FooterMenuController().Add ) );
@@ -97,11 +97,11 @@ namespace wojilu.Web.Controller.Admin.Sys {
             return strUtil.Join( ctx.url.SiteAndAppPath, link );
         }
 
-        public void Index() {
+        public virtual void Index() {
             Feed( -1 );
         }
 
-        public void Feed( long id ) {
+        public virtual void Feed( long id ) {
             view( "Feed" );
             bindUsers();
 
@@ -115,7 +115,7 @@ namespace wojilu.Web.Controller.Admin.Sys {
             set( "page", list.PageBar );
         }
 
-        public void Home( long id ) {
+        public virtual void Home( long id ) {
 
             view( "Home" );
 

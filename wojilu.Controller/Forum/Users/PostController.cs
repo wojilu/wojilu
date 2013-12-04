@@ -23,13 +23,13 @@ namespace wojilu.Web.Controller.Forum.Users {
     [App( typeof( ForumApp ) )]
     public class PostController : ControllerBase {
 
-        public IAttachmentService attachService { get; set; }
-        public IForumBoardService boardService { get; set; }
-        public IForumPostService postService { get; set; }
-        public IForumTopicService topicService { get; set; }
-        public IModeratorService moderatorService { get; set; }
-        public IForumBuyLogService buyService { get; set; }
-        public IUserIncomeService incomeService { get; set; }
+        public virtual IAttachmentService attachService { get; set; }
+        public virtual IForumBoardService boardService { get; set; }
+        public virtual IForumPostService postService { get; set; }
+        public virtual IForumTopicService topicService { get; set; }
+        public virtual IModeratorService moderatorService { get; set; }
+        public virtual IForumBuyLogService buyService { get; set; }
+        public virtual IUserIncomeService incomeService { get; set; }
 
         public PostController() {
             boardService = new ForumBoardService();
@@ -48,7 +48,7 @@ namespace wojilu.Web.Controller.Forum.Users {
             return _tree;
         }
 
-        public void ReplyPost( long id ) {
+        public virtual void ReplyPost( long id ) {
 
             if (!checkLockByPost( id )) return;
 
@@ -57,7 +57,7 @@ namespace wojilu.Web.Controller.Forum.Users {
             set( "Content", "" );
         }
 
-        public void QuotePost( long id ) {
+        public virtual void QuotePost( long id ) {
             if (!checkLockByPost( id )) return;
 
             view( "Quote" );
@@ -65,7 +65,7 @@ namespace wojilu.Web.Controller.Forum.Users {
             setQuoteContent( post );
         }
 
-        public void ReplyTopic( long id ) {
+        public virtual void ReplyTopic( long id ) {
             if (!checkLock( id )) return;
 
             view( "Quote" );
@@ -73,7 +73,7 @@ namespace wojilu.Web.Controller.Forum.Users {
             set( "Content", "" );
         }
 
-        public void QuoteTopic( long id ) {
+        public virtual void QuoteTopic( long id ) {
             if (!checkLock( id )) return;
 
             view( "Quote" );
@@ -83,7 +83,7 @@ namespace wojilu.Web.Controller.Forum.Users {
 
 
         [HttpPost, DbTransaction]
-        public void Create() {
+        public virtual void Create() {
 
             if (ForumValidator.IsIntervalShort( ctx )) {
                 echoError( "对不起，您发布太快，请稍等一会儿再发布" );
@@ -157,7 +157,7 @@ namespace wojilu.Web.Controller.Forum.Users {
         }
         //-----------------------------------------------------------------------------
 
-        public void Buy( long postId ) {
+        public virtual void Buy( long postId ) {
 
             ForumPost post = postService.GetById( postId, ctx.owner.obj );
             ForumTopic topic = topicService.GetById( post.TopicId, ctx.owner.obj );
@@ -177,7 +177,7 @@ namespace wojilu.Web.Controller.Forum.Users {
         }
 
         [HttpPost]
-        public void SaveBuy( long postId ) {
+        public virtual void SaveBuy( long postId ) {
             ForumPost post = postService.GetById( postId, ctx.owner.obj );
             ForumTopic topic = topicService.GetById( post.TopicId, ctx.owner.obj );
             if (boardError( topic )) return;
@@ -220,7 +220,7 @@ namespace wojilu.Web.Controller.Forum.Users {
             return false;
         }
 
-        public void SetReward( long id ) {
+        public virtual void SetReward( long id ) {
 
             ForumTopic topic = topicService.GetById( id, ctx.owner.obj );
             if (topic == null) {
@@ -243,7 +243,7 @@ namespace wojilu.Web.Controller.Forum.Users {
             bindPostList( list );
         }
 
-        public void RewardList( long id ) {
+        public virtual void RewardList( long id ) {
 
             ForumTopic topic = topicService.GetById( id, ctx.owner.obj );
             if (topic == null) {
@@ -261,7 +261,7 @@ namespace wojilu.Web.Controller.Forum.Users {
             bindRewardList( list );
         }
 
-        public void AddReward( long id ) {
+        public virtual void AddReward( long id ) {
 
             ForumPost post = postService.GetById( id, ctx.owner.obj );
             ForumTopic topic = topicService.GetById( post.TopicId, ctx.owner.obj );
@@ -276,7 +276,7 @@ namespace wojilu.Web.Controller.Forum.Users {
         }
 
         [HttpPost, DbTransaction]
-        public void SaveReward( long id ) {
+        public virtual void SaveReward( long id ) {
 
             int rewardValue = ctx.PostInt( "PostReward" );
             if (rewardValue <= 0) {

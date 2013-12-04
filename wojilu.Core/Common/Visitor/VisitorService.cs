@@ -13,11 +13,16 @@ using wojilu.Members.Interface;
 using wojilu.Members.Users.Interface;
 
 namespace wojilu.Common.Visitors {
+    public interface IVisitorService {
+        void setVisitor( object v );
+        IDataVisitor Visit( long visitorId, IAppData target );
+        List<IUser> GetRecent( long targetId, int count );
+    }
 
     /// <summary>
     /// 脚印功能，不同于 Users.Service 下的 VisitorService
     /// </summary>
-    public class VisitorService {
+    public class VisitorService : IVisitorService {
 
         private IDataVisitor visitor;
 

@@ -25,7 +25,7 @@ namespace wojilu.Web.Controller.Poll.Utils {
         //--------------------------------------------
 
 
-        public T Validate( MvcContext ctx ) {
+        public virtual T Validate( MvcContext ctx ) {
 
             String title = ctx.Post( "Title" );
             String question = ctx.PostHtml( "Question" );

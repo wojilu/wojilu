@@ -22,15 +22,15 @@ namespace wojilu.Web.Controller.Common {
         private static readonly ILog logger = LogManager.GetLogger( typeof( ConfirmEmailJob ) );
         private static Random rd = new Random();
 
-        public IUserService userService { get; set; }
-        public IInviteService inviteService { get; set; }
+        public virtual IUserService userService { get; set; }
+        public virtual IInviteService inviteService { get; set; }
 
         public InviteFriendsJob() {
             userService = new UserService();
             inviteService = new InviteService();
         }
 
-        public void Execute() {
+        public virtual void Execute() {
 
             if (config.Instance.Site.EnableEmail == false) return;
 
@@ -45,7 +45,7 @@ namespace wojilu.Web.Controller.Common {
             }
         }
 
-        public void End() {
+        public virtual void End() {
         }
 
         private void sendInviteEmail( UserInvite invite ) {

@@ -20,13 +20,13 @@ namespace wojilu.Web.Controller.Open.Admin {
     public class CommentBaseController<T> : ControllerBase where T : ObjectBase<T> {
 
 
-        public IOpenCommentService commentService { get; set; }
+        public virtual IOpenCommentService commentService { get; set; }
 
         public CommentBaseController() {
             commentService = new OpenCommentService();
         }
 
-        public void List() {
+        public virtual void List() {
 
             set( "ActionLink", to( Admin ) );
             set( "searchTarget", to( Search ) );
@@ -64,7 +64,7 @@ namespace wojilu.Web.Controller.Open.Admin {
         }
 
 
-        public void Search() {
+        public virtual void Search() {
 
             view( "/Open/Admin/CommentBase/List" );
 
@@ -93,7 +93,7 @@ namespace wojilu.Web.Controller.Open.Admin {
         }
 
         [HttpPost, DbTransaction]
-        public void Admin() {
+        public virtual void Admin() {
 
             String ids = ctx.PostIdList( "choice" );
             commentService.DeleteBatch( ids );

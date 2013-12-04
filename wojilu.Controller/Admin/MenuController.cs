@@ -22,7 +22,7 @@ namespace wojilu.Web.Controller.Admin {
 
     public class MenuController : wojilu.Web.Controller.Common.Admin.MenuBaseController {
 
-        public IAdminLogService<SiteLog> logService { get; set; }
+        public virtual IAdminLogService<SiteLog> logService { get; set; }
 
         public MenuController() {
             menuService = new SiteMenuService();

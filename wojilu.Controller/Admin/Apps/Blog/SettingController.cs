@@ -9,12 +9,12 @@ namespace wojilu.Web.Controller.Admin.Apps.Blog {
 
     public class SettingController : ControllerBase {
 
-        public void Index() {
+        public virtual void Index() {
             target( Save );
             bind( "x", BlogAppSetting.Instance );
         }
 
-        public void Save() {
+        public virtual void Save() {
             BlogAppSetting.Save( ctx.PostValue<BlogAppSetting>( "x" ) );
             echoRedirectPart( lang( "opok" ) );
         }

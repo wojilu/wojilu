@@ -24,9 +24,9 @@ namespace wojilu.Web.Controller {
 
         private static readonly ILog logger = LogManager.GetLogger( typeof( ConnectController ) );
 
-        public IUserService userService { get; set; }
-        public ILoginService loginService { get; set; }
-        public IUserConnectService connectService { get; set; }
+        public virtual IUserService userService { get; set; }
+        public virtual ILoginService loginService { get; set; }
+        public virtual IUserConnectService connectService { get; set; }
 
         public ConnectController() {
             userService = new UserService();
@@ -35,7 +35,7 @@ namespace wojilu.Web.Controller {
         }
 
         [Login]
-        public void Bind() {
+        public virtual void Bind() {
 
             String connectType = ctx.Get( "connectType" );
 
@@ -57,7 +57,7 @@ namespace wojilu.Web.Controller {
             redirectUrl( connect.GetAuthorizationFullUrl() );
         }
 
-        public void Login() {
+        public virtual void Login() {
 
             if (ctx.viewer.IsLogin) {
                 echoError( "对不起，您已经登录" );
@@ -80,7 +80,7 @@ namespace wojilu.Web.Controller {
             redirectUrl( connect.GetAuthorizationFullUrl() );
         }
 
-        public void Callback() {
+        public virtual void Callback() {
 
             string code = ctx.Get( "code" );
             if (strUtil.IsNullOrEmpty( code )) {
@@ -244,7 +244,7 @@ namespace wojilu.Web.Controller {
         }
 
         [NonVisit]
-        public void confirmUserInfo() {
+        public virtual void confirmUserInfo() {
 
             target( SaveFirstLogin );
 
@@ -268,7 +268,7 @@ namespace wojilu.Web.Controller {
         }
 
         [HttpPost, DbTransaction]
-        public void SaveFirstLogin() {
+        public virtual void SaveFirstLogin() {
 
             if (ctx.viewer.IsLogin) {
                 echoError( "对不起，您已经登录" );
@@ -410,7 +410,7 @@ namespace wojilu.Web.Controller {
 
 
         [Login, HttpDelete, DbTransaction]
-        public void UnBind() {
+        public virtual void UnBind() {
             Result result = connectService.UnBind( ctx.viewer.Id, ctx.Get( "connectType" ) );
             if (result.HasErrors) {
                 echo( result.ErrorsText );
@@ -423,7 +423,7 @@ namespace wojilu.Web.Controller {
 
 
         [Login, HttpPost, DbTransaction]
-        public void Sync() {
+        public virtual void Sync() {
             Result result = connectService.Sync( ctx.viewer.Id, ctx.Get( "connectType" ), ctx.PostInt( "isSync" ) );
             echoResult( result );
         }

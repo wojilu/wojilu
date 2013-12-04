@@ -29,7 +29,7 @@ namespace wojilu.Web.Controller.Forum {
     public partial class TopicController : ControllerBase {
 
         [NonVisit]
-        public void PostLoop() {
+        public virtual void PostLoop() {
 
             List<ForumPost> posts = ctx.GetItem( "posts" ) as List<ForumPost>;
             List<Attachment> attachs = ctx.GetItem( "attachs" ) as List<Attachment>;

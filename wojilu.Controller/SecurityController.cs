@@ -57,7 +57,7 @@ namespace wojilu.Web.Controller {
                 checkGroupPermission();
         }
 
-        public void CanAppAdmin( long appId ) {
+        public virtual void CanAppAdmin( long appId ) {
 
             if (ctx.viewer.IsLogin == false) {
                 echoText( "no" );
@@ -199,7 +199,7 @@ namespace wojilu.Web.Controller {
 
         //--------------------------------------------------------- 空间 -------------------------------------------------------------------------
 
-        public void checkSpacePermission() {
+        public virtual void checkSpacePermission() {
 
             User owner = ctx.owner.obj as User;
             if (owner == null) {

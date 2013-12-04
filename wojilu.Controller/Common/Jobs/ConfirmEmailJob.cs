@@ -23,8 +23,8 @@ namespace wojilu.Web.Controller.Common {
 
         private static readonly ILog logger = LogManager.GetLogger( typeof( ConfirmEmailJob ) );
 
-        public IUserService userService { get; set; }
-        public IConfirmEmail confirmEmail { get; set; }
+        public virtual IUserService userService { get; set; }
+        public virtual IConfirmEmail confirmEmail { get; set; }
 
         public ConfirmEmailJob() {
             userService = new UserService();
@@ -32,7 +32,7 @@ namespace wojilu.Web.Controller.Common {
         }
 
         private static Random rd = new Random();
-        public void Execute() {
+        public virtual void Execute() {
 
             if (config.Instance.Site.EnableEmail == false) return;
 
@@ -54,7 +54,7 @@ namespace wojilu.Web.Controller.Common {
 
         }
 
-        public void End() {
+        public virtual void End() {
         }
 
 

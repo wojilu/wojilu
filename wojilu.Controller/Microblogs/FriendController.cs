@@ -16,10 +16,10 @@ namespace wojilu.Web.Controller.Microblogs {
 
     public class FriendController : ControllerBase {
 
-        public IFollowerService followService { get; set; }
-        public IFriendService friendService { get; set; }
-        public IUserService userService { get; set; }
-        public IBlacklistService blacklistService { get; set; }
+        public virtual IFollowerService followService { get; set; }
+        public virtual IFriendService friendService { get; set; }
+        public virtual IUserService userService { get; set; }
+        public virtual IBlacklistService blacklistService { get; set; }
 
         public FriendController() {
             followService = new FollowerService();
@@ -29,7 +29,7 @@ namespace wojilu.Web.Controller.Microblogs {
             LayoutControllerType = typeof( MicroblogController );
         }
 
-        public void FriendList() {
+        public virtual void FriendList() {
 
             if (ctx.viewer.HasPrivacyPermission( ctx.owner.obj, UserPermission.Friends.ToString() ) == false) {
                 echo( lang( "exVisitNoPermission" ) );
@@ -42,7 +42,7 @@ namespace wojilu.Web.Controller.Microblogs {
             set( "page", list.PageBar );
         }
 
-        public void FollowingList() {
+        public virtual void FollowingList() {
 
             if (ctx.viewer.HasPrivacyPermission( ctx.owner.obj, UserPermission.Friends.ToString() ) == false) {
                 echo( lang( "exVisitNoPermission" ) );
@@ -56,7 +56,7 @@ namespace wojilu.Web.Controller.Microblogs {
             set( "page", list.PageBar );
         }
 
-        public void FollowerList() {
+        public virtual void FollowerList() {
 
             if (ctx.viewer.HasPrivacyPermission( ctx.owner.obj, UserPermission.Friends.ToString() ) == false) {
                 echo( lang( "exVisitNoPermission" ) );

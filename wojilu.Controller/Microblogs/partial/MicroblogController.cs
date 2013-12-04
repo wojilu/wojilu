@@ -276,7 +276,7 @@ namespace wojilu.Web.Controller.Microblogs {
 
         // 转发的附件
         [NonVisit]
-        public void Single( long id ) {
+        public virtual void Single( long id ) {
 
             Microblog blog = microblogService.GetById( id );
 

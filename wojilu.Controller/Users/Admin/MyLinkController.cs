@@ -17,7 +17,7 @@ namespace wojilu.Web.Controller.Users.Admin {
 
     public class MyLinkController : ControllerBase {
 
-        public IMemberAppService userAppService { get; set; }
+        public virtual IMemberAppService userAppService { get; set; }
 
         public MyLinkController() {
             userAppService = new UserAppService();
@@ -31,7 +31,7 @@ namespace wojilu.Web.Controller.Users.Admin {
             }
         }
 
-        public void Index() {
+        public virtual void Index() {
 
             set( "addMenu", to( new MenuController().AddMenu ) );
 

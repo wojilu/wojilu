@@ -11,7 +11,7 @@ namespace wojilu.Web.Controller.Common {
 
     public class AdLoaderController : ControllerBase {
 
-        public void Index() {
+        public virtual void Index() {
 
             String ads = ctx.Post( "adItems" );
 

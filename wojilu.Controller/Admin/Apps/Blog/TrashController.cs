@@ -24,11 +24,11 @@ namespace wojilu.Web.Controller.Admin.Apps.Blog {
     [App( typeof( BlogApp ) )]
     public class TrashController : ControllerBase {
 
-        public IBlogPostService postService { get; set; }
-        public IPickedService pickedService { get; set; }
-        public ISysBlogService sysblogService { get; set; }
-        public IAdminLogService<SiteLog> logService { get; set; }
-        public IBlogSysCategoryService categoryService { get; set; }
+        public virtual IBlogPostService postService { get; set; }
+        public virtual IPickedService pickedService { get; set; }
+        public virtual ISysBlogService sysblogService { get; set; }
+        public virtual IAdminLogService<SiteLog> logService { get; set; }
+        public virtual IBlogSysCategoryService categoryService { get; set; }
 
         public TrashController() {
             postService = new BlogPostService();
@@ -39,7 +39,7 @@ namespace wojilu.Web.Controller.Admin.Apps.Blog {
         }
 
 
-        public void Trash() {
+        public virtual void Trash() {
             target( Admin );
 
             DataPage<BlogPost> list = sysblogService.GetSysPageTrash();
@@ -77,7 +77,7 @@ namespace wojilu.Web.Controller.Admin.Apps.Blog {
 
 
         [HttpPost, DbTransaction]
-        public void Admin() {
+        public virtual void Admin() {
 
             String ids = ctx.PostIdList( "choice" );
             String cmd = ctx.Post( "action" );
@@ -124,7 +124,7 @@ namespace wojilu.Web.Controller.Admin.Apps.Blog {
 
 
         [HttpPut, DbTransaction]
-        public void UnDelete( long id ) {
+        public virtual void UnDelete( long id ) {
 
             BlogPost post = postService.GetById_ForAdmin( id );
             if (post == null) { echoRedirect( lang( "exDataNotFound" ) ); return; }

@@ -19,7 +19,7 @@ namespace wojilu.Web.Controller.Users.Admin {
 
     public class InviteController : ControllerBase {
 
-        public IInviteService inviteService { get; set; }
+        public virtual IInviteService inviteService { get; set; }
 
         public InviteController() {
             inviteService = new InviteService();
@@ -33,7 +33,7 @@ namespace wojilu.Web.Controller.Users.Admin {
             }
         }
 
-        public void Index() {
+        public virtual void Index() {
 
             target( SendMail );
 
@@ -55,7 +55,7 @@ namespace wojilu.Web.Controller.Users.Admin {
         }
 
         [HttpPost, DbTransaction]
-        public void SendMail() {
+        public virtual void SendMail() {
 
             String EmailList = ctx.Post( "EmailList" );
             if (strUtil.IsNullOrEmpty( EmailList )) {
@@ -87,7 +87,7 @@ namespace wojilu.Web.Controller.Users.Admin {
         }
 
         [NonVisit]
-        public void MailBody() {
+        public virtual void MailBody() {
 
             User user = ctx.owner.obj as User;
             String userLink = getFullUrl( toUser( user ) );

@@ -21,7 +21,7 @@ namespace wojilu.Web.Controller.Content.Admin {
             HideLayout( typeof( wojilu.Web.Controller.Content.LayoutController ) );
         }
 
-        public void Index() {
+        public virtual void Index() {
 
             target( Save );
             ContentApp app = ctx.app.obj as ContentApp;
@@ -32,7 +32,7 @@ namespace wojilu.Web.Controller.Content.Admin {
             set( "submitAdminLink", to( new Submit.AdminController().Index));
         }
 
-        public void Save() {
+        public virtual void Save() {
 
             ContentApp app = ctx.app.obj as ContentApp;
 
@@ -51,7 +51,7 @@ namespace wojilu.Web.Controller.Content.Admin {
         }
 
 
-        public void bindSettings( ContentSetting s ) {
+        public virtual void bindSettings( ContentSetting s ) {
 
             String chk = "checked=\"checked\"";
 

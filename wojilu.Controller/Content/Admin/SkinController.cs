@@ -11,7 +11,7 @@ namespace wojilu.Web.Controller.Content.Admin {
     [App( typeof( ContentApp ) )]
     public class SkinController : ControllerBase {
 
-        public void Index() {
+        public virtual void Index() {
 
             ContentApp app = ctx.app.obj as ContentApp;
 
@@ -42,7 +42,7 @@ namespace wojilu.Web.Controller.Content.Admin {
 
         }
 
-        public void Apply( long id ) {
+        public virtual void Apply( long id ) {
 
             ContentApp app = ctx.app.obj as ContentApp;
             app.SkinId = id;

@@ -23,22 +23,22 @@ namespace wojilu.Web.Controller.Forum.Admin {
     [App( typeof( ForumApp ) )]
     public class SecurityController : ControllerBase {
 
-        public IForumBoardService boardService { get; set; }
-        public IForumLogService logService { get; set; }
+        public virtual IForumBoardService boardService { get; set; }
+        public virtual IForumLogService logService { get; set; }
 
         public SecurityController() {
             boardService = new ForumBoardService();
             logService = new ForumLogService();
         }
 
-        public void Setting() {
+        public virtual void Setting() {
             target( SavePermissionAll );
             set( "lnkApplyAll", to( ApplyAll ) );
             ForumApp f = ctx.app.obj as ForumApp;
             bindRoleActions( f );
         }
 
-        public void BoardSetting( long id ) {
+        public virtual void BoardSetting( long id ) {
             target( SaveBoardPermissionAll, id );
             ForumBoard board = boardService.GetById( id, ctx.owner.obj );
             if (board == null) { echoRedirect( alang( "exBoardNotFound" ) ); return; }
@@ -91,7 +91,7 @@ namespace wojilu.Web.Controller.Forum.Admin {
         }
 
         [HttpPost, DbTransaction]
-        public void SavePermissionAll() {
+        public virtual void SavePermissionAll() {
 
             string[] actionIds = ctx.web.postValuesByKey( typeof( SecurityAction ).Name );
             ForumApp f = ctx.app.obj as ForumApp;
@@ -108,7 +108,7 @@ namespace wojilu.Web.Controller.Forum.Admin {
         }
 
         [HttpPost, DbTransaction]
-        public void SaveBoardPermissionAll( long id ) {
+        public virtual void SaveBoardPermissionAll( long id ) {
 
             ForumBoard board = boardService.GetById( id, ctx.owner.obj );
             if (board == null) {
@@ -126,7 +126,7 @@ namespace wojilu.Web.Controller.Forum.Admin {
         }
 
         [HttpPost, DbTransaction]
-        public void ApplyAll() {
+        public virtual void ApplyAll() {
 
             boardService.UpdateSecurityAll( ctx.app.obj as ForumApp );
 
@@ -134,7 +134,7 @@ namespace wojilu.Web.Controller.Forum.Admin {
         }
 
         [HttpPost, DbTransaction]
-        public void BoardReset( long id ) {
+        public virtual void BoardReset( long id ) {
             ForumBoard board = boardService.GetById( id, ctx.owner.obj );
             if (board == null) { echoRedirect( alang( "exBoardNotFound" ) ); return; }
 
@@ -144,7 +144,7 @@ namespace wojilu.Web.Controller.Forum.Admin {
             echoRedirectPart( lang( "opok" ) );
         }
 
-        public void Log() {
+        public virtual void Log() {
             DataPage<ForumLog> list = logService.FindPage( ctx.app.Id );
             bindList( "list", "forumlog", list.Results );
             set( "page", list.PageBar );

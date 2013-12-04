@@ -24,7 +24,7 @@ namespace wojilu.Web.Controller.Users {
 
         public IUserService userService;
         public ISiteRoleService roleService;
-        public UserTagService userTagService { get; set; }
+        public virtual UserTagService userTagService { get; set; }
 
 
         public MainController() {
@@ -62,7 +62,7 @@ namespace wojilu.Web.Controller.Users {
 
         [CachePage( typeof( UserMainPageCache ) )]
         [CacheAction( typeof( UserMainIndexCache ) )]
-        public void Index() {
+        public virtual void Index() {
 
             ctx.Page.Title = lang( "user" );
             ctx.Page.Keywords = config.Instance.Site.UserPageKeywords;
@@ -81,13 +81,13 @@ namespace wojilu.Web.Controller.Users {
             bindUsers( newList, "users" );
         }
 
-        public void OnlineUserData() {
+        public virtual void OnlineUserData() {
 
             List<OnlineUser> users = OnlineService.GetRecent( 20 );
             echoJson( users );
         }
 
-        public void Rank() {
+        public virtual void Rank() {
 
             ctx.Page.Title = lang( "userCharts" );
 
@@ -112,7 +112,7 @@ namespace wojilu.Web.Controller.Users {
             bindUsers( rankPosts, "Posts" );
         }
 
-        public void OnlineUser() {
+        public virtual void OnlineUser() {
 
             ctx.Page.Title = lang( "onlineUsers" );
 
@@ -140,7 +140,7 @@ namespace wojilu.Web.Controller.Users {
             }
         }
 
-        public void OnlineAll() {
+        public virtual void OnlineAll() {
 
             ctx.Page.Title = "所有在线用户";
 
@@ -185,7 +185,7 @@ namespace wojilu.Web.Controller.Users {
             block.Set( "u.Info", lblValue );
         }
 
-        public void ListAll() {
+        public virtual void ListAll() {
 
             ctx.Page.Title = lang( "allUser" );
 
@@ -195,7 +195,7 @@ namespace wojilu.Web.Controller.Users {
         }
 
 
-        public void Tag( long id ) {
+        public virtual void Tag( long id ) {
 
             Page.Title = "根据tag搜索用户";
             target( Tag, 0 );
@@ -238,7 +238,7 @@ namespace wojilu.Web.Controller.Users {
 
         }
 
-        public void Search() {
+        public virtual void Search() {
 
             HideLayout( typeof( MainController ) );
 

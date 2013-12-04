@@ -29,12 +29,12 @@ namespace wojilu.Web.Controller.Blog.Admin {
     [App( typeof( BlogApp ) )]
     public partial class PostController : ControllerBase {
 
-        public IBlogService blogService { get; set; }
-        public IBlogCategoryService categoryService { get; set; }
-        public IBlogPostService postService { get; set; }
+        public virtual IBlogService blogService { get; set; }
+        public virtual IBlogCategoryService categoryService { get; set; }
+        public virtual IBlogPostService postService { get; set; }
 
-        public IFriendService friendService { get; set; }
-        public UserFileService fileService { get; set; }
+        public virtual IFriendService friendService { get; set; }
+        public virtual IUserFileService fileService { get; set; }
 
         public PostController() {
 
@@ -46,7 +46,7 @@ namespace wojilu.Web.Controller.Blog.Admin {
         }
 
 
-        public void Add() {
+        public virtual void Add() {
 
             List<BlogCategory> categories = categoryService.GetByApp( ctx.app.Id );
 
@@ -66,7 +66,7 @@ namespace wojilu.Web.Controller.Blog.Admin {
         }
 
         [HttpPost, DbTransaction]
-        public void Create() {
+        public virtual void Create() {
 
             BlogPost data = new BlogPost();
             BlogCategory category = new BlogCategory();
@@ -117,7 +117,7 @@ namespace wojilu.Web.Controller.Blog.Admin {
 
         //-------------------------------- edit&save -------------------------------------------
 
-        public void Edit( long id ) {
+        public virtual void Edit( long id ) {
 
             target( Update, id );
 
@@ -188,7 +188,7 @@ namespace wojilu.Web.Controller.Blog.Admin {
         }
 
         [HttpPost, DbTransaction]
-        public void Update( long id ) {
+        public virtual void Update( long id ) {
 
             BlogPost post = postService.GetById( id, ctx.owner.Id );
             if (post == null) {

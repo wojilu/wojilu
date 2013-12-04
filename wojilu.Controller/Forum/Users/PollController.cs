@@ -36,7 +36,7 @@ namespace wojilu.Web.Controller.Forum.Users {
             pollService = new ForumPollService();
         }
 
-        public void Detail() {
+        public virtual void Detail() {
 
             ForumPoll p = ctx.GetItem( "poll" ) as ForumPoll;
 
@@ -66,7 +66,7 @@ namespace wojilu.Web.Controller.Forum.Users {
             load( "pollResult", pollResult );
         }
 
-        public void pollForm() {
+        public virtual void pollForm() {
 
             ForumPoll p = ctx.GetItem( "poll" ) as ForumPoll;
             ForumBoard board = setCurrentBoard( p );
@@ -122,14 +122,14 @@ namespace wojilu.Web.Controller.Forum.Users {
             return ctx.viewer.Id == p.Creator.Id;
         }
 
-        public void GetPollResultHtml( long pollId ) {
+        public virtual void GetPollResultHtml( long pollId ) {
             ForumPoll p = pollService.GetById( pollId );
             ctx.SetItem( "poll", p );
 
             echo( loadHtml( pollResult ) );
         }
 
-        public void pollResult() {
+        public virtual void pollResult() {
 
             ForumPoll p = ctx.GetItem( "poll" ) as ForumPoll;
             ForumBoard board = setCurrentBoard( p );
@@ -200,7 +200,7 @@ namespace wojilu.Web.Controller.Forum.Users {
 
         //----------------------------------------------------------------------------
 
-        public void Add() {
+        public virtual void Add() {
 
             long id = ctx.GetLong( "boardId" );
             set( "ActionLink", to( Create ) + "?boardId=" + id );
@@ -209,7 +209,7 @@ namespace wojilu.Web.Controller.Forum.Users {
         }
 
         [HttpPost, DbTransaction]
-        public void Create() {
+        public virtual void Create() {
 
             long id = ctx.GetLong( "boardId" );
             ForumBoard board = boardService.GetById( id, ctx.owner.obj );
@@ -226,7 +226,7 @@ namespace wojilu.Web.Controller.Forum.Users {
         }
 
         [HttpPost, DbTransaction]
-        public void Vote( long id ) {
+        public virtual void Vote( long id ) {
 
             ForumPoll poll = pollService.GetById( id );
             if (poll == null) {
@@ -257,7 +257,7 @@ namespace wojilu.Web.Controller.Forum.Users {
             echoAjaxOk();
         }
 
-        public void Voter( long id ) {
+        public virtual void Voter( long id ) {
 
             ForumPoll poll = pollService.GetById( id );
 

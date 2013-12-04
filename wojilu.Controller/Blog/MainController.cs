@@ -24,13 +24,13 @@ namespace wojilu.Web.Controller.Blog {
     [App( typeof( BlogApp ) )]
     public partial class MainController : ControllerBase {
 
-        public IBlogPostService postService { get; set; }
-        public IUserService userService { get; set; }
-        public IPickedService pickedService { get; set; }
-        public ISysBlogService sysblogService { get; set; }
-        public IBlogSysCategoryService categoryService { get; set; }
-        public BlogPickService pickService { get; set; }
-        public BlogPicService picService { get; set; }
+        public virtual IBlogPostService postService { get; set; }
+        public virtual IUserService userService { get; set; }
+        public virtual IPickedService pickedService { get; set; }
+        public virtual ISysBlogService sysblogService { get; set; }
+        public virtual IBlogSysCategoryService categoryService { get; set; }
+        public virtual BlogPickService pickService { get; set; }
+        public virtual IBlogPicService picService { get; set; }
 
         public MainController() {
             postService = new BlogPostService();
@@ -82,7 +82,7 @@ namespace wojilu.Web.Controller.Blog {
 
         [CachePage( typeof( BlogMainPageCache ) )]
         [CacheAction( typeof( BlogMainCache ) )]
-        public void Index() {
+        public virtual void Index() {
 
             ctx.Page.Title = BlogAppSetting.Instance.MetaTitle;
             ctx.Page.Keywords = BlogAppSetting.Instance.MetaKeywords;
@@ -173,7 +173,7 @@ namespace wojilu.Web.Controller.Blog {
 
 
         [NonVisit]
-        public void TopList() {
+        public virtual void TopList() {
 
             int imgCount = BlogAppSetting.Instance.PickImgCount;
             int dataCount = BlogAppSetting.Instance.PickDataCount;
@@ -229,7 +229,7 @@ namespace wojilu.Web.Controller.Blog {
 
         //--------------------------------------------------------------------------------------------
 
-        public void Recent() {
+        public virtual void Recent() {
 
             ctx.Page.Title = alang( "allBlogPost" );
 

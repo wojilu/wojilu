@@ -13,15 +13,15 @@ namespace wojilu.Web.Controller.Content.Admin {
     [App( typeof( ContentApp ) )]
     public class RowController : ControllerBase {
 
-        public RowService rowService { get; set; }
-        public IContentSectionService sectionService { get; set; }
+        public virtual RowService rowService { get; set; }
+        public virtual IContentSectionService sectionService { get; set; }
 
         public RowController() {
             rowService = new RowService();
             sectionService = new ContentSectionService();
         }
 
-        public void ConfirmAddRow( long columnCount ) {
+        public virtual void ConfirmAddRow( long columnCount ) {
             target( AddRow, columnCount );
             if (columnCount <= 0 || columnCount > 6) {
                 echo( "column count error" );
@@ -32,7 +32,7 @@ namespace wojilu.Web.Controller.Content.Admin {
         }
 
         [HttpPost, DbTransaction]
-        public void AddRow( long columnCount ) {
+        public virtual void AddRow( long columnCount ) {
 
             ContentApp app = ctx.app.obj as ContentApp;
 
@@ -51,7 +51,7 @@ namespace wojilu.Web.Controller.Content.Admin {
 
 
         [HttpPost]
-        public void Move() {
+        public virtual void Move() {
 
             ContentApp app = ctx.app.obj as ContentApp;
 
@@ -68,7 +68,7 @@ namespace wojilu.Web.Controller.Content.Admin {
             }
         }
 
-        public void DeleteRow( long rowId ) {
+        public virtual void DeleteRow( long rowId ) {
             target( DeleteRowSave, rowId );
             ContentApp article = ctx.app.obj as ContentApp;
             if (sectionService.Count( ctx.app.Id, (int)rowId ) > 0) {
@@ -77,7 +77,7 @@ namespace wojilu.Web.Controller.Content.Admin {
         }
 
         [HttpPost, DbTransaction]
-        public void DeleteRowSave( long rowId ) {
+        public virtual void DeleteRowSave( long rowId ) {
             ContentApp app = ctx.app.obj as ContentApp;
             if (sectionService.Count( ctx.app.Id, (int)rowId ) > 0) {
                 echoToParentPart( alang( "exRemoveSectionFirst" ) );

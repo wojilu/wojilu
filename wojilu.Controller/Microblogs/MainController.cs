@@ -17,7 +17,7 @@ namespace wojilu.Web.Controller.Microblogs {
 
     public class MainController : ControllerBase {
 
-        public ISiteSkinService siteSkinService { get; set; }
+        public virtual ISiteSkinService siteSkinService { get; set; }
 
         public MainController() {
 
@@ -67,7 +67,7 @@ namespace wojilu.Web.Controller.Microblogs {
             set( "mvcUrlExt", MvcConfig.Instance.UrlExt );
         }
 
-        public void Index() {
+        public virtual void Index() {
 
             if (ctx.viewer.IsLogin) {
                 redirectDirect( Link.To( ctx.viewer.obj, new Microblogs.My.MicroblogController().Home ) );
@@ -91,7 +91,7 @@ namespace wojilu.Web.Controller.Microblogs {
         }
 
         [NonVisit]
-        public void List() {
+        public virtual void List() {
 
             List<Microblog> list = ctx.GetItem( "_microblogList" ) as List<Microblog>;
 

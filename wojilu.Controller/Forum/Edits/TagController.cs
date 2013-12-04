@@ -15,7 +15,7 @@ namespace wojilu.Web.Controller.Forum.Edits {
     [App( typeof( ForumApp ) )]
     public class TagController : ControllerBase {
 
-        public IForumTopicService topicService { get; set; }
+        public virtual IForumTopicService topicService { get; set; }
 
         public TagController() {
             topicService = new ForumTopicService();
@@ -23,7 +23,7 @@ namespace wojilu.Web.Controller.Forum.Edits {
 
 
         [HttpPost, DbTransaction]
-        public void SaveTag( long topicId ) {
+        public virtual void SaveTag( long topicId ) {
 
             String tagValue = ctx.Post( "tagValue" );
 

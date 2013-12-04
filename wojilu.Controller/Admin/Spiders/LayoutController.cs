@@ -5,6 +5,7 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using wojilu.Common.Spider.Interface;
 using wojilu.Web.Mvc;
 using wojilu.Common.Spider.Domain;
 using wojilu.Common.Spider.Service;
@@ -13,7 +14,7 @@ namespace wojilu.Web.Controller.Admin.Spiders {
 
     public class LayoutController : ControllerBase{
 
-        public SpiderTemplateService templateService { get; set; }
+        public virtual ISpiderTemplateService templateService { get; set; }
 
         public LayoutController() {
             templateService = new SpiderTemplateService();

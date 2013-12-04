@@ -13,7 +13,7 @@ namespace wojilu.Web.Controller.Admin.Sys {
         public override String getRootPath() { return MvcConfig.Instance.ViewDir; }
         public override String getEditTip() { return lang( "editViewsTip" ); }
 
-        public void Search() {
+        public virtual void Search() {
 
             target( Search );
 

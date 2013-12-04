@@ -9,12 +9,12 @@ namespace wojilu.Web.Controller.Admin.Apps.Photo {
 
     public class SettingController : ControllerBase {
 
-        public void Index() {
+        public virtual void Index() {
             target( Save );
             bind( "x", PhotoAppSetting.Instance );
         }
 
-        public void Save() {
+        public virtual void Save() {
             PhotoAppSetting.Save( ctx.PostValue<PhotoAppSetting>( "x" ) );
             echoRedirectPart( lang( "opok" ) );
         }

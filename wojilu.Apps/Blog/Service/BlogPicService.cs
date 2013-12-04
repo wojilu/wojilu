@@ -6,7 +6,18 @@ using wojilu.Common.Upload;
 
 namespace wojilu.Apps.Blog.Service {
 
-    public class BlogPicService {
+    public interface IBlogPicService {
+        IUserFileService fileService { get; set; }
+        List<BlogPicPick> GetSysNew( int count );
+        void PickPic( string ids );
+        void UnPickPic( string ids );
+        void UnPickPicOne( UserFile x );
+        void PickPicOne( UserFile x );
+        bool IsPick( UserFile x );
+        void Delete( string ids );
+    }
+
+    public class BlogPicService : IBlogPicService {
 
         public virtual IUserFileService fileService { get; set; }
 

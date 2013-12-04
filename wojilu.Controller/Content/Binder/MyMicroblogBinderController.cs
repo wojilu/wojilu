@@ -18,7 +18,7 @@ namespace wojilu.Web.Controller.Content.Binder {
 
     public class MyMicroblogBinderController : ControllerBase, ISectionBinder {
 
-        public void Bind( ContentSection section, IList serviceData ) {
+        public virtual void Bind( ContentSection section, IList serviceData ) {
 
             load( "publisher", new Microblogs.My.MicroblogController().Publisher );
 

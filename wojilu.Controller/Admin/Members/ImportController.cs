@@ -18,11 +18,11 @@ namespace wojilu.Web.Controller.Admin.Members {
 
         private static readonly ILog logger = LogManager.GetLogger( typeof( ImportController ) );
 
-        public void Index() {
+        public virtual void Index() {
             target( SaveImport );
         }
 
-        public void SaveImport() {
+        public virtual void SaveImport() {
 
             String userNamePath = ctx.Post( "userNamePath" );
             String userPicDir = ctx.Post( "userPicDir" );

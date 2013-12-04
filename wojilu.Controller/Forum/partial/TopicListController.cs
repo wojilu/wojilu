@@ -293,7 +293,7 @@ namespace wojilu.Web.Controller.Forum {
         //-------------------------------------------------------------------------------------------------------------------
 
         [NonVisit]
-        public void Toolbar() {
+        public virtual void Toolbar() {
 
             long id = fb.Id;
 
@@ -304,7 +304,7 @@ namespace wojilu.Web.Controller.Forum {
         }
 
         [NonVisit]
-        public void AdminToolbar() {
+        public virtual void AdminToolbar() {
 
             long id = fb.Id;
 

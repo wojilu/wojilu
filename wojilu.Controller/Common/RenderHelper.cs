@@ -27,7 +27,7 @@ namespace wojilu.Web.Controller {
 
         public static Dictionary<string, string> CachedPageList = new Dictionary<string, string>();
 
-        public void Process( MvcEventPublisher publisher ) {
+        public virtual void Process( MvcEventPublisher publisher ) {
 
             publisher.Begin_ProcessMvc += new EventHandler<MvcEventArgs>( publisher_Begin_ProcessMvc );
             publisher.Begin_ParseRoute += new EventHandler<MvcEventArgs>( publisher_Begin_ParseRoute );
@@ -137,7 +137,7 @@ namespace wojilu.Web.Controller {
         }
 
 
-        public String getConnectLinks() {
+        public virtual String getConnectLinks() {
 
             List<AuthConnectConfig> xlist = AuthConnectConfig.GetEnabledList();
             String lnk = Link.To( Site.Instance, new ConnectController().Login ) + "?connectType=";

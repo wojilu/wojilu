@@ -17,7 +17,7 @@ namespace wojilu.Apps.Forum.Views {
 
     public class ForumPollExtViewService : IExtViewService {
 
-        public String GetViewById( long topicId, String typeFullName, MvcContext ctx ) {
+        public virtual String GetViewById( long topicId, String typeFullName, MvcContext ctx ) {
 
             PollBase poll = getByTopic( topicId );
             ctx.SetItem( "poll", poll );

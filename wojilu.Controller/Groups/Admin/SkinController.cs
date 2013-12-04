@@ -21,7 +21,7 @@ namespace wojilu.Web.Controller.Groups.Admin {
 
     public class SkinController : SkinBaseController {
 
-        public IPhotoPostService postService { get; set; }
+        public virtual IPhotoPostService postService { get; set; }
 
         public SkinController() {
             postService = new PhotoPostService();
@@ -49,7 +49,7 @@ namespace wojilu.Web.Controller.Groups.Admin {
         }
 
         //------------------------------------------------------------------------------------------------
-        public void CustomBg() {
+        public virtual void CustomBg() {
             bindLayout();
         }
 
@@ -68,7 +68,7 @@ namespace wojilu.Web.Controller.Groups.Admin {
             load( "autoSaveScript", script );
         }
 
-        public void SaveBg() {
+        public virtual void SaveBg() {
 
             String ele = ctx.Post( "ele" );
             String kvItem = ctx.Post( "kv" );
@@ -77,26 +77,26 @@ namespace wojilu.Web.Controller.Groups.Admin {
             echoAjaxOk();
         }
 
-        public void CustomHeader() {
+        public virtual void CustomHeader() {
             bindLayout();
         }
 
-        public void CustomMain() {
+        public virtual void CustomMain() {
             bindLayout();
         }
 
-        public void CustomFooter() {
+        public virtual void CustomFooter() {
             bindLayout();
         }
 
-        public void CustomNav() {
+        public virtual void CustomNav() {
             bindLayout();
         }
 
-        public void script() {
+        public virtual void script() {
         }
 
-        public void MyPics() {
+        public virtual void MyPics() {
 
             DataPage<PhotoPost> list = postService.GetByUser( ctx.viewer.Id, 8 );
             IBlock block = getBlock( "list" );
@@ -109,14 +109,14 @@ namespace wojilu.Web.Controller.Groups.Admin {
         }
 
 
-        public void AddPicUrl() {
+        public virtual void AddPicUrl() {
         }
 
-        public void UploadForm() {
+        public virtual void UploadForm() {
             target( SavePic );
         }
 
-        public void SavePic() {
+        public virtual void SavePic() {
 
             HttpFile postedFile = ctx.GetFileSingle();
 

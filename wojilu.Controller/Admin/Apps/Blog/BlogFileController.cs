@@ -15,15 +15,15 @@ namespace wojilu.Web.Controller.Admin.Apps.Blog {
         private static readonly int picType = 1;
         private static readonly int fileType = 2;
 
-        public UserFileService fileService { get; set; }
-        public BlogPicService pickService { get; set; }
+        public virtual UserFileService fileService { get; set; }
+        public virtual BlogPicService pickService { get; set; }
 
         public BlogFileController() {
             fileService = new UserFileService();
             pickService = new BlogPicService();
         }
 
-        public void Index( long typeId ) {
+        public virtual void Index( long typeId ) {
 
             target( Admin );
 
@@ -90,7 +90,7 @@ namespace wojilu.Web.Controller.Admin.Apps.Blog {
             return string.Format( "<a href='{0}' target='_blank'>{1}</a>", x.PathFull, "下载" );
         }
 
-        public void Delete( long id ) {
+        public virtual void Delete( long id ) {
 
             fileService.Delete( id );
 
@@ -101,7 +101,7 @@ namespace wojilu.Web.Controller.Admin.Apps.Blog {
         }
 
         [HttpPost, DbTransaction]
-        public void Admin() {
+        public virtual void Admin() {
 
             String ids = ctx.PostIdList( "choice" );
             String cmd = ctx.Post( "action" );

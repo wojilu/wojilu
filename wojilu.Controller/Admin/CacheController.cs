@@ -20,7 +20,7 @@ namespace wojilu.Web.Controller.Admin {
             }
         }        
 
-        public void Index() {
+        public virtual void Index() {
 
             set( "clearLink", to( Clear ) );
             set( "addLink", to( Add ) );
@@ -52,14 +52,14 @@ namespace wojilu.Web.Controller.Admin {
 
         }
 
-        public void Add() {
+        public virtual void Add() {
 
             target( Create );
 
         }
 
         [HttpPost]
-        public void Create() {
+        public virtual void Create() {
 
             String key = ctx.web.post( "cacheKey" );
             String value = ctx.PostHtmlAll( "cacheValue" );
@@ -76,11 +76,11 @@ namespace wojilu.Web.Controller.Admin {
             echoToParentPart( lang( "opok" ) );
         }
 
-        public void ViewCache() {
+        public virtual void ViewCache() {
             target( Read );
         }
 
-        public void Read() {
+        public virtual void Read() {
 
             String key = ctx.web.param( "key" );
 
@@ -103,7 +103,7 @@ namespace wojilu.Web.Controller.Admin {
         }
 
         [HttpPost]
-        public void Update() {
+        public virtual void Update() {
 
             String key = ctx.web.post( "cacheKey" );
             String value = ctx.PostHtmlAll( "cacheValue" );
@@ -124,17 +124,17 @@ namespace wojilu.Web.Controller.Admin {
             echoToParentPart( lang( "opok" ) );
         }
 
-        public void Clear() {
+        public virtual void Clear() {
             sys.Clear.ClearAll();
             echoRedirect( lang( "opok" ) );
         }
 
-        public void DeleteByKey() {
+        public virtual void DeleteByKey() {
             target( Remove );
         }
 
         [HttpDelete]
-        public void Remove() {
+        public virtual void Remove() {
             String key = ctx.web.param( "key" );
             
             if (strUtil.IsNullOrEmpty( key )) {

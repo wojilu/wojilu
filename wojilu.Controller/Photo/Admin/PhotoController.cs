@@ -20,8 +20,8 @@ namespace wojilu.Web.Controller.Photo.Admin {
     [App( typeof( PhotoApp ) )]
     public class PhotoController : ControllerBase {
 
-        public IPhotoPostService postService { get; set; }
-        public IFriendService friendService { get; set; }
+        public virtual IPhotoPostService postService { get; set; }
+        public virtual IFriendService friendService { get; set; }
 
         public PhotoController() {
 
@@ -31,11 +31,11 @@ namespace wojilu.Web.Controller.Photo.Admin {
 
         }
 
-        public void Index() {
+        public virtual void Index() {
             redirect( new MyController().My );
         }
 
-        public void Friends( long friendId ) {
+        public virtual void Friends( long friendId ) {
 
             long userId = ctx.viewer.Id;
             DataPage<PhotoPost> list = postService.GetFriendsPhoto( userId, friendId );

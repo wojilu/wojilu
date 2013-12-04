@@ -19,7 +19,7 @@ namespace wojilu.Web.Controller.Content.Htmls {
 
         private static readonly ILog logger = LogManager.GetLogger( typeof( HomeHtmlJob ) );
 
-        public void Execute() {
+        public virtual void Execute() {
 
             logger.Info( "begin execute" );
             List<ContentApp> apps = ContentApp.find( "OwnerType=:otype" ).set( "otype", typeof( Site ).FullName ).list();
@@ -37,7 +37,7 @@ namespace wojilu.Web.Controller.Content.Htmls {
             }
         }
 
-        public void End() {
+        public virtual void End() {
             DbContext.closeConnectionAll();
             logger.Info( "end execute" );
         }

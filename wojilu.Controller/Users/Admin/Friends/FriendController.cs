@@ -16,10 +16,10 @@ namespace wojilu.Web.Controller.Users.Admin.Friends {
 
     public class FriendController : ControllerBase {
 
-        public IFriendService friendService { get; set; }
-        public IUserService userService { get; set; }
-        public IFollowerService followService { get; set; }
-        public IBlacklistService blacklistService { get; set; }
+        public virtual IFriendService friendService { get; set; }
+        public virtual IUserService userService { get; set; }
+        public virtual IFollowerService followService { get; set; }
+        public virtual IBlacklistService blacklistService { get; set; }
 
         public FriendController() {
             friendService = new FriendService();
@@ -46,7 +46,7 @@ namespace wojilu.Web.Controller.Users.Admin.Friends {
 
         }
 
-        public void SelectBox() {
+        public virtual void SelectBox() {
 
             List<FriendShip> ulist = friendService.GetFriendsAll( ctx.owner.Id );
             set( "friendAll", getUserNames( ulist ) );
@@ -114,11 +114,11 @@ namespace wojilu.Web.Controller.Users.Admin.Friends {
 
         //---------------------------------------------------------------------------
 
-        public void Search() {
+        public virtual void Search() {
             run( new Users.MainController().Search );
         }
 
-        public void Query() {
+        public virtual void Query() {
             view( "List" );
             String friendName = getSearchName();
             DataPage<FriendShip> list = friendService.GetPageBySearch( ctx.owner.Id, friendName, 20 );
@@ -129,7 +129,7 @@ namespace wojilu.Web.Controller.Users.Admin.Friends {
             return strUtil.SqlClean( ctx.Get( "q" ), 20 );
         }
 
-        public void List( long categoryId ) {
+        public virtual void List( long categoryId ) {
             DataPage<FriendShip> list = friendService.GetPageByCategory( ctx.owner.Id, categoryId, 20 );
             bindFriends( list );
         }
@@ -156,7 +156,7 @@ namespace wojilu.Web.Controller.Users.Admin.Friends {
         }
 
         [HttpPost, DbTransaction]
-        public void SaveCategory() {
+        public virtual void SaveCategory() {
 
             long friendId = ctx.PostLong( "friendId" );
             long categoryId = ctx.PostLong( "categoryId" );
@@ -181,16 +181,16 @@ namespace wojilu.Web.Controller.Users.Admin.Friends {
             echoJson( dic );
         }
 
-        public void Add() {
+        public virtual void Add() {
             target( Create );
         }
 
-        public void FollowingList() {
+        public virtual void FollowingList() {
             DataPage<User> list = followService.GetFollowingPage( ctx.owner.Id );
             bindFriendList( list );
         }
 
-        public void More() {
+        public virtual void More() {
 
             long userId = ctx.owner.Id;
 
@@ -205,7 +205,7 @@ namespace wojilu.Web.Controller.Users.Admin.Friends {
             bindFriends( onlines, "online" );
         }
 
-        public List<User> GetRecentToMakeFriends(long userId, int count, List<long> friendIds) {
+        public virtual List<User> GetRecentToMakeFriends(long userId, int count, List<long> friendIds) {
             List<OnlineUser> all = OnlineService.GetAll();
 
             String ids = "";
@@ -239,7 +239,7 @@ namespace wojilu.Web.Controller.Users.Admin.Friends {
         }
 
         [HttpPost, DbTransaction]
-        public void Create() {
+        public virtual void Create() {
             String target = ctx.Post( "Name" );
             if (strUtil.IsNullOrEmpty( target )) {
                 errors.Add( lang( "exUserName" ) );
@@ -263,13 +263,13 @@ namespace wojilu.Web.Controller.Users.Admin.Friends {
         }
 
         [HttpDelete, DbTransaction]
-        public void Delete( long id ) {
+        public virtual void Delete( long id ) {
             friendService.DeleteFriend( ctx.owner.obj.Id, id, ctx.Ip );
             echoRedirectPart( lang( "opok" ) );
         }
 
         [HttpDelete, DbTransaction]
-        public void DeleteFollowing( long id ) {
+        public virtual void DeleteFollowing( long id ) {
             followService.DeleteFollow( ctx.owner.obj.Id, id );
             echoRedirectPart( lang( "opok" ) );
         }

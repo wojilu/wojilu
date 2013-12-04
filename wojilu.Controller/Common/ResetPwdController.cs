@@ -18,8 +18,8 @@ namespace wojilu.Web.Controller.Common {
 
     public class ResetPwdController : ControllerBase {
 
-        public IUserService userService { get; set; }
-        public IUserResetPwdSerevice resetService { get; set; }
+        public virtual IUserService userService { get; set; }
+        public virtual IUserResetPwdSerevice resetService { get; set; }
 
         public ResetPwdController() {
             userService = new UserService();
@@ -37,14 +37,14 @@ namespace wojilu.Web.Controller.Common {
         public override void Layout() {
         }
 
-        public void StepOne() {
+        public virtual void StepOne() {
             target( StepTwo );
             set( "siteName", config.Instance.Site.SiteName );
             set( "Captcha", Html.Captcha );
         }
 
         [HttpPost, DbTransaction]
-        public void StepTwo() {
+        public virtual void StepTwo() {
 
             // 0、验证码
             Html.Captcha.CheckError( ctx );
@@ -96,7 +96,7 @@ namespace wojilu.Web.Controller.Common {
         }
 
         [NonVisit]
-        public void emailBody() {
+        public virtual void emailBody() {
 
             User user = ctx.GetItem( "User" ) as User;
             String resetLink = ctx.GetItem( "ResetLink" ).ToString();
@@ -115,7 +115,7 @@ namespace wojilu.Web.Controller.Common {
             return strUtil.Join( ctx.url.SiteUrl, to( ResetPwd ) + "?c=" + codeFull );
         }
 
-        public void ResetPwd() {
+        public virtual void ResetPwd() {
 
             // 1、根据get的code，查询数据库，是否有此重置密码请求
             UserResetPwd resetInfo = validateCode();
@@ -130,7 +130,7 @@ namespace wojilu.Web.Controller.Common {
         }
 
         [HttpPost, DbTransaction]
-        public void SavePwd() {
+        public virtual void SavePwd() {
 
             UserResetPwd resetInfo = validateCode();
             if (resetInfo == null) {

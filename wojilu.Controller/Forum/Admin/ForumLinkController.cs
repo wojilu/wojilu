@@ -21,15 +21,15 @@ namespace wojilu.Web.Controller.Forum.Admin {
     [App( typeof( ForumApp ) )]
     public class ForumLinkController : ControllerBase {
 
-        public IForumLinkService linkService { get; set; }
-        public IForumLogService logService { get; set; }
+        public virtual IForumLinkService linkService { get; set; }
+        public virtual IForumLogService logService { get; set; }
 
         public ForumLinkController() {
             linkService = new ForumLinkService();
             logService = new ForumLogService();
         }
 
-        public void List() {
+        public virtual void List() {
             set( "addLink", to( New ) );
             set( "sortAction", to( SaveSort ) );
             bindForumLink( linkService.GetByApp( ctx.app.Id, ctx.owner.Id ), getBlock( "list" ) );
@@ -51,13 +51,13 @@ namespace wojilu.Web.Controller.Forum.Admin {
             }
         }
 
-        public void New() {
+        public virtual void New() {
             target( Create  );
             bind( "link", new ForumLink() );
         }
 
         [HttpPost, DbTransaction]
-        public void Create() {
+        public virtual void Create() {
             ForumLink link = ForumValidator.ValidateLink(ctx);
             if (errors.HasErrors) {
                 run( New );
@@ -75,7 +75,7 @@ namespace wojilu.Web.Controller.Forum.Admin {
             redirect( List );
         }
 
-        public void Edit( long id ) {
+        public virtual void Edit( long id ) {
             view( "New" );
             ForumLink link = linkService.GetById( id, ctx.owner.obj );
             if (link == null) {
@@ -88,7 +88,7 @@ namespace wojilu.Web.Controller.Forum.Admin {
         }
 
         [HttpPost, DbTransaction]
-        public void Update( long id ) {
+        public virtual void Update( long id ) {
 
             ForumLink link = linkService.GetById( id, ctx.owner.obj );
             if (link == null) {
@@ -114,7 +114,7 @@ namespace wojilu.Web.Controller.Forum.Admin {
         }
 
         [HttpDelete, DbTransaction]
-        public void Delete( long id ) {
+        public virtual void Delete( long id ) {
 
             ForumLink link = linkService.GetById( id, ctx.owner.obj );
             if (link == null) {
@@ -127,7 +127,7 @@ namespace wojilu.Web.Controller.Forum.Admin {
         }
 
         [HttpPost, DbTransaction]
-        public void SaveSort() {
+        public virtual void SaveSort() {
 
             long id = ctx.PostLong( "id" );
             String cmd = ctx.Post( "cmd" );

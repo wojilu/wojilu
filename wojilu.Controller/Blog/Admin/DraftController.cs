@@ -27,11 +27,11 @@ namespace wojilu.Web.Controller.Blog.Admin {
     public class DraftController : ControllerBase {
 
 
-        public IBlogService blogService { get; set; }
-        public IBlogCategoryService categoryService { get; set; }
-        public IBlogPostService postService { get; set; }
+        public virtual IBlogService blogService { get; set; }
+        public virtual IBlogCategoryService categoryService { get; set; }
+        public virtual IBlogPostService postService { get; set; }
 
-        public IFriendService friendService { get; set; }
+        public virtual IFriendService friendService { get; set; }
 
         public DraftController() {
 
@@ -42,14 +42,14 @@ namespace wojilu.Web.Controller.Blog.Admin {
         }
 
 
-        public void Draft() {
+        public virtual void Draft() {
             target( Admin );
             DataPage<BlogPost> blogpostList = postService.GetDraft( ctx.app.Id, 25 );
             bindDraftList( blogpostList );
         }
 
 
-        public void EditDraft( long id ) {
+        public virtual void EditDraft( long id ) {
 
             target( PublishDraft, id );
 
@@ -64,7 +64,7 @@ namespace wojilu.Web.Controller.Blog.Admin {
 
 
         [HttpPost, DbTransaction]
-        public void PublishDraft( long id ) {
+        public virtual void PublishDraft( long id ) {
 
             BlogPost post = postService.GetById( id, ctx.owner.Id );
             if (post == null) {
@@ -105,7 +105,7 @@ namespace wojilu.Web.Controller.Blog.Admin {
 
 
         [HttpPost, DbTransaction]
-        public void Admin() {
+        public virtual void Admin() {
 
             if (adminList()) {
                 echoAjaxOk();
@@ -172,7 +172,7 @@ namespace wojilu.Web.Controller.Blog.Admin {
 
 
         [HttpPost, DbTransaction]
-        public void SaveDraft() {
+        public virtual void SaveDraft() {
 
             Result result;
             String content = ctx.PostHtml( "Content" );

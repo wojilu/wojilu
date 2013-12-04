@@ -14,9 +14,9 @@ namespace wojilu.Web.Controller.Admin.Mb {
 
     public class MicroblogController : ControllerBase {
 
-        public IMicroblogService microblogService { get; set; }
-        public SysMicroblogService sysMicroblogService { get; set; }
-        public MicroblogFavoriteService mfService { get; set; }
+        public virtual IMicroblogService microblogService { get; set; }
+        public virtual ISysMicroblogService sysMicroblogService { get; set; }
+        public virtual IMicroblogFavoriteService mfService { get; set; }
 
         public MicroblogController() {
             microblogService = new MicroblogService();
@@ -31,25 +31,25 @@ namespace wojilu.Web.Controller.Admin.Mb {
 
         }
 
-        public void Settings() {
+        public virtual void Settings() {
 
             target( SaveSettings );
             bind( "x", MicroblogAppSetting.Instance );
         }
 
-        public void SaveSettings() {
+        public virtual void SaveSettings() {
 
             MicroblogAppSetting.Save( ctx.PostValue<MicroblogAppSetting>( "x" ) );
             echoRedirectPart( lang( "opok" ) );
         }
 
 
-        public void Index() {
+        public virtual void Index() {
             HideLayout( typeof( MicroblogController ) );
             Feed( -1 );
         }
 
-        public void Feed( long id ) {
+        public virtual void Feed( long id ) {
             view( "Feed" );
 
             set( "lnkMicroblogAdmin", to( List ) );
@@ -65,25 +65,25 @@ namespace wojilu.Web.Controller.Admin.Mb {
         }
 
 
-        public void List() {
+        public virtual void List() {
             DataPage<Microblog> list = sysMicroblogService.GetPageAll( 30 );
             bindMbList( list );
         }
 
-        public void PicList() {
+        public virtual void PicList() {
             view( "List" );
             DataPage<Microblog> list = sysMicroblogService.GetPicPageAll( 30 );
             bindMbList( list );
         }
 
-        public void ListFilter() {
+        public virtual void ListFilter() {
             view( "List" );
             String condition = getCondition();
             DataPage<Microblog> list = sysMicroblogService.GetPageByCondition( condition );
             bindMbList( list );
         }
 
-        public void Search() {
+        public virtual void Search() {
             view( "List" );
             String searchType = ctx.Get( "t" );
             String key = getSearchKey();
@@ -203,7 +203,7 @@ namespace wojilu.Web.Controller.Admin.Mb {
 
 
         [HttpPost, DbTransaction]
-        public void Admin() {
+        public virtual void Admin() {
 
             String ids = ctx.PostIdList( "choice" );
             String cmd = ctx.Post( "action" );

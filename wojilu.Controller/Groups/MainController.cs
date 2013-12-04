@@ -29,9 +29,9 @@ namespace wojilu.Web.Controller.Groups {
 
         private static readonly ILog logger = LogManager.GetLogger( typeof( MainController ) );
 
-        public IGroupService groupService { get; set; }
-        public IGroupPostService postService { get; set; }
-        public IUserService userService { get; set; }
+        public virtual IGroupService groupService { get; set; }
+        public virtual IGroupPostService postService { get; set; }
+        public virtual IUserService userService { get; set; }
 
         public MainController() {
             groupService = new GroupService();
@@ -74,7 +74,7 @@ namespace wojilu.Web.Controller.Groups {
 
         [CachePage( typeof( GroupMainPageCache ) )]
         [CacheAction( typeof( GroupMainActionCache ) )]
-        public void Index() {
+        public virtual void Index() {
 
             ctx.Page.Title = GroupSetting.Instance.MetaTitle;
             ctx.Page.Keywords = GroupSetting.Instance.MetaKeywords;
@@ -93,7 +93,7 @@ namespace wojilu.Web.Controller.Groups {
 
         }
 
-        public void List( long id ) {
+        public virtual void List( long id ) {
 
             ctx.Page.Title = "群组列表";
 
@@ -112,7 +112,7 @@ namespace wojilu.Web.Controller.Groups {
 
         }
 
-        public void Search() {
+        public virtual void Search() {
 
             DataPage<Group> list = getResults();
             bindGroups( list.Results, "list" );

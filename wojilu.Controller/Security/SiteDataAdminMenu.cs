@@ -34,7 +34,7 @@ namespace wojilu.Web.Controller.Security {
             this.Logo = logo;
         }
 
-        public Boolean CanShow( List<SiteAdminOperation> userActions ) {
+        public virtual Boolean CanShow( List<SiteAdminOperation> userActions ) {
             foreach (SiteAdminOperation action in userActions) {
 
                 List<string> urls = action.GetUrlList();

@@ -11,8 +11,8 @@ namespace wojilu.Web.Controller.Content.Submit {
 
     public class LayoutController  : ControllerBase{
 
-        public ContentTempPostService tempPostService { get; set; }
-        public IContentPostService postService { get; set; }
+        public virtual ContentTempPostService tempPostService { get; set; }
+        public virtual IContentPostService postService { get; set; }
 
         public LayoutController() {
             tempPostService = new ContentTempPostService();

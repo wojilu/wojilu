@@ -10,7 +10,7 @@ namespace wojilu.Web.Controller.Admin.Apps.Poll {
     [App( typeof( PollApp ) )]
     public class MainController : ControllerBase {
 
-        public void Index() {
+        public virtual void Index() {
             content( "TODO...建设中" );
         }
 

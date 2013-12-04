@@ -16,8 +16,8 @@ namespace wojilu.Web.Controller.Groups {
 
     public class JoinController : ControllerBase {
 
-        public IGroupService groupService { get; set; }
-        public IMemberGroupService mgrService { get; set; }
+        public virtual IGroupService groupService { get; set; }
+        public virtual IMemberGroupService mgrService { get; set; }
 
         public JoinController() {
             groupService = new GroupService();
@@ -27,7 +27,7 @@ namespace wojilu.Web.Controller.Groups {
         }
 
         [Login]
-        public void Index() {
+        public virtual void Index() {
 
             target( Save );
 
@@ -45,7 +45,7 @@ namespace wojilu.Web.Controller.Groups {
         }
 
         [Login, HttpPost, DbTransaction]
-        public void Save() {
+        public virtual void Save() {
 
             String joinReason = strUtil.CutString( ctx.Post( "joinReason" ), 250 );
 
@@ -79,12 +79,12 @@ namespace wojilu.Web.Controller.Groups {
             }
         }
 
-        public void Quit() {
+        public virtual void Quit() {
             target( SaveQuit );
         }
 
         [Login, HttpPost, DbTransaction]
-        public void SaveQuit() {
+        public virtual void SaveQuit() {
 
             String quitReason = strUtil.CutString( ctx.Post( "quitReason" ), 250 );
 
@@ -105,7 +105,7 @@ namespace wojilu.Web.Controller.Groups {
         }
 
         [Login]
-        public void Invite( long id ) {
+        public virtual void Invite( long id ) {
 
             String code = ctx.Get( "code" );
 

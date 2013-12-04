@@ -16,15 +16,15 @@ namespace wojilu.Web.Controller.Blog {
     [App( typeof( BlogApp ) )]
     public partial class CategoryController : ControllerBase {
 
-        public IBlogCategoryService categoryService { get; set; }
-        public IBlogPostService postService { get; set; }
+        public virtual IBlogCategoryService categoryService { get; set; }
+        public virtual IBlogPostService postService { get; set; }
 
         public CategoryController() {
             postService = new BlogPostService();
             categoryService = new BlogCategoryService();
         }
 
-        public void Show( long id ) {
+        public virtual void Show( long id ) {
 
             BlogCategory category = categoryService.GetById( id, ctx.owner.Id );
             if (category == null) {

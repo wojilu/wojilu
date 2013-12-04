@@ -24,13 +24,13 @@ namespace wojilu.Web.Controller.Microblogs {
 
     public partial class MicroblogController : ControllerBase {
 
-        public IMicroblogService microblogService { get; set; }
-        public IFollowerService followService { get; set; }
-        public IVisitorService visitorService { get; set; }
-        public MicroblogFavoriteService mfService { get; set; }
-        public IOpenCommentService commentService { get; set; }
-        public MicroblogAtService matService { get; set; }
-        public UserTagService userTagService { get; set; }
+        public virtual IMicroblogService microblogService { get; set; }
+        public virtual IFollowerService followService { get; set; }
+        public virtual IVisitorService visitorService { get; set; }
+        public virtual MicroblogFavoriteService mfService { get; set; }
+        public virtual IOpenCommentService commentService { get; set; }
+        public virtual MicroblogAtService matService { get; set; }
+        public virtual UserTagService userTagService { get; set; }
 
         public MicroblogController() {
             microblogService = new MicroblogService();
@@ -63,7 +63,7 @@ namespace wojilu.Web.Controller.Microblogs {
         }
 
 
-        public void List() {
+        public virtual void List() {
 
             Page.Title = ctx.owner.obj.Name + "的微博_" + config.Instance.Site.SiteName;
             Page.Keywords = ctx.owner.obj.Name + "的微博";
@@ -88,7 +88,7 @@ namespace wojilu.Web.Controller.Microblogs {
 
         }
 
-        public void Show( long id ) {
+        public virtual void Show( long id ) {
 
             Microblog blog = microblogService.GetById( id );
             if (blog == null) {
@@ -114,7 +114,7 @@ namespace wojilu.Web.Controller.Microblogs {
 
 
         [NonVisit]
-        public void bindBlogs() {
+        public virtual void bindBlogs() {
 
             List<MicroblogVo> list = (List<MicroblogVo>)ctx.GetItem( "_microblogVoList" );
             Boolean showUserFace = (Boolean)ctx.GetItem( "_showUserFace" );
@@ -132,7 +132,7 @@ namespace wojilu.Web.Controller.Microblogs {
         //------------------------------------------------------------------------------------------------
 
         [Login]
-        public void Forward( long id ) {
+        public virtual void Forward( long id ) {
 
             Microblog blog = microblogService.GetById( id );
             if (blog == null) {
@@ -167,7 +167,7 @@ namespace wojilu.Web.Controller.Microblogs {
         }
 
         [HttpPost, DbTransaction]
-        public void Save( long id ) {
+        public virtual void Save( long id ) {
 
             Microblog tblog = microblogService.GetById( id );
 
@@ -244,7 +244,7 @@ namespace wojilu.Web.Controller.Microblogs {
         }
 
         [HttpPost, DbTransaction]
-        public void SaveFavorite( long id ) {
+        public virtual void SaveFavorite( long id ) {
 
             if (ctx.viewer.IsLogin == false) {
                 echoJsonMsg( "请先登录", false, "" );
@@ -266,7 +266,7 @@ namespace wojilu.Web.Controller.Microblogs {
         }
 
         [HttpPost, DbTransaction]
-        public void CancelFavorite( long id ) {
+        public virtual void CancelFavorite( long id ) {
 
             Microblog blog = microblogService.GetById( id );
             if (blog == null) {
@@ -285,7 +285,7 @@ namespace wojilu.Web.Controller.Microblogs {
         //------------------------------------------------------------------------------------------------
 
         [HttpPost, DbTransaction]
-        public void SaveLike( long mid ) {
+        public virtual void SaveLike( long mid ) {
 
             if (ctx.viewer.IsLogin == false) {
                 echoJsonMsg( "请先登录", false, "" );
@@ -340,7 +340,7 @@ namespace wojilu.Web.Controller.Microblogs {
         //------------------------------------------------------------------------------------------------
 
         [HttpPost, DbTransaction]
-        public void Follow() {
+        public virtual void Follow() {
 
             if (ctx.viewer.IsLogin == false) errors.Add( "请先登录" );
             if (ctx.viewer.IsFollowing( ctx.owner.Id )) errors.Add( "已经关注" );
@@ -354,7 +354,7 @@ namespace wojilu.Web.Controller.Microblogs {
         }
 
         [HttpPost, DbTransaction]
-        public void CancelFollow() {
+        public virtual void CancelFollow() {
 
             if (ctx.viewer.IsLogin == false) errors.Add( "请先登录" );
             if (ctx.viewer.IsFollowing( ctx.owner.Id ) == false) errors.Add( "尚未关注，不可取消" );

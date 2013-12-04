@@ -21,9 +21,9 @@ namespace wojilu.Web.Controller.Admin.Security {
 
     public partial class PermissionFrontController : ControllerBase {
 
-        public ISiteRoleService siteRoleService { get; set; }
-        public IMemberAppService appService { get; set; }
-        public IAdminLogService<SiteLog> logService { get; set; }
+        public virtual ISiteRoleService siteRoleService { get; set; }
+        public virtual IMemberAppService appService { get; set; }
+        public virtual IAdminLogService<SiteLog> logService { get; set; }
 
         public PermissionFrontController() {
 
@@ -34,7 +34,7 @@ namespace wojilu.Web.Controller.Admin.Security {
         }
 
 
-        public void Index() {
+        public virtual void Index() {
 
             target( SaveAppRole );
 
@@ -47,7 +47,7 @@ namespace wojilu.Web.Controller.Admin.Security {
         }
 
         [HttpPost, DbTransaction]
-        public void SaveAppRole() {
+        public virtual void SaveAppRole() {
 
             String appRoles = ctx.Post( "appRole" );
             AppRole.DeleteAll();

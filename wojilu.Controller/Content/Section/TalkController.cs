@@ -21,15 +21,15 @@ namespace wojilu.Web.Controller.Content.Section {
     [App( typeof( ContentApp ) )]
     public partial class TalkController : ControllerBase, IPageSection {
 
-        public IContentPostService postService { get; set; }
-        public IContentSectionService sectionService { get; set; }
+        public virtual IContentPostService postService { get; set; }
+        public virtual IContentSectionService sectionService { get; set; }
 
         public TalkController() {
             postService = new ContentPostService();
             sectionService = new ContentSectionService();
         }
 
-        public void SectionShow( long sectionId ) {
+        public virtual void SectionShow( long sectionId ) {
             ContentSection s = sectionService.GetById( sectionId, ctx.app.Id );
             if (s == null) {
                 throw new Exception( lang( "exDataNotFound" ) + "=>page section:" + sectionId );
@@ -39,7 +39,7 @@ namespace wojilu.Web.Controller.Content.Section {
             bindSectionShow( s, posts );
         }
 
-        public void List( long sectionId ) {
+        public virtual void List( long sectionId ) {
             ContentSection section = this.sectionService.GetById( sectionId, ctx.app.Id );
             if (section == null) {
                 echoRedirect( lang( "exDataNotFound" ) );
@@ -53,7 +53,7 @@ namespace wojilu.Web.Controller.Content.Section {
             bindPosts( posts );
         }
 
-        public void Show( long postId ) {
+        public virtual void Show( long postId ) {
 
             ContentPost post = postService.GetById( postId, ctx.owner.Id );
             if (post == null) {

@@ -22,10 +22,10 @@ namespace wojilu.Web.Controller.Forum.Admin {
     [App( typeof( ForumApp ) )]
     public class CategoryController : ControllerBase {
 
-        public IForumBoardService boardService { get; set; }
-        public IForumCategoryService categoryService { get; set; }
-        public IForumService forumService { get; set; }
-        public IForumLogService logService { get; set; }
+        public virtual IForumBoardService boardService { get; set; }
+        public virtual IForumCategoryService categoryService { get; set; }
+        public virtual IForumService forumService { get; set; }
+        public virtual IForumLogService logService { get; set; }
 
         public CategoryController() {
             forumService = new ForumService();
@@ -34,7 +34,7 @@ namespace wojilu.Web.Controller.Forum.Admin {
             logService = new ForumLogService();
         }
 
-        public void Admin( long boardId ) {
+        public virtual void Admin( long boardId ) {
 
             ForumBoard board = boardService.GetById( boardId, ctx.owner.obj );
             if (board == null) {
@@ -63,7 +63,7 @@ namespace wojilu.Web.Controller.Forum.Admin {
         }
 
         [HttpPost, DbTransaction]
-        public void Create() {
+        public virtual void Create() {
 
             ForumCategory category = ForumValidator.ValidateCategory( ctx );
             if (errors.HasErrors) {
@@ -89,7 +89,7 @@ namespace wojilu.Web.Controller.Forum.Admin {
             redirect( Admin, board.Id );
         }
 
-        public void Edit( long id ) {
+        public virtual void Edit( long id ) {
             ForumCategory category = categoryService.GetById( id, ctx.owner.obj );
             if (category == null) {
                 echoRedirect( lang( "exDataNotFound" ) );
@@ -102,7 +102,7 @@ namespace wojilu.Web.Controller.Forum.Admin {
         }
 
         [HttpPost, DbTransaction]
-        public void Update( long id ) {
+        public virtual void Update( long id ) {
             ForumCategory category = categoryService.GetById( id, ctx.owner.obj );
             if (category == null) {
                 echoRedirect( lang( "exDataNotFound" ) );
@@ -121,7 +121,7 @@ namespace wojilu.Web.Controller.Forum.Admin {
         }
 
         [HttpDelete, DbTransaction]
-        public void Delete( long id ) {
+        public virtual void Delete( long id ) {
             ForumCategory category = categoryService.GetById( id, ctx.owner.obj );
             if (category == null) {
                 echoRedirect( lang( "exDataNotFound" ) );
@@ -132,7 +132,7 @@ namespace wojilu.Web.Controller.Forum.Admin {
         }
 
         [HttpPost, DbTransaction]
-        public void SaveSort( long boardId ) {
+        public virtual void SaveSort( long boardId ) {
 
             long id = ctx.PostLong( "id" );
             String cmd = ctx.Post( "cmd" );

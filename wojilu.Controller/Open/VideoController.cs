@@ -12,7 +12,7 @@ namespace wojilu.Web.Controller.Open {
     public class VideoController : ControllerBase {
 
         [Login]
-        public void PlayUrl() {
+        public virtual void PlayUrl() {
 
             String playUrl = ctx.Get( "playUrl" );
             if (strUtil.IsNullOrEmpty( playUrl )) {

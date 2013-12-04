@@ -19,14 +19,14 @@ namespace wojilu.Web.Controller.Content.Binder {
 
     public class MyShareBinderController : ControllerBase, ISectionBinder {
 
-        public FeedService feedService { get; set; }
+        public virtual FeedService feedService { get; set; }
 
         public MyShareBinderController() {
             feedService = new FeedService();
         }
 
 
-        public void Bind( ContentSection section, IList serviceData ) {
+        public virtual void Bind( ContentSection section, IList serviceData ) {
 
             IBlock block = getBlock( "list" );
             foreach (Share share in serviceData) {

@@ -19,10 +19,10 @@ namespace wojilu.Web.Controller.Reader {
     [App( typeof( ReaderApp ) )]
     public partial class ReaderController : ControllerBase {
 
-        public IFeedCategoryService categoryService { get; set; }
-        public IFeedSourceService feedService { get; set; }
-        public ISubscriptionService subscriptionService { get; set; }
-        public IFeedEntryService entryService { get; set; }
+        public virtual IFeedCategoryService categoryService { get; set; }
+        public virtual IFeedSourceService feedService { get; set; }
+        public virtual ISubscriptionService subscriptionService { get; set; }
+        public virtual IFeedEntryService entryService { get; set; }
 
         public ReaderController() {
             categoryService = new FeedCategoryService();
@@ -31,7 +31,7 @@ namespace wojilu.Web.Controller.Reader {
             entryService = new FeedEntryService();
         }
 
-        public void Index() {
+        public virtual void Index() {
 
             ctx.Page.Title = "feed 订阅";
 
@@ -59,7 +59,7 @@ namespace wojilu.Web.Controller.Reader {
         }
 
 
-        public void Users( long feedId ) {
+        public virtual void Users( long feedId ) {
 
             FeedSource feed = feedService.GetById( feedId );
             DataPage<Subscription> list = subscriptionService.GetPage( feedId );

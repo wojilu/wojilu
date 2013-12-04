@@ -9,8 +9,25 @@ using wojilu.Web.Mvc;
 using wojilu.Common.AppBase;
 
 namespace wojilu.Common.Microblogs.Service {
+    public interface ISysMicroblogService {
+        List<Microblog> GetRecent( int count );
+        List<Microblog> GetByReplies( int count );
+        List<IBinderValue> GetRecentMicroblog( int count );
+        List<IBinderValue> GetMicroblogByReplies( int count );
+        DataPage<Microblog> GetPageAllByUser( long userId, int pageSize );
+        DataPage<Microblog> GetPageAll( int pageSize );
+        DataPage<Microblog> GetPicPageAll( int pageSize );
+        DataPage<Microblog> GetPageByCondition( String condition );
+        DataPage<Microblog> GetPageByCondition( String condition, int pageSize );
+        DataPage<Microblog> GetSysTrashPage( int pageSize );
+        void DeleteSys( Microblog blog );
+        void DeleteSysBatch( string ids );
+        void RestoreSysBatch( string ids );
+        void DeleteTrue( Microblog blog );
+        void DeleteTrueBatch( string ids );
+    }
 
-    public class SysMicroblogService {
+    public class SysMicroblogService : ISysMicroblogService {
 
         private static String showCondition() {
             return " (SaveStatus=" + SaveStatus.Normal + " or SaveStatus=" + SaveStatus.Private + ")";
@@ -35,7 +52,7 @@ namespace wojilu.Common.Microblogs.Service {
 
         //------------------------------------------------------------------------------------------
 
-        public virtual DataPage<Microblog> GetPageAllByUser(long userId, int pageSize) {
+        public virtual DataPage<Microblog> GetPageAllByUser( long userId, int pageSize ) {
 
             if (userId <= 0) return GetPageAll( pageSize );
 

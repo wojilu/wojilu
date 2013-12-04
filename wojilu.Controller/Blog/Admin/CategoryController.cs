@@ -21,22 +21,22 @@ namespace wojilu.Web.Controller.Blog.Admin {
 
         private static readonly ILog logger = LogManager.GetLogger( typeof( CategoryController ) );
 
-        public IBlogCategoryService categoryService { get; set; }
-        public IBlogPostService postService { get; set; }
+        public virtual IBlogCategoryService categoryService { get; set; }
+        public virtual IBlogPostService postService { get; set; }
 
         public CategoryController() {
             categoryService = new BlogCategoryService();
             postService = new BlogPostService();
         }
 
-        public void New() {
+        public virtual void New() {
             target( Insert );
         }
 
         //--------------------------------------
 
         [HttpPost, DbTransaction]
-        public void Insert() {
+        public virtual void Insert() {
 
             BlogCategory category = BlogValidator.ValidateCategory( null, ctx );
             if (errors.HasErrors) {

@@ -13,14 +13,14 @@ namespace wojilu.Web.Controller.Forum.Admin {
     [App( typeof( ForumApp ) )]
     public class SettingController : ControllerBase{
 
-        public void Index() {
+        public virtual void Index() {
 
             target( Save );
             ForumApp app = ctx.app.obj as ForumApp;
             bindSettings( app.GetSettingsObj() );
         }
 
-        public void Save() {
+        public virtual void Save() {
 
             ForumSetting s = ctx.PostValue<ForumSetting>();
             s.IsHideStats = ctx.PostIsCheck( "forumSetting.HideShowStats" );
@@ -37,7 +37,7 @@ namespace wojilu.Web.Controller.Forum.Admin {
             echoRedirect( lang( "opok" ) );
         }
 
-        public void bindSettings( ForumSetting s ) {
+        public virtual void bindSettings( ForumSetting s ) {
 
             String chk = "checked=\"checked\"";
             set( "s.HideShowStats", s.IsHideStats == 1 ? chk : "" );

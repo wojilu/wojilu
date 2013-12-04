@@ -20,8 +20,8 @@ namespace wojilu.Web.Controller.Users {
 
     public class FeedbackController : ControllerBase {
 
-        public IFeedbackService feedbackService { get; set; }
-        public IBlacklistService blacklistService { get; set; }
+        public virtual IFeedbackService feedbackService { get; set; }
+        public virtual IBlacklistService blacklistService { get; set; }
 
         public FeedbackController() {
             feedbackService = new FeedbackService();
@@ -34,7 +34,7 @@ namespace wojilu.Web.Controller.Users {
         }
 
         [HttpPost]
-        public void Create() {
+        public virtual void Create() {
 
             checkFeedbackPermission();
             if (ctx.HasErrors) {
@@ -81,7 +81,7 @@ namespace wojilu.Web.Controller.Users {
             }
         }
 
-        public void Reply( long id ) {
+        public virtual void Reply( long id ) {
 
             checkFeedbackPermission();
             if (ctx.HasErrors) {
@@ -100,7 +100,7 @@ namespace wojilu.Web.Controller.Users {
         }
 
         [HttpPost, Login]
-        public void SaveReply( long id ) {
+        public virtual void SaveReply( long id ) {
 
             checkFeedbackPermission();
             if (ctx.HasErrors) {
@@ -131,7 +131,7 @@ namespace wojilu.Web.Controller.Users {
             ctx.viewer.SendMsg( ctx.owner.obj.Name, title, f.Content );
         }
 
-        public void List() {
+        public virtual void List() {
 
             if (hasAdminPermission()) redirect( AdminList );
 
@@ -149,7 +149,7 @@ namespace wojilu.Web.Controller.Users {
         }
 
         [Login]
-        public void AdminList() {
+        public virtual void AdminList() {
 
             if (!hasAdminPermission()) {
                 echoRedirect( lang( "exNoPermission" ), List );
@@ -168,7 +168,7 @@ namespace wojilu.Web.Controller.Users {
         }
 
         [HttpDelete, Login]
-        public void Delete( long id ) {
+        public virtual void Delete( long id ) {
 
             if (!hasAdminPermission()) {
                 echo( lang( "exNoPermission" ) );
@@ -227,7 +227,7 @@ namespace wojilu.Web.Controller.Users {
         }
 
         [NonVisit]
-        public void bindList() {
+        public virtual void bindList() {
             List<Feedback> list = ctx.GetItem( "feedbackList" ) as List<Feedback>;
             IBlock block = getBlock( "list" );
             foreach (Feedback f in list) {

@@ -24,12 +24,12 @@ namespace wojilu.Web.Controller.Microblogs.My {
 
     public partial class MicroblogController : ControllerBase {
 
-        public IMicroblogService microblogService { get; set; }
-        public IFollowerService followService { get; set; }
-        public IVisitorService visitorService { get; set; }
-        public MicroblogFavoriteService mfService { get; set; }
-        public MicroblogCommentService commentService { get; set; }
-        public MicroblogAtService matService { get; set; }
+        public virtual IMicroblogService microblogService { get; set; }
+        public virtual IFollowerService followService { get; set; }
+        public virtual IVisitorService visitorService { get; set; }
+        public virtual MicroblogFavoriteService mfService { get; set; }
+        public virtual MicroblogCommentService commentService { get; set; }
+        public virtual MicroblogAtService matService { get; set; }
 
         public IVideoSpider videoSpider { get; set; }
 
@@ -62,7 +62,7 @@ namespace wojilu.Web.Controller.Microblogs.My {
             set( "moreVisitors", to( new wojilu.Web.Controller.Users.VisitorController().Index ) );
         }
 
-        public void Home() {
+        public virtual void Home() {
 
             Page.Title = "我的微博";
 
@@ -87,7 +87,7 @@ namespace wojilu.Web.Controller.Microblogs.My {
 
         }
 
-        public void Search() {
+        public virtual void Search() {
 
             view( "Home" );
 
@@ -109,7 +109,7 @@ namespace wojilu.Web.Controller.Microblogs.My {
         }
 
 
-        public void Publisher() {
+        public virtual void Publisher() {
 
             target( new Microblogs.MicroblogSaveController().Create );
 
@@ -126,7 +126,7 @@ namespace wojilu.Web.Controller.Microblogs.My {
             set( "jsPath", sys.Path.DiskJs );
         }
 
-        public void GetVideoInfo() {
+        public virtual void GetVideoInfo() {
 
             String videoUrl = ctx.Post( "videoUrl" );
             if (strUtil.IsNullOrEmpty( videoUrl )) {
@@ -143,7 +143,7 @@ namespace wojilu.Web.Controller.Microblogs.My {
             echoJsonMsg( "", true, mvt.Id.ToString() );
         }
 
-        public void Atme() {
+        public virtual void Atme() {
 
             Page.Title = "提到我的微博";
 

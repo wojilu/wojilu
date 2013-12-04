@@ -23,9 +23,9 @@ namespace wojilu.Web.Controller.Helpers {
 
     public class SiteInitHelper {
 
-        public SkinService skinService { get; set; }
-        public IFeedService feedService { get; set; }
-        public IPageService pageService { get; set; }
+        public virtual SkinService skinService { get; set; }
+        public virtual IFeedService feedService { get; set; }
+        public virtual IPageService pageService { get; set; }
 
         public SiteInitHelper() {
             skinService = new SkinService();
@@ -36,13 +36,13 @@ namespace wojilu.Web.Controller.Helpers {
 
         }
 
-        public Boolean HasInit() {
+        public virtual Boolean HasInit() {
             if (skinService.GetSkinCount() <= 0) return false;
             if (feedService.GetTemplateBundleCount() <= 0) return false;
             return true;
         }
 
-        public Boolean InitSite() {
+        public virtual Boolean InitSite() {
 
             Boolean isInit = false;
 
@@ -96,7 +96,7 @@ namespace wojilu.Web.Controller.Helpers {
             return string.Format( "{0}{1}{2}_{3}{4}{5}", x.Year, x.Month, x.Day, x.Hour, x.Minute, x.Second );
         }
 
-        public void InitForumRole() {
+        public virtual void InitForumRole() {
             ForumRole role = ForumRole.findById( 1 );
             if (role != null) return;
             role = new ForumRole();
@@ -104,7 +104,7 @@ namespace wojilu.Web.Controller.Helpers {
             role.insert();
         }
 
-        public void InitContentSkin() {
+        public virtual void InitContentSkin() {
 
             ContentSkin s1 = new ContentSkin();
             s1.Name = "默认";
@@ -126,7 +126,7 @@ namespace wojilu.Web.Controller.Helpers {
 
         }
 
-        public void InitGroupCategory() {
+        public virtual void InitGroupCategory() {
 
             new GroupCategory( "阅读、学习" ).insert();
             new GroupCategory( "娱乐" ).insert();
@@ -143,7 +143,7 @@ namespace wojilu.Web.Controller.Helpers {
             new GroupCategory( "文化与社会" ).insert();
         }
 
-        public void InitBlogCategory() {
+        public virtual void InitBlogCategory() {
 
             new BlogSysCategory( "旅行" ).insert();
             new BlogSysCategory( "日记" ).insert();
@@ -152,7 +152,7 @@ namespace wojilu.Web.Controller.Helpers {
 
         }
 
-        public void InitPhotoCategory() {
+        public virtual void InitPhotoCategory() {
 
             new PhotoSysCategory( "人物" ).insert();
             new PhotoSysCategory( "风景" ).insert();
@@ -163,7 +163,7 @@ namespace wojilu.Web.Controller.Helpers {
 
 
 
-        public void InitSpaceSkin() {
+        public virtual void InitSpaceSkin() {
 
             new SpaceSkin( "花与墙", "1/skin.css", "1/thumb.jpg" ).insert();
             new SpaceSkin( "书写", "2/skin.css", "2/thumb.jpg" ).insert();
@@ -201,7 +201,7 @@ namespace wojilu.Web.Controller.Helpers {
             new GroupSkin( "默认模板", "1/skin.css", "1/thumb.jpg" ).insert();
         }
 
-        public void InitTemplateBundle() {
+        public virtual void InitTemplateBundle() {
 
             // 1
             TemplateBundle tpl1 = new TemplateBundle();
@@ -248,7 +248,7 @@ namespace wojilu.Web.Controller.Helpers {
 
         }
 
-        public void InitSiteFooter() {
+        public virtual void InitSiteFooter() {
 
             List<FooterMenu> list = cdb.findAll<FooterMenu>();
             foreach (FooterMenu x in list) {

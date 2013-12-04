@@ -9,7 +9,7 @@ namespace wojilu.Web.Controller.Admin.Members {
 
         private static readonly ILog logger = LogManager.GetLogger( typeof( UserRegController ) );
 
-        public void Index() {
+        public virtual void Index() {
 
             target( SaveSimple );
 
@@ -23,7 +23,7 @@ namespace wojilu.Web.Controller.Admin.Members {
             }
         }
 
-        public void SaveSimple() {
+        public virtual void SaveSimple() {
 
             Boolean chkInstallApp = ctx.PostIsCheck( "chkInstallApp" ) == 1 ? true : false;
 

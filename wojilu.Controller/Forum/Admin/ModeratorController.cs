@@ -22,10 +22,10 @@ namespace wojilu.Web.Controller.Forum.Admin {
     [App( typeof( ForumApp ) )]
     public class ModeratorController : ControllerBase {
 
-        public IForumBoardService boardService { get; set; }
-        public IForumService forumService { get; set; }
-        public IModeratorService moderatorService { get; set; }
-        public IUserService userService { get; set; }
+        public virtual IForumBoardService boardService { get; set; }
+        public virtual IForumService forumService { get; set; }
+        public virtual IModeratorService moderatorService { get; set; }
+        public virtual IUserService userService { get; set; }
 
         public ModeratorController() {
             forumService = new ForumService();
@@ -34,7 +34,7 @@ namespace wojilu.Web.Controller.Forum.Admin {
             moderatorService = new ModeratorService();
         }
 
-        public void List( long boardId ) {
+        public virtual void List( long boardId ) {
 
             ForumBoard board = boardService.GetById( boardId, ctx.owner.obj );
             if (board == null) {
@@ -60,7 +60,7 @@ namespace wojilu.Web.Controller.Forum.Admin {
         }
 
         [HttpPost, DbTransaction]
-        public void Create() {
+        public virtual void Create() {
 
             long id = ctx.PostLong( "BoardId" );
             ForumBoard board = boardService.GetById( id, ctx.owner.obj );
@@ -90,7 +90,7 @@ namespace wojilu.Web.Controller.Forum.Admin {
         }
 
         [HttpDelete, DbTransaction]
-        public void Delete( long id ) {
+        public virtual void Delete( long id ) {
 
             ForumBoard board = boardService.GetById( id, ctx.owner.obj );
             if (board == null) {

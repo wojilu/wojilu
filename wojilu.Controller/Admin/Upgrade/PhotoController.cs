@@ -26,7 +26,7 @@ namespace wojilu.Web.Controller.Admin.Upgrade {
 
         private static readonly ILog logger = LogManager.GetLogger( typeof( PhotoController ) );
 
-        public void Index() {
+        public virtual void Index() {
 
             set( "lnkFaceSave", to( MakeFaceThumb ) );
             set( "lnkPhotoSave", to( MakePhotoThumb ) );
@@ -34,7 +34,7 @@ namespace wojilu.Web.Controller.Admin.Upgrade {
             set( "processLink", to( Process ) );
         }
 
-        public void MakeFaceThumb() {
+        public virtual void MakeFaceThumb() {
 
             lastId = 0;
             msgList = new List<string>();
@@ -55,7 +55,7 @@ namespace wojilu.Web.Controller.Admin.Upgrade {
             }
         }
 
-        public void MakePhotoThumb() {
+        public virtual void MakePhotoThumb() {
 
             lastId = 0;
             msgList = new List<string>();
@@ -77,7 +77,7 @@ namespace wojilu.Web.Controller.Admin.Upgrade {
             }
         }
 
-        public void Process() {
+        public virtual void Process() {
 
             if (msgList == null) {
                 echoText( "nostart" );

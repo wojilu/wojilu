@@ -27,7 +27,7 @@ namespace wojilu.Web.Controller.Common {
         public abstract String GetImgListLink();
         public abstract int GetImgCount();
 
-        public void Index() {
+        public virtual void Index() {
 
             set( "lnkPicAdd", GetImgAddLink() );
             set( "lnkPicAdmin", GetImgListLink() );
@@ -122,7 +122,7 @@ namespace wojilu.Web.Controller.Common {
 
         // 1）编辑
         //-----------------------------------------------------------------------
-        public void EditPin( long index ) { // 广告编辑
+        public virtual void EditPin( long index ) { // 广告编辑
 
             target( UpdatePin, index );
 
@@ -138,7 +138,7 @@ namespace wojilu.Web.Controller.Common {
             set( "x.PinIndex", customPost.PinIndex );
         }
 
-        public void EditTopic( long topicId ) { // 普通topic编辑
+        public virtual void EditTopic( long topicId ) { // 普通topic编辑
 
             target( UpdateTopic, topicId );
 
@@ -164,7 +164,7 @@ namespace wojilu.Web.Controller.Common {
         }
 
         [HttpPost]
-        public void UpdatePin( long index ) {
+        public virtual void UpdatePin( long index ) {
 
             TPick customPost = pickService.GetPinPostByIndex( ctx.app.Id, (int)index );
             if (customPost == null) throw new NullReferenceException( "UpdatePin " );
@@ -179,7 +179,7 @@ namespace wojilu.Web.Controller.Common {
         }
 
         [HttpPost]
-        public void UpdateTopic( long topicId ) {
+        public virtual void UpdateTopic( long topicId ) {
 
             pickService.EditTopic( ctx.app.Id, topicId,
                 ctx.PostHtml( "Title" ),
@@ -192,14 +192,14 @@ namespace wojilu.Web.Controller.Common {
 
         // 2）固定
         //-----------------------------------------------------------------------
-        public void PinAd() { // 普通广告pin
+        public virtual void PinAd() { // 普通广告pin
             target( SavePinAd );
 
             set( "indexIds", pickService.GetIndexIds( ctx.app.Id ) );
         }
 
         [HttpPost]
-        public void SavePinAd() { // 保存普通广告pin
+        public virtual void SavePinAd() { // 保存普通广告pin
 
             int idx = ctx.PostInt( "Index" );
             if (idx <= 0) {
@@ -221,7 +221,7 @@ namespace wojilu.Web.Controller.Common {
             }
         }
 
-        public void PinTopic( long topicId ) { // 主题pin
+        public virtual void PinTopic( long topicId ) { // 主题pin
 
             target( SavePinTopic, topicId );
 
@@ -235,7 +235,7 @@ namespace wojilu.Web.Controller.Common {
         }
 
         [HttpPost]
-        public void SavePinTopic( long topicId ) {
+        public virtual void SavePinTopic( long topicId ) {
 
             int idx = ctx.PostInt( "Index" );
             if (idx <= 0) {
@@ -260,29 +260,29 @@ namespace wojilu.Web.Controller.Common {
 
         // 3）删除与恢复
         //-----------------------------------------------------------------------
-        public void DeletePinConfirm( long index ) {
+        public virtual void DeletePinConfirm( long index ) {
             target( DeletePin, index );
         }
 
         [HttpPost]
-        public void DeletePin( long index ) {
+        public virtual void DeletePin( long index ) {
             pickService.DeletePinPost( ctx.app.Id, (int)index );
             echoToParentPart( lang( "opok" ) );
         }
 
-        public void DeleteTopicConfirm( long topicId ) {
+        public virtual void DeleteTopicConfirm( long topicId ) {
             target( DeleteTopic, topicId );
         }
 
         [HttpPost]
-        public void DeleteTopic( long topicId ) {
+        public virtual void DeleteTopic( long topicId ) {
 
             pickService.DeleteTopic( ctx.app.Id, topicId );
 
             echoToParentPart( lang( "opok" ) );
         }
 
-        public void RestoreList() {
+        public virtual void RestoreList() {
 
             DataPage<TPick> list = pickService.GetDeleteList( ctx.app.Id );
 
@@ -307,7 +307,7 @@ namespace wojilu.Web.Controller.Common {
             set( "page", list.PageBar );
         }
 
-        public void Restore( long id ) {
+        public virtual void Restore( long id ) {
 
             pickService.RestoreTopic( ctx.app.Id, id );
 

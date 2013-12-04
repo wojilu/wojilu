@@ -18,9 +18,9 @@ namespace wojilu.Web.Controller.Forum.Admin {
 
         private static readonly ILog logger = LogManager.GetLogger( typeof( StatsController ) );
 
-        public ForumBoardService boardService { get; set; }
-        public ForumTopicService topicService { get; set; }
-        public ForumPostService postService { get; set; }
+        public virtual ForumBoardService boardService { get; set; }
+        public virtual ForumTopicService topicService { get; set; }
+        public virtual ForumPostService postService { get; set; }
 
         public StatsController() {
             boardService = new ForumBoardService();
@@ -28,11 +28,11 @@ namespace wojilu.Web.Controller.Forum.Admin {
             postService = new ForumPostService();
         }
 
-        public void Index() {
+        public virtual void Index() {
             target( BeginStats );
         }
 
-        public void BeginStats() {
+        public virtual void BeginStats() {
 
             List<ForumBoard> list = ForumBoard.find( "AppId=" + ctx.app.Id ).list();
             foreach (ForumBoard fb in list) {

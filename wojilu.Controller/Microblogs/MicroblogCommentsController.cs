@@ -18,9 +18,9 @@
 
 //    public partial class MicroblogCommentsController : ControllerBase {
 
-//        public IMicroblogService microblogService { get; set; }
-//        public IFollowerService followService { get; set; }
-//        public MicroblogCommentService commentService { get; set; }
+//        public virtual IMicroblogService microblogService { get; set; }
+//        public virtual IFollowerService followService { get; set; }
+//        public virtual MicroblogCommentService commentService { get; set; }
 
 //        public MicroblogCommentsController() {
 //            microblogService = new MicroblogService();
@@ -32,7 +32,7 @@
 
 
 //        [Login]
-//        public void Show( long id ) {
+//        public virtual void Show( long id ) {
 
 //            commentList( id );
 //            commentForm( id );
@@ -40,7 +40,7 @@
 //            set( "blog.Id", id );
 //        }
 
-//        public void commentList( long id ) {
+//        public virtual void commentList( long id ) {
 
 //            int thisPageCount = 10;
 //            List<MicroblogComment> comments = commentService.GetTop( id, thisPageCount );
@@ -66,7 +66,7 @@
 
 //        }
 
-//        public void commentForm( long id ) {
+//        public virtual void commentForm( long id ) {
 //            target( SaveReply );
 //            set( "c.RootId", id );
 //            set( "viewer.PicSmall", ctx.viewer.obj.PicSmall );
@@ -118,7 +118,7 @@
 //        }
 
 //        // 弹窗中的回复窗口
-//        public void Reply( long id ) {
+//        public virtual void Reply( long id ) {
 //            int parentId = ctx.GetInt( "parentId" );
 //            set( "c.ParentId", parentId );
 //            set( "c.RootId", id );
@@ -131,7 +131,7 @@
 
 //        // 保存弹窗中的评论，没有转发
 //        [HttpPost, DbTransaction]
-//        public void SaveComment( long id ) {
+//        public virtual void SaveComment( long id ) {
 
 //            if (ctx.viewer.IsLogin == false) {
 //                echoRedirect( lang( "exPlsLogin" ) );
@@ -154,7 +154,7 @@
 
 //        // 微博下的直接评论，带转发
 //        [HttpPost, DbTransaction]
-//        public void SaveReply( ) {
+//        public virtual void SaveReply( ) {
 
 //            if (ctx.viewer.IsLogin == false) {
 //                echoRedirect( lang( "exPlsLogin" ) );

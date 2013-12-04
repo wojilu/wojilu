@@ -107,7 +107,7 @@ namespace wojilu.Web.Controller.Security {
 
         private List<string> _urls;
 
-        public List<string> GetUrlList() {
+        public virtual List<string> GetUrlList() {
             if (_urls == null) {
                 List<string> results = getUrlList();
                 _urls = results;
@@ -129,7 +129,7 @@ namespace wojilu.Web.Controller.Security {
             return results;
         }
 
-        public String GetFirstUrl() {
+        public virtual String GetFirstUrl() {
             List<string> urls = GetUrlList();
             if (urls.Count > 0) {
                 return urls[0];
@@ -140,25 +140,25 @@ namespace wojilu.Web.Controller.Security {
 
         //-----------------------------------------------------------------------------
         
-        public ISecurityAction GetById(long id) {
+        public virtual ISecurityAction GetById(long id) {
             foreach (SiteAdminOperation op in OperationDB.GetInstance().SiteAdminOperations) {
                 if (op.Id == id) return op as ISecurityAction;
             }
             return null;
         }
 
-        public IList findAll() {
+        public virtual IList findAll() {
             return OperationDB.GetInstance().SiteAdminOperations;
         }
 
-        public void insert() {
+        public virtual void insert() {
         }
 
-        public Result update() {
+        public virtual Result update() {
             return new Result();
         }
 
-        public void delete() {
+        public virtual void delete() {
         }
 
 

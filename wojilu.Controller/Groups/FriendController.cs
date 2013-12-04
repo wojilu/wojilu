@@ -15,13 +15,13 @@ namespace wojilu.Web.Controller.Groups {
 
     public class FriendController : ControllerBase {
 
-        public IGroupFriendService friendService { get; set; }
+        public virtual IGroupFriendService friendService { get; set; }
 
         public FriendController() {
             friendService = new GroupFriendService();
         }
 
-        public void Index() {
+        public virtual void Index() {
 
             DataPage<Group> list = friendService.GetPage( ctx.owner.Id, 30 );
 

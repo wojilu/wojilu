@@ -16,7 +16,7 @@ namespace wojilu.Web.Controller.Admin.Upgrade {
         where TComment : IEntity
         where TTarget : IEntity {
 
-        public void Import( long startId, long endId ) {
+        public virtual void Import( long startId, long endId ) {
 
             new ImportRawHelper().Import( typeof( TComment ), typeof( TTarget ), startId, endId );
         }
@@ -30,7 +30,7 @@ namespace wojilu.Web.Controller.Admin.Upgrade {
         private Type commentType;
         private Type targetType;
 
-        public void Import(Type commentType, Type targetType, long startId, long endId) {
+        public virtual void Import(Type commentType, Type targetType, long startId, long endId) {
 
             this.commentType = commentType;
             this.targetType = targetType;

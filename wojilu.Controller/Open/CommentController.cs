@@ -17,13 +17,13 @@ namespace wojilu.Web.Controller.Open {
 
     public class CommentController : ControllerBase {
 
-        public IOpenCommentService commentService { get; set; }
+        public virtual IOpenCommentService commentService { get; set; }
 
         public CommentController() {
             commentService = new OpenCommentService();
         }
 
-        public void List() {
+        public virtual void List() {
 
             String url = ctx.Get( "url" );
             url = strUtil.SqlClean( url, 100 );
@@ -76,7 +76,7 @@ namespace wojilu.Web.Controller.Open {
 
 
         [HttpPost]
-        public void MoreReply() {
+        public virtual void MoreReply() {
 
             long parentId = ctx.PostLong( "parentId" );
             if (parentId <= 0) echoJson( "[]" );
@@ -229,7 +229,7 @@ namespace wojilu.Web.Controller.Open {
         }
 
         [HttpPost, DbTransaction]
-        public void Create() {
+        public virtual void Create() {
 
             String userName;
             if (ctx.viewer.IsLogin) {
@@ -286,7 +286,7 @@ namespace wojilu.Web.Controller.Open {
         }
 
         [HttpDelete, DbTransaction]
-        public void Delete( long id ) {
+        public virtual void Delete( long id ) {
 
             OpenComment c = commentService.GetById( id );
             if (c == null) {
@@ -304,7 +304,7 @@ namespace wojilu.Web.Controller.Open {
         }
 
         [HttpDelete, DbTransaction]
-        public void DeleteAll() {
+        public virtual void DeleteAll() {
             String url = ctx.Get( "url" );
             url = strUtil.SqlClean( url, 50 );
             long dataId = ctx.GetLong( "dataId" );

@@ -20,7 +20,7 @@ namespace wojilu.Web.Controller.Groups.Admin {
 
     public class InviteController : ControllerBase {
 
-        public wojilu.Members.Groups.Service.InviteService inviteService { get; set; }
+        public virtual wojilu.Members.Groups.Service.InviteService inviteService { get; set; }
 
         public InviteController() {
             inviteService = new wojilu.Members.Groups.Service.InviteService();
@@ -31,13 +31,13 @@ namespace wojilu.Web.Controller.Groups.Admin {
             set( "listUrl", to( List ) );
         }
 
-        public void Add() {
+        public virtual void Add() {
             target( Create );
             set( "lnkSelectFriends", Link.To( ctx.viewer.obj, new Users.Admin.Friends.FriendController().SelectBox ) );
         }
 
         [HttpPost, DbTransaction]
-        public void Create() {
+        public virtual void Create() {
 
             String receiver = ctx.Post( "receiver" );
 
@@ -53,7 +53,7 @@ namespace wojilu.Web.Controller.Groups.Admin {
             }
         }
 
-        public void List() {
+        public virtual void List() {
 
             DataPage<GroupInvite> list = inviteService.GetPage( ctx.owner.Id );
 

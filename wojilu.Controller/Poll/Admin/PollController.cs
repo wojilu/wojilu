@@ -17,7 +17,7 @@ namespace wojilu.Web.Controller.Poll.Admin {
     [App(typeof(PollApp))]
     public partial class PollController : ControllerBase {
 
-        public PollDataService pollService { get; set; }
+        public virtual PollDataService pollService { get; set; }
 
         public PollController() {
             pollService = new PollDataService();
@@ -31,25 +31,25 @@ namespace wojilu.Web.Controller.Poll.Admin {
 
         }
 
-        public void Index() {
+        public virtual void Index() {
             view( "List" );
             DataPage<PollData> polls = pollService.GetFriendsPage( ctx.owner.Id );
             bindPollList( polls );
         }
 
-        public void List() {
+        public virtual void List() {
             DataPage<PollData> polls = pollService.GetPageByApp( ctx.app.Id );
             bindPollList( polls );
         }
 
-        public void Add() {
+        public virtual void Add() {
 
             target( Create );
             set( "optionCount", 5 );
         }
 
         [HttpPost, DbTransaction]
-        public void Create() {
+        public virtual void Create() {
 
             PollData poll = new PollValidator<PollData>().Validate( ctx );
             if (errors.HasErrors) {
@@ -65,7 +65,7 @@ namespace wojilu.Web.Controller.Poll.Admin {
             echoRedirect( lang( "opok" ), List );
         }
 
-        public void Show( long id ) {
+        public virtual void Show( long id ) {
 
             PollData poll = pollService.GetById( id );
 

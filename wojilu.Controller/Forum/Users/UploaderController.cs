@@ -21,22 +21,22 @@ namespace wojilu.Web.Controller.Forum.Users {
 
         private static readonly ILog logger = LogManager.GetLogger( typeof( UploaderController ) );
 
-        public IAttachmentService attachService { get; set; }
-        public IForumTopicService topicService { get; set; }
+        public virtual IAttachmentService attachService { get; set; }
+        public virtual IForumTopicService topicService { get; set; }
 
         public UploaderController() {
             topicService = new ForumTopicService();
             attachService = new AttachmentService();
         }
 
-        public void UploadForm() {
+        public virtual void UploadForm() {
 
             long boardId = ctx.GetLong( "boardId" );
 
             set( "ActionLink", to( SaveUpload ) + "?boardId=" + boardId );
         }
 
-        public void SaveUpload() {
+        public virtual void SaveUpload() {
 
             long boardId = ctx.GetLong( "boardId" );
             HttpFile postedFile = ctx.GetFileSingle();
@@ -72,7 +72,7 @@ namespace wojilu.Web.Controller.Forum.Users {
             return uploadFile;
         }
 
-        public void SaveFlashUpload() {
+        public virtual void SaveFlashUpload() {
 
             long boardId = ctx.GetLong( "boardId" );
             HttpFile postedFile = ctx.GetFileSingle();
@@ -95,7 +95,7 @@ namespace wojilu.Web.Controller.Forum.Users {
 
         }
 
-        public void DeleteTempAttachment() {
+        public virtual void DeleteTempAttachment() {
             long id = ctx.PostLong( "Id" );
             attachService.DeleteTempAttachment( id );
             echoAjaxOk();

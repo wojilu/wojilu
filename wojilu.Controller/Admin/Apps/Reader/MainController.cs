@@ -19,9 +19,9 @@ namespace wojilu.Web.Controller.Admin.Apps.Reader {
     [App( typeof( ReaderApp ) )]
     public partial class MainController : ControllerBase {
 
-        IFeedSourceService srcService { get; set; }
-        IFeedSysCategoryService categoryService { get; set; }
-        public IFeedSourceService feedService { get; set; }
+        public virtual IFeedSourceService srcService { get; set; }
+        public virtual IFeedSysCategoryService categoryService { get; set; }
+        public virtual IFeedSourceService feedService { get; set; }
 
         public MainController() {
             srcService = new FeedSourceService();
@@ -29,7 +29,7 @@ namespace wojilu.Web.Controller.Admin.Apps.Reader {
             feedService = new FeedSourceService();
         }
 
-        public void Index() {
+        public virtual void Index() {
 
             set( "addLink", to( Add ) );
 
@@ -82,7 +82,7 @@ namespace wojilu.Web.Controller.Admin.Apps.Reader {
 
         }
 
-        public void Add() {
+        public virtual void Add() {
 
             List<FeedSysCategory> categories = categoryService.GetAll();
             if (categories.Count == 0) {
@@ -95,7 +95,7 @@ namespace wojilu.Web.Controller.Admin.Apps.Reader {
         }
 
         [HttpPost, DbTransaction]
-        public void Create() {
+        public virtual void Create() {
 
             String rssLink = ctx.Post( "Link" );
             if (strUtil.IsNullOrEmpty( rssLink )) {
@@ -116,7 +116,7 @@ namespace wojilu.Web.Controller.Admin.Apps.Reader {
                 redirect( Index );
         }
 
-        public void Edit( long id ) {
+        public virtual void Edit( long id ) {
 
             FeedSource f = feedService.GetById( id );
             if (f == null) {
@@ -139,7 +139,7 @@ namespace wojilu.Web.Controller.Admin.Apps.Reader {
         }
 
         [HttpPost, DbTransaction]
-        public void Update( long id ) {
+        public virtual void Update( long id ) {
 
             FeedSource f = feedService.GetById( id );
             if (f == null) {
@@ -157,7 +157,7 @@ namespace wojilu.Web.Controller.Admin.Apps.Reader {
         }
 
         [HttpDelete, DbTransaction]
-        public void Delete( long id ) {
+        public virtual void Delete( long id ) {
 
             FeedSource f = feedService.GetById( id );
             if (f == null) {

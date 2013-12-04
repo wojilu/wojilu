@@ -30,9 +30,9 @@ namespace wojilu.Web.Controller.Admin {
 
     public class FeedAdminController : ControllerBase {
 
-        public IFeedService feedService { get; set; }
-        public IUserService userService { get; set; }
-        public IMemberAppService siteAppService { get; set; }
+        public virtual IFeedService feedService { get; set; }
+        public virtual IUserService userService { get; set; }
+        public virtual IMemberAppService siteAppService { get; set; }
 
         public FeedAdminController() {
             feedService = new FeedService();
@@ -40,11 +40,11 @@ namespace wojilu.Web.Controller.Admin {
             siteAppService = new SiteAppService();
         }
 
-        public void Index() {
+        public virtual void Index() {
             Home( -1 );
         }
 
-        public void Home( long id ) {
+        public virtual void Home( long id ) {
 
             view( "Home" );
 
@@ -73,7 +73,7 @@ namespace wojilu.Web.Controller.Admin {
             }
         }
 
-        public void Search() {
+        public virtual void Search() {
 
             String userName = ctx.Post( "UserName" );
 
@@ -188,7 +188,7 @@ namespace wojilu.Web.Controller.Admin {
         }
 
         [HttpDelete]
-        public void DeleteFeed( long id ) {
+        public virtual void DeleteFeed( long id ) {
             feedService.DeleteOne( id );
             echoAjaxOk();
         }

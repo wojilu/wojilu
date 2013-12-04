@@ -4,7 +4,7 @@
 
 using System;
 using System.Collections;
-
+using wojilu.Common.Money.Interface;
 using wojilu.Web.Mvc;
 using wojilu.Web.Mvc.Attr;
 using wojilu.Common.Money.Service;
@@ -19,28 +19,28 @@ namespace wojilu.Web.Controller.Admin.Credits {
 
     public partial class CreditController : ControllerBase {
 
-        public CurrencyService currencyService { get; set; }
-        public IAdminLogService<SiteLog> logService { get; set; }
+        public virtual ICurrencyService currencyService { get; set; }
+        public virtual IAdminLogService<SiteLog> logService { get; set; }
 
         public CreditController() {
             currencyService = new CurrencyService();
             logService = new SiteLogService();
         }
 
-        public void IncomeRule() {
+        public virtual void IncomeRule() {
             IList currencyList = currencyService.GetCurrencyAll();
             IList actions = currencyService.GetUserActions();
             bindIncomeRule( currencyList, actions );
         }
 
-        public void EditKeyRule( long ruleId ) {
+        public virtual void EditKeyRule( long ruleId ) {
             target( UpdateKeyRule, ruleId );
             KeyIncomeRule rule = currencyService.GetKeyRuleById( ruleId );
             bind( "rule", rule );
         }
 
         [HttpPost, DbTransaction]
-        public void UpdateKeyRule( long ruleId ) {
+        public virtual void UpdateKeyRule( long ruleId ) {
             KeyIncomeRule rule = currencyService.GetKeyRuleById( ruleId );
             rule.Income = ctx.PostInt( "Income" );
             rule.update();
@@ -48,14 +48,14 @@ namespace wojilu.Web.Controller.Admin.Credits {
             echoToParentPart( lang( "saved" ) );
         }
 
-        public void EditKeyInit() {
+        public virtual void EditKeyInit() {
             target( UpdateKeyInit );
             KeyCurrency c = KeyCurrency.Instance;
             bind( "c", c );
         }
 
         [HttpPost, DbTransaction]
-        public void UpdateKeyInit() {
+        public virtual void UpdateKeyInit() {
             KeyCurrency c = KeyCurrency.Instance;
             c.InitValue = ctx.PostInt( "InitValue" );
             c.update();
@@ -65,14 +65,14 @@ namespace wojilu.Web.Controller.Admin.Credits {
 
         //-----------------------------------------------------------------------------------
 
-        public void EditRule( long ruleId ) {
+        public virtual void EditRule( long ruleId ) {
             target( UpdateRule, ruleId );
             IncomeRule rule = currencyService.GetRuleById( ruleId );
             bind( "rule", rule );
         }
 
         [HttpPost, DbTransaction]
-        public void UpdateRule( long ruleId ) {
+        public virtual void UpdateRule( long ruleId ) {
             IncomeRule rule = currencyService.GetRuleById( ruleId );
             rule.Income = ctx.PostInt( "Income" );
             rule.update();
@@ -80,14 +80,14 @@ namespace wojilu.Web.Controller.Admin.Credits {
             echoToParentPart( lang( "saved" ) );
         }
 
-        public void EditInit( long currencyId ) {
+        public virtual void EditInit( long currencyId ) {
             target( UpdateInit, currencyId );
             Currency c = currencyService.GetCurrencyById( currencyId );
             bind( "c", c );
         }
 
         [HttpPost, DbTransaction]
-        public void UpdateInit( long currencyId ) {
+        public virtual void UpdateInit( long currencyId ) {
             Currency c = currencyService.GetCurrencyById( currencyId );
             c.InitValue = ctx.PostInt( "InitValue" );
             c.update();

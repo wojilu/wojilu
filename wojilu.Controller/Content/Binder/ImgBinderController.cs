@@ -17,12 +17,12 @@ namespace wojilu.Web.Controller.Content.Binder {
 
     public class ImgBinderController : ControllerBase, ISectionBinder {
 
-        public IContentCustomTemplateService ctService { get; set; }
+        public virtual IContentCustomTemplateService ctService { get; set; }
         public ImgBinderController() {
             ctService = new ContentCustomTemplateService();
         }
 
-        public void Bind( ContentSection section, IList serviceData ) {
+        public virtual void Bind( ContentSection section, IList serviceData ) {
 
             IBlock block = base.getBlock( "list" );
 

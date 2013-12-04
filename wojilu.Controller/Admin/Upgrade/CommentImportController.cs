@@ -12,7 +12,7 @@ namespace wojilu.Web.Controller.Admin.Upgrade {
 
     public class CommentImportController : ControllerBase {
 
-        public void Index() {
+        public virtual void Index() {
 
             set( "lnkImportPage", to( BeginImportPage ) );
             set( "lnkImportBlog", to( BeginImportBlog ) );
@@ -22,23 +22,23 @@ namespace wojilu.Web.Controller.Admin.Upgrade {
 
         }
 
-        public void BeginImportPage() {
+        public virtual void BeginImportPage() {
 
             //new ImportHelper<PageComment, Page>().Import( ctx.PostInt( "startId" ), ctx.PostInt( "endId" ) );
             echoAjaxOk();
         }
 
-        public void BeginImportPhoto() {
+        public virtual void BeginImportPhoto() {
             //new ImportHelper<PhotoPostComment, PhotoPost>().Import( ctx.PostInt( "startId" ), ctx.PostInt( "endId" ) );
             echoAjaxOk();
         }
 
-        public void BeginImportBlog() {
+        public virtual void BeginImportBlog() {
             //new ImportHelper<BlogPostComment, BlogPost>().Import( ctx.PostInt( "startId" ), ctx.PostInt( "endId" ) );
             echoAjaxOk();
         }
 
-        public void BeginImportDownload() {
+        public virtual void BeginImportDownload() {
 
             //Type dCommentType = ObjectContext.GetType( "wojilu.Apps.Download.Domain.FileComment" );
             //Type dTargetType = ObjectContext.GetType( "wojilu.Apps.Download.Domain.FileItem" );

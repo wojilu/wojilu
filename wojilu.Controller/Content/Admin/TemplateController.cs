@@ -16,9 +16,9 @@ namespace wojilu.Web.Controller.Content.Admin {
     [App( typeof( ContentApp ) )]
     public class TemplateController : ControllerBase {
 
-        public IContentSectionTypeService sectionTypeService { get; set; }
-        public IContentSectionService sectionService { get; set; }
-        public IContentSectionTemplateService templateService { get; set; }
+        public virtual IContentSectionTypeService sectionTypeService { get; set; }
+        public virtual IContentSectionService sectionService { get; set; }
+        public virtual IContentSectionTemplateService templateService { get; set; }
 
         public TemplateController() {
             sectionTypeService = new ContentSectionTypeService();
@@ -30,7 +30,7 @@ namespace wojilu.Web.Controller.Content.Admin {
             return typeof( ListController ).FullName;
         }
 
-        public void Select( long id ) {
+        public virtual void Select( long id ) {
 
             ContentSection section = sectionService.GetById( id, ctx.app.Id );
             if (section == null) {
@@ -50,7 +50,7 @@ namespace wojilu.Web.Controller.Content.Admin {
         }
 
         [HttpPost, DbTransaction]
-        public void UpdateTemplate( long id ) {
+        public virtual void UpdateTemplate( long id ) {
 
             ContentSection section = sectionService.GetById( id, ctx.app.Id );
             if (section == null) {
@@ -72,7 +72,7 @@ namespace wojilu.Web.Controller.Content.Admin {
 
         }
 
-        public void List() {
+        public virtual void List() {
 
             DataPage<ContentSectionType> list = sectionTypeService.GetPage();
             String thumbPath = BinderUtils.GetSectionTemplateThumbPath();

@@ -23,11 +23,11 @@ namespace wojilu.Web.Controller.Forum.Moderators {
     [App( typeof( ForumApp ) )]
     public class PostController : ControllerBase {
 
-        public IForumBoardService boardService { get; set; }
-        public ICurrencyService currencyService { get; set; }
-        public IForumTopicService topicService { get; set; }
-        public IForumPostService postService { get; set; }
-        public IForumRateService rateService { get; set; }
+        public virtual IForumBoardService boardService { get; set; }
+        public virtual ICurrencyService currencyService { get; set; }
+        public virtual IForumTopicService topicService { get; set; }
+        public virtual IForumPostService postService { get; set; }
+        public virtual IForumRateService rateService { get; set; }
 
         public PostController() {
             topicService = new ForumTopicService();
@@ -58,7 +58,7 @@ namespace wojilu.Web.Controller.Forum.Moderators {
         //--------------------------------------------------------------------------
 
 
-        public void AddCredit( long id ) {
+        public virtual void AddCredit( long id ) {
 
             String msg = "<div style=\"font-size:22px;color:red;font-weight:bold;margin-top:30px; text-align:center;\">{0}</div>";
 

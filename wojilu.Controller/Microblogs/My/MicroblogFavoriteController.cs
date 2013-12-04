@@ -11,9 +11,9 @@ namespace wojilu.Web.Controller.Microblogs.My {
 
     public class MicroblogFavoriteController : ControllerBase {
 
-        public MicroblogFavoriteService favoriteService { get; set; }
-        public MicroblogService blogService { get; set; }
-        public MicroblogCommentService commentService { get; set; }
+        public virtual MicroblogFavoriteService favoriteService { get; set; }
+        public virtual MicroblogService blogService { get; set; }
+        public virtual MicroblogCommentService commentService { get; set; }
 
         public MicroblogFavoriteController() {
             favoriteService = new MicroblogFavoriteService();
@@ -22,7 +22,7 @@ namespace wojilu.Web.Controller.Microblogs.My {
             LayoutControllerType = typeof( MicroblogController );
         }
 
-        public void List() {
+        public virtual void List() {
 
             load( "publisher", new MicroblogController().Publisher );
 

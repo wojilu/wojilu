@@ -29,8 +29,8 @@ namespace wojilu.Web.Controller.Forum.Moderators {
     [App( typeof( ForumApp ) )]
     public class SecurityController : ControllerBase {
 
-        public IForumBoardService boardService { get; set; }
-        public IModeratorService moderatorService { get; set; }
+        public virtual IForumBoardService boardService { get; set; }
+        public virtual IModeratorService moderatorService { get; set; }
 
         public SecurityController() {
             boardService = new ForumBoardService();

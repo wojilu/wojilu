@@ -19,8 +19,8 @@ namespace wojilu.Web.Controller.Admin.Sys {
 
     public class SiteLogController : ControllerBase {
 
-        public IAdminLogService<SiteLog> logService { get; set; }
-        public IUserService userService { get; set; }
+        public virtual IAdminLogService<SiteLog> logService { get; set; }
+        public virtual IUserService userService { get; set; }
 
         public SiteLogController() {
             logService = new SiteLogService();
@@ -30,7 +30,7 @@ namespace wojilu.Web.Controller.Admin.Sys {
         public override void Layout() {
         }
 
-        public void Index() {
+        public virtual void Index() {
 
             set( "SearchAction", to( Index ) );
 

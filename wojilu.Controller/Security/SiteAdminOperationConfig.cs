@@ -40,7 +40,7 @@ namespace wojilu.Web.Controller.Security {
             return tool;
         }
 
-        public List<SiteAdminOperation> GetActionsByUser( User user ) {
+        public virtual List<SiteAdminOperation> GetActionsByUser( User user ) {
             IList actionsByRole = getSecurityTool().GetActionsByRole( user.Role );
             IList actionsByRank = getSecurityTool().GetActionsByRole( user.Rank );
 

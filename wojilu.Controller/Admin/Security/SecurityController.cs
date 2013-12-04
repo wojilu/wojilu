@@ -22,15 +22,15 @@ namespace wojilu.Web.Controller.Admin.Security {
 
     public partial class SecurityController : ControllerBase {
 
-        public ISiteRoleService roleService;
-        public IAdminLogService<SiteLog> logService { get; set; }
+        public virtual ISiteRoleService roleService { get; set; }
+        public virtual IAdminLogService<SiteLog> logService { get; set; }
 
         public SecurityController() {
             roleService = new SiteRoleService();
             logService = new SiteLogService();
         }
 
-        public void Index() {
+        public virtual void Index() {
 
             bindRoleRankLink();
 
@@ -45,16 +45,16 @@ namespace wojilu.Web.Controller.Admin.Security {
 
         //----------------------------------- role --------------------------------
 
-        public void AddRole() {
+        public virtual void AddRole() {
             target( SaveRole );
         }
 
-        public void AddAdminRole() {
+        public virtual void AddAdminRole() {
             target( SaveAdminRole );
         }
 
         [HttpDelete, DbTransaction]
-        public void Delete( long id ) {
+        public virtual void Delete( long id ) {
 
             if (id == SiteRole.Administrator.Id || id == SiteRole.NormalMember.Id || id == SiteRole.Guest.Id) {
                 echoRedirect( lang( "exRoleDeleteForbidden" ) );
@@ -74,7 +74,7 @@ namespace wojilu.Web.Controller.Admin.Security {
         }
 
         [HttpPost, DbTransaction]
-        public void SaveRole() {
+        public virtual void SaveRole() {
 
             // TODO 给新加的角色赋予前台权限，标准：一般会员
             // 对于其他应用程序如何处理？难道广播给其他所有app？
@@ -96,7 +96,7 @@ namespace wojilu.Web.Controller.Admin.Security {
         }
 
         [HttpPost, DbTransaction]
-        public void SaveAdminRole() {
+        public virtual void SaveAdminRole() {
             String target = ctx.Post( "Name" );
             if (strUtil.IsNullOrEmpty( target )) {
                 errors.Add( lang( "exName" ) );
@@ -114,14 +114,14 @@ namespace wojilu.Web.Controller.Admin.Security {
         }
 
 
-        public void Rename( long id ) {
+        public virtual void Rename( long id ) {
             target( UpdateName, id );
             SiteRole role = roleService.GetById( id );
             set( "r.Name", role.Name );
         }
 
         [HttpPost, DbTransaction]
-        public void UpdateName( long id ) {
+        public virtual void UpdateName( long id ) {
             SiteRole role = roleService.GetById( id );
             String target = ctx.Post( "Name" );
             if (strUtil.IsNullOrEmpty( target )) {
@@ -139,13 +139,13 @@ namespace wojilu.Web.Controller.Admin.Security {
         //--------------------------------- rank ----------------------------------
 
 
-        public void AddRank() {
+        public virtual void AddRank() {
             target( CreateRank );
             set( "baseCurrency.Name", KeyCurrency.Instance.Name );
         }
 
         [HttpPost, DbTransaction]
-        public void CreateRank() {
+        public virtual void CreateRank() {
 
             String target = ctx.Post( "Name" );
             if (strUtil.IsNullOrEmpty( target )) {
@@ -174,7 +174,7 @@ namespace wojilu.Web.Controller.Admin.Security {
         }
 
         [HttpDelete, DbTransaction]
-        public void DeleteRank( long id ) {
+        public virtual void DeleteRank( long id ) {
             SiteRank rank = roleService.GetRankById( id );
             if (rank != null) {
                 roleService.DeleteRank( rank );
@@ -187,7 +187,7 @@ namespace wojilu.Web.Controller.Admin.Security {
             }
         }
 
-        public void CreditEdit( long id ) {
+        public virtual void CreditEdit( long id ) {
             target( UpdateCredit, id );
             SiteRank rank = roleService.GetRankById( id );
 
@@ -199,7 +199,7 @@ namespace wojilu.Web.Controller.Admin.Security {
         }
 
         [HttpPost, DbTransaction]
-        public void UpdateCredit( long id ) {
+        public virtual void UpdateCredit( long id ) {
 
             SiteRank rank = roleService.GetRankById( id );
             int credit = ctx.PostInt( "Credit" );
@@ -235,7 +235,7 @@ namespace wojilu.Web.Controller.Admin.Security {
         }
 
 
-        public void RenameRank( long id ) {
+        public virtual void RenameRank( long id ) {
             view( "Rename" );
             SiteRank rank = roleService.GetRankById( id );
             set( "r.Name", rank.Name );
@@ -243,7 +243,7 @@ namespace wojilu.Web.Controller.Admin.Security {
         }
 
         [HttpPost, DbTransaction]
-        public void UpdateRankName( long id ) {
+        public virtual void UpdateRankName( long id ) {
             SiteRank rank = roleService.GetRankById( id );
             String target = ctx.Post( "Name" );
             if (strUtil.IsNullOrEmpty( target )) {
@@ -259,14 +259,14 @@ namespace wojilu.Web.Controller.Admin.Security {
         }
 
 
-        public void SetRankStar( long id ) {
+        public virtual void SetRankStar( long id ) {
             target( UpdateRankStar, id );
             SiteRank rank = roleService.GetRankById( id );
             bindRankStar( rank );
         }
 
         [HttpPost, DbTransaction]
-        public void UpdateRankStar( long id ) {
+        public virtual void UpdateRankStar( long id ) {
 
             String starPath = ctx.Post( "StarPath" );
             int starCount = ctx.PostInt( "StarCount" );
@@ -283,13 +283,13 @@ namespace wojilu.Web.Controller.Admin.Security {
 
         //-------------------------------------------------------------------
 
-        //public void ResetRank() {
+        //public virtual void ResetRank() {
         //    if (!checkServerTime()) return;
         //    set( "saveResetRank", to( UpdateRankAll ) );
         //}
 
         //[HttpPut, DbTransaction]
-        //public void UpdateRankAll() {
+        //public virtual void UpdateRankAll() {
 
         //    if (!checkServerTime()) return;
 
@@ -337,13 +337,13 @@ namespace wojilu.Web.Controller.Admin.Security {
 
         //-------------------------------------------------------------------
 
-        public void RankOther() {
+        public virtual void RankOther() {
             List<SiteRankOther> allRankOther = roleService.GetRankOther();
             bindOtherRank( allRankOther );
         }
 
         [HttpPut, DbTransaction]
-        public void SetRanksByOther( long id ) {
+        public virtual void SetRanksByOther( long id ) {
             SiteRankOther otherRank = roleService.GetRankOtherById( id );
             roleService.UpdateRankByOther( otherRank );
             log( SiteLogString.SetRanksByOther() );

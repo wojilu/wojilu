@@ -15,7 +15,7 @@ namespace wojilu.Web.Controller.Admin {
 
     public class AppController : wojilu.Web.Controller.Common.Admin.AppBaseController {
 
-        public IAdminLogService<SiteLog> logService { get; set; }
+        public virtual IAdminLogService<SiteLog> logService { get; set; }
 
         public AppController()
             : base() {

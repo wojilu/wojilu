@@ -39,11 +39,11 @@ namespace wojilu.Web.Controller.Security {
             this.Logo = logo;
         }
 
-        //public Boolean IsApp() {
+        //public virtual Boolean IsApp() {
         //    return AppTag.Equals( this.Tag );
         //}
 
-        public Boolean IsUserDataAdmin() {
+        public virtual Boolean IsUserDataAdmin() {
             return UserDataAdminTag.Equals( this.Tag );
         }
 

@@ -22,11 +22,11 @@ namespace wojilu.Web.Controller.Blog {
 
     public partial class LayoutController : ControllerBase {
 
-        public IBlogService blogService { get; set; }
-        public IBlogCategoryService categoryService { get; set; }
-        public IBlogPostService postService { get; set; }
-        public IBlogrollService rollService { get; set; }
-        public IOpenCommentService commentService { get; set; }
+        public virtual IBlogService blogService { get; set; }
+        public virtual IBlogCategoryService categoryService { get; set; }
+        public virtual IBlogPostService postService { get; set; }
+        public virtual IBlogrollService rollService { get; set; }
+        public virtual IOpenCommentService commentService { get; set; }
 
         public LayoutController() {
 

@@ -10,11 +10,11 @@ namespace wojilu.Web.Controller.Admin {
 
     public class AdController : ControllerBase {
 
-        public void Index() {
+        public virtual void Index() {
             List( 0 );
         }
 
-        public void List( long id ) {
+        public virtual void List( long id ) {
             view( "Index" );
 
             set( "item.IndexUrl", to( Index ) );
@@ -74,7 +74,7 @@ namespace wojilu.Web.Controller.Admin {
 
         }
 
-        public void Add( long categoryId ) {
+        public virtual void Add( long categoryId ) {
 
             target( Create );
 
@@ -87,7 +87,7 @@ namespace wojilu.Web.Controller.Admin {
         }
 
         [HttpPost, DbTransaction]
-        public void Create( ) {
+        public virtual void Create( ) {
 
             AdItem item = ctx.PostValue<AdItem>();
 
@@ -104,7 +104,7 @@ namespace wojilu.Web.Controller.Admin {
             echoToParentPart( lang( "opok" ) );
         }
 
-        public void Edit( long id ) {
+        public virtual void Edit( long id ) {
             target( Update, id );
 
             AdItem item = AdItem.findById( id );
@@ -122,7 +122,7 @@ namespace wojilu.Web.Controller.Admin {
         }
 
         [HttpPost, DbTransaction]
-        public void Update( long id ) {
+        public virtual void Update( long id ) {
 
             AdItem item = AdItem.findById( id );
             if (item == null) {
@@ -156,7 +156,7 @@ namespace wojilu.Web.Controller.Admin {
         }
 
         [HttpPost, DbTransaction]
-        public void Stop( long id ) {
+        public virtual void Stop( long id ) {
 
 
             AdItem item = AdItem.findById( id );
@@ -172,7 +172,7 @@ namespace wojilu.Web.Controller.Admin {
         }
 
         [HttpPost, DbTransaction]
-        public void Start( long id ) {
+        public virtual void Start( long id ) {
 
 
             AdItem item = AdItem.findById( id );
@@ -188,7 +188,7 @@ namespace wojilu.Web.Controller.Admin {
         }
 
         [HttpDelete, DbTransaction]
-        public void Delete( long id ) {
+        public virtual void Delete( long id ) {
 
             AdItem item = AdItem.findById( id );
             if (item == null) {

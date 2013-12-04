@@ -17,13 +17,13 @@ namespace wojilu.Web.Controller.Reader {
     [App( typeof( ReaderApp ) )]
     public class EntryController : ControllerBase {
 
-        public IFeedEntryService entryService { get; set; }
+        public virtual IFeedEntryService entryService { get; set; }
 
         public EntryController() {
             entryService = new FeedEntryService();
         }
 
-        public void Show( long id ) {
+        public virtual void Show( long id ) {
 
             FeedEntry item = entryService.GetById( id );
 

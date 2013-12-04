@@ -17,7 +17,7 @@ namespace wojilu.Web.Controller {
     public class ShareController : ControllerBase {
 
         [Login]
-        public void Add() {
+        public virtual void Add() {
 
             // 使用owner  避免二级域名跨域
             set( "ActionLink", Link.To( ctx.owner.obj, new Microblogs.MicroblogSaveController().Create ) );
@@ -52,7 +52,7 @@ namespace wojilu.Web.Controller {
         }
 
         [Login, HttpPost, DbTransaction]
-        public void Save() {
+        public virtual void Save() {
 
 
         }

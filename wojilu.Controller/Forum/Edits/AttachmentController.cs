@@ -22,10 +22,10 @@ namespace wojilu.Web.Controller.Forum.Edits {
     [App( typeof( ForumApp ) )]
     public class AttachmentController : ControllerBase {
 
-        public IAttachmentService attachmentService { get; set; }
-        public IForumTopicService topicService { get; set; }
-        public IAttachmentService attachService { get; set; }
-        public IForumBoardService boardService { get; set; }
+        public virtual IAttachmentService attachmentService { get; set; }
+        public virtual IForumTopicService topicService { get; set; }
+        public virtual IAttachmentService attachService { get; set; }
+        public virtual IForumBoardService boardService { get; set; }
 
         public AttachmentController() {
             boardService = new ForumBoardService();
@@ -34,7 +34,7 @@ namespace wojilu.Web.Controller.Forum.Edits {
             attachService = new AttachmentService();
         }
 
-        public void Admin( long topicId ) {
+        public virtual void Admin( long topicId ) {
 
 
             set( "addLink", to( Add, topicId ) );
@@ -73,7 +73,7 @@ namespace wojilu.Web.Controller.Forum.Edits {
 
         }
 
-        public void SetPermission( long topicId ) {
+        public virtual void SetPermission( long topicId ) {
 
             ForumTopic topic = topicService.GetById( topicId, ctx.owner.obj );
 
@@ -84,7 +84,7 @@ namespace wojilu.Web.Controller.Forum.Edits {
         }
 
         [HttpPost, DbTransaction]
-        public void SavePermission( long topicId ) {
+        public virtual void SavePermission( long topicId ) {
 
             ForumTopic topic = topicService.GetById( topicId, ctx.owner.obj );
             int ischeck = ctx.PostIsCheck( "IsAttachmentLogin" );
@@ -157,14 +157,14 @@ namespace wojilu.Web.Controller.Forum.Edits {
         }
 
 
-        public void Add( long topicId ) {
+        public virtual void Add( long topicId ) {
 
             target( SaveAdd, topicId );
         }
 
 
         [HttpPost, DbTransaction]
-        public void SaveAdd( long topicId ) {
+        public virtual void SaveAdd( long topicId ) {
 
             HttpFile postedFile = ctx.GetFileSingle();
 
@@ -191,7 +191,7 @@ namespace wojilu.Web.Controller.Forum.Edits {
 
         //--------------------------------------------------------------------------------------------------------------
 
-        public void Rename( long topicId ) {
+        public virtual void Rename( long topicId ) {
 
             long id = ctx.GetLong( "aid" );
             set( "ActionLink", to( SaveRename, topicId ) + "?aid=" + id );
@@ -206,7 +206,7 @@ namespace wojilu.Web.Controller.Forum.Edits {
         }
 
         [HttpPost, DbTransaction]
-        public void SaveRename( long topicId ) {
+        public virtual void SaveRename( long topicId ) {
 
             long id = ctx.GetLong( "aid" );
 
@@ -227,7 +227,7 @@ namespace wojilu.Web.Controller.Forum.Edits {
             echoToParent( lang( "opok" ) );
         }
 
-        public void Upload( long topicId ) {
+        public virtual void Upload( long topicId ) {
 
             long id = ctx.GetLong( "aid" );
 
@@ -241,7 +241,7 @@ namespace wojilu.Web.Controller.Forum.Edits {
         }
 
         [HttpPost, DbTransaction]
-        public void SaveUpload( long topicId ) {
+        public virtual void SaveUpload( long topicId ) {
 
             long id = ctx.GetLong( "aid" );
 
@@ -274,7 +274,7 @@ namespace wojilu.Web.Controller.Forum.Edits {
         }
 
         [HttpDelete, DbTransaction]
-        public void Delete( long topicId ) {
+        public virtual void Delete( long topicId ) {
 
             long id = ctx.GetLong( "aid" );
 

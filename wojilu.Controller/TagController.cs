@@ -27,7 +27,7 @@ namespace wojilu.Web.Controller {
             set( "tagAdminLink", to( new wojilu.Web.Controller.Admin.TagAdminController().Index ) );
         }
 
-        public void Index() {
+        public virtual void Index() {
 
             ctx.Page.Title = "tag";
 
@@ -42,7 +42,7 @@ namespace wojilu.Web.Controller {
             set( "page", list.PageBar );
         }
 
-        public void Show( String tagName ) {
+        public virtual void Show( String tagName ) {
 
             bindMyTags();
 

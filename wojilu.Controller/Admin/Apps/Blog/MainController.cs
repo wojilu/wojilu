@@ -23,11 +23,11 @@ namespace wojilu.Web.Controller.Admin.Apps.Blog {
     [App( typeof( BlogApp ) )]
     public partial class MainController : ControllerBase {
 
-        public IBlogPostService postService { get; set; }
-        public IPickedService pickedService { get; set; }
-        public ISysBlogService sysblogService { get; set; }
-        public IAdminLogService<SiteLog> logService { get; set; }
-        public IBlogSysCategoryService categoryService { get; set; }
+        public virtual IBlogPostService postService { get; set; }
+        public virtual IPickedService pickedService { get; set; }
+        public virtual ISysBlogService sysblogService { get; set; }
+        public virtual IAdminLogService<SiteLog> logService { get; set; }
+        public virtual IBlogSysCategoryService categoryService { get; set; }
 
         public MainController() {
             postService = new BlogPostService();
@@ -45,7 +45,7 @@ namespace wojilu.Web.Controller.Admin.Apps.Blog {
         }
 
         // TODO 搜索功能：根据作者、根据时间(最近一个月)、根据阅读量、根据评论数、
-        public void Index( long id ) {
+        public virtual void Index( long id ) {
 
             target( Admin );
 
@@ -88,14 +88,14 @@ namespace wojilu.Web.Controller.Admin.Apps.Blog {
         }
 
 
-        public void Picked() {
+        public virtual void Picked() {
             target( Admin );
             DataPage<BlogPost> list = pickedService.GetAll();
             bindPosts( list );
         }
 
         [HttpPost, DbTransaction]
-        public void Admin() {
+        public virtual void Admin() {
 
             String ids = ctx.PostIdList( "choice" );
             String cmd = ctx.Post( "action" );
@@ -148,7 +148,7 @@ namespace wojilu.Web.Controller.Admin.Apps.Blog {
 
 
         [HttpDelete, DbTransaction]
-        public void Delete( long id ) {
+        public virtual void Delete( long id ) {
 
             BlogPost post = postService.GetById_ForAdmin( id );
             if (post == null) {

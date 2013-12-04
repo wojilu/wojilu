@@ -22,15 +22,15 @@ namespace wojilu.Web.Controller.Microblogs.My {
 
     public class MbSaveController : ControllerBase {
 
-        public IMicroblogService microblogService { get; set; }
-        public IPhotoPostService postService { get; set; }
+        public virtual IMicroblogService microblogService { get; set; }
+        public virtual IPhotoPostService postService { get; set; }
 
         public MbSaveController() {
             microblogService = new MicroblogService();
             postService = new PhotoPostService();
         }
 
-        public void Publish() {
+        public virtual void Publish() {
 
             //if (Component.IsClose( typeof( MicroblogApp ) )) {
             //    content( "" );
@@ -58,11 +58,11 @@ namespace wojilu.Web.Controller.Microblogs.My {
 
         }
 
-        public void UploadForm() {
+        public virtual void UploadForm() {
             target( SavePicIE );
         }
 
-        public void SavePicIE() {
+        public virtual void SavePicIE() {
             HttpFile postedFile = ctx.GetFileSingle();
 
             Result result = Uploader.SaveImg( postedFile );
@@ -77,7 +77,7 @@ namespace wojilu.Web.Controller.Microblogs.My {
             set( "picUrl", post.DataUrl );
         }
 
-        public void SavePic() {
+        public virtual void SavePic() {
 
             HttpFile postedFile = ctx.GetFileSingle();
 
