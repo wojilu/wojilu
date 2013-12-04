@@ -90,7 +90,7 @@ namespace wojilu.Members.Users.Service {
             return result;
         }
 
-        public Result CanAddFriend( long userId, long targetId ) {
+        public virtual Result CanAddFriend( long userId, long targetId ) {
 
             Result result = new Result();
 
@@ -126,7 +126,7 @@ namespace wojilu.Members.Users.Service {
         }
 
 
-        public void CancelAddFriend( long userId, long fid ) {
+        public virtual void CancelAddFriend( long userId, long fid ) {
 
             String condition = "User.Id=" + userId + " and Friend.Id=" + fid;
             Boolean cancelOk = cancelFriendSingle( userId, fid, condition );

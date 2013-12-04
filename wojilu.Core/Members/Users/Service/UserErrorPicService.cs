@@ -9,7 +9,7 @@ namespace wojilu.Members.Users.Service {
 
     public class UserErrorPicService : IUserErrorPicService {
 
-        public int GetStatus( User user ) {
+        public virtual int GetStatus( User user ) {
 
             UserErrorPic x = UserErrorPic.find( "UserId=" + user.Id + " order by Id desc" ).first();
             if (x == null) return UserErrorPic.StatusFirstUpload;
@@ -24,20 +24,20 @@ namespace wojilu.Members.Users.Service {
             return UserErrorPic.StatusWaitingApprove;
         }
 
-        public int CheckErrorCount( User user ) {
+        public virtual int CheckErrorCount( User user ) {
 
             return UserErrorPic.count( "UserId=" + user.Id + " and ReviewMsg<>'' and IsPass=0" );
 
         }
 
-        public String GetLastReviewMsg( User user ) {
+        public virtual String GetLastReviewMsg( User user ) {
 
             UserErrorPic x = UserErrorPic.find( "UserId=" + user.Id + " and ReviewMsg<>'' order by Id desc" ).first();
             if (x == null) return null;
             return x.ReviewMsg;
         }
 
-        public UserErrorPic GetLastLog( User user ) {
+        public virtual UserErrorPic GetLastLog( User user ) {
 
             return UserErrorPic.find( "UserId=" + user.Id + " and ReviewMsg<>'' order by Id desc" ).first();
         }
@@ -47,7 +47,7 @@ namespace wojilu.Members.Users.Service {
         /// </summary>
         /// <param name="user"></param>
         /// <param name="ip"></param>
-        public void AddLog( User user, string ip ) {
+        public virtual void AddLog( User user, string ip ) {
 
             UserErrorPic log = new UserErrorPic();
             log.UserId = user.Id;
@@ -55,7 +55,7 @@ namespace wojilu.Members.Users.Service {
             log.insert();
         }
 
-        public void AddLogAndPass( User user, string ip ) {
+        public virtual void AddLogAndPass( User user, string ip ) {
             user.IsPicError = 0;
             user.update();
 
@@ -73,7 +73,7 @@ namespace wojilu.Members.Users.Service {
         /// <param name="ids"></param>
         /// <param name="reviewMsg"></param>
         /// <param name="isNextApprove">下次上传是否前置审核</param>
-        public void ApproveError( String ids, String reviewMsg, int isNextApprove, int isDelete ) {
+        public virtual void ApproveError( String ids, String reviewMsg, int isNextApprove, int isDelete ) {
 
             List<User> userList = getUserList( ids );
 
@@ -112,7 +112,7 @@ namespace wojilu.Members.Users.Service {
         /// </summary>
         /// <param name="ids"></param>
         /// <param name="reviewMsg"></param>
-        public void ApproveOk( String ids, String reviewMsg ) {
+        public virtual void ApproveOk( String ids, String reviewMsg ) {
             List<User> userList = getUserList( ids );
 
             foreach (User user in userList) {
@@ -137,7 +137,7 @@ namespace wojilu.Members.Users.Service {
         /// </summary>
         /// <param name="user"></param>
         /// <param name="ip"></param>
-        public void UpdateLastUpload( User user, string ip ) {
+        public virtual void UpdateLastUpload( User user, string ip ) {
             UserErrorPic x = UserErrorPic.find( "UserId=" + user.Id + " order by Id desc" ).first();
             x.Created = DateTime.Now;
             x.Ip = ip;

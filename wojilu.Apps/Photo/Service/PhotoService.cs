@@ -15,11 +15,11 @@ namespace wojilu.Apps.Photo.Service {
             app.update( "PhotoCount" );
         }
 
-        public PhotoApp GetByUser(long userId) {
+        public virtual PhotoApp GetByUser(long userId) {
             return PhotoApp.find( "OwnerId=" + userId ).first();
         }
 
-        public List<PhotoApp> GetAppAll() {
+        public virtual List<PhotoApp> GetAppAll() {
             return PhotoApp.findAll();
         }
 

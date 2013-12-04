@@ -10,23 +10,23 @@ namespace wojilu.Apps.Forum.Service {
     public class SysForumTopicService {
 
 
-        public List<ForumTopic> GetRankByReplies( int appId, int count ) {
+        public virtual List<ForumTopic> GetRankByReplies( int appId, int count ) {
             if (count <= 0) count = 10;
             String strApp = appId > 0 ? "AppId=" + appId + " and " : "";
             return ForumTopic.find( strApp + getNonDelCondition() + " order by Replies desc, Id desc" ).list( count );
         }
 
-        public List<ForumTopic> GetRankByHits( int appId, int count ) {
+        public virtual List<ForumTopic> GetRankByHits( int appId, int count ) {
             if (count <= 0) count = 10;
             String strApp = appId > 0 ? "AppId=" + appId + " and " : "";
             return ForumTopic.find( strApp + getNonDelCondition() + " order by Hits desc, Replies desc, Id desc" ).list( count );
         }
 
-        public List<IBinderValue> GetRankTopicByReplies( int appId, int count ) {
+        public virtual List<IBinderValue> GetRankTopicByReplies( int appId, int count ) {
             return populateBinderValue( GetRankByReplies( appId, count ) );
         }
 
-        public List<IBinderValue> GetRankTopicByHits( int appId, int count ) {
+        public virtual List<IBinderValue> GetRankTopicByHits( int appId, int count ) {
             return populateBinderValue( GetRankByHits( appId, count ) );
         }
 

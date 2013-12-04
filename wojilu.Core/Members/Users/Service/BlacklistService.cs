@@ -22,15 +22,15 @@ namespace wojilu.Members.Users.Service {
             followerService = new FollowerService();
         }
 
-        public DataPage<Blacklist> GetPage(long ownerId, int pageSize) {
+        public virtual DataPage<Blacklist> GetPage(long ownerId, int pageSize) {
             return Blacklist.findPage( "UserId=" + ownerId, pageSize );
         }
 
-        public bool IsBlack(long ownerId, long targetId) {
+        public virtual bool IsBlack(long ownerId, long targetId) {
             return Blacklist.find( "User.Id=" + ownerId + " and Target.Id=" + targetId ).first() != null;
         }
 
-        public Blacklist GetById(long id, long ownerId) {
+        public virtual Blacklist GetById(long id, long ownerId) {
             Blacklist b = Blacklist.findById( id );
             if (b == null) return null;
             if (b.User == null) return null;
@@ -38,7 +38,7 @@ namespace wojilu.Members.Users.Service {
             return b;
         }
 
-        public Result Delete(long id, long ownerId) {
+        public virtual Result Delete(long id, long ownerId) {
             Result result = new Result();
             Blacklist b = GetById( id, ownerId );
             if (b == null) {
@@ -51,7 +51,7 @@ namespace wojilu.Members.Users.Service {
             return result;
         }
 
-        public Result Create(long ownerId, string targetUserName) {
+        public virtual Result Create(long ownerId, string targetUserName) {
 
             Result result = new Result();
             if (strUtil.IsNullOrEmpty( targetUserName )) {

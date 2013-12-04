@@ -13,7 +13,7 @@ namespace wojilu.Common.Msg.Service {
 
         private static readonly ILog logger = LogManager.GetLogger( typeof( MessageAttachmentService ) );
 
-        public bool IsReceiver(long viewerId, MessageAttachment attachment) {
+        public virtual bool IsReceiver(long viewerId, MessageAttachment attachment) {
 
             List<Message> msgList = Message.find( "MessageData.Id=" + attachment.MessageData.Id ).list();
             foreach (Message msg in msgList) {
@@ -22,22 +22,22 @@ namespace wojilu.Common.Msg.Service {
             return false;
         }
 
-        public bool IsSender(long viewerId, MessageAttachment attachment) {
+        public virtual bool IsSender(long viewerId, MessageAttachment attachment) {
             if (attachment.MessageData == null) return false;
             MessageData x = MessageData.findById( attachment.MessageData.Id );
             if (attachment.MessageData.Sender == null) return false;
             return attachment.MessageData.Sender.Id == viewerId;
         }
 
-        public MessageAttachment GetById(long id) {
+        public virtual MessageAttachment GetById(long id) {
             return MessageAttachment.findById( id );
         }
 
-        public List<MessageAttachment> GetByMsg(long msgDataId) {
+        public virtual List<MessageAttachment> GetByMsg(long msgDataId) {
             return MessageAttachment.find( "MessageData.Id=" + msgDataId + " order by Id asc" ).list();
         }
 
-        public Result SaveFile( HttpFile postedFile ) {
+        public virtual Result SaveFile( HttpFile postedFile ) {
 
             Dictionary<String, String> dic = new Dictionary<String, String>();
 
@@ -57,11 +57,11 @@ namespace wojilu.Common.Msg.Service {
             return result;
         }
 
-        public void Insert( MessageAttachment attachment ) {
+        public virtual void Insert( MessageAttachment attachment ) {
             attachment.insert();
         }
 
-        public Result Delete(long id) {
+        public virtual Result Delete(long id) {
 
             Result result = new Result();
 

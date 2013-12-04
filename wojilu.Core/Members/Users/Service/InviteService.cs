@@ -86,20 +86,20 @@ namespace wojilu.Members.Users.Service {
         }
         
 
-        public void DeleteInvite( UserInvite invite ) {
+        public virtual void DeleteInvite( UserInvite invite ) {
             invite.delete();
         }
 
-        public List<UserInvite> GetUnSendEmail() {
+        public virtual List<UserInvite> GetUnSendEmail() {
             return UserInvite.find( "SendStatus=" + UserInviteEmailStatus.UnSend ).list();
         }
 
-        public void SendDone( UserInvite invite ) {
+        public virtual void SendDone( UserInvite invite ) {
             invite.SendStatus = UserInviteEmailStatus.Done;
             invite.update();
         }
 
-        public void SendError( UserInvite invite ) {
+        public virtual void SendError( UserInvite invite ) {
             invite.SendStatus = UserInviteEmailStatus.Failure;
             invite.update();
         }

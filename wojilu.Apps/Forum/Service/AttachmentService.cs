@@ -169,7 +169,7 @@ namespace wojilu.Apps.Forum.Service {
             return result;
         }
 
-        public void CreateByTemp( String ids, ForumTopic topic ) {
+        public virtual void CreateByTemp( String ids, ForumTopic topic ) {
 
             int[] arrIds = cvt.ToIntArray( ids );
             if (arrIds.Length == 0) return;

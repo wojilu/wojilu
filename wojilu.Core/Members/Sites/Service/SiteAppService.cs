@@ -29,15 +29,15 @@ namespace wojilu.Members.Sites.Service {
             appInfoService = new AppInstallerService();
         }
 
-        public Type GetMemberType() {
+        public virtual Type GetMemberType() {
             return typeof( Site );
         }
 
-        public IMemberApp New() {
+        public virtual IMemberApp New() {
             return new SiteApp();
         }
 
-        public IMemberApp Add(User creator, string name, long appinfoId) {
+        public virtual IMemberApp Add(User creator, string name, long appinfoId) {
 
             //创建应用
             IApp app = AppFactory.Create( appinfoId, creator, AccessStatus.Public );
@@ -66,7 +66,7 @@ namespace wojilu.Members.Sites.Service {
         }
 
 
-        public IMemberApp Add(User creator, IMember owner, string name, long appinfoId, AccessStatus accessStatus) {
+        public virtual IMemberApp Add(User creator, IMember owner, string name, long appinfoId, AccessStatus accessStatus) {
 
             // 创建应用实例
             IApp app = AppFactory.Create( appinfoId, owner, accessStatus );
@@ -89,7 +89,7 @@ namespace wojilu.Members.Sites.Service {
 
         }
 
-        public void Delete( IMemberApp app, String rawAppUrl ) {
+        public virtual void Delete( IMemberApp app, String rawAppUrl ) {
             ((SiteApp)app).delete();
 
             // 删除应用本身
@@ -99,7 +99,7 @@ namespace wojilu.Members.Sites.Service {
             menuService.RemoveMenuByApp( app, rawAppUrl );
         }
 
-        public IMemberApp FindById(long userAppId, long userId) {
+        public virtual IMemberApp FindById(long userAppId, long userId) {
 
             IList list = new SiteApp().findAll();
             foreach (IMemberApp app in list) {
@@ -110,7 +110,7 @@ namespace wojilu.Members.Sites.Service {
             return null;
         }
 
-        public IList GetAppInfos(long memberId) {
+        public virtual IList GetAppInfos(long memberId) {
             IList byMember = this.GetByMember( memberId );
             IList addedList = new ArrayList();
             foreach (SiteApp app in byMember) {
@@ -130,17 +130,17 @@ namespace wojilu.Members.Sites.Service {
             return false;
         }
 
-        public IMemberApp GetByApp( IApp app ) {
+        public virtual IMemberApp GetByApp( IApp app ) {
             return GetByApp( app.GetType(), app.Id );
         }
 
 
-        public IMemberApp GetByApp(Type t, long appId) {
+        public virtual IMemberApp GetByApp(Type t, long appId) {
             AppInstaller appInfo = appInfoService.GetByType( t );
             return GetByApp( appInfo.Id, appId );
         }
 
-        public IMemberApp GetByApp(long appInfoId, long appId) {
+        public virtual IMemberApp GetByApp(long appInfoId, long appId) {
             IList list = new SiteApp().findAll();
             foreach (IMemberApp app in list) {
                 if ((app.AppInfoId == appInfoId) && (app.AppOid == appId)) {
@@ -150,7 +150,7 @@ namespace wojilu.Members.Sites.Service {
             return null;
         }
 
-        public IList GetByMember(long memberId) {
+        public virtual IList GetByMember(long memberId) {
             if (memberId < 0) {
                 return new ArrayList();
             }
@@ -167,17 +167,17 @@ namespace wojilu.Members.Sites.Service {
 
 
 
-        public void Start( IMemberApp app, String rawAppUrl ) {
+        public virtual void Start( IMemberApp app, String rawAppUrl ) {
             UpdateByStart( app );
             menuService.AddMenuByApp( app, app.Name, string.Empty, rawAppUrl );
         }
 
-        public void Stop( IMemberApp app, String rawAppUrl ) {
+        public virtual void Stop( IMemberApp app, String rawAppUrl ) {
             UpdateByStop( app );
             menuService.RemoveMenuByApp( app, rawAppUrl );
         }
 
-        public void Update( IMemberApp app, String newName, String rawAppUrl ) {
+        public virtual void Update( IMemberApp app, String newName, String rawAppUrl ) {
 
             app.Name = newName;
             ((SiteApp)app).update();
@@ -188,7 +188,7 @@ namespace wojilu.Members.Sites.Service {
 
         }
 
-        public void UpdateAccessStatus( IMemberApp app, AccessStatus accessStatus ) {
+        public virtual void UpdateAccessStatus( IMemberApp app, AccessStatus accessStatus ) {
 
             app.AccessStatus = (int)accessStatus;
             ((SiteApp)app).update();
@@ -205,7 +205,7 @@ namespace wojilu.Members.Sites.Service {
             ((SiteApp)app).update();
         }
 
-        public bool HasInstall(long ownerId, long appInfoId) {
+        public virtual bool HasInstall(long ownerId, long appInfoId) {
             IList apps = GetByMember( ownerId );
             foreach (IMemberApp app in apps) {
                 if (app.AppInfoId == appInfoId) return true;

@@ -42,7 +42,7 @@ namespace wojilu.Apps.Blog.Service {
 
         //----------------------------
 
-        public List<BlogPost> GetSysNew(long categoryId, int count) {
+        public virtual List<BlogPost> GetSysNew(long categoryId, int count) {
             return db.find<BlogPost>( this.getCondition( categoryId ) ).list( count );
         }
 
@@ -71,7 +71,7 @@ namespace wojilu.Apps.Blog.Service {
             return db.findPage<BlogPost>( "SaveStatus=" + SaveStatus.Normal + " and " + condition );
         }
 
-        public DataPage<BlogPost> GetSysPageTrash() {
+        public virtual DataPage<BlogPost> GetSysPageTrash() {
             return db.findPage<BlogPost>( "SaveStatus=" + (int)SaveStatus.SysDelete );
         }
 
@@ -94,17 +94,17 @@ namespace wojilu.Apps.Blog.Service {
             return db.count<BlogPost>( "SaveStatus=" + SaveStatus.SysDelete );
         }
 
-        public void Delete( string ids ) {
+        public virtual void Delete( string ids ) {
             if (strUtil.IsNullOrEmpty( ids )) return;
             BlogPost.updateBatch( "SaveStatus=" + SaveStatus.SysDelete, "Id in (" + ids + ")" );
         }
 
-        public void DeleteTrue( string ids ) {
+        public virtual void DeleteTrue( string ids ) {
             if (strUtil.IsNullOrEmpty( ids )) return;
             BlogPost.deleteBatch( "Id in (" + ids + ")" );
         }
 
-        public void UnDelete( string ids ) {
+        public virtual void UnDelete( string ids ) {
             if (strUtil.IsNullOrEmpty( ids )) return;
             BlogPost.updateBatch( "SaveStatus=" + SaveStatus.Normal, "Id in (" + ids + ")" );
         }

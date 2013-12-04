@@ -9,53 +9,53 @@ namespace wojilu.Apps.Content.Service {
 
     public class ContentTempPostService {
 
-        public int GetSubmitCount(long creatorId, IMember owner, long appId) {
+        public virtual int GetSubmitCount(long creatorId, IMember owner, long appId) {
             String condition = string.Format( "CreatorId={0} and AppId={1} and OwnerId={2} and OwnerType='{3}' ", creatorId, appId, owner.Id, owner.GetType().FullName );
             return ContentTempPost.count( condition );
         }
 
-        public DataPage<ContentTempPost> GetByCreator(long creatorId, IMember owner, long appId) {
+        public virtual DataPage<ContentTempPost> GetByCreator(long creatorId, IMember owner, long appId) {
             String condition = string.Format( "CreatorId={0} and AppId={1} and OwnerId={2} and OwnerType='{3}' ", creatorId, appId, owner.Id, owner.GetType().FullName );
             return ContentTempPost.findPage( condition );
         }
 
-        public int CountByCreator(long creatorId, IMember owner, long appId) {
+        public virtual int CountByCreator(long creatorId, IMember owner, long appId) {
             String condition = string.Format( "CreatorId={0} and AppId={1} and OwnerId={2} and OwnerType='{3}' ", creatorId, appId, owner.Id, owner.GetType().FullName );
             return ContentTempPost.count( condition );
         }
 
-        public int GetSubmitCount(IMember owner, long appId) {
+        public virtual int GetSubmitCount(IMember owner, long appId) {
             String condition = string.Format( "AppId={0} and OwnerId={1} and OwnerType='{2}' and Status={3}", appId, owner.Id, owner.GetType().FullName, PostSubmitStatus.Normal );
             return ContentTempPost.count( condition );
         }
 
-        public DataPage<ContentTempPost> GetPage(IMember owner, long appId) {
+        public virtual DataPage<ContentTempPost> GetPage(IMember owner, long appId) {
             String condition = string.Format( "AppId={0} and OwnerId={1} and OwnerType='{2}' and Status={3}", appId, owner.Id, owner.GetType().FullName, PostSubmitStatus.Normal );
             return ContentTempPost.findPage( condition );
         }
 
-        public ContentTempPost GetById(long id) {
+        public virtual ContentTempPost GetById(long id) {
             return ContentTempPost.findById( id );
         }
 
-        public void NoPass( string ids ) {
+        public virtual void NoPass( string ids ) {
             ContentTempPost.updateBatch( "set Status=" + PostSubmitStatus.Deleted, "Id in (" + ids + ")" );
         }
 
-        public void NoPass( ContentTempPost p ) {
+        public virtual void NoPass( ContentTempPost p ) {
             p.Status = PostSubmitStatus.Deleted;
             p.update( "Status" );
         }
 
-        public Result Insert( ContentTempPost post ) {
+        public virtual Result Insert( ContentTempPost post ) {
             return post.insert();
         }
 
-        public void Delete( ContentTempPost post ) {
+        public virtual void Delete( ContentTempPost post ) {
             post.delete();
         }
 
-        public ContentPost GetBySubmitPost( ContentTempPost p, IMember owner ) {
+        public virtual ContentPost GetBySubmitPost( ContentTempPost p, IMember owner ) {
 
             ContentPost post = new ContentPost();
 

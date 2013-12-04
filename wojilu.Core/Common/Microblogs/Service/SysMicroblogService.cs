@@ -15,21 +15,21 @@ namespace wojilu.Common.Microblogs.Service {
         private static String showCondition() {
             return " (SaveStatus=" + SaveStatus.Normal + " or SaveStatus=" + SaveStatus.Private + ")";
         }
-        public List<Microblog> GetRecent( int count ) {
+        public virtual List<Microblog> GetRecent( int count ) {
             if (count <= 0) count = 10;
             return Microblog.find( showCondition() + " order by Id desc" ).list( count );
         }
 
-        public List<Microblog> GetByReplies( int count ) {
+        public virtual List<Microblog> GetByReplies( int count ) {
             if (count <= 0) count = 10;
             return Microblog.find( showCondition() + " order by Replies desc, Id desc" ).list( count );
         }
 
-        public List<IBinderValue> GetRecentMicroblog( int count ) {
+        public virtual List<IBinderValue> GetRecentMicroblog( int count ) {
             return populatePost( GetRecent( count ) );
         }
 
-        public List<IBinderValue> GetMicroblogByReplies( int count ) {
+        public virtual List<IBinderValue> GetMicroblogByReplies( int count ) {
             return populatePost( GetByReplies( count ) );
         }
 
@@ -111,7 +111,7 @@ namespace wojilu.Common.Microblogs.Service {
         }
 
 
-        public void RestoreSysBatch( string ids ) {
+        public virtual void RestoreSysBatch( string ids ) {
             long[] arrIds = cvt.ToLongArray( ids );
             if (arrIds.Length == 0) return;
 

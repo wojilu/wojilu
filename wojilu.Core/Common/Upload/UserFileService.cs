@@ -13,48 +13,62 @@ using wojilu.Members.Interface;
 
 namespace wojilu.Common.Upload {
 
-    public class UserFileService {
+    public interface IUserFileService {
+        UserFile GetById( long id );
+        DataPage<UserFile> GetByType( Type t );
+        DataPage<UserFile> GetFileByType( Type t );
+        DataPage<UserFile> GetPicByType( Type t );
+        List<UserFile> GetByIds( string ids, Type t );
+        List<UserFile> GetPicByIds( string ids, Type t );
+        List<UserFile> GetByData( Object obj );
+        Result SaveFile( HttpFile postedFile, String ip, User creator, IMember owner );
+        Result Insert( UserFile attachment );
+        Result Delete( long id );
+        void UpdateDataInfo( UserFile uFile );
+    }
+
+    public class UserFileService : IUserFileService {
 
         private static readonly ILog logger = LogManager.GetLogger( typeof( UserFileService ) );
 
-        public UserFile GetById(long id) {
+        public virtual UserFile GetById( long id ) {
             return UserFile.findById( id );
         }
 
-        public DataPage<UserFile> GetByType( Type t ) {
+        public virtual DataPage<UserFile> GetByType( Type t ) {
             return UserFile.findPage( "DataType='" + t.FullName + "' " );
         }
 
-        public DataPage<UserFile> GetFileByType( Type t ) {
+        public virtual DataPage<UserFile> GetFileByType( Type t ) {
             return UserFile.findPage( " IsPic=0 and DataType='" + t.FullName + "' " );
         }
 
-        public DataPage<UserFile> GetPicByType( Type t ) {
+        public virtual DataPage<UserFile> GetPicByType( Type t ) {
             return UserFile.findPage( "IsPic=1 and DataType='" + t.FullName + "' " );
         }
 
-        public List<UserFile> GetByIds( string ids, Type t ) {
+        public virtual List<UserFile> GetByIds( string ids, Type t ) {
 
             if (strUtil.IsNullOrEmpty( ids )) return new List<UserFile>();
 
             return UserFile.find( "DataType='" + t.FullName + "' and Id in (" + ids + ")" ).list();
         }
 
-        public List<UserFile> GetPicByIds( string ids, Type t ) {
+        public virtual List<UserFile> GetPicByIds( string ids, Type t ) {
 
             if (strUtil.IsNullOrEmpty( ids )) return new List<UserFile>();
 
             return UserFile.find( "IsPic=1 and DataType='" + t.FullName + "' and Id in (" + ids + ")" ).list();
         }
 
-        public List<UserFile> GetByData( Object obj ) {
+        public virtual List<UserFile> GetByData( Object obj ) {
 
             IEntity entity = obj as IEntity;
 
             return UserFile.find( "DataId=" + entity.Id + " and DataType='" + obj.GetType().FullName + "' order by Id asc" ).list();
         }
 
-        public Result SaveFile( HttpFile postedFile, String ip, User creator, IMember owner ) {
+        public virtual Result SaveFile( HttpFile postedFile, String ip, User creator, IMember owner ) {
 
             Result result = Uploader.SaveFileOrImage( postedFile );
             if (result.HasErrors) return result;
@@ -93,11 +107,11 @@ namespace wojilu.Common.Upload {
             return result;
         }
 
-        public Result Insert( UserFile attachment ) {
+        public virtual Result Insert( UserFile attachment ) {
             return attachment.insert();
         }
 
-        public Result Delete(long id) {
+        public virtual Result Delete( long id ) {
 
             Result result = new Result();
 
@@ -152,12 +166,12 @@ namespace wojilu.Common.Upload {
                     db.update( post );
                 }
                 else {
-                    logger.Warn( "property 'AttachmentCount' not exist: "+ ei.Type.FullName );
+                    logger.Warn( "property 'AttachmentCount' not exist: " + ei.Type.FullName );
                 }
             }
         }
 
-        public void UpdateDataInfo( UserFile uFile ) {
+        public virtual void UpdateDataInfo( UserFile uFile ) {
             db.update( uFile );
             countDataCount( uFile );
         }

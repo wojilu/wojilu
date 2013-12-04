@@ -19,12 +19,12 @@ namespace wojilu.Common.Skins {
 
         private Type thisType() { return skinTool.GetType(); }
 
-        public void SetSkin( ISkin skin ) {
+        public virtual void SetSkin( ISkin skin ) {
             objSkin = skin;
             skinTool = skin;
         }
 
-        public string GetUserSkin(IMember user, long queryStringSkinId, string cssVersion) {
+        public virtual string GetUserSkin(IMember user, long queryStringSkinId, string cssVersion) {
 
             long skinId = getSkinId( user, queryStringSkinId );
             ISkin skin = GetById( skinId );
@@ -52,43 +52,43 @@ namespace wojilu.Common.Skins {
             return skinId;
         }
 
-        public int GetSkinCount() {
+        public virtual int GetSkinCount() {
             return ndb.count( thisType() ); ;
         }
 
-        public ISkin GetById(long id) {
+        public virtual ISkin GetById(long id) {
             return ndb.findById( thisType(), id ) as ISkin;
         }
 
-        public ISkin GetById(long id, long memberId) {
+        public virtual ISkin GetById(long id, long memberId) {
             ISkin result = GetById( id );
             if (result != null && result.MemberId != memberId) return null;
             return result;
         }
 
-        public ISkin GetDefaultSkin() {
+        public virtual ISkin GetDefaultSkin() {
             return GetById( 1 );
         }
 
-        public IPageList GetPage() {
+        public virtual IPageList GetPage() {
             return ndb.findPage( thisType(), "Status=" + SkinStatus.Public + " and MemberId=0 order by Id", 50 );
         }
 
 
-        public string GetSkinContent(long skinId) {
+        public virtual string GetSkinContent(long skinId) {
             ISkin skin = GetById( skinId );
             if (skin == null) return null;
 
             return skin.GetSkinContent();
         }
 
-        public IList GetMy(long userId) {
+        public virtual IList GetMy(long userId) {
             return ndb.find( thisType(), "MemberId=" + userId ).list();
         }
 
         //---------------------------------------------------------------------------------------
 
-        public void ApplySystemSkin(IMember member, long skinId) {
+        public virtual void ApplySystemSkin(IMember member, long skinId) {
             member.TemplateId = skinId;
             db.update( member, "TemplateId" );
 
@@ -100,22 +100,22 @@ namespace wojilu.Common.Skins {
             }
         }
 
-        public void Insert( ISkin skin ) {
+        public virtual void Insert( ISkin skin ) {
             db.insert( skin );
         }
 
-        public void Delete( ISkin skin ) {
+        public virtual void Delete( ISkin skin ) {
             db.delete( skin );
         }
 
-        public void Update( ISkin skin ) {
+        public virtual void Update( ISkin skin ) {
             db.update( skin );
         }
 
         //---------------------------------------------------------------------------------------
 
 
-        public void CustomBg( IMember member, String ele, String bgString ) {
+        public virtual void CustomBg( IMember member, String ele, String bgString ) {
 
             string newStyle = ele + " {" + bgString + "}";
             string oStyle = getCssValues( member );
@@ -160,7 +160,7 @@ namespace wojilu.Common.Skins {
         }
 
 
-        public Boolean IsUserCustom( IMember member ) {
+        public virtual Boolean IsUserCustom( IMember member ) {
             ISkin skin = GetById( member.TemplateId );
             return skin.MemberId>0;
         }

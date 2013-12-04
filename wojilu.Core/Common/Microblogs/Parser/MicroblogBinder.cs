@@ -20,7 +20,7 @@ namespace wojilu.Common.Microblogs.Parser {
             userService = new UserService();
         }
 
-        public String GetLink( String userName ) {
+        public virtual String GetLink( String userName ) {
 
             if (strUtil.IsNullOrEmpty( userName )) return "@";
 
@@ -36,17 +36,17 @@ namespace wojilu.Common.Microblogs.Parser {
             return string.Format( "<a href=\"{1}\">@{0}</a>", userName, Link.ToMember( u ) );
         }
 
-        public String GetTagLink( String tag ) {
+        public virtual String GetTagLink( String tag ) {
 
             String lnk = alink.ToTag( tag.Trim() );
             return string.Format( "<a href=\"{1}\" target=\"_blank\">#{0}#</a>", tag.Trim(), lnk );
         }
 
-        public String GetUrlLink( String url ) {
+        public virtual String GetUrlLink( String url ) {
             return string.Format( "<a href=\"{0}\" target=\"_blank\">{0}</a>", url.Trim() );
         }
 
-        public List<User> GetValidUsers() {
+        public virtual List<User> GetValidUsers() {
             return _users;
         }
 

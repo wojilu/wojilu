@@ -12,11 +12,11 @@ namespace wojilu.Apps.Reader.Service {
 
     public class FeedSysCategoryService : IFeedSysCategoryService {
 
-        public List<FeedSysCategory> GetAll() {
+        public virtual List<FeedSysCategory> GetAll() {
             return db.find<FeedSysCategory>( " order by OrderId desc, Id desc" ).list();
         }
 
-        public FeedSysCategory GetById(long categoryId) {
+        public virtual FeedSysCategory GetById(long categoryId) {
             return db.findById<FeedSysCategory>( categoryId );
         }
 

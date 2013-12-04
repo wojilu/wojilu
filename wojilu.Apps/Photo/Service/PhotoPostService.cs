@@ -200,7 +200,7 @@ namespace wojilu.Apps.Photo.Service {
             }
         }
 
-        public void DeletePosts( String ids, List<PhotoPost> list ) {
+        public virtual void DeletePosts( String ids, List<PhotoPost> list ) {
             foreach (PhotoPost post in list) {
                 db.delete( post );
                 if (CanDeleteImg( post )) {
@@ -211,7 +211,7 @@ namespace wojilu.Apps.Photo.Service {
             pickedService.DeletePhoto( ids );
         }
 
-        public Boolean CanDeleteImg( PhotoPost post ) {
+        public virtual Boolean CanDeleteImg( PhotoPost post ) {
             // 原始图片
             if (post.RootId == 0) {
                 return noRepins( post ); // 是否有其他人收集
@@ -238,7 +238,7 @@ namespace wojilu.Apps.Photo.Service {
             return PhotoPost.find( "RootId=" + post.Id ).first() == null;
         }
 
-        public Result Update( PhotoPost post ) {
+        public virtual Result Update( PhotoPost post ) {
             return db.update( post );
         }
 
@@ -393,27 +393,27 @@ namespace wojilu.Apps.Photo.Service {
             db.update( album, "DataCount" );
         }
 
-        public List<PhotoPost> GetByAlbum(long albumId, int count) {
+        public virtual List<PhotoPost> GetByAlbum(long albumId, int count) {
             return PhotoPost.find( "CategoryId=" + albumId + " and SaveStatus=" + SaveStatus.Normal ).list( count );
         }
 
-        public List<PhotoPost> GetNew(long userId, int count) {
+        public virtual List<PhotoPost> GetNew(long userId, int count) {
             if (count <= 0) count = 10;
             return db.find<PhotoPost>( "Creator.Id=" + userId + " and SysCategoryId>0 and AppId>0 and SaveStatus=" + SaveStatus.Normal ).list( count );
         }
 
-        public List<PhotoPost> GetNew( int count ) {
+        public virtual List<PhotoPost> GetNew( int count ) {
             if (count <= 0) count = 10;
             return db.find<PhotoPost>( "SysCategoryId>0 and SaveStatus=" + SaveStatus.Normal ).list( count );
         }
 
-        public DataPage<PhotoPost> GetFollowing(long userId, int pageSize) {
+        public virtual DataPage<PhotoPost> GetFollowing(long userId, int pageSize) {
             String ids = followerService.GetFollowingIds( userId );
             ids = strUtil.HasText( ids ) ? ids + "," + userId : userId.ToString();
             return PhotoPost.findPage( "OwnerId in (" + ids + ") and SaveStatus=" + SaveStatus.Normal, pageSize );
         }
 
-        public bool IsPin(long userId, PhotoPost x) {
+        public virtual bool IsPin(long userId, PhotoPost x) {
 
             String condition = "OwnerId=" + userId + " and ";
             condition += x.RootId > 0
@@ -427,7 +427,7 @@ namespace wojilu.Apps.Photo.Service {
 
 
 
-        public void SavePin( PhotoPost x, PhotoPost photo, String tagList ) {
+        public virtual void SavePin( PhotoPost x, PhotoPost photo, String tagList ) {
 
 
             populatePostInfo( photo, x );

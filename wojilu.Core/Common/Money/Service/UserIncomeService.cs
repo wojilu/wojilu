@@ -20,7 +20,7 @@ namespace wojilu.Common.Money.Service {
 
         private IMemberAppService _appService;
         private ICurrencyService _currencyService;
-        private SiteRoleService _roleService;
+        private ISiteRoleService _roleService;
 
         public virtual IMemberAppService appService {
             get { return _appService; }
@@ -32,7 +32,7 @@ namespace wojilu.Common.Money.Service {
             set { _currencyService = value; }
         }
 
-        public virtual SiteRoleService roleService {
+        public virtual ISiteRoleService roleService {
             get { return _roleService; }
             set { _roleService = value; }
         }

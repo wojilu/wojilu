@@ -12,25 +12,25 @@ namespace wojilu.Common.Msg.Service {
 
     public class SiteMessageService : ISiteMessageService {
 
-        public MessageSite GetById(long id) {
+        public virtual MessageSite GetById(long id) {
             return MessageSite.findById( id );
         }
 
-        public DataPage<MessageSite> GetPage( int pageSize ) {
+        public virtual DataPage<MessageSite> GetPage( int pageSize ) {
             return MessageSite.findPage( "", pageSize );
         }
 
-        public Result Insert( MessageSite msg ) {
+        public virtual Result Insert( MessageSite msg ) {
 
             return msg.insert();
         }
 
-        public Result Update( MessageSite msg ) {
+        public virtual Result Update( MessageSite msg ) {
 
             return msg.update();
         }
 
-        public void Delete( MessageSite msg ) {
+        public virtual void Delete( MessageSite msg ) {
             msg.delete();
         }
 

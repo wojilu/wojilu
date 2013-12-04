@@ -9,11 +9,11 @@ namespace wojilu.Apps.Photo.Service {
 
     public class PhotoLikeService : IPhotoLikeService {
 
-        public bool IsLiked(long userId, long id) {
+        public virtual bool IsLiked(long userId, long id) {
             return this.GetOne( userId, id ) != null;
         }
 
-        public PhotoLike GetOne(long userId, long postId) {
+        public virtual PhotoLike GetOne(long userId, long postId) {
 
             return PhotoLike.find( "PostId=:pid and UserId=:uid" )
                 .set( "pid", postId )
@@ -22,7 +22,7 @@ namespace wojilu.Apps.Photo.Service {
 
         }
 
-        public void Like( User user, PhotoPost post ) {
+        public virtual void Like( User user, PhotoPost post ) {
 
             PhotoLike x = new PhotoLike();
             x.Post = post;
@@ -40,7 +40,7 @@ namespace wojilu.Apps.Photo.Service {
 
         }
 
-        public void UnLike( User user, PhotoPost post ) {
+        public virtual void UnLike( User user, PhotoPost post ) {
 
             PhotoLike p = this.GetOne( user.Id, post.Id );
 
@@ -54,7 +54,7 @@ namespace wojilu.Apps.Photo.Service {
 
         }
 
-        public DataPage<PhotoPost> GetByUser(long userId, int pageSize) {
+        public virtual DataPage<PhotoPost> GetByUser(long userId, int pageSize) {
 
             DataPage<PhotoLike> list = PhotoLike.findPage( "UserId=" + userId, 12 );
 

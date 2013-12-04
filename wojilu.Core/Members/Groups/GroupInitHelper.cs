@@ -18,11 +18,11 @@ namespace wojilu.Members.Groups {
 
     public class GroupInitHelper : IInitHelper {
 
-        public Type GetMemberType() {
+        public virtual Type GetMemberType() {
             return typeof( Group );
         }
 
-        public IMember getOwnerByUrl( MvcContext ctx ) {
+        public virtual IMember getOwnerByUrl( MvcContext ctx ) {
 
             Group group = new GroupService().GetByUrl( ctx.route.owner );
             if (group == null) {
@@ -31,7 +31,7 @@ namespace wojilu.Members.Groups {
             return group;
         }
 
-        public Boolean IsAppRunning( MvcContext ctx ) {
+        public virtual Boolean IsAppRunning( MvcContext ctx ) {
             GroupAppService userAppService = new GroupAppService();
             IMemberApp app = userAppService.GetByApp( (IApp)ctx.app.obj );
             if (app == null || app.IsStop == 1) {
@@ -41,7 +41,7 @@ namespace wojilu.Members.Groups {
             return true;
         }
 
-        public List<IMenu> GetMenus( IMember owner ) {
+        public virtual List<IMenu> GetMenus( IMember owner ) {
             GroupMenuService menuService = new GroupMenuService();
             return menuService.GetList( owner );
         }

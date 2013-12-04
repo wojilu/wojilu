@@ -13,25 +13,25 @@ namespace wojilu.Apps.Reader.Service {
 
     public class FeedEntryService : IFeedEntryService {
 
-        public FeedEntry GetById(long id) {
+        public virtual FeedEntry GetById(long id) {
             return db.findById<FeedEntry>( id );
         }
 
-        public FeedEntry GetByLink( String entryLink ) {
+        public virtual FeedEntry GetByLink( String entryLink ) {
             return db.find<FeedEntry>( "Link=:link" ).set( "link", entryLink ).first();
         }
 
 
-        public DataPage<FeedEntry> GetPage(long feedId) {
+        public virtual DataPage<FeedEntry> GetPage(long feedId) {
             return db.findPage<FeedEntry>( "FeedSource.Id=" + feedId + " order by PubDate desc, Id desc" );
         }
 
-        public DataPage<FeedEntry> GetPage( String feedIds ) {
+        public virtual DataPage<FeedEntry> GetPage( String feedIds ) {
             if (strUtil.IsNullOrEmpty( feedIds )) return DataPage<FeedEntry>.GetEmpty();
             return db.findPage<FeedEntry>( "FeedSource.Id in(" + feedIds + ") order by PubDate desc, Id desc" );
         }
 
-        public void AddHits( FeedEntry item ) {
+        public virtual void AddHits( FeedEntry item ) {
             HitsJob.Add( item );
         }
 

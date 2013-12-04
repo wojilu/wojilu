@@ -35,7 +35,7 @@ namespace wojilu.Members.Users.Service {
             return results;
         }
 
-        public List<User> GetRecentUsersWithAvatar( int count ) {
+        public virtual List<User> GetRecentUsersWithAvatar( int count ) {
             if (count <= 0) count = 10;
             return User.find( "Pic is not null and Pic<>'" + SysPath.AvatarConstString + "'  order by Id desc" ).list( count );
         }

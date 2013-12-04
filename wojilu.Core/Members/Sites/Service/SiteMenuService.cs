@@ -20,15 +20,15 @@ namespace wojilu.Members.Sites.Service {
 
     public class SiteMenuService : IMenuService {
 
-        public IMenu New() {
+        public virtual IMenu New() {
             return new SiteMenu();
         }
 
-        public Type GetMemberType() {
+        public virtual Type GetMemberType() {
             return typeof( Site );
         }
 
-        public Result Delete( IMenu menu ) {
+        public virtual Result Delete( IMenu menu ) {
 
             if (hasSubMenus( menu )) {
                 return new Result( lang.get( "deleteSubMenuFirst" ) );
@@ -46,7 +46,7 @@ namespace wojilu.Members.Sites.Service {
             return subMenus.Count > 0;
         }
 
-        public List<IMenu> GetByParent( IMenu m ) {
+        public virtual List<IMenu> GetByParent( IMenu m ) {
             List<IMenu> list = new List<IMenu>();
             List<SiteMenu> menus = cdb.findAll<SiteMenu>();
             foreach (SiteMenu menu in menus) {
@@ -55,7 +55,7 @@ namespace wojilu.Members.Sites.Service {
             return list;
         }
 
-        public IMenu FindById(long ownerId, long menuId) {
+        public virtual IMenu FindById(long ownerId, long menuId) {
             List<SiteMenu> menus = cdb.findAll<SiteMenu>();
             foreach (SiteMenu menu in menus) {
                 if (menu.OwnerId == ownerId && menu.Id == menuId)
@@ -64,7 +64,7 @@ namespace wojilu.Members.Sites.Service {
             return null;
         }
 
-        public List<IMenu> GetRootList( IMember owner ) {
+        public virtual List<IMenu> GetRootList( IMember owner ) {
 
             List<IMenu> results = new List<IMenu>();
             List<SiteMenu> menus = cdb.findAll<SiteMenu>();
@@ -76,7 +76,7 @@ namespace wojilu.Members.Sites.Service {
             return results;
         }
 
-        public List<IMenu> GetList( IMember owner ) {
+        public virtual List<IMenu> GetList( IMember owner ) {
 
             List<IMenu> results = new List<IMenu>();
             List<SiteMenu> menus = cdb.findAll<SiteMenu>();
@@ -88,7 +88,7 @@ namespace wojilu.Members.Sites.Service {
             return results;
         }
 
-        public Result Insert( IMenu menu, User creator, IMember owner ) {
+        public virtual Result Insert( IMenu menu, User creator, IMember owner ) {
 
             menu.OwnerId = owner.Id;
             menu.Creator = creator;
@@ -113,7 +113,7 @@ namespace wojilu.Members.Sites.Service {
             return new Result();
         }
 
-        public Result Update( IMenu menu ) {
+        public virtual Result Update( IMenu menu ) {
 
             ((SiteMenu)menu).update();
 
@@ -143,7 +143,7 @@ namespace wojilu.Members.Sites.Service {
 
         //----------------------------------------------------------------------
 
-        public IMenu FindByApp( String rawAppUrl ) {
+        public virtual IMenu FindByApp( String rawAppUrl ) {
 
             List<SiteMenu> menus = cdb.findAll<SiteMenu>();
             foreach (SiteMenu menu in menus) {
@@ -154,7 +154,7 @@ namespace wojilu.Members.Sites.Service {
 
         }
 
-        public IMenu AddMenuByApp( IMemberApp app, String name, String friendUrl, String rawAppUrl ) {
+        public virtual IMenu AddMenuByApp( IMemberApp app, String name, String friendUrl, String rawAppUrl ) {
 
             Boolean isFirst = this.GetList(Site.Instance).Count == 0;
 
@@ -179,7 +179,7 @@ namespace wojilu.Members.Sites.Service {
         }
 
 
-        public void RemoveMenuByApp( IMemberApp app, String rawAppUrl ) {
+        public virtual void RemoveMenuByApp( IMemberApp app, String rawAppUrl ) {
             IMenu menu = FindByApp( rawAppUrl );
             if (menu != null) {
                 ((SiteMenu)menu).delete();
@@ -188,7 +188,7 @@ namespace wojilu.Members.Sites.Service {
             }
         }
 
-        public void UpdateMenuByApp( IMemberApp app, String rawAppUrl ) {
+        public virtual void UpdateMenuByApp( IMemberApp app, String rawAppUrl ) {
             IMenu menu = FindByApp( rawAppUrl );
             if (menu != null) {
                 UpdateName( menu, app.Name );

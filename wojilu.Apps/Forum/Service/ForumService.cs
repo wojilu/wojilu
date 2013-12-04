@@ -52,7 +52,7 @@ namespace wojilu.Apps.Forum.Service {
             db.update( forum );
         }
 
-        public void UpdateSecurity( ForumApp forum, String str ) {
+        public virtual void UpdateSecurity( ForumApp forum, String str ) {
             forum.Security = str;
             db.update( forum, "Security" );
         }

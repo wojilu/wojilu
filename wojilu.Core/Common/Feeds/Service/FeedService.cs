@@ -37,11 +37,11 @@ namespace wojilu.Common.Feeds.Service {
         }
 
 
-        public Feed GetById(long feedId) {
+        public virtual Feed GetById(long feedId) {
             return Feed.findById( feedId );
         }
 
-        public IEntity GetData(long id) {
+        public virtual IEntity GetData(long id) {
 
             Feed feed = GetById( id );
             IEntity result = ndb.findById( ObjectContext.Instance.TypeList[feed.DataType], feed.DataId );
@@ -350,7 +350,7 @@ namespace wojilu.Common.Feeds.Service {
 
 
 
-        public void SetCommentCount( IEntity target ) {
+        public virtual void SetCommentCount( IEntity target ) {
             Feed feed = Feed.find( "DataType=:dtype and DataId=:did" )
                .set( "dtype", target.GetType().FullName )
                .set( "did", target.Id )

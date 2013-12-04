@@ -12,23 +12,23 @@ namespace wojilu.Apps.Reader.Service {
 
     public class SubscriptionService : ISubscriptionService {
 
-        public Subscription GetById(long id) {
+        public virtual Subscription GetById(long id) {
             return db.findById<Subscription>( id );
         }
 
-        public void Update( Subscription subscription ) {
+        public virtual void Update( Subscription subscription ) {
             db.update( subscription );
         }
 
-        public Subscription GetByFeedAndUser(long feedId, long userId) {
+        public virtual Subscription GetByFeedAndUser(long feedId, long userId) {
             return db.find<Subscription>( "FeedSource.Id=" + feedId + " and User.Id=" + userId ).first();
         }
 
-        public List<Subscription> GetByCategoryId(long categoryId) {
+        public virtual List<Subscription> GetByCategoryId(long categoryId) {
             return db.find<Subscription>( "Category.Id=" + categoryId ).list();
         }
 
-        public string GetFeedIdsByCategoryId(long categoryId) {
+        public virtual string GetFeedIdsByCategoryId(long categoryId) {
             List<Subscription> list = GetByCategoryId( categoryId );
             return getFeedIds( list );
         }
@@ -43,16 +43,16 @@ namespace wojilu.Apps.Reader.Service {
             return result.TrimEnd( ',' );
         }
 
-        public string GetFeedIdsByAppId(long appId) {
+        public virtual string GetFeedIdsByAppId(long appId) {
             List<Subscription> list = GetByApp( appId );
             return getFeedIds( list );
         }
 
-        public List<Subscription> GetByApp(long appId) {
+        public virtual List<Subscription> GetByApp(long appId) {
             return db.find<Subscription>( "AppId=" + appId + " order by OrderId desc, Id asc" ).list();
         }
 
-        public List<FeedSource> GetFeeds( List<Subscription> slist ) {
+        public virtual List<FeedSource> GetFeeds( List<Subscription> slist ) {
             List<FeedSource> results = new List<FeedSource>();
             foreach (Subscription subscription in slist) {
                 results.Add( subscription.FeedSource );
@@ -60,7 +60,7 @@ namespace wojilu.Apps.Reader.Service {
             return results;
         }
 
-        public List<Subscription> GetByCategoryId(List<Subscription> subscriptionList, long categoryId) {
+        public virtual List<Subscription> GetByCategoryId(List<Subscription> subscriptionList, long categoryId) {
             List<Subscription> results = new List<Subscription>();
             foreach (Subscription feed in subscriptionList) {
                 if (feed.Category.Id == categoryId)
@@ -71,11 +71,11 @@ namespace wojilu.Apps.Reader.Service {
 
 
 
-        public DataPage<Subscription> GetPage(long feedId) {
+        public virtual DataPage<Subscription> GetPage(long feedId) {
             return db.findPage<Subscription>( "FeedSource.Id=" + feedId + " order by Id asc" );
         }
 
-        public void Delete( Subscription subscription ) {
+        public virtual void Delete( Subscription subscription ) {
 
             //int feedShipsTotalCount = db.find<SubscribedFeed>( "Feed.Id=" + myfeed.Feed.Id ).count();
             //if (feedShipsTotalCount == 1) {

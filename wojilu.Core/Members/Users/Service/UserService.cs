@@ -43,7 +43,7 @@ namespace wojilu.Members.Users.Service {
         //----------------------------------------------------------------------
 
         // 请勿删除本方法.ContentController.bindAutoData用到
-        public User GetCurrent() {
+        public virtual User GetCurrent() {
             return null;
         }
 

@@ -18,7 +18,7 @@ namespace wojilu.Apps.Content.Service {
         /// <param name="sectionId"></param>
         /// <param name="poll"></param>
         /// <returns></returns>
-        public Result CreatePoll(long sectionId, ContentPoll poll) {
+        public virtual Result CreatePoll(long sectionId, ContentPoll poll) {
 
             // 1) insert post
             ContentPost post = new ContentPost();
@@ -65,7 +65,7 @@ namespace wojilu.Apps.Content.Service {
         /// <param name="post"></param>
         /// <param name="tagList"></param>
         /// <returns></returns>
-        public Result CreatePoll(long sectionId, ContentPoll poll, ContentPost post, string tagList) {
+        public virtual Result CreatePoll(long sectionId, ContentPoll poll, ContentPost post, string tagList) {
 
             // 1) insert post
             post.TypeName = typeof( ContentPoll ).FullName;

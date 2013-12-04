@@ -45,7 +45,7 @@ namespace wojilu.Apps.Forum.Service {
             return db.insert( log );
         }
 
-        public Result AddTopic(User user, long appId, long topicId, long actionId, string ip) {
+        public virtual Result AddTopic(User user, long appId, long topicId, long actionId, string ip) {
             ForumLog log = createLog( user, appId, topicId, actionId, ip );
             return db.insert( log );
         }

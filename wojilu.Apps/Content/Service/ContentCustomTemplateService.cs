@@ -11,7 +11,7 @@ namespace wojilu.Apps.Content.Service {
 
 
 
-        public ContentCustomTemplate GetById(long id, long ownerId) {
+        public virtual ContentCustomTemplate GetById(long id, long ownerId) {
 
             ContentCustomTemplate ct = ContentCustomTemplate.findById( id );
             if (ct == null) return null;
@@ -20,11 +20,11 @@ namespace wojilu.Apps.Content.Service {
         }
 
 
-        public void Insert( ContentCustomTemplate ct ) {
+        public virtual void Insert( ContentCustomTemplate ct ) {
             ct.insert();
         }
 
-        public void Update( ContentCustomTemplate ct ) {
+        public virtual void Update( ContentCustomTemplate ct ) {
             ct.update();
         }
     }

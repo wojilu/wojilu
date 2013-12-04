@@ -267,7 +267,7 @@ namespace wojilu.Apps.Blog.Service {
             app.update( "BlogCount" );
         }
 
-        public void AddFeedInfo( BlogPost data ) {
+        public virtual void AddFeedInfo( BlogPost data ) {
 
             String msg = GetFeedMsg( data );
 

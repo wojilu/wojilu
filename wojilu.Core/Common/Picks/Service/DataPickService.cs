@@ -19,7 +19,7 @@ namespace wojilu.Common.Picks {
     public class DataPickService<TData, TPick> where TData : IAppData where TPick : DataPickBase, new() {
 
         // 返回所有经过“编辑、删除、固定”的帖子
-        public List<MergedData> GetAll(IList allTopicList, long appId) {
+        public virtual List<MergedData> GetAll(IList allTopicList, long appId) {
 
             List<TData> allTopics = allTopicList as List<TData>;
 
@@ -103,7 +103,7 @@ namespace wojilu.Common.Picks {
             return strUtil.ParseHtml( summary, 150 );
         }
 
-        public string getSummary( IEntity obj ) {
+        public virtual string getSummary( IEntity obj ) {
 
             EntityInfo ei = Entity.GetInfo( obj );
             if (ei == null) return null;
@@ -122,17 +122,17 @@ namespace wojilu.Common.Picks {
 
         //------------------------------固定-------------------------------------
 
-        public string GetIndexIds(long appId) {
+        public virtual string GetIndexIds(long appId) {
             String condition = "IsPin=1";
             return db.find<TPick>( addAppId( condition, appId ) ).get( "PinIndex" );
         }
 
-        public string GetIndexIds(long appId, int index) {
+        public virtual string GetIndexIds(long appId, int index) {
             String condition = "IsPin=1 and PinIndex<>" + index;
             return db.find<TPick>( addAppId( condition, appId ) ).get( "PinIndex" );
         }
 
-        public Result AddPinTopic( TData topic, int index ) {
+        public virtual Result AddPinTopic( TData topic, int index ) {
 
             Result ret = new Result();
             
@@ -157,11 +157,11 @@ namespace wojilu.Common.Picks {
         }
 
 
-        public Result AddPinPost(long appId, int index, string title, string link, string summary) {
+        public virtual Result AddPinPost(long appId, int index, string title, string link, string summary) {
             return this.AddPinPost( appId, index, title, link, summary, 0 );
         }
 
-        public Result AddPinPost(long appId, int index, string title, string link, string summary, long topicId) {
+        public virtual Result AddPinPost(long appId, int index, string title, string link, string summary, long topicId) {
 
             Result ret = new Result();
 
@@ -200,7 +200,7 @@ namespace wojilu.Common.Picks {
 
         //------------------------------编辑-------------------------------------
 
-        public void EditTopic(long appId, long topicId, string title, string link, string summary) {
+        public virtual void EditTopic(long appId, long topicId, string title, string link, string summary) {
 
             TPick x = GetEditTopic( appId, topicId );
 
@@ -229,7 +229,7 @@ namespace wojilu.Common.Picks {
         }
 
 
-        public void EditPinPost( TPick x, int index, String title, String link, String summary ) {
+        public virtual void EditPinPost( TPick x, int index, String title, String link, String summary ) {
 
             if (x == null) throw new NullReferenceException( "EditPinPost" );
 
@@ -244,7 +244,7 @@ namespace wojilu.Common.Picks {
 
 
 
-        public TPick GetPinPostByIndex(long appId, int index) {
+        public virtual TPick GetPinPostByIndex(long appId, int index) {
 
             String condition = " IsPin=1 and PinIndex=" + index;
 
@@ -252,7 +252,7 @@ namespace wojilu.Common.Picks {
         }
 
 
-        public TPick GetEditTopic(long appId, long topicId) {
+        public virtual TPick GetEditTopic(long appId, long topicId) {
 
             String condition = "  IsEdit=1 and EditId=" + topicId;
 
@@ -271,14 +271,14 @@ namespace wojilu.Common.Picks {
 
         //------------------------------删除-------------------------------------
 
-        public DataPage<TPick> GetDeleteList(long appId) {
+        public virtual DataPage<TPick> GetDeleteList(long appId) {
 
             String condition = "IsDelete=1";
 
             return db.findPage<TPick>( addAppId( condition, appId ), 10 );
         }
 
-        public void RestoreTopic(long appId, long topicId) {
+        public virtual void RestoreTopic(long appId, long topicId) {
 
             String condition = "IsDelete=1 and DeleteId=" + topicId;
 
@@ -287,7 +287,7 @@ namespace wojilu.Common.Picks {
             if (x != null) x.delete();
         }
 
-        public void DeleteTopic(long appId, long topicId) {
+        public virtual void DeleteTopic(long appId, long topicId) {
 
             TData topic = (TData)ndb.findById( typeof( TData ), topicId );
 
@@ -303,7 +303,7 @@ namespace wojilu.Common.Picks {
         }
 
 
-        public void DeletePinPost(long appId, int index) {
+        public virtual void DeletePinPost(long appId, int index) {
 
             TPick x = GetPinPostByIndex( appId, index );
             if (x == null) throw new NullReferenceException( "DeletePinedPost" );
@@ -316,7 +316,7 @@ namespace wojilu.Common.Picks {
             x.delete();
         }
 
-        public List<TData> GetUnDeletedTopic( List<TData> topics, List<TPick> customList ) {
+        public virtual List<TData> GetUnDeletedTopic( List<TData> topics, List<TPick> customList ) {
 
             List<TData> list = new List<TData>();
             foreach (TData x in topics) {

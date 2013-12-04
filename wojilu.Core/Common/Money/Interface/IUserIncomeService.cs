@@ -17,7 +17,7 @@ namespace wojilu.Common.Money.Interface {
 
         IMemberAppService appService { get; set; }
         ICurrencyService currencyService { get; set; }
-        SiteRoleService roleService { get; set; }
+        ISiteRoleService roleService { get; set; }
 
         bool HasEnoughKeyIncome(long userId, int income);
 

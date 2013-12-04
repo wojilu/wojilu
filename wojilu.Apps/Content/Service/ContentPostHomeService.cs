@@ -9,7 +9,7 @@ namespace wojilu.Apps.Content.Service {
     public class ContentPostHomeService {
 
 
-        public List<ContentPost> GetPicked( String ids, int count, int appId ) {
+        public virtual List<ContentPost> GetPicked( String ids, int count, int appId ) {
 
             if (strUtil.IsNullOrEmpty( ids ) || ids == "0") {
                 ids = appId.ToString();

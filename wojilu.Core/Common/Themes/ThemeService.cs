@@ -8,7 +8,7 @@ namespace wojilu.Common.Themes {
     public class ThemeService : IThemeService {
 
 
-        public List<ITheme> GetThemeList( AppInstaller installer ) {
+        public virtual List<ITheme> GetThemeList( AppInstaller installer ) {
             List<ITheme> list = new List<ITheme>();
             if (strUtil.IsNullOrEmpty( installer.ThemeType )) return list;
 
@@ -19,7 +19,7 @@ namespace wojilu.Common.Themes {
             return obj.GetAll();
         }
 
-        public ITheme GetThemeById( AppInstaller installer, String id ) {
+        public virtual ITheme GetThemeById( AppInstaller installer, String id ) {
 
             if (strUtil.IsNullOrEmpty( installer.ThemeType )) return null;
 

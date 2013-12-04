@@ -8,18 +8,18 @@ namespace wojilu.Apps.Blog.Service {
 
     public class BlogPicService {
 
-        public UserFileService fileService { get; set; }
+        public virtual IUserFileService fileService { get; set; }
 
         public BlogPicService() {
             fileService = new UserFileService();
         }
 
-        public List<BlogPicPick> GetSysNew( int count ) {
+        public virtual List<BlogPicPick> GetSysNew( int count ) {
 
             return BlogPicPick.find( "" ).list( count );
         }
 
-        public void PickPic( string ids ) {
+        public virtual void PickPic( string ids ) {
 
             List<UserFile> files = fileService.GetPicByIds( ids, typeof( BlogPost ) );
             foreach (UserFile x in files) {
@@ -27,14 +27,14 @@ namespace wojilu.Apps.Blog.Service {
             }
         }
 
-        public void UnPickPic( string ids ) {
+        public virtual void UnPickPic( string ids ) {
             List<UserFile> files = fileService.GetPicByIds( ids, typeof( BlogPost ) );
             foreach (UserFile x in files) {
                 UnPickPicOne( x );
             }
         }
 
-        public void UnPickPicOne( UserFile x ) {
+        public virtual void UnPickPicOne( UserFile x ) {
 
             BlogPicPick pick = BlogPicPick.find( "FileId=" + x.Id ).first();
             if (pick != null) {
@@ -43,7 +43,7 @@ namespace wojilu.Apps.Blog.Service {
 
         }
 
-        public void PickPicOne( UserFile x ) {
+        public virtual void PickPicOne( UserFile x ) {
 
             BlogPicPick pick = BlogPicPick.find( "FileId=" + x.Id ).first();
 
@@ -59,12 +59,12 @@ namespace wojilu.Apps.Blog.Service {
             pick.insert();
         }
 
-        public bool IsPick( UserFile x ) {
+        public virtual bool IsPick( UserFile x ) {
             BlogPicPick pick = BlogPicPick.find( "FileId=" + x.Id ).first();
             return pick != null;
         }
 
-        public void Delete( string ids ) {
+        public virtual void Delete( string ids ) {
             List<UserFile> files = fileService.GetByIds( ids, typeof( BlogPost ) );
             foreach (UserFile x in files) {
                 fileService.Delete( x.Id );

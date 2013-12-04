@@ -15,7 +15,7 @@ namespace wojilu.Members.Sites.Service {
 
     public class SiteSkinService : ISiteSkinService {
 
-        public List<SiteSkin> GetSysAll() {
+        public virtual List<SiteSkin> GetSysAll() {
             List<SiteSkin> list = GetAll();
             List<SiteSkin> results = new List<SiteSkin>();
             foreach (SiteSkin skin in list) {
@@ -28,11 +28,11 @@ namespace wojilu.Members.Sites.Service {
             return cdb.findAll<SiteSkin>();
         }
 
-        public String GetSkin() {
+        public virtual String GetSkin() {
             return getSkin( config.Instance.Site.SkinId, MvcConfig.Instance.CssVersion );
         }
 
-        public string GetSkin(long querySkinId, string cssVersion) {
+        public virtual string GetSkin(long querySkinId, string cssVersion) {
 
             long skinId = (querySkinId == 0 ? getDefaultSkinId() : querySkinId);
             return getSkin( skinId, cssVersion );
@@ -84,23 +84,23 @@ namespace wojilu.Members.Sites.Service {
         }
 
 
-        public SiteSkin GetById(long skinId) {
+        public virtual SiteSkin GetById(long skinId) {
             return cdb.findById<SiteSkin>( skinId );
         }
 
-        public SiteSkin GetCurrent() {
+        public virtual SiteSkin GetCurrent() {
             return GetById( config.Instance.Site.SkinId );
         }
 
         //---------------------------------------------------------------------------------------------------
 
-        public Boolean IsUserCustom() {
+        public virtual Boolean IsUserCustom() {
             SiteSkin current = GetCurrent();
             if (current == null) return true;
             return current.Name.Equals( customName );
         }
 
-        public void CustomBg( IMember member, string ele, string bgString ) {
+        public virtual void CustomBg( IMember member, string ele, string bgString ) {
 
             string newStyle = ele + " {"+bgString+"}";
             string oStyle = getCssValues( member );

@@ -154,7 +154,7 @@ namespace wojilu.Common.AppInstall {
         //------------------------------------------
 
 
-        public void UpdateStatus( AppInstaller installer, string postValues ) {
+        public virtual void UpdateStatus( AppInstaller installer, string postValues ) {
 
             // 如果没有值(什么都不选)
             if (strUtil.IsNullOrEmpty( postValues )) {

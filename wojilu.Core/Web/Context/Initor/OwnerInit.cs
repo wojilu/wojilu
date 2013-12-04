@@ -20,7 +20,7 @@ namespace wojilu.Web.Context.Initor {
     public class OwnerInit : IContextInit {
 
 
-        public void Init( MvcContext ctx ) {
+        public virtual void Init( MvcContext ctx ) {
 
             if (ctx.utils.isEnd()) return;
 

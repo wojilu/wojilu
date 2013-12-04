@@ -19,7 +19,7 @@ namespace wojilu.Common.Microblogs.Service {
             nfService = new NotificationService();
         }
 
-        public List<MicroblogComment> GetTop(long id, int count) {
+        public virtual List<MicroblogComment> GetTop(long id, int count) {
             return MicroblogComment.find( "RootId=" + id ).list( count );
         }
 
@@ -85,7 +85,7 @@ namespace wojilu.Common.Microblogs.Service {
 
 
 
-        public DataPage<MicroblogComment> GetPageByUser( int ownerId, int pageSize ) {
+        public virtual DataPage<MicroblogComment> GetPageByUser( int ownerId, int pageSize ) {
 
             return MicroblogComment.findPage( "UserId=" + ownerId );
 

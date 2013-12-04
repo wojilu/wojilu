@@ -111,7 +111,7 @@ namespace wojilu.Apps.Content.Service {
             return result;
         }
 
-        public void CreateByTemp( String ids, ContentPost post ) {
+        public virtual void CreateByTemp( String ids, ContentPost post ) {
 
             int[] arrIds = cvt.ToIntArray( ids );
             if (arrIds.Length == 0) return;

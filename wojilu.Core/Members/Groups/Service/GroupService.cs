@@ -55,7 +55,7 @@ namespace wojilu.Members.Groups.Service {
             return db.find<Group>( "Url=:furl" ).set( "furl", friendUrl ).first();
         }
 
-        public Boolean IsNameReservedOrExist( String inputName ) {
+        public virtual Boolean IsNameReservedOrExist( String inputName ) {
 
             if (strUtil.IsNullOrEmpty( inputName )) return true;
 
@@ -68,7 +68,7 @@ namespace wojilu.Members.Groups.Service {
             return false;
         }
 
-        public Boolean IsUrlReservedOrExist( String url ) {
+        public virtual Boolean IsUrlReservedOrExist( String url ) {
 
             if (strUtil.IsNullOrEmpty( url )) return true;
 

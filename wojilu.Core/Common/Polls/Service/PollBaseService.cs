@@ -72,7 +72,7 @@ namespace wojilu.Common.Polls.Service {
             return Json.ToString( dic );
         }
 
-        public void PubCreatedFeed( TP poll, String lnkPoll ) {
+        public virtual void PubCreatedFeed( TP poll, String lnkPoll ) {
             addPubFeedInfo( poll, lnkPoll );
         }
 
@@ -123,7 +123,7 @@ namespace wojilu.Common.Polls.Service {
             return null;
         }
 
-        public void DeleteByTopicId(long id) {
+        public virtual void DeleteByTopicId(long id) {
 
             TP poll = this.GetByTopicId( id );
             if (poll != null) poll.delete();
@@ -205,7 +205,7 @@ namespace wojilu.Common.Polls.Service {
 
         }
 
-        public void Update( TP poll ) {
+        public virtual void Update( TP poll ) {
             if (poll == null) throw new ArgumentNullException( "poll" );
             poll.update();
         }

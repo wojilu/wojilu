@@ -19,15 +19,15 @@ namespace wojilu.Apps.Reader.Service {
 
         private static readonly ILog logger = LogManager.GetLogger( typeof( FeedSourceService ) );
 
-        public ISubscriptionService subscriptionService { get; set; }
-        public IFeedEntryService entryService { get; set; }
+        public virtual ISubscriptionService subscriptionService { get; set; }
+        public virtual IFeedEntryService entryService { get; set; }
 
         public FeedSourceService() {
             subscriptionService = new SubscriptionService();
             entryService = new FeedEntryService();
         }
 
-        public List<IBinderValue> GetFeed( String url, int count ) {
+        public virtual List<IBinderValue> GetFeed( String url, int count ) {
 
             if (strUtil.IsNullOrEmpty( url )) return new List<IBinderValue>();
 
@@ -57,7 +57,7 @@ namespace wojilu.Apps.Reader.Service {
             return results;
         }
 
-        public FeedSource CreateRss( String url ) {
+        public virtual FeedSource CreateRss( String url ) {
 
             FeedSource fs = GetByLink( url );
             if (fs != null) return fs;
@@ -74,7 +74,7 @@ namespace wojilu.Apps.Reader.Service {
             }
         }
 
-        public FeedSource CreateRss( String url, String name, FeedSysCategory category ) {
+        public virtual FeedSource CreateRss( String url, String name, FeedSysCategory category ) {
             FeedSource f = CreateRss( url );
             if (f == null) return null;
 
@@ -117,15 +117,15 @@ namespace wojilu.Apps.Reader.Service {
             return feedsrc;
         }
 
-        public FeedSource GetById(long feedId) {
+        public virtual FeedSource GetById(long feedId) {
             return db.findById<FeedSource>( feedId );
         }
 
-        public FeedSource GetByLink( String link ) {
+        public virtual FeedSource GetByLink( String link ) {
             return db.find<FeedSource>( "FeedLink=:link" ).set( "link", link ).first();
         }
 
-        public Subscription Create( String url, FeedCategory category, String name, int orderId, User user ) {
+        public virtual Subscription Create( String url, FeedCategory category, String name, int orderId, User user ) {
 
             FeedSource feedsrc = GetByLink( url );
             if (feedsrc == null) {
@@ -155,7 +155,7 @@ namespace wojilu.Apps.Reader.Service {
             return subscription;
         }
 
-        public void DownloadBlogItems( FeedSource f ) {
+        public virtual void DownloadBlogItems( FeedSource f ) {
             downalodFeed( f );
         }
 
@@ -217,7 +217,7 @@ namespace wojilu.Apps.Reader.Service {
             }
         }
 
-        public List<FeedSource> GetUnRefreshedList( int minutes ) {
+        public virtual List<FeedSource> GetUnRefreshedList( int minutes ) {
 
             DateTime t = DateTime.Now.AddMinutes( -minutes );
 
@@ -228,19 +228,19 @@ namespace wojilu.Apps.Reader.Service {
 
         }
 
-        public DataPage<FeedSource> GetPage( int pageSize ) {
+        public virtual DataPage<FeedSource> GetPage( int pageSize ) {
             return db.findPage<FeedSource>( "order by OrderId desc, Id asc ", pageSize );
         }
 
-        public List<FeedSource> GetAll() {
+        public virtual List<FeedSource> GetAll() {
             return db.find<FeedSource>( "order by OrderId desc, Id asc " ).list();
         }
 
-        public void Update( FeedSource f ) {
+        public virtual void Update( FeedSource f ) {
             f.update();
         }
 
-        public Result Delete( FeedSource f ) {
+        public virtual Result Delete( FeedSource f ) {
             List<Subscription> list = db.find<Subscription>( "FeedSource.Id=" + f.Id ).list();
             if (list.Count > 0) {
                 return new Result( "can not delete this feed : been subscribed by others" );

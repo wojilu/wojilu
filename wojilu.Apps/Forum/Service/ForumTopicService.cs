@@ -547,7 +547,7 @@ namespace wojilu.Apps.Forum.Service {
 
         }
 
-        public void UpdateLastEditInfo( User user, ForumPost post ) {
+        public virtual void UpdateLastEditInfo( User user, ForumPost post ) {
             post.EditTime = DateTime.Now;
             post.EditCount++;
             post.EditMemberId = user.Id;
@@ -674,7 +674,7 @@ namespace wojilu.Apps.Forum.Service {
             db.update( topic );
         }
 
-        public void AddHits( ForumTopic topic ) {
+        public virtual void AddHits( ForumTopic topic ) {
             //topic.Hits++;
             //db.update( topic, "Hits" );
             HitsJob.Add( topic );

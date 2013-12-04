@@ -13,11 +13,11 @@ namespace wojilu.Members.Common.Service {
 
     public class AdminLogService<T> : IAdminLogService<T> where T : ObjectBase<T>, IAdminLog {
 
-        public DataPage<T> GetPage( int pageSize ) {
+        public virtual DataPage<T> GetPage( int pageSize ) {
             return db.findPage<T>( "", pageSize );
         }
 
-        public DataPage<T> GetPage( String condition ) {
+        public virtual DataPage<T> GetPage( String condition ) {
             return db.findPage<T>( condition, 20 );
         }
 
@@ -25,15 +25,15 @@ namespace wojilu.Members.Common.Service {
             db.insert( log );
         }
 
-        public void Add( User user, String action, String ip ) {
+        public virtual void Add( User user, String action, String ip ) {
             this.Add( user, action, ip, 0 );
         }
 
-        public void Add( User user, String action, String ip, int categoryId ) {
+        public virtual void Add( User user, String action, String ip, int categoryId ) {
             this.Add( user, action, "", "", ip, categoryId );
         }
 
-        public void Add( User user, String action, String dataInfo, String dataType, String ip ) {
+        public virtual void Add( User user, String action, String dataInfo, String dataType, String ip ) {
             this.Add( user, action, dataInfo, dataType, ip, 0 );
         }
 

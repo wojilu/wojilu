@@ -5,7 +5,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Text;
-
+using wojilu.Apps.Forum.Interface;
 using wojilu.Common.AppBase.Interface;
 
 using wojilu.Apps.Forum.Domain;
@@ -16,13 +16,13 @@ namespace wojilu.Apps.Forum.Service {
 
     public class ForumPollService : PollBaseService<ForumPoll, ForumPollResult> {
 
-        public virtual ForumTopicService topicService { get; set; }
+        public virtual IForumTopicService topicService { get; set; }
 
         public ForumPollService() {
             topicService = new ForumTopicService();
         }
 
-        public Result CreatePoll( ForumPoll poll, long boardId, IMember owner, IApp app ) {
+        public virtual Result CreatePoll( ForumPoll poll, long boardId, IMember owner, IApp app ) {
 
             Result result = topicService.CreateTopicOther( boardId, poll.Title, poll.Question, typeof( ForumPoll ), poll.Creator, owner, app );
             if (result.IsValid == false) return result;

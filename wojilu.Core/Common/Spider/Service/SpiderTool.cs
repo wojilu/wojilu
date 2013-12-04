@@ -18,7 +18,7 @@ namespace wojilu.Common.Spider.Service {
         private static readonly ILog logger = LogManager.GetLogger( typeof( SpiderTool ) );
         private static Random rd = new Random();
 
-        public void DownloadPage( SpiderTemplate s, StringBuilder log, int[] arrSleep ) {
+        public virtual void DownloadPage( SpiderTemplate s, StringBuilder log, int[] arrSleep ) {
 
             logger.Info( "抓取列表页..." + s.SiteName + "_" + s.ListUrl );
             log.AppendLine( "抓取列表页..." + s.SiteName + "_" + s.ListUrl );

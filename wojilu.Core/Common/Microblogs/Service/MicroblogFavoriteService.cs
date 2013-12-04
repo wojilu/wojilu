@@ -9,11 +9,11 @@ namespace wojilu.Common.Microblogs.Service {
     public class MicroblogFavoriteService {
 
 
-        public DataPage<MicroblogFavorite> GetFavoritePage(long ownerId, int pageSize) {
+        public virtual DataPage<MicroblogFavorite> GetFavoritePage(long ownerId, int pageSize) {
             return db.findPage<MicroblogFavorite>( "UserId=" + ownerId, pageSize );
         }
 
-        public DataPage<Microblog> GetBlogPage(long ownerId, int pageSize) {
+        public virtual DataPage<Microblog> GetBlogPage(long ownerId, int pageSize) {
             DataPage<MicroblogFavorite> list = GetFavoritePage( ownerId, pageSize );
 
             List<Microblog> mlist = new List<Microblog>();
@@ -24,7 +24,7 @@ namespace wojilu.Common.Microblogs.Service {
             return list.Convert<Microblog>( mlist );
         }
 
-        public void SaveFavorite(long userId, Microblog blog) {
+        public virtual void SaveFavorite(long userId, Microblog blog) {
 
             MicroblogFavorite f = MicroblogFavorite.find( "UserId=" + userId + " and MicroblogId=" + blog.Id ).first();
             if (f != null) return;
@@ -36,7 +36,7 @@ namespace wojilu.Common.Microblogs.Service {
             mf.insert();
         }
 
-        public void CancelFavorite(long userId, Microblog blog) {
+        public virtual void CancelFavorite(long userId, Microblog blog) {
             MicroblogFavorite f = MicroblogFavorite.find( "UserId=" + userId + " and MicroblogId=" + blog.Id ).first();
             if (f == null) return;
 
@@ -45,7 +45,7 @@ namespace wojilu.Common.Microblogs.Service {
         }
 
 
-        public List<MicroblogVo> CheckFavorite(List<Microblog> list, long viewId) {
+        public virtual List<MicroblogVo> CheckFavorite(List<Microblog> list, long viewId) {
 
 
             List<MicroblogVo> mvList = new List<MicroblogVo>();
@@ -85,7 +85,7 @@ namespace wojilu.Common.Microblogs.Service {
         }
 
 
-        public bool IsFavorite(User user, long blogId) {
+        public virtual bool IsFavorite(User user, long blogId) {
             return MicroblogFavorite.find( "UserId=" + user.Id + " and MicroblogId=" + blogId ).first() != null;
         }
 

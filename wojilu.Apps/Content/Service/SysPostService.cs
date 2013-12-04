@@ -13,37 +13,37 @@ namespace wojilu.Apps.Content.Service {
 
     public class SysPostService : ISysPostService {
 
-        public DataPage<ContentPost> GetPage() {
+        public virtual DataPage<ContentPost> GetPage() {
             DataPage<ContentPost> list = ContentPost.findPage( "SaveStatus<>" + SaveStatus.SysDelete, 20 );
             return list;
         }
 
 
-        public void Delete( String ids ) {
+        public virtual void Delete( String ids ) {
             db.updateBatch<ContentPost>( "set SaveStatus=" + SaveStatus.SysDelete + "", "Id in (" + ids + ")" );
         }
 
 
-        public int GetDeleteCount() {
+        public virtual int GetDeleteCount() {
             return db.count<ContentPost>( "SaveStatus=" + SaveStatus.SysDelete );
         }
 
 
-        public DataPage<ContentPost> GetPageTrash() {
+        public virtual DataPage<ContentPost> GetPageTrash() {
             DataPage<ContentPost> list = ContentPost.findPage( "SaveStatus=" + SaveStatus.SysDelete, 20 );
             return list;
         }
 
-        public ContentPost GetById_ForAdmin(long id) {
+        public virtual ContentPost GetById_ForAdmin(long id) {
             return ContentPost.findById( id );
         }
 
-        public void UnDelete( ContentPost post ) {
+        public virtual void UnDelete( ContentPost post ) {
             post.SaveStatus = SaveStatus.Normal;
             post.update();
         }
 
-        public void DeleteTrue( String ids ) {
+        public virtual void DeleteTrue( String ids ) {
             db.deleteBatch<ContentPost>( "Id in (" + ids + ")" );
         }
 

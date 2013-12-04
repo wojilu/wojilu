@@ -9,37 +9,37 @@ namespace wojilu.Common.Spider.Service {
     public class SpiderTemplateService : ISpiderTemplateService {
 
 
-        public List<SpiderTemplate> GetAll() {
+        public virtual List<SpiderTemplate> GetAll() {
             return SpiderTemplate.find( "order by OrderId desc, Id asc" ).list();
         }
 
-        public SpiderTemplate GetById(long id) {
+        public virtual SpiderTemplate GetById(long id) {
             return SpiderTemplate.findById( id );
         }
 
-        public void Stop(long id) {
+        public virtual void Stop(long id) {
             SpiderTemplate s = SpiderTemplate.findById( id );
             s.IsDelete = 1;
             s.update( "IsDelete" );
         }
 
-        public void Start(long id) {
+        public virtual void Start(long id) {
             SpiderTemplate s = SpiderTemplate.findById( id );
             s.IsDelete = 0;
             s.update( "IsDelete" );
         }
 
-        public void Delete(long id) {
+        public virtual void Delete(long id) {
             SpiderTemplate s = SpiderTemplate.findById( id );
             s.IsDelete = 1;
             s.update( "IsDelete" );
         }
 
-        public void Insert( SpiderTemplate s ) {
+        public virtual void Insert( SpiderTemplate s ) {
             s.insert();
         }
 
-        public void Update( SpiderTemplate s ) {
+        public virtual void Update( SpiderTemplate s ) {
             s.update();
         }
 

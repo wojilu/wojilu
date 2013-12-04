@@ -95,7 +95,7 @@ namespace wojilu.Common.Msg.Service {
         }
 
 
-        public void cancelFriendRequest(long senderId, long receiverId) {
+        public virtual void cancelFriendRequest(long senderId, long receiverId) {
             Notification f = db.find<Notification>( "Creator.Id=" + senderId + " and ReceiverId=" + receiverId ).first();
             if (f == null) return;
 

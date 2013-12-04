@@ -31,11 +31,11 @@ namespace wojilu.Common.MemberApp {
             return getObj().GetType();
         }
 
-        public IMemberApp Add(User creator, string name, long appinfoId) {
+        public virtual IMemberApp Add(User creator, string name, long appinfoId) {
             return Add( creator, creator, name, appinfoId, AccessStatus.Public );
         }
 
-        public IMemberApp Add(User creator, IMember owner, string name, long appinfoId, AccessStatus accessStatus) {
+        public virtual IMemberApp Add(User creator, IMember owner, string name, long appinfoId, AccessStatus accessStatus) {
 
             // 创建应用实例
             IApp app = AppFactory.Create( appinfoId, owner, accessStatus );
@@ -60,7 +60,7 @@ namespace wojilu.Common.MemberApp {
             return userApp;
         }
 
-        public void Delete( IMemberApp app, String rawAppUrl ) {
+        public virtual void Delete( IMemberApp app, String rawAppUrl ) {
             db.delete( (IEntity)app );
 
             // 删除应用本身
@@ -70,13 +70,13 @@ namespace wojilu.Common.MemberApp {
             menuService.RemoveMenuByApp( app, rawAppUrl );
         }
 
-        public IMemberApp FindById(long userAppId, long userId) {
+        public virtual IMemberApp FindById(long userAppId, long userId) {
             String c = "OwnerId=" + userId + " and Id=" + userAppId;
             return ndb.find( thisType(), c ).first() as IMemberApp;
             //return (getObj().find( string.Concat( new object[] { "OwnerId=", userId, " and Id=", userAppId } ) ).first() as IUserApp);
         }
 
-        public IList GetAppInfos(long memberId) {
+        public virtual IList GetAppInfos(long memberId) {
 
             IList byMember = this.GetByMember( memberId );
             IList addedList = new ArrayList();
@@ -98,18 +98,18 @@ namespace wojilu.Common.MemberApp {
         }
 
 
-        public IMemberApp GetByApp( IApp app ) {
+        public virtual IMemberApp GetByApp( IApp app ) {
             return GetByApp( app.GetType(), app.Id );
         }
 
-        public IMemberApp GetByApp(Type t, long appId) {
+        public virtual IMemberApp GetByApp(Type t, long appId) {
             AppInstaller appInfo = appInfoService.GetByType( t );
             String c = "AppInfoId=" + appInfo.Id + " and AppOid=" + appId;
             return ndb.find( thisType(), c ).first() as IMemberApp;
             //return getObj().find( string.Concat( new object[] { "AppInfoId=", appInfo.Id, " and AppOid=", appId } ) ).first() as IUserApp;
         }
 
-        public IList GetByMember(long memberId) {
+        public virtual IList GetByMember(long memberId) {
 
             if (memberId < 0) {
                 return new ArrayList();
@@ -120,17 +120,17 @@ namespace wojilu.Common.MemberApp {
 
 
 
-        public void Start( IMemberApp app, String rawAppUrl ) {
+        public virtual void Start( IMemberApp app, String rawAppUrl ) {
             UpdateByStart( app );
             menuService.AddMenuByApp( app, app.Name, string.Empty, rawAppUrl );
         }
 
-        public void Stop( IMemberApp app, String rawAppUrl ) {
+        public virtual void Stop( IMemberApp app, String rawAppUrl ) {
             UpdateByStop( app );
             menuService.RemoveMenuByApp( app, rawAppUrl );
         }
 
-        public void Update( IMemberApp app, String newName, String rawAppUrl ) {
+        public virtual void Update( IMemberApp app, String newName, String rawAppUrl ) {
 
             app.Name = newName;
 
@@ -141,7 +141,7 @@ namespace wojilu.Common.MemberApp {
 
         }
 
-        public void UpdateAccessStatus( IMemberApp app, AccessStatus accessStatus ) {
+        public virtual void UpdateAccessStatus( IMemberApp app, AccessStatus accessStatus ) {
 
             app.AccessStatus = (int)accessStatus;
 
@@ -159,7 +159,7 @@ namespace wojilu.Common.MemberApp {
             db.update( (IEntity)app, "IsStop" );
         }
 
-        public bool HasInstall(long ownerId, long appInfoId) {
+        public virtual bool HasInstall(long ownerId, long appInfoId) {
             IList apps = GetByMember( ownerId );
             foreach (IMemberApp app in apps) {
                 if (app.AppInfoId == appInfoId) return true;

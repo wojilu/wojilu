@@ -14,11 +14,11 @@ namespace wojilu.Members.Users {
 
     public class UserInitHelper : IInitHelper {
 
-        public Type GetMemberType() {
+        public virtual Type GetMemberType() {
             return typeof( User );
         }
 
-        public IMember getOwnerByUrl( MvcContext ctx ) {
+        public virtual IMember getOwnerByUrl( MvcContext ctx ) {
 
             if (strUtil.EqualsIgnoreCase( ctx.route.owner, ctx.viewer.obj.Url )) {
                 return ctx.viewer.obj;
@@ -30,7 +30,7 @@ namespace wojilu.Members.Users {
             return member;
         }
 
-        public Boolean IsAppRunning( MvcContext ctx ) {
+        public virtual Boolean IsAppRunning( MvcContext ctx ) {
 
             UserAppService userAppService = new UserAppService();
             IMemberApp app = userAppService.GetByApp( (IApp)ctx.app.obj );
@@ -42,7 +42,7 @@ namespace wojilu.Members.Users {
             return true;
         }
 
-        public List<IMenu> GetMenus( IMember owner ) {
+        public virtual List<IMenu> GetMenus( IMember owner ) {
             UserMenuService menuService = new UserMenuService();
             return menuService.GetList( owner );
         }
