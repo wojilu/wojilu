@@ -43,7 +43,10 @@ namespace wojilu.ORM {
 
                 try {
                     if (ep.IsEntity || ep.IsAbstractEntity) {
-                        setEntityPropertyValueById( obj, state, ep, rd.GetInt64( i ) );
+
+                        Object objId = rd.GetValue( i );
+
+                        setEntityPropertyValueById( obj, state, ep, cvt.ToLong( objId ) );
                     }
                     else {
                         ep.SetValue( obj, getReaderValue( rd, i, fdvalue, ep.Type ) );
