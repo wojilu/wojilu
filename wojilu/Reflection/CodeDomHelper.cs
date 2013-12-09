@@ -65,9 +65,12 @@ namespace wojilu.Reflection {
             CompilerResults results = provider.CompileAssemblyFromSource( options, new String[] { code } );
             if (results.Errors.Count > 0) {
                 StringBuilder builder = new StringBuilder();
+                builder.AppendLine();
                 foreach (CompilerError error in results.Errors) {
-                    builder.Append( error.ErrorText );
-                    builder.Append( "\n" );
+                    builder.AppendLine( "error.Line=" + error.Line );
+                    builder.AppendLine( "error.ErrorText=" + error.ErrorText );
+                    builder.AppendLine( "error.FileName=" + error.FileName );
+                    builder.AppendLine();
                 }
                 logger.Fatal( code );
                 throw new Exception( builder.ToString() );

@@ -22,6 +22,15 @@ using System.Text;
 using wojilu.Web.Templates;
 using wojilu.Web.Templates.Tokens;
 
+namespace wojilu.Members.Users.Domain {
+    internal class __temp1 {
+    }
+}
+namespace wojilu.Common.AppBase.Interface {
+    internal class __temp1 {
+    }
+}
+
 namespace wojilu.Web {
 
     /// <summary>
@@ -89,8 +98,8 @@ namespace wojilu.Web {
 
             map.Add( "link.to", "__to" );
             map.Add( "link.user", "__toUser" );
-            map.Add( "link.app", "__toApp" );
-            map.Add( "link.data", "__toData" );
+            map.Add( "link.app", "wojilu.Web.Mvc.alink.ToApp" );
+            map.Add( "link.data", "wojilu.Web.Mvc.alink.ToAppData" );
 
             map.Add( "path.pic", "sys.Path.GetPhotoThumb" );
             map.Add( "path.face", "sys.Path.GetAvatarThumb" );
@@ -140,19 +149,11 @@ namespace wojilu.Web {
             return Link.ToMember( user );
         }
 
-        private String __toApp( IApp app ) {
-            return alink.ToApp( app );
-        }
-
-        private String __toData( IAppData data ) {
-            return alink.ToAppData( data );
-        }
-
         private String __to( aAction action ) {
             return ctx.link.To( action );
         }
 
-        private String __to( aActionWithId action, int id ) {
+        private String __to( aActionWithId action, long id ) {
             return ctx.link.To( action, id );
         }
 

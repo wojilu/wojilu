@@ -41,7 +41,7 @@ namespace wojilu.View {
         /// <param name="action"></param>
         /// <param name="id"></param>
         /// <returns></returns>
-        public static String to( aActionWithId action, int id ) { return ""; }
+        public static String to( aActionWithId action, long id ) { return ""; }
 
         /// <summary>
         /// 生成到某个用户的链接

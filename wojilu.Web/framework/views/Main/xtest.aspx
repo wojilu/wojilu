@@ -7,7 +7,7 @@
 
 
 <script runat="server">
-    public List<wojilu.Apps.Forum.Domain.ForumBoard> getSubList( List<wojilu.Apps.Forum.Domain.ForumBoard> boards, int parentId) {
+    public List<wojilu.Apps.Forum.Domain.ForumBoard> getSubList( List<wojilu.Apps.Forum.Domain.ForumBoard> boards, long parentId) {
         List<wojilu.Apps.Forum.Domain.ForumBoard> subList = new List<wojilu.Apps.Forum.Domain.ForumBoard>();
         for (int x = 0; x < boards.Count; x++) {
             if (boards[x].ParentId == parentId) subList.Add( boards[x] );
