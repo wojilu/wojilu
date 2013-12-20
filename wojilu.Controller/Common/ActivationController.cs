@@ -173,7 +173,7 @@ namespace wojilu.Web.Controller.Common {
             }
 
 
-            String email = strUtil.SubString( ctx.Post( "Email" ), RegPattern.EmailLength );
+            String email = strUtil.SqlClean( ctx.Post( "Email" ), RegPattern.EmailLength );
 
             if (strUtil.IsNullOrEmpty( email )) {
                 echoError( "请填写email" );

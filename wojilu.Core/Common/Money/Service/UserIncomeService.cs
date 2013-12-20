@@ -45,11 +45,11 @@ namespace wojilu.Common.Money.Service {
         //----------------------------------------------------------------------
 
 
-        public virtual List<UserIncome> GetUserIncome(long userId) {
+        public virtual List<UserIncome> GetUserIncome( long userId ) {
             return db.find<UserIncome>( "UserId=" + userId ).list();
         }
 
-        public virtual DataPage<UserIncomeLog> GetUserIncomeLog(long userId, long currencyId) {
+        public virtual DataPage<UserIncomeLog> GetUserIncomeLog( long userId, long currencyId ) {
             // KeyCurrency: currencyId==0  
             if (currencyId >= 0) {
                 return db.findPage<UserIncomeLog>( "UserId=" + userId + " and CurrencyId=" + currencyId );
@@ -59,7 +59,7 @@ namespace wojilu.Common.Money.Service {
             }
         }
 
-        public virtual UserIncome GetUserIncome(long userId, long currencyId) {
+        public virtual UserIncome GetUserIncome( long userId, long currencyId ) {
             UserIncome income = db.find<UserIncome>( "UserId=" + userId + " and CurrencyId=" + currencyId ).first();
             if (income == null) {
                 income = new UserIncome();
@@ -73,17 +73,17 @@ namespace wojilu.Common.Money.Service {
 
         //-------------------------------- 增加收入 --------------------------------------
 
-        public virtual bool HasEnoughKeyIncome(long userId, int income) {
+        public virtual bool HasEnoughKeyIncome( long userId, int income ) {
             UserIncome keyIncome = GetUserIncome( userId, KeyCurrency.Instance.Id );
             return keyIncome.Income >= income;
         }
 
-        public virtual void AddKeyIncome(long userId, int income, string msg) {
+        public virtual void AddKeyIncome( long userId, int income, string msg ) {
             User user = User.findById( userId );
             AddKeyIncome( user, income, msg );
         }
 
-        public virtual void AddKeyIncome(User user, int income, string msg) {
+        public virtual void AddKeyIncome( User user, int income, string msg ) {
             addKeyIncome( user, income, msg );
         }
 
@@ -105,7 +105,7 @@ namespace wojilu.Common.Money.Service {
 
         //--------------------------
 
-        public virtual void AddIncome(User user, long currencyId, int income, string msg) {
+        public virtual void AddIncome( User user, long currencyId, int income, string msg ) {
             if (currencyId == KeyCurrency.Instance.Id) {
                 addKeyIncome( user, income, msg );
             }
@@ -114,7 +114,7 @@ namespace wojilu.Common.Money.Service {
             }
         }
 
-        public virtual void AddIncome(User user, long actionId, string msg) {
+        public virtual void AddIncome( User user, long actionId, string msg ) {
 
             // 添加基础货币：积分
             KeyIncomeRule keyRule = KeyIncomeRule.GetByAction( actionId );
@@ -126,12 +126,12 @@ namespace wojilu.Common.Money.Service {
             IList rules = currencyService.GetRulesByAction( actionId );
             foreach (IncomeRule rule in rules) {
                 if (rule.Income != 0) {
-                    UpdateUserIncome( user, rule.CurrencyId, rule.Income, msg );
+                    UpdateUserIncome( user, rule.CurrencyId, rule.Income, actionId, msg );
                 }
             }
         }
 
-        public virtual void AddIncomeReverse(User user, long actionId, string msg) {
+        public virtual void AddIncomeReverse( User user, long actionId, string msg ) {
             // 添加基础货币：积分
             KeyIncomeRule keyRule = KeyIncomeRule.GetByAction( actionId );
             if (keyRule != null) {
@@ -256,7 +256,11 @@ namespace wojilu.Common.Money.Service {
             db.insert( income );
         }
 
-        public virtual int UpdateUserIncome(User user, long currencyId, int income, string msg) {
+        public virtual int UpdateUserIncome( User user, long currencyId, int income, string msg ) {
+            return UpdateUserIncome( user, currencyId, income, 0, msg );
+        }
+
+        public virtual int UpdateUserIncome( User user, long currencyId, int income, long actionId, string msg ) {
             UserIncome userIncome = this.GetUserIncome( user.Id, currencyId );
             userIncome.Income += income;
             this.UpdateUserIncome( userIncome );
@@ -265,6 +269,7 @@ namespace wojilu.Common.Money.Service {
             UserIncomeLog incomeLog = new UserIncomeLog();
             incomeLog.UserId = user.Id;
             incomeLog.CurrencyId = currencyId;
+            incomeLog.ActionId = actionId;
             incomeLog.Income = income;
             incomeLog.Note = msg;
             incomeLog.insert();

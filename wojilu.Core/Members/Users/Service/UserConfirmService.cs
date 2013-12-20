@@ -31,7 +31,7 @@ namespace wojilu.Members.Users.Service {
             int maxMinutes = config.Instance.Site.UserSendConfirmEmailInterval;
 
             Result result = new Result();
-            UserConfirm ac = db.find<UserConfirm>( "User.Id=" + user.Id+" order by Id desc" ).first();
+            UserConfirm ac = db.find<UserConfirm>( "User.Id=" + user.Id + " order by Id desc" ).first();
             if (ac == null) return result;
 
             if (DateTime.Now.Subtract( ac.Created ).Minutes < maxMinutes) {
@@ -84,6 +84,8 @@ namespace wojilu.Members.Users.Service {
 
         private void addIncomeAndMsg( User user ) {
 
+            if (hasActiveEmailLog( user )) return;
+
             long actionId = UserAction.User_ConfirmEmail.Id;
 
             String msgTitle = "感谢您邮件激活";
@@ -93,7 +95,11 @@ namespace wojilu.Members.Users.Service {
             msgService.SiteSend( msgTitle, msgBody, user ); // 给用户发送站内私信
         }
 
-        private string getMsgBody(User user, long actionId) {
+        private Boolean hasActiveEmailLog( User user ) {
+            return UserIncomeLog.find( "UserId=" + user.Id + " and ActionId=" + UserAction.User_ConfirmEmail.Id ).first() != null;
+        }
+
+        private String getMsgBody( User user, long actionId ) {
 
             KeyIncomeRule rule = currencyService.GetKeyIncomeRulesByAction( actionId ); // 获取当前操作action收入规则。这里获取的是中心货币，你也可以使用 GetRulesByAction(actionId) 获取其他所有货币的收入规则
             int creditValue = rule.Income; // 收入的值

@@ -37,7 +37,10 @@ div.lgReginfo {padding:20px 0px 10px 20px;}
 	<tr>
 
 		<td style="text-align:center; padding-bottom:20px;">
-		<input type="submit" name="btnSubmit" class="btn" value="重发激活邮件" id="btnSubmit"  />
+        <button id="btnSubmit" type="submit" name="btnSubmit" class="btn btn-primary">
+            <i class="icon-envelope icon-white"></i>
+            重发激活邮件
+        </button>
 		</td>
 	</tr>
 </table>
@@ -46,9 +49,7 @@ div.lgReginfo {padding:20px 0px 10px 20px;}
 <script type="text/javascript">
 
 _run( function() { 
-	wojilu.ui.valid();
 	wojilu.ui.ajaxPostForm();
-
 });
 
 </script>
