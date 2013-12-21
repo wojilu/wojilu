@@ -314,6 +314,18 @@ namespace wojilu {
         /// <summary>
         /// 根据接口创建实例。如果没有在MapItem中指定，则自动装配。
         /// </summary>
+        /// <typeparam name="InterfaceType">接口类型</typeparam>
+        /// <param name="invoker">调用者，供map注入使用。要求在map中唯一，推荐当前对象或type</param>
+        /// <returns></returns>
+        public static InterfaceType Create<InterfaceType>( Object invoker ) {
+            Object ret = CreateByInterface( typeof( InterfaceType ), invoker );
+            if (ret == null) return default( InterfaceType );
+            return (InterfaceType)ret;
+        }
+
+        /// <summary>
+        /// 根据接口创建实例。如果没有在MapItem中指定，则自动装配。
+        /// </summary>
         /// <param name="t"></param>
         /// <param name="invokerName">调用者，供map注入使用。要求在map中唯一，推荐当前对象或type</param>
         /// <returns></returns>
