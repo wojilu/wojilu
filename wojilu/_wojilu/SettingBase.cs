@@ -21,6 +21,10 @@ namespace wojilu {
             cfgHelper.Write( _instance );
         }
 
+        public static void Save() {
+            cfgHelper.Write( _instance );
+        }
+
     }
 
 }

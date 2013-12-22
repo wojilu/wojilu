@@ -138,16 +138,24 @@ namespace wojilu {
                 if (valString == null) continue;
 
                 Object val = null;
-                if (p.PropertyType == typeof( int ))
+                if (p.PropertyType == typeof( int )) {
                     val = cvt.ToInt( valString );
-                else if (p.PropertyType == typeof( Boolean ))
+                }
+                else if (p.PropertyType == typeof( Boolean )) {
                     val = cvt.ToBool( valString );
-                else if (p.PropertyType == typeof( decimal ))
+                }
+                else if (p.PropertyType == typeof( Int64 )) {
+                    val = cvt.ToLong( valString );
+                }
+                else if (p.PropertyType == typeof( Decimal )) {
                     val = cvt.ToDecimal( valString );
-                else if (p.PropertyType == typeof( DateTime ))
+                }
+                else if (p.PropertyType == typeof( DateTime )) {
                     val = cvt.ToTime( valString );
-                else if (p.PropertyType == typeof( String ))
+                }
+                else if (p.PropertyType == typeof( String )) {
                     val = valString;
+                }
 
                 p.SetValue( result, val, null );
 
@@ -239,7 +247,7 @@ namespace wojilu {
 
             String path = strUtil.Join( cfgHelper.ConfigRoot, fileName );
 
-            Write( dic, path, separator );                
+            Write( dic, path, separator );
         }
 
         /// <summary>
@@ -310,7 +318,7 @@ namespace wojilu {
                 if (strUtil.IsNullOrEmpty( oneLine )) continue;
 
                 //注释行跳过
-                if (oneLine.StartsWith( "//" ) || oneLine.StartsWith( "#" )) continue; 
+                if (oneLine.StartsWith( "//" ) || oneLine.StartsWith( "#" )) continue;
 
                 String[] arrPair = oneLine.Split( new char[] { separator }, 2 );
                 if (arrPair.Length < 2) continue;
@@ -353,7 +361,7 @@ namespace wojilu {
             return this.Content;
         }
 
-        private static readonly char  defaultSeparator = ':';
+        private static readonly char defaultSeparator = ':';
 
     }
 }
