@@ -53,13 +53,17 @@ namespace wojilu.Serialization {
         /// <param name="isBreakline">是否换行(默认不换行，阅读起来更加清晰)</param>
         /// <returns></returns>
         public static String Convert( Object obj, Boolean isBreakline ) {
+            return Convert( obj, isBreakline, false );
+        }
+
+        public static String Convert( Object obj, Boolean isBreakline, Boolean allowNotSave ) {
 
             if (obj == null) return empty();
 
             Type t = obj.GetType();
-            if (t.IsArray) return ConvertArray( obj );
-            if (rft.IsInterface( t, typeof( IList ) )) return ConvertList( (IList)obj );
-            if (rft.IsInterface( t, typeof( IDictionary ) )) return ConvertDictionary( (IDictionary)obj, isBreakline );
+            if (t.IsArray) return ConvertArray( obj, allowNotSave );
+            if (rft.IsInterface( t, typeof( IList ) )) return ConvertList( (IList)obj, allowNotSave );
+            if (rft.IsInterface( t, typeof( IDictionary ) )) return ConvertDictionary( (IDictionary)obj, isBreakline, allowNotSave );
 
             if (t == typeof( int ) ||
                 t == typeof( long ) ||
@@ -75,7 +79,7 @@ namespace wojilu.Serialization {
                 return "\"" + ClearNewLine( obj.ToString() ) + "\"";
             }
 
-            return ConvertObject( obj, isBreakline );
+            return ConvertObject( obj, isBreakline, true, allowNotSave );
         }
 
         /// <summary>
@@ -96,26 +100,21 @@ namespace wojilu.Serialization {
         }
 
         public static String ConvertArray( Object obj ) {
+            return ConvertArray( obj, false );
+        }
+
+        public static String ConvertArray( Object obj, Boolean allowNotSave ) {
 
             if (obj == null) return "[]";
-            Array arrObj = (Array)obj;
 
-            StringBuilder sb = new StringBuilder();
-            sb.Append( "[ " );
+            List<Object> items = new List<Object>();
 
-            for (int i = 0; i < arrObj.Length; i++) {
-
-                Object x = arrObj.GetValue( i );
-
-                if (x == null) continue;
-                sb.Append( Convert( x, getDefaultIsBreakline() ) );
-                if (i < arrObj.Length - 1) sb.Append( ", " );
-
-
+            IEnumerable myList = obj as IEnumerable;
+            foreach (Object element in myList) {
+                items.Add( element );
             }
 
-            sb.Append( " ]" );
-            return sb.ToString();
+            return ConvertArray( items.ToArray(), allowNotSave );
         }
 
 
@@ -125,12 +124,16 @@ namespace wojilu.Serialization {
         /// <param name="arrObj"></param>
         /// <returns></returns>
         public static String ConvertArray( object[] arrObj ) {
+            return ConvertArray( arrObj, false );
+        }
+
+        public static String ConvertArray( object[] arrObj, Boolean allowNotSave ) {
             if (arrObj == null) return "[]";
             StringBuilder sb = new StringBuilder();
             sb.Append( "[ " );
             for (int i = 0; i < arrObj.Length; i++) {
                 if (arrObj[i] == null) continue;
-                sb.Append( Convert( arrObj[i], getDefaultIsBreakline() ) );
+                sb.Append( Convert( arrObj[i], getDefaultIsBreakline(), allowNotSave ) );
                 if (i < arrObj.Length - 1) sb.Append( ", " );
             }
             sb.Append( " ]" );
@@ -153,6 +156,10 @@ namespace wojilu.Serialization {
         /// <param name="isBreakline">是否换行(默认不换行，阅读起来更加清晰)</param>
         /// <returns></returns>
         public static String ConvertList( IList list, Boolean isBreakline ) {
+            return ConvertList( list, isBreakline, false );
+        }
+
+        public static String ConvertList( IList list, Boolean isBreakline, Boolean allowNotSave ) {
             if (list == null) return "[]";
             StringBuilder sb = new StringBuilder();
             sb.Append( "[ " );
@@ -160,7 +167,7 @@ namespace wojilu.Serialization {
 
             for (int i = 0; i < list.Count; i++) {
                 if (list[i] == null) continue;
-                sb.Append( Convert( list[i], isBreakline ) );
+                sb.Append( Convert( list[i], isBreakline, allowNotSave ) );
                 if (i < list.Count - 1) sb.Append( ", " );
                 if (isBreakline) sb.AppendLine();
 
@@ -185,6 +192,10 @@ namespace wojilu.Serialization {
         /// <param name="isBreakline">是否换行(默认不换行，阅读起来更加清晰)</param>
         /// <returns></returns>
         public static String ConvertDictionary( IDictionary dic, Boolean isBreakline ) {
+            return ConvertDictionary( dic, isBreakline, false );
+        }
+
+        public static String ConvertDictionary( IDictionary dic, Boolean isBreakline, Boolean allowNotSave ) {
 
             if (dic == null) return empty();
 
@@ -195,7 +206,7 @@ namespace wojilu.Serialization {
                 builder.Append( "\"" );
                 builder.Append( pair.Key );
                 builder.Append( "\":" );
-                builder.Append( Convert( pair.Value, isBreakline ) );
+                builder.Append( Convert( pair.Value, isBreakline, allowNotSave ) );
                 builder.Append( ", " );
                 if (isBreakline) builder.AppendLine();
 
@@ -234,7 +245,10 @@ namespace wojilu.Serialization {
         /// <param name="withQuotation">属性名是否使用引号(默认不启用)</param>
         /// <returns></returns>
         public static String ConvertObject( Object obj, Boolean isBreakline, Boolean withQuotation ) {
+            return ConvertObject( obj, isBreakline, withQuotation, false );
+        }
 
+        public static String ConvertObject( Object obj, Boolean isBreakline, Boolean withQuotation, Boolean allowNotSave ) {
 
             StringBuilder builder = new StringBuilder();
             builder.Append( "{ " );
@@ -267,21 +281,25 @@ namespace wojilu.Serialization {
             }
 
             if (withQuotation) {
-                if (isIdFind) builder.AppendFormat( "\"Id\":{0}, ", idValue );
-                if (isNameFind) builder.AppendFormat( "\"Name\":\"{0}\", ", nameValue );
+                if (isIdFind) {
+                    builder.AppendFormat( "\"Id\":{0}, ", idValue );
+                }
+                if (isNameFind) {
+                    builder.AppendFormat( "\"Name\":\"{0}\", ", nameValue );
+                }
             }
             else {
 
-                if (isIdFind) builder.AppendFormat( "Id:{0}, ", idValue );
-                if (isNameFind) builder.AppendFormat( "Name:\"{0}\", ", nameValue );
+                if (isIdFind) {
+                    builder.AppendFormat( "Id:{0}, ", idValue );
+                }
+                if (isNameFind) {
+                    builder.AppendFormat( "Name:\"{0}\", ", nameValue );
+                }
 
             }
 
             foreach (PropertyInfo info in propertyList) {
-
-                if (info.CanRead == false) {
-                    continue;
-                }
 
                 Object propertyValue = ReflectionUtil.GetPropertyValue( obj, info.Name );
 
@@ -314,13 +332,17 @@ namespace wojilu.Serialization {
 
         private static Boolean isSkip( PropertyInfo info ) {
 
+            if (info.CanRead == false) {
+                return true;
+            }
+
             if (info.IsDefined( typeof( NotSerializeAttribute ), false )) {
                 return true;
             }
 
-            if (info.IsDefined( typeof( NotSaveAttribute ), false )) {
-                return true;
-            }
+            //if (info.IsDefined( typeof( NotSaveAttribute ), false )) {
+            //    return true;
+            //}
 
             return false;
         }

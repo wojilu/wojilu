@@ -112,7 +112,7 @@ namespace wojilu.Data {
         }
 
         private static void Serialize( Type t, IList list ) {
-            String target = SimpleJsonString.ConvertList( list );
+            String target = SimpleJsonString.ConvertList( list, true );
             if (strUtil.IsNullOrEmpty( target )) return;
 
             String absolutePath = getCachePath( t );

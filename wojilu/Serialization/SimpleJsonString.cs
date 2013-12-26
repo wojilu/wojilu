@@ -19,10 +19,20 @@ namespace wojilu.Serialization {
         /// <param name="list"></param>
         /// <returns></returns>
         public static String ConvertList( IList list ) {
+            return ConvertList( list, false );
+        }
+
+        /// <summary>
+        /// 将对象列表转换成 json 字符串
+        /// </summary>
+        /// <param name="list"></param>
+        /// <param name="allowNotSave">有NotSave批注的属性，不会序列化</param>
+        /// <returns></returns>
+        public static String ConvertList( IList list, Boolean allowNotSave ) {
             StringBuilder sb = new StringBuilder( "[\r\n" );
             for (int i = 0; i < list.Count; i++) {
                 sb.Append( "\t" );
-                sb.Append( ConvertObject( list[i] ) );
+                sb.Append( ConvertObject( list[i], allowNotSave ) );
                 if (i < list.Count - 1)
                     sb.Append( "," );
                 sb.Append( "\r\n" );
@@ -36,7 +46,7 @@ namespace wojilu.Serialization {
         /// </summary>
         /// <param name="obj"></param>
         /// <returns></returns>
-        public static String ConvertObject( Object obj ) {
+        public static String ConvertObject( Object obj, Boolean allowNotSave ) {
 
             StringBuilder builder = new StringBuilder();
             builder.Append( "{ " );
@@ -65,17 +75,10 @@ namespace wojilu.Serialization {
 
             foreach (PropertyInfo info in propertyList) {
 
-                if (info.CanRead == false) {
+                if (isSkip( info, allowNotSave )) {
                     continue;
                 }
 
-                if (info.IsDefined( typeof( NotSerializeAttribute ), false )) {
-                    continue;
-                }
-
-                if (info.IsDefined( typeof( NotSaveAttribute ), false )) {
-                    continue;
-                }
 
                 Object propertyValue = ReflectionUtil.GetPropertyValue( obj, info.Name );
                 if (propertyValue == null) continue;
@@ -90,21 +93,36 @@ namespace wojilu.Serialization {
                     builder.AppendFormat( "{0}:\"{1}\"", info.Name, EncodeQuoteAndClearLine( strUtil.ConverToNotNull( propertyValue ) ) );
                 }
                 else if (info.PropertyType.IsArray) {
-                    builder.AppendFormat( "{0}:{1}", info.Name, JsonString.ConvertArray( propertyValue ) );
+                    builder.AppendFormat( "{0}:{1}", info.Name, JsonString.ConvertArray( propertyValue, allowNotSave ) );
                 }
                 else if (rft.IsInterface( info.PropertyType, typeof( IList ) )) {
-                    builder.AppendFormat( "{0}:{1}", info.Name, JsonString.ConvertList( (IList)propertyValue, false ) );
+                    builder.AppendFormat( "{0}:{1}", info.Name, JsonString.ConvertList( (IList)propertyValue, false, allowNotSave ) );
                 }
                 else {
-                    builder.AppendFormat( "{0}:{1}", info.Name, JsonString.ConvertObject( propertyValue ) );
+                    builder.AppendFormat( "{0}:{1}", info.Name, JsonString.ConvertObject( propertyValue, false, true, allowNotSave ) );
                 }
                 builder.Append( ", " );
             }
             return (builder.ToString().Trim().TrimEnd( ',' ) + " }");
         }
 
+        private static Boolean isSkip( PropertyInfo info, Boolean allowNotSave ) {
+            if (info.CanRead == false) {
+                return true;
+            }
+
+            if (info.IsDefined( typeof( NotSerializeAttribute ), false )) {
+                return true;
+            }
+
+            if (allowNotSave && info.IsDefined( typeof( NotSaveAttribute ), false )) {
+                return true;
+            }
+
+            return false;
+        }
+
         private static String EncodeQuoteAndClearLine( String src ) {
-            //return src.Replace( "\"", "\\\"" ).Replace( "\r\n", "" ).Replace( "\n", "" ).Replace( "\r", "" ).Replace( "\r\n", "" );
             return JsonString.ClearNewLine( src );
         }
 

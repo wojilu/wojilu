@@ -434,6 +434,56 @@ namespace wojilu.Test.Common.Jsons {
 
         }
 
+        public void testNotSerialize() {
+
+            TJPost x = new TJPost {
+                Id = 8,
+                Title = "标题1",
+                CategoryId = 99,
+                Info = "信息2",
+                Description = "描述3"
+            };
+
+            // NotSerialize 不会序列化，但NotSave会被序列化
+            String strJson = Json.ToString( x );
+            Console.WriteLine( strJson );
+
+            Assert.AreEqual( "{ \"Id\":8, \"Title\":\"标题1\", \"CategoryId\":99, \"Description\":\"描述3\" }", strJson );
+
+            // 让NotSave也不会序列化
+            strJson = SimpleJsonString.ConvertObject( x, true );
+            Console.WriteLine( strJson );
+            // 注意：SimpleJsonString模式下name没有引号
+            Assert.AreEqual( "{ Id:8, Title:\"标题1\", CategoryId:99 }", strJson );
+
+            TJPost x2 = new TJPost {
+                Id = 81,
+                Title = "标题11",
+                CategoryId = 991,
+                Info = "信息21",
+                Description = "描述31"
+            };
+
+            List<TJPost> list = new List<TJPost>();
+            list.Add( x );
+            list.Add( x2 );
+
+            // MemeoryDB 在序列化的时候，NotSerialize等效于NotSave，相关属性都会忽略掉
+            // 对于MemeoryDB，建议只使用NotSave；因为在Json.ToString显示的时候，此属性还可以显示出来
+            // 如果MemeoryDB中使用NotSerialize，不但不会保存，也无法Json.ToString显示。
+            // NotSerialize主要用于ObjectBase模型，或者其他实体对象，方便Json.ToString
+            strJson = SimpleJsonString.ConvertList( list, true );
+            Console.WriteLine( strJson );
+
+            String str = @"[
+	{ Id:8, Title:""标题1"", CategoryId:99 },
+	{ Id:81, Title:""标题11"", CategoryId:991 }
+]";
+            Assert.AreEqual( str, strJson );
+
+
+        }
+
     }
 
     public class AdminMenuGroup {
@@ -448,6 +498,20 @@ namespace wojilu.Test.Common.Jsons {
         public string Name { get; set; }
         public string Url { get; set; }
         public string Info { get; set; }
+    }
+
+    public class TJPost {
+
+        public long Id { get; set; }
+        public string Title { get; set; }
+        public int CategoryId { get; set; }
+
+        [NotSerialize]
+        public string Info { get; set; }
+
+        [NotSave]
+        public String Description { get; set; }
+
     }
 
 }
