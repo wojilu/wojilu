@@ -414,7 +414,7 @@ namespace wojilu.Web.Controller.Common {
             private bool isCollapse( Page x ) {
 
                 Object obj = CurrentRequest.getItem( "__currentPageParentId" );
-                if (obj != null && (int)obj == x.Id) return false;
+                if (obj != null && (long)obj == x.Id) return false;
 
                 return x.IsCollapse == 1;
             }
