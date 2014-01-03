@@ -332,7 +332,7 @@ namespace wojilu.Web {
         /// 给模板中的变量赋值
         /// </summary>
         /// <param name="lbl">模板中的变量</param>
-        /// <param name="val">被赋予的值，会被转化成字符串</param>
+        /// <param name="val">被赋予的值，如果是DateTime和Decimal，会被转化成字符串。如果不想转成字符串，请用Bind方法</param>
         public void Set( String lbl, Object val ) {
 
             if (val == null) {
@@ -347,7 +347,7 @@ namespace wojilu.Web {
                 this.Set( lbl, ((decimal)val).ToString( "n2" ) );
             }
             else {
-                this.Set( lbl, val.ToString() );
+                _blockData.getDic()[lbl] = val;
             }
 
         }
