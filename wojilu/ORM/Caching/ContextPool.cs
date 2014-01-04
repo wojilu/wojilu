@@ -120,12 +120,14 @@ namespace wojilu.ORM.Caching {
         }
 
         public int FindCount( Type t ) {
+            if (CacheTime.isCountUpdate( t )) return -1;
             String key = CacheKey.getCountKey( t );
             Object obj = getFromContext( key );
             return obj == null ? -1 : (int)obj;
         }
 
         public int FindCount( Type t, String condition ) {
+            if (CacheTime.isCountUpdate( t, condition )) return -1;
             String key = CacheKey.getCountKey( t, condition );
             Object obj = getFromContext( key );
             return obj == null ? -1 : (int)obj;
