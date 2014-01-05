@@ -70,6 +70,13 @@ namespace wojilu.View {
         public static String getInt( String item ) { return ""; }
 
         /// <summary>
+        /// 当前通过 GET 方式提交的查询字符串(返回long类型)
+        /// </summary>
+        /// <param name="item"></param>
+        /// <returns></returns>
+        public static String getLong( String item ) { return ""; }
+
+        /// <summary>
         /// 当前通过 POST 方式提交的查询字符串
         /// </summary>
         /// <param name="item"></param>
@@ -82,6 +89,13 @@ namespace wojilu.View {
         /// <param name="item"></param>
         /// <returns></returns>
         public static String postInt( String item ) { return ""; }
+
+        /// <summary>
+        /// 当前通过 POST 方式提交的查询字符串(返回long类型)
+        /// </summary>
+        /// <param name="item"></param>
+        /// <returns></returns>
+        public static String postLong( String item ) { return ""; }
 
         /// <summary>
         /// 当前提交的 HttpMethod，比如 GET/POST/PUT/DELETE 等

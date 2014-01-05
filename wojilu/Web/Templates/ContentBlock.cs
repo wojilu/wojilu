@@ -82,8 +82,10 @@ namespace wojilu.Web {
 
             map.Add( "ctx.get", "ctx.Get" );
             map.Add( "ctx.getInt", "ctx.GetInt" );
+            map.Add( "ctx.getLong", "ctx.GetLong" );
             map.Add( "ctx.post", "ctx.Post" );
             map.Add( "ctx.postInt", "ctx.PostInt" );
+            map.Add( "ctx.postLong", "ctx.PostLong" );
             map.Add( "ctx.getItem", "ctx.GetItem" );
             map.Add( "ctx.setItem", "ctx.SetItem" );
 
