@@ -254,6 +254,20 @@ namespace wojilu {
             return ids.TrimEnd( ',' );
         }
 
+        public static string GetIds( List<long> idList ) {
+            if (idList == null || idList.Count == 0) return "";
+            return GetIds( idList.ToArray() );
+        }
+
+        public static String GetIds( long[] arrIds ) {
+            if (arrIds == null || arrIds.Length == 0) return "";
+            String ids = "";
+            foreach (long x in arrIds) {
+                ids += x + ",";
+            }
+            return ids.TrimEnd( ',' );
+        }
+
         /// <summary>
         /// 从类型的全名中获取类型名称(不包括命名空间)
         /// </summary>
