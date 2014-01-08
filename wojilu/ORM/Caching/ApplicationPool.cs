@@ -210,11 +210,11 @@ namespace wojilu.ORM.Caching {
 
             if (CacheTime.isListUpdate( queryKey, t )) return null;
 
-            List<int> ids = appCache.Get( queryKey ) as List<int>;
+            List<long> ids = appCache.Get( queryKey ) as List<long>;
             if (ids == null) return null;
 
             IList result = new ArrayList();
-            foreach (int id in ids) {
+            foreach (long id in ids) {
 
                 IEntity obj = this.findOnePrivate( t, id );
 
