@@ -172,7 +172,7 @@ namespace wojilu.Web.Controller.Open.Admin {
         private String getAppCondition() {
             if (ctx.app == null) return "";
             if (ctx.app.Id <= 0) return "";
-            return "AppId=" + ctx.app.Id + " and";
+            return "AppId=" + ctx.app.Id;
         }
 
         private static DateTime getValidTime( String time ) {
